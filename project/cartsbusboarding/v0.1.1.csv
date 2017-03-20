@@ -1,0 +1,319 @@
+"commit id","commit date","commit message"
+"52f3c2efd4cf1fa51be61667765c61ccb13016c9","2014-10-17 12:30:25+05:30","Initial Commit of Android Application
+"
+"732720b803cb04b6f9c28c4e1893dcfa44d08366","2014-10-17 12:41:57+05:30","Changed default colors
+"
+"274636a701cf050587fe4311fecbfbcb315f133a","2014-10-17 13:45:17+05:30","Acceleration and GSM Service module initialized
+"
+"9e8a5e2045ae4c88f63506faa30404cc792dc8fa","2014-10-17 13:47:50+05:30","Seperate GSM Listner
+"
+"5d7525b45b9c26a96d32d6e4199e668fa4ec4306","2014-10-23 09:03:07+05:30","Permissions for GsmEngine and onCreate instead of constructor in Service
+"
+"20bc818a34a9cae353117f3302153d95435b7117","2014-10-23 09:11:27+05:30","Created GsmEngine and starting service from there
+"
+"fcc50f463ea255fd03397d0a8b19042f40d1900b","2014-10-23 09:13:55+05:30","Cleanup, delete dead code
+"
+"cc1e2d956ec3bd8334f6444225656d19e2780455","2014-10-23 09:23:56+05:30","Data flow established b/w listner and service
+"
+"32663626dd18e0311ec64bbec13814236c3bc239","2014-10-23 09:25:57+05:30","Use GsmListener instead of LocationListner, Cleanup dead code
+"
+"6078c0800a74f7dc2bc965663eaf9f599bfe61b6","2014-10-23 09:32:20+05:30","data getter in Service
+"
+"8c97ffd0e11300206ca2817f752fbc2427c96f36","2014-10-23 09:33:53+05:30","Fixed typo in class name GsmListener
+"
+"3818ca5dc6f05bb2c80e1604376c72f70d56a2f3","2014-10-23 10:45:14+05:30","Added fetch button and data textview in main layout
+"
+"bf5d2d77fe5b8112094aa1b0c2158462ac842dbe","2014-10-23 10:46:57+05:30","Fix bug due to uninitialised data
+"
+"94bb6795fc0f695ebaafc556f986040ead3d078c","2014-10-23 10:47:29+05:30","Created a communication channel for service
+"
+"ede46455dbe10020425d8e77151d97e621d892a2","2014-10-23 10:48:09+05:30","Connect to service and send data
+"
+"9da609c92914204fe08213daa8944ab6a87103df","2014-10-23 11:15:20+05:30","Getters for data and a toString method
+"
+"32e6ef94a508ce481c38df3552eab18dc59fed41","2014-10-23 11:16:27+05:30","Acceleration module initial setup
+"
+"52162d149b0fc1be3eb9cb9a3128dd1106bc218d","2014-10-23 11:16:35+05:30","Call acc module in main
+"
+"58689421f4dd3166561f165840c2a6cac4c83545","2014-10-24 00:24:02+05:30","Add 'org.apache.commons:commons-math3:3.0' library as dependency
+"
+"ef234d9b59300589fa101b5984da4b1e1d9ddb17","2014-10-24 00:37:37+05:30","Removed .idea folder from version control
+"
+"1932eb316dcdcebb59b494553638eb6d8362d8f7","2014-10-24 00:40:23+05:30","Added functions to AccData structure
+"
+"19ef3e3af8b32f777798cebd8420b7bd8445d5fd","2014-10-24 00:44:56+05:30","More gitignore magic from paris
+"
+"d82df79a2412fb83e20cc7859f82527de39cdf58","2014-10-24 00:49:11+05:30","Acceleration values are now read and displayed
+"
+"5d4d534570acbd23c278d9f731584bb358e19a33","2014-10-24 01:17:46+05:30","Changed the layout
+
+* Another textbox for accleration values
+* Few other adjustments in previous layout
+"
+"168d8ab8432a2449df20c116a5a0cf60529c725c","2014-10-24 02:31:20+05:30","Merge branch 'chaudhary' into tanjot
+
+Conflicts:
+.idea/modules.xml
+app/app.iml
+"
+"21a93987a4b9202a012c5cfca3b24122bf8b1c15","2014-10-24 02:44:12+05:30","Screw app.iml
+"
+"607860a5ed75407b656f0fd47aef938cb1406ee7","2014-10-24 11:43:38+05:30","Calculating mean of acceleration
+
+* acc in x, y, z direction
+* BUG: all values are same
+"
+"5951f69b789cbbd279d3eeb20e212955599fc5a5","2014-10-24 12:22:01+05:30","Same acceleration values
+
+BUG:
+* mean function is getting same acceleration values
+* SensorOnChnged is not updating data values
+"
+"05800136320cc38b033d98d4e9245dd9d11b4006","2014-10-24 15:42:55+05:30","Mean calculation
+
+* Solution for bug(same acceleration values)
+* mean of data from listner
+* data from listner stored in a buffer
+* returned buffer(Linked Queue) will act as values
+for a window
+"
+"cb22f35b108a8859677dea837f677ce1e5192b11","2014-10-24 15:49:14+05:30","Removed unwanted text
+"
+"02e23ecf98a29a183fc8bab2d9d610fa7e6689af","2014-10-24 17:42:27+05:30","Thread implemented
+
+thread gets values from the listner's
+buffer and sleeps for the specified polling
+time
+"
+"0aa3e1679eaa4bdd3a252c2d3f0bace7f98e5775","2014-10-24 17:44:43+05:30","Time loop used to get data
+
+* data is collected for the duration specified
+* time is delt in ms
+"
+"2c8920ceb099e1b938001e17c892be2ac905fd60","2014-10-24 20:16:17+05:30","New icon
+"
+"ad4de9c096cff7fc5c4718198ce7c2f5afb3a04f","2014-10-24 21:03:03+05:30","Implemented Operations to be performed(features)
+
+* Data is collected according to windows
+* Operations are performed for each window
+* Operation implemented: Mean, Median
+BUG resolved: Statements after thread creation were
+being executed -> used join
+"
+"baca8cd4cdb988a1f815c10f733f581a75c7e4f1","2014-10-24 21:44:39+05:30","Way of implementating operations?
+"
+"ab7280cddc5549c2caf85e76d6d7857611a4a29c","2014-10-24 21:47:30+05:30","Merge branch 'tanjot' of https://bitbucket.org/shubhamchaudhary/cartsbusboarding into tanjot
+"
+"0b2fe12d9cf2a4189a448ebe35407363d80bbd10","2014-10-24 22:16:06+05:30","Removed unwanted functions
+"
+"169472be2eb532367c7dfa639bdf8558957dd66c","2014-10-24 23:52:45+05:30","Documentations and fixups
+"
+"104427df3d122c76454b9528d17998e0a085707b","2014-10-25 02:51:26+05:30","Changed implementation
+
+* buffers in AccEngine and AccListner
+* mean calculation
+"
+"006fc1fd76c2b3df2909076b2e6ec4450c6df1b8","2014-10-25 02:58:46+05:30","Removed unwanted functions
+"
+"7363d15ed9b030d4b9daa4c76da967c315a3cc74","2014-10-25 04:16:01+05:30","Start FillerThread in constructor, Much simpler foreach loop over mainBuffer
+"
+"d1ba4650d7f68aae7c22beae7faab15f78fe2c98","2014-10-25 04:23:42+05:30","Make the Queue explicitly of AccData type items
+"
+"d1d52f5309b8b5c700f2f6a5c502f5c5dde537a5","2014-10-25 04:27:12+05:30","Changed textview name and default strings
+"
+"3fc1aa0e067beb2a1d96a2f61bd2b6225dadcfb2","2014-10-25 04:46:23+05:30","Refactoring
+"
+"9e096a8dca9c0cd963191b44e39b131f7e31f7f4","2014-10-25 04:54:43+05:30","Remove useless conditions around while loop in FillerThread
+"
+"4a2dabfa8438dbce9da340d4e6ff79e6cb889706","2014-10-25 05:17:58+05:30","Use clear() instead of removeAll() on localBuffer
+
+Using remove gives ConcurrentModifications and IllegalStates and we don't have
+any reason to specifically use remove
+"
+"8675002aef409ffa10348767090f97f73a637f7d","2014-10-25 05:19:56+05:30","mainBuffer.peek() will give topmost(oldest), need localBuffer.peek() here
+"
+"3216ca861a38d8f2d662ad3260662b4f044ec3d4","2014-10-25 05:33:27+05:30","Enable GSM Engine again, Beautify texts on main screen
+"
+"557d511253bd38ae299b101162c8bfc1031b8c4a","2014-10-25 06:00:29+05:30","Make textviews clickable
+"
+"b23a71a3f4ee99f6c0aa78c8b2f38899eef705fb","2014-10-25 06:04:36+05:30","Code Reformatting
+"
+"af4910f7c81d624f2a92e1c47c7c154ba0bef70a","2014-10-25 06:14:10+05:30","Mark visiblities of variables
+"
+"6f332fc903c1fa0ad2af8fa0eb5c04249734afda","2014-10-25 06:39:41+05:30","Fix issues pointed by Inspector
+"
+"a52a717bfc145031852049dc75c02198f9c5a61c","2014-10-25 06:43:21+05:30","Update target build version to 21
+"
+"fe675c17c0b5527c12c9586db9a2c4cb9e045516","2014-10-26 16:08:38+05:30","Small changes, creating sensorMgr in listener, remove unnecessary public
+"
+"36499ec7a909d9cb1cde24607525f991dd49dfe4","2014-10-26 17:56:45+05:30","Avoid ConcurrentModification Error for now
+"
+"02f8c0a680c7e27f67fc89c7eb9872a1f1a338fe","2014-10-30 01:37:58+05:30","Removed getMean from EngineFiller
+"
+"f88932378e69289efbc2b30dabec08979c89e541","2014-10-30 01:45:57+05:30","Removed calculateMean from EngineFiller
+"
+"f95ca48787ee2c4e05ac10bd409b886c72e9eb3a","2014-10-30 02:11:27+05:30","Separated calculateMean from array extraction
+"
+"199f06a7f2152a8e8b7f4bb35713ea0070a0e53e","2014-10-30 02:24:23+05:30","Rename ambigous getData to getCurrentData
+"
+"ab2faeda932752267f5681baa58f83ed2ace8364","2014-10-30 02:30:24+05:30","Generic calculateMean function
+"
+"c849a8069b424127caca8893633f077e5816c2bf","2014-10-30 02:32:15+05:30","Synchronized bufferToArray instead of calculateMean
+"
+"03274f1128263af0522ebb629e3770b95652bb7d","2014-10-30 02:38:27+05:30","Corrected a parantheses error
+"
+"2d8473952b7dca39a4063228c16d71d59acc2984","2014-10-30 02:38:34+05:30","Merge branch 'tanjot' into chaudhary
+
+Conflicts:
+app/src/main/java/in/ac/iitb/cse/cartsbusboarding/acc/AccEngine.java
+"
+"f0b202eed4c8d8ff3c9ee8e502c942024ac1ad8b","2014-10-30 02:44:10+05:30","Renaming
+"
+"607c110943e6db6914f6bfe675ec9c99ddf866c2","2014-10-30 02:46:09+05:30","Fixed typo, documentation
+"
+"d640f3642321ee53344cfdd5f436e6a4ff157620","2014-10-30 02:49:41+05:30","Merge branch 'tanjot' of https://bitbucket.org/shubhamchaudhary/cartsbusboarding into tanjot
+
+Conflicts:
+app/src/main/java/in/ac/iitb/cse/cartsbusboarding/acc/AccEngine.java
+"
+"e899a7c64f2301863dbbc845da75b8aea6da7b10","2014-10-30 02:50:05+05:30","Merge branch 'tanjot' of https://bitbucket.org/shubhamchaudhary/cartsbusboarding into tanjot
+"
+"d5be51177185d9084be4ded60ff65e54666ef3e0","2014-10-30 02:53:01+05:30","Implement Std basic
+"
+"930007fffb7f7f977503b65e8d8e3e5027d9cd36","2014-10-30 02:55:24+05:30","Merge branch 'tanjot' into chaudhary
+"
+"9f88dd1ca0ccec212d1b30962e2a3bd4d86be4e4","2014-10-30 03:09:01+05:30","Pattern Recognition class
+"
+"ac525c3f52ca1db1b96f899690b8d7ce50bd4362","2014-10-30 03:26:52+05:30","FeatureCalculator class separate, need new instance everytime you need a feature
+"
+"4d3ae5306666875beb398329249f291d7a68ae0f","2014-10-30 03:56:54+05:30","Display Std in main, cleaner display format
+"
+"b0992d4f21d0a1562a2713737a2e5d62fd08cfb4","2014-10-30 04:22:52+05:30","Implemented FFT and extracted DC component from it
+"
+"39ba356269a3402467a45b35be2c50d044778eb9","2014-10-30 04:34:02+05:30","Implemented energy feature
+"
+"e0c226661902db5af382cdc7cbb75a18127b3630","2014-10-30 05:55:24+05:30","Created test for mean and standard deviation
+"
+"e5c45dbd60fa956c69ca6626da73a671a8fd404f","2014-10-30 05:56:12+05:30","Merge branch 'tanjot' into chaudhary
+"
+"0ddf77dd099e319b2172dd7cc57bd3aff2301671","2014-10-30 06:07:43+05:30","Add config file for build server
+"
+"a6f7385a894c2ab522cb437aeb59ab1ef5c47d11","2014-10-30 06:15:49+05:30","Reformatting of test file
+"
+"d9ba40676e02b8cbdc16115e0e9e598c9fd43fdb","2014-10-30 06:21:41+05:30","Jar file necessary for build server
+"
+"013fea51a3d0ca626502c96b78d870c204330700","2014-10-30 06:26:55+05:30","Disabled abortOnError to make `./gradlew build connectedCheck` work
+"
+"39422fa613ad4b38d334a09515955c997cdd0034","2014-10-30 09:07:15+05:30","FFT is now called before getting dc component and energy
+"
+"e9d18df567809dd86c2349abc1ed9c4a8ffac406","2014-10-30 09:18:45+05:30","Entropy feature implemented
+"
+"3e2e6e5fb65472367f3dce6290dbc15566c558b5","2014-10-30 13:07:15+05:30","Fix the freaking deletion of app.iml in careless previous commit by careless members :@
+"
+"c7d2972de32048c538605e58f8f61c4ef7741adf","2014-10-30 16:13:03+05:30","Cleanup
+"
+"0cf4d7799681d3a8d3390242c13f7df25773561a","2014-10-30 16:13:28+05:30","getDistance function
+"
+"dcd45eaf959b5772942853374f8ce5305ad4d921","2014-10-30 16:13:51+05:30","Documentation and store Location in GsmData
+"
+"ac399b69c69ab30596ebd46c32eceacbbe13a250","2014-10-30 16:30:45+05:30","Redesign PatternRecognition
+"
+"6a109e09430043f248d0541ccd05b3e3bab18c04","2014-10-30 17:31:52+05:30","Stub methods - pending implementaion
+"
+"734ed3f2dcb32df2514c10f4ae20271beb9315b1","2014-10-31 06:51:43+05:30","Layout changes
+"
+"284f2adc262ea85dffc232c8e0fc642c71a43305","2014-10-31 12:52:00+05:30","Add libsvm as a dependency
+"
+"2d5d2316a538291180cdc4502ac78eed952312e4","2014-10-31 12:52:41+05:30","Merge branch 'tanjot' into chaudhary
+"
+"27461a4805f4c481487e489b1e1bce08d7b09d90","2014-10-31 14:22:28+05:30","Travis try after stackoverflow - is.gd/vhkQNC
+"
+"23ddf0a99c9436a9b1045b8254da6cea42573f46","2014-10-31 14:23:31+05:30","Use latest SDK tools
+"
+"b3ff7dab7d9ea5980377f51c018cabeec937ad16","2014-10-31 16:04:33+05:30","Create constructor for easy initialization
+"
+"4317a2c08bbd07e322d00ebaba8cfc9ba660acf4","2014-10-31 16:05:50+05:30","Merge branch 'travis' of github.com:carts-uiet/cartsbusboarding into chaudhary
+"
+"570cf293566c2bfc4ba2a998cdbfa7c6ac26aa61","2014-10-31 22:54:29+05:30","Show logs after failure
+"
+"35f3cacd5da750fffcaf40348f7240eaf1e64b28","2014-10-31 23:56:17+05:30","Print better logs
+"
+"9341502807a8b1a39696b38cf8148722344ec997","2014-11-01 00:13:16+05:30","Add a readme file
+"
+"72f3d1e2829d5182bb29ce9ab55623c553207912","2014-11-01 00:15:29+05:30","Increase fail time
+"
+"e35da2d9a1d051de377a36257bd3ecd6ebe49a9b","2014-11-01 00:19:59+05:30","Reformatting
+"
+"2ca04866e8c48d651dadbaf7eb8ce37945a6a8a3","2014-11-01 07:27:59+05:30","AccData values set using constructor
+"
+"ddb1a17c5fe1a60d84f2083e21c3fa42393583ca","2014-11-01 08:16:36+05:30","Test for DC Component
+"
+"3333399683ab03f2eed424d7a1129a6b18be9a90","2014-11-01 09:18:08+05:30","Added a View Mask to handle missing clicks all over the screen
+"
+"161f74ea5604f54556b4abd2d0e7b12e19976803","2014-11-02 02:17:33+05:30","Implemented test for Energy
+"
+"77cad33b443291a8bea1be5ea6c9fdefc89c9caa","2014-11-02 02:19:12+05:30","Merge branch 'tanjot' of https://github.com/carts-uiet/cartsbusboarding into tanjot
+"
+"f32703cf93e47b772ac06c05bbc691ff17695436","2014-11-02 03:18:54+05:30","Removed dcComponent from energy and it's test
+"
+"41479f40236303af1545c424967d357c95a751a3","2014-11-02 14:35:01+05:30","Changed Entropy function
+"
+"6605ad70c8e04ae6a9d7396fbc7be27cb7b28b4b","2014-11-02 17:36:52+05:30","Unfinished initial work for svm training
+"
+"b50251460e97b78753f54555e705d1ba844a550b","2014-11-04 15:23:14+05:30","Make the SVM work with my own temporary train file
+"
+"0b953c535f06b22e343f326151f30b19cbbbe449","2014-11-04 15:43:52+05:30","Make test file look just like train file by adding fake idx
+"
+"e1d22fd6d2ab96f015da7e7c6cb9702d95c38fe3","2014-11-06 06:58:45+05:30","Mean calculated for currentBuffer divided into windows
+"
+"531cb48a2896b60dbfa1af88a2c87a147fc5bd87","2014-11-06 07:12:52+05:30","STD calculated for curentBuffer windows
+"
+"c8c75af891030666a5d91507bc79ec2209b9a6bc","2014-11-06 07:44:08+05:30","DC comp. for buffer windows and documentation
+"
+"dd8edeb8f66d9cb008327976f96ec3029fee3973","2014-11-06 09:28:05+05:30","Energy calculated for windows
+"
+"fabb1cc14e6e7f88ae0828a2eea4f83fb04227f5","2014-11-06 12:11:28+05:30","Test data preparation modified
+
+Test data is now prepared based on features applied
+to the windows
+"
+"130d37133899cfff6c626880b16854814321e564","2014-11-06 12:26:22+05:30","Documentation
+"
+"1f65d03f2cf2593f64b72ea8d1f4fd6258f21e9b","2014-11-07 12:31:46+05:30","Update build tool version 21.1.1
+"
+"3ea4a01ec71fe995cb9c72be89aaba0ee591c928","2014-11-07 13:30:07+05:30","Print sensor speed in Logs
+"
+"6ae91c8204ed9b85a1cbd611aa9f752e1cf8bab0","2014-11-07 14:04:51+05:30","Show toast if no accelerometer
+"
+"f98b477b2ccb7fe039808a36184f5583aa68211a","2014-11-07 15:16:55+05:30","Perform the feature calculation tasks in background
+
+* Doing these on main thread creates a lot of delay
+* In future if dataset is too big, fft etc. may take lots of time
+"
+"b3ad81fff3a9394755549b0b5f53b667e4e3218b","2014-11-07 15:18:14+05:30","Make buffer a ConcurrentLinkedQueue and offer instead of add
+"
+"b9fa4922926e5bbbf72df1fac8c07a8a14566989","2014-11-07 17:48:11+05:30","Get speed from listener and make it visible
+"
+"5d8eb674befb52ae781645e4ea6509fc2461d92a","2014-11-07 20:13:52+05:30","Merge remote-tracking branch 'origin/tanjot' into chaudhary
+
+Conflicts:
+app/src/main/java/in/ac/iitb/cse/cartsbusboarding/MainActivity.java
+"
+"f6a8abceeef54544f4c7efb9df260f946c1790e3","2014-11-08 01:46:03+05:30","Update build tool for travis
+"
+"10f5fbc8d98fd514d3b3f3dc7d66032aeaf5c29c","2014-11-08 01:53:01+05:30","Get the latest android-wait-for-emulator and run that
+"
+"bf5c26b0b0abfff1c4230043a8fb9ec23187bcef","2014-11-08 02:16:11+05:30","Remove branch tag from build image url
+"
+"1cc8635417671226c4178241ffccac7bb4323d2f","2014-11-08 02:33:47+05:30","Delete useless android-wait-for-emulator script
+"
+"10477b4c8400d2c4862959190e5f06e6d6b72b23","2014-11-13 08:49:41+05:30","Function to calculate speed between two prompted locations
+"
+"fd24f87d4643e1550b29c5f838eef799b436f482","2014-11-14 01:29:57+05:30","Show just one fragment
+"
+"3f1de17301ab1008b798958978565aa80f78ba7b","2014-11-14 01:31:15+05:30","Update version number to 0.1.1
+"
+"df9cb605a2ee8d823d44284f82ceb628f8075fd6","2014-11-14 01:36:33+05:30","Merge remote-tracking branch 'origin/tanjot' into tanjot
+"
+"422f96b568a9ea2e86c8766b8df3d954793db51b","2014-11-14 02:18:21+05:30","Add GPLv3 LICENSE
+"

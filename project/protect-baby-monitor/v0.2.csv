@@ -1,0 +1,99 @@
+"commit id","commit date","commit message"
+"a4f8adf7a5911ff57bb96519e176acb9348d829b","2015-12-29 16:19:50-05:00","Use a ListView to store discovered child devices
+
+The previous approach was to list buttons in a TableLayout.
+However, this approach does not work well if there are more
+items than can fit on the screen.
+
+To allow scrolling of items, and also a better presentation
+of said items, use a ListView.
+"
+"ec9d22301e8515748327575891b69e6ea6a56ed2","2015-12-29 16:25:37-05:00","Merge branch 'master' into use-list-view
+"
+"07892afea1727e812af2e5a716a5f13772a252df","2015-12-29 16:26:29-05:00","Merge pull request #6 from brarcher/use-list-view
+
+Use a ListView to store discovered child devices
+"
+"bd2726370fd8c11d172dd4e2ed90cf5eac73749a","2016-01-01 01:09:31-05:00","simplify playback of audio without AudioPlayer
+
+The additional thread to feed the AudioTrack was unnecessary.
+Because the AudioTrack API is blocking when data is written,
+and internally it buffers data, writing the data as soon
+as it is received from the network leads to better playback
+performance. It is also much simpler.
+"
+"f49e6be777cfc373c569d47cb7f495c39810e7f0","2016-01-01 01:17:35-05:00","Increase TCP send buffer size to the minimum audio buffer size
+
+The original buffer sized used was 1/2 what was intended.
+"
+"f2007e16933dd88d4b7004c5b6c8946c45cd236d","2016-01-01 01:20:26-05:00","Change variables which never should change to 'final'
+"
+"b361d56539571fbde87395bbbe97fbe3c5bac9c4","2016-01-01 01:21:28-05:00","Use byteBufferSize instead of bufferSize*2
+
+byteBufferSize is already defined to be bufferSize*2
+"
+"1603ff11bbb0b9a55ac2fbda91b1692c12ef85c4","2016-01-01 01:22:20-05:00","Replace \032 in a service name with ' '
+
+Some implementations of mDNS on Android display a space as
+\\032
+and some display it as
+\032
+
+Attempt to convert both types to a ' ' before displaying it
+"
+"d2528f0f79d3658eb3eeb62578d25cb25d6f2ada","2016-01-01 02:30:27-05:00","Merge pull request #7 from brarcher/improve-audio
+
+Improve audio
+"
+"378ecd7fe82734cf7133da57d2649437c36dc710","2016-01-02 00:15:34+09:00","Added Japanese translation
+"
+"aa336c4cdb224a010c8aa95c95c791dcceaf0195","2016-01-01 14:00:05-05:00","Create AUTHORS file
+"
+"2ad47805577c5b4d94a6bd9e418cfdfe8690f307","2016-01-01 14:00:58-05:00","Merge pull request #9 from brarcher/authors-file
+
+Create AUTHORS file
+"
+"800439457bfdc3ed7e9c1299535e9f19852235da","2016-01-01 14:05:28-05:00","Update NEWS
+"
+"7f9023d28128c710112e6978522de98ac18b2159","2016-01-01 14:06:18-05:00","Merge pull request #10 from brarcher/update-news
+
+Update NEWS
+"
+"fddb8ceedeef1e6a60b174e1e8e9d3c4a298a14c","2016-01-01 02:27:49-05:00","Use camel case for variable name
+"
+"7cb2138d13312c37347773602eb5856eea8b513b","2016-01-01 02:29:02-05:00","Display IP Address and port of child device
+
+Later, the parent will be able to use this information to pair
+with the child device, as an alternative to using mDNS
+"
+"562a2bb164ca69c54fe328493f1bdac2af383d44","2016-01-01 14:03:56-05:00","Initial attempt at pairing with child device with address/port
+
+On some networks or some mDNS implementations child discovery may not
+work well. As an alternative, allow a parent to connect to a device
+directly with an IP Address and port.
+"
+"c032e9f6422e60f9e47869b40b81abe4568fdb2e","2016-01-01 16:58:53-05:00","Allow parent device to pair to child via IP Address and port
+
+If mDNS fails to locate the child device, allow the parent device
+to enter an IP address and port to connect.
+"
+"d5ee75a143fa23e2fe849b94a4cd442a871d64b9","2016-01-01 17:01:37-05:00","Merge pull request #11 from brarcher/enter-address
+
+Allow parent to enter child's address and port to connect
+"
+"7d9ad919be2646ede2daf7cd3113f7d0a9f9bd7b","2016-01-02 10:15:26+09:00","Merge remote-tracking branch 'upstream/master'
+"
+"057ec17e2808e5c01ef76a7a6a8e064f62ac23bc","2016-01-02 10:25:37+09:00","Updated Japanese translation
+"
+"c4333c59fdf7d982ac9eca18d80a0d3eb79edbb8","2016-01-01 23:05:17-05:00","Merge pull request #8 from naofum/master
+
+Added Japanese translation
+"
+"d1e0c60be18bfea944f9106d15396d51b47875c3","2016-01-03 19:41:51-05:00","Mention Japanese translations in NEWS
+"
+"e7681624cf47bc8c9d0790686c7ef4341d865a19","2016-01-03 19:42:02-05:00","prepare for release
+"
+"51b56fd59c85ffb4f1728e171b8d5c91efad948f","2016-01-03 19:44:34-05:00","Merge pull request #12 from brarcher/release
+
+Prepare 0.2 release
+"

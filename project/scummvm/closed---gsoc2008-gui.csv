@@ -1,0 +1,263 @@
+"commit id","commit date","commit message"
+"17a51a235f9d79378c62d299b1aa1981f3b030b1","2008-10-02 22:04:34+00:00","Merged loadHotSpotsMads() and loadHotSpotsM4()
+
+svn-id: r34726
+"
+"b178332e3e5eef2972e566b5a4fca5b66189ba20","2008-10-03 00:16:21+00:00","Fixed typos (thanks to Raziel^ for spotting them).
+
+svn-id: r34727
+"
+"84229ee79c484e199f9a5e74d5ffae6b29747f2a","2008-10-03 16:07:57+00:00","Fixed Engine::hasFeature to use proper types (i.e., MetaEngine::MetaEngineFeature instead of int)
+
+svn-id: r34731
+"
+"4b236a787f028259f3a8c6a63c86bc8661a35438","2008-10-03 16:14:12+00:00","SCUMM: Added french Monkey VGA variant, see bug #2129199
+
+svn-id: r34732
+"
+"e4174711773c7dab12faf870c6d4973a2bdcff0b","2008-10-03 16:57:40+00:00","Committed slightly modified patch #2034983 'Case-insensitivy and directory handling for engines'.
+
+svn-id: r34734
+"
+"f3469eae94e196d84f828edb02972f1abc7e73fc","2008-10-03 18:18:42+00:00","Check all 'kyra.dat' files in setup paths instead of only the first one found.
+
+svn-id: r34735
+"
+"d89ff31450c728ebae3892ef3ea7f83cacda0e2f","2008-10-03 18:23:57+00:00","Cleanup.
+
+svn-id: r34736
+"
+"8706081b82f54dae944f3b75639415330c2cdef2","2008-10-04 11:10:25+00:00","Bugfix to prevent NPC characters managing to walk beyond room exits without leaving the room, and thus getting stuck
+
+svn-id: r34737
+"
+"b41cd58cee80ae682d6806fc448ca6772fd8ef61","2008-10-04 13:09:01+00:00","Renamed some MetaEngine feature flags; removed explicit numbers from this feature flag list (nothing should rely on their specific values, anyway); added a note that Engine::hasFeature should become independant of MetaEngine::hasFeature
+
+svn-id: r34738
+"
+"99f8add65cb61d1e8da23f734da249687d24919e","2008-10-04 21:40:14+00:00","- Declared all stack functions as inline
+- Sleep some ms after 500 opcodes to reduce CPU load
+- Fixed odd bug in LGoP2 where text disappeared quickly without waiting for user input by returning 0x38 in sfShowPage
+
+svn-id: r34746
+"
+"e32fc0ccca2570fc560969507351cf99a304ebf4","2008-10-05 10:19:09+00:00","Added a fixed memory pool for XML Node allocation, as suggested by Max.
+
+svn-id: r34747
+"
+"b9a0e32c3c318f95bb52e42afd7aa56e461b2756","2008-10-05 10:25:35+00:00","Changed NPC schedules to be loaded when an NPC is activated - this avoids an issue with the Castle Skorl's pre-activation room number being invalid room #99
+
+svn-id: r34748
+"
+"5f30b1f320ca34fa05246736d9fe074c204cdf38","2008-10-05 11:21:07+00:00","Merged several revisions from SVNMerge.
+Fixed theme loading to use the new ArchiveMember class.
+
+Original SVNMerge.py log:
+=====================
+Merged revisions 34686,34688-34689,34691-34698,34700-34705,34707-34713,34715-34722,34725-34727,34731-34732,34734-34738,34746 via svnmerge from
+https://tanoku@scummvm.svn.sourceforge.net/svnroot/scummvm/scummvm/trunk
+
+........
+r34686 | cyx | 2008-09-29 21:09:56 +0200 (Mon, 29 Sep 2008) | 1 line
+
+add constructor to SearchSet::Node for proper init of structure members with gcc 3.4.x (see tracker items #2120595, #2106292)
+........
+r34688 | cyx | 2008-09-29 22:08:26 +0200 (Mon, 29 Sep 2008) | 1 line
+
+restrict _heXmapNum to HE versions, should fix #2135822
+........
+r34689 | eriktorbjorn | 2008-09-29 22:40:58 +0200 (Mon, 29 Sep 2008) | 4 lines
+
+Since no one has come up with any better suggestion... this should fix #2123258
+('COMI: Crash after video (SAN) play'). The eos() function won't return true
+until we've tried to read *past* the end of the stream.
+........
+r34691 | tanoku | 2008-09-30 00:29:07 +0200 (Tue, 30 Sep 2008) | 1 line
+
+Ported ZipArchive::getAllNames() implementation from GUI branch.
+........
+r34692 | fingolfin | 2008-09-30 11:07:03 +0200 (Tue, 30 Sep 2008) | 1 line
+
+Order alphabetically
+........
+r34693 | fingolfin | 2008-09-30 11:08:17 +0200 (Tue, 30 Sep 2008) | 1 line
+
+SAGA: Removed patchesCount from SAGAGameDescription
+........
+r34694 | fingolfin | 2008-09-30 11:09:39 +0200 (Tue, 30 Sep 2008) | 1 line
+
+SCUMM HE: Use FilesystemNode::openForReading() instead of 'new Common::File' (didn't cover all instances, though)
+........
+r34695 | fingolfin | 2008-09-30 11:11:25 +0200 (Tue, 30 Sep 2008) | 1 line
+
+SAGA: Forgot to commit saga.h
+........
+r34696 | fingolfin | 2008-09-30 11:12:02 +0200 (Tue, 30 Sep 2008) | 1 line
+
+Added multiple new open() methods to Common::File, which make it possible to use this class as a generic convenience wrapper around all kinds of SeekableReadStream; also renamed the name() method to the less confusing getName()
+........
+r34697 | fingolfin | 2008-09-30 13:33:43 +0200 (Tue, 30 Sep 2008) | 1 line
+
+cleanup
+........
+r34698 | tanoku | 2008-09-30 13:53:37 +0200 (Tue, 30 Sep 2008) | 1 line
+
+Fixed functionality of ZipArchive::getAllNames(). Now it expects a possibly non-empty string list and returns the amount of new filenames added to it.
+........
+r34700 | fingolfin | 2008-09-30 14:27:38 +0200 (Tue, 30 Sep 2008) | 1 line
+
+Renamed Engine::quit to Engine::shouldQuit (previously, it was easily confused with Engine::quitGame); also cleaned up engine.h a bit
+........
+r34701 | fingolfin | 2008-09-30 14:37:28 +0200 (Tue, 30 Sep 2008) | 1 line
+
+cleanup
+........
+r34702 | fingolfin | 2008-09-30 14:38:44 +0200 (Tue, 30 Sep 2008) | 1 line
+
+AdvancedDetector: Do not (ab)use paths to keep track of files, rather, use FSNodes -- partial (?) fix for bug #2137680
+........
+r34703 | fingolfin | 2008-09-30 14:58:27 +0200 (Tue, 30 Sep 2008) | 1 line
+
+SAGA: Some code cleanup
+........
+r34704 | fingolfin | 2008-09-30 14:59:29 +0200 (Tue, 30 Sep 2008) | 1 line
+
+SKY: Fix detector to not (ab)use FSNode::getPath; if you want to open a FSNode, just pass it to File::open
+........
+r34705 | thebluegr | 2008-09-30 15:19:14 +0200 (Tue, 30 Sep 2008) | 1 line
+
+Fixed crash when starting IHNM, a regression from commit #34693
+........
+r34707 | fingolfin | 2008-09-30 17:42:19 +0200 (Tue, 30 Sep 2008) | 1 line
+
+Fixing ConfigManager::loadConfigFile
+........
+r34708 | fingolfin | 2008-09-30 18:23:35 +0200 (Tue, 30 Sep 2008) | 1 line
+
+AGI: Another case where it is better to use FSNodes directly, instead of converting them to path strings
+........
+r34709 | fingolfin | 2008-09-30 18:34:38 +0200 (Tue, 30 Sep 2008) | 1 line
+
+Modified FilePluginProvider to use FSNodes (instead of raw filenames / paths) in its API
+........
+r34710 | fingolfin | 2008-09-30 18:38:46 +0200 (Tue, 30 Sep 2008) | 1 line
+
+AGI: Got rid of yet another unwarranted use of FSNode::getPath
+........
+r34711 | fingolfin | 2008-09-30 18:53:04 +0200 (Tue, 30 Sep 2008) | 1 line
+
+AGI: Simplify WagFileParser by not reading data into a memory stream first (this was there to improve performance on systems with slow seeking; those systems should use another approach, see scummvm-devel)
+........
+r34712 | thebluegr | 2008-09-30 18:55:10 +0200 (Tue, 30 Sep 2008) | 1 line
+
+Fix crash when starting ITE, a regression from commit #34705
+........
+r34713 | fingolfin | 2008-09-30 19:09:41 +0200 (Tue, 30 Sep 2008) | 1 line
+
+Fix ThemeBrowser to use FSNodes, not getPath()
+........
+r34715 | Kirben | 2008-10-02 16:41:50 +0200 (Thu, 02 Oct 2008) | 1 line
+
+Correct HE version for Putt-Putt Enters the Race (French/Windows).
+........
+r34716 | fingolfin | 2008-10-02 18:58:59 +0200 (Thu, 02 Oct 2008) | 1 line
+
+Renamed FilesystemNode -> FSNode
+........
+r34717 | fingolfin | 2008-10-02 19:08:15 +0200 (Thu, 02 Oct 2008) | 1 line
+
+cleanup
+........
+r34718 | fingolfin | 2008-10-02 19:17:18 +0200 (Thu, 02 Oct 2008) | 1 line
+
+Ignore String::deleteLastChar when called on an empty string
+........
+r34719 | fingolfin | 2008-10-02 19:20:21 +0200 (Thu, 02 Oct 2008) | 1 line
+
+Fix for bug #2142743: Assertion on clicking 'Theme' in Options
+........
+r34720 | fingolfin | 2008-10-02 19:48:01 +0200 (Thu, 02 Oct 2008) | 7 lines
+
+Engine class changed:
+- Moved initCommonGFX() && GUIErrorMessage() out of class Engine
+- got rid of the _autosavePeriod member (this prevented users from
+changing the autosave period during runtime)
+- Got rid of an evil 'using GUI::Dialog' statement
+- Clarified some Doxygen comments
+........
+r34721 | fingolfin | 2008-10-02 19:52:29 +0200 (Thu, 02 Oct 2008) | 1 line
+
+Add the current dir to the global SearchSet, i.e. to SearchMan (this should fix the problems on Windows, and maybe other systems, see 'bug' #2137680)
+........
+r34722 | fingolfin | 2008-10-02 19:55:08 +0200 (Thu, 02 Oct 2008) | 1 line
+
+Forgot to mention yet another Engine class change: mainMenuDialog -> openMainMenuDialog; and also forgot to commit this related file :/
+........
+r34725 | fingolfin | 2008-10-02 20:11:40 +0200 (Thu, 02 Oct 2008) | 1 line
+
+typo
+........
+r34726 | thebluegr | 2008-10-03 00:04:34 +0200 (Fri, 03 Oct 2008) | 1 line
+
+Merged loadHotSpotsMads() and loadHotSpotsM4()
+........
+r34727 | lordhoto | 2008-10-03 02:16:21 +0200 (Fri, 03 Oct 2008) | 2 lines
+
+Fixed typos (thanks to Raziel^ for spotting them).
+........
+r34731 | fingolfin | 2008-10-03 18:07:57 +0200 (Fri, 03 Oct 2008) | 1 line
+
+Fixed Engine::hasFeature to use proper types (i.e., MetaEngine::MetaEngineFeature instead of int)
+........
+r34732 | fingolfin | 2008-10-03 18:14:12 +0200 (Fri, 03 Oct 2008) | 1 line
+
+SCUMM: Added french Monkey VGA variant, see bug #2129199
+........
+r34734 | lordhoto | 2008-10-03 18:57:40 +0200 (Fri, 03 Oct 2008) | 2 lines
+
+Committed slightly modified patch #2034983 'Case-insensitivy and directory handling for engines'.
+........
+r34735 | lordhoto | 2008-10-03 20:18:42 +0200 (Fri, 03 Oct 2008) | 2 lines
+
+Check all 'kyra.dat' files in setup paths instead of only the first one found.
+........
+r34736 | lordhoto | 2008-10-03 20:23:57 +0200 (Fri, 03 Oct 2008) | 2 lines
+
+Cleanup.
+........
+r34737 | dreammaster | 2008-10-04 13:10:25 +0200 (Sat, 04 Oct 2008) | 1 line
+
+Bugfix to prevent NPC characters managing to walk beyond room exits without leaving the room, and thus getting stuck
+........
+r34738 | fingolfin | 2008-10-04 15:09:01 +0200 (Sat, 04 Oct 2008) | 1 line
+
+Renamed some MetaEngine feature flags; removed explicit numbers from this feature flag list (nothing should rely on their specific values, anyway); added a note that Engine::hasFeature should become independant of MetaEngine::hasFeature
+........
+r34746 | john_doe | 2008-10-04 23:40:14 +0200 (Sat, 04 Oct 2008) | 3 lines
+
+- Declared all stack functions as inline
+- Sleep some ms after 500 opcodes to reduce CPU load
+- Fixed odd bug in LGoP2 where text disappeared quickly without waiting for user input by returning 0x38 in sfShowPage
+........
+
+svn-id: r34749
+"
+"03d8f7e196c5e951055da4c646c097b8219ea346","2008-10-05 12:18:16+00:00","Fixed ambiguous 'else'
+
+svn-id: r34750
+"
+"000eedb0737dbe400d016edf213928dbb1a227d3","2008-10-05 20:31:18+00:00","Merged revisions 34748,34750 via svnmerge from
+https://tanoku@scummvm.svn.sourceforge.net/svnroot/scummvm/scummvm/trunk
+
+........
+r34748 | dreammaster | 2008-10-05 12:25:35 +0200 (Sun, 05 Oct 2008) | 1 line
+
+Changed NPC schedules to be loaded when an NPC is activated - this avoids an issue with the Castle Skorl's pre-activation room number being invalid room #99
+........
+r34750 | fingolfin | 2008-10-05 14:18:16 +0200 (Sun, 05 Oct 2008) | 1 line
+
+Fixed ambiguous 'else'
+........
+
+svn-id: r34752
+"

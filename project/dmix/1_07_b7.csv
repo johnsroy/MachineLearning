@@ -1,0 +1,1094 @@
+"commit id","commit date","commit message"
+"d96e95b4a419b1f91aa25dc696a21c5ad3e403af","2014-04-13 22:20:49+02:00","Replace isDetached with a working function
+"
+"29671f38eae467968c23d2b302355ed30c005606","2014-04-13 23:45:00+02:00","MPDroid can now seek in the lockscreen
+"
+"f6f7f3cecea0e7356de280728b1a81ec948ed94a","2014-04-14 08:28:22+02:00","Clean up the notification seek : Typo fix, remove debug, fix play state reporting
+"
+"bce29903e2d8ebe5a0c765ad5dcb9bb3a8216afd","2014-04-08 08:39:59-07:00","*Service: Don't rely on intents for important status updating.
+
+In this case, we can't rely on intents to keep the status up to date about
+whether the StreamingService is wound down, as they're WAY too slow which
+then causes a race for audio focus. Instead use static values and public
+accessor.
+"
+"53b631670500f9b138fa6294751441b7d2310f0c","2014-04-08 11:40:42-07:00","StreamingService: Abandon audio focus when winding down resources.
+"
+"165946d7e0d32fd549320cff527772e5af348263","2014-04-08 11:44:08-07:00","StreamingService: Improve focus code.
+
+Turns out the transient focus code doesn't work in the more recent Android,
+maybe never? At any rate, fixed transient focus and added some more improved
+methods of dealing with focus with regard to streaming.
+"
+"18803cb9e8e3e828ebbbbd426c989cdd07ea3d3c","2014-04-10 15:14:40-07:00","MPDroid: Disable services start until explicitly enabled.
+
+Apparently, Android services are started on boot by default, which, obviously
+runs through the app on start. Disable this functionality until explicit use.
+"
+"1e5a8b9530962756377aad6c4b9443d723814964","2014-04-09 09:18:10-07:00","BrowseFragment: onDestroy(), remove the AsyncExecListener.
+"
+"5cff63ce373279c761b62b629416bd4999932248","2014-04-13 19:19:39-07:00","NotificationService: Fix spelling.
+"
+"d5dbb0716bbafe6b6a2c183e67eec6d7e36d560b","2014-04-14 05:38:45-07:00","NotificationService: Run formatting.
+"
+"e50d7a0634a98fa1856a7c7e6b78b8b381925b74","2014-04-04 17:55:59-07:00","MPDStatus: Start with reformatting.
+"
+"78eec839dae291ea6a020d4c2fdc6c2bec0a880c","2014-04-04 18:25:18-07:00","MPDStatus: Convert if conditional block to switch.
+
+This patch also changes the behaviour of reading the response lines, with split
+and a string array, simplifying the array and easing reading.
+"
+"356670b636a0bcf4f47b06917cc1e0003eb92f68","2014-04-04 18:46:28-07:00","MPDStatus: Fix some warnings.
+"
+"18395eaf34d5c1823d4368ff2466c5bc920f3f3b","2014-04-05 06:33:31-07:00","MPDStatus: Add logging of unknown response lines.
+"
+"475bb1d110d4ee0b9020c0b18c8920e56a8c387f","2014-04-13 06:55:14-07:00","MPDStatus: Move the null check up and log it.
+"
+"46108cacf00bb531a4f753cbcf3a186f5045b5e6","2014-04-13 20:16:10-07:00","MPDStatus: Add elapsed (for high resolution timing) and mixRampDB status.
+"
+"624e05cf3e396e644ac1b9319acf2374d94fc303","2014-04-13 20:22:18-07:00","MPDStatus: Reorder fields and constructor.
+
+Rare that something like this is warranted, but in this case the
+list is very long and this will make reading much easier.
+"
+"4e7e3fb1dfbe903a99ccaeaf592fcccd2e712b3a","2014-04-08 17:52:02-07:00","MPDPlaylist: Add a crop method to the playlist.
+"
+"6d0141aa982b26cac7ccb2304b6864388771cf0d","2014-04-08 18:17:05-07:00","MPD.java: Don't change MPD state when replacing on the playlist.
+
+While playing if 'Add, Replace and Play' or 'Add and replace' are selected,
+don't stop, clear, add and play. Rather than invoke a MPD state change, move
+the current playing playlist queue item to queue postition 0, then remove the
+remaining playlist items, add the replacement playlist queue items,
+select the next playlist item, then remove song 0. It occurs in the same
+amount of time and the play interruption is minimized. This behaviour causes
+a track change listener emit rather than state change.
+"
+"9678795c97a90286c7e041727b0016eece63e21b","2014-04-14 06:17:06-07:00","NotificationService: Don't check for empty playlist on pause.
+"
+"93cb72742164b92fefe89def89beb7cf138667d8","2014-04-14 09:47:26-07:00","NotificationService: Only pause on ACTION_AUDIO_BECOMING_NOISY if streaming.
+
+The old behaviour was to stop on ACTION_AUDIO_BECOMING_NOISY which didn't get
+modified with the new NotificationService behaviour. We should really only
+pause here if the user is streaming. This should fix bug #524.
+"
+"54c3c6e865768938e0fa26f019992e1286e8dd07","2014-04-14 10:39:17-07:00","MPDStatus: Reset values which might not be in a status update.
+
+Not all status update responses include all status fields so these fields
+should be reset prior to reponse parsing. This fixes (at least) seek bar
+position on transition from state pause to stop.
+"
+"20fe428b82c61d4b34fe54b739dc70b137b8f98e","2014-04-14 20:26:04+02:00","Merge pull request #525 from avuton/next
+
+MPDStatus refurbish, StreamingService fixes, other cleanups and fixes
+"
+"7292d6c89c351476bccbcfbbd9916683a3e7e3ba","2014-04-16 19:48:14+02:00","Safe onDestroy(). Fixes #528
+"
+"50f0f43d51d4a35df09eed8afff93819ea64bc2f","2014-04-15 04:55:25-07:00","NotificationService: Don't rely on RCC for state updates.
+
+Because we're using more than two states for RemoteControlClient we no longer
+get an accurate play/pause state. Fixes #526.
+"
+"152bc79abe12f8ba8dd59171774a381947c135c5","2014-04-15 04:57:15-07:00","NotificationService: Remove unused check for title.
+"
+"57a9b87fc704375da73d1a9336f5a7eb4916dd2c","2014-04-15 04:57:35-07:00","NotificationService: On reconnection, update status.
+
+This is good for now and will be improved upon later.
+"
+"a98fbdf62797edade068b3fd32c20cbfe7adbe40","2014-04-15 15:43:43-07:00","MainMenuActivity: Replace System.exit() with finish().
+"
+"ef66de2662036aea75defbbabab3481ac70f4fdd","2014-04-15 16:26:52-07:00","NotificationService: Ensure StreamingService was starting NotificationService.
+
+When RemoteControlReceiver was opening NotificationService, NotificationService
+was assuming StreamingService started it. This caused bug #526.
+"
+"39aa8e16befe4fdda51c2a3c80d2156a5fdb886c","2014-04-16 06:25:34-07:00","MainMenuActivity: Hard disable services after stop.
+"
+"bd993a2a37b4aff64aff54254bc56b4d81a314bc","2014-04-16 06:27:00-07:00","NotificationService: When opened by an unknown intent, log and stopSelf().
+"
+"1690343f610774b4f5da8995f721526142ae3781","2014-04-16 20:45:31-07:00","GracenoteCover: Remove possible errand null assignment before check for null.
+"
+"1574220ba316cba2f258ee572d6a68799bab0183","2014-04-17 07:11:08-07:00","RemoteControlReceiver: Cleanup and reuse code.
+"
+"b92617b586b07c84a5991b87a0ca23a469c87795","2014-04-17 18:50:00-07:00","MPDroid: Fix some misplaced listener cleanups.
+"
+"755bf6a13e5b98fdbbd16474832275204013137b","2014-04-19 05:46:01-07:00","NotificationService: Pause on ACTION_AUDIO_BECOMING_NOISY on localhost as well.
+"
+"753dcf5b8e09987d7d517b2d48c0d9bf85034cd2","2014-04-19 05:47:28-07:00","ConnectionSettings: Default to server on localhost.
+
+We can't really default to anything else until mDNS support is added, use
+localhost.
+"
+"3f55fa61612d99429def023ac2afb5cd7db4da12","2014-04-19 07:30:26-07:00","StreamingService: Set wake lock for mediaPlayer, rather than the service.
+"
+"7bcb0c33de727aa10345523f8abf352ab09bd03c","2014-04-19 09:18:11-07:00","NotificationService: Simplify the onStartCommand server commands/audio focus.
+"
+"55c1f981dc0c8354bea762a8dd3068b7d416aa55","2014-04-19 10:22:06-07:00","NotificationService: Fix some warnings.
+"
+"4b96c4c602ee320c4ac6d25c79e8b49b12250820","2014-04-19 12:21:05-07:00","NowPlayingFragment: Use volumeChanged() to toggle volume bar visibility.
+"
+"f6ba8e39c8a34b5b43d5c4ad6197d84649b332c0","2014-04-20 08:47:33-07:00","dmix: Add/update copyrights, add to IDEA.
+"
+"fd30b49eb0066b3b172219b7b0b41b415ad15d71","2014-04-20 17:19:19-07:00","MPDStatus: Add mixRampDelay status entry.
+"
+"483f7b03875eb27b5c75080fbd6a53a5855016a0","2014-04-20 17:19:47-07:00","RemoteControlReceiver: Add some interesting logs to assist debugging.
+"
+"4523701e7ed37d3118acf92b3105758bd7972c36","2014-04-20 18:07:44-07:00","dmix: Gradle update.
+"
+"4401ede9e03e0a434dfee9b2770e0f1ea5f3ab69","2014-04-20 08:45:09-07:00","dmix: Remove unused files, cleanup the JMPDComm license
+"
+"d4b64a00822e141a55568c0a2803f8af7212c4b3","2014-04-21 22:20:26+02:00","Merge pull request #533 from avuton/next
+
+Bugfixes & cleanups
+"
+"fa8fec53ad00f849c9c14272ca92d64427cb84e7","2014-05-03 13:25:00+02:00","Make server conncetion error a little more verbose
+"
+"09d8b548cda99f9903dd0a4838b07f1dca7a7222","2014-05-03 13:38:11+02:00","Fix  connection error stack overflow. Fixes #421
+"
+"f0c5a3e95da7d447c4ded91413246d5ab2c190b8","2014-05-03 17:32:22+02:00","Revert 'Fix  connection error stack overflow. Fixes #421'
+
+This reverts commit 09d8b548cda99f9903dd0a4838b07f1dca7a7222.
+"
+"4b86489f7b6e6470d748da0593b21b67e87c128e","2014-05-03 18:46:13+02:00","Handle MPD 0.19+ protocol changes
+"
+"12a725d67407d353638478beab9e7e3aa8d28025","2014-05-03 18:46:20+02:00","Add error kind support
+"
+"28d27388b734ab48ee6fc3d984e896ac86feb90a","2014-05-03 18:47:35+02:00","Handle invalid password command
+"
+"3c17d370e0e688f0970d5aebeb1af211ff7abb12","2014-05-03 18:51:28+02:00","Log parsing exceptions
+"
+"54afaad2b8cf210d464b6006cccb0ba435496eee","2014-05-03 19:14:44+02:00","Clean up exception handling
+"
+"a1d2c96e87820e8c6b0136a8da462f346167f533","2014-05-03 20:46:04+02:00","Add application singleton
+"
+"8fe1ca3ab5631fbe79b066fcd36a65d353a52d9d","2014-05-03 20:46:18+02:00","Use application singleton to avoid crashing
+"
+"4f635b1be92f77cc66d62c804713c0114c66047f","2014-05-03 20:47:05+02:00","Use the application singleton a lot more
+"
+"106e6d7acb30b4b070e062178ee8c2d8e40ee121","2014-05-03 21:22:32+02:00","Make AlbumsFragment use the albumartist tag as set in the options
+"
+"02d084397a554757de521da141eddf31601a4b52","2014-05-03 22:14:04+02:00","The preference for album grid decides if it should be a list or a grid. No more cache based decision.
+
+We can't detect MPD's version to decide if we can show the grid since we're probably not connected yet.
+"
+"f87dfa5e19261c8234811b15cfc6feb9134489a4","2014-05-03 22:14:21+02:00","Add album grouping support on MPD 0.19
+"
+"baf41411776d1932f624025b18b72105ea5e42bb","2014-05-03 22:48:50+02:00","Fix wrong attributes set. Still not everything working
+"
+"edd5c68598f76b4e368a42390ad9da41266a919d","2014-05-03 22:52:19+02:00","Fix album details listing adding useless albumartist parameter. If album listing regresses, REVERT THIS
+"
+"08491c6c274305119b36d2efa65db2fb6548e15c","2014-05-03 23:00:58+02:00","Use albumartist only for MPD 0.19+ album listing. It's the only setting that makes sense anyway.
+"
+"943f95869b8ca36b43dcf8884841957a07085ab5","2014-05-03 23:07:24+02:00","Add a way to log every sent mpd command (disabled by default, BuildConfig.DEBUG does not work in libraries)
+"
+"b9ad03fc16601e5ed4f2955f81b678ab804c0dee","2014-05-03 23:45:12+02:00","Temporary fix : disable remote streams fetching
+"
+"8f800af92e4269be8b7fefaa5b62985ada73c622","2014-05-04 00:10:58+02:00","Rewrite directory content parsing. Fix #535 #519
+"
+"99b72f08d6cca9a91b7577634e225122051fdc61","2014-05-04 10:05:25+02:00","Remove queue handle. Fix #520
+"
+"3a4e1113d55a23a618f09d7f77f77ab27db173be","2014-05-04 10:22:06+02:00","Better looking queue
+"
+"46d96c1b0be37670b043f9f04d48692661bbaaab","2014-05-04 10:51:53+02:00","Tweak album content removal
+"
+"684b25356f97214553b9eb32b0cc82258629a898","2014-05-04 13:21:16+02:00","Implement album list merging as discussed in #537
+"
+"56bb6a81dfb4f30d1d3ad5824ef742c20c27a734","2014-05-04 13:46:38+02:00","Fix comparaison crash
+"
+"a51009d4103225d6f7c2bcd516df3eb53966796c","2014-05-04 17:41:27+02:00","Streams are now handled via a special playlist and not streams.xml anymore.
+Thanks to Craig Drummond
+"
+"e760014dac4b6ea2843c64d016d335c6809070b8","2014-05-04 18:33:24+02:00","Fi mismerge
+"
+"d7809443b76730a8599c7b9d679491f447f74a2b","2014-05-05 20:55:10+02:00","Fix stream equality check. Patch applied from Craig Drummond
+"
+"5487a4f1375c6ea4dc15e8b7b9337ce9753bcade","2014-04-22 20:53:40-07:00","MPDStatus: Pattern match using precompiled regular expressions.
+"
+"a713e44b5e4ca366af449e797731cda82168641c","2014-04-10 08:44:43-07:00","NotificationService: Make service persistent to option.
+
+If NotificationMode is started, don't unselect it. Keep the service open,
+unless the user opts to hit the close button.
+
+Rather than update on track change, update on playlist change. This will be
+more granular and it will include stream information updates unlike track
+changes.
+
+Finally, this patch turned out to be a small refactoring, so there are
+many changes not targeted by the description.
+
+For more information about how persistent notification works:
+https://github.com/avuton/dmix/wiki/How-the-services-work-in-MPDroid
+"
+"58faf1465a41d7c7e977fc3372108f99d6eeab0a","2014-04-26 09:15:30-07:00","NotificationService: Fix warnings.
+"
+"1f57a16c923d871c999fae63c08e57894a0d5d8a","2014-04-26 09:29:09-07:00","StreamingService: Warning fixes.
+"
+"b6b3de71a9f8475d6e6a19ceb058340c9f8f6ed8","2014-04-26 09:56:51-07:00","RemoteControlReceiver: Warning fixes.
+"
+"1b6af0c00abbd0c71859e3d17f8766199c2cb83f","2014-04-26 10:51:48-07:00","NotificationService: When the play state is paused, don't send pause command.
+
+This works around an MPD bug, if MPD is paused some versions will toggle to play.
+"
+"603ef3584fab8759f14705fde4e247f914f56edd","2014-04-26 15:19:23-07:00","StreamingService: Prevent a MediaPlayer crash if stream halts during buffer.
+
+MediaPlayer can cause an ANR or crash (depending on its state) if the stream
+is stopped during buffer and the object is reset or released. Workaround that
+by not resetting or releasing during buffering. The disadvantage to this is
+that next start we may have some stale bits in the buffer which we'll hear
+first, then it'll rebuffer.
+"
+"43ead0453293a685b0a728dd42e6cbb2956f8fdf","2014-04-16 06:25:00-07:00","Music.java: Refactor the constructor.
+"
+"32569ebc4578db9df25102c425fc453f2e8edcaf","2014-04-26 16:01:40-07:00","MPDStatus: Fix warnings.
+"
+"0bf829496db80630257c5ef7e16ee4e0a210eeb9","2014-04-16 17:10:32-07:00","MPD.java: Remove duplicate response parsing.
+
+Many tag lists are parsed the same exact way, eliminate this duplication and
+clean up the method it uses to parse it.
+"
+"dfbf8bbfb67061e5c9e5eb4f1e7b31f22d821e6c","2014-04-28 06:34:51-07:00","NowPlaying*Fragment: onPlaylistChanged, only update when we're streaming.
+
+For many workflows, the update will needlessly occur twice due to track change
+and playlist change occuring both occuring on a typical track change. Since
+commit 55029f96 we no longer need to worry about the playlist change causing
+our data to be out of sync, except when the metadata might change without track
+change, such as when streaming.
+"
+"12e242a9bdb479212f1e1a536b74f22c5b528d26","2014-04-28 10:10:18-07:00","NowPlayingFragment: Refactor track seek bar, allow hiding when unused.
+
+This is a refactor of the track progress bar which makes updating more
+granular and allows it to hide when it's unused, such as when streaming
+or when stopped.
+"
+"3aebb4f9a1679f7bcafdf0e48c9079fafa8d3908","2014-04-28 10:40:59-07:00","NowPlayingFragment: Cleanup audioNameText updating.
+"
+"619c923b173d7c26190307358f26798daa8db6cd","2014-04-28 10:42:43-07:00","NowPlayingFragment: Remove superfluous updateStatus after updateTrackInfo().
+"
+"704103f23228125e78dd30ecf6120bea72757ee5","2014-04-28 10:46:00-07:00","NowPlayingFragment: Remove status null check at updateStatus() start.
+"
+"767bdcee8005ae0fb2b13a2a26732363ad3dc3ed","2014-04-28 11:31:52-07:00","NowPlayingFragment: Rename volume seek bar field, move method to order.
+
+Fix 4b96c4c where I didn't realize that many of the methods were in order,
+also rename progressBarVolume to seekBarVolume, as it is a seek bar object.
+"
+"63c43e738687681dd343671f5a2ea53772d989ec","2014-04-28 13:41:23-07:00","NowPlaying*Fragment: Do not allow track info update prior to connection.
+
+Do not allow track information update prior to connection, initiate a track
+information update per the connectionStateChanged listener.
+"
+"5046ede97279547f98a146dcb39b451935d1362a","2014-04-29 07:20:26-07:00","Music.java: Remove superfluous method, use isStream().
+"
+"69683ab229558bceef0f59163c719819df71465d","2014-04-30 10:32:34-07:00","JMPDComm: Perform format, fix many text-only warnings.
+"
+"54bafe5c1f2665f274e0d5ac18b9985a8bed0a17","2014-04-30 12:04:32-07:00","JMPDComm: When possible, give collections an initial capacity.
+
+Fill in as many initial capacities as is possible. Fixes many
+performance warnings.
+"
+"dcafb55d88b034689fc72095717f8e23d345671b","2014-04-30 12:44:12-07:00","JMPDComm: Fix a few miscellaneous performance warnings.
+"
+"d22802a4e326ebac9de57dcc1e1aae44be249133","2014-05-01 15:32:09-07:00","Music.java: Refactor timeToString().
+"
+"ffb7fd75b364ead2d414202e777ae4b962ca7346","2014-05-01 16:37:16-07:00","NowPlayingSmallFragment: Fix the no coverart after valid coverart.
+"
+"3da3be0efbecbc027645a54b57bf81130ebd4a35","2014-05-01 17:42:01-07:00","NowPlayingFragment: Remove timeToString, use the method from Music.java.
+"
+"1bf5a24daf3060325f4c6845d1df9fe7f05dc78f","2014-05-02 06:44:34-07:00","Music.java: Remove dead toString() code, document it.
+"
+"6927b733bd5a0725428bcf811a9ab5618e3c5f1a","2014-05-02 06:52:31-07:00","PlaylistFile: Cleanup PlaylistFile, fix warnings.
+
+Cleanup PlaylistFile, fix warnings, including moving a regexp to a final
+static space to be compiled prior to running.
+"
+"f941f472b3e4c5d4d09b57a4bcc61ba603d11452","2014-05-02 15:07:51-07:00","NowPlayingFragment: Seed MPDStatus on connection or resume.
+
+Prior to this, the status was kept up to date due to how many times
+updateTrackInfoAsync() would get hit in the beginning. After this behaviour
+was cleaned up the status would regularly be out of sync, this should
+fix that.
+
+The only two places the MPDStatus should need to be updated, outside
+of the idle status monitor is connectionStateChanged() or onResume().
+"
+"726c5b0667cafad9c9d6d50b32bd1157fb1522d1","2014-04-21 17:43:08-07:00","MPDStatusMonitor: When updating, the status is changing, not the database.
+
+According to MPD Protocol Reference, Chapter 3, the server will emit an update
+idle response to an update command. This does not mean the database has
+actually changed, only that the server is checking for updates, making this
+an actual status change.
+"
+"e996cf2304098c08fb8967ffaff401c9928a514d","2014-05-02 15:56:01-07:00","MPDStatusMonitor: Let the user know if the database actually changed.
+
+Let the user know if the database actually changed. This will only happen after
+the first parameter of libraryStateChange has changed to true to false.
+"
+"6fe108b4f4f4797a388ba525ba8bdc0ff9ec7162","2014-04-16 16:33:03-07:00","StringUtils: Remove unused and trivial method.
+"
+"5580a1b01654bfa46d93e0cf0f77f2c1d86f777e","2014-05-02 16:16:56-07:00","CachedCover: Cleanup some duplicated code.
+"
+"c2c9572f96d5354b3da92caa06f2c5491e10226b","2014-05-02 20:32:07-07:00","StreamingService: Allow onCompletion to complete the stream in more cases.
+
+Do better at detecting the final song and on stop letting it finish rather
+than abruptly shutting off.
+"
+"20f5099062f3ae46b02d3943f0b5d46db0cc8dc7","2014-05-03 07:32:49-07:00","NowPlayingSmallFragment: Prevent exceptions not added to the current activity.
+"
+"79391938e0e16b6852ccd3ec60e664ebaa6f70d6","2014-05-03 08:32:36-07:00","NowPlayingSmallFragment: Prevent NPEs in stateChanged().
+"
+"caf4af5ee9ac25c9cc92b0dea3ab131948d6a59b","2014-05-03 16:07:15-07:00","MPD.java: When possible return at the end of the method.
+"
+"df8824e7ac6637748debc5a10420e55d90660607","2014-05-03 16:12:38-07:00","MPDroid: Use app singleton.
+"
+"c872016d3ad7ea5dcbc87273cdbcaed8622e38d6","2014-05-03 20:52:40-07:00","JMPDComm: Clean up a few warnings.
+"
+"8f7a0aedd83ba20f331a14cccb69c19c0283bae4","2014-05-03 20:55:48-07:00","JMPDComm: Use explicit numeric assignment to avoid implicit numeric conversion.
+"
+"050995a902dce3bfdaa129e6a29f8328c4a6cc38","2014-05-03 21:13:36-07:00","MPDStatistics: Refactor with if block conversion to switch.
+"
+"787b440174df163cb266f78f409675106de591a4","2014-05-04 07:00:29-07:00","JMPDComm: Move the MPD protocol delimiter pattern to StringUtils.
+"
+"c03384dc6b86e7b64c969ed109cfb8ccf4e97a7e","2014-05-04 07:01:34-07:00","MPD.java: Refactor getDir() as a switch.
+"
+"636684a4d950325f254feb6adcce93200c64bbb6","2014-05-04 14:15:23-07:00","JMPDComm: When splitting some delimiters, only split once, in the beginning.
+"
+"47015a725d3f8b173c158fd9e697bf42dcd9b5ca","2014-05-04 21:39:08-07:00","CoverManager: Replace a couple of dynamic regex replacements with compiled.
+"
+"0591653d66a63d37f434a08b9fe71d352912c07c","2014-05-08 13:35:54-07:00","NowPlayingFragment: Don't force status update on track info update anymore.
+
+Status should be forced either onResume/connectionStateChanged or in the status montior.
+"
+"6184ae1a51393bd09ac9905e3f62d2dd92708f6b","2014-05-09 06:40:40-07:00","JMPDComm: Remove version lines.
+"
+"fa8429e0fed174112815eaff26fffbc511af6056","2014-05-09 06:59:06-07:00","MusicFocusable: Remove unused interface.
+"
+"c216468a99b1aac4243fce3f10a9a31a055b4639","2014-05-09 15:58:31-07:00","gitignore: Drop-in replacement with gitignore from google/iosched.
+
+An excellent drop-in, documented replacement for our gitignore.
+"
+"a45b809c2300c35336a291774456d88d3840a123","2014-05-09 15:34:33-07:00","dmix: Add gradle wrapper.
+
+Add a gradle wrapper. This makes the setup for potential developers even easier
+by downloading and installing/upgrading gradle build.
+"
+"db5a6bfe3ca5bf523e78dbf848375b9aa7d131dd","2014-05-10 07:52:03-07:00","MPDStatus: Initialize the state to unknown.
+"
+"f199685c505b75cb2077d5423c690b2eca62f65d","2014-05-11 11:21:42+02:00","Merge pull request #543 from avuton/next
+
+Warning fixes, NowPlaying*Fragment cleanups, Persistent Notification, Precompiled Patterns, App singleton...
+"
+"1fa1f59ae7e8c891286beec648c527a19e0a1f37","2014-05-11 11:56:59+02:00","Only attempt to load the stream playlist if it exists. Fixes #542
+"
+"e643abc903376e818f60e9880c8d382cb1de87d4","2014-05-11 11:57:47+02:00","Use application context instead of activity. Fix #541
+"
+"e10380894c5b802ebdcee4c923213493b59b6cf4","2014-05-11 06:40:19-07:00","NowPlayingFragment: Update the seekbar on track change.
+"
+"1181a03475305bac23300348d9db438fae20af50","2014-05-10 08:50:53-07:00","NowPlaying*Fragment: Move async track information updating to it's own class.
+"
+"1a8fa5028c647bad716c0f7e36059f2a772c0259","2014-05-12 15:05:35-07:00","AlbumsFragment: Cleanup onMenuItemClick().
+"
+"718b1fbf0142877597194b5b812f6fb486d63456","2014-05-13 12:07:00-07:00","NowPlaying*Fragment: Clean up playPauseButton assignment.
+
+This also fixes updating after trackInfoUpdate.
+"
+"3d3e6102b3c231a37e98fa389adb613ae5e445b3","2014-05-13 16:53:06-07:00","MPDControl: Add a new helper to send simple commands to MPD.
+
+Remove the command code from NotificationService and add it to a new class
+MPDControl. Add code to overload the method for resource ids, and other useful
+stuff. Also, clean up the now duplicate code.
+"
+"ff8ea7a10a9f5685f2a35380cfcbdaf778a142a9","2014-05-14 03:13:50-07:00","MPDroid: Cleanup notifyUser() use.
+
+This cleans up notifyUser use and adds a new
+method which takes a resource id to further clean things
+up.
+"
+"bc96c8d3eb539ca07c471f78ae52d55ce619b2d1","2014-05-14 03:26:18-07:00","MPDroid: Remove redundant calls to String.Format() when calling getString().
+"
+"fa3b5b2e45cd1ee71ee88e02a6bc9f420d2227f9","2014-05-14 03:51:05-07:00","MPDroid: Add an overload for notifyUser() to call getString() with resId.
+"
+"34b6123ed12cd03ff23d6d7298826ee3881515fd","2014-05-14 07:12:05-07:00","MPDStatus: If mixRampDB equals 'nan' set mixRampDisabled.
+
+If mixRampDB equals 'nan' (Not A Number) set mixRampDisabled. This fixes #547.
+"
+"66a01aaed33db5db46f62a5d2dcb050f2574d238","2014-05-14 07:13:18-07:00","MPDStatus: Add mixRamp accessors.
+"
+"791ffb23c6118a73b05870e8df1c0f6be2cf5fc6","2014-05-14 07:19:44-07:00","MPDStatus: Move mixRampDelay to reset everytime, as it's not always shown.
+"
+"e64691de5729b26f399c7c21c5f13b72fc052b5c","2014-05-14 08:09:42-07:00","MPDroid: Omit the getString() call when the method accepts resources.
+"
+"0a3502ae40e06bffc56aede9f814c54bbfd8e625","2014-05-14 08:21:11-07:00","NowPlayingFragment: Remove unused method.
+"
+"abd63e848d75f80bec3ea6c0553b1d77cef9a9dd","2014-05-15 19:44:54-07:00","MPD.java: Improve Add, Remove & Play handling (from 6d0141a).
+
+Before this patch, if the user selects Add, Remove & Play (ARP):
+
+If consume mode is enabled, it chews up the first song (whoops!).
+
+If random mode is enabled we would play the second song on the playlist queue,
+which is unexpected behaviour, so we now send a next command in this case.
+
+If Add & Play (not removing), and random mode is enabled, we would play:
+(old playlist queue+1) which is flawed thinking, as in random mode it will
+revert to the old playlist queue at any point afterwards, so, in this case,
+play doesn't make sense, so we now toast the user that we don't Add & Play
+in random mode.
+"
+"f4dd32bce4924cf040d095f18f50282de944a382","2014-05-17 15:15:56-07:00","AbstractWebCover: Fix most warnings.
+"
+"ec78854c49434dc5ee88468dd9420fdae3e4fe62","2014-05-17 15:56:26-07:00","AbstractWebCover: Remove unused client build.
+"
+"0850c46d1f5650ebef5945fa14625c044a4d1381","2014-05-17 16:40:33-07:00","AbstractWebCover: Abstract out inputStream reading.
+"
+"5f25803181ef6f86195ff226d742dcd2e22edcd8","2014-05-17 20:14:38-07:00","CoverAsyncHelper: Fix warnings.
+"
+"3eaee77174ec5e689453f0d0eebcd3d8fc60b832","2014-05-17 20:37:12-07:00","MPDroid: Don't pass settings to get pm.getDefaultSharedPreferences().
+
+This can easily be acquired globally where needed with the singleton.
+"
+"e9ea221d4a9316d192cecf755ef4ff955e44f312","2014-05-17 20:47:17-07:00","MPDroid: Remove arguments from AlbumCoverDownloadListener constructors.
+"
+"47a6fbc659084773b73b6876225c8cf8c9403031","2014-05-17 21:10:18-07:00","MPDroid: More singleton cleanups.
+"
+"e920e0e2dbb20e27011a3fe41040c69792041cd8","2014-05-17 21:04:48-07:00","MPDroid: Allow controls at all times by intent.
+
+Move control intents actions to RemoteControlReceiver. This allows media
+buttons to work at any time, simplifies NotificationService, and other
+advantages.
+"
+"aab016296595e76ecd81c5a309ec3a23f7b3e801","2014-05-19 23:01:47+02:00","Merge pull request #549 from avuton/next
+
+TrackInfoUpdateAsync cleanup, threaded control cleanup, other various cleanups and bugfixes.
+"
+"7941901bed5283a814bfd50822720b5c32202907","2014-05-19 23:36:44+02:00","Fix wrong time unit conversion
+"
+"0123943e7090cdcb59094d0f64f2ae98a301e171","2014-05-19 23:41:19+02:00","Fix song seeking broken in NowPlayingFragment
+"
+"6a09ec27c2ba69ae98a976d6941ed08b47d00c80","2014-05-19 20:08:21-07:00","MPDroid: Rename MPDControl.ACTION_[REWIND->SEEK]
+"
+"e3b784e43d9adce6cb065b9582e7ac6a9a833231","2014-05-20 18:04:02-07:00","MPDCommand: Fix ACTION_PAUSE.
+"
+"892fbcbac7cfa60fb0a1c40332752de01a332c2a","2014-05-27 23:34:19+02:00","add genre member to Music.java again
+
+which was removed in dadd4a1b804b8b146389fa59a527d829faeab939
+see #463
+"
+"2f8d2cd625ada43c487aad2758f1b885bb5ea347","2014-05-26 07:20:46-07:00","NowPlayingSmallFragment: Fix track info updating when not in MainMenuActivity.
+"
+"e2fe8029eb3d898a4799c5241165b274e3d6c6da","2014-05-24 06:57:37-07:00","MPDControl: Don't allow MPDControl to be instatiated.
+"
+"ceb94135c7bb0f306854aab41aea6a03e44d88f3","2014-05-23 02:53:28-07:00","ActionFireReceiver: Use the MPDControl generated connection.
+
+MPDControl can generate it's own connection, use it.
+"
+"04f99ffc7bfadef1adca6a32e4cc99f61c1e3345","2014-05-23 15:19:42-07:00","MPDApplication: Add isLocalAudible() method.
+
+This adds the isLocalAudible method which is a boolean return stating
+probability of the app controlling a server which will be audible
+on the same device as the app runs.
+"
+"d2ed1d85fd41ba7b5d8abae2b386b745eddb259f","2014-05-19 07:27:04-07:00","*Service: Convert most Intents to Handler/Binder/Messenger.
+
+This makes the code slightly more complex and gives us less hacky, lower level
+and (much!) faster IPC.
+"
+"dbb28e7935a3878c552f2888ae8d38f630bdd91d","2014-05-21 05:35:02-07:00","NotificationService: Run the RemoteControlClient update in a thread.
+"
+"b334816318ecb01c0bbe194ca04ddabb6f4fd6ea","2014-05-23 02:50:46-07:00","NotificationService: Use MPDControl to seek.
+"
+"9b0ecc256935d9f8eff8e91c0e326defc8b27f50","2014-05-26 20:46:17-07:00","MainMenuActivity: Use generated mpdStatus for checkbox updating.
+"
+"a0b103e6736c5d465d8c45ed863f216e5fa1a9e7","2014-05-23 02:51:31-07:00","MainMenuActivity: After enabled->disabled persistent notification, disable it.
+"
+"b9e7adee571a3936356cf1af93f958a8192047b5","2014-05-23 04:44:26-07:00","MainMenuActivity: Remove the forced service disabling.
+
+Now that bugs have been fixed which allow the services to start on
+boot, remove the forced service disable/enable.
+"
+"17108d6942b7250a2bb72fe0b3ea9f943672eac8","2014-05-23 04:56:49-07:00","MainMenuActivity: Cleanup onOptionsItemSelected().
+"
+"66ba6a6386487566adbf0f9aa1239a242bb46342","2014-05-23 15:26:52-07:00","MPDroid: Cleanup volume key strokes, use isLocalAudible.
+
+When tracking volume key strokes, don't track if it is probable that the
+server controlled by this app will be playing audio on the same device.
+"
+"ac436246e3a10f92fe77f595d6caddf201589a55","2014-05-23 17:13:38-07:00","PlaylistFragment: Reformat.
+"
+"d8e0e5e3969c478cff7d1ca99f51a3d5eb7d7aeb","2014-05-23 19:46:41-07:00","PlaylistControl: Similar to MPDControl, add a class to send playlist commands.
+
+Similar to MPDControl, add a class to send simple threaded playlist commands
+to clean up PlaylistFragment.
+"
+"dd8a5c24316281011ee0468acedbd0791d7b3def","2014-05-24 06:35:15-07:00","PlaylistFragment: Avoid return until the end of the method.
+"
+"b4409c77434be981ea0dc85bef5d81f7808ebc27","2014-05-24 07:03:08-07:00","PlaylistFragment: Remove unused AsyncTask.
+
+If not doing any work in the background, AsyncTask has no use.
+"
+"ffde4ddb154945396a895c94af93ba7f9976b321","2014-05-24 08:15:27-07:00","PlaylistFragment: Cleanup the update() method.
+"
+"8f1d127832b17606c2fb3f3698fb85c8617a25f2","2014-05-25 06:46:57-07:00","PlaylistFragment: Fix warnings.
+"
+"1a85d0083ef42eaa778aa8a812c6ac112013efe1","2014-05-25 07:29:07-07:00","PlaylistFragment: Small cleanup for onActionItemClicked().
+"
+"a0d30534d262f1a2c33d947b4c9d3f21a4ff275d","2014-05-25 08:35:26-07:00","NowPlayingFragment: Cleanup popup menu generation.
+"
+"a8620674be495036fb0d3d445b69cb148c185e57","2014-05-25 13:05:27-07:00","NowPlayingFragment: Remove some fields.
+"
+"eeaf97991e74637bf3bcbdb8e938ca4f7a126a19","2014-05-25 17:56:11-07:00","NowPlayingFragment: Use MPDCommand.[MIN|MAX]_VOLUME for volume validation.
+"
+"d65001a661d2aabe29bd7013a13c6423b7711df6","2014-05-25 18:03:22-07:00","NowPlayingFragment: Convert onSharedPreferenceChanged() to a switch.
+"
+"c0844877876a3ac39bfc37d1fce11b1d4f558f74","2014-05-26 08:04:11-07:00","SimpleLibraryActivity: Handle volume buttons the same as MainMenuActivity.
+"
+"829c94cf71d8da6275c9030b32594fba101b15dc","2014-05-27 07:07:27-07:00","SimpleLibraryActivity: Reformat and cleanup warnings.
+"
+"e0f612613cc8f272de24fb299de455b09b6f6ac4","2014-05-27 23:53:55+02:00","Merge pull request #553 from avuton/next
+
+PlaylistFragment cleanup, Service binding/messaging, Bug fixes, The usual cleanups
+"
+"6fdd6298bd81b0870d13596182e122932331229b","2014-05-28 00:08:53+02:00","Merge pull request #554 from hurzl/genre
+
+add genre member to Music.java again
+"
+"6058240c80afc115caf1247675e77a276626c03e","2014-05-27 18:25:56-07:00","BrowseFragment: Unset on stop prior to stop as it may not exist afterward.
+"
+"481a8eabf88e0872543b47622142ff9a328b4524","2014-05-27 19:56:13-07:00","Fragments: Cleanup all the refreshFastScrollStyle methods.
+"
+"75b69382fa6eaf3ac9c6d44eb214adc59d660f2b","2014-05-28 04:22:10-07:00","PlaylistFragment: Small fix to dd8a5c2 (thanks @Hurzl).
+"
+"ebfeebf8e7dbca1a4b90b87ef54f9413d380455a","2014-05-28 16:28:04-07:00","MPDroid: Fix improper refactored nesting from commit 66ba6a6.
+
+This commit also removes getKeyCode() when keycode is already available as a
+parameter. Thanks again goes out to @Hurzl.
+"
+"473942aef068df52ca87cca68e7a0a443d4a05a8","2014-05-29 15:57:40+02:00","Merge pull request #555 from avuton/next
+
+Fixes for last PR, tiny cleanup.
+"
+"e7feef9cf78c3e46300a152871d934005d86789b","2014-05-28 02:43:15+02:00","allow PlaylistFragment to be subclassed
+"
+"6607e84f8cce1e36772a4ddd17ad8799d7a1bd46","2014-05-29 16:50:58+02:00","Merge pull request #556 from hurzl/genre
+
+allow PlaylistFragment to be subclassed
+"
+"4d340dd51cbfbfa93c5316b5617edb8c92924ebf","2014-05-30 21:03:49+04:00","Fixed grammar of Russian translation
+"
+"3063df522f6c257892af555f95d60ba2cc8778ea","2014-06-04 20:54:39+02:00","Merge pull request #557 from makkarpov/patch-1
+
+Fixed grammar of Russian translation
+"
+"3a5e9a70e4186125a832e375635e1b148e32e8a9","2014-06-08 12:19:59-07:00","MPDroid: Intellij/SDK plugin updates.
+"
+"6c4d516b74dce3b9b6a0a16b556d779797a7cfb9","2014-06-08 17:18:42-07:00","MPDroid: Travis update.
+"
+"75bead1903a8c49ca14e6e6e704fe33a54d0e809","2014-06-02 12:46:27-07:00","NowPlayingSmallFragment: Move the UpdateTrackInfo listener to onResume()/onPause().
+"
+"0e63974100095ec12d2ad5591884646d41c37097","2014-06-01 15:53:38-07:00","NowPlayingFragment: Do extra connection checking in forceStatusUpdate().
+"
+"76748a23c2c9d9dfd6e2ef4f4146b3c15d8e86a4","2014-06-10 16:59:10+08:00","added missing German translation
+"
+"28caab374b04193f6cb207b477872306ec56bc4c","2014-06-10 23:53:12+08:00","fixed a type
+added space before
+"
+"3b833ddf8fee8bcf50b204d4a3305374f732eed6","2014-06-08 04:41:13-07:00","PhoneStateReceiver: Make local audible aware, clean streaming service.
+
+Refactor the phone state receiver local audible aware, which allows removal of
+all telephony service handling from the streaming service. This also makes use
+of MPDControl.
+
+This patch also allows the phone settings pause & resume to be individually
+set, as resume might be prefered by the user, but not pause on call. Since
+pause will occur on local audible (and will override preference) the user
+will have he choice to resume.
+"
+"18b9a40750d196bfd82801500ed1959a37c3c74b","2014-06-11 19:56:32+08:00","added two '-'
+"
+"6447601eb99a46e09d1b01aa855e822f613f7cbd","2014-06-11 23:29:46+02:00","Merge pull request #564 from MaDill/master
+
+added missing German translation
+"
+"c52634fb6e8bc1e86eb4ee5a2b20148196f3d529","2014-06-11 23:33:13+02:00","Merge pull request #563 from avuton/next
+
+Commits unrelated to the upcoming large PR.
+"
+"43095076f1f255997839985b04660b3426af14eb","2014-06-14 20:05:00+02:00","More consistent use of 'playlist' / 'play queue'
+"
+"77db632ecc1c0179c6f4fa1f90e507b7fac2cb1e","2014-06-14 20:11:09+02:00","Simple mode library bugfixes. Fixes #565
+"
+"7b8748b49d06328202ca3c94369a1be1fa51e19f","2014-06-05 07:12:46-07:00","MPDroid: Add 'service' module, rearrange code.
+
+Setup a service module, this commit should have no impact on the running code.
+"
+"816f7872474c46208571249d157f254a59c77872","2014-06-05 19:55:10-07:00","MPDroid: Add a helper method for choosing no cover art image.
+"
+"d48483a3412603834aed207c4e6d9cc56910616b","2014-06-06 06:12:53-07:00","MPDroidService: Remove current track updating from updatePlayingInfo.
+"
+"514e2a4afbb9ceff5331597a65ac191b9ab76e33","2014-06-06 06:32:21-07:00","MPDroidService: Remove seek time from updatePlayingInfo.
+"
+"f14648cfc1de510e1130f1d75c5b5bc4546f1fe2","2014-06-06 06:51:26-07:00","MPDroidService: Remove album cover updating from updatePlayingInfo.
+"
+"39267ed05e99fbb48d449802d2f77e3e73548956","2014-06-16 17:18:32+02:00","Update spanish translation
+
+Some minor changes
+"
+"f44ce0f986396cef9e663a13908d96b172d9d71a","2014-06-06 07:11:57-07:00","MPDroidService: Move RemoteControlClient/MediaButtonReceiver to it's own class.
+"
+"5e8c8799305ded6a3f800dc48b213ea7fcf0f024","2014-06-09 19:45:42-07:00","RemoteControlClientHandler: Store by RCC playstate.
+"
+"6ce52c4d2c8302553da3c1e9971ab1cb1928879c","2014-06-07 06:15:50-07:00","MPDApplication: Move settings/warnings shown into the outer class.
+"
+"c9f2562370a41ac1cb0cf484ce064525e6bda12a","2014-06-07 14:33:43-07:00","MPDApplication: Dynamically check service status.
+
+Setting & unsetting server status is not fullproof. Servers can crash, and
+generally, go out of sync easily. This is approach is fullproof and clean. I
+fully expect to replace this functionality as soon as I can figure out a more
+robust method of accomplishing this.
+
+This patch also removes the ApplicationState inner class as it is now unused.
+"
+"4df2b7fcdc970008458f5937018ec894f14ff491","2014-06-07 17:44:22-07:00","RemoteControlReceiver: If notification closed during stream, stop stream.
+
+Short log is confusing here; actually, if the notification close button is hit
+on the notification, while streaming service is open, shut off the streaming
+service as well. This can only occur while not playing, as the button won't
+be visible, otherwise.
+"
+"7d7f266a61f3ec75a1faf7d50b1f199526cf1a3a","2014-06-08 07:32:52-07:00","StreamingService: WOUND_UP -> BEGIN_BUFFERING.
+"
+"829f8b014025ca11985f208ae85737d9d6bcd1c5","2014-06-08 10:41:25-07:00","MPDroidService: Move notification code to it's own class.
+"
+"101e783a4f1acf8f7ccef952df034686b78346dc","2014-06-09 08:58:24-07:00","MPDroidService: Move album cover updating to it's own class.
+"
+"956fab6b3a43b32ba96035a22b4d4cf24a9953f0","2014-06-09 10:43:28-07:00","NotificationHandler: Construct the notification, update incrementally.
+"
+"c0f9877b0f94cdc661c65c08e4034a02902fad20","2014-06-10 13:41:53-07:00","NotificationHandler: Simplify the activity starting pending intent.
+"
+"3ea69c36bdf726337d7aec632285045bf1c9fae3","2014-06-10 15:50:01-07:00","NotificationHandler: Remove the callback, use an instance to set foreground.
+"
+"5459fd14966d8e0a37054697bb7cc3fe20b9b298","2014-06-09 21:19:08-07:00","RemoteControlClientHandler: Move the seekbar code to it's own class.
+"
+"9a78eb42830a97813e5145f09cfb5e91048fa9b6","2014-06-11 06:24:58-07:00","RemoteControlClientHandler: Split track cover update to it's own method.
+"
+"87c15721ad6c3102d18f919322d8f4da2753cefe","2014-06-10 11:33:51-07:00","MPDroidService: Improve focus code.
+"
+"7fd574455f6a04384746120fcca167a523219f5d","2014-06-10 19:09:14-07:00","Service: Try a shorter timeout.
+
+It's really subjective. 10 minutes seems a bit too long, a few minutes too
+short. Try 5 minutes / 5 minutes 30 seconds.
+"
+"b4b7ff8a45dfaf3ddbaedb805cfb5eca583d3b15","2014-06-13 07:53:08-07:00","Service: Use a singular handler with 'what' messages.
+"
+"87a69ae3a8f4b904c6d4741dbaba884a3b0b1b23","2014-06-14 21:58:25-07:00","MPDroidService: Temporary fix for stream owning notification.
+"
+"e04c41c4513cedb5ccb11f342f08657ef8e35fd6","2014-06-16 19:54:37+02:00","Merge pull request #566 from avuton/next
+
+Service compartmentalization and incremental updating.
+"
+"50ef52a963efb32dee6092e6f5e4e633fa33f7c3","2014-06-16 19:55:12+02:00","Merge pull request #568 from fdezInigo/patch-1
+
+Update spanish translation
+"
+"8966ee5fecc4c3cdddc32d4bf8c653eb597048a9","2014-06-16 19:55:24+02:00","Merge pull request #567 from 8u/master
+
+Simple mode library bugfixes. Fixes #565
+"
+"7af71a020500d8622e4e26462408a52e32f65808","2014-06-17 14:58:36-07:00","dmix: Update to SDK 20.
+"
+"7cf48a9bbbefa304cacd82e2af4ebba6805d3e1f","2014-06-16 11:18:11-07:00","Refactor Playlist[Fragment|Control].java to Queue*.java.
+
+This caused confusion due to the abiguity of the word Playlist.
+"
+"bf69201d0be6fa4b7e65ceee4575c54ead133c11","2014-06-16 12:55:01-07:00","MPDApplication: Reformat.
+"
+"a70d7382242c09b50c8ec20c6d872bd3820c9b5a","2014-06-16 13:14:51-07:00","MPDApplication: Fix many warnings.
+"
+"30ca7a1541b3dfd80cd42bd3981c992ccf66a824","2014-06-20 13:05:09-07:00","MPDApplication: Move init back into onCreate().
+"
+"69c317c6a662d8ad878896caee42c7c188ef4ee9","2014-06-16 13:38:48-07:00","MPDApplication: Refactor connectionFailed().
+"
+"c32f71ac03b3482a022c3c6fcf7ac773d731f644","2014-06-20 06:42:16-07:00","MPDApplication: Don't allow duplicates in the connection lock list.
+
+Lifecycle terminators aren't guaranteed to be called, it would be bad enough
+if an instance doesn't get removed from the list, but if there turned out to
+be a duplicate the connection would stay needlessly locked.
+"
+"45971faf66055e8306adb01a543859987fc41a0f","2014-06-17 14:03:56-07:00","MPDControl: Use a connection lock.
+
+Didn't understand connection locks before, and I did things the hard way.
+This also blocks the thread up to 5 seconds waiting for a valid connection.
+
+Finally, this patch corrects the state retrieval method name.
+"
+"56df49dc577c9d21d376d93306f995563a0f0da9","2014-06-19 07:15:20-07:00","MPDroid: Clean up logs.
+
+Clean up logs, to include removing all Auto-generated printStackTrace() stubs,
+use the third parameter for exception objects, use a String object for the TAG,
+and omit static logs from the import.
+"
+"f83d28c11bf4caa4cffe94352be1aae9eba1eb71","2014-06-21 06:41:21-07:00","StreamingService: Make the error window smaller.
+
+If we catch the player change the play state between the delayed handler start
+and the prepare async, we lower the chance this class will need to have it's
+errors workedaround.
+"
+"8b0d697ef26d1da9f5168fb97e4daa6bea41de4f","2014-06-21 09:40:45-07:00","service: Avoid null intent onStartCommand().
+
+Null intent will be sent to services in the case of some crashes.
+"
+"99845877d694a33a246776d85a7411f5d89b8f00","2014-06-16 15:43:32-07:00","MPD.java: Fix Add & Play.
+
+This fixes a small bug added (abd63e8) where Add & Play broke.
+"
+"08d0f73509bf0f5d302d26296ca0bac8e6355c48","2014-06-21 19:31:55-07:00","NowPlaying*Fragment: If stopped and the playlist changes, initiate a update.
+
+If stopped, and the playlist changes, initiate a track & cover information
+update.
+"
+"d2886c747322640a81357e2b11a735bc30c72a8f","2014-06-22 05:21:55-07:00","MPDroidService: Before stopSelf(), stopForeground() needs to run.
+"
+"9cca214f3523d7b5d1cbea3b1f151ca718d4a1d2","2014-07-02 20:17:13+02:00","Merge pull request #571 from avuton/next
+
+Maintenance & Bug Fixes update.
+"
+"2dfcc5389871cb2ad07c0222a961c834db5fcf88","2014-07-06 22:26:01+02:00","Update gradle scripts
+"
+"b540a88ca044466cdabddadcddd520b6d7012d4d","2014-07-06 22:26:05+02:00","AS files
+"
+"ad115239d0afdc0e3937e0db0a3d77e5a4de5657","2014-06-28 21:03:16-07:00","MPDConnectionHandler: Warning cleanup.
+
+This patch also moves the receiver registration to the MainMenuActivity, to
+onPause()/onResume() (per the documentation), under a DEBUG boolean to keep
+it from spamming the logs.
+"
+"1c28e13dc3aad4ce8c97e9a19d932774dee0ad66","2014-07-08 13:40:36-07:00","MPDControl: Make singleton use contingent on singleton MPD object use.
+"
+"5cb13b10413f8fb98d636368382b7a21ba180811","2014-07-18 07:47:24-07:00","MPD: Fix a missing throw in getStatistics().
+"
+"b7115768f7fb4439a7b38c4cc97bb133b1d3d0a9","2014-07-21 13:17:15-07:00","MPDApplication: Make sure the dialog box is only called from the main thread.
+"
+"895c59c7f13f888f957959d67e34fc21c1ff9a8a","2014-07-22 14:51:54-07:00","PhoneStateReceiver: Move a tool into PhoneStateReceiver, remove NetworkHelper.
+
+This cleans up and moves a used static tool into PhoneStateReceiver, removes
+NetworkHelper which doesn't have anything else of use in it.
+"
+"eb4af744800fbee0870d5e21cb3cf224312b7f3c","2014-06-18 06:52:14-07:00","ServiceBinder: Add a class to assist with service binding.
+
+This class assists with the complexity of maintaining a Binder connection with
+the service.
+"
+"798e74f249a9443a0dc7c7b4ecbb39dcbc0cbe93","2014-06-22 06:32:28-07:00","StreamingService: Rename to StreamHandler.
+"
+"e2ad7d4aed1752e6a5ec1e2ff11dd45ad1a64611","2014-06-25 17:12:10-07:00","StreamHandler: Don't extend Service, don't implement ServiceConnection.
+
+Rationale:
+* This is necessary, as Android expects the MediaPlayer to be attached to a
+notification in order to take advantage of startForeground() to prevent
+unexpected Service shutdown.
+
+* This is also to allows access to the same AudioManager object; Android's
+AudioManager crashed often when the services would take audio focus from each
+other.
+
+Implementation:
+There are several things that had to happen at the same time to make this
+patch work successfully which is why this patch is the size it is. Several
+rewrites were attempted to make this happen gradually while keeping things
+stable and working, after the sixth attempt this patch was created.
+
+* This patch makes the service spawn it's own process. This significantly
+reduces memory requirements of the service itself, allows more forgiving
+instability, takes the service completely off the UI thread, and allows
+MPDroid process killing without affecting the service (or visa versa).
+
+* This patch adds helper functions to MPDApplication for start/stop and
+server querying.
+
+* This patch adds a Message handler class inside the MPDroid service to receive
+and act on messages. Also adds debugging functions to help decode 'what'
+messages.
+
+* The MPDroidService now has a minimal startup. On startup very little will
+load and is controlled by the new ServiceBinder class, currently implemented
+in MPDApplication and started by the main activity to prevent a ServiceBinder
+instance in the Service process. Service handlers will start dynamically as
+necessary. One rationale for this change is the service must start at MPDroid
+startup, minimally, to query server status. This is due to the Android
+framework not having a way (prior to API 21) to know if a Service is even
+running (even one owned by the main process), so deep Binder integration is
+necessary for a concrete server implementation.
+
+* The MPDroidService will also shut itself down when it's not being used.
+
+* The MPDroid service does not use the Application instance now, instead it
+uses the service instance, and only when it's absolutely necessary.
+
+* This patch slightly changes Notification behaviour, it should not start on
+Notification activation, it should only be active during play or the wind
+down period.
+
+* This patch adds stream stop/start to the ActionFire activity.
+
+* In this patch, StreamHandler no longer extends Service, removes all binding
+code, and relies on the main service for functionality.
+"
+"b8a726f8c4d8ce0c5ef7d9d8b339063825e787a5","2014-06-11 06:59:24-07:00","AlbumCoverHandler: Implement album cover downloader.
+"
+"b0bc5c5f151dfcfd478573c0c9baabcfcc750707","2014-07-04 10:23:28-07:00","AlbumCoverHandler: Don't recycle, just nullify and let GC do it's job.
+
+I'm not sure exactly why but there are some times that Android can get out of
+state and will try to parcel the albumCover after recycling. With Android 3.x+
+it's really not worth the risk of crashing the service over it, so null it
+and let GC do it's job.
+"
+"1568055e6ad65ed9c170b563aaa4c08aebae337d","2014-07-04 07:29:36-04:00","ConnectionInfo: Add a class to track the current connection configuration.
+
+This replaces MPDConnectionInfo from MPDAsyncHelper and adds a callback
+triggered by connection configuration change. This object also stores
+whether where the connection changed since last connection configuration.
+
+This should improve or fix #552.
+"
+"ff709e34a1b54a52b070cbaabe64748f525a6bf0","2014-07-08 06:53:20-07:00","service: Setup service for ConnectionInfo use.
+
+Since the service is in a separate process, when the connection information is
+updated it won't be received as the AsyncHelper and Monitor are running in a
+separate process, so we need to send this information over our service binder.
+"
+"feefb06dad1c07d47c3c6ab653a89e1459b58218","2014-07-06 08:39:53-07:00","MPDAsyncHelper: Don't allow adding listener multiple times.
+"
+"af5062cf5514f46d7f06c950da3d9abd45b6e24d","2014-07-09 07:18:28-07:00","AndroidManifest: Format and warning cleanup.
+"
+"3beda3d4b776b32eaa52b8e67482b9c9e5587443","2014-07-09 08:48:13-07:00","service: Add a debug boolean for the service module.
+"
+"236ed665ba08fe180224279ac52706a737bd5495","2014-07-10 11:36:57-07:00","MPDroidService: Restart service if MPDroid task is swipped to remove.
+
+This works around the default behaviour that if MPDroid is killed, the service
+should be. Since, in this case, the service is a completely separate entity,
+restart and get back to where it was on main process task swipe kill.
+"
+"e0640b0101d8d6f41bdfc90e2bdd56dddf6022c1","2014-07-10 13:27:25-07:00","MPDroidService: More audio focus improvements.
+"
+"3aa16af8fe21f0d9cfa1a4a99beae2ac2dbefc1b","2014-07-16 13:10:11-07:00","NowPlayingSmallFragment: Turn priority on for album cover downloading.
+
+From time to time NowPlayingSmallFragment cover will fail to show while
+NowPlayingFragment much more rarely fails. The only difference between the
+cover download is NowPlayingFragment uses the priority boolean (what does
+that even do?) so, use it until CoverManager is fixed.
+"
+"80891f382d14ccc11396b6cc50bd02bdc53d52c4","2014-07-15 14:03:01-07:00","MPDConnection: Reformat.
+"
+"e5aad7d33c2e6b518e8bdf1723d4f644f8f4fac5","2014-07-15 14:57:46-07:00","MPDConnection: Make MPDCommandResult a nested class and cleanup warnings.
+"
+"ae8b61d293a4f8b4332531062c3d11db072bbfa4","2014-07-15 15:01:41-07:00","MPDConnection: Move classes used by MpdCallable exclusively to MpdCallable.
+"
+"fe62b6b157e739426bf30e4831620229423f1866","2014-07-16 12:32:18-07:00","MPD.java: Move listallinfo/getHost/getPort into JMPDComm.
+"
+"641bd211b3cf18eaff3d42501de0f79e6fcec7a2","2014-07-15 15:38:53-07:00","MPDConnection: Many warning fixes, tighten direct access.
+
+This includes removing direct public access to anything in connection, anything
+in here should be accessed elsewhere in JMPDComm.
+"
+"9c338dca662784686e87b60475adc6cb5798df8b","2014-07-22 15:53:21-07:00","MPD: Refactor isConnected().
+"
+"f9ac4c3b83f0f7ddcb43b9dc119d020ba4bdceb0","2014-07-15 16:28:14-07:00","MPDConnection: Refactor sendCommandQueue.
+"
+"e299712a9645bd553b973ad58ec5a99ddec20d47","2014-07-15 17:16:24-07:00","MPDConnection: Use a statically compiled pattern for line parsing.
+"
+"eea1c06461abf179d85285b3d2c6911f5fd9f332","2014-07-15 17:32:45-07:00","MPDConnection: Fix exception warnings.
+"
+"9cb6dd63f4026da7b565f89ec0510c220d1b958e","2014-07-16 19:10:06-07:00","MPDConnection: Cleanup innerConnect().
+"
+"b064e269fc27c4288d83c03657b677ac42412367","2014-07-15 18:39:41-07:00","MPDConnection: Remove unnecessary nested try/catch.
+"
+"410b64d9e4a6eec0884c8cd8e04154e335106831","2014-07-16 06:22:32-07:00","MPDConnection: connect() return value is discarded, change signature to void.
+
+connect() MPD version return value is discarded and is stored as a field,
+change the siguature to void.
+"
+"1d812d8a2e041b628f9ca46ba79711313b93b6ce","2014-07-16 06:27:29-07:00","MPDConnection: Remove confusing variable reuse.
+"
+"78e01e04e239b0192914f0a29799a67fcc60ffdd","2014-07-16 06:49:02-07:00","MPDConnection: Cleanup command result processing.
+"
+"e52cf803aeb43479da82b53fc1c61011c64c4fbd","2014-07-16 10:30:05-07:00","MPDConnection: Make field returns and field parameter assignments immutable.
+"
+"5f64fd95e2d10c6a1349b4f8316d09427deb535b","2014-07-16 15:43:56-07:00","MPDConnection: Remove ping command construction from the loop.
+"
+"c9c7329f984c9e36d53670b79dc13673ea22de2d","2014-07-16 16:12:29-07:00","MPDConnection*Socket: Clean up warnings.
+"
+"453d265ab8c3675680b7f90fb7f321a21901ea01","2014-07-17 07:02:57-07:00","MPDCommand: Reformat and cleanup.
+
+Reformat and cleanup, necessary to fix some MPDConnection warnings.
+"
+"0bee91152522c2eb8f274d1ff011c11c68872867","2014-07-18 12:40:25-07:00","ActionFireReceiver: Broadcast receivers cannot stay open, no need to exit.
+
+Broadcast receivers registered through the <receiver> tag in the
+AndroidManifest, by definition, cannot stay open longer than 10 seconds, so,
+there is no reason to exit after onReceive().
+"
+"ee81539f456675b01812942fa1b47da8065755a8","2014-07-20 15:04:20-07:00","MPDAsyncHelper: Reformat.
+"
+"0dc39089f5777e0e285ea0c7e10605f54b225ab2","2014-07-20 17:29:27-07:00","MPDroid: Remove MPDAsyncWorker from MPDAsyncHelper.
+
+This commit also removes the Handler extension, now utilizes the
+Handler.Callback in both classes.
+"
+"a99a5229633141f82242b282be33a58e09d88949","2014-07-22 10:14:01-07:00","MPDroidService: Detect valid network changes and act on them.
+
+This adds a network monitor for checking for network changes and automatically
+reconnecting upon connection. The new class which handles this,
+NetworkActivityHandler, may be more restrictive than necessary to extend the
+main process to take advantage of it's functionality.
+"
+"6b86bb4fff865b29828f5132206217ffed258106","2014-07-22 12:48:22-07:00","MPDroidService: If notification is persistent, start MPDroidService on boot.
+"
+"01b1e4e05d9ee2f02b9387fae110ebdde4f9ef36","2014-07-22 20:15:46-07:00","MPDAsync*: Cleanup warnings.
+"
+"4b724aab3251e23dd2d3074a04b190ba50bc8cb0","2014-07-23 22:52:27+02:00","Tweak how the seek bar disables itself when not needed
+"
+"d65172d1d92c90b5426d974aea3c2fad1462daae","2014-07-24 19:50:54-07:00","MPDAsyncWorker: Temporarily fix reconnection.
+
+Apparently, disconnect is broken.
+"
+"07f3c6a3855b5fc6884d1b69be9a2f4ac46a642c","2014-07-24 19:48:44-07:00","MPDroidService: Fix persistent notification override.
+"
+"b2ade53da815212cfcb8769c3c2d91d7010ecc04","2014-07-30 08:31:35+02:00","Move xml files into xml folder
+
+Move connectionsettings.xml and wificonnectionsettings.xml to res/xml/.
+"
+"d9d7a63992f3774f8f21db06616c7dbfcdc0aa45","2014-07-31 12:13:13+02:00","Merge pull request #585 from felixb/fix-xml-dir
+
+Move xml files into xml folder
+"
+"f8080005bf542d5410d7bb5372f46899ef3f5792","2014-07-27 07:26:38-07:00","AlbumCoverHandler: Don't even nullify the album cover.
+
+There's a bug in Android 4.4.4 where if nullified, the album cover will be
+recycled by Android and RemoteControlClient will continue to try to use the
+album cover. Don't even nullify it.
+"
+"fbffa4d70b6cc5c5a4466095df1009b0cd5040b7","2014-07-27 07:07:35-07:00","StreamHandler: Upon buffer interruption, reset mPreparingStream.
+
+This should fix the StreamHandler being out of sync with the main process if
+the buffer is interrupted.
+"
+"f003b503ceca1e333c920670244da6e93b2c29fe","2014-07-31 18:44:23-07:00","StreamHandler: Don't call MediaPlayer.stop/reset during release.
+
+stop() can be called after a delay and can interrupt other MediaPlayer users.
+reset() is redundant.
+"
+"bf9d1847430e4fd3d9069a5c18b01ce44f25e02b","2014-07-27 07:13:19-07:00","MPDroidService: More audio focus improvements.
+
+This fixes quite a few audio focus bugs, including abandoning audio focus on
+stream pause.
+"
+"082b1bb4f12ba3fd87ff57de8a682827a3f79eca","2014-07-27 08:46:36-07:00","MPDroidService: Clean up handler status setting.
+
+This commit adds a method to set handler status, this should make the setting
+less error prone.
+"
+"2ce763febdc4b021607265c35b82ca1f5abb359a","2014-08-02 10:19:29-07:00","MPDroidService: Change a couple of messages to direct method calls.
+"
+"1ff54463c6fee8bf04f3f3fe826946f90e7a8424","2014-08-05 06:23:19-07:00","NetworkActivityHelper: Temporarily disable.
+
+This one made it in a bit too early. It appeared to be working at the time,
+but this concept had not matured. Disable it for now, it will return later.
+"
+"4c444244c1f0bdbdfca4feff330a8bc6b8c25e8b","2014-08-05 14:47:56-07:00","NotificationHandler: Call startForeground() once, set a flag.
+
+On initial glance, this might look like a microoptimization, but each
+startForeground() call takes significant time to process. Unlike most
+any other call which takes no time on the same device. Since
+NotificationHandler starts and stops foreground, set a flag and
+only call startForeground when necessary.
+"
+"30e975a6a619bedce8ddec000a7764bf33e66502","2014-06-02 20:08:20+02:00","show 'kHz' instead of 'khz'
+"
+"d875cbd10f6303aeffed87519a6eb640758e0fba","2014-08-07 10:31:52+02:00","Merge pull request #589 from hurzl/develop
+
+show 'kHz' instead of 'khz'
+"
+"638b54b0c36bbc8c38500350ed3f8700ebe1bcab","2014-08-06 14:28:27-07:00","ConnectionInfo: Add an initializing constructor.
+
+Add an initializing method, this is necessary for blank configuration.
+"
+"4e44f76a28dfa5861af7ffd004bfbdbecd356ecf","2014-08-06 12:27:17-07:00","service: Revamp the album cover listeners.
+
+Notification always processed (scaling and decoded) it's own image using
+RemoteViews.setImageViewUri() because RemoteViews.setImageViewBitmap() would
+always crash due to recycling. This resulted in a noticable on UI thread lag.
+
+This was caused by an errant shallow copy being sent to RemoteControlClient and
+Notification, when one handler was done with the copy it would recycle for both
+of them.
+"
+"398130dc101f95bc89ddd4df710b83ca021789e4","2014-07-25 07:26:03-07:00","MPDConnection*: Make the signatures more consistent.
+"
+"170cb00dda05e5e40ae462c585d9b2d6fd0c2a02","2014-07-26 08:57:51-07:00","MPD: Remove dedicated status connection, take the main connection pool to two.
+
+The rationale behind this patch:
+
+* I have no proof we /ever/ run more than one threaded socket.
+
+* Status socket is /rarely/ used. We don't force status unless necessary.
+
+* With two separate processes, we're hitting the default MPD server
+max_connections limit.
+"
+"2c690062442dca0da2ce39909924a3f0af9d44d4","2014-08-06 15:41:26-07:00","MPDConnection: Replace the executor service with a ThreadedPoolExecutor.
+
+Replace the executor service with a ThreadedPoolExecutor, it will dynamically
+allocate the threads as necessary, rather than a FixedPoolExecutor. It will
+also allow us to debug how many threads have been used at one time over the
+lifetime of the executor, so we can scale back up if someone lets us know
+that we're using more than the current maximum threads.
+"
+"2677993ebf8634cceffd51be81e613ffb0a00cea","2014-08-07 08:11:49-07:00","MPDroidService: Remove extra handler status deployment.
+"
+"3cac794d460241fc641285c5d74a344f293b85b0","2014-08-07 08:36:50-07:00","NowPlayingFragment: Update the volume bar on forced status update.
+
+This should fix #590.
+"
+"9397339b5cfd08e7491103c1c950d506aa45fdda","2014-08-07 09:10:33-07:00","travis: Use the Android module.
+
+Use the Android module. It's maintained, it uses prepackaged stuff
+which costs Travis less in bandwidth and builds much faster. The
+only downside is it might be slightly broken after major SDK
+updates.
+"
+"6fe5743c2a9a79c9906f527481539c633f6be890","2014-08-07 18:33:37+02:00","add moveByPosition for multiple songs at once to MPDPlaylist
+"
+"31b0f80fd0643151e48e78751fcd119dd50c8b03","2014-08-07 18:34:29+02:00","add run method with 3 ints to QueueControl
+
+Used for moving multiple items on the Playlist
+"
+"0be01a3e8d88c10fb36dbc288939902be9a9fb5a","2014-08-07 11:29:27-07:00","Merge branch 'hurzl/develop' into develop
+"
+"b91f77e74112e97e28a7013794447a95a9bb97f1","2014-08-07 17:57:13-07:00","MPDAsyncWorker: Disable any kind of reconnection.
+
+Like the network monitor this is not ready for prime time, and will be
+reenabled later.
+"
+"5809b61c34c6e0cd47ec1e470632ed0000fe5111","2014-08-09 09:49:22-07:00","MPDroidService: Do not stopSelf() on persistent service intent.
+
+Do not stopSelf() in onStartCommand() when a persistent service intent is
+received. This will lead to negating the persistent service intent and
+the service will die after the last client unbinds.
+"
+"0974a82014d73b1d03335191274861116e6e68c2","2014-08-09 10:12:20-07:00","StreamHandler: On audio focus change, the MediaPlayer object might be null.
+
+Due to changes in how we handle the StreamHandler and audio focus, the
+MediaPlayer might be null on audio focus gain. In this case, if the
+StreamHandler is still active, it will be restarted by MPDroidService.
+"
+"bbbf3be0e19066bcaddb126e3e6981fa07b3339a","2014-08-09 19:47:02-07:00","MPDApplication: Set service persistence on service handler status return.
+
+Set the service persistence on service handler status return, rather than
+on service handler execution. This fixes inaccurate service handler status
+after onTaskRemoved() execution with an active service handler.
+"
+"66ebd083f323885a21f8ceeb2e6dba6c6ab17ca5","2014-08-10 16:53:23+02:00","Use AndroidSlidingUpPanel from maven. Update our implementation and fix #509
+"
+"f48715c9802824319543490c7e3280971eaf48e1","2014-08-10 16:54:24+02:00","Remove our embedded AndroidSlidingUpPanel
+"
+"22fcbeee3a40627214213e3ca57d5a0f94fa8c20","2014-08-10 16:56:09+02:00","Gradle aesthetic
+"
+"51ce11b411a8e218d18d1fa6654428e315dc6b9d","2014-08-10 17:06:43+02:00","Bump version to 1.07 Beta 7
+"

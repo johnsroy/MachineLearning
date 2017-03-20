@@ -1,0 +1,126 @@
+"commit id","commit date","commit message"
+"d5f76275b931db6336e2853e489f78eed9447404","2015-08-27 23:10:31+02:00","Update Jsoup to 1.8.3
+
+Further testing should be done, and adding support for unsecure mode
+"
+"45c9eb80e9a3c2f5030fe32a1df9ed7ed065c66b","2015-08-27 23:12:41+02:00","Create NetworkService
+
+It will now be easier to perform async tasks when the interface is not loaded.
+For the moment only the account creation is updated to the new NetworkService
+"
+"cd857f23e93f4fb6a970884925a1b26730be789d","2015-08-28 18:04:25+02:00","Add share action to NetworkService
+
+Now the share action is in a totally different service, it means that it no longer bother the user
+when the sharing is ok. Also it will not block the interface.
+
+Also it means that a notification is sent when the share fail, the notification allow the user to
+try again his share. For the moment there is one notification for each link, in the future I should
+create single notification for all failed shares.
+
+TODO :
+- Allow the user to send me an email if the share fails too many times.
+- Extend the layout of the notification for a better interface
+- Move other smaller network actions to the NetworkService
+"
+"1d511b7a14541587dd9e98b60f9a37b81048a124","2015-09-09 09:22:46+01:00","Added Basic Auth support for Shaarli servers
+"
+"9c4d3a7a3eb1554159a73105116b77ee01d7c06b","2015-11-19 19:05:14+01:00","Add option to disable SSL certificate
+
+It is good enough for most cases, needs a lot of testing before production.
+TODO :
+- Disable SSL verification warnings when option disabled, perhaps check the option
+- Make more tests
+"
+"d98c9d993d800d013ce87c17abe6be110ec70bc5","2015-11-19 21:01:38+01:00","cleanup code and add documentation
+"
+"91a4d3046e51aaa59740756a7026e6f0fec1f7a5","2015-11-21 15:34:55+01:00","Update AndroidManifest
+
+There was a bug in android 6.0 which caused the app to crash, with a NoDisplay Activity
+see : https://code.google.com/p/android-developer-preview/issues/detail?id=2353
+"
+"85324382679325376e5ca6d98c9d526df9343a84","2015-11-21 16:11:06+01:00","Move title fetching into NetworkService
+
+Now the interface should not be blocking while retrieving the title.
+I don't think I will move the tag network connection into the Network Service now, it is not very useful for the user.
+"
+"6a71bb5a00c675fe67e780350e2b04e878c635df","2015-11-21 16:21:54+01:00","Code cleanup
+
+Some typos...
+"
+"f360fa4f90aa2282d26f1f8e54273b285314bcba","2015-11-21 16:55:50+01:00","Simplify network interface
+
+To create a new connection now you only need to pass an account object (w/ the right credentials) so we can now edit the account settings
+more easily.
+"
+"4ee6e8eac83fd7dac6327a060f8585b29e01b706","2015-11-21 17:17:19+01:00","improve UX
+
+if there is no account, the button on the main page says : 'Add account' instead of 'manage accounts'
+"
+"2e93a1cfa17ee459db331ff6bddd4fcc7d715875","2015-11-21 18:10:28+01:00","Improve report button in AddAccountActivity
+
+The user can now report for any error, but the interface is much less aggressive.
+"
+"ff153bcea11ce815ba61de8f8549128893715835","2015-11-21 18:19:58+01:00","Code cleanup
+"
+"b5ed63e6b704f5c7312cba37823b28d7077bef26","2015-11-21 21:47:21+01:00","Solve bug when dialog dismiss
+
+If the user pressed back during the share the UI used to stay stuck .
+"
+"4546e948e62debb2dfcac6b23916235f62ecf643","2015-11-21 23:50:21+01:00","Merge BasicAuth from sbarakat
+
+- Create database update queries
+- Solve UI bug when editing account
+- Move to new NetworkManager interface
+
+TODO :
+- More testing
+- improve UI : hide fields when disabled
+- In the long term : find a way to simplify UI
+
+Conflicts:
+app/src/main/java/com/dimtion/shaarlier/AccountsSource.java
+app/src/main/java/com/dimtion/shaarlier/AddAccountActivity.java
+app/src/main/java/com/dimtion/shaarlier/AddActivity.java
+app/src/main/java/com/dimtion/shaarlier/AutoCompleteWrapper.java
+app/src/main/java/com/dimtion/shaarlier/NetworkManager.java
+"
+"80ac3c29e0275c12117d840db4fe9b85da5ac2d6","2015-11-22 00:31:09+01:00","Hide basic authentication when disabled
+"
+"a9f042f470eb19684d3eea6ea41287ab4cdbcc08","2015-11-22 01:00:30+01:00","Refactor NetworkManager
+
+Moved the creation of a new network connection into a method
+Should be easier in the future to edit network configuration
+"
+"c055b74107ab5fdcc16163ace51db92aee93eebb","2015-11-22 11:13:40+01:00","Solve bug with Sync for Reddit app
+
+The app used to pass the url of a link in the intent subject, so we would get an url as a title. Now in this case I just retrieve the title from the
+given url
+"
+"474c72ec95c48eee86ff09b472191a0d380a6246","2015-11-22 18:43:58+01:00","Add option to load page description
+
+Solve #14
+I have found a bug : without dialog the page description would not load, have not managed to reproduce it twice...
+"
+"d7c7940f9f9c36a7d4a8e6debee94fc893dc491f","2015-11-22 19:11:56+01:00","Show toast when link successfully shared
+
+Regression introduced in cd857f2
+"
+"6fbd08e1437f5fc011d99738e99d957cc3913b1b","2015-11-22 19:26:48+01:00","Merge pull request #17 from dimtion/NetworkService
+
+Network service
+"
+"0f30cc1a864b85749968e264607dd720a5e918c9","2015-11-22 21:50:49+01:00","Code cleanup
+"
+"0c12f7bfd5e434da7543135b5910ca602c1ceb9f","2015-11-22 22:29:18+01:00","Improve bug report system in AddAccountActivity
+
+The bug report button is at the top now, so everyone should be able to see it
+"
+"54695ab9f09f80e83c0a0cbe4999c5b6d0979558","2015-11-22 22:55:25+01:00","Close some unclosed database accesses
+
+For some reason I get this error :
+W/SQLiteConnectionPool: A SQLiteConnection object for database '/data/data/com.dimtion.shaarlier/databases/shaarlier.db' was leaked!  Please fix your application to end transactions in progress properly and to close the database when it is no longer needed.
+
+But I cannot find any place where the database is not properly closed...
+"
+"286d1e968f15a15164db0db3f20af084e44b9e80","2015-11-22 23:17:30+01:00","Bump to v1.3.0-alpha (19)
+"

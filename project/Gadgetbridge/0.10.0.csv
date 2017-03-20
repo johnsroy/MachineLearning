@@ -1,0 +1,85 @@
+"commit id","commit date","commit message"
+"fa6100fcecc5c43a16f685c1d7de627a8fcc1aa6","2016-05-26 13:11:03+02:00","Merge branch 'master' into feature-sunrise
+"
+"7ef005f6a38e85a6810c9414c828664dfa6c29a5","2016-05-26 14:39:54+02:00","Allow getting the network location within pebble settings for sunrise/sunset calculation
+
+It is also possible to set the location manually
+On Android >=6 the required permission will be requested when pressing the button in settings.
+"
+"88f338b0b97ba48205b318519c044149dae028f3","2016-05-26 14:58:36+02:00","Reenable our discovery activity for Android 6
+
+Now that we request location we are allowed to do a btle scan again
+"
+"b0e0aec4651b0e490ba65fc85a36bab5df9deb50","2016-05-26 15:20:27+02:00","fix typo
+"
+"c360eb3392ca36094d55b8d29bca9f6bc773ca01","2016-05-26 19:03:38+02:00","This should fix some connection problems #274
+
+Some APIs have become synchronous, it seems, e.g.
+connectGatt() -> onConnectionStateChanged() -> discoverServices() -> onServicesDiscovered()
+appears to happen synchronously. So connectGatt() will not return before services are discovered!
+
+So now we deal with this situation.
+"
+"6e33c7364a41de480727b2421756f91faa174b09","2016-05-26 22:21:58+02:00","Remove some commented code
+"
+"50b7a02ef2da979476c68e43a54a62e7802584ad","2016-05-26 23:46:21+02:00","One more attempt at fixing dynamic logging reconfiguration
+
+- moved out of GBApplication to class Logging
+- the main thing is: when start()ing the FileAppender again, it *must*
+- be configured to be non-lazy, otherwise it won't open the stream ever again.
+"
+"2d49ce505a8676a5650d9581ef5f86579c8463b7","2016-05-26 23:48:05+02:00","Set state to 'Waiting for reconnect' for BTLE devices
+"
+"8970bbe04490b85ee669c0b5ca03224bf7d72760","2016-05-28 11:32:36+02:00","display device address in info menu (IP:PORT / MAC)
+"
+"a13cd9d951dc57363acb96795793ceea81e44290","2016-05-29 20:47:16+02:00","update changelog, bump version to 0.10.0
+
+reasons for the bump are
+- new permissing
+- first contact with the timeline, although is is not very useful
+"
+"2b88720f83170a70a35349ed15160e00a65dd242","2016-05-29 20:50:05+02:00","fix xml changelog and add missing entry
+"
+"c9aad271dab2dcca91af4b740ffbffaabb99644c","2016-05-29 20:53:25+02:00","update translations from transifex (thanks!)
+"
+"2e8d96e9954d31d5a4494c00bd7596b34b79a393","2016-05-29 21:29:27+02:00","add option to enable sunrise/sunset on the timeline
+
+Also fix a small type Aquire -> Acquire
+"
+"af14fb4f905881ad64406c9de8805441a76ca9af","2016-05-29 21:40:56+02:00","limit max charaters to longiute and latitude to 7
+"
+"4533c80c9589c82d9fdb70ef57f2e1a671ad9404","2016-05-29 21:44:43+02:00","make sure to only reconnect when device is in 'waiting for reconnect state'
+"
+"33da6c29256ed1d389c7cdb1ff0ab8ca166e3232","2016-05-29 22:58:25+02:00","Pebble: make sure that 'waiting for reconnect' state is set when initial connect fails
+"
+"f2cbee39f1e63749ffedc8a20c7b0658d5fc837c","2016-05-29 23:02:00+02:00","update changelog again
+
+actually the last commit is responsible for the fix (even though it is not mentioned in the commit log)
+"
+"b71597800a6e16152968fb25d2d6b4a960919f7f","2016-05-29 23:24:16+02:00","Pebble: set device to reconnecting state when actively reconnecting
+
+It makes it easier to watch connection attempts and the delay between them in control center.
+"
+"0231e83ea3dc0243814e16b965a62ca5e48dc870","2016-05-31 00:07:24+02:00","try to fix duplicate/missing surise/sunset pins
+"
+"42acb8915a071e09b6ab2f06fd3308e7c43cdb13","2016-05-31 12:24:28+02:00","Pass the integer keys to pebble, even if they are not within the known app keys. Requested in #251
+"
+"a15d07858ec743e983d90816bab4e2bed27636ae","2016-05-31 13:03:15+02:00","Sunset/Sunrise: always use UTC timezone for calendar operations
+"
+"9da050c51ddfc26450e94bf23fe781a057fbb9f8","2016-05-31 13:05:55+02:00","update changelog
+"
+"1dd0965ae118d803d788e8f79060805a90e6f49f","2016-05-31 13:07:11+02:00","update Italian traduzione from transifex
+"
+"a9d74b52f88c88de9137d05f0e619cf2e3dcfbd6","2016-05-31 13:34:29+02:00","update German übersetzung
+"
+"19d7c035454c48f7a5ca16b7549d70002f816f3e","2016-05-31 14:18:45+02:00","Pebble: get rid of log spamming when changing applications (unhandled message)
+"
+"9a106667d25b3f147c7ec366b0824e3ac4f86d82","2016-05-31 22:33:38+02:00","Setting the wear location appears to fail for amazfit #274
+
+So as a test, disable that for amazfit. Let's see what happens
+next.
+"
+"2e6536555b806225d7304fedbed730a01f5ff512","2016-05-31 22:56:22+02:00","Fix previous commit (compile!)
+"
+"df4ae49b7214d756418994cf8556564107b7b6db","2016-05-31 23:58:46+02:00","update Japanese translation from transifex (thanks!)
+"

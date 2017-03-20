@@ -1,0 +1,239 @@
+"commit id","commit date","commit message"
+"73a1019c5788505089effe4cec34d8f8d79a0dde","2014-07-10 15:57:42-04:00","Issue #699, upload not getting zipped. The code would not zip on http
+error, this is changed.
+"
+"e0c74d4dc0c5733fc96bdb43362b808790dd70ae","2014-07-10 16:08:39-04:00","cursor was not checking cursor.getCount() > 0 before working with it,
+could cause crash
+"
+"b00335cec6eab8f5b88e67657f538cf291963f39","2014-07-10 16:12:34-04:00","Merge pull request #702 from garvankeeley/issue699
+
+Issue #699, upload not getting zipped.
+"
+"d828be9294a23b49d2001f712b16d0199d5ddb9c","2014-07-10 16:13:58-04:00","Merge pull request #703 from garvankeeley/issue696
+
+cursor was not checking cursor.getCount() > 0 before working with it,
+"
+"687ff1a1a2af207d4eba6ac14bf5dd42ce30c637","2014-07-09 00:06:50-04:00","Adjustments to timers for Passive Mode. Most important: GPSScanner, don't put time and distance restrictions on the listener, I get greater percentage of fused locations doing this (like 10x). AFTER getting a location, then do our own time and distance threshold checks.
+"
+"b049cf3ea57c2d05ec9aab5cdb02d2f63d775296","2014-07-10 21:30:16-04:00","* StumblerService now runs on a background thread. Intent message is now synchronous within the service.
+* Passive mode uploading is completed, when the db is non-empty, start a timer to periodically check if the wifi is connected and the screen is on, if so do an upload. If the db data is too old, delete it.
+"
+"7582b9279e5c92cab5c21a0182b5ca4a3dd0de98","2014-07-10 21:32:33-04:00","Set the enabled state of the service based on the Firefox pref sent
+"
+"61367c4d045638caeb108b2a873adec3567e6118","2014-07-10 22:13:13-04:00","Merge pull request #704 from garvankeeley/passive-upload
+
+Fennec Integration: StumblerService to a thread
+"
+"8cf6c7af14c8b09e8a748c86b67384834ba8479c","2014-07-16 22:44:03-04:00","Revert 'cursor was not checking cursor.getCount() > 0 before working with it,'
+"
+"cf23bca0dee47a06430f6fe13f6cd1c183bba6b5","2014-07-16 22:44:59-04:00","Merge pull request #712 from mozilla/revert-703-issue696
+
+Revert 'cursor was not checking cursor.getCount() > 0
+"
+"79df5c33ebfe10904daa1792616a6e00fa24d76b","2014-07-22 20:15:21-04:00","MainActivity ui update, change to ensure it runs on the main thread,
+allows for safe updating of the ui from secondary thread
+"
+"56f49d9c542f989cce1b4c8f9eee4d4d54734e2b","2014-07-22 20:44:15-04:00","Merge pull request #718 from garvankeeley/update-on-main-thread
+
+MainActivity ui update: change to ensure it runs on the main thread
+"
+"e37e4203875583332afed3d4fd75871dc5a239d1","2014-07-22 20:38:37-04:00","Change from using ItemizedOverlay to just the AccuracyCircleOverlay to show user location
+
+The big pinpoint wasn't desired, and being that we will want to include a GPS location
+with accuracy radius in any case, just use that.
+"
+"00b382122c68a81ea336a8cde4d063c31095f5f0","2014-07-22 20:52:12-04:00","Generate new Paint only on creation of AccuracyCircleOverlay, and improve location point
+
+The Paints were being created every draw, which should be avoided.
+Also, changed the location point to more closely match what was in the mock
+with a solid blue center and white outline.
+"
+"62297fd19d626ebd9b03938ebc1e3ece302fc313","2014-07-22 21:00:51-04:00","Feed Location from GPSScanner to Scanner to StumblerService, and finally to MapActivity
+
+Rather than piece out the latitude & longitude, just get the whole location since
+we'll need the accuracy, anyway.
+"
+"854c592109b28499999570388bb4512842909a03","2014-07-23 13:10:01+02:00","Updated Polish translation #711
+"
+"24073a52d2a5fc9f70e9a032d55bb093281da993","2014-07-23 13:12:37+02:00","cleaned up SSIDBlockList
+"
+"2596c5e6c41c968ee4a5b085d138b350d24df4d3","2014-07-23 20:14:54-04:00","Merge pull request #719 from keverets/pin-point
+
+Change to using a pin-point (with accuracy circle) to indicate stumbler's GPS position
+"
+"465f7619fe0e0753000729392df08de4248ffbe9","2014-07-24 10:35:40+03:00","Translation updated
+
+Added missing strings
+"
+"5a28c5bb357ebdb5ee4227f5e3e2ce8560eb03c9","2014-07-24 11:30:21+03:00","Translated missing Finnish strings
+"
+"87721d227063ea6d737fb00a500a88be7c8e1918","2014-07-24 19:02:48-07:00","Merge pull request #723 from ojarva/fi-translation-updates
+
+Update Finnish strings (@ojarva)
+"
+"769ffd17624fe0a30aa81f36bf00e32e5b064a3b","2014-07-24 19:03:47-07:00","Merge pull request #722 from yarons/patch-1
+
+Update Hebrew strings (@yarons)
+"
+"75161f73f7fcfad4e8b47ceba5921f8d329a2164","2014-07-24 19:04:27-07:00","Merge pull request #721 from Djfe/clean-up-ssid
+
+cleaned up SSIDBlockList (@Djfe)
+"
+"6b40774380c96a3845195687696a102b81d50fff","2014-07-24 19:05:11-07:00","Merge pull request #720 from Djfe/update-pl-translation
+
+Updated Polish translation (@Djfe)
+"
+"da92737d83cb061ff093a60ce9580b078e352f7e","2014-07-25 20:28:23-04:00","Put initialization of GPS broadcast reception in onStart()
+
+It's removed in onStop() so should be initiated in onStart().
+Without this change, if the user left the map and came back, they
+would no longer get GPS updates.
+"
+"f86397253757fc698b635c0d79a5220368097420","2014-07-27 06:19:00-04:00","Use the service's last location if available and the center hasn't been set in other ways
+"
+"96d8c831f278b399d79210f190928ed512af0598","2014-07-28 18:57:57+05:30","Update Hindi translation
+"
+"d2d3c59acab56c5b39c530f477680b11e92d12c6","2014-07-28 18:58:29+05:30","Update Marathi translation
+"
+"6c79540185d2deee9a3c7981f9337ef49ee5a8f8","2014-07-28 10:01:10-07:00","Merge pull request #734 from vinitraje/master
+
+Update Hindi & Marathi translations (@vinitraje)
+"
+"4f49f5d9e852863baceb3cabbdeae1d60c69890c","2014-07-28 17:35:17-04:00","Merge pull request #730 from keverets/avoid-ocean
+
+Use the service's last location if available and the center hasn't been set in other ways
+"
+"3c47aa51ff14dca918e512fb07074c246537e07c","2014-07-28 17:49:10-04:00","Merge pull request #725 from keverets/map-resume
+
+Put initialization of GPS broadcast reception in onStart()
+"
+"dd7d127aa34421345ce464149e07829e7127e7ab","2014-07-25 21:38:25-04:00","Break up positionMapAt() so that setUserPositionAt() can happen independently
+"
+"f17c1cc35a4892b14d271f63d8a1b1daf0234bf2","2014-07-25 21:06:55-04:00","Listen for user moving map, and don't recenter from GPS until they touch 'Refresh'
+"
+"6550f939366d97c14efdf7bc2e297ae5f9f8fd9e","2014-07-28 18:20:11-04:00","Remove mMap.invalidate() calls
+"
+"e56e98d25db2d399f97c6b08a6b8939b50c40ad9","2014-07-28 20:25:30-04:00","Merge pull request #726 from keverets/pan-mode
+
+Pan mode
+"
+"911b72003c034696ee1764a8f9bf7093b5d01954","2014-07-27 07:25:36-04:00","Add icons and text to MapActivity to indicate the GPS fixes & satellites
+
+Icon from https://www.iconfinder.com/icons/175171/gps_receiving_icon so if used
+must include link to author's website: http://icons8.com/
+
+Modified icon for the case of no fixes by removing semicircular lines.  Made
+white and scaled for xxhdpi, xhdpi, hdpi, and mdpi.
+"
+"c58beb598a60c4f058289d5f0212a976e89a0f37","2014-07-27 07:38:06-04:00","Add latitude & longitude to the header bar
+"
+"1cada9b8d2d49959407cfe9c89c9419e94a51328","2014-07-27 07:50:30-04:00","Add Cell and WiFi info to the bottom of the MapView
+"
+"2003bb611038a2326132269742a3164be6d61872","2014-07-28 22:47:04-04:00","Merge pull request #729 from keverets/map-add-info
+
+Add Information (GPS Status, Location, Cell Info, WiFi Info) to the Map
+"
+"1ad5f19b7e0e64d35e443074cc3917eac02219b0","2014-07-25 19:21:09-04:00","Add PathOverlay to the map, to draw the GPS track
+
+Also, use a consistent color for the GPS dot and track.
+
+Note that post OSMDroid-4.2, PathOverlay is deprecated, and OSMDroid
+recommends using Polyline in the OSMBonusPack:
+
+https://github.com/osmdroid/osmdroid/issues/40
+"
+"6da62e23ed30e36a43672b0acac3925e5adf9e6d","2014-07-10 21:32:33-04:00","- Support for moz api key.
+- Set the enabled state of the service based on the Firefox pref sent
+- support for storing firefox 'stumbling enabled' state. The trick is here is handling the unknown state, so if the service is started from BOOT, then we need to check the pref on disk.
+"
+"008d38e2dbe8ee61c42438d37c36ef2bf424028f","2014-07-17 01:54:25-04:00","Client code now uses same database and sync code as server. The gradual move allowed for greater code stability for MozStumbler releases. This will require another beta release.
+"
+"698dade0ca8c0d4786fa0bdf25515b6f25132756","2014-07-30 15:56:17-04:00","Relatively minor commit, moving and renaming.
+- Moved files
+-- ScreenMonitor to client, as this is not used by Fennec, so we don't
+want in the service (yet)
+--- DefaultCellScanner in the client needed updates to take over
+start/stop of ScreenMonitor
+--- CellScannerNoWCDMA in the service previous hosted the ScreenMonitor,
+removed this usage
+-- PersistentIntentService is moved from service to service/utils
+
+- SharedConstants renamed to AppGlobals, and this class gets new
+guiLogInfo/Error util function. (dataStorageManager global is added
+here, this class arrives in the next commit)
+-- requred minor name change in CellScanner, PassiveServiceReceiver,
+MapActivity, WifiScanner, GPSScanner
+
+- Scanner.java renamed and moved to scanners/ScanManager.java. For
+clarity, and I avoid having files in the top level dir
+"
+"f85b015a6d547688ce92f199ef5fb387119621b9","2014-07-30 16:06:38-04:00","Lint complains about a possible circular reference in this file. Changed
+the code to use have the inner class reference the outer using a weak
+reference, and the warning is gone
+"
+"fea74902ee9c83fad8bb2950a2f2d98ff0712b4d","2014-07-30 17:40:07-04:00","The grand refactor to remove the DB.
+- Delete ContentResolver(s), Database.java
+
+- DatabaseContract is now DataStorageContract, and has the constants
+used for file storage
+
+- DataStorageManager is the backend, it has an in-memory working buffer
+for collecting reports, and in-memory buffer of reports to be sent,
+and a list of files on disk (with about 50 reports per file). Please see the documentation  for the class, it explains this in more detail.
+
+-- After data leaves the in-memory working buffer, it is zipped, this
+required some changes to the network code to handle pre-zipped data
+(AbstractCommunicator.java)
+
+-- The constructor of DataStorageManager also upgrades the sync stats from the old DB.
+
+- Removing the DB propagates changes to StumblerBundle, StumblerBundleReceiver, Submitter, Reporter.
+The logic is unchanged in these classes, just cleanup for the backend.
+"
+"93c1821c506b2f3bc21e925e4275edbcbf586820","2014-07-30 17:41:34-04:00","These tests were DB-specific, and required gutting. The ServiceTest does a basic check of passive stumbling mode. This testing is not adequate, but it is better than nothing.
+"
+"c58b466bc29332e2dec59549c50f0272832fbf20","2014-07-30 17:43:15-04:00","Uploading now uses a Android alarm service. It runs only when the device is awake, and is scheduled to run only when data is queued.
+"
+"f51f9a62aab343ae70f5c1fc82801383e373ddf1","2014-07-30 17:45:01-04:00","Changes to the db meant the syncstats are now stored in a key-value file. This required changing the GUI.
+More importantly, with the Android Sync gone, we aren't getting easy access to upload data volumes, this is now shown in the upload dialog (total KB and queued KB).
+"
+"8dcb04b05b785b4df9a50bc2acfb2f221a9819c2","2014-07-30 22:12:56-04:00","A bug! When iterating the file list to upload, we are also deleting
+files as they are uploaded. Need to store a const copy of this list
+before iteration begins.
+"
+"449094f03edbd7a65675762280b4f9c7d3ac3c03","2014-07-31 11:00:40-04:00","Merge pull request #738 from garvankeeley/passive-upload
+
+Fennec Work: pull database back-end, replace with pure file-based storage
+"
+"8992e1ca10e635a078f49b6b847dd627fb4d8937","2014-07-31 16:22:37-04:00","Merge pull request #727 from keverets/local-track
+
+Add PathOverlay to the map to draw the GPS track
+"
+"f0e3c81d5efb4b22bae3e7a6a3fec49c180ea5ff","2014-07-31 16:40:29-04:00","Amendment to 727, track locations when the activity is not showing. Also
+snuck in call to make the line thicker.
+"
+"75fabeb6ee7db8a8737089005416c9aa32f3ed1e","2014-07-31 23:35:11-04:00","Merge pull request #741 from garvankeeley/amend727
+
+Amendment to 727, track locations when the activity is not showing.
+"
+"5abc00d75bf32a2a6563d41fd7c03943ae0ae66d","2014-07-31 21:45:57-04:00","Minor cleanup items from Kevin's last review. Changed Log.e() to correct
+format, changed string concatenation to String.valueOf()
+"
+"b53295c4576e8bb26418c88a90ef1d3f1bee3088","2014-07-31 21:52:04-04:00","Bug: the alarm keeps getting rescheduled, and unless collection went
+idle, the upload wasn't triggered. Added a flag to prevent this.
+"
+"0ffe83e879d0caad8438cdf87d5e652c8cdd21fa","2014-07-31 22:33:24-04:00","Some cleanup from the Fennec review before I add the timer to
+periodically flush reports.
+- fixed non-braced ifs
+- /** -> /* on comments
+- removed used of the word database that was in a few places
+- synchronized on all public methods on DataStorageManager
+"
+"096311fa1270595d65cb493b0fac5a53dd179665","2014-07-31 23:31:10-04:00","Data storage: On idle, schedule a timer to flush to disk after a few mins.
+This is to handle the case when collection stops and wifi not available
+for uploading.
+"
+"53cacb23cda14140f592ecba6161acbd18964c4a","2014-07-31 23:51:17-04:00","Merge pull request #745 from garvankeeley/refine-disk-db
+
+Data storage timer bugs: (1) upload timer kept being reset (2) new idle timer to flush
+"

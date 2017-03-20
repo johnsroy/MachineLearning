@@ -1,0 +1,48 @@
+"commit id","commit date","commit message"
+"d87b566582a407544971711f65f879d2806328cd","2014-10-05 14:30:27+01:00","Fix #188: ignore chooser choice within 300ms of open.
+
+This seems short enough that it's very unlikely anyone has deliberately identified and clicked on a puzzle they wanted within that time, and much more likely that it's an accidental click.
+
+That scenario will be further mitigated by #191, but this still seems worth having as well.
+
+The ignoring is done with a touch listener so you don't get a background flash, nor a click sound effect, where applicable.
+"
+"7cfa5f5c6d938a32ea8128251d12d4f80c23ed04","2014-10-07 18:44:55+01:00","Fix #190: briefly toast how to scroll when zooming from 1x to >1x (on finishing gesture).
+
+Also fix bogus use of isIdentity (zoomMatrix has a translation in it).
+"
+"21ad714a8c76d71055738a2559899e5fe5301b9f","2014-10-07 20:07:35+01:00","Fix #176: show reminder of long-press action, and make it and scroll reminder optional.
+
+This happens when opening the app with an existing game, or switching game, to a game which isn't going to show the arrow keys.
+"
+"3f917de8a5ec295eb80a116ed7d9ee9c1a67e6a4","2014-10-07 21:22:53+00:00","Fix antialiasing artifacts around edges of Bridges islands.
+
+When an island changes colour (because it becomes locked or
+highlighted, or goes back to plain COL_FOREGROUND from one of those
+states), we were just redrawing a filled circle over the previous one,
+which only really worked before antialiasing was introduced.
+
+Fixed by reworking the entire drawing edifice to be grid-square based,
+so that every grid square is either redrawn in full or left alone.
+Grid squares come in two types - island and bridge - but a bridge
+square can have neighbouring islands overlap into it, and the bridges
+entering an island overlap the island square too, so we end up with
+quite a large collection of bitfields describing each square's
+contents, and some care must be taken to draw each square in the right
+order.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@10282 cda61777-01e9-0310-a592-d414129be87e
+"
+"bbcee2305444432586a9581650fe5b8a7f5a633d","2014-10-07 22:56:53+01:00","Fix #193: several errors about unclipping (see #186).
+
+* Clip rect is in game coordinates (i.e. the zoom matrix will be applied to it).
+* We do need the ox,oy after all, to know the margin and clip to it (focus of this bug).
+* We should use w,h after we know their new values.
+"
+"702f1fbba3bf5ee5ac511e0513f212e0210c494e","2014-10-07 22:58:06+01:00","Merge branch 'upstream'
+"
+"d8158ffd4581b8e93fb4d47d30572bb7b31780bf","2014-10-07 23:02:19+01:00","Bump version.
+"
+"0f2a96070e2d762c7e015c46033a3775162a9ce4","2014-10-07 23:59:58+01:00","Fix #191: save game per puzzle not just one.
+"

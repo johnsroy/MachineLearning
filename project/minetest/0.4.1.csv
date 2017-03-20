@@ -1,0 +1,37 @@
+"commit id","commit date","commit message"
+"2795f44f0316c83728bc8059a020869058498f78","2012-07-21 14:38:49+03:00","Server-side checking of digging; disable_anticheat setting
+"
+"15bf9a7026db34bddc5f756361bd06a1e5cb9aff","2012-07-21 15:32:46+03:00","Fix typo in scriptapi.cpp in minetest.get_craft_recipe()
+"
+"cc10eec6c6fd6252450f7d3af098e3936e43d3d9","2012-07-04 15:06:19-04:00","Fix signed overflow in getPointedThing
+"
+"43df78102c0a95001443979827d747cfe5bd2e37","2012-07-21 16:36:14+03:00","Check whether node is known before reading definition in __builtin:item:on_step()
+"
+"47d30d12cb550666cc3776c3ed381c318f294ba9","2012-07-21 18:59:12+03:00","Facedir rotation of nodebox textures
+"
+"1788709e2d9cfa8de36742ed21aec877d48c64d7","2012-07-21 20:23:32+03:00","Rotate facedir-rotated top and bottom textures too, and re-implement nodebox side rotation
+"
+"a2738dec591e9a399e613b9161a7e3ea98674180","2012-06-26 14:01:02-04:00","Fix hovering after mining a block underneath you while sneaking
+"
+"0b612539318a688ad24b66392bf39aedf8a01f62","2012-07-21 21:23:15+03:00","Actually fix facedir-rotated nodes placed using minetest.env:place_node()
+"
+"e79ad21aebfe1dc4227ae1f8dd3a2f1c0b5ba193","2012-07-03 23:11:06+02:00","Remove mbtowc warnings
+
+As mbtowc(_, _, 1) reads at most one char, everything other than a
+return value of 1 is an error. Since the input strings are static,
+an assert protects against future changes.
+
+Likewise, wctomb should currently never encounter a character, which
+actually needs a multibyte representation.
+"
+"28e7443f9bcc1fac186394847c1b788e39daed5e","2012-07-03 23:13:15+02:00","Fix wctomb use
+
+wctomb(NULL, _) returns 'nonzero if the encoding has nontrivial shift state, or zero if the encoding is stateless.'
+
+I assume the intentation was to get the size of the target buffer.
+Use MB_CUR_MAX for this.
+"
+"d085139057e84c677853a57a2613638378e8fdfa","2012-07-04 07:18:25+02:00","Fix signedness warning in base64.cpp
+"
+"e3ddbe8c6b70d260f89dfdb0aa7ecb7dab0a12f6","2012-07-21 23:14:23+03:00","Version 0.4.1
+"

@@ -1,0 +1,132 @@
+"commit id","commit date","commit message"
+"33a4dcd9a1f0b73377b6e031a3e10ed96c920f95","2014-09-02 21:54:07-07:00","First attempt at a Google Play feature graphic
+
+These are required for new APK uploads or store listing changes, so
+let's toss something simple together for now and revisit later.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"627402cacf7a5985f8d7d511a1463a3225911ddf","2014-12-28 13:55:52-08:00","external: Update stoken to v0.81
+
+This allows us to drop tomcrypt and link against nettle instead.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d65c95d26b5e5c69f58ef0835ab87ef46458f54b","2014-12-28 13:57:20-08:00","external: Update openconnect to v7.02+
+
+This also provides the run_pie binary for running curl on ICS, bumps NDK
+to r10d, gets rid of the GCCVER override, and pulls in the latest GnuTLS.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"948a60430ff5e0bf1590cbf6519ebb66ab41524f","2014-12-28 14:31:24-08:00","OpenConnectManagementThread: Use new Java API to get peer cert
+
+getCertSHA1() has been replaced by getPeerCertHash().
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d5ec15f5911fdd246e6a517ef5c8d135b1c8562f","2014-12-28 14:00:48-08:00","Don't store prebuilt binaries in git
+
+These are getting updated too often and bloating the repo.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"62449760d65c949a308b9e09654e7d6a07df3cc5","2014-12-28 14:02:56-08:00","Add .gitignore files for binaries under libs/ and assets/raw/
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"865fa64459f66026fddc6054452cd443e80a1aeb","2014-12-28 14:58:51-08:00","travis: Update to use NDK r10d; don't delete jar/so files
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"6e9da319c6577ea3e578be6037d373277e217668","2014-12-28 14:05:45-08:00","external: Build curl binary with -pie
+
+We will use the run_pie helper from Chromium/OpenConnect to execute it
+on ICS.  JB+ can run PIE binaries without a helper.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"37525b773b7441a7bdf0c3c6e625a89ec4681daa","2014-12-28 17:10:48-08:00","OpenConnectManagementThread: Use run_pie to wrap curl on ICS
+
+Now that curl is a PIE binary, it won't run as-is on ICS.  Before
+connecting, write out a wrapper script that either invokes curl-bin
+(a PIE ELF binary) directly, or uses run_pie to execute it via dlopen().
+
+fixes #1
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"8116cec1e8c22a6b16f79c760be9a0d69b8ea394","2014-12-28 17:17:33-08:00","Update changelog and bump version to 1.10-beta1 (1101)
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d570ba61e4ffa115f63dd398b895d3e85a2d5cec","2014-12-30 09:32:48-08:00","external: Use -fPIE when linking
+
+The gcc info page says:
+
+For predictable results, you must also specify the same set of
+options that were used to generate code (-fpie, -fPIE, or model
+suboptions) when you specify this option [-pie].
+
+The output binary is exactly the same before and after making this change,
+but it's probably a good idea to follow the rules anyhow.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a22f397c761ff3adfa9668a70cb67d0cff0485a8","2014-12-30 09:35:50-08:00","Update changelog and bump version to 1.10 (1109)
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d4429f3cf9c15d2219c39bddffea1dfb9dc44807","2015-02-07 18:36:27-08:00","OpenConnectManagementThread: Revert back to old SHA1 cert hash
+
+Commit 948a60430ff5e0 ('Use new Java API to get peer cert') inadvertently
+changed the format of the certificate hash, which would cause previously
+accepted certs to generate a new warning.  The new scheme only hashes a
+portion of the cert; the traditional cert fingerprint computes the SHA1
+of the entire DER file.
+
+So for now we will manually implement the latter scheme and preserve
+compatibility with existing stored hashes.
+
+See also:
+http://thread.gmane.org/gmane.network.vpn.openconnect.devel/1956/focus=2113
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"7c058d0a1bc0c7ddbdd8966fd2b13f1cadb67549","2015-02-08 06:33:08-08:00","README: Update build instructions
+
+fixes #3
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d29353aff145d77694d496acf8c06b318037a719","2015-02-08 07:19:14-08:00","OpenConnectManagementThread: Send the mobile headers when appropriate
+
+If the OS type in the profile is Android or iOS, send the mobile headers
+so the gateway can set an appropriate idle timeout.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"c2fc441dd7b0c98c1917ba165e48777aab9a4c92","2015-02-08 08:39:33-08:00","external: Sync with openconnect rev 6dc7b0a6d514
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a7441191b7ff1379a4509d84d3927b734036263b","2015-02-08 08:49:55-08:00","external: Don't try to commit binaries on 'make refresh'
+
+We don't store these in the repo anymore, so it will just throw an error.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"1f35e865da5c1ad21649eb660951dafbba445b3e","2015-02-08 09:52:17-08:00","StatusFragment: Fix IPv6 address display
+
+The status fragment never actually displayed IPv6 addresses correctly.
+Fix this, and split server_name/ipv4/ipv6 into three separate lines
+since two of them can be relatively long strings.
+
+fixes #2
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d16f7c110ba4689e358b7a56f79b49f5596436f2","2015-02-08 10:14:59-08:00","Update changelog
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"

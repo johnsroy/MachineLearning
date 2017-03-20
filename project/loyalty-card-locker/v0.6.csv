@@ -1,0 +1,102 @@
+"commit id","commit date","commit message"
+"7bbcc52ba6f61c1d259aaac2fb0d89e028fbe4d1","2016-05-16 20:55:37-04:00","Remove usage of emulator in Travis-CI
+
+The emulator was never used, no reason to download it on every build
+"
+"0a7d5d89cf864a25e81d286bce20d2e8173eef4d","2016-05-17 14:30:40-04:00","Reduce min SDK version to 11
+
+The selection of SDK 17 was arbitrarily based on the version
+available on my device at the time. As no APIs are being used
+at that level, a lower SDK version can be targeted.
+
+According to the current distribution of Android device versions,
+99.9% of devices are at SDK 11+. Changing to this for the min SDK
+for now.
+"
+"b8d4eaacad97c1adbffd8534f263b937898d888f","2016-05-17 18:23:11-04:00","Merge pull request #42 from brarcher/min-sdk-11
+
+Reduce min SDK version to 11
+"
+"b91d4c934a664e06f4b5c41a1b198d56f0c8e1b9","2016-05-21 18:21:53-04:00","Generate barcode in an AsyncTask
+
+This change moves the generation of the barcode into its
+own async task. In addition, the size of the ImageView is
+used to determine the barcode size to use.
+
+There will be cases when the size of the ImageView will not
+be known when the barcode generation starts. This will be resolved
+in a future commit.
+"
+"dc4a41088c01a365ab14d9ed5951f504c0fa3c12","2016-05-21 18:23:08-04:00","Generate barcode after ImageView size is known
+
+The size of the ImageView may not yet be known when the
+barcode generation is needed. If this is the case, wait
+until the final layout is complete then start the
+barcode generation.
+"
+"cecec15762b4054fc53bf2c69bcafbac2f4ce9b1","2016-05-21 18:26:21-04:00","Scale barcodes to ImageView's size without filtering
+
+It turns out that the library used to create datamatrix barcodes
+returns the smallest image necessary to contain the barcode. That
+is, the size passed into the barcode writer. If the ImageView
+scales the tiny image itself into the full size it will use
+bi-linear filtering, which results in a blurry barcode.
+
+To avoid this, if scaling is needed do so without using filtering.
+"
+"b89c5eb91c259bd7b57a7af60b93c557429c656a","2016-05-21 18:31:31-04:00","Change padding of card list on main screen
+
+The entire space for the ListView was not being used, which
+appeared odd.
+"
+"227af54de7634e8fcda10bbeaa912e5f07295472","2016-05-21 18:46:57-04:00","Merge pull request #43 from brarcher/datamatrix-scaling
+
+Datamatrix scaling
+"
+"3fd45af7d95ccdcfced410f96386f1330b884031","2016-05-21 22:41:38-04:00","Add dependency on Guava
+"
+"1c8ef34b8a2d5c2c7567aded75ff93597d8795e4","2016-05-21 22:43:54-04:00","Remove unneeded parentActivtyName attributes
+"
+"0aa18042583b8cb8db52f82a3df2826c72b8e6c2","2016-05-21 22:44:40-04:00","Allow home button to back out to previous activity
+"
+"2f86de4c1b4f90e3621e7df0dc67859e05085800","2016-05-21 22:50:06-04:00","Protect against unexpected failures when encoding barcodes
+
+It was observed that some barcode encoders will fail if the
+data passed to them is not valid for the format. For example,
+the ITF encoder will throw an ArrayIndexOutOfBoundsException
+on the input 'this is a test'.
+"
+"793247a48c3a15467a4305b2468c34c653388216","2016-05-21 22:50:21-04:00","Remove unused context
+"
+"a3a5a3a8dbb0516737e21f5f5d742ab4f5b9c118","2016-05-21 22:50:57-04:00","Remove GlobalLayoutListener when no longer needed
+"
+"8edc9ce5fd4c79016ad1196247d7a73a279effc0","2016-05-21 22:52:57-04:00","Set barcode image visibility upon completion
+
+If the barcode generation succeeds set it as visible, otherwise
+make it gone.
+"
+"c86819fc7447f61d582daa20c96fb65d85d0a409","2016-05-23 08:43:52-04:00","Allow user to enter a barcode manually
+
+If a user is unable to scan a barcode, this commit allows a
+user to enter is manually.
+
+If the user selects to Enter Card instead of Capture Card,
+the user may enter the card's id. As it may not be known which barcode
+format the user expects, and the user may not know what barcode
+type is what, all barcode types are generated from the user
+input. Those that are valid are displayed to the user. The user
+may then select the barcode image which matches what the user wants.
+
+Italian translations provided by Michael Moroni (Airon90)
+Dutch translations provided by PanderMusubi
+"
+"19bd64c48c0b6fe97fe1c8f1210fecbbc6458049","2016-05-23 08:51:28-04:00","Merge pull request #44 from brarcher/manual-barcode-entry
+
+Allow manual barcode entry
+"
+"18310fdd250b1402c6ca636159921b5c9b8fa88d","2016-05-23 08:52:27-04:00","Update for release v0.6
+"
+"bbe6ec37419988d47102c253cfb1aeea3efd636a","2016-05-23 09:08:06-04:00","Merge pull request #46 from brarcher/pre-v0.6
+
+Update for release v0.6
+"

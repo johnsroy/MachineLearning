@@ -1,0 +1,62 @@
+"commit id","commit date","commit message"
+"268e71fa021539b0184a3f04bc0b551d84d1d83c","2011-09-18 07:43:18+00:00","Patch from Chris Boyle to fix Signpost's labelling when you have more
+than 26 separate linked chains of unnumbered squares: we now wrap from
+'z' to an Excel-like 'aa', 'ab', ..., instead of falling off z into
+punctuation and control characters.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9304 cda61777-01e9-0310-a592-d414129be87e
+"
+"84e186a2ce80bb2a627bfe4b1f7ce5a0d9538522","2011-09-18 07:43:18+00:00","When we run out of background colours for chains and wrap back to the
+beginning, we should wrap back to COL_B0+1 rather than COL_B0 itself,
+so as not to reuse white. White should be special, and always indicate
+a properly numbered square.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9305 cda61777-01e9-0310-a592-d414129be87e
+"
+"ce27e3138cedcd3e418b9769a8ff5d6bee8b8d26","2011-09-18 07:43:19+00:00","Remove the 'cheated' flag in Range's game_ui, which was stickily
+remembering whether the player had ever used the hint or solve
+functions, even if they then pressed undo (and even if they saved and
+restored).
+
+As far as Solve+Undo is concerned, this just brings Range into line
+with common practice in the rest of my puzzles. On the other hand,
+Range is the first time there's been a 'hint' function to consider in
+this question, so here's a policy decision: the victory flash is not a
+congratulation for a puzzle solved unaided, it's a confirmation that
+you really have reached a correct solution and haven't made any
+mistakes. So the only reason to omit the victory flash is if you've
+used the Solve operation to go straight to a guaranteed-correct
+solution _in a single move_; if you're using the hint button, there's
+still scope for you to make mistakes in all your non-hint moves, so
+the victory flash is still a useful indicator that you didn't.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9306 cda61777-01e9-0310-a592-d414129be87e
+"
+"42197a0988840439bc6b7df854f6179e09047b05","2011-09-23 20:06:01+01:00","Allow GameView in Edit mode; ditch some dead code.
+"
+"7171328f393f99deff8a0e60f8fbf3c35eb548ea","2011-09-28 18:59:08+01:00","Multi-column chooser; extract chooser/file picker dialogs to classes.
+"
+"dd0c09f984c5b5a4277620378a8d1f2cfe8b1bf1","2011-09-29 00:30:54+01:00","Beginnings of tablet support (mostly ActionBar).
+"
+"e9917f1ffe93f9d9963463db849e3768beafccee","2011-09-30 23:58:58+01:00","Remove built-in log collection in favour of Log Collector.
+"
+"c4bf157b242ade6b0f90e4483d30bd26d54237d5","2011-10-02 21:29:16+01:00","Tweak menu order (to be reasonable on tablets and phones).
+"
+"98cc783b0251ed3f615024496980df25ac3d1365","2011-10-02 22:53:57+01:00","Work around silly ActionBar width caching bug (see comments).
+"
+"81ad31c6de64161546779a8909181da16883bdce","2011-10-02 23:21:36+01:00","Oops, screenWidthDp is very new, let's not do that. :-)
+"
+"83c1b91d639a3922c5c82ddcf166b826a5928a1e","2011-10-03 00:24:26+01:00","Make GameView draw a placeholder in edit mode.
+"
+"bd6fdab0646c8dd8ce7693251d0bab51961c655b","2011-10-03 08:54:00+01:00","Merge branch 'upstream'
+
+Conflicts:
+range.c
+"
+"d7c57f17c1accf629e1f3d71efd46bd832fbd9cc","2011-10-03 09:11:05+01:00","Post-merge: placate Eclipse about SCHAR_MAX; bump version.
+"
+"0a3075282e6060c5e5700f4f11d2c2adbd5b688e","2011-10-04 22:36:02+01:00","Let blackbox accept ranges again (TODO, fix this properly)
+"

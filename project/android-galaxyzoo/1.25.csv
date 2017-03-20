@@ -1,0 +1,67 @@
+"commit id","commit date","commit message"
+"c2a93bbbe35e93922b16d23cda5bb2ab617c1dea","2014-11-21 15:59:56+01:00","Update the Nexus 10 screenshots from the actual device.
+
+Now that I have the OTA upgrade on my Nexus 10.
+Note that the apps don't have the colored status bar, strangely.
+"
+"5c57ae1a051099135b98a8daebd25123523ee047","2014-11-22 23:31:04+01:00","ClassifyActivity: Avoid adding the ClassifyFragment twice.
+
+Because I think this is sometimes happening on Android 5.0 (Lollipop).
+For instance, sometimes all the action icons (and overflow menu items) are doubled,
+and the question text has other questoin text underneath it.
+This might be when the app has been in the background for some time
+and is then reopened.
+If I could find how to reproduce it reliably then I could investigate properly.
+"
+"baf2e1b23838c378cc4edd9b219c2d26cd12f163","2014-11-22 23:38:57+01:00","ExampleViewerActivity: Avoid a double fragment here too.
+"
+"9a628995720c15dc0fdfd8607b7a696af90a527f","2014-11-22 23:44:23+01:00","QuestionHelpFragment: Avoid a double fragment here too.
+"
+"a18f8731637aef198c41072810fe3374c2bd252a","2014-11-22 23:51:26+01:00","SubjectViewerFragment: Avoid a double fragment here too.
+"
+"68b0b6ae430d94606e944628e722e690918dc90a","2014-11-22 23:55:15+01:00","build.gradle: Replace runProguard with minifyEnabled.
+
+Because runProguard is deprecated.
+"
+"838ae3ab970ed2359d5ae30aa2d263a8352f75fd","2014-11-23 00:07:07+01:00","Add the new (apparently) path of the generated mapping file to git.
+
+This can hopefully be used now to retrace the obfuscated stack traces.
+"
+"ee65f7b704a7a425cd1d0d6380c1433ab9482d02","2014-11-23 12:02:17+01:00","ClassifyActivity/ClassifyFragment: Avoid IllegalStateException on resume.
+
+Avoid this exception:
+java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState.
+caused by us using a FragmentTransaction during onResume().
+Instead do it in the parent Activity's onResumeFragments(), where it
+is apparently safer. This is very awkward Android API.
+However, I cannot reproduce this after experiencing it once,
+so it's hard to know if it's really fixed.
+"
+"02ed00ce8c09132151fec617c31a9ef1dafad4eb","2014-11-23 15:02:41+01:00","ListCursorAdapter: Use an LruCache to avoid repeatedly decoding the bitmap data.
+
+This avoids us repeatedly showing and hiding (with a progress circle
+in between) images in the list view while downloading new items, caused by
+our RecyclerView.Adapter being invalidated (by us) whenever the number of
+items changes.
+However, this cache is just a workaround. What we really need is
+real cursor-based RecyclerView.Adapter, if that is even possible.
+"
+"bbaa6d08de1837bd528603c2457e3fab3a2baa91","2014-11-23 19:55:52+01:00","Use latest gradle version
+"
+"379b79f62d4a0dc1711ad79c42dcc2deccd60dad","2014-11-23 20:02:07+01:00","ClassifyActivity: CheckLoginTask(): Fix some return values.
+
+Don't return null for a Boolean return type.
+"
+"4b414d113e41cd540627edec15debcfb9d478aff","2014-11-23 20:03:59+01:00","UiUtils: ShowImageFromContentProviderTask(): Remove duplicate null check.
+
+Find by FindBugs.
+"
+"4abe4fb35b10ebf009da59fe518828fad554aaeb","2014-11-23 20:22:00+01:00","SubjectAdder.cacheUriToFile(): Avoid an uncaught exception.
+
+Return false if there is no suitable network connection, instead of
+throwing an exception that is never caught.
+"
+"df4fad48e54580f55ce742e81a8dfe97eb3a19a7","2014-11-23 20:25:19+01:00","Remove unnecessary imports.
+"
+"3d3b0b3cc3e183e449dfd497c10a703a2facfc22","2014-11-23 20:28:27+01:00","1.25
+"

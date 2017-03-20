@@ -1,0 +1,35 @@
+"commit id","commit date","commit message"
+"75d75265ce48f2bf362e8e040bb613019dc6271b","2011-12-31 23:28:21-08:00","Added tag 1.28rc14 for changeset e5fedb40c3f1
+"
+"a20283c783c10593f90ff3446593c50b17b545fa","2012-01-01 20:30:02-08:00","5-row portrait: tweak bottom row key sizes for bigger space bar, move alt key left
+"
+"3116142052ce914d0aba84ec384273ad91cd4e09","2012-01-01 20:36:10-08:00","Modify punctuation swap by distinguishing typed from accepted text
+
+Result should be that with auto correction off, a manually typed space won't be swapped with following punctuation. Auto-inserted spaces from choosing a suggestion are still eligible for being swapped.
+"
+"9af3fadff8012b8520f9a5865176e7e75ef09913","2012-01-02 15:31:38-08:00","Mark swipe gestures as experimental in settings.
+"
+"dace171d0963e0a9782f52ccccc669ea414afa52","2012-01-02 15:31:44-08:00","Implement Caps Lock as an alternative to Shift Lock, new key LED handling.
+
+The key LEDs now indicate off/active for shift/ctrl/alt, and the LED is tristate for the shift key, with a red LED indicating caps lock.
+
+The shift state is now stored within the Keyboard class, and isShifted is a per-key method so that it can distinguish shifted from caps on a per-key basis.
+
+LatinIME is responsible for changing the shift state by calling appropriate methods that end up being propagated into Keyboard. LatinKeyboard no longer changes semantics, it just has some tweaks for visual indicators.
+"
+"38dd34df67be0fcaa8f3a949945507af2a400d0b","2012-01-02 17:04:49-08:00","Implement auto pref handling, and add pref for including shifted keys in popup alternates.
+
+GlobalKeyboardSettings can now automatically maintain state for simple boolean prefs. Other types would be easy to support as needed.
+
+TODO: migrate some of the current silly pref handling to the new scheme.
+"
+"6d1ad903e509b0bda66fe8ba54b2ce8d86a4a534","2012-01-02 17:35:45-08:00","Add editable preference for suggested punctuation
+
+Extends the GlobalKeyboardSettings auto prefs to handle strings and multiple return flags, including consistency checking that all flags got handled.
+"
+"e6e804e687e9ad4687618aac0f86199e866ff584","2012-01-02 20:17:14-08:00","Get rid of mModShift in LatinIME
+
+Two places to track the same state == bad. Keep state in the Keyboard as it's supposed to be. This should fix shift-Arrow for multitouch and other cases.
+
+Also clean up the 5-row portrait extended Fn map to add a shift key with status indicator, and prevent accidentally entering the unused SymbolsShifted mode.
+"

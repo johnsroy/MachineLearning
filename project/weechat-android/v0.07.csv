@@ -1,0 +1,185 @@
+"commit id","commit date","commit message"
+"164d5beb79744c98f379f4db307b9666a13662f9","2012-05-15 18:12:52-04:00","Update readme for v0.06 release
+"
+"796aa831f52ef9e49ccb2256ed945f55b3e6991e","2012-05-15 19:14:46-03:00","Fix download link in readme.
+"
+"906443936e86863e79841d5abe336a42c768c030","2012-05-15 20:33:06-04:00","Combine toHTML and stripColor into one function
+
+stripColors wasn't working properly, so it has been reduced to a single
+function that will take care of stripping or converting to html.  A
+singleton is used to keep from instantiating new Color objects over and
+over.
+"
+"30e07ec5afd0152adde08434a7b9cd2aa387ec90","2012-05-15 21:01:10-04:00","Merge branch 'master' of github.com:ubergeek42/weechat-android
+"
+"0efa76d77f17741e1719280b9ac076d79703771c","2012-05-15 21:11:08-04:00","Fix last commit(only escape html when making html)
+
+HTML only needs to be encoded if we are planning on using it as html, if
+we just want to strip it we shouldn't encode the message.
+"
+"0c7267e402df29c080dbe7c217fc1e2a641df766","2012-05-15 21:52:39-04:00","Highlight only highlights nick now, not whitespace
+
+Fixed highlighting of nicks to only highlight the nick itself, and leave
+the padding/margins uncolored.
+"
+"5ced96f521c886dab3a5ee38866ad2611461586d","2012-05-16 20:24:41-04:00","Optimize client to use less data
+
+Upon connecting, no longer retrieve MAXLINES for every buffer, instead,
+get the list of lines the first time you visit a buffer.  Additionally,
+don't subscribe to the nicklist changes unless the buffer is open.
+
+BufferLine - Now has a unique pointer, so we can check for duplicate
+lines when adding them.  This prevents a request for the same line
+resulting in it appearing twice.
+
+RelayService - Add subscribeBuffer/unsubscribeBuffer functions to get
+the list of lines and the nicklist on demand
+"
+"7640a7031f1681a33b93427c915f5de62dd2c17b","2012-05-16 20:56:36-04:00","Fix lazy loading of buffer contents
+
+Update version string to v0.07-dev
+Update loading please wait message
+
+Fix bug in BufferListAdapter where the contents were being modified
+outside the UI thread leading to a crash.(If buffer was opened/closed
+while looking at the buffer list, it would crash)
+
+Sync buffer/nicklist updates all the time. Attempting to sync only
+buffer updates and then subscribing to nicklist when needed did not seem
+to work(Weechat Bug?)
+"
+"7c96127be0f6f08abb7b1df9c6d74c0f55fea789","2012-05-16 21:09:23-04:00","Only get the contents of a buffer in bulk once.
+
+If the buffer already has MAXLINES, there is no point in getting any
+more, since it should already have what we were going to get.
+"
+"9b594db9f2a4f473f5df52840cc4a622f3dca058","2012-05-16 21:14:31-04:00","Fix order of notification/increasing unread count
+
+Observers should be notified after the number of unread messages has
+been updated, so they can reset it if they'd like. Prior to this change,
+if you were in a buffer, a line was added, and you went back to the
+buffer list, you would see a 1 for unread messages.
+"
+"a1b130f0f47813f8067dfaabb6ba5e1c4e9ce2e3","2012-05-23 19:32:00-04:00","Added project configurations for eclipse
+
+The directory eclipse-ws contains two preconfigured eclipse projects.
+Point eclipse to this directory as the workspace, then import the two
+projects.  This should make it easier for people to get started with the
+code.
+"
+"02009a0fddf33147e259acb8f6050712bcdfa2ee","2012-05-23 20:15:27-04:00","Fix issue with eclipse workspace
+
+Modified AndroidManifest.xml to exclude drawable/strings that don't
+exist.
+"
+"cd309aa273e5cdb044918043f5aa633f3053c8ed","2012-05-23 20:34:22-04:00","Add preference for text size
+
+Added preference for text size in chatview.
+Modified preference for Host/Port/Password to be singleLine.
+Modified preference for Port to force numeric.
+"
+"83c2e43a5ae13f3a3437b76a95cec96f26c4586f","2012-05-24 22:01:45-03:00","Cleaned up the readme and pointed things to the wiki
+"
+"1a838e704f1cb2747fb4350785a2d3f460bf604b","2012-05-24 21:19:37-04:00","Add file to eclipse workspace
+
+Add dummy file so that the relay project will build correctly.
+"
+"565a0197d9194716c34dfc42ffe1460f8afff125","2012-05-24 21:42:47-04:00","Attempt 2 at making the res directory there
+
+Readme.md apparently causes warnings from the eclipse compiler
+"
+"15945d41799cd90fe49a4235271af89b4c123c86","2012-05-29 21:15:36-04:00","Show current values of settings in preferences
+
+Modified preferences class so that it shows the current value for host,
+port, and text size.  This saves the user from having to click on these
+preferences to see their current value.  See issue #21.
+"
+"c59a978e0801c1aed98d30c51ba6f90a0c1e232a","2012-05-29 21:31:48-04:00","Fix null pointer exceptions
+
+Check that the relay service binder isn't null before trying to do
+things with it.  This maybe fixes issue #20.
+"
+"16afa1d6ff2953a25ff3ce6c5dfd646e83b786c8","2012-05-29 21:40:58-04:00","Fix more null pointer exceptions
+
+If there is no network available, then the InetAddress.getByName will
+fail, leaving server = null.  This then causes a NullPointerException
+when the Socket goes to use it. Modified how the server variable is
+handled in order to fix this.
+
+Also modified RelayConnection so that a handler can only be added once
+for a specific message.  This should prevent the bufferManager receiving
+multiple callbacks once the connection is restored.
+"
+"06031bdde6c43a670fb314e890b9bcc2c2e0fe31","2012-05-31 13:57:55+02:00","Use SSL socket
+"
+"05e4b5e27ba09677a2f3ed59b31e49bdafee483e","2012-05-31 19:54:54-04:00","Merge remote-tracking branch 'pierrezurek/stunnel' into pierrezurek-stunnel
+"
+"754259b150e214a53e753f5b472eaa199181e21c","2012-05-31 21:33:37-04:00","Cleanup stunnel connection handling
+
+Added preferences for stunnel certificate/password.  If a certificate is
+set it will attempt to connect using stunnel. Yay encrypted connections.
+
+Cleaned up the huge pile of try/catches and consolidated them down.
+Things left to do: Meaningful error messages.
+"
+"1ddac3e08a7e75069fdabdcd4e3f507f4ef133dd","2012-05-31 21:52:40-04:00","Change displaying of passwords in preferences
+
+Now shows whether there is a password set or not without clicking on the
+preference.  See issue #21
+"
+"c323cf7e51df37f19e52abebd008700df9917877","2012-06-01 17:42:09-04:00","Proper reconnection code
+
+The app will now attempt reconnecting at various intervals,
+indefinitely, with an increasing delaay up to 15 minutes.
+Fixes issue #23.
+
+Also minor cleanup in RelayConnection, RelayConnectionHandler, and
+WeechatActivity.
+"
+"0ef5abfc7d2a0c4d0254816645a4645011e06211","2012-06-01 18:39:19-04:00","Handle upgrades from weechat
+
+The method of dealing with an Upgrade is to just disconnect, wait a few
+moments, and then reconnect.  Should work for most situations.
+
+This fixed a few bugs in LineHandler(where the buffer might not exist
+anymore).
+
+Also modified RelayConnection to allow message ID's that have no object
+attached to them(in this case, the _upgrade, and _upgrade_ended
+messages.
+
+Fixes #14.
+"
+"14a51b330c34c8b6b2c8bc1c2a6c80821ac8096c","2012-06-01 22:15:48-04:00","Add Nick Tab Completion
+
+New preference for tab completion(enabled or not)
+RelayService requests full nicklist when subscribing to a buffer(i.e.
+opening a ChatView)
+WeechatViewActivity added the bulk of the code for tab completion. It
+now watches for preference changes and nicklist changes.
+Buffer notifies for nicklist changes
+BufferObserver interface changed to add nicklistChanged notification
+NickItem.toString defaults to just the base nickname without prefix now.
+Add a bit more info to a debug trace message in RelayConnection
+Remove unused arraylist in NicklistHandler
+
+Fixes #11
+"
+"f17295f1971dbda7c5d483107b7667b5bee012bb","2012-06-01 22:44:58-04:00","Nick tab completion fixes
+
+Prevent modifier keys from taking it out of 'tabCompleteMode'
+Allow use of search button for tab completion.
+See issue #11
+"
+"c65533ac29ed926e5068e1fd9e10d753ee2b4cb6","2012-06-02 11:52:38-04:00","Fix autoreconnect after manual disconnect
+
+After a manual disconnect+connect, the autoreconnect function would not
+function.  This resets the state so it will function properly.
+"
+"5128f072d653d9bae78c2e5f5e3849c011952d4c","2012-06-03 20:03:10-04:00","Fix tab completion eating modifier keys
+
+The fn key on my physical keyboard isn't working, so I cant type
+symbols.  This fixes it
+"
+"2b5854c4f47bf196d4028be91aa55aead7618293","2012-06-13 18:43:55-04:00","Release of v0.07
+"

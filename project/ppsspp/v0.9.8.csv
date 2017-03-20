@@ -1,0 +1,1010 @@
+"commit id","commit date","commit message"
+"eb4f17c65d225fc24da83db1e88adb3638ad9a26","2014-02-17 21:25:53+01:00","0.9.7.2
+"
+"2890c4b2068c89ca48322afead41f450645667fc","2014-02-17 22:39:10+01:00","Merge pull request #5488 from unknownbrackets/sas-minor
+
+Improve more sas correctness
+"
+"42af77ed9c1a5d541537010be4c02f63db6e568b","2014-02-17 22:39:21+01:00","Merge pull request #5498 from Dante38490/patch-1
+
+-Update VS 2013
+"
+"9e0d4836fec9295fb256d4e21615dc5fc9217862","2014-02-17 23:34:32+01:00","Android: Minimum requirement is now Gingerbread. Upgrade to GCC 4.8.
+
+'Fixes' #4798.
+"
+"e561f576b5699bbfe456dbd0c2f5630f3e40840d","2014-02-17 23:43:58+01:00","Windows screenshots: Name the files after the game ID. Implements #5504
+"
+"8da651b6c12e5ef420095bf5b397120b8deb702b","2014-02-18 00:36:22+01:00","Merge pull request #5479 from sum2012/log
+
+Enable produce DEBUG_LOG rather than INFO_LOG in Windows who don't need install Visual Studio Express
+"
+"ec34c3141660f85369616f3d5b5ea10e81c887b9","2014-02-17 20:46:07-08:00","Initialize the status bar earlier.
+
+We try to set its text sometimes before creating it, which can cause a
+random hang.  It could also maybe be causing the window titles to be
+blanked out.
+"
+"f62eb4848df3d9d9eb99f40cf4ed1ac6397b9a41","2014-02-17 21:08:34-08:00","Add a few more safety checks for SendMessage().
+
+Broadcasting is bad.
+"
+"3899e184228c12b07ee5a6dff8b3f01012d95fa0","2014-02-17 14:01:12-08:00","Always key on for 32 samples regardless of pitch.
+
+Before it would be more or less depending on pitch.  It's always 32.
+"
+"38053df4ca1e40c22c8c215145183d71fb2c1376","2014-02-17 14:01:48-08:00","Don't drop the last mix of vag samples.
+
+Wait instead until the end of mixing to end the envelope.
+"
+"8ded8632311ef50b63c5fd5f470dd9dfa0be94c2","2014-02-17 14:08:44-08:00","Reset sampleFrac on keyon.
+
+Since we're starting the samples over.
+"
+"1efcebb1210e6edb9691205b42c18c6a8fd0bd3a","2014-02-17 14:09:35-08:00","Smooth SAS resampling when pitch != 0x1000.
+"
+"139c91fe1994f06826607913395b350040c94072","2014-02-17 14:12:33-08:00","Return an error for an invalid pitch, per tests.
+"
+"dd434cd7c5dd35bc8b82b4a2e00f2787300c61e9","2014-02-17 14:33:13-08:00","Optimize mixing samples at common pitches.
+
+Doesn't seem to be a big help but may matter more on mobile.
+"
+"b5bdac211a7084e94411f2274ace1852b1b25d04","2014-02-17 20:39:06-08:00","Ignore pitch > 0x1000 for pcm.
+
+It seems to be supported only below 0x1000.  Also, drop optimization for
+double for now, simpler this way and doesn't seem common?
+"
+"93060e3aef3ed95d4168f67b72cd82dfc9b9cdde","2014-02-17 23:19:30-08:00","Avoid some divisions, just in case.
+"
+"dc5d17971c9821afc7d44829235c799788ef724e","2014-02-17 23:23:44-08:00","Actually use the resample buffer.
+
+Fixes static in Final Fantasy Tactics music.
+"
+"106656f51eac7f6985ed86b6b8a878d57d977775","2014-02-18 09:18:07+01:00","Merge pull request #5509 from unknownbrackets/sas-minor
+
+Improve pitch handling in sas
+"
+"9b0994e8a6e6af8e326afbd093f69c8a47bc6216","2014-02-18 15:53:48+01:00","fix iOS7 crash
+"
+"9ceeedba8d2bb309b5f732ed5508dd359cd7e94f","2014-02-18 23:12:26-08:00","Correct some error codes in sceSasSetVoice().
+"
+"11df9dabf9abe62b8de94a454e2d53873f64c76c","2014-02-18 23:32:37-08:00","Add an extra delay to VAG keyon.
+
+It seems to come in an extra sample late.  PCM doesn't.
+
+This corrects timing for VAG samples so they match up exactly.  Really
+minor, of course...
+"
+"148b910de37b85b4870993d2418b53f4bc381919","2014-02-19 14:41:29+07:00","Merge pull request #5513 from kaienfr/fix_iOS7_crash
+
+fix iOS7 crash
+"
+"a36f7bf2675e06d395d417acd4c267b4695b6c64","2014-02-19 01:01:56-08:00","Fill in predict_nr's above 5, fix clamping.
+
+We weren't processing vag properly when it hit the edges.
+
+The coefficients were found with testing about 384 samples.
+"
+"a1283644ab57e7fa504b742fbf972ac1ecd2b773","2014-02-19 01:03:11-08:00","If never set, loop to the first vag block.
+
+Not the second (0 = second.)
+"
+"9af3cd55495cee127da133f37d50d859f7e8898a","2014-02-19 18:40:04+07:00","Merge pull request #5521 from unknownbrackets/sas-minor
+
+More exactness improvements for SAS and VAG
+"
+"6b8ab2e04444f8415e3969826de06c0ce585045e","2014-02-19 22:33:28+10:00","Fix keyboard on Blackberry.
+"
+"f6a5402ceffb49a1ef120bdd79707461dc4af8f1","2014-02-20 01:06:49+10:00","Fix bugs in blackberry+symbian by updating ffmpeg.
+"
+"cb39a5d9785d62bdc86deff41db1959364fba1f8","2014-02-19 12:07:45-05:00","fix buffer overflow
+"
+"edd712c65d0f4be650f5ece14d67e7ed5f0ecaae","2014-02-20 03:37:06+10:00","Fix Symbian DPI
+"
+"c520884888629a42b70d63220250890d37fa8b0a","2014-02-20 04:00:22+10:00","Blackberry/Symbian: Improve tilt.
+"
+"ecabf75e1293a9d209b78747ab0ebe960c86c670","2014-02-20 11:14:16+07:00","Update native
+"
+"474084e688b6705936ca9921e5cc30d6e2d4b26a","2014-02-20 11:15:34+07:00","Merge pull request #5523 from chinhodado/patch-1
+
+fix buffer overflow
+"
+"df3342fd9ef2c8423f00ea2ae3ab42b587e5da25","2014-02-20 11:20:06+07:00","Merge pull request #5497 from sum2012/patch-10
+
+Add sceCtrl_driver ,sceDisplay_driver ,SysclibForKernel
+"
+"fb1ca6823c5d9ffd1959c5126c5611db5dab1a06","2014-02-20 01:02:22-08:00","Oops, fix reporting showing disabled outside game.
+"
+"f6abfb94442f4ea29855d512d3f3a7236ee47cc6","2014-02-20 01:02:39-08:00","Fix hang if you use disasm goto outside game.
+"
+"4e935734227bd2be29444b7cd97a77fc9378fc40","2014-02-20 18:48:10+07:00","Merge pull request #5486 from raven02/patch-25
+
+Use GE_CMODE instead of TPSM_PIXEL_STORAGE_MODE
+"
+"8958501acbb9163658181e0d0c973d180c508d3c","2014-02-21 05:32:55+08:00","Support kernal mode Module
+
+Fix #5527
+https://github.com/hrydgard/ppsspp/pull/5512/files No need
+"
+"b8a8cc0049c6e60d78f0cc07a0618b5e7bc23deb","2014-02-21 06:00:41+08:00","Update log information - menthion we try __KernelLoadExec
+"
+"98e952ea6e8a8e105c51a96e78af634197d17128","2014-02-21 07:14:40+08:00","Only can use __KernelLoadExec when load BOOT.BIN
+"
+"d110d4e3cf19de97d0a130b2c9d244a96964a378","2014-02-20 21:29:00-05:00","change to correct enums
+"
+"b32200895d97e170d968951e110ea8791497b591","2014-02-21 20:00:31+07:00","Merge pull request #5532 from chinhodado/patch-2
+
+change to correct enums
+"
+"ce518a432fc59add23bef6ff6684f8a8af298924","2014-02-21 09:47:12-08:00","x86jit: Add a missing unknown prefix check.
+"
+"ede385bfed749c216a3ec94fb675fb4fc19a332c","2014-02-20 22:53:41-08:00","Validate output mode, correct dry/wet handling.
+
+Seems like any non-zero parameter sets it, actually.  I previously changed
+it to check the lowest bit but I can't reproduce it now...
+"
+"586eb76ddf0a859b23271c827dbf2604c7ecc533","2014-02-21 19:43:24-05:00","fix a mistake in a logic condition
+"
+"1934ede59f80f8c91b5d65ee34068aae21dfbfb6","2014-02-22 16:35:15+07:00","Merge pull request #5536 from chinhodado/patch-3
+
+fix a mistake in a logic condition
+"
+"ff920f6af6a78ac236069012d3cf571cfe36f88b","2014-02-22 07:52:18-08:00","Fix sceSas outputMode = 1 (which is not mono.)
+
+May fix games that played audio only on the left side, or something.
+"
+"093906533360a35bcde4d502f8905e3d81a4d81b","2014-02-22 08:07:51-08:00","Report the raw output mode to find examples.
+
+I can't find any games actually leaving the output mode at 1.
+"
+"10bf1163997492050d7576ffaa23d7c5f3eec2f4","2014-02-22 08:39:15-08:00","Don't report sceSasSetADSRMode(..., 5, 5, 5, 5).
+
+It seems common.
+"
+"9cba543a4bdcee73c6157fb206f7f4534297072b","2014-02-22 08:48:21-08:00","sceSasCoreWithMix() returns an error in raw mode.
+
+And does not reschedule, specifically.
+"
+"9dacc2ba559289ec658d24bd52456c6d0266a279","2014-02-23 06:12:50+07:00","Merge pull request #5542 from unknownbrackets/sas-minor
+
+Yet more exactness changes for SAS
+"
+"afb188956fee2fd26f8ad42c0c3b424324ab375f","2014-02-22 12:48:54-08:00","Cleanup sceFontNewLib() parameter handling.
+
+It should error out without alloc/free funcs, and cap numFonts to 9, per
+tests.  Most games pass these and use numFonts = 4.
+"
+"ba1f862c85dc5215ded19ef602143f86aa1bd818","2014-02-22 13:00:03-08:00","Allocate the right amount of font memory.
+
+But it should be in multiple blocks...
+"
+"7ff6a2d7389153b3e4043ef2d7ae068f20351cdc","2014-02-22 13:37:45-08:00","Return an error on font allocation failure.
+
+Some game might actually expect this code, you never know...
+"
+"6c34439e03649de99444ba5e47428c4ee940050a","2014-02-22 14:01:05-08:00","Populate the native font lib struct.
+
+For now, this makes things a lot easier to compare (getting as much info
+as possible out of these structs.)
+"
+"6491557c174cf4506a316e7c3495f446453e1136","2014-02-22 21:29:03-05:00","fix a wrong parameter
+"
+"9ba79f31a273a2c33fe08735e30439de081982a6","2014-02-22 22:35:15-05:00","minor change in file filter
+"
+"9bd07d4c9cfac6c7abd7486cdf07d0d5c7219fea","2014-02-22 23:08:26-05:00","remove a redundant assignment
+"
+"20ed422c3a6d75d2ec9fa861f9dffaca4940994d","2014-02-22 23:23:33-05:00","remove a duplicate assignment
+"
+"aae9d43e7de2ef753e81f1bdaac01db5ccf72832","2014-02-22 23:26:20-05:00","remove some redundant brackets
+"
+"603c1dd614db57a0858525714dee83c6b8d4614d","2014-02-22 20:35:58-08:00","Improve error codes in sceFontOpen*().
+
+Fixes some unlikely cases of crashes as well.  I think there are leaks
+here...
+"
+"3edebbfba9d13e26e736107cb8fb8ad4efb65a8d","2014-02-22 22:38:03-08:00","Reset resample hist on keyon, round up read.
+
+If we have an uneven pitch, round up so that we get the next sample to
+resample in.
+"
+"e0d8fc55967b17f75f40cb88810c50cead79b705","2014-02-22 23:04:46-08:00","Pass in the font open mode for easier tracking.
+
+Mostly concerned about handlers actually doing something...
+"
+"dbe178e6a68e27de675dd8aff5debf6cc9f2b39e","2014-02-23 19:10:46+07:00","Merge pull request #5548 from unknownbrackets/sas-resample
+
+Reset resample hist on keyon, round up read
+"
+"b7651b61c7dbb79d82245cbad4f9ceedf1022b54","2014-02-23 19:12:42+07:00","Merge pull request #5546 from chinhodado/fixes
+
+some minor fixes and changes
+"
+"d6f203db996cc33d4e4dd244ffdba0f1d61c1173","2014-02-23 08:45:46-08:00","Revert 'Reset resample hist on keyon, round up read.'
+
+This reverts commit 3edebbfba9d13e26e736107cb8fb8ad4efb65a8d.
+"
+"97e8f36a9bd396f64d60a98ece0380e0eea685cd","2014-02-23 08:46:33-08:00","Revert 'Actually use the resample buffer.'
+
+This reverts commit dc5d17971c9821afc7d44829235c799788ef724e.
+"
+"c806ae098299892d633ca634e4d953bb8d537224","2014-02-23 08:48:30-08:00","Revert 'Optimize mixing samples at common pitches.'
+
+This reverts commit dd434cd7c5dd35bc8b82b4a2e00f2787300c61e9.
+
+Conflicts:
+Core/HW/SasAudio.cpp
+"
+"be79670efb566c5fd9935ed2cac6b7ea50d0de9f","2014-02-23 08:48:49-08:00","Revert 'Smooth SAS resampling when pitch != 0x1000.'
+
+This reverts commit 1efcebb1210e6edb9691205b42c18c6a8fd0bd3a.
+"
+"7298133c9ad74cd959eb6c3b931e904ad5a41cd7","2014-02-23 11:48:31-08:00","Allow open fonts in a few more calls.
+
+It turns out if you open the same internal font twice, they both work
+until you close both of them (it's reference counted, but the font handles
+are different.)
+
+Anyway, these funcs seem to crash on a PSP when used with a non-open font
+so there's not a ton of risk here.
+"
+"eb386603fafa5654ec6385f2d2b6507ad6b5124e","2014-02-23 16:56:27-08:00","Oops, still had an unaligned stack in some thunks.
+"
+"139c7ff5bb0fc79de923c884fc36e75b6ee703d0","2014-02-23 19:25:18-07:00","Implemented sceKernelICacheInvalidateRange
+
+Fixes crash in mhp3 hot springs after some missions
+"
+"1dbb9253934678b94c1b9d3d6938238eccab8fd9","2014-02-24 14:19:07+07:00","Merge pull request #5552 from unknownbrackets/font
+
+Improve error codes in sceFont
+"
+"40d867f74a15f89ea71e02f282651193223d3af1","2014-02-24 17:56:59+07:00","Merge pull request #5551 from unknownbrackets/sas-minor
+
+Revert resampling changes
+"
+"afdaaf31704c5f005440ee58a5c84e9c0c63f25e","2014-02-24 17:58:53+07:00","Merge pull request #5554 from hilesaz/master
+
+Implemented sceKernelICacheInvalidateRange
+"
+"bc54fab98af30113ab802a5f473daa9e6b4ce0d2","2014-02-24 12:11:40+01:00","Try to fix Stylus input, this needs testing to see if it interferes with Touch
+"
+"60036c42e3c660e3dfdd1f34ddb11610d3604c4a","2014-02-24 13:28:20+01:00","actually handle pen/touch disambiguation, now let's hope no driver misreports this
+"
+"99283b0098487f71c97a86ac6f1e08e9dd79c518","2014-02-24 21:56:39+07:00","Merge pull request #5558 from Bigpet/master
+
+Try to fix Stylus input for Windows Vista/7/8
+"
+"ac4a70a5e08f1a8930cae47fcedbe308a755f043","2014-02-24 23:14:24+07:00","Update native
+"
+"7f89863319ab17585bf7d1d28acdb33129d79be3","2014-02-24 23:15:49-05:00","Add additional check to prevent PS1 EBOOTs from loading.
+"
+"4f7a7d9434b09b3f28db19d37c11aab98f6fdac9","2014-02-25 00:22:52-05:00","remove a check that is always false
+"
+"57ed2149ef038f6e1109427077ae694cd15e7233","2014-02-25 01:39:10-05:00","Let the touchscreen pause/menu button be available for everybody.
+It's still forced ON on iOS, Symbian, and Meego Harmattan.
+"
+"ffcae5620973ecfac018f517b1961116cd15baad","2014-02-25 01:52:10-05:00","Actually force the pause button on Symbian, iOS, and Meego Harmattan.
+Instead of leaving a loophole open which could allow an ini edit, just force it on for these.
+"
+"0e1dd5cb33991592e138f4419bbcdce02c9b8883","2014-02-24 23:42:22-08:00","Improve error codes in sceFontFindOptimumFont().
+"
+"272982bdc218272a7d7dee79b296a7c8089d83de","2014-02-25 15:15:36+07:00","Merge pull request #5568 from thedax/touchStartBtn
+
+Let the touchscreen pause/menu button be available for everybody.
+"
+"71f0f9d722deda6f97dfe8ac811b7a3e2b657a60","2014-02-25 15:15:48+07:00","Merge pull request #5566 from chinhodado/patch-5
+
+remove a check that is always false
+"
+"10a9d4967a8cced75369531b50856760f7cc68ec","2014-02-25 15:16:27+07:00","Merge pull request #5565 from thedax/ps1EbootCheck
+
+Add additional check to prevent PS1 EBOOTs from loading.
+"
+"db4e4c1c324c02435fa45d8dd1c9195c09f122ce","2014-02-25 00:43:24-08:00","Improve sceFontFindFont() errors.
+"
+"5bca8f11195cd2a974c1e78f30afa16ff8f21ec3","2014-02-25 07:39:01-05:00","Fix GCC compiler warning.
+"
+"680283908ccd0e25e3554bc79cb1609b821d1fb4","2014-02-25 21:02:16+07:00","Merge pull request #5570 from thedax/warningFix
+
+Fix GCC compiler warning.
+"
+"db59559a928f3172180421cf5672e53433e4f3f8","2014-02-25 21:23:21+07:00","Reduce the 'Ret: Stack Empty' log level to DEBUG.
+
+Still reporting. Avoids logspam in buggy games.
+"
+"e0258bf3477a8e9c88096647e2e3c8fc02af3705","2014-02-25 08:16:10-08:00","Match sceFindFont*() behavior much more accurately.
+
+Per tests.  Fixes bad font selection in Fieldrunners.
+"
+"056968129cb795dcabf029f626cc8fc853f16d8b","2014-02-25 23:28:37+07:00","Merge pull request #5571 from unknownbrackets/font
+
+Correct sceFindFont*() behavior
+"
+"8c31e1ca21c3fff89f497c54d1224a15aa4d8ee7","2014-02-27 01:19:32-05:00","Add a basic decrypted EBOOT.BIN dump function.
+It won't dump already decrypted EBOOTs.
+"
+"3fbf715d78bef514de2a4c249d0b23bf7338c44e","2014-02-27 01:51:43-05:00","Fix wrong dump length.
+"
+"ab6b9987107b848be7fd09159e9103076fa74fac","2014-02-27 00:19:40-08:00","Correct clipping in sceFontGetCharGlyphImage_Clip.
+
+It was not clipping completely, and didn't handle negative clip w/h.
+Also, reduce to debug log (seems to work fine now and has been working
+fine in most games.)
+"
+"4a1c9645e8664c4f53aa7bb35ef5082f5be90520","2014-02-27 00:28:57-08:00","Get rid of Memory::GetStruct(), use PSPPointer.
+"
+"4c2014be00dd1a4cdb97c38a9f4687261695f3cb","2014-02-27 18:44:39+07:00","Merge pull request #5577 from unknownbrackets/font
+
+Correct clipping in sceFontGetCharGlyphImage_Clip()
+"
+"909fc3d3f9b38f1f8866d4132fa1581c5921a503","2014-02-27 18:46:18+07:00","Merge pull request #5576 from thedax/decryptedEbootDump
+
+Add a basic decrypted EBOOT.BIN dump feature.
+"
+"5dec831abc8e4e7d7e919cbac863105dce276520","2014-02-28 09:58:10-08:00","Reset initing if boot fails with threading off.
+
+Fixes #5580.
+"
+"46370e2860ea199d49d584426f41ca800da3a097","2014-02-28 20:57:18-08:00","Implement sceFontGetShadowGlyphImage().
+
+Not sure if any games actually use it, though...
+"
+"692cffffd1b6902eba9317951a4ef61f97533ba1","2014-02-28 21:20:06-08:00","Use the correct default for font altCharCode.
+"
+"bc3e123b610e6a74d1dcc4f910e0f6606f795cdd","2014-02-28 21:25:45-08:00","Oops, fix negative clip regions.
+
+Since they're summed, need to clamp the left/top side.  And the
+bottom/right side is offset by x/y.
+"
+"67fcdc0f4a53fee0339bdd076e571e0f68dcea59","2014-02-28 21:29:41-08:00","Reflect font altCharCode in psp mem for tests.
+
+Makes it easier to be sure it's working right.  Not completely impossible
+a game will check it... but hopefully not.
+"
+"57e64547b39c3e10de4166858e848dd5bb9204a2","2014-02-28 21:52:34-08:00","Fix sceFontSetResolution() error codes.
+"
+"96a93d9baed5861221f914984b852111e43ade22","2014-02-28 22:05:37-08:00","Fix error handling in sceFontPointToPixelH()/etc.
+"
+"29d2e8167658e16e29df115388f9b0594bd6f767","2014-02-28 23:04:34-08:00","Cleanup errors in sceFontGet*ImageRect().
+"
+"131cbc073c3f43ed821eaef3aacd7dbe3a787446","2014-03-01 00:18:19-08:00","Implement sceFontGetShadowInfo().
+"
+"0e39b6fe36da4074f17679da737da7c3d06ced1b","2014-03-01 01:30:25-08:00","Fix results of sceFontGetFontInfo() for user fonts.
+"
+"140982223a93e240c050da53b91547dc9999c56a","2014-03-01 01:30:43-08:00","Correct sceFontGetFontInfoByIndexNumber().
+
+It just gets font style info, pretty simple.
+"
+"160d5e327989bdb3504a0dde8f5e0e5fbe54ff6a","2014-03-01 01:47:35-08:00","Fix sceFontGetFontList() error codes.
+"
+"58e29062a5be45d3eb6bcd35c72134bc6de395dc","2014-03-01 01:54:15-08:00","Improve error checking in sceFontGetNumFontList().
+"
+"1b5e54abb4bfdc07fd9eadc8f75a60121e896680","2014-03-01 02:17:11-08:00","Fix nearest size check in optimum, cleanup.
+"
+"ed4f5054c658dea419b30bb6578cc2ff8ee2e7d8","2014-03-02 01:09:16+10:00","Qt: Clean up QtHost.
+"
+"aee5f0dca6bdfe879bc06875c08bc750ae5acd14","2014-03-01 22:16:59+07:00","Merge pull request #5581 from unknownbrackets/font
+
+Correct a bunch of sceFont functions, shadows, etc.
+"
+"a0f3b2b40e3f46daa204bcef645ab5cd816b9910","2014-03-01 11:25:40-08:00","Disable a few debug menu items outside of a game.
+
+They won't work anyway.
+"
+"a3ad15b295aedf45f083ef7f16bb6c5374dfde4a","2014-03-01 13:31:23-08:00","Allow screenshot out of game.
+"
+"444dd15a25cae91d08807e78eb6f665b6c4efefe","2014-03-01 14:32:42-08:00","Report module versions of HLE'd modules.
+
+sceMpeg has slightly different functionality, so collecting the unique
+versions will help.  So far I know of 4.
+"
+"c7f1197ab173f2ad67bca9420dc20ff36b0f6e0b","2014-03-01 15:14:17-08:00","Cut down on a debug check in release mode.
+
+In Jewel Summoner, for example, this gets called a lot, and eats a
+measurable percentage of time.
+"
+"da1e4a80a69164438121485048713ee8bd9329f2","2014-03-01 15:32:34-08:00","Tone down sas raw output reporting, found a game.
+
+Crimson Gem Saga apparently uses this mode.
+"
+"15a608a6b9c48c862c016e402f2abe75491e6567","2014-03-01 16:11:56-08:00","Check for kernel textures in kernel ram properly.
+
+Textures can perfectly legitimately be in volatile ram.
+"
+"6b6005c50b83dc870d23b2b9bee38e18a47213ad","2014-03-01 19:26:53-08:00","Update tests.
+"
+"6888ea8d7932a476e73ecfb095c2f993d9817e42","2014-03-02 15:12:50+08:00","Typo fix
+"
+"d2ce324c527329d47b51cde9cee410964f1366f2","2014-03-01 23:15:49-08:00","Merge pull request #5586 from raven02/patch-26
+
+Typo fix
+"
+"87a07d7355182f284be02b6a7b99061218eec324","2014-03-02 01:15:00-08:00","Workaround bug in Kurohyou 2 (uninitialized data.)
+
+The game calls scePsmfGetEPWithTimestamp(), but without any chapters.
+This means nothing is written to its pointer.  But it takes the value
+there anyway.
+
+It happens that the value there is 0, but only because something wrote it
+to the stack before the call.  It seems like scePsmfVerifyPsmf() is the
+one writing it, since it has a different value shortly before that call.
+
+So, as a workaround, just write some 0s into the stack.  Games without
+bugs should not care.  Hard to predict what will happen to another buggy
+game.
+"
+"cda1bc27724dcf59702bf07db64e2c52e1555721","2014-03-01 17:18:38-08:00","Keep track of the loaded sceMpeg_library version.
+
+They have variations in behavior.
+"
+"fc1ab072b3440ec913c7ac24bb20b68913ad218c","2014-03-01 17:19:55-08:00","Write the ringbuffer struct based on mpeg version.
+
+This way it can easily match tests.
+"
+"034ae337b7d76d689e5868f3690746098a7ec3a5","2014-02-22 14:41:43-08:00","Handle texture scaling when render res is auto.
+"
+"4f1236c2bab3d942ffec9475c7885e8fd485fb12","2014-02-22 15:21:47-08:00","Don't use replaceImages for texture scaling = auto.
+"
+"64f57ae8e33d907d6e51d83299eb48dcdf153f1e","2014-03-02 21:49:57+07:00","Merge pull request #5543 from unknownbrackets/texcache
+
+Fix some texture scaling bugs
+"
+"36666ceb93ee8cbf9144a9f33aa37af3c608931a","2014-03-02 21:50:55+07:00","Merge pull request #5588 from unknownbrackets/psmf-minor
+
+Workaround bug in Kurohyou 2 (uninitialized data)
+"
+"8f90681994704c4dd9a6d1ad73343c3c8ef51750","2014-03-02 23:14:36+07:00","Merge pull request #5589 from unknownbrackets/mpeg-version
+
+Track the sceMpeg_library version for behavior differences
+"
+"e3506ead69366c0ed749bf5621eab902003ccfaf","2014-03-01 21:01:03-08:00","Clear the symbol map between each test.
+
+This way we could, for example, test function replacement properly.
+
+Actually slows down tests because it spends more time correctly
+determining the function boundaries.
+"
+"eca06c60c71afcfaf41a1797986d5a3c4739f257","2014-03-01 21:15:17-08:00","Spend a bit less time in Read_Instruction on load.
+"
+"f300f46b9c72756d5af0bfc69a4132e9641d9476","2014-03-01 21:34:41-08:00","Speed up MIPSGetInstruction() by 35%.
+
+It's not that hot, but gets called a lot when loading modules / running
+tests.  Well, and also interpreter.
+
+Some of the previous checks were just not necessary (we never have Rese in
+the tables, for example, and let's just not.)
+"
+"0f36b45f2e8371425e756d3157d9626d2a04d4c1","2014-03-02 10:40:54-08:00","Turns out this difference began in mpeg.prx 0105.
+"
+"47be01e8b53d7f99092cee97c2e2551756e13d0a","2013-11-05 14:28:56+01:00","[Xbox] Missings files
+"
+"1e1a2fec8be04ddcb14b0fc202d729660bf35a9b","2013-12-03 16:00:06+01:00","[Common] add unsigned long
+"
+"cc9f238d36814dacc3311a815e9665551fa06774","2013-08-16 14:06:34+02:00","[xbox] 360 support for Core
+"
+"f012e7a8791042e0304e0109ec2665029fe15825","2013-08-17 15:12:42+02:00","[core] 360 fixes
+"
+"d82911de584e940c197d889a88120b2e18799892","2013-12-03 16:04:39+01:00","[Xbox] fixes
+"
+"59f4c051323b5c2bb7424a2935d85ec3485214ce","2013-12-04 11:36:52+01:00","[core/common] cpu/gpu threading
+"
+"596dea63edf063ab4da96132d561852ed101f686","2013-12-03 16:05:16+01:00","[Xbox]
+"
+"22ede1ebf3d6a5a737face051a3baa9c936a29b8","2013-12-03 16:05:49+01:00","[Xbox] Network disabled for xbox
+"
+"b6d37f97b8b693b0e0169241a72a813f52a16204","2013-09-10 14:51:39+02:00","[sceIo] 360 thread fixes
+"
+"41373f29cfc1f234a9c29281c1b56a61aeac76e9","2013-09-16 15:00:46+02:00","[jit] try to implement fpu round
+"
+"4483c6002ec82fbe94cb659f38d7d0ac6178196f","2013-09-22 11:25:54+02:00","[Jit] don't recompile with slow memory
+"
+"995fb0f8b26fc695581a61be390b4ca049632d0a","2013-12-03 16:00:41+01:00","[PPC] update/fix
+"
+"2c2ea9c41776ffc67612e268b49f3af8b731d0d0","2014-03-02 11:35:49-08:00","ppcjit: Int_Cache() now does stuff, use DISABLE.
+"
+"08595f55a6f633a82672db9ae2f99271d109d751","2013-09-14 09:37:32+02:00","[jit] save fpr, less crashes ?
+"
+"d3bead638f418c062c95e648a616e9d077334572","2014-03-02 11:41:22-08:00","Add ppcEmitter.cpp/h to the MSVC project.
+
+So that it's searchable/etc.
+"
+"09210a2ce9ece1c1549c4b36ca53e89e3a983f8c","2013-09-16 15:00:16+02:00","[jit] round fpu
+"
+"2ac5d38b909537fd1f90dc59ceacf52b9300dd37","2013-09-16 22:25:53+02:00","[Jit] add more instruction
+"
+"38a59cca953ee2137d5cf8f32992c70cd7d03d34","2013-11-07 14:23:12+01:00","[Jit] Fixes BNE
+"
+"cd283089aa29a3137d01244d0e87aee4ec67f7c0","2013-11-15 14:24:45+01:00","[Jit] Mov2ir optimisation
+"
+"93f08b4035f1eb64826b5f15c457e8f48ceeee1a","2013-12-03 13:34:39+01:00","[Jit] add subfic
+"
+"46ac351b9b7a5bdb3a718c33888abdf6480a433c","2013-09-16 22:26:25+02:00","[Jit] implement Comp_Vi2f
+"
+"3be063d28ac72676b68bfcb3e47ae9ad6aff3709","2013-11-07 11:39:52+01:00","[Xbox] Use intrinsics swap
+"
+"418d2ac8ce9e902c49d1a3164e3dfb4a1211992b","2013-12-03 18:09:16+01:00","[xbox] 360 support for common
+"
+"2c40cd509af76a6201796dc1286c0dc02e1ba2bc","2014-03-02 13:45:12-08:00","Avoid overwriting io thread results.
+
+Just block until it's done so that things are synchronous.
+"
+"07a2e579322565aad2c84fe7aadafab855380222","2014-03-02 13:47:11-08:00","Synchronize IO operations before any seek.
+
+To prevent it from seeking before the operation.
+"
+"2a4cbb71713567654e9096fde0736562d007c8ac","2014-03-02 13:48:29-08:00","Allow two threads to read from a file at once.
+
+It just happens in order, rather than failing with an error (async busy.)
+Async operations still fail when used in this way, however.
+"
+"d7ba8f7312875cfcff725dc658bbd4732a4b6166","2014-03-02 13:59:34-08:00","Correct error code for reads into a bad pointer.
+
+Per tests this is generally -1.
+"
+"601fc72ac60f0d9a0580bc5d58a484952528c1e5","2014-03-02 14:23:27-08:00","Don't clear js.afterOp in WriteExit*().
+
+It needs to be handled in each exit, not just the first one.
+
+Fixes #5587.
+"
+"8aceba732a61ad62e37735b150ba2007dab56458","2014-03-02 16:59:50-08:00","Stop reporting null thread args with size.
+
+Must've been a mistake in the test, can no longer reproduce the crash.
+"
+"0a880b09ad7dfcd1cded131fa5c0dde9ab19789a","2014-03-02 18:12:40-08:00","Allow fast bone mtx loads w/o software skinning.
+"
+"ecf9479d5a17b9ebae903ef56e19c53c086c75e8","2014-03-02 18:19:55-08:00","Always flush bone matrices when morph is enabled.
+
+Fixes graphical glitches in Shadow of Destiny and LittleBigPlanet with
+software skinning enabled.  Maybe the other games in #5304.
+"
+"e08e9d8e89d1feb4172aa4244032a192e890faba","2014-03-02 20:09:18-08:00","Flush if morphing, even if only weight changed.
+
+Fixes more graphical glitches that happen when software skinning is enabled.
+"
+"fb63dad54e432273dbe36aa7f014afcdec68e574","2014-03-02 20:11:40-08:00","vertexjit: Implement Morph pos/nrm variants on x86.
+"
+"ca938bf35390e4da4dedbac3596a8b7853ae6c2a","2014-03-02 22:03:02-08:00","Cut down on locking in DEBUG_LOG.
+
+Reduces GenericLog() from 13.8% to 1.5% in Where Is My Heart?, will
+probably help other games to a lesser extent.
+"
+"c7953c49348f58022ce6febc64342ecda18ce39a","2014-03-03 13:20:24+07:00","Merge pull request #5585 from unknownbrackets/perf
+
+Improve performance when running tests / fix function replacement
+"
+"bedca39bf1253ebbf8da70be312da765eaa3717a","2014-03-03 13:26:22+07:00","Merge pull request #5595 from unknownbrackets/vertexjit
+
+vertexjit: Implement Morph pos/nrm variants on x86
+"
+"54b9cf6e37d262fc1edc639ebfba55cd4095f747","2014-03-03 13:28:48+07:00","Merge pull request #5592 from unknownbrackets/debugger
+
+Don't clear js.afterOp in WriteExit*()
+"
+"dc2f28f899445c64fef23a5e22c422332e09f598","2014-03-03 13:30:35+07:00","Merge pull request #5591 from unknownbrackets/io-thread
+
+Handle concurrent sync io operations better
+"
+"c2f76ac5490f916e5079557ca0f6fd2d6f91b2bd","2014-03-03 13:32:03+07:00","Merge pull request #5594 from unknownbrackets/gpu-minor
+
+Fix some software skinning glitches
+"
+"374e12afc383e6c1e4d4cedab98ee44bfb1001b5","2014-03-03 13:37:21+07:00","Merge pull request #5590 from unknownbrackets/xbox
+
+Merge more parts of #4716
+"
+"f70f70925dfe26f59c0533001d0ff32876ce8c3a","2014-03-02 16:48:21-08:00","Highlight arguments from the selected range.
+
+For example, if 'lui v0,0x8000' is selected, highlight 'v0' or '0x8000'
+used as arguments on other lines.  Makes it a bit easier to follow.
+"
+"705658b8e452bb8a82e0b297d25fe2a21b72618d","2014-03-03 13:57:31+07:00","Merge pull request #5593 from unknownbrackets/debugger2
+
+Highlight arguments from the selected range
+"
+"c7437bbe8e6d4565ca8a21f1bdd521d5998efa26","2014-03-03 00:08:32-08:00","Fix some minor warnings.
+"
+"f124e7dddcad9a2ffa34bc3966c8386aba563f3b","2014-03-03 00:21:04-08:00","Fix a minor typo.
+"
+"91f67be6c4a44b3b0c130dc65042abb8c29c8a66","2014-03-03 15:31:44+07:00","Merge pull request #5596 from unknownbrackets/warnings
+
+Fix some minor warnings
+"
+"36c8d7f4087bafe78b5db6aa3d6564065d6132c7","2014-03-03 11:39:42+01:00","Focus the start button on the pause screen. Update native with focus fixes.
+"
+"30e58d98485aa29928512e200da6dd67d7de0231","2014-03-03 12:56:01+01:00","More work on smoother keyboard focus
+"
+"aea272a3ce2f8c165958a43f98575673c61ee1f1","2014-03-03 13:39:53+01:00","Jit x86: optimize  'subu r, 0, r'  to NEG r.
+"
+"b2260149aee13d576c3af1cfc2e0c1c78a2bd8c0","2014-03-03 14:33:22+01:00","ARM Jit: Avoid materializing some unnecessary immediates in loads/stores
+"
+"3ebf47bbd5acb88ea1e525198269503a7d649f98","2014-03-03 07:24:25-08:00","Oops, fix compat reports on Android.
+
+Always forget about the VFS thing...
+"
+"b9886942a7fa7e0f5d49e4c26a8af000f913ae8c","2014-03-03 11:16:53-05:00","Fix some vertical alignments in misc Core source files.
+"
+"520eb5b012de30df96104309c13f2feca3b14e71","2014-03-03 11:26:27-05:00","Win32: On Optimus systems, use the NVidia GPU, not the IGP.
+"
+"04837f7ba63ba99180670539859abab8c4661645","2014-03-03 11:30:58-05:00","Remove redundant ifdef; we're already on Win32, so there's no need for them here.
+"
+"cc93e7807675838be5da6143f3f8c2eceadd83a5","2014-03-03 17:31:36+01:00","Merge pull request #5599 from thedax/win32NVidiaOptimus
+
+Win32: On Optimus systems, use the NVidia GPU, not the IGP.
+"
+"8342846609b7acdf9bff4be2c73efb6f673f6ec5","2014-03-03 11:46:26-05:00","Perform another PS1 eboot check before checking the PSAR magic.
+It seems as if some PS1 eboots out there are malformed and will get past the PSISOIMG0000 check, so check the PARAM.SFO category, too. If the eboot gets past that too, PPSSPP will probably still crash, so we're screwed at that point anyway.
+"
+"f3d32d8c23ab1df64a772de19e915ed9b2c5141c","2014-03-03 11:57:33-05:00","Get rid of redundant ERROR_LOG.
+"
+"fa4fbd00821d4b2bdc78b90cb9dc16483b821b29","2014-03-03 18:27:29+01:00","Merge pull request #5600 from thedax/additionalPS1EbootCheck
+
+Perform another PS1 eboot check before checking the PSAR magic.
+"
+"0846abbd5465ac65bbc6b3327542f36ac8328519","2014-03-03 18:29:19+01:00","Merge pull request #5598 from lioncash/vertical-alignments
+
+Fix up some vertical alignments in misc Core source files.
+"
+"bfa8d623edc98ab534e68c1b63c0d8781e9342b1","2014-03-03 12:41:41-05:00","Update ffmpeg and lang.
+"
+"e7299d5e60606f05932fd778327b116dad3c0368","2014-03-03 19:31:05+01:00","Merge pull request #5601 from thedax/updateSubmodules
+
+Update ffmpeg and lang.
+"
+"eb040319759331e22fd82e49a2ca76716001e4eb","2014-03-04 00:10:27-08:00","Try to optimize inline matrix loads.
+
+Improves performance by a few percent in Gods Eater Burst.
+"
+"d60b0272faf03e577a7e3e6bdbb768b48f94f9eb","2014-03-04 00:14:02-08:00","Avoid flushing if the bone matrix is the same.
+"
+"a8f9635e2820c9fc0446e9172300247a7ee26952","2014-03-04 00:21:20-08:00","Optimize loading of texgen matrices.
+
+Pretty small impact, may help games that use them a lot.
+"
+"9e35822d16c0725ba9f490b9e5e6aee322913d67","2014-03-04 00:37:28-08:00","Try to load view and model matrices a bit faster.
+"
+"349c2071960f597ed3ea50e7a9afa5f88007935e","2014-03-04 10:01:03+01:00","Merge pull request #5603 from unknownbrackets/gpu-minor
+
+Try to load inline matrices a bit faster
+"
+"b1acde2679247f5e17d31c3f52243cebb9cab05a","2014-03-04 01:09:04-08:00","Oops, forgot the world matrix too.
+
+VerySleepy is telling me that time is spent in WORLDMATRIXDATA in games,
+but I didn't check the perf impact exactly.  It's probably small, but may
+help some games.
+"
+"e11e4cfff284bc154ac77ff3fe6ca6b6829ff7d8","2014-03-04 11:38:25+01:00","GCC buildfix
+"
+"505b0c388f4450f69cf1719a8a5592b80c03689b","2014-03-04 07:37:32-08:00","Fix a typo.
+"
+"446418d783eb112747abfbfa7affc023d6cd11e0","2014-03-04 07:55:08-08:00","Properly reset some state between games.
+"
+"641064f0bc9ecf2ea9e727b0f26c8fbeda3e9319","2014-03-04 08:21:55-08:00","Consistently use MIPS_REG_V0 for return values.
+
+This way all instances are a lot easier to search for (was trying to find
+where we were writing an incorrect value to v0, turns out to be callback
+related of course.)
+"
+"4fbb245382712495a94daa3acf5437c9766fe148","2014-03-05 23:24:18-08:00","Avoid leaving the fast runloop on jumps.
+
+Jumps are actually very common in some games, like FF4 and Crisis Core,
+and tons more.  They are used to jump around vertex data.
+
+Improves performance by a few percent in FF4.
+"
+"56b2b2e5347fd1749b5288e6be4227311364b35f","2014-03-06 08:43:25+01:00","Merge pull request #5609 from unknownbrackets/perf
+
+Avoid leaving the fast runloop on jumps.
+"
+"8efd67280d35c1e0a56033e389b4abe1e17b539e","2014-03-06 08:16:19-05:00","Show unknown.png regardless of PARAM.SFO when an ISO lacks the file.
+It's better than showing a black rectangle with nothing in it for broken or homebrew ISOs.
+"
+"8276cac6a4f3c36ceb3f8726f279f98e648f994d","2014-03-06 14:41:03+01:00","Merge pull request #5611 from thedax/ui-minor
+
+Show unknown.png regardless of PARAM.SFO when an ISO lacks an icon0.
+"
+"30a6a5d10ff4045e705b345b391d74bfc9b59c62","2014-03-07 02:52:36+10:00","ARMJIT: Implement VLDM/VSTM load/store combinations and use in armjit. Also add them to disassembler.
+"
+"5b20761c45b62401fde93a687ae1113469cf7658","2014-03-06 18:00:52+01:00","Merge pull request #5615 from xsacha/master
+
+ARMJIT: Implement VLDM/VSTM load/store combinations and use in armjit. Also add them to disassembler.
+"
+"05571df8ec75ba9458e864a38ee66e35b2e9386d","2014-03-07 14:25:05+10:00","Use a VLDM in Vertex Decoder.
+"
+"ad31cd1b7c491bdd5649c56ff2b56acf163390d3","2014-03-07 15:47:34+10:00","Clean up ArmEmitter (cross-merge from Dolphin, minus the bad bits)
+"
+"6074ff84be2c39f2832872e7930b8a4c68212e8e","2014-03-07 15:48:11+10:00","Blackberry: Use configuration dir to find debugtoken. QDE uses that directory by default.
+"
+"fc650681a1642327c77204a91f438c4668883895","2014-03-07 07:16:18+01:00","Merge pull request #5619 from xsacha/master
+
+Misc changes
+"
+"2eb6a4e2f2965b4d91da33357e9f1cd2168ec4e7","2014-03-08 10:40:43+01:00","Fix a warning, rename some parameters, etc.
+"
+"ea3f5a10af29c34242bb2dabd65d2dde1ff04fc1","2014-03-08 10:41:37+01:00","Stub the rest of the known sceAudioCodec functions.
+"
+"bb30353ac38386411df524b9f4af168e7418a02b","2014-03-08 19:09:07+01:00","Update native with slightly more robust ES 3.0 version check.
+"
+"6b709a601d49627f991454416d1d950c5e18af5d","2014-03-10 23:21:21+01:00","Update native
+"
+"adadf118906aada2605174740212a68836bec50f","2014-03-11 11:02:22+01:00","An attempt to combine FPU regcache writebacks with VSTMIA. Disabled due to bugs.
+"
+"ea6fb9337c30d11993f759408e2767287bf81c5f","2014-03-11 21:43:48+01:00","Second attempt at flushing multiple VFPU regs using VSTMIA.
+
+Also disabled, but seems to work, just needs testing.
+
+Much better code this time and works for VFPU regs not just FPU regs.
+"
+"7ae9c26b6a12b0b0786f5eda570d88afd60a3464","2014-03-12 10:15:09+01:00","Enable the new vreg flushing mechanism on ARM.
+
+Reduce logspam seen in a couple games.
+"
+"174b5187e6012855d43081184eed27a6abb9e7bb","2014-03-12 11:06:26+01:00","Arm VFPU: 2-op and 3-op: map registers before work, improving instruction order a little.
+"
+"ab9cd99d0ffe4b01d6f6bea712742456e4343294","2014-03-12 18:09:28+01:00","Major ARM disassembler improvements, will make debugging the JIT easier
+"
+"8bc717cf6722f670941aa1cdc8943a7508d8735e","2014-03-13 08:15:22+01:00","Take care of #5639 without hardcoding the array size.
+"
+"ca0a8d02691b54217b01e4552cd5abc3c9b033aa","2014-03-13 00:20:02-07:00","armjit: fix lwl/lwr from an imm address.
+
+Can't skip loading the reg value.  Likely cause of #5057, possibly other
+bugs as well.
+"
+"87c626086027291cc016b1cb5238f6799c8d926b","2014-03-13 10:49:38-04:00","OSK: Let square serve as a spacebar.
+"
+"0ce4d40636d2d50fdaa39a51dbc827f32b1f3c1e","2014-03-13 11:56:08-04:00","Properly limit the space button so it can't go past the max text length.
+"
+"9638f387af27881b5285eca94b49e0aa67b909d7","2014-03-13 18:09:11+01:00","Fix bug: building on MACOSX
+"
+"ce1d449bedab365e9429387d9763a22cd2fdf7a8","2014-03-13 18:46:36+01:00","Try a simple workaround for the Crash Tag Team Racing issue.
+
+Hopefully this is reasonably safe...
+"
+"4df49a72ab4c6dcb4cf7553fd6dfb54fa77ce4b2","2014-03-13 18:59:49+01:00","Add yet another hack setting to work around the 3rd Birthday problem.
+
+Hopefully temporary...
+"
+"d374cf94b3806263d60f2f3e80c523cfa6993265","2014-03-13 19:11:06+01:00","Merge pull request #5529 from sum2012/kernal-load
+
+Bypass to boot.bin from patched game
+"
+"a0d2be297e1797513695d63e85df3bd6ac723162","2014-03-13 19:56:01+01:00","Merge pull request #5641 from thedax/oskSpacebar
+
+OSK: Add a button to let the user enter spaces.
+"
+"ae090662929a9efcd59f5b46b06dcd45c78062f7","2014-03-13 22:30:31+01:00","Merge pull request #5642 from kaienfr/new_build_MACOSX
+
+Fix bug: building on MACOSX
+"
+"408168181d31f6ba54c6144e4871579ab3e44838","2014-03-14 00:59:28+01:00","Update PSPOskDialog.cpp
+
+Cosmetic change (more space added between the 2nd and the 3rd column of buttons)
+
+before >> http://img15.hostingpics.net/pics/947242ULES0121300000.png
+now >> http://img15.hostingpics.net/pics/365423ULES0121300001.png
+"
+"92348b0cc4bf5644a156ebf570e09510b421d194","2014-03-14 05:32:31+01:00","Trying to fix encoding
+"
+"e020024434d879d5f34f5ddccd6959b4910c6dbd","2014-03-14 07:53:10+01:00","Merge pull request #5644 from vnctdj/patch-1
+
+Update PSPOskDialog.cpp
+"
+"557eae7ca9b6130a4645e346049940116031b109","2014-03-14 21:04:32+08:00","Avoid caching when HW T&L with morph enabled.
+"
+"bbacfdd899f4ce74485bf9425a5fc4e5e26bab52","2014-03-14 14:24:46+01:00","Merge pull request #5650 from raven02/patch-29
+
+Avoid caching when HW T&L with morph enabled.
+"
+"7cadba645f1a27be70cba631bdea9b612fb6e5fd","2014-03-14 16:36:31+01:00","Add Galician language, thanks to Pedro Madruga
+"
+"e37244cfead7c537e5eafe1be24861ed23f6cc52","2014-03-15 01:18:35-07:00","Eat cycles in sceUtilitySavedataGetStatus().
+
+Matching tests.  Improves performance in Fieldrunners startup and I think
+in game.
+"
+"d8f5dfb5290aa5b1b9c602652cb9208585244bce","2014-03-15 09:44:10+01:00","Merge pull request #5655 from unknownbrackets/perf
+
+Eat cycles in sceUtilitySavedataGetStatus()
+"
+"c37e1390ae0eeb39e9b7df1c94bc629e802cf861","2014-03-15 10:26:16+01:00","Update submodules
+"
+"c80510fb3b8df1656cdda164a6500865e7c24de0","2014-03-15 10:45:39+01:00","MemMap should not be included in MIPS.h.
+"
+"b4d99b198169ecb6c7a684bad423cef31e7b7f69","2014-03-15 10:46:04+01:00","Revert 'Avoid caching when HW T&L with morph enabled.'
+
+This reverts commit 557eae7ca9b6130a4645e346049940116031b109.
+"
+"5705496233d0d0aee5e495f7f3fc02537e7f351f","2014-03-15 10:51:16+01:00","Reduce the delay in __KernelVolatileTryMemLock. However, it's still too large.
+"
+"b2b6b09072fe3a45778f1e17f9fcc1fc81dffcda","2014-03-15 14:00:28+01:00","Mp3 Audio Support.
+Now, we can play mp3 audio format. :)
+"
+"1a90e0c7ba11e10cb762ecbd3734b56ab25f13a3","2014-03-15 14:44:47+01:00","Update VS project files
+"
+"923accf6fffa10e05c9b965989860c36e4af3b09","2014-03-15 14:54:52+01:00","Merge pull request #5657 from kaienfr/mp3_support
+
+Mp3 audio support
+"
+"21ce99cabdd08db433b9bab52a8253b10156d2c9","2014-03-15 09:59:54-04:00","Fix Unix-like builds.
+"
+"285d192e8389fbb624392191c4b1f7abcc316b88","2014-03-15 10:17:03-04:00","Further fixes.
+"
+"d791093362f629cd6d64a8c8a31a8c06a32a742b","2014-03-15 15:24:24+01:00","Merge pull request #5658 from thedax/unixBuildFix
+
+Fix Unix-like builds (e.g. Linux, Android, etc.).
+"
+"bca5b38c901c5957a9576576d502b7b621be0e6d","2014-03-15 11:32:55-04:00","Build-fix for Android.
+"
+"e465562f98e8221c0953e5f893de3fa68d65f2fe","2014-03-15 09:37:34-07:00","Merge pull request #5659 from thedax/androidBuildFix
+
+Build-fix for Android.
+"
+"4674ff50cc706c48f7357f200f44dabf80d5ae09","2014-03-15 10:37:13-07:00","Ingore literal-suffix on Android, the sdk has it.
+
+Just makes it hard to find real warnings.
+"
+"996fa396848fc0a390333e9d7ce781b564ee61f1","2014-03-15 10:38:46-07:00","Reduce some unnecessary includes in Core/.
+"
+"c9be2f606cf99c9ba82517bf513e2e8ae1a62e5c","2014-03-15 10:41:13-07:00","Fix a type conversion warning.
+"
+"8d29b583e88b980d4889ec0c7319ea45010b6547","2014-03-15 10:48:30-07:00","Reduce a few Core/Dialog/ includes.
+"
+"05ab192c9c92dce744011af4cc07365e6208b8bd","2014-03-15 11:22:19-07:00","Reduce includes in Core/HLE/.
+
+Especially templates.
+"
+"d65af7353bb4fbbca1a4be78aac59bd5e503e978","2014-03-15 11:32:57-07:00","Avoid some ChunkFile includes.
+"
+"a843cbd58031d48a0c17a0e9173ca0357459354b","2014-03-15 11:44:02-07:00","Shrink the very common sceKernelThread.h include.
+"
+"abfa203520854e8d09cb0d161676955b14dd08d0","2014-03-15 11:49:35-07:00","Cut down on a few more includes in Core/HLE/.
+"
+"fe7a4b654f28b8b4af16b13d4c7d21c511ec32f8","2014-03-15 19:53:49+01:00","Merge pull request #5661 from unknownbrackets/warnings
+
+Reduce a bunch of includes, fix a couple warnings
+"
+"06b9e731e8fcbaae7afccdc9b219e3cd1023a163","2014-03-15 11:56:52-07:00","Linux buildfix.
+
+Arg, stupid memcmp/sprintf...
+"
+"737c96ecedee6711ed59013657b2d46a5069be0d","2014-03-15 12:03:33-07:00","More cstring includes, grr.
+"
+"78ce9b3f3c00ec67bc6c06041241814ad4f24d8a","2014-03-15 21:28:24+01:00","Spline patches: Ignore too-small patch_div_s/t. May help #5663
+"
+"743854afc871928e242115331ab5608ed4974b99","2014-03-15 15:23:06-07:00","Fix off-by-one on fast matrix loads.
+
+May matter mostly if there's a stall right at the end of the matrix.
+"
+"dd140b73bb9c338c4c9baddaf8acfe969e9c1bf7","2014-03-16 14:29:22-07:00","softgpu: Use SSE for gouraud shading.
+"
+"b357b00aced6bc8be4d9864a23c6dc7c35a0342f","2014-03-16 14:30:20-07:00","softgpu: Use SSE for through texture coords.
+"
+"b33d0c4046dbf01daad3d5f4584c257e620b5080","2014-03-16 14:33:42-07:00","softgpu: Use SSE for texture sampling.
+"
+"c3530a667402d2e4ebc391595e5583ba798a8c2f","2014-03-16 14:49:49-07:00","softgpu: Don't multithread small triangles.
+
+It ends up being slower with all the overhead, of course.
+"
+"1ab7325d4a865f86b63022f6380fe0bcab70ce88","2014-03-16 15:04:41-07:00","softgpu: Use a full Vec4 for the prim color.
+
+Simpler, and slightly faster.
+"
+"f21649e5636e145d84bba5726d1667d1c1845f37","2014-03-16 15:09:42-07:00","softgpu: Minor simplification for alpha blend.
+"
+"d9e29a2edfcb5df58a453b2d0b9385182d1dfd79","2014-03-16 15:22:31-07:00","softgpu: Optimize alpha blending handling.
+
+This alone makes it a good bit faster.
+"
+"7f3e158a0fd547c92ee81f1fd1da431b3c70c6a3","2014-03-16 15:51:47-07:00","softgpu: Get all tex samples at the same time.
+
+Kills a bunch of overhead, improving speed more.
+"
+"6ef0aa123fafdd19c62dcabb64dd210c5fe423b3","2014-03-16 16:21:12-07:00","softgpu: Use SSE for the secondary color.
+
+It's easy to speed up this code since it's so hot.
+"
+"47728528d7b8865e7cae980661dfd82f9f18a4cc","2014-03-16 17:56:34-07:00","softgpu: Use SSE in Vec?::Length().
+
+Minor perf boost but if I do everything in Vec things get slower.
+"
+"601ff10f1e0d086ed412cb906d78855778a76e9d","2014-03-16 18:28:06-07:00","softgpu: Use SSE in tex modulation.
+
+Could do others, this seems the most common.  Gives a few more percent.
+"
+"07ca96e226cae9d3c78b3b2e21db651681cf6694","2014-03-16 18:57:11-07:00","softgpu: Use SSE in alpha blending.
+"
+"627027307c0295aee22ab62cd8fd518dd5645534","2014-03-16 19:21:35-07:00","softgpu: Use SSE in ToRGB()/FromRGB() etc.
+"
+"10456a09acea4f024b52e24786f4055578a8e4d2","2014-03-16 21:12:23-07:00","Oops, forgot to multiply in float ToRGBA().
+
+Not actually used...
+"
+"6de2129f9845586df013f1ece94eae7cd7b9e752","2014-03-16 23:03:07-07:00","softgpu: Don't re-pack 8888 colors.
+
+It's like a bad joke, but MSVC was not optimizing this out.
+"
+"4bea9035eeaa4fd7f51c8d469af60c70eb94cdf1","2014-03-17 09:13:55+01:00","Merge pull request #5670 from unknownbrackets/softgpu
+
+Use SSE in the softgpu to improve perf
+"
+"38d0bac1df5e68c48e0074140e26d5386db1a09e","2014-03-17 01:21:52-07:00","Optimize some 4444/8888 color conversions.
+
+Small performance boost in softgpu.
+"
+"8cd85212946bea5d0be6759eaa1b366b4723a89c","2014-03-17 10:32:18+01:00","Merge pull request #5671 from unknownbrackets/perf
+
+Optimize some 4444/8888 color conversions
+"
+"6630e45eff5f124daa7e6aceb6949fe2fa63c4e3","2014-03-17 06:58:50-07:00","Just add a packed version of Vec3f.
+
+This way we can have it aligned to memory where needed.  I think it'd be
+better to avoid this if possible so that we can actually vectorize
+spline/etc. code.
+
+Fixes #5673.
+"
+"800e2160ea8a84b3ae433a1306bd365b09800c32","2014-03-17 15:05:21+01:00","Merge pull request #5675 from unknownbrackets/softgpu
+
+Just add a packed version of Vec3f
+"
+"833c93bd989dc71e1b5d4d27e1e81b44a673ef16","2014-03-17 12:53:49-07:00","Dumb mistake, forgot the divide.
+
+Probably caused the blending issues.
+"
+"1ce6bf399af8c593e3a74160c073a055d989d855","2014-03-17 21:52:27-07:00","Buildfix for 32-bit x86, arg.
+"
+"416df17088160477df758708b3bfaa8f78cb2210","2014-03-17 23:03:04-07:00","Inline From/ToRGB(A) to avoid losing SSE.
+
+Otherwise it has to store it, which I'd like to avoid.
+"
+"678237aa6cc52039c69b10eb4068e433d2117fda","2014-03-17 23:05:48-07:00","Improve SSE usage in software transform.
+
+It's actually already pretty decent (unlike the softgpu), but there were a
+few places it could use a bit of help.  Speeds up things with hardware
+transform off, or areas that need to use software transform.
+"
+"44e94849423e10692857cfe19c8d346d9a4c8acd","2014-03-18 09:21:41+01:00","Merge pull request #5677 from unknownbrackets/perf
+
+Minor perf improvements to software transform
+"
+"a8a299c2e33e41efd47190abd455fe888c65a9cc","2014-03-18 22:56:27-07:00","Fix ToRGB/ToRGBA possible accuracy loss.
+
+It was always like this, but not used as much before.  Shifts are fast and
+it eneds to sum anyway, there should not be any benefit to multiplying as
+floats, and it will probably lose accuracy.
+"
+"1e1ebb3dbffb8c48f9303e86e0d8ed268931f4fb","2014-03-18 23:55:17-07:00","Execute android profiler on Exit.
+"
+"27bcb570c07d830710a9153d596c07ef857e811c","2014-03-19 11:15:01+01:00","Workaround for #5652: Force size to 0 if negative.
+
+Should be fairly safe, and passes tests nicely.
+"
+"715675ea5da9a3ee720191824d652cb75b225922","2014-03-19 11:17:54+01:00","Update lang
+"
+"1a854a5ae604a3875e019474e91e7517a7f98559","2014-03-19 15:34:38+01:00","Improve logging in sceSasSetVoice
+"
+"fd1333833944aa3a3eb25e49d4a463cec7171e0d","2014-03-19 16:16:03+01:00","Update native with improvement to kb nav fixing #5680
+"
+"e4b0a1ed51c4dd8645a9eaffdff9ac9a3ee87240","2014-03-19 18:04:00+01:00","Update native with workaround for #5648 (immersive mode volume key issue)
+"
+"2f833a52cc800474755da444713fcaeadbe7e41c","2014-03-19 18:09:43+01:00","Update README for v0.9.8
+"
+"d7b0287e7aa19e0d2ca84f039cb04a6334c89b28","2014-03-20 00:29:34+01:00","Make a string translatable in tilt settings dialog
+"
+"0b673719c2b92b260e43f7f1cd7a20491e854904","2014-03-22 00:12:21+01:00","Crashfix for software renderer in 32-bit (SSE misalignment)
+"
+"ba5d88e9d63078fec59163c25187e96faaf7ee01","2014-03-22 09:27:21+01:00","Fix bug in FastLoadBoneMatrix where the wrong uniform could be dirtied
+"
+"f4db7254008b4f274920c760475c5be2a3d680e8","2014-03-22 09:28:45+01:00","Remove redundant call to ReplaceAlphaWithStencil
+"
+"c8e719e16521cfeafe5adacbb8f23be1d31e0d5b","2014-03-22 09:31:09+01:00","Inline ADSREnvelope::Step (thanks @unknownbrackets)
+
+(Some compilers want it declared inline in the header too)
+"
+"66f501b9818f44a7d4ee06edac110837e8050a08","2014-03-21 22:11:34-07:00","Avoid an invalid enum on GLES2 texture creation.
+
+My device logs an error, which I'm guessing has perf impact.
+"
+"abaf3065544dd845fab37c55d215518ec4cd1a5f","2014-03-22 10:00:58+01:00","Update lang
+"
+"cbc46be3f91cb8558fbb4b175b14e8e16cbf0243","2014-03-22 11:58:53+01:00","Update version to 0.9.8
+"

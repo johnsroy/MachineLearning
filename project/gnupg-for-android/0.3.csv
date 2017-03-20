@@ -1,0 +1,899 @@
+"commit id","commit date","commit message"
+"9893086b356721bcd8c92efc20ce977b54905068","2013-09-17 15:42:05-04:00","updated changelog for v0.2.1 release
+"
+"b327d34915d15ea6019a87603abc42b654aba35f","2013-11-07 16:25:57-05:00","enable ssh support in the gpg-agent
+
+from this suggestion:
+https://github.com/guardianproject/gnupg-for-android/commit/c69a6f5ac0019c2542f72d55aa3ffed296a609d4#commitcomment-4375088
+"
+"055486761cd3dfbc5a3667c2fab1e670e95ed7aa","2013-12-03 18:44:36+01:00","format JNI C code with astyle. styled included in documentation
+
+refs #1629
+"
+"c630b19009d982f65aaea9f521fd8cf75b3b1e19","2013-12-03 19:00:01+01:00","apply Android Java formatting and imports organizer profiles
+
+refs #1629
+"
+"782fa68a95889cf65ee6735a4122d201184b1b14","2013-12-03 22:03:03-05:00","update to latest curl release: 7.33.0
+
+closes #1644
+"
+"5be12ba7952f234b8cb90d8208ae80cf292ae98f","2013-12-03 22:06:15-05:00","update gnupg to latest in master
+
+closes #1644
+"
+"b2c67fa42a2430959e9298cc3586e726f03178ca","2013-12-03 22:20:29-05:00","update gpgme to latest in master
+
+closes #1644
+"
+"063f2cb9cd2f8184dacf3712f41cbee0e86b6672","2013-12-03 22:21:20-05:00","update to libgcrypt from master
+
+They've done a ton of optimization work in assembly, including ARM.  Also,
+new versions of gnupg require libgcrypt >= 1.6, which is only in master.
+
+closes #1644
+"
+"5f68bcdff05eb387ae9b11174f534a5f4fa767ca","2013-12-03 22:28:50-05:00","update to libgpg-error from master, libgcrypt needs it
+
+closes #1644
+"
+"addec3b97dbde1f3b43bd68f3f4e6cfae54f095b","2013-12-03 23:05:31-05:00","update openldap to latest release 2.4.38
+
+closes #1644
+"
+"be80e4ea313632e4b15affe6885488bc669ede91","2013-12-03 22:35:25-05:00","remove '.git' from submodule URLs from github.com, its unneeded
+
+github.com does lots of nice redirection so that there is a single URL for
+everything.
+"
+"42cfbac55f67e8c0ca4a43e0c925caca775effbe","2013-12-04 00:20:14-05:00","update gpg2-static and gpgv2-static builds for new gnupg changes
+
+* some 'keybox' stuff was broken out into its own dir
+* gpgv2 now needs libksba
+"
+"805eff5374475d1561437bdee67f9ba0b02819bd","2013-12-04 00:38:39-05:00","build native code for armeabi-v7a, older devices can use Java OpenPGP
+
+building for armeabi-v7a could give a dramatic speed boost to armv7a CPUs,
+which have been the standard for Android devices for a while.  Since there
+are Java OpenPGP implementations available, we don't need to worry so much
+about supporting the very old or very cheap hardware that does not include
+armv7a CPUs.  This has become more important given all the ARM assembly
+added to libgcrypt recently.
+
+refs #1630
+"
+"7cdf15380b5aabe711836fbf8c6e06a7328ead79","2013-12-04 00:36:24-05:00","integrate Android NDK's build flags into this native build system
+
+The Android NDK is also a 'make' build system, with some settings broken
+out into easy-to-include files.  This commit makes use of those files to
+give both a single file to set certain things, and the native optimized
+build flags.
+
+closes #1630
+"
+"810925cb7db44d46e70db8763baba29f02e039ff","2013-12-04 00:48:13-05:00","fix setting NDK_UNAME so it only runs the shell script once
+
+`` backticks are not supported by make, they are just passed thru to the
+shell.  $(shell) is how make execs stuff in the shell.
+"
+"b0e94ace6216d4c43ba1ab28cbc17f2b17afbf12","2013-12-04 15:45:39-05:00","purge all references to pth lib, gnupg only uses npth now
+"
+"433eca9633875d75d8156549fd243de6d291d68b","2013-12-04 17:14:47-05:00","standardize build-stamp usage in external/Makefile
+
+This is an attempt at making build dependencies work better, so that it
+doesn't rebuild everything every time.
+"
+"31b42b29e74387fd0bfadba3da4c4f783ae103f3","2013-12-05 12:08:56-05:00","set min platform to android-9/2.3/Gingerbread
+
+Its currently too much work for us to handle supporting older versions.
+This relies on a lot of new APIs both in the SDK, like the Contacts
+handling, and in the NDK.
+
+Update target to the latest while I'm at it.
+"
+"1001036ae172b04557ea56ec9eb29b6c87a59d9f","2013-12-05 12:09:17-05:00","bump version to 0.3 code 4
+"
+"5a6be8addde805add756be21b415a3da2dde8ecb","2013-12-05 13:03:04-05:00","include all CPU-specific JNI build folders
+"
+"9708bc2980799c7622053f4fcaedc3e0d85c7126","2013-12-05 13:06:51-05:00","make compile error whenever there is a security issue with formats
+
+-Wformat -Werror=format-security
+"
+"15d3780b929f91c89c836a2a0b03f9918b129be3","2013-12-05 13:18:03-05:00","add Posix.symlink() for making symlinks with needing `ln -s`
+
+We have no guarantee that `ln -s` will be included in all Android distros,
+but since most provide `ln -s`, I think we can be resonably sure that the
+libc everywhere will include symlink().
+
+Its also really a pain to run shell commands in Java for simple things like
+this.
+"
+"da330dc478896e7620e0672ce37b2488eea841e6","2013-12-05 13:06:04-05:00","more reliable integration of Android NDK build files into external/Makefile
+
+Now the build target for SDK, NDK, and external/Makefile are all set from
+AndroidManifest.xml.
+
+refs #1630
+"
+"980c2f95db9f86b0b271dca947970857bff08696","2013-12-05 20:09:24-05:00","use NDK gcc 4.8 compiler, required NDK r9b or newer
+"
+"a7721a862a5b3196c19195a5e88219d5b43792de","2013-12-05 15:09:50-05:00","`make gitclean` should not delete files that are committed into git
+"
+"dc03f046790763921b24934f52f805d9ba9b6cc5","2013-12-04 17:16:00-05:00","add Android support commit to m4/libtool.m4 on any project that uses it
+
+This required some hacks since libassuan, libgpg-error, and npth didn't work
+with just adding the m4/libtool.m4 to them.  They include some custom versions
+of the autotools files, so those got blown away by using autoreconf.
+
+refs #1548
+"
+"8a3210c258b7ae7a0d720671c995eedcc90eec4b","2013-12-05 21:56:18-05:00","sed hack to force libtool update for libgpg-error
+
+For whatever reason, the libgpg-error autotools customizations where
+especially troublesome.  So I just wrote some sed patterns to replace the
+necessary things in libgpg-error/libtool.  libtool is just a generated shell
+script after all...
+
+refs #1548
+"
+"f027190860432925903d1574334011766d09fcd4","2013-12-05 23:02:19-05:00","install libs built Android-style into libs/$(APP_ABI)/ instead of assets/
+
+This means that Android handles the rest for us, including bundling and
+unpacking them from the APK, setting the LD_LIBRARY_PATH, etc.
+
+refs #1548
+"
+"9fc58f83a8a65d239442be635e226c6b1168639e","2013-12-05 23:20:12-05:00","load GnuPG libs needed by JNI via standard Android path
+
+Now that the core libs are included in the standard Android way, we can
+load the libs in the standard Android way. libgpg-error, libassuan, libgpgme,
+and libpinentry are all needed by JNI stuff, so they are loaded in Java
+space.  (libgcrypt and libkbsa are needed by things like gpg-agent, so they
+don't need to be loaded into Java).
+
+refs #1548
+"
+"3f8f16e1f46e12ad4bc37671571bfa20dca7e161","2013-12-05 23:22:51-05:00","remove manual entry for libs/, its included automatically
+"
+"631a555e7adf71e30a3ab98bdccc36207659c79f","2013-12-07 00:53:56-05:00","gnupg-for-java: POSIX setenv() to change app's env vars, which GnuPG requires
+
+This allows GPG to set the env vars at app launch, and everything should
+magically get the env. There are two things that require setting env vars:
+
+* Android's linker can only find shared libs by looking in LD_LIBRARY_PATH,
+so in order for the GnuPG command line tools to find the required shared
+libraries, LD_LIBRARY_PATH needs to include the apps lib paths also.
+
+* GnuPG needs env vars like GNUPGHOME to find the folder where keyrings,
+UNIX sockets, and config files are kept.
+
+http://stackoverflow.com/questions/318239/how-do-i-set-environment-variables-from-java
+
+refs #1548
+"
+"25d6dc861628b1b2ee8a23269cbc9b29a37ab8d5","2013-12-10 11:13:52-05:00","add Posix.setenv() for setting the global env vars of an app
+
+Turns out that Android/Dalvik is much simpler than Java in this regard.  The
+environment is quite directly linked into the dalvik process, while in Java,
+changing the environment requires a bunch of reflection trickery because it
+maintains the environment in a special way in the JVM process.
+
+refs #1548
+"
+"9af0118232f5eac92f4948884d84a454c8b3a7d3","2013-12-10 11:30:22-05:00","include full android env vars in environment.conf for pinentry
+
+There was a backtrace coming from when pinentry-android tries to open the
+PinEntryActivity with /system/bin/am, this made that go away.
+
+refs #2744
+
+backtrace:
+
+pinentry-android.c  D  sending intent with: exec /system/bin/am start -n info.guardianproject.gpg/info.guardianproject.gpg.pinentry.PinEntryActivity --activity-no-history --activity-clear-top --ei uid 10043 --user 0
+pinentry-android.c  D  start_server /data/data/info.guardianproject.gpg/app_home/S.pinentry
+AndroidRuntime  D  >>>>>> AndroidRuntime START com.android.internal.os.RuntimeInit <<<<<<
+AndroidRuntime  D  CheckJNI is OFF
+dalvikvm  D  Trying to load lib libjavacore.so 0x0
+dalvikvm  D  Added shared lib libjavacore.so 0x0
+dalvikvm  D  Trying to load lib libnativehelper.so 0x0
+dalvikvm  D  Added shared lib libnativehelper.so 0x0
+Environment  W  EXTERNAL_STORAGE undefined; falling back to default
+dalvikvm  W  Exception Ljava/lang/NullPointerException; thrown while initializing Landroid/os/Debug;
+dalvikvm  I  Exception thrown by dispatcher for 0x48454c4f
+dalvikvm  I  java.lang.ExceptionInInitializerError:
+dalvikvm  I  at android.ddm.DdmHandleHello.handleHELO(DdmHandleHello.java:140)
+dalvikvm  I  at android.ddm.DdmHandleHello.handleChunk(DdmHandleHello.java:86)
+dalvikvm  I  at org.apache.harmony.dalvik.ddmc.DdmServer.dispatch(DdmServer.java:171)
+dalvikvm  I  at dalvik.system.NativeStart.run(Native Method)
+dalvikvm  I  Caused by:
+dalvikvm  I  java.lang.NullPointerException:
+dalvikvm  I  at java.io.File.fixSlashes(File.java:185)
+dalvikvm  I  at java.io.File.<init>(File.java:134)
+dalvikvm  I  at android.os.Environment.getLegacyExternalStorageDirectory(Environment.java:322)
+dalvikvm  I  at android.os.Debug.<clinit>(Debug.java:97)
+dalvikvm  I  at android.ddm.DdmHandleHello.handleHELO(DdmHandleHello.java:140)
+dalvikvm  I  at android.ddm.DdmHandleHello.handleChunk(DdmHandleHello.java:86)
+dalvikvm  I  at org.apache.harmony.dalvik.ddmc.DdmServer.dispatch(DdmServer.java:171)
+dalvikvm  I  at dalvik.system.NativeStart.run(Native Method)
+dalvikvm  I  Rejecting re-init on previously-failed class Landroid/os/Debug; v=0x0
+dalvikvm  I  Exception thrown by dispatcher for 0x46454154
+dalvikvm  I  java.lang.NoClassDefFoundError: android/os/Debug
+dalvikvm  I  at android.ddm.DdmHandleHello.handleFEAT(DdmHandleHello.java:152)
+dalvikvm  I  at android.ddm.DdmHandleHello.handleChunk(DdmHandleHello.java:88)
+dalvikvm  I  at org.apache.harmony.dalvik.ddmc.DdmServer.dispatch(DdmServer.java:171)
+dalvikvm  I  at dalvik.system.NativeStart.run(Native Method)
+dalvikvm  I  Rejecting re-init on previously-failed class Landroid/os/Debug; v=0x0
+dalvikvm  I  Exception thrown by dispatcher for 0x4d505251
+dalvikvm  I  java.lang.NoClassDefFoundError: android/os/Debug
+dalvikvm  I  at android.ddm.DdmHandleProfiling.handleMPRQ(DdmHandleProfiling.java:181)
+dalvikvm  I  at android.ddm.DdmHandleProfiling.handleChunk(DdmHandleProfiling.java:84)
+dalvikvm  I  at org.apache.harmony.dalvik.ddmc.DdmServer.dispatch(DdmServer.java:171)
+dalvikvm  I  at dalvik.system.NativeStart.run(Native Method)
+"
+"f397ad77c5ba21b4afe7e6acddb10b30ca94e67b","2013-12-10 12:29:44-05:00","hide comment field and make it optional when creating keys
+
+The Comment: field is little understood and usually misused.  So hide it
+and give a checkbox to enable it for people who actually want to use it.
+
+http://debian-administration.org/users/dkg/weblog/97
+
+closes #1960
+"
+"980bf6288e8781b13f3f0458680b4120f5eaf48f","2013-12-11 10:58:36-05:00","Eclipse ADT insists on marking some things as exported in .classpath
+
+Who knows what this does anyway?
+"
+"a85985bfe149e2354f30f000b49d56f50ccd21bd","2013-12-11 11:00:57-05:00","update pinentry submodule to include updated parsing of environment.conf
+
+refs #1548
+"
+"7e56d00aa98a386b9b09dcdc7880fafafc9a218d","2013-12-11 12:05:51-05:00","remove redundant return statement in android_cmd_handler
+
+refs #2744, #1275
+"
+"4982ca541fd15acceab1147340c33b7fff78b876","2013-12-11 12:12:10-05:00","lots of debug messages for pinentry
+"
+"e53232577107a38c05145367590319902ffad1bd","2013-12-11 12:56:48-05:00","gnupg-for-java: add changePassphrase() and purge old non-functional code
+
+gnupg-for-java was written for GnuPG 1.x with GPGME.  The expectation there
+was that the passphrase prompt was handled by the client app.  Now in GnuPG
+2.x, all passphrase prompting is handled by GnuPG pinentry, which is always
+triggered by gpg-agent.
+
+This commit hooks up the current function to trigger the passphrase change,
+and removes the old dead code for GnuPG 1.x
+
+closes #1585
+"
+"33c1db4f141df8ed7e69f931331e8c3b2c521dae","2013-12-11 15:23:33-05:00","make project build depends work better so builds don't always get triggered
+
+Currently, it seems that the dependencies, i.e. libgpg-error, get build
+everytime no matter what.  This puts the depends on the installed .so file
+so that should make it a bit more reliable.  Changing the installed .so
+file will trigger a rebuild of that project and the dependent projects.
+Not great, but better than before...
+
+refs #1548
+"
+"40603d1b8795f718c9a71bd6063d25060d953805","2013-12-11 18:24:07-05:00","expose contacts integration in preferences/setting
+
+Even tho people shouldn't be changing this, it is a natural place to look
+up how it is set.  So its included in a disabled state until its actually
+feasible for the user to toggle it.
+"
+"4b236fe34cddc83a9da1884c7710e4d83755da8e","2013-12-11 18:39:09-05:00","set periodic Contacts sync to happen every 72 hours automatically
+
+This is currently just a failsafe in case the sync triggers are buggy and
+aren't triggered always when they should be.
+
+refs #1483
+"
+"aacfc291efc68e807d3af8eece9670e6d0243de0","2013-12-11 18:42:12-05:00","set up periodic sync even when sync Account already exists
+
+Before, the periodic sync was only set up the first time the sync Account
+was created and setup.  This commit fixes the logic so that it will always
+configure the periodic sync whether it finds an existing Account or is
+creating a new one.
+
+refs #1483
+"
+"19d022baf302139017382296e5b7c0e87b4d27c0","2013-12-11 18:45:43-05:00","trigger Contacts sync based on BROADCAST_ACTION_KEYLIST_CHANGED
+
+BROADCAST_ACTION_KEYLIST_CHANGED was already setup to be sent whenever the
+GnuPG keylist changed in order to update the built-in key list viewer. This
+commit hooks into the function that sends this broadcast and also requests
+a sync with Contacts.
+
+I stuck requestContactsSync() in sendKeylistChangedBroadcast() since it
+seemed needlessly complicated to add a BroadcastReceiver to the
+GpgApplication.
+
+closes #1483
+"
+"1cc49b5e8bb2fe163af83c29d0a8e61dc90d8335","2013-12-13 15:18:36-05:00","load global native libraries as soon as possible
+
+Now that the libraries are included via ndk-build in the libs/ folder, and
+unpacked from the APK by Android, that means the libs are guaranteed to be
+in place before this app ever runs. So the libs can now be loaded as early
+as possible by sticking them in a static{} block in GpgApplication.
+
+refs #1548
+"
+"87efd13b3b65f85b6058e3d8ad56da27ab0db8f3","2013-12-11 18:51:21-05:00","comment on confusing part of partially implemented sync code
+
+closes #2753
+"
+"f6f9225d4f3128fbf4bd99e403f5f6372a648a30","2013-12-12 16:15:48-05:00","recruit unused KeyListActivity become SelectKeysActivity
+
+It turns out that the built-in Contacts picker cannot handling selecting
+more than one contact at a time.  This suck for choosing who to encrypt to,
+since you can encrypt a file to multiple people.  Therefore, we have to
+implement our own Activity for choosing keys.
+
+closes #1491 refs #1633
+"
+"f3ce36713e115a2e47ce69e54c148659de4272b6","2013-12-12 17:13:22-05:00","reorg 'Encrypt File To' constants and strings for readability
+
+SyncAdapterColumns doesn't say what the content is, and it'll only get more
+confusing as we add more items to the Contacts.
+"
+"2568f4c369eeb9c7448b4a6403bb3590be973a8d","2013-12-13 16:15:30-05:00","gnupg-for-java: replace crazy loops with linked list when building keylists
+
+The old code was buggy and difficult to read. This commit replaces it with
+one pass of reading keys from gpgme and writing to a linked list. Then a
+second pass that creates a fixed java Array and fills it from the linked
+list.
+
+closes #1660, closes #1621
+"
+"4127cdb2b51d846b126dbe1bdfb94df57e1326c8","2013-12-13 18:01:11-05:00","document insane stuff in res/xml/contacts.xml
+"
+"b384f7b6428cf971716a5e16107688c10155f2a6","2013-12-16 15:31:06-05:00","purge unused gnupg-for-java submodule, that code is included directly
+
+refs #326, refs #1375
+"
+"2bc4150fd54487278655fff0017ea8d8989d306a","2013-12-16 16:14:15-05:00","remove unused variable in pinentry JNI code
+"
+"149e3e79e0317fc9890da00bb31c670717e14135","2013-12-16 17:23:50-05:00","latest libgcrypt in git for ARM optimizations and runtime CPU detection
+
+resolves #2773
+"
+"27a31eb91089f9d39b7106fad8b76793dc8b8658","2013-12-16 19:02:55-05:00","in test script, show the file tree to see what got installed
+
+refs #1270
+"
+"0325cc430db479598bd6a9ed3e1500a6a25b1c5d","2013-12-16 20:06:55-05:00","get curl building in Android-style and include it the build
+
+refs #1548
+"
+"ee3819b73d59589b17837862a7033fee38868bd6","2013-12-17 13:34:16-05:00","strip down Contacts Syncing to the code that is actually used
+
+Its too confusing trying to figure this out, so to help that situation, I'm
+stripping out the stubs and boilerplate.  For how, the syncing is done by
+deleting all current GPG contacts, then adding all current keys in the
+keyring.
+
+refs #2681
+"
+"d5d3a9561164c259a09411b86fc3ddbd95e6895a","2013-12-17 14:00:40-05:00","delete all contacts before adding the contacts from the keyring
+
+This is now a clean implementation of our current brute force sync method:
+first, it finds all RawContacts associated with the GPG account, then it
+deletes them all, then it adds all keys in the keyring as contacts.
+"
+"7f00afdd49ad588dfaacb350009490826592eb46","2013-12-17 14:17:03-05:00","static classes/methods named to distinguish from Android classes
+
+With lots of generic names like RawContact, SyncConstants and
+ContactManager, it is easy to get confused which is from GPG and which from
+Android, since Android has classes like RawContacts.
+"
+"270b026f9527831b5a6fdbd92e8338797d94813c","2013-12-17 16:32:08-05:00","use SDK to get the native library path
+
+refs #1548
+"
+"e5fbe4cfccaae78ba1ab2c3247bc6f6b2e9a52b5","2013-12-17 21:52:52-05:00","make RawGpgContact and GnuPGKey mirrors of each other
+
+The KeyList views are all going to be powered by the ContactsContract, so
+all of the data that is in a GnuPGKey needs to be mirrored to the
+RawGpgContacts in the database so that the KeyLists can display them.
+
+refs #1633, #2681
+"
+"4842a94ea5e8b77ea02bfe4544f55cf2f98393c3","2013-12-17 22:08:52-05:00","separate BaseAdapters for public keys from Contacts and secret from GnuPG
+"
+"376a08d905bda5c4d04fbf5759f814674239291e","2013-12-17 23:42:51-05:00","mark secret keys in Contacts with the secret_key_group_name
+
+This provides an easy way to get a list of the secret keys for display in
+a key list activity.
+
+refs #2681, #1633
+"
+"a536fd51344fd8814e1be75817b40297666f10a4","2013-12-18 16:31:09-05:00","standardize GpgContactOperations update methods
+
+Use the same variable names as the rest of the app, and use the same arg
+order, i.e. Uri first.
+"
+"7d288d8cca5128f42a5a0a9e5c6dc48f368a43fb","2013-12-18 18:02:54-05:00","added Android Test Project embedded into this app, as recommended
+
+This allows us to write tests per class and use the Activity tests.
+"
+"e2364cb6afac79dfafdffd68f678d4785ed7c55a","2013-12-19 17:49:17-05:00","show secret keys from ContactsContract instead of GnuPG directly
+
+Now that all of the keys are synced into the ContactsContract, and most of
+the info in GnuPGKey is now represented in RawGpgContact, the secret key
+list view can be pulled from the ContactsContract.
+
+This should be implemented using the ContactsContract Group
+secret_key_group_name, but my brain is not feeling more crazy Android SQL
+queries...
+
+refs #1633, #1597
+"
+"a4676c395eb5af9fb6e81c4610e6b30258d0fbc5","2013-12-20 10:02:53-05:00","purge useless local keyring search
+"
+"36ec2d71598aa881ca6c852f6e57585ffe9f017a","2013-12-20 10:35:28-05:00","move action contants into GpgApplication, stop using Apg constants
+
+Since its proven impossible to make a useful APG API in our app, its time
+to move away from using the APG stuff internally in this app.
+"
+"951fcc02f7621c91648ce7010dee5768eedab701","2013-12-20 10:57:27-05:00","highlight reason for disabled keys in list view
+
+This should make it more apparent when there is a disabled key, what the
+reason for it being disabled is.
+"
+"96aa0035ca883f928ac0aedfabbb7ab168a8ed58","2013-12-20 14:36:33-05:00","convert KeyListFragment to plain ListFragment style
+
+The ListFragment has lots of sensible defaults that we want to use, and
+they making adding things like live search filters much easier.  In this
+case, its actually using SherlockListFragment since Sherlock is used
+elsewhere.  If we rip out ActionBarSherlock, then this should work fine
+just switching everything to the Android Support versions.
+
+refs #1633, #2681, #1467
+"
+"244d707e0d000089db212e338dc50a663943aa3e","2013-12-20 14:56:19-05:00","alpha sort lists of keys based on Contacts.DISPLAY_NAME
+
+before, it was stored in the order that things were added, I think.
+"
+"eb2bf5ac158ae47248b2ae9a6fb9637e7465931e","2013-12-20 16:30:47-05:00","include skeleton keyserver Fragment with new Java keyserver support
+
+This includes the KeyServer and HkpKeyServer classes from originally from
+APG, but taken from OpenPGP Keychain.
+
+closes #2756  refs #2808
+"
+"7eefd09fd4b216a2b843646270bc034cfd90e5fd","2013-12-20 17:30:26-05:00","keep track of tab fragments so they can have Filters and Loaders attached
+
+The search bar needs to set the filter in the active ListAdapter, so all of
+them need to be stored and recalled.  Handling the Loaders also requires
+knowing which ListAdapter is active so it can be handled on the Loader
+callbacks.
+
+refs #2808, #1633
+"
+"f1a9ebc98d2be4321997e0d66059ffc7a7090fb1","2013-12-20 17:32:08-05:00","sketch out searching in the KeyListFragments
+"
+"80f2dfe3234e93c23b5f4a40b4946b55966a7abc","2013-12-20 18:06:48-05:00","disable 'use contacts integration' checkbox on setup
+
+Right now, this app will only work with contacts integration enabled. But
+we'll this code in place because someone could implement a version that
+does everything directly from GnuPG and ignores the contacts.
+
+refs #2681
+"
+"a302afaca035ecf729055cef2d36017f3cef686e","2013-12-20 22:28:17-05:00","openpgp/keyserver: rationalize data types and rename for clarity
+
+Having key.isRevoked be a String just makes no sense...
+
+refs #2756
+"
+"a370ec22ff3c9570cee6a0b3d9d359dcc1a1797e","2013-12-20 23:36:13-05:00","search keyservers in a Loader and show results in KeyListFragment
+
+This uses an AsyncTaskLoader to run the HTTP query to keep that off of the
+UI thread.  It returns a custom whack job KeyserverResult so it can send
+both the data and any errors that might have occured so that they can be
+handled on the UI thread (i.e. Toast for now...)
+
+refs #2808
+"
+"f66c55144e3e481ededca14fff81c5cf5e5f8afb","2013-12-23 15:45:01-05:00","the Android libtool patch is included in libgpg-error and libgcrypt now
+
+libgcrypt v1.6.0 builds fine for Android straight from the official release
+while libgpg-error still needs the sed hacks to work.
+
+refs #1548
+"
+"d9305ab21b2bda32ab896360b4e5332f6b54be27","2013-12-23 18:07:02-05:00","openpgp/keyserver: search by keyId also, if search is 8 or >=16 char hex
+
+If the search string is a valid 8-char or 16-char key ID, but does not
+start with '0x' then the keyserver will not search by keyID.  If the string
+starts with '0x', then the keyserver will only search by keyID. This commit
+checks if the string could be a valid hex key ID, and if so, runs it first
+as a key ID search, then second as a name/email search.
+
+refs #2756
+"
+"98045716915d19535fe4b29fca7e9a77339fe0d2","2013-12-23 19:59:28-05:00","replace ActionBarSherlock with android-support-v7-appcompat
+
+android-support-v7-appcompat and ActionBarSherlock are both library
+projects, so they probably have the same amount of pain in handling them in
+Eclipse, etc.  But android-support-v7-appcompat supports ActionModes like
+the multiple selection mode of the ActionBar.  android-support-v7-appcompat
+is also officially supported by Google.
+
+https://www.grokkingandroid.com/migrating-actionbarsherlock-actionbarcompat/
+
+closes #1467
+"
+"879345b5a9047248d534a36722974bfa5d8e52b0","2013-12-23 20:52:20-05:00","port all UI from ActionBarSherlock to android-support-v7-appcompat
+
+The app: thing in the XML files is odd, otherwise it was pretty simple.
+
+closes #1467
+"
+"619151205117f12a921db5a6cdd9389adb0f058b","2014-01-15 17:20:45-05:00","android-support-v7-appcompat: export jars so main project can find them
+"
+"19370e467fd3c481c052f3d81fa1345f7ec58d8d","2013-12-23 20:59:27-05:00","allow 'navigate up with app icon' in ActionBar in relevant Activities
+
+Just provides the standard way to get back to MainActivity
+"
+"0053e782f885c5cb25975a26e8a3589d9b80a247","2014-01-15 17:00:46-05:00","DebugModeActivity: set title in ActionBar to 'Debug Mode'
+"
+"7643f5f9812853196b4185d0541ee49ec071c38d","2014-01-09 14:57:09-05:00","ActionMode in 'Find Keys' tab to provide button to import selected keys
+
+When there are search results showing in the Find Key tab and the user
+clicks on one of the results, the ActionMode bar shows up with 'Done' and
+'Import Keys'.
+
+refs #2808
+"
+"88311255f41858c77dbc467530ecfd06ba8401c3","2014-01-09 20:31:36-05:00","show the ActionBar search field when switching to 'Find Keys' tab
+
+The only thing to do in the Find Keys tab is search for keys on the
+keyserver, so it makes to always show the search field when switching to
+that tab.
+
+refs #2808
+"
+"34605a9982dccf3cebf65285d64b4cfc94305138","2014-01-09 20:34:05-05:00","show progress spinner when waiting to load the list views
+"
+"11b351c27bf440a0a105a71be20208a5e20b2f98","2014-01-10 13:20:26-05:00","remove unused Intent extras when creating tabs in MainActivity
+"
+"df579ba91238e45007e2c82ce3adffc158978162","2014-01-10 15:28:57-05:00","convert SelectKeysActivity to be based on fragment ActionBar
+
+Use a button in the ActionBar to trigger the action on the selected keys.
+Currently, this is only 'Encrypt File To...'.
+
+refs #1633
+"
+"6751688fb48fecf0aac71af63b78a5c4320a198b","2014-01-10 15:50:34-05:00","convert EncryptFileActivity to receive arrays of keyIds and emails
+
+Now, to send recipients to encrypt the file to, add a long[] of keyIds of
+the recipients Key IDs as Activity.EXTRA_UID, and optionally, a String[] of
+email addresses for the final SEND Intent as Activity.EXTRA_EMAIL.  If no
+recipient keyIds are specified, then launch SelectKeysActivity to let the
+user choose some.
+
+refs #1633
+"
+"5c183d31c14cad73cc3fd85a12c5bc75917e02b8","2014-01-10 15:53:04-05:00","when contacts sync finishes, trigger key lists to update
+
+Since the key list views are now based on the Contacts database, the key
+list views should update after the Contacts sync is complete so that the
+database is up-to-date.  Previously, it was sending the broadcast at the
+beginning of the operation.
+
+closes #2765
+"
+"340bbfbaa9522a32c4b250fd97723dd4ef272833","2014-01-10 16:37:42-05:00","fix 'delete after import' to guarantee it deletes AFTER import
+
+previously, the import happens in a thread, and the delete happened right
+after the call to start the thread.  Oops.  Now it deletes the file after
+the thread replies saying its finished.
+"
+"a48b1dc08cd7fa2b16199773bbf3d93b8b9bb3b8","2014-01-10 18:18:07-05:00","add cmd line 'list keys' for debugging
+"
+"65c125ae6c7a7a34b628462016f937852c148565","2014-01-10 20:44:07-05:00","purge remnants of KeyListActivity from SelectKeysActivity
+
+This should have happened at the get go, but late is better than never...
+"
+"1b1b8cb5191331563fb64b7e24190cfa2df71db6","2014-01-10 20:47:01-05:00","add null guards for crashes when rotating
+
+Really, these things should not be null, but handling rotation is painful!
+"
+"b6ec8cc5baf5466bcd834bb80b920f91671e23de","2014-01-10 20:49:13-05:00","don't crash when receiving bunk error code from the List Adapter
+
+Really, result.getErrorResid() should never have a bad value, something is
+amiss... but this at least prevents it from crashing...
+"
+"baf4b633ea64b3fd669af1aa1284ef4fa1f464a7","2014-01-10 20:51:48-05:00","import key data via EXTRA_TEXT and EXTRA_STREAM in Intents
+
+This makes it possible to just send ASCII key data in an Intent, and it
+will get imported.
+
+refs #2808
+"
+"e60796d35ee8bbe956fbaeb73d841e0522a286cd","2014-01-14 18:31:32-05:00","FileHandlerActivity: don't finish if showError() will be called
+
+If everything works, we want FileHandlerActivity to disappear/finish as
+fast as possible.  But if it needs to show an error, then the dialog's
+OK button should trigger the finish().
+
+Now that the error dialog shows, we don't need the extraneous Toast.
+"
+"57940ac673e7fceff0c68f7420eeac0e33089d4c","2014-01-14 21:12:56-05:00","FileHandlerActivity: make sure to close Cursor after query
+"
+"988d62d3539bd95d35b57f5c829514dc72b4cfca","2014-01-14 18:59:32-05:00","handle content:// URIs in Intents that don't set the MIME type
+
+OI File Manager sends files in SEND Intents with an odd content:// URI and
+does not seem to set the MIME type, so these tricks are necessary to handle
+SEND Intents from OI File Manager.
+
+refs #1646
+"
+"8a87f685bd284ac7dbd4a57a9842c2f8e94ec840","2014-01-14 20:45:12-05:00","add SignFileActivity for signing incoming files with default key
+
+There wasn't any way to sign files yet, this is based on the approach of
+EncryptFileActivity and just provides a very simple interface to the
+signing procedure.
+"
+"d19f82b9dacdbb42e4a32571961e2d77191c06e7","2014-01-14 20:20:52-05:00","prompt to sign/encrypt when receiving non-PGP file
+
+A file:// URI was already routed to encryptFile(), this adds a rough
+prompt to choose Sign or Encrypt for any non-PGP file received via file://
+or content://
+
+refs #1646
+"
+"8a858748a531d205c2256022220f73e355b2b5b9","2014-01-14 20:22:18-05:00","use IOUtils.copy() for simpler, more reliable stream copying
+
+It is really silly to have to implement this kind of thing again and again,
+luckily Apache Commons IOUtils has done it for us.
+"
+"2dfe972b130d8baae058c5306e378d9e00e71f1a","2014-01-15 12:25:30-05:00","disable suggestions in file path in file dialog fragment
+"
+"c85dc6db5057b116884300c40e7c8439373492af","2014-01-16 19:37:23-05:00","FileHandlerActivity: add ActionBar back button in case of crashes
+
+Sometimes, something isn't handled quite right and FileHandlerActivity
+stays open instead of just disappearing. This provides an ActionBar back
+button to give the user some place to go when this happens.
+"
+"d222bf525b8df33641a4ed48fa5746f76d887c03","2014-01-16 22:06:16-05:00","DecryptActivity: add ActionBar back button in case of crashes
+
+Sometimes, something isn't handled quite right and DecryptActivity
+stays open instead of just disappearing. This provides an ActionBar back
+button to give the user some place to go when this happens.
+"
+"a05036efca1ab248c73d7c7b44829e3d14a5a10c","2014-01-16 19:38:14-05:00","set titles of Share screen based on action: encrypt, sign, debug log
+"
+"40805486c791074d16914b4f9c98a7372b142e29","2014-01-16 19:43:16-05:00","EncryptFileActivity: use Dialog to show error msgs, like other ops
+
+The other operations have a showError() method for popping up an OK dialog
+with an error message.  Yes, this is very Windows 3.1, but it works well
+enough for now.
+"
+"0db12fa6f5b2e729182bd2188974b23667e85e11","2014-01-16 21:14:53-05:00","EncryptFileActivity: fix crash after selecting the key to encrypt to
+
+Because of the way that the other Activity calls onActivityResult(), it is
+not possible to launch an Activity in that method.  My guess is that
+onActivityResult() is called in the thread of the returning Activity. To
+fix this, we use a Messenger to send a message to the GPG thread to launch
+the rest of the encryption process.
+"
+"5997d0f9d82e9476d8f73ca80df10a59268fd574","2014-01-30 12:04:54-05:00","remove android:textAlignment property, it is min SDK 17
+
+We don't need it anyhow, android:gravity is the older version.
+"
+"4d2a2fcf5689b54adb4d37eb5b87bdee0010b827","2014-01-30 12:07:33-05:00","Eclipse ADT insists on exporting appcompat's LIBRARIES and DEPENDENCIES
+"
+"cb475897a887a566d0186a359de5efe8a2fcad9c","2014-01-29 11:23:25-05:00","commit jenkins build script to git
+
+This is getting too elaborate to manage in the little Jenkins text form
+field...
+
+refs #1270
+"
+"2425f675ff0c73e6373281abfa61face73ced40b","2014-01-17 11:38:32-05:00","gnupg-for-java: purge dead passphrase code
+
+In GnuPG 2.x, gpg-agent handles launching pinentry for getting the
+passphrase from the user, so there is no use for Java/JNI code for doing it
+since it can't be set up that way anymore.
+
+refs #1585
+"
+"ba339ece777eed419367785d907f59e13040d3ae","2014-01-17 21:05:44-05:00","when running cmd line tests via `adb shell`, check for success
+
+adb shell seems to always return a successful value, even if the script it
+ran does not.  Therefore, a little hack is required to get the return value
+from the scripts.
+
+refs #1270
+"
+"85f4676c1b07c6ef07d4d6672bb90533490b6e09","2014-01-17 22:02:15-05:00","include all GnuPG test suites that will run in Android
+
+Each GnuPG project includes a tests/ folder with a bunch of test programs
+and data that are normally run using `make check`.  Since building for
+Android means cross-compiling, `make check` will not work.  That means we
+have to do extra tricks to get the tests running on a device or emulator.
+
+This also greatly increases the size of the tests, so they are no longer
+included in the APK by default.  You must now manually run this command to
+install them before building the APK:
+
+make -C external assets-tests
+
+closes #1270
+"
+"33275f3227eb67981c70ed80241bf776d90ee584","2014-01-29 11:24:49-05:00","update to latest in libgcrypt 1.6.x branch to get NEON fixes
+
+This should allow the build to disable NEON support, and hopefully fix the
+crashes...
+
+closes #2888
+"
+"b255ef2ed5064d65924f792485a94fff44d8bd70","2014-01-29 15:09:24-05:00","fix updated paths for libgcrypt tests
+
+The commit 'tests: Pass -no-install to libtool' makes the libgcrypt tests
+be built directly in libgcrypt/tests rather than in a .libs/ subdir with a
+libtool wrapper script.
+
+The commit in libgcrypt is 41cc0f72e6c964eb20a2decaa4ea61776c511d96
+
+refs #1270
+"
+"21806d462344b2343e9d526896eee76f2d4e2d62","2014-01-30 14:21:19-05:00","disable all assembly in libgcrypt until it is fully functional
+
+The ARM/NEON support is causing a lot of crashes on Android emulators and
+hardware.
+
+closes #2888
+"
+"6ae8d223a69efce0f3a95e2c9925a8c9d06bbd1b","2014-01-29 12:41:51-05:00","tests: list more install files and env vars
+
+refs #1270
+"
+"2f14cf57adee5da79e49c2acf4efbc4691331652","2014-01-30 14:11:39-05:00","handle OI File Manager's odd content:// URI for file paths
+
+OI File Manager SHAREs files using the full path to the file, but uses a
+URI scheme of content:// and a URI host of org.openintents.filemanager.
+This detects that and strips it down to a proper file:// URI so its handled
+like a plain file path.
+
+refs #1646
+"
+"381e33671b77df3a6e9b561855db16cfef670498","2014-01-30 14:31:05-05:00","document procedure for running GnuPG tests
+
+refs #1270
+"
+"107bcf261aabf8942697ae93329fc7afcdacf557","2014-01-31 10:50:47-05:00","CreateKeyActivity: turn on auto-caps for words for the name field
+"
+"b20abc140cf0aa1ae3f718be88691c45313e631b","2014-02-19 12:05:51-05:00","update translations: German and Polish
+
+refs #2697
+"
+"24e56bad1a4f9d0fcc4a8fc8674bf3622bb10ae4","2014-02-19 12:08:01-05:00","add translations: Arabic, French, Norwegian, Brazilian Portuguese
+
+closes #2697
+"
+"a33eafaa7115c7ad86da02374a396e1dfbffba5e","2014-02-19 17:32:54-05:00","only build gpgv2-static, the other static targets are not used
+
+These static targets are manual hacks, so they are fragile. So ditch
+for the unused ones.
+"
+"f9d4c03ce482b6da5277fa57e6b946a693c496c3","2014-02-19 11:56:22-05:00","update libgcrypt to get latest ARM/NEON optimization fixes
+"
+"f6f5e12f7801e61892937bf01c2275c06b3193c5","2014-01-30 14:33:28-05:00","build libgcrypt with auto-detection of NEON
+
+Revert 'disable all assembly in libgcrypt until it is fully functional'
+
+This reverts commit 21806d462344b2343e9d526896eee76f2d4e2d62.
+
+refs #2807
+"
+"c6ad3b0e9ffcbba7dc72a4d28eef4d9e7ac02759","2014-02-19 12:02:52-05:00","tests: include importing secret keys as part of standard tests
+
+refs #1270
+"
+"347078cca4ac9313f74bef5b42f407a6d8044e35","2014-02-19 19:20:30-05:00","tests: cat GnuPG debug logs from emulator
+
+This outputs more debug info to the Jenkins build.
+
+refs #1270
+"
+"59f47bd39f89ca927c13764d9740739c244d1e6b","2014-01-30 14:08:17-05:00","disable failing tests: libassuan/fdpassing libgcrypt/random-fips-rng
+
+* libassuan/fdpassing - this should pass on Android, but needs to be rewritten
+in C rather than a shell script
+
+* libgcrypt/random --prefer-fips-rng - this should pass on Android, but it is
+not high priority and no one has had time to debug it yet
+
+refs #1270
+"
+"3fad2ce4ef38b979b593cc63a3f6655fe57c66cd","2014-03-10 17:58:03-04:00","get file extension associations working on more apps
+
+Based on the comment in OpenPGP Keychain's AndroidManifest.xml:
+
+Do _not_ set mimeType for .gpg! Cyanogenmod's file manager will only show
+Keychain for .gpg files if no mimeType is set! For OI Filemanager it makes
+no difference, .gpg files can't be associated.
+
+I ended up making entirely duplicate sections, one with a mimeType and the
+other without.  This does seem to fix things on OI File Manager and ASTRO. I
+wonder what it is going to break...
+
+refs #1646, #1455
+"
+"719745211ad4557802cd67f8eeaedbffb4d35eee","2014-03-10 19:38:06-04:00","show Toast on failure to get the full GnuPGKey
+
+A bad or corrupt key will cause GnuPG to barf, so catch it and warn the
+user.  A partial download from a keyserver is one such example.
+
+fixes #3052
+"
+"e95896ac9fecbe3dfeed647ffef5a21a3992e6eb","2014-03-10 21:00:24-04:00","handle importing large keys from the keyserver
+
+Originally, it was just putting the whole text from the keyserver into the
+Intent's EXTRA_TEXT.  This was rapidly running into size limits, and
+throwing strange exceptions like:
+
+'FAILED BINDER TRANSACTION!' android.os.TransactionTooLargeException
+
+fixes #3046
+"
+"31d3a242290c70306c442672b406a228cbd87276","2014-03-10 21:29:25-04:00","remove wizard from history after it completes
+
+Once the user has chosen from the last button set in the wizard, it should
+finish and never return!
+"
+"9fc10bf78ef80f7055262f66b1ae1a061354e93a","2014-03-10 21:39:54-04:00","handle empty keyserver lists
+
+Forgot to handle the case where newData exists but has no items...
+"
+"17d6c1e4206d7c250794fce18f0386d8bf7e48d8","2014-03-10 22:18:30-04:00","recreate KeyListContactsAdapters after sync completes
+
+It seems that the ListFragments won't update unless they get an entirely
+new adapter, so don't check if the current one exist.  Instead just always
+create a new one.
+
+fixes #2961
+"
+"8f6debf6d4028cea61172947807b115c57ec0dbe","2014-03-10 23:42:26-04:00","add null guard when handling Intents from Contacts
+
+A ContentResolver.query() can return null, so we should check for that.
+
+fixes #1697
+"
+"14311234cdddcbc97aed38781c693236fbdea4b7","2014-03-11 00:03:15-04:00","update Spanish translation
+"
+"9b020eb36a8c958a06037e9e04ed366e675f754e","2014-03-11 12:48:05-04:00","set version name 0.3 code 4 and release!
+"
+"346318825d173146bd5514dfb277c2f065c2ec3e","2014-03-11 16:10:21-04:00","sync to Contacts after install/upgrade
+
+Since GPGA's key list screen is now based on the Contacts database, the
+key list will be empty after upgrading until GPGA has synced to the
+Contacts database.  Therefore, trigger a sync as soon as possible, once all
+of the native bits are installed and setup.
+"
+"c4a1c25450f672875e426555c01841793ea91ddb","2014-03-11 18:44:42-04:00","hide any active ActionBar when switching tabs
+
+This will hide any active ActionBar rather than just the 'Find Keys' one.
+"
+"02f8b89d0fd8e21f5247e6ee0284bf3f1d074d5c","2014-03-11 21:51:02-04:00","ActionBar for keyserver send/receive on public key listing
+
+This adds rudimentary support for sending keys to the keyserver, and
+updating keys in the keyring from the keyserver.
+
+refs #3055
+"
+"3119a09d14b2b3320a70fae6e8a51d65495f9586","2014-03-11 21:51:41-04:00","tame the debug messages for release
+
+Lots of unnecessary debug messages... purge!
+"
+"785a84263c9f543038c561bd5f482a89a35d354e","2014-03-12 00:17:56-04:00","set minSdkVersion to 14/4.0/Ice Cream Sandwich
+
+Things are not really usable on android-10, so I figure leave them with a
+usable version rather than force an upgrade to an unusable version.
+OpenPGP-Keychain supports down to android-9, so that's the best bet for
+older devices.
+"

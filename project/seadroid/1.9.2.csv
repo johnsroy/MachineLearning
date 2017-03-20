@@ -1,0 +1,78 @@
+"commit id","commit date","commit message"
+"e437df322bbd2eeb85727c00ed9ee918383503bb","2015-10-24 14:38:43+08:00","Merge pull request #424 from forouher/fix/settings_crash
+
+Catch missing exceptions in AsyncTask
+"
+"bece3a115924b4300d6b88bdf4d9be2499521b2a","2015-08-29 14:29:04+02:00","bugfix: early SAF usage by app might fail
+
+Previously it was assumed that SeafileProvider.queryRoots() would be called
+before any of the other SeafileProvider.queryXXX() methods. That was a mistake.
+At least SeafileProvider.queryDocument() might actually be called earlier.
+
+This can cause problems if the Android OS has just been freshly rebooted and
+the SAF is used for the first time. In that case
+
+SeafileProvider.isReachable
+
+will still be empty. Thus doing an
+
+SeafileProvider.isReachable.get(account)
+
+will return null. That breaks thinks, as can be witnessed e.g. by trying to use
+latest Keepass2Android release with Seadroid after a fresh reboot.
+
+This patches fixes that issue by converting the HashMap into a Set
+(which is a more fitting data structure anyway).
+
+(Making Account 'Comparable' is just necessary to make the ConcurrentSkipListSet
+work.)
+"
+"2f2fc2dcbd84601bf5a526e0832817263038c3aa","2015-08-29 18:42:49+02:00","repository description is deprecated, remove it from SAF
+"
+"d5413eee8e124025bcf2fab774f30ae2c97810ff","2015-09-02 22:03:55+02:00","allow opening of extensionless files
+
+no reason not to let the user choose the correct app
+"
+"eb1d49fe46ada93e4614847cd026eb3f541ad20b","2015-09-03 07:37:41+02:00","use */* for unknown mime types
+
+MimeTypeMap will return null for unnkown file extensions.
+Opening an ACTION_VIEW with a 'null' type usually won't show
+the app chooser.
+"
+"8aa3ae81a709d504525d686b804520f0ef15b8b2","2015-09-03 13:18:16+02:00","Don't show 'image/text/video/other' dialog
+
+Seadroid /knows/ the mime type of the file. Why ask the user for it?
+The issue is not an unknown mime type but that there is no suitable app.
+
+So lets to this instead:
+
+- give the user a warning that no app is available.
+- show a list of all available apps. If the user knows more than Seadroid,
+let her make the right choice.
+"
+"2f05e99d3cca0120ff48612553c52507ad5c51a3","2015-09-03 10:17:46+02:00","Open file in new task, keep BrowseActivity alive
+
+Currently the BrowseActivity finishes itself after opening a file.
+So if a user had to do a lot of business is a specific directory, she
+would have to enter that directory again and again.
+
+Better to start the ACTION_NEW in a new task and keep Seadroid around
+in the background.
+"
+"cce65dcd2357f69c6a3ff9daa3a0e0a136892765","2015-09-03 13:01:15+02:00","Make FileActivity return after download is complete
+
+The previous commit had the slightly ugly bug that the File Activity
+would not close after a download was finished. It would have to be
+closed by the user manually through the 'back' button.
+
+This patch adresses that. It makes the FileActivity close itself after
+the download is complete.
+"
+"abd350c5560046d2d98ed464810212f620a806ad","2015-10-24 14:50:36+08:00","fixed IndexOutOfBoundsException when accessing list
+"
+"9339fdd82f801b2198e94b0bb4405ba230f02f01","2015-10-24 15:34:31+08:00","change apperance of EditText select handle & add new icons
+"
+"7ca173f3a4583b9704440122e103ba3f066d8ac8","2015-10-24 16:33:22+08:00","optimize item layout of slide expandable listview
+"
+"31e74f19a7eabd98fa33a38f61237f7580336b49","2015-10-24 16:55:53+08:00","update version code
+"

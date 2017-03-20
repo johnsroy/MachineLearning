@@ -1,0 +1,691 @@
+"commit id","commit date","commit message"
+"5a0b8f40f1762d74428a1aa9c554a503e0d14098","2013-12-19 23:59:40-05:00","FIX #85
+Request READ_EXTERNAL_STORAGE for key access
+"
+"158ddb7eb7df2fa70d13206a525f0ddfce1f5db5","2014-01-11 13:33:01-08:00","Merge pull request #92 from pvl1/master
+
+Fixes #85.  Sorry for not merging this earlier; it's a no-brainer.  Thanks pvl1!
+"
+"dab99a765fa5c5c80ebe3696c0d6e1c887b2b574","2014-01-11 16:48:35-05:00","Update build files to the latest gradle/sdk/etc
+
+And make sure that it actually builds properly
+"
+"f17271b0d57694ceaa23f802af744af1965f4506","2014-03-11 19:17:20-04:00","Gradle cleanup
+
+Update gradlew and android gradle plugin
+Only run assembleDebug by default(faster builds)
+Run gradle as a daemon(faster builds)
+Move configuration to a dist file, add gradle.properties to gitignore
+"
+"32a1840753b44588e8c09d3a3f3e36a358d1b6e8","2014-04-18 18:02:26-04:00","Remove crash reporter
+
+No longer useful
+"
+"3b1fc07be5f6579c9b62d9c8831d428f1fd6c343","2014-04-21 09:33:06-04:00","Fix ampersand in setting menu
+
+Fixes #100
+"
+"96c9959366d8eba2559aed271d71871a244f8d7a","2014-05-15 20:38:49-04:00","Lots of changes
+
+Yay, the project is still alive!
+A list of some of the changes(non-exhaustive):
+
+* Dev build has a custom version banner now
+* Don't change window title to match buffer(causes crashes and isn't
+valuable)
+* Big changes with how connections work(more abstract)
+* Soft keyboard now has send button instead of enter
+* Chat input box is now has better spellchecking/corrections
+* Service now actually runs in the background(and survives android
+trying to kill it)
+* Fix various crashes
+* Introduce other crashes(most likely)
+"
+"3b1f16935c0f4032d30c5306a32fa481977b7bd5","2013-12-13 00:33:11-08:00","hide close and nicks from menu when not in buffer.
+
+Thanks @lithium
+(cherry picked from commit 598129633b70397036b9e17269d8d7447a51d624)
+
+Conflicts:
+weechat-android/src/main/java/com/ubergeek42/WeechatAndroid/WeechatActivity.java
+"
+"5cdd23127558e4edd6c1607ba9686c9e15313422","2014-05-15 21:15:49-04:00","Menu must be invalidated for the options to update
+
+Whenever the fragment is switched, we need to decide which options are
+available.
+"
+"4db89b7830a7d58a6510eda7d20cdc5d1c7a8b65","2013-12-17 06:18:43-08:00","better style for buffer list items.
+
+Thanks @lithium
+(cherry picked from commit 3298a3b146543107edca85fe5629da738b448e74)
+"
+"cf714f654fbaf341e7ec5c97ded2057ad1861368","2013-12-17 07:01:26-08:00","cleanup highlight/unread position.
+
+Thanks @lithium
+(cherry picked from commit b5b913ab8600b15b64fdd68bece3385ddc649583)
+"
+"60696ab53e19c17c65eb077b0647e802e59e7ee4","2013-12-17 07:05:50-08:00","set a max length of 13 on prefix so long nicks don't take over.
+
+Thanks @lithium
+(cherry picked from commit f478d9a01771cdefcccd26efd3375b49e82cc588)
+"
+"934133d996aaa340bf16da629f9df224822cf5d4","2014-05-15 21:34:00-04:00","Allow chat input to grow up to 4 lines tall
+
+Makes it way easier to compose slightly longer messages, though we can
+no longer have enter to send(depending on the user's chosen keyboard).
+
+We'll see if this is a good tradeoff or not.
+"
+"d4d2e4a51aa07342b49d0fc6561ed0ee1ff83c1b","2013-12-13 01:52:01-08:00","home button navigates to buffer list
+
+Thanks @lithium
+(cherry picked from commit 6236e4d6fe21b6911c60a3915cd31a25f306bb4a)
+
+Conflicts:
+weechat-android/src/main/java/com/ubergeek42/WeechatAndroid/WeechatActivity.java
+"
+"2d1bac0a9b3ca22d603513411bf9802dd65d8555","2013-12-13 00:36:29-08:00","black background
+
+Thanks @lithium
+(cherry picked from commit 5b4a77d2378d3a039e930dc09fcbddfc1ad86a21)
+"
+"dc568f651dcc7755ca4ed46bc1a275668ba144b5","2014-05-15 21:56:31-04:00","Merge branch 'master' of github.com:ubergeek42/weechat-android
+"
+"12583d20d8c6b825b19a12dc459f83dc4ff69f61","2014-07-05 14:18:00+03:00","update build.gradle to be compatible with the latest android studio
+"
+"a7eaa9f308ed2f9ea675c18a44a1a78174b71487","2014-07-05 17:53:59+03:00","remove software keyboard when switching buffers
+before this, the keyboard would stay on-screen but the input field would lose focus, which is pretty useless
+i suppose input field should get focused anyway for hardware keyboards?
+"
+"33e2416a6bb695bc0ac5264ad4acbd48536db732","2014-07-05 18:23:16+03:00","fix for crash on tab completing using software keyboard
+now tab completing is invalidated on input box text changes, which weren't caught by onKey which is only triggered by hardware keyboard events
+"
+"90cb58829774cbc66d6fde557c3cee8f4c384590","2014-07-05 19:23:54+03:00","complete nicknames in last used order
+also fixes a couple of other nick completing bugs
+this, however, doesn't take into account updateNick
+(see said function in com/ubergeek42/weechat/Buffer.java,
+also the end of com/ubergeek42/weechat/relay/messagehandler/NicklistHandler.java)
+nickname updates should be run on nickname changes and mode changes, but i only see nick additions/removes for this actions, so this works fine in current setup
+"
+"aeb568a3acc02599352732a4bddace3515811779","2014-07-05 19:32:08+03:00","append “: ”to the completion nick if completing the first word in the input box
+"
+"ea4e166dea8a6f48c8a794572239d86246d3ea51","2014-07-06 16:58:19-04:00","Update build files
+"
+"320472dc0b57f6204be0fb0cdd8fb5306b7bf4b6","2014-07-06 16:59:15-04:00","Merge branch 'master' of git://github.com/oakkitten/weechat-android into oakkitten-master
+
+Conflicts:
+weechat-android/build.gradle
+"
+"a696ef5bac98596bbaea476e176445ff4f046e69","2014-07-06 16:59:53-04:00","Merge branch 'oakkitten-master'
+
+Closes Pull Request #104
+"
+"a841918902b739171fe6374c0f63adab69f5b1ab","2014-07-06 17:37:07-04:00","Fix some android lint errors/warnings
+"
+"b614afe276740ace7b5c4833bce3ac3f0ba845f4","2014-07-15 22:45:48-04:00","Don't ignore ssh port preference
+
+Thanks azizLIGHT for discovering this.
+"
+"65cf1074b100a5165939fed2e05f7603240cad01","2014-07-15 23:01:16-04:00","Don't be an idiot when copy pasting code
+"
+"dd5cd9891a6206426adb440e15177aa06c674988","2014-07-18 20:56:47+03:00","handling disconnections & stability fixes
+doesn't include ping/pong mechanism though
+"
+"f5a19a9be0d3a0c6be47f2cf3533d93f7a48604e","2014-07-20 18:10:54+03:00","a couple of bugfixes
+crash related to intent's extras being filled by system while app expects it empty
+ssl disconnects were unnoticed
+"
+"a70a904827928f8eb3f93a51f0b1bcacc8772db5","2014-07-20 19:31:52+03:00","don't request unnecessary information
+"
+"111b5b5bc1351b7e7074959c3beb7fced95a6cef","2014-07-25 14:24:33+03:00","temporary commit
+"
+"86798fe32b99e0000a161f69aec52bd3d37911c8","2014-07-27 15:54:12+03:00","temporary commit: move buffer logic et al to service
+"
+"dd05f30a0e64400fc1cb9d5040bf0a644297cf44","2014-07-29 19:23:44+03:00","temporary commit: buffer list tweaks
+"
+"86d79ec70f369325cc5fdea4435c66cd68b27bff","2014-07-30 00:34:15+03:00","track & restore open buffers
+"
+"c99541251a34c6b063ba6bbec7c4b92b9efab06d","2014-07-30 00:43:27+03:00","track & restore open buffers
+"
+"b7be860c855a126923303de7bac31a5f13a3fbf4","2014-07-30 02:45:02+03:00","reset notifications
+"
+"90163b07df9266d3c18757990fff9debbc46e09c","2014-07-31 23:28:14+03:00","some visuals
+"
+"8a776bc565f1f0c6d77900fb767df9f681a06d91","2014-07-31 23:48:21+03:00","layout performance
+"
+"59f67618abf57616317271564969c8d2cb95e561","2014-08-01 20:41:57+03:00","move viewpager title indicator to action bar
+this will need significant changes but i like it this way more anyway
+"
+"9b35c5b56502430fcab7f17546d961f4bda82328","2014-08-04 23:01:38+03:00","buffer list tweaks, better handling of service's unexpected shutdown
+"
+"f7bb4ca9203a78cacd5fa177a26233b1fc9c931d","2014-08-08 01:32:11+03:00","some hotlist loading, move back from pointers to full names for buffers, minor tweaks
+"
+"27aa7d809f1a0bc76cb5e88a2ca3a74ffe75aaf5","2014-08-07 20:33:03-04:00","Add websocket support
+
+Websocket SSL Support will only work with certs that are already
+trusted(e.g. if you connected via SSL before)
+RelayConnection now has a queue for outgoing messages, instead of
+spawning a new thread for every message.
+An attempt to detect if we were logged in successfully has been added by
+checking the weechat version. Currently no error handling exists if it
+fails.
+"
+"953e174e7caf8a23145f6bb55599b09d34d27c85","2014-08-07 20:40:59-04:00","Fix a few issues when disconnecting
+
+Under some circumstances the notifyHandlers call wouldn't occur, leaving
+the client stuck thinking it was still connected.
+"
+"38660c86d18ffbee96d9ffc085c8c70b1758b670","2014-08-07 21:28:08-04:00","Only load buffer from intent when bundle has key
+
+* Android 4.4.4 sends a bundle when launching weechat-android
+from the homescreen and the app is already running.
+"
+"b8566bbf229b1392b01b02e657673a6fe954e18e","2014-08-08 07:56:26-04:00","Merge pull request #111 from mhoran/fix-homescreen-crash
+
+Only load buffer from intent when bundle has key
+"
+"2cd2bbb738042bd17a3883e0306dd7d0fbfccde6","2014-08-09 19:42:43+03:00","move
+"
+"b77bc630440f67be39b277ce996f2b4522754033","2014-08-10 17:49:11+03:00","nicklist tweaks
+"
+"e06eeaa51f905b6c50223be586814d6239f6ac05","2014-08-10 19:45:26-04:00","Ignore any apk files
+"
+"64eb429af69a0093d1e40b1d1ac622bb92c655b2","2014-08-11 18:27:06+03:00","nicklist now works, yay
+"
+"7e099295e0ab069008d5284f2f996433705d7488","2014-08-11 23:57:30+03:00","hotlist icon
+"
+"4a12a4ac525fbecee011e5a2a87cf134ff5f546f","2014-08-12 17:37:11+03:00","dirty dirty commit
+"
+"ba63784c6e0db296e4b20dc45a4a2e7890da579b","2014-08-13 02:03:10+03:00","minor bugfixes and comments
+"
+"c6ef8e25d700fc0923fda28e5a90d9c96115a814","2014-08-13 23:52:17+03:00","temporarily display OTHER buffers if there are messages
+"
+"2849e2a9be6a1ee57d1b685247622ca8d943b1bf","2014-08-14 00:10:15+03:00","handle intents better
+"
+"a7abf8c8cd31560098a40ec6df0d1eb45b0ac06a","2014-08-14 01:16:27+03:00","remove notification highlight message upon displaying
+prevent it from reappearing on reconnection
+"
+"69d8bd521dd191e22bdcb3e5af8d0e3ac16a3657","2014-08-14 19:03:26+02:00","Better notifications
+"
+"1e2777d92524422b643e76079c2141df5e4473d3","2014-08-14 13:19:52-04:00","Merge PR #115
+"
+"7fe354b0da5dd76065d6b1a627b3fef29e588eea","2014-08-14 13:30:05-04:00","Notification priority is only for API16 or greater
+
+Priority is only supported for jellybean(API16 or newer)
+"
+"3bda013c4f5a910da7dba7740be9ef75f3dd58cc","2014-08-14 13:33:30-04:00","Merge branch 'PomepuyN-master'
+
+Closes #115
+"
+"5b2ea9181621c33dc9f2121cc00883b700406303","2014-08-16 00:23:45+03:00","temp commit
+"
+"ebe529ff8a5f2b1c9ef41be4bb554b75373f9602","2014-08-16 03:15:55+03:00","temp commit
+"
+"4f35de6a08cdc50a4c8cadc67fc0fcc4d7e23369","2014-08-16 20:23:01+03:00","get rid of invalidateOptionsMenu & minor tweaks
+"
+"3e896b26f83f4691c6851ab60abcf04d6258ec80","2014-08-16 21:04:35+03:00","handle intents better
+(i shouldn't have changed the mechanism at all)
+"
+"2ff271a21ea548b79cc23b93471e7746a3774cd1","2014-08-16 23:11:28+03:00","handle intents better
+(i shouldn't have changed the mechanism at all)
+"
+"418b17265f5297aad5ac8c21f147d4d39923063f","2014-08-17 01:56:12+03:00","backgrounds and stuff
+temporary commit
+"
+"4b5dc7c8c75f4cd6921946bfc0d87c664a99fe27","2014-08-17 17:10:45+03:00","move preferences where they belong (at least some of them)
+"
+"1f38b4d3678147d241748b98375b03bec1d7cb19","2014-08-18 00:59:33+03:00","damn these intents
+"
+"941ebbba3572ed48e0d59d2993cd9d2452f4731f","2014-08-20 15:41:10+03:00","fix for nicks not resetting on full sync
+"
+"dbd0f6c56d0825dc178341fa480b34112679c8dc","2014-08-20 16:44:16+03:00","move buffer list sorting logic to service and improve it a bit
+"
+"78a01895664137416f13385c7314e074d7e07f59","2014-08-20 17:13:09+03:00","remove clear button when not needed
+"
+"9ebee103854546dcc2f868c9fbb806072b15c5a5","2014-08-22 19:52:41+03:00","hotlist clicking — temp commit
+"
+"dee487f83025861fe333c52a27603dfe4354fc98","2014-08-22 22:35:03+03:00","make hotlist more button-like
+"
+"41c06bfe350dfa0ba26e5818de62ad9f9c321dc6","2014-08-23 00:49:06+03:00","hotlist button fixes
+"
+"ff054d093f941cc1b0251a9179d5fa8bbd467457","2014-08-24 19:22:04+03:00","cleanup
+"
+"0dcfaf844f5f4273b423e3d641e3292fb188e5f9","2014-08-24 20:10:22+03:00","cleanup & small stuff
+"
+"ea6bb0ad36a00d796cbbe2f9bf6c0c17012f88fe","2014-08-25 01:32:28+03:00","cleanup & small stuff
+"
+"e799c8521597770701e089ff0cff7652b0d48ddb","2014-08-25 15:31:48+03:00","respect optimize traffic preference
+"
+"f822f13d5b86d88b335e51ea422c78d29593a1ca","2014-08-25 21:02:57+03:00","fix stuff for big layout
+"
+"66e829f08c9da70fd13cf16d7cba9ddbf30313bf","2014-08-26 17:09:26+03:00","dim down non-human messages & prefs cleanup
+"
+"04a5420164f36b62b6c7ec0535c5c04eaa80b9cb","2014-08-26 17:43:00+03:00","fix bottom bar
+"
+"ade5a34af607d16a1ab3e25028338728df7c7721","2014-08-26 17:51:40+03:00","fix bottom bar even more
+"
+"58208978afec3d9ece182c07b378b60bf9e47b72","2014-08-26 17:51:40+03:00","fix 2.x nicklist background color
+"
+"ee87cecf99191ccd30e1056ba322112be9e23426","2014-08-26 22:01:58+03:00","action bar icon style fix for 2.x
+"
+"9a056bc5d2e3e0c243a4b4981bc9a08756ada602","2014-08-27 01:40:06+03:00","small tweaks
+"
+"b1667fda58c002b353c38d7322664c77426f01af","2014-08-28 04:25:52+03:00","chat lines scrolling now stays in position if not at bottom
+also fix for 2.x — listview wasn't staying at bottom
+"
+"7788cec6e5305c783df0e97ef9d81e772047a8dd","2014-08-28 23:44:36+03:00","fix for previous commit
+"
+"c99b1e30f480bbcafbce459e26b27b8923c9404a","2014-08-29 00:35:07+03:00","cleanup & make BufferList static
+"
+"45f8c3b621a6740fd761a424ffff575374374635","2014-08-29 00:54:31+03:00","another tiny fix for chat lines
+"
+"3f0d6b187743d010f23fca9d78595edd00e972bb","2014-08-29 01:08:16+03:00","cleanup
+"
+"6cd13c46633e091c2abde0da4e6f31e2089ffdaf","2014-08-29 02:01:08+03:00","cleanup
+"
+"8942628b3b7c27c9aa2f086e8b7ee1c50d7f8eaf","2014-08-29 20:07:13+03:00","apparently v11 can't do @android:style/Widget.ActionButton much
+not sure if it should be v13 and higher
+"
+"1529cf2efcb1541e2daef4990e6ee65d34318086","2014-08-29 21:28:41+03:00","a tiny fix, don't add own messages to nick
+"
+"a17e9e59cb7cd62e1cbe84e5da365485395c48d6","2014-08-29 21:36:33+03:00","fix for extra long lines wrapping unreasonably
+"
+"7cd311f4e8f0ce5397c483a6f3af73d81e5268bb","2014-08-29 22:09:11+03:00","better delete icon for filter
+"
+"6286dbdd3e96c31ed6e9a2772b8ef9cacc1ecbcf","2014-08-29 22:41:51+03:00","cleaner logging
+"
+"391b94c730177de87ca7e42bd74c4f9055ed6842","2014-08-29 22:51:44+03:00","cleaner logging
+"
+"bc8892e9f938063a0c6609567b7db14429763c00","2014-08-29 23:02:12+03:00","cleaner logging
+"
+"b6a8e41ea8ff816fb54da2f8e5effd68ed8f3901","2014-08-29 23:34:03+03:00","update titles nicely if needed
+"
+"b5a3256f2ada99182e919f1964753d29a76b8f25","2014-08-30 00:10:20+03:00","cleaner logging
+"
+"9f520293c2513e090c57c4c4c0b8ca84d544bff2","2014-09-01 01:28:26+03:00","remember read line count
+"
+"269f9c3a4b65e8a4868386a20df25fe83d30af59","2014-09-01 01:38:27+03:00","fix empty buffer under some circumstances
+"
+"57db781ea728c48f338aa4d69166683c1cda5d23","2014-09-01 02:37:05+03:00","more consistent nicklist on 2.x
+"
+"8d675b0cfbe3f7aa5e4fe4f81e50a81b0440cfe7","2014-09-03 00:33:00+03:00","connection stuff & notifications: small fixes & cleanup
+"
+"5b96ee5de506493114a90dec2491fb2e3fdd355b","2014-09-03 01:05:15+03:00","remember disconnection status. prevents from reconnecting on activity recreation if undesirable
+"
+"9daf5dfaf213490fb5f4be05e2184b874c3bd462","2014-09-03 01:58:43+03:00","small fix for previous commit -_-
+"
+"7f70ca7faeed73da7e0a4216fa9ca4c854d75e51","2014-09-07 23:01:34+03:00","fix for remembering read count
+"
+"1c21651bc9c6d1d805ac2723d4622fad7a22d501","2014-09-07 23:02:28+03:00","small fix for previous commit -_-
+"
+"d5e88c9464c5d5e29405abd152f672c3d72fea74","2014-09-08 03:01:01+03:00","fix for crash when placing stuff into clipboard
+"
+"67e32e27664b66631e0eb3e910375d2da2725714","2014-09-08 18:18:31+03:00","icons for buttons on the bottom
+"
+"e13387e1a680864969c3d90af92310d4136e5567","2014-09-08 19:01:22+03:00","filter string
+"
+"919547726115754a06e9ccc9d778088aed542fce","2014-09-08 19:04:47+03:00","filter string
+"
+"b7572182fe732e0747b2d9ceb89646f5b0536a1f","2014-09-08 22:42:50+03:00","small color changes
+"
+"75695a099f4df2f889742dae15fb65022e670a53","2014-09-08 23:23:37+03:00","lower overdraw
+"
+"8fbe9e60fc052301d8dbc5b740d31b91c9fbdeb8","2014-09-09 18:43:21+03:00","lower overdraw
+"
+"cac64739f8b4968a42270c6100daa1d4588a0586","2014-09-10 19:09:22+03:00","move adapters to folder
+"
+"761239906ce0cd2d68e297ba6eab92da3c7f3742","2014-09-14 23:40:53+03:00","move 'inscape' folder to prevent it from being compiled (why?)
+"
+"b744c779be93302ea05686b58aded515b4256859","2014-09-15 00:12:44+03:00","don't fail if there's no hotlist (or other) data
+"
+"a94b41bb2c99f4f2496057b993690bc62eba6cb5","2014-09-15 01:08:20+03:00","make pointers Long
+"
+"b5305c95f89085ffc886e21931c83c44123fc44e","2014-09-15 01:38:36+03:00","even more Long
+"
+"ad25f21ce961a86f7fca28d12d53c1f92bab8695","2014-09-15 02:18:32+03:00","temp commit
+"
+"e3261e2f47293ecaec47634cdc2fe78051f121fd","2014-09-15 03:43:20+03:00","notification sound chooser
+"
+"dc5de7f6301049a486f36e8ef0274c28d80687ba","2014-09-18 00:52:16+03:00","hide buffers if a certain localvar is set
+/buffer set localvar_set_relay hard-hide
+experimental
+"
+"e44fbbe95485e4aad74a5f9474fa0149adbf94fc","2014-09-17 22:57:25-04:00","Merge remote-tracking branch 'oakkitten/master'
+
+Conflicts:
+weechat-android/build.gradle
+weechat-android/src/main/java/com/ubergeek42/WeechatAndroid/WeechatActivity.java
+weechat-android/src/main/java/com/ubergeek42/WeechatAndroid/service/RelayService.java
+weechat-android/src/main/res/layout-sw600dp/bufferlist_item.xml
+weechat-android/src/main/res/values/strings.xml
+weechat-android/src/main/res/values/values.xml
+weechat-relay/src/main/java/com/ubergeek42/weechat/relay/RelayConnection.java
+weechat-relay/src/main/java/com/ubergeek42/weechat/relay/connection/AbstractConnection.java
+"
+"d2722dc32599c63eec2266ef09a8b80efc8dd361","2014-09-17 23:04:50-04:00","Revert 'temp commit'
+
+This reverts commit ad25f21ce961a86f7fca28d12d53c1f92bab8695.
+"
+"dd846cea37c1a1a5705bb048ba64936853d6b0c3","2014-09-18 09:11:27-04:00","Add back support for notification sound picker
+
+* Accidentally dropped in merge.
+* Default to no sound; DEFAULT_SOUND is an invalid URI.
+"
+"1bcbbd66016df56a36503b3d2a8a729752973fbd","2014-09-18 17:11:03-04:00","Fix typo in highlight string
+"
+"26ab7e8d020164743912e539dc7c8448e3f5448f","2014-09-19 09:31:38-04:00","Fix some minor issues
+
+Lint errors, typo in filename, broken tests that need to be removed.
+"
+"a541c5be310d164e7aae6b5a749192f53cbfe341","2014-09-19 09:34:55-04:00","Merge branch 'mhoran-next'
+
+Merged PR #118
+"
+"614361bbb51d820cf951e464b3cc7c64b4b59cf5","2014-09-19 10:00:30-04:00","Version bump/readme update
+"
+"9b12807b734f48c3433567ac59a1aaf9527b7b50","2014-09-19 09:45:12-04:00","Disable click on URLSpan when context menu is open
+"
+"9e0f1af6e3ae4f21f323c257d98c131523ccaa46","2014-09-19 10:16:03-04:00","Fix screenshot link
+"
+"0cb1c56c09964d2979137cc29810d8480655ac55","2014-09-19 10:32:02-04:00","Add note about hiding buffers
+"
+"6441ab25789e62668960b2701df764c5b5e9615d","2014-09-19 18:52:36+03:00","fix ic_users icon
+"
+"4b11c233644619c646621c067f3819b2bc31e0ab","2014-09-19 18:58:24+03:00","fix icon color
+"
+"148cc620bd5f75f1adc0dca72e8944d2f96ec469","2014-09-19 19:01:58+03:00","Merge pull request #119 from oakkitten/visuals
+
+Visuals
+"
+"8cf4a2078eb747938a69bad159b07d522527cf79","2014-09-19 19:56:16+03:00","clear highlight notifications when all read
+"
+"5977c0be8f324a9a7bf162fdffb65cb3f1853c14","2014-09-20 03:08:14+03:00","multi-line notifications! yay
+"
+"6c9d27f8a937f41a3b587b9dffff08aa5fd3acf1","2014-09-19 22:23:47-04:00","Fix version strings
+
+Version strings all come from gradle now instead of being hard coded.
+"
+"997bb24bfc152bb33946506e5dca6d8802b17f4c","2014-09-20 15:12:21+03:00","Merge remote-tracking branch 'upstream/master'
+"
+"78f32a52af36e18b4d80245339dc9bd5cf9278b7","2014-09-20 16:10:02+03:00","small fix for notifications
+"
+"7e35201dd71441bd7699890ad63f678aad9622a3","2014-09-20 16:33:10+03:00","simplify a bit
+"
+"bae60ba5434336715fabaa964d7b43a3bf32c64e","2014-09-20 18:05:35+03:00","when opening a buffer from intent, don't let another buffer go in the way
+prevents that other buffer from being set to read
+(how are these things restored, anyway?)
+"
+"411d8da88710ad9f1928da0a0968a65492dd6832","2014-09-20 19:45:24+03:00","Merge pull request #120 from oakkitten/notifications
+
+Notifications
+"
+"4179cac91369d2aec63e9ceda9cb02243cddff97","2014-09-21 00:02:52+03:00","make the two intents for the two notifications distinct
+this the most voluminous commit of all!
+"
+"786a7f714aed626af28ec719128fd2294d209cae","2014-09-21 19:23:14+03:00","don't try connecting multiple times
+might fix some other connection-related problems
+"
+"1decce0eea3b464376d37f2ce1e8473bb6369068","2014-09-21 13:13:17+02:00","Add LED lights support
+"
+"bbbc51e3a04fc0914a595c55ec4e35c06618c3b6","2014-09-21 21:38:45+02:00","Add option to start app on android start
+
+Needs new permition RECEIVE_BOOT_COMPLETED
+"
+"1243ef2dd87c3d8b762aec1b1a7116be0b5c079d","2014-09-22 02:25:55+03:00","split MainPagerAdapter in 2; allows for (better) variable layout on rotation
+not sure if it was necessary :|
+maybe better make an adapter for an adapter :|
+"
+"e08b6184d94e3e4063b09e4afc14b4eaf6854bf0","2014-09-22 02:28:28+03:00","Merge pull request #123 from ubergeek42/connection
+
+don't try connecting multiple times
+"
+"88ea0fa8f8d1bbf1f5d36e45946ca18277538166","2014-09-22 02:30:33+03:00","Merge remote-tracking branch 'upstream/master'
+"
+"f45c629ac5f0e8cefc2ad8029616195bfb9629f7","2014-09-22 02:34:14+03:00","remove unncessary files
+"
+"ddadffd71d6db0bed83392d891c2e29cb0edf87f","2014-09-22 02:47:28+03:00","cleaner logging
+"
+"a064e0e221bb26c3669d192b21bb2a1605a3355a","2014-09-22 15:05:56+03:00","don't look at this code please
+"
+"0c6caf98779fee0b39beb2c4e7c8fc9af7665653","2014-09-22 17:17:14-04:00","Merge pull request #122 from jspricke/autostart
+
+Add option to start app on android start
+"
+"b6b029a8097a9acef29559f63e20a6ad1fe4462a","2014-09-23 02:23:38+03:00","testing some navigation drawer...
+temp commit
+"
+"b78f3fef8733ce954cb661903df225ea8b38d00d","2014-09-23 21:10:01+03:00","temp commit
+"
+"0e08b6f0afdac5fda7c60fd9b2ce1744d1868605","2014-09-24 01:08:47+03:00","another temp commit
+"
+"849e61414cd55e2cb40b2e17a33d0e65f22e6997","2014-09-24 13:28:22+02:00","Don't default autoconnect to true
+
+* Defaulting to true means users have to enable autoconnect, then
+disable in order to prevent autoconnect.
+* Previously autoconnect was disabled by default.
+"
+"27b2d5e7f8b57d6590f3d78d1d058d17b820bd5a","2014-09-24 17:42:48+02:00","Implement Jsch UserInfo for better kbd-interactive support
+
+* The default handler only supports prompts matching .*Password:,
+whereas FreeBSD prompts are Password for user@hostname:
+"
+"0d0fcf0a28f9a8aa6c0eaaa3006f027b83b8d7c2","2014-09-24 19:32:14+03:00","many more temp commits
+"
+"00c96955a8328edc5146697359b6c6defe751385","2014-09-24 22:02:39+03:00","yo
+"
+"2fea6d80c1a80470edadacd5a8fd8f3cbfefc3f6","2014-09-24 21:43:23+02:00","Ensure that JSch does not get removed by ProGuard
+"
+"ff5a91fb2e7168aa4ae496ed952f129870db4dbe","2014-09-24 22:55:22+03:00","looks almost nice!
+"
+"47803ed6821a6acb7d62429d908b1ad5252c0658","2014-09-24 23:34:05+03:00","update the strip properly
+"
+"d6616e6d8eda04bcc1dd0548f84d0d15b1a565f7","2014-09-25 02:20:29+03:00","cute icons and all
+"
+"51bb317710cd4d2004793b8077aaf04662c77fee","2014-09-26 07:54:48+02:00","Add an option to disable connection state ticker
+"
+"5040ff8e6062cf5c1f4485cb67ffc5a36a619f91","2014-09-26 17:26:45+03:00","that fixes... something
+"
+"c79589e588892a0da632e917e52cef9a01724cd2","2014-09-26 20:00:36+03:00","blabla
+"
+"4d1d9927c684c5c6c2aae6e0a32a91a10fc29bde","2014-09-27 20:29:47+03:00","some fixes
+"
+"e3eb61eb742a162b8cb1d395d3e3155cd1e90bf4","2014-09-27 21:20:02+03:00","some cleanup
+"
+"f867051a96b8e379be2ff586ec0283d8e8037179","2014-09-27 22:18:35+03:00","some ui improvements
+"
+"d7c40d2d05e2fc796cbb23b53216bf7ca209bcec","2014-09-28 12:38:07+03:00","Don't ignore SSH port preference
+"
+"a25c7e094a2a6bd5f642c340fe0ea1b46c34cb2b","2014-09-29 21:38:01+03:00","some bug fixes mostly related to scrolling & cat girl update
+"
+"d0cf8fa072ff5a295a2d492b90821254e7f2b4a3","2014-09-30 04:48:16+03:00","cleanup
+"
+"51d09bd3d2d9fb322254aee72a9efea4df2797f0","2014-10-01 01:43:32+03:00","minor fixes?
+"
+"7196606e48f1867952aaae017f3a038a4f69c09a","2014-10-01 23:56:16+03:00","main pager adapter cleanup
+"
+"029244e26ae88a66db1436f95aaf14697ddb678d","2014-10-02 01:02:47+03:00","buffer fragment cleanup
+"
+"3baacb01c5ba4fc3e3bba6c79813667ae502d435","2014-10-02 01:18:02+03:00","buffer list fragment cleanup
+"
+"7d2ee23c07a846e4cc4b4cd9c42fce53800ee59b","2014-10-02 14:53:00+03:00","move serialization to utils
+"
+"356f9b707e5dd131d6f93727188b0437bc44f099","2014-10-02 14:54:21+03:00","tiny fix
+"
+"5e3472f2cffee4b732686546b0ac0973ebe24650","2014-10-02 08:22:55-04:00","Merge pull request #125 from jspricke/notification_state
+
+Add an option to disable connection state notifications
+"
+"f805295e39cb8878f928bed4f82981eff4b3c760","2014-10-02 16:39:39+03:00","fix button preferences not working
+also removed the preferences listener—stuff is getting recreated when we enter preferences. is it not?
+"
+"0f3d922264736f384014912c561456925a2fd84a","2014-10-02 23:11:18+03:00","move transaction off current loop
+should resolve and simplify many things
+why didn't i do it this way from the beginning >_<
+"
+"caecba260cf67fd27d763845082a7f5fb7f367d1","2014-10-02 23:18:10+03:00","fix big icon transparancy
+"
+"caa336d9341621fb5f1648c18b5c0eb54c93974d","2014-10-04 10:58:18+03:00","slight fix
+"
+"88a117606d1515ba0261c7fddefa3eebd6b8a863","2014-10-04 13:55:26+03:00","fix some inconsistencies in default preferences
+"
+"52b28d79e8e8d41b20383f5a4054c8e6add7b69e","2014-10-04 11:17:59-04:00","Open URLSpan links new tab
+
+Fixes #105
+"
+"c526db90e53c36d7306e7a8f78f3371c989ff743","2014-10-04 21:16:20+03:00","remove testing stuff
+"
+"965be0509f80fbce5cab389b9c623139217b243a","2014-10-04 21:29:50+03:00","Merge pull request #135 from ubergeek42/drawer
+
+@mhoran told to me to merge, if anything goes wrong, blame him
+"
+"c6093aad0421818f398e4003fd40ce70c9432def","2014-10-04 21:59:16+03:00","do not use filtered buffer list while looking for hot buffer
+fixes #126
+"
+"4cacd7d2bafcacd66edeeb7f561f3e67fdf610f2","2014-10-04 15:03:45+01:00","Copy sock/in_stream/out_stream before checking for null
+
+Fixes issue #98
+
+If the connection has been closed then these fields may be null.
+"
+"677d2de438026530fb2fba1b1515a86f4d076332","2014-10-04 12:45:05+01:00","optimise RelayConnection read/write
+
+Wait indefinitely for new outgoing messages instead of waking up
+4 times a second.
+
+Avoid making multiple copies of byte arrays when reading messages.
+"
+"adc11ee9094d4ee1a4cd409de70cce556576d92e","2014-10-04 15:34:51+01:00","Input may contain multiple lines (if pasted)
+"
+"6d3d5ed1552f7271ce03aba68830197e260aac5b","2014-10-04 20:08:25+01:00","Remove the message_sender Runnable as it's not required
+"
+"579ae1a60e75881a024beb471360d3340dea1d9f","2014-10-04 18:13:06+01:00","Allow nicknames to be enclosed in < and >
+
+Fixes issue #99.
+
+Also fixes an issue with irc_notice messages and
+messages from people named '*action' were being
+handled as actions in notifications.
+"
+"345b6422bb47e557813dde84cd283de283c8c910","2014-10-04 23:05:13+03:00","user-friendly error messages
+"
+"e5905404df27c48a2847887b8da8e26acd7994c3","2014-10-06 20:18:24+03:00","add removing of 'info' to proguard, it was missing for some reason
+"
+"a18e1054c7c622f167149407f0a5d26f3164e74a","2014-10-06 21:41:53+03:00","make filter case insensitive
+fixes #140
+"
+"4c1605f85eea70d7a8696f3a893a4c490149ad39","2014-10-06 20:17:37+01:00","Don't crash on startup with the Turkish locale
+"
+"403c0fc200b85fb10d34a3267d0206a1edd0d0ad","2014-10-06 22:43:26+03:00","Merge pull request #141 from lp0/fix-turkish
+
+Don't crash on startup with the Turkish locale
+"
+"4fd11fe8d90feb7378eff2087cc0e61fff147a5b","2014-10-06 20:29:47+01:00","Compare buffer names in both lowercase and uppercase
+
+This appears to have the most liberal behaviour in both German and
+Turkish.
+
+Fixes issue #140.
+"
+"96e4c8e2d639cad2198c8344087b0bd4ead89f54","2014-10-06 22:53:12+03:00","Merge pull request #142 from lp0/fix-buffer-filter
+
+Compare buffer names in both lowercase and uppercase
+"
+"570997be8a6057830bb5b6765546eae686f5b3d0","2014-10-06 22:59:32+03:00","Merge pull request #136 from oakkitten/user-friendly-error-messages
+
+user-friendly error messages
+"
+"d18671d2ea03d6f123888ecd95b1002d9f03546c","2014-10-07 00:52:33+03:00","forget lines & nicks when closing a buffer if are not getting updates for closed buffers
+"
+"92a89fb14b748cedc511d6681f618bfe327a4aa8","2014-10-07 01:17:31+03:00","Merge pull request #143 from oakkitten/only-sync-open
+
+forget lines & nicks when closing a buffer if are not getting updates for closed buffers
+"
+"7a1a2d365a739eaa3ca2044d357b8489db7acdd5","2014-10-07 00:23:15-04:00","Browser.EXTRA_CREATE_NEW_TAB is API level 12
+
+* Instead, don't set Browser.EXTRA_APPLICATION_ID.
+"
+"903f24f4a42cc8b4a301776c6e9ee50305429e1b","2014-10-07 20:30:33+03:00","remove unused stuff
+"
+"a70be1201d946f54a9a0f6a9f35a6093604b7fde","2014-10-08 00:33:39+03:00","make holds_all_lines more consistent
+should fix autoscrolling which relies on this field
+"
+"67138b0576053f7bdfb9562f4c0f48f8ad01cd68","2014-10-08 01:25:37+03:00","case-insensitive sorting of nicknames
+also fixes #146
+"
+"a6f718f5576a1deda1e85f9f5bd86cfdbbde6bf9","2014-10-07 20:41:28-04:00","Add automated builds using travis.ci
+"
+"17608b6704313b700e6748913d4be877e58feb35","2014-10-07 21:04:03-04:00","Fix .travis.yml
+"
+"a21ec1d78fe2da943670c99604021efebcac87fe","2014-10-07 21:13:12-04:00","See if we can get Travis to push to S3
+"
+"086ee538e3db15c125358398ec50f2b7632bda3c","2014-10-07 21:19:38-04:00","Typos will be the death of me
+"
+"f69fda42302503a6d32028148fb5aed74855d45c","2014-10-07 21:26:55-04:00","But seriously, typos :(
+"
+"0db64e1b80afd445a8d6a00ff4ab2e6b0ada906d","2014-10-08 15:42:14+03:00","make letter width calculation work correctly on L
+any idea why it could go wrong?
+"
+"843eea4f4e5c7d6e442bb8599305550dd4efd085","2014-10-08 21:15:54+03:00","make the radial drawable work across versions and dpi-s
+also prevents from crashing on L
+"
+"ec7766cf0bf4e89b894954de075c440fadc6df86","2014-10-08 21:28:45+03:00","Merge pull request #147 from oakkitten/fix-compability
+
+Fix compability with L
+"
+"3df2863d0579ee956d8abd3ec2b9b2c4d0bcf844","2014-10-08 22:22:40+03:00","correct event id that buffer listed observer was listening for
+"
+"f3505c9acced70058f76abc446a8067ac9045b84","2014-10-08 20:40:42-04:00","Check cert with curl, and use different S3 url
+"
+"d440a5cd579863f3fabe7a9626e3643dd272f2eb","2014-10-08 20:50:55-04:00","Set branchname properly on travis-ci
+"
+"508708900f10ad5221630dca1589510d7a417187","2014-10-08 21:06:23-04:00","Update link for nightly builds
+
+We use travis-ci now instead of cloudbees.
+"
+"903896b0275af6c8ea87b560e25f10194ec50619","2014-10-11 15:38:53+03:00","simplify auto scroll & make it work, like, always
+"
+"d9cb5c72bb8a8d3deac328ac28f6df079fcdf996","2014-10-11 16:33:21+03:00","make it all potentially more stable
+"
+"6c894e77d4f16226b7800cb1b877708347faaa2f","2014-10-11 20:29:01+03:00","prevent hot number changing code from running on current loop, which would effectively execute calls out of order
+"
+"aaef041cae0a10890a828c0c8fe2f7b4ba21b3d0","2014-10-12 16:59:38+03:00","remove testing parts & move strings to xml
+"
+"bb9b2afb393c7db4a2a2e731cc790ab05eacfef6","2014-10-14 00:54:02+03:00","remove final variables and rely on instance fields instead
+"
+"17fda896b649ac61dbc7b8f87362eb281da37967","2014-10-15 20:45:31+03:00","change message that appears when fragment can't scroll to line
+changing because now the fragment attempts to scroll on every visibility change
+"
+"372ea191660dc1f6616426a0cc822f3051866809","2014-10-15 21:56:05+03:00","make sure 9patch is not downscaled to zero
+which results in a crash on ldpi
+"
+"1bdc727115304b5435f67471ff47b9883e2fbb4b","2014-10-15 23:59:17+03:00","Merge pull request #149 from oakkitten/autoscroll
+
+Auto-scroll to last unread hot message, if any, whenever buffer becomes visible
+"
+"a14abaddd139ef0d8c692a3d3cab196dd61072a5","2014-10-16 01:15:19+03:00","remove unnecessary xml drawables
+"
+"69f498f5ee9b5570c8f2b652449195b9c67f9b60","2014-10-08 18:55:55-04:00","Refactor startThreadedConnectLoop
+"
+"2508ad8d424c4b1a6f4d0181fe1490381ed19058","2014-10-08 23:48:07-04:00","Interrupt current RelayConnection on connect
+
+* Use SocketChannel, which can be interrupted.
+* Always interrupt the connector thread on disconnect if it's running.
+* Fixes a bug on slow connections, or firewalls that drop packets, where
+an infinite number of connections will be created in the connect loop.
+"
+"f3e789072d244c6c2a51da4e8d6f3fb45dadef5b","2014-10-09 15:41:31-04:00","Only connect if network is available
+"
+"57b4ba6b8e9dc6b3d15a3d8d1c082632cac77620","2014-10-11 23:39:05-04:00","Close SSH connection on disconnect
+"
+"d11406fd33d0749c9f1a63cfcc30ea7904d0304a","2014-10-08 08:39:12-04:00","Disable DEBUG_NOTIFICATIONS
+"
+"70d35d5e3aabda86824e638e9d798f4f108e48f2","2014-10-15 23:50:45+01:00","Fix align_right when enclose_nick is enabled
+"
+"3c2487f6a3afd833b49f8a57a360c74099292ca6","2014-10-16 02:44:24+03:00","Merge pull request #151 from lp0/fix-align-right-and-enclose-nick
+
+Fix align_right when enclose_nick is enabled
+"
+"153a4855b42b42dd247c7aca48b7c32e9cc24970","2014-10-18 17:29:05+03:00","make sure we reattach a fragment to its buffer
+mostly matters when application is launched before service is auto-restarted
+after being killed by system because of OOM
+"

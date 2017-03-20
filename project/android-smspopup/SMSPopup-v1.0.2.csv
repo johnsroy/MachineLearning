@@ -1,0 +1,89 @@
+"commit id","commit date","commit message"
+"cddc377ae8de93b365aeafb234760d76ae07ef5c","2009-11-02 15:34:22+00:00","-clear notification immediately on quick reply
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/trunk/SMSPopup@143 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"a0c62e0b2236b8de2f146f298da0ff815d9c56ea","2009-11-02 23:48:23+00:00","onCreateContextMenu in SmsPopupActivity had hardcoded texts. Added to every language xml and translated spanish one.
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/trunk/SMSPopup@145 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"13d2b985e84ff07b4b04de5435807ac9528c8ec9","2009-11-03 16:39:24+00:00","Added permission READ_PHONE_STATE (causing force close messages on some HTC phones)
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/trunk/SMSPopup@146 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"3a891a51e0a008452fdfe09597e6956998bccffa","2009-11-04 03:49:20+00:00","-update manifest so that all activities handle config changes of 'orientation|keyboardHidden' (do not restart on these configuration changes)
+-change context listener in ConfigContactsActivity to be applied only to ListView
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/trunk/SMSPopup@147 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"da42c3b55e191ed3f19d346d22f6a06c41a5de6c","2009-11-04 04:14:13+00:00","-revert changed in TestNotificationDialogPreference (ignoring rotation config changes seems to have fixed the repeating alert upon rotate)
+-added onConfigurationChanged() to main popup activity to resize (used to be handled by onCreate())
+-moved popup resize to its own function (called once in onCreate() and once in onConfigurationChanged())
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/trunk/SMSPopup@148 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"e29f187a9744b14649aac6c1ca7596958692ca16","2009-11-05 14:21:17+00:00","-update to oneditor listener for quick reply and preset edittext objects (prevent crash on enter on non-standard keyboard)
+-update to message ID detection (now only using match on thread + message body as phones running HTC's Sense UI seem to store date differently)
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/trunk/SMSPopup@149 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"27b8373136e691bcb2cecb48d3e86dc76990c274","2009-11-05 16:50:38+00:00","-updated SmsPopupActivity with screenRotation of 'user' (so the popup will autorotate if the user has this set)
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/trunk/SMSPopup@150 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"edbc061279086ee1ee59370729696de341de760a","2009-11-06 03:44:54+00:00","Missing Custom color translation on es-de-nl xmls
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/trunk/SMSPopup@151 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"fd25fd20b4fe65d7f2368e802b070076e5514878","2009-11-06 04:23:35+00:00","-update translation files (RU, ZH)
+-IMPORTANT CHANGE: updated the way unread messages are counted and detection of message in system db when a message is received.  This should make it more reliable but needs to be tested to make sure there aren't any strange consequences.
+-cleaned up query() code in SmsPopupUtils
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/trunk/SMSPopup@152 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"a73a4a1f3feb93aad73d5c74fb8bcd5ad80676fa","2009-11-06 23:44:29+00:00","-more updates to incoming message detection
+-update language files to escape single quotes (')
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/trunk/SMSPopup@153 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"5be0501a25bb427d27813a32beb6cc906ac7b965","2009-11-07 21:01:05+00:00","-sync up language resource files
+-add toggle quick reply option
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/trunk/SMSPopup@155 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"aade46611cfe3f84e319b32a4e42cec13ac81fd7","2009-11-08 18:02:04+00:00","-update prefs to no longer use static vars to handle recreating dialogs on configuration changes (as we now handle config changes directly)
+-updated db cursor's to be managed by activity (startManagingCursor())
+-close cursors and db in more cases (still showing error finalizing cursor though)
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/trunk/SMSPopup@156 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"dc0053798719bdbed63be46749ed1a53988a6e8f","2009-11-08 20:45:29+00:00","-update contact functions to use Eclair URIs if the device is running 2.0 (getPersonIdFromPhoneNumber, getPersonName, openContactPhotoInputStream)
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/trunk/SMSPopup@158 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"9a1eb367c18e8aa43c971fb956e327b0224e010b","2009-11-09 04:13:45+00:00","-correct photo scaling
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/trunk/SMSPopup@159 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"6880851565d079bdc8d1fc8e6e88ef9cc542f39f","2009-11-10 06:24:54+00:00","-created new ContactWrapper class to handle differences in Contacts API between 2.0 and pre-2.0 (uses reflection in one piece)
+-added Czech translation strings
+-updated TTS stub to 1.9
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/trunk/SMSPopup@160 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"75b0ed3992f9873ad45e5312636b7c13eb8ccc5b","2009-11-11 05:17:31+00:00","v1.0.2 complete
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/trunk/SMSPopup@161 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"d7ca3d7595d0fc7357117f2a517becf1e78fc10a","2009-11-11 05:18:00+00:00","v1.0.2 complete
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/tags/SMSPopup v1.0.2@162 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"ba5515ecc9b8d8375e25774890a84b54544f61eb","2009-11-11 07:00:37+00:00","v1.0.2 again (quick bug fix with ContactWrapper)
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/trunk/SMSPopup@165 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"
+"da21829cd6464d6f5a027aacd3ec370ad3748b29","2009-11-11 07:05:40+00:00","v1.0.2 again (quick bug fix with ContactWrapper)
+
+git-svn-id: https://android-smspopup.googlecode.com/svn/tags/SMSPopup v1.0.2@167 dacd1dde-df38-11dd-9759-139c9ab14fc6
+"

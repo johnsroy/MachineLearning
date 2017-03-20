@@ -1,0 +1,66 @@
+"commit id","commit date","commit message"
+"1ac262fe8456b4c66729206905e71fb9071fa27f","2014-11-04 22:07:57+01:00","Fix gradle file for dropbox
+
+Signed-off-by: Jonas Kalderstam <jonas@kalderstam.se>
+"
+"cc9255e60be994293873fcf32ac3e6996cda90bc","2014-11-05 22:38:00+01:00","Unit test for #272
+
+Not able to reproduce yet
+
+Signed-off-by: Jonas Kalderstam <jonas@kalderstam.se>
+"
+"f84610369b6d3b0bf998bb8a6efd801ff09cf5d6","2014-11-14 19:02:44+01:00","Replace slashes in filenames with underscores
+
+fixes #273
+
+Signed-off-by: Jonas Kalderstam <jonas@kalderstam.se>
+"
+"ac8c06bc19a8546226b9196b8330721967883c9d","2014-11-14 19:04:21+01:00","Remove excessive newline after sync
+
+This is a judgement call since it is not possible to differentiate
+between user-added newlines and sync-added newlines. I assume
+that the sync added the last newline to the file, and account
+for this possible difference in the merge logic.
+
+fixes #274
+
+Signed-off-by: Jonas Kalderstam <jonas@kalderstam.se>
+"
+"30aa45d26690ff5dcc162d43642ab1531b8f8790","2014-11-14 19:07:19+01:00","Bump small version
+
+Signed-off-by: Jonas Kalderstam <jonas@kalderstam.se>
+"
+"6feaba8120d5c659373979e72db366fea69f0e66","2014-11-28 00:23:02+01:00","Update gradle version
+
+Signed-off-by: Jonas Kalderstam <jonas@kalderstam.se>
+"
+"0ff742180879feacdbdf376bd0f735a001baee7a","2014-11-28 00:31:19+01:00","Fix crash reported on Google Play
+
+Log:
+
+```
+ava.lang.RuntimeException: Unable to resume activity {com.nononsenseapps.notepad/com.nononsenseapps.notepad.ActivityMain_}: java.lang.IllegalArgumentException: account must not be null
+at android.app.ActivityThread.performResumeActivity(ActivityThread.java:2951)
+at android.app.ActivityThread.handleResumeActivity(ActivityThread.java:2982)
+at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2365)
+at android.app.ActivityThread.access$800(ActivityThread.java:144)
+at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1278)
+at android.os.Handler.dispatchMessage(Handler.java:102)
+at android.os.Looper.loop(Looper.java:135)
+at android.app.ActivityThread.main(ActivityThread.java:5221)
+at java.lang.reflect.Method.invoke(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:372)
+at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:899)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:694)
+Caused by: java.lang.IllegalArgumentException: account must not be null
+at android.content.ContentResolver.isSyncActive(ContentResolver.java:2195)
+at com.nononsenseapps.helpers.SyncStatusMonitor.startMonitoring(SyncStatusMonitor.java:44)
+at com.nononsenseapps.notepad.ActivityMain.onResume(ActivityMain.java:487)
+at android.app.Instrumentation.callActivityOnResume(Instrumentation.java:1241)
+at android.app.Activity.performResume(Activity.java:6019)
+at android.app.ActivityThread.performResumeActivity(ActivityThread.java:2940)
+... 11 more
+```
+
+Signed-off-by: Jonas Kalderstam <jonas@kalderstam.se>
+"

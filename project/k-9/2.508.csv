@@ -1,0 +1,119 @@
+"commit id","commit date","commit message"
+"4fa4f22f2cb8671878c244445603927e946381d7","2010-02-06 22:36:22+00:00","Fixes Issue 494
+
+Allow for setting the Outbox to have any name, as tying it to a server
+side folder does not make sense.  It is never synced.
+"
+"1fb03a45a0f5e458f9240b1cc4bfa86d5ae9d17a","2010-02-06 23:23:22+00:00","Fixes Issue 1059
+
+Provides for menu items to quickly change the mode of displayed
+folders.  Also, reorganizes the menu to have an Advanced sub-menu,
+like Accounts page has.
+
+Desparately needs a new icon for the Folders menu item.
+"
+"131280c3f27e7d04cb46e9dc8c3b32501ce69ffb","2010-02-07 05:58:04+00:00","Still init LocalStore.mExternalAttachmentsDir even if sd card is not ready so that the object does not end up in a bad state
+"
+"46bff831d139f0daee4396bb0e5ce02c41f8ba56","2010-02-07 06:00:28+00:00","Using X_DOWNLOADED_FULL flag instead of the X_DOWNLOADED_PARTIAL on to determine if we need to show the downloading icon. Some POP3 messages carry both flags.
+"
+"c497485b2f7e02cb9f411c8773a7e8adbeaa62ea","2010-02-07 06:05:11+00:00","Better message flag management so that we don't end up with (POP3) messages having both X_DOWNLOADED_FULL and X_DOWNLOADED_PARTIAL
+"
+"2f8f52fb0be717ea121e4ecfd78d8562067a15ef","2010-02-07 16:05:29+00:00","Fixes Issue 1112
+Fixes Issue 1034
+
+Refresh Account from Preferences, so that it'll have a fresh copy of
+all information.  Failure to do this caused the AccountSettings
+Activity to show stale information when invoked repeatedly from the
+same prior Activity.
+"
+"164ee7cbfdfe3bad959d7c352e4cba457d92f8d5","2010-02-07 21:23:33+00:00","Fixes Issue 1059
+
+Only reschedule polling and setup pushing when necessary due to
+particular setting changes.  Makes the K-9 Mail UI much more
+responsive to setting changes that do not affect polling and pushing.
+
+The poll schedule is deliberately only rescheduled when the period is
+decreased.  An increase in period will still allow the next scheduled
+check to happen as originally scheduled.
+"
+"20fc93c10148482b8d018220423f9dc82fc3ec21","2010-02-07 23:02:07+00:00","Updated german translation with patch from wertarbyte (thanks!).
+(Poorly) translated missing strings (cketti)
+
+Fixes Issue 1088
+"
+"58f3005a2856d04dcb7eb6c9c92e8e7a467cf174","2010-02-07 23:11:57+00:00","Removed duplicate shortcut/hotkey from forward (alternate)
+"
+"3b6cccdf7a4bd6b187479eccf1feb53f2c5621f5","2010-02-08 03:23:41+00:00","Use Reflection to call WebSettings.setBlockNetworkLoads() to prevent info leaks via external resource loading.
+
+Fixes issue 1183
+"
+"033e0d40de06332063f4bb7b52dcb5308f9bf8be","2010-02-08 17:47:00+00:00","Optional signatures on per identity basis. Original patch by jiri.tyr (thanks!) slightly modified by me.
+
+Fixes issue 461
+"
+"7cafc8547bd5dbbfc8c600bd150af4b12367816a","2010-02-08 19:12:40+00:00","Removed unnecessary FIXME comment
+"
+"790ae2e25c91139c19f6cfc019e66e97e9aad13f","2010-02-09 01:14:55+00:00","Fixes Issue 1194
+
+Do both a poll and push reset when connectivity or background data
+status changes.
+"
+"49534f22fcc617f5055d0e19191067d6323faaee","2010-02-09 03:03:40+00:00","Fixes Issue 834
+
+Provide for setting Sent folder to -NONE- which suppresses actually
+saving sent mail in any folder.
+
+Also, eliminate logging which folders are not configured for pushing.
+It was just too much logging.
+"
+"c12f720ba0d2ec7dfe749e95adca82f84dfaa572","2010-02-09 03:11:15+00:00","Lower logging level for CoreService and provide instance class name.
+"
+"23e5a132d4cafce4944c839f357e7da56ba559a2","2010-02-09 03:26:40+00:00","Provide title bar display of next polling time
+"
+"03a06696dcfda0472106aabb718bb08cfa454045","2010-02-09 03:34:49+00:00","Pre-r660 we didn't have this line, and things worked better.  Also see
+Troy Engel's comments in Issue 936.  If this commit isn't
+satisfactory, perhaps try Troy's suggestion.
+
+Fixes Issue 936.
+"
+"80ae0402e53adf6499e828053ca37ec5c01b1690","2010-02-09 15:41:40+00:00","Fixes issue 1199
+"
+"48c7189d0384fe631eb715b129e1eef0f2a37565","2010-02-09 16:57:30+00:00","Fix r1436
+"
+"e83a428107acde7d338f313e2e3bf724825a06bd","2010-02-10 06:18:35+00:00","Far more advanced poll scheduler.  Now it remembers that finish time
+of the last successful periodic mail and computes the next start time
+as an offset from that successful finish.  The ramifications of this
+new method is that changing polling interval on an account does not
+force delaying all accounts to poll next in the future by the new
+interval.  Instead, K-9 Mail now adjusts the next poll time based on
+what the next poll time should be based on the last poll finish and
+the new interval.
+
+Example 1: In the old way, if the old polling interval was 1 hour, and
+the next poll was 50 minutes away (10 minutes have passed), and you
+changed the interval to 15 minutes, the poll would happen 15 minutes
+from now.  In the new way, the next poll will happen only 5 minutes
+from now, which is 15 minutes since the last poll.
+
+Example 2: In the old way, if the old polling interval was 1 hour, and
+the next poll was 10 minutes away (50 minutes have passed), and you
+changed the interval to 30 minutes, the poll would happen 30 minutes
+from now.  The next poll would then happen actually 80 minutes after
+the previous poll completed.  In the new way, it'll actually happen
+immediately, because the time for the next poll, based on the new
+schedule, has already passed.
+
+Similar scenarios happen when a loss of network connectivity
+occurs. In the old way, polling would resume using the restoration of
+connectivity as the starting point.  Each time network connectivity
+was lost and restored, the next poll would be further delayed.  *If
+connectivity was lost and restored frequently, a poll might never
+happen!* In the new way, the next poll is rescheduled based on the
+time of the last successful poll, so will be rescheduled just like it
+was before the loss of connectivity.  If the time has already been
+passed, the poll will happen immediately.
+"
+"2bd4f9632b384ba2eea087e65e17fee39ab2e39f","2010-02-10 13:52:25+00:00","Better handling of IMAP FETCH responses.
+
+Fixes issue 1068
+"

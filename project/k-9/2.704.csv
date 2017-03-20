@@ -1,0 +1,107 @@
+"commit id","commit date","commit message"
+"a2f4391501c1b005722208796ddc14abac611445","2010-04-24 14:59:27+00:00","Fixes Issue 1341
+
+Pass around simple Serializable MessageReference objects containing
+account UUID, folder name and message UID so that MessageView can
+traverse lists of messages which span folders and accounts.
+"
+"4bec5ea2a36907cc8f0477adb4bbebad1f932def","2010-04-24 18:02:45+00:00","Remove MessageReference from local list of MessageReferences when
+message is deleted.
+"
+"f185240f674067366237d0810eec248a159ef6af","2010-04-24 19:10:57+00:00","Make stars and envelopes on folder active.
+"
+"c7d679f7735d9914494eed10195b9f7c9ece8e71","2010-04-24 19:15:43+00:00","Folder List should use Folder List-specific font sizes.
+"
+"6cfcfb953f1604e77769a77dd78d60a5e7c2f2c2","2010-04-25 06:17:15+00:00","Aggressively get rid of obsolete Flag X_NO_SEEN_INFO.  It was
+interfering with 'unread' searches on POP3 accounts.
+
+Flags really should be normalized in the database to eliminate the use
+of LIKE while searching by Flags.
+"
+"6bf429fd0d9c5936fa100172103d01584b045e01","2010-04-25 08:46:37+00:00","Initial import of the android 'demo' color picker dialog
+"
+"d6bc0765d82a082e0c14828c3867b647994dba9b","2010-04-25 08:47:24+00:00","Allow users to set the account 'Chip' color per account.
+"
+"c649073fa7db646ee9293e7cd79a9f9cfef97b71","2010-04-25 08:59:59+00:00","Finish removing the old Android 1.0 chips
+"
+"167e856b15f0e083ec790e6d23cf2e1d9b69a319","2010-04-25 09:07:34+00:00","default accounts to random colors rather than black
+"
+"6686c3a910796103684de64a0aa6bc1a7848f06b","2010-04-25 14:47:10+00:00","Fixes Issue 1473
+"
+"267f02fc4834fb0ce50426e96241483e4d19f17c","2010-04-25 16:33:32+00:00","Add a color chip to the left side of the message headers so that it is
+possible to tell in which account the message is located.  Especially
+useful when traversing search results in the MessageView.
+"
+"d7f18c7e352a811b0dee3cdd34a74d034e02cc57","2010-04-25 16:43:11+00:00","Finally get the interaction right between integrated folder,
+searchable folders, and the various search strategies.
+
+Integration takes precedence over searchability.  The Integrated Inbox
+doesn't care about folder searchability.  Nor does an unread or flag
+search on specific folders.
+
+Searches on specific accounts always go for displayable folders.  That
+might need to change so that searches on specific accounts can be on
+DISPLAYABLE or ALL, but never NEVER.  But in the current approach,
+account-specific searches are done from the Accounts Activity, which
+has an unread counter based on displayable non-special folders, so the
+present implementation is the most logical for now.
+"
+"c01adf32469ff3d165066a3e82c1a33cf258ae98","2010-04-25 17:52:59+00:00","If we're doing a folder-involved search and an account has no folders
+that match the folder criteria, don't search in the account.
+"
+"7b7578839893ba23cb2f709ac3936513e16f595d","2010-04-26 14:25:18+00:00","drop the intensity of the account color chips a bit
+"
+"417db2287965af85c2f30563c2d41b9da3d5326a","2010-04-26 14:25:37+00:00","Consistent random colors for accounts without color chips
+"
+"0e4028d458ef3f604d2479cbf334c820ba5b3161","2010-04-26 14:52:04+00:00","right-align stars in folder and account lists
+"
+"ac36016b862341ba2564cc13e79e159329329aef","2010-04-26 15:23:57+00:00","Only show the 'Cc' lines in message view if there's a Cc.
+"
+"55d70c3bf763e28cacb0df1c42354eb7a7ee871d","2010-04-26 16:20:43+00:00","rather than fetching 10 messages on push reconnect, fetch a full
+compelment of displayable messages. This should help eliminate 'Gaps'
+when reconnecting push connections after going offline.
+"
+"bad67d5e173824c76b2ec35450d6cdbadfec1352","2010-04-26 17:10:46+00:00","- Changing the order of the date and subject TextViews in the XML file should fix the overlapping text issues
+- Prettified message_list_item_touchable.xml
+
+Fixes issue 1350
+"
+"9fa9389386badf48a3b0f3a6da2683c803910c42","2010-04-26 17:36:33+00:00","- Removed the fixed height for message list items
+- Sender name doesn't overlap the date anymore
+- Sender name and date go below subject (don't overlap)
+
+For now the color chip on the left doesn't use the full height of the message list item because of limitations of RelativeLayout.
+
+First shot at fixing issue 1478.
+"
+"e0e5da2d01e65a7ec41866ef66c395d2811058a5","2010-04-26 18:26:10+00:00","Display long account names or email addresses nicely in account list (issue 1478).
+"
+"b7297f774b9f9aaff69f63132ec7dcc4c93c85c9","2010-04-26 18:28:22+00:00","@id -> @+id
+"
+"d08280952436238db75d31315518ec8374e39f5a","2010-04-26 19:50:25+00:00","Used LinearLayout + android:layout_weight to simplify account + message list. Fixes color chip height issue in the message list.
+"
+"02f4d083967ec8b179c8c994366a561a188e6f08","2010-04-26 22:22:23+00:00","- Added 1dip bottom margin to 'number of starred messages' in account and folder list (looks nicer with dark theme)
+- Prettified folder_list_item.xml
+"
+"78a101547cad72ec0637031a701453822e0dc264","2010-04-27 03:02:17+00:00","Provide for doing a full poll/sync of a folder whenever the IMAP IDLE
+connection is established.  Turned off for now, but just get rid of
+the false && on line 2641 in order to enable it.
+"
+"488301d03e7969e0b7e5c3cfd5405dfbca532314","2010-04-27 03:18:41+00:00","Revert r1611.  The extra alignment constraints made the stars go blank
+when there was more than one digit for the starred count.
+"
+"3f771474c123ab320d7170a1c7fcdc25ad99e2d6","2010-04-27 03:26:54+00:00","Fixes Issue 1477
+
+Keep mSelectedCount in sync with the number of selected messages.
+"
+"0459be3bb8e8eeb66e85a58f42e883408a0fca76","2010-04-27 04:06:26+00:00","Fixes Issue 868
+
+When connected to a server that does not automatically send an
+untagged UIDNEXT with the responses to SELECT, explicitly SEARCH for
+the currently highest UID in the folder on the server and then add 1
+to it to get the UIDNEXT.
+"
+"4c6df71fe151e8f6e389993d6095dbd21b5e56f8","2010-04-27 05:00:08+00:00","Reduce logging level, and make Logs only happen when K9.DEBUG is true.
+"
+"2775795abeef40222aeb8d1ce587d9dc4d50dd7b","2010-04-29 01:33:28+00:00","2.704
+"

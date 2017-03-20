@@ -1,0 +1,253 @@
+"commit id","commit date","commit message"
+"a9687e70bfe5e57e929d9671a7a0580d63b4afb6","2013-04-29 22:42:49-05:00","Changed version string to debug
+"
+"1823a89922788ec56795a98282bb80f47da4d8e8","2013-04-30 08:43:02-05:00","Merge branch 'sdl2'
+"
+"bca616c98825914ebea83b07ca34e79593cc9acc","2013-04-30 10:02:23-04:00","Merge branch 'master' into glide
+
+Manually bump asset version since assets are different between master
+and glide branches.
+"
+"5e93f57a2cac67ef2df91f1c6479536c394c74af","2013-04-30 10:20:20-04:00","front: Consolidate native lib loading to CoreInterfaceNative.
+
+Consolidate loading the ae-bridge/sdl/core/front-end libraries to one
+place.  Simplifies maintenance.  Putting it in CoreInterfaceNative is
+also a better place because it guarantees that those 4 libraries will
+always be loaded before any other calls to the native methods.
+
+Also, moving the lib loading functions to CoreInterfaceNative from
+FileUtil ensures that those 4 libraries will always be loaded before
+any of the plugins.
+"
+"6dfa0987f0af2aa0e034696cd1c5a88d75dabf74","2013-04-30 21:44:41-04:00","front: Update library sanity check to include SDL2.
+"
+"95a0d06f1c5af08cfabc12ad910fcbe93380d9b5","2013-04-30 21:45:15-04:00","ae-bridge: Pass config by console args rather than JNI.
+"
+"417899708220b0c9faff6f0ae8231e60bbf3090f","2013-04-30 21:46:08-04:00","cleanup: Format whitespace, no functional changes.
+"
+"51db08a942dc71b55e27c10ea62254f75b8f5fff","2013-04-30 23:52:43-04:00","front: Reduce logcat chatter.
+"
+"f488ed9d40da6ae86b4056a855d6ab1f2b600e12","2013-04-30 23:53:07-04:00","ae-bridge: Reduce logcat chatter.
+"
+"e4fdaa93b2bc0077ea42e96b91c35650ccab50da","2013-04-30 23:54:28-04:00","front-end: Reduce diff with upstream.
+
+I don't think we need this logging any longer...
+"
+"1924c9b853f3a57426dac024f21bd32f0b4253ab","2013-05-01 00:10:03-04:00","front: Try to guarantee no slow EGL config, add more EGL logging.
+"
+"df2e66d35cd695227cf2b22d5c4db326df074487","2013-05-01 09:37:30-04:00","bugfix: Fix AudioTrack IllegalStateException.
+
+Not quite sure how to replicate this bug but I see a lot of it in the
+crash reports:
+
+java.lang.IllegalStateException: play() called on uninitialized AudioTrack.
+at android.media.AudioTrack.play(AudioTrack.java:883)
+at paulscode.android.mupen64plusae.CoreInterfaceNative$1.run(CoreInterfaceNative.java:356)
+
+I think the bug is related to an existing audio track not quitting
+before initializing a new one.  If I am correct, then the bug was
+introduced in commit 6cfff95c269a3aad48a138d1cd5fcb81e383b4b9, where
+some SDL2 example code was cut & pasted into the app overtop one of our
+previous bugfixes.
+
+To (hopefully) fix the bug, I just reverted the code to what it was
+prior to commit 6cfff95c269a3aad48a138d1cd5fcb81e383b4b9 (with a few
+minor changes).
+"
+"f3e27752884e9885d149a8b724f8d841d348ff07","2013-05-02 13:22:41-04:00","front: Properly cleanup AudioTrack resources.
+
+The SDL2 example that this implementation drew from has a bug.
+AudioTrack.release() needs to be called when shutting down the audio
+thread.  The O/S creates a second native thread behind the scenes for
+AudioTrack (in addition to our Audio thread we create in Java). Without
+this bugfix, two things occur:
+- Somehow an additional AudioTrack thread gets created and orphaned
+during core startup.
+- The AudioTrack thread never gets killed during core shutdown.
+
+I'm not sure if the first effect creates any hit to performance or not.
+The second side-effect is currently obscured by the ASDP bug/workaround
+because the thread is eventually killed by exit(status) in ae-bridge.
+Once we actually fix the ASDP bug, we will no longer call exit(..) and
+the second-side effect will become apparent.
+"
+"342af93d45868fbf2db39a5d71e9d042f0edcae3","2013-05-02 17:01:27-05:00","JNI: Fixed stale reference errors in input-android
+"
+"c4247c3c018d654ca62fee57c16e3246d65736f3","2013-05-02 21:29:14-04:00","cleanup: Remove unused method from CoreInterfaceNative.
+"
+"f77b78064e7ec281ea06d81b73e6102314ee2620","2013-05-06 20:35:49-04:00","bugfix: Fix for newer versions of Nyko Playpad controllers.
+
+Fixes issue #106.
+
+I hope this doesn't break the hack fix for older versions of this
+controller.  The conditional using the device name is based only on my
+own personal observations with the original version of this controller.
+"
+"90b6ede33d9cb31fdc8a5905e5a9904559256e4a","2013-05-07 08:44:47-04:00","doc: Update changelog.
+"
+"49343deec73ada4243cef03f97122ff9f2b49e2f","2013-05-07 13:47:12+01:00","res: Updated translations.
+"
+"8a810b3d013ff3ea74c8d8471bf13496e77b3c77","2013-05-13 09:39:49-04:00","doc: Update changelog.
+
+Won't be seen by most users, but it's good to be historically accurate.
+"
+"5d82933498b189aeca3ac45a645a370664bba1fe","2013-05-14 19:32:08-04:00","front: Added preference for each player's deadzone.
+
+Can be persisted in custom profiles.  Built-in profiles and legacy
+custom profiles default to 0% deadzone.
+
+Closes Issue #121
+"
+"ee1ec750f367f353ca94b739c15c63a1c3d8359e","2013-05-14 19:32:36-04:00","doc: Updated changelog.
+"
+"77796e3ad055ba456503c6bc1bd04baabf4d6140","2013-05-15 08:57:48-04:00","front: Encapsulate seekbar prompt for easy reuse.
+
+Same code in two places, so refactored it into a common utility.
+"
+"de1cc3aa13e56371f8c42f2b4ea957a2c3270eee","2013-05-15 09:42:13-04:00","cleanup: Revise prompt method names for clarity, refresh javadoc.
+"
+"ad6032c06bee79df5fb1aab29b29dfa79ba668cc","2013-05-16 00:34:42+01:00","glide64mk2: Improved vertex buffering. Track gl state for vertex buffering and to prevent unneccessary gl calls.
+"
+"a2820ed473c22628787097ab2ea52b51f3f79cc1","2013-05-16 18:15:18-04:00","eclipse: Fix build issue with ADT Plugin v22.
+
+Private libraries have to be explicitly exported now.  Also realized
+that ACRA was being redundantly declared.  It's already in private
+libraries, so that's all we need to add.  ADT v22 also wants to add
+the dependencies path to this file as well... so we'll just go with it.
+Doesn't seem to break the build for devs using earlier ADT versions.
+"
+"f28d6303ed691f21a079d756d51cd4a1ce754cb0","2013-05-16 19:37:09-04:00","Merge branch 'master' into glide
+"
+"bbfe6fb402afe0851962a048b1cd00e65c86b611","2013-05-16 19:37:46-04:00","front: Cleanup video plugin names, strings, credits for consistency.
+
+Renamed our glide port 'gles2glide64' to distinguish it from the
+upstream version 'glide64mk2'.  Also follows the current directory name
+for the plugin and mirrors the naming of the other video ports in the
+app, i.e. prefix with gles2 to indicate an OpenGL ES 2.0 port of an
+original library.
+
+Removed the credits for the plugins. Would be better to just post these
+on the forum sticky where there's more room and we can link to upstream
+sources, etc.
+
+Updated the plugin version names to match what I *think* these plugins
+are derived from.
+"
+"3c8ac22b5be20e19ba4451b540f0791c5d535a4d","2013-05-16 19:38:00-04:00","glide: Wired up the stretch-screen option to the front-end menu.
+"
+"c81ecf8c98fcbe6579767dba656bcd784c8a5cf6","2013-05-16 19:38:21-04:00","front: Hide portrait-position preference when glide is used.
+
+The option isn't available for that plugin yet, so we hide it from the
+user to avoid confusion.
+"
+"097bbfbefd4ae79c934f399e284e87d3a6d88023","2013-05-17 09:01:53-04:00","assets: Remove obsolete config files.
+
+Glide64.ini has been supplanted by Glide64mk2.ini.
+
+InputAutoCfg.ini was used by input-sdl, which is no longer included in
+the app.
+"
+"908aedd893640bb32e50f7f842bb5b707629d90c","2013-05-20 09:06:56-04:00","front: Make Main/GameActivity backgrounds pure black.
+
+In OUYA mode the splash image is black so this makes it blend in and
+look better. GameActivity background is black in case GameSurface isn't
+full screen.
+"
+"31aa9a9e16a55da7ec65c7e38ebeb4ef4ecf3cda","2013-05-20 13:19:31-04:00","Remove two unnecessary null checks.
+
+instanceof does an internal null check.
+
+ie) For example see the following:
+
+Context context = null;
+
+if (context instanceof Activity) will evaluate to false
+"
+"3ed9de9306bc1d5793fc9874cc63453e4126c8b4","2013-05-20 13:35:24-04:00","Some slight Javadoc cleanup in OUYAInterface.java
+
+Added Javadoc to the Product class.
+"
+"f6acfae51880ada0a5ea8b9f3ea37ddec98e070e","2013-05-22 02:39:01+01:00","glide64mk2: Fix glBindTexture ignoring active texture unit by always drawing buffered vertices. (Improves Paper Mario)
+"
+"262be6de409202c86c70afa971da3a01863320c0","2013-05-21 21:56:35-05:00","front: Removed eglWaitNative, eglWaitGL calls
+
+This fixes the extreme lag problem on devices with recent Adreno
+GPU versions, including the Galaxy S3 and S4 US variants, the
+HTC One, the Sony Xperia Z, the HTC Raider, and others.
+"
+"e3f5dbc2a4a44f350d19d1e6203ed273e8815a9d","2013-05-21 22:05:02-05:00","Merge branch 'glide'
+"
+"fbd3a9e6331800350c7b23f8c424dd9b33db4f8d","2013-05-21 22:33:22-05:00","front: Bumped asset version
+"
+"c1a42ecfad6acf29b223a8c5b3464f705d3d1ded","2013-05-21 22:58:05-05:00","OUYA: Fixed crash due to no vibrate permission
+"
+"2ffcf2cb381568c80a72609117994e74361aa1be","2013-05-21 23:05:57-05:00","front: Updated changelog
+"
+"7c99a0337b76193ad7e5625d265304775cd36690","2013-05-21 23:07:17-05:00","front: Fixed typo in changelog
+"
+"0f39eb11c48c890f516d2183d815987ea67a0823","2013-05-22 08:14:09-04:00","doc: Updated changelog.
+
+Put the most important ones (from user perspective) first. Don't want
+all that hard work to go unnoticed :)
+
+Also tweaked some wording to clarify that lag is fixed on all HTC One,
+Xperia Z, etc. (not just US).
+"
+"0b5083a5c3effa5a82762c3d778b926339dbf543","2013-05-22 09:33:46-04:00","front/ae-bridge: Removed in-game reset functionality.
+
+Three reasons:
+- Was causing segfaults on my Nexus 7.
+- Prefer to reset through main menu, where warning dialog is provided.
+- Adds more complexity to the ASDP bugfix.
+
+In the input mapping screen, re-ordered special functions accordingly.
+"
+"18ebb9b8a5f37b61c856db701bcdcac5fd2cafa5","2013-05-22 09:47:25-04:00","front: Add no-op methods to Java-SDL interface.
+
+sendMessage is currently not called because the ASDP bug kills the app
+first.  But when the ASDP bug is fixed, this will be needed.  Plus it
+just feels right to implement the entire interface...
+"
+"d3325daff91f8860b020d52eb01cb7ec6127e64d","2013-05-22 10:40:53-04:00","res: Reduce completion threshold for pulling translations, remove NB.
+
+Norwegian (NB) menu strings not translated, so remove the directory to
+eliminate lint warnings.
+"
+"a216ae6b16ab138b61299ddf186287f085945a3b","2013-05-22 16:05:01+01:00","res: Updated translations.
+"
+"03461956accc1d1c332628cafff6ce7a054c9b40","2013-05-22 11:10:01-04:00","cleanup: Eliminate lint warnings/errors.
+"
+"0c3d8a2875dcda7dd023a977fba5496a24812783","2013-05-23 11:38:40-04:00","build: Remove SDL 1.3 from APK.
+
+Reduces the installed size of the app by ~1.25 MB (6%) on my xperia
+play.
+
+Keeping SDL 1.3 in the source tree for debugging/regression testing.
+"
+"a43819baa277b83eddb2aa435506a18bb6670696","2013-05-23 11:39:31-04:00","front: Add a few more libraries to be checked on startup.
+"
+"8418e1faa4777b974c833f345a8e027d013b8b1a","2013-05-23 22:11:24-04:00","front: Add VerticalSync to config file to silence glide warnings.
+
+Rice also uses this setting, but since we hadn't been defining it, it
+has always fallen back to its defined default value (0). Glide does not
+define a default value, however, so it throws errors in the logcat. I'm
+pretty sure that the glide has been using a de facto value of zero all
+this time.  So this commit shouldn't change any behavior other than
+silence a logcat message.
+"
+"8bc7d5d80f6f2aaf1ff9ee9d4101fe082c8f13dd","2013-05-23 22:56:45-05:00","cheats: Hack fix for Pilot Wings shadow bug
+
+This fixes the giant black opaque shapes that appear under the
+planes in Pilot Wings 64 when using gles2n64 and gles2glide64
+"
+"c6929155243499017bc2ca92f077828255e7bb7b","2013-05-23 23:14:54-05:00","cheats: Hack fix, Pokemon Snap photo selection
+
+This allows you to select photos at the end of the levels.  This
+isn't a complete solution (graphics are still haywire on the
+photo selection screen), but it makes the game a little more
+playable than before.
+"
+"08e6033c6008956ea5e5e5c0dea3cdc15e7442a5","2013-05-23 23:32:41-05:00","doc: Updated changelog
+"
+"83f6a2dcb15875c52b2673ef00b7fe05eb7ec483","2013-05-23 23:34:17-05:00","build: updated version in prep for 2.3.0 update
+"

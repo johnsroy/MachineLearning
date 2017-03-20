@@ -1,0 +1,393 @@
+"commit id","commit date","commit message"
+"2af7a66c5347e369f406ec18fdff473e12ea825d","2015-04-25 20:15:05-07:00","Run disambiguation links through URLDecoder
+
+This patch changes the app to run disambiguation links through a URL decoder,
+and falls back to using the old system of displaying the encoded URL if
+there's some problem with the decoding.
+
+In some cases URL encoded links were shown to the user, which in the best
+case just looks bad and is confusing, but in the worst case actually causes
+the links to be incorrect and navigation to fail. This patch fixes that.
+
+Bug: T97200
+Change-Id: I4ed27184ad5ebb5bfe8ddfbea4b2fbc706c25918
+"
+"71b138f877e2fc93da9a681cd238c8a3ece04b3a","2015-04-27 21:30:59+00:00","Merge 'Fix DoEditTask related tests'
+"
+"159b5dc7eab63ea626738cdc1bbb5c139ab16f22","2015-04-27 23:44:58+00:00","Merge 'Run disambiguation links through URLDecoder'
+"
+"d613ad25295e25c583db2dbf6b094dea83d09d69","2015-04-27 16:08:46-07:00","Hygiene: create decodeURL method in Utils, and use it everywhere.
+
+This patch implements a decodeURL method in Utils that uses URLDecoder to
+decode a URL-encoded string into its UTF-8 equivalent, and then uses that
+everywhere instead of directly using URLDecoder. This reduces code redundancy
+and increases code cleanliness.
+
+Change-Id: If2ca604eee35ec9158eb5e7317193122b16bb9f0
+"
+"6b17b8ce1ec2eb24bd2cd36d4becf3907da8806a","2015-04-27 22:37:32-07:00","Avoid requesting unused information from API in NearbyFetchTask
+
+NearbyFetchTask currently requests a pageimage property that it doesn't use.
+This changes NearbyFetchTask to explicitly not request that property, which
+will slightly reduce data usage for the user with no UI changes.
+
+Change-Id: I92a758975915e50f0c02e998161ff2e5a014d4b5
+Task: T97276
+"
+"0449a824222a95cc92b6fb3c2d09921393cd3152","2015-04-27 22:55:56-07:00","Hygiene: add some documentation to OnboardingActivity
+
+OnboardingActivity was a bit sparse, documentation-wise. This patch adds some
+documentation to the class so that it's more accessible and understandable
+what's happening.
+
+Change-Id: I95f0f1e7443334ba85109e540a18cd55e39aa363
+"
+"f3ec2fba5efbefb94ef9513bcfdb3dbde9bd511a","2015-04-28 14:50:59-07:00","Handle some more login API errors.
+
+This patch handles two additional errors in the login workflow, 'Illegal' and
+'WrongPluginPass'. The API returns 'Illegal' if the username the user tried
+to log in with is invalid, and returns 'WrongPluginPass' if an authentication
+extension like CentralAuth blocked the login. Our API experts advised us that
+API consumers should treat WrongPluginPass and WrongPass as the same, so this
+patch does that.
+
+Bug: T97477
+Change-Id: Ib5a45fb6f02a4d0889455f45bb713f4213443aa8
+"
+"99b3747820d2c9ace1404cd49d705b6affb44483","2015-04-28 16:46:03-07:00","Fix for some pages incorrectly showing as protected
+
+Unfortunately, the 'editable' key in the mobileview response does not behave
+as you would expect. See the task for more info. This solution to the problem
+is incredibly stupid, but it does result in the correct behaviour.
+
+Bug: T97483
+Change-Id: I35e4e96f3c4e1453c026a6ea56460853f5a04e2c
+"
+"601a0e2c73d1c3f6a08c01e35403d485a6d30f0d","2015-04-29 00:28:24+00:00","Merge 'Avoid requesting unused information from API in NearbyFetchTask'
+"
+"9b6a7e05ec14a131112e13ef0286a9fe987cdd13","2015-04-29 00:36:24+00:00","Merge 'Hygiene: add some documentation to OnboardingActivity'
+"
+"95fc234d6eff35ceaf22135ca49b82375023bfa1","2015-04-29 01:39:39+00:00","Merge 'Fix for some pages incorrectly showing as protected'
+"
+"7936a8349a34aaf6cb6e09d52703e3f80f2a0c04","2015-04-20 22:00:46-06:00","Tighten Up Drawer Drag Margins
+
+- Set drawer drag margins at 16 dp, the minimum content margin. This
+differs from the canonical Android size of 20 dp but appears to be
+the ideal size for the Wikipedia Android app, and is constant for all
+display configurations.
+- Rename DisableableDrawerLayout, which offers more than it claimed, to
+WikiDrawerLayout, a generic Wikipedia-extended drawer. Expose
+setDragEdgeWidth(), remove hardcoded margin, call this() instead of
+super() where possible, and reorder methods.
+- Add new dimension, content_margin, which is currently identical to
+activity_horizontal_margin.
+- Add DimenUtil and apply where obviously functionally identical.
+
+Bug: T96341
+Change-Id: Ie10cfb60ac1937dfb6b4e232c5f10f8817350c0c
+"
+"c0bfbc62da9de2f070e2df78dfb911310b304462","2015-04-18 18:34:09-06:00","Minor improvements to readme
+
+* Use Pip instead of EasyInstall.
+* Add note on Vagrant / emulator conflict.
+* Add note on code, commit, and doc conventions.
+* Fix some capitalizations.
+
+Change-Id: I0d5e7e39f057635758fbfc601aa20aed8b79e1c5
+"
+"2844b0eb1419491e1d688cd3ea107b09b7223eec","2015-04-29 15:17:16+00:00","Merge 'Minor improvements to readme'
+"
+"5f32dde323f2bd4e324baeaed71502ce8124eaff","2015-04-29 21:38:20+02:00","Hygiene: fix preview test
+
+Change-Id: Ibd9ac35082d5824dce33d56eafde97101414c8a1
+"
+"ad55d104c899a64a4ca000a3c6992294a7d7b5cb","2015-04-28 13:27:57-06:00","Hide caption on 'tap to expand' table when open
+
+Bug: T86860
+Change-Id: I2321817aa5b3b13a5a7807c3b0f30fefb75fe162
+"
+"3c0a7d298e58ba52854a170bb4897b884d31e2c3","2015-04-25 22:00:17-07:00","Show 'Read in other languages' only if article exists in other languages
+
+Currently, the app shows 'Read in other languages' indiscriminately,
+regardless of whether the article exists in other languages or not.
+Fortunately, mobileview provides a 'languagecount' property which can be
+retrieved when the article is fetched, so this menu item can be
+displayed conditionally.
+
+This patch changes 'Read in other languages' to only be visible if there
+are other languages to read it in.
+
+Bug: T68198
+Change-Id: I3a8b36ff3c0304d93c373c6579656b5510545bd2
+"
+"16fdd730a566a3af88127eb53213e6694340a0d5","2015-04-29 20:41:54+00:00","Merge 'Hygiene: fix preview test'
+"
+"d4bc133d09ba40839c35b93afc7ac540ba7da782","2015-04-30 08:17:23+10:00","Fix text directionality consistency in Nearby.
+
+Also fix description capitalization in Nearby items.
+
+Bug: T74554
+Change-Id: I7078e171f0a9224705ea6afa0627399275304f6d
+"
+"4eadf0905aacbd1fe1843c03d4ae8d2de13fb3fe","2015-04-29 18:08:24+10:00","Eliminate 'read next.'
+
+Bug: T96709
+Change-Id: I0aa1df3fcc5bd3f030ad8575d343330c13b37fd2
+"
+"e784beef8076ed7a3356e4edebc9e64fbf836faf","2015-04-29 23:45:25+00:00","Merge 'Eliminate 'read next.''
+"
+"954656a373514d55807e3c12f9cb13beee715abb","2015-04-09 09:49:13-06:00","Change version number format to include versionCode as subminor number
+
+I'm proposing to include the versionCode into the version name format.
+This will make version names more distinct, albeit for now there's a bit of redundancy.
+
+Example:
+2.0-beta-2015-04-09 becomes
+2.0.100-beta-2015-04-09
+
+I think eventually we could even consider getting rid of the date portion but
+I'll keep it for now to make the transition smoother.
+
+Had to also change the make-release.py script since it generated the version
+name itself based on the date the command was run.
+I'd like to get away from that and use the apk file to derive the version name.
+It uses the versionCode from the build.gradle file.
+
+To be able to extract the versionName from the apk it needs to know the location
+of the aapt tool, which is under $ANDROID_HOME/build-tools/<build_tools_version>.
+Again, the build_tools_version is retrieved from the build.gradle file.
+
+Bug: T95584
+Change-Id: Icb6a076181bb1e696be5b646a6891c442d4d6d69
+"
+"abad08e8c9c0dd1266ca93892bf5e577e83355c4","2015-04-29 14:00:20-06:00","Fix language picker word wrap
+
+* Fix word wrap case where language header text is shorter than
+subtitle text. For example, 中文 / Chinese would cause the
+'Chinese' subtitle to break at the final e and span onto a second
+line.
+
+Change-Id: Ifff97b451b2fdc2a6bec6cb8bbaa929b20d634d3
+"
+"0b958ee87b7179c28d1e6946b3eaeedf73ae5570","2015-04-29 21:38:57-07:00","Make some PersistenceHelpers set the namespace of pages as appropriate
+
+Currently, SavedPagePersistenceHelper and HistoryEntryPersistenceHelper do
+not set the namespace of a page appropriate, setting it to null. I'm not sure
+why it was implemented that way.
+
+This patch makes SavedPagePersistenceHelper and HistoryEntryPersistenceHelper
+set the namespaces of pages appropriately.
+
+Fortunately, the method in which the database is upgraded ensures the old
+entries are still compatible with the new system. They'll continue to suffer
+the same problem where the pages are constructed with null namespaces, but
+otherwise they'll work as intended without any tweaking.
+
+Bug: T96944
+Change-Id: I64b6ae2d72caa9c535f6a2a5627dc7a23eb2f6f7
+"
+"5b9db6e227732f17b488e141cd4f6cf2a875ab8e","2015-04-06 21:21:57+10:00","Link previews (prototype 1 + feature flags)
+
+Display a 'preview' version of a target article in a native component.
+
+* 60/40 proportion for page text extract vs. image
+* Tapping anywhere within the card (including title link) takes you to the page
+* Added rudimentary gesture detector:
+** Fling up: go to page
+** Fling down: dismiss
+* Improved splitting of sentences by using client-side BreakIterator.
+* Displaying a single sentence by default, and two sentences if the first
+sentence is shorter than four lines.
+* Added three-way feature flag:
+** 50% of users (and the production app) will see the original behavior (no preview)
+** 25% of users will see prototype 1 (this patch)
+** 25% of users will see prototype 2 (the next patch)
+* Refactored feature-flagging code a bit.
+
+Note: In the first few revisions of this patch, I added support for 'long-press'
+handlers to our ObservableWebView, but ended up not using it in the final version.
+However, I left it in there anyway, since it will surely come in handy later.
+
+Bug: T95030 T96068
+Change-Id: I599c9948184e478dc8b377499680621af3e1caf0
+"
+"f90adeeadf816b5747db673c4bb4c191c991cee1","2015-04-11 09:50:23+10:00","Link previews (prototype 2)
+
+* A single preview panel with text overlaid directly onto the
+lead image of the target article.
+* Also includes Wikidata description underneath the title.
+
+Bug: T95723
+Change-Id: I89ad1d8b4be7b8d1967129cf8c0d4dfbbb71cf18
+"
+"af886ef1acc4d9ae645d785f9b4c7a6a52a87509","2015-05-02 00:53:46-06:00","Increase 'tap to expand' click area
+
+- Make the click area for open and close states identical by adjusting
+visibility.
+
+Bug: T86860
+Change-Id: If8b09c76a34af7ff306ae09196ff62f1bc2552b3
+"
+"da0ddb1fd467701f33ba4356347e65c1199a41d8","2015-05-04 11:10:18+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I9fbe09809a459e4172d131e5f595cf49295c08e1
+"
+"ac4ab66e4c4c216aad58fb73c56f9dc3e84ebdaa","2015-05-04 13:56:24+00:00","Merge 'Increase 'tap to expand' click area'
+"
+"9e5eb93e5b643c02006a5687f9ee76003ca36c68","2015-05-04 17:53:43+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I2203a5bfaec62c0f90077fe7906a00cc49865d20
+"
+"2699448b7a085e6eaa8b67b162d81fc4aaf763de","2015-05-04 12:25:26-04:00","Fix possible NPE when pulling out ToC.
+
+Also improves consistency of when it's possible to pull out the ToC.
+
+Bug: T96358
+Change-Id: Id7c45a3a9cc8ecf202c7622039ba76f2a59e0090
+"
+"e8d7b1c6442b510b88c2e173729b7505ffda7b2e","2015-04-28 16:17:53-06:00","Prohibit context action bar and fix rotation bugs
+
+- Prohibit CAB in toolbar fields, 'search Wikipedia' and 'find in
+page'. Add 'CabSearchView' which exposes this functionality.
+- Permit CAB in non-toolbar fields including the article, history
+search, and saved pages search.
+- Don't extract EditText input field UI everywhere.  This change
+effects landscape mode only.
+- Fix bug wherein the search box disappeared on rotation with nonempty
+query text yielding no results. This was caused by successfully
+preserving UI state but not Fragment state.
+- Fix bug wherein the 'find in page' search box did not fill the
+available space. This was caused by an obscure option on the poorly
+conceived SearchView.
+- Add 'ApiUtil'.
+- Be more precise about the source of action bar mode.
+- Specify soft keyboard done button for edit preview, create account,
+create account captcha, and find in page.
+- Fix comments around action bar mode.
+- Rename activity_main.xml layout to activity_page.xml layout to match
+Java structure.
+- Minor adjustment to use Map instead of HashMap in
+CommunicationBridge.
+- Add missing Java override annotation on method.
+
+Bug: T88768
+Change-Id: Ia25dbfbd7cbc2e72e0da7c136fb3124a6196fb80
+"
+"86183aaf6985a5dc5366022820eb8745b656428e","2015-05-05 00:32:21+00:00","Merge 'Prohibit context action bar and fix rotation bugs'
+"
+"2915305ecadb0dd475eba442ca02bb2d5773c586","2015-05-04 19:02:11-06:00","Replace Android version checks with calls to ApiUtil
+
+Change-Id: I40d360997a0b4f07429d02f3f2604135efbb385f
+"
+"9b12484643f2002cd41c62c399aa54b6ccc39fb0","2015-05-05 15:01:31+00:00","Merge 'Change version number format to include versionCode as subminor number'
+"
+"c732768f5e7f81d1b50db125d0b364879c114655","2015-05-05 16:27:31+00:00","Merge 'Replace Android version checks with calls to ApiUtil'
+"
+"8cc0c6d5751df47e70652304f7bed33575dd9311","2015-05-04 12:49:37-04:00","Fix sharing of images to Facebook app.
+
+The Facebook app requires us to explicitly specify a mimetype of
+image/jpeg when sharing an image, whereas we were previously specifying
+'*/*'.
+
+I simply modified the shareImage() function to always specify
+'image/jpeg', since that's all it can ever be.
+
+Note that the Facebook app still doesn't seem to do anything with the
+EXTRA_TEXT that we pass into the share intent, but we can't do much about
+it, since it's up to the receiving app to handle the text correctly.
+
+Bug: T97858
+Change-Id: Ie9d333d7105c3acfa7004df86a8a17dbd6e78c1e
+"
+"d48a15c36a5a1be1a761d42ea026153f005f29dd","2015-05-05 23:21:01+02:00","Add Stephen to credits
+
+Change-Id: I3e39c9e752406b5a926395d3b508929b9a2d8951
+"
+"6bfa321f74011d81789022470e6166827bcbb9f9","2015-05-05 19:12:40-06:00","Minor WikipediaApp clean up
+
+- Miscellaneous minor clean up changes in WikipediaApp, mostly around
+languages.
+
+Change-Id: I1352eaa40b4c759921c556335da7648e3474fe38
+"
+"24a394a4056bfabca9745e9ec02e35334ed10a91","2015-05-06 13:17:54-04:00","Make sure Share button works on all devices.
+
+Also improves and simplifies the sharing logic.
+I moved the ShareAdapters into the PageViewFragment instead of
+PageActivity. It's also no longer using the clipboard for retrieving
+selected text, but a Javascript interaction instead.
+
+For devices in which we can't hook into the default Share button provided
+by the WebView's context menu, we now inject our own Share button. So, on
+those devices, the user might see two share buttons, but it's better than
+not exposing our Share functionality at all.
+
+Bug: T96144
+Change-Id: Icfe1fbb97575e8174a647d6c86b4eb9120332d5f
+"
+"2f448772539358be3db83ca091c5637743f79310","2015-05-09 20:06:34-06:00","Enhance debug logging capabilities
+
+* Add Hugo plugin
+* Add L logger
+* Extremely minor and unrelated whitespace adjustment in AndroidManifest.xml.
+
+Change-Id: I5a6364eb04a2d55555aa9ed9057b58ee03b0864a
+"
+"3adbf8695060fc7bdb2707af6292572c1c672288","2015-05-11 11:37:21-04:00","No longer download CSS from the app.
+
+Bug: T98601
+Change-Id: Ie59ed60a0cffed653cb216c6e1e9b96641ea7951
+"
+"215f1c4a53453cbabaaaca566c2364f5f58dcd27","2015-05-08 13:32:55-04:00","Handle image map links in-app
+
+Bug: T87066
+Change-Id: I79be02fa6e0bced25e47b0ea6100c9460be8ea7e
+"
+"b2d46b5316f1ee2c7709f66087cd70b1366a874a","2015-05-01 17:23:27-07:00","Prepare for death of bits.wikimedia.org
+
+- Moves static asset checking to metawiki, since this is done
+in a language neutral way and so does not matter which wiki
+it is done in.
+- Moved eventlogging beacon endpoint to metawiki. Again, this
+is also in a language neutral way and it doesn't matter which
+wiki this is done in
+- The CSS styles updater now hits the language wiki for the
+appropriate language directly
+
+Bug: T98404
+Bug: T95448
+Change-Id: I032623862ff4ac2eb4afa3c38ac0a793c806dc0b
+"
+"fcfce6bc1de68ae0b41c92c489ebcbdbba2470c1","2015-05-08 09:20:32-04:00","Add event logging for link preview
+
+Bug: T95726
+Change-Id: I07e7338b8beff162129f0d0c90c46e683f779cef
+"
+"8b318a2b1ae4d3681e42549e967d7981ab384a3d","2015-05-13 09:57:53-04:00","LinkPreviewDialog: fix bug in EventLogging patch
+
+Change-Id: I92fd15450c4c4f615bb4a2c74b1af09df90cbfa1
+"
+"276c86d09021c95d3aba7bf42e6e20859771e6ff","2015-04-22 15:05:05-06:00","Remove app id from page view requests
+
+Also avoid sending X-WMF-UUID header right after the opt-in to
+send usage reports gets revoked.
+
+Change-Id: I7cf23ab3779cc437e44a7922b236480ca3840d67
+"
+"ce3b51b05fd8726db02a1cb94a50c91557c28ff9","2015-05-09 17:33:37-06:00","Add upside down mode
+
+* Add upside down mode for API 18+ devices
+* Add JellyBean MR2 function to ApiUtil
+
+Change-Id: Id88477b32c6db04c11cbc3e6ffbd58ae99a33d99
+"
+"b316b11ba9f70d3adc8fc80825f931590f4e476a","2015-05-13 20:02:07+00:00","Merge 'Remove app id from page view requests'
+"
+"eba3921ce6f5b3275dc1101d079541b7d0c993a6","2015-05-14 22:26:59+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ic5150ed2ea70d12c4c56b2da3d199985c3583c8f
+"
+"2cd1f30b07e9b556ea19936e2efad6448e845f67","2015-05-14 22:48:50+02:00","Bump versionCode
+
+Change-Id: Ia5d856e3f4ddfea2e3de7de9e6cc45f8ac34dae3
+"

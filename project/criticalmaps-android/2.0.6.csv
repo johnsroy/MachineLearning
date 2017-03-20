@@ -1,0 +1,63 @@
+"commit id","commit date","commit message"
+"09db8d23dbaa8b1cc406b4f33892c953ec9d1780","2015-09-23 15:28:21+02:00","Fix memory leak due to osmbonuspack bug
+
+The Marker class holds a static reference to a DefaultInfoWindow instance
+which in turn holds a reference to the MapView. Thus it leaks the entire
+view hierarchy when the fragment is detached.
+Work around this by sub classing marker and implementing Overlay's
+onDetach() method to null out the static references there.
+Also move common initialization code to the subclass.
+"
+"26f18d3adec1bfa709c2bd42d69b6b53a67d353a","2015-09-24 10:29:27+02:00","Merge pull request #41 from cbalster/fix_marker_leak
+
+Fix memory leak due to osmbonuspack bug
+"
+"f67b9cdd68253c694c2ecf75adb4444971f1bcd1","2015-09-26 15:25:06+02:00","Use android logging in PullServerHandler
+
+should fix #42
+"
+"c89376e814d41229773c8670fb605aacdf36fb92","2015-09-26 15:43:31+02:00","Merge pull request #43 from cbalster/server_logging_fix
+
+Use android logging in PullServerHandler
+"
+"a81a90e044baa92fa9792a3cdacdf291d6125a8f","2015-09-26 15:57:45+02:00","Update README.md
+"
+"9aaac91edbe0273de7a071b9de3b41b79471fae8","2015-09-26 15:58:13+02:00","Update README.md
+"
+"6b199ce29c13ca0d19ca4cbd84d675b75c03703e","2015-09-28 18:27:23+02:00","Update Gradle plugin to v.1.3.1.
+"
+"1a480c3f929e55943cc0e55280f2cbdc904ad7d1","2015-09-28 18:27:37+02:00","Update build tools to v.23.0.1.
+"
+"1a665ff7502578bc8e507ac264ac8af33099239e","2015-09-28 18:29:21+02:00","Downgrade support-v4 to v.22.2.1. to ensure compatibility with SDK version.
+"
+"05b713e1dfb4fb200619cc5b6fc8ebf8eb35aab4","2015-09-28 18:53:04+02:00","Update Gradle wrapper to v.2.5.
+"
+"09ecca8e23d0c83381de45fdd5b0ce4d62213065","2015-09-29 16:08:52+02:00","Update compileSdkVersion to v.22.
+"
+"337c981367cfb4b34197f21d89567fc83428bdb9","2015-09-29 22:46:23+02:00","Update README.md
+
+travis test
+"
+"a23348542a7db3fd4e57ac07a9d4f80a023bafd9","2015-09-29 22:48:16+02:00","Update README.md
+
+changed build status icon to new travis url
+"
+"f4a431db7b6343302b90aecc0dc138b02a438fc1","2015-09-30 00:05:04+02:00","no message
+"
+"756378ef68c80ff4488c940f34cf9bb03f0bb860","2015-09-30 01:55:11+02:00","Merge pull request #44 from johnjohndoe/update-project-setup
+
+Update project setup
+"
+"21eded4589612cdf796850e65578271a722b03a1","2015-09-30 12:51:13+02:00","fix crash on ICS
+
+AsyncTasks must be started from the UI thread and as of JELLYBEAN this is automatically taken care of.
+Since we're running it from a TimerTask - which is a separate thread - we have to take care of this ourselves
+for devices running ICS and lower.
+fixes #42
+"
+"174bde32a212827c0b7f91784036cb72492aa257","2015-09-30 14:56:01+02:00","Merge pull request #45 from cbalster/fix_ics_crash
+
+fix crash on ICS
+"
+"4b5a25d488257d9e63942dea1e5a829ec1a386b4","2015-09-30 17:59:02+02:00","new release with ExceptionInInitializerError fix
+"

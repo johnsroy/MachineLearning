@@ -1,0 +1,66 @@
+"commit id","commit date","commit message"
+"1e8e037e1a074ce4f1d3e3b4b0fa4f9ba27c9234","2011-04-23 22:24:54+02:00","Minor fixes in help text.
+"
+"5c7d56ef69851806318419a613d74aa66e8ea867","2011-04-23 22:34:34+02:00","Updated locales (both from XML changes and Transifex).
+"
+"9f07a618897a1ad4b3fca72650a7257f7845cc7c","2011-05-17 15:57:17+02:00","Fixed typo in log message.
+"
+"62e876c33d3ed82d64ed79ea2b3e467112393f2f","2011-06-01 23:07:18+02:00","Added TODO.
+"
+"52a42d248a728e37726856a6e003c6b62cd2d83e","2011-06-07 19:50:34+02:00","Added TODO.
+"
+"7b6f6f7bd7fc6830f02822c1ef1bc811747caae2","2011-12-09 13:20:47-08:00","Start targeting Android 4.0 / ICS.
+"
+"eea8fd0753474a559378f2b39b8b1f56c4667d70","2011-12-09 14:30:08-08:00","Use the Fragment API to show the receiver details dialog.
+
+Why? The terrible hack we used to change the Enabled/Disabled label in
+onPrepare() stopped working on 4.0. Rather than tracking the problem
+down and finding another workaround, take steps in the right direction.
+
+A lot of ugly code is now much nicer; a lot of other code is still ugly.
+The subsequent dialogs that might occur are still using the showDialog()
+approach, so now we have the Fragment heavily calling into the Activity.
+
+Ideally, in the future this would be further redesign, with the explicit
+goal of getting rid of the mLastSelectedReceiver status attributes.
+
+The compatibility package is used to provide 1.6 support. This commit
+drops compatibility with 1.5, with the compatibility package does not
+support.
+
+As part of this, a new 'compat' package was created, and the
+FixedExpandableListView class moved there as well.
+"
+"201fdbd37149a84287c75aeb2e5cfdd4862c1357","2011-12-09 14:41:04-08:00","Fixed: Ignore SettingNotFoundException on ICS.
+
+ICS (at least the emulator) seems to claim that Settings.Secure.ADB_ENABLED
+does not exist until it is set for the first time (potentially per-boot).
+"
+"3811c3e03a57837b088b6b7f8eaa05f43f5db830","2011-12-09 14:44:10-08:00","Change su path order: Try /data first.
+
+This is because in /data you would place a su that is supposed to override the system one, when access to the system is not available.
+"
+"1323ba1b9b4e89389e74e8d589d3653e8ece4960","2011-12-09 14:45:27-08:00","Only call Process.destroy() for active processes.
+
+ICS started to show a (benign) warning/stacktrace about this, which was spamming logcat a lot.
+"
+"bc79332e44d97fc3eb0c743dd7cad036e1c08c2c","2011-12-09 16:09:05-08:00","Fix state-toggling on ICS.
+
+This was widly reported. See https://github.com/ChainsDD/su-binary/issues/6
+"
+"733dda5dc9219f556b54f441c26865714e8aa805","2011-12-09 16:35:52-08:00","Added IntelliJ project files.
+"
+"df69ec546c395f05d1e052bd630e55219d69270c","2011-12-09 16:40:56-08:00","Pulled in the latest translations from Transifex.
+"
+"1b7c0ccd112e1207fab7db355c5ca14ed8ef2796","2011-12-09 17:43:33-08:00","Various build scripts improvements.
+
+- No longer hardcode the target; py-androidbuild can now read it from the manifest.
+- Also use py-androidbuild to read the version code, so we don't have to worry about aapt being in the path.
+- Build with the compatibility package.
+"
+"ffc3965fb55fd7dea2d7a9325d4998d7535f9795","2011-12-09 18:31:36-08:00","Considerably reworked and improved build script.
+"
+"c353648665b7e6d7744c66b27f1bdadb0b186ef0","2011-12-09 18:36:13-08:00","Update version number, set release date.
+"
+"29acf24d678895a218497359934adf7dd7559170","2011-12-09 18:36:45-08:00","Merge branch 'release/1.7.5' into stable
+"

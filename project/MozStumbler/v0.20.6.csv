@@ -1,0 +1,243 @@
+"commit id","commit date","commit message"
+"c57eb5571d2b15582f3273543af79d0f75590980","2014-06-04 17:01:35-07:00","Put osm credit above version
+
+OSM credit now AFTER stumbler version.
+"
+"8be2fc49667d3941e7b916d1565860e9a45e4911","2014-06-08 23:26:07-04:00","fixed a typo
+"
+"bad5e1a3fce5d6e3acaf6cb58eeb471b5f614adf","2014-06-08 23:28:28-04:00","fixed a typo
+"
+"14fdfea5449c3f32ea0c1398ab91b9c335dc36e2","2014-06-08 23:36:02-04:00","Merge pull request #619 from garvankeeley/master
+
+Put osm credit above version
+"
+"a95ef1d40e59ec9121c1c676faa56abdb40ad79f","2014-03-31 10:57:32-03:00","Introduce StumblerService.
+
+The StumblerService runs in the application's process and
+does not contain the notification / low battery bits.
+"
+"afd478205d333e61c31be6725514dbe17cedebf3","2014-04-07 18:32:14-03:00","Remove mLooper from the service.
+
+It looks like the only reason why it was being used was so that
+date synchronization could happen in a separate thread. Ever since
+we started using a sync adapter, this is no longer a concern.
+"
+"c3d5ab19a45aa1ffb63a13b6b164ba3dc3fb650a","2014-04-10 17:10:31-03:00","Use a dedicated receiver for turn off intents.
+
+This is so that mTurnOffReceiver doesn't leak while the app
+is in the background.
+"
+"2b6906fe2683e8f618db3f1f82785b3e98ffdf1e","2014-04-09 11:57:03-03:00","wip Split reporter in two.
+
+The current Reporter is responsible for syncing the scanner streams,
+and actually formatting and uploading data. The first task will in
+the future yield a StumblerBundle, which is broadcast by the library,
+so that the application can take care of the second task.
+"
+"4e3257428aa536d3d94fd9b4316a59448f7dd2ec","2014-04-10 18:20:24-03:00","Make StumblerBundle Parcelable.
+"
+"b00c10d138c92f6831dda5cd2a734a2ae0ecd65e","2014-04-16 17:47:44-03:00","Format StumblerBundles as MLS json objects.
+
+TODO: integrate this with the ContentProvider.
+"
+"9367239208adf3dd38a01fa7bff3857f330cd419","2014-04-17 18:52:11-03:00","Store StumbleBundles in the ContentProvider.
+
+This moves the code that creates a ContentValues object out of the
+Reporter and into the MainActivity. When a StumblerBundle is ready,
+the library will broadcast it to the MainActivity, which will turn
+it into a JSON object and store it into the ContentProvider to be
+sent later.
+
+Known bugs/FIXMEs:
+- Relying on MainActivity to receive a broadcast is wrong, as the
+onStop() method unregisters the activity from all broadcasts. There
+should be a separate BroadcastReceiver that registers via the manifest
+for this.
+
+- The SyncAdapter still knows about the format of the JSON the server
+expects, since it needs to wrap a bunch of (JSON representations of)
+StumblerBundles into one wrapper object and an 'items' array before
+uploading. We should at the very least provide a helper method for
+that in the library: StumblerUtils.formatForMLS(StumblerBundle[]).
+
+- The location data goes through some seemingly redundant conversions
+before being uploaded. Basically a StumblerBundle reaches MainActivity,
+which converts it to JSON, then inserts the individual fields of the
+JSON object into the ContentProvider (wifi and cell information are
+simply stored as JSON strings), from where the SyncAdapter reads them
+and converts back do JSON. It's probably possible to just store a JSON
+string in the ContentProvider instead.
+"
+"c46c3273f20c0221d44012d041cc00848fe9cd22","2014-04-24 10:31:36-03:00","Move StumblerBundle processing into its own broadcast receiver.
+"
+"6ee336e96d17fd2207ac73811573bf24b2451ebf","2014-05-05 15:57:06-04:00","clean up imports: alphabetize, remove spaces, remove use of *, remove unused imports
+"
+"72464c4b4f3eb395b53da7a8bb4a44f15290a3e4","2014-05-08 15:23:35-04:00","Code Cleanup.
+-  Removed unused ScannerService.
+
+- Refactored the use of generic intent messaging to specific message
+actions, namespaced to their sending class.
+
+- Cleanup naming conventions for Intent arguments. Added consistency to
+using string constants for Intent arguments, rather than mixing strings
+and string constants in the same block of code.
+
+- Renamed messages to be clearer about their actions, based on what I
+can see the code is doing, specifically MainActivity ACTION_UNPAUSE_SCANNING
+"
+"5d38994b2a807fda25aac098df0ec8a227562e0e","2014-05-08 16:01:05-04:00","Service/client split, the service folder will become the lib that goes in fennec
+"
+"9917fdf8ef783a5ad5f89c14d29da8b4dfaf751f","2014-05-08 16:03:38-04:00","Added comment to TurnOffReceiver regarding how to test it
+"
+"bc83a2d452939941f0ef6b7c0ba582fb47ea9702","2014-05-12 11:15:29-03:00","Also remove the aidl and manifest entry for ScannerService.
+"
+"7b909c1b178f88edf1e3124a2930ef976b432033","2014-05-12 11:48:47-03:00","Move StumblerBundleReceiver inside the service.
+"
+"a688befdadc0b6c262e788bcc01d3a38850ef18b","2014-05-13 21:26:00-04:00","Prefs moved into service. Accessed through StumblerService by the client code.
+"
+"711f2b0f5282cbc743dfbff3662634aa447e3872","2014-05-14 18:53:34-04:00","Addressing items from Guilherme's review. Note I left the BuildVersion in the service, as I see it belonging there. Arguably, there should be 2, one for client and one for service, but service version is the most important that I can see.
+"
+"0513dc6973ed16c0ef321a5e90a266103c8cf68b","2014-06-07 12:56:41-07:00","Further split of client and service with some files we hadn't decided on previously.
+"
+"4c3c3f923a1fb0804a5de00be5cb561abc6d1175","2014-06-10 15:10:13-04:00","StumblerBundleReceiver was not properly hooked up, fixed this connection, and stumbled for an hour with this build, seems stable.
+"
+"a062ca9b914a679e4d3a91c51bdb1c887a37567a","2014-06-10 16:10:06-04:00","Added passive stumbling support
+"
+"fa09afae8dc00ea979a4279f21434bab78500056","2014-06-10 20:20:15-04:00","Lint error on a debug-only build line
+"
+"a88ae37c9ab7feb9268328e0a3a8d5bfee6a93f8","2014-06-11 09:32:50-04:00","Merge pull request #623 from garvankeeley/rebase-2
+
+Service/Client Split
+"
+"633a3171e12a330deb299eb70ccd37239f241269","2014-06-11 15:39:55-04:00","Typo: getMnc change to getMcc
+"
+"83a15c99541d544379ae44e50ffe8bdb0406d447","2014-06-13 15:30:24+02:00","Add DeinBus on-bus WiFi (Germany)
+
+The full SSID is '.DeinBus.de-Datenautobahn'.
+"
+"b7123e707291a33b9bd8b85041ae25cadca4967e","2014-06-15 23:39:40-04:00","Merge pull request #626 from VolMi/patch-2
+
+Add DeinBus on-bus WiFi (Germany)
+"
+"b674b28183f159a8b87a9dbcc461c7ace7943dbe","2014-06-17 20:04:45-04:00","Passive mode is now functional. Added support throughout the service for this. Removed use of sync adapter and preferences xml from service.
+Renamed xml files as any 3rd party that wants to use them may find a name conflict, as I did trying to use them in Fennec (they aren't used in Fennec proper, but for personal builds I used them).
+Added a unit test for Provider, and a larger functional test for passive stumbling mode. This required some hooks in the internals of the service.
+"
+"05ebb0b75eb774e020690dc898f87950d644c646","2014-06-17 20:19:07-04:00","Merge branch 'master' into passive-stumbler
+
+Conflicts:
+src/org/mozilla/mozstumbler/service/datahandling/Database.java
+"
+"16731c1ec22b7cf8dee4150802c87474eb6145e1","2014-06-19 14:44:28-04:00","Merge pull request #630 from garvankeeley/passive-stumbler
+
+Passive stumbler, and move sync to client side, service uses async task
+"
+"4e29889b2883d91cf5bb4c63b0cea5a3bfbed78d","2014-06-19 18:46:27-04:00","Ignore Android Studio related files
+
+.idea as AS is based on IntelliJ, and .iml
+"
+"4de8767b7a87fc4cae50f4fe55aad21357277cc1","2014-06-19 18:59:58-04:00","Upgrade versions of gradle, gradle android plugin, and Android build tools
+"
+"e3b09be91cfd03a429d2072f43406a77f4373f51","2014-06-20 23:42:12-04:00","added up arrow navigation to action bar
+"
+"72ba5e18a36ae900a049e6cceb94d804f4c9772d","2014-06-21 21:20:08-04:00","Merge pull request #634 from garvankeeley/up-arrow-nav
+
+added up arrow navigation to action bar
+"
+"b3f131b7727221f225096f4e796a4cbdb4f7b587","2014-06-21 21:24:50-04:00","oops, my prev commit had debugging code to not delete reports
+"
+"039aaa7304a27498533780aa9666ae44707a65cf","2014-06-21 21:26:32-04:00","Merge pull request #635 from garvankeeley/uploader-debug-error
+
+oops, my prev commit had debugging code to not delete reports
+"
+"bf3a4acb56e86595d2bb609a184dcd8d3983d215","2014-06-23 10:31:58-04:00","Update travis.yml build tools 19.1.0
+"
+"350e5c5057d6f14c079d006863d6bdddcd6d4edd","2014-06-23 10:40:57-04:00","Merge pull request #637 from garvankeeley/travis-update
+
+Update travis.yml build tools 19.1.0
+"
+"d863679cbe2fe3da21fd1ef2b071bff211d0ce1b","2014-06-23 10:52:02-04:00","Merge pull request #633 from keverets/androidstudio
+
+Android Studio tool update
+"
+"723f7727507c872d4ff3459866dbc56de8547126","2014-06-23 09:38:20-04:00","WCDMA requires not just API level 18, but SDK 18, which Fennec doesn't support. Refactored so that MozStumbler has WCDMA in the client, and the service does not.
+"
+"38a2157ae35c01c17d27c6b13bcdc3590f3d2a2c","2014-06-23 14:23:16-04:00","Merge pull request #639 from garvankeeley/wcdma-split2
+
+WCDMA requires SDK 18, which Fennec doesn't support (yet)
+"
+"2954d2b6de26a6303b028e4c69c5adccc53c3b37","2014-06-23 15:00:49-04:00","Added log activity to options menu.
+Switched to black UI style.
+"
+"ebbe57f306ab2e43a5bd83c8ee5247a985169542","2014-06-23 16:06:46-04:00","Merge pull request #640 from garvankeeley/activity-log-gui
+
+Added log activity to options menu.
+"
+"1d79fc12331fc6a48db1b4c31d7c58c423ed0d28","2014-06-23 19:14:37-04:00","Dark Theme: Trying to address #454.
+"
+"e555cca0e4be4cd85e1c055cb5782e515891598e","2014-06-23 19:46:30-04:00","Merge pull request #646 from garvankeeley/fix-dark-style
+
+Dark Theme: issue #454.
+"
+"207a738bea6f216698291f834f1400258d901cb1","2014-06-23 20:02:20-04:00","Fix for https://github.com/mozilla/MozStumbler/pull/639. Create the cell scanner in MainActivity startscanning, clear it on stopscanning. This is guaranteed to override the creation in the service, which creates the NoWCDMA scanner by default.
+"
+"96d18228b6bb84928d72a0f28dce6fe12a5ec0c1","2014-06-23 20:18:21-04:00","Merge pull request #647 from garvankeeley/fix-creation-of-cellscanner
+
+Followup to #639: Fix lifespan of CellScanner
+"
+"9a00176e1c7c7c270133a26568b30112177b5bcb","2014-06-23 20:56:58-04:00","Main Activity, layout for 2.7 inch screens
+"
+"ab4bbc834b5b9da3d6f11c43d93defbebc040014","2014-06-23 23:05:59-04:00","Merge pull request #648 from garvankeeley/small-screens
+
+Main Activity, layout for 2.7 inch screens
+"
+"672b3d890f77827b2e91c443c34572c36e3aed56","2014-06-23 23:12:56-04:00","The MainActivity is acting as both a view and a controller of the entire app, separating that responsibility to the new MainApp class.
+Also, I don;t like seeing instance count violations, because I have no idea if they are contributing to app crashes.
+https://github.com/mozilla/MozStumbler/issues/7
+After this refactor, I no longer see this issue.
+"
+"ae32d8be1c519dc2df7981f1fde218886c4e0ce5","2014-06-23 23:53:00-04:00","Merge pull request #649 from garvankeeley/fix-rotation-crash
+
+Separate responsibility of MainActivity, fix strict mode violations
+"
+"d891d6080742912083e0e95cc57f9824a980bbd7","2014-06-24 15:06:29+03:00","Translate missing strings
+"
+"5b93ecfb118e150231f56bb25cce532259cbfe74","2014-06-24 10:09:43-04:00","Merge pull request #650 from ojarva/master
+
+Translate missing strings (fi)
+"
+"d0f782e606c7b7a4dc1f05fa3181883d30aed0f8","2014-06-24 00:22:45-04:00","During refactor to MainApp, DefaultCellScanner wasn't being set, NoWCDMA
+version was being used.
+Also removed a lint warning in ServiceTest. Should really try clean all the lint warnings up
+"
+"379aeffb962a23edaa7e87d310d4738fefa0ba35","2014-06-24 14:13:38-04:00","Merge pull request #652 from garvankeeley/properly-set-cellscanner
+
+During yesterday's refactor to MainApp issue #649, scanner was set to no wcdma version, want version with wcdma scanning
+"
+"8619bae6ca53ac47e6868c94cb7ee0d4fe913fc0","2014-06-23 22:36:09+05:30","Strings for activity_about.xml added
+"
+"52d47a854b578c11cedc0db14f18d9e444ae3c69","2014-06-23 22:39:16+05:30","activity_about.xml made more consistent
+"
+"ba604c57fcbec148ac35a32ad55f94e022a7d82a","2014-06-24 18:06:41-04:00","Merge pull request #654 from anishgkanchan/issue-622
+
+Make about page more consistent #622
+"
+"ab571a3ae75216fbc80e4b6eb66534e8ed7a801b","2014-06-26 17:57:44-04:00","Provider is client-side only. There is a new db abstraction layer to provide this. Content Providers are beneficial for  sharing databases between apps and for the async CursorAdapter interface. Neither are needed on the service side, but the latter is handy on the client side for UI purposes. The bigger problem is requiring a content provider requires a manifest declaration, and in must not conflict, and the app is not designed such that multiple clients can access a common db.
+Also, fixed lint warning as I hit upon them. Hopefully if we keep at this we can get from dozens or so, to zero.
+"
+"28782d755a00232f9f34b189d669aa455327aa71","2014-06-26 18:40:10-04:00","Merge pull request #659 from garvankeeley/provider-to-client
+
+Provider to client-side only for Fennec Integration
+"
+"6aa2b80e9b1d71779e0d1a3fda955d92a4179988","2014-06-26 19:55:05-04:00","updated sdk license
+"
+"07c55e74c332a2a6910e63ee93fbfe558084db1e","2014-06-26 19:56:29-04:00","Merge pull request #661 from garvankeeley/newlic
+
+updated sdk license for travis
+"
+"6cdd17a81fd2985398fe1e8b6281fff2f843b37b","2014-06-28 20:01:10+02:00","Add Arcticbus on-bus wifi to blocklist
+"
+"74f39c0515ee9bdb23fb94033fa1b32b9ad5bf9b","2014-06-30 10:25:05-07:00","Merge pull request #662 from haaninjo/master
+
+Add Arcticbus on-bus wifi to blocklist (@haaninjo)
+"

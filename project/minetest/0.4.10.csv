@@ -1,0 +1,885 @@
+"commit id","commit date","commit message"
+"91923806a98fb5cc8e2bf6ed6a864b41337bb3e5","2014-01-02 14:26:21+01:00","Fix objects being selected behind a node
+"
+"4d22977509af7b7a7f70bfd5ad9a01c2994d2395","2014-01-03 04:36:13+01:00","Reenable -dev suffix
+"
+"b8c3221d556b94b9e14df450ecf8f3be20ba87db","2013-12-13 20:35:57+04:00","Fix absence of images when compiled with RUN_IN_PLACE=0.
+"
+"160e2b7b7d1edc7630db0eb0ebbd796a66aab89a","2014-01-03 10:17:01+01:00","Add option to link to OpenGL ES, fixes #1051
+"
+"cb7bb736c70afa7e7dfc90545ad52992a35dc082","2013-12-08 21:05:25+01:00","BUILD: prefer pkg-config for freetype2 detection
+
+This can solve numerous problems such as:
+http://www.cmake.org/Bug/view.php?id=13959
+http://www.cmake.org/Bug/view.php?id=14601
+
+If pkg-config or freetype2.pc is not found, then fall back to the
+FindFreetype.cmake module logic.
+
+Restrict to UNIX since I only tested it here.
+"
+"10eea107edc1c29a5896ea78f98f19f94e49d6c9","2014-01-03 16:15:14+01:00","BUILD: fix cmake list parsing
+
+because cmake is unable to parse it's own lists properly
+"
+"86c616a545efcc8ed8487440d686a17358170756","2014-01-06 02:37:36+02:00","Fix main menu error message dialog: Now multi-line messages aren't cut at half of second line
+"
+"d76957ee22c27adab89cee551e3ab1c85d8717cc","2014-01-06 13:24:06+02:00","Create new instance of mesh every time it's required (Solves #703)
+"
+"6833e04bc55156025267c39a58a29007318129fa","2014-01-06 15:21:22+01:00","Add function to deregister a profiler from profiler list
+"
+"92aa38bdfc36fd7599a8e85722825381c89f0f9c","2014-01-06 17:37:23+02:00","Actually pause singleplayer game in pause menu and use lower maximum FPS in it
+"
+"3e728e722a788350718046daaf36f9a9c14ef1d1","2014-01-06 18:59:14+01:00","Escape error messages in error dialog
+"
+"c62bab010fcf2b4b93af1cf0b71d4d0dbf78fed8","2014-01-07 02:50:45+04:00","Send long announce as POST, show OS in useragent
+Add lag reporting to masterserver (average dtime)
+StyledWriter  -> FastWriter in masterserver announce
+"
+"78f7f9eca8de977c6204c321365f4cf4f19a7140","2014-01-07 03:11:18+04:00","Fix wrong named masterserver announce variable
+"
+"811ea6cfc0c7b120c757eecf5b8907a2c142477e","2014-01-06 20:31:49-05:00","Prevent auto-rotated nodes replacing the nodes they are placed on
+"
+"9551f651cb93b9b3f3cfcee61031c14f472253ce","2014-01-06 20:40:59-05:00","Add protection support to auto-rotated nodes
+"
+"c46574f30f31fc186087f05d9100845d44319795","2014-01-06 21:15:44-05:00","Pass pointed_thing to after_place_node
+"
+"0fd5c61c00819ae3eaf298739e8cf879e2d43820","2014-01-06 21:17:19-05:00","Revert 'Improve (re)spawn, add cache_block_before_spawn and max_spawn_height settings'
+
+The commit didn't work because the blocks weren't loaded yet.
+
+This reverts commit 22dbbf0a6fc9547f0dbdb7f6076337b8c6acd48b.
+
+Conflicts:
+minetest.conf.example
+"
+"6f661f77a697a9ab3c8488214844f728f1e61daa","2014-01-07 11:15:24+01:00","Don't lookup node texts in a endless recursion loop
+"
+"c3eb7fe316fc74892288a92c1fe645f9834cc3ed","2014-01-08 17:09:23-05:00","Document 'wielditem' visual
+"
+"10fdbf737513e48bfcfb9e90fe243dcd989c0476","2013-01-09 15:37:00+03:00","Set locale properly when built without gettext support
+"
+"8b0b857eaaa50c6ec217a46c0577395c78ec04c7","2014-01-06 12:45:42+01:00","Make MutexQueue use jsemaphore for signaling
+"
+"9edb91da5754cf194637d1d7faa513719b61f9b4","2014-01-06 20:05:28+01:00","Fixed minetest reliable udp implementation (compatible to old clients)
+"
+"3bbd280336dffc73ef43b2ac93937f320cb32872","2014-01-10 19:19:16+01:00","Fix check for max_fd == -1 should actually be max_fd != -1
+"
+"e21b29f4227581162490cc70aaf4009118544f97","2014-01-11 17:23:28+01:00","Deepcopy pointed_thing for after_place_node, give it to on_rightclick too.
+"
+"84b94eb19804484b689cec441e175628fd10335f","2014-01-11 17:54:00+01:00","Add forceloading
+"
+"51e6feb17c5929c60b5e8b87cb02c0d22ddb6ff5","2014-01-11 19:46:37+01:00","Add operator!= to Inventory(List), make operator== a const method
+"
+"6f6f289db4a14045b1053b065e9bbac3d3cb0f33","2014-01-11 11:17:15+01:00","Compare values instead of pointers in Inventory::operator==
+"
+"bd8ddf1a526c57648028bbee192d92e1289219ac","2014-01-04 19:07:30-05:00","Add InvRef::get/set_lists()
+"
+"a9df87ede06f8f0f69e3481cf58f6d59d3f9ebbf","2014-01-11 13:47:59-05:00","Rename get_json_value to read_json_value
+"
+"a3586cd18d5a6182a578dc08a6dbc23e16df4c14","2014-01-11 14:08:02-05:00","Add maximum recursion depth to read_json_value
+"
+"676f34a02be17d898ea45b1b05be72bfcfcd588e","2014-01-12 13:53:10+01:00","Fix doc and forceloading crash.
+"
+"a358c040f2d6d1fe6825121bf8ab57ceb5865cc9","2014-01-12 18:20:53-05:00","Mapgen V6: Add flag to stop mud flow
+"
+"a4c5f10ecf4fd49cfbf73580b00c0b4f12ee40cf","2014-01-12 22:07:35+04:00","Fix some errors reported by clang static analyzer.
+"
+"2b1eff772524fca8249fd64028e5cbfeabc127a0","2013-04-22 11:35:10-07:00","Allow vertical axis particle rotation constraint
+
+Use tables for adding particles, deprecate former way.
+
+separate particles(pawner) definition, add default values, work with no
+arguments
+"
+"8966c16ad298f94be1f4542afa6b081a1d286eda","2013-08-23 12:24:11+02:00","Add formspec table
+"
+"574ed6a363328dcfa477b1779f3d9491322d96b7","2014-01-13 19:28:55-05:00","Add minetest.override_item
+"
+"5434d87da2a6ab891448ed4e61e8463c688d1f1c","2014-01-13 22:11:31-05:00","Fix spelling of 'attempt'
+"
+"84bbe1ec6e5f76ab8b9e11ebf247f82dcad17330","2014-01-14 16:14:56+01:00","Fix building under MSVC
+"
+"a5287b6777f4146f3f687bf4c0515c636720ee9e","2014-01-15 17:35:00+01:00","Fix building with MinGW
+"
+"f42f01758c72c28c0428f9eb0989e6846c72f7d1","2014-01-15 11:58:28-05:00","Make default User-agent follow RFC 2616
+"
+"4896d4b829d5e980dd3da586d7d713209ed72e89","2014-01-14 22:21:15+01:00","Fix win32 reading semaphore count not working (broke all queues)
+"
+"1b4908bf56552ca2e01b48591ade8d441d119625","2014-01-15 21:26:54+01:00","Prevent placing node when player would be inside new node
+"
+"64c0e40605746955ea2c2d713810e7d1873a59b8","2014-01-15 14:49:13+01:00","Prevent player jumping into nodes from below
+
+Fixes camera glitch and cheating at drowning
+"
+"b11b48ec07214686bb351e9ec4857a107c26665b","2014-01-16 19:33:02-05:00","Deindent HTTPFetchRequest::HTTPFetchRequest()
+"
+"66b24cc9ff7c852e5455cc6c2c024d51c37c0c2a","2014-01-16 22:16:43+01:00","Fixed mainmenu lua errors because of changes in get_textlist_index
+
+Fixed lua error when none of the worlds or servers selected are and connect,
+delete or configure buttons used.
+"
+"21c96249fa6e9d4c65b4d897d4b6e2f48371e620","2014-01-19 02:44:22-05:00","Schematic: Read slice probability table from schematic descriptors
+"
+"bafc4ac6a109525b071e160fa3fe74a344a57c68","2014-01-19 02:55:34-05:00","LuaVoxelManip: Add get_param2_data and set_param2_data
+"
+"1146db99565b597f82acdeea6a39996b6aa2d5b0","2014-01-19 03:00:47-05:00","Update lua_api.txt documentation
+"
+"4585e855a7fe63f4b820d7551a39ac9825b4cb1d","2014-01-19 23:16:22+01:00","Fix minetest.rotate_and_place() calling on_rightclick() with nil/random param for node
+"
+"3875a77bf88f0876a1c56852d59c4832d908d711","2014-01-21 13:35:26+01:00","Fix curl dll not getting installed when sound is disabled
+"
+"057858ddda76d1f674667e024f388c56ae2e11a2","2014-01-21 09:33:33-05:00","Connection: Stop processing malformed packet when encountered
+"
+"1b5b6fe6929404ae416ac33c31df7d795d444614","2014-01-21 22:05:29-05:00","Add pointed_thing to minetest.register_on_placenode
+
+As suggested by qwrwed.
+"
+"cd7e8372f3c83531afe5d5c2460ecb95540f9d0d","2014-01-19 14:32:03+01:00","Include system info in the HTTP user agent on Windows
+"
+"76d4396fa148a44f6aaee38d188d4c2cf8c90c7f","2014-01-23 19:21:01-05:00","Pass pointed_thing to on_punch and minetest.register_on_punchnode callbacks
+"
+"6e352e3cbff7d4256657776a7dff828a43d948db","2014-01-24 15:22:22-05:00","Fix error on mod download failure
+"
+"9b978db0c2578b06c5669096e325c1ce70864edc","2014-01-26 01:12:18-05:00","Fix use of previously deallocated EmergeManager
+"
+"3f0ee5d6800302f0ad7e56f0aa4ddddddae86823","2014-01-26 16:59:36+01:00","Fix bug only half of unreliable queue handled per step in worst case
+"
+"21f1bec72433748e220d19e97a846df83340518e","2014-01-26 21:31:59+01:00","New HUD element - waypoint.
+"
+"e258675eabc874d31bc9c6cf49e4bbc1f7f3f417","2014-01-31 00:24:00+01:00","Add propper client initialization
+-add client states to avoid server sending data to uninitialized clients
+-don't show uninitialized clients to other players
+-propper client disconnect handling
+Minor comment fixes in server
+Minor bugfixes in connection
+-improved peer id calculation
+-honor NDEBUG flag
+-improved disconnect handling
+-increased initial send window
+Remove some dead code
+"
+"86a6cca3cf641fc2c88184ad26d2be3d7e7460f7","2013-05-02 23:52:50+03:00","Add player:set_sky() with simple skybox support
+"
+"6a3fa9df12d5982f84e83e1c61ff757edc1043f4","2013-10-18 11:53:19+03:00","Add player:override_day_night_ratio() for arbitrarily controlling sunlight brightness
+"
+"e7c2e61b19d24da14617e5689cad1a2d1ba1daec","2014-02-02 01:55:24+01:00","Add additional check to avoid broadcasting private messages in error conditions
+"
+"284fc0b88569075187019a1b311312e64e79d937","2014-02-02 15:34:33+01:00","Add missing '-' to list of allowed chars in media filenames
+"
+"ea0def381da04d3704a51b8a31a78ddd0737a06a","2014-02-03 20:13:31+01:00","Remove noisy error messages, prepend 'pathfinder: ' to pathfinder messages
+"
+"857a49e08131bb46ca18d08d3b4aba44df1676d1","2014-01-26 18:40:25+01:00","Add minetest.kick_player(name, reason)
+"
+"fbef701bcddb4a85e25fb9ff6ead07c820b1158d","2014-02-03 17:57:19-05:00","Escape texture pack names
+"
+"458045d49fd96cf19bdd61b2f8dbdbc0fd11b587","2014-02-03 18:15:03-05:00","Fix crash when a error occurs in a globalstep callback
+"
+"a439343844cf821e4922e23f1638b92e2cfb14ac","2014-02-03 22:40:57-05:00","Settings: Add no-exception variants of each get method
+"
+"5a34f40d80ea1a339b599bc11db549a6bd86912f","2014-02-03 22:42:10-05:00","Huge overhaul of the entire MapgenParams system
+
+MapgenParams is no longer a polymorphic class, eliminating the need for messy and bug-prone reallocations.
+Separation between the common and mapgen-specific parameters is now strongly defined.
+Mapgen parameters objects are now properly encapsulated within the proper subsystems.
+"
+"2927a327cabe4feddc0aeea0f4111d888560612f","2014-02-03 22:47:29-05:00","Update minetest.conf.example
+"
+"3f376a092e1c16429fb52f24736e9da98aff4cd5","2014-02-05 01:35:40+01:00","Fix settings to honor numeric conversion errors
+Rename try* non exceptioning functions to *NoEx
+"
+"2d16ebf57c0a287c96f9575e5317230b27e66288","2014-02-02 16:22:33+04:00","Fix unexpected preprocessor directive in gettext.cpp
+"
+"7859e57f6c4bafe6d9213be905b16cc3e015ee07","2014-01-16 16:54:50+04:00","Fix another heap-use-after-free in pause menu.
+"
+"c6c5edd73a97f2991113ba48d9c2415222fe4709","2014-02-05 00:05:58-05:00","Revert 'Fix settings to honor numeric conversion errors'
+
+This reverts commit 3f376a092e1c16429fb52f24736e9da98aff4cd5.
+"
+"7f743178db2a45bd3f68ef2c9c7df6deca1f3ab6","2014-02-05 00:17:53-05:00","Remove blank default values for emergequeue_limit_* settings
+
+Add checks for invalid user input for important settings
+Rename Settings::tryGet* to Settings::get*NoEx for consistency
+"
+"85fe75d1cbaf372f0a98558adcd5a612a0e19602","2014-02-05 21:24:46+01:00","Add the option to bind to a specific address
+"
+"bc0bbffa1436eafd6aa75df8549a43da51fe7601","2014-02-06 21:55:12+01:00","Add missing header
+"
+"6715c422aecf0e8cb409a3d2cb056a1bffe63446","2014-02-05 19:52:59+02:00","Fix memory leak in database migration
+"
+"3670f5a37bc3f3eb9733a720e96318e676640185","2014-02-07 21:29:31+01:00","Fix invalid check for fread error on extracting zip
+"
+"f4f98c9550325aa8178f99cd32ea8806669aa280","2014-02-05 00:17:57+01:00","Remove lots of dead code
+Add check for datatype overflows
+use native datatype indices instead of fixed 16bit/32bit ones
+"
+"83bafbe08b508266d31a6a76f1ffc2cddc662390","2014-02-08 17:50:26-05:00","Make flag strings clear specified flag with 'no' prefix
+
+Remove flagmask field from set_mapgen_params table
+Add small bits of needed documentation
+"
+"57710520dca6bce175a6be48989e0a4689b1404e","2014-02-08 18:32:12-05:00","Tune block emerge and sending parameters to more aggressive values
+"
+"2a01050a0cf0826f25240e2cb407535394ee360f","2014-02-09 12:38:50-05:00","Add capability to read table flag fields from Lua API
+"
+"a0683b811c6641528161050ea91f0425f038fa90","2014-02-09 13:12:28-05:00","Define strlcpy on platforms that do not have it
+"
+"89f7dc1efd6b0062b4b9e5c3509c301ccadb7a13","2014-02-09 16:36:30-05:00","ServerEnvironment: Remove direct dependency on EmergeManager
+"
+"ded5f8b1a67fbfb3bb0023b9c6d0fc305469ade4","2014-02-12 19:47:27+01:00","Fix possible missing unlock of env_lock
+"
+"31ec14afe2ec1791821e742d79b172bbebe43e03","2014-02-08 15:45:09+01:00","Add check to avoid usage of broken LuaJIT < 2.0.0beta8
+"
+"c87316487840fd176662207acef4fb15286e32e8","2014-02-15 02:19:49+01:00","Accept any error response code for missing index.mth
+"
+"3570f3e396acad4a6b5381d06c2dae5cf4e95fbd","2014-02-15 18:20:15-05:00","Add minetest.set_noiseparam_defaults() Lua API
+"
+"c1638590577d487e620f9a037727b91a0f62ceea","2014-02-15 19:46:57-05:00","Schematic: Add force_placement parameter to minetest.place_structure API
+"
+"4585fba98b0a4ec50d9cdf0c36f6b49f5a0844c5","2014-02-16 08:07:57+01:00","Fix broken cross-compiling
+"
+"d9d06ad920a685c2f60593548b27250fe994a1f0","2014-02-16 08:16:49+01:00","Fix g_settings not being included
+"
+"554182106259bee43f2c1c081dae030cd9b766c9","2013-11-23 17:46:09+01:00","Translated using Weblate (German)
+"
+"0f0be6e592a064c06487ff785db2e47d1c4b0739","2013-11-23 18:03:39+01:00","Translated using Weblate (French)
+"
+"0b7cde0b2c9ac6bb377d284d8d49b8639adf316d","2013-11-25 02:13:09+01:00","Translated using Weblate (Portuguese (Brazil))
+"
+"3cde5225d5cb58fac085de59ac732113c12b85bb","2013-11-25 10:04:26+01:00","Translated using Weblate (Chinese (China))
+"
+"4269ff1323828fb24e0335845dbc851297e98236","2013-12-07 12:18:02+01:00","Translated using Weblate (Romanian)
+"
+"fcde24cfd39266d7084d705099a1a019ea404318","2013-12-04 11:23:25+01:00","Translated using Weblate (Czech)
+"
+"85cf811890f5d60a9b90b86650246176dd816ad4","2013-12-07 12:20:42+01:00","Translated using Weblate (Dutch)
+"
+"643096247979ed2cc8ee984884434fa4fbee109b","2013-12-01 23:46:45+01:00","Translated using Weblate (German)
+"
+"c276e023a47187aa1d76a3b7f1cafee93fe27dc5","2013-11-26 19:57:03+01:00","Translated using Weblate (Russian)
+"
+"e02151d8558ea659b1550825e8f92ed9b4ca8321","2013-12-11 19:14:48+01:00","Translated using Weblate (Lithuanian)
+"
+"fac837b00e5502809d20fa083a9079a85b11dd2e","2013-12-18 21:31:40+01:00","Translated using Weblate (German)
+
+Kürzen, da es sonst nicht in den Button passt.
+"
+"85db6cb753a13f5b6dd366f57e34872aaf44c523","2013-12-29 16:58:57+01:00","Translated using Weblate (Russian)
+"
+"330a35a522ba18949dfe47a4563e1d779aa60fcb","2014-01-05 11:31:11+01:00","Translated using Weblate (Dutch)
+"
+"272909359a4ed8de25b10233994e7395a47ba0ca","2013-12-18 21:28:28+01:00","Translated using Weblate (Estonian)
+"
+"ab6dda42304d6ba02da47adc26c0b521294c5db1","2013-12-29 14:29:51+01:00","Translated using Weblate (German)
+"
+"0bf5b140c75848c4d42b6d6b1339490604c54a14","2013-12-18 21:40:51+01:00","Translated using Weblate (Italian)
+"
+"c1fe628b5728579242533b7cb9a96587ca041954","2013-12-11 19:23:53+01:00","Translated using Weblate (Lithuanian)
+"
+"e73ca31b6e69e6b65fce3af1d9ba8533403d10d0","2014-01-06 01:45:37+01:00","Translated using Weblate (Portuguese)
+"
+"3ba035928543aefac14b67c16c1cd535832ed043","2013-12-18 21:44:06+01:00","Translated using Weblate (Romanian)
+
+wrong expression and wrong word order
+"
+"3da56696b5cfcf1281fa6cea07a20b9e1cb3f329","2014-01-02 22:09:19+01:00","Translated using Weblate (Spanish)
+"
+"f6232d71b64da651b2f6b08461b151fcbff05fd5","2014-02-23 18:16:00+01:00","Fix test for broken LuaJIT versions, solves #1152
+"
+"d4be81155eb845c4c5c6710e0472d1c254552053","2014-02-24 20:41:04+04:00","Fix null string escape
+"
+"18fd913e696e29fa6a6f65e1399772cd28d9ff83","2014-02-26 14:21:38+01:00","Fix MSVC build
+"
+"9a3b7715e2c2390a3a549d4e105ed8c18defb228","2014-02-24 20:41:40-05:00","Remove 'Server -!- ' prefix from player messages
+"
+"6f568c1db2203040db314ebc8841e37a293bd643","2014-03-01 21:54:23+02:00","Add Belarusian translation.
+"
+"1b840e8ef9c43324f68e119260805f878e2c5900","2014-03-02 20:22:47+02:00","Fix translation name.
+"
+"baee91bf78cdc17a401ad82ee14e2917d44be8fb","2014-02-20 12:55:32+00:00","Fix for unloaded but active block problem
+"
+"3e52dd5c6838e87acaa45a233fa322b7135251e4","2014-03-02 23:49:19+01:00","Improved win32 file version information
+"
+"8e15179e7d896851c6f5814fc6524c86b26ce2e3","2014-03-03 19:25:00+01:00","Document CMake options in README
+"
+"062de11b4cff30861dd4e9eb56f131d821f34b51","2014-01-26 11:40:21+01:00","Fix rendering glitches when far from the center of the map
+"
+"a4e2198e4102f1dabc8f8720c2ace9c2fca8d999","2014-03-04 19:57:39+01:00","Replace pause and message menu by formspec ones
+"
+"db98ef6b4553e7b7cb99589740dc219902a90fbc","2014-03-03 18:43:53+00:00","Stop wasting time in abm - performance improvement
+
+Unless I'm mistaken, the chunk of code I'm moving there is potentially
+executed hundreds of times inside the loop to get the exact same result
+every time
+"
+"28d6326bd42a88d5a9245c70d7044d19e4d07954","2014-03-08 11:34:46-05:00","Update set_mapgen_params and set_gen_notify Lua API to use new flag format
+"
+"16a028dd6bae0c7c2e797489e12d17d719842f99","2014-03-09 11:01:13+01:00","Fix race condition on exit to menu
+"
+"0643cef09a741d1e8a7b971f3ae70b45ac8d44bf","2014-03-06 19:20:06+00:00","Update ABM object counts when triggers add objects
+
+Also fixes long-standing accuracy issue due to unknown wider
+object count not being incremented.
+"
+"5ce3f8f7b773e915e82f7a4616743dd820f51df4","2014-03-07 21:06:43+00:00","Correct misleading detached inventory error message
+
+Looks like a bit of hasty copying and pasting from s_item.cpp.
+"
+"859287b02710723fcce5a35741a5afb242184679","2014-03-11 17:48:34+01:00","Fix generating winresource.o with build dir != source dir
+"
+"c9b64206f9cc4f9332cc903816799fcafb4fb7c9","2014-03-11 12:59:02-04:00","Fix error when calling minetest.node_punch without a pointed_thing
+"
+"2bc2ce3bd159cc7aa7054059ad413e93d05d0211","2014-03-05 18:14:40+03:00","Remove goto from Environment::removePlayer
+"
+"7cac34c807b6f38eaca3bc8296566493c8874e03","2014-02-27 23:12:59+03:00","Pass arguments by reference
+"
+"18577f25277f269c8dd8d2bdcaaccbac72d9370d","2014-03-12 19:37:19-04:00","Replace usage of long long with u64/s64
+"
+"03297acbf4efba9a19a7f31950cb6f2bc3c65ec8","2014-03-13 14:00:10+01:00","Fix special characters in pause and message menu
+"
+"e4d1970abfd6206aa8780cb6cafd2efc46a2666f","2014-03-13 14:06:18+01:00","Fix game pause in singleplayer
+"
+"875f1327a47f78d783c3abc7f7acc3977dc286ec","2014-03-13 11:07:52-04:00","Use fixed-width format specifiers in serializeStructToString
+"
+"d753d352f15ac3586a80b42dd4da6aca518c8ec8","2014-03-14 11:20:52-04:00","Revert 'Use fixed-width format specifiers in serializeStructToString'
+
+This reverts commit 875f1327a47f78d783c3abc7f7acc3977dc286ec.
+Fixed width format specifiers are only officially availale in C99 and C++11.
+"
+"362ef5f6ced862daa4733034810d0b07e2ad5d89","2014-03-15 14:49:30+01:00","Make sure we get a stacktrace for as many lua errors as possible
+"
+"93729b09d5e02ed64ad7322137654c38bf858037","2014-03-15 15:08:43+01:00","Fix sound not being played at the correct place.
+"
+"23be6450a115954b281c045aefacbefba6837b6f","2014-03-15 15:12:11-04:00","Make serializeStructToString use an ostringstream
+"
+"f8b75555586e0e67d8320a804b9e077d29b96403","2014-03-15 16:01:06-04:00","Revert 'Make sure we get a stacktrace for as many lua errors as possible'
+
+This reverts commit 362ef5f6ced862daa4733034810d0b07e2ad5d89.
+
+Stack tracebacks couldn't be generated in LuaError::LuaError anyway and this
+caused a second, empty traceback in most cases.  In cases where there wasn't
+annother traceback the stack had already unwound and the traceback was empty.
+"
+"31fe72dbac3d53e8da21ef116ccf99febbc5196e","2014-03-15 16:28:59-04:00","Remove lua_State parameter from LuaError::LuaError
+"
+"f3d83a4516eb9c6658a7c3e07bf1b7d4f4996bef","2014-03-15 17:20:52-04:00","Add more informative error messages for inventory and item method errors
+"
+"0dc1aec50940140e28f434c524296e284e73d623","2014-03-21 01:32:00+01:00","Normal maps generation on the fly.
+Parallax mapping with slope information.
+Overriding normal maps.
+"
+"5fefc4bbf6380960f11f0b125fc51b6efdc19e2e","2014-03-21 05:18:35-04:00","Fix serializing of signed numbers in serializeStructToString
+"
+"936c6f577ad70c9a467eaed58233e737671375df","2014-03-18 20:02:18+01:00","Fix 'ghost stacks' created when a player clicks an item on the ground:
+since the object is not immediately removed, any other code may still
+think an object is there, therefore leading to item duplication. This code
+therefore sets the itemstring to '' after the object is picked up to avoid
+such issues
+"
+"5bd9c236d563f3c5a6e268abb13f291a915cde1c","2014-03-23 19:15:38+01:00","Fix double sending of chat messages
+"
+"564e11fc2f3731383cecedac8aade4dd9ecdc243","2014-03-21 20:12:13+00:00","Fix merge mistake when rebasing for PR #1169
+"
+"65d1cb8321d4a0519ded130c69ca16a1b9d8a3cc","2014-03-26 18:53:11+02:00","Fix bug in RemoteClient::GetNextBlocks
+"
+"af01a9577e488d17e4f2f9145db723f3902446c9","2014-03-31 22:50:03+02:00","Fix lost change password button
+"
+"28854495b172cdea6c835bb6482200c4e277b040","2014-04-03 20:26:26+02:00","Performance optimized button to button mask evaluation
+"
+"556bdc260a6938ddab8db22e2ebc4033ec3757eb","2014-04-06 10:32:57+02:00","Pass pointer to nodedef directly to avoid recalculation in quite often called function
+"
+"142e2d3b74ad886eed83b0fc9d6cfea100dae10a","2014-02-13 20:17:42+01:00","Cleanup client init states by bumping protocol version
+Don't use TOSERVER_RECEIVED_MEDIA but TOSERVER_CLIENT_READY as indicatio for client ready
+Handle clients with protocol version < 23 (almost) same way as before
+Make client tell server about it's version
+Add client state to not send bogus player position updates prior init complete
+Add access to statistics information (peer connction time,rtt,version)
+Fix clients standing stalled in world while preloading item visuals (new clients only)
+Add get_player_information to read client specific information from lua
+"
+"a88c685f0237b0cb0ed8c5d074a214d52d0924a3","2014-04-06 15:20:45+02:00","Minor fixes for file/modlist download in mainmenu
+"
+"d22621efc10859ae68f51fdcb83da422668dfc91","2014-04-06 10:48:04+02:00","Make config honor build system specified config defines
+"
+"edcad09dee6daf119f3e29b0a63837500e7b8b85","2014-04-05 15:27:33+02:00","Add support for named threads (atm linux only)
+"
+"6090e95cdcea7c0600ea75941289494505295cf2","2014-03-07 01:00:03+01:00","Infer ipv6_server from bind_address; fix client connect to IN(6)ADDR_ANY
+"
+"fefec8cdc44b7fe32754053bac02c18cfe5a22f7","2014-04-11 21:38:16+02:00","Fix crash when teleporting near unknown node
+"
+"8bb8602c2533384fdd5ecb95edc5156808a34db5","2014-04-11 21:45:30+02:00","Fix broken win32+bsd build
+"
+"960d731587f58036bd4957f4a77db41e145c2d04","2014-04-11 22:51:10+02:00","Fix broken Ipv4 serialization on win32
+"
+"7cdbb805d9f230b2cf00150884dc3fa4fbcde16f","2014-04-12 17:36:40+02:00","Fix MSVC build
+"
+"e149d1ad9a623b9f8ca597839f7b850841c54781","2014-04-12 17:39:51+02:00","Fix write and read S32 vectors
+"
+"a1db9242ec491efdee70a7184aa61e861b17595a","2014-01-08 13:47:53+01:00","Add third person view
+"
+"c0ab09af747fc431dfb459ede30788cb9cd1c56b","2014-04-11 15:32:46+02:00","Add player:set_eye_offset() by @MirceaKitsune and clean up
+"
+"8b02a015eb7630c25e255ffe400bb714d023609b","2014-04-12 13:50:22+02:00","Use integers instead of float values
+"
+"b04872d96b54f0a22a972d3a0f16ccef84972d3f","2014-04-13 17:47:58-04:00","Reorder initialization of member variables to make GCC happy
+"
+"dcafad2f736aa9b7174bdf7313735d89b981e0c6","2014-04-13 17:50:46-04:00","Add checks for nil in minetest.after
+"
+"d436502fa499255236350fc9204f9c508414704e","2014-04-14 18:03:28+02:00","Fix problem with newer MinGW runtimes
+"
+"118e2ae865bd7a0020586ef72d05bf14d66f4eae","2014-04-15 19:49:32+02:00","Fix all warnings reported by clang
+"
+"54ffe2e5de9ce44129f84f4748743f893b75fda7","2014-04-15 16:07:53-04:00","Use binary operators rather than 'Python modulo' in decoding block positions
+"
+"a2003b0d553c7223a61c75e5dad79ea68e058ba2","2014-04-15 16:25:04-04:00","Use bit shifts rather than multiplication in block position encoding
+"
+"db60ae0459a7711bdaca2dff94c2e87e8e97796d","2014-04-16 16:56:54+02:00","Fix invalid liquid lighting.
+"
+"674be38fc262aab78ed75141c70e5c02830ca80d","2014-04-08 21:39:21+02:00","Add redis database backend
+"
+"0279f32db742f06d24a9d01c46f7d70c5e570eb2","2014-04-18 21:08:03+04:00","Remove liquid_finite and weather
+"
+"4977b736e3be522a6becaabbd53d380a767a3a53","2014-04-19 02:24:45+04:00","Fix warnings
+"
+"c00ed9dac3e3bed36ea06d80fc9856927f1cca95","2014-04-13 16:47:24-04:00","Add support for threadnames on BSD, Windows (MSVC-only), and OSX
+"
+"ea0df3e4cb75a7a104a81e050c019049219c4fee","2014-01-31 22:16:47+01:00","jthread remove locks that aren't absolutely required
+add c++11 atomic support (optional)
+"
+"a230e1e7360eb561429bf69ad8793745fbd5e7c3","2014-04-06 10:39:32+02:00","Use narrow_to_wide in gettext instead of os dependent conversion fct
+"
+"eda9214f81b32d9606f425e3777616e8cfc0a44f","2014-04-06 15:12:04+02:00","Bunch of small fixes (coding style, very unlikely errors, warning messages)
+"
+"0d93119040d2a9eb092882a09a8571f089d7c06d","2014-03-19 19:13:12+01:00","Replace deathscreen by formspec variant
+"
+"8745935a062219cde1d10e1533c4543c609330be","2014-04-19 14:09:01+02:00","Fix win32 build (typo in jthread lock cleanup)
+"
+"a0dd2d89f3a71a9650290a8607d773cc439c7d75","2014-04-19 22:12:01+02:00","Reduce log level for incoming crap packets
+Add log entry for peer timeout
+"
+"fec1fa51e06185c81a4a69a0a88c1a6ccc68bce7","2014-04-20 02:47:02+02:00","Fix macro ARRAYSIZE name collision on windows
+"
+"5b1bd2fb4760e7d6f4a47e59839aa1b52c6c0f7a","2014-04-20 10:55:08+02:00","Fix chat console not working anymore
+"
+"da3c5c743fbc850f71a3387f9b67b936de239850","2014-04-21 20:10:23+02:00","Fix red background missing in deathscreen
+"
+"f20267862f075cf9cb7a05df3d173499088dca90","2014-04-18 12:47:25+02:00","Textureable sun and moon.
+"
+"555dc863433312f353b6639942a6ec0148923c3f","2014-04-21 22:28:52+02:00","Add missing ip address to player join log entry
+"
+"e7ef4f07cb19aeed768c9010ac49cf5801541ded","2014-04-22 13:25:02+02:00","make formspec textarea wordwrap
+
+Thats updated #795
+"
+"127f354e7a5e85cfc46304499e7c8619fc9538c8","2014-04-20 02:40:25+02:00","Fix formspec replacement handling for in game formspecs
+"
+"9ec281c712c0c7c3adac3847412f6e4d587abc00","2014-04-18 17:29:28+02:00","Fixed wrong node texture rotation for facedirs 5 and 7
+"
+"41bc24477b732b74bd18839a9742d32bd85d1b44","2014-04-22 12:52:48-04:00","Revert binary database block position encoding
+
+This reverts commits a2003b0d553c7223a61c75e5dad79ea68e058ba2 and 54ffe2e5de9ce44129f84f4748743f893b75fda7.
+
+These weren't correct.  Add a black magic warning instead.
+"
+"9b142157b06a3c81cd69d01c7fabc18247020c88","2014-04-22 22:19:49+03:00","Fix argument type of the RaiseException() function
+"
+"885e93df445c65130e46b9bcc815e0b17acedf27","2014-04-24 19:47:17+02:00","Fix lost pause support in singleplayer
+"
+"e3bdd7b2ed6362c0d84d2e30e48089271695b667","2014-04-23 22:37:27-04:00","Revert 'Add backtrace to error function'
+
+This reverts commit 5b518ed2feff28c9bf21ad940c1b211b72d71bd1.
+
+This caused duplicate tracebacks and tracebacks when unwanted.
+It also ignored the level argument to error() and didn't pass the message (or level) to debug.traceback().
+Use xpcall() or lua_pcall()'s errorhandler argument instead.
+"
+"f2a1900345098d54b583f813509c5f3ad5a768d4","2014-04-23 22:42:49-04:00","Update documentation on is_ground_content
+"
+"c5324015bc70488c8b6d68d83ca7d963a5e6c62f","2014-04-25 10:24:15+02:00","Fix directional fog color in front view
+"
+"cd14259bd9310e45246ba3aba3730cc5ee8ee6f0","2014-04-25 19:20:58+02:00","Remove useless MSVC project files
+"
+"3a6d6e475158c3fff8317098535ff61af4d4c20b","2014-04-25 19:33:31+02:00","Move the old stuff to doc
+"
+"8d315347100f1d261bb496b6c73f8cab5d2b7a41","2014-04-27 09:49:00+03:00","Client: Don't crash if trying to draw too many items from inventory in HUD
+"
+"1838a3fd696782b1733a435bbb25accf3e40d1f3","2014-04-05 14:12:36+02:00","Add support for dpi based HUD scaling
+Add support for (configurable) multiline hotbar
+Improved screensize handling
+Add userdefined gui scale by BlockMen
+"
+"db4ea4658c58772ee447ff0eff8bb39b692081ec","2014-04-15 13:30:46-04:00","Only push the Lua error handler once
+"
+"6ab3b4c83856b5c8a1a526c0e4dc55babe79d50d","2014-04-15 13:41:07-04:00","Remove dependency on marshal and many other async changes
+
+This makes a number of changes:
+* Remove the dependency on marshal by using string.dump and loadstring.
+* Use lua_tolstring rather than having Lua functions pass string lengths to C++.
+* Move lua_api/l_async_events.* to cpp_api/s_async.*, where it belongs.
+* Make AsyncWorkerThread a child of ScriptApiBase, this removes some duplicate functionality.
+* Don't wait for async threads to shut down.  (Is this safe?  Might result in corruption if the thread is writing to a file.)
+* Pop more unused items from the stack
+* Code style fixes
+* Other misc changes
+"
+"f2b93b7baeaa66f5096ee326ea9c22a471ada512","2014-04-15 15:10:30-04:00","Fix code style of async API
+"
+"0d6e4ef5f38049e86457287fa638a9b81c4ff623","2014-04-23 17:21:17-04:00","Add support for function serialization to minetest.serialize
+"
+"65016c880c88cdc9a6e2370aadbc496b742db393","2014-04-27 22:44:37+02:00","Fix rounding issue of hud dpi on some machines
+"
+"088b18da3db8677a8af071e6e1534e54f73640b5","2014-04-27 18:43:16-04:00","Make debug text adjust it's border to the screensize and fix a border update bug
+"
+"c03d7dc8a7c35708a39f9c14e2df243e212b283b","2014-04-26 01:15:46+02:00","Add download rate to media progress bar (non http mode only!)
+Minor coding style fixes
+"
+"b5acec0a3c5701c53854ff7afdf4008863e6e8df","2014-04-29 17:47:34+02:00","Add proper lua api deprecated handling
+"
+"4b44d359f5d580369bdc5c69d7ad2cd978aef344","2014-04-29 23:57:07+02:00","Fix usage of deprecated functions in builtin
+"
+"9370f5657a498c7fde00eddf4c8e78e8c3a42c7a","2014-05-02 00:18:25+02:00","Add hack to avoid 2s startup delay on local games
+"
+"cfb26629bffa8732df5f860d493e5cb039c620dd","2014-05-03 10:50:49+02:00","Fix player:set_animation() in third person view
+"
+"09e8bbea03c72cfc21560f953561183b9d29be6a","2014-05-04 02:43:01+02:00","Fix numeric underflow on calculating window size adjustment
+"
+"6f511b1d05d3e1668967a528b77a9e81e31b3c78","2014-05-05 07:45:20+02:00","Bugfix: make waypoints respect camera offset
+"
+"c80d67f48e2011c88bbb9e755ee4f5e7f5391f63","2014-05-05 12:37:12+02:00","Move message about missing normal maps to infostream instead of errorstream.
+"
+"d3ee617f37984b380ebe32cd37ef1cda66d96c48","2014-04-28 23:41:27+02:00","Fix heart + bubble bar size on different texture packs
+Add DPI support for statbar
+Move heart+bubble bar to Lua HUD
+Add statbar size (based upon an idea by blue42u)
+Add support for customizing breath and statbar
+"
+"e17f140be00e9bf4674aa7e8b2338cefc1a6375b","2014-04-27 21:31:46-04:00","Add a limit to node meta data resolving recursion
+"
+"fef2729fd0945601e6772780514ee55fec35b068","2014-05-07 00:01:24-04:00","Add write_json() to the async API
+"
+"1cd512913e4d4ad1fb43d4b6e3d7971bb6c67528","2014-04-27 17:55:49-04:00","Organize builtin into subdirectories
+"
+"c4359ff65cd8e4e754442b9f2ef7051a8eaa4241","2014-04-27 21:02:48-04:00","Use 'core' namespace internally
+"
+"c8aed03ace88ad979af54f0af2707f6ed9db5655","2014-05-10 23:32:25+02:00","Fix healthbar not beeing hidden on disabled damage
+"
+"f76b9d724b322875016005763ae8389c3c23e5f1","2014-05-11 00:14:57+02:00","Fix possible deadlock in error conditions
+"
+"90f0859128774fdf270821e53fca5eabc0c5b8bf","2014-05-11 02:57:47+02:00","Fix error messages beeing shown on pressing cursor keys in various menus
+"
+"b16cbba21a60de8d3b6e0b2b2caf0a529a0fecd9","2014-05-11 13:26:23+02:00","Fix incorrect scaling of customized hud item selection marker
+"
+"5c6cf630de1733dfc8de24b49ddc90333dec2d2f","2014-05-11 15:32:15+02:00","Fix invalid cast fix resulting in chat messages beeing limited to 256 bytes
+"
+"167df02e3d69dd0e8c8915944e6bab00417b15d5","2014-05-11 15:39:38+02:00","Send max number of characters instead of asserting in case of too long chat messages
+"
+"6c37e89f08f962eaba788a31f5d3c798ceaa65e6","2014-05-11 00:35:31+02:00","Fix old client showing duplicated health bar on new server
+Fix client not showing hearts and bubbles on connecting to old server
+Fix server not remembering hud flags correctly
+"
+"c8a99404e8c52a59127bdd634b13f10f7ebb19ab","2014-05-08 00:58:00+02:00","Map irrlicht log level to minetest. Allow write them to debug file.
+"
+"34d872628d5099ae520dd92433e211f561aaf611","2014-05-15 19:09:47-04:00","Make print() NUL-safe
+"
+"c3984569c06dc3c2890516e95adc38dcab9ec89a","2014-04-18 15:39:15+02:00","Add formspec toolkit and refactor mainmenu to use it
+Fix crash on using cursor keys in client menu without selected server
+Add support for non fixed size tabviews
+"
+"87b4bce594689b90a44c3c11e09dc6210dcdf0b5","2014-05-17 15:30:26+02:00","Fix singleplayer dialogs missing game customization
+"
+"d9f6f9e7a8038071648eb53da0d5be8abdaa9e45","2014-05-03 11:14:22+02:00","Split declaration of GenericCAO from implementation
+"
+"09970b7b6daa82ba0cb71540ebb70e671637782f","2014-04-27 16:09:21+02:00","Add support for interlaced polarized 3d screens
+Add (experimental) support for topbottom as well as sidebyside 3d mode
+"
+"73e5bc9c011209be4f3aa7ee54a3fbf150259fa2","2014-05-20 18:09:32+02:00","Add joining player to printed player list
+"
+"94dba66c167453f3a40f7d62a303c2aea7ac5f8f","2014-05-23 13:30:58+02:00","Fix memory leak in redis backend, fixes #1325
+"
+"18fe277d949a82fcc6fbc47c734df514d3ea1f52","2014-05-17 11:25:25+02:00","Item entity stacks merge on the ground.
+
+Add TTL to item entities.
+"
+"f969a91c0a7d6527721f985d657908a20e97c32d","2014-05-18 19:40:02+02:00","Fix a bunch of small bugs due to mainmenu cleanup
+Fix doubleclick not working in singleplayer
+Fix of by one issue on accessing raw list
+Fix this->self
+Fix copy&paste error for scroll button
+"
+"6922807fd526b9f4e9f75426e3278ee7239c1751","2014-05-23 15:54:58+02:00","fixed typo std::encl in src/gettext.cpp
+"
+"6b37529bd6dc4d89baced0d4e2cd956daccbaeb7","2014-05-24 12:15:11+02:00","Fix disable hud disabling drawing of full gui
+"
+"3939ab6c9d7a0d278badc5b1623235d4033074aa","2014-05-18 16:48:17+02:00","Remove settings not used any longer
+"
+"b743dcb942eb1a88bce2968c08b114058738758b","2014-05-24 13:39:27+02:00","Fix library link order
+"
+"c1e297a90a984a9ae392607063d5511a15981e30","2014-05-24 13:42:52+02:00","Reduce log level for non npot2 texture warning message
+"
+"660e63688761dc08558de030a53464d39a6ec85f","2014-05-24 13:05:10+02:00","Hide pause menu prior drawing 'shutting down...' message
+"
+"882e12f8ab5307a7814a0b6646ef7db9b448c236","2014-05-08 23:56:36-04:00","Rework dumping functions
+
+Changes:
+* Add comments to explain the dumping code
+* Add support for dumping values of any type (as '<' <type> '>')
+* Add support for tables as keys in dump2()
+* Make dump2() return it's result (like dump()) rather than printing it
+* Simplify and optimize function serialization via serialize()
+"
+"f0a9e7ddc854678d716afb90ae06e120480290a0","2014-05-22 13:08:25-03:00","Sort commands and privs alphabetically in '/help'.
+
+Also make a stray variable local.
+"
+"7fba341dbbffd21afa5476cd8bdf82b9d35cf83a","2014-05-25 01:14:47+02:00","Works for debian and a few other distributions but fails for even more so back to old order
+Revert 'Fix library link order'
+This reverts commit b743dcb942eb1a88bce2968c08b114058738758b.
+"
+"31f9912e9e9f0d970725788af27f3a731415a57d","2014-05-26 15:17:59-04:00","Fix setThreadName support for BSD
+"
+"ab75b1b923db157a7d05c5498456a0fd1faee883","2014-05-26 22:11:42+02:00","Fix misplaced selection box in some situations
+"
+"832d7973c8028d743eb331cb3d499692cebdc724","2014-05-20 15:21:09+01:00","Add item eat callback
+"
+"e7706593c6cbbab97667387e7c6cdb493ec2a98d","2014-01-29 18:27:05-05:00","Add success and output return values to chat commands
+"
+"5bd2aea663945d467744749579a1812f2e47bde7","2014-05-30 19:38:11-04:00","Fix over-poping and only push the core once
+"
+"d76b8c6e7ca96b33b706ef42a8e301531c592fea","2014-05-25 14:34:32+02:00","Small cleanup of hud add/remove code
+"
+"34904a0744ee08d387a67619a5e2c46ce4928c12","2014-05-14 21:51:27+02:00","Add daemon support for linux like operating systems
+"
+"c5f00c38da336ed929a5b1613a4b2e7fef42adbe","2014-06-01 00:41:48+02:00","Redirect stdin/stderr/stdout to /dev/null in daemon mode
+"
+"75ddf4d221301bea206311df4834903c64c566c1","2014-06-01 14:51:46+02:00","Revert 'Redirect stdin/stderr/stdout to /dev/null in daemon mode'
+Remove daemon support due to delayed popular vote (part 1)
+"
+"32ab6c2a32ff4336edca87d58efe2e6fa7df6c48","2014-06-01 14:54:21+02:00","Revert 'Add daemon support for linux like operating systems'
+Remove daemon support due to delayed popular vote (part 2)
+"
+"a7d49da21770d62ac85feeaaaf54e55232cb07aa","2014-06-01 00:55:23+02:00","Codestyle cleanup (main.cpp)
+"
+"f70e0556fcf28b21b5a6717524caa29ccd49a516","2014-06-04 16:39:15+02:00","Re-add missing shaders setting. (Generate normalmaps)
+"
+"1cea2f1b490a1cb7ec047e79700fa885db92231b","2014-06-08 12:33:16+03:00","Fix switch from 'skybox' to other sky types as triggered by player:set_sky()
+"
+"282f53ddb7be446537b237fd5e8dc3321156efdb","2014-06-08 22:53:48+02:00","Allow custom liquids to have drops
+"
+"e17d29ccd608a654c3038bf35f5ca710e5ef0db8","2014-06-09 08:18:27+02:00","Fix #1358 (disappearing clouds)
+"
+"c6a9eae3aedb69eea186b39aa1f87ecb31698424","2013-06-12 18:56:22-06:00","Added show_debug to minetest.conf.example
+
+I love that setting. Why is it not in this file already?
+"
+"9675d9e9cb1f951a154d2fcd26fea6fb94632c7d","2013-03-12 01:29:02+01:00","New feature: drop a item instead a stack while...
+
+sneaking
+"
+"763a511ca52db587f18e94757ce9462e4cb3da24","2014-05-30 03:04:10+02:00","Improve performance by removing some temporary objects
+Fix some coding style issues
+"
+"003634e049d599b8ed5ae3ba6b3250e9eb7741ca","2014-05-30 03:07:48+02:00","Add support for exiting formspecs by doubleclicking outside
+"
+"d7986da58c58b5ba0148c7b1fc62a01e272c3401","2014-06-10 15:11:06-03:00","Changed Time Out message from ERROR to INFO.
+
+Changed Time Out message from ERROR to INFO.
+"
+"c78aa7cf24a568bd14d3ff1dfaaca9356a02666a","2014-06-12 23:38:34+02:00","Fix HUD not visible if below ground blacked out
+"
+"c39e46c00d41c534eb33e608e2536edde9212876","2014-02-14 23:23:45-08:00","Add AppData file
+"
+"5b3bbde1efe61d2d515c9323b6d031621316100c","2014-06-13 21:09:55+02:00","Fix AppData path for RUN_IN_PLACE, fixes #1365
+"
+"7b3602bab3a697a2729b057c5e8a354337482389","2014-05-17 12:06:36+02:00","Fix regression dirt texture not beeing default in non cloud menu
+"
+"9ffa88b558498a139488679ef2ed8767c8540471","2014-06-14 11:45:12+02:00","Fix regression main_menu_script setting not working any longer
+"
+"6c98fd6658fcf7c0c676ee88f03e364c852e9f1b","2014-05-14 23:19:31+02:00","Unite nodes shaders.
+Pass drawtype and material type to shaders.
+Move shaders generation to startup only.
+Allow assign shaders per tile.
+Initial code to support water surface shader.
+"
+"9d57413af007ae952f08bf1130ee60da472c1099","2014-06-14 11:36:46+02:00","Minor stability improvements in block emerge handling
+"
+"9f46cb6745a03f3a435a5a1f8a28a778971f3668","2014-06-16 08:45:04+02:00","L-systems treegen code tweaks.
+"
+"a0f78659f31abdce973bc6641b5b5a58f2ba9afc","2014-06-16 18:51:01+02:00","Improved faces shading with and without shaders.
+"
+"cb3b42efe47fcf53527c033654878635c7c3f39c","2014-06-17 13:03:24+02:00","Fix issue #1275 - wielded index greater than inv size.
+"
+"c0e4551249dcc1e09ee09877f136ce12fe359520","2014-06-13 20:10:11+02:00","Remove not really used guiTextInputMenu
+"
+"c380563a12d82603255e271af005e042bde0d42d","2014-06-17 18:18:55+02:00","Fix issue #1275 - one more missing check.
+"
+"ce9f1e1d3cacb8e81436a63254cb1d70cad7a0ed","2014-06-15 15:34:22+02:00","Update buildbot scripts and add 64-bit buildbot
+"
+"2a09b7e84fb5ce2d8d08d410529d70d440d48ef0","2014-06-14 12:27:56+02:00","Make dropdown formspec elements send their value same style as buttons on change
+"
+"65a4630f3176feb0f4dd4db6ce12cd6d32e2b369","2014-06-18 22:38:29+02:00","Fix bounding rect for formspec elements label vertlabel and checkboxes
+"
+"04fbf47744a71d885aaeaf356f2529628d74555b","2014-06-19 00:22:03+02:00","Add tooltips for button, imagebutton and checkbox.
+"
+"99f565e8f2dcc58dfd0351d49ca42b022639488a","2014-05-20 19:04:57+02:00","Add support for directly starting a world by name from command line
+"
+"9a39848ba93eaa56f7f62921f8de7a19e3ed0713","2014-04-06 14:02:53+02:00","Remove a lot of superfluous ifndef USE_CURL checks
+"
+"8af44f81637938db7e4651d2ef8a294cf43b1072","2014-06-19 20:58:22+02:00","Remove ugly curl struct pointer from jsonFetchValue signature
+"
+"1c7cc2665bfacbee8d0fa3a00bca640f02620892","2014-06-19 22:03:49+02:00","Fix broken serverdescription in multiplayer tab
+"
+"3a9cf216641aeb4f16570c69e3df760108b7c9e8","2014-06-19 23:02:09+02:00","Fix newline not handled to to interpreting it as invisible char
+"
+"2dd69a85e71da15a58e59e12d5e986a617429c8f","2014-06-20 15:18:45+02:00","Fix chat overlaying full screen, now it's gonna overlay only up to length of longest line
+"
+"ef8cdd890cd36b1fde54b44e125edf7603821a53","2014-06-20 17:33:28+10:00","Fix build on big endian architectures.
+"
+"e81454fb387cd98b4a63ade83a9eb41f1bdca278","2014-06-20 19:50:47+02:00","Fix small memory leaks on shutdown
+"
+"c86b78c9b725873451102ba78ef0820ce2056487","2014-06-20 21:30:48+02:00","Fix labels and vertlabels on some systems.
+"
+"2b9beead3816709aca55ce17e647f47fd6c0314c","2014-06-20 22:35:50+02:00","Don't handle lack of IPv6 as fatal in unit tests
+"
+"f8522d50e7c92438a3397d9965ac346613fbbfb9","2014-06-21 23:56:46+02:00","Fix server assert in case of invalid message from client, just kick that client.
+"
+"a0097c6bfab026d5655ef7a9ba127cb90a80798c","2014-06-22 00:05:41+02:00","Fix uncought deserialization error on receiving data
+"
+"d4245e6cac58a57ad2498eee2c17e851f3292296","2014-06-14 11:22:09+02:00","Support for scalable font and gui elements
+Fix positioning of tabheader in order to be usable for scaling GUIs
+WARNING: this changes position of current tabheaders, mods have to adjust!
+"
+"9056c163a738a2f66725ca9a3e48b59b2b0e2603","2014-06-22 02:31:24+02:00","Fix sqlite3 map shutdown fails due to missing to finalize list statement
+Add error output on fail to shutdown sqlite3 map db
+Implement shutdown of sqlite3 rollback db
+"
+"2625323f25ebb4e9ab1079ff60a77b40f58c5bf9","2014-06-22 14:00:57+02:00","Fix menu crash due to lack of favourites list
+"
+"5d06bdf8ac3b38b1ffb400fd771a245589d92ad1","2014-06-08 17:25:52+02:00","Speedup getBlockNodeIdMapping by up to factor 4 by using a fixed size mapping array
+"
+"496cb115b11fcf55b70abbf2c527f65ddf42cc75","2014-06-07 01:52:07+02:00","Speedup getTileInfo by up to 30%
+"
+"56bf867874bda0a5fc4d34415984241a52083b3b","2014-06-07 02:52:58+02:00","Use memset for flag initialization (compiler optimization is way better)
+use temp variables instead of recalculating array index
+"
+"35ec3855f689cf2c6b1504a5813b7c3d9697ae14","2014-06-08 12:49:06+02:00","Speedup attachement handling by replacing vector search by direct array access and secondary child lookup vector
+"
+"334ec4bb1b031cd3423e52fdc7f7ec9e4dec8c84","2014-06-12 22:33:50+02:00","Avoid doing a full material compare if not even first texture does match
+"
+"fcfd53aed1c73b7730e0e666485c5130309d4914","2014-06-12 22:41:57+02:00","Don't keep temporary images in RAM
+"
+"d5de0cbf71d65ce586b3ab2469f2061ccc4b506a","2014-06-08 14:16:48+02:00","Minor fix in check order
+"
+"8ad83767cfccc2d1a42bdc4af087ec013d7554a0","2014-06-09 13:29:22+02:00","Remove emerge and speedup addArea by using memcopy instead of one by one assignment
+"
+"b3a2ef1a911b5ee22ff6478b5a3f9a12f6e40121","2014-06-09 14:25:35+02:00","Remove MapVoxelManipulator not really used by anyone
+"
+"f6fc39e69a0a621480bec9ceafd154ec83cf0100","2014-06-22 23:19:10+02:00","Fix race condition on accessing m_time_of_day_speed causing day night race on some architectures
+"
+"5fb8778e28beb256513a5c8c20a803066c625c76","2014-06-23 14:50:00+02:00","Fix Windows build
+"
+"d9de29fa50a7d264d68f2530f0b57ada0f8b4903","2014-06-13 17:07:42-04:00","Clear inventory before setting lists
+"
+"50127510e72732b069be040db2d2bbdad4d0be1c","2014-06-23 15:27:54-04:00","Remove confusing code block from SQLite3 database
+"
+"7e6db1b80344a519e53a9967a159c8d3585a9b9d","2014-05-30 16:04:07-04:00","Only keep players loaded while they're connected
+"
+"e491f8cd485f5602c056b8b6c5e0c8c395e4a633","2014-06-01 13:11:37-04:00","Only try to load from possible player files
+"
+"089fc010abe439aea154813e3e31bc9477a84308","2014-06-23 15:55:47-04:00","Store the maximum player file tries in a constant
+"
+"a578f34db551bdd3c822ec03b1e1a7d542026709","2014-06-24 01:06:24+02:00","GUITable typo fixes in comments
+"
+"d1ee708db2bd41cf46f5cafc54053e54f47fbac9","2014-06-24 01:26:43+02:00","Handle missing tablecolumns[], fixes bug #1187
+"
+"27538ecef51ebcc7622f13956d2f8e101d0f71a7","2014-06-24 12:28:24+02:00","Tooltips rework.
+Separate element for tooltips. Delayed showing,
+use global color or given ones.
+"
+"09ba047c0175adfaca4a6bccc41c8a0570c295db","2014-06-25 11:52:09+02:00","Add setting for tooltips show delay.
+"
+"24face5249abfddd3de1e255ec4072677b39969d","2014-06-25 19:59:45+02:00","Fix statement not set NULL on deletion
+Make local only variables static
+"
+"13517fb726bd60dceae4fc414d93e5dc9d9daef8","2014-06-15 21:30:44+02:00","Add separate download timeout to allow download of bigger files or on low bandwidth lines
+"
+"ed2c8ba9c5d1a80cefe20bd75660536d9a0dd0f5","2014-06-27 20:16:37+02:00","Fix wrong status text rectangle. Fix for #1412
+"
+"f383766dbf636c47d5d115b3f6e9aa3bcb54cfa4","2014-06-27 20:42:20+02:00","Fix GenericCAO fails to grabing member animated mesh node to prevent it do be deleted to early
+"
+"6ee0db6fec90471fb6873d7f3046aa8bfae8c2dd","2014-06-27 23:55:01+02:00","Make GUITable mouse wheel scrolling faster
+"
+"c91f8b1d251c81dcfc398c9ca2a4d79086212839","2014-06-28 02:02:38-04:00","Add prefixes to enum values and fix style issues
+"
+"897c218b96e4eaebb0035c6aedb1585ddb5fb533","2014-06-28 22:10:55+04:00","Masterserver: Fix undefined players
+"
+"3c5df42a17886395cee6141663f84dba15bd11d9","2014-06-28 17:01:15+02:00","Make player files saving again
+"
+"1367895ae226b4bbdc152274329c789cb5738022","2014-06-29 11:57:01+02:00","Make sure none of the irrlicht member objects of GenericCAO are deleted prior deletion of GenericCAO
+"
+"ebf7ea50193afe5a3d0968b87b4743eb1ee84025","2014-06-25 19:04:47+02:00","Add formspec api versioning
+"
+"ee7af21e411d5d43ba67f4b67603f72e62b0570d","2014-06-29 16:57:50+02:00","Fix msvc2012 build
+"
+"c410e9182d322a8c095ef94fbadf4d8f541e6b98","2014-06-26 20:30:22+02:00","OS X compatibility fixes
+"
+"ea6c3835debfffa22163f048eae57928311143c4","2014-06-29 10:41:49+02:00","Glasslike_framed drawtype rework.
+"
+"ff36071d93266c1dd18708f8924d80aa1af5b33e","2014-06-29 17:55:21+02:00","Don't spam server console on player/playersao error but just drop the affected client
+"
+"1cc40c0a7c260f0562572bc99f39a666a12f1b09","2014-04-21 14:10:59+02:00","Add support for Android 2.3+
+
+There have been plenty of ppl involved in creating this version.
+I don't wanna mention names as I'm sure I'd forget someone so I
+just tell where help has been done:
+- The partial android versions done by various ppl
+- Testing on different android devices
+- reviewing code (especially the in core changes)
+- testing controls
+- reviewing texts
+
+A big thank you to everyone helping this to be completed!
+"
+"c39992e42928623f8ee357b001bc87af9faa9286","2014-06-29 19:36:51+02:00","Copy zlib and freetype dll to windows package too
+"
+"7f99904eb1e401df757ab35e1cdd93e2f58c620b","2014-06-29 21:34:49+02:00","Add redis options to documentation
+"
+"1c01ed5f13e15857a45921c51ef095ea5efda05d","2014-06-30 20:47:50+04:00","Masterserver: Fix compiling servers.jst
+"
+"b2dfde8c8c29d0b118ba9018be202de21bb28505","2014-06-19 16:00:22-04:00","Add support for multipart/form-data to HTTPFetch for server announcing
+"
+"b4c2e79ea49fb7d2c2ac673c00454070462ef1ad","2014-06-19 20:21:02-04:00","Fix server list boolean typing and alignment
+"
+"9afeb97fc693a769f2d9dad4aad6ddbdef285a71","2014-06-20 00:59:39-04:00","Fix serverlist code style, const-correctness, and types
+"
+"bfaba2c12a9eb00a602c12f9724c8701842cc385","2014-06-30 22:56:08+02:00","Fix regression in light calculation
+"
+"567dea29ee44fdcf1f25e431273aafdc6db721e2","2014-06-30 17:08:22-04:00","Move master server to seperate repository
+"
+"3d6d66b181b894180164aa34aab7b2029bef1bf4","2014-07-02 16:48:11+02:00","Fix inversion of full_punch_interval
+"
+"b8343cd11c834fb2613b104418ed08e9fdb1665a","2014-07-02 23:33:18+02:00","Fix memory leaks in GenericCAO, ShaderSource and Player classes
+"
+"95be18a3c13db8a30a2485c3bcc4b1222af83cae","2014-07-05 01:09:53+02:00","Fix typo in doc/lua_api.txt
+"
+"2fee2baf98cd452f7d0e4acb6c82617b7c7b995a","2014-07-05 11:54:09+03:00","Remove FPS from being next to the version string
+"
+"5f9962e1cc04a773d162ba9c0dc44407b55c4bf8","2014-07-05 12:19:55+02:00","Fix typos in doc/lua-api.txt
+"
+"37b7f094e3ea502339794f64e8bad22444c6fb54","2014-07-06 13:07:23+02:00","Fix warnings reported by clang
+"
+"6bd15247f91284f7d7869367eafa9064d7f2f727","2014-07-06 15:41:56+02:00","Fix memory leak in EmergeManager
+"
+"eadde1e74113ee175708795fc24f8f5d1c746c1d","2014-07-06 16:17:46+02:00","Fix errors/warnings reported by valgrind
+"
+"9b44bbd0a6236019b0c4f32156baa513f9674431","2014-07-06 21:57:12+03:00","Fix non-smooth non-shader node shading (Fixes #1436, regression by commit a0f78659f31abd)
+"
+"d020e0771d938e7ae12e082b5bd4f686e77f0bdb","2014-06-25 07:25:33+02:00","Improve error reporting in leveldb backend
+"
+"b459f53ac366930f93928352833ea266fbfcd92e","2014-07-06 21:24:31+02:00","Switch android to leveldb as sqlite3 is broken and fails to save any mapblock there
+"
+"2e19af99199a12bfabb751ed3c2a96bf8e3ab815","2014-07-06 22:11:21+02:00","Fix client crash on deletion of an object the clients localplayer is attached to
+"
+"96f285f71e75b5ff80357b994e3284adc163d5e5","2014-07-06 22:39:47+02:00","Update version numbers for 0.4.10
+"
+"e14c4cdd4c3c9b554dc9cb91f8f29078ad337ded","2014-07-07 00:06:06+02:00","Fix regression in leveldb backend
+"

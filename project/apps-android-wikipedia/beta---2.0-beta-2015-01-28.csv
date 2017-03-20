@@ -1,0 +1,220 @@
+"commit id","commit date","commit message"
+"64d8ad5fbab1e7522a43384f1e88acf2877345d0","2015-01-14 12:45:59-08:00","Update COPYING file copyright year to 2015
+
+Change-Id: I764299a4daafd4d88bc78f004fc0e043607469a0
+"
+"0bca862cec466fc7a657c111dede03641dd7e306","2015-01-14 14:01:05-07:00","Set 'stable' class to body tags
+
+to make sure the table/infobox styles don't break
+next time we update CSS files.
+
+See also in iOS app:
+https://gerrit.wikimedia.org/r/#/c/184726/
+
+Change-Id: Iaf056d54727e52a61fbade441596675f9a078e2c
+"
+"c33b2fee6de41a0553ca6b9d1ef1935cfb383d61","2015-01-14 13:59:57-07:00","Update styles from vagrant
+
+Change-Id: Ic75a2399ba585498bc5149ec4f04786d705f0717
+"
+"0c04eb0693e0be9109a41d35af2914b8f8dcdb87","2015-01-15 09:36:24-08:00","Add descriptions for some previously undocumented translations.
+
+Change-Id: I53a117f9d4a27a6cbe89a3505256a2c321bf91d9
+"
+"9b8eecbd4a8735f390dcf034de7cea868e0341ad","2015-01-16 16:34:04+00:00","Merge 'Add descriptions for some previously undocumented translations.'
+"
+"160c9be20a2c49605c6106d6c498d2f2cd4ce442","2015-01-13 10:48:22-07:00","Combine title and full text search
+
+No need to explicitly do an auto switch based on a minimum
+number of title search results since it automatically does so
+when the end of the list is reached, either by not having enough
+results to fill the screen or by the user scrolling to the end.
+
+Increased the batch size to 20 to avoid immediate full text
+searches on large devices.
+
+Change-Id: Ida613bd18716eef09149b41b0483127e77de07e2
+"
+"a27907a0b8f66bad00bd69a6b6e27ab7e6cad96c","2015-01-16 10:42:18-07:00","Fix build
+
+'Quote' da single quote
+
+Change-Id: Id0b2a9123ee7774670fcf3050b8ba8cf0a04962d
+"
+"900a4378fd295747635ba8a8d3b5ec2e3952c56a","2015-01-16 18:56:24+00:00","Merge 'Combine title and full text search'
+"
+"9c91c7420666a509e24e4b80a3f8550ca4feb494","2015-01-14 14:12:24-05:00","Use Wikidata description returned by MobileView.
+
+Removed the wikidata Cache and Feeder classes. However, we still need the
+GetDescriptionsTask class, because the Disambiguation list uses it (that's
+the only way to get descriptions for those items).
+Yay for simplicity!
+
+Change-Id: Ic62e884d5e24cb7e5f639bc209e04e8b05a85244
+"
+"30f85167ba1da74ccda7c2f166ed8a0eab72479e","2015-01-16 15:24:44-05:00","Properly handle back button in long-press contexts.
+
+This fixes the back-button behavior when inside the long-press context
+in the History and SavedPages fragments.
+
+It also fixes a crashing bug when long-pressing items in History or SavedPages
+because the PageActivity was getting its ActionModes mixed up. We're now
+assigning a 'tag' to each different ActionMode, and the PageActivity now knows
+what to do, based on the tag.
+
+Bug: T87052
+Change-Id: Ibbba1330eae958432923fd0baee6b49f33918231
+"
+"6587aeab2a70d06fe0e248e3890f29a07b415849","2015-01-16 16:44:47-05:00","Fix checkstyle (parameter count) in PageProperties.
+
+Simply got rid of the constructor with 9 parameters. Now only
+constructable from a JSON object.
+
+Change-Id: I52bdab5209c8b683d199da9714dd9484a69db934
+"
+"1869d3d28b096c70904aa65e0495c175de2029d2","2015-01-18 09:30:23-08:00","Clarify description for snippet_share_intro
+
+Bug: T87139
+Change-Id: I9a40981bc186a7ec24d3536100cb2f236e65c354
+"
+"90c536db7f12354a907aa6202f3832f29648fde1","2015-01-18 16:49:33-08:00","Fix broken qq message.
+
+Change-Id: Ib522ae9755e168b5ec2b6ab1b2276154f65aca55
+"
+"01f1bdaf0df28d3f6e89bd2a8eff490c1beacae9","2015-01-19 09:36:25+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I0e0152d4349ca290c8aaf65acd732748d8d06795
+"
+"c5caecc621107326813dc0193257810f530f7eb8","2015-01-18 16:29:22-08:00","Add script to find undocumented translations.
+
+To my knowledge there's no convenient way to find out if a string is missing a
+translation into a particular language. For us this means that it's not easy
+to check all of our strings and make sure they have documentation for our
+translators. This patch adds a Python script that, when run, will tell you
+what messages are undocumented.
+
+Change-Id: I33b51f314aea841dda9f11bbcaf22158ee73960b
+"
+"da6f0556256d7fee80304eef257487e5dd270e90","2014-06-17 15:03:14-06:00","Fix tests
+
+* CreateAccountTokenTest and TriggerEditCaptchaTest failed when
+run several times withing a short period of time. Not sure why we sometimes
+get success results instead of CAPTCHAs.
+* LoginTaskTest just needs cumbersome setup. Added @Suppress annotation
+so it doesn't run automatically. It still can be run individually.
+* PreviewTaskTests needed a small adjustment for the number of \n in the expected result.
+* PacelableTest had some unused/unclear code.
+* Fixed some code inspection issues
+
+Change-Id: If09a1f4a87414e914b3578f29b466b304c2e2493
+"
+"3a56380c377654ea9e2ed26dd5508ae3db8ed97a","2015-01-19 16:01:57-08:00","More aggressively disable autocorrect on username fields
+
+Although we had already set the fields to not give suggestions, certain
+classes of Android devices, such as some Samsung devices, ignore the
+instruction and display suggestions anyway. Even devices that do not
+(like my stock Nexus 5) still reserve space for the suggestions that
+don't even appear.
+
+This patch marks username fields as visible password fields as a
+workaround to both of the above.
+
+Bug: T87208
+Change-Id: Ib8edee8e49f4a2b248112ac1e541c9ece9e776e9
+"
+"8b3bd972e425b13aa154274ed87c40e64d44350a","2015-01-18 17:05:56-08:00","Add documentation for undocumented messages, and remove unused messages.
+
+Change-Id: If5a3f64af15d764efe526f0475944b1659bb9b8a
+"
+"d672252f6f4d50dec7d395dc2e4adda56f89c6c0","2015-01-19 20:04:59-07:00","Make checkboxes visible in dark mode on 4.x
+
+Checkboxes in settings aren't visible in dark mode on 4.x (prob. also on 3.x).
+So make background color a bit lighter. Not needed in GB and Lollipop.
+
+Bug: T85809
+Change-Id: I3344c3679e26739b5b4962b8c52a8b594e9c4702
+"
+"d683ba8e01a60c23d31bb1fb8144b0178be38b62","2015-01-19 20:53:03-08:00","Add 1:100 sampling rate for table of contents interaction.
+
+EventLogging has a pretty strict limit for how many events it can write to its
+database per second. Since the ToC data isn't being actively used right now
+and is one of our biggest schemas in event throughput, this patch adds 1:100
+sampling to the ToC data to ease the load on EventLogging.
+
+Change-Id: Ib4ca1f570fd18aa288ad003b5759b42541d8097f
+"
+"4a9a27498157a9f95187de7e570de0fd4272bacd","2015-01-20 23:36:03+00:00","Merge 'Fix tests'
+"
+"9b4718a934108332826d736029a2caaada5cf6ac","2015-01-20 23:52:09+00:00","Merge 'Add 1:100 sampling rate for table of contents interaction.'
+"
+"729f48f554ba69ed6c6b552b70a51413bc68bbda","2015-01-20 12:54:15-07:00","Fix getting gallery image from non primary site.
+
+Bug: T87071
+Change-Id: I3916d8fa79f7b74509e60c41bcd64e43df502a80
+"
+"e517b86d5edbabe4dddbb339224d5d84bf4ffab7","2015-01-20 15:14:13-08:00","Fix crash when clicking images in Preview.
+
+Bug: T87110
+Change-Id: I64edc5d340147dd9b582171f851ad84eb837f266
+"
+"53e70e21b35421aebe10c13f0e28d45700e90816","2015-01-22 21:01:57-08:00","Fix improperly wrapping Wikidata descriptions in Nearby.
+
+The Wikidata description TextView was erroneiously using match_parent for its
+layout_width, which caused it to wrap strangely in the case that the
+description was particularly long. This patch changes that to wrap_content so
+that it displays properly.
+
+Bug: T87401
+Change-Id: I8e46ee064226cb60687e3ca7f9906828f95d5bd4
+"
+"8823510239ea9a44610de4feef47447a7d61a1da","2015-01-24 23:00:28-08:00","Fix infobox styles for night mode
+
+When the latest styles from MFE got pulled
+(https://gerrit.wikimedia.org/r/#/c/185564/4)
+it introduced light background for infoboxes,
+even in night mode.
+This will fix it. The other issue was that the font size
+inside infoboxes got smaller.
+
+See also corresponding patch in MobileApp extension:
+https://gerrit.wikimedia.org/r/186621
+
+Change-Id: Ie51221432db6022d50351da034e72af50603339f
+"
+"aaa7bbd7197927799478ec5e3d2aebd718b10158","2015-01-26 23:03:48+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I6d41301cbdc69a3e0f4d80b5bd494feb1c7dd188
+"
+"dbfa3302b7bed9a258db659e4b41867f505c7d0f","2015-01-26 21:16:31-08:00","Fix build/translations
+
+String values starting with @ are interpreted as references to other resources.
+Escaped the @ in the Korean string.
+
+Bug: T87628
+Change-Id: I55cca57f290aad112b5b71cc2b996d413c869e84
+"
+"70e49770a696439635107c6c4873b803d698b1cc","2015-01-27 23:17:29-08:00","Remove strings.xml files without real translations
+
+Change-Id: I70f9dd0908b75c82e733d01c73f4b4b7c5c20d4e
+"
+"28ee5bda2a66ff171ca7b648d0689aac193c3a5b","2015-01-28 19:24:49+00:00","Merge 'Fix infobox styles for night mode'
+"
+"536ab5218c7f582cc6caf7e6b472be497f3dffdf","2015-01-28 19:27:24+00:00","Merge 'Remove strings.xml files without real translations'
+"
+"61b90732761deb55aa21fa4b084e93a92ef9253d","2015-01-28 22:10:25+00:00","Merge 'Make checkboxes visible in dark mode on 4.x'
+"
+"f529ae4eddf240a71c669949aa0ba5d491eb4dde","2015-01-28 11:44:06-08:00","Fix possible crash when backing out of Gallery activity.
+
+Bug: T87149
+Change-Id: I29be538fe81e05b39cce5684dcd641ca9d636994
+"
+"1fef095300a4f171e3a9b8a2e80dc941655591db","2015-01-28 14:18:04-08:00","Remove extra translations
+
+to make the release build happy.
+
+Change-Id: I9def12363f099b09cb24274c0f58571c95f91b04
+"
+"7cd4fd42c8730ceba8389296a8c9a73d884d5ac1","2015-01-28 14:21:27-08:00","Bump versionCode
+
+Change-Id: I90f603870c31b70cb5615f70d3076a5bef1b3b44
+"

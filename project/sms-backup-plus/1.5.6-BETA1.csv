@@ -1,0 +1,188 @@
+"commit id","commit date","commit message"
+"27054e2ce214dd90104d3a209761c163eb91a4f9","2013-07-25 00:23:07+02:00","Add some more debug logging
+"
+"7f206516f020e06e7fb1539ca26de6414dd96dd0","2013-07-25 00:24:07+02:00","Bump version
+"
+"d91177c83d8a61cf9dc8a2c10211e8626113d4ba","2013-07-25 00:26:45+02:00","Always log
+"
+"df490ea8a8af89189de8fecc9ae09bee547bfb04","2013-07-25 00:29:12+02:00","About
+"
+"5e697e435db3aac4397ad24c04656b4e145cdd14","2013-07-25 00:47:46+02:00","More logging
+"
+"9bfdbb59435da21b7721699e9b1eb0721c364b92","2013-07-25 00:48:29+02:00","Bump
+"
+"5ce7b8e55c324d53369c2598674d18ab05d4c7e6","2013-07-25 22:44:37+02:00","Use a high perf lock
+"
+"365d480ae7884efd834650c01444c6784917140c","2013-07-25 22:51:08+02:00","More debug logging
+"
+"0f9710ec34bf2d35c55f2a2cb373c62830e051e8","2013-07-25 22:51:19+02:00","Bump
+"
+"0218742beec29c6b4f052d6b579f9ed27293e14b","2013-07-25 22:52:29+02:00","Log cause
+"
+"8788aa97c6c818bf00df003c43a4dca91a31d74a","2013-08-13 17:59:12+09:00","Merge remote-tracking branch 'upstreams/master'
+"
+"5763af9be1dc9b4276cb91e79c6f142c385b956e","2013-08-13 18:03:43+09:00","Mistyped word fix
+
+my bad  :^(
+"
+"a0aeeefcc92808c8ce2baf8a8edd076f8707638b","2013-11-18 12:59:59+01:00","Updated Hungarian translation.
+"
+"06b57b298590a1041c718699fa84000c98136198","2013-11-24 16:59:44+01:00","Use robolectric 2.2
+"
+"744ca79708f6cb6c0e035b445f7c045b03d696f2","2013-11-15 01:14:09+01:00","Adapt pom / build for Android 4.4
+
+Conflicts:
+pom.xml
+"
+"ff3a5e5836c79e6034f3578e6f4b649089173c74","2013-11-24 17:29:10+01:00","Update SDK version
+"
+"221bc8c2328012a97b0dca65f817fd70bb0e4629","2013-11-24 17:49:20+01:00","Igore lint error
+"
+"48bf2ef17bb370ce255afa2f2a556ad5e19bafc2","2013-11-24 17:49:29+01:00","mvn 3.1 is preinstalled
+"
+"a38f54e6a08a9cdda1e20dbb6b9216098ec1f86b","2013-11-24 17:57:01+01:00","Delete unused travis config
+"
+"ae8b54fc97ef382e793e427c047545844a0d0888","2013-11-24 17:57:48+01:00","Merge branch 'master' of https://github.com/gLes/sms-backup-plus into gLes-master
+"
+"fe4353b54b29a35d9339b1f1e475095e33143e0a","2013-11-04 17:27:40+00:00","Request SMS Backup+ to be set as the default SMS package before restoring.
+
+Starting with Android KitKat, only the default SMS package is allowed to
+write to the SMS provider. Because SMS Backup+ did not register for the
+ComposeSmsActivity activity or the receivers at all, it could not be set
+as such, rendering the restore functionality useless in KitKat.
+
+This patch somewhat hacks the necessary functionality in the application to
+make it possible to import SMS messages again. It adds the necessary
+receivers and activity to the AndroidManifest.xml file (but does not become
+the default SMS app by default) and adds some logic to the restore flow:
+
+(1) When starting the restore, request to become the default SMS package
+if the user is running KitKat or higher and it's not already.
+(2) If the default SMS activity has changed, add this as an intent with
+which we're launching the service.
+(3) In the SmsRestoreService, abort restoring if we're not able to write
+to the SMS provider. A better message should be added here.
+(4) After the restore finished, check if the previous-sms-provider intent
+extra has been set. If so, ask the user to restore to that activity.
+
+It's important to reset the default SMS provider to something that's not
+SMS Backup+, because otherwise incoming messages will disappear in a black
+hole. There's a lot of user interaction involved here, but I'm not sure if
+there's a good way around that.
+
+This patch is not ready to land, but I hope it gives you a good idea about
+what's needed to fix restore for Android KitKat and higher. It allowed me
+to import my SMS messages just fine :-). Thanks for the great app!
+
+Conflicts:
+pom.xml
+"
+"0d9ccb0c8dbc572e8640016c5ef24bacc70db68f","2013-11-24 18:38:46+01:00","Remove ant cruft
+"
+"116d8f076d3452e5d50b3eef52a45fbd15c4e295","2013-11-24 18:39:09+01:00","Add target api annotations
+"
+"1f6c4363b28c51c9ea071ea2b18b9543280b381c","2013-11-24 20:54:52+01:00","Error handling
+"
+"8d5f1c2c27519bd6976b89e9576453db49283b1f","2013-11-24 23:28:51+01:00","Don't make activity singleTop
+"
+"28ec992e37c5f0b58d1db965185c04f3096d9d3c","2013-11-24 23:46:59+01:00","Lint fixes
+"
+"133a9a316bd94bfa690ed16e07b9af4c0c4a7408","2013-11-25 00:00:21+01:00","Use holo style for webauth
+"
+"4574081caae7627229495e52dffec9701cb251f0","2013-11-25 00:27:56+01:00","Bump version code, about
+"
+"8149fc32a93cde8c7e0524faacc5a6f66273313e","2013-12-07 17:39:03+01:00","Moved tests into main module
+"
+"4e93a112b6b49fda68628a29021d031ed76e595c","2013-12-07 17:54:47+01:00","Re-enable ignored tests
+"
+"0cf2d4a436e61c6609309e4a23035b91d5e90e12","2013-12-08 11:31:17+01:00","Catalan translation
+
+Trying again; I hope there's no more mistakes this time...
+"
+"ce906bab4e6ade38830be94965108f842ea2c27d","2013-12-08 12:29:11+01:00","Fixing errors
+
+Fixing to errors caused by overlooked changes in strings names.
+"
+"e3a3c69a9cdbdbefd9216542abedbbfc0f68f562","2013-12-08 06:46:47-08:00","Merge pull request #408 from Ferri64/master
+
+Catalan translation
+"
+"fb461bd1dca17e872ea9a8a37490c1a75af9616d","2013-12-07 17:56:22+01:00","Remove unused build.gradle
+"
+"037756fdbf56fd7d2871a0204af73c1ddd1cd5e5","2013-12-08 19:20:55+01:00","Use AppOps for kitkat restore
+
+No need to set SMS Backup as to default SMS app to write SMS messages
+
+http://www.androidpolice.com/2013/12/06/non-default-sms-apps-in-kitkat-can-still-write-to-the-sms-database-using-a-switch-in-app-ops-no-root-required/
+"
+"28a7efc93e3b19b87e502787a8ed45fbd9f09b4f","2013-12-08 19:48:49+01:00","Bump version
+"
+"3cffd3d7229041efac5e3da067500c4452a518b4","2013-12-08 19:50:39+01:00","Document KitKat restore
+"
+"20ea74e16d6bcaaadaca8c93dea1dde3e8e77454","2013-12-08 20:01:49+01:00","credits
+"
+"273844338c3312d9f46f5b629f07548417bb9618","2013-12-08 23:47:32+01:00","Credits
+"
+"3529f6d61856528afddb17a3f127739260cc8a23","2014-03-03 21:56:10+01:00","Revert 'Use AppOps for kitkat restore'
+
+This reverts commit 037756fdbf56fd7d2871a0204af73c1ddd1cd5e5.
+"
+"4f5e9c975b09c0e954007fbe88b382e8e0f77cbc","2014-03-03 21:56:28+01:00","Revert 'Document KitKat restore'
+
+This reverts commit 3cffd3d7229041efac5e3da067500c4452a518b4.
+"
+"d4343a915120d36805f9ab73adf7f62b2502024e","2014-03-03 22:08:36+01:00","Bump android plugin version
+"
+"ea685293c340026e452d6f9bbd0fb7a4ba1a406a","2014-03-03 22:48:29+01:00","Fix preference ordering
+"
+"69225f7591762b64b7cf6ece1c99bafa8de1a98d","2014-03-03 22:52:46+01:00","Bump version
+"
+"1d8d04b7a240d0f6c70490d8d991dc9a84b287cc","2014-03-04 00:06:53+01:00","Bump pay-me version
+"
+"cae1f355453d5e602a311442f401f0c113ece990","2014-04-05 17:26:12+02:00","Use snapshot version of whassup
+"
+"3565f645126d3f9e8c0371ec57c8aac4bbf5cde1","2014-04-05 17:43:08+02:00","Bump version, changelog
+"
+"4ff6faa74b2c084f37c290ae29c0b634881434b0","2014-05-10 13:01:31+02:00","Added danish translation
+"
+"59f304cc11f74a7b4163df91f28ca1d84608d7b2","2014-05-10 13:34:18+02:00","Merge pull request #448 from MadsAndreasen/master
+
+Added danish translation
+"
+"37b850e1b28010e13df9278544f8cb8ec4a2e4f8","2014-06-18 12:13:25+02:00","Re-translated to Dutch
+
+The old one had so many errors, I just re-did it.
+"
+"9f4ca5ec9deb1164b5d6c6a92aa4ecd6ba69f0fe","2014-08-04 15:17:13+02:00","Fix broken application icon
+"
+"609d1bfa24cffb9e1828d460f9ca057b4e6ed750","2014-09-28 21:49:48-04:00","Merge pull request #468 from kuc/fix-icon
+
+Fix broken link to application icon in README.md
+"
+"d55d42aa9a17a047f1df2541c051fad94f842134","2014-09-29 15:54:11+02:00","Fixed missing slash
+"
+"70b77cc481b8893eaa73a97da8511bb94a3915aa","2014-10-04 10:21:03+02:00","add more criteria , to lookup for duplicate for call logs .
+without this patch , we restore only one call-log by number
+"
+"d858918f88b5763ceba7f369f3733a3829a400e1","2014-10-04 22:27:12-04:00","Merge pull request #461 from niknetniko/master
+
+Re-translated to Dutch
+"
+"7143b2c7e08f2da581f43caf08a55b38898e31d2","2014-11-14 11:54:31+00:00","Merge pull request #479 from ErwanMAS/too-many-dups-in-call-log
+
+too many duplicate for call logs when restoring
+"
+"0eb4e34614b03853d12d12b9f8eef0343f7de140","2014-11-14 13:11:40+00:00","Bump dependencies, remove ACRA
+"
+"b3cb7f10d747f3b6e4b96bb8b2f5003be796a63d","2014-11-14 13:20:52+00:00","Update version
+"
+"3d30977e025e88a0a52ce1fc833f943d16d388c0","2014-11-14 13:32:55+00:00","Version
+"
+"ff5167dafa78aba416b64785c1cc9fec6f962ead","2014-11-14 13:40:20+00:00","Upgrade SDK
+"
+"c22ac393eb0ccd8bfbe37f46a085dfe99950d80a","2014-11-14 13:47:14+00:00","Param renamed
+"
+"f4bf82fc6b82e0fa0aa92122affac6544548dadd","2014-11-14 13:53:21+00:00","Fix lint errors
+"
+"7670e2458b2da527577eb4653df4d27f2c0d6f0f","2014-11-14 18:33:19+00:00","Don't unregister in onDestroy()
+"

@@ -1,0 +1,18 @@
+"commit id","commit date","commit message"
+"af45eae2cebf10ff331072485f728053c5c6d844","2010-08-11 03:39:29+00:00","Implement windowing for IMAP UID FETCH
+
+Our previous implementation of UID FETCH didn't ever take into account
+maximum command line lengths. When fetching, say 800 messages from a
+GMail IMAP server, we could easily overflow the max line length leading
+to a fetch that didn't get all the messages we wanted to and was
+truncated before the description of which fields we want. That caused
+K-9 to fetch complete messages, exhaust memory and ultimately fail,
+even when we were just trying to get message lengths.
+
+An equivalent fix needs to be made to seach by UID.
+"
+"009712b96bbee30e375f4ad18cde5b09bab36f0e","2010-08-11 03:39:40+00:00","Add debug logging when K-9 doesn't enable push because the user has
+configured push to be off.
+"
+"1f2b06934e64b4867e2f8d115473112c0fc4b542","2010-08-11 03:39:45+00:00","2.993
+"

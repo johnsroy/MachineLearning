@@ -1,0 +1,356 @@
+"commit id","commit date","commit message"
+"2246b54ee6716d74951492724f04a591e33d7e2d","2014-01-12 03:51:32-08:00","Merge pull request #396 from hurzl/cache
+
+Remove  albumartist option and use album cache
+"
+"b1f9cb9dd3cab00593118ed695e30e41fda0e4b7","2014-01-10 21:13:32+01:00","Locale-correct Item sort and Unknowns to the end
+"
+"fc7927bdc439c7fcf091fed59bcbcaae3baab7a2","2014-01-12 04:24:54-08:00","Merge pull request #420 from hurzl/unknowns
+
+Locale-correct Item sort and Unknowns to the end
+"
+"ad2bb9b7fd01d6094ae3ef304da84998aabec691","2014-01-10 11:10:49-08:00","Return extractImageUrls() with a type-safe emptyList.
+"
+"cdb1506483d6cb1ddd12864d1d37f470fb968294","2014-01-10 13:10:42-08:00","Remove depreciated DSLV constructors.
+
+Since DragSortListView is unmaintained now, it's good to just go ahead and
+remove the depreciated (and unused) constructors which emit useless warnings
+rather than even supress them.
+"
+"2a232e3bf5f98636a6f4621bd550b98c62839e12","2014-01-10 16:37:11-08:00","StreamingService: Remove old dead code.
+
+By 'old' I mean anything over one year (or trivial) and most of the dead code
+is from 2010.
+"
+"4863763237943d5303a4b00b88e1de93e47607d9","2014-01-10 17:02:31-08:00","StreamingService: Prefer explicit imports.
+
+The Android Team's Code Style Guidelines for Contributors says that explicit
+imports must be used, and I think it's good common sense stuff.
+"
+"5df6a6c27f67ca3b48c92d31cb5fa54b9e75f031","2014-01-10 17:09:09-08:00","StreamingService: Initialize remoteControlClient as RemoteControlClient.
+
+Since we're beyond API 13, RemoteControlClient can be used rather than a
+more generic object.
+"
+"33dd68f4b8050172fd9a261b9d4491c8a40176d5","2014-01-10 18:48:01-08:00","StreamingService: Add copyright header.
+"
+"5cd77fe9d0ff5e7faf1971f64a2e8ed0cc230498","2014-01-10 19:53:00-08:00","StreamingService: Remove onStart() stub.
+
+onStart was depreciated in 2.0, should have gone away by now.
+"
+"5da40a5b25de7cc9e73979e17e363a53c72320cc","2014-01-11 12:07:41-08:00","StreamingService: Explicit try/catch & remove/reverse conditionals.
+
+The point of this commit is to remove the deep layers of nested conditionals
+inside showNotification(). This will make this member easier to read and
+improve. I do this by removing unnecessary conditionals and reversing/returning
+conditionals as required.
+
+This commit also removes the try/catch block which encompassed the entire
+method. If we crash MPDroid because we're not handling exceptions, we need to
+handle them and not paper over the problem, IMHO.
+"
+"a9b3152da260200cde218a07f707ba0d548e48ba","2014-01-11 12:33:45-08:00","StreamingService: Don't assume that album, artist or title exist.
+
+MPDroid's old behaviour when adding the album, artist or title to the
+notification panel is if it's null the notification panel would print the
+string 'null' to the notification panel.
+
+The new behaviour checks for the field first, then is either omitted, as is the
+case with album or artist, or is substituted with filename in the case of
+the title tag.
+"
+"3ee380c31e526184e0d147325beecb1e75f975e9","2014-01-11 12:40:00-08:00","StreamingService: Rename a couple of local variables for readability.
+
+Rename resumeStreaming() to beginStreaming() and oldStatus to prevMpdState
+to improve the logical naming. They make more sense to me, I hope they do
+for you as well.
+"
+"79230ef6ce0a8e9869e2bae396f383012eae2e9b","2014-01-11 13:29:21-08:00","StreamingService: Move all stubs to the end of the file.
+
+Take the stubs out of the body of the code to increase readability.
+"
+"936d8746687f2cf5c5f2ba8c456717485dbf9c0a","2014-01-10 20:30:57-08:00","StreamingService: Comment additions, cleanups and breathing space.
+
+Add a few comments here and there, clean up some old comments and add some
+space to increase readability.
+"
+"6537e63a8386f862e829a3cc391004f0ddf4b34c","2014-01-11 14:22:39-08:00","StreamingService: Move coverart notification to it's own method.
+
+Move the coverart stuff from showNotification() to it's own method. Also move
+the MetadataEditor to the proper method, setMusicInfo(); this clears up a TODO
+and should make things a little more clear for readability.
+"
+"dbd28dfe4fc33ea693a833743e4092e6636cd851","2014-01-11 13:40:30-08:00","StreamingService: Remove a couple of nested blocks.
+
+Removing large nested blocks improves readability.
+"
+"65e64b9be0b7d7b3e3c6ed81b71449eda50c372a","2014-01-12 05:14:39-08:00","Unused import and local variable removals.
+"
+"71a3b789bce3fb4650612abe78f9987d925c849c","2014-01-12 07:32:08-08:00","Merge pull request #422 from avuton/master
+
+StreamService & various warning cleanup
+"
+"00fbcf4b03bd1d022dabf17674d7c9eb9730deeb","2014-01-12 18:52:39+01:00","Use GraceNote for covers only if the user set one.
+- Request quota exceeded for the shared gracenote ID.
+- Fix a NPE in covermanager
+"
+"f4cbbff4f6506b3acffd719073deefc34cea2700","2014-01-12 21:07:51+01:00","Reindent, reorder impent and reorder members of MPDroid.
+"
+"251f068a9558297c7a11b99cdb0dc1e4502102c2","2014-01-12 21:10:59+01:00","Reindent, reorder impent and reorder members of JMPDComm.
+"
+"92aac8f663c15cc894ce496308ddd24f1ab46208","2014-01-12 21:12:14+01:00","Reindent, reorder impent and reorder members of JmDNS.
+"
+"fa83cc2f46ea6337db61415e3342bcb5e89ac137","2014-01-12 21:23:43+01:00","'sort()' made it look like it sorted whatever was the class. It merely returns a string for sorting that class, so rename the method to reflect the true meaning of the function.
+"
+"495bb93f304333975c5ea4369829fd6068ea6013","2014-01-12 21:35:30+01:00","Fix some warnings
+"
+"3ed08dd7063167513572f1b183841178cafb7813","2014-01-12 21:37:13+01:00","Small sorting issue
+"
+"cc0ab66418f9db6294491ee568b0b1d51c5be6f8","2014-01-12 13:16:35-08:00","PhoneStateReceiver: Remove a couple of nested code blocks.
+
+Remove a couple of nested code blocks to improve on readability.
+"
+"b4bcc624c629ad5a130deb10495b4791251b12f9","2014-01-12 14:15:14-08:00","Add copyright header to most java files in the repository.
+
+This also adds some fuzz from the the Android project formatter. The only
+headers which are not added are ones added from other sources. It's probably
+legal to add them to those files, but probably unnecessary.
+"
+"713453444d1d96738de29424ef416d6719ddc9bb","2014-01-12 15:00:52-08:00","Merge pull request #425 from avuton/master
+
+v2 Add copyright headers
+"
+"6472177bed7b5dadac6f42fa1625115ae50319c8","2014-01-13 00:06:32+01:00","More reindentation
+"
+"0efcb16f11bab93d257e8bd3b0d4d18bd3bd26ea","2013-12-31 15:22:42+01:00","switched to gradle
+"
+"14f6eebc769e3d5372753f43e40bae5dcb5f689b","2013-12-31 16:00:10+01:00","updated IDEA files
+"
+"da65956d1daf71f4ffefbb3fc5476297b9801f44","2014-01-01 17:19:27+01:00","fixed some gradle stuff
+"
+"b80c8e11921602cd665e6f6e789b38a5ac9ce7da","2014-01-13 23:43:45+01:00","Remove ant support : Goodbye old friend !
+Android Studio can now open MPDroid.
+"
+"bdeeb29930ec40bafd6f77dec55ea0b2122b12aa","2014-01-15 03:41:12+01:00","Delete misc.xml
+"
+"9fd41b92cb06ed1f220e69c0ce23a3cbfc8fc519","2014-01-15 18:46:18+01:00","Remove support lib. Gradle provides an up to date version of it
+"
+"e452a13c4024701e0e2d17c6be87f6f3c1353dbe","2014-01-15 20:53:22+01:00","Remove JmDNS project
+"
+"018f5d978b4c473413ed3f378a2387b7f91c1594","2014-01-15 21:05:40+01:00","Remove .idea/libraries folder, it causes problems.
+"
+"f669301c18ee71329eb7d413a0ed220ee6d659a3","2014-01-15 21:05:58+01:00","Clean gitignore
+"
+"c931db6a1b85525fa5de793f43f81e9683d93d93","2014-01-15 21:07:06+01:00","We don't need eclipse files anymore
+"
+"5bffa3799999fcf250a69a8ec5db492763b0c671","2014-01-15 21:13:45+01:00","Small JMPDComm fix
+"
+"e323fd507975572afb8279a069478922b2335440","2014-01-17 01:11:20+01:00","Added kitkat swipe for popup menus on some. Does not work well in SongsFragment when in portrait ...
+"
+"54bdd703d1b624b6016db23a03dd468a19784523","2014-01-17 01:21:17+01:00","Layout had different classes for the same ID when rotating, causing a state restoration problem.
+Fixes #391
+"
+"874350903935647515e6950bfaed927b13a94eeb","2014-01-17 01:56:44+01:00","Fix many lint errors.
+"
+"029887cb7f77d4ec242e47f01235b86a99f5b844","2014-01-17 02:04:22+01:00","Workaround a lint bug by setting JMPDComm to the same minSdkVersion as MPDroid
+"
+"4f11b47dde330b53a3b330721df2834c78f36271","2014-01-17 02:04:54+01:00","RIP uses-sdk, replaced by build.gradle :)
+"
+"b177f1aae47ac206314a752c5eaf709a76ceb3ed","2014-01-17 12:06:08+01:00","Content description isn't that useful here.
+"
+"a9c39b0216005f2c0ce0b8f450379fd10ba00d97","2014-01-17 12:22:36+01:00","More performant song_list_item layout
+"
+"62ae6745bf2c8697999e35e66a113b20cd0b7f3f","2014-01-17 12:26:04+01:00","Move drawables to the right folders
+"
+"c9379752995f4a234312ee4e5902cfbe674adbcb","2014-01-17 12:34:07+01:00","Fix lint errors (CompoundDrawable is safely ignored. In these cases the layouts cannot be replaced by textviews with compound drawables)
+"
+"bbfee4efa9fcd01ca45a76826befee66ba615e91","2014-01-17 12:35:25+01:00","Ignore InconsistentLayout : Android Lint does not detect that the other layout includes the same songs layout for portrait.
+"
+"2555feda9d1b4c41c4604268570212fd9041f702","2014-01-17 12:39:07+01:00","No mini player in landscape mode
+"
+"82f6a95710291b5b90bb18fb88992d8145a4a036","2014-01-17 12:42:28+01:00","Rename card overflow button (also used in lists, but originally intended for cards) so that it does not violate the naming convention anymore
+"
+"5713287d5334efc30add139b72ceb5f0f4bb89f8","2014-01-17 12:44:52+01:00","Change nodpi drawable size to remove lint false positive (it's a false positive but it's useful in our case)
+"
+"d94869090a4db62b05deb9c4a1beb87b85682ccc","2014-01-17 14:25:04+01:00","SmoothProgressBar isn't directly needed, and the version number was too high for ActionBar-PullToRefresh, causing crashes.
+Bumped ActionBar-PullToRefresh to 0.9.3 (for fixing a swiping bug), swtiched to standard flavor rather than ActionBarCompat one, which we don't need.
+(Please empty your .idea/libraries folder if you run into any issue)
+Fix #433
+"
+"b6642eb05202093184f2a9ad6089d0fa7ee1bfc2","2014-01-18 15:56:00+01:00","Better album cards. Doesn't really work on initial rotation, must rotate fragment so that it shows the info.
+"
+"7fdf94e12fe96ed5a7184f3e4e79899d596836b7","2014-01-18 15:59:23+01:00","Fix regression : The library_tabs layout cannot be replaced by a 'merge'. Ignore the lint error, false positive.
+"
+"df150c3268ac8ba71bc41c880f7a1af89249a531","2014-01-20 00:55:04+01:00","Spanish (from Spain) translation
+"
+"3891c153e6e778a47b6c183d0abd40d8a1406922","2014-01-20 01:19:25+01:00","Refactor PreferenceActivity to PreferenceFragment
+"
+"608e3414acc0df4e69c9d8bc50265493275d8748","2014-01-20 01:19:35+01:00","Format code using project settings by default
+"
+"123ced249d17e58b710ee6cead31ae4078e7a440","2014-01-20 01:32:05+01:00","Remove outputs in settings. They will be reintroduced later.
+"
+"bb93296c139f9e82d22cb1207d94b3290f15cbf7","2014-01-19 16:32:28-08:00","Merge pull request #439 from demil133/master
+
+Add spanish (from Spain) translation
+"
+"8479a93a20da71515bca1648f81777438c913ceb","2014-01-20 02:03:31+01:00","Fix crash on Preference opening
+"
+"51483fb4267d53ae5a05b82bde7ab894e40e37a9","2014-01-20 11:08:48+01:00","Fix missing newline in copyright
+"
+"c2248fc8e420caab81c21e27bbca1ec736c3f462","2014-01-16 11:14:52-08:00","A few random spelling fixes.
+"
+"196ea9600618e1d5bc267cf036db59b130e4d65d","2014-01-16 16:25:03-08:00","StreamingService: Remove integers which can be accessed w/RemoteControlClient.
+"
+"56d86d60b8fa55cd32a7e20364e2dede2f11d112","2014-01-16 16:57:54-08:00","StreamingService: Use Notification over NotificationComapat.
+"
+"744fdbf1ba7b5c23567ed6cd144126e689539e5f","2014-01-20 13:45:40-08:00","Merge pull request #440 from avuton/master
+
+A few small patches
+"
+"9b49cabc7f6a8ebdca30eeaeee3f975a73550928","2014-01-20 23:20:21+01:00","Java 1.7 (hello Diamonds !)
+"
+"8b7afeb9b4eb3c8fa9eb942e01df0335e94fe765","2014-01-20 23:34:07+01:00","MPDOutput should implement toString for convinience
+"
+"a2e72135140fd8cd82fa6021f44facd0a13f3510","2014-01-20 23:48:47+01:00","Add outputs fragment
+"
+"07cbbfffe64b602d0051f502cba3cb4daebd1455","2014-01-20 23:59:16+01:00","Add layout previews
+"
+"64335c2ed7c3ee5ae4f44def444824878b828ad1","2014-01-21 00:26:08+01:00","Outputs fragment is now nicely integrated into the library. Welcome back !
+"
+"7a7410555599b4c6eb8188fede0342dad35e66d0","2014-01-21 00:39:14+01:00","Add 'play queue' to the navigation drawer. Fixes #437
+"
+"642e4c0fce0bbb9149dc02d095967e4c91bd411b","2014-01-21 00:43:37+01:00","Fix license spacing issue
+"
+"3f40045bba9797c752b557f0b0fe65d43c31d299","2014-01-21 01:03:09+01:00","Move padding to the card itself
+"
+"121e37fc64a47dcf96e6319c2ec077fc54d6d577","2014-01-21 01:11:14+01:00","Android XML settings for arrangement
+"
+"5b54c1a5abef27062d068ec68e21a2a299613f6b","2014-01-21 01:20:24+01:00","New about header
+"
+"61174c80d53206458e6a0b84d536af0c4512f1c1","2014-01-21 01:41:46+01:00","Update readme
+"
+"d2028649e999e00e6d0d08426ab79d32e4048cfd","2014-01-21 01:59:36+01:00","About window overhaul
+"
+"73ae07103079653b747c33e3a75d0a3ebfce6798","2014-01-21 02:01:18+01:00","Remove unnecessary (and ugly) padding
+"
+"d8e0c1781946597c477c7aaa6948ef9eaae2e759","2014-01-03 00:19:11+01:00","initial lockscreen / notification controls implementation
+need to fix:
+- initial hook when the app is first started
+- fix play/pause from lockscreen
+- add controls and customize the notification
+- test, and fix bugs
+"
+"f2d33cdebb4682d0c9ca7cc850166ebd40e46c06","2014-01-03 19:40:04+01:00","now hooks up when the app is first started
+"
+"52af11acb71eee264a4d760b66aa983eeacacd23","2014-01-08 22:47:09+01:00","fixed play/pause icon in notification
+"
+"4289d808628029c527626e6334cee567beedeb4e","2014-01-08 23:26:47+01:00","code cleanup & fixed remote client update
+"
+"6eb6d24058e002678a84af444aeab920bcdf60db","2014-01-09 00:36:22+01:00","fixed some stuff with notification and remote control
+added album/track cover to notification and remote control client
+"
+"0dec03ebc50e08a7ad9878598cc776a53c634d74","2014-01-09 02:01:17+01:00","added expandable notification
+"
+"dba088cef03921bc219c753b1af31368198ade7e","2014-01-09 12:55:12+01:00","Backwards compatibility down to API level 14. Not tested.
+"
+"9a55802622337c3f4fc20bbd6ea97affadf2d493","2014-01-09 14:17:29+01:00","Remove useless files
+"
+"dd22aca32de432a43bca59f307d2ae3411a43afd","2014-01-09 14:52:24+01:00","Reindent layouts
+"
+"bb384837e25f17d235325cc31cd7355307b05aff","2014-01-09 14:58:59+01:00","Center the small notification
+"
+"bcf475c780899ee5aa1646acaf758cf873e970f7","2014-01-09 16:00:36+01:00","Much better big notification
+"
+"65f65e1acdbb78cd29f6542992d014f2b543e8c9","2014-01-09 19:07:46+01:00","Removed annoying toasts
+"
+"e4f4df19c3b772998ac1b05f3ffb8d1fca3c5801","2014-01-20 12:26:42-08:00","Notification: Sync the headers with the rest of the project headers.
+"
+"f3f9c109b8603a9faa57f57ac2a5598b0ce6de8e","2014-01-21 14:02:36+01:00","X button should close the notification and not stop MPD
+"
+"910e3e89c594f07f425b8ec4f2527eea29a4d2c9","2014-01-21 14:22:45+01:00","MusicService locks the connection as long as it is running. Will be configurable later
+"
+"0f425b6f3c013609c713cfa4ff54d27ff6739310","2014-01-21 14:33:14+01:00","Previous button should go to previous song, not rewind :)
+
+We should do a previous if < 5sec, rewind otherwise but I'm just restoring the old MPDroid behaviour
+"
+"a77d142a72056f99c38b6542e8d610de029fe807","2014-01-21 14:51:46+01:00","Revert changes to NowPlayingFragment (it should stay independent of the service)
+"
+"17d2dd89749db35265f6913017af621830a84ebc","2014-01-24 12:18:50+01:00","Idea stuff
+"
+"69559071b2b23c0dcd1a6843734845b36d38eaf1","2014-01-24 12:19:26+01:00","Remove unneeded mainmenu entries
+"
+"f4cd86a023a3add1ccce1a58e34d1e9aa8c42e7e","2014-01-24 12:20:48+01:00","Rename MusicService to NotificationService, better fitting its future role.
+"
+"0d7abf86400be66ff688a0145548e7da08c507bc","2014-01-24 12:35:39+01:00","The notification can now be manually started so we can work on it. Don't forget to close it or MPDroid will lock the connection to your MPD server !
+"
+"a091478c20d610d1adc9798e651b79b52babbb14","2014-01-24 12:50:57+01:00","Notification now listens to MPD song changes.
+"
+"b6d7079da7a9ecb56a1af0b6ab2d72c506264ebc","2014-01-24 12:51:44+01:00","Reindent NotificationService using project rules
+"
+"11c9a138ec8a7a7dd06cb3688e71525ffb57e2d4","2014-01-24 18:25:02+01:00","Fix audio focus never requested, resulting in nothing shown on the lock screen
+"
+"b602aa80043fcf2d1dcde7ac0f07bb64aec63601","2014-01-25 02:25:06+01:00","Add useful cover art debug info
+"
+"771920ed8e0fcff4bd55029c82d3b57291bd73a3","2014-01-25 02:27:23+01:00","Reject cover art if the size requested is bigger than the one we've got. Might want to change the check to '!=' for saving up memory.
+Fixes #338
+"
+"b3529493dcf29286062a041e258d1cb177b41372","2014-01-25 02:38:01+01:00","Pressing back anywhere else than on Now Playing brings back to now playing
+"
+"173c6f1acb1a713978659347b54779c6ae4759fe","2014-01-25 02:40:05+01:00","Fix mode setting bug
+"
+"da9ed61a2cc9b31fa727a4be66ae9be6f9706205","2014-01-25 18:20:58+01:00","MPDroid now supports tasker. Support is a little bugged for the time being, but it doesn't work that time.
+
+Lots of room for improvement in the connection handling
+"
+"879f47b9a787eb15cfedfcdec35da71c2d7dbd2e","2014-01-29 11:54:06+01:00","Remove JmDNS. The 4.1+ API integrated into Android will be used.
+"
+"c078ee885e42f064e0efdcaddcdc3b09a73957e3","2014-01-29 12:13:35+01:00","Clarify the sorting methods and fix #451 (songs were ordered by year, which shouldn't be the case)
+"
+"65ea4d7fe159bd05c360b10ebac74c7c3cbf4709","2014-01-29 12:15:22+01:00","I don't see why we should order by time
+"
+"b31128b3d21d41caa8700a030079a7df13460c0b","2014-01-29 12:17:00+01:00","Skip to next comparaison method if one of the compared items has an undefined track/disc field
+"
+"30debd6b0b5efc006ce0374792f31c8d2718d2ef","2014-01-29 13:17:24+01:00","Fix FS parsing and fix #436
+"
+"1b8dd0f1c4d5110c3521d10899c59b82370d8f47","2014-01-29 13:18:33+01:00","Fix #442 (incorrect root directory detection)
+"
+"0b72e81db1a40bd84801d5b8ce79568a82b44f55","2014-01-29 13:24:57+01:00","Fix crash caused by #442 fix
+"
+"33f7308cd44bca0cd6132b2990e121b93abfb8fa","2014-01-29 18:56:33+01:00","Really fix #442 (forgot to stage a Hunk)
+"
+"140f0d32fac12e93808b3af5435dfe14c8400bad","2014-02-02 00:41:31+01:00","Fix filesystem lines parsing. Should fix #455
+"
+"d56eb0fa0dffc2bcdf02588bb03d1194fd26e3bb","2014-02-05 15:29:32+01:00","Offer list of existing playlists when saving
+
+Fixes #454
+"
+"b55086583895aab0ca1d0c2cf44b5a029a41c013","2014-02-06 10:30:58+01:00","Merge pull request #457 from hurzl/playlists
+
+Offer list of existing playlists when saving
+"
+"99ce734a0ce2ce9df39168103831e60b4e8d1339","2014-02-09 23:18:33+01:00","Bump android tools version. Needs Gradle 1.10
+"
+"6774b81c8821ba0b669be7184e83612545b9e65c","2014-02-09 23:29:56+01:00","Android studio update
+"
+"8d8ea311676e3f68e0dd52888f9f7e6480df9d3d","2014-02-09 23:39:54+01:00","Make 'Library tabs settings' use DragSortListView and not the old TouchInterceptor. Fixes #460
+"
+"7b530f671233f6653e809bce4bd56c441d43590a","2014-02-10 00:37:23+01:00","Add reset button to library tab settings
+"
+"633d2af9feae0a09b83fa4ac15aac8e9469e69e2","2014-02-10 00:58:43+01:00","Remove TouchInterceptor. yay !
+"
+"e0944e60e3778868eac10dc026b177e55edafb2c","2014-02-10 01:03:11+01:00","Fix travis
+"
+"f76d7ce752eced577ac80a263d2e96f7ef4c0e34","2014-02-25 21:47:27+01:00","Added alternative spanish translation. Don't know if it is better though.
+"
+"515651aa4cb064cae86a0b61751e36a89c632820","2014-02-25 23:02:13+01:00","Add simple mode
+"
+"766157bbe881d1b87335887da0d946ffdcd7d676","2014-02-25 23:03:13+01:00","Update french translation
+"
+"4a318158ac4859dd78801bc23edb16d68a486f87","2014-02-25 23:42:39+01:00","Fix simple mode problems
+"
+"8b5ddb5458b2a35df3742b9cd8ba8c373fd40833","2014-02-27 10:53:32+01:00","Disable cache by default.
+"
+"7cd5be92213f55f82ee0842e3dc96efe5c2cc436","2014-02-27 10:54:13+01:00","Update korean translation
+"
+"a78bd250c8a6122f0c5c35e939a4115c6b84d898","2014-02-27 10:54:53+01:00","1.07 Beta 2 release
+"

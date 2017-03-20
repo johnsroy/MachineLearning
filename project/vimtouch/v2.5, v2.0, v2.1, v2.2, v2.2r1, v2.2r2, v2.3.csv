@@ -1,0 +1,352 @@
+"commit id","commit date","commit message"
+"1269dddac15ec5c9cb02c6528b429d24a477fc14","2012-10-21 20:38:48+03:00","Escape spaces in filename
+
+Fixes issue https://github.com/momodalo/vimtouch/issues/22
+"
+"4f4cddacac4a5afe141262b6f350225ff997dba2","2012-10-21 20:41:30+03:00","More power for ./run
+"
+"332cbcede2e44f72fdb4066ca9416b24ef16fe77","2012-10-21 20:42:19+03:00","Cleanup: move variable closer to usage
+"
+"bd5d2115086dad710cb5124d533b1e02d4c40538","2012-10-21 20:47:00+03:00","Cleanup: remove dead variable
+"
+"d1e93ff061a0346c90839d24036aae29d8565203","2012-10-21 20:52:30+03:00","Add convenience macro for array length
+"
+"6e48fa296c4df39add9705a4d3de02cb0d29bcca","2012-10-22 14:25:20-07:00","Merge pull request #25 from rtfb/master
+
+Fixed one reported issue, plus some cleanup
+"
+"9d9ede0bda2c695eb78a9adede4c1870a8439733","2012-10-31 15:52:52+02:00","Call native build from ant debug target
+
+Turns out it's quite easy to hook into ant build process, so let's do
+it.
+"
+"c54dd1e00709495aa94b7783e9a8016cb3723701","2012-10-31 15:59:43+02:00","Automatically generate signatures for JNI functions
+
+Before building native code, call javap to get the signatures of the
+functions declared as native in Java code. This allows us having the
+simplest possible declaration of native functions.
+
+Unfortunately, that involves a little bit of awk magic. The first call
+to awk filters out the pairs of lines for each native function
+declaration. The second one transforms those lines into a C variable
+declaration, of the form
+
+char const* jni_signature_functionName =
+'<the JNI signarure>';
+"
+"eeea9781438576a7f75c8df7ecea372c790e3cd8","2012-10-31 16:08:15+02:00","Cleanup: remove unused imports
+"
+"c4c3e9a552cf6a921a823802601902a37cc0c83a","2012-11-01 09:45:04-07:00","Merge pull request #27 from rtfb/master
+
+Automatically generate JNI function signatures
+"
+"cea4ec1027ffc4c2400b5bced8cb7eb96cb5224c","2012-11-01 20:19:50+02:00","Fix stupid build breakage
+"
+"b9803172e67b435d583ef6518394da4fbb07634d","2012-11-01 20:21:13+02:00","run script: extract package name into a variable
+"
+"66ca8df86ecf4e7bce26ea188c3a3a75dd69afd9","2012-11-01 20:24:12+02:00","Style cleanup
+
+Fix some random style issues and move variable declaration close to use.
+"
+"c373f302b6a0a84c771f460ab0c8f5884a03ee5a","2012-11-01 20:25:31+02:00","Fix string overrun in copy-to-clipboard
+
+Check return value and set the terminating zero when copying the string
+to clipboard.
+"
+"dd9a06888dfe579f62660c8f705fcff8cb68559b","2012-11-01 20:28:42+02:00","Rewrite loop in getClipText()
+
+Make sure the method won't return a null value in case it gets reset
+between calls to vimtouch.getClipText(). Also, don't mute exceptions.
+"
+"d8904a2294ecdb183f24c53984cf2f0f15310696","2012-11-01 20:31:14+02:00","Remove dead code that used to be context menu
+
+Fixes issue #28.
+"
+"0502c6e4aa9d548626b80fc477432aa4305f47dc","2012-11-01 20:32:57+02:00","A little cleaner script
+
+I found it useful when running git bisect.
+"
+"5e29d6eae92ac3b24d845b1ef0866d67b477fa1c","2012-11-11 11:30:35-08:00","Merge pull request #29 from rtfb/master
+
+Several fixes
+"
+"1fc166f6b996a295e1b542f6e82cf407b9b54aeb","2012-11-22 20:01:41+08:00","GPL
+"
+"517c4a991d4e04b53cc835d903df7c7ab231aa85","2012-11-27 17:06:15+02:00","Fix another build breakage
+
+I should be more careful...
+"
+"f8af1637b11b056d617d530b3833e8c6607cc37a","2012-11-27 17:07:42+02:00","Remove unused string resources
+"
+"928521bbcccb4cb139b0d62990112d9eed5464bc","2012-11-27 17:08:36+02:00","Remove unused string-array resources
+"
+"e6500696a09ace402a1274e328240bba136598e7","2012-11-27 17:08:56+02:00","Change '...' to ellipsis character
+"
+"718365eaeeea72c65b0efbc450db7a85df8305f4","2012-11-27 17:09:42+02:00","Remove unused drawable resources
+"
+"cc8c0b675fa43d3563fcf668439b230053d9fc3b","2012-11-27 19:22:03+02:00","Remove unused imports
+"
+"a268fe3bbf6f23177ad8c6adc175128dce8e0d5b","2012-11-27 19:28:13+02:00","Don't hardcode '/sdcard' path
+"
+"27943c19c0e13bc856f38d6721e18aa3de2d2da6","2012-11-27 19:30:07+02:00","Move uses-sdk element to beginning of manifest
+
+Lint suggests to do that. The rationale seems to be some hard to track
+bugs that can be caused by late inclusion of this element.
+"
+"9003418e9db66a20631719608777e2cd84b47f97","2012-11-27 19:32:17+02:00","Explicitly declare allowBackup=true
+
+Lint suggests to do that, and the default is true.
+"
+"b7f9c0d1ee9935f2f85dd648256e210e134b1f8d","2012-11-27 19:33:29+02:00","Remove excessive LinearLayout
+"
+"e4da8350aebeded4621bdfa692a501a4347877b4","2012-11-27 20:04:37+02:00","Make message handlers static inner classes
+
+Lint suggested this could avoid leaked objects in certain cases.
+
+If the handler class is not static, it will have a reference to the
+outer object (usually Activity), and the messages will have a reference
+to a target handler. So in a rare case of message getting stalled in the
+queue for a long time, GC will be unable to collect the heavy-weight
+objects.
+
+Explanation and solutions here:
+http://stackoverflow.com/questions/11407943/this-handler-class-should-be-static-or-leaks-might-occur-incominghandler
+http://groups.google.com/group/android-developers/msg/959f98f16a038694?pli=1
+"
+"2db7ef869724b059201049769e7bfa81f0830135","2012-11-28 09:23:41+02:00","Add grayscale images for notification
+
+Lint insists that notifications should not use colors.
+"
+"f3381f805d27b7db7e4859487cf504c43f18bb62","2012-11-28 10:02:12+02:00","Bump target SDK version
+
+Update your installed SDK version:
+$ <sdk>/tools/android update sdk --no-ui --filter android-17
+"
+"09a0ea246a22212bec69d5eaa6a2229851a7ab54","2012-11-28 10:08:26+02:00","Fix up ActionBar action buttons
+
+Lint insists that showAsAction=always is bad idea, and it seems
+reasonable. So I changed it to ifRoom and reordered to maintain the old
+behavior. The only difference on 10' emulator is that there's no room
+for Save button, which seems acceptable.
+"
+"0d042f5e5695156ea853f35a8e795c3f0fb732e8","2012-12-01 01:00:43-08:00","Merge pull request #32 from rtfb/master
+
+Fix build break + fix most of Lint warnings
+"
+"7ac6b59c669f269b67f8e1c7369063c6fc944be9","2012-10-28 22:58:53+08:00","check the inert mode correctly
+"
+"11cd3e356c92761dc5487ddcdf84d03236e1d7ab","2012-10-29 04:34:34-07:00","Use magnitude view to replace zoom view
+"
+"1fba9d695d202f980b3415862c670250e9822138","2012-12-06 08:47:31+02:00","Add null checks when handling WeakReferences
+"
+"34a256a1e04728590cba20b443bb496e0225869c","2012-12-09 06:12:22-08:00","Merge pull request #34 from rtfb/master
+
+A little fix to my last push
+"
+"fcaa865e5b51063a0e6db87c2460ecd49d94ee0c","2012-12-31 04:41:03+08:00","implement movecursor to replace mousedown+mouseup
+"
+"5e32cb3abcd9b9b2cb095219f36aedec8928f6a7","2013-01-02 23:07:34+08:00","Finish runtime installation apk implementaion
+"
+"3f946cd3783e8f0a1dcd7689b79b96daf7f6c339","2013-01-02 23:22:40+08:00","The first time should install runtime apk
+the default runtime should be ignored if there are any
+"
+"d6e10776fe07b9e4024f59ab4dd06a8ede83d8a0","2013-01-03 18:54:51+08:00","add PluginFactory
+"
+"2589bde4a9c4ed0223fb21f94d10129730f9680f","2013-01-03 22:55:59+08:00","Use market://search to replace extra downloads
+"
+"5a721fb3955e47a66a18fe2c0eca967c771e364d","2013-01-04 00:00:04+08:00","add install plugin
+"
+"3f303753780d76fcda97bf6ab291943c88d1ec39","2013-01-04 00:47:55+08:00","Add install list for future to uninstall
+"
+"4b345f19f1332b1279c9dab06f51f07d0e8e3ec3","2013-01-04 01:37:10+08:00","Change installing information
+"
+"cef64158fe3e42306963bec8cfee0efc09db0c48","2013-01-04 02:08:39+08:00","Move all installation to installprogress
+Avoid switching between vimtouch and installprogress too much
+"
+"71fb0afaaf9284f56105b76f6183e5606f477c07","2013-01-20 22:52:42+08:00","comment out default runtime version check
+"
+"a068e4356a9621a5db1f52f316c90414c5caf5b5","2013-01-20 23:21:46+08:00","chdir to the directory of openned file
+"
+"fb43692429ed5a6ab2f2d96031482f5ae0d40497","2013-02-14 23:23:06+08:00","import latest Android-Terminal-Emulator project
+
+commit 7f63721b82f4e3d8f3b6282d441282a68266a0a1
+just remove docs
+"
+"cfe6f31a8ca59354864176136672d77c7d6c0dba","2013-02-14 23:23:33+08:00","Changes to use latest emulatorview
+
+1. move getCharacterWidth and Height to TermView by using
+reflection.
+2. update settings according to new emulatorview
+"
+"32a9dd3085eab8dfe3f243b4b1a7cf6a68785a96","2013-02-14 23:38:13+08:00","add term type preference for 256 colors
+"
+"2f976e094806800809ed0a396dd455448cef7a1c","2013-02-14 23:43:55+08:00","v2.0
+"
+"091e4544755ecb9062c1c05de9753e20f6c1ead1","2013-02-15 21:40:30+08:00","remove INTERNET permission
+"
+"2ccaeacc3a9cc826022ae9803a8c9b5f01e75a9b","2013-02-15 21:54:52+08:00","Fix scrolling doesn't follow finger
+"
+"586f9e8f3457741966e8f1f4f868f755a11253fd","2013-02-17 00:35:15+08:00","add vim tab as android spinner
+"
+"6391a0ccdb3f2eda8b96cf9b4d38266ae2c5f2c1","2013-02-17 00:39:26+08:00","send ESC before quick key ':' in insert mode
+"
+"866572aec47cd897e96bb860f69dfca00b045f29","2013-02-17 21:59:31+08:00","add TYPE_TEXT_FLAG_AUTO_COMPLETE for swiftkey
+"
+"d8d4e03120036661d6f826c39fd8d67769d9334a","2013-02-17 23:24:14+08:00","refine menu and save quickkey/fullscreen state
+"
+"137cf4a1069a61dd5114b046f90f2f02e04e9c62","2013-02-18 00:50:00+08:00","use tabnew by default and add :new and :vnew opts
+"
+"852585b677930491532dca7133d3591b904e014b","2013-02-18 01:08:32+08:00","open '.' instead of '/sdcard/'
+"
+"bfcee2030d2076304b327e55a18bab24383c69fd","2013-02-20 20:52:32+08:00","Use getcwd to replace '.' in the path
+"
+"75f34b10c95a3c81dacb718423365bf605fdccd7","2013-02-27 23:20:25+08:00","v2.1
+"
+"ad0bfeb735ac218f4f348f8c0acb22d0fa8ed532","2013-02-28 23:57:53+08:00","implement gui_mch_show_tabline to show tab spin
+"
+"0cdd93d0fb35e01743970a1a2995512cd9c0ce12","2013-03-01 23:13:02+08:00","Fix #41: move tab spin to actionbar
+"
+"03582b424ea3520a6b63c7497ecc4cae7ba33090","2013-03-08 23:46:03+08:00","use actionbar button style for quick bar button
+"
+"ef962301de32e5859f69c05c2198f6eb72e7d4e1","2013-03-08 23:47:09+08:00","add getCmdHistory
+"
+"1cb5e967197b23bb6865a8cacbc533378bf0f306","2013-03-10 08:24:29+08:00","long press to show cmd history
+"
+"801d10d0bf06b6f3ce7545595719932638aa66e1","2013-03-11 07:29:36+08:00","move showCmdHistory to VimTouch.java
+"
+"721c6ef8bbba5f09a2295efc703305c670959f8e","2013-03-11 07:32:30+08:00","change default quick bar pos to bottom
+"
+"8cac34a362821998931bb5a4512447fb369d2422","2013-03-11 07:58:04+08:00","Fix #43: add VimTermService to keep alive
+"
+"960067c24f09dfce5f5e7b2353e4140dfcb9298c","2013-03-11 18:57:31+08:00","New app icon
+"
+"d836087ab160c37b5b514d321eb267bcdbea732b","2013-03-11 22:22:46+08:00","add divider and change new notifcation icon
+"
+"5347603caa14819369de3691fbf4052f6f2ee9d6","2013-03-11 23:16:45+08:00","make api level 9 compatible
+"
+"b8231239b13506f16b025ddf09115dfe19b3f6ff","2013-03-11 23:26:13+08:00","add recently screenshots
+"
+"ca7b53601c241f9a6efd145eec31a835ce2e65bc","2013-03-11 23:34:43+08:00","fix api level 9 crash in showCmdHistory
+"
+"c7c9ad94bd2e61f5add749f07ddf42ac65077d2b","2013-03-11 23:37:06+08:00","v2.2
+"
+"2b2463d25cfd30fed2ed24aef9063848fc1c23ca","2013-03-11 23:53:42+08:00","change notificatoin icon to 24x24
+"
+"31492865e0db2430904e6d0978e95c3d32e2c9d9","2013-03-11 23:53:57+08:00","v2.2r1
+"
+"905f6a23192b87cfa14cca8213121a4a4cb13f13","2013-03-11 23:56:37+08:00","v2.2r1
+"
+"04efd2fbeab6dc62090060060442887fa969c3ae","2013-03-12 10:13:08+08:00","Fix vim notificaiton still exists after :q! all
+"
+"1256c72662cc044021d4c452672111217e74b0eb","2013-03-12 10:15:16+08:00","v2.2r2
+"
+"67a4348b10045f7159ed97bcdbe01621e5d7770d","2013-03-16 21:08:49+08:00","roll back to Android-Terminal-View v1.0.51
+
+in the v1.0.52 has new cursor mode implementation
+but seems cause the cursor has no character.
+
+fixed by just importing v1.0.51
+698f10b082defa7de82eec95b8e78bad76d4696d
+"
+"7834c006a2f8296cf2bb3ee08512b5e81928017d","2013-03-16 22:38:45+08:00","use gj gk to scroll screen
+"
+"2b4a98bd61e72925a961106caef0ed1236900d1d","2013-03-13 23:47:08+08:00","import aFileChooser
+"
+"204a9b2f71dbe332bba521b4c6055741b9b0d190","2013-03-17 23:39:48+08:00","use aFileChooser to choose file
+"
+"2dfc5fffa9f155eac0dec2484b4edc38cef1ef6e","2013-03-17 23:45:31+08:00","remove lib FileExplorer(replaced by aFileChooser)
+"
+"cdc54afe8588f13ea9b3218397e21084f75912c3","2013-03-19 23:28:58+08:00","v2.3
+"
+"9e65f61ec081144da23ae8d593d7dee546b006e7","2013-03-20 14:16:35+08:00","import SlidingMenu library
+
+commit ba63620417868154ba619d81fd07ef27661bed98
+"
+"f2cd19298779a6468f06aca73885e639431ba59f","2013-04-22 08:54:07+08:00","add FileChoosedListner in the aFileChooser library
+"
+"cebdf5976d3890f76975fc56b94009243b944eac","2013-04-22 13:13:18+08:00","Add SlidingMenu as File chooser
+"
+"2a083e8d0a045409da5a89a7f4fd7aacea97079c","2013-04-22 14:23:06+08:00","change to light theme
+"
+"a0d4643e7e00579d0cba9fa67c519d021d900792","2013-04-22 14:49:29+08:00","fixed sliding close missing vim tab
+"
+"b88a634ec2d0f5977f8c2ce1cb3e754f35080da7","2013-04-22 15:09:18+08:00","rename methods in Exec and VimTouch
+"
+"cfd7257bdeac46562628d02a7e56d1907194c1f6","2013-04-22 16:50:56+08:00","use sliding file chooser for menu options
+"
+"951fa47cdbbddd955aae946202b006069ab6b4f4","2013-04-22 16:58:27+08:00","hide tab correct after sliding menu closed
+"
+"d814a0adb1f1eab6afb6d71004b5341e799fe1ae","2013-04-22 20:21:38+08:00","add Sliding menu save option
+"
+"4936fc17a62e4d8cf63b17ced2ed98f52c0520fc","2013-04-22 22:55:14+08:00","Fix #53 zoom view might cut edge word
+"
+"5739d4f2067069d8410c6db2205337f9ebbe065f","2013-04-22 22:59:40+08:00","chdir HOME by default
+"
+"d3eed697b9e21fad665d094748dc187ce1511da8","2013-04-22 23:35:18+08:00","Fixed #51 Unable to scroll vertical quickbar
+"
+"9754c34a2d6784e249ffd44d8155fc2da26f15e8","2013-04-22 23:49:48+08:00","Fixed #49 add font size preference to 288 pt
+"
+"06f48ed7f1099bd579306e7505afd341216755dd","2013-04-23 21:49:55+08:00","add back zoom command line
+"
+"9b4c462bfc14ad92a85d2ede8950438c3a49cb0a","2013-04-23 22:22:30+08:00","Change InstallProgress activity theme to holo.light.Dialog
+"
+"654b964064fc863949c133095acaa90db681a059","2013-04-24 11:18:04+08:00","add Backup/Restore vim files
+"
+"e01299f8586238094594db9ba3cd36261ff6a042","2013-04-24 16:54:06+08:00","add setFileChoosedListener
+"
+"991a1cfc8534636f66c9ab555761d8fce6dc8a28","2013-04-24 16:54:28+08:00","add FileListMenu to handle FileListFragment
+"
+"41b27b1e8674ca95cb535e172077eca105ae472a","2013-04-24 21:00:16+08:00","add new screenshots
+"
+"6cc648546fb243eb7ac7a8be461da5b1b2c4e34c","2013-04-24 21:02:29+08:00","Change new screenshots
+"
+"93af708d8416c0572d322dba67e6fe63b56249f9","2013-04-24 21:05:01+08:00","change name to VimTouch
+"
+"61c9a3f81ba1233b879790bb9214af596379ad1f","2013-04-24 21:27:57+08:00","disable actionbar title
+"
+"6f12a962eeba1800e172ae7e4d22d77fbb3a41e6","2013-04-25 04:29:47+08:00","Fixed the Vim welcome message
+"
+"74c6eef32d2912db43a1e8ec029274ad57815789","2013-04-25 04:51:36+08:00","add VimTouch information in the :intro
+"
+"973d8a94ab7ed65303b249243c199adfca940562","2013-04-25 04:53:46+08:00","add new screenshot
+"
+"e1dda0af9770c13a46809506dedb95367597f97e","2013-04-25 04:58:26+08:00","Update README.md
+"
+"e6778a07b927e6437cfe8285befeaece0178d361","2013-04-25 09:03:39+08:00","Fixed FileListMenu action bar tab issues
+"
+"977f0b10d05ad0400f86af0cf1badca242714f88","2013-04-25 09:22:48+08:00","cd directory in the file list menu
+"
+"6034053d79befd9ef95e38ccf29a30cd19c81d1f","2013-04-25 09:30:32+08:00","reload directory onOpen Sliding Menu
+"
+"26b36556ed0372d1ab2b27c8411f3fc5ee7be301","2013-04-25 09:37:56+08:00","Revert 'use gj gk to scroll screen'
+
+This reverts commit 7834c006a2f8296cf2bb3ee08512b5e81928017d.
+"
+"ffdbff0bc82a6dd1cd616808d3f0bddb3e70aaa8","2013-04-25 20:16:00+08:00","add ant build targets for x86
+
+ant config = config the env for armeabi build
+ant config-x86 = config the env for x86 build
+ant x86-release = ant release for x86
+"
+"0af7199d0653803bdc1f6d71d16252b2e0150f80","2013-04-26 20:39:24+08:00","Fixed scroll 2 lines instead one
+"
+"c338434caf752d6592a73976d3217ec40c83531d","2013-04-26 22:24:58+08:00","Force leave fullscreen when toggle soft keyboard
+
+softkeyboard can't resize window when fullscreen. So it's a workaround to disable fullscreen when toggle soft keyboard.
+"
+"09a51ae58073fb268993ffe545ff6776cae7d4c0","2013-01-21 12:37:35-08:00","Implement Combining Accents (dead keys) for physicial keyboards.
+
+Also known as 'Dead Keys'.
+
+Example:
+
+In preferences set 'Default to UTF-8'.
+Attach a hardware bluetooth keyboard.
+Type Right-Alt-`
+At this point you'll see a ` character in the cursor.
+Type e
+At this point you will see è appear. (If not, check that the
+Default to UTF-8 preference is set correctly.)
+
+Hat tip to the ConnectBot TermKeyListener.java source code.
+"

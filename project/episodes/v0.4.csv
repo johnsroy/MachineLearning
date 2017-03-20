@@ -1,0 +1,90 @@
+"commit id","commit date","commit message"
+"137d3ead6e2fe2bd116cfbb1e1214e11a7257a82","2013-08-29 23:34:52+01:00","db: add pinned column to shows table
+
+bump database version to 2.
+make sure old databases are upgraded correctly.
+"
+"033bef29b3884ec462681e615c424001a85d9b51","2013-08-30 12:54:01+01:00","ui: add action bar button to toggle if a show is pinned
+
+currently uses a star icon as they are provided in the action bar
+icon pack. would prefer in the future to use something like the pin
+icons in the google play music app.
+"
+"57d3a3bce9ae007ec832eeddb321781424d14b8c","2013-08-30 13:03:07+01:00","ui: sort pinned shows above others
+
+fixes #7. would still be better to have a pin icon instead of star,
+and to display the list of episodes in 'pinned' and 'others' categories
+"
+"ae498bc918d9fc4d6fff09f23ff8892211901007","2013-08-30 13:16:04+01:00","replace menu icons with ones from android asset studio
+
+removes ldpi, not needed any more. adds xxhdpi.
+these are the correct colours for dark action bar, the old ones weren't
+"
+"dc767dfbc527d6eb113ea42f9af643937fac3b66","2013-08-30 13:39:09+01:00","change add show menu item labels
+"
+"136df77d8f63ad1b92eeb285d4be9be36e265a5b","2013-08-30 16:54:23+01:00","rename pinned shows to starred shows in database and UI
+
+Was concerned about 'starring' shows as favourites, because this is
+for shows to be sorted first because they are currently being watched,
+not because they are all-time favourites. But the word pinned isn't
+clear either, and we have star icons available. The word star should be
+fine as long as the word favourite isn't also used.
+
+Version 1 databases and new databases will be upgraded or created
+properly. Databases which had a pinned column already will break.
+"
+"7529e7c1b5c0302ff1ae80f179a8dcc68257702c","2013-09-05 22:39:23+01:00","ui: remove alphabet indexer in shows list
+
+it doesn't work now that starred shows are sorted above unstarred.
+a custom indexer could probably be implemented sometime in the future,
+but for now better just to not have one.
+"
+"d6d60e778a6a6c04e3f8deb0def765379fb15cf8","2013-09-06 20:45:16+01:00","show starred and unstarred show section headers
+
+in the list of shows, have section headers to seperate the starred and
+unstarred shows. Makes it obvious why shows being starred are sorted
+above unstarred before sorting alphabetically, otherwise that might
+be confusing. Only show the headers if there are both starred and
+unstarred shows.
+"
+"351445c93cf7b746a6f702dfde4585fd886d23ad","2013-09-06 21:42:32+01:00","ui: move refresh all shows to overflow menu
+"
+"eccc210dba6341bf4240a3dc49e3bc2025b946fc","2013-09-13 00:06:53+01:00","clean up how cursor loads are handled
+
+share onLoadFinished with onLoaderReset where it makes sense.
+don't swap cursors or refresh views which don't need swapped or
+refreshed.
+"
+"c8bdd190103ce066b2d115debd086d74fd9cb562","2013-09-13 00:31:11+01:00","ui: reset cursor position before counting shows
+
+when determining the position of the section headers in the list of
+shows. fixes #11
+"
+"a3953218578bc1f4f780d61f4f8e683777c69730","2013-09-13 00:36:55+01:00","use View.GONE instead of View.INVISIBLE
+"
+"34d37ba77622d7230cc9288df7d7e519b8312266","2013-09-13 02:03:59+01:00","replace ActionBarSherlock with ActionBarCompat
+
+ActionBarCompat from the support library v7. Fixes #10.
+Bump build and target sdk version to 18 and include newest support
+libraries.
+
+Min sdk version should be able to be lowered to 7. But the shows list
+item and seasons list item layouts aren't working, so keep at 8.
+
+On old API versions the activity title can't be set properly. This
+will be fixed in a later release of the compatibility libraries:
+https://code.google.com/p/android/issues/detail?id=58982
+"
+"63f944ebeabfe0406be23870f14d4fb7aca232ad","2013-09-13 23:29:48+01:00","ui: page horizontally through episodes
+
+in EpisodeActivity. ViewPager with an EpisodeDetailsFragment
+for each episode in the season.
+"
+"efd586180a9f3ec84e98cfd1a9b3bbc0d8d06493","2013-09-13 23:43:27+01:00","ui: ensure episode activity title is set
+
+even if the initial episode is the first in the season.
+this didn't happen before because ViewPager.setCurrentItem()
+wont trigger onPageSelected() if the page doesn't change.
+"
+"d609d98008f26ff6c5da1bc4a8c69b3ae2b4d767","2013-10-21 19:10:48+01:00","bump version to 0.4
+"

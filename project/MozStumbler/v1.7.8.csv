@@ -1,0 +1,110 @@
+"commit id","commit date","commit message"
+"e5a70363b87d0aa81c307e98700f75c0ef971761","2015-03-11 16:48:05-04:00","* First patch to reduce dependency on StumblerService::isStopped() by making it private.
+* This adds 3 new intents to the ScanManager that are broadcast when the state changes to start, stop or paused.
+* Those 3 intents are listened to by the MainApp now to keep track of the service state removing a dependency to service.isStopped()
+"
+"ec1a54cc43151fd1979b61287bf966e0834815bd","2015-03-11 22:41:20-04:00","reworked ScannerState to reuse it as an intent
+"
+"f9c77e06ab8eb207915ad359c8f1260de3cd656a","2015-03-11 23:21:29-04:00","added Log.e(String, String)
+"
+"01168c23e82ddf38a8a180fe441c38a0225b1bf9","2015-03-11 23:20:59-04:00","Reworked start/stop scanning calls to use intent messaging instead of
+a direct method call.
+"
+"7f9fa07048647cd81cf0f9defa14cf49ee2e6819","2015-03-12 10:49:20-04:00","Adds a null guard check in case the notification manager comes back as null.
+"
+"4db0512912e978a34669fe6f4f1c53c96ad89085","2015-03-12 21:59:50-04:00","* Changed access level of StumblerService getters to private to enforce message passing
+* Newly private methods: getObservationCount, getUniqueAPCount, getUniqueCellCount, getVisibleAPCount, getVisibleCellCount
+* Acquiring the counts from other threads now involves a request/response using Intent broadcast through the LocalBroadcastManager
+"
+"698f5e96c394bfee85d2a47d196bf9273713240b","2015-03-12 22:06:12-04:00","Dropped MainApp::getService()
+"
+"f33e6e4652b7ed783c64938e4f5d3c518bce235f","2015-03-13 14:05:33-04:00","Merge pull request #1565 from crankycoder/features/1564-npe-notification-manager
+
+1564 - Fix NPE in NotificationUtil
+"
+"ee3dd9c5c0ce895163d2c2fc16c51e428f9d124f","2015-03-13 15:14:59-04:00","Merge pull request #1559 from cascheberg/fix-passive-scanning
+
+Always use passive scanning in cell and wifi scanners
+"
+"afb83f72e7defd17ce0aa9c21ad08fea8aa27f7d","2015-03-13 15:06:59-04:00","* Removed the bindService call and the associated StumblerService pointer
+* Removed propagation of low memory message from MainApp to the StumblerService
+"
+"80902c7a92d21d3816894a02edea485a8e678775","2015-03-13 15:32:15-04:00","Merge branch 'dev' into feature/private-svc-isstopped
+
+Conflicts:
+android/src/main/java/org/mozilla/mozstumbler/client/util/NotificationUtil.java
+"
+"53bf57d82a529e59db88e7a0ab322ec1ef9a1fb0","2015-03-13 15:36:31-04:00","fix nits
+"
+"57279ef994d4c648018087d5105162a2bafee811","2015-03-13 15:46:47-04:00","Merge pull request #1563 from crankycoder/feature/private-svc-isstopped
+
+Unbind the ClientStumblerService
+"
+"588849d150852efb0d88a375f66520b567332ee2","2015-03-08 21:26:14+01:00","set map gps/cell/wifi info to zero if not scanning actively
+"
+"f6d64f1c93d7c9f35c04171bc95eddcf71a03280","2015-03-16 15:10:44-04:00","backed out afb83f72e7d
+"
+"c25165a628e483b75e242cc406912112a134947a","2015-03-16 15:14:23-04:00","Merge pull request #1548 from cascheberg/fix-observations-display
+
+Set map gps/cell/wifi info to zero if not scanning actively
+"
+"1336d6f31362903e1bcd8004bdd81e36d771e9c0","2015-03-16 15:25:47-04:00","minor typo to enable the OnePlus One on the whitelist of valid
+significant motion sensor phones
+"
+"094927f28a94b3bd77a6f42daced117e86c53681","2015-03-16 15:51:56-04:00","Merge pull request #1572 from crankycoder/backout-unbinding
+
+backed out afb83f72e7d
+"
+"f615432ba93a4650fa9333327985f3bb93c58ce6","2015-03-16 16:53:56-04:00","added null guards when accessing the application pointer
+"
+"9c25ffa7053c13b57eb64bb7227b6ea984ce7ec5","2015-03-17 09:35:50-04:00","Merge pull request #1573 from crankycoder/features/add-oneplus-to-whitelist
+
+enable the OnePlus One on the whitelist of valid significant motion sensor phones
+"
+"a1066db7047b138cc8fbfd6e8fbfeb0de8ae70fc","2015-03-17 10:25:50-04:00","Merge pull request #1576 from crankycoder/features/1575-npe-mapfragment
+
+added null guards when accessing the application pointer
+"
+"c5710545f6db9a61be827b1c5672a8e68fc89765","2015-03-17 15:20:08-04:00","disbles requirement for accelerometers
+"
+"cb0a2c0587d296c805b14992a9645b5894f28eb1","2015-03-20 14:14:32+01:00","immediately update number display
+"
+"203bc9aafc2a440e14204239ae0885229d09bb05","2015-03-20 14:36:18+01:00","update UI when pausing
+"
+"df2d0a7b44ed7ae62cf7ed16dab36c6c6582d4a1","2015-03-20 14:40:28+01:00","debug builds use debug app name in notification
+"
+"fb38b5b094aea443ae7f7eae86d381127b29d9dd","2015-03-23 12:08:50-04:00","Merge pull request #1580 from crankycoder/features/1309-accel-not-required
+
+disbles requirement for accelerometers
+"
+"adeb286af80ca6806d0484d3e0ec5e9803d5f88e","2015-03-20 14:55:09-04:00","Remove conditional location of stumbler files based on
+AppGlobals.isDebug
+"
+"92457be0dcea00e4d676c87c6e050625492c8139","2015-03-23 13:47:56-04:00","Merge pull request #1584 from cascheberg/fix
+
+Minor fixes
+"
+"57a02768c34d3b8879f9ca6faeb87506fb714952","2015-03-23 14:41:24-04:00","Merge pull request #1585 from crankycoder/features/1428-library-release
+
+Remove conditional location of stumbler files
+"
+"154b6e4cfc9160ba0489fd9c0f45c746d5c9315c","2015-03-23 21:42:38+01:00","fix persisted stats metrics
+"
+"4c58ffa40325820c3a07ffa8035089d24fc7cbc2","2015-03-23 18:45:59-04:00","Merge pull request #1587 from cascheberg/fix
+
+Fix persisted stats metrics
+"
+"502c0fb0233ddb651648e72a32bed234a2242118","2015-03-23 20:28:56-04:00","Use requestLocationUpdates options min time and distance to sense motion.
+I think the bug is that the NetworkLocationChangeDetector sets the
+initial location with a GPS location, then compares it to the Network
+location.
+The last time I tried these options was a year ago, and I was not
+getting onLocationChanged when I expected it to (sporadically missing
+sending this event), so I have avoided using them.
+"
+"d33463db3b3be757489fc842137cadf9436e272d","2015-03-24 12:56:55-04:00","Merge pull request #1590 from garvankeeley/1579-net-geo-motion-sensor
+
+Use requestLocationUpdates options min time and distance to sense motion
+"
+"6a492754e5217ef4c8952c06ade9377799493188","2015-03-24 18:49:14+00:00","bumped to 1.7.8
+"

@@ -1,0 +1,45 @@
+"commit id","commit date","commit message"
+"35db495dabd9d31d86c7719dc2a250f1a94dff21","2011-12-26 23:34:23-08:00","Added tag 1.28rc9 for changeset ec24cf334f3a
+"
+"72e4ba191a701b96d307895feacb59a79a448f76","2011-12-30 18:30:06-08:00","add colon and semicolon to sentence separators
+
+This is used for the space<->punctuation swap when selecting one of these punctuation characters after a completion, changing 'test :' to 'test: '.
+"
+"d79ff177a15023313dcbcb18c68123407ffbf9d6","2011-12-30 18:31:56-08:00","Add English alt keys to Russian keyboard
+
+This is a bit of an experiment, if people complain about it cluttering things I'll remove it again. See also issue 92, though that requests a QWERTY keyboard with Cyrillic alternates.
+"
+"7b02a84f425883d0052459b066d84799fad2fb75","2011-12-30 18:37:05-08:00","whitespace fixes
+"
+"b33905f710a03baf60a36e35541b9c548a447d66","2011-12-30 18:59:39-08:00","Major refactoring for shift state handling:
+
+- modify Keyboard.Key to store a shiftLabel separately. It's set explicitly for the full keyboard, and automatically for the legacy 4-row ones.
+
+- get rid of most of the upcasing logic outside of the Key class. Add a getPrimaryChar() method instead of directly referencing codes[0] in odd places.
+
+- remove kbd_full_shift and references to it
+
+- save the input locale in global settings for proper language-dependent case handling. Important for Turkish and its ?iI? oddness.
+
+- fixes to candidates view handling to avoid the dreaded 'already has a parent' errors
+"
+"b55fb4309c382fda537070059c98e99de8c18ad3","2011-12-30 19:03:28-08:00","Add compact 5-row portrait layout intended for phones
+
+This layout is 11 columns across, so the keys are a little bit smaller than the default with 10 columns, and significantly bigger than the full 14-column layout.
+
+Also add a hack to disable the completions based on the 'suggestions in landscape mode' setting. TODO: this should be its own setting, defer fixing this until mode-specific config override is available.
+"
+"22c17faf0e05402c341077e67f0dc562c670f63e","2011-12-30 19:23:27-08:00","Rearrange portrait Fn map
+
+Remove space bar to make room for .com and :-), and add missing Esc and NumL keys.
+"
+"0e2f8991a5103695ff93947217556e3141261c58","2011-12-30 22:16:07-08:00","More candidates view handling cleanups.
+"
+"70caded05ec5a9c690a3fe0390e329bcea815568","2011-12-30 23:03:31-08:00","Hint color tweaks
+"
+"cd8a9c79abc41e4f4a38e221cc38c37dac8131d0","2011-12-30 23:05:07-08:00","Remove key_*_shift from default keymap to encourage auto-upcasing
+
+This changes the ?iI? confusion for Turkish
+"
+"e04a954ff63ca0c7dea19093d950255f0df6058e","2011-12-30 23:05:52-08:00","Tweak hint labels, don't show letters for iw/ru unless 'all hints' is on
+"

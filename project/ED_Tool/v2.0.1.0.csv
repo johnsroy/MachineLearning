@@ -1,0 +1,110 @@
+"commit id","commit date","commit message"
+"b824626e7d459e7288f612926d91a532bb93b495","2015-07-15 16:05:49+01:00","updated readme for v2.0.0 -RC1507 release
+"
+"d82aa9eba4f6f5e00af2a35f3fd32fb9e5c40675","2015-07-16 12:34:14+01:00","added extra connection verification
+
+added an extra message sent from this client to the ED_Tool-server
+(https://github.com/SmokeyMcBong/ED_Tool-server)  after the initial
+connection handshake to tell the server that the connection has been
+made. Then the user can be aware that the server is connected to the
+client.
+"
+"e03a3e4534d95d529d3f2d283e0f84ce514d0af2","2015-07-19 16:46:26+01:00","Changed the way data is received and dealt with
+
+Changed to a numerical assigned system... instead of the client sending
+the full command to the server (ie ' {ESCAPE} ' or ' {BACKSPACE} ' )
+the client now sends the relevant pre-assigned keycode to the server for
+the server to interpret and then the server can send the relevant
+KeyEvent assigned to that particular KeyCode.
+Client now passes the pre-processed sendKey to 'processKeyCode', which
+then matches the SendKey to the relevant KeyCode, It then sends that
+KeyCode to then be sent to the server after processing
+"
+"2c48db40edb2732ee4e33e0da6b899a2d043e1c9","2015-07-19 16:51:50+01:00","updated readme
+"
+"6843be147c44b4a8d40bd07b50ddf6ada1e03c46","2015-07-20 14:39:16+01:00","added 'reset to default' option for each button function
+
+this really should have been add a long time ago, especially considering
+how easy it is to implement, ah well, all done :+1:
+"
+"8ffd4b8108c75cab5177bb2be794a6f5ae63a3bd","2015-07-21 21:23:53+01:00","Added ability to reset ALL function buttons
+
+Added to AppPreferences, option to reset ALL buttons if needed
+"
+"40c3afbcf24538634f53e3fe2bf35cd33268e20c","2015-07-21 21:50:02+01:00","Code cleanup
+
+Removed unnecasarry
+"
+"3e3bea44129403efa6210cc937fde29e39de7f87","2015-07-21 21:50:28+01:00","Revert 'Code cleanup'
+
+This reverts commit 40c3afbcf24538634f53e3fe2bf35cd33268e20c.
+"
+"a0111ea0441c0e5a805f1274802132563a817005","2015-07-21 21:51:14+01:00","Revert 'Revert 'Code cleanup''
+
+This reverts commit 3e3bea44129403efa6210cc937fde29e39de7f87.
+"
+"c179cd5db60a066bf8ecde78f1cbbf8003299d32","2015-07-21 21:56:02+01:00","updated readme
+"
+"846ce3935d2d646a0f3af225f5d09e71ffbd38c1","2015-07-21 21:57:06+01:00","fixed readme
+"
+"0fda91ee468b4e2906e98bf6d275a10862c91520","2015-07-22 01:30:24+01:00","Cleanup no.2
+
+replaced hardcoded strings
+replaced hardcoded constants
+removed some more debug and log code
+tcpclient small cleanup
+"
+"6b0a3cabdb90c69a45c46fa7cc53df10e6a40319","2015-07-22 11:56:14+01:00","fixed strings
+"
+"fe304d7451765d52d161bed9ee81a3e97a4a36b2","2015-07-22 22:47:21+01:00","added remote server restart/re-connection
+
+Every time the fragment gets destroyed the client now sends a 'restart'
+signal to the ED_Tool-server to close the socket, open again and await
+re-connection. the Client will then make sure the socket on its end is
+closed. whenever that fragment is resumed or recreated the client-server
+connection handshake is initialized so the re-connect is complete.
+I have added this same process when opening the 'app settings', sockets
+are closed, and reconnect takes place when that fragment is
+reloaded/created
+"
+"200767ce66ba80c8ab25ef241eed783999c0f1a2","2015-07-23 11:10:37+01:00","added server restart and await when app exit
+
+when the ED_Tool application is closed/exited the client socket is
+closed, and the restart server signal is quickly sent to the
+ED_Tool-server before closing, to tell the server to close its socket
+and restart the socket creation process and await re-connection with
+client.
+
+This way anytime the app is closed accidently then the server doesn't
+need to be manually restarted to regain a connection
+"
+"a84214f324720a447dbc0a713c789b3cb57f6d80","2015-08-01 14:38:46+01:00","changed default setOffscreenPageLimit();
+
+Changed viewpager.setOffscreenPageLimit(); to allow for all fragments to
+be all loaded and held in memory for easy transitions, less time spent
+disconnecting/reconnecting to server, Galnet and Subreddit webview
+fragments then retain their states. much better UX
+"
+"720416c65c08a32b058bc1192730869e50bfdd1a","2015-08-15 18:47:50+01:00","v2.0.1.0 update
+
+created backup and restore manager for button configuration
+created theme manager for application theme applying
+created update manager for checking, downloading and installing new
+versions
+re-wrote keymap for better performance
+added modifier key ability (hold shift + key. etc)
+added simple calculator feature for traders
+a lot of code re-writing, method extractions etc !
+layout updates
+added better methods for keeping connection to ED_Tool-server
+added disconnect and re-connect ability
+added battery level indicator when using ButtonBox feature
+changed some of the checks made for better optimized methods
+added reset all buttons to default option in settings
+added ability to turn features off and not have those fragments
+loaded/remove fragments from adapter
+changed to more dynamic methods
+added direct github link when user presses the 'about' section in
+settings app
+and plenty more ...
+"

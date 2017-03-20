@@ -1,0 +1,23 @@
+"commit id","commit date","commit message"
+"08be7b59bcc17c451ecd16ef87eaa4254582474b","2012-01-07 17:22:29-08:00","Added tag 1.28rc20 for changeset a51acbbead17
+"
+"fe5c13e63a4f6950174ce18ec602b989b50c46f7","2012-01-07 20:58:26-08:00","Set default background for feedback popup
+
+When this is missing, the popup size is wrong the first time it pops up. Then it fixes itself with the runtime assigned background, but that's too late.
+"
+"83020de077834681b0023e3926356b68da31fbb1","2012-01-07 22:40:53-08:00","Fix Turkish alt chars for 4-row mode.
+
+Includes a special case for the popup builder to handle ?iI?. The 4-row mode has i as main char and I as both shift and caps char for compatibility with US QWERTY keyboards. The alternates include ?i and should be cased and uniqued appropriately.
+
+Normally, the isShifted and isShiftCaps flags represent three states, but this key has the otherwise-unused state where isShifted is false (isSimpleUppercase is false since it considers I to be a distinct different letter and not the uppercase version of i in this locale) and isCapsShift is true. When that happens, the alternates should be upcased.
+"
+"3462c9194f339b4e1c8c836f6847ada8950a956a","2012-01-07 23:09:31-08:00","Re-enable auto dict quick fixes including i -> I for English
+
+Changeset 1221 / revision bd7e81fb9856 was a bit too radical. Keep the desired behavior of not swapping punctuation with manually typed spaces in quick fixes (no autocorrect) mode, but still accept the auto dict high-priority replacement suggestions.
+"
+"89ba46722c17aaeb1233d0f8767128fe9cce7231","2012-01-07 23:10:51-08:00","Hack workaround for Hebrew resources not loading on Galaxy S2.
+
+See issue 122, Galaxy S2 refuses to load Hebrew XML resources from res/xml-iw/. Grumble. Load an equivalent XML file from res/xml/ instead.
+
+This probably won't fix the 5-row keyboard, but if this works it'll at least help demonstrate the root cause.
+"

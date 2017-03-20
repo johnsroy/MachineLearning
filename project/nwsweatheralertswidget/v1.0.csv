@@ -1,0 +1,138 @@
+"commit id","commit date","commit message"
+"277070aa0bb0958fcc164c3985d9da21d1390860","2014-02-04 21:26:19-05:00","Initial commit
+"
+"5a91b61668517a67cf1616d3c413508dd7995ac1","2014-02-04 21:27:09-05:00","need this too
+"
+"be0131f91153865f7fbc07a6cedff9acdf70a151","2014-02-08 03:40:34-05:00","Lots and lots of updated, added icons, data is now retrieved in a
+background service.  Everything seems to work except updating the widget
+:(
+"
+"96adc4a587a19d423902a57c48e4f2ec009b65ed","2014-02-08 09:22:55-05:00","widget works now
+"
+"4ff86ec3e91b8349b8f8f30c5a3e1de9b1e00546","2014-02-18 00:30:22-05:00","- split XML debug data to a separate activity screen
+- add an empty view on the widget so you can see it when it hasn't
+loaded yet
+- add a click handler on the in-app list to launch the 'more info' URL
+for the alert in the browser
+- override updateAppWidget in the WidgetProvider to throw it a complete
+copy of the views on updates (hopefully should stop it from disappearing
+after it's been running for a while)
+- shorten the initial run timer on the main view so the list will show
+up faster after it's available
+- attempt to make the default widget size 3 x 1 instead of 2 x 1
+- add a shadow/glow to the text in the list items so it'll be readable
+even on the gradient backgrounds.
+"
+"6634d76a7077f19c09bfb75bb72dd0f302058f72","2014-02-20 05:32:29-05:00","- move icon and background chooser code into the AlertEntry object so
+both the widget and the app view can use the same chooser code.
+- add intent and click listener for widget list entries so you can click
+the widget to launch the browser for the alert text.
+"
+"a08a75ca87683a861c013bd4b9a4542bbe42e03e","2014-02-20 05:37:23-05:00","readability
+"
+"27dc06f1505393fcddfcc7a91bed6aa24dee0e1f","2014-02-20 18:13:09-05:00","- add default layout for widget before data is ready
+- directly handle ACTION_APPWIDGET_UPDATE, and send it from the service
+when the data updates
+- lots of debugging output
+"
+"e199688f5376cc98141bf57fecebbaf03411d3b6","2014-02-20 18:20:39-05:00","Create README.md
+"
+"984048c9146561e6a5b9eea4084730f0d0a515bb","2014-02-20 18:24:42-05:00","Fix headline
+"
+"2147005d11f3a69fe847989be0e9a9fa846973df","2014-02-20 18:55:56-05:00","Add license files
+"
+"8a521b807b9730a6a77472a981e05913d39d06c4","2014-02-20 20:30:45-05:00","- list icon sources
+- more icons
+- grab all of Michigan instead of just Ottawa County for happy fun huge
+list testing
+"
+"def1e14e5b954d4c8622dae05e8939dc69447f63","2014-02-20 21:08:40-05:00","update readme
+"
+"96ab78514cdbcfa4f16ebbedd0b05e5ad77e6df7","2014-02-20 21:09:22-05:00","ignore the temp file the editor keeps making when I edit the readme
+"
+"a3a30fd9950574125b7bfb7bf86beb169725047f","2014-02-20 21:11:24-05:00","add more how-to-use info
+"
+"a4e6afeb8cd93e945cf14eda3e8ae141b46298d9","2014-02-20 22:09:14-05:00","Add some screenshots
+"
+"f506b489b08e5e95ad30017d911f3b3f2fadea42","2014-02-20 22:56:05-05:00","remove useless code
+"
+"903614393ddf421ee52b475d7aed663d76ce6a21","2014-02-22 09:04:24-05:00","Don't initialize nwsData until we have data
+"
+"20efbf30ba4e1efeff64c1daf9ac0b1d4680b10a","2014-02-22 09:04:56-05:00","Fire the initial update sooner so we don't wait so long to get data
+"
+"2d8bfa2eb186c32bb62dddaf8ca1696681fc5f97","2014-02-22 13:39:57-05:00","Don't bother having the OS tell the widget to update, because we do it
+from the background service.
+"
+"5ef8afdbf8b2cb35e0c49081606891a334abe19d","2014-02-22 14:04:37-05:00","Resolves #2
+
+The trick was to call appWidgetManager.notifyAppWidgetViewDataChanged
+directly from the widgetService instead of sending an Intent to the
+Provider class to do it.
+appWidgetManager.notifyAppWidgetViewDataChanged is actually the ONLY
+thing that needed calling, the views didn't all need rebuilding, too.
+"
+"c60aa7f219abf42afed1590f510f57a3afc039b8","2014-02-22 14:46:09-05:00","Remove useless timer
+"
+"d1b5ae1a923a34219d2b44aa326333f424a89ccb","2014-02-22 15:01:57-05:00","Make widget data pull from background service immediately when deployed
+instead of waiting for the next time it sends a push message saying
+there's new data.
+"
+"300c6b78936742e1b5856ce66491199b5e4f950a","2014-02-22 20:41:19-05:00","Give the widget a border and title to make it look prettier
+"
+"52d07b8e80dd0061a09c4f3e3544ace66ba657ca","2014-02-22 20:41:36-05:00","Clean up comments and code order in the provider
+"
+"b734de486cce4e78c116c1111656503a465c7c4a","2014-02-22 21:29:11-05:00","Put the 'Title' in the 'Event' field if there is no event
+(usually the case with the fake single entry they put in the feed when
+there are no events)
+"
+"0f18ba9997141089dc5eb2561734ebce62b8a86c","2014-02-22 23:34:31-05:00","Attempt to only notify listeners if the new data is actually different
+Apply formatting rules
+Switch download URL back to Ottawa County only
+"
+"154a645422a5dd1464cfbc4ccea6ad547d38e598","2014-02-23 19:21:36-05:00","Get rid of all these copies of the default Android app icon that the
+project isn't using anymore
+"
+"78e44247b1d47af7dacf53ee5b6c32762217f87e","2014-02-24 13:55:55-05:00","Closes #6 - Add configuration in the main app for which county to use
+
+- gen_nws_counties_xml.pl scrapes the NWS website and grabs the URLS for
+every state, territory, district, and zone that the NWS supports and
+generates the XML files for the preferences. I was originally going to
+have it fetch the counties at runtime when the user picked a state, but
+the tech at the NWS that I was communicating with about writing this
+said they'll never change, so just hardcode them in the app.  On the off
+chance they ever do change, just run this script and rebuild to pick up
+the changes.
+"
+"ec6dd6a055452264bbde55ab68108d1cb84a3a9c","2014-02-24 16:23:39-05:00","resolves #5 - don't update the listeners unless there's actually new
+data
+"
+"953e03c1b7cce70c05abb79c5d200e58f71433d3","2014-02-24 16:24:00-05:00","get rid of a useless def warning
+"
+"d5edac7657a94dcc8209e5c94b6c627f4220a139","2014-02-24 18:40:34-05:00","closes #9 - Add an About dialog
+"
+"1f4503cafc59ee5b4eef6ab809a3467c5b1cb676","2014-02-24 23:24:55-05:00","If it contains snow, give it a blue background and a snowflake.
+"
+"65f1221e0618518446cf9128d1d8eb10b31f6b2a","2014-02-24 23:25:13-05:00","Needs a new screenshot since the widget is prettier now
+"
+"57b2409ba96db7f9436c81b1eb48d591af147ff0","2014-02-24 23:26:58-05:00","Link to the wiki page because it makes a better landing page than
+staring at the source code
+"
+"16ca5cdac088675d5be7c47797ef8af248aa07c5","2014-02-26 15:55:37-05:00","Resolves #10 - send an intent to the widgets to update them instead of
+assuming the service is still alive (because it often wasn't)
+"
+"d54b3025f2eb07c4c962134105ad9c0937f53cb2","2014-02-26 19:29:40-05:00","Update screenshots
+"
+"c625200fbe88406c6989b366fb0652b6e1103681","2014-02-26 20:48:01-05:00","resolves #10 hopefully for real this time. Force a rebuild after
+reconnecting to the background service - based on the logs this seems to
+be where it's getting lost.  Backend restarts, it sends a 'rebuild
+everything' intent out, the widget fires up the remote views service,
+which then tries to connect to the background service to fetch the data.
+Widget then polls the service for that data before the connection is
+made, gets nothing, and draws a blank widget.  So the fix is to re-issue
+the 'rebuild everything' intent again from the remote views service
+after it has the connection to the background service open and ready to
+serve data again.
+"
+"36935b51eb4198b05938ff770d8ea53e8f96dbf4","2014-02-27 17:14:28-05:00","Closes #7 - Add a real app icon.
+Dorky-looking, but I'll take it. :)
+"

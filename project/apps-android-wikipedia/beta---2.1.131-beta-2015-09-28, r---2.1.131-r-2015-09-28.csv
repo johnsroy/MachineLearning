@@ -1,0 +1,470 @@
+"commit id","commit date","commit message"
+"1079b83d511445696c47e7c1d1e2a103c1b1fd82","2015-09-16 11:26:01-06:00","Use English wiki site to work around test failure
+
+Change-Id: Iacd9827a3409f8c918e77393d244d828563c3ba9
+"
+"53caca54972ea7cf1f2562448ddf1951e01e047b","2015-09-16 17:48:42+00:00","Merge 'Bump versionCode'
+"
+"42684e904dc03af98c97e80b28bc2d0ed8c778e9","2015-09-16 14:47:26-06:00","Fix link preview button color on pre-21 devices
+
+ripple_material_light is too light on Lollipop so a darker color is specified.
+This patch simply sets that color for API 21 only.
+
+Bug: T109875
+Change-Id: I8cb3818cf52f6512714d5bfe7a2971989060caf9
+"
+"d000e12594b1e652a2aa4b29394f6399ce31520d","2015-09-16 18:27:26-06:00","Hygiene: break up methods in LeadImagesHandler
+
+Decompose methods and minor refactoring of LeadImagesHandler; no
+functional changes intended. This work is necessary to my understanding
+of, and confidence in, the code to fix T111208. Additional work may be
+required, but further tweaks will ruin the diff. As it was, I found a
+manual diff (moving the two listener overrides back into place) useful.
+
+In the interest of small methods and readability, this patch makes the
+following changes:
+* Rename PageFragment.imagesContainer to leadSectionContainer. This
+variable refers to the whole lead section, not just the image.
+* Remove pluralization of page_images_container and rename
+LeadImagesHandler.image1 to image. There is only one lead image.
+* Add ViewUtil.findView() Butter Knife[0] inspired utilities to avoid
+casting by hand.
+* Add and remove miscellaneous annotations and comments as appropriate.
+* Reorder LeadImagesHandler class members to be client centric. I've
+tried to move the more public, and therefore more interesting, code to
+the top. I've also grouped the member variables so you the reader can
+see at a glance what state the class maintains. Finally, I've moved
+the most mundane code, simple helper methods, usually just good names
+for common operations, to the bottom.
+* Remove unnecessary explicit initialization of LeadImagesHandler member
+variables equal to the default initialization. Why write what we can
+assume?
+* Don't claim to implement OnScrollChangeListener and
+OnImageLoadListener. This class is responsible for setting itself as a
+listener and probably wouldn't work right if the client tried to use
+the API. Move the listener methods to private classes and keep the
+implementation private.
+* Add several trivial helper methods that are easy to read and do what
+you think: getActivity(), getResources(), getColor(), getDimension(),
+etc. This implementation of each does add some lines to the file but
+better here than in more complicated methods. The implementation of
+each is no more surprising nor interesting which is good.
+* Replace LeadImagesHandler.imageBaseYOffset conditionals with
+Math.min() and max().
+* Move LeadImagesHandler findViewById() boilerplate from constructor to
+method, findViewsById().
+
+Regardless of the implementation, small methods are important. When you
+write methods that do exactly one thing, you reap many benefits,
+including:
+
+* Small methods are easy to unit test. The best you can hope for with a
+100+ line method is usually an integration test.
+* Methods that do one thing are less likely to have side-effects. I
+couldn't be happier to know this when having to reuse code, especially
+code I didn't author or wrote long ago.
+* Code becomes self documenting for well named methods. It's hard to
+name methods that do more than one thing.
+* Small methods encourages decomposition into the smallest subproblems.
+For example, when I'm doing a patch review, it's easier for me to say
+whether or not a method accomplishes what it claims to.
+* A method becomes the equivalent of a sentence. For example, an
+initImage() may include padding calculation and setting among other
+things. I don't know and, in the context of this calling method, I
+don't care and sincerely hope I don't have to care.
+* Slightly improved stacktrace narrative.
+
+There are many proponents of small methods. A popular and well written
+one is Martin Fowler who mentions the topic in his book, Refactoring:
+Improving the design of existing code, Chapter 3: bad smells in code:
+
+> Long Method
+The object programs that live best and longest are those with short
+methods. Programmers new to objects often feel that no computation
+ever takes place, that object programs are endless sequences of
+delegation. When you have lived with such a program for a few years,
+however, you learn just how valuable all those little methods are. All
+of the payoffs of indirection—explanation, sharing, and choosing—are
+supported by little methods (see Indirection and Refactoring on page
+61).
+
+Since the early days of programming people have realized that the
+longer a procedure is, the more difficult it is to understand. Older
+languages carried an overhead in subroutine calls, which deterred
+people from small methods. Modern OO languages have pretty much
+eliminated that overhead for in-process calls. There is still an
+overhead to the reader of the code because you have to switch context
+to see what the subprocedure does. Development environments that allow
+you to see two methods at once help to eliminate this step, but the
+real key to making it easy to understand small methods is good naming.
+If you have a good name for a method you don’t need to look at the
+body.
+
+The net effect is that you should be much more aggressive about
+decomposing methods. A heuristic we follow is that whenever we feel
+the need to comment something, we write a method instead. Such a
+method contains the code that was commented but is named after the
+intention of the code rather than how it does it. We may do this on a
+group of lines or on as little as a single line of code. We do this
+even if the method call is longer than the code it replaces, provided
+the method name explains the purpose of the code. The key here is not
+method length but the semantic distance between what the method does
+and how it does it.
+
+Whether an implementation is made with lots of workarounds for weird
+Android quirks, or is somehow perfect, let's do whatever we can to
+always write small methods and readable code. While I welcome
+constructive discourse, I feel so impassioned about this that, in the
+future, I hope our tools can flag long methods as a programmer error
+unless explicitly waived.
+
+[0] http://jakewharton.github.io/butterknife/javadoc/butterknife/ButterKnife.html#findById-android.view.View-int-
+
+Bug: T111208
+Change-Id: Id4252c93c25eabc8021149ae4b8de5543847c850
+"
+"c0e0d197dcc4bccbfafe4c82c9b0129b4bd64c05","2015-09-17 18:12:50+00:00","Merge 'Hygiene: break up methods in LeadImagesHandler'
+"
+"3235488d1824ba947d177d2f7c2e4fab7dc2e683","2015-09-17 17:38:04-06:00","Reduce Share A Fact memory and fix lead font face
+
+* Replace LeadImagesHandler.getBitmapFromView() with
+ImageViewWithFace.getImageBitmap(). This method returns a previously
+set Bitmap or null to reduce the number of images in memory. It is
+used indirectly by Share A Fact.
+* Replace lead title and subtitle android:fontFamily attribute with
+Java. This gives more consistent appearance and leading on API 15
+which doesn't support the attribute.
+* Move large Runnable.run() implementation to private method,
+LeadImagesHandler.detectFace(). This translation likely requires diff
+stitching. No other changes intended other than those mentioned in the
+bullets.
+* Move anonymous inline SaneAsyncTask from
+ImageViewWithFace.onBitmapLoaded() to private nested class,
+FaceDetectionTask.
+* Change OnImageLoadListener.onImageLoaded() face detection failure
+value from negative to null.
+* Rename anonymous ImageViewWithFace SaneAsyncTask subclass local
+variable from tempbmp to testBmp; extract method for generating test
+bitmap, new565ScaledBitmap(); move face detection eligibility check
+before spawning the task.
+* Minor reordering of ImageViewWithFace members.
+* Replace nullable OnImageLoadListener with null pattern.
+* Replace ImageViewWithFace Log.* calls with L.*.
+* Add helper method for setting lead image layout parameters, setImageLayoutParams().
+* Add IDE hint annotations.
+* Move 'faceBoost', the y-axis offset to the nose, to face_detection_nose_y_offset.
+
+Change-Id: Ibc793ab778691b9a2d182527e14a6b9fb2703ef3
+"
+"83d7bec309402db0ceadf088b10c6ef6b9f1e458","2015-09-16 15:02:25-04:00","Add support for loading link preview content via RESTBase
+
+Obtains link preview content from a RESTBase lead section request, if the
+article is on English Wikipedia and RESTBase content loading is enabled.
+
+A forthcoming patch will add a feature flag to push this to a small
+portion of our beta users.
+
+Also eliminates some unused variables and adds a null check to both
+versions of *PageLead.getDescription().
+
+Bug: T111126
+Change-Id: I7bb5335639f720fe2fb62422ff2a3cafa93fadfc
+"
+"0cb36a848c16420167ca8c8e99c3fb18bf89b0f2","2015-09-14 09:41:48-04:00","NavigationView: reloaded.
+
+- Updated colors and icons for NavigationView.
+- Most of the new icons come directly from the Material Design set.
+Therefore I didn't add the SVG for those icons, since they come
+pre-generated from Google. I also kept the names of the icons, so that
+we can easily reference them in the Material set.
+- Moved the Login action into the header view.
+- Moved the Logout action into a secondary menu group inside the
+NavigationView. Moving it out of the More menu will make the More menu
+more easily renameable to Settings.
+
+Bug: T110684
+Change-Id: I6326e50e978e42fd9a41024ad361afbbeb2f5b63
+"
+"aed74353771f53d5383f770082331cefd70a6c09","2015-09-18 21:54:43+00:00","Merge 'Add support for loading link preview content via RESTBase'
+"
+"48508b110f1a1e917afbe3a71dc93424aea75dd2","2015-09-21 16:51:47+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ie0b30d552d4ffb538637a8eaabe9e686b624a4df
+"
+"540437dedfa72824e40e846d920a3bd5d89578a8","2015-09-21 17:36:49+00:00","Merge 'NavigationView: reloaded.'
+"
+"9130145b9b87a839d9e9c535d71c59611c480e66","2015-09-21 13:43:13-04:00","Hygiene: Remove unused constructor
+
+I mistakenly included this in the merged patch set for
+https://gerrit.wikimedia.org/r/#/c/238823/ after some attempted
+and abandoned refactoring.
+
+Change-Id: Ice0366e20ca1a525f4222e8dbfaa3d7d7fa450a0
+"
+"dbabedaf46f354d4d27f745a6e133c8c13f065e4","2015-09-21 14:58:36-04:00","Show page description when loading page from link preview
+
+Fixes a bug in which page headers did not include Wikidata descriptions
+when navigated to from a link preview.
+
+Bug: T113015
+Change-Id: I4cad9d5e639abd3d90fda00718a0ae1739f9cb59
+"
+"cccedeb9e92f077803355bb38bd3e44a2ab25cdd","2015-09-18 17:08:20-06:00","Add navigation drawer shadow
+
+Add a soft subtle shadow to the navigation drawer for consistent
+appearance on API 15 and 23. No changes to scrim.
+
+Bug: T107338
+Change-Id: Ib58c20fcca821fe1afe450cb2c8d0ffd60af4440
+"
+"3a8e50bcc84e864251ef008fade6de8b38e57e7d","2015-09-22 14:08:58+00:00","Merge 'Show page description when loading page from link preview'
+"
+"3e283cfee8baf0122d4b0e91797e45666890a39d","2015-09-22 14:15:49+00:00","Merge 'Add navigation drawer shadow'
+"
+"acd59944c0a771eec89a9e31036fa1e89f1b797b","2015-09-22 18:36:06-04:00","Bump minSdkVersion, versionCode, and versionName.
+
+Any patches merged beyond this point shall no longer work in API <15.
+This opens the floodgates to the arduous (but extremely pleasant) task
+of exfoliating the app of all API-10-specific code.
+
+The minor version number has been bumped by 1, to celebrate the
+significance of this occasion.
+
+The versionCode has been bumped by 20, to provide a sufficient gap for
+future backporting of features to the Gingerbread version of the app, the
+tag for which is located at b97d0cd00f4c4fb932e9fc087334dfe779c59be3.
+
+Change-Id: I06127568bf939585e6f758f5616f418a96d66ff4
+"
+"29090f26bf2a0d7b4c8eaa02cc31d78c00e17ab8","2015-09-22 10:54:16-04:00","Fix retrieval of Wikidata description from Retrofit responses.
+
+This also reverts https://gerrit.wikimedia.org/r/239905 which was causing
+a potential crash.
+
+Bug: T113015
+Change-Id: I53d7115f6ecd9d239185ce9ee41e00e7d1ad3912
+"
+"a9c6e5acb84027b816467e34701806191bdf4644","2015-09-23 11:01:27-06:00","Make the status bar translucent
+
+* Make the status translucent on API 19+. The navigation drawer is drawn
+between the status bar and the toolbar per mock. For a preview of the
+proposed toolbar coloring, change @color/actionbar_background to
+@color/preview_header_background.
+
+Status bar translucency was used over color to support API 19+ instead
+of 21+.
+
+Instead of setting android:fitsSystemWindows, status bar height
+offsets were added to the preexisting action bar offsets. This allows
+coloring of the dummy view, 'StatusBarBlankView', on API 19 as well as
+sandwiching the navigation drawer between the status bar and dummy
+view per mock. There is some noticeable DRYness refactoring needed
+between the saved pages, history, and nearby Fragments but this was
+a preexisting condition.
+
+This patch moves the toolbar gradient initialization from PageActivity
+to SearchBarHideHandler which is a more appropriate place given the
+opacity changes made. The gradient was also expanded to include the
+status bar when translucent as it otherwise clashed with the status
+bar creating a weird, almost magnifying glass effect. It may benefit
+further from additional adjustments.
+
+* Add StatusBarBlankView which encapsulates weird logic to set a minimum
+height matching the status bar instead of dumping it in PageActivity.
+It's just a contained, dumb View you don't have to worry about it
+much.
+
+* Send window decor (status bar + toolbar) height across JavaScript
+bridge to apply the appropriate offset. The WebView is intentionally
+full screen, but has no knowledge of the status bar and toolbar. This
+value was previously hardcoded and not tied to the actual dimensions of
+the toolbar.
+
+* Add ArgbEvaluatorCompat which fixes an alpha tweening bug not yet
+merged in NineOldAndroids.
+
+Diffing notes:
+* The Gerrit diffs of activity_page and fragment_page are terrible. I
+recommend diffing these files locally.
+* No changes intended in SearchBarHideHandler.calculateScrollOpacity().
+
+Bug: T110682
+
+Change-Id: I26cc244311f44c59902afec1be0e62c9a60e4f48
+"
+"edf5374d43f7eebdc66215522d9c536c2bb798a9","2015-09-24 17:18:03+00:00","Merge 'Fix retrieval of Wikidata description from Retrofit responses.'
+"
+"803e65454ceafd2974624375d759b4a84c1c1a1f","2015-09-24 13:19:46-04:00","Always capitalize Wikidata descriptions.
+
+Change-Id: I1221c2a0ebb2c2714c71dfebc649478a6c41aef6
+"
+"4cadfa0b3b4f20d38e1c7557176b4da114dc7a3e","2015-09-21 12:30:54-06:00","Add CI script for testing emulator readiness
+
+The Android instrumentation tests are failing in a strange way after
+upgrading the Android Support libraries[0]:
+
+com.android.builder.testing.api.TestException: com.android.builder.testing.api.DeviceException: com.android.ddmlib.ShellCommandUnresponsiveException
+
+This script performs some device readiness checks and waits as needed
+before returning which allows the tests to run successfully again. This
+script will be used by CI[1] once merged.
+
+[0] https://gerrit.wikimedia.org/r/#/c/235859/
+[1] https://gerrit.wikimedia.org/r/#/c/239902/
+
+Change-Id: Ib8a04d12ec48fe03c508fcacd355daa20a92b34d
+"
+"81f3f5b9b1f65ae91ca58383ebbaac5eaa4f9e44","2015-09-18 08:41:26-06:00","Fix vertical truncation of title and subtitle
+
+* Move subtitle from distinct TextView to title TextView with spans.
+* Add AppTextView, a TextView subclass that measures it self properly
+even when the line spacing is changed. Since other TextView amendments
+may need to be made, it has a generic name.
+* Inline LeadImagesHandler.findViewsById().
+
+Bug: T111208
+Change-Id: Ib253c84d706e492eb71ea71e589a2063fcbdaa65
+"
+"f81f99e85e3999103699a762f43b119652c2300a","2015-09-24 17:27:27-06:00","Hygiene: remove UserContribsActivity and friends
+
+Remove dead code and resources.
+
+Change-Id: I3fc315fa1de9cc61725047199ffe889dce670c1a
+"
+"2d820c122bff49bc28406c5b7612efbf4eb83b4a","2015-09-24 17:43:46-06:00","Initialize status bar color to match toolbar
+
+On app launch the status bar was transparent but the toolbar was not.
+This patch initializes the status bar color to be consistent with the
+toolbar.
+
+Change-Id: I9d1e3221d0fae12fe6373d9f5ca656a2b138a185
+"
+"e927adba85b413e4f6c8c5cd1449ffd8e496e858","2015-09-24 17:46:17-06:00","Hygiene: remove unused function
+
+Change-Id: Iaee29780b21dacf9161b25b55a033135029f3b16
+"
+"b9fd642bee87867bf371886b664ee5dd168132c4","2015-09-25 13:51:41+00:00","Merge 'Hygiene: remove UserContribsActivity and friends'
+"
+"69de8d725393adae6ecf8e3f9ef620daf51b4b66","2015-09-25 13:57:49+00:00","Merge 'Hygiene: remove unused function'
+"
+"d3ae8523ad9004ba5038a91d9c94ee532dc0eea8","2015-09-25 14:05:35+00:00","Merge 'Add CI script for testing emulator readiness'
+"
+"c3813e7d63f692e1818f8bf85e1fd70e090fe85f","2015-09-25 16:14:11+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I248cf2e13e3f7e7dd8e2c9c2467425be2ae51836
+"
+"118b1161c6852ffb009fd92898923b25caebafb4","2015-09-25 14:14:08+00:00","Merge 'Localisation updates from https://translatewiki.net.'
+"
+"e61caeaa4e0c1990c32568ffd0db13c0775b7e1a","2015-09-25 14:16:24+00:00","Merge 'Fix vertical truncation of title and subtitle'
+"
+"723ea06e4f5f61d5c16480f0fde629436e9f6ef9","2015-09-25 14:51:22+00:00","Merge 'Bump minSdkVersion, versionCode, and versionName.'
+"
+"54c075b949b04da1f6a820ba6aaaa2cf837047a6","2015-05-23 15:51:27+02:00","Maps in Nearby: TNG
+
+Highlights:
+- Using MapBox SDK to retrieve tiles from our server. This sdk adds about
+234 KiB to our APK size.
+- Using built-in functionality to display user's location as a marker,
+with a translucent circle representing accuracy.
+- Panning and zooming the map refreshes the collection of markers.
+- Display of markers is independent of whether we know the user's
+location. This allows the user to randomly 'explore' arbitrary areas of
+the map.
+- Feature-flagged for non-production only. Since this is nearly a rewrite
+of NearbyFragment, I simply created 'NearbyFragmentOld.java' which has
+the old code, and we'll remove it when the time is right.
+
+Bug: T100315
+Change-Id: I423745164ce8694d14099ea9aa0b2a05a141c8c3
+"
+"6094186b86cf7095aaa5059da97b010f822993c5","2015-08-26 08:25:58-04:00","Hygiene: remove AsyncTask.java from our code.
+
+It looks like we were using a straight-up copy of AsyncTask.java from
+AOSP, for the sole purpose of providing the executeOnExecutor() function
+for API 10...
+I don't think so!
+
+As a side effect, this fixes the remaining checkstyle errors under Windows.
+
+Bug: T110105
+Change-Id: I2d586368f11bd7524d4de23ea396581de13f9196
+"
+"cc4f3bd08ead94f4e0ec97d67690ef6cbe6c0189","2015-09-25 16:48:36+00:00","Merge 'Always capitalize Wikidata descriptions.'
+"
+"ccebd4d88fef046a3b564b09513583db6c340da6","2015-09-23 12:09:18-04:00","Fix image widening on xxhdpi+ devices
+
+Applies the CSS changes in https://gerrit.wikimedia.org/r/#/c/240374/
+to prevent xxhdpi+ phones (such as the Samsung Galaxy S4) from getting
+incorrectly evaluated as tablets in our CSS logic and having their
+images widened only to 60% rather than 100%, as intended, in portrait
+mode.
+
+Bug: T113434
+Change-Id: I672e45ffad82d797d30d5a0505bc9d0f249f324f
+"
+"2ee91f78dcddbab736a063ef6cc7afa3298bdab4","2015-09-08 22:31:48-06:00","Remove ListView dividers and adjust margins
+
+* Remove ListView dividers in search results, saved pages, nearby
+places, history records, and read more results.
+* Numerous tweaks to padding and margins per card and Material
+requirements[0], notably in the previously mentioned ListViews. Minor
+additional tweaks to toolbar search hint and link preview.
+* Calculate fully expanded 'read more' ListView height by inflating and
+measuring one item instead of expecting no padding and no margin. This
+code should probably ultimately be replaced but this change will make
+it less fragile.
+* Replace needless LinearLayout in fragment_page with FrameLayout.
+
+[0] http://www.google.com/design/spec/layout/metrics-and-keylines.html#metrics-and-keylines-keylines-and-spacing
+
+Bug: T110685
+Bug: T111474
+Change-Id: I7551662d1b6da99422e242b8b0ac59786d5e4125
+"
+"e8635245012c88aa7cf685741b17a9883b99b589","2015-09-28 17:11:42+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ife6d5ae34f067227ced1e7edbab58177948dcd67
+"
+"d2c2059e6320e7757469655d27adbb62f08714c6","2015-09-27 16:58:40-06:00","Hygiene: mark icon as RTL identical
+
+Rename icon to '.noflip' indicating that it doesn't not requiring
+mirroring in RTL languages.
+
+Change-Id: I803102ba6e9e4dc9e093c539d21427b20ee1fe88
+"
+"3f3a39c529ec481f8867dc72dbdabf33bdf5678e","2015-09-28 12:14:07-04:00","Make link preview title blue.
+
+Bug: T112997
+Change-Id: I0cf531bbe7166ebdb668c01e6ba46ded4f7c8e9d
+"
+"8358b316349a65d5ab1371019747f785a58d71ab","2015-09-28 12:32:08-04:00","Fix possible crash when showing link preview.
+
+...in which I use the isResumed() check instead of isAdded(), which seems
+to be more appropriate for checking whether the fragment is truly 'active'
+(i.e. whether onSaveInstanceState has been called yet).
+
+Bug: T113966
+Change-Id: I9e9dedc9b93d740b77c37372701c2bfa317c31a9
+"
+"a66a8f3f342b1247ed697c45ec7f9108048f666e","2015-09-24 23:17:29-04:00","Simplify checking of whether saved page exists.
+
+Of the two bugs listed below, this *may* fix the first, and *will* fix the
+second.
+
+Bug: T113601
+Bug: T113766
+Change-Id: I8107fdb3ae66dfc68f73651e6179c19a75067a79
+"
+"52337640633b6203a595a6e8162f66991702c526","2015-09-28 17:49:11+00:00","Merge 'Make link preview title blue.'
+"
+"638e0f04748cb296f59bc967db557c84797fac04","2015-09-28 18:21:17+00:00","Merge 'Fix possible crash when showing link preview.'
+"
+"14452b9859a89019c0e34c886ca02f34b31ebc82","2015-09-28 19:21:22+00:00","Merge 'Simplify checking of whether saved page exists.'
+"
+"8ae8f4cbb94f0aae0c0ffd6c0ecf2f8dd57b131b","2015-09-28 16:04:45-06:00","Fix lead title offset regression
+
+The lead title and subtitle now share a single TextView and should be
+measured together.
+
+Change-Id: Id9927ee0cd14c119c7b015acf19c6d8ad81b3790
+"

@@ -1,0 +1,110 @@
+"commit id","commit date","commit message"
+"8e936575aed893b3cebf276c2a5f22a9ce0b4b06","2014-08-06 17:56:13-04:00","Adding binary for 2.1.0-beta3
+"
+"999649fd25a67c43cbed03b9ec482bcce2e813e3","2014-08-07 12:21:14-04:00","Updated gitignore added basic support for travis
+"
+"c7ef9c8a7446768428b851cffb54653197d08a05","2014-08-07 12:21:43-04:00","Adding files missing from last commit
+"
+"62f3d0a5e01202ba96a66508b87ccdf016159514","2014-08-09 12:15:36-04:00","Rudimentary support for event lock click dialog
+EventLongclickActivity:
+-basic dialog to show current state of event instance
+-still buggly
+
+MainActivity:
+-added instance variable to control animation duration
+-reduced animation duration
+
+DatabaseInterface:
+-added getCalendarNameForId() to get the name of a calendar based on its id
+"
+"e08b7aed97a374502bcacff1b048a5c533c4f8b7","2014-08-09 17:49:32-04:00","Changing event longclick dialog from custom activity to dialogfragment
+"
+"8951d2b7f407e8ddfd3749f711d7a9fbf4d2399a","2014-08-09 20:41:28-04:00","Extending support for setting custom ringer for all instances of event series
+-replaced EventLongclickActivity with EventLongclickFragment
+
+EventLongclickFragment:
+-using DialogFragment instead of activity
+-simplified layout to reduce buttons to 'clear' and 'ok'
+-reduced size to wrap_content instead of fill_parent
+-correctly saves default event ringers to preferences
+-TODO still needs to overwrite settings for all instances in the local database
+
+DatabaseInterface:
+-added error checking to setRingerType() (fixes #9)
+
+Prefs:
+-added methods to store/retrieve map of Integer->Integer to/from shared preferences
+-added getRingerForEventSeries() to return saved ringer for a series of event instances
+-added setRingerForEventSeries() to store a specific ringer for an event series
+-added unsetRingerTypeForEventSeries() to clear saved ringer for the given event series
+
+EventSilencerService:
+-getBestRingerType() now prioritizes ringers as: generic default ringer < calendar specific ringer < event series ringer < instance ringer (calender support not yet added
+"
+"0b438f598c19ecc23c983afda8bc7e8c75ff8fe9","2014-08-10 19:50:11-04:00","Finishing support for custom ringers for event series
+-renamed EventLongclickFragment to EventDetailsFragment
+-changed sidebar image to be 30% uglier
+
+EventDetailsFragment:
+-added calls to database interface to set ringer type for all events in series when saving settings
+
+MainActivity:
+-added method getBestRingerForInstance() to return the ringer that should be used for the given event (code duplicate of method from EventSilencerService, this should be moved to a separate class to eliminate duplication)
+-added method eventHasCustomRinger() so we know which color to apply to the best ringer
+
+DatabaseInterface:
+-added setRingerForAllInstanceOfEvent()  //TODO this could be sped up quite a bit by using an embedded SQL update
+"
+"8d85a657b523670c0c206524bf75f2d0e344c3fd","2014-08-11 01:00:52-04:00","Removed superfluous icons
+"
+"9318a2204c4f374e1706f52fd9b4508a08efe496","2014-08-11 01:01:15-04:00","Adding ignore icon
+"
+"6934eb6fdd4f3816c7d6682a0ed164c6636e2fef","2014-08-11 21:38:47-04:00","Better support for setting custom ringer for event series
+-added DataSetManager
+
+EventDetailsFragment:
+-fixed bug  where context could sometimes be null
+-removed some duplicated code
+
+MainActivity:
+-broadcast receiver now only restarts the event silencer service if the service was not the one to send the message
+-no longer handles finding best ringer for given event.  This is handled during the database update only
+
+SimpleCalendarEvent
+-added member to indicate whether the event has a custom ringer set (this was needed since the default value of UNDEFINED can also be considered custom)
+
+Columns:
+-added column for CUSTOM_RINGER
+
+DatabaseInterface:
+-setRingerType() now also sets CUSTOM_RINGER to true
+-setRingerForAllInstancesOfEvent() now uses the faster update() to avoid looping through unrelated events
+-getEvent() updated to read in custom ringer field
+-getEvent() now applies custom ringer from calendar preferences and event series preferences (if they exist)
+-simplified if/elses in insertEvent() to ternary operators
+
+DataSetManager:
+-added to reduce code duplication
+-handles sending broadcast messages to indicate when the database has been updated
+
+EventDatabaseOpenHelper:
+-onUpgrade() will now drop any existing event table and recreate it.
+-This should probably be changed later so that upgrades from the 2.0.x series can be migrated in without losing any custom data
+
+Prefs:
+-added stub method getRingerForCalendar(), only returns UNDEFINED ringer for now
+-removed unused getDefaultRinger()
+
+EventSilencerService:
+-removed getBestRingerType(), best ringer is either the generic default, or the value stored in the event (custom calendar and event series ringers are applied during database update)
+-removed duplicate code to send data set changed broadcast message
+"
+"318199a723b0d306895b6ed4a7ab32a833d5ae1c","2014-08-11 21:54:54-04:00","2.1.0 Beta 4
+-per event scheduling stable enough for next beta release
+
+EventDetailsFragment
+-added cancel button to dialog
+-using string resources instead of hardcoded string values
+"
+"1963f5a3c4ea1750a38db3bb7770ce98e9135db7","2014-08-11 21:59:14-04:00","Adding binary for 2.1.0 beta 4
+"

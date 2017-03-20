@@ -1,0 +1,39 @@
+"commit id","commit date","commit message"
+"8bc054be9aceb5b49022f198ccefe4bca35da193","2013-09-06 17:48:02+05:30","updated changelog
+"
+"8249a10506cd176740c77209a90bc4e77e76ca73","2013-09-04 16:17:00-04:00","NDK: Add makefiles
+
+Running ndk-build from the app directory will build nflog.  Tested with
+NDK r9.
+"
+"dfc42f5cd8af2d5f715f4678aaf70ebb6108ed7d","2013-09-04 15:12:12-04:00","nflog: exit if stdin gets closed
+
+This prevents stale nflog processes from hanging around when AFWall
+terminates.
+"
+"e42764c55adb967c3119e9e72f3725450e2f49da","2013-09-07 10:42:19-07:00","nflog: Flush stdout after each message
+
+By default, printf() and similar functions will perform buffered output,
+delaying AFWall's receipt of the log entry.  To avoid this, just invoke
+fflush() from the callback.
+"
+"772d814814a4c196461597a8da7bbc485d7cf54e","2013-09-04 16:21:19-04:00","nflog: Update binary to match the latest source changes
+"
+"1a4859b3a82f93f89519efbd77cbc837f703fcfb","2013-09-07 11:08:00-07:00","NflogService: Don't rely on caller to set nflogPath
+
+Under some circumstances the service may start up on its own, before
+applySavedIptablesRules() is able to set up the path.  The result looks
+like:
+
+I/AFWall  ( 2983): nflog shell started
+D/AFWall  ( 3065): Starting null
+
+Of course, if we try to run 'null' instead of the nflog utility, then no
+logs will be generated.
+"
+"42a47a47214c65de20c5e78c88bc4326a404530f","2013-09-07 20:09:55-07:00","Merge pull request #198 from cernekee/nflog-v2
+
+NFLOG fixes
+"
+"9435dc7bb7b314f81a495e464b79417412915639","2013-09-08 08:59:17+05:30","minor release with nflog fixes
+"

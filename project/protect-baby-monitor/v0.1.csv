@@ -1,0 +1,221 @@
+"commit id","commit date","commit message"
+"8b1b1a741409c5647204d1416988bb75f1e4f6ee","2015-12-26 13:23:26-05:00","Initial commit
+"
+"7bd19f2325241ec5b397ef19bd64f364da3a455d","2015-12-26 15:48:42-05:00","Add StartActivity - landing page of baby monitor
+
+The StartActivity is the first activity which will be launched
+in the baby monitor, and in the future will list the two main
+options: become a monitor or a listener.
+"
+"11bf3822b60d060953e88191228a6aca4aea8257","2015-12-26 15:49:12-05:00","Add MonitorActivity - for registering on network and sending audio
+
+This commit adds the shell of the MonitorActivity. This activity
+will register its service on the local network, wait for a connection,
+then send audio data.
+"
+"716d82dc1ce76d2b8ee1f05a20e7fb47485cb62d","2015-12-26 15:01:39-05:00","Register ProtectBabyMonitor service via mDNS
+
+When the MonitorActivity is started it will create a ServerSocket.
+The assigned port is then advertised over mDNS for a
+'ProtectBabyMonitor' service.
+
+Eventually, when something connects to the ServerSocket audio
+data will be streamed out.
+"
+"7819c312750d3bac828d14badb344ce52c13f95b","2015-12-26 15:04:16-05:00","Stub for servicing connection to ProtectBabyMonitor service
+
+If a client connects to the advertised ProtectBabyMonitor service,
+attempt to service the connection.
+
+For now, simply close the connection instead of sending data.
+"
+"828e6a16f6a37afd652615f02d872a6ff52b91b3","2015-12-26 17:50:33-05:00","Stream audio data to connected clients
+
+While connected, send packets of audio data to connected clients.
+"
+"4635a78574577beffe2348612f1e6e55b31b2b3e","2015-12-26 17:51:16-05:00","Set the TCP send buffer size to avoid buffering audio
+
+If the send buffer size is large and the receiver is unable
+to keep up, then audio samples will collect on the monitor
+and lag will accumulate. As only the most recent sample is
+important, reduce the send buffer size to the minimum
+AudioRecord buffer size.
+"
+"eb9cd75c3aae1a0ee41e250ff0f1201de5241186","2015-12-26 15:49:32-05:00","Add DiscoverActivity - lists of baby monitors on the network
+
+This is the stub of the DiscoverActivity, which is responsible for
+discovering all available ProtectBabyMonitor services on the
+local network.
+"
+"8d448d0ecc041732182f35d968472ab4cb8af636","2015-12-26 15:14:56-05:00","Discover ProtectBabyMonitor service providers on the network
+
+Attempt to discover any providers of the ProtectBabyMonitor
+service on the local network, resolving any which are found.
+For now nothing is done with the information on found
+providers.
+"
+"1f7f6f04feb8a9e6fdad72043ccbf8b73a213bdf","2015-12-26 15:17:05-05:00","Populate list with ProtectBabyMonitor providers
+"
+"2e164c0fb2d83b82676b9210862bf15e48ccb56f","2015-12-26 15:49:53-05:00","Add ListenActivity for playing audio from ProtectBabyMonitor services
+
+This activity will eventually receive audio from the MonitorActivity
+of another Android device and play it.
+"
+"00049d4b2f2dc59d1dde8901037069ee22544fc9","2015-12-26 15:21:41-05:00","Allow launch of ListenActivity from found ProtectBabyMonitor service
+
+If any ProtectBabyMonitor services are found on the network, clicking
+on one will start a ListenActivity with information on the service.
+"
+"936410e85104b667437ac94ba5a09c089a7f5b7c","2015-12-26 15:42:32-05:00","Receive audio from ProtectBabyMonitor, discarding it
+
+When connected to a ProtectBabyMonitor service, accept
+audio over the network. However, for now, discard the audio
+instead of playing it.
+"
+"8bcfe2af67e47ef59bd8b881a785b10c2cb8bd6c","2015-12-26 15:50:12-05:00","Add AudioPlayer thread for playing audio samples from a queue
+
+This thread will be used for playing audio samples. The samples
+will be provided by a blocking queue.
+
+It is assumed that the configuration of the passed AudioTrack and
+the samples from the blocking queue are compatible.
+"
+"6901745d5bcc7b5a853c4ec26dc0f19e3bc8dacc","2015-12-26 15:43:45-05:00","Pass received audio samples to the AudioPlayer for processing
+
+Whenever a sample is received from the socket, pass it to
+the AudioPlayer thread via a blocking queue. The AudioPlayer
+thread will then play the sample and wait for more input.
+"
+"c962228e865555aada2bfb47a1be127ddfd512fe","2015-12-26 16:13:57-05:00","Update README.md
+"
+"f2a13c9160fd757534f59c40ade5477c25e1c7a1","2015-12-26 18:50:01-05:00","Change terminology to child and parent devices
+
+The 'monitor' and 'connect to monitor' descriptions may
+have been confusing. Changing the terminology to refer to
+a child and parent device.
+"
+"21b59fde84c7f241b5fcba92d1d056d628c4400b","2015-12-26 18:50:16-05:00","Update app name to Protect Baby Monitor
+"
+"592c55c156e26328ba4a99cfb3ff3b0badc07df3","2015-12-26 18:53:29-05:00","Simply StartActivity to two buttons
+"
+"b1a0044fda4dd2f53696c2e1094b9546aaa59116","2015-12-26 18:54:09-05:00","Simplify MonitorActivity to only list relevant text in tables
+"
+"eac8bfeed6be1912966d13bea2944bc729447670","2015-12-26 18:54:56-05:00","Mention name of connected device on ListenActivity
+"
+"7273e4231fee4345f2ab48fdb16236c99a3866ce","2015-12-27 14:02:13-05:00","Change app launcher icon to a camera
+"
+"429c3005a98ec1169972fe2ecad16ae3201567b0","2015-12-27 14:28:54-05:00","Use Holo theme
+"
+"eb1eac8111bd2e66db1870770327b6c5c82412c9","2015-12-27 15:29:59-05:00","Improve start activity layout with LinearLayout and helper text
+"
+"ea29a0f4eb637226f26dd6acb5b3378c1fd1bc8f","2015-12-27 16:20:22-05:00","Improve monitor activity with LinearLayout and helper text
+"
+"dd737c0be5396315c442d539133fbbf56ae27585","2015-12-27 15:49:24-05:00","Improve layout of dicover activity with Linear Layout
+"
+"72d5c75357ecb6af113071ddbffd6dea939c31dd","2015-12-27 15:52:29-05:00","Replace \\032 in reported service name with ' '
+
+When mDNS returns the service name, any spaces are replaced
+with \\032. Change this back into a space
+"
+"c455e966cdacdd0a801e42d78585021bdded6d23","2015-12-27 15:53:35-05:00","Use buttons to list available child devices
+
+It may not have been obvious that the labels were clickable before.
+"
+"2e9ca0de88d726cd850b9c814a3d065c8ac73efe","2015-12-27 16:14:35-05:00","Improve listen activity layout with Linear Layout
+"
+"9eaf90fcda930708a107dcdbdd7acd56e02ed813","2015-12-27 17:36:45-05:00","Use Travis CI to build project
+"
+"133baf9a489b0a4f0a8901823151d638ed6299f2","2015-12-27 17:40:18-05:00","Merge pull request #1 from brarcher/staging
+
+Improve layout and appearance of application
+"
+"516ba5a225b2c533e24e3c29c8e2eee48e677d44","2015-12-27 20:34:02-05:00","Allow volume control to adjust playback volume
+
+The AudioTrack for playing audio from the child device
+was sending audio to the voice call stream. It is more
+appropriate to use the music stream. In addition, suggest
+that the activity control the music stream's volume with
+the hardware controls.
+"
+"7f604c47cecfbff27854f5daac6b81beb1e988d3","2015-12-27 20:41:01-05:00","Prevent child device from sleeping if listening
+
+If the screen turns off, the child device will be unable to
+record from the microphone. Keep the screen on in the monitor
+activity to keep microphone on.
+"
+"6af9dff0043ace00853ca479f788eabb196ece5f","2015-12-27 20:48:00-05:00","Prevent screen rotation or resize from destroying activities
+
+If the screen is rotated by default Android destroys the
+activity and recreates it. This causes issues if a child and
+parent are already paired, as the connection is lost.
+
+To prevent Android from destroying the Activity, instead
+invoke a configuration change on an orientation or resize.
+"
+"14118499fa5015f7d49d25539c016f7163f9340b","2015-12-27 20:52:41-05:00","Merge pull request #2 from brarcher/staging
+
+Improve usability - volume control, survive screen rotation, screen stays on
+"
+"0c45351c5a87eee41a246d7c6385b01cba79c31d","2015-12-28 16:06:35-05:00","Create wrapper function for unregistering baby monitor service
+
+This will eventually be called in multiple places
+"
+"375242d6fb9252999ae749b419a704737b8a18bf","2015-12-28 16:08:59-05:00","Cleanup AudioRecord if socket throws an exception
+
+Previously an IOException would prevent the AudioRecord
+from being cleaned up.
+"
+"c25b0fdeba6aacb584b1ead4c842b47aca448db4","2015-12-28 16:12:49-05:00","Allow child device to establish new connection after parent disconnects
+
+Previously the monitor activity would only support one connection,
+after which the activity would need to be restarted. With this change,
+if a connection is established with a parent device but is eventually
+disconnected the child device will begin advertising again.
+
+Note that because the child device can only support one connection
+at a time currently, after the connection is established it will
+now stop advertising. When a connection is lost and advertising
+starts again, it may end up advertising as another service. E.g.
+ProtectBabyMonitor (2)
+instead of
+ProtectBabyMonitor
+"
+"6dd26b70fe36243a9259d9f088afdf69fafd6e43","2015-12-28 16:24:06-05:00","improve logging for service discovery
+"
+"0d829708c7909acdb30baa56e8ed43561ab4e2b6","2015-12-28 17:11:58-05:00","Only post message if connection to child was lost
+
+If the connection to the child was intentionally severed, do not
+post a 'disconnected' message, as the activity is likely closing.
+"
+"e35126096f790d6e8a23855107f10d59cd2ef87a","2015-12-28 17:13:34-05:00","Play audio alert if child is disconnected
+
+If the child device disconnects unexpectedly, alert the
+user, in case they were not expecting the disconnect.
+
+The audio file being played is originally from here:
+https://freesound.org/people/pan14/sounds/263655/
+"
+"cfddbf22c1a58eccd491c5ed5cd5e794b14dd81c","2015-12-28 17:13:58-05:00","Explicitly list some methods private
+
+These methods are not needed outside of this class
+"
+"cb4c48d5fb3dc41ea8fd3e52628423d75932a663","2015-12-28 17:14:05-05:00","Remove unused import
+"
+"c022fa8168a708dade88569fd0612c7008140670","2015-12-28 17:14:59-05:00","Update README.md, removing some improvements which are complete
+"
+"8f5b0cc4d25476857440735e38d49387d7534b84","2015-12-28 17:22:25-05:00","Merge pull request #3 from brarcher/staging
+
+Better recovery from connection disconnects
+"
+"039cf0447d077cd396d9512e842e3efbdd36676a","2015-12-28 20:23:29-05:00","Create NEWS
+"
+"f1c34274c5d42ab7d703dc5022a0a38b86888142","2015-12-28 20:24:13-05:00","Merge pull request #4 from brarcher/add-news
+
+Create NEWS
+"
+"68d9c69a015e2874627288d335c3c1452fd54253","2015-12-28 21:01:16-05:00","Update versionName to be 0.1 for initial release
+"
+"0f99fec0eb911261d3a0c042e7f841e95b6e8444","2015-12-28 21:10:35-05:00","Merge pull request #5 from brarcher/update-versionName
+
+Update versionName to be 0.1 for initial release
+"

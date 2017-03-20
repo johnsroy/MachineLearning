@@ -1,0 +1,187 @@
+"commit id","commit date","commit message"
+"39b84cece2f383eaa86d3abcb4f8313379705765","2015-02-10 11:15:34+01:00","Add the regular Ripple effect to the buttons.
+
+* app/src/main/res/drawable-v21/question_answer_checkbox_background_ripple.xml:
+Add a ripple drawable for Lollipop and later (API v21) as an alternative
+to question_answer_checkbox_background.xml.
+* app/src/main/res/layout-v21/question_answer_button.xml:
+Add this alternative for Lollipop and later, to use the ripple
+background instead of the regular background.
+
+We have to specify this manually, because we have specified a custom
+background, to avoid the fake button margins that Android normally
+uses via its background drawable.
+
+See github issue:
+https://github.com/murraycu/android-galaxyzoo/issues/2
+"
+"65235c5df272e8015aee7f73f32a0901de6dfc38","2015-02-10 11:37:23+01:00","Add ripple to the checkbox buttons (ToggleButtons).
+
+* app/src/main/res/drawable-v21/question_answer_checkbox_background_ripple.xml:
+Make this a <selector>, like the regular question_answer_checkbox_background.xml,
+and use the ripple, instead of a color, via this new file as a drawable:
+* app/src/main/res/drawable-v21/question_answer_checkbox_ripple.xml
+plus a ripple specifically for the checked (true) state:
+* app/src/main/res/drawable-v21/question_answer_checkbox_checked_ripple.xml
+
+* app/src/main/res/layout-v21/question_answer_checkbox.xml:
+Add this version of the ToggleButton layout for Lollipop and later,
+using the background selector with the ripple.
+"
+"b017e2313b7ac8646595d94f40ea1e520c7787af","2015-02-22 20:26:40+01:00","SyncAdapter: Abandon items whose images have been cleared from the cache.
+
+* app/src/main/java/com/murrayc/galaxyzoo/app/syncadapter/SubjectAdder.java:
+Add checkForDeletedCachedImages(), which removes any items whose
+cached images have been downloaded but no longer exist.
+* app/src/main/java/com/murrayc/galaxyzoo/app/provider/ItemsContentProvider.java:
+Expose the (Android) standard _data field name so we can check if the URI
+in this field really points to a file that exists.
+* app/src/main/java/com/murrayc/galaxyzoo/app/syncadapter/SyncAdapter.java:
+doRegularTasks(): Call checkForDeletedCacheImages() during each sync.
+
+This should help with this bug:
+https://github.com/murraycu/android-galaxyzoo/issues/12
+which is maybe being caused by an automatic clearing of the cache, for instance
+to temporarily get enough space for an app install.
+This would only avoid the initial flashing while the UI tries each item only
+to abandon each one in turn when it cannot load the images.
+If the user still has no subjects to classify, for instance if they are not on wifi,
+but have chosen wifi-only, the explanatory message should be simpler to see.
+
+However, this is very inefficient - most checks will succeed, and we are checking
+each file each time, just for the rare (but it happens) case that the cache has
+been cleared.
+"
+"1f1f272de15b6fc3274ee10cba4d0b85024b50c2","2015-02-22 20:50:30+01:00","SubjectAdder.cachedImageExists(): close() the Cursor.
+"
+"e8a2370c83baa73f85d38a5f9b711a35ae1b2f6f","2015-02-23 09:21:52+01:00","SubjectAdder.checkForDeletedCachedImages(): Avoid unnecessary file checks.
+
+Only keep checking if the first ('next') item has had its images
+deleted. It seems unlikely that only some of the cache would be deleted,
+and we'll catch that later if it happens anyway.
+
+See
+https://github.com/murraycu/android-galaxyzoo/issues/12
+"
+"9e0542147edd1c1fd8f6393d3a48ee3eae878c38","2015-02-23 10:03:24+01:00","SubjectFragment.onLoadFinished(): Call destroyLoader() to avoid extra calls.
+
+As we do in our other onLoadFinished() methods, to avoid an apparent Android
+bug that causes multiple extra calls. This was causing showImage() to be
+called with some older out-of-date item IDs, confusing our checks, as
+well as being inefficient.
+
+This seems to avoid the problem where the user is left with just a blank
+image (and the question) after the UI has had to abandon some items
+due to their images being deleted from the cache. Now it doesn't stop until
+it has a new image or until it has complained about a lack of a suitable network
+connection.
+
+Hopefully this completely solves this bug:
+https://github.com/murraycu/android-galaxyzoo/issues/12
+"
+"949cdd3b320a8bf2cc36b71b229ae67035a7f39d","2015-02-23 10:08:11+01:00","Tiny log output improvement.
+"
+"84c67945256f49bb0b83df01e70c5f47ab742cb0","2015-02-23 10:34:00+01:00","ClassifyActivity: Slight improvement to log output.
+"
+"62ec5e97fe5cab802e322a6799e00126a49c511c","2015-02-23 10:50:20+01:00","SubjectFragment.updateFromCursor(): Abandon the item if it does not exist.
+
+This can happen sometimes, depending on the timing. Previously,
+in this case, we were just silently giving up. Now the ClassifyActivity
+will try to get or download a new item, and complain if it can't.
+
+This should be the last part of this bug:
+https://github.com/murraycu/android-galaxyzoo/issues/12
+"
+"86e6919f08467892b639317923cd2aa745dc2eab","2015-02-23 12:05:05+01:00","ClassifyActivity: After missing network, try again after later reconnection.
+
+* ClassifyFragment.Callbacks: Add listenForNetworkReconnection()
+and ClassifyFragment.listenForNetworkReconnection() to call it.
+updateFromCursor(): Call listenForNetworkReconnection() after
+warning about a missing network connection.
+* Classify.listenForNetworkReconnection(): Register a
+BroadCastReceiver temporarily so we can try to get a next
+item to download when there's a chance that it might work.
+
+Previously, the user had to switch away from the app and back again to
+force a retry. This is OK if the user reconnected manually (which requires
+the user to switch away and back) but not if the reconnection was
+automatic.
+"
+"68696d11216435ba718495d920cca4915d2e59d1","2015-02-24 09:42:42+01:00","build.gradle: Update the picasso and mockwebserver versions.
+"
+"d016d198e7089f336f0395d59bf3321e00fecc17","2015-02-24 09:44:40+01:00","build.gradle: Update gradle version.
+"
+"f28a9dc37bd1cb2acf1c690bbbbe57780218d118","2015-02-24 09:52:53+01:00","Add top-level .gitignore file
+"
+"864460d163753526e0c6061a0c9d023d32fe1ac3","2015-02-24 10:04:37+01:00","Changes by Android Studio.
+"
+"bd265316b81f4ad0a4023d35153ed18b40bf46fe","2015-02-24 10:04:45+01:00","1.38
+"
+"9134402771273444f3c4b20ca9a69c5975ff4a4f","2015-02-25 09:49:59+01:00","build.gradle: Revert to mockwebserver 2.1.0 instead of 2.2.0.
+
+Until this bug fix is in a release:
+https://github.com/square/okhttp/issues/1069
+"
+"25e0e54db2cdc81996312db5f11e57a363a0cf18","2015-02-26 08:44:42+01:00","Utils.get*Prefs(): Add a null check, though it should be unnecessary.
+
+Because this crash might be happening there:
+https://github.com/murraycu/android-galaxyzoo/issues/16
+"
+"6e0caeecef233524ab73e34ac08105e0c2ddec59","2015-02-26 13:54:07+01:00","SubjectFragment: Add a Download Image menu item.
+
+* app/src/main/res/menu/actionbar_menu_subject.xml:
+Add a Download Image menu item.
+* app/src/main/res/values/strings.xml: Add the title.
+* app/src/main/java/com/murrayc/galaxyzoo/app/SubjectFragment.java:
+updateFromCursor() Get the original remote image URI from the
+ContentProvider too.
+onOptionsItemSelected(): Handle option_menu_item_download_image
+and call our new downloadImage() method that enqueues a Request
+to the DownloadManager. This gets the file, showing a notification,
+and the file then shows up in the standard Downloads app.
+
+Because someone asked for it nicely in a Google Play rating.
+"
+"ad8f0e8d72c3235bdcf571ebb6c68b00644d58d5","2015-02-26 13:57:58+01:00","Changes by Android Studio.
+"
+"911d7957404778fa4314f67620f973c292cb03ac","2015-03-12 09:27:24+01:00","French translation: Translate the new string.
+
+Thanks to Dostoi on Transifex.
+"
+"3d50294abda0c5acafb0a4498e18efffc57dcf40","2015-03-12 09:29:21+01:00","Update Italian translation.
+
+Thanks to Toky Rajaobelina on Transifex.
+"
+"a13805a30d94c6cffaa523cadde50e4cb76e9c5f","2015-03-12 10:26:03+01:00","Update to Android API 22.
+
+And update Android support library dependencies too.
+"
+"3081853c8f5735ac1b362d72c66bff7e89323528","2015-03-12 10:29:30+01:00","Remove redundnant static modifier for inner interfaces.
+
+Suggested by android-lint.
+"
+"92833dc65ab9aa7ad061bf35698f6c10899015d5","2015-03-12 10:30:22+01:00","Remove unnecessary public modifier on interface methods.
+"
+"38964e79fa4eb36ced4a14e3d2565b6e78763080","2015-03-12 11:00:42+01:00","ZooniverseClient: Replace deprecated apache NameValuePair.
+
+With a simple inner class instead. We only used this because it
+was convenient, even after we didn't use any other apache httpclient code.
+"
+"bc7809d33b22ce10cf639966b0ae27169b396c86","2015-03-12 11:01:33+01:00","Changes by Android Studio.
+"
+"3d6f4ce23196bb29106e15080fdbf6070703eddf","2015-03-12 11:05:55+01:00","ListCursorAdapter: Replace deprecated getPosition().
+
+With getAdapterPosition(). I think this is the correct one to use based on
+the description of getLayoutPosition() here:
+https://developer.android.com/reference/android/support/v7/widget/RecyclerView.ViewHolder.html#getLayoutPosition%28%29
+"
+"90e580ac7498eeb4e23496a42e960c8214d357d8","2015-03-12 13:16:27+01:00","LoginUtils: Use the non-deprecated removeAccount() method.
+"
+"5e82f46acef3f530766b1cb471afb79ec15cc668","2015-03-12 13:21:11+01:00","Make some methods private.
+"
+"04a8c10d12656757f09ce3d31640d2f2747f049f","2015-03-12 13:21:25+01:00","Changes by Android Studio.
+"
+"a926f426fedf165288c10ede42915e1502ccbff1","2015-03-12 13:38:36+01:00","ClassifyFragment: Keep the image inverted after rotation.
+"
+"6a13c79e4c6cee9ad10109fa1b63f22035d43056","2015-03-12 13:43:27+01:00","1.39
+"

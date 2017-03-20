@@ -1,0 +1,297 @@
+"commit id","commit date","commit message"
+"6433c93da8b8a96436b0ed807e6bd9e5114a3bc7","2014-10-04 09:45:29+01:00","add bitcoin address for donations to readme
+"
+"635bd38679e425f7210898a6459bfd2150a7d481","2014-10-05 16:04:55+01:00","fix various minor xml issues
+
+picked up by the lint tool. these were some minor and easy to fix
+warnings and errors in several xml files.
+"
+"9e179a25ebb40310a029c162e31bcda435e86814","2014-10-05 16:36:49+01:00","use String.valueOf(int)
+
+instead of new Integer(int).toString(). It's more efficient and keeps
+the lint tool happy.
+"
+"439ed7cb27d6793013919ed1f8754dedc09568a3","2014-10-05 17:18:43+01:00","use Context.getString()'s format functionality
+
+use getString(id, formatArgs)
+rather than String.format(getString(id), formatArgs)
+
+saves a few characters, and fixes an error picked up by the linter where
+I'd done the latter incorrectly.
+"
+"30e8412b7db4dcd77bd256d2594b32e135950dcd","2014-10-05 22:00:52+01:00","use US locale when parsing dates from tvdb
+
+using the default locale can lead to problems when parsing input
+"
+"dc517f95f35162317ed5c6c880dc0f291870f09d","2014-10-05 22:18:19+01:00","do not hardcode format string for episode number
+
+used at the top of episode details fragment, prepended to the episode
+title. this reuses the old string resource from when we used to show
+this at the bottom of the fragment instead of at the top. it was unused
+causing a lint warning, so that's now fixed.
+"
+"c308c7dc7f2a3ecd639aefeccbe59cd4929cf597","2014-10-05 22:25:18+01:00","use getSupportActionBar().setTitle() everywhere
+
+instead of the activity's setTitle() member function which doesn't work
+on older api versions
+"
+"9dfc84477914e283710f9e2b1c6ac9fa3774ed81","2014-10-05 22:39:35+01:00","use SparseIntArray instead of HashMap
+
+lint says it's more efficient. doubt it really makes much difference at
+this scale but might as well make lint happy.
+"
+"ce61517be38801cb60ed8fcc54e6e735f3171b39","2014-10-05 22:44:16+01:00","add allowBackup property to manifest
+
+set to true. it's the default but explicitly setting it keeps lint happy
+"
+"12171f1b0c0e2ca2e99959b40a01630ec67daad0","2014-10-05 22:46:40+01:00","move blank_show_banner.png to drawable-nodpi dir
+
+appease lint by explicitly stating that the banner is dpi independent
+"
+"c7b81c33da42eb2d9b63c0dac1be37b3e4116f79","2014-10-07 22:20:50+01:00","fix style.xml files for different api levels
+
+I was using wrong naming scheme for files, causing lint errors and not
+doing quite what I wanted.
+"
+"1054df2594f32830b3485d902fc1c5dd228f50c0","2014-10-07 22:47:38+01:00","handle error adding show more gracefully
+
+show a toast saying there was an error instead of a letting
+NullPointerException occur. include small cleanup of touched files.
+"
+"ae8d2b0ffcc3eb0b5b4044b7f269c45c14403a74","2014-10-14 01:26:56+01:00","add okhttp and okio jars
+"
+"d4434d2fa0b5de46088a51740c7d79a4c5ce4f9d","2014-10-14 23:20:03+01:00","use okhttp for thetvdb.com requests
+
+it makes the code slightly simpler, is more efficient, and is more
+resilient. and it caches requests which will hopefully greatly reduce
+data usage.
+"
+"7bf488ec9d1ec24cd4108216ff70147240fe5b40","2014-10-17 00:22:14+01:00","bump min sdk version to 9
+
+needed by okhttp.
+"
+"1e17ecd55fd9fa1eae20f3db4caea8d716375df0","2014-10-23 23:42:32-07:00","Merge branch 'okhttp'
+"
+"13c0dc76b264237e897921ab33a4429857ce9307","2014-10-25 20:43:40-07:00","display episode dates in episode list
+"
+"834bdd837e06002cc87aa386f70b4f94b0862971","2014-10-25 20:54:56-07:00","change date formatting in episode details
+
+use the long formatting (use full month names), and display just the
+date instead of prefixing 'First aired: ' to it.
+"
+"f62a0c5a1881f77e8eafdbb1f4f1e2b1e2bb4fa9","2014-10-31 18:48:22+00:00","switch to light action bar theme
+
+It looks nicer than the dark action bar, I think.
+
+Eventually we'll switch to material design and it'll be absolutely
+beautiful, but in the meantime this is an easy way to make the app look
+slightly better.
+"
+"8458453fd7ec8b39b7dd7a7c0df48f904e8f7c04","2014-10-30 18:10:47+00:00","add filter menu to shows list
+
+with checkable options to:
+* hide unstarred shows
+* hide completed shows
+
+this just adds the ui, not any logic to actually filter shows.
+"
+"249eab29d23b93b9b0a028d88af3936b577e91aa","2014-11-03 00:40:14+00:00","update support library
+
+fixes some issues to do with checkable menu items
+"
+"9fa5a48927293c4f83593ca2e780fe8b5882f2d2","2014-11-04 23:05:31+00:00","update ui when filter menu items are clicked
+
+set the clicked item as checked, which will automatically uncheck the
+previous item.
+
+persistently save the selected filter using shared preferences, and
+ensure the correct item is checked when the menu is first created.
+"
+"7b76eeff8aa9e6e0ca2f7dd30ce6f74199de5d43","2014-11-09 22:44:16+00:00","filter shows list based on selected filter
+
+Actually filter the shows that are shown in the shows list based on the
+currently selected filter in the filter menu.
+"
+"d44eb2767f8d29c504cbda8cb2451d06f877490d","2014-11-09 22:50:15+00:00","Merge branch 'filter-shows-list'
+"
+"6d40ca507c7826944eb709edcf453fa0c1620a1f","2014-12-12 20:06:49+00:00","collapse search actionview after starting search
+"
+"210c305cacf3110bed1bbb18e24e258985cf9e27","2014-10-12 16:53:38+01:00","add auto-refresh settings
+
+Add a new activity SettingsActivity which simply contains an instance of
+another new fragment SettingsFragment. Add a menu item to the main
+activity to open the settings activity. Slight code cleanup in
+MainActivity while we're there.
+
+Add the following settings:
+* Automatically refresh shows - a checkbox that enables or disables
+auto-refresh. Defaults to checked.
+
+* Auto-refresh frequency - selects the frequency at which the shows are
+automatically refreshed. Can be set to the following options:
+* Daily
+* Twice weekly
+* Weekly
+* Fortnightly
+Defaults to weekly.
+The constants associated with these strings are periods not
+frequencies, so the variables are named as such. The user-facing
+strings refer to them as frequencies.
+Only enabled if 'automatically refresh shows' is checked.
+
+This commit only adds these settings, it doesn't implement the
+functionality.
+
+Bump minSdkVersion to 11, for PreferenceFragment, as it unfortunately
+doesn't exist in the support library.
+"
+"a349933517589beff9fa5a87a08c2bfad57e3061","2014-12-13 21:08:57+00:00","initialise default settings values on first launch
+"
+"ea25ebccb1a13b97ef7a75f39c5022bea71e8a30","2014-10-29 11:33:35-07:00","split refresh show implementation from service
+
+Create a RefreshShowUtil class with a static function
+refreshShow(). Move the implementation of RefreshShowService into the
+new class and function, and make the service call the function.
+"
+"7235889179e71d45c37edea9b1c7efd8a019db83","2014-12-13 00:58:20+00:00","schedule periodic alarm to auto refresh shows
+
+Create a singelton class AutoRefreshHelper. Make it read and listen to
+changes in the settings regarding auto-refresh. When auto-refresh is
+enabled schedule a service to run after roughly a certain time, and when
+auto refresh is disabled cancel that service. Use AlarmManager to do
+this. Use the value of the auto-refresh frequency setting, along with
+the time of the last auto-refresh, to determine what time to run the
+service at.
+
+The service itself is responsible for refreshing all of the shows,
+storing the time at which it last did so, and asking the helper to
+schedule it again.
+
+Using the AlarmManager was chosen over using a SyncAdapter for a few
+reasons:
+* We do not use accounts, and adding a dummy one to the system--like
+the SyncAdapter approach required--looked very strange.
+* I believe it will be easier to add an 'only auto-refresh over Wi-Fi'
+option in the future using this approach.
+* I don't think a SyncAdapter's periodic sync works correctly when it
+is toggled on/off or the phone reboots. So part of the chosen
+approach (storing the time of last refresh) would have had to be
+implemented anyway.
+"
+"cf98ae25631afd7733f21e3d42d9edf18252c33f","2014-12-13 21:11:44+00:00","schedule auto-refresh alarm when app is ran
+"
+"f0691c2b9f5d167b735cea57942a3167ca7f8a31","2014-12-13 14:04:01+00:00","schedule auto-refresh alarm on phone boot
+
+Requires new permission RECEIVE_BOOT_COMPLETED.
+"
+"e004294d1b2a4d05c49157f1ddec32c0071345a5","2014-12-13 18:16:19+00:00","wait until network is available for auto-refresh
+
+If an auto-refresh is attempted but a network connection is not
+available then a broadcast receiver is enabled to listen for the network
+state change. When the network becomes available again the receiver is
+disabled (to conserve battery) and the auto-refresh is rescheduled. This
+auto-refresh should now run straight away as it will be overdue from the
+previous attempt.
+"
+"c61ecbb84fa3884d4861624e84643e6aa178b2e3","2014-12-13 21:41:11+00:00","add only-via-wifi option for auto-refresh
+
+When checked, auto-refresh will wait until an unmetered network
+connection is available.
+"
+"39f4324e22b994551fb28df3eeb30b3e5bc441f0","2014-12-14 02:31:06+00:00","Merge branch 'auto-refresh'
+
+Implements a feature to auto-refresh tv show information. By default it
+is enabled to fetch new data once a week and only via Wi-Fi. This can be
+configured in the settings screen.
+
+Closes #16.
+
+Bumps the minSdkVersion to 11.
+"
+"86698daf589d50cd7c23bd13ab8ab14b301ff8ce","2014-12-14 01:26:58+00:00","switch build system to gradle
+"
+"fd23ba788c2ae44b0ea5c4113e6eb0910feeef64","2014-12-14 02:32:20+00:00","various lint warning fixes
+"
+"e10288db7e4a63b797b2aeda8807103df2b8576a","2014-12-14 11:45:41+00:00","update gitignore for gradle
+
+and remove some things that should really be done in my global or local
+gitignores (editor-specific files).
+"
+"cf2c8b031bfd9c909b1a07918184bac16bfb4448","2014-12-14 20:30:54+00:00","move 'refresh show' action to overflow menu
+
+with the auto-refresh feature the user shouldn't have to manually refresh
+shows very often.
+"
+"7d76375b06bd8de3fd03eed057b700319c519a16","2014-12-14 22:59:11+00:00","implement back up library to sdcard
+
+Add class BackupRestoreHelper with a function backup() that copies the
+application's database to the device's external storage, adding a
+timestamp to the filename. Perform this task using an AsyncTask.
+
+Add an item to the main activity's menu which calls this function.
+"
+"d114a58674dde38004c12fc0a8920f30dd00f679","2014-12-15 00:47:28+00:00","implement restore library from backup
+
+Add a function restore() to BackupRestoreHelper. It copies a backed-up
+database to the location of the application's actual database. It then
+makes the content provider reopen the database and notify everything
+that the data has changed.
+
+Add an item to the main activity's menu which calls this
+function. Currently the location of the backup database is hardcoded.
+"
+"bc200be09cff3b2b5bb33dd7e5bd57fda89c71b3","2014-12-15 19:02:37+00:00","make back up complete toast longer
+
+give the user a chance to read the backup location
+"
+"b103f0a1a689651c580ab1b2af5dc590efb298fa","2014-12-15 21:28:19+00:00","allow user to pick which backup to restore
+
+When the user selects restore from the main menu a dialog is opened
+listing all the files in the app's backup folder on the phone's external
+storage. If one of these backups is selected then the app data is
+restored from it.
+
+If the backup folder is empty then a message saying so is displayed
+instead of a list of backups.
+
+There is no protection against selecting any random file that isn't a
+previously made backup. Doing so will probably not cause an error but
+obviously will not result in any valid data being restored: effectively
+the data will be cleared.
+"
+"0b3073dd9bbc928d0e89b3de782739979e9f7828","2014-12-17 01:23:37+00:00","Merge branch 'backup-restore'
+
+Fixes #19
+"
+"ebe131da9003c18cabf044c887cc71ede5ae1562","2014-12-15 23:23:23+00:00","build with sdk and support libs version 21
+"
+"9c965dbcb21170332cc46607af0f7187b70f8b64","2014-12-16 00:07:30+00:00","adjust shows list padding
+
+importantly, set android:clipToPadding='false'. it means that the very
+top and bottom of items are not clipped when scrolling off the edges of
+the list view.
+"
+"35f71da3de34b19631be9f678479d9cf8e72c7a7","2014-12-16 00:07:50+00:00","ensure settings activity uses correct theme
+
+inherit from ActionBarActivity rather than Activity, ensuring that it is
+given an action bar and it is themed correctly.
+"
+"d00110c809ccd54e94976762ce34e0c78c34fb43","2014-12-16 00:20:16+00:00","switch theme back to light with dark action bar
+
+it looks better in material than it did in holo.
+change the colour of menu icons to match the dark bar.
+delete icons for menu items which have showAsAction='never'.
+"
+"bc915d5170f0e22bbb5b82cdb0c3a79416f1ff56","2014-12-17 16:26:51+01:00","Moved progress bar colors to values/colors.xml
+"
+"eea936eb2f246f0b8d18a9e124f9d37a4c4c3e27","2014-12-17 16:37:52+01:00","Fixed version name.
+"
+"231d99abde5141256995dfa3de8327fe56304459","2014-12-17 06:41:25+01:00","Remember which tab is selected in ShowActivity
+"
+"68ac58349701b4938d6a882290f9035028abe204","2014-12-18 20:55:58+00:00","simplify auto-refresh settings strings
+
+shorten a title and remove the summary texts. I don't think they added
+any helpful information, and they were a bit long.
+"
+"f93ade29da3ad6089af361972d5649dcb62caff9","2014-12-19 00:23:22+00:00","bump version to 0.8
+"

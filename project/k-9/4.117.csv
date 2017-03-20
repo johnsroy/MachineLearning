@@ -1,0 +1,74 @@
+"commit id","commit date","commit message"
+"5d080b656df51ad212a18f1c16b39b877641f942","2012-04-30 16:12:14+02:00","Fixed a NullPointerException for the context menu in the Unified Inbox
+"
+"9e1fa6313904afd566dfc765cc493cf0bbdeab20","2012-04-30 13:58:02-05:00","fixed MimeHeader.hasToBeEncoded() to include TAB.
+bug encounted when replying to a message such as:
+From: 'bar,	foo' <foobar@example.com>
+the field was originally folded on the tab, but the CRLF was already stripped before this error.
+"
+"022940d4f5f58db7526a5469908f0258ce850bf3","2012-05-01 01:56:06+02:00","Fix gesture detection
+
+This commit addresses 2 issues:
+
+1) Before, a general GestureDetector was registered on the highest level in K9Activity
+This resulted in EVERY inherited activity to have a useless, unused gesture detector.
+But more than that, in MessageList, a second GestureDetector was assigned to the ListView.
+On every fling gesture, both detectors called the onSwipe() methods,
+which technically did the following:
+- The one directly assigned to the ListView would work corectly by mapping the
+(local) event coordinates to the right entry in the ListView
+- The global one worked on screen coordinates, so the onSwipe() method would
+likely select the wrong ListView entry (system menu bar offset).
+- For some reason this 'worked' fine, and only the correct entry was selected,
+despite two detectors used.
+
+2) The gesture detection for the MessageView caused problems when the message
+itself was scrollable, i.e. wide HTML mails. A fling gesture inside the WebView
+would scroll the message, but also switch the message.
+
+This commit fixes all those by doing the following:
+- Don't register the GestureDetector in K9Activity, instead make the member variable
+accessible by subclasses.
+- In the subclasses that need a detector register it
+- In K9Activity.dispatchTouchEvent() check for mGestureDetector being null
+- For MessageList:
+* Remove the duplicate gesture detector assigned to the ListView
+* in the handleSwipe() methods: calclulate pixel offset of the ListView to make
+it work using the global screen coordinates
+- For MessageView: Limit sensitive area to the message header, to prevent interference
+with the WebView scrolling
+- Respect current behavior:
+* Force-enable gestures for the MessageList
+* Respect user setting in MessageView
+- Make sure that after a successful swipe gesture, any pending action is cancelled, to
+prevent unwanted things to happen (such as expanding the header after changing
+the message, or a context menu popping up in the MessageList).
+See http://code.google.com/p/android/issues/detail?id=8497
+"
+"8fdece478242074020903b446d0ee84162f93743","2012-05-04 16:32:39+02:00","Use bezel swipe gestures to move to next/prev message in MessageView
+"
+"e1fa90b2fdebc4886a6a7927cf9cf1c6e433db1f","2012-05-04 22:03:35+02:00","Use Notification.Builder on Honeycomb+ devices
+
+Using the new helper class we can easily add support for some of the
+new notification features later.
+"
+"2632b39003c22d58009d96c1950bbc40812582a5","2012-05-05 00:21:06-05:00","updated Yahoo! Mail Variants
+"
+"5e3dbdcc11ac3f947294f043e08b2eb3d3292898","2012-05-05 00:30:03-05:00","Merge remote branch 'upstream/master'
+"
+"dc476eb3e8a4f7539e5f281bbbe76b8f11ccefc2","2012-05-06 17:47:59+02:00","Support ACTION_SEND extras when handling ACTION_SENDTO
+
+Too many applications get this wrong and rely on the undocumented
+behavior of the AOSP Email app and Gmail.
+
+See https://code.google.com/p/android/issues/detail?id=30190
+"
+"edfae1906a2f5c993532a0412d5efeaac5d4a9e2","2012-05-06 21:02:41+02:00","Make sure we always have an account name when importing settings
+
+This avoids a NullPointerException in the dialog that allows selecting
+which accounts to import.
+"
+"ca6d697eed30cf80bea8a2b36dc86be21934e7c1","2012-05-07 09:24:13-05:00","fixed commit ed4c74983eb5aa1b8f5fd729a32504a69441efa2 due to crashing on 2.1 devices
+"
+"c59688bf2d6f23f93c0e0ecfc6d92b549b15f9e5","2012-05-07 17:31:36-07:00","Bumped manifest to 4.117
+"

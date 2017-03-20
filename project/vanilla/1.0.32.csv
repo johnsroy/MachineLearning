@@ -1,0 +1,75 @@
+"commit id","commit date","commit message"
+"7db6ced8ea2cc21bc4f0843d00510fcefe6b91bd","2015-09-07 19:02:00+02:00","add enqueue_as_next to playlist item actions
+"
+"c0d1cdcb6caf4357229ae86e97c88bbd43f8f3dd","2015-09-12 11:24:53+02:00","setCurrentQueuePosition should broadcast song changes
+"
+"8c482214ecaf8060309a7cf8405056fde449433d","2015-09-12 11:40:59+02:00","Fix superfluent call to setCurrentSong();
+This is now handled by the broadcast issued from setCurrentQueuePosition()
+"
+"5fe5308d6c89837ebf6c6a0e643bada4cd915be8","2015-09-12 11:56:20+02:00","Shrink queue during getSong() call and call change().
+This ensures that the ShowQueueAdapter gets notified about the change
+"
+"7bfc9d338f12826517ac39cd3c171cf424d377c8","2015-09-13 22:36:36+07:00","Create translatable.xml
+"
+"43712060d5f72030b4a826ae80574b4dd4ed6e62","2015-09-13 23:53:16+07:00","Add Vietnamese translation
+"
+"4e56d72664532569e6f4b277568c6e187d0768e7","2015-09-14 18:58:17+02:00","Merge pull request #204 from abn-volk/master
+
+Add Vietnamese translation
+"
+"61bcb9857a7799437bfca00da63b844cc70d2db2","2015-09-14 19:50:03+02:00","Add distinct translation for some keys, see PR 189
+"
+"3cfb1633fbe03668372c3a3610b54c60570460bc","2015-09-14 20:24:07+02:00","improve handling of AudioManager.AUDIOFOCUS_LOSS_TRANSIENT
+"
+"776385e6e2cbadd059df23c72f07ae46a4147adf","2015-09-14 20:46:46+02:00","change row dimensions from dip to sp
+sp is a scaleable dimension and respects the user font size
+"
+"954734de0558f9f868f8706d3bcaba4cd3ef1b9b","2015-09-16 19:15:05+02:00","unplugging the headset is a permanent audio loss
+"
+"fd3b4c152a8bb6450ec31a559aea1e877a0b0629","2015-09-16 19:48:54+02:00","Fix a crash bug due to mCurrentSong == null
+This happens if:
+* Notification is set to always
+* The user empties the queue
+
+This causes activeSongReplaced() to be called, so setCurrentSong(0); will be executed while mCurrentSong is already null.
+Updating the notification in this state crashes with a null pointer.
+
+However: The 'dangling' notification will have wrong information in this state - but it is still better than displaying an empty one as it just looks butt ugly.
+We whould probably, at some point, design an 'empty notification view'
+"
+"435bab200014d32feff618051f3a679607407874","2015-09-20 18:13:41+02:00","bugfix: clear stale icon if queue is fluhed
+"
+"1d9cc03105d4508960976777c74ccc107c0e5e24","2015-09-17 18:59:06+02:00","Allow the MediaAdapter to be used without an activity
+"
+"83c037d1de22cb72819092014a4960cbbdcc3e9b","2015-09-23 09:33:47+02:00","Save scrolling position in LRU cache
+"
+"62524510c409cf8f7f3a2baa8c63ed4c6f6472a2","2015-09-23 16:54:52+01:00","Add In-Car Listening possible through MirrorLink using the MediaBrowserService
+"
+"4556d50eda3535e03e12a3c68dc7378795d14973","2015-09-26 10:13:16+10:00","DragSortController: Check for null MotionEvent arguments (#202)
+
+This fixes a rare crash on Samsung Galaxy S6 devices. The null arguments
+appear to be caused by the GestureDetector not receiving an ACTION_DOWN
+event before receiving an ACTION_MOVE event.
+
+As we are unable to reproduce it, this commit work around the issue. It
+might cause some scrolling issues in the cases that cause the issue, but
+better than crashing.
+"
+"6b14cff33aa51a2a86ead33067707335bfbb9550","2015-09-27 00:42:23+03:00","Missed constant usage
+"
+"814e21f05fa901b91885d7d7ac695e6d156e0934","2015-09-27 13:11:13+02:00","Merge pull request #211 from xbao/feature/202-dslv-crash
+
+DragSortController: Check for null MotionEvent arguments (#202)
+"
+"f492ba327c10e791d0a6220c7e02b1ca92e9c259","2015-09-27 13:12:49+02:00","Merge pull request #213 from alex73/master
+
+Missed constant usage
+"
+"88296dbeb2433a4d9f844b1351ce09e3aa7cf561","2015-09-27 13:13:50+02:00","Merge pull request #210 from lcremmer/MirrorLinkMediaBrowserService
+
+Add In-Car Listening possible through MirrorLink using the MediaBrows…
+"
+"a1be0e10e426d6bf5bf9469936a78286713aed29","2015-09-27 13:18:51+02:00","Update translations
+"
+"103d78f0756f96ad31cab2efeb882ce9be5d0030","2015-09-27 13:28:36+02:00","target 1.0.32
+"

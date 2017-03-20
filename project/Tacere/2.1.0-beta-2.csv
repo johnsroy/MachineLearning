@@ -1,0 +1,465 @@
+"commit id","commit date","commit message"
+"7a8346561a6c65a32bbc69c0073e3d2acb0068b1","2014-06-19 23:26:38-04:00","Added button to notification
+strings.xml:
+-renaming from 'free time' to 'available' to match default android calendar naming
+
+PollService.java:
+-notification of ongoing event now includes a button to either skip (ignore) the current event, or to re-enable the event if it has been skipped.
+-added rudimentary support for updating the listview in the main activity from the service using broadcast receiver
+
+MainActivity.java:
+-added rudimentary support for updating the listview when receiving a broadcast message
+
+ResetEventService.java:
+-simple service to reset the ringer state of a calendar event then restart the poll service
+
+SkipEventService.java:
+-simple service to change the ringer of the current event to UNKNOWN, then restart the poll service
+"
+"289376ae278cc9b2561ea26692ad69e17edf345f","2014-06-21 12:09:37-04:00","Large refactoring work on PollService (untested)
+AndroidManifest.xml:
+-changed min API version back to Ice Cream Sandwich, enhanced notifications are shown if running on a device with API version of 16 or higher
+
+PollService.java:
+-broke onHandleIntent() into many smaller functions (untested, may not work)
+
+CalEvent.java:
+-broke ringer states into a separate internal Class RINGER
+
+MainActivity.java, ResetEventService.java, SkipEventService.java:
+-updated to reflect variable changes in CalEvent and PollService
+"
+"2ac0e425f3201de85fa33f79f546f8e829cc3434","2014-06-23 22:34:31-04:00","Continuing refactoring (still untested)
+-added database, prefs, and manager packages
+PollService.java:
+-split out notification methods into NotificationManagerWrapper.java
+-split out volume control methods into VolumesManager.java
+-split out storing, retreiving, and changing ringer methods into RingerStateManager.java
+-split out alarm scheduling and canceling methods into AlarmManagerWrapper.java
+-split out request types into RequestTypes.java
+
+EventProvider.java:
+-moved to database package, changed to package access (only DatabaseInterface should be using this directly)
+-moved database columns into Columns.java (column names can be used as a sort key when retrieving a cursor from the DatabaseInterface)
+
+Prefs.java:
+-moved all preferences storage and retrieval methods here, still ugly
+"
+"6aedbf68f0260a2d4749b5c8ef28c2ffb642f4d3","2014-06-24 23:16:15-04:00","Refactoring (still untested)
+-continuing refactoring from before
+-added basic unit test (not working, will have to move to Robolectric or another unit testing framework)
+
+PollService.java:
+-renamed to EventSilencerService
+-broke out service state management methods to ServiceStateManager
+
+ServiceStateManager.java:
+-keeps track of the state of the application (whether or not an event and/or quicksilencing is active)
+
+Prefs.java:
+-cleaned up a bit
+-moved request codes to AlarmManagerWrapper
+-moved notification id to NotificationManagerWrapper
+-moved max media and alarm values to VolumesManager
+-removed Key and getters/setters for moved variables
+-added generic method storePreferences(String key, V value) to store values
+-added method readPreferenceString() to read arbitrary string preference
+
+DefaultPrefs.java:
+-removed request codes, notification id, and max media and alarm volumes
+
+NotificationManagerWrapper.java:
+-added displayQuicksilenceNotification()
+"
+"cae2a287eae92a58b6fad899114788d1a516faa9","2014-07-07 18:09:36-04:00","Transition to Android Studio (untested)
+-large update, full Android Studio project upload
+-does not include donkate-key module
+-partial support for Android L preview
+"
+"ad6682f6b85e93eac2533340a49cf59e68445710","2014-07-07 18:12:15-04:00","Re-adding web resources
+"
+"2ccb41e876172a3f6c6610fadc2a4371ce5fd728","2014-07-07 18:14:05-04:00","Adding icon png, updating README to point to new resources
+"
+"c0d9cbed81fb110c198d9a3b4133419e365422e9","2014-07-07 18:17:47-04:00","Updating COPYING to include reference to SIL license
+"
+"7ff23ab871b971334ee87869f22e9c2978dc5717","2014-07-07 21:59:27-04:00","Adding donation key module so the project will build as-is
+"
+"4f49aa7eeb331b814cef064f03340d4592345167","2014-07-08 13:02:47-04:00","Adding previous releases apks
+"
+"619d951365044a7556cd1a7918ddbbc0627d0ab1","2014-07-08 13:12:56-04:00","Updating views, small bugfixes, refactoring
+-added cropped versions of normal, silent, and vibrate icons to use in settings view
+-removed drop shadow from normal, silent, and vibrate icons
+
+activity_main.xml:
+-pulls fab size from dimens now
+
+activity_settings.xml:
+-added icon to show ringer type
+-cleaning up onclicks
+
+event_list_item.xml:
+-changing icon size to 24dp
+
+main.xml:
+-changed menu ordering so settings is right-most
+
+colors.xml:
+-changed theme to blue and orange
+-added color for floating action button when its action is ongoing
+
+MainActivity.java:
+-receiving broadcast messages now triggers the event list and quicksilence button to redraw
+-quicksilence button's icon and background color determined by the service's state
+
+SettingsActivity.java:
+-refactored refreshDisplay() into multiple methods
+
+ServiceStateManager.java:
+-added convience methods isEventActive() and isQuickSilenceActive()
+
+EventSilencerService.java:
+-fixed bug where ringer state was not being stored before state was changed
+"
+"a83f03c231087af7dfb78ea5c682d245fac37e59","2014-07-08 13:16:24-04:00","Updating readme to point to releases
+"
+"92bccba64cac333283b88ee24a2ab175e72e94da","2014-07-08 13:20:19-04:00","Cleaning release folder
+-removed duplicates
+-renamed all files to have apk ending so they can be installed easier
+"
+"7ceeb091a86344fab96199ceb782a564b4cfebd8","2014-07-08 20:38:16-04:00","Updating copyright header
+-added BSD copyright template
+-updated all java files to use BSD template
+"
+"fc9332189af55f0277edc134063c6c7baedad5d8","2014-07-08 20:39:19-04:00","Add separate drawables for quicksilence and cancelQuicksilence action buttons
+"
+"069661679a972778a2ef1fddf25b5771b5b5a53a","2014-07-08 23:01:12-04:00","Adding icon for adding a calendar event
+"
+"35ffadfcc5756883bc288ad201b1e53c36598fe5","2014-07-08 23:02:41-04:00","Cleaning html, add transparent background to all webviews so theme background shows
+"
+"c8f1d6fbc8fac6b2ebcb2de7fe72b7b788bf3fdd","2014-07-08 23:03:59-04:00","Adding additional color for overflow menu text
+"
+"c7f76d236a576fe79f7f75150614a5e414dd9283","2014-07-08 23:04:36-04:00","Add menu entry to main activity for adding calendar event
+"
+"7957a2b2a445f711622b82c691568c40492af3ac","2014-07-08 23:05:04-04:00","Changing in-code strings into string resources
+"
+"89e7898dcf1c2ab492e14a702ac9c32ef767dc67","2014-07-09 16:01:56-04:00","Fix bug where quicksilence button could not be switched to cancelQuicksilence button
+activity_main:
+-added second imagebutton to act as cancelQuicksilence button (visibility set to GONE by default)
+
+MainActivity.java:
+-refactored drawQuicksilenceButton() to swap the visibility of the two imageButtons when one is clicked
+"
+"645faf5964b08c9f3ec5707c0e29b8f09d622319","2014-07-09 16:04:29-04:00","Fixed string formatting for hours/minutes in the quicksilence notification
+"
+"3465c9f2dd0dea7623ab9fdf5a06be05129c94ef","2014-07-10 22:13:53-04:00","continued refactoring, fixing small issues in code analysis, some small features added
+-added changelog.html (to mantain the full changelog)
+
+activity_main.xml, MainActivity.java:
+-added basic textview to indicate that there are no calendar entries, code swaps between the listview and the textview as needed
+-different color for cancel quicksilence button
+
+donate-key:
+-reset target, min, and compile API versions to 14
+
+-added Dialog theme to styles.xml for base theme and API 21 theme
+"
+"0c7de5d8a71768503af08ba6635a40804d4a3451","2014-07-11 15:56:16-04:00","one stop versioning, adjusted about view
+about.html, AboutActivity.java, activity_about.xml:
+-added header to top so that app icon, name, and version text can be displayed better
+-version information pulled from Versioning instead of from html
+-removed that info from html
+-replaced html link color with tag that is replaced during runtime with the accent color
+
+build.gradle, Versioning.java:
+-moved versioning information to the gradle build file, Versioning now pulls that information from the BuildConfig during runtime
+
+activity_main.xml:
+-moved warning text to be centered in view (still needs to be replaced with something pretty)
+"
+"b902b7d6a1fcdf95411c5fb670af1dfb6e56a64c","2014-07-11 21:11:28-04:00","Prettifying error message for no calendar events
+-added calendar icon to error message for no calendar events
+-added string value for error message, will now display the correct time period checked
+-centered text and icon for error message
+-moved some versioning information to top of build.gradle
+-changed about header text to be floated left (centered text looked strange on tablet)
+"
+"11893ef560f320c5dc614a175065edb48fac351d","2014-07-12 11:46:06-04:00","added drop shadow to about activity header
+"
+"8cd189405c9226d326e4fbbf5d46286d0f6f9a8c","2014-07-12 11:47:58-04:00","Added DateConverter to convert days to years/months/weeks/days string
+-updated main activity to use DateConverter to display duration
+"
+"28701427330b6bb1f23b14d78659aa5b0f685972","2014-07-12 11:49:00-04:00","Removed launcher activity from donaton key, adding drawable shape for about activity header drop shadow
+"
+"aa75a39f4d29c7bc2e23d3192f257272f67a3e24","2014-07-12 14:27:29-04:00","adding junit dependencies and a few tests
+"
+"097b6b12d78a6560ca73a44e22686d49d613eb55","2014-07-12 14:28:09-04:00","Automatic code reformatting
+"
+"1080cbc5b5188ce3d4ad970604282585c81165ed","2014-07-13 17:53:57-04:00","Removed event provider, visual changes, bugfixes
+EventProvider.java:
+-removed, all database operations take place in DatabaseInterface now
+
+DefaultPrefs.java:
+-added default setting for do not disturb (android L feature)
+
+Prefs.java:
+-added methods to get and set do not disturb settings
+
+activity_about.xml:
+-app icon, name, and version information now displayed as a header attached to the actionbar, webview in a seperate webview below
+
+activity_advanced_settings.xml:
+-removed padding from root element, applied to all child elements (makes the ripple effect expand to the edge of the screen)
+
+activity_main.xml:
+-removed padding from root element, applied to listview elements individually
+-moved hte error text to be 100dp from top instead of centered
+
+activity_settings.xml:
+-moved service switch to be attached to the action bar as a header
+-icon hightlight color matches primary instead of accent
+
+event_list_item.xml:
+-added right and left padding
+
+colors.xml:
+-added commented out color themes
+-switched to a grey primary color scheme with teal accent color
+
+strings.xml:
+-fixed all caps section titles
+-added title and description for do not disturb setting
+
+styles.xml:
+-added header switch style
+
+MainActivity.java:
+-list position is saved before and restored after receiving notification that database has been changed
+-list position is saved and restored when activity is swapped out/in
+
+SettingsActivity.java:
+-fixed bug where service was not being restarted after it was disabled
+-added boilerplate code to render do not disturb setting
+
+Columns.java:
+-addded additional columns (that probably wont be needed)
+
+DatabaseInterface.java:
+-no longer a wrapper for the event content provider, now acts as a full frontend for the sqlite database
+-only lightly tested
+"
+"1b608f75a94c7f7b9da4fa5c66495465c6f5cd3a","2014-07-14 20:29:31-04:00","New icons and animation, layouts modified, bugfix
+-action buttons now fade in (fading out is broken)
+-settings activity layout modified so the buttons extend to screen edge
+-modified color scheme a bit to use light blue as the accent color, dark grey as header background
+-added onclick methods for settings buttons
+-fixed bug where do not disturb settings were not being saved
+-changed icons for silent and normal to match the new ones in android L preview
+"
+"62841a77e8d8043cd7a987baab934c940be1a0d7","2014-07-15 01:21:55-04:00","More L styling
+-section headings full width and have background color and separate text color
+-changed about header to fit with rest of theme
+-event list items now use a fixed height, event color bar reduced to 3px wide vertical strip on far left side
+"
+"1cd698e4b5fab38d46c4295e39e8992703cdae98","2014-07-15 12:48:54-04:00","Bugfixes
+-events now silence correctly if a custom ringer is not set (fixes #1)
+-device will only vibrate if transitioning from no event active to active event or from active event to no active event (fixes #2)
+-reduced the number of database syncs needed
+-moderate refactoring to reduce coupling
+"
+"ea6a8fe9c9babdef4dc9c211ec77337eab1c2457","2014-07-15 13:01:06-04:00","Bugfix
+-fixed bug where EventSilencerService would continue searching for an active event after finding one
+"
+"7c3d232be75bd29e1a9c56c5d5689e3f0e237ade","2014-07-15 16:14:02-04:00","Visual Improvements
+-event list now categorizes (and colors) events as either active, upcoming (today), or upcoming (tomorrow or later)
+-CalEvent can now check equality properly
+-removed description text from do not disturb button (since it won't be shown unless the api level is high enough)
+-button to set ringer type now shows ripple effect like it should
+-added ActiveEventManager to keep track of which event is active at any given time
+"
+"a731eb12394943e5bd359ef22500bc6fc4f3b933","2014-07-15 17:51:18-04:00","Refactoring, some bugfixes
+-added null pointer check to CalEvent.getLocalBeginDate()
+-removing completed TODO messages
+-added showUpdatesDialog() to UpdatesActivity to show updates dialog with close button
+-removed commented out code and methods never called
+"
+"0d8271b3a76133f255199b28e08f70b850565903","2014-07-16 18:35:08-04:00","Bugfixes, refactoring
+-fixed bug in EventSilencerService where the service would be continually restarted if there was an active event in the calendar, but that event would not trigger silencing.  Service will now at the end of the last active event, the beginning of the next inactive event, or in 24 hours
+-changed CalEvent to use primatives for ints, booleans, & longs
+-removed default constructor, events must now be constructed with id, title, description, begin time, end time, etc..., only ringer type may be left undefined
+-removed most setter methods
+-added null pointer checks to setupActionBar() methods
+-removed compatibility quicksilence button from main activity, the action button should be usable in older versions with a little tweaking later
+-removed some unused strings
+"
+"15a7656a916a700eb25f2c023f23fe0af37548ad","2014-07-16 18:47:09-04:00","Advanced settings immediate save
+-advanced settings activity now immediately saves preferences and restarts the service as needed
+-removed some code duplication from settings activity
+"
+"398c97319acc8ba57fcff06a2c2d9e605818b9ae","2014-07-16 21:17:33-04:00","Refactoring
+AdvancedSettingsActivity:
+-removed instance variables, pulls from preferences now
+-fixed bug where preferences might not have been initialized correctly due to context not yet being created
+
+MainActivity:
+-replaced eventShouldSilence() with shouldEventSilence() (copied from EventSilencerService
+
+SettingsActivity:
+-removed ok and cancel buttons from the ringer selection dialog
+"
+"6b2ada514e3f8a1548380ffe91f0c75a1e8133ac","2014-07-21 00:03:14-04:00","Added calendar selector
+-added android support libraries for future backporting to Icecream Sandwich
+
+CalendarActivity.java:
+-rudimentary dialog to show available calendars to sync
+
+CalEvent.java:
+-added calendar id property with getter
+
+MainActivity.java:
+-added dark background normally used on future events as default background of the listview (untested, might not show up)
+
+Calendar.java:
+-basic representation of an android calendar
+-provides id, calendar name, account name, and color
+
+DatabaseInterface.java:
+-updated to pull calendar ids
+-added getCalendarIdList() to return a list of all calendars on the system
+
+Prefs.java:
+-added method to set a comma separated list of calendar ids to sync, getter returns a pre-formatted list of longs
+"
+"a9466905f16a172cee344903d1868179d24f3fe4","2014-07-26 00:37:16-04:00","More work on selecting individual calendars to sync
+-renamed CalEvent to SimpleCalendarEvent, moved to database package
+-renamed Calendar to SimpleCalendar
+
+CalendarsActivity:
+-implemented listeners for cancel button, sync all calendars switch
+-ok button restarts service
+
+Prefs:
+-implemented setSyncAllCalendars(), shouldAllCalendarsBeSynced()
+-setselectedCalendars() now clears preference to sync all calendars
+
+EventSilencerService:
+-shouldEventSilence() now checks if the active event is in one of the calendars set to be synced
+"
+"666969f06c576bd705e7566b8d70c879751e3639","2014-07-26 13:53:36-04:00","Refactoring, some possible bug fixes
+
+SelectCalendarsActivity:
+-sync all calendars checkbox should now refresh properly when toggled
+-all calendars will show as checked if sync all calendars is selected
+
+Prefs, DefaultPrefs:
+-added keys to completely silence media and alarm volumes, will eventually replace the adjust media and alarm sliders
+-renamed some keys to be more descriptive
+"
+"eb35c22ca56bb81ce1b38bc5b20c8b2fd9fae95f","2014-07-26 13:56:07-04:00","Adding beta screenshots
+"
+"ae0b7ce7ac92f6a7ba05a852707f84c8e653cb28","2014-07-26 14:00:10-04:00","Adding beta screenshots to readme
+"
+"a4adabaadad3418f6bd3683f9f6c5023c11a92cc","2014-07-26 14:02:51-04:00","Updating licensing info in readme
+"
+"9e14d3c8e215f9a8e37651e251cdf1e4fac75c8b","2014-07-26 14:04:31-04:00","Fixing copying link
+"
+"a346eea69a1b806040c70fe413c58a2128f088bd","2014-07-29 18:57:24-04:00","String changes
+-changed strings in settings and advanced settings to be more descriptive
+"
+"f93a44a778cdc5b3aaf0e4b424f57bcaf1927757","2014-07-29 19:10:35-04:00","Add vertical separators to settings and advanced settings layout
+"
+"e5e4b8da1bb94640be896a505dbf6065b92f5766","2014-07-29 19:23:52-04:00","Colorable calendar icon
+-replaced existing calendar icon with a pure white version
+-settings activity colorizes icon to primary color (to match with theme)
+-main activity colorizes icon in error message
+"
+"40b5b9e914fc2881bdb8e1c09ca8d1922fb4d610","2014-07-29 20:05:44-04:00","Beginning switch to API 14 compatibility
+"
+"3b8ffc4d2e3ef622e6d51e57dd4e6c5c101dd420","2014-07-31 11:10:57-04:00","Backporting to API 14-16, bugfixes
+-some styles still not working correctly
+-untested on real device
+
+AboutActivity:
+-fixed bug where updates dialog would not show due to invalid context
+
+AdvancedSettingsActivity:
+-moved quicksilence settings here to be with over intervals
+-fixed bug where quicksilence dialog would show a minutes value 1 greater than the stored value
+
+MainActivity:
+-commented out API 21 code
+-fixed bug where calendar icon in error could be drawn twice
+
+SelectCalendarsActivity:
+-added error to be shown when no calendar accounts are available
+-added button to add account if none are found
+-switch and listview now hidden if no calendars are found
+
+SettingsActivity:
+-commented out API 21 code
+-moved quicksilence settings to AdvancedSettingsActivity
+
+-removed ripple base from action button drawables, will need to be readded to API 21 resources later
+"
+"d90635014c0ec2cf35ba72eab1bc03dbc6a459ea","2014-07-31 11:18:55-04:00","fixed typo in build.gradle
+"
+"ded706d744bdeabce9b067dc851afe122e28e5d9","2014-07-31 17:28:49-04:00","Bugfixes, more API 14 compatibility
+-fixed bug in DatabaseInterface where calendar columns were being read incorrectly
+-removed ripple effect from generic action button drawable
+-added updated app compatability (v7) to build config
+-added updated support library to build config
+-added updated junit and hamcrest dependencies to build config
+-updated version code so play store releases will auto update
+"
+"7200abaf049d4c3fbb51b7e21d60a1357d211180","2014-08-05 23:32:16-04:00","Added event id to simpleCalendarEvent
+SimpleCalendarEvent:
+-added event id field
+
+SelectCalendarsActivity:
+-maybe fixed the checkboxes showing on the wrong calendar (untested)
+
+DatabaseInterface:
+-promoted EventDatabaseOpenHelper to top level class
+-moved some private members to EventDatabaseOpenHelper
+
+build.gradle:
+-added lint option not to abort building on ling error, this should help with travis integration later
+"
+"8203596770101a4d566a4024da4509c9393147a1","2014-08-06 13:54:07-04:00","Fixing ability to select particular calendars to sync
+-bumped version code to 7
+-2.1.0 beta 2 release
+
+MainActivity:
+-now uses an image drawable on the left hand side to display the events color
+
+SelectCalendarsActivity:
+-many bugfixes
+-list of calendars now refreshed properly
+-removed ok and cancel buttons, settings are saved immediately, and the background service is restarting during onPause()
+-touching header switch has no effect, must touch the box (new bug)
+-still uses older 2px wide layout on left to show calendar color, needs to be switched to new imageview sidebar
+-changed activity from a dialog to a full screen activity (may be restored later)
+
+SettingsActivity:
+-fixed possible bug where context was being assigned before it was valid
+-calendar widgets now properly disabled when the service is set as inactive
+-calendar widgets now show a proper background when pressed
+-removed commented out API 21 code
+
+Columns:
+-removed INSTANCE_ID since the _ID already contains this value
+
+DatabaseInterface:
+-update() now only inserts events if all calendars should be synced, or if that events calendar has been selected
+-now properly removes events if their calendar has been disabled
+-fixed bug where event id was not being inserted into the local database in insertEvent()
+
+EventDatabaseOpenHelper:
+-fixed bug from typo in onCreate
+
+DefaultPrefs:
+-added setting to sync all calendars by default
+
+Prefs:
+-setSelectedCalendars() now removes duplicatate calendar ids before saving the list
+-setSyncAllCalendars() now removes any previously saved list of calendars to sync (if needed)
+"

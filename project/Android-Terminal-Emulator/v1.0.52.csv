@@ -1,0 +1,66 @@
+"commit id","commit date","commit message"
+"1cda8bc1b277f3fbdf8c548870d09b35ed241b23","2013-01-21 11:03:14-08:00","Remove unused cursor member variables.
+
+The cursor is now drawn by the TextRenderer.
+"
+"ff06971b3ce577869a56a9dff28681e822450878","2013-01-21 11:42:06-08:00","Improve implementation of getCursorCapsMode.
+
+Note that I have not seen this method get called, but we might
+as well have a proper implementation.
+
+(This is part of trying to figure out why text is capitalized
+on some phones.)
+"
+"b835c62d643f0e2c7b42b25b8bf49e4771597eb8","2013-01-21 12:37:35-08:00","Implement Combining Accents (dead keys) for physicial keyboards.
+
+Also known as 'Dead Keys'.
+
+Example:
+
+In preferences set 'Default to UTF-8'.
+Attach a hardware bluetooth keyboard.
+Type Right-Alt-`
+At this point you'll see a ` character in the cursor.
+Type e
+At this point you will see è appear. (If not, check that the
+Default to UTF-8 preference is set correctly.)
+
+Hat tip to the ConnectBot TermKeyListener.java source code.
+"
+"bc57c4e99749419f9efe0f111d3ccac83d0c23e7","2013-01-21 17:22:39-08:00","Implement cursor feedback for toggle keys.
+
+The cursor graphics are copied from ConnectBot. (And extended to
+also show the Fn key state.)
+
+I had to change the cursor rendering from a 'grey' color to an
+Xor color. Not sure if people are going to like that or not. I
+guess we can work up a fancier renderer in the future.
+
+In testing this I tweaked the way hardware control keys worked.
+Previously they would 'toggle', which isn't desirable. (At least,
+it isn't desirable for non-toggleing keyboards, which I think
+is the standard for keyboards that have a control key.)
+
+Fixes issue #176
+"
+"d9bee605dad1b4fd2762e417f65a56624fd1686e","2013-01-26 10:01:01-08:00","New launcher icon
+
+Designed by Nathanel Titane, nathanel.titane@gmail.com, TNDesigns
+
+Thanks Nathanel!
+
+Benefits of the new design:
+
++ Looks better, more like a real terminal.
++ White-text-on-black-background reflects current default text colors.
++ Cute Droid-bug reflection in CRT glass.
+"
+"e299718846834c03db96e5ab65ae91d1d3b4bdcb","2013-01-20 04:50:08-08:00","TermSession: avoid deadlock on large writes to/from the emulation client
+
+Have ByteQueue's write() return when the queue fills up during a write
+instead of blocking, allowing TermSession to signal the reading thread
+to clear the queue first before continuing.  Should fix the deadlock
+reported in #198.
+"
+"279fd42995787dbe1b163670b2ce38a07b314a35","2013-01-26 11:45:53-08:00","Version 1.0.52
+"

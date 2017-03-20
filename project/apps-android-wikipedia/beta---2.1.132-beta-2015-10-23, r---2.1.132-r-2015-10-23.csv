@@ -1,0 +1,871 @@
+"commit id","commit date","commit message"
+"d420680bc7220bc82ce68af73d17da944e7fb5de","2015-09-29 10:09:03-04:00","No longer strip parenthetical content from first sentence.
+
+This was an experiment to try to improve the readability of the first
+sentence of the article, which often contains information in parentheses.
+But, since the (relatively naive) algorithm for removing parentheses also
+affects links that have parentheses in them, this was doing more harm than
+good by breaking these links.
+
+Note: we are still stripping parenthetical content from link previews, but
+that's because we don't enable links within the preview. If we end up
+enabling links in the preview, then we'll need to revisit this issue.
+
+Bug: T96871
+Change-Id: Ic01e82cdf088f6acb42b80f2c355d300907e3950
+"
+"b52df10b77e20b073a6a0a59e4b728d0722d7b32","2015-09-29 10:45:55-04:00","Enable a few more syntax highlighting rules when editing.
+
+Syntax highlighting when editing wikitext in the app has been available
+for over a year, but has so far been disabled, in the hopes of coming up
+with an entirely transformative editing experience in the app. Since we
+haven't created such an experience just yet, presenting the user with
+modestly highlighted wikitext is better than a solid wall of unhighlighted
+wikitext.
+
+Change-Id: I03065408d8b01d82ff262a65c0b957637fbeaafc
+"
+"f89343388f18fec686310f5675d05dda34d5beb0","2015-09-29 08:59:24-06:00","Bump make-release version glob
+
+Change-Id: I9617634ababc48ec3a68560ece0f12d77b8e8e50
+"
+"a013bf0355e306c6c48a7515743dbdc4e316b338","2015-09-29 15:22:45+00:00","Merge 'Bump make-release version glob'
+"
+"95a57303d7baa2e5ded9cb61baff713c7da15102","2015-09-29 20:52:11+00:00","Merge 'Enable a few more syntax highlighting rules when editing.'
+"
+"4a78c31d46c1a99211e071119c1eecbf1a2c0ea4","2015-09-29 10:20:32-04:00","Prevent TextExtracts from possibly returning wikitext (workaround).
+
+The TextExtracts extension returns content from the lead section of the
+requested article. It allows the caller to specify a certain number of
+sentences, or a certain number of characters, to retrieve from the lead
+section.  But what if the caller requests more data than is present in the
+lead section?
+
+Well, in the case of 'sentences', the extension correctly returns the
+maximum number of available sentences in the lead section, and no more.
+However, in the case of 'characters', it actually goes beyond the lead
+section, and appends content from subsequent sections, which might include
+unparsed wikitext (e.g. section headings, edit link, etc).
+
+Previously, we were requesting 512 characters, so that we can parse them
+ourselves into two intelligible sentences based on the user's Locale.
+This patch changes it to use 'sentences': We ask for 10 sentences, and
+then re-parse the text using our sentence parsing logic to end up with 2
+sentences.
+
+Why do we trust our sentence parsing logic more than TextExtracts? Because
+it's better-tailored to the user's Locale on the client side. For example,
+in the case of English, the TextExtracts extension incorrectly treats
+abbreviations like 'i.e.', 'B.C.', 'Jr.', etc. as separate sentences,
+whereas our parser will leave those alone.
+
+Bug: T101153
+Change-Id: Id227e82e058debf3efb1fb9aea8f8187b52b2645
+"
+"db4fbebebb7e54ad7bbb77fa80466828051e1c9d","2015-09-28 16:16:26-06:00","Convert icons has option to convert only specified icons
+
+When svg file names are provided as command line arguments
+then it will only convert the give files. Otherwise it'll convert all files.
+
+Note that you should specify only the file name, not the whole path.
+
+Bug: T107686
+Change-Id: I98ae762004ad2d5de9f07de1ef170d1df206e436
+"
+"f8d206217d1cbbaee1df4501e23cc20835dc7395","2015-09-29 21:50:46-06:00","Add 'open in new tab' to previews
+
+Bug: T111862
+Change-Id: I4651f145089a55e16e3d86a8d3cb23aba8c848c6
+"
+"01fd5f17c81b1e641af171c37ba24ca902d56a07","2015-09-30 10:11:10-04:00","Fix possible crash when returning to Nearby fragment.
+
+The icon bitmap that represents the nearby markers wasn't being created
+soon enough. (There are cases when showNearbyPages() gets called before
+the icons are created, thus causing a NPE)
+
+Bug: T114244
+Change-Id: I5a09eeae05137d48f9ae2e71e1a78273b399a561
+"
+"2ddfb5e41b0e234207d01a8cbaf7b973c76cc69d","2015-09-30 14:46:08+00:00","Merge 'Fix possible crash when returning to Nearby fragment.'
+"
+"d58a4d167e54253896c7f5cd3546f3ddd9ef5635","2015-09-29 17:01:02-06:00","Update link preview dimensions on rotation
+
+We now handle our own configuration changes which requires manual layout
+adjustments in certain places. This patch updates the link preview
+dialog on device rotation. Additional minor improvements to link preview
+layout animations and a minor refactoring of SwipeableBottomDialog.
+
+Bug: T109879
+Change-Id: I24ae219884bfa1bab3fd5a990c6a706fe1c75b9c
+"
+"5ac56365768d03987ee2c91e94eb41916c99f3f2","2015-09-30 15:13:26+00:00","Merge 'Convert icons has option to convert only specified icons'
+"
+"5d114724341c820a4510b9713843ae67e7098c52","2015-09-30 17:04:33-06:00","Hygiene: make a couple margins RTL aware
+
+Add missing layout_marginEnd to layout_marginRight attributes as
+identified by Android Lint.
+
+Change-Id: I4f8d18b68c5a120835edc7f2bcb880a3c398b80e
+"
+"3e91f1d3c8aca9354afca5bb7b54413209d6eb9f","2015-10-01 10:30:13-06:00","Create unique Drawables for mutants
+
+Drawables may be shared unless mutate() is called. When changing
+Drawable state, it is safer to create a unique instance by calling
+mutate().
+
+This change fixes a bug seen on the AOSP API 23 Nexus 5 and API 15 Nexus
+One emulators. I was able to capture repro steps for 23 but not 15:
+
+1 Go the United States article.
+2 Set the dark theme.
+3 Open a link preview.
+
+Note that the link preview is translucent like the status bar.
+
+SearchBarHideHandler.java
+* Call mutate() on stateful Drawables.
+* Add missing nullness annotations and final keywords.
+* Hold Drawable references instead of Views.
+* Remove explicit default values for member variables.
+* Add a couple helper methods for getting Resources and colors.
+* Replace member variable state, toolbarColor, with stateless method.
+
+GradientUtil.java
+* Extract function, setCubicGradient(), from getCubicGradient().
+
+colors.xml
+* Update comments.
+
+Change-Id: I6786803bc34f50a88e5a6c267fbd24de238de86f
+"
+"97cf31d94ef143cf8bdefd80d20b727a82dd87d0","2015-10-02 17:07:01+00:00","Merge 'Hygiene: make a couple margins RTL aware'
+"
+"a0f679ce03a2a445f86358b7af005c6e33057b8c","2015-09-30 13:04:56-06:00","Hygiene: remove code for unsupported old devices
+
+minSdkVersion was recently advanced to 15 which left a lot of dead code
+for legacy devices. This patch removes all code, libraries, and
+resources targeting API 14- that are no longer used.
+Id6b73497eb6b15466cb3acc62567f48c09a358b3 upgrades library dependencies.
+
+Bug: T112310
+Change-Id: Id494b7fa3a11ae14a62503b5645dc7e745ea0cf0
+"
+"d04c9690cc3e12d01b7154a239ea3510f46fdef0","2015-10-05 16:36:52+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Iecdb130611fc1e1104431988a81cdd0f1d95775f
+"
+"52914ec7d4c7a3cd2662b5b4dc985449c2773d19","2015-10-05 15:06:43+00:00","Merge 'Hygiene: remove code for unsupported old devices'
+"
+"517661f831d37d00ec461ba7d7ec2a61f4765c59","2015-09-30 10:48:10-06:00","Hygiene: remove unused resources
+
+Remove unused resources and, where applicable, their originals, as
+identified by Android Lint.
+
+Change-Id: Idb393ebd5e01d3e1091fa6722134fb462144c875
+"
+"75180c2a890ad3a13cee789149582e10596e8c84","2015-10-05 15:56:37+00:00","Merge 'Update link preview dimensions on rotation'
+"
+"0e33179cec04923de3c43677bb52458b02623c43","2015-10-05 16:25:55+00:00","Merge 'Hygiene: remove unused resources'
+"
+"d8cee7f1217e5c9552b5cf7d3c0c321745249c96","2015-10-05 19:02:36+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I1f986d8e45a7104905dea91dc47fe75bfe25b931
+"
+"c6fbbddfed56874608b967f13c16ad931f498a35","2015-10-05 14:57:38-04:00","Rename nav menu 'More' item to 'Settings'
+
+Bug: T108532
+Change-Id: I9f1cc1cd47518a835c4a121ed35e306ed3df0ff1
+"
+"c4ae17b07e788bc7aeca9ff3e93c96b4075d30b7","2015-10-06 01:09:41+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I81a4839b4c9fe6230ec68cbcf2d309f7ef7390c4
+"
+"a1d8f3d64ad54800ef6c1f2ea8af62bba9c3f37a","2015-10-06 10:58:49-06:00","Fix tab overview animations on orientation change
+
+* Add TabsProvider.onConfigurationChanged() method like View. Set a
+layout listener to recalculate and invalidate animations on
+orientation change.
+* Add utility function, ViewUtil.setAnimationMatrix().
+* TabsProvider refactoring (no functional changes intended):
+* Move public interface, TabsProviderListener, to the top of the class
+so clients can find it quickly.
+* Name tabActionMode != null expression as method, isTabMode().
+* Extract methods from AnimationUtils.loadAnimation() calls to
+loadPageContentViewAnimation() and loadTabListViewAnimation().
+* Extract method, setTabListViewLayoutParams(), from layoutTabList().
+
+Bug: T112975
+Change-Id: I0298effec4bfb3ced4ce0a8466c56a2206cd5f09
+"
+"5ebf65da0e0feb4c551d0cfd9733655f48df2565","2015-10-06 11:22:11-06:00","Disable link preview invisible spacer highlight
+
+Link previews use a ListView and some invisible spacer views which
+shouldn't be selectable. Prior to this patch, the selector Drawable was
+set to @null which seems like it should work. However, on the AOSP API
+15 Nexus One emulator, they don't. Opening link previews and pressing
+carriage return makes the whole screen orange. This patch just replaces
+@null with a completely transparent ColorDrawable.
+
+Change-Id: Ib56926ae0e48f44b2f4f4c4f69503be70c09d870
+"
+"8b6fca20bb4f49c702afb11e1496c9a6d88017ef","2015-10-06 11:47:20-06:00","Hygiene: clean up color code hex syntax
+
+* Remove redundant explicit full alpha values.
+* Unify the casing to lowercase:
+
+sed -ri 's%(#[0-9A-F]+)%\L\1%' app/src/main/res/values/colors.xml
+
+* Replace colors with short form where possible.
+
+Change-Id: I6f1a26e640bb4a598b9f12e973de6be0cc875d54
+"
+"e936a1c75117a0b53d72d6ef0659b1d00de088c2","2015-10-06 12:29:35-06:00","Fix Exception when sharing a fact
+
+This patch is a partial revert of 3235488. ImageView may recycle its
+Drawable. A reference cannot be held so a deep copy is needed.
+
+Bug: T114658
+Change-Id: I0a8802e2c6d9b81a85a4f7bdd7506067c4ab88e2
+"
+"1ed8483664800087b21ff14e8079e3f02307f759","2015-10-06 13:43:31-06:00","Enable hardware accelerated rendering for WebView
+
+Improve animation performance of the WebView by enabling hardware
+acceleration[0]. This is not enabled for the app as a whole, as it is an
+optimization that may cause rendering issues[1].
+
+[0] https://developer.android.com/reference/android/view/View.html#LAYER_TYPE_HARDWARE
+[1] http://developer.android.com/guide/topics/graphics/hardware-accel.html
+
+Bug: T114373
+Change-Id: I95f01f2b61ee5a247e8ca27c16b91d9b4e184d8a
+"
+"d3750e5ce45046d8739b34d4c52109bf5a485446","2015-10-07 12:44:19+00:00","Merge 'Fix tab overview animations on orientation change'
+"
+"e4265b5f06770af5acc90d1a6358aeba699bfce2","2015-10-07 13:02:33+00:00","Merge 'Hygiene: clean up color code hex syntax'
+"
+"c8e2ccb079fa6995c6f8706c9e7f64f3a8b3e529","2015-10-07 15:35:14+00:00","Merge 'Fix Exception when sharing a fact'
+"
+"0f871668ea0750ee88e77afacaca5cda6b6060f9","2015-10-07 15:54:58+00:00","Merge 'Enable hardware accelerated rendering for WebView'
+"
+"a4db8588d0df00d3503e947b22721970cf2667d9","2015-10-06 15:51:58-06:00","Make 'use system language' implied
+
+In the interest of avoiding extra finger work and more sophisticated UI,
+remove the system language switch and implicitly enable or disable 'use
+system language' according to the app language entry selected and
+the actual system language.
+
+This change might cause confusion for a very small percentage of use
+cases. For example, if the user picks Japanese and that language happens
+to be the system language, the app language will be implicitly set to
+follow the system language, indicated by the special language key value
+of null. If the user then leaves the app and changes the system language
+to Russian and reenters the app, they're either pleased to see that the
+app language automatically updated to Russian without having to wonder
+what 'system language' meant in the first place OR they're confused and
+reset the app language to Japanese again. Thereafter, they never have to
+reset the app language even if they change the system language. The
+first step is actually unnecessary to arrive at this dilemma since the
+initial language is the system language. Despite this potential
+confusion, we believe this change will provide the best experience for
+most users.
+
+Additional related changes:
+* Always return the English language canonical name in
+AppLanguageState.getAppLanguageCanonicalName(). It was a bug to return
+a localized form.
+* Add StringUtil.equals() for safe comparison of null Strings.
+* Add some missing @NonNull / @Nullable annotations.
+* Remove unused string resources.
+* Remove some unused methods.
+* Update some comments.
+
+Bug: T113097
+Bug: T112978
+Change-Id: Ia86010b30a7a0976ba9f4a8349616ba495bbf287
+"
+"2ea5f3240957f59598e4b94a438457cae69e0761","2015-10-05 13:51:36-04:00","Display notification on image save
+
+This patch adds a system notification displayed to the user when an
+image is saved from the gallery.  When the main body of the notification
+is clicked, it opens the image in the default image viewing application.
+When the 'share' button attached to the notification is clicked, a chooser
+is displayed for the user to choose an application for sharing.
+
+The Intent to share the image is sent with the image's filename and a link
+to a file page with extended information on the image, including license
+information.
+
+Bug: T104529
+Change-Id: Iea2f133f21190cc2142186df5ad7722383ad473a
+"
+"3bf1b720e066404960ea41ad40aaca855e80777c","2015-10-08 15:26:14+00:00","Merge 'Display notification on image save'
+"
+"18153e00a0340266361670ae554bcf5eda46690e","2015-10-01 22:47:51-06:00","Beta: turn on/off RB service remotely plus fallback
+
+You can still manually turn on/off RESTBase usage via developer settings.
+The roll-out is initially only for the beta app.
+The remote config has a percentage of beta app installs which
+get to use our RESTBase endpoints for loading page content automatically.
+
+If there is a significant failure it will fall back to using MW API
+for the next 100 page loads.
+After that it tries again to use RB until there is another RB failure and so on.
+
+Change-Id: Ic189223ebb47f944e8bb80a6b1ec4d6aa98eaed5
+"
+"0c60e30322223a66b2e00a14cef96eb799bac312","2015-10-08 13:38:31-04:00","Improve appearance and consistency of language selection interfaces.
+
+- Now using the same list item layout for wiki language selection and
+article language selection. Deleted the now-unused layout
+'simple_list_item_activated_2', which was using the deprecated
+TwoLineListItem anyway.
+- Use TextInputLayout for the 'search' fields, which looks more Material
+and consistent with other places where we have text input.
+- In the interlanguage activity, use our generic WikiErrorView, which
+encapsulates showing of any errors encountered when fetching article
+titles.
+
+Bug: T114844
+Change-Id: I3e880463c698e76c1725f52c359cbaf1dacd653e
+"
+"8b1c161d00b9c506b1f2046d28566397f3320431","2015-10-06 17:37:43-06:00","Fix toolbar background
+
+Fix regression in 3e91f1d where the toolbar background was incorrect for
+many articles. The fix was to simplify the state of
+SearchBarHideHandler.
+
+Bug: T114800
+
+Change-Id: I7c7d0e7718c91a74cc9570fd1ebdb06a768d6625
+"
+"b4431c280968fce1d75260bbf0aac697074705c7","2015-10-09 15:01:52+00:00","Merge 'Improve appearance and consistency of language selection interfaces.'
+"
+"1ac5f06410aba77045ffe47819aaba3ce0483ac9","2015-10-09 15:20:11+00:00","Merge 'Beta: turn on/off RB service remotely plus fallback'
+"
+"cb9b679b3352d82a36fd4f726f6776d13ce09183","2015-09-30 13:59:49-04:00","L10npalooza! Make various UI elements consistent with the article language
+
+* Localize the 'Read More' section header and TOC entry to match the
+article language when setting them on their respective components.
+
+* Localize 'Similar pages', 'Page issues', 'Quick facts' and 'More
+information' to the article language before sending them over the
+bridge.
+
+* Correctly align page titles and descriptions based on language.
+
+* Correctly align the table of contents based on language.
+
+* Correctly align and localize link preview contents based on language.
+
+* Create new RtlAwareTextView and RtlAwareListView classes to assist in
+the above.
+
+* Move L10n utils from Utils to L10nUtils (there may be room for
+for additional refactoring in this area in a separate patch; there
+seem to be unwarranted assumptions in play about text in native
+components matching the default locale for the device).
+
+Bug: T109385
+Bug: T111585
+Change-Id: I24af0963b3c34fb4a5def426ae1eaec611c2407d
+"
+"d61f20d25b8778237bf4647fdf206f864c9e164d","2015-10-13 10:55:35-04:00","Resolve protocol-relative license URLs before passing for external handling
+
+A file's license URL field will sometimes contain a protocol-relative
+URL pointing to an on-wiki File: page describing the terms of our use,
+particularly in the case of copyrighted media presented under terms of
+fair use.
+
+This adds a call to NetworkUtils.resolveProtocolRelativeUrl before
+passing them to the system so that it knows how to handle them.
+
+Also refactored the external link handler in GalleryActivity to use
+NetworkUtils.resolveProtocolRelativeUrl rather than repeating ourselves.
+
+Bug: T110946
+Change-Id: Icfe96b39ddd7e80a37d31626e03949e064fe1f0c
+"
+"0df11bdd9422497736d21e4e3351d0f62074d63a","2015-09-16 09:45:04-04:00","Add preference to show link previews.
+
+- Added a preference.
+- Updated the schema to have an additional 'action' that represents
+clicking links in a disabled state.
+https://meta.wikimedia.org/wiki/Schema:MobileWikiAppLinkPreview
+
+Bug: T114495
+Change-Id: I625ea7155b2fa0245ded762046219ed9d9e9e40f
+"
+"455e04293ead7d46a28b2c3df782c3d45504d97d","2015-10-13 18:08:48+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Iaf9d75a4e34a80135b1aedd2dd1bde4abc326c80
+"
+"8b9fed2c8fc40026586aecf003c2ade861a00f15","2015-10-13 16:32:49+00:00","Merge 'Add preference to show link previews.'
+"
+"3018f601a51ecc7d62959da4d2b7b7dcd542274c","2015-10-13 16:39:29+00:00","Merge 'Resolve protocol-relative license URLs before passing for external handling'
+"
+"052f2c0cbd2bb79d2cd4cef84d23d6ac28117f22","2015-10-13 18:31:12+00:00","Merge 'L10npalooza! Make various UI elements consistent with the article language'
+"
+"fa87e0ab5b20cef7c6f5744aaebc984d6d3cbe64","2015-10-12 15:48:05-04:00","Prevent lead paragraph shifting from leaving connected content behind
+
+This patch updates the lead paragraph shifting logic to create a span
+consisting of the first qualifying <p> element encountered and any
+subsequent non-<p> elements until the next <p> is encountered.
+
+Simply moving the first <p> element up, as we did before,  may result in
+elements appearing between the first paragraph as designated by
+<p></p> tags and other elements (such as an unnumbered list) that may be
+intended as part of the first display paragraph.
+
+Bug: T111958
+Change-Id: I41f2b16f9b5d8fcac7bef156a3f3726d7bfe36d0
+"
+"2775d426aa31be14a0946c39e10394b2e4e6cbb9","2015-10-14 13:00:50+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ia9edc472fa84a7a1410efecb4645a0b4b05d9371
+"
+"c97f297852cca30ab53736ac96ff4489df15293d","2015-10-09 11:15:59-04:00","Revive the session funnel.
+
+- Re-enabled the session funnel, to be sampled at 1:100 in production and
+1:1 in non-production.
+- Updated the funnel to record the number of pages viewed during a
+session, categorized by source.
+- Added a new source, to represent pages viewed from the disambiguation
+list (Similar pages).
+- The funnel now also records the average latency of the lead section
+request and the rest-of-sections request over the network. It also
+records whether the request is done via the MediaWiki API, or the new
+content service.
+- Added a developer preference to set the length of a session for testing
+purposes (default is 30 minutes).
+
+Bug: T111541
+Change-Id: I600b00c2868a6922c1a0e02c86826e146a8dc2cb
+"
+"cae718ae729b26fdc84d9d9a4c940750ad7794bf","2015-10-14 18:18:14+00:00","Merge 'Prevent lead paragraph shifting from leaving connected content behind'
+"
+"46a5fdfbbe0061791686449553c1e9c1ede8fec2","2015-10-14 18:23:11+00:00","Merge 'Revive the session funnel.'
+"
+"d2e8b08fc7fc0b181e22715c0cba5e8be0c61f3c","2015-10-14 14:54:32-06:00","Hygiene: remove unused string resource
+
+Remove unused string resource as reported by Android Lint.
+
+Change-Id: I97e02917d75f4ab6833e9c87b253068bb764946a
+"
+"76c847bc10e43afa90dda4dcb8536a402324f275","2015-10-14 16:18:43-06:00","Hygiene: refactor displayLeadSection()
+
+JsonPageLoadStrategy.displayLeadSection() was large and cumbersome. This
+patch divides the method into several concerned methods. No functional
+changes intended.
+
+Change-Id: I58f8f6ab3922d56d6d0f13ea8b9153a7e898caac
+"
+"8cc79009e4f661c0b850d213c78e81639995c93a","2015-10-14 20:42:42-04:00","Update icon for use in notifications.
+
+The icon is now a white square with a transparent W cut out of it, which
+is compliant with the visual requirements of notifications under Lollipop
+and higher.
+
+Bug: T114890
+Change-Id: I191e4690e818c79c16b4c34269ba5048ccc400ff
+"
+"c97a7e9e5f7a1eec52ef1513314a1ae10be6cd2b","2015-10-15 10:43:13-04:00","Fix page thumbnail caching, for real.
+
+The PageTitle object in the 'model' variable wasn't being updated
+correctly after the PageLead interface constructs the Page.
+
+Bug: T115412
+Change-Id: I82b8ce1e1dfaaa1eab3d1b1a26e03c63a87b85a9
+"
+"4f7fa7b57dcba0ee20e6337a5711d599614f53a1","2015-10-15 15:13:53+00:00","Merge 'Fix page thumbnail caching, for real.'
+"
+"488b463d982bd5b46969c6bbe281dbe2aee2143f","2015-10-15 16:57:53+00:00","Merge 'Update icon for use in notifications.'
+"
+"813742ead27226e77128bbb0750372c2ee3973b8","2015-10-15 13:22:56-06:00","Hygiene: consolidate no-translate strings
+
+* Rename strings-no-translate.xml to strings_no_translate.xml.
+snake_case is used for all other resources.
+* Replace app_name.xml and channel.xml with strings_no_translate.xml.
+These files came before strings_no_translate.xml and are unworthy of
+the distinction.
+
+Change-Id: I23b5fc44e0703aab1b8b0f709f8608e286cbf071
+"
+"123862242aa4ef1599df7d46117474e4f7cfc317","2015-10-14 14:07:16-04:00","Activate progress bar while fetching random article
+
+-Added updateProgressBar() method to RandomHandler
+
+-Refactored RandomHandler.setState() (which sets menu item enabled state)
+to more descriptive and straightforward setMenuItemEnabled()
+
+-Removed unused items from RandomHandler
+
+Bug: T107791
+Change-Id: Ia87b40cf9f07f3d9e605ce28aa18337accb221a1
+"
+"1f4783a559fa0c9f045d844a97f10a47ef9fae23","2015-10-15 16:25:12-04:00","No longer do the spinny-arrow animation on the hamburger icon.
+
+This is no longer done in Google apps, and will make us more consistent
+with their design guidelines.
+
+Bug: T97465
+Change-Id: Ie230c74ce8839e341f6b65af7724cee2cbe15b7c
+"
+"8e8289b23210766e9dc263be34fc82fafe893c28","2015-10-14 14:44:15-06:00","Replace contextual action bar menu on text select
+
+The contextual action bar menu (CAB) appears differently across devices.
+We think it's probably simplest to replace it with our menu every time,
+no matter the device, for a consistent experience.
+
+This patch does not address API 23 concerns[0] around the new floaty
+CAB nor the text selection bug[1] on API 15.
+
+[0] https://www.mediawiki.org/wiki/Notes_from_Google_I/O_15#Soon
+[1] https://phabricator.wikimedia.org/T115516
+
+Bug: T107298
+Bug: T109346
+Change-Id: Ib0a80cfe80a1baa57a3dfb370f49b442ddefae81
+"
+"f21fd9cad42a4495b95e3cfb8db3b572d7f788ab","2015-10-16 13:48:01+00:00","Merge 'Hygiene: refactor displayLeadSection()'
+"
+"ce07b1892b7906be9c03359c2ca594fa8cffb516","2015-10-16 14:08:36+00:00","Merge 'Replace contextual action bar menu on text select'
+"
+"bdc49340f140c83070bcd894d6cfc4325cc942f5","2015-10-16 10:22:58-04:00","Hygiene: remove unnecessary cruft from JavaScript bridge.
+
+- Removed API 10-specific file.
+- Removed test-specific functions from the main Bundle.
+
+Change-Id: I5213841eb4e26117cb0099434a86f3ac2cd4c383
+"
+"06d529bbcd677ea12a953e717aa21988586cd43a","2015-10-16 15:05:55+00:00","Merge 'Hygiene: consolidate no-translate strings'
+"
+"003bb6f0096c64ddb8ba18e65bfebd7951a35276","2015-10-16 15:36:30+00:00","Merge 'Hygiene: remove unnecessary cruft from JavaScript bridge.'
+"
+"59dce5f696264b99ce05a26068b38398af7e02a7","2015-10-15 14:26:21-06:00","Replace ACRA with HockeyApp
+
+* Replace ACRA with HockeyApp v3.5.0. This change was made as ACRA
+doesn't offer in itself a freestanding backend or quiet automatic
+reporting, and doesn't support Marshmallow yet[0]. However, we will
+investigate a self-hosted Acralyzer installation in the future.
+
+HockeyApp doesn't seem to offer custom properties, so these are
+bundled as JSON in the report description. Since these properties are
+not associated with a crash instance and not preserved across
+application death, and crashes may enqueue, it's possible they may be
+inaccurate. However, these properties are used in one place presently
+and the current implementation _should_ be adequate.
+
+The ProGuard rules were updated for HockeyApp from this document[1]
+and a little guesswork.
+
+HockeyApp v3.5.0 seems to be incompatible with Marshmallow just like
+ACRA. v3.6.0-b.1 appears to work fine. The upgrade will be made in a
+subsequent patch with related changes.
+
+The change in APK size is ~13 KiB. More specifically, the release
+application was 3825548 B previously and 3838973 B after, increasing
+by 13425 B.
+
+Crash reporting was verified on dev debug, and alpha, beta, and prod
+release configurations on API 15:
+
+gradlew clean installDevDebug installAlphaRelease installBetaRelease installProdRelease
+
+Smoke test crash reporting was verified with HockeyApp v3.6.0-b.1 on
+Marshamallow (with changes coming in a subsequent patch).
+
+A future patch may replace alpha distribution with HockeyApp.
+
+* Add remote logger to L in the form of logRemoteErrorIfProd(Throwable).
+This is meant to coincide with cludge fixes where the error path is
+not understood. This is done via a helper Exception,
+RemoteLogException, which supplies an accurate stacktrace by forcing
+creation at the point of logging. In the event that a build is non-
+production, L will throw the Throwable, causing the app to crash. The
+thinking was that if it's worth burning user data and engineering
+parsing time, it's worth crashing on everything but prod. A new UI was
+added to dev settings to test this functionality, save the non-prod
+crash bit.
+
+Also replace Exception logging functions with Throwables and fix no
+message overloads to print an empty string instead of null for their
+messages.
+
+* Rename acra_report_dialog_title and acra_report_dialog_text to
+crash_report_dialog_title and crash_report_dialog_text. Remove
+acra_report_dialog_comment Strings as in-app feedback was removed:
+
+find -name strings.xml|
+xargs -rd\\n sed -ri '/<string name='acra_report_dialog_comment'[^>]*>[^<]*<\/string>/d'
+
+* Extremely light refactoring of PreferenceLoader and related classes to
+expose the host Activity, needed by HockeyApp, and a
+findPreference(int) overload that accepts a key String resource ID.
+
+* Replace the crash test NullPointerException with a dummy
+TestException.
+
+[0] https://github.com/ACRA/acra/issues/287
+[1] http://support.hockeyapp.net/kb/client-integration-android/hockeyapp-and-proguard
+
+Bug: T108420
+Change-Id: Ia3b687daf5d5273520569ca60b6b04237cf7fd8d
+"
+"83b0d8199591f5b731e7973f4ca06180996a2845","2015-10-16 16:58:45+00:00","Merge 'Activate progress bar while fetching random article'
+"
+"ea4e88cca5589636cab656c8d0ce939f8fc16af7","2015-10-16 20:30:01+00:00","Merge 'Replace ACRA with HockeyApp'
+"
+"e11f5dd0e1c21110bad11a41c02a4c7194723551","2015-10-13 15:32:22-04:00","Tweak list items to adhere to material design
+
+As described in...
+
+Bug: T114842
+Change-Id: Id8096b8b499a1a5061a7d0348968b34fd20c5f68
+"
+"878305b36c933701adf52961986f2d4ecb616ea2","2015-10-15 12:49:03-06:00","Don't obfuscate release builds
+
+Disable ProGuard code obfuscation[0] (but not minification). We do not
+care about making the apk code unreadable[1].
+
+[0] http://proguard.sourceforge.net/manual/usage.html#obfuscationoptions
+[1] https://gerrit.wikimedia.org/r/#/c/227393/
+
+Change-Id: I1e9b9122828c8325fbe34e3b7554d4aa185e29dd
+"
+"7ae70d55745b60ad6cfcd1d04ac5a2a5c5df5874","2015-10-19 15:13:06+00:00","Merge 'Tweak list items to adhere to material design'
+"
+"b5ebcdbb0be32aad22709f27a9157ecef5f52c3e","2015-10-19 18:26:24+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Id68f654ce1262850f1b0961b869c4ea23753b828
+"
+"0fc62bf6a34920a04a6d8cc6aa2692ccc54000f9","2015-10-16 12:11:23-04:00","Update license description handling
+
+-Added a showMessageAsPlainText function to FeedbackUtil to strip HTML
+markup from string before displaying to the user
+
+-Show license description in a Snackbar instead of a Toast
+
+-Invert the behavior so that a regular click shows the license description
+summary in a snackbar, and a long click fires a chooser to visit the
+license info page in an external browser
+
+Bug: T110946
+Change-Id: Ic81704892e677af03ef01fd9dabdfd6fa54c329b
+"
+"8dccafc57cf61adf1e68422dfae28f56c6339a7d","2015-10-19 20:11:31+00:00","Merge 'Update license description handling'
+"
+"b39b2563f70b7af68b41d72e984918ed395b0897","2015-10-19 14:51:13-06:00","Add xxxhdpi icons
+
+Update convert-icons.py to produce xxxhdpi density assets and add them.
+These assets increase the dev release apk from 4291780B to 4407296B,
+about 113KiB.
+
+Bug: T97239
+Change-Id: Ia74610c2339807130bba8700e8e7b55f84778f52
+"
+"1c4508521807b404a3940d32d69e3642af90b59e","2015-10-17 15:02:00+02:00","Move the app launcher icons to the mipmap-{density} folder structure
+
+The new convention to store the launcher icon of an android app is to use
+the res/mipmap-{...} folders (for example, res/mipmap-xhdpi/launcher.png,
+res/mipmap-xxhdpi/launcher.png, and so on). The images in those directories
+won't be erased by the most common APK optimization tools (those tools usually
+generate a different APK for each display density, and so they remove all the
+images under res/drawable-{...} with a density different than the specified).
+Since launcher icons can be displayed at a different density than the
+device density, it's best practice to put them into the mipmap directories.
+
+Bug: T97239
+Change-Id: Iac1bff9e808a41a6b82eb6d97968365c2842a3f0
+"
+"c2ef25a2af5108fb0e305e0650806b6577805403","2015-10-20 20:48:51+02:00","Search input field no longer accepts pasted rich text
+
+The search input field (both the 'search page' and 'search in page') no longer shows
+styled text when is pasted (for example, the hyperlinks underlined and so on).
+
+Bug: T97962
+Change-Id: I43e6084c4b153564086599a442535073f50f07d4
+"
+"3fc5c0abab991b4d2f66150f5f54567a890f9db1","2015-10-16 16:21:14-06:00","Upgrade Support libraries to v23.1.0
+
+* Upgrade Support libraries to v23.1.0.
+* Upgrade compiler and build tools to v23 and v23.0.1 as required by
+libraries. Upgrading the target SDK should be a separate card as
+additional work is necessary[0] although it is now permitted to
+ship[1].
+* Upgrade HockeyApp to v3.6.2 which supports API 23.
+* Upgrade the Gradle plugin to v1.3.1 which supports useLibrary, needed
+by HockeyApp.
+* Side effect fix to disable misleading active state when tapping on the
+navigation drawer header logo.
+* Update JVM JUnit and Android instrumentation test tasks. These seem to
+have unexpectedly changed.
+* Remove WikipediaApp.getColor() which is now available in API 23 but is
+regrettably marked final.
+* Update ThemedActionBarActivity to allow for toolbar Activities as
+related Window features appears to be unchangeable once set. Also,
+move the gallery's full screen request to a theme where it should have
+been. Finally, move the ContextThemeWrapper on
+LanguagePreferenceDialog to the constructor and update the themes used
+as the previous fix does not appear to work.
+* Apply a workaround fix for NavigationView bug[2] introduced in the new
+Design library.
+* Update ProGuard rules to exclude the v7 Support libraries based on
+experimentation.
+* Update translation tests to exclude a new format string internal to
+the Support library. In a future patch, it would be better to figure
+out how to prune all library resources from the test.
+* Remove FixedViewPager as the original appears to be fixed now.
+* Add FloatMath as the original appears to have been removed from the
+platform and is required by Mapbox.
+
+Tested on the following devices:
+- AOSP API 23 Nexus 5 emulator
+- AOSP API 15 Nexus One emulator
+
+[0] https://www.mediawiki.org/wiki/Notes_from_Google_I/O_15#Action_Items
+[1] https://developer.android.com/preview/api-overview.html
+[2] https://code.google.com/p/android/issues/detail?id=190226
+
+Bug: T107890
+Bug: T112310
+Change-Id: Id6b73497eb6b15466cb3acc62567f48c09a358b3
+"
+"ed302b6af73c032804a91fd6159f7cd72109ee33","2015-10-20 20:22:41+00:00","Merge 'Search input field no longer accepts pasted rich text'
+"
+"079533a58589ac1e9db85b324becbf835d81cf97","2015-10-20 20:32:58+00:00","Merge 'Add xxxhdpi icons'
+"
+"4a526486dd3a5738508bf45d7b1cdd36dfb92d13","2015-10-21 19:44:54+02:00","Fix infinite loop in the webview's widen images logic
+
+In the webview's Javascript code, the images from a page are stretched to
+fit in the device's screen. When widening an image, a image URL of greater
+resolution can be used instead to fit better with the new computed dimensions.
+With this change, we make sure that after this logic takes place, it won't be called
+again for the same image, which was provoking an infinite loop causing high
+CPU usage.
+
+Bug: T109983
+Change-Id: I759297334cb7e0c32dc00cd71b300c9783ebf2af
+"
+"dc496e2545597aba4614bfaf25d48fcf11e28368","2015-10-20 16:51:58-06:00","Fix character repeating in search box
+
+Filtering out rich text from the search box mistakenly always replaced
+the current input, often a character, with the entire text field's
+string and removed compositional hints provided by some soft keyboards.
+This patch replaces the appropriate field subsequence and preserves all
+virtual keyboard hints.
+
+Bug: T116091
+Change-Id: I7223914005916adf2b97469cb779eb776a934377
+"
+"52a1b30b37a1b93be7d73626afcfd54d7a1b9615","2015-10-21 15:30:51-04:00","Fix 'add tab' icon for xxxhdpi.
+
+This icon was not generated correctly by the rsvg tool, and looked weird.
+We've observed this behavior before, where certain SVG images would not
+render correctly by rsvg. Therefore I'm deleting the SVG file for this
+icon, and instead using the pre-generated PNG files provided directly from
+the Material icon set.
+
+We should probably do this for other Material icons that we use, as well,
+although the others look correctly-generated.
+
+Change-Id: I87972f62f943a379a20928405fddf76408d310bb
+"
+"e9ddd8854ff15cde791a2e6fb7754a5450d6f7cf","2015-10-21 20:10:55+00:00","Merge 'Fix infinite loop in the webview's widen images logic'
+"
+"350b894097b573efe137c41903502aa67e376d39","2015-10-21 21:31:00+00:00","Merge 'Fix 'add tab' icon for xxxhdpi.'
+"
+"7b140c255f346d59302151234a04e235ad5bc1ba","2015-10-19 15:21:40-04:00","Make 'continue to article' button overlay link preview (once again)
+
+Reverts the link preview to previous behavior in which the 'continue to
+article' button persists at the bottom of the screen while the link
+preview is open.
+
+Bug: T112997
+Change-Id: Ib52d6d6cc9435a8d6f1a45996c1c0bd3a6f17843
+"
+"c1b2845d6b1c2b07bdb42a5dddec78c42a92cca0","2015-10-21 10:17:42-04:00","Make separate list item colors for Light/Dark mode.
+
+In Dark mode, the default color of page titles was making them invisible
+against the dark background.
+
+Also, made the page title be ellipsize=end, since ellipsize=middle was not
+working.
+
+Bug: T116098
+Bug: T114957
+Change-Id: I6a451860d4f9dc857d670a433e4fb70d84be6886
+"
+"6f3d0bcb5fe8cd86982bdbc96e13a4ec03d349ac","2015-10-21 22:25:40+00:00","Merge 'Make 'continue to article' button overlay link preview (once again)'
+"
+"6c7a556bf9abcde8ccee0bcd4c0f44422329482a","2015-10-21 22:30:43+00:00","Merge 'Make separate list item colors for Light/Dark mode.'
+"
+"1d36231a15d3203e6c0f978ca159b5cb22937c24","2015-10-22 11:38:24+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ia25af7f77a1ae8de35143230597ad54c151394d3
+"
+"ac7dcd60d0cb0d13d02c8779241118b8a3b238c6","2015-10-22 09:08:05-06:00","Fix translation test
+
+Fix a bad format specifier.
+
+Change-Id: Ia626f238dc80dc6519e014de769bbfed25d0f298
+"
+"e52c34d10694c386bce6e892584db5a641163f6c","2015-10-22 10:58:59-04:00","Promote lead image animation to production.
+
+(facepalm...)
+Also, fillAfter is unnecessary for this animation.
+
+Change-Id: I90c90b3b19c5294cf89bdbb8dbc0e80f01d708cd
+"
+"3040cd4e3b1a565712f9ea3c5174f5391e87db49","2015-10-21 15:40:22-06:00","Hygiene: make inner class static
+
+Convert inner class, CabSearchView.PlainTextInputFilter, to a static
+nested class and update comments. No functional changes intended.
+
+Change-Id: Id77751d543f2c7b4483f98d6da04420e1d57ebaa
+"
+"7a7a3be29ba4ad46cecd81ab85064bb17589d7d7","2015-10-22 11:47:16-04:00","Increase title line-height
+
+Give titles a little more space to breathe.
+
+Interestingly, the default value, which is undocumented, seems to vary
+by platform, getting smaller as API level increases, and be less than 1.0.
+
+Bug: T113003
+Change-Id: Ic5c7761f605affd718b5ba39b372064d073b489c
+"
+"3bb10d57d75908c4f882a9ee6e2714f99b736ffd","2015-10-22 10:03:29-04:00","Add a little more padding at the bottom of link previews.
+
+...to make sure there's 16dp of space between the images and the
+'Continue' button when the preview is pulled up fully.
+
+Change-Id: I86f2828a2f271a8b27906f4798d47941cfab7339
+"
+"bcb4948ec5eab40f5f36a4e5dc12888ce8d09cf3","2015-10-22 17:49:38+00:00","Merge 'Promote lead image animation to production.'
+"
+"1b3ba78888533bdfc9599dbced0498aee5dfe229","2015-10-22 18:51:15+00:00","Merge 'Increase title line-height'
+"
+"336d55c1d7a7b2c10e7491f038dfd9e27792750f","2015-10-23 09:27:20-06:00","Restore FixedViewPager
+
+Revert FixedViewPager removal in 3fc5c0a.
+
+Bug: T116384
+Change-Id: I7c4a207288a0f227150f82e902a01fad3483ff16
+"
+"eebe57ce0733b0cdd15366cfe116f9f76fb8b2fa","2015-10-23 09:22:46+02:00","Add 'Privacy' section header to Preferences screen
+
+Bug: T116360
+Change-Id: I4bb245436113418c14f71238d82ad7382ecc684e
+"
+"855d68149fd792dcf33a299b1256f34de9d34c56","2015-10-23 11:46:03-04:00","Make link preview button highlight more opaque for API <20.
+
+Bug: T116324
+Change-Id: I4f93d0c80bdff3eff24a095247361f010039ab3c
+"
+"5ebdc52953843a6ea17261a9f2434f3250903825","2015-10-23 16:08:11+00:00","Merge 'Make link preview button highlight more opaque for API <20.'
+"
+"3643e8423449df4b35ac6b3783184b0c305a7e09","2015-10-23 16:14:49+00:00","Merge 'Add 'Privacy' section header to Preferences screen'
+"
+"7e01930d60d15787171727126ba04fdfe970bc42","2015-10-23 13:25:56-06:00","Bump versionCode
+
+Change-Id: Ib82b2b8ae7cd6b04dfb489732c668c3091f66552
+"

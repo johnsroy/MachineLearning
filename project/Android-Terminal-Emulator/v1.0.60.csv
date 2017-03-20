@@ -1,0 +1,227 @@
+"commit id","commit date","commit message"
+"8c3977f281a4a4c0f7ebd1bcc9edebc818057dd3","2014-04-03 12:49:53-07:00","Update AndroidManifest.xml
+
+These additions allow multi-window devices to resize ATE so that it can be displayed with one other application. These windows are resizable by the user and simply touching one or the other changes the focus. The effect, with ATE as one of the applications, can be that of an IDE if the other application is a script editor. One such multi-window device is the Galaxy Note 3.
+"
+"913955070947e9adb27637bd203490c6767eb045","2014-04-11 18:42:00-04:00","A little bit more french
+"
+"6adbc1bfcd242dd96970ac0bcb9691158763f7df","2014-04-12 07:29:57-07:00","Merge branch 'master' of git://github.com/RyDroid/Android-Terminal-Emulator into RyDroid-master
+"
+"60f5dd963464aa733c14d844c9b2f0414888cc79","2014-04-12 07:33:29-07:00","Add a backslash before an apostrophe.
+
+Required to compile the resource.
+"
+"c0dbbc791a08ddb8b97d00e177063253775c0140","2014-04-20 11:11:46-07:00","Add 'Term Here' send intent to open a terminal in a given directory.
+
+This addition adds 'Term here' to the 'Send' or 'Send to' option on many file managers,
+accessable by a long press. Long-press a file or directory in a file manager and select
+'Term here'; Term will open to a new window at that location.
+
+The permission.RUN_SCRIPT permission is not used because no executables other than 'cd'
+are invoked. Choosing 'Term here' performs essentially the same action as merely opening
+Term, but with the addition of the specified starting directory.
+
+I chose to use the 'send' intent option instead of a normal intent with 'data' because
+I think showing 'Term here' for every file you wish to open normally is excessive, so
+for the special case where you want to open a terminal at a file or directory location
+the 'send' feature can be used.
+
+It might be desired to later add a the ability to launch scripts from a file manager
+by selecting the script, or other executable, and choosing 'Term', or 'Run with Term'.
+This would be implemented with a normal Intent which uses 'data' to communicate the file
+and would be selected after a short-press in most or all file managers.
+
+Original patch by Frank Westlake. Improved formatting, error checking,
+and shell quoting by jackpal.
+
+Tested in 'ES File Explorer File Manager'.
+"
+"8f584cf60e9fc7244662a7674f49bf7c739d565a","2014-04-24 09:39:54-07:00","Avoid NPE due to null mAltBuffer
+
+mAltBuffer is set to null in finish().
+"
+"e7d53442046c1319591b88b45d857d1c5fe2e719","2014-04-27 08:08:23-07:00","Update RemoteInterface.java
+
+New Intent.data procedure for launching scripts.
+"
+"58fe2402f7739d0865dbb4085efbab33c35f71cc","2014-04-28 07:44:09-07:00","RemoteInterface.java with new Intent.data procedure.
+"
+"c91ef263eda0a66dfd9b777efe5544905bad0356","2014-04-28 09:01:56-07:00","First implementation of shortcuts
+"
+"1d945ce371bc913dc153076febd80f1dc75987fa","2014-04-28 13:47:07-07:00","FSNavigator: pause/resume, last directory. AndroidManifest: rename activity.
+"
+"39bf6f113f996574c3963432e4e8a8d39cfa84f3","2014-04-28 16:00:04-07:00","AddShortcut.jav
+"
+"d2a6e79ed71232b6fab6454c6b79c5b079ebc581","2014-04-30 11:21:01-07:00","Shortcuts
+"
+"2ca93b3ec2118c273f033325ca1f2166dadcc499","2014-04-30 15:03:53-07:00","Shortcut work
+"
+"dd11820fe1985caf8a4bea3a33afbae2ca7011b5","2014-05-01 23:41:42+02:00","Add READ_EXTERNAL_STORAGE permission.
+"
+"e1a29c721fab28ba927afe1be82e541aa344256e","2014-05-02 08:09:24-07:00","Added theme choice to FSNavigator.
+"
+"34bfcffb850bfb5649ccc5b7a1fe3a499b4ad237","2014-05-01 17:52:41-07:00","TranscriptScreen: increase mTotalRows when resizing if needed
+
+Currently, when you attempt to increase the number of screen rows in a
+TranscriptScreen beyond the value of mTotalRows supplied when the
+TranscriptScreen was initially created, the backing store allocated in
+init() will not be large enough to hold the contents of the screen.
+This results in strange behavior, such as duplicate lines or lines
+overwriting each other in full-screen applications.
+
+Fix this by bumping mTotalRows as needed when resizing.
+"
+"dc881b30c0c272350092da34a14698e9082e9306","2014-05-01 00:57:24-07:00","TerminalEmulator: fix screen resizing when alternate buffer is in use
+
+A full resize of the screen while the alternate buffer is current (e.g.
+if GNU screen or another fullscreen terminal application is running)
+can currently crash with the following stack trace:
+
+java.lang.IllegalArgumentException
+at jackpal.androidterm.emulatorview.UnicodeTranscript.setChar(UnicodeTranscript.java:727)
+at jackpal.androidterm.emulatorview.UnicodeTranscript.setChar(UnicodeTranscript.java:714)
+at jackpal.androidterm.emulatorview.TranscriptScreen.set(TranscriptScreen.java:99)
+at jackpal.androidterm.emulatorview.TerminalEmulator.updateSize(TerminalEmulator.java:464)
+[...]
+
+This happens because TerminalEmulator is trying to mark the position of
+the cursor in the alternate buffer, but the alternate buffer was already
+resized.  There's no guarantee that the current location of the cursor
+is still a valid position on the resized screen, and if it isn't, the
+exception above is thrown.
+
+Even when the terminal doesn't crash, resizing the screen causes the
+screen to blank briefly until the application redraws the screen, since
+the contents of the alternate buffer are discarded during the resize.
+
+To fix this, we note that when resizing the screen, we don't actually
+need to care whether the main or alternate buffer is current -- we just
+want to resize the current buffer (whichever one that is).  Therefore,
+instead of treating the main and alternate buffers differently during
+resizing, we just work with the active buffer.
+
+In principle, we could defer the resizing of the inactive buffer until
+it becomes current, but this introduces the possibility of latency at
+some undetermined future time (when the buffers are swapped).  It's
+probably better to do the work during the resize event itself, when the
+user is more willing to tolerate a pause and there's usually an
+animation to help disguise it.  (The alternate buffer has no scrollback,
+so even a full resize will be relatively quick; therefore, the only case
+where this could become noticeable is when the alternate buffer is
+current, but the main buffer has a very long scrollback.)  We therefore
+resize the inactive buffer immediately, taking some care to avoid
+problems with cursor positioning (in particular, we can't trim blank
+lines, because without the cursor position marking, we can't be sure
+whether they're significant or not).
+"
+"613c6ddc8e86c37375fa7b2778c3d7cb9225f710","2014-05-03 07:35:35-07:00","Merge branch 'steven676-for-upstream'
+"
+"86d5da1a301ff4540b46cedf61b534167d1190ff","2014-05-03 07:42:16-07:00","Merge pull request #316 from arstrube/read_sd
+
+Add READ_EXTERNAL_STORAGE permission.
+"
+"f71f3eabd44da29c8f36e3c3a8e1e44236b36238","2014-05-03 13:16:45-07:00","Merge branch 'master' of git://github.com/FrankWestlake/Android-Terminal-Emulator
+"
+"59a9060efe2bb12c274b10c86d4eb5b481dbb848","2014-05-06 21:54:20-07:00","Auto-linkification only match URLs that start with https?:
+
+Fixes #319
+"
+"29318c6f2b84259e7797447f7bdcf2a276e0be94","2014-05-08 08:17:54-07:00","Shortcuts pahse 2.
+"
+"126530b9b421fab5b32da792cfd9821d600aa2d4","2014-05-08 08:34:25-07:00","Correct icon mixup.
+"
+"a5965b2cc4ee798059c58807a770a1aa764c79e4","2014-05-09 03:39:36-07:00","Shortcut changes
+"
+"5df634d31672754c3e0ac9a58748ab5cdcb278c3","2014-05-09 03:44:57-07:00","Case of null command already handled.
+"
+"22dcef075d124455945ddda79a8f6508154aedb6","2014-05-09 03:45:20-07:00","Shortcut changes
+"
+"383528cae983409867b245ec77b12887bb917c2d","2014-05-09 03:58:59-07:00","Shortcuts doc
+"
+"7e6074b09525806018952a47d09e2b4a83331f34","2014-05-09 07:11:55-07:00","Add dialog text.
+"
+"efcc9464bbd78d6862e230bddd0c21079f28c6b1","2014-05-09 08:56:49-07:00","Shortcut auto-label
+"
+"f2736cdf68f0be3406c0262cdbbe2f0635923900","2014-05-10 07:24:34-07:00","Shortcut hex windows.
+"
+"738e219134fd190bc4483585aeed8743a808bc06","2014-05-11 06:14:08-07:00","Shortcut code cleaned.
+"
+"20988cc4dfcfcff04cfeaaeadabf280bfdcb2c0c","2014-05-11 07:23:46-07:00","Shortcut strings exported.
+"
+"b5782f60e236322197cff2b33eb352013830816c","2014-05-06 02:31:38-07:00","EmulatorView: fix off-by-one error in linkification bounds
+
+Links currently don't extend to the last character of the link text
+(this is easy to check, either with a pixel-accurate pointer device such
+as a Bluetooth mouse or in the emulator) -- fix this.
+"
+"6b4ed0ddbe550e97664d9c28812b406f9b0bee20","2014-05-06 03:27:20-07:00","EmulatorView: fix linkification on non-basic lines
+
+Linkification currently assumes that each char in the array representing
+the line maps one-to-one onto a screen column.  However, this is
+demonstrably false in a Unicode environment, where one screen column can
+take an arbitrary number of chars (surrogate pairs and/or combining
+characters) and one char can take two screen columns (East Asian wide
+characters in the BMP).  As a result, links end up misplaced on lines
+where these more advanced Unicode features are in use.
+
+To fix this, we need to properly determine the screen columns the link
+spans, taking into account the above; unfortunately, there appears to be
+no way short of iterating over the entire line up to that point to
+discover this.  To lessen the performance hit, we add support to
+UnicodeTranscript and TranscriptScreen to allow EmulatorView to
+determine if scanning the entire line is necessary and only scan the
+line if we must.
+"
+"bed0d548cacce51e48447033bce9911d0b06d456","2014-05-11 17:23:03-07:00","Remove some cruft from the tree
+"
+"846d77fe7f6d942da2c61927305ccac82dbdeef0","2014-05-04 21:49:10-07:00","EmulatorView library: tidy up public API
+
+GrowableIntArray and TextStyle are part of the library's internals and
+not exposed through any of the intended public APIs, so they should be
+marked package-private.
+"
+"91688f4272a2c3bdade758e25d88718b2d7ae654","2014-05-04 21:37:01-07:00","TermSession: update documentation for notifyTitleChanged()
+"
+"a140a98ff4f62ec4af99f38624764b5f953ee1cc","2014-05-04 23:37:57-07:00","ColorScheme: update documentation
+"
+"189b2e478bf082fd2c25a2fdc43e55237812d00e","2014-05-04 23:41:48-07:00","EmulatorView: update documentation for getURLat()
+"
+"0b1b4bc023f36377b2a9956d5c1ccb5c5e566e5d","2014-05-12 07:42:48-07:00","Some neglected string exports.
+"
+"e414a91e3c776489638458eaa98138fd6fc38c5b","2014-05-12 08:57:44-07:00","String export.
+"
+"3028eca96e7651c972560d2468ab1f5aafdb2fb9","2014-05-13 21:16:39-07:00","Merge pull request #321 from steven676/for-upstream
+
+Linkification bugfixes
+"
+"d576af0d44a76ce3dd99f7d8376c4ff1723a951c","2014-05-13 21:17:27-07:00","Merge pull request #322 from steven676/library-cleanup
+
+EmulatorView library cleanup
+"
+"9147608d7071ff928f1d0bfbcfbedb21dc4f451c","2014-05-15 09:03:10-07:00","Shortcuts: recyclable views.
+"
+"fa9cd04b7f51be4b5156bf5754ea9bd003816a02","2014-05-16 07:53:37-07:00","Shortcuts: Recyclable view -- fixed titleView..
+"
+"20e0bb615d4d226a9208b5028d693c7d511e4125","2014-05-18 10:19:11-04:00","Added calculation for visible rows/columns, this was useful for
+me to set the correct PTYsize. Added function to get these values.
+"
+"4e41fef611025151b04b6fec80952884cdf0f0e7","2014-05-18 08:42:48-07:00","Merge pull request #324 from marcb1/master
+
+Added calculation for visible rows/columns
+"
+"7970a61dbeec4182a5f215d5d5ad380acc5d73af","2014-05-18 10:15:12-07:00","Remove out-of-date text version of readme.
+"
+"0b1304be861240c76ec24d6123c6db194c4fdc94","2014-05-18 10:18:16-07:00","Minor tweaks
+"
+"238214c4df32aec6d66f0c32beac26bc8bcb6a01","2014-05-18 11:38:16-07:00","Merge branch 'master' of git://github.com/FrankWestlake/Android-Terminal-Emulator into FrankWestlake-master
+"
+"5eac7052d966114399b97d637ca302f30c868266","2014-05-18 11:38:31-07:00","Merge branch 'FrankWestlake-master'
+"
+"3c80cebc183fca8ee0ea151bd91c4516bf18c250","2014-05-18 12:18:01-07:00","Remove developer-specific entries from .gitignore
+"
+"38546fb9b8a080472c8218d833ee1caebc8b5833","2014-05-18 12:19:09-07:00","Use our own stripped-down version of Patterns.java
+
+Because Patterns.java is an API level 8 API.
+"
+"685e9fcac6cd4eff24c7f1bef4fe406b937dddd9","2014-05-23 09:21:21-07:00","Update to v 1.0.60
+"

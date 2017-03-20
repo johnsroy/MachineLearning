@@ -1,0 +1,103 @@
+"commit id","commit date","commit message"
+"90cd11b4a9f684f83fa1c72498404f13372dd8f6","2016-01-11 20:59:42+01:00","Seadroid is not ready yet for API level 23
+
+API 23 introduces runtime permissions:
+
+https://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-runtime-permissions
+
+Once an app targets API 23, the user isn't shown the list of required permissions
+during install. Instead, the app has to check and ask the user for
+permissions on first use (checkSelfPermissions() / requestPermissions()).
+
+At the moment, Seadroid is not implementing this new permissions API. So
+targeting Seadroid for API level 23 would break it on Android 6.0 devices
+when newly installed.
+"
+"ce99f09b5d098ddfa81a6ef959e235a1150e0569","2016-01-12 09:59:59+08:00","Merge pull request #470 from forouher/fix/android6perms
+
+Fix crash on Android 6.0 when freshly installed
+"
+"a32826beeaaaccc3c55c43d8c4059ee7dd8df924","2016-01-12 17:08:28+08:00","fix 'Activity' tab in BrowserActivity visible on non-pro servers
+
+fix #468
+"
+"f286974d792c6ff0e7c9d8d661d7376fcc4e60b0","2016-01-12 17:25:37+08:00","comment debug logs
+"
+"86f97ca290f87be53970365f0f704e6b138a24d6","2016-01-12 18:15:06+08:00","fix missing seperator in transfer list
+
+fix #467
+"
+"211061329321c8684958cfa61e7ab5db70ca01cd","2016-01-12 18:26:12+08:00","fix 'Fast-tapping in BrowserActivity can result in error'
+
+fix #469
+"
+"3da8770b5748b438d26680fc5ea3de6f2fe05bac","2016-01-13 15:01:49+08:00","fix Folder name with ampersand breaks creation of new child folders
+
+fix #463
+"
+"75b5a388d6f3fb71b1509ff9dea436e4ca14e2f8","2016-01-13 15:05:54+08:00","comment debug logs
+"
+"c76a27e3382b37e7ba39c39c694e991df73f2917","2016-01-13 16:27:42+08:00","fix typo
+"
+"16a299f63ca85466b2abf913ceaabed3a0d9ea76","2016-01-13 16:37:16+08:00","correct comment
+"
+"15b98a12585d90841065ad2bb6b3efe785dbc834","2016-01-14 14:28:10+08:00","Merge pull request #471 from Logan676/fix_serveral_bugs
+
+Fix serveral bugs
+"
+"11b96697386ca37f10659356be09fe8451d82c2a","2016-01-14 16:53:13+08:00","Requesting Permissions at Run Time for Android 6.0 (API level 23)
+
+Beginning in Android 6.0 (API level 23), users grant permissions to apps while the app is running, not when they install the app.
+
+useful links
+1. https://developer.android.com/training/permissions/requesting.html
+2. https://github.com/googlesamples/android-RuntimePermissions/blob/master/Application/src/main/java/com/example/android/system/runtimepermissions/MainActivity.java
+3. https://github.com/hotchemi/PermissionsDispatcher
+"
+"b6bdf698d1dd5850a93d6b3dcc62e9f8f89b8d32","2016-01-14 16:56:34+08:00","update i18n
+"
+"325028b9558214e7f187bcbd54be889590279924","2016-01-17 10:51:24+08:00","update build.gradle
+"
+"98c8f95c76124bf22c9c63b8856f6b8ae524cbb6","2016-01-17 10:52:38+08:00","[library module] remove unused library 'SlideExpandableListView'
+"
+"ef506f3f0839149d022d4ce9c364ba4785b87140","2016-01-17 11:04:39+08:00","[library module] remove unused library 'PhotoView'
+
+as mentioned in https://github.com/haiwen/seadroid/pull/185
+> Okay, I updated my branch. One thing: You have to get rid of ActionBarSherlock.
+> It is not compatible with API 23 anymore, the app crashes.
+> I had to include PhotoView as a library instead of a jcenter dependency because of that.
+
+Now I have gotten rid of dependency on ABS, so change to use a jcenter dependency for PhotoView library.
+"
+"c69805382d8841629253f2666647e5f954e350e9","2016-01-22 15:36:52+08:00","update i18n
+"
+"74625347962e40f551f6d13897f5f31ad5b72667","2016-01-23 10:38:39+08:00","fix after upgrading to seadroid2, crashes on start #474
+
+fix #474
+"
+"0219117a7a09c41fc2cd6e39f205efb0e43deb7d","2016-01-23 11:49:37+08:00","ask storage permission for Android_M after app launched
+
+It might make sense to ask for all of those permissions as soon as the app launches.
+
+If the user is running Android 6.0 (API level 23) or later, the user has to grant your app its permissions while they are running the app.
+
+useful links
+1. https://www.google.com/design/spec/patterns/permissions.html?utm_campaign=runtime-permissions-827&utm_source=dac&utm_medium=blog#
+2. http://developer.android.com/training/permissions/best-practices.html#dont-overwhelm
+"
+"8016f78fdf010fbfd07f0cfffb69c826340aaba9","2016-01-23 12:01:40+08:00","update build.gradle
+"
+"2c380564ac4f4089a9ef1e6acf2b3caf2c653cf1","2016-01-23 12:10:04+08:00","update notify text
+"
+"82444c6e7d5062dd21d5084b2664ed024346da3a","2016-01-23 12:11:57+08:00","Merge pull request #477 from Logan676/fix/request_permission_at_runtime_for_Anroid_M
+
+Ask storage permission for Android_M after app launched
+"
+"a1ab740edee9203cd9746a3ef3e3ef51a963b5c0","2016-01-23 12:12:41+08:00","Merge branch 'develop'
+"
+"e7379ea3a29048c3795edfe9112a4b7101a52315","2016-01-23 12:15:17+08:00","update i18n
+"
+"c12f3fa8ac8e2ac2bba16892911da72ef45d37b3","2016-01-23 13:59:45+08:00","update build.gradle
+"
+"185e85f6cf5b0e7d74421060d0d8bf0be6fc7d21","2016-01-23 14:01:44+08:00","update version code
+"

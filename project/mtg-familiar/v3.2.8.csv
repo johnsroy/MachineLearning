@@ -1,0 +1,94 @@
+"commit id","commit date","commit message"
+"c80495b10acbef3f5baed6230612fe076d4a70f9","2015-09-06 17:04:32-04:00","Updated gradle versions
+"
+"e8aa7103a6dfbe3fa5c5b4fb58556e23759192f9","2015-09-06 17:13:30-04:00","Fixed an issue where price lookups weren't unescaping the ' char for a SQLite query
+Made sure to escape everything
+"
+"7137a6dee35aebd7b4fea20d4b3964792faa9904","2015-09-11 08:33:51-04:00","#109: Added more card image language preferences
+"
+"320ae2b19288be8b3a779a6fabe92111c6cd4746","2015-09-12 12:59:56-04:00","Trades are now sortable.
+The sort order & type are saved in a preference.
+Cards are automatically sorted when added.
+It can sort by color or CMC, so that data is now pulled from the database in the trader
+Little bit of cleanup in WishlistFragment
+"
+"258e4fd36e98523b51c7f241b98709dd3012f1a8","2015-09-12 13:02:45-04:00","Formatting
+"
+"c7b1e6b46bef19a17456d48bd00e4a0f7135e6f2","2015-09-14 23:12:31-04:00","Split type column in card database into subtype and supertype
+Updater service splits the type, so no new patches.
+"
+"4ffd1768e73ead716e0df7cc7745b6b651a4512b","2015-09-14 23:40:58-04:00","Fixed built-in database. Wrong compression type before?
+"
+"ceeb91035eccd3600a3c1802519f2d93b5d113ca","2015-09-15 21:47:56-04:00","#99 Added subtype autocompletion and supertype autocompletion from the database
+Instead of using a cursor directly from the database, it builds an array of possible autocomplete words
+At least it does this on a background AsyncTask
+"
+"fd3be93594cede30c428e44d9c8885150b0654e9","2015-09-15 22:03:42-04:00","Cleaned up async task for loading types & subtypes
+Fixed issue where the ArrayAdapters wouldn't always be set to the MultiAutoCompleteTextViews
+"
+"7ade343452fbfd17f7175be18e722f5bce77d08e","2015-09-15 22:14:43-04:00","Reformatting
+"
+"a9f481ca5622fe763dd58e0b9f04161126a4def7","2015-09-17 00:29:22-04:00","Smarter loading
+"
+"0b74317cc553ca855c5cc0d9e793ede87fd39adb","2015-09-17 20:08:28-04:00","Safety null checks
+"
+"3f5cbc121f3b898254250f2f7c9ad69facb3e603","2015-09-21 15:35:10+02:00","make gradle wrapper executable
+"
+"abb2aab73976b778fb559e8dd1cc1d8735ee979d","2015-09-21 16:37:32+02:00","Add FOSS gradle build flavor.
+"
+"0d58f28323256b2fd0e539f081b072fd39254b40","2015-09-21 11:51:04-04:00","Merge pull request #112 from Bubu/master
+
+Adds a foss build flavor.
+"
+"f66eaffa9d759957ee1dc5d66d78534049a690c0","2015-09-21 15:17:09-04:00","#106 Moved AppIndexingWrapper.java from the shared code section to the foss build folder
+Removed play-services-appindexing from foss build
+"
+"cb7b955d1c700f8392292033a9ba0e1b9cd37021","2015-09-23 00:39:58-04:00","Cleaned up code so that the package ID could be different for different flavors. Appended .foss to foss package
+Cleaned up manifest for standard build
+Caught a potential null pointer exception when filling autocomplete fields
+Closed a cursor
+"
+"cdc992394c526a9fbc22201d33d87c43706b068b","2015-09-23 00:44:02-04:00","Autoformat
+"
+"fede2ecdde4d368ecdfafd6d963de701da7ea765","2015-09-25 00:05:16+02:00","Change versionName instead of packageName.
+"
+"ce6cebd26299ccf2f7dc36b7333f61f99ec40bd3","2015-09-24 19:41:50-04:00","Merge pull request #114 from Bubu/versionName
+
+Change versionName instead of packageName.
+"
+"6c8b546418b83ff6b6c12b403ce9b66ba8ecf997","2015-09-25 00:22:47-04:00","Cleared up an issue with Duel Deck Anthologies.
+All the cards originally had the set code DD3, but that collided on number when fetching images.
+Now only the split sets (DD3EVG, etc) exist in the database, the old DD3 will never be patched in.
+Cards in saved trades & wishlist will have their set automatically updated.
+Database updated to BFZ
+"
+"358c0ebb8651a4dc46265a39030cd4ff35dd1b00","2015-09-25 00:23:11-04:00","Bumped the version
+"
+"9abdf8a8c935df1443c54128d3b385d727aed19b","2015-09-25 00:50:00-04:00","Went for broke, added autocomplete for artists
+"
+"1cec658b6d4dde2e71dd8b4598496cebc5281194","2015-09-28 09:14:29-04:00","Null check for safety
+"
+"725c5ccd3decc736030b1317b751bd93c801395e","2015-09-28 09:17:51-04:00","Autoformat
+"
+"1ec890449f95fc722418a136975f2651afd603e3","2015-09-28 09:33:45-04:00","Linting
+Updates 'what's new' string
+"
+"f45fcc6412eaacfe5e4bb1eb27a1181575fde6d2","2015-09-28 09:42:13-04:00","Updated dependencies
+"
+"5df2f91d29eed5625d2f79ded702e34ead773b90","2015-10-01 19:13:15-04:00","Updated strings
+"
+"ce93a9e19dcf830fbe34997014e02fa6d7a2a820","2015-10-02 10:06:48-04:00","Added logging for updater process
+"
+"f719a93731326f28b8b557ec900676c79c0d1855","2015-10-03 01:59:49-04:00","Don't add set information if all the card information isn't parsed
+Always try to reparse card patches, even if the date matches. If the manifest is partially added, the date doesn't matter
+Added retries for downloading & parsing card data
+Only add tcgNames if the set is being added. Don't open the database if the only new thing is tcgNames
+"
+"2c0948e7e0997178a966c2627faf01089bdc50f1","2015-10-03 02:04:05-04:00","Updated db with latest banned & restricted
+"
+"94c75805c457352bf2185de607c8d043223c1fb1","2015-10-03 12:49:24-04:00","Reduced database reads to one when updating cards
+Changed the notification to show through the entire update process
+A little more logging. Some logging moved within RulesParser
+Only download TCGnames if there was a new set downloaded
+Made sure that notification updater thread ends itself after progress reaches 100
+"

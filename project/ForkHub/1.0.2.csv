@@ -1,0 +1,65 @@
+"commit id","commit date","commit message"
+"0c168a74b4bad2f75a11b485df4f9723452d7c6a","2012-07-09 15:09:49-07:00","Return immediately when cursor is empty
+"
+"ef7b10ab679189a6a31f70622726cfbb184c12a4","2012-07-09 15:14:31-07:00","Ensure database is closed even if ending transaction fails
+
+If endTransaction() throws an exception then previously
+close() would not be called.  This adds another try/catch
+block that only ends the transaction if begin transaction
+successfully completes and closes the database consistently
+across multiple method calls that may raise exceptions
+"
+"8c0705237a8ae7a4b2aeda8ceb478c131ac3f861","2012-07-09 15:24:17-07:00","Upgrade integration tests POM file version to 1.0.1
+"
+"94a8f0a20e2857859328852d9f546a671843c228","2012-07-09 15:29:59-07:00","Drop SNAPSHOT from versionName attribute
+"
+"4eab0a88fa0d12a7e1a8dc5f7942d38ed48b317a","2012-07-09 15:38:19-07:00","Upgrade to android-maven-plugin 3.3.0
+
+Closes issue #81
+"
+"ca9d4d7536aaac804e6edfca8b58c614ee38c5a6","2012-07-09 22:48:58-07:00","Remove string name with duplicate value
+
+Closes issue #85
+"
+"6685e4da0de4342236a13acc38993ba12154d97c","2012-07-10 09:07:34-07:00","Load Gist in background task when missing from store
+
+The pager will only be configured to displays the Gist's
+files once the Gist has been refreshed.
+"
+"5c0b0320700a5c1ade22bcd68236c41b044d47db","2012-07-10 09:43:55-07:00","Guard against null auth token label
+
+Call equals method on constant which will never be null
+instead of auth token label variable
+"
+"fbe003473f149d08ddd72a5154c539450f5bcc73","2012-07-10 09:45:06-07:00","DRY up getLogin by calling getAccount
+"
+"ec38793ee28ac7438ef3f936c3c547dabf4fc36a","2012-07-10 10:39:34-07:00","Use static imports for constants from DialogInterface
+"
+"33dffb6ca9a5963c248f9ac87a1d91c2dc37d296","2012-07-10 11:15:08-07:00","Show dialog when authenticator conflict exists
+
+A SecurityException is raised when multiple apps
+provide authenticator services for the same account
+type id.  This causes the GitHub app to crash when a
+another app has already registered an account using
+this id (com.mobile).
+
+The workaround is to catch the exception and show
+a dialog describing the conflict and how it can
+be resolved.
+
+Closes issue #72
+"
+"1623b2b112c5274fffa8144bdf904f9998a7e489","2012-07-10 11:20:17-07:00","Prepare 1.0.2 release
+"
+"a9f696024d3e8ba98838fea2b30731da8d66a3db","2012-07-10 11:56:22-07:00","Verify registered authenticator has expected package name
+
+This ensures that expected authenticator will be used
+before an account is requested to be added.  Without this
+check the account manager future will hang if another
+application has registered an authenticator for the
+account type id being used.
+
+Closes issue #88
+"
+"67b803563eb0362ed52a1aae7def53ead79b94b7","2012-07-10 12:01:13-07:00","Add test that verifies authenticator is detected
+"

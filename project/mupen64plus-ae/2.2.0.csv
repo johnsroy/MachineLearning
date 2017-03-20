@@ -1,0 +1,248 @@
+"commit id","commit date","commit message"
+"baae1106d5427b5423d762b26df4e02974c514e4","2013-03-15 22:48:38-04:00","front: Change version string in manifest to debug
+"
+"da133c267de2d5244c8911f459e2964e060d58ef","2013-03-16 18:04:12-04:00","bugfix: Fixed axis scaling for official Xbox 360 wireless controller.
+
+This controller does not produce AXIS_HAT_X and AXIS_HAT_Y signals from
+the D-pad, giving it a signature unlike all other Xbox 360 controller
+clones I've tried (all wired).  Instead the D-pad signals are passed as
+key events for this controller instead of motion (axis) events.
+
+In fact, the key codes from the D-pad are 0 for all directions, making
+it impossible to distinguish which direction was pressed.  Will have to
+make a note of this on the forum.  Unfortunately this is an O/S level
+problem that we can't address, and it's probably caused by this
+controller's use of a vendor-specific (non-standard) HID profile.
+"
+"7ca06f0c74a3023f60dc165dc8ea8a6a8207f72c","2013-03-16 23:41:06-04:00","OUYA: Added interfaces in preparation for IAP
+
+In-app purchases, which is how donations will be collected
+in the OUYA version of the app, are all done through an OuyaFacade
+instance and utilize encryption.  This commit lays the groundwork
+for that functionality.
+"
+"dbdfb40660ba14686af115c3683eb1f3b429d931","2013-03-16 23:55:44-04:00","OUYA: Corrected comment typos
+"
+"d98a6bcedc86d535ad53718f767c0c88adffda0d","2013-03-17 05:20:24-04:00","OUYA: Added interface for querying product info
+
+Because this information is requested from the server, the
+response is acynchronous.  Mirroring the ODK, I created a listener
+interface which you pass allong with the request to handle the
+response.
+"
+"183017596c18a3bf4583f44cf79691eef2474efa","2013-03-17 05:26:29-04:00","OUYA: Return after invoking callbacks
+
+This fixes a bug where the onFailure callback was always invoked, even
+when there wasn't a problem.
+"
+"8a45ea42274c771e8edc3c0abe318dc739c28be9","2013-03-17 21:01:22-04:00","front: Add pref for additional touchmap scaling
+
+An additional .5 - 2.0 scaling factor can be applied to the final
+calculated scale, to give the user a wide range of possible scales
+to suit their style.
+"
+"beee0d52659d9d4c4bd2f53c79b49c4bdfbcba60","2013-03-17 21:07:03-04:00","front: Removed unused import
+"
+"512de906d5564e87d22059a319d8f54c5f0823c6","2013-03-17 23:11:11-04:00","bugfix: Only register vibrator if it is useable.
+
+All devices prior to Honeycomb were assumed to have a vibrator. Since
+Honeycomb, many devices don't have a vibrator.  To maintain backwards
+compatibility, Honeycomb+ devices always return a non-NULL Vibrator
+object, even if they don't actually have vibration hardware. Instead,
+you must specifically query whether the vibrator actually exists.
+
+I tested this on a Gingerbread device to verify that the ternary state-
+ment is safe on non-Honeycomb devices.  It was safe for my device.
+"
+"428eeff1b1e07e8a9c2515affb762679f48eb5b9","2013-03-18 11:44:48-04:00","bugfix: SeekBarPreference keeps value on rotation, and cleanup.
+
+Two small bugfixes:
+- onDialogClosed: callChangeListener is called on the correct value
+- onSaveInstanceState: the correct value is cached
+
+The change on line 270 is purely cosmetic; I found it slightly easier
+to read the code.
+
+Tweaked some comments for clarity.
+"
+"514b4891a0a3b5c569b856110b1d8bb5c3becc1c","2013-03-18 20:53:17-04:00","assets: Add stock autohold images, move touchpad images to images dir.
+
+I placed some alternate versions and other related images in the docs
+folder.
+"
+"870528bd7ec6dd05a8d8725bcd1647eed89f707b","2013-03-18 21:12:29-04:00","cleanup: Move a line in strings.xml.
+"
+"4bdb0dd76482cc87dc16bbf2c2e5a2d0f24d920c","2013-03-18 21:34:15-04:00","res: Change wording: 'Touchscreen' => 'Button' in some strings.
+"
+"0b035cc90f3326ce39a90fcdabd317931dc94747","2013-03-18 21:36:44-04:00","res: Re-order some touchscreen preferences.
+
+For some reason I kept subconsciously tapping the opacity setting when
+I meant to tap the scale setting.  This rearranges the order, plus it
+puts the custom layout folder immediately after the layout setting. See
+what you think.
+"
+"c26a3a4cc1de70d9dc36e8680d53258dc8a3feac","2013-03-18 22:15:16-04:00","res: Removed unused strings related to touchscreen size.
+"
+"85f5fb969282005e34d53022cb7f5e6bc2706188","2013-03-18 23:17:50-04:00","bugfix: Fixed missing touchscreen buttons when upgrading from prev ver.
+"
+"a402f38d76548204b1e19c3f37d4055c3773531f","2013-03-18 23:27:48-04:00","front: Ensure some touch* prefs are valid between version upgrades.
+"
+"ca3ac56e44aeeaaf18f80c5412e6160ce8415743","2013-03-18 23:30:25-04:00","assets: Rename a touchpad skin.
+
+IMHO this makes the parallelism a bit more obvious.
+"
+"02757572c1ec68085f3e1aa7e557b5c21a065c72","2013-03-18 22:24:02-04:00","assets: Renamed skins folder 'gamepads' => 'touchscreens'.
+
+A bit clearer IMHO.
+"
+"ce5d45200bf3d14f860dcc656d4ffc3dddbad347","2013-03-19 00:07:24-04:00","assets: Renamed touchscreen skins to follow a naming system.
+
+A little clearer and the machine generation of the skin name is a bit
+easier to maintain.
+"
+"a829af2b8019c5a017259c4715a43e9255a07530","2013-03-19 09:03:01-04:00","cleanup: Rearrange some lines of code
+"
+"06438980761e4ed0e2d9ebe6b36ab66e3a0bf7a6","2013-03-19 09:04:55-04:00","front: Allow user to override phone/tablet touchscreen layout.
+"
+"ab98a004c5af294449629067309a36669b57f1fb","2013-03-19 09:40:10-04:00","assets: Remove obsolete fps 'rate' from pad.ini files.
+
+FPS refresh rate is provided through the main menu now, so this part of
+the ini file has no effect.  Removing it avoids confusion when a users
+copy and modify the stock ini files for their own custom skins.
+"
+"a9cb8421fbf9b3aa906e5557a22b9712115fc9c7","2013-03-19 09:55:54-04:00","front: Disable some touchscreen prefs when custom layout is selected.
+"
+"644a8c6c8c2a5509adbff6748701779df65622f3","2013-03-19 10:06:27-04:00","cleanup: Replace string literals with constants.
+"
+"7100024cb6be30d46fa929b80460188c7f718d1a","2013-03-19 11:58:02-05:00","front: Fix analog stick image snap position
+
+(rewound and recommitted to exclude .cproject)
+"
+"c851e673f91087338eb25dae6f453a5b2aff7e68","2013-03-19 13:06:47-05:00","docs: Updated Google Play app listing (English)
+"
+"02b4e821dcc98accc38f3cb4069850ac10dacfef","2013-03-19 13:10:44-05:00","docs: Fixed grammar mistake in Google Play listing
+"
+"33cd2874628c64289371a5d92b9f1557f6f2e8db","2013-03-19 14:35:14-04:00","Merge branch 'paulscode/virtual-gamepad-changes'
+
+Conflicts:
+res/xml/preferences.xml
+src/paulscode/android/mupen64plusae/MainActivity.java
+src/paulscode/android/mupen64plusae/persistent/UserPrefs.java
+
+Manual omissions:
+.cproject
+.project
+"
+"6ee47170c5954e17bf246de1482372428d9af692","2013-03-19 19:37:54+01:00","res: Updated translations.
+"
+"6abda570b6852090c3a4fd9fc374cf73799f6737","2013-03-19 15:05:50-04:00","res: Added Hungarian to available translations.
+"
+"8be4f0023c8978afed78aae7d80515d7534797d4","2013-03-19 15:33:16-04:00","doc: Updated changelog.
+"
+"2849db3ad60492974e6ea111f144c1726468fff2","2013-03-19 19:11:35-04:00","acra: Add library (.so) names to ACRA report.
+
+By far the largest single cause of crashes right now is due to link
+errors with the libraries at run-time (34% of all reported crashes).
+
+https://paulscode.iriscouch.com/acralyzer-custom/_design/acralyzer/index.html#/dashboard/mupen64plusae
+
+This just adds the names of whatever files are found in the libraries
+directory. Just want to rule out the possibility that the files weren't
+installed properly.
+"
+"29f35cb9bfad5f50d2248e1c0b01d8768861c9a2","2013-03-20 08:52:01-04:00","front: Load touchmap mask colors a bit more robustly.
+"
+"ac7df312347cf2aa74e813db2253c2139aa2cdbb","2013-03-20 08:53:58-04:00","assets: Change pad.ini fields for more parallelism.
+
+Yes, I have OCD.  The previous commit makes either fieldname viable,
+so no worries about backwards compatibility.
+"
+"103b085a9daf156931f12a70451ee7b9c1f16fbc","2013-03-20 10:04:33-04:00","front/assets: Define touchmap image directory relative to pad.ini.
+
+This makes it a bit easier for custom layouts to swap between different
+custom images.  Users can create their own directory structure to hold
+layouts vs. images.
+"
+"2896536b5e50cc224a5c559a27cff5c2c24c12e8","2013-03-20 10:24:06-04:00","res: Add gameshark and frameadvance items to OUYA mapping screen.
+"
+"c18d036b36eb26a767e9913974d3760460655d5d","2013-03-20 09:02:44-05:00","docs: Fixed grammar mistake in Google Play listing
+"
+"81bd1df1cf4f8602932f2eb0c10184df0e9398b4","2013-03-20 09:37:08-05:00","front: Rename Phone/Table to Full-/Half-height
+
+I thought it wise to make this change globally to avoid confusion in the
+future.
+"
+"d302f9880fd6ddac91f7f591d08ce19242f76e45","2013-03-20 11:53:10-04:00","front: Clarified vars targetPixels, maxWidthInches
+
+Also bumped up the asset version.
+"
+"c3f58972992aa704229ad87f3e0122e6d652cd9c","2013-03-20 19:45:28-04:00","build: Cleaned up Android makefiles for legibility.
+
+I triple checked this and verified the build, but would appreciate a
+second or third set of eyes to ensure I didn't change anything.
+
+Wanted to make it easier to read the build flags and dependencies.
+There are some linker warnings with the latest NDK related to the gnu
+stl and thought this might help track it down.
+"
+"b4bb6a5dee47738346aec4b8e11af3120ccfe035","2013-03-20 22:55:29-04:00","build: Fool-proofed the rsp-hle make file.
+
+Everything is defined exactly once.  Simplifies maintenance, reduces
+likelihood of errors.
+"
+"bfa10fb5f40bd5c95616a063c1c8cc05e18c9244","2013-03-20 23:12:48-04:00","build: Remove dependency on cpufeatures for most modules.
+
+Only module that currently needs this is gles2n64.
+"
+"d8ce88b7a2482c1e1dac9d51222fddbc08b076cd","2013-03-20 23:34:19-04:00","build: Convert tabs to spaces.
+"
+"167648ef8d64979e16827ee8e1a9c2f5813d6895","2013-03-20 23:29:57-04:00","build: Removed xperia-touchpad dependency on OpenGL-related libraries.
+
+The leftover OpenGL code was removed way back in November:
+5b9eed78c6e200520c726fbd5dd92efb4a87b78a
+"
+"2ae556f06d171c1e522a8945956ca398aa34a08f","2013-03-20 23:41:19-04:00","build: Removed unneeded workaround in core's android makefile.
+"
+"ece0297b6493378f2a6ced0fbd8259b2ef5ed211","2013-03-20 23:52:04-04:00","build: Remove unneeded NO_ASM and ANDROID defines from some modules.
+"
+"9d5d28d5d3e49d58ab6fb0e607645b180ffd89cf","2013-03-21 00:01:34-04:00","build: Removed linkage to GLESv1 in all modules except SDL.
+
+Removing the linkage from SDL (if it's even possible) will require
+careful truncation of the list of compiled source files.
+
+Removing it from the other modules guarantees that they are not making
+GLESv1 calls (front-end, gles2n64, gles2rice).
+"
+"f3f8102a3f5f438276dfb408982889cf1b9f8fd3","2013-03-21 08:24:53-04:00","build: Remove GLESv2 linkage from front-end's android makefile.
+"
+"f0d45b8c00f5d6605301e7feaf72dd34bc3549f3","2013-03-21 08:31:35-04:00","build: Remove obsolete warning-disabling flags.
+
+These only pertained to GCC 4.4.  The latest NDK toolchain defaults to
+GCC 4.6.
+
+Reference:
+https://groups.google.com/forum/?fromgroups=#!topic/android-ndk/mrk5dDqWioM
+"
+"2abdf5cc1b6c8bef19723b873969bd5667bcfdf1","2013-03-21 10:34:14-04:00","build: Remove other unneeded linkages to standard libraries.
+
+-ldl Dynamic Linker library
+Although the header is included in osal_dynamiclib_unix.c, we are
+apparently not using any of its features in our build.
+
+-llog Android Logging library
+Not needed by audio-sdl or rsp-hle.
+
+-lz ZLib Compression library
+Not needed by png because png is static. Rather, the clients of png
+must link to ZLib (gles2rice).
+"
+"938fc606a2e8c388de732fcf6e561b3ded0e8ef4","2013-03-21 12:28:07-04:00","build: Whitespace tweak and remove redundant flag.
+
+-O3 already includes -fpredictive-commoning.
+"
+"cf35863ebd7af7777e5eba3e1a2c8c4efecdb897","2013-03-21 18:30:12+01:00","res: Updated translations.
+"
+"35aae1a8f63565910c2e148e1bad57e71e798447","2013-03-21 16:16:18-04:00","front: Eliminate some lint warnings.
+"
+"54fa4cb17469d8c85c3d658e309dde68c04a6da1","2013-03-21 19:32:41-04:00","front: update version in prep for 2.2.0 update
+"

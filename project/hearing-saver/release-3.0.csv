@@ -1,0 +1,158 @@
+"commit id","commit date","commit message"
+"bfcb2344d5573705be0869dfedcf9e8ed74d1908","2010-12-04 11:54:27-05:00","Initial Commit
+"
+"301fe298c6192899df842f8b7cb1890b3772ffa3","2010-12-04 12:54:24-05:00","Got it so that the receiver can be registered and receive the plug events. Going to flesh it out to make it actually do something.
+"
+"6c6365a02a70648a12f72887d4517c1a27099647","2010-12-04 14:35:44-05:00","Basic functionality is down now, including configuration. Need to polish UI and test.
+"
+"5012f9ba3812f182415520bc7e7fcc1c66ac86a8","2010-12-04 15:13:05-05:00","forgot to even check in my source files. Added those, along with icons for the app. Moved strings to resource file.
+"
+"1b08a6f9897ca60a7019a83be2ecd6d468da586a","2010-12-04 20:47:56-05:00","Minor code formatting and added a description even though I don't think that is displayed anywhere. Added licensing blurb to all source files.
+"
+"ffca680f78c5007e9cd2fd568f9a2c86dc9d6491","2010-12-06 19:49:48-05:00","Added tag release-1.1 for changeset cb7a1b0541a2
+"
+"3cc4a95fc6bc8621e34ea20e8415964fbd9e180e","2010-12-06 19:51:25-05:00","closes issue #1
+
+added the option to automatically mute the ringer and notifications when the audio jack is plugged in. When unplugged, the state should reset to what it was before.
+"
+"1169d0950e4e8bf1d639ec5a3ca5522e28d84607","2010-12-06 19:51:46-05:00","Added tag release-1.2 for changeset d3ea24e845a4
+"
+"e5fcc8f8188fbb8776cb0c4354bf6858be34d556","2010-12-06 19:53:22-05:00","Added tag release-1.2 for changeset cd1ac836eb11
+"
+"3f51779665aefc5c94c35635ec73f3fb75af4280","2010-12-06 19:54:31-05:00","Added tag release-1.2 for changeset 5421f96ad298
+"
+"ea825928a7bfc68c6a865c89be6e5180e369a293","2010-12-06 20:54:44-05:00","fixed issue #2
+
+I acidentally an ANR error. When I moved to the dialog setup screen, I forgot to handle the canceled event to kill the host activity.
+"
+"84a8f39990671a11ad4be7d2c791d38fdaf9151c","2010-12-06 20:55:07-05:00","Added tag release-1.3 for changeset dd016d5837cc
+"
+"e7ffac1846b44ba790f0eda7b4339b612d37bea2","2010-12-07 18:00:45-05:00","This might address issue #1, or it might not; going to run this build on my phone for a bit to see if it does then either release the new version to market or go back to the drawing board.
+
+It looks like the error happens because multiple instances of the broadcastreceiever get spun up, which means that the first one correctly saves the previous ringer state, but the next one sees it as 'silent', and saves that as the old state. This means that once it gets restored, it just gets set back to silent anyways and bam - bug.
+"
+"b96276dd115f2d6f16e834e0696e89e24409f496","2010-12-08 22:58:49-05:00","fixes issue #1
+
+The previous change fixed part of the problem, and this fixes the rest.
+
+The receiver (I think erroneously) gets called when it is registered. This means that when the user starts the service for the first time, reboots, or when the service is destroyed and restarted by the system, their volume will be set. Aside from being unintended behavior, it also causes their 'old mode' to be overwritten, which means that if they are already plugged in (and the ringer is muted), their old mode will be saved as silent and the ringer will *not* be turned back on when they unplug. To prevent this, I'm using a member variable to record if it is the first try or not.
+"
+"87f8be3cce3a1a0b38aa30b25eb188045b117a58","2010-12-08 23:23:59-05:00","added readme markdown file.
+"
+"b84504d692a67b54ac3ec2dac951b0b4ed56556f","2010-12-08 23:26:52-05:00","apparently readme needs to be capitalized?
+"
+"82bf9d162467580e1f794ff7a50e4dad8eba4d08","2010-12-08 23:28:40-05:00","I just want BB to display the markdown readme, this is getting kind of annoying. Last try.
+"
+"ba680a13d57ec3907603c35752168f59ea1074f8","2010-12-09 17:42:03-05:00","minor readme change
+"
+"02520b3e2423c4249ca802d3093e44949076bbc5","2010-12-09 17:42:41-05:00","Added tag release-1.4 for changeset 7be8ec2596cd
+"
+"002184a86b3cb1595b4526a9e46a4fd8ee845369","2011-01-26 00:15:25-05:00","addresses issue #3
+
+This is not a fix, but a temporary workaround for this issue while I continue to investigate.
+"
+"87bcd4807a6a87c2e43671b71fa82c3ed75e4040","2011-01-26 00:16:22-05:00","Added tag release-1.4.1 for changeset b9e93124d6f1
+"
+"85915a20546fdffac40480f9286dc9c2a5b8252c","2011-02-20 17:07:52-05:00","Minor formatting change. Added missing license.txt file.
+"
+"04f7b25abb840123194f8845a0724929eaf81389","2011-02-21 08:04:12-05:00","Added notice.txt
+"
+"a850dcba86e525415bc7118eae6e2118540d9813","2011-02-21 19:58:09-05:00","Refactored settings code to a central class; easier to keep track of now.
+"
+"4957e0a223f41abf1c542020b2c7c7e9026544cd","2011-02-21 19:59:03-05:00","merge
+"
+"f0a4a4eccbbae6dd65c6edcc9d3b4ba4ba0effde","2011-02-24 16:08:23-05:00","Resolves issue #9.
+
+Simple fix.
+"
+"90bf05708757e81c71e86aa3bf2f102766280df1","2011-02-28 22:39:41-05:00","finally fixes issue #3.
+
+The issue at hand was actually caused by a bug in the Android OS, introduced in 2.3, and extant in 3.0 as well (see https://groups.google.com/d/msg/android-developers/2H-zkME9FB0/ZymfmZTDaAkJ). There was an offered workaround for the issue, which apparently works. Hopefully this problem doesn't come up again.
+
+Removed all the service foreground stuff, as it was just a workaround and shouldn't be neccessary.
+"
+"01e4f6bd1f3570b4ea700443594e890323efe7c2","2011-03-01 07:52:06-05:00","Added tag release-1.5 for changeset 745dfa0fe0bf
+"
+"6a2d45f65ef53351b76d0c5d4b550e30b1ad1ccb","2011-04-23 16:25:49-04:00","fixes #8
+
+Finally found a good solution to the sticky broadcast! Also updated copyright notices and version.
+"
+"920be18f291af2f7b9ee7d394a9706164424e83c","2011-04-23 19:46:59-04:00","Removed bluetooth permission. not sure how that got in there...
+"
+"b0c63350adeb39ddd2ee23fe4efde7728b7ca212","2011-04-23 20:26:12-04:00","Added feature and improved large icon graphic.
+"
+"b450dc94eb8fafb1f3b6bf54d2836a0db230c87e","2011-04-23 20:26:23-04:00","Added tag release-1.6 for changeset 8586d5519f9b
+"
+"381d238b7ea76505bb7d30b701ee086961adb443","2011-04-24 23:46:43-04:00","Added new promo graphic.
+"
+"1d04056fa31d566f539ab7f1bb871a421209528a","2011-04-24 23:46:54-04:00","Updated readme.
+"
+"68e66eeb3055b2d9493516c85671a0a7cf8bc60f","2011-04-27 00:28:10-04:00","New, Shinier Icons!
+"
+"9e07717834d6692a26f76e5954aa19f5a770022b","2011-08-05 19:49:11-04:00","closes issue #5 - adds backup capability. Bumped app to Android 2.2+.
+"
+"e39163b3b9684a3b14c16fc8c1ef96247edf78b9","2011-08-05 20:07:03-04:00","closes issue #12 - added the ability to disable hearing saver.
+"
+"ce8d8fd4f7c51e772d6e113b285a436a433b1ebd","2011-08-06 13:42:43-04:00","Forgot to add Apache license to backerupper. Also, corrected Eclipse formatting on a few files.
+"
+"7a17b4ed5ccf5eb1b3ae7b16ce357678d2a4a48f","2011-08-06 17:43:26-04:00","Added tag release-2.0 for changeset 0e18138c79be
+"
+"a24d9171fd42f1ef743b6f1e31a66edc0e1d60e6","2011-08-11 21:11:41-04:00","closes issue #13 - made the backup stuff back compatible for all the wonderful people using pre-2.2 Androids!
+"
+"43718cbedc49b64dc1e7e754c8d0bf74835b2a2e","2011-08-11 21:12:02-04:00","Merge
+"
+"4dc0e265aa20528e955b56cda42ebb141d43470b","2011-08-26 17:52:59-04:00","closes issue #6 - Bluetooth audio/video devices being connected or disconnected now trigger Hearing Saver.
+"
+"39510112a3931dfd15d2a1ebb78f80e2707dce7b","2011-08-28 18:36:43-04:00","Auto-formatting corrections are fun!
+"
+"bf827c00dff0dcff65398f2a42cd8eb5f3bd260d","2011-08-28 22:27:36-04:00","More formatting fixes, and I supressed a warning that was annoying me.
+"
+"c86eaced82f82714ec6a78013a855b3b77dc538d","2011-08-28 22:58:51-04:00","Added tag release-2.1 for changeset af9c0544ed41
+"
+"823ca7855b1568fc904ee3ad0f155b5c0cbe8eaa","2011-08-28 23:26:52-04:00","Added the ability to turn Bluetooth detection on and off.
+"
+"c90d201ee6c7493e419d837be49c48218f303f4f","2011-08-28 23:27:08-04:00","Added tag release-2.2 for changeset 0f75ee1d6dfe
+"
+"1d705f981ed58ed092319c74a1eeada5dae6cc8f","2011-08-28 23:33:20-04:00","Updated Readme
+"
+"f808fd3d0ef9457b57d5a3e6b768b74e50540a66","2012-01-13 15:33:57-06:00","Updated README.
+"
+"a6c7f08706ee40041b54002fd94bf83f3d1e9c76","2012-04-13 21:31:41-05:00","Changes for GitHub.
+"
+"8d4880c58bd73453de13d79fcddc86b0380a9334","2012-04-19 18:00:35+02:00","- added support for ringer volume control
+- added support for saving last volume with headset unplugged
+"
+"a2f56b7e75924a22d605c5bf2e950fd037ebf431","2012-04-19 19:27:41+02:00","volume before headset plugged in is now correctly saved
+"
+"7cc502d08f97ecc18a0dfa6f344a8365506c9908","2012-04-20 10:30:47+02:00","changed api level back to android-8
+"
+"36c500bdac791b38d7e49922f751afd83b68bce7","2012-04-22 18:37:49-05:00","Changed NOTICE.txt to credit contributors.
+"
+"ece25c81e3b4b17dbbf72654f2cb4f44f96799a8","2012-05-04 00:08:41-05:00","Added gitignore file.
+"
+"4ea6361f9d1c0f5fd597715549b0ca98cab60ed3","2012-05-04 00:09:17-05:00","Added build.xml file for ANT build.
+"
+"b177fa82793fd992de89c05d121b5dc066cab7cf","2012-05-04 00:09:54-05:00","Updated copyright notice on all source files.
+"
+"b88c7d6019aafcd054842751c50e51c4f411e5bc","2012-05-04 00:13:30-05:00","Bumped to version 2.3
+"
+"80d8070900cf76b57110ca86ed9a5cd117abde95","2012-05-04 00:23:48-05:00","Updated xml copyright notices.
+"
+"ddfca084ddc058cc325b66e2cceaff23d415a066","2012-05-04 00:26:43-05:00","Formatting fixes on XML files.
+"
+"89175eae9b7837850955ac84b9a445c031670535","2012-05-04 00:58:09-05:00","Cleaned up radio buttons.
+"
+"1ff34379bab33438cb8fe9c3997048e16ef9035a","2012-05-04 01:01:53-05:00","Moved promotional images to their own subdirectory.
+"
+"a728a140633c5023601af1908e1a09f3c7fd2e91","2012-05-04 01:03:56-05:00","Removed extra proguard-project file. We don't need proguard.
+"
+"52a59aedf163e1cf64a3b46719ae5137cf09d67c","2012-05-04 20:37:24-05:00","Updated .gitignore.
+"
+"2eed940d78026fdb27652f61ed1c191dc4ba5a48","2012-05-04 20:45:45-05:00","Changed 'Mute Ringer and Notification' to 'Enable ringer volume control'.
+"
+"1bfa1f1267f3aca5b37c7011d12ee63a575b382e","2012-05-04 20:47:00-05:00","Minor formatting correction.
+"
+"8e9541a548f42420eeaaddced6c2fc84c4386e10","2012-05-04 21:21:51-05:00","Updated README.
+"
+"48f67052843634b03faf59f1633047c0af44112b","2012-05-04 21:54:46-05:00","Changed version to 3.0.
+"

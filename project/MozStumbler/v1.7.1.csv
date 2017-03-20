@@ -1,0 +1,117 @@
+"commit id","commit date","commit message"
+"522a6bc71f31f7cbd5163863e75ece2e0ddaf5be","2015-02-17 16:14:30-05:00","* Pulled out the SimulationContext as a SimulatorService and injected it
+into the ServiceLocator
+* Updated SimulationContext dependant code to use the new service
+* Changed simulation to use half second intervals to move position
+"
+"cce86674e4db17045a6a5c1b3155beaa3220b4a1","2015-02-17 21:54:20-05:00","Update README.md
+"
+"c32efbbbe998627b26896dc14a3942bc88c9af47","2015-02-18 10:02:39-05:00","Merge pull request #1492 from crankycoder/features/1365-simulation-as-a-svc
+
+1365 - Simulation as a service
+"
+"f56ea96f6f7913be71916eadb85bb9c58b608c3a","2015-02-19 14:54:58+02:00","Turkish localisation of Mozilla Stumbler
+
+First Turkish localisation of the extension, excluding 'What's New?' part.
+"
+"a0e26462633de014424d78327c35ff87ec854971","2015-02-19 10:00:05-05:00","added a backslash escape character to single quotes in turkish strings.xml
+"
+"494b58b80834fa31d162e5b331d4ffe947a9356e","2015-02-19 19:40:53+02:00","Merge pull request #1 from crankycoder/turkish
+
+minor fix for escaping single quotes
+"
+"8d63a7232f76f180ab3d1b406c5d7e2b0858e803","2015-02-19 14:36:23-05:00","Merge pull request #1494 from asteko/patch-1
+
+Turkish localisation of Mozilla Stumbler
+"
+"05e7e4f68581839590121965b2973d6d963f316e","2015-02-20 10:15:07-05:00","2 performance changes. 1) Remove the calc of the zipped size of in-memory stumbles from DataStorageManager, and put it in a new class QueuedCountsTracker, that has a rate-limited (every 2sec) max freq of updating. 2) Change the reporting of uploaded stats from an on-demand query, to a broadcast listener, so this info is sent out only when it changes.
+"
+"1170ed029e91fe6b45c4c30d41e23ae17a828303","2015-02-19 09:56:21-05:00","* Reworked JSON serialization for geolocate and geosubmit.
+* Added basic tests around JSON serialization.
+* Repoint to ichnaea's geolocate and geosubmit methods from search and submit
+* Updated ObservationPoint to use new count-free JSON
+* Added zero length guards around wifi and cell arrays
+* Updated the parsing of the Location object coming back from geolocate
+"
+"3ca487793935aab8b19866df51aa745b6240ab10","2015-02-24 11:36:04-05:00","Added an explicit UnittestLogger and DebugLogger so that Log.d calls work in debug builds on devices.
+"
+"e12f04cb7b363277d2b2b92e6a7b16f9c5fdfe4b","2015-02-24 12:26:12-05:00","Fixed some incorrect synchronization in the DynamicProxy which caused services to not be bound in a thread safe manner.
+"
+"086daac27142cffd4de5fac3883b120ca20325fe","2015-02-24 16:02:34-05:00","Legacy sensor: use a rolling average to detect motion
+Use the rolling average at t1  as a baseline, and when the average exceeds
+a theshold relative to the baseline average at t1, then notify movement has
+occurred, and update the baseline.
+Sounds fancy but it isn't :).
+"
+"3b45f88db41a3deb069bf9ea6e13960c2e7f5105","2015-02-24 16:09:26-05:00","updating per review
+"
+"cb6bd5487f132f7b1e4a8cbce43621f0c4229a85","2015-02-24 16:10:00-05:00","Merge pull request #1498 from garvankeeley/safer-stats-reporting
+
+Performance-safe stats reporting
+"
+"2240494bc3e04fad4a697f118096b53995512dfe","2015-02-24 16:19:38-05:00","Merge pull request #1501 from crankycoder/features/fix-service-acquisition
+
+Synchronization fix for DynamicProxies
+"
+"1bf5fceed544e79ef2e535226eec9672d4f0196e","2015-02-24 22:25:49-05:00","Wrapped the logging of the JSON response body for errors so that it only shows up in debug builds.
+"
+"8df2ea24fb98acafa6ec63d8fd7892516510d8bd","2015-02-24 22:27:36-05:00","Clarified arguments for `setSignalStrength` as per code review.
+"
+"b81f74158480e635a4f06c70f25682ebb41785d4","2015-02-24 22:30:22-05:00","Merge branch 'dev' into features/geolocate-geosubmit
+"
+"15c78b0b0747da884a3a8a40f8b122ca083ad89a","2015-02-25 10:32:43-05:00","remove testConvergence, no longer relevant
+"
+"24b5697eb514ce00c32af9a642a94baeb108d4e0","2015-02-25 11:37:34-05:00","start the false positive filter after a delay, to give the user time to move after acceleration is detected.
+"
+"24a31a9932dad2d29de334ad134fdb357acdc544","2015-02-25 11:46:00-05:00","remove unused function
+"
+"638af00e0533f61f9651896423560f96959cc48c","2015-02-25 15:19:24-05:00","make the service not sticky (not auto-restarted if killed).
+"
+"cbd433ff34ac5a2329d75a99becc2f009ca0b1b6","2015-02-24 22:38:19-05:00","* Cleaned up merge conflicts with `DataStorageManagerTest`
+* Dropped MLSTest entirely.  The verification for the blob being sent
+to MLS is in the StumblerBundleTest class now.
+* Removed PII leak that might show up in Fennec
+* Clean up imports and MPL licenses
+* Got rid of extremely noisy debug logging in MainApp when tests run
+"
+"2e7ef113816674235fb568388e057c189738bb33","2015-02-25 12:19:24-05:00","* Fixup bugs where ASU and signalStrength are confused
+* Updated int->float for changes related to switching from
+submit->geosubmit
+* Got rid of setNeighboringCellInfo method as we can just use an
+overloaded constructor
+* Replaced a System.currentTimeMillis dependency with ISystemClock so
+that tests can instrument time.
+* Added null checks around DataStorageManager.getInstance() so that we
+don't NPE if the service hasn't started yet.
+* Added test for QueuedCountsTracker when no DataStorageManager exists yet.
+* added a cache timing test to the QueuedCountsTracker
+"
+"e831c2f991e03a37075d15d8c3d85b9f673e49b2","2015-02-25 14:55:26-05:00","Split geolocate and geosubmit JSON blobs as geolocate does not include
+accuracy or altitude fields
+"
+"c943392da3c692f193e916b42d081836c021f0e9","2015-02-25 22:38:42-05:00","Merge pull request #1502 from garvankeeley/motion-detect-rollingave
+
+Legacy sensor: use a rolling average to detect motion
+"
+"273babf58d2b98d3e2e20030cbc46b34a6455982","2015-02-25 22:40:16-05:00","Merge pull request #1508 from garvankeeley/no-sticky
+
+make the upload service not sticky (not auto-restarted if killed).
+"
+"a6dfda8880afbe98317074b1e3721485975a5504","2015-02-25 22:48:50-05:00","detect network location change as part of motion sensing
+"
+"8e6d8661f51cc3b6c4905373687ed4d1ff3d80b5","2015-02-25 21:44:41-05:00","This gets rid of the phone type (GSM or CDMA) as we no longer need it for anything.
+"
+"ee62ca1a138b799da5182521d9e48cb796cf9e73","2015-02-26 14:35:07-05:00","updated based on review
+"
+"5a8372b8e5f1941c740c31b057fb794e1335664a","2015-02-26 14:58:15-05:00","Merge pull request #1509 from garvankeeley/network-motion
+
+detect network location change as part of motion sensing
+"
+"493dece25d6b7aa91cabc45ec03212681f244784","2015-02-26 15:30:20-05:00","force the DataStorageManager to be null
+"
+"f9a835d885b809a226cd57aa8efea2ea6cc90f5f","2015-02-26 15:50:48-05:00","Merge pull request #1500 from crankycoder/features/geolocate-geosubmit
+
+1499 - Convert MLS to use geolocate and geosubmit
+"
+"0e1bac0ebadeb78048ba1f19f424864f2725ba78","2015-02-26 23:32:45+00:00","bumped to 1.7.1
+"

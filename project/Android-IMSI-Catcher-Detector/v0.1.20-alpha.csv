@@ -1,0 +1,97 @@
+"commit id","commit date","commit message"
+"2d962b59c758803268825d9ce8c853ca35fa1279","2014-06-19 15:06:51+00:00","Update CHANGELOG.md
+"
+"3d04813e373352ee875db0c0ad56c3a298bd9b7a","2014-06-20 11:25:19+00:00","Added Info about TWILIGHTVEGETABLE
+"
+"4102662cb5302f8a7a86a2cb364fc45077581ac2","2014-06-20 22:12:13+10:00","Drawer UI Style
+
+Massive revamp of the UI for the application I know that this was not a priority
+but I actually got quite sick of having to swipe between pages when testing stuff so
+decided to change to the newer drawer style UI.
+
+We can customise this further with an image at the top etc and jazz it up a bit more
+and it also fits better with the current style of most other newer Android apps.
+
+I hope you all like this style please let me know what you all think.
+"
+"4bb0b21f0f9917761518a7053e2c8751d3c7fcda","2014-06-21 00:08:43+10:00","Refresh Handler Activated
+
+User preference selection of the application refresh rate has now been implemented
+into the Device Information & Cell Information fragments, each will refresh the
+displayed information as per the preference selection.
+
+The timer handler will only be active when a fragment is visible (attached) and will
+remove its callback when the fragment is paused, destroyed or detached.
+
+I have set the current automatic refresh rate to 15 seconds but this can be changed
+if anybody believes a different value would be more suitable.
+"
+"bca9f00e58ea91d584a3ab37fa347da37958181c","2014-06-21 00:11:35+10:00","CMD Processor Functions
+
+Re-added the CMD Processor functions to support root terminal functions, associated
+helpers and System Property value retrieval methods.
+
+This is to support the AT Command Injection via the device terminal as discovered by @E3V3A
+"
+"87b971601a14ce8a912959256fa78fd43f4fba1e","2014-06-21 00:24:43+10:00","Refresh Rate Preference Detection
+
+Forgot to add the refresh rate to the preference change listener and also commit
+the change to the automatic refresh rate to 15 seconds.
+"
+"1248516973a9f34a271702e59946f7806ba0ccd1","2014-06-20 20:03:06+00:00","Update CHANGELOG.md
+"
+"45eba93e4c15944d10a03295474e65dad0daec2b","2014-06-20 20:07:17+00:00","Corrected typo
+"
+"9e8252741ebc00760cb0b4851c261063c18f1ba3","2014-06-20 20:24:46+00:00","Added Info on StingRay - THANKS @He3556!
+"
+"95f12a95ecf967c3dc204ccaa5f52d182f071f3f","2014-06-21 13:45:19+10:00","Neighbouring Cell Fixes & Shutdown Crash
+
+Corrected the list that stores neighbouring cell information so this should now reflect
+the correct contents of the neighbouring cells. Cell ID was not being passes correctly
+to the Cell class so would not have been displaying a correct value.
+
+Modified the layout for the neighbouring cells so they display now using the Card UI style and allow scrolling of the details.
+
+Slight fix to the onDestory method which should address the NPE some devices had
+when the service was destroyed.
+"
+"080ec3b772a12fd15f68308c7ce4b4cb2c5a486a","2014-06-21 17:40:54+10:00","MapViewer NPE Fix
+
+NPE caused by null location returned during loadEntries method and this correction
+addresses that issue.
+
+Also added method to the service to return the Mobile Country Code (MCC) so reference
+to the telephony manager did not need to be initialised within the Map Viewer.
+"
+"a406a516c23c89536769b50eb3563156eff49357","2014-06-21 19:25:24+10:00","Fragment Tweaks
+
+Removed unnecessary calls from methods based on fragment lifecycles as some items
+would be called more then once.
+"
+"abb4ebf00e0de6f7e8f0fbef1c2636603f6f460c","2014-06-21 19:40:40+10:00","Code Format Cleanup
+
+Clean up and maintenance of code format, no real changes just arrangement of imports
+and formatting style of code.
+"
+"00ced4fd525eaa7f65b635cafa12a14cf4f652dd","2014-06-21 20:54:12+10:00","AT Command Injection
+
+First thing you need to do before using this is give a BIG THANK YOU to @E3V3A (E:V:A
+on xda) for determining how this implementation was possible because without his
+perseverance this would not be possible!
+
+ROOT IS REQUIRED!!
+
+Root terminal methods are used to execute the AT Command Injection so this fragment
+will check for both ROOT (su binary) and BUSYBOX to confirm both are available on
+your device, if not the execution section of the fragment WILL NOT DISPLAY.
+
+If the initial setup works correctly the next step is trying to determine your Ril
+Serial Device through the system property ril.libargs if this is successful then
+you are in business and the AT Command Injection system is available for you to test.
+
+This will probably NOT WORK on many devices (such as my i9100) but it will provide
+details of the failure if available and display them to the screen but also write them
+to the file error.txt in the AIMSICD directory of your external storage.
+
+Have fun and try not to break anything.
+"

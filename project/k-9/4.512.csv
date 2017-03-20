@@ -1,0 +1,262 @@
+"commit id","commit date","commit message"
+"b9110f92934c8e2bb050ef8dc35c6e6a914d99f1","2013-09-02 23:31:41+04:00","Update strings.xml
+
+Updates and improvements (RU)
+"
+"79326cb64e8025cd5fa2a3c835c62b25f9e55a73","2013-09-02 22:22:28+02:00","Merge pull request #370
+
+Update provider settings for GMX
+"
+"56be8460355c3ffc1edc4a69bae10851c83008d2","2013-09-02 22:23:09+02:00","Merge pull request #371
+
+Update French translation
+"
+"e2731bc57058fc60f68bb803d02c07455500c5ec","2013-09-02 22:23:33+02:00","Merge pull request #372
+
+Update Slovak translation
+"
+"d357e02544faccee6ed9068e90cf9830f9b45bc1","2013-09-02 22:23:56+02:00","Merge pull request #373
+
+Update Russian translation
+"
+"de23a0e3e1aee48f098ca9edf76cefec83365eaf","2013-09-01 15:12:55-04:00","SMTP 8BITMIME compliance
+
+Currently, K-9 Mail detects if an SMTP server supports 8BITMIME (RFC
+6152), and if so, TextBody parts are sent with content-transfer-ecoding =
+8bit.  Otherwise, they are sent using quoted-printable.
+
+This adds the required 'BODY=8BITMIME' parameter to the MAIL command when
+sending messages to servers that support 8BITMIME.
+"
+"1d1db50a9fa66b551152aa9353dd36b2aa870e30","2013-09-01 16:24:16-04:00","Don't always base64 encode in BinaryTempFileBody.writeTo
+
+Issue 5734 exemplifies the problem:  receive a message with an attachment
+of type message/rfc822 that doesn't use base64 encoding for the body of
+the attached message.  K-9 Mail incorrectly stores the attached message
+locally with its original headers but using base64 encoding for the body.
+A discrepancy thus exists between what the headers say about the encoding
+of the body versus the actual encoding used.  This is obvious when
+attempting to view the attachment (either by using a compatible message
+viewer available on the device or by saving the attachment to a file and
+viewing the file contents).
+
+The process: When a message with an attached sub-message is received,
+Message.parse puts the attachment in a new MimeMessage with the
+attachment's body in a BinaryTempFileBody.  LocalFolder.saveAttachment
+then calls Message.writeTo (which later calls BinaryTempFileBody.writeTo)
+to place the entire attachment (headers and body) in a new file that will
+become a LocalAttachmentBody.  Until now,  BinaryTempFileBody.writeTo
+could only save the message body using base64 encoding.
+
+This commit implements BinaryTempFileBody.setEncoding and assures that the
+body is written out with the same encoding that was found in its  headers.
+"
+"77407eb5b741f6977fb98bc21c7259d0091d5033","2013-09-01 16:25:09-04:00","Don't base64 encode attachments of type message/rfc822.
+
+The problem:  Receive a message with an attachment of type message/rfc822
+and forward it.  When the message is sent, K-9 Mail uses base64 encoding
+for the attachment.  (Alternatively, you could compose a new message and
+add such an attachment from a file using a filing-picking app, but that is
+not 100% effective because the app may not choose the correct
+message/rfc822 MIME type for the attachment.)
+
+Such encoding is prohibited per RFC 2046 (5.2.1) and RFC 2045 (6.4).  Only
+8bit or 7bit encoding is permitted for attachments of type message/rfc822.
+
+Thunderbird refuses to decode such attachments.  All that is shown is the
+base64 encoded body.
+
+This commit implements LocalAttachmentBody.setEncoding.  If an attachment
+to a newly composed message is itself a message, then setEncoding('8bit')
+is called, otherwise setEncoding('base64')  is called for the attachment.
+Similar behavior occurs when an attachment is retrieved from LocalStore.
+
+The setEncoding method was added to the Body interface, since all
+implementations of Body now declare the method.
+
+The problem here differs from that in the preceding commit:  Here, the
+encoding problem occurs on sending, not on receipt.  Here, the entire
+message (headers and body) is base64 encoded, not just the body.  Here,
+the headers correctly identify the encoding used;  it's just that the RFC
+does not permit such encoding of attached messages.  The problem here
+could in fact occur in combination with the preceding problem.
+"
+"45e3d8459e912ee88dad4a43f9d24e8aa823e275","2013-09-02 23:49:28-04:00","Recursively convert attachments of type message/rfc822 to 7bit if necessary.
+
+The preceding commit resulted in attachments of type message/rfc822 being
+sent with 8bit encoding even when the SMTP server did not support
+8BITMIME.  This commit assures that messages will be converted to 7bit
+when necessary.
+
+A new interface CompositeBody was created that extends Body, and classes
+Message and Multipart were changed from implementing Body to
+CompositeBody.  Additional classes BinaryTempFileMessageBody and
+LocalAttachmentMessageBody were created (by extending BinaryTempFileBody
+and LocalAttachmentBody, respectively), and they too implement
+CompositeBody.
+
+A CompositeBody is a Body containing a composite-type that can contain
+subparts that may require recursive processing when converting from 8bit
+to 7bit.  The Part to which a CompositeBody belongs is only permitted to
+use 8bit or 7bit encoding for the CompositeBody.
+
+Previously, a Message was created so that it was 7bit clean by default
+(even though that meant base64 encoding all attachments, including
+messages).  Then, if the SMTP server supported 8BITMIME,
+Message.setEncoding('8bit') was called so that bodies of type TextBody
+would been transmitted using 8bit encoding rather than quoted-printable.
+
+Now, messages are created with 8bit encoding by default.  Then, if the
+SMTP server does not support 8BITMIME, Message.setUsing7bitTransport is
+called to recursively convert the message and its subparts to 7bit.  The
+method setUsing7bitTransport was added to the interfaces Part and
+CompositeBody.
+
+setEncoding no longer iterates over parts in Multipart.  That task belongs
+to setUsing7bitTransport, which may in turn call setEncoding on the parts.
+
+MimeUtility.getEncodingforType was created as a helper function for
+choosing a default encoding that should be used for a given MIME type when
+an attachment is added to a message (either while composing or when
+retrieving from LocalStore).
+
+setEncoding was implemented in MimeBodyPart to assure that the encoding
+set in the Part's headers was the same as set for the Part's Body.  (The
+method already existed in MimeMessage, which has similarities with
+MimeBodyPart.)
+
+MimeMessage.parse(InputStream in, boolean recurse) was implemented so that
+the parser could be told to recursively process nested messages read from
+the InputStream, thus giving access to all subparts at any level that may
+need to be converted from 8bit to 7bit.
+"
+"074159f442591e1f640bd7a947286d4293bee1f7","2013-09-02 19:55:10-04:00","Unit test for recursive 8bit -> 7bit message conversion
+"
+"63f68328fffcf564243a671fbe090c3d485fffcb","2013-09-02 19:56:59-04:00","Standardize line breaks within headers.
+
+Fix the unit test to match.
+
+All line endings in the unit test are now the same.
+
+(Just for consistency.  Not a big deal, since such problems are fixed when
+the messages are run through EOLConvertingOutputStream.)
+"
+"1ca1ef5c845f0c72d9e594ca7c348c25f6f2e790","2013-09-02 18:43:51-04:00","Content-type case-conversion changes.
+
+Don't convert the content-type to lower case in
+MimeMessage.getContentType.  The content-type may have optional parameters
+that are case sensitive (boundary, name).
+
+In removing the lower-case conversion from getContentType, a review was
+made for inappropriate case-sensitive comparisons which use data obtained
+with getContentType.  The only ones found were in isMimeType in both
+Message and MimeBodyPart.
+
+Case-sensitive instances of isMimeType were made case-insensitive.  Also,
+isMimeType was moved from Message to MimeMessage for symmetry with
+MimeBodyPart (MimeMessage & MimeBodyPart are similar and contain a good
+bit of duplication such as this).
+
+The unit test required fixing now that the case of the boundary text is
+preserved.
+
+References:
+
+Commits 2c5186 and dc4002 added the toLowerCase to getContentType in
+MimeMessage & MimeBodyPart (Issue 94).
+
+Later, commit 50cd60 removed the toLowerCase addition from MimeBodyPart
+(Issue 1289).
+"
+"dda8f64276d4d29c43f86237cd77819c28f22f21","2013-09-06 17:08:51+02:00","Remove code to write to /dev/urandom
+
+In addition to a couple of custom ROMs linking /dev/urandom to a non-writable
+*random version, now Samsung's SELinux policy also prevents apps from opening
+/dev/urandom for writing. Since we shouldn't need to write to /dev/urandom anyway
+we now simply don't.
+"
+"6cd52c123c14717bdd9c1e48c1d0ec2403be7466","2013-09-06 19:20:48+02:00","Remove unnecessary type cast
+"
+"a7c9804995a1bff4c64985395d382a07cc87a2d7","2013-09-06 19:24:19+02:00","Make sure the InputStream is always closed
+
+Moving the code to create the OutputStream wrappers into the try-block ensures
+that the InputStream is closed in case something goes wrong.
+"
+"aaa0de4dbccde7fe26ebb13719a4958a9c636172","2013-09-06 20:28:46+02:00","Don't append 'null' to the 'MAIL FROM' line in case the server doesn't support 8BITMIME
+"
+"b2013b6f5eb4fd25d110eb2c0223cf573b889d2e","2013-09-06 22:21:15+02:00","Merge branch 'pr/374'
+
+Encoding issues
+"
+"1ff128890d7fde8788a63a9cdd0eeb60816a1d89","2013-09-07 12:52:14-04:00","Fix MimeMessage(InputStream in, boolean recurse)
+
+No actual impact, because all existing calls were
+with recurse = true.
+"
+"28742d77e9bb18b796702efa5d0099df02d6d455","2013-09-08 16:40:12+02:00","german translation: use 'neu erstellen' instead of 'wiederherstellen'
+
+'wiederherstellen' actually means 'to restore', which does not
+apply here, and makes people think these options are some sort of
+backup/restore operation.
+
+use the proper translation of 're-create' -> 'neu erstellen' instead.
+"
+"c4979cf7509541d8a9ffc81f210a90e4b55914ed","2013-09-08 07:43:54-07:00","Merge pull request #375 from m0vie/de
+
+Update German translation
+"
+"69a12761c727183832f6a694eab38500fd135557","2013-09-08 17:19:38+02:00","german translation: add missing strings
+"
+"887ee1ceb245f4b2ee55afecd8e1f8b9966db7d9","2013-09-08 19:52:49+02:00","Small fix for German translation
+"
+"6820a8ab62dd5caf205f13ab1068990aabe4db4c","2013-09-08 19:56:36+02:00","Merge branch 'pr/376'
+
+Update German translation
+"
+"e3bcdb9c82035f2b10b31a6254455ea85b70aa3a","2013-09-09 15:57:39+02:00","new strings translation
+"
+"68bcde5562a3d9438448f0e07fe94a34a59a284d","2013-09-11 12:40:45+02:00","Update strings.xml
+"
+"e633814061636d33df86601d31ca7aae5a1bb622","2013-09-11 19:31:45+05:30","Fix issue_5931_shows_null_in_notification_while_sending_mail
+"
+"ab7315e2f108b4d2bfbe2eaf9f37e49555853ff6","2013-09-12 19:16:26+04:00","Update strings.xml
+
+Updates and improvements (RU)
+"
+"cdb6559b326e1cf54e08714b3c44099cbc7483f9","2013-09-12 23:23:53+02:00","Merge pull request #377
+
+Update Czech translation
+"
+"f12ae4e7d0e556bc0098f0abd374a87b76afa06d","2013-09-12 23:25:14+02:00","Merge pull request #379
+
+Update French translation
+"
+"444e6184d80177884efad8c991ebae33d1cdc887","2013-09-12 23:27:02+02:00","Merge pull request #382
+
+Update russian translation
+"
+"02c323e74af6af1bbd3e113a9c72304f1bc390a7","2013-09-12 23:42:04+02:00","Clean up translations
+"
+"a296cc3189a1e82e96fca41aaffdea2258d1d8b6","2013-09-12 23:42:54+02:00","Update Czech, French, and Russian translation
+"
+"b95c079a286030623a61fde2886041ccbc13e130","2013-09-13 00:10:33+02:00","Clean up code
+"
+"430a67adfa62a68be8892841fbdb20dc33fa4e29","2013-09-13 00:11:30+02:00","Merge pull request #380
+
+Fix notification showing 'null' when sending mail
+"
+"ebb8dcdc02263c021c64f6d7d51bba8cb5d15292","2013-09-13 13:22:47+04:00","Update strings.xml
+"
+"58e77329960ad200acfbd83c7a9475d0c9089d37","2013-09-13 14:36:02-07:00","Add IMAP support for Outlook.com.
+IMAP is no longer a Plus feature; removing the note saying that it is.
+
+http://blogs.office.com/b/microsoft-outlook/archive/2013/09/12/outlook-com-now-with-imap.aspx
+"
+"fdda5768fe9dc1aacd032f6d7d529f086bfee5eb","2013-09-13 14:38:23-07:00","Merge pull request #384 from bboa/patch-1
+
+Update ru strings.xml
+"
+"0b7cee6cc9821734eed4f8cfd992775e3e71a1b3","2013-09-16 10:13:56-04:00","4.512 changelog
+"
+"cc06e9bbd8912bdf7a0e58403bdb19b52d3f2673","2013-09-16 10:15:44-04:00","Bumped manifest to 4.512
+"

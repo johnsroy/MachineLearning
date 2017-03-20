@@ -1,0 +1,420 @@
+"commit id","commit date","commit message"
+"485ad9ff603a9f86c825ec9e76febb8787725a07","2014-03-06 11:33:19-08:00","Fix accustream site name check
+"
+"5efcd5d499c34dfcfa393af5b131932134bcbefa","2014-03-06 11:34:55-08:00","Merge branch 'master' into offline-guides
+"
+"b1ab96c399117213855b84e75a4d053b959974aa","2014-03-06 17:50:06-08:00","OfflineGuides: Move sync status to bottom
+
+This moves the last sync time, sync button, and cancel button to the
+bottom of the Activity in a nicely styled box. There are still a few
+oddities but it's fairly solid.
+"
+"9a3c622619928dcfc0946015e20312ce6ca7c26c","2014-03-06 18:21:40-08:00","Don't initialize notification on manual sync
+
+The same rules should apply to a manual sync so we won't needlessly
+display a 'sync finished' notification when nothing was actually synced.
+"
+"877d4d33947fc20e9aaf5544d68a6c1e516e00d2","2014-03-06 18:36:26-08:00","Fix Notification PendingIntent
+
+Now it actually launches the Activity! Not sure why it worked before and
+stopped but this appears to fix it.
+
+http://stackoverflow.com/a/19166954/1135611
+"
+"9c7e89682b91c21b364b26561b966a86f160b8f6","2014-03-07 14:13:40-08:00","OfflineGuides: Don't restart sync upon open
+
+We want to let the sync do its thing rather than cancelling and
+restarting it if you open the OfflineGuidesActivity.
+"
+"28cab146c8c537b263f778e873cbd1ff0f582f72","2014-03-07 14:41:22-08:00","Change progress color if not syncing
+
+Just a little touch to make it more clear that the items aren't syncing
+at the moment.
+"
+"77fcbb67bf0d92ed609485d1c2f18b3bd97b96a8","2014-03-07 14:53:31-08:00","Update UI on offline guide removal
+"
+"3215088e8d666d3eb80008a02fba6fed3598583d","2014-03-07 15:11:07-08:00","Fix notification display issues
+
+We must reset the notification objects so subsequent syncs adhere to the
+same rules as the initial sync.
+"
+"f8f15b9f3b13ef367a716d873be5489dd3473cf9","2014-03-07 15:35:57-08:00","Guide view: Disable menu items if offline
+
+They won't work and will only cause problems/confusion.
+"
+"e2f755361ee3f59a732282e92ee28a25e10b1585","2014-03-07 15:44:17-08:00","Flip order of uncompleted guides for syncing
+
+Guides sync bottom to top unless the sync process is cancelled then
+restarted -- then it goes top to bottom. This flips that so it always
+goes bottom to top.
+"
+"1df70b53dbb92b71f6610c64f9d2defcad2057a0","2014-03-07 15:56:45-08:00","Reload offline guide content onRestart
+"
+"15a6eaaefd0f592a29835a7c19401427f2c323dd","2014-03-07 16:00:08-08:00","Picasso: Don't set debugging
+
+It's only marginally useful and doesn't make any sense to have it in
+ThumbnailView anyway.
+"
+"60dba7418f412ec3649dc64236b500ae2480adba","2014-03-10 11:43:26-07:00","Gradle Android: Upgrade to 0.9.+
+"
+"02ab31a762b98e9c03fbe1d9837c7e26cc91f665","2014-03-10 12:01:26-07:00","Remove unused menu and update TODO
+"
+"eff7d1eb141879348f5df527ab001a36e50d685d","2014-03-10 13:52:14-07:00","Update Authentication failure notification text
+"
+"c6b5519360c0aeb3229afdbea282e9ae461d118b","2014-03-10 13:54:01-07:00","Various authentication fixes for syncing
+"
+"7f8fc87414c5618c35436d0644953f017fed45a6","2014-03-10 13:56:53-07:00","Api: Move 'Api' to TAG for easy logging
+"
+"cba15c4cb174decde8b699611aa6d2f610df237a","2014-03-10 14:42:05-07:00","Hide last sync time if never synced
+
+The phrasing was awful before and this is likely to never come up
+because viewing the OfflineGuidesActivity initiates a sync.
+"
+"420b827ef185ff08e039a6d8bec51129f29b58a4","2014-03-10 15:06:33-07:00","Disable sync button if no connection
+
+This moves the sync command text update code into the handler that runs
+(currently) every minute to update the last sync time. This allows us to
+update the sync button's color and text to reflect changes in internet
+connection.
+
+Also, decrease the refresh interval to half a minute to make updates
+happen more frequently. This can probably be decreased even more but
+usually it doesn't result in any changes.
+"
+"cdbdf61642a15d01af44fe4a801b026051d37c1b","2014-03-10 16:56:16-07:00","Step video: Unify encoding access
+
+This allows us to easily change which video encoding we prefer to play
+without updating it in many different places.
+"
+"91274aca281a141c2d87e2259a6266fb1ec20588","2014-03-10 16:59:03-07:00","OfflineGuides: Remove outdated TODOs
+"
+"fad210eeec59202be057acf1b799e5c980b56569","2014-03-11 12:56:27-07:00","Display debug mode indicator in menu drawer
+
+Without this there isn't an easy way to determine if the app is in debug
+mode or not. This change was prompted by realizing halfway through
+testing the app that it was in release mode rather than debug mode.
+Fortunately I didn't cause any damage in the meantime.
+"
+"1ea61ffa0e7e2232576a20073a1d24b362339eb1","2014-03-11 13:03:45-07:00","Merge branch 'display-debug-mode' into offline-guides
+
+Conflicts:
+App/res/values/strings.xml
+"
+"8e11822891e17902b64c6cf11321244bd7d71337","2014-03-11 13:09:09-07:00","Increase guide progress update interval
+
+Because the progress is updated via BroadcastReceivers rather than
+sending out an update, it doesn't matter what the value in the DB is
+unless the sync is cancelled halfway through. Even 10 seconds may be too
+short...
+"
+"62a4da17924bc288e95a18abdbab279df5610dbd","2014-03-11 15:18:42-07:00","Ignore certificate errors at higher level
+
+We can do this on the OkHttpClient that is used by various clients so we
+don't have to do it manually in every place we use it. This means we
+don't convert https URLs to http to avoid certificate errors.
+"
+"96e0ba6d651023dcfc9bb8a8d1cc4e58bcbcdd7b","2014-03-11 15:36:57-07:00","Store GuideInfo JSON for offline guides list
+
+This vastly improves the performance of displaying the list of offline
+guides by storing the GuideInfo JSON in addition to the full Guide and
+using that to create the view.
+"
+"1430e6b1179611f83bb460bab3e04cc4cb1b4f34","2014-03-11 16:45:09-07:00","Fix finicky Notification PendingIntent behavior
+
+This should fix all of the weird problems with the Notification not
+being able to launch the OfflineGuidesActivity. I didn't find anywhere
+that this was necessary but it definitely doesn't work without it on the
+few devices I tested.
+"
+"5245a1f8a1d729cd7f96500ca25ef6c2cb256d5d","2014-03-11 17:05:11-07:00","Minor sync Notification tweaks
+
+Always display the notification when syncing but remove it if there
+isn't a new guide being synced. This is a good compromise between
+displaying useful information to the user while not being too needy and
+intrusive.
+"
+"016c357ff7327958807b094f1e1c151ee1980d01","2014-03-12 14:38:40-07:00","OfflineGuides: Add sync automatically setting
+
+It's a checkable box that toggles the sync automatically setting of the
+current account.
+"
+"c72dd586cc700f0c314bff24faf48a5df8132a1e","2014-03-12 16:56:12-07:00","Offline guides: Allow unfavoriting from list
+
+This turns the pin icon into a button that (after a confirmation dialog)
+unfavorites the guide.
+"
+"36999d0d6cafff52f8c1ce7534f4ee27aa7cab6e","2014-03-12 17:02:50-07:00","OfflineGuidesActivity: Respect sync automatically
+
+We don't want to initiate a sync when opening the OfflineGuidesActivity
+if the user has sync automatically disabled.
+"
+"f65d27e3f99ba30a2d18914744115ad943dfe588","2014-03-12 17:52:11-07:00","Analytics: Creater wrapper functions
+
+The API to send an event for analytics is waay more complicated than it
+should be. This adds some wrapper functions to App so it can be a single
+function call rather than several nested function calls. This also
+allows us to update the code in one one place rather than at every call
+site.
+"
+"c958f2c657c081189518fbd7f9c61085a0ece460","2014-03-13 11:27:21-07:00","OfflineGuides: Add analytics events
+
+This adds analytics events to various offline guide related actions.
+"
+"1078ff863b8d53d3ec4e9c7001da5093242fd541","2014-03-13 13:34:22-07:00","Remove unused string resource
+"
+"42bd9d7bee2b9b6bae9532cb63ddc2d0474d87c3","2014-03-13 13:34:55-07:00","OfflineGuides: Remove outdated TODO
+"
+"78fc8103b9912c94c3b7a97c82d0537e3b0c9468","2014-03-13 13:35:14-07:00","Move displayImage to PicassoUtils
+"
+"6f4aa736c795007b47910f8b85333eae25f148f0","2014-03-13 14:05:39-07:00","ProgressButton: Use release version
+
+The new version was deployed so we might as well depend on the maven
+central version rather than a local install of a snapshot.
+"
+"3215bd6ff37380670ffd57d36fd17548722a8791","2014-03-13 14:52:28-07:00","Guide Publish: Fix orientation change crash
+
+To reproduce:
+* Tap the 'public/private' toggle
+* Change phone orientation before loading is done
+* Crash.
+"
+"c601e07e5055014907142c433472c79567f4574e","2014-03-13 15:02:17-07:00","Merge pull request #217 from iFixit/guide-publish--orientation-crash-fix
+
+Guide Publish: Fix orientation change crash
+"
+"dd15a0988d6a34504a0e7e2f47bdefc08aea5a0d","2014-03-14 10:55:21-07:00","ApiDatabase: Fix create table constant name
+
+This was leftover from using the DB to store API results.
+"
+"22792fda3d3de16a83e245fb6428a721af45d219","2014-03-14 10:56:57-07:00","Merge remote-tracking branch 'origin/master' into offline-guides
+"
+"e7f6110542d4af41f38be457f5962dcebe532f7e","2014-03-13 17:09:12-07:00","Add accustream notification icons
+"
+"b76d599602be13fade9d2c6c5fdbf72efa607102","2014-03-13 17:11:47-07:00","Move ifixit notification icons to site specific res
+"
+"8e72cd8727d876eae3c3c5a2f6284d6d93888cce","2014-03-14 10:15:53-07:00","Add dozuki notification icons
+"
+"a276ef3da1945f5d02c302a22e39218ec07f4b26","2014-03-17 13:49:41-07:00","Gradle: bump build version to latest version
+"
+"088fcfa825bfe55c29aafe72bd1abf755ddb7a30","2014-03-17 13:50:22-07:00","Offline Guies: Style tweaks to offline guide list
+"
+"ab9e6daef0fa50c026bc668b96731e7e46d865a7","2014-03-17 17:02:26-07:00","Api: Add underscore in between key and userid
+
+I don't expect anybody to look at the key but I guess it's a
+good idea to have it in there just for good measure.
+"
+"675296c35529702c1e866a962340ba17ae3d8154","2014-03-17 17:19:00-07:00","Bump version code for analytics fix
+"
+"b04a3c2468a376fb4834c6d719e2e6d5454fe795","2014-03-17 17:38:06-07:00","GuideViewActivity: Fix fetchOfflineGuide comment
+
+The behavior of the method changed but the comment didn't!
+"
+"b2735b65f13fd4b165627a3523c752edb50d856a","2014-03-17 17:42:25-07:00","Merge store-api-results (#185) into master
+
+Cache API responses for offline browsing
+
+This adds a cache for API responses so the user can browse content offline
+assuming that it was previously viewed with internet available. The
+current implementation stores the JSON responses as files in the cache
+directory. This was preferable to using a database because it is faster
+and the storage space shows up under 'Cache' rather than 'App Data' so it
+can be cleared independently from the user's stored data.
+
+Note: This is different than offline storage of guides because the guides
+and images are not stored in a permanent location.
+"
+"10ae15162d84ec4c98c5fb58c2182eac8b72dc1c","2014-03-17 18:03:35-07:00","Account preferences: Remove TODO
+
+We probably won't ever want to use this to display preferences
+so we shouldn't leave it as a TODO.
+"
+"91932083f2f73d334f5789182da8117e275dc5f8","2014-03-17 18:05:10-07:00","Merge remote-tracking branch 'origin/master' into offline-guides
+
+Conflicts:
+App/src/com/dozuki/ifixit/model/search/TopicSearchResult.java
+App/src/com/dozuki/ifixit/ui/FavoritesActivity.java
+App/src/com/dozuki/ifixit/ui/GuideItemView.java
+App/src/com/dozuki/ifixit/util/UrlImageGetter.java
+App/src/com/dozuki/ifixit/util/api/Api.java
+"
+"a056a077b8c99881ab4cbb877363287dec7ffbf4","2014-03-17 18:11:49-07:00","Merge authentication-with-account-manager (#188) into master
+
+AccountManager Integration
+
+This adds AccountManager integration so iFixit accounts are registered
+with the system. This will allow us to use the SyncService framework to
+do a lot of the heavy lifting for background syncing of offline guides.
+This shouldn't have any effect on the user experience other than having
+the account show up in the settings menu.
+
+Conflicts:
+App/src/com/dozuki/ifixit/util/api/Api.java
+"
+"f7451b455b07348fc1ec9f0e423289d60ac9b744","2014-03-17 18:18:12-07:00","Merge remote-tracking branch 'origin/master' into offline-guides
+
+Conflicts:
+App/src/com/dozuki/ifixit/util/api/Api.java
+"
+"9b1915a7bda896ddd545319e75303252ed92b60a","2014-03-17 18:23:08-07:00","Merge display-debug-mode (#213) into master
+
+Display debug mode indicator in menu drawer
+
+Without this there isn't an easy way to determine if the app is in debug
+mode or not. This change was prompted by realizing halfway through
+testing the app that it was in release mode rather than debug mode.
+Fortunately I didn't cause any damage in the meantime.
+
+[Screen shot](https://f.cloud.github.com/assets/1094445/2390249/0aa2faf8-a958-11e3-875b-2f46ded80110.png)
+"
+"aef0464bdaa806bee03b28d834d43c732802acfe","2014-03-17 18:23:27-07:00","Merge remote-tracking branch 'origin/master' into offline-guides
+"
+"669f43c5594b6e3e87b82757b7bdfefe14db6a4a","2014-03-18 10:28:30-07:00","Offline Guides: center 'No Connection' text as well
+"
+"efe8802962b2c72583794f7383cd7c5826d6c4de","2014-03-18 10:44:01-07:00","Offline Guides: remove finished todo comment
+"
+"2862a399d556aff08393a46d6e68623aa193f593","2014-03-18 11:47:45-07:00","Offline Guides: Only remove rules on API 17+
+"
+"ba6369e92d46e3a650e1e79bbed9054323291906","2014-03-18 15:32:22-07:00","Offline Guides: center offline guides empty text
+"
+"38ecd6f43baafe09d45c25608ec2c0d113cfdc7a","2014-03-24 14:27:27-07:00","Offline guides: Swallow and report errors
+
+The current code didn't handle certain errors from API calls gracefully.
+It was possible to get a NullPointerException from the favorites
+retriving code if the response is garbage (e.g. '<DOCTYPE ...') and the
+status code is a 403 or 404. This resulted in a force close with the
+notification left in the indeterminate state.
+
+This swallows all Exceptions so we can clean up after ourselves. We of
+course report the exception so we are aware of it.
+"
+"8913fcf1f0fb94b79b829f2346d69310c54cc0d0","2014-03-24 14:47:41-07:00","Clean up Logs and Exception reporting
+
+This removes some useless logs, wraps others around debug checks, and
+reports some handled Exceptions to analytics.
+"
+"a4e74e444173831af1f829364ec87b7dcf7393fa","2014-03-25 16:31:59-07:00","Offline Guides: Minimize sync notification display
+
+This changes the sync notification so it doesn't always display during a
+sync. This brings about the following functionality:
+
+- Always displayed for manual syncs.
+- Displayed if there is a new guide being downloaded.
+- Removed once the sync is complete if there wasn't a new guide.
+"
+"ce44e382588d25c1511197449abd7c2194d95cc6","2014-03-27 15:29:53-07:00","Accounts: Only reauthenticate for iFixit
+"
+"6fa3caff58b9719594d5b79476b0c2e269b20e5f","2014-04-01 17:22:03-07:00","Offline guides: Update empty text
+"
+"9c8b4b5af42f9f1f1075339d06e3a5c522fc630d","2014-04-01 17:27:55-07:00","Offline guides: Center empty text
+"
+"9f20a1db5d8d39a6d8010df9fb5a46be964861e1","2014-04-09 16:47:42-07:00","Guide view: Fix error state
+
+We try to display the offline version of a guide if there is an error
+when retrieving content from the API or if the user doesn't have
+internet. If the offline version doesn't exist, we display the guide
+from the previous APIResult just like what what have happened normally.
+Except that there isn't a guide if there was an error in the API e.g.
+5xx or some sort of client error.
+
+This fixes the display code so it goes through the same checks as the
+original API result handling code.
+"
+"60587edddd511e5ba033a09d09354196f19ad791","2014-04-09 17:09:48-07:00","Step edit list: Fix broken images in development
+
+The no image was being displayed for the step edit list thumbnails
+because PicassoUtils wasn't being used which meant that SSL errors
+weren't ignored.
+"
+"bce8c863cbdd95de1dd7b813243ae7021ff207f9","2014-04-09 17:40:51-07:00","Guide sync: Move site fetching into try/catch
+
+Network errors when fetching the site would result in uncaught
+Exceptions and a Force Close. Now it doesn't.
+"
+"779e2f29373078de72609a733b47c5b636575d09","2014-04-09 18:00:19-07:00","Offline videos: Fix thumbnail display
+
+Turns out we were getting the offline path for the image and then using
+that to get the offline path again when displaying the image. Now it
+only happens once so the image is displayed correctly rather than
+resulting in the NoImage.
+"
+"1cdb3544744168402b2a4ecff96080a114480ed5","2014-04-09 18:16:46-07:00","Merge offline-guides (#200) into master
+
+Offline Guides!
+
+This adds functionality to store guides and view them offline. See #182.
+
+TODO
+-------
+
+- [x] ~~Translate new strings.~~
+- [x] Make notification icons for white labelled apps
+- [x] ~~Wi-Fi only sync setting?~~
+- [x] Polish UI (especially for tablets)
+* Sync bar text spacing/sizing
+* Offline guide list item spacing/sizing
+* Favorites list empty state
+- [x] Tie offline guides to user's favorites?
+- [x] ~~Allow arbitrary offline guides outside of favorites?~~
+- [x] ~~Have separate offline guides and favorites views?~~ c5437b4022503163a90c649c790e2b558059ebd8
+- [x] Decide on sync frequency and events that trigger it (opening app, offline guides?) a7c9c83d6429bc437a5d327d6a4d6a179554fbab
+- [x] Disable sync button if internet is unavailable. a7c9c83d6429bc437a5d327d6a4d6a179554fbab
+- [x] Update notification text 8ec688fe884339c14155da8e8fd076bd6b28e900
+- [x] Update notification icon 024c8937fbce5206313727ce79cc5764a21bdc2b
+- [x] Fix notification display/hide conditions
+- [x] The notification isn't opening the OfflineGuides activity anymore.
+- [x] ~~Update Offline Guides menu drawer icon~~ (fixed by replacing FavoritesActivity with OfflineGuidesActivity)
+- [x] Make a nicer interface for displaying offline Images (conditionally doing `new File(getOfflinePath(url))` is ugly) b1e71e8c16187c5c037f9270d29bc4b3464ec8e6
+- [x] Improve guide progress UI updates. Right now `ApiDatabase` sends out a broadcast indicating that some data has changed and `OfflineGuidesActivity` refetches everything from the DB and reparses all of the JSON. This should be more efficient because it should really only update the progress and not refetch all of the data. It should also be able to send updates to other views that display guides e.g. guides in search, topics, favorites, teardowns, etc. 0ed570d553ad2113ea457c1c592db89cdde517ac
+- [x] Make sure the UI removes offline guides that have been deleted. ee46abefa1ce284141a81af911bda911d4f077a3
+- [x] Make offline guides list status display look much better and display more (useful) information.
+- [x] Offline guides list last sync time should update if it's a relative time e.g. it shouldn't stay '3 minutes ago' for hours. Changing it to a date might work but isn't as useful because you'd always have to convert to the current time. 771519dc927a13d1d74e5b0b5474343a46471054
+- [x] Update offline guides list 'Refresh' button text. b170d20d459ad6e9be6676dddea56ccb03451df8
+- [x] Change the color of the pinned icon based on the current sync status. 28cab146c8c537b263f778e873cbd1ff0f582f72
+- [x] Removing favorited guide doesn't result in a UI update. 77fcbb67bf0d92ed609485d1c2f18b3bd97b96a8
+- [x] Disable guide view menu items for offline guides because they won't work. f8f15b9f3b13ef367a716d873be5489dd3473cf9
+- [x] Refresh offline guides when restarting activity. 1df70b53dbb92b71f6610c64f9d2defcad2057a0
+- [x] ~~Delete media that is no longer referenced (this will be tricky if there are multiple users signing into a site on a single device. We don't want to delete images that might be used again if the user is logged in.)~~ Started on it but turned out to be too troublesome: 0df79be3dcb960d613b9096edd1ff060ce4fa0f5
+- [x] Make sure that the app works without internet (it might be hard/impossible to view the offline guides list without internet so lets triple check that it's always possible because it would be really bad if it didn't work)
+- [x] ~~`<feature creep>`Allow users to specify guide download priority.`</feature creep>`~~
+- [x] Logging in causes some hanging sync stuff...
+- [x] ~~Display sync errors in the offline guides list.~~
+- [x] Store `GuideInfo` JSON along with the full guide and use the `GuideInfo` JSON to display the list of offline guides. This _should_ improve performance a lot. 96e0ba6d651023dcfc9bb8a8d1cc4e58bcbcdd7b
+- [x] Opening OfflineGuidesActivity from the notification doesn't always work. 1430e6b1179611f83bb460bab3e04cc4cb1b4f34
+- [x] Always display total progress in notification but only leave the success message if there was new content? c05d796ff7ab5f371327e4efd32650ce52095b70
+- [x] Make sure the performance of the entire system is acceptable with many favorited guides.
+- [x] Add more sync settings. There is a system setting for syncing automatically that the user can get to in Settings but that probably won't be found. Perhaps we should have a setting with the offline guides list to disable automatic sync so the user can do it manually instead? 016c357ff7327958807b094f1e1c151ee1980d01
+- [x] Add ability to unfavorite a guide from offline guide list. (Or maybe not because you can do it once you open the guide.) c72dd586cc700f0c314bff24faf48a5df8132a1e
+- [x] Don't sync when opening OfflineGuidesActivity if 'Sync automatically' is disabled. 36999d0d6cafff52f8c1ce7534f4ee27aa7cab6e
+- [x] Google Analytics tracking? c958f2c657c081189518fbd7f9c61085a0ece460
+* Sync all button event
+* Drawer Item event
+* Favorite menu item event
+* Offline guides list page view
+* Cancel sync all button event
+* View guide from offline
+* Extra event on guide view for offline viewing
+* Sync automatically menu item
+"
+"8fcbdd3230a486e2fc5a559cb14de966daf2ac22","2014-04-10 10:15:54-07:00","Intent filters: Add analytics
+
+This adds analytics to the intent filters so we know how often users
+take advantage of the URL matching we do for viewing guides, devices,
+and search results.
+"
+"765b9408f47579cc331a5768d66137b4127ed470","2014-04-10 10:17:30-07:00","Merge intent-filters--add-analytics (#158) into master
+
+Intent filters: Add analytics
+
+This adds analytics to the intent filters so we know how often users
+take advantage of the URL matching we do for viewing guides, devices,
+and search results.
+
+----
+
+Original issue: Add analytics to intent filters
+----
+
+It would be nice to see how many people actually open guides in the app by navigating to a guide URL.
+"
+"401f54e335e27ee40edda228a46d5d06e566e356","2014-04-10 11:32:49-07:00","Bump version numbers for 2.5.0 release
+"

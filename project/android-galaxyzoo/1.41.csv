@@ -1,0 +1,108 @@
+"commit id","commit date","commit message"
+"26fb6cf14f7a28d32758fa799a17c5926fad4d13","2015-03-23 14:02:53+01:00","Irelevant change by Android Studio.
+"
+"559cac3ad771a23d090ed26fe9a6e784ccbdaa68","2015-03-23 14:23:32+01:00","ClassifyActivity.onCreate(): Use a static Picasso.Listener instance.
+
+Instead of an anonymous instance. This avoids recreating the
+anonymous instance unnecessarily.
+"
+"0c7d3f8b3630f29a78d27bd0251d7b6093e17078","2015-03-23 14:52:19+01:00","Make several methods static.
+"
+"5586815e6b16930c4166bef3de36a28a9a7db3d3","2015-03-23 15:02:06+01:00","SubjectFragment: Explicitly initialize some fields.
+"
+"1dee5938469ea5e147838bc275769b0384d8225c","2015-03-23 15:03:05+01:00","Make some methods static.
+"
+"b42d65f06eeb0326f2d43974252abeb8c29453d0","2015-03-23 15:05:02+01:00","Change default inspections.
+"
+"71837b4063fd28920d80c5a7bb93074f87f3ac0d","2015-04-01 11:43:57+02:00","Update some comments
+"
+"69946bfccdf525183da50dd9f9964f0edbe23e14","2015-04-01 13:44:08+02:00","build.gradle: Update the buildToolsVersion.
+"
+"490a120c311e1480e729a1736562d1fc8f2ed142","2015-04-01 13:45:59+02:00","Add explicit calls to super().
+
+Just as a matter of code style.
+"
+"533437377762b8a269944e8f69fe937344a5a425","2015-04-01 13:53:32+02:00","ZooniverseClient: Move the group ID into Config instead of hard-coding it.
+"
+"c152cc1c71b10f8109269e37c52d5d4770256d0f","2015-04-01 14:10:22+02:00","ClassifyActivity: Fix the build.
+
+Remove some half-done code that should not have been committed.
+I wonder why the build didn't complain about this earlier.
+"
+"5acb0128475f195aa826b5aee5ccc2c8196ca685","2015-04-01 14:53:09+02:00","Changes by Android Studio.
+"
+"8e9d61e15efb5c28e25c9fe034ea774b1cc010de","2015-04-01 14:54:30+02:00","ZooniverseClientTest: Avoid some copy-pasting of the group ID.
+"
+"a0201780511efd85e3f46b192346c2e64bcf1240","2015-04-01 14:56:28+02:00","ItemsContentProvider, ZooniverseClient: Store the groupId from the subject's JSON.
+
+Including adding the new database field nicely in onUpgrade() without losing the
+old data.
+"
+"79081a514c7a7f8b5ac495cabba9ab22cea537fa","2015-04-01 14:59:36+02:00","ZooniverseClient, SyncAdapter: Use the groupId from the subject.
+
+Instead of assuming that it is the one true group ID.
+"
+"4e55800bfc1888bf00fa95f2c36a6c8388af5acf","2015-04-01 15:00:35+02:00","ZooniverseClient: Add and use getGroupIdForNextQuery().
+
+Though so far it just returns the same single group ID.
+"
+"5c2cc7f9ced61731820e82b4c12336e6292ae390","2015-04-01 18:37:08+02:00","ZooniverseClient, Config: Use the new survey groups, choosing one at random.
+"
+"c8c5785f75ab9c68211999721ce08761842fb215","2015-04-01 18:37:39+02:00","ZooniverseClientTest (and .json test file): Update for the latest subject groups.
+"
+"71de683061d0a608f796d52ab82bbfdbc6d67e08","2015-04-01 18:52:17+02:00","Make a field final.
+"
+"6b90bbf74e41ab1c18b7790ad4f1b006f661596d","2015-04-01 21:26:30+02:00","SubjectAdder, HttpUtils: Mark some URI parameters as being Content URIs.
+"
+"a5208e98ae1ac95153ae64c666ef71f85d0eba55","2015-04-01 21:46:13+02:00","IconsCache: Update commented-out code to download icon files.
+"
+"a4717c0594f41fd6dce28e39b79854ab15f7e192","2015-04-01 22:09:18+02:00","Add the new decision trees for the new subject groups.
+
+Generated locally from my http://localhost:9294/#/murrayctest page
+when running my hacky fork of GalaxyZoo:
+https://github.com/murraycu/Galaxy-Zoo/commits/master
+"
+"31904108bed09481c52e5494944675a3766fa92e","2015-04-02 09:57:34+02:00","DecisionTree: Remember the first question ID instead of hard-coding it.
+"
+"fbb2e0029072a3be3ad2842cad0b233e9f74db1c","2015-04-02 10:00:23+02:00","Load multiple decision trees, choosing one based on the groupID.
+
+* app/src/main/java/com/murrayc/galaxyzoo/app/provider/Config.java:
+Change the array of group IDs to a map of group IDs to decision tree
+XML filenames.
+* app/src/main/java/com/murrayc/galaxyzoo/app/provider/client/ZooniverseClient.java:
+getGroupIdForNextQuery(): Adapt appropriately.
+* app/src/main/java/com/murrayc/galaxyzoo/app/Singleton.java:
+Load all these XML files instead of just one hard-coded decision tree,
+storing the tree in a map associated with the group ID.
+* app/src/main/java/com/murrayc/galaxyzoo/app/IconsCache.java:
+Take the whole map of trees instead of just one tree,
+so we can load all icons for all trees.
+* app/src/main/java/com/murrayc/galaxyzoo/app/QuestionFragment.java:
+Add get/set_group_id().
+Load the group ID from the database so we can use it to know which
+tree's questions to use.
+* app/src/main/java/com/murrayc/galaxyzoo/app/QuestionHelpActivity.java
+* app/src/main/java/com/murrayc/galaxyzoo/app/QuestionHelpFragment.java:
+Take and use the group ID here too, so we can discover the correct
+example text and icons to use.
+"
+"3a7baee415ca556ccfc8e88f1cea9cc8cf44321b","2015-04-02 10:33:29+02:00","IconsCache: Log the names of any icons that we couldn't load.
+"
+"25e0a1b39f668c8fdcef4e4fd90ac71610f5f97b","2015-04-02 11:51:05+02:00","IconsCache: Rename a method so it makes more sense.
+"
+"a38fe96decb31fc897e5a05e755b08b317d87663","2015-04-02 15:16:12+02:00","IconsCache: (commented-out) icon extraction code: Update for the goods_full set.
+
+These icons are provided by the server as individual .jpg files, specified
+by background: in the CSS, instead of via a background-position: in one
+big image file.
+"
+"f7649756e98be3776526fc281b6bb0de105fa095","2015-04-01 21:41:07+02:00","Add and update the icons, separated from the combined file according to the CSS.
+
+After commenting out the relevant code in IconsCache.
+This adds the icons for the new decision trees.
+
+Several icons are missing, but that's a problem with the web UI too:
+https://github.com/zooniverse/Galaxy-Zoo/issues/190
+"
+"00b3f0d7d486b5c34c8ef37dfe4979b4481000d2","2015-04-02 15:39:26+02:00","1.41
+"

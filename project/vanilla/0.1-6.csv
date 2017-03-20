@@ -1,0 +1,186 @@
+"commit id","commit date","commit message"
+"5e4244a95d50f8d54ec65314fb76e63e352bb1f6","2010-02-15 09:51:10-06:00","Import version 1.0
+"
+"efa51536b61dcc730f1836765bba86533b8ab9dc","2010-02-15 10:09:07-06:00","Notify the user when something has been enqueued
+"
+"09dd24a1441ed482c0aaf2ecf82ac585f601e9f9","2010-02-15 11:35:37-06:00","Remove unused handler for back button
+"
+"608a0316cceef1cc8eedcc1d7ca62a0d4d08eecd","2010-02-15 11:35:52-06:00","Enable scroll thumb in song selector
+"
+"b60404a9509e4765ade401ee0b5aa155dce06bcd","2010-02-15 22:35:17-06:00","Rework the media controls, adding a seek bar
+
+The media controls now appear after clicking on the cover view and disppear
+after a period of inactivity. The previous and next menu entries have been
+removed in favor of the previous and next buttons and the media control view.
+"
+"e82838087df1f9eb4d019c17b91e8a1d4f060ddf","2010-02-19 18:00:04-06:00","Split controls into top and bottom parts
+"
+"79da5a15bdc3198a6b1beec8e876ddb15974099f","2010-02-19 18:03:17-06:00","Reset control hide delay when a control is focused
+"
+"e5ea1dce2b1c5328bbcb62dfcd9ca4726675a2e3","2010-02-19 18:05:45-06:00","Focus play/pause button when showing controls
+"
+"30090590a42c2b43f2f26b5029714edfcff144ed","2010-02-19 18:06:51-06:00","Use padding rather than margin on the seek bar
+
+This avoids cutting off the edge of the thumb bar
+"
+"3d2c8029fe505dff70c53f217a0bf0f83b18a68c","2010-02-19 18:10:39-06:00","Route track changing through the Handler in MusicPlayer
+"
+"4c3e1398029670586a4d4bb12b97804ae7636441","2010-02-19 18:19:30-06:00","Maintain a partial wake lock in MusicPlayer
+
+Previously the CPU might shut down after a song finished playing.
+This meant no more music. A wake lock prevents this.
+"
+"5e4e036e5c58c18becf2088b1ca6b74c5a71be5c","2010-02-19 18:26:53-06:00","Toggle controls on click rather than only show them
+"
+"c7ed2d81b4d5c0db3805dc41d6766297f8535d78","2010-02-19 18:27:39-06:00","Sanity checks for mWakeLock
+"
+"e96ec2b2a63cb46d9cf07c163f4cae742ca35435","2010-02-19 18:30:47-06:00","Remove the timeout on mWakeLock acquisition
+
+It seems to be causing problems. It _should_ always be released anyway.
+"
+"c1324ff366b5a88526dea5c7e09128ebe79eda03","2010-02-19 18:50:40-06:00","Don't start playback on startup
+"
+"41dc843dcc95253a5d9c9159d8624dd83c530565","2010-02-19 18:58:16-06:00","Update the duration even when paused
+
+This gets a little hacky. It might be worthwhile to look into a different
+solution.
+"
+"3220ee32be9d9aa0afefb31dd0b7ff1e26ded84e","2010-02-19 19:37:33-06:00","Remove windows line-endings
+"
+"b56fc0eeb03e9853665d517ad3f674b8687dca81","2010-02-19 19:55:54-06:00","Don't delay initialization of current song
+"
+"429aa68350b08cee04ebb825117c42dc8bf2c0d8","2010-02-19 20:36:22-06:00","Make the position code work
+
+Now we just request position from the service each time we update it.
+This is somewhat more reliable and simple. The optimization the old
+method provided was not worthwhile.
+"
+"229f220eef08790c710df3e092042b706d167067","2010-02-19 20:38:33-06:00","Don't restart playback when the headset is plugged in
+
+This matches the behavior of other music players for Android.
+"
+"6261a074793bfd6392345792795da842f1079677","2010-02-19 20:50:06-06:00","Set a solid background on the error message
+"
+"458c1e29cda250395b435f6596167ea148af7a71","2010-02-19 20:54:56-06:00","Always show the play/pause button when paused
+"
+"e82b167485474b4c68992f7bd2362513cdde11fd","2010-02-19 20:59:19-06:00","Add horizontal margin to the outer edges of the lower controls
+"
+"ee5f907d3f4e7f22f5d308f1a876f2b43e397645","2010-02-19 21:09:38-06:00","Don't call setState on startup
+
+There is no advantage to doing so right now
+"
+"52013ce482464d9d9e2ac7257821c0677e785f0c","2010-02-19 22:14:38-06:00","Simplify song change handling
+
+This fixes some issues with thread safety
+"
+"6123a81dfa589b55607863a0a9af998bd7a367cc","2010-02-19 22:19:56-06:00","Query duration on startup
+"
+"4945c9c47bef84b0a94d318e582668f4124770bc","2010-02-19 22:23:38-06:00","Disable seek bar when paused
+"
+"23d1b1fab92f315ad75cfb5b3e6c3a02211a5704","2010-02-19 22:28:57-06:00","Postpone play/pause work
+"
+"331add9d226d2f873340138a01bf3e24d13d851e","2010-02-19 22:32:36-06:00","Don't hide controls when paused
+"
+"af2b7244c98c48eaca6db178a9152e11aa67e6f3","2010-02-20 00:29:18-06:00","Try to re-retrieve the songs when we should
+"
+"8c499cdff2368813867c8c5fea09fcf88bb5ce67","2010-02-20 00:31:08-06:00","Don't pause playback when the headset is plugged in
+"
+"d7f3eaa442ff86f6a091c08d61a0e6fceef01bf8","2010-02-20 01:52:52-06:00","Allow STATE_NO_MEDIA to be unset
+"
+"377984afaf25c54fbc12984effa9496eb47e28ff","2010-02-20 14:08:31-06:00","Omit a bogus paramter to drawBitmap
+
+It is unnecessary, wrong and causes problems if the bitmap needs to be scaled down
+"
+"ddb0193d6577a56a8e471725788671041f711934","2010-02-20 14:42:39-06:00","Only make the CoverView bitmaps as large as they need to be
+"
+"d1be1d80cc8ccb50ef0c27bc28069754342eab0d","2010-02-21 00:08:47-06:00","Add a mini-player
+
+This will open in response to clicks on the notification. It provides
+a quick way to change a song or pause music. (Mainly it just looks legit)
+"
+"69251f2aa6fc3817674ab822d4fda48ab6d63e08","2010-02-21 00:29:10-06:00","Keep the notification around even after pausing
+"
+"824a6b48062722035afc66118d3d2b0c211c337c","2010-02-21 00:38:04-06:00","Don't leak mReceiver
+"
+"197d529fe6b552f1ea9e6d750a2003d33436bcde","2010-02-21 16:31:11-06:00","Ensure the MusicPlayer cleans up properly
+"
+"40ebd4ec1b54b8028bbe6d10849f10b83af86c4d","2010-02-21 16:34:13-06:00","Allow NowPlayingActivity to stop the playback service
+"
+"0a95320bce29997b598bcc4cf7a99efc52cfe659","2010-02-21 16:55:19-06:00","Merge MusicPlayer back into PlaybackService
+"
+"7b1a3b59026969d83b43dd8867cdb4945f5f457e","2010-02-21 17:08:24-06:00","Make user-visible strings localizable
+"
+"009c5d54e4e7fea22276ac1bcf1b7a46abc54433","2010-02-21 17:23:44-06:00","Rename a couple layouts
+"
+"44ebddbc1452d6437af69a981b821d6ceb212491","2010-02-21 19:41:59-06:00","Rename to Vanilla Music
+"
+"32be8b09ef86f913cc18970739e8a5c83bc22972","2010-02-21 19:57:54-06:00","Try to handle MediaPlayer errors
+"
+"45b581de3c22828c0bbf1dcac850ee2e16c807d8","2010-02-21 20:24:35-06:00","Make the notification intent work
+"
+"6796763a478e790337da7e30ce10605916909786","2010-02-21 21:29:48-06:00","Clean up song filter parsing
+"
+"b62050a869c970c0dfb755225de1e27caf50aad9","2010-02-21 21:39:26-06:00","Fix bottom control visibility in setState
+"
+"f01348fc0180b1f55917df026fbd68a0b0fb8a31","2010-02-22 17:07:55-06:00","Update the notification for new songs even when paused
+"
+"21bbd3844eb2d4e9a225b2f2f8bc1e99ab1e954f","2010-02-22 17:11:28-06:00","Clarify if the music is paused in the notification text
+"
+"3aed9a73b8d8ec025a364049ad1236c445f82771","2010-02-22 18:11:13-06:00","Add a preference to disable the constant notification
+"
+"41b2925eee198c9277f3255bf7d8c960fed8fb7d","2010-02-22 18:13:59-06:00","Make the notification work on Android 2.0+
+"
+"f91dcca666769839ca4a9793b1e1d6ba1f30203a","2010-02-22 18:22:31-06:00","Expose MediaStore id in Song
+"
+"c82087c81f75902f9169262a10693c416c545c3f","2010-02-22 18:24:50-06:00","Broadcast Scrobble Droid API intents
+"
+"447634de8c6ccf4ce0c4edca87a42513ab54d39b","2010-02-22 18:41:28-06:00","Make scrobbler configurable
+"
+"5e3cbfbb1a84a45a011b9d450e708b410d88fb2e","2010-02-22 19:06:20-06:00","Heed to phone calls
+"
+"2403f396646789fcc87ff004fb1395bbe4a01435","2010-02-22 19:07:41-06:00","Rename notification setting
+"
+"5fa74e1f1800f0fe31834b5634e355f0fec6ed83","2010-02-24 23:16:30-06:00","Better defer cover loading
+"
+"7646c1c32648f008e4202e0b6507ae9dff435705","2010-02-25 20:40:03-06:00","License under GPLv3+
+"
+"9530cffaa6fa878fb1e75612ff49ffceb64cfd65","2010-02-25 21:59:21-06:00","Add a readme
+"
+"21d5fafa74c7de1f69e5406ae1b5f39e455865ea","2010-02-25 23:15:55-06:00","Fix crash with no songs on device
+"
+"dc0639784e34c4e98631918eca478fb34bae08c6","2010-02-26 23:21:46-06:00","Add a 1x1 cell widget
+
+Larger sizes are to come
+"
+"9db1789e3d7ae0c1aa9d8440259093d7d3ec227b","2010-02-26 23:43:49-06:00","Generate tinted control buttons on-the-fly
+"
+"1a259e714a1b7496e37901d33cea4a694de9bc3e","2010-02-26 23:44:34-06:00","Add a copy of the GPL
+
+This was left out of the license commit
+"
+"a456aa8c04197dfbbc8ed0ba631eef03a97f355c","2010-02-26 23:55:03-06:00","Allow the widget to start the music service
+"
+"cddfb03627ad7f2009327a6d10f5309200f10cd8","2010-02-27 22:20:43-06:00","Expand and improve headset detection
+
+Modify it to mean play through anything but the internal speaker. Should now detect bluetooth and other sinks.
+
+I have not tested this on Android 2.0+. I hope it works...
+"
+"a857fad462cf1255de817cb59b847f80f95e95fc","2010-02-27 22:29:33-06:00","Add a setting to control headset unplug detection
+"
+"24f850e5393b35ad36e006df4e2f43f62ef729ea","2010-02-27 22:35:54-06:00","Organize preferences
+"
+"27f69927db16054a2b2344bbd9765b146f6b059f","2010-02-27 22:39:11-06:00","Make PlaybackService's Handler non-anonymous
+"
+"bccc23c59b731c94b56c7fa4b9f8276c1532e784","2010-02-27 23:11:55-06:00","Update CoverViews sooner
+
+So it feels faster
+"
+"093da1c9e76813b590342c561540a9d99f97c337","2010-02-28 16:45:42-06:00","Initialize mQueuePos to 0
+"
+"2a31946f6755326ec8420ea8c5be8c22c9d2b64b","2010-02-28 16:48:29-06:00","Safer thread synchronization for song timeline
+"
+"7b217004bb5d1aacac62a2da2e0464e0bc88a15a","2010-02-28 17:16:19-06:00","Save state across service instances
+"
+"94ede3a73b6284d75902de81ed1ba75473554d3e","2010-02-28 17:36:29-06:00","Version 0.1 build 6
+"

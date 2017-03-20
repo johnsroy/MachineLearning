@@ -1,0 +1,172 @@
+"commit id","commit date","commit message"
+"8fbfaae8a287d69473d30e279b95170cfcfd0727","2016-02-20 13:14:20+11:00","Check width and height > 0 before generating bitmap
+
+Creating a bitmap with 0 width or height will cause a fatal exception.
+
+A check was added in commit 2149745, but there are still some crashes
+(e.g. issue #267). This commit replicates that check directly before the
+creation of the bitmap.
+"
+"a347f38eb70bd57bdf31bd24bff3395e7e8407a4","2016-02-20 09:34:47+01:00","Merge pull request #291 from xbao/fix/cover-crash
+
+Check width and height > 0 before generating bitmap
+"
+"29307ae3578cde4feae9183ae18cb91ef45f4b69","2016-02-27 16:13:42+01:00","set correct default value
+This should have been done in b7fae56fc30ab7c172fd9345f748dd0b25170290
+"
+"8c6993537d2b41b908f41280c0dde8e10c3fad72","2016-02-28 12:08:58+11:00","Exclude empty genres from genre list
+
+Previously, genres without any songs associated with them would appear
+in the Library genre list.
+
+This commit adds a new query for genres that excludes these empty genres.
+
+This partially fixes issue #286 (empty genres cannot be deleted) -
+genres still can't be deleted, but the empty ones will no longer appear.
+"
+"c0adcdee2fe86760a174e13c878ef483f5956370","2016-02-28 12:18:44+01:00","Introduce TimelineCallback
+This makes it simpler for non-playback activities to get callbacks
+"
+"5a72d52153a622394690357d0ad882997d238c53","2016-02-29 19:05:38+11:00","Reset search when an item is expanded
+"
+"563b01ee6c71779a1fb16c8ec45ae58f542e74d9","2016-03-08 20:56:34+01:00","Merge pull request #296 from xbao/genres-hide-empty
+
+Exclude empty genres from genre list
+"
+"93a52a387b7a44e876e7dcb89b1154560bba0087","2016-03-18 07:44:26+00:00","MirrorLink/Rockscout: allow RockScout to be used as an alternative UI for Vanilla outside of a Car
+"
+"1a6774ca2fbe0c0fe2cb8f4b9bc9cc890d193e6a","2016-03-20 13:21:25+01:00","squash-merge of slide-up branch
+"
+"2c6bf316e1587ba9c91e0ac3c059911dd1d73438","2016-03-20 18:20:29+01:00","implement bindControlButtons()
+"
+"5652917b49047fb21be22b317a321003e5273a73","2016-03-21 20:15:16+01:00","Merge pull request #308 from lcremmer/RockscoutOptIn
+
+MirrorLink: allow RockScout remote access outside of a Car
+"
+"b3e97c4418793444a2b65984793c59239fba2ca7","2016-03-21 21:44:11+01:00","move getFilesystemBrowseStart into FileUtils
+Thats far better than extending PlaybackActivity just for this
+"
+"24ed0d6504859c7cc84457fbc73d4e0dd1f07c60","2016-03-27 14:08:07+02:00","Update README.md
+
+Add link to f-droid
+"
+"05fec14d9b65d81d1627b4e90692f37b533e2782","2016-03-27 16:14:54+02:00","implement SlidingView.Callback
+"
+"4578cee64531be850d4a86db0bd7e3d6a9e0760e","2016-03-27 16:19:18+02:00","get rid of old and ugly (invisible) icon
+"
+"9dd046298e55c987826febff6c340bfbb02fa5f9","2016-03-27 16:37:59+02:00","initial handling of slide callbacks
+"
+"cf34ba9de1fb1dc6fd31e72604eb1990f2f19f23","2016-03-27 16:52:05+02:00","move MENU_CLEAR to PlaybackActivity
+"
+"2768ea1c7e5df204d744238a2dd5ea5c03423c59","2016-03-27 16:56:50+02:00","add MENU_EMPTY_QUEUE
+"
+"1c5a0eb0c21b17737bbac164ff28794a1714483a","2016-03-27 17:21:53+02:00","only add items with icons to bottombar
+"
+"d9957be6d5e7760761e3ef96e6051dece491a353","2016-03-27 17:31:23+02:00","Bye bye ShowQueueActivity, you did well.
+"
+"48fc99ac42aa4b206a1d6c1e2c52f268e88496d7","2016-03-27 17:35:57+02:00","add save_queue_as_playlist to PlaybackActivity
+"
+"6824ee229b2b1c2afb00c996dc37b02f17fa1739","2016-03-27 18:15:43+02:00","handle back button for slide
+"
+"e96643b9a62e494c1dc87f30fe4e69ee0957b038","2016-03-27 18:31:19+02:00","Set initial fake offset to Integer.MAX_VALUE
+This fixes issues with out-of-screen-swipes
+"
+"4ef83abf326cc72b7990a2e929658749b82c7455","2016-03-27 22:05:43+02:00","change fling behaviour
+"
+"5e2f46682149d0e6267e3d96a6ac82fd26403f85","2016-03-28 08:18:37+02:00","snap in at half of the childs height
+"
+"0ada6239462d79df69219cbbf8c45409428734fa","2016-03-28 08:29:42+02:00","make spacer clickable (again)
+"
+"86c6a3b32657c95d78bebd2968b74b92e606cbc7","2016-03-28 09:00:00+02:00","Call notifyDataSetChanged() to trigger view updates
+Calling notifyDataSetInvalidated() would mean that we abaddon this adapter
+
+Fixes #84 (again)
+"
+"4e783635b999261545038f2ed80718050e708db3","2016-03-28 09:04:27+02:00","Target 1.0.38
+"
+"62d83dbf32109982e5af0008c3bfdbe4e402adac","2016-03-28 09:42:40+02:00","Relax cover filename matching
+as requested in #293
+"
+"f4cbd1053ed98f3556e18acab46ab110c0597327","2016-03-28 13:14:44+02:00","Avoid race during fragment creation
+onTimelineChanged() is not always called on creation, but setSong() is
+"
+"12516353f33e5c7773fd3edc9e5cfdc4e928c3ed","2016-03-28 13:47:37+02:00","inherit sent time generation on state changes
+
+The old code used to drop valid events. example:
+* Event 1 born
+* Event 2 born
+* Event 1 processed
+* Event 2 dropped
+
+This change inherits the 'born' time while still giving UI
+updates priority
+"
+"7271b14c3468464188dd72f358196a1f8b7dd775","2016-03-28 13:51:28+02:00","clear bottom bar if queue is empty
+"
+"eeee710f90953b1c2ec8ec4d32c678dc287ebf37","2016-03-29 11:36:26+11:00","Add Gradle wrapper v2.2.1
+
+A gradle wrapper script allows a developer to download and use the
+correct version of gradle for Vanilla without needing to install it on
+their machine. Vanilla uses v1.3.0 of the Android Gradle plugin, which
+requires Gradle v2.2.1.
+
+This commit adds the gradle wrapper, generated using
+
+```
+gradle wrapper --gradle-version 2.2.1
+```
+
+This command generates a gradle-wrapper.properties that links to the
+binary distribution of Gradle. For better integration with IDE's, this
+commit changes the URL to '*-all.zip'
+
+More information about the Gradle wrapper can be found in the
+[Gradle User Guide - Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html)
+"
+"031b35f69e0959c7a35437d7d01883382ec9110a","2016-03-31 20:13:46+02:00","hide menue entries affecting the current song
+"
+"75f2ce9c2113d1875953d6c8153d86edbb58322e","2016-03-31 20:18:16+02:00","update translations
+"
+"c1457ad7ac4c671e013925bad6dcdaf0e434ff01","2016-03-31 20:19:27+02:00","Merge pull request #313 from xbao/gradlewrapper
+
+Add Gradle wrapper v2.2.1
+"
+"29ccd7dc5c8648403d45cbb4ed5a9434cdece5ef","2016-03-31 20:26:32+02:00","do not hardcode package name
+"
+"a3439c0dbfcfcf6008bd3448a5fa8d3c2a214ec7","2016-03-31 20:28:34+02:00","obey lint
+apply() saves in background which is good enough for us
+"
+"422c28e4f35d9f2ff7a40e58383cfe5d24a4c3df","2016-03-31 20:30:45+02:00","remove superfluent namespace declartation
+"
+"fca3ff0389ec12a7a1e24c8d564b80e6a7b9d25a","2016-03-31 20:39:36+02:00","fix some lint errors
+"
+"6b8b15acbefdfca1cb014e72484161ebca792bb8","2016-04-01 01:06:10+03:00","Add fast-scroll indexer to MediaAdapter
+"
+"90a021f9fa91891a0841e3dc3ed4b02d4b494f33","2016-04-01 19:19:19+02:00","Unbreak KitKat
+which was broken by c0adcdee
+"
+"43ccf6de4d5e02d5fe8e5c546510e1cc9243fcf9","2016-04-02 01:23:17+03:00","Make fast scroll sort-aware
+"
+"a023b75ec7b0b42bd11a773273391a08a9e986ad","2016-04-02 20:47:59+02:00","Use own divider with outsideInset scrollbar
+"
+"f9015ea0018d07c173d4b61fea5ed7814a8fb5bf","2016-04-02 20:52:06+02:00","Merge pull request #315 from Adonai/vanilla
+
+Add fast-scroll indexer to MediaAdapter (Library View)
+"
+"39437ec28719194a845b31e456d7c8b72d7507d7","2016-04-03 02:49:54+10:00","Add nightly link to about page
+"
+"a3b4eefe09a3d2c358a5e7f39f5b987acc0a667a","2016-04-04 20:52:06+02:00","Introduce FastScrollGuardListView
+
+This is a hack to work around androids stupid 48dip fast-scroll area: The framework will hijack any scroll events which happen
+near (=48 dp) the fast scroll bar. We do not want this as it clashes with our expand buttons.
+
+This class intercepts events in the problematic area and rewrites them to a fake event to pretend that the touch did not happen in the fastscroll area
+"
+"2967bb38eb66a4fd0257c3824c59ec2ad4be106b","2016-04-04 20:56:37+02:00","update contributors
+"
+"5c1c2e0cfeb1aa47d654fa0439b7f4a03b180b34","2016-04-04 21:47:56+02:00","set scrollbar style in theme
+We only use inset on HOLO - Material can use the default style (insideOverlay) as we control
+the fastscroll area on our own via a3b4eefe09a3d2c358a5e7f39f5b987acc0a667a
+"
+"4e130235a45dcdc691b261bd2ad9ae5ec808db05","2016-04-06 19:54:05+02:00","release 1.0.38
+"

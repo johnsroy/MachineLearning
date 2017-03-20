@@ -1,0 +1,120 @@
+"commit id","commit date","commit message"
+"71db0726607885fb815e230886dcebeb93817371","2014-06-10 19:29:43+02:00","ACRA-finetuning.
+
+Added the server-side scripts.
+Also changed the way the custom-data is added to the user feedback in ACRAFeedbackMailer.
+"
+"8a72bd8f92164c312b531818c4d9cd44f18e2935","2014-06-22 13:27:28+02:00","Added Workout export/share function.
+"
+"685e037e4ceff84f25b4c7555fdac6b6dada0a04","2014-06-22 17:23:57+02:00","Added menu item for importing workouts.
+
+Seems to work so far.
+"
+"b719a4875a04a8be42b27fc9cd74ca855b92e7a5","2014-06-22 17:29:30+02:00","Merge branch 'master' into rewrite-REST-access
+
+Conflicts:
+app/.classpath
+app/res/menu/exercise_detail_menu.xml
+app/src/de/skubware/opentraining/activity/create_workout/ExerciseTypeDetailFragment.java
+"
+"55f6c7567b12a47547d9954525e1bf38816b70fe","2014-06-29 12:51:05+02:00","Continued implementing uploading exercises.
+
+Posting an exercise with dummy data works so far.
+Disabled ACRA for debug builds.
+"
+"7433f65e4af2b294747f55d133b984aeeaac25b9","2014-06-30 20:46:27+02:00","Fixed equals()/hashcode() in Translatable (bug if you use HashMap).
+"
+"5a779fcf0896c2f37bd1bd33243b25c8d7b01094","2014-07-03 00:47:58+02:00","upgrade gradle{,-android,-wrapper}
+"
+"c8db38f73387ddee2847e38ba330fa88ed1bb619","2014-07-03 12:33:06+02:00","README.md: upgrade required SDK
+"
+"0193f2600c65c7ed3bf1f5b1e4ec91028694efab","2014-07-03 12:36:18+02:00",".travis.yml: upgrade to java 8
+"
+"a79e6b0383d78b34d7f5484a6a32ec414b1d95f7","2014-07-03 13:33:57+02:00","build.gradle: buildSdk-Version 19.0.3
+
+19.1 is not available in travis-ci
+"
+"0cd1c881efc48e159d78b700d4f1a83c1333be09","2014-07-03 13:53:53+02:00","build.gradle: next try -> sdk '19.1.0'
+"
+"54a9984c9e8ecac85117ffcaef0a7ce492dc1632","2014-08-11 12:41:12+02:00","Improved handling errors when uploading an exercise to wger.
+"
+"13eec00539027de730858dab11bc3fc4d948c83e","2014-08-11 16:08:46+02:00","Bugfix: crash on tablets in settings activity when using Android 4.4 or newer.
+"
+"488a5b7ef2e782ec5b76d7c9f4305a66497c0027","2014-08-11 16:29:18+02:00","Bugfix: trying to fix a ConcurrentModificationException.
+Could not reproduce the bug, stack trace below:
+
+java.util.ConcurrentModificationException
+at java.util.ArrayList$ArrayListIterator.next(ArrayList.java:569)
+at de.skubware.opentraining.db.parser.XMLSaver.writeTrainingPlan(XMLSaver.java:136)
+at de.skubware.opentraining.db.DataProvider.saveWorkout(DataProvider.java:595)
+at de.skubware.opentraining.db.DataProvider$5.run(DataProvider.java:629)
+"
+"5a82bc9c5be8d3505df02cfbd92645c0f17cac80","2014-08-11 16:42:08+02:00","Bugfix: trying to fix a IndexOutOfBoundsException of SwipeDismissListViewTouchListener. Could not reproduce the bug, stack trace below:
+
+java.lang.IndexOutOfBoundsException: Invalid index 0, size is 0
+at java.util.ArrayList.throwIndexOutOfBoundsException(ArrayList.java:255)
+at java.util.ArrayList.get(ArrayList.java:308)
+at android.widget.ArrayAdapter.getItem(ArrayAdapter.java:337)
+at de.skubware.opentraining.activity.create_exercise.SimpleDataFragment$1.onDismiss(SimpleDataFragment.java:95)
+at de.skubware.opentraining.activity.start_training.SwipeDismissListViewTouchListener$3.onAnimationEnd(SwipeDismissListViewTouchListener.java:329)
+at com.nineoldandroids.animation.ValueAnimator.endAnimation(ValueAnimator.java:1034)
+at com.nineoldandroids.animation.ValueAnimator.access$900(ValueAnimator.java:43)
+at com.nineoldandroids.animation.ValueAnimator$AnimationHandler.handleMessage(ValueAnimator.java:669)
+at android.os.Handler.dispatchMessage(Handler.java:102)
+at android.os.Looper.loop(Looper.java:136)
+at android.app.ActivityThread.main(ActivityThread.java:5017)
+at java.lang.reflect.Method.invokeNative(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:515)
+at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:779)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:595)
+at dalvik.system.NativeStart.main(Native Method)
+"
+"38ab2080e1db2596262634512204d89ddb1331db","2014-08-11 17:20:25+02:00","Bugfix: main activity crashed before because of 'bitmap size exceeds VM budget' (only on older hardware).
+Simply added the main activity background with a lower resolution.
+
+For high-res devices nothing should change.
+"
+"227dd23276dbe09ee4dd939ac502b646d92b84f3","2014-08-11 17:34:35+02:00","Bugfix of NullPointerException in DataProvider. Could not reproduce bug, stack trace below.
+
+java.lang.NullPointerException
+at de.skubware.opentraining.db.DataProvider.saveSyncedExercises(DataProvider.java:190)
+at de.skubware.opentraining.activity.settings.sync.SyncFinishedDialog.saveExercises(SyncFinishedDialog.java:228)
+at de.skubware.opentraining.activity.settings.sync.SyncFinishedDialog.access$000(SyncFinishedDialog.java:57)
+at de.skubware.opentraining.activity.settings.sync.SyncFinishedDialog$1.onClick(SyncFinishedDialog.java:91)
+at com.android.internal.app.AlertController$ButtonHandler.handleMessage(AlertController.java:166)
+at android.os.Handler.dispatchMessage(Handler.java:102)
+at android.os.Looper.loop(Looper.java:136)
+at android.app.ActivityThread.main(ActivityThread.java:5001)
+at java.lang.reflect.Method.invokeNative(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:515)
+at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:785)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:601)
+at dalvik.system.NativeStart.main(Native Method)
+"
+"6de6bb34aab3786439ad1f64cad66f4489b7376f","2014-08-11 18:33:08+02:00","Bugfixe: NullPointerException in DataProvider. Could not reproduce, stack trace below.
+
+java.lang.NullPointerException
+at de.skubware.opentraining.db.DataProvider.saveSyncedExercises(DataProvider.java:190)
+at de.skubware.opentraining.activity.settings.sync.SyncFinishedDialog.saveExercises(SyncFinishedDialog.java:228)
+at de.skubware.opentraining.activity.settings.sync.SyncFinishedDialog.access$000(SyncFinishedDialog.java:57)
+at de.skubware.opentraining.activity.settings.sync.SyncFinishedDialog$1.onClick(SyncFinishedDialog.java:91)
+at com.android.internal.app.AlertController$ButtonHandler.handleMessage(AlertController.java:166)
+at android.os.Handler.dispatchMessage(Handler.java:102)
+at android.os.Looper.loop(Looper.java:136)
+at android.app.ActivityThread.main(ActivityThread.java:5001)
+at java.lang.reflect.Method.invokeNative(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:515)
+at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:785)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:601)
+at dalvik.system.NativeStart.main(Native Method)
+"
+"bd82a6085f0b2dc3281c26ca30176579d22e0c80","2014-08-12 10:44:17+02:00","Refactoring: moved AsyncTask and interface to own files.
+"
+"86d58993e3c9e608b37defd8b819cb5082b83da7","2014-08-14 13:54:11+02:00","Preparing release v0.7.2
+"
+"d92d52c7c3157bb5f0e88af399a277c9798ecff3","2014-08-14 13:55:14+02:00","Merge branch 'master' of github.com:chaosbastler/opentraining
+"
+"0f686a76cd77e138feee03fca89b9c013b106a49","2014-10-10 16:46:24+02:00","Added japanese translation, updated italian translation.
+"
+"f8262a1fb37751c2c6380517c9fa684ef698947b","2014-10-10 17:01:32+02:00","Preparing release v0.7.3
+"

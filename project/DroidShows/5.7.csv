@@ -1,0 +1,439 @@
+"commit id","commit date","commit message"
+"7af5c8fea69a6fd636d8d25a4915f72cc1f26470","2011-07-16 15:37:15+01:00","new queuing-system branch
+"
+"e2239cb14eabc51fc76d7e77b7a39543dbb5478f","2011-08-29 22:20:29+01:00","add support to mark next episode as seen in a series context menu
+"
+"d55df1ac30f7ab8916a0a913392bcf64407912c4","2011-08-29 23:51:58+01:00","Merge commit 'refs/merge-requests/6' of git://gitorious.org/droidseries/droidseries into merge-requests/6
+"
+"3c6709588d4417f7e29a9469c7232cdc342870bf","2011-10-09 14:36:36+01:00","Next episode bold when in the past
+
+Easily see which series has episodes that have aired, but you haven't
+seen yet
+"
+"cd2bb7d32f482ac5918649e2522eab83735e3288","2011-10-10 20:07:25+01:00","Set episodes in the future to not be bold
+
+Without this rotating the screen would cause these to appear bold. Also
+imported the android.graphics.Typeface to use its constants for
+Typeface.BOLD and Typeface.NORMAL
+"
+"7cadb3a12449fab462533c05cea365813cc42635","2012-02-18 22:07:47+00:00","queue
+"
+"9cc7d4aaa6b48152d2c7b6a09b25aad159709f05","2012-02-18 22:10:47+00:00","removed some files
+"
+"784a3b643dcf376b3f09ae634f68c5279f2bebd5","2012-02-18 22:09:54+00:00","deleted some files
+"
+"d9ef62a4ea512c1f2cb3b80fbf476e2e6a76abb0","2012-02-23 09:04:26+00:00","fixed a date related bug caused by the last merge
+"
+"0af41bb7598975873ec70731bd333fecac1cc58e","2012-02-24 16:50:15+00:00","code refactoring while hunting for a cursor bug
+"
+"6e7a8b2492d05574820a3c727811465b095d0271","2012-02-26 15:42:01+00:00","fixed the addserie bug
+"
+"6c674418aa17e20232e41139c118925a3d023ab3","2012-02-26 16:24:25+00:00","code clean up
+"
+"13308f223cf1ff18c8e7faa635a861a4ae1edaf7","2014-03-15 17:55:01+01:00","Add a 'passiveStatus' field to the DB structure
+
+Add a passive status for a show so that the user can set a series as
+active or passive.  Passive series can then be optionally hidden from
+the main view.
+"
+"84c6dd032741a78c24341bc2b39edd594fe31db9","2014-03-15 18:08:25+01:00","Add a context menu item to 'toggle' a show status (active/passive)
+
+The database is updated when the menu item is selected.
+"
+"ab0568b6443b497ffec0e765c1aa9ff5437467de","2014-03-15 18:11:08+01:00","Add a filter global setting
+
+When the filter is enabled, passive series are not displayed.
+"
+"c3871ea6c2fd709a06d7040b1dbfafe7ad1f71f5","2014-03-15 18:18:47+01:00","Display the series status (passive/active) to the user
+
+When a show is passive, its title is displayed between brackets.
+"
+"69298c64fb91f6ba4581f0ee75f1946abc84bcd4","2014-03-15 18:21:32+01:00","Toggle show status: try to speed up things by not calling getUserSeries()
+
+Do not rebuild the whole TV Show list when a series status is toggled.
+"
+"7fa51a3f197f32c4bcd073b1e33031481c8f3034","2014-03-29 21:36:36+01:00","Merge remote-tracking branch 'origin/queue'
+
+Conflicts:
+project.properties
+"
+"8b4262ecaf9f4c3e58569816f066d1778b877f9f","2014-03-29 21:37:25+01:00","Try to fix indent
+"
+"9caed4c0b3b5fe5ba14cc87962f58929209ea3f1","2014-03-29 21:39:04+01:00","Clean up strings file
+"
+"bf9c1e2ca15c2597ed17278dad9cff2412161642","2014-03-29 21:40:24+01:00","Add contextual menu to delete a local episode from the DB
+"
+"b2770709991e0947da41bae5c0d8d52ea2da4691","2014-03-29 21:41:52+01:00","Update credits and state that this version is different from upstream
+"
+"4a95d1075b50531ab583946105c2b1bdcba4bb83","2014-03-29 21:43:03+01:00","Add a debug stacktrace when the TVShowItems fail to be populated
+"
+"e19a0153d1c51b9398ce505de34f4181f19e7338","2014-03-29 21:45:31+01:00","Update the toast message while updating shows
+"
+"fa16743a877dc04e9b3b544538d66b632f9cafc3","2014-03-29 21:49:55+01:00","SQLite: use transactions when updating shows
+
+This gives a huge performance boost (>90%).
+"
+"643f1eec70e6c65a40fbbed3d2e10122b423254b","2014-03-29 21:52:06+01:00","SQLite: use a compiled statement when updating shows
+
+I'm not sure there is a real speed up here, actually.
+"
+"45db4a4c4ea8034f5cbde14445f284dea7dcfbe5","2014-03-29 21:55:46+01:00","Speed up series update
+
+Get all episode ids in one query before updating a show.
+This saves ~35% time in database update according to my tests.
+"
+"9f6e56ccf6fdb7db31c922472287534d8c386b4a","2014-03-29 21:59:24+01:00","Buffer the HTTP stream for XML parsing
+
+This seems to solve the duplicate episodes issue (#26).
+
+AFAICS, the duplicate episodes are caused by a wrong parsing of the
+show's XML data, which I guess happens because the stream was split.
+"
+"1c1ce188745fcee2b19c5af3f5f156a96c9f79e7","2014-03-29 22:04:56+01:00","Always update all seasons of a show
+
+Only the latest seasons (from current on...) of each series were updated
+when using the Update All Shows menu item.
+
+Since the update is much faster I think it makes sense to update
+everything now...
+"
+"8599948fdd87b001511d26209db6d9c74655fbdb","2014-12-20 04:00:57+01:00","Changes as in repository description.
+"
+"412b33b9db2a466042c8b52067c0f5a57567784b","2014-12-20 05:45:03+01:00","Added context menu item 'View on IMDb'
+"
+"cbc2d37117e678003dc5f4ccc938c155d1b6581b","2014-12-20 17:52:23+01:00","Forcefully stopping threads that end themselves, and with a deprecated
+method even, is never a good idea: removed xx.stop()'s; added icon
+designs.
+"
+"82481bba756eb1c241ff0cf251ce9bfe1e37dcef","2014-12-21 21:25:26+01:00","Click on poster already showed details, now a long-click on it shows
+details in IMDb (website, or app if installed).
+"
+"6c4d70a12870b7305969400a2c49b766442a98c3","2014-12-21 21:46:08+01:00","Kept forgetting to change version in changelog string, now dynamically
+replaced.
+"
+"adde7f8a832c9a8b751845ba426f900e55125866","2014-12-22 04:38:51+01:00","Swipe right-to-left to mark next episode as seen, everywhere else in app
+it acts like back button
+"
+"4ef5a011fc546eae6479fd4711fe0c418f2499f5","2014-12-22 04:56:30+01:00","Built in check so that 'Mark next episode as seen' won't mark eps yet to
+be aired.
+"
+"ff45f631f8f92811f693ab5d1ee24cd90602ec83","2014-12-22 11:11:36+01:00","Check for new aired eps at start.
+"
+"42a3f416cf28955fbb3af85e2be33c2e825f51a0","2014-12-24 02:28:23+01:00","Fixed text string for option in alert dialog; put check for unwatched
+aired eps on start-up in separate thread (faster app start)
+"
+"852428e92cc2e4463aad5e36b2ec1b84a027f314","2014-12-27 03:06:36+01:00","Added android:layout_weight='1' in show/episode overview to wrap lines;
+poster shown in show overview (without density scaling); removed
+remnants of typeface change (bold) if next episode was before today;
+launcher icon not loaded as placeholder for poster thumbs anymore
+"
+"eb0c292258ceb2ceba74ee690653aaed64f2a996","2014-12-27 21:46:39+01:00","3.70: mark next episode seen via swipe now vibrates for feedback; option
+to include specials in unwatched count (will also update specials even
+if 'update shows' last season only' is checked); update list view (sort)
+after thread to check for new aired episodes on start-up is finished
+"
+"c2bd73d599fee562dba2e7209d77cd1682ec9f17","2015-01-05 02:33:15+01:00","3.71: option to use entire line to (un)mark an episode; small changes to
+about dialog; no more FC's on app close very quickly after opening (db
+close)
+"
+"81f273970e2b83014caf267c6e3f3f7fb7b8da82","2015-01-06 19:44:52+01:00","3.71: wait for stats thread before closing database on destroy
+"
+"45d61327dae84871dde38f1adb54e94782e9a4b0","2015-01-12 01:04:46+01:00","3.72: fixed updating shows' last season only; fixed updating stats after
+single show update; specials also updated when 'update shows' last
+season only' selected.
+"
+"9501efe9c0ae68a13d9dc834a87395980be32c26","2015-01-12 03:37:49+01:00","Only vibrate on swipe when new aired episode was actually found and
+marked as seen.
+"
+"e51eb21ac4bb3600964ce013076f4ad8789ba342","2015-01-12 21:00:36+01:00","3.73: placeholder image in overview & fixed FC in show details when no
+poster available; seasons details updated right after calculation
+(per-season); fixed row height differences in seasons overview; little
+code cleanup
+"
+"13fe2ca4f6cc66aa6ced3e21fa91ebc6dc8e51e3","2015-01-16 00:14:39+01:00","3.73: a single cosmetic change in seasons overview
+"
+"9f42b9f22b27a43c777af0efff27471056d97181","2015-01-16 00:27:37+01:00","3.74: fixed - didn't update season stats when # of eps seen remained the
+same when coming back in seasons overview from episodes overview (even
+if different eps checked)
+"
+"2bdee3da025cc4f37040c8af4ef2659a77a3b713","2015-01-21 00:21:50+01:00","3.75: also show # of upcoming episodes and next episode when none aired;
+only when next episode is already aired, it's bold; fixed 'next episode'
+not turning up on start-up when there's a new unwatched episode (view
+was not 'unhidden'); removed useless 'completely watched' boolean
+"
+"32f53a0a151556a94e4a3846618cfc52a68d9a4c","2015-01-22 01:56:25+01:00","3.75: removed 'TBA' episodes filter, whatever, they're still upcoming
+episodes; in overview, next episodes not aired yet are darker now
+"
+"1b40e8cee1f9178c21d0e0c3b75d58525d8d2842","2015-01-25 00:34:16+01:00","3.75: instead of setting color, next episode info is set as disabled
+text if date is in the future; cover size in overview no more purely
+dependent on density, but filling the row (matchParent & centerInside)
+"
+"866a72d356824fcdcbc419246b16301d80a92072","2015-01-26 00:11:51+01:00","3.75: centerInside => fitCenter for covers in overview
+"
+"e70ebcde8b9a49a68940585f6fbd573fafe32bac","2015-01-26 17:09:39+01:00","3.76: IconView class extending ImageView to assess poster thumb width
+depending on row height (determined by text) and image proportions;
+overview's row.xml cleaned up; android.view.WindowManager unnecessary to
+get default display in activities => dependency removed; use
+createScaledBitmap instead of createBitmap + matrix
+"
+"4a01aa1eb99ec90e1d3836b4fba863b18e8e8c74","2015-02-04 21:00:29+01:00","3.76: Added short tutorial in About dialog; redid show/season/episode
+row XML's for singleLine (prevent wrapping) & ellipsize (hopefully still
+works in Android 4.x+); cleaned up some comments
+"
+"121dd6541c07c8da64775c7223ce2bbf0eef84bb","2015-02-05 02:40:16+01:00","3.76: Changelog text does not light up on scroll/focus (in previous
+commit :P); setEnabled(true/false) also applied to show information
+line, like next episode line, to make shows with new aired episodes
+stick out more.
+"
+"b9f1b0f18349ef0d315d0b3d1bd6c7a9b3856464","2015-02-05 14:59:14+01:00","3.76: Left some stupid debug text in row.xml; set poster scaling to
+fitEnd (was fitCenter), so that distance to text will always be the
+same; cleaned up some debugging and comments
+"
+"c4bb2a8c6ca695e8149e28f3187da928db1650ef","2015-02-06 22:47:33+01:00","3.78: Added toast on marking next episode as seen; gave up on ellipsize
+(for the longer strings in Dutch), it (Android across API's) is just way
+too buggy and unpredictable; cleaned up unused strings and other xml
+stuff that popped up after running Lint.
+"
+"7d7690385eb8f88130f2ecc1ff324ecae0f43e32","2015-02-07 01:01:03+01:00","3.78: Showing † after show name when show ended (instead of * in show
+info field) and showing status when no new episodes.
+"
+"f0d895cdcfe57ad9ff811b8b0147cc0a51c06065","2015-02-08 20:45:11+01:00","3.79: Translate show status in overview
+"
+"a1a104f8b8defa503f2de064cf3d772987468910","2015-02-09 12:45:22+01:00","3.80: Finally nailed it: ellipsize='marquee' is working. Note to self:
+never trust someone else's code blindly.
+"
+"d471ddbcd95bbca8c79225091b099918b0493ffb","2015-02-09 16:52:09+01:00","3.81: Tested on tablet, fixed IconView once again. Resolution of poster
+on download and view is now independent of device's ratios, but still
+depends on the screen's long side (px).
+"
+"38c4c6d917bed210ea650327a64a270f7abeda09","2015-02-09 17:44:10+01:00","3.81: Checkboxes in episodes list are now easier to tick when 'Use
+entire line to check episode' is disabled.
+"
+"d4f77ccd992f18f472af47ddd3fb969c7dac56ff","2015-02-25 15:16:16+01:00","3.82: Added Undo function for 'mark next episode as seen'; 'Next
+episode' line no longer styled bold (more distinction between show name
+and info lines makes for quicker finding of shows while scrolling down
+the list).
+"
+"64e4630241d9e8aa16a74189535279e5aea98e56","2015-02-25 23:46:12+01:00","3.83: Translucent background
+"
+"ebe9636a581f404be290a37049003c79a0e1a309","2015-02-26 18:21:33+01:00","3.84: Prettier list divider; About dialog called 'Options'; instead of
+onItemClickListener using proper way of overriding onListItemClick;
+create ONE OnClickListener & ONE OnLongClickListener for all list items;
+some code cleanup
+"
+"beec8e2c147772bdbd68c388b606680b1ee3ae89","2015-02-26 22:40:57+01:00","3.84: Showing middot · when all new episodes are aired
+"
+"e4cd7013d85f4c85a3f56f699688a1e81229be76","2015-02-27 05:49:27+01:00","3.84: No middot when show has ended (shows cross already), nor when no
+new episodes have been aired (stupid me).
+"
+"1a009a167e290585321694d4135cda590caa9980","2015-03-01 14:54:34+01:00","3.85: Fixed: not always showing updated info after 'Update all shows'
+"
+"33f2da6b22dd24f235b22c01683e606f747db7ae","2015-03-01 20:28:27+01:00","3.85: thread.run() instead of .start() in onCreate caused a horrible
+delay...
+"
+"5ff7201cafe4585a52878d2ece4c8f00bda37d2e","2015-03-04 02:09:09+01:00","3.87: New show overview screen; new episode overview screen; if no IMDb
+id for a show is provided, long-pressing poster/clicking on rating in
+show overview will go to IMDb search page; less useless distracting text
+on screens and in titles
+"
+"b27291b8547100991b746ecffd9b0edef802afae","2015-03-10 21:20:28+01:00","View full-size poster and fan art in show overview;
+Added total number of episodes per season;
+Seasons lists not static anymore
+Added DatabaseUtils.sqlEscapeString()'s where necessary;
+If status is unknown, don't show stupid 'null';
+Using parallel AsyncTask for updates of show & season updates;
+Put SQL statements for Show & Episode Overview into own activity (no
+more putExtra hell)
+SerieEpisodes RelativeLayout to LinearLayout; SerieEpisodes
+setOnClickListener => android:onClick in XML;
+Removed and reordered some SQL clauses for (theoretical) performance;
+Some more decent names for variables;
+"
+"c5d088d01b6279c0c84a8a61631f8b39c61019a9","2015-03-10 22:53:47+01:00","3.90: Loading of icon drawable in getView() for faster start-up
+"
+"0496ea1ed086b6e0607ae35eed69639df7d8395c","2015-03-10 23:23:47+01:00","3.90: Fixed: newly added series didn't get a synopsis anymore.
+"
+"c17bbd45a456876cdc63f4f6f27f35bdcdfe8b0f","2015-03-11 15:22:38+01:00","3.91: Update routine for new poster thumbnail size
+"
+"5f3123dc92403d030918198c30718d37a6113d92","2015-03-11 20:16:46+01:00","3.91: BitmapFactory.decodeStream() throws an exception on slow
+connections in Android > GB or so. Now using BitmapFactory.decodeFile()
+after Copy
+"
+"d6852f8de5690381e52f3a0c466288416c74bdb2","2015-03-12 06:32:05+01:00","4.00: All posters will be automatically refreshed [i]upon Update
+(All)[/i] when having old dimensions or when not existing anymore (this
+occurred sometimes due to TheTVDb errors); No more support for older
+versions of original DroidSeries databases (only latest v0.1.5-7 is
+supported and will be updated with new fields); New poster thumbnail
+when no poster was found (did not work anymore, either - fixed)
+"
+"66dd3b439ea4e3d0976ba6f334b90b4fea481642","2015-03-12 21:19:24+01:00","4.00: Forgot to add new noposter resources and apk to index.
+"
+"afc1f967624cc136c000b96655e2c46a2833dd8c","2015-03-12 21:43:36+01:00","Create readme.md
+"
+"69697de0cf6771613db2e8a91840389efb333ba5","2015-03-12 22:13:51+01:00","4.00: Migration from Gitorious to GitHub
+"
+"46b8b9cfa1c34863156081766f39ac10424d8b9d","2015-03-17 00:04:18+01:00","4.01: loadDataWithBaseURL to loadData with full
+<html><body></body></html> data; Episodes checkmarks padding fix;
+Marquee for seasons info; <FrameLayout> to <merge> in show details;
+"
+"28c3dd353024eb34dca1b3a46a16305fc7f3dec7","2015-03-22 18:08:02+01:00","4.02: KitKat's use of GURL screwed up loading of fan art when clicking
+on large poster (explanation:
+http://stackoverflow.com/questions/23298290/; solution:
+https://developer.android.com/guide/webapps/migrating.html#URLs)
+"
+"0f67a9d1867061502c0f113ea9c1d1261d580102","2015-03-23 12:04:11+01:00","4.03: Actors heading was shown even when there were no actors to be
+shown; Some changes to conditionals with respect to empty
+genres/actors/etc. lists
+"
+"fe29986bd71fbc5624e78594e7dace6a58f31bfb","2015-03-27 20:20:56+01:00","4.04: Removed separate activity for show synopsis when adding show;
+Instead added dialog with synopsis and Add button (disabled when already
+in DroidSeries);
+Touching outside dialogs (Options, synopses in Add show) dismisses the
+dialog; Fixed a bug in original code where toggled (hidden) shows were
+not seen as 'already added', which could then result in all episodes
+being added again;
+Strange stuff in original code with getId() vs. getSerieId() (fixed, but
+seemed to have worked even though it was wrong)
+"
+"9c20434c2a6114df96cc1278c912b904a861804d","2015-03-28 01:08:53+01:00","4.04: Removed separate activity for show synopsis when adding show;
+Instead added dialog with synopsis and Add button (disabled when already
+in DroidSeries);
+Touching outside dialogs (Options, synopses in Add show) dismisses the
+dialog; Fixed a bug in original code where toggled (hidden) shows were
+not seen as 'already added', which could then result in all episodes
+being added again;
+Strange stuff in original code with getId() vs. getSerieId() (fixed, but
+seemed to have worked even though it was wrong);
+Forgot one teeny tiny bit in previous commit: add the id of a newly
+added show to AddSerie.java's own series list (of serieIds).
+"
+"790ac386954c481893085f4aa98e1680a097d5ce","2015-03-29 22:45:55+02:00","4.05: Added minimalistic animations to help understand the app's
+structure; swipe left-to-right is now back (right-to-left is still 'mark
+next episode as seen'); removed the changelog (no-one's gonna read
+that); added/improved a couple of instructions on how to use the app in
+the Options dialog;
+"
+"094c757ae0759f3bb57546e4acc7731a40cc9afe","2015-03-30 02:15:08+02:00","4.05: Changed instructions; put version number back in Options dialog;
+fixed Dutch translation 'of'; updated readme.md
+"
+"45fc865dc3a0410e9cb9d4503f0332a65a82a845","2015-03-30 13:24:38+02:00","4.06: 'Seasons up to here are seen' now only marks episodes that have
+been aired
+"
+"1e22c8879b65e5a44fa52ec1db7aa9db833bf9cf","2015-04-02 16:34:56+02:00","4.07: Added feature to directly go to IMDb page of episode by tapping on
+the IMDb score in episode details.
+"
+"f7041e408e0c56d7bd3b6f4b2c4de1188f244d09","2015-04-02 20:37:02+02:00","4.07: Searches for IMDb are also redirected to the app if installed,
+otherwise the mobile IMDb site is used;
+Context menu item to view next episode's IMDb page;
+"
+"594c26fee326e14a5f34a67f15d4120fe960279b","2015-04-03 12:25:20+02:00","4.08: Added option to get back old swipe behavior (right-to-left for
+back in all screens but shows overview)
+"
+"e3685c5f4a7f7c2584aa06f21a23c96e81e6b3c5","2015-04-26 12:59:20+00:00","4.09: Catch IMDb rating instances of 'null'
+"
+"45c3eb07e30c6ee32d904b759a92040ce05b0c7a","2015-04-29 19:35:34+00:00","4.09: Fixed: found some shows without episode names in TheTVDb, which
+resulted in an empty show being added to the database.
+"
+"c9c583bc3f1043f7ecbabb7649f6052b3871029e","2015-04-29 22:48:48+00:00","4.09c: Fixed toggle between poster and fan art when no fan art
+available.
+"
+"9c2d4cf933dce987a22534e117bcab1d913d8ec1","2015-05-28 17:15:25+00:00","4.10: Fixed FC when clicking show/hide toggled items immediately after
+start-up
+"
+"d2c24854bcef3f8367be3d6d7a0aa5c064d59d5e","2015-05-30 17:20:36+00:00","4.11: Adding backup/restore function; About dialog to separate method;
+workaround for when no data from TheTVDb has been received for a show;
+removed useless thread booleans; removed useless getString()s; cleaned
+up some Toast declarations and dialog texts; toggleFilter() to private;
+thread names removed; increased retries for XMLParser;
+"
+"fe31c5eac9a8be4c08546d4564fd6c12d4078589","2015-05-31 10:48:55+00:00","4.12: Gesture recognition fix (when scrolling through list with diagonal
+gesture)
+"
+"d85e06f02e2cc98ce5dd3d5c8700768ffe3c077a","2015-05-31 12:43:39+00:00","4.2: Rebrand to 'DroidShows' (primarily for F-Droid); TAG and strings
+clean-up
+"
+"4f8ca178dcc990a6f3fadd336b3d9aac1bad7190","2015-05-31 14:58:02+02:00","Merge pull request #2 from ltGuillaume/droidshows
+
+4.2: Rebrand to 'DroidShows' (primarily for F-Droid); TAG and strings clean-up
+"
+"23eaa67f2243e97c36fd8b910bcf41d880a88464","2015-05-31 15:34:45+02:00","Create LICENSE.md
+"
+"fc08eb1a7939e4667505a34517c9446f6d12c582","2015-05-31 19:22:47+02:00","Update readme.md
+"
+"1fcb38da128b12e56a78f65c916e7277a0416eaa","2015-05-31 19:23:49+02:00","Rename LICENSE.md to license.md
+"
+"dc630a675decf3a5fcf387e9b16ef1eb5a62a111","2015-05-31 20:53:08+02:00","Update readme.md
+"
+"933996752ca5d1ceb1951eb5b5db7094656642ae","2015-05-31 20:53:26+02:00","Update readme.md
+"
+"59c80c6eab1153a4789acb5bd7b423940d9383aa","2015-05-31 20:54:05+02:00","Update readme.md
+"
+"c7dd70b6d86b463be3eefd4e7b40578422452e4b","2015-06-01 12:39:28+02:00","Update readme.md
+"
+"60a66d8f5eace280c503ae94537c516b1ca50108","2015-06-01 12:36:47+00:00","4.3: Minor renaming issue with database table: keeping table
+'droidseries' for compatibility reasons.
+"
+"41927185a090c39314f4b7cd6a4397a815a307bf","2015-06-01 23:02:29+00:00","4.3: Updated versioncode to reflect versionname (for F-Droid)
+"
+"a0a64a1d0531a58d74a5666dc8bc9edcfdcfa3ee","2015-06-02 17:54:33+00:00","4.3: ' †' to ' \u2020'
+"
+"48a40882ff38635fedde411649b23d94f5a19e37","2015-06-04 12:14:34+02:00","Update readme.md
+"
+"6ec79df76d42f5ff306d48f6479b2c1505637eb7","2015-06-05 15:18:14+00:00","4.4: '…' => '\u2026' + '†' => '\u2020'
+"
+"992dc3d63231536fc7f76234fe7a60a3fa14b42c","2015-06-07 13:43:22+00:00","4.4: don't show 'null' in First Aired
+"
+"8e8930c7140b0e3fb570d848a4bf82c642f278f9","2015-06-07 14:03:12+00:00","4.4: Hide Genres & First Aired fields in Show Details when empty
+"
+"1d3f3c21a9bc573718c4dbb26a27ab84996524cd","2015-06-08 16:56:37+00:00","4.5: Delete old thumbs and webview db on Restore; Minor code clean-up
+"
+"34c0b2d8bb4cb110507bf2cc88d2b475ad9da24b","2015-06-08 20:15:19+00:00","4.5: Minor issue with deleting old thumbs when folder did not exist yet.
+"
+"7ba203371a6f66660651af90f531c8646abddf32","2015-06-11 13:12:33+02:00","4.6: Just for F-Droid
+"
+"27d505d841b181b746792694cfcba3dae8450db1","2015-06-15 15:07:39+00:00","4.7: With all them Netflix series, one season at a time, sort unseen by number of unwatched aired episodes first, then by date, so complete new seasons pop up at the top of the list; sorting now only on UI level, not in queries.
+"
+"42daa0fa0df1dc274fca09683e3db31f7a5a6aa2","2015-06-17 01:35:59+02:00","Update readme.md
+"
+"628718bfdff7aebef731fa875a1ed9abda4d4ce5","2015-06-17 01:36:16+02:00","Update readme.md
+"
+"8a4920a16e2d2a54d8c3d289a7b30c98c85f5301","2015-06-21 13:45:45+00:00","4.8: Introduced fast scrolling with non-obtrusive custom thumb image; On resume, immediately check for new aired episodes IF the date has changed; Optimized swipe gesture detection; Keep modified timestamp of backup files from original; Redid dialog options with single method; Database closed again on destroy, hope it won't do stupid stuff anymore this time; Removed all obsolete imported code of Apache commons; Removed Calendar dependency; Removed commented/unused methods (TheTVDB.java).
+"
+"113dec638cde7073e04849b2881bbc2f090b49e8","2015-06-23 14:42:44+00:00","4.9: Kept forgetting to fix a parsing error for air dates in the old TheTVDB.java; Removed db.close() in onDestroy() again: small chance on FC's otherwise, not closing db can't hurt according to devs of Android, just some whining in logcat sometimes; Added db.close() to forced Exit option; no more APKs inside repository.
+"
+"a8845ad8cbe580fb88a5339d3420fe9de440eac0","2015-06-24 14:56:17+00:00","Added screenshot
+"
+"2c47ddfc03e62cd16532bc5d22217fcca63f31fb","2015-06-25 15:03:06+00:00","5.0: Fast Scroll thumb not so wide; Fast scroll initiated with >15 shows; No more accidental back gesture AND opening next screen; 'Hidden shows' renamed to 'Disabled shows'; AsyncInfo was called twice upon start and caused a FC when showing/hiding disabled shows when thread was still running; Proper use of isCancelled() in AsyncInfo.
+"
+"be3955b86b7efecc1474bfc1d5dc050ae6d8f71a","2015-06-25 17:34:47+00:00","Screenshot and BlackGlass style icon updated
+"
+"a6a4aabd359cb4a3e0264c16e50df9d61ceaa9c5","2015-06-28 00:01:01+00:00","5.1: Added a quick search (filter) to make finding shows in your list a lot faster; list item operations now correspond to the ArrayAdapter's items, not the source List series (necessary for filter); Fixed double triggering of gestures; Clear undo list on restoring a backup; Renamed and edited some strings; Fixed exception when no icon drawable found.
+"
+"6cbf597f74d50cab45589100be6f436e949d11cb","2015-06-29 17:39:02+00:00","5.1a: Made swipe detect a bit more sensitive; Added a bit of padding to the left of the Quick Search close button; Removed useless TheTVDb model classes.
+"
+"6938575aeb101f894ddbb8e978ced6ca71c631b2","2015-07-28 02:49:37+02:00","5.2: Show search field on activity restart when shows list is still
+filtered; Made swipe detect a bit more sensitive; Added a bit of padding
+to the left of the Quick Search close button; Removed useless TheTVDb
+model classes
+"
+"5f2adfac9af8cfc7f81228844c6b8d94c8fd1c0b","2015-07-28 11:28:46+02:00","5.3: Long-pressing show's cover will now jump to the next episode's info
+(click IMDb score or long-press show's list item to go to next episode's
+IMDb page); Removed some useless try/catch routines; don't need to
+extract the text in order to get EditText's character length (thx
+github.com/mdaniel); Added link to XDA topic in Options dialog
+"
+"8bbf0a35488790ce7504f675eeda1f979be6bf93","2015-08-15 20:30:42+00:00","5.4: Fixed restoring databases from original DroidSeries with database version 0.1.5-6 (thanks Shadouw).
+"
+"dfaae3f6705a9e54234f04a866b4281d60221afc","2015-08-24 18:12:15+02:00","5.5: Added option to change language for synopsis (= TheTVDb language
+code); Added popup list in show details to quickly search for actor on
+IMDb
+"
+"39a8da5e94ef3f1d0f2d37784faae16c5ee42f9a","2015-08-26 15:27:18+02:00","5.6: Fixed the absence of directors, writers and guest stars in episode
+info; Click on directors/writers/guest stars to find them on IMDb; Show
+toast message after single show was updated
+"
+"5701b8ff82185912e4429bacfb6ba0b481656f20","2015-09-04 16:55:12+02:00","5.7: Changed icon a bit; Long-press on cover could lead to empty 'next
+episode details' if no new episode or if no air date for the next
+episode was available; no trimming in overview/synopsis parsing might
+preserve spaces where necessary.
+"

@@ -1,0 +1,743 @@
+"commit id","commit date","commit message"
+"3866a321e6b22bca1aff86a3dc45c41087851c9a","2015-06-22 18:20:24-07:00","Add language selection button to search bar
+
+Currently, switching the app language requires accessing the preferences screen
+via the nav drawer and selecting the desired language from there.  That's
+inconvenient when one is in the middle of something, a search for instance.
+
+This patch puts a language selection button right on the search bar to make it
+more convenient to change the app language on the fly.
+
+Bug: T73136
+Change-Id: I1b638ffe8909307aac9e4355a7fceca1631643c7
+"
+"ebb37c665416c3fc79672e83b71e07e7692410b9","2015-06-30 23:47:15-06:00","Hygiene: add testAll* Gradle tasks
+
+Add testAll* Gradle tasks that execute both JVM JUnit and Android
+instrumentation tests per variant.
+
+Change-Id: I75e660991225b6a09c7a94d61f51bf124e357f76
+"
+"51c73f10f1d92adecc6c46716029d8e84efcd7db","2015-06-30 15:35:01-06:00","Add rawcontinue to FetchUserContribsTask
+
+Change-Id: I963496a11dd2613eec2f5d4e29f703b2af24d13b
+"
+"b02ec3f9d7af38023f931ca7d7c6cfca413ba324","2015-07-04 19:21:48-06:00","Hygiene: Remove useless parent layout in featured page widget
+
+Lint warning:
+../../res/layout/widget_featured_page.xml:25: This LinearLayout layout or its FrameLayout parent is useless; transfer the background attribute to the other view
+
+Change-Id: Idc1f5c0864b1340b11735d059d21dfc35923379f
+"
+"4f1b9cc9a0062b7888676f5275bbc3f2f70aeb57","2015-07-04 18:18:10-06:00","Hygiene: Stop exporting ContentProviders
+
+Lint flagged that. And we don't really need to export our content providers.
+
+Change-Id: I67b44e2c52479328fd5b173ce0cca53ee5a496cb
+"
+"05738da9ffc7499bc0d331d5070dcd2af1fd87ba","2015-07-04 18:34:47-06:00","Hygiene: Remove unused icons
+
+Lint warning: UnusedResources
+
+Change-Id: I276ee6f8e1dfc23484a47e4c66529a52fafc6064
+"
+"558b60dc27a9ca424d3a085a75ddfabff3048b9d","2015-07-06 13:56:37+00:00","Merge 'Hygiene: Remove unused icons'
+"
+"8fd94c58013c07fa0a4bebc696f3994b1ebd7167","2015-07-06 13:58:19+00:00","Merge 'Hygiene: Stop exporting ContentProviders'
+"
+"88cbc038c6c9e629dde1cfd9913e75cc5a367ca7","2015-07-06 10:52:53-04:00","Add length cutoff for text snippets sent over JS bridge
+
+Currently, if a user selects a very large text block and attempts to share it,
+the share action will fail and/or hang or crash the app.
+
+Example: Visit article 'Victor Rousseau Emanuel,' select all text, and attempt
+to share the selection.
+
+This patch truncates the selection sent over the JS bridge at 250 characters
+(which appears to be approximately the max that the share-a-fact card can display)
+in order to eliminate out-of-memory issues.
+
+Bug: T104527
+Change-Id: I371a8df1261ca945b3ed32e9eaacaabb74ae43f5
+"
+"06b6011b69d8f0c203eb9b1532622fa284e51938","2015-07-06 11:44:18-04:00","Don't display 'no results found' before running full text search
+
+Currently, we display the results of a prefix search (including 'no results found'
+in the case of an empty result list) before falling back to a full text search.
+If, as is frequently the case, the full text search yields results when the prefix
+search didn't, this results in 'no results found' flickering momentarily before
+results are displayed.
+
+This patch prevents this behavior by only calling displayResult() if the prefix
+search results are non-empty before falling back to full text search.
+
+Bug: T104647
+Change-Id: Iaa4a5fbe2b7bdb16f32869175d6a4259f67b17df
+"
+"c6d2d0fcecb47896064f8294207daf56cce8ce96","2015-07-06 19:51:49+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I90077479fd44f9074c2765fe8dab12b7cf71f197
+"
+"3ff67e9d7f397e1694244fe1674e99731c85d942","2015-07-02 22:08:55-04:00","Smooth gradients in Lead Image and Gallery.
+
+When viewed on top of especially light images, the gradients that we
+display on top of the Lead Image, as well as the Gallery images, can have
+a noticeably abrupt 'end', because these gradients are linear.
+
+This patch modifies the gradients to follow a cubic function, so that the
+gradient trails off more smoothly than a linear function.
+
+I've also removed the corresponding unused XML gradient drawables.
+
+Bug: T104808
+Change-Id: Ic66637ea649ea7945d9ffe688c5d03b20f47810d
+"
+"bc8498959d2455f7eb2138a9fb2ee95f0085268e","2015-07-01 15:55:29-06:00","Add tool tip UI components for onboarding
+
+- Integrate Onboarding v1.0.3 for tool tips.
+- Add Wikipedia app styling to tool tips.
+- Add (disabled) code to display tool tips.
+
+Bug: T89985
+Change-Id: I97e9565b4a5af4eaaa3176a59bf6c2ec4a98182e
+"
+"066b27334ac924ae342b54597cf8b61df42b820b","2015-07-05 22:39:26-06:00","Add tool tip onboarding state
+
+Bug: T89985
+Change-Id: I00ee82e858eb519c9d71579837e2e9332cbf4c71
+"
+"4a6ad2e25605362859b2c9a85f02e3b6122b2cdc","2015-07-05 22:41:16-06:00","Add tool tip onboarding A/B testing
+
+Bug: T89985
+Change-Id: I457fbad65f7db8a6985a992aa435eb6ad6ee3f8f
+"
+"a5197073b1480d0710832b529907a9c3acfa5821","2015-07-06 12:48:10-06:00","Add Share A Fact onboarding properties to funnel
+
+Report whether Share A Fact onboarding tips were enabled and which were
+shown to the user. This reporting is used to measure the success of the
+onboarding experience.
+
+Rather than create a new schema, we leverage the existing
+MobileWikiAppShareAFact schema with new properties for feature enabled,
+and tips shown.
+
+Logging verified on
+deployment-eventlogging02.eqiad.wmflabs:/var/log/eventlogging/all-events.log.
+
+Bug: T89989
+Change-Id: I3d1d5d49c5619f8d6b1b4014079bab3e8336b5ac
+"
+"63e0d2c4227cd4b99f40ac6e0bcfb194518a2965","2015-07-06 15:10:57-06:00","Add developer settings screen
+
+* Add secret developer settings UI.
+* Add EditTextAutoSummarizePreference and IntPreference.
+* Move ThemedActionBarActivity to activity subpackage.
+
+A developer settings screen is endlessly useful for changing otherwise
+internal state on the fly without the use of a debugger or coding. It
+also encourages dev culture.
+
+This patch exposes the preference state for various shared preferences
+used to A/B test layouts but further enhancements may yet be added.
+
+Change-Id: I914a7e6d8600177860e252a8490b3d6ea6691216
+"
+"bf953488187779a3fb619d8d3ae45e791e154e19","2015-07-06 23:57:57-06:00","Hygiene: Refactor settings code
+
+Remove a lot of duplicated code between SettingsFragment and SettingsActivityGB.
+
+This patch adds an abstraction layer over PreferenceActivity and PreferenceFragment,
+called PreferenceHostCompat. This is unfortunately needed since, as of this writing,
+there is no support-v4 variant of PreferenceFragment, or common base class for
+preference related functionality provided by the Android support libraries.
+
+Change-Id: If73081533326bcd5202b0e80a18567f7030c7201
+"
+"e17310e98bf322f0b1c0d26cc2da6ac6a3374472","2015-07-06 21:12:53-06:00","Hygiene: Replace search button layout with TextView and compound drawable
+
+Lint warning:
+../../res/layout/activity_page.xml:74: This tag and its children can be
+replaced by one <TextView/> and a compound drawable
+
+Change-Id: Ie3fc706168b8cde9aea21766290ed8aef7aa13b5
+"
+"30314e130fa173eef32c4cfa2f5d2d04f14c7db9","2015-07-07 14:09:57-04:00","Updated gallery funnel to support Source and TimeSpent.
+
+Factored out funnel logic that requires timing into a TimedFunnel base
+class.
+
+Also moved GalleryPageChangeListener outside the onCreate function, since
+the method length was starting to exceed 150 lines.
+
+Bug: T104625
+Change-Id: Id96e264b31c09084cf1e4958006091dc2e65b38d
+"
+"2abd1197e34d2a67686a7515c472a58dbc52e738","2015-07-06 21:59:19-04:00","Add link to open current page in external browser.
+
+...in the bottom content area.
+
+Bug: T104705
+Change-Id: I0b8800e582344e0bbdad627c8c0db99c5bd878d6
+"
+"4c5ddf4620194b83bdea0d26bdcfd3701b3bb640","2015-07-07 21:23:18+00:00","Merge 'Hygiene: Replace search button layout with TextView and compound drawable'
+"
+"e80c5828440dab29d317d740a07977a9fad5078c","2015-07-07 16:28:53-06:00","Hygiene: consolidate default funnel implementation
+
+- Add canonical app install ID and session token implementation to
+Funnel.
+- Use WikipediaApp.getPrimarySite() in Funnel when site is null.
+
+The Funnel class hierarchy is one of the app's biggest DRY offenders
+with many subclasses literally copying and pasting down to the
+comments. As we have a sprint dedicated to event logging, it's long
+overdue for refactoring.
+
+Static analysis performed:
+- Verify 'appInstallID' field with a value of
+WikipediaApp.getAppInstallID(). If field has a different name,
+override getAppInstallIDField(). If field has a different value,
+override getAppInstallID(). If field does not exist, override
+preprocessAppInstallID().
+- Verify 'sessionToken' field with a value of
+UUID.randomUUID().toString(). If field has a different name,
+override getSessionTokenField(). If field has a different value,
+override getSessionToken(). If field does not exist, override
+preprocessSessionToken().
+- Verify super.preprocessData(JSONObject) is called by Funnel
+subclasses.
+- Verify preprocessData(JSONObject, String, T) is called instead of
+handling JSONExceptions.
+- If Site is passed in the constructor, verify the super is invoked
+with it.
+- Verify all Funnel subclasses accounted for including TimedFunnel
+descendents.
+- Android Studio code inspection.
+
+Functional analysis performed:
+- All tests pass.
+- Verify event logging on deployment-eventlogging02.eqiad.wmflabs for
+each funnel except SessionFunnel which is unused.
+
+Change-Id: I7ac531207a38b9be9b97a2d5eb380658c9ef4418
+"
+"0563fd3ce72becc9f4e20480428790cf32d84847","2015-07-07 22:50:46-06:00","Don't show select and share tips on Gingerbread
+
+Gingerbread doesn't support long press in its WebView. Don't show
+impossible tips.
+
+Change-Id: If094a95f8ac726f4918ba127d137d410cf70a057
+"
+"b4a331e0dc10068d822a94582070dc3b1545fb97","2015-07-07 22:53:00-06:00","Hygiene: remove NonNull annotation on primitive
+
+Change-Id: I51402ecd6d806d43465df97c73914ee53c7ca317
+"
+"bcc804d2a1111c6895ea571b492f77e77c612e8f","2015-07-07 22:55:41-06:00","Add link preview and morelike to developer settings
+
+Change-Id: I3f7bd859c81dff5a83054215dcaa68960302d372
+"
+"5d3fe11e5b5fc844ec6395a6410ce3503543c44b","2015-07-08 08:26:01+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I23c2260117df504ec84c58ede27dd48747d29305
+"
+"dc319013e036a4c2b7e584adbf6940f9bbf30690","2015-07-08 14:37:13+00:00","Merge 'Hygiene: remove NonNull annotation on primitive'
+"
+"10f6021342283c958953e5a0312d0f5fd61e0143","2015-07-08 14:40:05+00:00","Merge 'Don't show select and share tips on Gingerbread'
+"
+"02804e9e386b917f1da7f1f17f788e0edc6d31d9","2015-07-08 14:44:05+00:00","Merge 'Add link preview and morelike to developer settings'
+"
+"1ce89c39e491b76364dae98321fab15bc7b28301","2015-06-23 09:22:53-04:00","Implement intent handler for Install Referrer.
+
+Bug: T103460
+Change-Id: Ia771977a5ce43dfb8320a98ffa60aa566fd58d3b
+"
+"2c0695a14149fd7028562ab81ccc45670145922e","2015-07-08 22:04:48+00:00","Merge 'Hygiene: consolidate default funnel implementation'
+"
+"7776e15857c7a918272651411fa8de61242248ac","2015-07-07 17:39:44-06:00","Add app language selection event logging
+
+For measuring the success of the new language-switching feature in the
+search bar as compared to the settings screen.
+
+Bug: T104804
+Change-Id: Ic09066ab2c0e06abf274a0d6ddce90bb902445a7
+"
+"be632b063d95c80bea370a42eec9b2234d6b273d","2015-07-07 22:47:04-06:00","Add developer settings to Gingerbread
+
+- Add developer setting support for Gingerbread devices.
+- Add single Fragment Activity components and apply pattern to settings
+and developer settings.
+- Fix invalidateOptionsMenu() crash bug in API 14 devices in
+SettingsFragment.
+- Move ActivityUtil to activity package.
+- Rename SettingsUI to SettingsPreferenceLoader.
+
+Developer settings Gingerbread support added in response to initial
+patch feedback.
+
+Change-Id: Icf9a33bac98c5e39d54553b87634a521b9b833f7
+"
+"5f39488c42460ddaad79b6570e686f6ff37a02fd","2015-07-08 15:58:45-06:00","Add tabbed browsing logging
+
+- Add TabFunnel for logging significant tab interactions.
+- Add TabsProviderListener.onEnterTabView() interface method.
+Instrument additional interface callbacks where appropriate.
+- Replace TabsProvider.TabsProviderListener null checks with null
+object pattern.
+- Set action mode bar as clickable instead of setting an empty click
+listener.
+- Make TabsProvider.ViewHolder class static.
+
+Bug: T104802
+Change-Id: Ie74325a3283275f20ed5a641f595700381ca7e6a
+"
+"8905412672b83aad1e637da5bf7ee8e27b5d5c4b","2015-07-07 16:24:50-04:00","Add TOC floating action button
+
+This patch adds a floating action button for TOC interaction (and removes the
+TOC button from the Toolbar).  This declutters the Toolbar and brings the app
+more in line with Material Design.
+
+Bug: T104654
+Change-Id: I4b2d2db0366e28d6cc66858a859d4ec8b3b54191
+"
+"2d29d4ac2c30b9cfc3a776ca16ae3c9b6dd24c2a","2015-07-09 21:27:54+00:00","Merge 'Add TOC floating action button'
+"
+"fad5e956311c93fd374fbbd09a7abcede72427ce","2015-07-09 15:58:23-04:00","Replace 'delete all searches' button on search bar with floating action button
+
+Does what it says on the tin
+
+Bug: T101726
+Change-Id: I9ba48eed5ffe2b4a60e58d1381cf9d21f77ca097
+"
+"5931ad2206f462ae5bad85a23fc5113b3357586d","2015-07-09 17:24:39-04:00","Improve sequencing of ToC and Text-highlight tooltips.
+
+Previously, if the ToC tutorial was shown to the user, then the Highlight
+tutorial wouldn't be shown until the app is destroyed and relaunched,
+which is not a predictable interval.
+
+This patch guarantees that the Highlight tutorial is shown after the ToC
+tutorial, with a minimum time interval of 1 minute between the two
+tutorials (so that the user isn't inundated).
+
+Change-Id: I621d179f47c0b606ab24facec06a654e70373c83
+"
+"17b4c23c97fb20d4617b05712f1a0619860ed55e","2015-07-09 17:05:51-04:00","Hygiene: refactor styles
+
+-Create ToolTip style inheriting from RtlAwareTextView
+-Use consistent Pascal casing in styles.xml
+-Add xml headers to styles files
+
+Change-Id: I3e48e91452b7d658191a52bceb88be4a795c24d3
+"
+"4d36d41ccb866980559443d52e770b34a54ebc0f","2015-06-29 22:10:10-04:00","Add custom View for displaying errors consistently.
+
+Added a ThrowableUtil class that provides functions to get well-formed
+error messages for any Throwable. These messages may be used in Toasts,
+SnackBars, custom Views, etc.
+
+Added a custom View that uses the above functions, and formats the
+messages in a consistent way. This custom View may be used anywhere that
+we want to display errors.
+
+As an example, hooked up the new functionality into the Search fragment.
+In subsequent patches, it should be used in additional places, too.
+
+Note: this is dependent on the corresponding patch in java-mwapi:
+https://gerrit.wikimedia.org/r/221813
+
+Bug: T102464
+Change-Id: Ie53a0c40309b043f8f59377032cbeb6d88e5e6ee
+"
+"1d00e88f8b4bed2db27506a479d121c30b593784","2015-07-09 17:39:36-06:00","Fix empty tab list crash bug
+
+I can't repro this bug but it seems like it might be possible to restore
+an empty tab list. This patch adds a blank tab in this event.
+
+Bug: T105390
+Change-Id: Ie75eaa04bc06441b0ba04f3d854a5f5c855f75cb
+"
+"41a97cd2945c277a087b2cc006a3db7be5c432bc","2015-07-09 18:12:21-06:00","Fix InstallReferrerFunnel reporting
+
+- Fix InstallReferrerFunnel and refactor for new Funnel functionality.
+
+The previous Funnel refactor and InstallRefererFunnel merged at about
+the same time and neither accounted for the other. This patch fixes
+install referrer event logging and uses the default site whose value is
+inconsequential.
+
+Tested with (dev flavor):
+adb shell am broadcast -a com.android.vending.INSTALL_REFERRER \
+-n org.wikipedia.dev/org.wikipedia.analytics.InstallReferrerReceiver \
+--es 'referrer' 'referrer_url=foo&campaign_id=bar&install_id=buzz'
+
+Change-Id: Idc4bda341d7440d93fb5daa36453047b21ba0e6e
+"
+"84a5494bba5ba3b0ba73444fc2b755db319937a5","2015-07-09 18:20:13-06:00","Hygiene: cut duplicate onOptionsItemSelected code
+
+Replace duplicate default Activity.onOptionsItemSelected() behavior with
+ActivityUtil implementation in PageActivity. Also, call super
+implementation instead of throwing an exception in some places.
+
+Change-Id: Ib546a9976c6e4dffeeb69cbfae04090d29b7435b
+"
+"a976a2b9bffe9f0cdc1b4ce791aa9c339b5a4fb7","2015-07-10 14:20:18+00:00","Merge 'Replace 'delete all searches' button on search bar with floating action button'
+"
+"f14374e95f47dbc7316e77c5eab6ca005b05a864","2015-07-10 14:20:37+00:00","Merge 'Hygiene: refactor styles'
+"
+"2966a873f74e85d4bb56bd8193ea6df7b00c4286","2015-07-10 14:31:41+00:00","Merge 'Fix InstallReferrerFunnel reporting'
+"
+"b67bfa6bb717b07c79674c3e846193b01072843f","2015-07-10 14:45:05+00:00","Merge 'Fix empty tab list crash bug'
+"
+"cb030da08a4f1326168df62ae744bdbe870d033f","2015-07-10 10:35:59-04:00","Fix possible crash when clicking on link preview.
+
+Can't reproduce, but it looks like it's possible for the dialog to be
+destroyed before the gesture handler delivers the touch event to us.
+
+Bug: T105487
+Change-Id: I0ab4c7e65572c0c8a62ce230043e788fe112f9cf
+"
+"6c4cadcbae21de6f7a4e4ef1b90f04772a2cc663","2015-07-10 14:58:39+00:00","Merge 'Hygiene: cut duplicate onOptionsItemSelected code'
+"
+"fb68988eb14fd6a6844b662c5f915f92008462cf","2015-07-10 15:14:43+00:00","Merge 'Fix possible crash when clicking on link preview.'
+"
+"5efd7e919f4fac72e91c985550881dc1471e0f55","2015-07-10 14:29:17-06:00","Share a fact onboarding design tweaks
+
+- Add one second delay to showing select text onboarding tip.
+- Position the select text tip at (70%, 88%).
+- Add Percent Support library. This causes a size increase of
+approximately 3.9 KiB. No known ProGuard requirements. Release builds
+appear to function proprerly.
+- Resize share tip social networks to 24dp wide and proportionally tall
+from source. All densities compressed with Pngcrush.
+- Vertically center share tip social network icons and add 16dp padding
+to the left and right of parent view.
+- Add new color scheme entry, liberal blue, #3366bb.
+- Recolor share tip and share icon highlight.
+
+Design has specified additional acceptance criteria detail.
+
+Bug: T89985
+Change-Id: I586461ed6435ab3e019a460c1db6d58fbc00c8a5
+"
+"2c5a3e442363fd421296ea2bc0c5381f20cb3f20","2015-07-10 16:22:03-04:00","Use TextInputLayout in Login and CreateAccount activities.
+
+Wrapped EditText's in the Login and CreateAccount activities in
+TextInputLayout, as well as the EditText in the Captcha entry view, and
+the edit preview summary.
+
+Also made PlainPasteEditText inherit from AppCompatEditText, to make sure
+that any styling that we apply to EditText in the future will be applied
+properly by AppCompat.
+
+Note: did *not* modify the EditText in the History and Saved Pages
+fragments, since they're being affected by a known bug in AppCompat:
+https://code.google.com/p/android/issues/detail?id=175228
+Once the above issue is fixed, we can finish those updates.
+
+Bug: T102549
+Change-Id: I72b1acd858c47ecb20dfc0b7b269c11aad5a99a9
+"
+"fc578ff16b8672f6fadf8f0da01d1897e3c3d5fc","2015-07-10 14:54:45-06:00","Remove nondefault strings
+
+Remove a couple translated strings to fix release builds.
+
+Change-Id: Ic647f7db8bedd4cec5a537a1a8ff2651d25d9d9e
+"
+"2048206641fe6ec665dddf6f9977dec837bb4b60","2015-07-08 13:31:15-04:00","Add article URL to share-as-text
+
+Share-a-fact used to share the article URL when no text was selected; this
+is no longer the case since we default to sharing the first paragraph.
+Since users commonly obtained the article URL this way, we need to put it
+back.
+
+This patch does that.
+
+Additionally, it removes a redundant snippet length check.
+
+Bug: T103951, T104704
+Change-Id: I287c7270973ddf0e1fd752fbcef1f18c0a6ba745
+"
+"9eab1fb5824914b6296e9c779f15a752a9042513","2015-07-06 19:57:07-06:00","Split Android and iOS edit pencil changes
+
+iOS doesn't want all our Android-specific stylings. This change allows
+for deviation in the edit pencil.
+
+Depends on MobileApp extension patch: https://gerrit.wikimedia.org/r/#/c/219421/
+
+Change-Id: I6325ac321fa38085db624f9d4f4c722ff2e32af6
+"
+"47d0b2b7390cbd7a28de4166ce345d9e142ff116","2015-07-14 16:27:21+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Idd881897a55d829aedb74aa54e6cdc07abc744db
+"
+"edfb7b5e52a73c867e5ff1845e62e73947bfb1f9","2015-07-09 16:35:37-06:00","Add daily stats funnel
+
+- Add event logging up to once a day on page load complete to report
+the app install lifetime in days.
+- Add LongPreference and supporting code and refactor IntPreference.
+- Fix default IntPreference max digit length for default radix.
+- Reorder methods in RecurringTask and refactor to use Prefs.
+
+It is valuable to know the distribution curve of the app installation
+retention. A new funnel is made available to report this information up
+to once a day. The funnel may later encompass additional reports at the
+same frequency.
+
+Bug: T103188
+Change-Id: I9dcce02fe19954381521d81cc8ec4378af51bf86
+"
+"b3d8b017012cd56e8829e9abd51ebf6708215891","2015-07-09 18:04:38-06:00","Hygiene: add missing @StringRes in PrefsIoUtil
+
+Add missing @StringRes annotations throughout PrefsIoUtil and shorten
+resource ID parameters to 'id'.
+
+Change-Id: I5b165e63493f6344d3ae7fc1f480dedc7ca52305
+"
+"e8bd25dd4950a643f527070567475f2ffd197646","2015-07-14 10:57:26-06:00","Hygiene: upgrade OkHttp to v2.4.0
+
+Change-Id: If44368a2510481ddf82ad1b9908bbb144d8156aa
+"
+"2d845a393ca25b4d6272dc1f8a48e93912a25c9b","2015-07-14 23:13:12-06:00","Hygiene: reorder dev settings & suppress bad warns
+
+- Add A/B feature testing section and reorder developer settings.
+- Ignore invalid style usage warnings in developer settings XML.
+
+Change-Id: I11549e298eafae1ae5bd5f745c1421ba5eb1c584
+"
+"c530fe2644944c4f632f892a09e1749f8ce1391c","2015-07-15 09:11:23-04:00","Fix appearance of Settings activity in dark mode.
+
+It had a white background, which made the white text invisible.
+
+Change-Id: Icaaa688105d8451f8a4a760a85483721ea9466ea
+"
+"f51df4485370ccefc970ad66fd1ee03af50abd02","2015-07-15 10:44:13-04:00","Fix issue where lead image becomes white box in dark mode.
+
+Bug: T104103
+Change-Id: I653b2a0277833b24edf6c02583e21c3ffdd83bf0
+"
+"7add63e3e1bd1e1073039ed7d32b2ae24b44b3d5","2015-07-15 09:27:01-04:00","Design tweaks for floating action buttons.
+
+- For the ToC button, added separate colors for light and dark mode.
+- For the delete-recent-searches button, made it 'mini'. The color looks
+fine in light and dark mode.
+
+Change-Id: I4a9fd307a90512fb45c6d9aa8d98ff36a031355b
+"
+"8f7624be4893e5cad4a7534fd1e19691378fcc6a","2015-07-15 10:09:57-04:00","Tweak appearance of tooltips.
+
+- Make the text-selection tooltip centered.
+- Add separate default color for tooltips in light and dark mode.
+- Refactored function to display a tooltip with the default color.
+
+Bug: T105820
+Change-Id: I81b78804d9d30831005d73e16fec9a5b2d410f65
+"
+"d95a65150f42393df6dc266a9d6165ed8b91ef0b","2015-07-15 09:43:29-04:00","Tweak layout of bottom content.
+
+- Moved 'open article in browser' link to the top.
+- Fixed showing of last-updated time (it was remaining hidden after having
+browsed the main page).
+- Fixed the padding between the items in the bottom content area.
+
+Change-Id: I5970908f1ccb42227392b5b5b4df781c5a16f608
+"
+"7caf71565284ec332f4897bfe258a911adc27cf0","2015-07-15 10:38:22-04:00","Tweak appearance of tab list.
+
+- Increase the height of tab list items.
+- Update the 'add tab' icon. (flattened 'plus' sign, instead of layered)
+
+Bug: T104263
+Change-Id: I23981b8032fcf3720bf3b9f9102c1da8c31658d5
+"
+"550c112d6a5b9f1e8ca96f937cee3cc166b5ae24","2015-07-13 18:39:45-04:00","Fix share-a-fact behavior where lead image license has no license info
+
+Currently, in the event license info is unavailable for the lead image, the
+share-a-fact card will default to showing the fair use icon.  This isn't the
+desired behavior.
+
+After this patch, share-a-fact will treat a situation in which no license info is
+available the same as when no lead image exists: the selected (or default) text will
+appear against a black background, and a creative commons license covering the card
+will be indicated.
+
+Bug: T105726
+Change-Id: I65760f1d6cd42cafeec4a4d706d26ba79150afbf
+"
+"2606f5bf5744fd43c200e4e2f9ca191e6a607226","2015-07-15 15:35:53-04:00","Use appcompat for AlertDialogs (thereby giving them Material style)
+
+Change-Id: Icb02835ffc1084b178d28537c1332b35c7f5e352
+"
+"ba923f0d6d5eaf72e7cf7e3aa077c98f043c85f0","2015-07-16 10:30:53-06:00","Hygiene: Fix instrumentation tests
+
+Change-Id: Ic9942b098aeceadc2023def4a70384855f7fd701
+"
+"36f465ab82f0e3cde4a855f26b95b449b1ddffe6","2015-07-16 19:10:03+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ib8b1a1f7852fb98667c26fa84819e44cf12fddbc
+"
+"57b28089d6629c6369c63c7982292708a62d6671","2015-07-15 14:28:18-05:00","Fix users erroneously receiving generic editing-related error messages.
+
+Changes in the API library mean that routine editing issues, such as blocks,
+are now handled by throwing ApiExceptions. This caused users to receive
+generic messages if they tried to edit while blocked, rather than a message
+that told them they're blocked.
+
+This patch updates the error handling by migrating checks for routine editing
+issues to the onCatch method to handle them appropriately. Also removes the
+EditingException class as it is no longer useful.
+
+Bug: T105930
+Change-Id: Id64ee4e34bd3ab168be84a88c8532b74db5e86ab
+"
+"ad0c58dfea0963f99f6cae121a05eb42298b266b","2015-07-16 17:31:03+00:00","Merge 'Fix users erroneously receiving generic editing-related error messages.'
+"
+"5e349c6767b43cd062d2302e74dd098f1a166a7a","2015-07-16 19:04:51+00:00","Merge 'Fix share-a-fact behavior where lead image license has no license info'
+"
+"6637c5f2def55db5fc44b1d3b291f6f1eee0d9cf","2015-07-16 19:14:25+00:00","Merge 'Hygiene: Fix instrumentation tests'
+"
+"654cf2264d4ef9c74a13d3323ae854cd763433b5","2015-07-16 12:09:07-04:00","Fix width of share-a-fact dialog contents.
+
+Here's the problem:
+The width of the 'share as...' buttons is dictated by the width of the
+preview image. The issue is that the preview image has a hard-coded width
+in absolute pixels (not dp). Therefore, the image might appear larger on a
+hdpi screen, or smaller on a xxhdpi screen.  When it appears smaller, it
+causes the buttons to shrink, and thereby truncate the text of the
+buttons, giving the user the impression that the buttons are identical.
+
+This patch fixes the width and height of the ImageView used for displaying
+the preview bitmap, so that it's displayed consistently on all display
+densities, and makes the buttons sufficiently wide, as well.
+
+Bug: T99966
+Change-Id: Ibdecbfb8bccc31108c9fb8f3879ce6fb59985dca
+"
+"8d836fd0dffe4116064dc7b0216ddb5db883c859","2015-07-16 13:32:17-04:00","Fix editing tests.
+
+Change-Id: I73ca53eeab046e7ddda3d3032813c1e9a0d06f7b
+"
+"c00b779d32e8246504d69e046ca29259b710d397","2015-07-16 14:51:38-06:00","Hygiene: Add more logging for SuggestionsTask
+
+The SuggestionsTaskTests still seem quite flaky.
+When I ran them in the debugger they always worked but
+not when running the whole test suite normally.
+Got only 2 out of expected 3 suggestions.
+I'm adding some logging so we can see what the results were.
+
+Change-Id: I33339c69881a4957b4bc4a68122add0cf18a5e77
+"
+"3170eb9b814f6e3e37404392df6931e45ac2bb3b","2015-07-16 14:21:10-05:00","Standardise 'Could not reach the network' message
+
+Right now, the user gets different kinds of notifications for network errors.
+This patch takes steps towards standardising this by making the 'Random'
+button in the left nav use the standardised network error.
+
+Bug: T74371
+Change-Id: I9bf2af52d455bd9c2834827b0a07fdf9313ccd37
+"
+"826c28221e983adb2307bf02baaf21d35b72e222","2015-07-17 15:38:26+00:00","Merge 'Standardise 'Could not reach the network' message'
+"
+"23c3bc4b91e90045d2efef23cfee421b82e7f5a5","2015-07-08 22:23:38-06:00","Add fallback json Gradle project
+
+* Use java-mwapi Gradle project when available. Otherwise, use OSSHR
+module dependency.
+* Require JDK7 compilation.
+
+The Wikipedia Android app has transitioned from Maven to Gradle and
+it's time for the json library to do the same. It has become too
+burdensome to maintain a Maven repo and develop across multiple
+projects. This patch replaces the Maven Gradle module dependency with a
+Gradle Java project dependency, when present.
+
+Json library dependency patch: https://gerrit.wikimedia.org/r/#/c/223718/
+
+Bug: T105235, T103051
+Change-Id: I1ea910bfb1200f37980c46b2d8ae8b51b4cfed90
+"
+"ad2db53bf5d89381814b521e1bd1a979cc807982","2015-07-15 14:06:29-06:00","Add test directory to Checkstyle
+
+- Add test directory to sources checked.
+- Fix violations in test.
+- Move suppressions file to config.
+
+Change-Id: I4cc43f7b38f902e357826fcb8bb686ea13b83f2e
+"
+"3aa0032bbbe0e629db65229ffe3c51ea0a22f9d6","2015-07-17 10:37:22-06:00","Hygiene: remove some unused images
+
+Change-Id: I9dcea09cc7e523592db75011dfe55da30c08d60f
+"
+"7c3907b3e8deeacfe9cb0e1b9e1d9dc27cb9e44b","2015-07-17 10:46:44-06:00","Hygiene: upgrade Gradle to v2.5
+
+Change-Id: I04a78380eda6c12f484d09d9eb5e6699cc3303ec
+"
+"c98bb634e85614c78cbde0a1b682d95cf94a2ecc","2015-07-17 17:09:22+00:00","Merge 'Hygiene: remove some unused images'
+"
+"7a6dded90dcec984a043f14b2f487933e3db4d59","2015-07-17 11:27:34-06:00","Fix build script path conversion
+
+* Fix build script path conversion bugs:
+** Check module hierarchy length before indexing.
+** Escape the file separator string.
+
+Change-Id: I4fa03f09ae258c18c255c45897e84b4f72dd39b8
+"
+"7f5faa092f73c8678d5f5cc04369bf0a8aee9cd5","2015-07-17 22:49:24+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I7779de063ff4ebd380e48b123f004a38342b4e60
+"
+"0f77368cca8ac2d3b2626c866f80235a7bc1f5a0","2015-07-17 11:21:35-04:00","Fix edit pencil position when switching from RTL to LTR.
+
+The content-rtl and content-ltr classes weren't being cleared prior to
+setting the new class, causing the WebView to become confused.
+
+Also, removed unnecessary call to setupDirectionality in our
+PageLoadStrategy, since it already gets called in
+loadPageOnWebViewReady().
+
+Bug: T102046
+Change-Id: I3d5c5e818fc304e94ef9dda4dcdf224cb29a9c98
+"
+"df429e452185327bdc554218355a014f9d4c71c4","2015-07-17 21:06:29+00:00","Merge 'Fix build script path conversion'
+"
+"866528952a1a3c46c35fe490d12f2c2e8221ea7a","2015-07-17 21:07:56+00:00","Merge 'Fix edit pencil position when switching from RTL to LTR.'
+"
+"c43eff51ed53c29327bd26c30b9bf16d02401efd","2015-07-17 14:43:34-06:00","Upgrade java-mwapi to v1.3.2
+
+Upgrade java-mwapi to version 1.3.2. This new version should be
+functionally identical to the previous. This upgrade ensures the latest
+changes to the build scripts cause no harm.
+
+Change-Id: I7348a2908d590471f1872c8eaaed33a0e630372e
+"
+"b5e2421fb16f5de842b0515690f82a66022a5a86","2015-07-13 16:40:09-06:00","Share A Fact onboarding design tweaks
+
+- Update Share A Fact onboaring tip icons.
+- Remove share icon onboarding animation.
+
+SVGs supplied by design, recut at 48px square and centered.
+
+Bug: T89985
+Change-Id: Ic723ed6e94f234553e14d8544eaacc07076cd79c
+"
+"a67d52fd0543830afb4734f0403953525aaca93e","2015-07-13 16:57:58-04:00","Refine design of search bar language selection button
+
+Adjust size, make background solid grey, enlarge clickable area.
+
+Bug: T73136
+Change-Id: Ic016c5d67130d1636a5948df0bfc85709c4aef70
+"
+"e50a018b3364445bd2399a2ec1828dd3bdd14e93","2015-07-18 23:17:31-04:00","Fix scrolling of floating ToC button in Gingerbread.
+
+It seems we were anchoring on the wrong view inside the CoordinatorLayout.
+Also updated to the latest Appcompat library.
+
+Bug: T106197
+Change-Id: Ia7678a544c38a778d96fb29ea3d277abaf39a76f
+"
+"8f6ba97197d1b80639931ff4265a7f67c2ca2052","2015-07-20 19:19:24+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I51f2d772dcf08d8e695266a673d6916216d09f82
+"
+"017544e8ac13a5a6f05dbe06089b41dd3b2f4ecc","2015-07-20 17:47:18+00:00","Merge 'Refine design of search bar language selection button'
+"
+"d3f2ebf5e9d88af27a119dae940a72fe67d4f8fa","2015-07-17 15:48:55-06:00","Bump versionCode
+
+Change-Id: I57738a25e7c777a8bbe030c92df014c69c8e092a
+"

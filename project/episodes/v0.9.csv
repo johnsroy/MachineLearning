@@ -1,0 +1,125 @@
+"commit id","commit date","commit message"
+"ed473e5936e6feeb375ef4a13f96cf2552d58690","2014-12-20 22:07:31+01:00","Make progress bar same color as checkboxes.
+"
+"db7be6147970e2e049a77db2efcf78096590e7ed","2014-12-21 13:56:31+00:00","Merge pull request #25 from LumenTeun/master
+
+Make progress bar same color as checkboxes.
+"
+"bd420c99e0a3bcd1a892de77a1c634b0e904e7d8","2014-12-23 01:11:50+00:00","add fanart and poster path columns to shows table
+"
+"ce6ba3bb1624c89e22ac189350adab66012f3367","2014-12-23 01:24:31+00:00","parse and store fanart and poster paths in db
+
+when show is added or updated
+"
+"7f105749c1e226a9d3bb36509d35b194d61c7413","2015-01-03 16:26:59+00:00","Add custom theme
+
+Still using basically the same colours as before, but explicitly with a
+custom theme.
+"
+"c155fcb53c454c74b50221433a419578554c2248","2015-01-03 17:37:52+00:00","Switch ShowActivity to Toolbar and SlidingTabs
+
+Use the new Toolbar widget instead of the action bar, and tabs from the
+library PagerSlidingTabStrip instead of action bar tabs. Make these both
+the same colour with no border between them.
+"
+"71c6a6ff74709ad49a746e66058e76dfcd7d3677","2015-01-04 11:30:18+00:00","Inherit SeasonsListFragment directly from Fragment
+
+Rather than ListFragment. Manually take care of creating the list.
+"
+"affaf0630aa622e636705b1e91927eb54ec38228","2015-01-04 12:35:34+00:00","Make ShowActivity's pager wrap the child's height
+
+Make the ViewPager in ShowActivity match the height of the current
+child.
+"
+"9e9ad4f4c22ac5f37006c3f4507cf004b2c605fa","2015-01-04 11:33:25+00:00","wrap ShowActivity in a ScrollView
+"
+"b40debaa872fba98161bfe62ce3623522a48919f","2015-01-04 16:23:25+00:00","Expand the seasons list to wrap all its items
+
+Make the ListView in SeasonsListFragment tall enough to contain all of
+its children without having to scroll. This means the ScrollView in
+ShowActivity will be used rather than the ListView scrolling.
+"
+"d50ab160c0bd98b0c6993e13f21b680602749199","2015-01-04 16:43:02+00:00","Display header image at top of ShowActivity
+
+Use the 'fanart' picture from the tvdb.
+"
+"46d52636daf0565d87539e2bef7788da810b0998","2015-01-04 16:58:49+00:00","Use ObservableScrollView in ShowActivity
+
+Replace the existing ScrollView with an ObservableScrollView. This
+provides callbacks for when the view is scrolled.
+"
+"a7442531b53ba5fd99937febb41bc8d2d7bb11f4","2015-01-04 19:39:30+00:00","Manually position elements in ShowActivity
+
+By default overlay the toolbar on top of the header image. Place the tab
+strip underneath the header image and the pager underneath the tab
+strip.
+
+Listen to scroll events from the scroll view and move the items. Keep
+the toolbar stuck to the top. Scroll the tab strip until it reaches the
+toolbar then make it stay there. Keep the pager scrolling underneath the
+tab strip and toolbar.
+"
+"08adc8b6a430a8c660f9355f645149a1d7cef84c","2015-01-04 20:17:20+00:00","Adjust toolbar transparency based on scroll
+
+Make toolbar transparent until the tab strip reaches it, and then opaque
+from that point onwards.
+"
+"2375081254e417c98a98a87baed54f49639f98d6","2015-01-04 20:43:17+00:00","display gradient behind ShowActivity's toolbar
+
+to provide contrast so that when the toolbar is transparent the
+toolbar's white buttons are visible over a white header image.
+"
+"8422f157e6b59a8b6137b3da9f15f9dc4b807e41","2015-01-04 21:38:52+00:00","Give ShowActivity's pager a sensible min height
+
+Give the pager a minimum height so that the header image can be
+completely scrolled off of the screen even if the contents of the pager
+is small.
+"
+"5c4dd7b6a354c422e362c6515ded31be4283b3bf","2015-01-04 21:42:44+00:00","Give ShowActivity primary color as its background
+
+The pager has an opaque background of the regular windowBackground, so
+this makes only a difference before the header image has loaded, and
+when the gaps between views are visible during overscroll. Having the
+primary colour in those gaps makes them not be noticed.
+"
+"fd965fd0b5536cc0421f6b4b9a22de50223292e6","2015-01-05 22:24:24+00:00","Add title strip to ShowActivity
+
+Add a text view with the primary colour as its background colour
+directly above the tab strip and below the header image. The tab strip
+also has the primary colour as its background so they form a single
+area. Display the title of the current show in this text view in fairly
+large white text.
+
+Remove the title from the toolbar as it is no longer required. Make the
+tabs no longer expand to the entire width as it now looks better when
+they don't.
+"
+"f77f4e393c785898cc85225b857060793a1bb186","2015-01-09 23:35:46+00:00","Merge branch 'show-activity-header-image'
+
+Adds an image to the top of ShowActivity.
+"
+"92b77b39e015acc2c3379d52f31ad2809dffdb5a","2015-01-15 00:23:18+00:00","Use purple and teal theme
+
+The shade of purple isn't from the material palette, but I prefer it to
+the purple's that are in the palette.
+"
+"f8924a7334f30ab685eaaca4edddf93b0827084d","2015-01-17 00:33:51+00:00","Reduce show title text size
+"
+"2bdefa22dda19b3e244916cc9314f456750bac43","2015-01-20 23:48:37+00:00","Switch back to grey theme
+
+We get enough colour from the images we use.
+"
+"9c516ba29e7fa1193b8060faa3845542834eaf5b","2015-02-12 22:07:36+00:00","scroll ShowActivity toolbar with title and tabs
+
+instead of having the toolbar at the top of the activity and
+transparent, group it with the show title and tab strip. scroll it over
+the header image, stopping when it reaches the top of the activity.
+
+this means it is always opaque rather than being transparent then
+turning opaque when scrolled up.
+
+this is what the session activity in the google IO 2014 app does. (when
+compiled from recent source, not in the play store version.)
+"
+"6d70554fe2cabab908bc0dad5697475845bcb350","2015-02-26 20:30:23+00:00","bump version to 0.9
+"

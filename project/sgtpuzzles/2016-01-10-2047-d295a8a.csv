@@ -1,0 +1,775 @@
+"commit id","commit date","commit message"
+"ccfb584a1de86631a0fbb9cbd9dec8f2f740c98e","2015-09-11 06:04:06+01:00","Bump build tools version.
+"
+"ba9e0d586ec8d2662d7ff6065797c6ef327623a7","2015-09-18 12:20:32+01:00","Fix OS X build failure due to a deprecated method.
+
+Apple upgraded me to Xcode 7 yesterday, and now [NSString cString]
+gives a deprecation warning, which -Werror turns into a full-on build
+failure. Explicitly specify an encoding.
+
+(I mention in a comment that there's an alternative piece of API that
+I possibly ought to be using instead, but until I make a concrete
+decision about where my backwards compatibility threshold is, I'll
+leave it as it is for the moment.)
+"
+"89db707bb24317d6a760e67c2eb5297b0c8391eb","2015-09-24 00:26:57+01:00","#327: add first test, and new URI syntax: sgtpuzzles:net:1x2:42
+
+(or you can stop at sgtpuzzles:net:1x2)
+"
+"50fe30b6fe93d8cfb2590930c1b2da78d033cd01","2015-09-26 16:52:55+01:00","#327: Add first unit test (i.e. local JVM).
+"
+"d952c79656846881ae04957edb651883b87c829d","2015-09-26 16:57:45+01:00","#327: Rename to match what Studio expects.
+"
+"b003a2eea6aee1751a3f8e1de0a3dc1dc93f9dfc","2015-09-26 17:35:16+01:00","Remove the whine about a hopefully extinct broken NDK.
+"
+"3e03338b7e7bad1f7db06695d44439dcfbdef6a6","2015-09-26 18:54:15+01:00","At minimum size (3x3) Galaxies can generate a pre-solved single dot game.
+
+You have to add and remove a line to get the victory flash which is a bit weird, so just prevent this.
+"
+"f9027226a05b6e2fc49d0256262edc6cc3a8c569","2015-09-26 18:54:15+01:00","Enforce more than one dot in Galaxies puzzles.
+
+At minimum size (3x3) Galaxies can generate a pre-solved single dot
+game.
+
+You have to add and remove a line to get the victory flash which is a
+bit weird, so just prevent this.
+"
+"99bd3f8579c7d780e82d7a89794483a6f07bbee5","2015-09-26 20:14:04+01:00","Merge branch 'upstream'
+"
+"54e54fdbe285f64ac47199903a78084935d1b893","2015-09-27 00:19:00+01:00","Start testing completion of each game; fix #333 (missing completion dialog).
+"
+"321c6b3823d9a80c55bf225f7ccd7b0fdcd93fa3","2015-09-27 18:48:34+01:00","Extend gameplay test to all but 3 of the games.
+"
+"1b1aa8f6a85efc207245f23b5542d64dcc6ed793","2015-09-27 19:06:16+01:00","Complete this test. Really it should be parameterised...
+"
+"736330b94077ba91b1c367f169ff51c2e186dd45","2015-09-27 20:16:34+01:00","Parameterise the completion test.
+"
+"87ffa8310ee15ffcdaec9b69f17b2083da19e17b","2015-09-28 21:54:35+01:00","Test Untangle; fix reporting of 'missing test'.
+"
+"3bf778f8928b3e32a9bbfaeac31ec899ab681253","2015-10-02 09:02:29+01:00","Fix failure on loopy: add missing edge (initial arrow keys state matters).
+"
+"8b491946ef0d7f34b310faf5bf484f5a419887a2","2015-10-03 12:27:47+01:00","Don't refresh backing store on a no-op configure event.
+
+Sometimes, we can get a 'configure_area' event telling us that the
+drawing area has changed size to the same size it already was. This
+can happen when we change puzzle presets in a way that doesn't change
+the size, and also sometimes seems to happen as a side effect of
+changing the text in the status line.
+
+In that situation, it's a waste of effort - and can cause visible
+on-screen flicker - to throw away the window's backing image and
+pixmap and regenerate them from scratch. So now we detect a non-resize
+and avoid doing all that.
+
+The only thing we retain unconditionally in configure_area is the
+midend_force_redraw, because that's the place where a puzzle redraw is
+forced when changing presets or loading a new game.
+"
+"7242dcc4effe85a116eb03c1f708719b63d14076","2015-10-03 12:27:49+01:00","Fix packing direction of config boxes.
+
+We were packing the GtkTable into the dialog's content area using
+gtk_box_pack_end, which had the slightly silly effect that resizing
+the config box vertically would keep all the controls aligned to the
+_bottom_ rather than the top.
+"
+"238cd9dc83a5d4ff7031503dfe4cc247f5de7db9","2015-10-03 12:27:51+01:00","GTK 3 prep: use accessors instead of direct field access.
+
+We now build cleanly with -DGSEAL_ENABLE.
+"
+"0dc2fd1ea3f3173964df9171e09b11ef13b7a2e3","2015-10-03 12:27:54+01:00","GTK 3 prep: use GTK_KEY_* constants.
+"
+"71c7bcd9812847f347c4cb393ae2be39806d813c","2015-10-03 12:27:56+01:00","GTK 3 prep: use the glib names for base object types.
+"
+"2c1b00086d80987e830e3de5c9e9b334845951a6","2015-10-03 12:27:58+01:00","GTK 3 prep: use GtkComboBox for drop-down lists.
+
+The previous GtkOptionMenu was long since deprecated.
+"
+"07906104a2a67221913aebc5f0a5c1e00f3869d9","2015-10-03 12:28:00+01:00","GTK 3 prep: use gtk_radio_menu_item_get_group().
+
+Replaces the previous deprecated spelling. We now build cleanly with
+-DGTK_DISABLE_DEPRECATED.
+"
+"fd7882fb45829e38d2aa2f44169ae657a229ccec","2015-10-03 12:28:02+01:00","GTK 3 prep: make the server-side backing pixmap optional.
+
+When GDK_DISABLE_DEPRECATED is defined, we now don't have fe->pixmap;
+instead we just maintain our client-side window contents in fe->image,
+and draw from there directly to the window in the expose handler.
+"
+"3d0d54e3b407619fa859bf35b115d473afee63db","2015-10-03 12:28:04+01:00","GTK 3 prep: use GTK instead of GDK window-icon functions.
+
+We now build cleanly with -DGDK_DISABLE_DEPRECATED.
+"
+"64d0a70e13533e257e60ea71045a155a057ac61a","2015-10-03 12:28:06+01:00","GTK 3 prep: use g_timeout_add, not gtk_timeout_add.
+"
+"62c6312982c297ddb0d5c1633e5db678a0d75678","2015-10-03 12:28:09+01:00","GTK 3 port: use GtkGrid as an alternative to GtkTable.
+
+This also involves setting some 'hexpand' properties on the widgets
+contained in the GtkGrid, to achieve effects which GtkTable did by
+setting flags in gtk_table_attach.
+"
+"37232c3c304d07fcfb8d8f512c0359a7f23fea82","2015-10-03 12:28:11+01:00","GTK 3 port: provide a 'draw' handler.
+
+This is what GTK 3 uses in place of 'expose_event'. Also I've arranged
+here for my internal USE_CAIRO_WITHOUT_PIXMAP setting to be enabled in
+GTK3, as well as in GTK2 with deprecated functions disabled.
+"
+"4e1cc6570180381866735d7e23223f4ac4a68b08","2015-10-03 12:28:13+01:00","GTK 3 port: condition out the complicated window resize code.
+
+In GTK 2, we had a big pile of horrible code to deal with the fact
+that it's very hard to open a window in such a way as to make it easy
+to resize smaller as well as bigger.
+
+Essentially, we'd open the window with the drawing area's minimum size
+request set to the desired _initial_ window size; then we'd wait until
+GTK had finished creating other window components (menu bar, status
+line) and the window's size allocation had settled down, and finally
+reduce the size request to the real minimum size so that now the
+window was resizable in both directions. This also involved some
+deliberate checking of the Ubuntu Unity GTK extension which steals the
+menu bar and put it elsewhere (see commit 8f8333a35), to avoid us
+waiting forever for a menu bar that wasn't going to show up.
+
+But in GTK3, this has all become actually sensible! All we now have to
+do is to set the window's geometry hints to indicate the drawing area
+itself as the base widget (probably a good plan anyway), and then we
+can set the initial size using gtk_window_set_default_geometry() and
+resize it later using gtk_window_resize_to_geometry(). So now we can
+completely condition out all of the previous horrors, and consider
+them to be legacy GTK2 compatibility code only. Phew.
+"
+"d6210656b8ee6e182a9f879a4089d7e6f3fdf570","2015-10-03 12:28:15+01:00","GTK 3 port: stop getting default bg colour from the window style.
+
+GTK3 window styles don't reliably provide one, so we have to fall back
+to just making one up.
+"
+"88b38f51689fa363f665bd136242938d9107b484","2015-10-03 12:28:17+01:00","GTK 3 port: use GdkRGBA for the window background colour.
+
+Suits our internal API better, anyway, with RGB components being
+floats ranging from 0 to 1.
+"
+"2fb189cc36166f3856651e6cae6de828b4be186b","2015-10-03 12:28:19+01:00","GTK 3 port: be prepared not to use GtkStock.
+
+GTK 3 has deprecated it in favour of just making you specify fixed
+strings as button labels, which seems like a step backwards to me but
+there we go.
+"
+"90b73ebcb7f0d2c834e00ba0ad74084ad5a5695b","2015-10-03 12:28:21+01:00","GTK 3 port: use GtkBox directly, not GtkHBox and GtkVBox.
+
+I've done this by #defining the old names in terms of the new ones,
+because the old ones are still more concise!
+"
+"1b2e4d525f5e5686afdbec09c7b796ff546c6357","2015-10-03 12:28:24+01:00","GTK 3 port: change API functions for widget sizing.
+
+set_usize is deprecated, and get_preferred_size is the GTK 3 thing we
+should use in place of size_request.
+"
+"41cc7c868f72e3131a3d45e38994e9d473824bd1","2015-10-03 12:28:26+01:00","GTK 3 port: don't turn off drawing area double buffering.
+
+I think I did this in GTK2 on the basis that our server-side cache
+pixmap was double-buffering enough for us - any puzzle which erased a
+big area with a background rectangle and then redrew over the top of
+it would do so only on the off-screen pixmap, and the updates would
+only be copied to the visible window after it was all done.
+
+In GTK3, I don't think there's any need - this is all the usual way
+things are done anyway, as far as I can see. So I've turned this call
+back off, at least until I hear of a reason why I need it again.
+"
+"9df80d7587f9d0060ab74d3cb862e438a9f79291","2015-10-03 12:28:28+01:00","GTK 3 port: arrange configure.ac support for GTK 2/3 detection.
+
+GTK 3 is the default, falling back to GTK 2 if 3 isn't available; you
+can also say --with-gtk=2 to force GTK 2.
+"
+"c0308c9319d40438db668e67fb944e08062148c7","2015-10-03 13:15:59+01:00","Add '-set colorspace RGB' to some icon convert commands.
+
+Its absence was breaking the icon build on Ubuntu 14.04, because you
+ask convert to map an image into a specific 16-colour palette, and it
+does so and _then_ nonconsensually maps those colours in turn through
+a colourspace transformation you didn't ask for, causing icon.pl to
+fail an assertion when it finds an RGB value not in the palette.
+"
+"4fb9776d838402a30d7e056c6d72d46e9ca9fbaa","2015-09-21 15:51:06+02:00","Fix a typo in the comments of Pearl.
+
+Each stone can have 2 lines radiating from its centre, not 3.
+"
+"6c71b459a6af362e242ff46bef85471a2973d09f","2015-09-21 15:48:29+02:00","Include an example of Range's text_format in the comments.
+"
+"c4198948a8019903b250fec426d973e8f32abacd","2015-09-21 16:26:53+02:00","Fix typo in undo key handling.
+
+Now we can undo with both 'u' and 'U', symmetrically with redoing with
+both 'r' and 'R'.
+"
+"1380b55b5b9b5a841f3375f6c3f614105f1b6884","2015-09-21 15:55:53+02:00","Fix segfault in Range's game_text_format.
+
+Occurred on Nx1 puzzles, etc.
+"
+"9b1b7e0f3a6858da2bdd3d855a1a9c2801122f30","2015-09-21 16:24:10+02:00","Don't overallocate colour memory in Loopy.
+"
+"87b2758b9c5459eae825d0642eb4c057e8c5c6fd","2015-09-21 16:21:48+02:00","Fix a memory leak in Range's find_errors.
+
+Only occurred in invalid instances, such as 3x1:1b when you put a
+black in the middle square.
+"
+"dc688b1f238fd7c343426b76d120e7ab40aa9668","2015-09-21 16:41:03+02:00","Unequal: stop ignoring keys 'h' and 'm' while cursor active.
+
+At least, so long as 'h' and 'm' are not 'numbers'.
+"
+"02434a6ed1373e352f5449f0627594aeed67a231","2015-09-21 16:49:56+02:00","Add game_text_format to Dominosa.
+"
+"7543082f26045413df059866cb2e4bf8fc891143","2015-09-21 16:53:20+02:00","Add game_text_format to Pearl.
+"
+"e4d5b11bd8e76f94506b2b76c02167a997bb1750","2015-09-21 16:54:38+02:00","Add game_text_format to Flip.
+"
+"d0f88aafa4b641904735c3e20485e66be6c77cb4","2015-09-21 16:57:14+02:00","Add game_text_format to Inertia.
+"
+"051ab1701ee8671e7754951c1f170c609c9b67a8","2015-09-21 17:02:47+02:00","Add game_text_format to Pattern.
+"
+"9e1a7d87cd30e1f3fde7eedf1439b48ce1610009","2015-09-21 17:14:55+02:00","Add game_text_format to Tents.
+
+Replaces an inactive stub implementation.
+"
+"7478275c8b46c24eb457dd3458ace3a31263295b","2015-09-21 17:33:02+02:00","Pattern: color multiple squares with Ctrl- or Shift-cursor keys.
+"
+"d5f7c4f871200f9808e284408e28defaa8afbcd3","2015-09-21 17:39:47+02:00","Range: add pencil marks to squares by Shift-cursor keys.
+"
+"c469bd285cc4f482f49203c16169151d2d869d4a","2015-09-21 17:41:10+02:00","Filling: enable keyboard-driven cursor dragging mode.
+"
+"e59f820383c9941640d04d7b23e5d964f7ad6ff6","2015-09-21 17:44:50+02:00","Rectangles: cancel keyboard drag with Escape.
+"
+"ebf31f52b0dae356c7ad515b3e2e66672bd69a4e","2015-09-21 18:22:34+02:00","Slant: hide keyboard cursor when using the mouse.
+"
+"11a394f69b43ce36e4b0119699a4ae9461d252ee","2015-09-21 18:34:53+02:00","Add more keyboard controls to Slant.
+"
+"8e35087e093876cd12b1a5800c16a068473e9bff","2015-09-22 11:18:31+02:00","Refactor modifier handling in Pearl's cursor code.
+"
+"d64a79e2b83f0bfe98c74763a1e42daeb0b3d952","2015-09-22 11:19:53+02:00","Refactor Pearl's mark_in_direction, and invert a parameter.
+"
+"bf8ff09a84c129f0e3e66e18df61912871d4b6e3","2015-09-22 11:37:17+02:00","Change Pearl's cursor logic.
+
+Keyboard dragging while holding Control now moves the cursor to the
+target square. Shift-Control-arrowkey performs the previous behavior
+of Control-arrowkey.
+"
+"ea8da331e361c96a7e563b0a91dc3535e0d1d545","2015-09-22 11:41:41+02:00","Cancel dragging in Pearl by pressing Escape or Backspace.
+"
+"5cb91f28ba609d04d8948860c34520b66ea16718","2015-10-01 14:00:47+02:00","Fix a memory error in Guess cursor handling.
+"
+"8889fafb07d47ba359ad071789f340df866a0321","2015-10-01 17:42:48+02:00","Fix a misrendering in Guess.
+
+When the cursor was visible, redrawing after undo-redo or label
+toggling or resizing would draw background over the top of the
+circular cursor.
+"
+"a79fc469516bd5bad28cf6ac025e25ffa20794d6","2015-10-01 17:50:59+02:00","Display improvements to Range.
+
+Make the grid look a lot less heavy; enhance highlighting of error
+clues; highlight enclosed small regions much more prettily.
+"
+"6179e8df56000bc8f558129a8475cf977c06a249","2015-10-01 18:26:50+02:00","Allow marking of clues as exhausted in Unequal.
+"
+"79fe68dc57d72d4765850eb9aec23675523a1a4d","2015-10-01 18:41:15+02:00","Towers: allow marking of clues as done with the keyboard
+"
+"a55607ff245e8d7e6156d191caeacdba1c424ef4","2015-10-01 19:57:49+02:00","Greatly increase the speed of the Filling solver.
+"
+"d442b830e492535c9b0f1cb6b6c1d91ef2304bd2","2015-10-01 21:12:13+02:00","Greatly improve and speed up the Filling instance generation.
+"
+"bda4a963f447e3395a160e57ab9498278ad2fde2","2015-10-01 21:22:24+02:00","Fix an instance generation hang in Signpost.
+
+Also expand the set of permissible parameters (add 1xN, Nx1 and 2x2).
+"
+"b9dfef7a12a6ce813f30f1cc755ed3bb21945dcc","2015-10-01 21:29:42+02:00","Recompute solutions in Inertia if the user strays from the path.
+"
+"6482ed0e3c886afd6b44acf91450524ff70d102c","2015-10-01 21:59:30+02:00","Fix a display glitch in Keen's pencil-mode cursor.
+
+Draw pencil-mode cursor before corners of thick lines in order to make
+the thick lines appear on top of the north-west corner of the pencil
+cursor, just like they do with the non-pencil cursor.
+"
+"47bc27b0c228fbbac5be8547e4aa6bb58767a75e","2015-10-01 22:32:26+02:00","Add 'Inshi No Heya' (multiplication only) variant to Keen.
+"
+"b94be41445d1ed056882c15795f01a6861fc184b","2015-10-02 18:23:44+02:00","Render Filling presets as 'WxH', not 'HxW'.
+"
+"581becc3aa657fe4b7694c6f261d3193d51928d2","2015-10-03 15:01:48+02:00","Insert a manual reference in the default status bar text.
+
+To guide developers to the resources they need.
+
+[actual wording tweaked by SGT]
+"
+"e22a9c8396f1f0bd1c74cd8b738f5f9716760004","2015-10-03 17:39:22+01:00","build fix
+"
+"a800ff16bb10d41ed749d9b16e3eb3505bf9345e","2015-10-03 17:57:01+01:00","Fix switching to a larger puzzle size under GTK 2.
+
+Commit 8b491946e had a bug: configure_area stopped doing most of its
+work if the new size already matched fe->w and fe->h, but in fact the
+GTK2 resize_fe() _already_ set up fe->w and fe->h for the new size. I
+managed not to notice, because I checked it all worked on GTK 3 but
+only tested resizing to a _smaller_ puzzle on GTK 2. Ahem.
+
+Now we don't change fe->w and fe->h at all until configure_area is
+called. Also, we initialise them to dummy values at setup time, so
+that configure_area won't compare the new size with uninitialised
+data.
+"
+"21b8323b2f1ca7b6bf01bc1e7a529636ea57daba","2015-10-01 17:35:40+02:00","Dominosa: Highlight a number when pressed on the keyboard.
+"
+"5e22080bcd581fe4e2a07ca897ebea19a2961f66","2015-10-01 18:47:55+02:00","Improve Towers error highlighting.
+
+Highlight clues of value n in Towers if its row/column contains an
+increasing sequence of length n, the last number of which is not equal
+to the number of rows/columns (i.e. such that the sequence will have
+to be extended, in violation of the clue).
+"
+"2afbcdcc3c6d59aa03280df65ce6c690baa4273f","2015-10-04 19:30:08+01:00","GTK 3.16 deprecation: stop using gtk_misc_set_alignment.
+
+The new equivalent is gtk_label_set_{x,y}align. But we can't use that
+in all GTK 3 builds, because it's very new.
+"
+"a94dbd27d0fbbbfbd90290647d3305ef6b6cce5b","2015-10-04 19:56:39+01:00","GTK 3 cleanup: use GtkMessageDialog for message_box().
+
+This is a lot easier than faffing about setting up a dialog box
+ourself, and also avoids direct access to GtkDialog's action area
+(deprecated in GTK 3.16).
+"
+"27fe1c9c49deaf338b9ca146a7aca5ff905c7115","2015-10-04 19:57:25+01:00","GTK 3 cleanup: use GtkAboutDialog for the About box.
+
+This is again easier than faffing about doing it manually, and as an
+added bonus, we get to put the largest of our icons in the box as a
+logo :-)
+"
+"11b14a5f44967a6257ac1beabb6425f95f3b2c69","2015-10-04 20:03:50+01:00","GTK 3 cleanup: stop using GtkDialog for config boxes.
+
+It's becoming annoying to keep working within the increasing
+restrictions on GtkDialog, in particular the fact that not only do we
+have to let it have complete control of the button area, but also it's
+not clear whether we can intercept a press of the 'OK' button and
+display an error message rather than ending the dialog.
+
+So, as I did in PuTTY, I'm resorting to using an ordinary GtkWindow
+with controls I laid out myself.
+"
+"4cc22d2e9905f87b24c1f701e7f0a9db7b9e159e","2015-10-11 19:07:53+01:00","Fix #338: allow unlocking an island despite moving slightly.
+
+Previously moving 1 pixel would be treated as a failed drag and not an unlock.
+
+Now you only have to release the button somewhere on the island you started on.
+"
+"156b0c3e23acc3aee3f8a4f7d94132ba227de751","2015-10-08 00:17:19+02:00","Stop animations on a new game, no matter how it is started.
+
+Animations were stopped if a new game was initiated with a keyboard
+shortcut (n, N, Ctrl-N), but not via menu items such as presets or
+custom configurations, nor (perhaps not a problem) on starting the
+program. Fix this, so that animations are stopped on a new game no
+matter how the new game is started.
+"
+"f3f0f009fffc078c441e388ccf7d0bd95dffc621","2015-10-08 10:43:51+02:00","Don't stop animations when restarting an already restarted game.
+
+Restarting a game that is already in the restarted state is meant to
+be a no-op.  It stopped animations.  Don't do this.
+
+Also, given that midmidend_restart_game called midend_stop_anim
+twice, the invocation we remove was redundant.
+"
+"af010d7283c4b9abbd610c93d9bc49d69e1eccfe","2015-10-08 10:47:11+02:00","Remove a redundant line of code.
+
+Setting me->anim_time = 0.0 right before calling midend_finish_move is
+redundant, since midend_finish_move itself sets me->anim_time = 0.
+"
+"bf81e9c1fac2dc891d15d107a56db0c9b7482c20","2015-10-08 10:54:47+02:00","Reset midend animation counters on starting a new game.
+
+This is already done in midend_restart_game via midend_finish_move.
+If it's good enough for restarting a game, it ought to also be good
+enough for starting new games.
+"
+"988b16a3191282a5407f6cee88d62aaae853be3d","2015-10-08 11:00:29+02:00","End victory flash on new game and restart game.
+
+Net provides the best demonstration of why. Complete a game of net,
+then press N while the victory flash is playing: then the victory
+flash keeps playing on the new game board. (Tip: save a game which
+but for a redo is completed, then you can reproduce this repeatedly
+without having to complete a new game each time.)
+
+The flash timer reset code is placed together with the animation
+timer reset code, because the two are conceptually related. Note
+that midend_restart_game resets animations via midend_finish_move.
+"
+"5ddb011a57be24f4d3474c497e57e7c22f979106","2015-10-08 11:57:54+02:00","Invert the Fifteen cursor if FIFTEEN_INVERT_CURSOR ~= ^[yY].*$
+
+The introduction of flip_cursor allows us to replace some hairy
+hand-rolled logic with the standardised and tested move_cursor.
+"
+"12fabc4add608622da87096bb3bed586efee10d9","2015-10-08 12:20:15+02:00","Add hinting feature to Fifteen (press 'h' for a hint).
+
+This is really an incremental solver. It alternates between solving
+rows and solving columns. Each row and column is solved one piece at
+a time. Except for some temporary trickery with the last two pieces
+in a row or column, once a piece is solved it is never moved again.
+
+(On non-square grids it first solves some rows or some columns until
+the unsolved part is a square, then starts alternating.)
+"
+"cd67072556c6b5934005b1777a465aca1e9df545","2015-10-08 12:55:52+02:00","Add standalone Fifteen solver, based on the hint feature.
+
+Recall that the hint feature is really an incremental solver.  Apply
+it repeatedly until the board is solved. Grade puzzles as solvable
+or unsolvable by checking their parity.
+"
+"ef5c017a5f6863b5f8f2085b0c26106765d73ffb","2015-10-01 22:53:53+02:00","Add hinting feature to Guess.
+
+Pressing H now suggests the lexicographically first row consistent
+with all previous feedback.
+
+The previous function of the H key to toggle a hold marker on the
+current peg is now performed by Space / CURSOR_SELECT2, which is more
+in line with other puzzles anyway.
+"
+"d0500732f7bdab97ecaece2c5c74dd18f8122ea4","2015-10-02 18:17:15+02:00","In GTK frontend, bind mouse8/mouse9 to undo/redo.
+
+These button codes are generated by the back/forward button pair on
+the sides of some mice, and web browsers treat these as the back and
+forward actions in the page history.
+"
+"fcf573c672b0aa862ccc087a74256ee214c277b5","2015-10-01 16:44:43+02:00","Update Sixteen keyboard system for faster entry.
+
+Pressing Ctrl-arrow or Shift-arrow on a tile now moves the row or
+column under the tile. With Ctrl, the cursor moves as well so you can
+keep making moves that affect the same tile; with Shift, the cursor
+stays put so you can keep making moves that affect the same location.
+"
+"75335f199ea5fbc7b1af890473ec98dc340c2ae8","2015-10-05 10:03:57+02:00","Fix Bridges keyboard cursor vertical out-of-bounds error.
+
+Position the cursor in the top (bottom) row, press enter and press up
+(down).  The game acts as if you had pressed right, both with Enter-
+and Space-based dragging.
+"
+"2fb2774fcdd207a092b065faf10f081294c88f90","2015-10-05 12:19:47+02:00","Fix a typo in a Bridges error message.
+
+'contain_ER_s' becomes 'contains'.
+"
+"96b6f55ec834471414576f2ea761f0a29bd47cdc","2015-10-07 01:08:11+02:00","Fix two memory leaks in GTK frontend.
+
+- The file selector for loading and saving gets a g_free().
+- The handling of saving (menu_save_event) gets an sfree().
+- It's also slightly restructured to prevent future errors.
+- menu_load_event was already structured to prevent this error.
+- The OLD_FILESEL code seems to not need a g_free().
+"
+"f7eb186184e678f32ebf38ecddd64e0c7127d577","2015-10-05 17:59:39+02:00","Expand keyboard input options in Bridges, for faster entry.
+
+- Lay bridges (crosess) with Control-arrow (Shift-arrow)
+- Jump (non-orthogonally) to nearby islands with number keys, a..f
+- Mark islands as done with a single tap on the space bar
+"
+"3e2dc51db050836f753a375c3b74fe3010db4322","2015-10-07 22:52:54+02:00","Produce shorter Filling descriptions by run-length encoding 0s.
+"
+"b33b83429f043c79f3562a22a192ab34d2d3fcca","2015-10-18 14:22:27+01:00","Fix GTK puzzle resizing, *again*.
+
+Jonas Kölker points out that commit a800ff16b (which fixed a bug in
+the previous attempt) left in another bug: if the puzzle size was
+changed while the window was maximised, the system would fail to
+recompute the tile size and would redraw completely wrongly.
+
+So it's not optional after all to run midend_size(), even if the
+drawing area size hasn't changed. I've reverted that code to be
+unconditional, and now only the refresh of the Cairo-side backing
+store system is conditionalised - and that's conditionalised on
+changes to either the size of the actual window _or_ the size of the
+contained pixmap. (The latter should defend against redraw failure in
+the case where the puzzle aspect ratio changes, so that neither the
+window size nor the tile size changes but a recentre is still needed.)
+
+I _think_ this now fixes all the cases of resizing: this time I've
+tested making an unmaximised puzzle window bigger or smaller, and
+within a maximised window, forcing the puzzle to scale up, scale down,
+or change its aspect ratio without changing its tile size. All work,
+on GTK2 and GTK3, and yet we still don't get the visible flicker on
+status line updates that was the reason I started fiddling with this
+code in the first place.
+
+(We _do_ still call configure_area on every update of the status line,
+at least under GTK3; that's going to cause a forced full redraw on
+every timer tick in Mines, which is wasteful of CPU, so it would still
+be nice to find a better way of identifying the cases in which no
+resizing at all was necessary and we could avoid renewing the game
+drawstate. But the current code at least doesn't have any display
+_errors_ that I know of, which is an improvement on its previous
+state.)
+"
+"6860c65bb3807dd83830e047d35d8f0fe4e89a86","2015-10-02 13:13:39+02:00","Add a new puzzle: Palisade.
+"
+"3448fe1b477bf9ed79b83cd788918c6bdc8b33a4","2015-10-18 17:03:10+01:00","Use \q{} in place of literal quote marks in puzzles.but.
+
+While checking over the Palisade docs for this sort of error, I
+happened to notice that a few were already in the existing games'
+documentation.
+"
+"3c0b01114ccf6aaead7aede33b4eaa26d325454b","2015-10-18 17:04:35+01:00","Add the new 'fifteensolver' to .gitignore.
+"
+"90af15b43ed57a6835091bb1c98227052590b3ea","2015-10-20 20:33:53+01:00","Enhance Filling's solver to handle large ghost regions.
+
+The previous solver could cope with inferring a '1' in an empty
+square, but had no deductions that would enable it to infer the
+existence of a '4'-sized region in 5x3:52d5b1a5b3. The new solver can
+handle that, and I've made a companion change to the clue-stripping
+code so that it aims to erase whole regions where possible so as to
+actually present this situation to the player.
+
+Current testing suggests that at the smallest preset a nontrivial
+ghost region comes up in about 1/3 of games, and at the largest, more
+like 1/2 of games. I may yet decide to introduce a difficulty level at
+which it's skewed to happen more often still and one at which it
+doesn't happen at all; but for the moment, this at least gets the
+basic functionality into the code.
+"
+"1cf403ceb81482dea7107a49573d6834c5a650d1","2015-10-21 18:32:15+01:00","Fix array overruns in the new Filling solver pass.
+
+Probably because I wrote a couple of loops up to the maximum cell
+value using the non-idiomatic <= for their termination test, I also
+managed to use <= inappropriately for iterating over every cell of the
+grid, leading to a couple of references just off the end of arrays.
+
+Amusingly, it was the Emscripten front end which pointed this out to
+me by actually crashing as a result! Though valgrind found it just
+fine too, once I thought to run that. But it comes to something when
+running your C program in Javascript detects your memory errors :-)
+"
+"80b63e6cefb0e1055bdd5f2f8238d7cc8c23f51f","2015-10-12 20:07:18+02:00","In Undead, mark clues as errors in a few more situations.
+
+- Mark a clue as an error if too many monsters are seen, even if
+some squares are empty.
+
+- Mark a clue as an error if too few monsters are seen, taking into
+account how many more sightings are possible given the number of
+empty squares and how many times each of them are visited.
+"
+"44e2690abb523aa60558ca6326eaeb9ce6287454","2015-10-13 15:47:42+02:00","Highlight clue errors in Tracks in some more situations.
+
+- Count any square as having a track either if the square is marked
+as such (rendered as a different background), or if at least one
+adjacent edge is marked as containing a segment of train track
+(rendered as train tracks if they're placed, else as an '=').
+
+- Do the same counting in rows and columns.
+"
+"67178751e923691e76b410dc90bea3cfb24ae7af","2015-10-18 21:05:11+02:00","Fix a comment in Tents (it said 'tents' instead of 'trees').
+"
+"3234912f921916a1b8da164fd61dc75579358577","2015-10-19 02:48:39+02:00","Tents: mark squares as non-tents with {Shift,Control}-cursor keys.
+"
+"ffe8639619dbccd838c5b226f84d4cf0eb99b69d","2015-10-23 19:33:52+01:00","Fix premature completion flash in Tracks.
+
+Commit 44e2690ab loosened check_completion's idea of what made a
+square count as 'having track in it' for purposes of checking
+violations of the row/column counts. Unfortunately, that loosened
+notion also applied to the check for the game being complete - so the
+game would announce a win as soon as you had every square shaded, even
+if you hadn't actually laid all the exact track positions down.
+
+Now we separately count up the number of track-ish squares and the
+number of fully completed ones, and use the former for error checking
+and the latter for completion checking.
+"
+"b16f0228d4e11de9714eeabaa64450cb08e17482","2015-11-02 19:33:43+00:00","Bump support lib deps to 23.1.0.
+"
+"d60e348aae16e718e1e7cc2b6e090956eb7e4b52","2015-11-03 06:56:47+00:00","Format Palisade solve-type moves in sensible ASCII.
+
+The solve move stored in 'aux' by new_game_desc consists of printable
+characters in the range '@' to 'O', each representing a 4-bit bitmap
+of edges around a cell. But the one generated on the fly by
+solve_game() was missing out the 0x40 bit and just returning
+characters in the range ^@ to ^O - which would not only have been
+horrible if you found such a string in a save file, but also meant
+that a game with any completely borderless square would have a
+solution move string terminating early due to the ^@, causing
+execute_move() to reject it.
+
+Example: ./palisade --test-solve --generate 1 5x5n5#12345-37 now
+succeeds, where previously it failed an assertion.
+"
+"13b67b9d09faf3440c0b96356d16ce841faa677f","2015-11-03 06:45:49+00:00","Fix loophole in Palisade completion checker.
+
+A user pointed out that if you construct a 'solution' in which no clue
+square has too _many_ borders but at least one has too few, and then
+bring those clues up to their count by adding extra stray border lines
+_inside_ a connected component (avoiding actually dividing any
+component completely into two), then the game checker treats that as
+solved for victory-flash purposes, on the grounds that (a) the grid is
+divided into components of the right size and (b) all clues are
+satisfied.
+
+A small example is 4x4n4:22a2b2c33, with the non-solution of dividing
+the grid into four 2x2 square blocks and then adding a spurious extra
+edge between the two 3 clues. The old Palisade completion check would
+flash for victory _at the same time_ as highlighting the spurious edge
+in COL_ERROR.
+
+Fixed by enforcing in is_solved() that every border line must separate
+two distinct connected components.
+"
+"2acd8baae8e411fae3235a5ab5c25b7523e55132","2015-11-17 18:47:29+00:00","Convert Buildscr to use the new 'do/win' mechanism.
+"
+"e90b0f576e42c99d8294e5aba988afdefdc1a08c","2015-11-22 16:52:27+00:00","Update Studio droppings.
+"
+"3fb27986260a1395f9f1c48c39d3e348294ffd66","2015-11-28 13:52:36+00:00","Fix #338 again: properly cancel the failed drag/unlock.
+"
+"11a58d403e21c733d9f166a3838331eb0f114546","2015-11-28 13:54:54+00:00","Update Studio droppings.
+"
+"346584bf6e38232be8773c24fd7dedcbd7b3d9ed","2015-11-28 13:56:39+00:00","Allow unlocking an island despite moving slightly.
+
+Previously moving 1 pixel would be treated as a failed drag and not an unlock.
+
+Now you only have to release the button somewhere on the island you started on.
+"
+"0417affb50a4018e218f85d8318438ef9cc933ab","2015-11-28 15:18:44+00:00","Fix #341: check for our URI scheme before trying to parse it!
+"
+"8eb0f8563bcc117708124e86962ddf4d1dd1c35e","2015-11-28 16:54:30+00:00","Fix #326: don't say click.
+"
+"f7f7976506e2046891db8ecff8fb761ebc372f9e","2015-11-29 13:05:46+00:00","Merge branch 'upstream'
+
+Conflicts:
+app/src/main/jni/bridges.c
+app/src/main/jni/dominosa.c
+app/src/main/jni/filling.c
+app/src/main/jni/guess.c
+app/src/main/jni/keen.c
+app/src/main/jni/midend.c
+app/src/main/jni/puzzles.h
+app/src/main/jni/signpost.c
+app/src/main/jni/unequal.c
+"
+"6869318258345f8515324105dfb2ad3fc4ad947e","2015-11-29 13:12:27+00:00","Fixups following merge / addition of Palisade.
+"
+"fee8bfed0454152182eeff64993f3b4e6a1012dd","2015-11-29 23:04:56+00:00","Palisade: fix clue type, add icon, list.c entry.
+
+On Android, typedef char clue was being treated as unsigned,
+with odd results (all clues filled; imported game IDs drew '/'
+instead of blank).
+
+(Yes yes, I should make gradle auto-generate list.c.)
+"
+"d5370c869c021f8d400f226c9abbed3b6fc59212","2015-11-29 23:48:16+00:00","Tweak Palisade night colours.
+"
+"4ac8e12bc7092e712c64543e73ca7281f9f27b0f","2015-12-02 22:30:17+00:00","Some of #350: completion; disable currently-useless arrows.
+"
+"7000b0c70a409afc427b3012d55366577dc0418e","2015-12-06 16:00:10+00:00","Implement align_label for GTK 3.[14,16).
+
+gtk_misc_set_alignment was deprecated in GTK 3.14. But my replacement
+code using gtk_label_set_{x,y}align doesn't work there, because that
+function wasn't introduced until GTK 3.16, so there are two minor
+versions in the middle where a third strategy is needed.
+
+(That middle strategy doesn't permit arbitrary float alignments, but
+that's OK, bceause we only actually use multiples of 0.5.)
+"
+"0fa7baed1043089c390d80763ace267a681b69d3","2015-12-12 09:17:33+00:00","Code-sign the Windows puzzle binaries and installer.
+
+Where facilities exist, that is. Like the approach I took with PuTTY
+yesterday, Buildscr will now run a code-signing script over the binary
+if you specify one in the bob config, and otherwise should fall back
+to just leaving that step out.
+"
+"a845e6476d3f565454d487fda2af65f0062e063f","2015-12-10 19:51:54+00:00","Pattern: make part of the game_state shared.
+
+The game_state now includes a pointer to a game_state_common
+containing all the row and column clues, which is reference-counted
+and therefore doesn't have to be physically copied in every dup_game.
+"
+"d1219cac3c2e0adf58a477e442a8656bcb55ed0f","2015-12-11 18:54:56+00:00","Pattern: fix solver's handling of empty rows.
+
+The algorithm for deducing how many squares in a row could be filled
+in just from the initial clue set was focusing solely on _black_
+squares, and forgot that if a row has a totally empty clue square then
+everything in it can be filled in as white!
+
+Now the solver can cope with puzzles such as 3x3:/1///1/ , where it
+would previously have spuriously considered that it had no idea where
+to start.
+"
+"f061101210352b9783085ba37e1c58f1fac89862","2015-12-11 18:09:41+00:00","Pattern: add a system of immutable pre-filled grid squares.
+
+The game previously only supported numeric clues round the edge; but
+if for some reason you really want a puzzle with a specific solution
+bitmap and that bitmap doesn't happen to be uniquely soluble from only
+its row and column counts, then this gives you a fallback approach of
+pre-filling a few grid squares to resolve the ambiguities.
+
+(This also applies if the puzzle is uniquely soluble *in principle*
+but not by Pattern's limited solver - for example, Pattern has never
+been able to solve 4x4:2/1/2/1/1.1/2/1/1 and still can't, but now it
+can solve 4x4:2/1/2/1/1.1/2/1/1,Ap which has the hard part done for
+it.)
+
+Immutable squares are protected from modification during play, and
+used as initial information by the solver.
+"
+"786f5b18e439a292ca364e18230496dbf261f5c2","2015-12-11 19:53:58+00:00","New utility 'patternpicture', to build a Pattern from an xbm.
+
+This utility works basically the same as galaxiespicture: you feed it
+a .xbm bitmap on standard input, and it constructs a game ID which
+solves to exactly that image. It will pre-fill some squares if that's
+necessary to resolve ambiguity, or leave the grid completely blank if
+it can.
+"
+"a686fd410c68c5b78ae47e4eb8f2528c3478d773","2015-12-12 15:43:25+00:00","Merge branch 'upstream'
+
+Conflicts:
+app/src/main/jni/pattern.c
+"
+"44ffbf9659a3cadd02febe8c24e0498faa3edc2a","2015-12-12 16:23:18+00:00","Fix #75: add buttons to highlight digits.
+
+Simon already added the functionality; this is just the buttons.
+"
+"d5d91054569ff363fbd6809ad918256beafa4f6a","2015-12-12 16:32:05+00:00","Fix #353: add controls reminder to Guess.
+"
+"d0aeaa35af0485f674de5e83dd5c8084807c11cf","2015-12-12 17:21:25+00:00","For #350: add keyboard controls to Palisade (default off).
+
+Had to alias them as hjkl underneath as ctrl-left won't fit in a char.
+"
+"cbc2dd8e8f8d92e43f15ad842058dce75d3fb817","2015-12-12 18:42:47+00:00","Add Palisade icon sources missed from previous.
+"
+"5dc3378f0e43ac64b2904b0cb75fa41f86c7db93","2015-12-12 18:44:52+00:00","Docs updates including addition of Palisade.
+
+Still some fuzz to clear up in de.po where Ctrl/Shift controls have been added (but most Android users can't use those anyway).
+"
+"9ffa6991aac9015040025b95c5cb717d71ca42df","2015-12-12 22:42:23+00:00","Fix #349: provide escape route when last params are slow.
+"
+"8f00f47c20a0aa3de37d8f1510f4f548e74546b8","2015-12-12 23:27:32+00:00","Fix #347: ignore certain menu events when invoked with swipe <650ms.
+"
+"f1af73319ffceb1b936669182f540454eeb67541","2015-12-18 14:50:44+00:00","Clarify in README that Makefile.vc is for nmake.
+
+A user pointed out today that I hadn't actually said that!
+"
+"d295a8a93c88bbd65ecfa57f4b70c9c4c6286e97","2015-12-24 22:05:48+00:00","Add a missing error message in Flood solve_game().
+
+The only situation in which it actually can't find a solution is if
+the puzzle is already solved, in which case it can at least fill in
+*error to say so before it returns NULL.
+"
+"9159ae7e7445162a3e0724aed3c22ee3e1bde153","2015-12-30 15:08:01+00:00","Fix #330: give Keen night mode differently coloured region boundaries.
+"
+"cf3d99cad648c8f8c3b04dfc7530ec103b1e92d3","2015-12-30 15:10:34+00:00","Merge branch 'upstream'
+"
+"e85b595265805bf2b3fa3486440350613afc2109","2015-12-30 15:11:19+00:00","Wrap new message.
+"
+"67210be7e851eca504834b89c5a61341d14bb29e","2015-12-30 16:35:39+00:00","Bump build tools versions.
+"
+"e87d55c0a3616bf8af80251a616f80f802d42941","2015-12-30 20:11:09+00:00","Update Studio droppings.
+"
+"6d86a42ffd523f660b97ca7ba367ce474618f8ec","2015-12-30 20:11:27+00:00","Fix #328: brighten night colours on Keen and Towers.
+"
+"b9d91465cd0da536dfae12d5e9c00af4957b2403","2016-01-09 18:21:53+00:00","Update Studio droppings.
+"
+"34e98334bc041246683ab6cc06649a7d336961a9","2016-01-09 20:00:26+00:00","Fix a couple of warnings.
+"
+"d16c970f4eaa72961bbff6b61bf85b6b41dee437","2016-01-09 18:22:38+00:00","Fix #347 properly: disabling drag-to-open on menus
+
+(which should not take this much work!)
+"
+"96c9785babad49b8100a9f5867226dbf38da7053","2016-01-10 12:56:35+00:00","Fix #356: pause Mines timer while paused
+"
+"ad66bfaeb79bc5ea308c8107664b409865f60422","2016-01-10 14:05:06+00:00","Bump version for release
+"
+"8c573e2de99bb1955564c7290e034f0ecc9c89a8","2016-01-10 18:35:56+00:00","Cope with broken sensor handling on old emulators.
+
+App hangs on startup on v8 emulator without this.
+"
+"6cb685e1968e7ec679086494554ab938b85628a4","2016-01-10 20:44:41+00:00","Add test for Palisade; fix test for Sixteen.
+"

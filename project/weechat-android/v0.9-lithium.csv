@@ -1,0 +1,181 @@
+"commit id","commit date","commit message"
+"284b8710d1890f64dde316932d5d2e5f07682445","2013-02-02 12:29:07-05:00","Title now changes when switching buffers
+
+The issue with the title not updating during swiping between different
+buffers has been fixed.
+
+Fixes #64.
+"
+"bd66aa32bf340b50b9926f115336765d17fa53ca","2013-02-02 12:35:56-05:00","Fix crash on tablets where there is no title
+
+In the bufferlist on a tablet, there is no title for the channel
+available.  Since we sometimes try to set the visibility of the buffer
+title, this was causing NPEs and crashing.
+
+This bug is only present in 08-dev-b4.
+"
+"19051c51aee3fb1cab367e196c08336b9df0decc","2013-02-02 12:40:18-05:00","Fix crash if you return to the app
+
+Sometimes when you return to the app, if the background service has
+died(or crashed), when it restarts bufferManager will be empty, and a
+NPE will occur when the app tries to show the buffer.  Check that we are
+connected first before trying to retrieve the buffer.
+
+This was fixed based on a crash report in the google play developer
+console, so not all details regarding it are present.
+"
+"053945fb0f8c0881527a86c1bb7c15f4b1fe4f87","2013-02-02 15:56:39-05:00","Add own custom crash error reporting
+
+Added in ACRA(Application Crash Reports for Android).  Currently posts
+any crashes and relevant information back to my server after asking for
+confirmation.
+"
+"9e27ce7e2855306e9b6ea31c589f437d719096a0","2013-02-03 11:17:24-05:00","Fix crash/weirdness when closing buffer
+
+No longer crash when closing a buffer and then switching between the
+remaining open ones.
+Properly closes buffers so that we don't end up showing the 'closed'
+buffers contents due to caching in the FragmentStatePager.
+
+Fixes #65
+"
+"1b413538ef0da9bf70108614e65e2c369274ba68","2013-02-03 11:47:39-05:00","Add preferences for ACRA
+
+Allow the user to control some aspects of the android crash reporter.
+Can set email, set it to automatically send reports, or disable it
+entirely.
+"
+"4b10bb3da01ee1da7d4f8b152c884f6947833fda","2013-02-03 12:01:59-05:00","Fix crash during activity resume
+
+rsb might be null at this point, so check that we are actually bound to
+the service first.
+"
+"2e146478a1243c31b420f2822b05d026899ec28f","2013-02-03 13:04:33-05:00","Fix crash when copying
+
+Not sure of the circumstances that lead to contextMenuView being null
+however.
+"
+"4aeb386e9e562935450e61de6c776628cdc88647","2013-02-03 14:09:28-05:00","Add preference to reduce network traffic
+
+This preference will only work properly on weechat 0.4.1-dev compiled
+after 2/3/2013 due to a bug in weechat core. If enabled on versions
+prior to this buffers will not be updated when open.
+
+Due to a secondary bug, notification is given for buffers opened when at
+least one buffer is open in the client.  If no buffers are open, then
+notifications for new buffers will not be received.  Additionaly,
+_upgrade messages from the server will be missed as well.
+
+Added a preference_long_summar.xml to res/layouts to allow for
+preference items with more than a 2 line summary.
+
+The upstream bug: http://savannah.nongnu.org/bugs/?38215
+The commit that fixed it:
+http://git.savannah.gnu.org/gitweb/?p=weechat.git;a=commitdiff;h=7a1f9a1d7f3e52ddc9174ef88f491b6d9446f7b7
+
+Fixes #61
+"
+"8fbe8f2de035befc276ba76cbff6230f46a66afb","2013-02-03 17:21:38-05:00","Remove lots of hardcoded strings
+
+This goes a long way towards #68, all preference items have been
+extracted out into strings.xml.
+Some other small cleanup(Remove unused imports)
+"
+"c0ab142ede3a404f6ae26b4e3e07d786635b4803","2013-02-03 17:50:02-05:00","Remove stunnel_pass from the crash reporter
+"
+"b48486780352fd4d56c8317a81a4ca715aaaf045","2013-02-03 17:51:00-05:00","Version bump to v0.08-dev-b5
+"
+"d47d7764a00ba29f9e4bdb0ee84d728fbc6430e4","2013-02-03 18:12:15-05:00","Update readme
+"
+"021581e4331cdc47778ba21f6dabb9d27eadbd80","2013-05-17 18:37:44-04:00","Update compression type from gzip to zlib
+
+Weechat changed the default keyword to zlib.  We should match this
+change as well.
+"
+"0cbf07857677f1afdb6836b4a9df0b5dfcfb984d","2013-05-17 20:05:21-04:00","Add support for _nicklist_diff command
+
+Weechat now sends diffs instead of full nicklist messages where
+appropriate.  This was 'forced' on clients in version 0.4.1-dev,
+commit 86a8b9fb.
+
+http://git.savannah.gnu.org/gitweb/?p=weechat.git;a=commitdiff;h=86a8b9fb
+"
+"d205e1ea46983a0b4166c81f2614e5ffc3fb6c2e","2013-07-29 12:57:54+02:00","Replace WeeChat logo by the new one
+"
+"09d3c96d131461ec36371581b0e320916f2245e2","2013-08-13 18:29:04-04:00","Update pom.xml to work with latest android tools
+
+aapt moved, so we need a newer version of the android-maven-plugin to
+build properly.
+"
+"b1440001dd05032801a4a86f7e6b93ddfda4f810","2013-08-13 18:41:00-04:00","Update weechat logo
+
+Merge branch 'new-weechat-logo' of https://github.com/flashcode/weechat-android
+See Pull Request #77
+"
+"4d6aef5603d4b1e31e9eaad5da2ec7d456e9e5dc","2013-08-14 12:24:09+02:00","Update android-maven-plugin version to 3.6.0
+
+Fixes compilation with r17 SDK, see:
+https://code.google.com/p/maven-android-plugin/issues/detail?id=377
+"
+"476b45b057fdaf5471cc9cc9e542f4af8dc7bf01","2013-08-14 05:29:19-07:00","Merge pull request #78 from jspricke/maven-fix
+
+Update android-maven-plugin version to 3.6.0
+"
+"7cab9ebbb5b0b42d5a4b7e3341a32520c5293fd1","2013-09-05 20:33:33-04:00","Fix build issue with JDK7
+
+jarsigner from java 1.7 defaults to signing with an incompatible
+algorithm.  This fixes that so builds are installable.
+"
+"079fd6b13066e7865e565394b37d24f56e063ada","2013-09-08 16:55:48-04:00","Move to gradle build system
+
+Delete maven, move code around to conform better to the gradle way of
+doing things.
+"
+"aa5935d92927861852b3739f315bdba312fb274b","2013-09-08 17:16:03-04:00","Comment out gradle properties
+
+These should be given as an example of what settings it looks for, but we don't want to actually use them during a build.
+"
+"8661b2ef53fa67669ce056afa5f7e06ae37d6713","2013-09-08 17:41:17-04:00","Update build icon to point to different CI server
+
+Using my private builds on cloudbees instead of the public BuildHive system.  No reason to maintain both.
+"
+"10d500b3a27e99ce62f9b0b821b99255ee2aaf87","2013-09-08 20:05:08-04:00","Gradle improvements
+
+Add gradle wrapper
+Specify gradle 1.7 for building.
+Updated .gitignore file
+Remove unused project.properties file
+Update jsch library
+Define relay-example as a runnable application
+"
+"6a84d45de43cfaf4d83dc9d65136ac51ffcbc361","2013-10-27 19:59:48-04:00","Update gradle wrapper to 1.8
+
+Also update the android gradle plugin
+"
+"44772ccc12b961075f018fc70b75168ca405119f","2013-10-27 20:21:32-04:00","Resolve NPE
+
+NPE if changing preferences while not connected.
+"
+"c982a256c60c151e8177c382532110b44385a5ab","2013-11-12 19:51:52-05:00","Show fingerprint instead of serialnumber
+
+When connecting using ssl, show the key fingerprint instead of the
+serialnumber.
+
+Fixes #84.
+"
+"bbac04a733d6b7c05442d7ea2354cc594a775f83","2013-12-11 00:26:51-05:00","Fixed the crash on opening a buffer
+"
+"f1dc71f176ae0a8452f3c19bb11964c6aba549a6","2013-12-11 12:14:19-08:00","Merge pull request #86 from pvl1/master
+
+Fixed the crash on opening a buffer
+"
+"66aab059146ffd78728f2c758baa4e6d585097df","2013-12-12 22:24:21-08:00","Disable pesky ongoing notifications. closes #1
+"
+"7058e5fb3234f0a5dd5011909ba1a469eea65eb6","2013-12-12 22:59:11-08:00","Menu and Preferences cleanup.
+Closes #6 and #2.
+"
+"08f0d5be1cdb9c99e6b735c55d26ca1c5addc49c","2013-12-12 23:12:50-08:00","move 'clear ssl certificates' action off of about and into preferences.
+closes #9
+"
+"c7ae89a3c29e3682fdc7b900068ed99e73225b68","2013-12-12 23:30:30-08:00","update about/readme/version for lithium fork
+"

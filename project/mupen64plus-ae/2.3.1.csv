@@ -1,0 +1,175 @@
+"commit id","commit date","commit message"
+"3c0f16f4eb7723aa669492c8798fda6b8a91cf97","2013-05-24 02:27:51-05:00","build: Changed version string to debug
+"
+"7f8467d8b5c072840f3c2ee2b1e1906b2153da22","2013-05-24 11:40:18-05:00","profiler: Added entry for Iconia B1 A71
+"
+"3112f9e87614757293de090c38d0b343e0f3885f","2013-05-24 12:43:22-04:00","acra: Update to acra-4.5.0 stable.
+
+I had built the previous version from pre-4.5.0 source:
+https://github.com/ACRA/acra/commit/414b081ea0c3d577d9f706df109c2d5be55d9da1
+
+Notable change is that reports are deleted from user's device if couch
+db rejects them.  Before, they would accumulate on device.  Rejection
+can occur if the user is using an older version of mupen.
+"
+"1a0b663295763730ff98cb40fd9170e653e57bda","2013-05-28 09:06:44-04:00","bugfix: Fix NPE that sometimes occurs with zipped roms.
+
+Fixes crash
+https://paulscode.iriscouch.com/acralyzer-custom/_design/acralyzer/index.html#/reports-browser/mupen64plusae/bug/d16a63ff17b04dffdcb2bee74a51fd66
+"
+"5b2a98ee04f83c68710f9893cff482d31095434f","2013-05-28 22:26:40-04:00","input: Treat Mad Catz C.T.R.L.R. as vanilla HID controller.
+
+Closes Issue #149.
+
+See comments in the code for an explanation.
+"
+"4f46906daf5660cf4ad7acaa49e68b2b80524c3a","2013-05-28 22:43:01-04:00","front: Fix friendly names for controller signatures.
+"
+"75e480677ac2d0cc873edc7f90692e6be899958d","2013-05-29 08:26:37-04:00","front: Ignore spurious axes of Moga Pro HID controller.
+"
+"b618200de7cd4f5eb797b262a3e097ec3b50dad3","2013-05-29 08:32:25-04:00","doc: Updated changelog.
+"
+"333ed0496629fdbe56b896cb744dbade0f6d187b","2013-05-29 13:33:20+01:00","res: Updated translations.
+"
+"ff496ccd70d47306b9c0707c9dcf9c852db99752","2013-05-29 10:03:25-04:00","bugfix: Fix CalledFromWrongThreadException seen in acralyzer.
+
+This is at least one source of the exception.  Removed SafeMethods.exit
+as it wasn't actually safe.
+
+Robustified the ROM checking process a bit as well.
+"
+"742f546cefab190669e006988014b38de67581ac","2013-05-30 08:36:21-04:00","Semantically fix a null check in GameMenuHandler.java
+
+I say 'semantically' because it generally doesn't matter in this case. But it shows intent better.
+
+If item ever did become null, you would get a NullReferenceException because of the item.getTitle().toString() call in the Notifier.showToast call.
+"
+"f1adebc9bdb66f8cd73272ed075a6cb57810af2a","2013-05-30 09:23:25-04:00","Add more javadoc to CoreInterfaceNative.java.
+
+Documents how the managed/native code works a little bit.
+"
+"a87f1d72cbf158e337fdcc75dfc0ea4f9fa0a12b","2013-05-30 10:42:38-04:00","Add and clean up various Javadoc.
+"
+"0da4929a1c0b5467a19ed9ae699ff8dc36d8d64b","2013-05-20 18:39:51-04:00","front: Use GameOverlay rather than GameSurface to listen to touches.
+
+This will allow us to resize the underlying GameSurface without messing
+up the touchscreen controls.
+"
+"df6c48d8fcbedd116e9790f2ab07921eece5a2cc","2013-06-05 16:05:27-04:00","front/ae-bridge: Re-implement screen sizing.
+
+TODO:
+- Use correct aspect ratio for PAL (do we even support PAL?)
+
+This commit changes the way the video sizing is implemented. Previously
+the core was given a rendering context that spanned the full extent of
+screen space provided by Android's layout manager.  It was the duty of
+the video plugin to define a viewport within that context to render to.
+This required a significant amount of custom code to be added to the
+video plugins just for the android edition.  There were also some arti-
+facts with this method for Rice on some devices (i.e. junk graphics in
+the margins).
+
+Here, the alternative approach is to do the render context downsizing
+on the Java side using the Android layout management APIs.  Instead of
+passing a GameSurface that fills the screen, we make the GameSurface
+only extend to the final desired rendering size.  The video plugins are
+thus guaranteed not to draw in the pillarbox/letterbox margins, and
+need not perform those sizing calculations.
+
+The benefits are
+- No customization of the video plugins required
+- Simplifies integration of new video plugins
+- Easier to maintain
+- Easy to add new video features (resolution, hor. position, etc.)
+- Fixes 'junk graphics in the margin' issues on Rice
+- Adds screen position feature to glide
+"
+"202bfc8bbea9a811990494aa0d9ff6fca5084167","2013-06-05 18:38:22-04:00","front: Added video resolution and scaling preferences.
+"
+"5c05a5a1f54607bb86c8bc838383cfb15e4cb2fa","2013-06-05 19:43:14-04:00","doc: Updated changelog.
+"
+"e884b39a2fc1116a107590781e75148e1323b60d","2013-06-06 21:01:12-04:00","front: Minor cleanup of DiagnosticActivity.
+
+Changed some function names for clarity, shuffled some lines of code.
+Getting the abstracted hardware id instead of what the O/S gives us
+(currently equivalent, but possibly not in the future).
+"
+"ae5c281d71360ea1eec58e6deea66bf744bfe16f","2013-06-06 21:01:41-04:00","front: PromptInputCode cleans up listeners and is a bit more general.
+
+Previously, clients never heard when the user clicked cancel, which is
+important if the client needs to cleanup after the dialog closes.
+"
+"98c694f4e731cf563195eac1a9395202e56ea865","2013-06-07 13:14:36-04:00","front: Added missing OUYA check before vibration.
+"
+"5bf98db6a3c7319988f731d6ce4743d97e493fc0","2013-06-07 13:27:46-04:00","doc: Updated changelog.
+"
+"23ede06b2473fec1c978855d3411e2940654a9c5","2013-06-07 14:49:06-04:00","front: Add more info to Help dialog, popup after install/update.
+
+These are currently the most common support issues.  I think most
+people never even explore the plugins menu, let alone realize it might
+solve some of their issues.
+
+The popup after install/update might reduce the number of knee-jerk
+bad reviews on the play store.
+"
+"1bc46a64f9a8614583548f39b96205f0ac6aa517","2013-06-07 19:53:04+01:00","res: Updated translations.
+"
+"51d0c77c91a620ed97e0b56b130896b1126d1d30","2013-06-07 19:55:26+01:00","res: Updated translations.
+"
+"6aa2a7a56764a5fed903c292ea087be282b673fb","2013-06-07 15:13:49-04:00","res: Tweaked help string.
+"
+"646b8b582148c4b8b126f0b3dd30e00202a469b0","2013-06-07 15:30:20-04:00","front: Zoom (not stretch) when user selects None-Native video.
+"
+"c9c5336fb1a926c2e065a6b2d73bec8a575dc47c","2013-06-07 16:59:26-04:00","front: Remove some unnecessary complexity in screen sizing.
+
+Screen size (as defined here) doesn't belong in AppData anyhow since
+it isn't strictly device dependent.  It's also dependent on screen
+orientation because the value computed here is just the size inside
+the window decor (not the full resolution of the hardware).
+"
+"37a62e453d7992a4ee9e1651ef8afb95369069a7","2013-06-06 11:19:24-04:00","front: Added support for MOGA controller via MOGA Pivot app.
+
+Before, users had to use the third-party MOGA Universal Driver app.
+Great app, but requires root for full analog compatibility, and
+still doesn't provide analog control for pre-Android 3.1 devices.
+That left
+- unrooted users*
+- pre-3.1 users
+without analog control.
+
+This commit fixes that.  Now, if the user downloads the official first-
+party MOGA Pivot app, they get fully-mappable analog support all the
+way back to Android 2.3, no root required.  The only limitation is that
+menu navigation via the controller is only supported for the MOGA Pro
+in HID mode B.
+
+* (Previously, unrooted users with Android 3.1+ and a MOGA Pro
+controller had full analog support if they switched controller to HID
+mode B.)
+"
+"f8d17afe399d2de4efdd4f5de2582fa6afffd65f","2013-06-07 19:50:30-04:00","doc: Updated changelog.
+"
+"6da309e93f36189be31c9bd97d64656f3434c712","2013-06-10 17:38:07-04:00","front: Fixed bug in deadzone calculation for peripheral controllers.
+
+No idea what I was smoking when I wrote the original implementation.
+"
+"19b32dce5689ab37b1d727192b656009a56f37cd","2013-06-10 20:52:55-04:00","res: Updated translations.
+"
+"5799a972b7e58c333ff5c29c016e253b20de31dc","2013-06-10 20:58:35-04:00","res: Added Swedish to languages menu.
+"
+"8664fa92972932aea20d69d46b90ded76b38faf6","2013-06-10 21:00:52-04:00","doc: Updated changelog.
+"
+"eac6dd57c6cc1fe2b423d8cee50ba03a1b15ad4d","2013-06-11 11:40:02-04:00","front: Test vibrate permission directly rather than testing OUYA.
+
+In case OUYA version is built with vibrate permission, or in case the
+permission is removed from the manifest for a non-OUYA reason.
+
+Note that we are setting vibrator objects to null if vibrate permission
+is not granted, and then testing only for null before calling methods
+that require the permission.  Leads to clean code but might be riskier
+for code maintenance...
+"
+"f8c6df87f6a8b3e7069d2974d640354c6498e58d","2013-06-11 11:40:25-04:00","front: Hide haptic feedback preferences if no vibrate permission.
+"
+"bdb3159e817368f5a741783913ded6c53afbdb92","2013-06-11 19:04:15-05:00","build: updated version in prep for 2.3.1 update
+"

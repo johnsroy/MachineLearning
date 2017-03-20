@@ -1,0 +1,148 @@
+"commit id","commit date","commit message"
+"b27126e4509adcaec747d3ee17f9134c6a3b4c4f","2014-11-20 21:25:31+01:00","updated documentation
+"
+"2231258c62fc477db99df6b73d0d13c07e0f3fed","2014-11-20 22:18:28+01:00","version bump
+"
+"d97e8d191656e547ba148b3df2a3af853926ac83","2014-11-21 23:48:47+01:00","fixed building of manuals
+"
+"cea6a1d8f56b9295988ac800daed9a3f361bae65","2014-11-22 00:33:46+01:00","use absolute path of manuals
+"
+"9d7965d73b035653263676bf61a29821d8367446","2014-12-02 09:00:47+01:00","fixed parsing of MSE:SET AT for nPA in AusweisApp2
+"
+"bca1fe36568f81c07552d121691c567f2968dc51","2014-11-23 16:29:49+01:00","Add CardGenerator unit test
+
+Added a first unit test for the CardGenerator class. It currently only contains
+one test case for generating a virtual nPA.
+
+In order to use this test some changes to the TravisCI configuration are
+required. Especially the OpenPACE python bindings need to be build before
+vsmartcard is being tested since the vsmartcard nPA functions use these
+bindings.
+"
+"1e7492a8068610c26dd7390ea3592a35724bbc6f","2014-12-21 16:06:32+01:00","Remove superfluous whitespaces
+"
+"3822b00c8a8c9b2d336d33936d86c466d579cbbf","2014-12-22 11:49:46+01:00","Merge pull request #34 from d0/master
+
+Add CardGenerator unit test
+"
+"991ba148d92895866e6894e2662ae8a3a1c52075","2014-12-21 16:09:26+01:00","Minor improvements to CardGenerator and the corresponding unit test
+
+Make sure that the file gets closed when writing a card to/reading a
+card from disk. Also add a unit test for the error condition when trying
+to import a card from a nonexistent file.
+"
+"5cb1c6ad584db33c17237c77e2d84d6f1dc24313","2014-12-23 11:16:58+01:00","Restore readDatagroups function accidently deleted in 1e7492a8068610c26dd7390ea3592a35724bbc6f
+"
+"8ea1c74e2f0f707bf8f80947dab5a23495f9607a","2014-12-23 11:36:29+01:00","Fix indention
+"
+"d90914edb079be393aba87ad432d390beafb0b2d","2014-12-23 12:10:07+01:00","Fix incorrect indention of close statement
+
+Commit 8ea1c74e2f0f707bf8f80947dab5a23495f9607a moved the f.close()
+statement to the wrong indention level, thereby closing the file
+prematurely when reading Datagroups from a file. Since files are closed
+automatically due to the with statement, we just remove the explicit
+call to close().
+"
+"a35f0295c666dc45529bfad18c6a0eedb68f31a1","2015-01-08 12:12:02+01:00","Merge pull request #35 from d0/master
+
+Minor improvements to CardGenerator and the corresponding unit test
+"
+"482df53e4ce9e06123eefc0543f29a6a2df72e00","2015-01-10 12:19:45+01:00","Extend CardGenerator unittests
+
+There are now tests for most currently implemented card types. Tests for
+new card types can easily be added by inheriting from the basic test
+class. The ePass card type is currently missing from the tests because
+the CardGenerator for this class currently only works with user
+interaction.
+"
+"ff71e301dbb415155375ecca0110c9f4aaec3a66","2014-12-09 20:32:25+01:00","fixed handling of missing le in sm apdu
+"
+"d89385c3e14517f72766d6daee3b00be45097a00","2015-01-18 00:55:29+01:00","added support for QES with German ID card
+
+libnpa: requires an ID card that is initialized for QES. Today, this
+means you need to register at sign-me.
+
+virtualsmartcard: We don't actually create a real signature, because
+PyCrypto can't handle ECDSA, let alone brainpoolP256r1. We only return a
+64 byte buffer.
+"
+"0b52e4a1842b8b03652dafd13324cb6c5264e676","2015-01-18 18:48:56+01:00","Use a relative path  instead of a symlink so that the unit test works on windows
+"
+"4f6c4749f919d875b98cf54d134483dd4d489536","2015-01-18 19:29:34+01:00","Merge remote-tracking branch 'upstream/master'
+"
+"20c88ac8f4a606d0524e096cfcc620a88977aacd","2015-01-19 23:41:11+01:00","Merge pull request #36 from d0/master
+
+Extend CardGenerator unittests
+"
+"685443be04ad9e851d06dcd19adc98aa57edc234","2015-01-21 09:24:10+01:00","added coverty scan to travis.yml
+"
+"afe71f59b7b3be8cb63228ffec53f77d0ead7af7","2015-01-25 03:18:34+01:00","fixed handling max pin length
+"
+"740ad86e519f3674f146739eef93ea7d709686f1","2015-01-25 03:21:21+01:00","fixed handling of missing st keys
+"
+"f92d750b39031142274873ae276e0301b40f584d","2015-01-25 03:23:16+01:00","fixed uninitialized value
+"
+"444b14c8ca981737da3b363f4674e89c8d1a4551","2015-01-25 03:27:07+01:00","fixed bad pointer arithmetic
+"
+"27ef5d59d595ee0b82dcd61bc5637e82acaf823b","2015-01-25 03:30:10+01:00","fixed handling of bad arguments
+"
+"da025bf0bf07c560db6ae1de9d79931a188032de","2015-01-25 03:31:03+01:00","removed unused check
+"
+"86e778ff2c10a79c9f804c83fc8835bcb829437f","2015-01-25 03:44:41+01:00","fixed memory leak
+"
+"ff0aaca65b079e94cbea321e5337f9f601da29c5","2015-01-25 03:46:08+01:00","fixed closing socket on error
+"
+"94dbdd5405c2fb454719fa46610dff559cd0cc95","2015-01-25 03:48:56+01:00","fixed freeing context on exit
+"
+"f03760e27e952a3c9aca4baf37b448427e643d8e","2015-01-25 03:50:50+01:00","suppress warning of unclosed fd
+"
+"feebfe7a74b225c0ee12824475f77311eff0abc7","2015-01-25 03:53:52+01:00","fixed potentially dereferencing null pointer
+"
+"e1443e6357e425d462cc4b93c2113c1bf61e9fdd","2015-01-25 04:08:00+01:00","fixed unused check
+"
+"b7b82c0b0e42af72dcbb70432d796840add8ec8d","2015-01-25 04:10:36+01:00","fixed check for pin length
+"
+"e77fecd601912d289495bb4e184d07abfa64f0d7","2015-01-26 22:00:23+01:00","(hopefully) fixed travis-ci with coverity-scan
+"
+"8187dbbb152b8f2876feb8675cdf40d485090264","2015-01-26 22:04:26+01:00","an other fixup
+"
+"1ebd92f8b9e839ffc4f783ef4fb38433f8dd4358","2015-01-27 00:01:52+01:00","another fixup
+"
+"401ce8bcfb55b6fbcbaad9cfda9eed14dfd9a975","2015-01-28 23:05:57+01:00","fixed printf arg type
+"
+"46024daf22c8021e89e72b643c62d2f9af517e1d","2015-01-28 23:07:30+01:00","close socket on error
+"
+"1c104cddca95928f1dbf19776207763fd56b2e76","2015-01-28 23:12:07+01:00","Merge branch 'master' into coverity_scan
+"
+"38d356d55bafd8b236a17c1efe435d842e2c2b8d","2015-01-28 23:49:16+01:00","added coverity scan badge
+"
+"c4790e02b3482a9876cfcc25bfd3bd810ddc2da6","2015-01-23 12:49:33+01:00","provide CommunityID as hex string
+
+CommunityID is taken now from default value or dataset file in readable digit-string Format.
+Benefits:
+- internal 'NotOnChip' function is now working for DG18
+- The value is readable ;-)
+"
+"702e248a484f6e3067dd346942eb87e0591c8096","2015-01-23 12:57:26+01:00","Verify implemented for Age, DocumentValidity and PlaceVerification checks
+
+In case of AgeVerification , DocumentValidity and PlaceVerification checks, the return code is not longer hard coded.
+Based on given reference values a check is does against given DG3, DG8 and DG18 values
+
+Still ToDo is incomplete DG8 BirthDate in Format YYYY-XX where the day is missing
+"
+"676bc3707a9fa61ed9a9dc3e747a6e8f92dede74","2015-01-30 22:54:22+01:00","save reference date/community id in the local object, not the class
+
+- mapps a truncated brith date YYYYMM to YYYYMM31
+- uses python magic to shorten the code
+- closes #38
+"
+"14496999083bb207e41806fea466391a86a792a2","2015-02-02 17:36:02+01:00","clearification on QES
+"
+"832e4110f9f1ac0198fa5ef43f51a2950a70150d","2015-02-02 19:26:52+01:00","close socket on error
+"
+"a76a859a9209de468f67d563aa045f5826136183","2015-02-08 20:41:07+01:00","fixed loading file image
+
+partially fixes #41
+"
+"5e6a9d43c3e1da1536a789b8f081dca1452b2ae2","2015-02-20 00:52:40+01:00","updated app version
+"

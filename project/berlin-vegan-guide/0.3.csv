@@ -1,0 +1,108 @@
+"commit id","commit date","commit message"
+"9dc81dcdf3b4dafb7027a812cb188fcfe4faa5cf","2015-05-31 20:23:21+02:00","bump to version code to 3
+
+From now on we bump the version code directly after a release. That way
+a developer always gets noticed by Android if he/she tries to downgrade
+to a release version.
+"
+"00dc88b5689b45f615496856f9a342aa3cc457fa","2015-05-31 19:53:02+02:00","add favorites handling
+
+With a new entry in the filter list a user is able to show his/her saved
+favorites. Therefore he/she can mark a location as favorite in the
+gastro activity by clicking on the outlined star, that then turns to a
+filled one to mark the favorite.
+
+Closes #4
+"
+"d54ad88da0418ba3003be416624d9320ccfcb40e","2015-05-31 20:51:17+02:00","update support libraries to 22.2.0
+"
+"22d851b4928803f9f138587084b54c028ff836ab","2015-05-31 20:51:44+02:00","add support library for designs
+"
+"819b8f2ff73538fbd05fdbf64880bcf17b2001b3","2015-06-01 19:01:45+02:00","update build tools and target versions
+"
+"f76fb854199012dd2191b1898c68fbc6cddb0d6d","2015-05-31 20:58:34+02:00","rearrange code to improve readability
+"
+"dc4ffb8d881ea35d773060089c7acbababd2e062","2015-05-31 21:21:40+02:00","replace deprecated method
+"
+"ed59391b32d365303fe81c327bd8583de4453784","2015-05-31 21:32:03+02:00","take sliding tab layout from support library
+
+The sliding tab layout was added to the support library, so we don't
+need to take the one copied over from Googles iosched.
+
+See: https://github.com/chrisbanes/cheesesquare.git
+"
+"e70b5f9e2a4a260557cbba886eab760f675a135d","2015-05-27 19:11:56+02:00","add application crash reports for android (acra)
+
+Application Crash Reports for Android
+Version: 4.6.2
+Source: http://acra.ch, https://github.com/ACRA/acra
+"
+"6bb06a3782434fa83df24862e34dade8fc480f58","2015-05-27 19:19:33+02:00","add post sender from acra mailer project
+
+Source: https://github.com/d-a-n/acra-mailer
+"
+"983051efbaa552fffbf1768e2cf0755a584f98d9","2015-05-27 19:27:11+02:00","fix api change in report sender
+"
+"1a1ece4a09e9cf407c8faf1e8422061677f896ab","2015-05-27 19:29:36+02:00","adapt acra mailer to our setup and initialize it
+
+Closes #12
+"
+"423b60bc40176f585da11799f01571b378e3eda6","2015-06-01 18:33:31+02:00","send crash reports only in release builds
+"
+"47ec9ba9f4ccf06c0ad59751eb42f5cad5f3df9b","2015-06-04 14:05:04+02:00","updated to new version, older version is not available in repository
+"
+"2cce272ca5dfb8148d724caa6594387881fe2bcb","2015-06-05 08:20:12+02:00","remove versions from open source licenses
+
+This is getting very annoying to maintain and it does not have any
+benefit. We must keep track of license changes though.
+"
+"1279b13b225f841464b7c61b0b008123f77a252f","2015-06-04 16:58:43+02:00","reorder methods of main list activity
+"
+"4f2cc72c0b36758bea66e85213c9ba2e22c99d53","2015-06-04 17:12:05+02:00","set timeouts for receiving json file from server
+"
+"5a419cee31b029fc0067503d50271cf1e8a54588","2015-06-05 07:26:48+02:00","extract setting up swipe refresh and recycler view
+"
+"3c06a73552aff1be115eeafa4b97466643fbf712","2015-06-05 07:36:43+02:00","fix deprecated extension and methods
+
+Exclude ACRA post sender for now. With API level 22 Android changed a
+lot regarding default http connections. We have to dig in deeper if this
+becomes a problem.
+
+See: http://developer.android.com/reference/org/apache/http/impl/client/DefaultHttpClient.html
+"
+"c5329bd847545b07baf2f453abfb833db5902e10","2015-06-05 07:41:01+02:00","remove unnecessary comments about file creation
+"
+"18dff39ba854a51cad1ff2012a9ba8553466a9d6","2015-06-05 08:07:38+02:00","let gastro locations know all the keys
+"
+"25033a6c62b7d5ef0be84fc4f06888ac2a150eaa","2015-06-05 08:13:49+02:00","use apply() instead of commit()
+
+commit writes its data to persistent storage immediately, whereas apply
+will handle it in the background.
+"
+"6c29021db37ef1b2c931452506eb7db6cb94debf","2015-06-06 09:59:01+02:00","update the favorites list in on resume
+
+The user may have added or removed a favorite in gastro activity, so we
+need to refresh that list, if he/she comes back to the main list
+activity and if the favorites list was the last list, that was shown.
+"
+"26c8f1c29d2b37a868bdc8a8195fde7c58c0198c","2015-06-06 10:34:49+02:00","trivial wording improvement
+"
+"0a0789a9cef67da5fb5703f9090588d7e190240b","2015-06-06 10:04:37+02:00","apply coding guide lines for static fields
+"
+"8337c5d6487e8859231292965568f8a66c224c30","2015-06-06 10:37:54+02:00","remove hard coded acra shared secret
+
+We had some spammers lately. So we pass the shared secret for ACRA to
+the gradle build system via '-PsharedSecret=<acra_shared_secret>'.
+
+Note: this is only relevant to release builds, since acra is disabled
+for debug builds. A developer does not have to add a parameter to
+his/her gradle config. The shared secret is just empty then.
+"
+"00a226946ebdf79dd4d52684eb9a71e0dc00bfd0","2015-06-07 09:26:35+02:00","complain if parameter is missing in release build
+"
+"233d4cf5d7b3ff19726ae76ea65f1069431f14b4","2015-06-07 09:33:20+02:00","improve readability of release creation section
+"
+"414bfba960ef7024c049e3b5a9bbb31406203235","2015-06-08 20:38:03+02:00","improve merge strategy for release creation
+
+Ensure to merge not local but upstream copy fast forward.
+"

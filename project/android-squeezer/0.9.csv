@@ -1,0 +1,251 @@
+"commit id","commit date","commit message"
+"0a25d458b2d8d26c012c81599dcf638de4874825","2012-05-26 18:30:16+02:00","Merge branch 'master' into download
+"
+"62f0b5e99f1773b620f78f4baecf8c24d6d80a0b","2012-05-26 19:45:03+02:00","Use a menu resource for the per-album context menu.
+"
+"acbe1c5a908f60f648e66918e9f984ab7357a460","2012-05-27 14:01:22+02:00","Slightly de-clutter the search UI.
+
+Remove the custom search button that appeared after the EditText control,
+and its drawable.
+
+Configure the EditText as a search control, and perform the search when
+the user presses the search button on the IME.
+"
+"65ca43093971a399924209fc2b78ea88deff8f33","2012-05-27 15:18:33+02:00","Use a SparseArray instead of a HashMap of Integers, per lint.
+"
+"2355ac0c0ecb3c0b8221db14ff18febabd6cc993","2012-05-30 21:04:49+02:00","Start fixing how images are downloaded.
+
+The current code in SqueezerIconUpdater.updateIcon is called from
+every getView().  getView() may be called multiple times for each
+ImageView, and every time it is the image is fetched again.  So
+album artwork might be downloaded two or three times for the same
+ImageView.
+
+Fix this by introducing an ImageDownloader class.  This class
+maintains an in-memory cache of images that have been downloaded,
+which means that not only do we stop downloading the same image
+multiple times for a single ImageView, we will re-use the image for
+any ImageViews on screen that should be associated with the same
+image, for an even greater win.
+
+This class is modeled on the SDK example
+XmlAdapters/src/com/example/android/xmladapters/ImageDownloader.html,
+but modified so that one or more ImageViews are associated with URLs,
+and to use LruCache instead of the home-grown approach in that file.
+
+SqueezerSongView has been updated to use this new method, the other
+views will be modified in future commits.
+
+Use an animation when images are displayed -- this helps highlight
+any times that images are being re-downloaded when they shouldn't
+be, for further work.
+"
+"4ab07cb31700d9f5f11311d8cf4be0c51cecd44b","2012-05-30 22:23:55+02:00","merged nik/master
+"
+"327479a1b1dbdb2f864d5711c3fbeb8837e17e5a","2012-05-31 17:23:11+02:00","Use the ImageDownloader class when browsing albums.
+
+Use 'icon' instead of 'image' in SqueezerPluginItem to reflect
+the results from the server.
+
+Add additional comments in places.
+"
+"70aa5a23d8e6e7de26ea0e0391ef8bb3199985c9","2012-06-04 21:15:30-07:00","Refactor filter/search and sort order handling.
+
+Remove the Squeezer{Filter,Order}ableListActivity subclasses,
+hosting fragments is a sufficiently understood idiom that they just
+made the inheritence hierarchy deeper.
+
+Add clarifying comments in a few places.
+"
+"94623def6e31953b61908d9bbbac95c70cdc2f76","2012-06-06 23:42:00-07:00","Use JavaDoc for the pageSize comment.
+"
+"96474b6405ac57a052f2b08c808208e419066954","2012-06-06 23:42:47-07:00","Add comments for future work.
+"
+"e18ccf67bd9e5da4bc0661e6e9f2fb6d139e21b2","2012-06-10 12:49:44+02:00","Fixed bug in passing serch results
+"
+"a4e8e0101d60b81e12d5812476d3f297cd86b354","2012-06-24 10:23:13-07:00","Add a 'download' feature to the 'Now playing' activity.
+"
+"4899aa48eeb13ff790d34d963ab1cba093e6d5b3","2012-06-25 11:38:06-07:00","Support downloading tracks via the music folder view.
+"
+"3753ef97fe11ea6328bbbfc2846442231594900d","2012-06-27 12:14:41-07:00","Remove prepareActivity() from SqueezerBaseListActivity.
+
+Subclasses now call super.onCreate(savedInstanceState) and then do any
+work they would have done in prepareActivity().  This keeps the code
+closer to the normal Android activity lifecycle.
+"
+"d9d7f5f15396ad94746148e0530e2b667f05f75c","2012-06-27 22:57:56-07:00","Break the circular link between SqueezerItemAdapter and SqueezerItemView.
+
+SqueezerItemView had a reference to the adapter that created it, which
+was used in two specific subclasses to determine whether or not 'move
+down' entries in the context menu should appear.
+
+Break this link, and explicitly pass the adapter in to the
+setupContextMenu() method where it can be used if necessary.
+"
+"2418a9e0e5382fcc7a5c9266f6012d1f7ad07965","2012-06-27 23:23:19-07:00","Format a comment, clean up whitespace.
+"
+"b8b2d0bbc2e1f886bd653f718df0c27cf46b3d25","2012-06-27 23:30:12-07:00","Call context menu actions through the adapter.
+
+The previous code called straight through to to the view to handle
+the context menu selection.  This code goes through the adapter's
+doItemContext() method.
+
+Call through to the super class to get correct default behaviour.
+"
+"2a96cf526c40d8f09377210c54cf7b91b9c2c508","2012-06-29 11:08:32+02:00","Removed add-to-playlist and play-next from the context-menu of the current playlist.
+
+The standard options of an item in a list of SqueezerSongs includes the ability to add the song to the playlist.
+This is probably not what one wants, when viewing the current playlist, since the item is already there. This was previously implemented by not calling through to super.setUpConextMenu.
+Since most the the standard functionality is now desired, I removed the items, which don't make sense instead.
+"
+"0a379dc61ae7b00c4b1ed118c6745468722b2bc3","2012-06-29 13:04:47-07:00","Delegate context menu creation to the adapters.
+
+Have SqueezerItemAdapter and SqueezerSearchAdapter implement the
+OnCreateContextMenuListener interface.
+"
+"458cd64b83eb7b2708266e201b4bb6cc441d8367","2012-06-29 15:39:11-07:00","Rename SqueezerItemView.setupContextMenu() to onCreateContextMenu().
+
+For consistency with the rest of the context menu creation API,
+rename the SqueezerItemView.setupContextMenu() method to
+onCreateContextMenu().
+
+The additional parameters that were passed to setupContextMenu()
+are placed in a SqueezerItemView.ContextMenuInfo object.
+"
+"4c5cd0ad6d68c16f3605df08ac50c0c6f639146d","2012-07-01 22:53:28+02:00","Fixed bug in song move dialog
+
+This feature is probably not used very much, since we haven't received any bug reports, but now it is fixed anyway.
+"
+"67a020b0f5a3c7599ccb6f8c1431f0644925df8d","2012-07-12 22:08:15-07:00","Further smoothing of album artwork display.
+
+Implement a 2 level (memory and disk) cache of bitmaps retrieved from
+the server to reduce the amount of network activity.
+
+Refactor the scroll handling code to be sensitive to the cache's disk
+access, and use an OnTouchListener to track whether the user has their
+finger on the screen
+
+Hoist common code out of SqueezerAlbumView and SqueezerSongView, and
+put it in SqueezerAlbumArtView.
+"
+"33e086ba9fd9da6b54534d8c0ba54c32609279b5","2012-07-18 22:29:50+02:00","Parse the name of the current playlist and use it as default when saving the current playlist
+
+In response to an issue on the squeezer website.
+This is pulled from the actionbar branch, where it was already present.
+"
+"69d8dabb4db37c7c86656de669f5d0502aaf1ee7","2012-07-26 19:59:12-07:00","Make lists with track artwork scroll even more smoothly.
+
+Replace the previous image processing and disk cache code with a slightly
+different version from the Google IO Schedule opensource app (with some
+bug fixes).
+
+Use an ImageFetcher to fetch images for both the artwork lists and the
+'Now Playing' activity.  The ImageFetcher is backed by an in-memory and
+on-disk cache.
+
+Pass the ImageFetcher from the list activities, down through the adapter,
+and in to the per-item views.
+
+The new code takes account of some quirks in different versions of
+Android.  In order to get the correct API constants, increase the
+targetSdkVersion to 10, and build against API 16.
+
+Work around the NetworkOnMainThreadExceptions that this can cause by
+explicitly allowing networking on the main thread for the time being.
+"
+"909b0d40b0d35758dc72634a756767640349252c","2012-07-26 20:20:32-07:00","Stop tracking .classpath.
+"
+"46b63682af3d428d5697fce7088d2a7a5a425680","2012-07-26 22:52:21-07:00","Merge branch 'load-images-correctly'
+
+Conflicts:
+src/uk/org/ngo/squeezer/SqueezerActivity.java
+src/uk/org/ngo/squeezer/SqueezerSearchAdapter.java
+src/uk/org/ngo/squeezer/framework/SqueezerBaseItemView.java
+src/uk/org/ngo/squeezer/framework/SqueezerItemAdapter.java
+src/uk/org/ngo/squeezer/framework/SqueezerItemView.java
+src/uk/org/ngo/squeezer/itemlists/GenreSpinner.java
+src/uk/org/ngo/squeezer/itemlists/SqueezerAlbumListActivity.java
+src/uk/org/ngo/squeezer/itemlists/SqueezerAlbumView.java
+src/uk/org/ngo/squeezer/itemlists/SqueezerMusicFolderView.java
+src/uk/org/ngo/squeezer/itemlists/SqueezerPlayerView.java
+src/uk/org/ngo/squeezer/itemlists/SqueezerPluginItemView.java
+src/uk/org/ngo/squeezer/itemlists/SqueezerPluginView.java
+src/uk/org/ngo/squeezer/itemlists/SqueezerSongView.java
+src/uk/org/ngo/squeezer/itemlists/YearSpinner.java
+"
+"a22af5d8a8030e70e56bb472467ffdd2df6b6a09","2012-07-30 22:17:03-07:00","Remove a memory leak when scanning for servers.
+
+Make ScanNetworkTask a static inner class, and cancel the task when
+the preference dialog is destroyed (e.g., on screen rotation).
+
+Create a ProgressDialog during the scan and display that, instead of
+an embedded ProgressBar in the preference dialog.
+
+Adjust the scanning algorithm slightly, and make it attempt based,
+rather than time based.  Drop the number of attempts from ~ 20 to no
+more than 5.
+"
+"c5a9e4a52578973b8e32acf13b62cea0b13c4406","2012-07-30 22:17:35-07:00","Remove an editor swap file.
+"
+"71a4b05cc5aa2ee2a747414d2658976e6a5f02d3","2012-07-31 20:28:19-07:00","Merge branch 'download'
+
+Conflicts:
+src/uk/org/ngo/squeezer/itemlists/SqueezerMusicFolderView.java
+"
+"2ee4945b8e0c1f29910fdd2ed1685b15e358c707","2012-07-31 21:28:47-07:00","Merge branch 'master' of https://github.com/kaaholst/android-squeezer
+"
+"471ab6a1bf9e990012f29437c23fcf86551e0a24","2012-08-04 21:42:46+02:00","Correct the image fade in.
+
+When going from the loading image to the loaded image, transition
+between the two, not via a transparent drawable over the top.  This
+fixes an issue where the 'loading' image appears under any transparent
+parts of the loaded image.
+"
+"f5301257e96d2a7ee7660d94a841049f4ebf7b90","2012-08-05 08:24:42+02:00","Update to v9 of the support library.
+"
+"2435a0ca7c3186003c730c152d07235318fcfce8","2012-08-05 11:47:09+02:00","Explicitly keep the model class constructors.
+
+Without this they get stripped by ProGuard, leading to exceptions in
+SqueezerBaseListHandler.
+"
+"ea063bfe4836aa3a14c80aba1c96a4d969654bc2","2012-08-07 17:35:26+02:00","Make sure that scrobbling code does not depend on notification preferences.
+
+Move the scrobbling code ahead of the check to see if the user enabled
+the ongoing notification feature.
+
+Track the state of the scrobbling preference, so that if the user turns
+it off after scrobbling started the correct 'stop scrobbling' intent
+is still posted after the song finishes.
+"
+"7cff1679c8ea7d81fdf36daa8d5a69b44fb37fb4","2012-08-08 20:09:50+02:00","Make scrobbling simpler to control.
+
+Instead of asking the user which scrobbling client they'd like to use,
+query to see which scrobbling intent broadcast receivers are available,
+and use that, favouring ScrobbleDroid over SLS if both are available.
+
+Make the scrobbling preference a simple checkbox, and upgrade from the
+user's previous preference if it exists.
+
+Tell the user if they enable scrobbling but no suitable app is installed,
+and present them with a list of possible apps to use, linking to Google
+Play for ease of installation.
+"
+"1e43e2ed53b414d8764ad2ad247c2e7d21cba710","2012-08-08 20:22:44+02:00","Rename some variables after overzealous Eclipse refactoring.
+"
+"0692ad2182b199f66ef9b596ec81df75849ad327","2012-08-11 15:57:15+02:00","Dutch translations for new strings, contributed by Sebastian van Winkel.
+"
+"6597201fb18e864c4169b0028fe4190cc549d212","2012-08-11 15:59:26+02:00","Update AndroidManifest.xml and NEWS ready for the 0.9 release.
+"
+"cb843263e36bb9237b2f5f57f03021cfe62945f8","2012-08-14 21:31:49+02:00","Danish localization
+"
+"d14eb21a2df717086ed8f5faa40562cacb766173","2012-08-14 23:25:35+02:00","Fix ClassCastException in download from current playlist
+
+SqueezerCurrentPlaylist can't be cast to SqueezerAbstractSongList,
+because it no longer extends SqueezerAbstractPlaylist (as the callback
+requires special handling of the currently playing song).
+The downloadSong method is moved to SqueezerBaseActivity thus
+eliminating the need to cast. (and the need to duplicate it in the
+music folder list).
+"
+"f14629b0655cb18df7ef71b58c673c16233ae298","2012-09-03 21:42:23+02:00","Update mapping file for 0.9 release.
+"

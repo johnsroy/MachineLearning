@@ -1,0 +1,102 @@
+"commit id","commit date","commit message"
+"247604550e6ea4cf81e192ee360eefe35b807f64","2013-12-29 18:12:43-05:00","Initial commit. Added the application to a git repository.
+"
+"f5f2ccd8bceb3b6050312c94c63580154f234df7","2013-12-29 18:19:59-05:00","Added a README file.
+"
+"1c25428ab26b2d821df1a5524ac152aa9c69a328","2014-01-03 13:43:47-05:00","Changed the min API level to be KitKat, since I have received reports from users about crashes trying to launch the intent to the screencasting settings activity in 4.2 and 4.3. I must temporarily only support KitKat.
+"
+"a5725c3d6fd12f4708af2c37910c8f44dab6ea8b","2014-01-10 02:46:56-05:00","Update README.md
+"
+"d34a92322cab436f026c183d5cb78cd74388a2bd","2014-01-14 23:39:11-05:00","Dropped the update interval of the widget to 10 minutes, since I found that my display listener would mysteriously get dropped after a while. This created a bug where the widget would not update, even if the screen was shared.
+"
+"8df82c0a0573d7283b51e4c58b3b88e43bc88903","2014-01-14 23:39:46-05:00","Merge branch 'master' of https://github.com/mattgmg1990/miracast-widget
+"
+"ac765489cb110c77bb4cd6a4324f561f8f4d2d78","2014-01-14 23:41:01-05:00","Increment version number and name.
+"
+"14fb6985129edb22dd88f4809ccd7d7b89821bf6","2014-10-13 21:36:31-07:00","Add Samsung ALL_CAST permisson.
+
+This is required for Samsung devices to launch the Miracast settings
+Activity.
+"
+"ec478aadfa700d824c5823fb28f8ae600b010b24","2014-10-13 21:43:49-07:00","Cleanup code and catch ActivityNotFoundException.
+
+If the Miracast Settings Activity is not found on the device, catch the
+Exception and show an error toast instead of crashing.
+"
+"18d9548504d9f2b5b6a5b681331b20178070529a","2014-10-13 21:59:12-07:00","Add new launcher icon. Adjust widget margins around icon.
+"
+"6233af8b3b85f6b8a6a0ff5a61c00dbff30931b0","2014-10-13 22:29:22-07:00","Add screenshots and graphics used for release.
+"
+"b963df4c2a1ae778272901ea283cfa85978f75fe","2014-10-14 08:23:10-07:00","Bump version number.
+"
+"b90f2f645e3b02a456cf2a59fcc410c3036ce773","2014-10-21 22:42:02-07:00","Add Apache 2.0 license file.
+"
+"206f3c25604717b244dfde08d62116433a231b76","2015-10-11 15:19:26-07:00","Improve support and fix formatting.
+
+- Fix formatting in several files.
+- Support the CAST_SETTINGS Intent action String for launching
+the Miracast Settings. This improves support on several OEM Android
+versions as well as Android Marshmallow which dropped the
+WIFI_DISPLAY_SETTINGS action String.
+- Fix layout of widget so that Text will be centered on devices higher
+than API level 17 that support the textAlign attribute.
+- Bump version to 1.4.
+"
+"9fdcc85102ef270f547ff1fc7ccf7b7cf7887601","2015-10-11 15:39:08-07:00","Update strings, remove unused String.
+"
+"b9b12ad2ab87cc43272d4f29a0597183038e673a","2015-10-17 21:56:53-07:00","Restrict intent launches to Android Settings app.
+
+- Target the intent launches to the 'com.android.settings' package.
+- Bump the version number and name.
+"
+"b89ad1cd3e878b657a47fcd36c78a2346ff741bb","2015-10-18 18:23:06-07:00","Fail gracefully when denied Samsung ALLCAST permission.
+
+- Check if the permission is defined but not granted. If so, display the
+error message instead of just crashing.
+"
+"848f1f7d4260c1b5d164ae8fba2ba531f210601d","2015-10-18 22:13:25-07:00","Bump version
+"
+"c5712743f5355f229b12acfee9a9678b64c16589","2015-10-19 22:58:18-07:00","Revert 'Fail gracefully when denied Samsung ALLCAST permission.'
+
+This reverts commit b89ad1cd3e878b657a47fcd36c78a2346ff741bb.
+"
+"b00865c0b7982fc10db936d23b2eb39d430a0684","2015-10-19 23:01:41-07:00","Fail gracefully if permission denied when starting Activity
+
+- Instead of a previous implementation of checking if the Samsung
+ALLSHARE_CAST permission was granted to me, just catch
+SecurityException when starting this activity. This fixes a scenario
+where the permission may not be granted to this app, but actually
+isn't necessary. This way, we only show an error if the settings
+activity truly cannot be launched.
+- Bump version to 1.7.
+"
+"7a593437cfd9366aed33d3baa97532f1bc76d6ac","2015-10-28 20:59:26-07:00","Remove hard package name dependency
+
+- Do not target the launch Intent directly to com.android.settings, for
+some devices that package name is not maintained.
+- Query PackageManager for system applications that match the
+IntentFilters instead of limiting by package name. This ensures that
+third party apps are never launched for the cast settings
+IntentFilter.
+"
+"51b2c94ab5e004b0f964db80a8056c2412df8a02","2016-04-02 22:27:06-07:00","Migrate project to gradle and target API level 23
+"
+"01b9d5533f494e998b218f27eb5a8d8ffddb9908","2016-04-02 22:30:50-07:00","Remove unused eclipse settings file
+"
+"f5162de5b0eb6b29319b3d242676492b33936592","2016-04-03 22:36:37-07:00","Add Google Analytics, fix widget bug, bump version
+
+- Add Google Analytics to track success and failures of launching the
+Miracast settings Activity.
+- Request new permissions to support Google Analytics
+- Fix bug where widget would not update by sending an update broadcast
+manually when MainActivity launches.
+- Bump version to 2.0.
+"
+"a4a7475d51fd3bb4617ff5aeefd848daebb9964a","2016-04-03 23:00:37-07:00","Add privacy policy
+"
+"f7c4d77317adc80688f7d9bd01a5313fa45a482d","2016-04-03 23:11:52-07:00","Explicitly remove WAKE_LOCK permission
+
+Without this tag, the Google Play Services gradle plugin will add the
+permission to the application. It isn't needed as long as play services
+is available on the device running this application.
+"

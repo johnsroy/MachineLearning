@@ -1,0 +1,131 @@
+"commit id","commit date","commit message"
+"fb271612de77dd01b3238aae7d09da70040abedd","2014-07-28 22:21:38+01:00","Skipped '7bd9ac7' from develop: Bump version to 2.2.1alpha1
+
+@branch-specific
+"
+"af53c83ec6ec5865d93892181eefd96e1d345160","2014-07-28 22:21:38+01:00","Merged '715195b' from develop: Fix NPE crash found in bugID 6548138210885632
+"
+"8ac5299f8521bdf054c7b3ee5d1f87b82b8547b5","2014-07-28 22:23:05+01:00","Skipped 'e4b7b08' from develop: Lets go directly to beta phase for hotfixes
+"
+"66f5471c79f41cd0829446fb63dbbf27de2c7385","2014-07-28 22:23:14+01:00","Merged '6aa83c3' from develop: Quick fix: throw non-file URLs into an Intent. Should deal with issue 2189.
+"
+"fad57d63ec382f01656bca147e6df60b07d093d8","2014-07-28 22:23:14+01:00","Skipped '55decbf' from develop: Bumped version to 2.2.1beta1
+@branch-specific
+"
+"321adbe42728d4779205960244291fcd4c6b7d1f","2014-07-28 22:32:20+01:00","Skipped 'c05e2fa' from develop: Update 13-newfeatures.xml
+"
+"73107108ce52dc037640cca5ae7601a315aa89be","2014-07-28 22:32:27+01:00","Skipped '56e1f97' from develop: Bumped version to 2.2.1beta2
+@branch-specific
+"
+"8a6e39020ae88a1cee60acdce31601ce386c3c0e","2014-07-28 22:32:56+01:00","Merged '575db6c' from develop: AnkiDroid case
+"
+"1749bec5941bfba38dc189eff0db51d6e25e7b56","2014-07-28 22:33:07+01:00","Skipped 'a9f40fc' from develop: Fixed Ankidroid case. Updated localizations
+"
+"63809c849eead1231528db93674157bf3984c107","2014-07-28 22:33:12+01:00","Skipped 'd3aa85e' from develop: Bumped version to 2.2.1beta3
+@branch-specific
+"
+"09648cc0acf046557948208276c8b30d49601f11","2014-07-28 22:33:19+01:00","Skipped '31fd080' from develop: Updated localizations
+"
+"b7ebb3767e567d500f97bdcbe360b3a2f5d31d60","2014-07-28 22:33:49+01:00","Skipped 'd588aaf' from develop: Bumped version to 2.2.1
+@branch-specific
+"
+"3cd7dade3648ce43e907ed95e7351903e09b08a0","2014-07-28 22:33:54+01:00","Skipped '8e4dcd9' from develop: Blue icons
+"
+"c45b7b38305ed6980c90e560105e8fcc421c53d9","2014-07-28 22:34:24+01:00","Merged 'e55e609' from develop: log instructions must be on 1 line
+"
+"3f19e797a49990212968937bf5186f986651cf38","2014-07-28 22:34:30+01:00","Skipped '599ddf4' from develop: Commented logs
+"
+"3a357514b6198b3afe9c772e766629954fb70c19","2014-07-28 22:35:06+01:00","Skipped '552405f' from develop: log instructions must be on 1 line
+"
+"6e8ff8e37c3e67154a81b4dd09150a8e325518f8","2014-07-28 22:35:11+01:00","Skipped '458ba27' from develop: Bumped version to 2.2.2
+@branch-specific
+"
+"0fdf3afea87f60e338294734e228d1d0b306c6cf","2014-07-28 22:39:31+01:00","Skipped 'f9310f3' from develop: Bump version to 2.2.3alpha0
+@branch-specific
+"
+"56db23fc965a66920bde28e9ed9d1117226f656d","2014-07-28 22:40:18+01:00","Merged '0f29f80' from develop: 834e623,422a8c6
+
+Commit '834e623'
+New media sync protocol and updates to media handling
+
+The main features of this commit:
+1 - Port of the new media sync protocol (released in Anki 2.0.27)
+2 - Cleanup and update of Media.java to match Anki 2.0.27
+
+Things to note about this commit:
+- Tests for the Media class have been ported over.
+- A new media database format has been added with the extension '.ad.db2'. The .ad prefix is specific to AnkiDroid to prevent issues caused by copying the file to the desktop or vice versa. If an old media database is found, it will be converted to the new format (and if it fails for some reason, it creates a new empty database).
+- File names are now normalized in NFC form before being added to the database and/or synced (previously used NFD, which is not the format used by Anki)
+- Media-related regular expressions have been fixed and the group indexing scheme documented (Java doesn't support the named groups that python uses)
+- Previously, a clean copy of the media database was cloned from the assets folder. With this update, it is created at runtime with SQL, so the file in assets has been removed.
+
+Known issues;
+The multimedia note editor bypasses the Media manager for most of its tasks which could lead to inconsistencies in the future.
+Commit '422a8c6'
+force media resync on deauth
+deauthing should reset lastUsn to 0
+
+(https://github.com/dae/anki/commit/a5d91314459d6945568757713ef2431841299f94)
+(https://github.com/dae/anki/commit/f54f5870fa94e05e96bf72210a70934ebd2b734c)
+"
+"572f5e6a9565384fce59a0c0fcd0c7ad0ca1dbc4","2014-07-28 22:40:23+01:00","Merged 'f71878e' from develop: Make the 'dictionary_values' as long as the 'dictionary_labels'. Should fix issue 2203
+"
+"a41799497f749deaab5a721a55d16c8d2d8fe000","2014-07-28 22:42:17+01:00","Merged '4fa70e9' from develop: 1ce09d9,f27a795
+
+Commit '1ce09d9'
+Disable media sync on Android <=2.2 if non-ascii file name found
+
+Unicode normalization is not supported on Android 2.2 and below. Since the new media sync protocol requires file names to be normalized in NFC form, we now abandon a media sync if we detect a media file name that cannot be entirely represented in the ASCII encoding and disable media syncing on that device.
+
+This approach is likely to allow a number of users on those devices to still be able to sync media without issue.
+
+Note: A dialog is shown if media becomes disabled after a sync. Collection syncing is unaffected.
+Commit 'f27a795'
+Assume we are on FAT32 for every sync attempt
+
+Temporary measure until we can find a reliable way to detect the file system type.
+"
+"4cab9dcb1f9670a821c38f3ed572000e4b73046c","2014-07-28 22:42:31+01:00","Skipped 'b3ca29d' from develop: Bump version to 2.2.3beta1
+"
+"17c2c8e3df01d7e3b2b1875b2800951ba53252bd","2014-07-28 22:42:38+01:00","Skipped 'f883976' from develop: Update 13-newfeatures.xml
+"
+"86b2f2ce6b419a89a2caaca1cbf2b7b63e05059e","2014-07-29 10:49:39+02:00","Use `replaceAll()`, not `replaceFirst()` when building cloze cards where Anki desktop uses `replace()`.
+"
+"b4d889076853c53aa63d3d74416f6463935673b0","2014-07-29 18:36:40+09:00","Merge pull request #443 from ospalh/feature-multifield-cloze
+
+Multifield clozes
+"
+"fde036f3419411d833c5452ae18002846508aadc","2014-07-29 13:03:05+02:00","Use the field name for the show hint link, like Anki desktop.
+"
+"2d9818cfc21c3ed90e8bdd6e0c36831dac57e687","2014-07-30 22:27:03+09:00","issue 2206
+"
+"5f7c4463a382f5e8471d9fe1de7eadba5fb79d61","2014-07-30 22:45:49+09:00","issue 2069
+"
+"097e59e31ea98530aef4166a6cc6cad1747939fb","2014-07-31 00:20:04+09:00","Merge pull request #444 from ospalh/feature-field-name-hint
+
+Use the field name for the show hint link, like Anki desktop.
+"
+"09dac23a59f96cc09298e92e6ca7983a66b18b73","2014-07-31 11:16:14+02:00","Semi-automatically remove trailing whitespace
+"
+"a9ee7bde511f29ef516cf79ba3b504c2744ddc98","2014-07-31 13:07:16+02:00","Use class “`replaybutton`” for the replay button, like the Anki desktop add-on
+"
+"3f40fe3853b0c608fe7ad7b03f474ba5cdb5764d","2014-08-01 15:28:23+02:00","Semi-automatically fix trailing whitespace
+"
+"149705f506c4d81d49b2993d9168e60f28dfc9fa","2014-08-01 15:29:04+02:00","Fix fall-through in a switch.
+"
+"8874cc92fe190cedd1c858925428a5e2b0e4bc7d","2014-08-02 13:11:38+09:00","Merge pull request #446 from ospalh/feature-play-button-class
+
+Add CSS class to the replay buttons
+"
+"c00a7bba7d16cfe2def8f2b7be108cbdfd78df14","2014-08-02 15:20:53+09:00","Merge pull request #449 from ospalh/feature-fix-a-fallthrough
+
+Fix a fallthrough
+"
+"510e57b952d0b170f4ff3dc7752432790ee4a005","2014-08-03 12:58:49+09:00","Update AndroidManifest.xml
+
+Bump version to 2.3alpha4
+"
+"f13736714e830d5c1cc8070b3ea2201357829e69","2014-08-03 05:15:10+01:00","Merge pull request #445 from timrae/previewer
+
+Previewer fixes
+"

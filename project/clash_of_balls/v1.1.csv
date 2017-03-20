@@ -1,0 +1,151 @@
+"commit id","commit date","commit message"
+"756e18e0a7fe969e71534b9d96afbd3e93d9a510","2012-12-20 14:41:34+01:00","! textures: remove GL_GENERATE_MIPMAP_HINT (gives gl error 1280)
+"
+"43778b9c4586012b71ce15cfa803fae8ad6673cb","2012-12-23 09:43:51+01:00","+ set vertex position & color data of game objects only once per frame or when needed
+
+this increases the frame rate by about 15%
+"
+"f2bc58ba637392d883227c21414cff4ad490ede9","2012-12-23 09:55:48+01:00","+ save one matrix multiplication: apply projection mat on setIdentity
+
+this increases the fps by about 11%
+"
+"b57580b57e7cef4b73ac3a865690f9cb5cb3d101","2012-12-23 09:56:15+01:00","! log 'Font succesfully created' verbose instead of debug
+"
+"a1e45aa30697cae58b1f5ea755ae39b7e5d274c1","2012-12-27 16:10:32+01:00","+ JBox2D library version 2.1.2.1 (zlib license)
+
+http://www.jbox2d.org/
+"
+"099fbc73fe12fc01ac951aab5fea267d19655121","2012-12-27 16:11:12+01:00","+ slf4j logging library version 1.6.1-RC1 (MIT license) used in JBox2D
+"
+"2efd46b4b5e5bec9c57fb0b31cbdd0a11b6ed273","2012-12-27 23:05:50+01:00","+ StaticGameObjectNoInteraction class: for background objects w/o collision handling
+"
+"669a7d935abd64fc4342a068fc418c93473d33e6","2012-12-27 23:15:21+01:00","+ Box2D integration:
+
+* Box2D: coordinate system is the same, body position is same as old position
+* Box2D objects: World, Body in StaticGameObject (replacing position & angle)
+* fixed timestep of 30 ms for box2d
+* collision detection & handling
+* Item & Event impact handling now also use impact normal
+* use Body & Fixture in GameHole, GameItem, GamePlayer & GameWall
+"
+"e9ee309a1b59e4c8b93871b16f7382937dca617f","2012-12-28 10:04:25+01:00","- delete unneeded class Rectangle
+"
+"2aa9d7793b9a38b28f405e470d6c1d59cdf031a2","2012-12-28 10:59:49+01:00","! remove some vector allocations: use class members instead
+"
+"845011e2d9e3fa47a46b53af85d8bd20c345516a","2012-12-28 11:15:14+01:00","! move game objects in sync (same timesteps) as box2d world
+"
+"503c8757e2dba01f67107cf61f4ee2cadca4d602","2012-12-28 11:16:05+01:00","! set player restitution from 0 to 1
+"
+"6bcde9cb4031b93436d0a5f9c9a0154f2bf75035","2012-12-28 13:37:14+01:00","+ GameItem: appearance effect, constantly grow & shrink over time
+"
+"999367cc6b2b3610b9b25feffb8a3e6b1ce26038","2012-12-28 13:58:37+01:00","+ Game: keep track of current item count on the field
+"
+"d1877eaef4242d07413720fdf80de50fc430fadf","2012-12-28 13:59:09+01:00","+ Game: max item count & decrease item placement frequency to 3-8 sec
+"
+"9037a6e785aee978d92ea90bce96bce981b7950c","2012-12-28 14:09:32+01:00","! GameItem: items disappear after 15 sec if no one takes them, item effect duration=15 sec
+"
+"10f947bcea94f83bc7fc31a984430084115e1379","2012-12-29 10:32:48+01:00","! GamePlayer: change radius implementation: use an array for different radii
+"
+"d4f4665adbc0f1e6ccfdd67f29735d8f9c4b22da","2012-12-29 12:54:34+01:00","! rename shaders
+"
+"5f9edb8799b5221b38c6c9499d15b0d538a7ded9","2012-12-29 12:55:48+01:00","+ warp shader with time parameter
+"
+"1b85b23dfdbf63152fc57c9f368fd16f5c0bd07d","2012-12-29 12:58:22+01:00","+ GameItem type: don't fall into holes, show a glow effect around the ball
+"
+"d33101eb5d1b3659ef03deb02b5baab3c9ea2de7","2012-12-29 14:40:50+01:00","! shader: color is now an uniform instead of an attribute
+"
+"9549ed6ccdca00fe706ab9fbe61bb4a703d59406","2012-12-29 14:42:04+01:00","+ GamePlayer: glow appear/disappear effect (use a scaling)
+"
+"56df477bf433941655e29027098d17a3002df8dd","2012-12-31 09:38:00+01:00","+ README: mention Box2D
+"
+"cc393cd1af647cd3bb011a58a09820e3fc4b82df","2012-12-31 09:38:47+01:00","! disable a verbose network log
+"
+"aad8f321336a5793e65ca42206309612e53b7c0f","2012-12-31 09:41:26+01:00","! Collision: handle the impact after the player lost the DontFall item
+
+this fixes a collision handling error: when the player was right at a
+border when he had the DontFall item and then lost it, he could move
+over the border without falling down
+"
+"4ed6ba1f4c5b3357646a7f3dd6b38498d4ac3e12","2012-12-31 09:52:57+01:00","+ GameItem: new type increase mass & size (w/o proper texture yet)
+"
+"3f7478bc531675960739e5f4bdf36a31e196b627","2012-12-31 10:54:31+01:00","+ GameItem type: increase restitution (bouncing off) (w/o proper texture yet)
+"
+"3faa13593be99104cc74fb24a9475c1c01231c74","2012-12-31 12:04:52+01:00","+ FontNumbers class to draw integer numbers (caches the font textures)
+"
+"bc370054c6e0099503052420f1e0ef72b0d24ff6","2012-12-31 12:05:26+01:00","+ GamePlayer: accumulate item duration if same item is taken
+"
+"7dc965a57c8b9c1c0e7798b78602e2209a18e39a","2013-01-03 15:47:25+01:00","! GamePlayer: increase acceleration a bit
+"
+"8a9179f502e15f4809868507905cfab57c80abf7","2013-01-03 17:27:46+01:00","! Networking: cache mBus.getUniqueName() to avoid memory allocation
+"
+"e1a545b14f30c39ee52415a9c18d40bb539af146","2013-01-03 17:55:18+01:00","! Networking: avoid allocating a Vector. use 2 floats instead
+"
+"3f4b54a6fb7beea7eb24a5d203bf7ffca57c1bb8","2013-01-03 18:06:14+01:00","! Box2D: decrease velocity & position iterations
+"
+"310cb794191021541b3a1618bbe03f1349c70da5","2013-01-03 19:51:14+01:00","+ events: add EventPool to recycle Event objects (avoid memory allocations during game)
+"
+"6a33c54fd1faa4f6bd210257ce7f6415ea51f597","2013-01-03 20:13:52+01:00","! use same texture coords for all textures. apply them when changing the shader
+
+this increases the frame rate by ~15%
+
+but it also removes the possibility to use custom texture coordinates
+(this could be added in Texture with a boolean flag whether to use
+default coords or custom. then only change/apply the coords when custom
+coords are used to keep the performance high)
+"
+"4aa10882e6aa923ba94c2277229d4ae2b8a37fd7","2013-01-04 14:34:14+01:00","! CreationMenu: disable create button before it is shown
+"
+"850ccd9a3dea0a81b9ae54367b5b72069b32ae92","2013-01-04 14:35:05+01:00","+ releasing: enable ProGuard & configure it
+"
+"9677c0a48f09dd9d217958b67b2dca1e6764376e","2013-01-04 14:35:30+01:00","+ gitignore: ignore releases & proguard generated files
+"
+"fe4575d851f6aca86960404a6cdb2608b54918b4","2013-01-06 11:20:50+01:00","+ RenderHelper: add color_white as a default color
+"
+"256e2b0bebd544a14b04f70f08d44ae97e6c6e8e","2013-01-06 11:22:07+01:00","+ GamePlayer: add shadow texture (+drawBackground method to draw it)
+"
+"5feb1d441f08b3edcdcd511b4eb78e4047c05b03","2013-01-06 12:00:07+01:00","! GamePlayer: increase max speed & acceleration a bit
+"
+"4aa8c522933de7302394d7da854cc638fe6dcacb","2013-01-09 14:34:11+01:00","+ Credits: display version info in Credits popup
+"
+"5e24fcbd43c3c312a75707787fd2db83266e4047","2013-01-13 15:28:42+01:00","+ Networking: add a protocol version integer
+
+* it will be advertised in well-known name
+* other clients with different version will be prevented from connecting
+"
+"f092f2bd8edbb420eaef4ca57d8e8b71307bf664","2013-01-15 19:26:39+01:00","! rendering: call modelMatSetIdentity in GameRenderer (not in MenuBackground)
+"
+"6ac34d223c9e989d30f52e0e8de08b2e982c511d","2013-01-17 16:26:59+01:00","+ Game: initialize client id's before calling GameBase.initPlayers
+"
+"3928c80e71797630bbd07bcebe89868de1593f59","2013-01-17 16:28:20+01:00","+ make GameRenderer.m_screen_width/height public (avoid having simple getter method)
+"
+"6fd7d66494c8fcbe43c38aa7af6f2a9a1fa9d464","2013-01-17 18:20:32+01:00","+ wall type: cross
+"
+"24c74db6630127483bbdf52f9f802c484989b88d","2013-01-17 18:21:07+01:00","+ new level: walls2
+"
+"063ff7e0664db3b82bf136205a626d0a8b3ccd44","2013-01-17 18:21:26+01:00","! reformat empty level
+"
+"42f3df4e1213bf41d995857be191a6e9055ad0fa","2013-01-17 19:12:11+01:00","+ new level: lot of single crosses & single holes
+"
+"44320a8b8741c7cfe86e0ee5ac00575c446e83a7","2013-01-18 12:07:42+01:00","Revert '+ collect garbage before game starts'
+
+This reverts commit 7412d92d7bc18f351cd1b6b27181fa3d2b7fcb30.
+
+Conflicts:
+src/com/android/game/clash_of_the_balls/game/GameBase.java
+"
+"316de2146bdda2c7513ec98a9a9c5b5ec65aa445","2013-02-09 11:00:30+01:00","+ Readme additions
+"
+"6fd1468dfd87193df5cf28a578b48994a66d6db9","2013-02-09 11:13:12+01:00","+ New Items Textures: Dont Fall, MassInc, MassDesc
+Resti
+"
+"0616f5e37ba965dde4b72c9e617529afa172365d","2013-02-09 11:13:40+01:00","+ New Items Textures: Dont Fall, MassInc, MassDesc
+Resti
+"
+"12a05bf972809ee6ac00db009d9e598a3874e058","2013-02-09 11:24:49+01:00","! Corrupted texture fixed
+"
+"9dfa0c72992bcff36e563842c221a35d46d643e6","2013-02-09 11:47:38+01:00","+ added item help menu
+"
+"74f92b8ceaaabab1d8dfd0649302ce156fe93d12","2013-02-09 13:15:46+01:00","Merge branch 'master' of https://code.vis.ethz.ch/git/dist_sys/clash_of_the_balls
+"
+"14bef2e5553a1d4cd2449952f3afce4d30f67aee","2013-02-09 13:51:21+01:00","+ version v1.1
+"

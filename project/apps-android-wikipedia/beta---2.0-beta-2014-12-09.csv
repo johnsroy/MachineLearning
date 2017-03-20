@@ -1,0 +1,1104 @@
+"commit id","commit date","commit message"
+"1c08d266e2c83a38bc72013c29dea5dc8697a87c","2014-11-02 14:58:36-05:00","Stop using the Bus unnecessarily.
+
+- Don't use the Bus for menu item actions.
+- Don't use the Bus for interactions with PageActivity from various fragments.
+
+Change-Id: I908eced66efd252c2a9f63812fb476ee9819bb92
+"
+"bd4411f9dab9c033aa6d2c67cc2da2299d18f070","2014-09-09 12:40:42-04:00","Lead images!
+
+- Remove screenOrientation hack from PageActivity, and resolve all the
+implications thereof.
+- Modify the lead-section API request to retrieve the lead image
+automatically, along with the WikiData id (for future mischief). These
+things are now stored in the PageProperties object.
+- Implement lead image in pages.
+- Disable lead image in landscape mode for low resolutions.
+- Don't show a lead image placeholder when the page doesn't have a lead
+image associated with it.
+- Add dark gradient behind page title for better visibility, as well as a
+slight drop shadow on the text.
+- In JavaScript, move any images in the lead section to the bottom of the
+section, so that the native lead image is followed immediately by text.
+- In JavaScript, remove the page title from the lead section, and move the
+edit pencil to the right of the first paragraph.
+- Make the Page object no longer Parcelable, lest someone try to put it
+into an Intent or savedInstanceState.
+
+Things to look into:
+
+- How does Picasso manage its image cache? Now that we're fetching much
+larger images, we should profile Picasso's filesystem usage when caching
+images, since we don't want it to grow too big.
+
+Change-Id: Icec164de0d515a547d1647e06153a84e3b9bc088
+"
+"4ea0706f35bb3fcc3c1bb9045766bcd822d53b1c","2014-11-03 13:32:13-07:00","Change location of apk to releases dir
+
+Having it outside of the Gradle build folder has the advantage that
+the apks don't get removed.
+With this change one could invoke multiple release commands
+at the right after each other without losing previous apks.
+Useful for scripting to build multiple partner apks.
+
+Change-Id: Ibe26856d0214abd09658d387dfaf5f1ede4a3023
+"
+"03ec9c9b8cfd05b39776b924a1ff847d3a97ae8d","2014-11-04 15:40:24-08:00","Only log theme change events if the theme was actually changed.
+
+Right now the MobileWikiAppAppearanceSettings schema records each tap on the
+dialogue for changing themes. This patch changes this, so that only taps that
+result in an actual change are logged (e.g. trying to change from light mode
+to light mode is not logged).
+
+Change-Id: I11946d63514957b06947d4870e591f2c2b03e643
+"
+"8d899d8600d470cf9bd0a5c3c7200f44c018b975","2014-11-04 15:12:20-08:00","Make error messages in account creation slightly more prominent.
+
+Right now, when a user tries to create an account with a username that is
+already taken, the app simply displays a little red exclamation mark next to
+the username field. When you tap on the username field, an error message is
+displayed.
+
+This patch makes it so that when you try the same thing, focus is given to the
+username field so that the message displays immediately after the user has
+made it, giving the user more feedback about what went wrong. It also does
+this for every other kind of message which uses setError().
+
+Bug: 72923
+Change-Id: Ia5da8095e3b80463b6cd037bb931202c05369c74
+"
+"71e3a6a1ca7047d2e34d7093196dca04cdbb8fc8","2014-11-05 15:31:07-05:00","Fix tests related to PageProperties
+
+- Also fixed error in EditPreview test.
+- Also fixed Page .equals test.
+
+Change-Id: Idafb44bf8b0ef9e8e2ea741615f14c41e9a3263b
+"
+"88e57a338373bd0bb3ee496ed6c8c2a76121c032","2014-11-02 11:19:13-05:00","Wikidata description under page title.
+
+- Created a more centralized cache of Wikidata descriptions, mapped to
+q-numbers, and accessible from other classes.
+- Updated the full-text search fragment to make use of this cache.
+- Added description text under page title in lead image view.
+- Added a nice animation to the page title when the description becomes
+available.
+
+Change-Id: I8136bd9a358231884e1e47b027f4ad6e95609570
+"
+"bbfa6f09e006aaf77dbf4a230068828436cd427f","2014-11-07 17:40:56-08:00","Capitalise first letter of Wikidata descriptions.
+
+This patch capitalises the first letter of Wikidata descriptions after they're
+retrieved from the API. It looks better that way. :-)
+
+Change-Id: I2056d71ca56fa2a76058f0fee2c1b81471005c68
+"
+"b9c35806202156e4d97e61bcc7f85083e37404b9","2014-11-05 22:23:46-08:00","Change width of tappable area for 'Skip' in OnboardingActivity.
+
+We're seeing a rather large drop off rate on the onboarding screen, and it was
+pointed out that the tappable area of the 'Skip' button is actually much
+smaller than the other buttons because it's a text view.
+
+This patch changes the tappable area of the skip button to be much wider so
+that users are more easily able to skip onboarding without having to tap
+exactly on the skip text.
+
+Change-Id: I93e8c43a50029a7096c20a107b3591dbe392665f
+"
+"0fa7c776111c223e4959743cc51fc4d78b8cfda0","2014-11-05 23:57:31-07:00","Disambiguation and page issues dialog on bottom
+
+Change-Id: If216e2b73cfc94184fca64c384575a5d1d903add
+"
+"da7245c8e4fee64fb4794c82b4171adf38454a62","2014-11-06 13:38:38-07:00","Slide up/down animations for BottomDialogs
+
+Change-Id: Id496b25b7b412986b9c277c5ff2a3f9391bfb771
+"
+"f833aa6358958ef71a064640cb889cf381ea6926","2014-11-06 18:12:09-07:00","Left/right animation inside page info dialog
+
+Now have two different ListViews inside a ViewFlipper
+and animate the transitions between them.
+
+Change-Id: Id9dba17d6f44c8a77ab1aac5ac370a02828972a3
+"
+"3ecf9ea82b9443dfa1d5a4e7bdbae00968754d53","2014-11-07 11:57:35-07:00","Disambig items have thumbnail, title, and Wikidata description
+
+Collecting the disambig titles and the link html in JS code
+to avoid having to parse the HTML in Java.
+
+Using page titles to request page images (thumbnails) of
+the disambig items.
+
+Using page titles to request wikidata IDs from Wikipedia,
+then using the Wikidata IDS to request Wikidata descriptions.
+
+TODO for later:
+The page images cache should probably be centralized and refactored.
+
+Change-Id: Ic06de893a4ff6aa3faad57d7999ebf5f74b82d0a
+"
+"774d141d29d956fc815191d9631d416a9e8036f3","2014-11-10 15:46:19-07:00","Page info dialog header click feedback + clickable
+
+- Make the TextView into Buttons
+- Disable the button that doesn't change the view
+- Add selector to provide pressed feedback
+- Make clickable by removing isEnabled() {return false;}
+
+Change-Id: I9f38a6dca0f062bfe7cf2349109a340be1b77b01
+"
+"559441d8569b3a439dae42f1f49937111bb006f0","2014-11-10 22:41:36-07:00","Faster up/down animations for bottom dialogs
+
+Change-Id: I7814aa7541491b39fe7136e7d38e9886264232ca
+(cherry picked from commit 50a1ff820f2a0aa222388170caf6e420346f5d77)
+"
+"bcdf459f340d5808f72eeab6def8196343d6607c","2014-11-07 10:57:32-06:00","Remove pinch-zoom in the WebView.
+
+Finally figured out (I think) why find-in-page was randomly zooming the page by small amounts.
+
+Change-Id: Idd57d9d7264b9c530b7e461ad26f7ecf30f586ba
+"
+"9cd1c1c942e63ffd84e02d3ae254a8ed157b7539","2014-10-08 13:31:11-04:00","Make infoboxes (and other tables) collapsible.
+
+- Refresh css styles with pending changes from MobileApp extension.
+
+Change-Id: Id0ab8550e1d2bd165a68a29a9551aee1e6d8e748
+"
+"26d1b82fcf2da62ac7282d5d292b8cc184c99145","2014-11-07 16:11:47-06:00","Final styling tweaks/fixes for lead images / wikidata description.
+
+- Updated spacing between page title and description
+- decrease line spacing of the page title (only for API >10)
+- fix wikidata animation for API 10
+
+Change-Id: I7c370c090854e9c4121a10d43810ec1d5cc5f0a4
+"
+"43249999d6762a4a4429c0fff0dcd603c2bb4b31","2014-11-12 15:52:55-05:00","Fix possible crash in full-text search.
+
+Change-Id: I1c86be495aa7ecfb6640c269016040ca06286364
+"
+"e0d3b3c5729ce150fedf5257af51b506164dfe7f","2014-10-25 15:48:45-04:00","Face detection in lead image.
+
+A few notes so far:
+- on my test device (Galaxy S4), detection takes between 0.5 and 3
+seconds. May end up being too slow on other devices.
+- fortunately, this will be easy to disable/reenable if necessary.
+
+TODO: research a better way of passing the bitmap from Picasso directly to
+the FaceDetector. Right now, we have to create an intermediate bitmap,
+because the FaceDetector requires a 5-6-5 bitmap to work properly.
+
+Change-Id: Ic255a0974345270c10164df84508527b6f2767fc
+"
+"b2f3d1d748d5303ad8d3a1ceb3dfe4817d686752","2014-11-12 15:42:52-05:00","Fix reloading of page after editing.
+
+Bug: 73314
+Change-Id: Icfe16cec59f18d97e773ff3e08cdcea812ae9f5a
+"
+"5e287e26255ccdea0a5aba03ca13e4222d477932","2014-11-12 15:09:17-07:00","Missing qq string
+
+Change-Id: I307ed850f25900ec1dc3f4f4fac2ada9d86dcf77
+"
+"451d9b8e3e6128630e96c44ed57fa053fa83c797","2014-11-12 16:01:01-07:00","Change Other meanings string back to Similar pages
+
+Change-Id: I3deb60e3390a35b35100c3ac647a1cd77222e00d
+"
+"89f06b9328c1238f8e118ee00bfb2a4e584a6b16","2014-11-12 23:06:36+00:00","Merge 'Change Other meanings string back to Similar pages'
+"
+"d5490b3ae4c15215d3333c9d0677d79f14555a15","2014-11-13 14:55:40+00:00","Merge 'Capitalise first letter of Wikidata descriptions.'
+"
+"8d5dc8449338de4999e467b0c6ffbd943d1fb73e","2014-11-13 12:27:48-05:00","Make ThemeChooser dialog inherit from BottomDialog.
+
+Change-Id: I78bcd14e181d7c1ea736f3f5b84dcfdb9804b5ab
+"
+"d779ebd40e47e8c66df781e6dc7d62809ce75fec","2014-11-13 01:15:45+01:00","Manual import of translations from TWN
+
+Change-Id: Ib9c87c0c4fd6492c11c87b99a87cd9d383c6ad94
+"
+"dcc08a3dd8c886a8a218ed909fc7c0a59fa28ae1","2014-11-13 15:04:19-07:00","Fix issue where some disambig items were not picked up
+
+This was due to an incorrect query selector used.
+[[en:Test]]'s disambig link is not directly under the hatnote div.
+
+Bug: 73393
+Change-Id: I1aa2c91298bb88ac62f44882fc53323fc216c8ac
+"
+"ab96f9bc783cf93d7dd7a9417e5d6b9cb16beedb","2014-11-13 10:10:48-05:00","Clear Wikidata cache when switching languages.
+
+Bug: 73349
+Change-Id: Id75c15cd2f1a3f36df3b85639a799a6072293f3f
+"
+"ef5073b81aacd33584cf17d1b778d01a9712e514","2014-11-13 10:24:17-05:00","Scroll all the way up when first section in ToC clicked.
+
+Also properly update index.html and preview.html in the www folder to
+remove zoomability, viz: https://gerrit.wikimedia.org/r/171850
+
+Bug: 73327
+Change-Id: Icd9c15244ca79683f3817c66ff430d7351c040f8
+"
+"dfe92e1e2140670066011dd68b6c274c4462822b","2014-10-08 17:18:36-04:00","Hide IPA.
+
+Transforms an IPA span into a clickable icon that displays the pronunciation in a separate dialog box.
+
+Note: only handles a single type of IPA span (they are not very consistent across different articles). More invetigation to follow.
+
+Change-Id: Ie084658807cfa7037ee14c6b1a991cc77ac58391
+"
+"8be3947f7f4ce459988b970097265614a0dafbcc","2014-10-05 21:56:15+01:00","Drag some Wikipedia domain stuff into the Site class
+
+So it's (mostly) all in one place and changing some code to make it target a LAN wiki is easy.
+This means you basically just have to change 5 methods in the Site class to get it to run on your
+own wiki. (different API endpoint URL, no HTTPS, no external load.php, change of domain in forLang
+and isSupportedSite)
+
+Doesn't touch EventLogging or MobileApp stuff
+
+Relies on I4b54b236
+
+Change-Id: I8ee046f5f5b25b81db4b5b039503e8ec1e11ceb0
+"
+"4cc966ea11e27b699255f2333ff101a14fc0fcd4","2014-11-13 13:45:24-07:00","Fix translations and add more tests for them
+
+Checking now if there are HTML tags iff there are any in en.
+Better failure output.
+
+Change-Id: I3664c56cb6282b3b60b312b1f27e7d26f87f8d01
+(cherry picked from commit fdb420ade518b886818381e71d170acc1c76318b)
+"
+"b0d2d9aed21d3bec8f15f05cb15aae34a99ae13f","2014-11-13 23:04:35+00:00","Merge 'Manual import of translations from TWN'
+"
+"b476bc5bb4cd46961ac4b9a0643e533196fba20e","2014-11-13 23:05:02+00:00","Merge 'Fix translations and add more tests for them'
+"
+"62afa4abce16a0e4d2faf2c15976bd57d9bff052","2014-11-13 23:08:14+00:00","Merge 'Fix issue where some disambig items were not picked up'
+"
+"44f80d572370a6c4c4c69b8b1b60f2a0068fa2e9","2014-11-13 15:30:57-05:00","Styling tweaks for Search.
+
+- Make Title/Full buttons fill up the whole width, and update the button
+background to match the currently selected search type.
+- Put 'delete recent' button outside of ActionBar menu, to the right of
+'Recent searches' text.
+
+Change-Id: I21c5faa5de57e3bd4324810e77236f787b2144d0
+"
+"bdf766b14376699a0771f79e22b2ef736038a713","2014-11-12 22:14:15-05:00","Don't show title or lead image block on Main page(s).
+
+Change-Id: I1696eca96e755b67a5b1fb848490cc43881685a5
+"
+"6f7cd0a8e47e25d1a817b43c2a8f4e2b7ae6efea","2014-11-13 22:49:10-07:00","Use menu_clear_all_recent_searches string in translations
+
+The English string stayed the same but the resource name was changed earlier today.
+Using the same name for the translations in this case should be fine.
+But I fuzzied them anyways.
+
+Change-Id: I3be8b9f01369e3934828917f8707bc4a9f50d445
+"
+"d5c523b246d3ba90e58b02ab3554bb607c356cb7","2014-11-13 22:37:11-07:00","Removed unused menu file
+
+Change-Id: Ib0875511da9dc8104b023a27bfb618b82cf8b62c
+"
+"b65c07daaec6e2863104f80dc7d1c384c121de19","2014-11-14 07:08:35+01:00","Manual import of translations from TWN
+
+Change-Id: I81d67dc1edeafcb86ba7c1777a270d8fb019d7cd
+"
+"cfc450a2e271e593eaee4fddfec9e5796703b133","2014-11-13 21:36:30-07:00","More TranslationTest improvements
+
+Make it more stable by not having to explicitly ignore
+several locales for the numeric formats.
+
+Also checking a list of possible parameter formats.
+
+Change-Id: I5c85be3f712f66fae81b3934a3a168c15a8c2814
+"
+"f04be27a1500384dfe3690409a377de000ac7559","2014-11-14 13:53:41+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ic8199861df8b7411f570fec833ecf7f17f5cdfcf
+"
+"0b36a6c777eacf21357867873bafffc796a29692","2014-11-14 16:44:44+00:00","Merge 'Drag some Wikipedia domain stuff into the Site class'
+"
+"3b820f02bc24c529b10059ad8a0b13ca9927892e","2014-11-14 16:47:35+00:00","Merge 'More TranslationTest improvements'
+"
+"a5916719f2e97a2d04b868a76bb098a6fc990446","2014-11-13 20:21:34-05:00","Fix Main Page title hiding in 2.3
+
+Issue fixed:
+On 2.3, the Main page loads fine, but then if I start scrolling it,
+the lead image (placeholder) appears, and fills up the whole screen!
+
+Change-Id: Ic748994c955d85bdf877c3f31668db5e8b60680a
+"
+"d74f520feaad86abb4925e243dbfc5971d9e559f","2014-11-14 11:49:58-05:00","Oops, don't fetch the lead image twice!
+
+Change-Id: Ia9f8ff91652bc031f278915fe7c76b5cd35f7932
+"
+"bd726ad33965e8083e6827b0481380f7571c6f1f","2014-10-09 16:36:01-04:00","Prevent pages from being horizontally scrollable.
+
+On pages with really wide images or tables, the page becomes annoyingly
+scrollable horizontally, which ruins the experience of scrolling the page
+up and down, when it starts drifting left and right.  This handles two
+cases that can potentially make the page scrollable horizontally:
+
+- Detects large divs that have an explicit width that is larger than the
+viewport width, and sets their 'overflow' style to 'auto,' so that the
+div itself becomes scrollable, instead of the entire page. Note: this
+only applies to API >10 (has no effect on API 10)
+- Detects math formula images, which are often wider than the viewport
+width, and explicitly sets their width to fit within the viewport. The
+formulas will still be readable, but will simply appear 'smaller.'
+
+Change-Id: I47e9b616c3cfc7f6f0f04f56f0f02be4da69e932
+"
+"a2f9f6f01c4c55b5b8bc99fd996d201c0ebd3dd5","2014-10-25 23:06:40-04:00","Migration to Toolbar, and 5.0 support <3
+
+- Upgrade target SDK to 21
+- Upgrade build-tools to 21.1.1
+- Upgrade support library to 21.0
+- Implement Toolbar to take the place of the 'old' ActionBar
+- Delete drawables and styles related to the old ActionBar
+- Bring back the old quick-return handler, since the Toolbar is a regular
+ViewGroup now.
+
+Notes:
+- I gave the Toolbar a manual drop-shadow, since the AppCompat library
+does not yet support the 'elevation' api. Once it becomes supported, we
+can use setElevation().
+- The Settings window (PreferenceActivity) doesn't have an ActionBar,
+since that's not supported by the AppCompat library either. We may need
+to manually give it a Toolbar, just like in the Main activity.
+
+Change-Id: I9a00c49dd2544d7d2b1990028db2fb8ee1ce97d4
+"
+"16f756dea6dcc38255dd634ad39c30d279b1beb0","2014-11-14 14:35:00-05:00","Fix possible crash(es) on screen rotation.
+
+- One crash may happen in NearbyFragment, where we call
+invalidateOptionsMenu (unnecessarily) when we're no longer attached to
+the activity.
+- Another similar crash may happen in PageViewFragment.
+
+Change-Id: I1b3330185e5b54cbb16e064108fe35c141c901ca
+"
+"872cdd032d69d7df68f96bb5a5712c0251a4f028","2014-11-14 12:58:30-05:00","Correctly display MathML fallback images.
+
+Also update inverting of colors in Night mode for math images.
+Also fix possible bug (unrelated) when collapsing tables. On some devices
+(i.e. mine) the 'element.children === null' check doesn't work.
+
+Change-Id: I3e10a9a5955e9ab7de5710f51456db79c4b25288
+"
+"50473e158cdfb9a926a1aba9e4de5e4352060962","2014-11-15 11:11:25-07:00","Fix possible crash(es) on screen rotation in search fragment.
+
+Change-Id: Ib7ed54949f2aa627e15cbd2987f4c3e5e96ff5f9
+"
+"e41c6a4817adfe00a5ddfeaeb5a5dfba8d27b275","2014-11-15 16:42:38-07:00","Full text search results in correct order
+
+Also avoiding an extra request per full text search to get the thumbnail URLs.
+This should make the thumbnails appear much faster.
+
+Using similar request as iOS app.
+
+Bug: 72781
+Change-Id: Ic6742bd8ae796c1c0ee4879e22cae0063efd564b
+"
+"ead7f1a1f6f37a4de1245decaf60a65f1f8def70","2014-11-17 16:47:58+00:00","Merge 'Full text search results in correct order'
+"
+"b720f4e22c0cc1d58d6ca492b1fed644ff947f06","2014-06-04 09:50:19-04:00","Implement syntax highlighting in Edit window.
+
+- For now, only change the color of Templates to grey.
+- And only enable it in non-production builds.
+- Added unit test for verifying highlighting for Templates.
+
+Change-Id: Id97ff300e18fdafcedc9ca78ab5d4dc4d85268b4
+"
+"735efebfb6eb3dd4b22f9cdbfd04dd118092a6e4","2014-11-17 12:14:03-05:00","Fix Nearby compass background when switching dark/light theme.
+
+Bug: 73445
+Change-Id: Id413559b282fb1bc2c0d15e30a2644bd8561816c
+"
+"1bdf3d14de3172243709ea8d195de11b3a2a5177","2014-11-17 19:50:48+01:00","Manual import of translations from TWN
+
+Change-Id: I56ced92ceda382e50de016e3fd22c7f5bc710064
+"
+"4a5f4d0653e1a0a8ac4936c6704d20c79fdfd2a1","2014-11-17 16:33:46-07:00","Fix possible NPE in Nearby
+
+When coming back to app or rotating.
+
+java.lang.NullPointerException
+at org.wikipedia.nearby.NearbyFragment.onCreateOptionsMenu(NearbyFragment.java:496)
+
+Change-Id: Ie1d5dcf488056036ab836e34d696d39afa2f21d1
+"
+"86999dbb124ade846a933978ebf2df2469cf5da3","2014-11-17 17:18:00-07:00","Bring empty screen in nearby back
+
+Instead of throwing an exception just return the empty list,
+so the empty layout will be shown when there is no
+query object in the JSON response.
+
+Also removed unused variable.
+
+Change-Id: I8ea09f3b51dd543f96d5f0b128465dd11600b790
+"
+"cdb08b63ed9a6a4c1b4d2b92969af7cf51b95f59","2014-11-18 14:27:37+00:00","Merge 'Bring empty screen in nearby back'
+"
+"205d8937be8031c6d0f860fc8ba3cc8a1ed4880d","2014-11-10 16:13:40-08:00","Show confirmation dialogue when users click on links in preview.
+
+Currently, if you tap on a link during preview, you leave your edit and go to
+the page you clicked on. The mental model here is actually a bit unclear. In
+any case, leaving your edit when you tap on a link is quite jarring, and the
+fact that there's no warning before leaving makes it worse.
+
+In absence of more tightly refining the mental model, this patch simply throws
+up a confirmation dialogue when a user taps on a wikilink during preview, and
+asks them whether they really want to leave the edit workflow or not.
+
+Change-Id: I4e651ad7a548db17702a6165b44b6caf56c93d4e
+"
+"4b7b28495b8e09517f107a373d43b5e76770699a","2014-11-03 10:09:44-05:00","Update placeholder image for page title lists.
+
+(consistent with Mobile Web)
+(modified SVG file to have transparency outside the page icon, so that it
+looks better in Dark mode)
+
+Bug: 73525
+
+Change-Id: I521ef89e5058d25062e7a8831f9ab1ecde766c31
+"
+"da945eb7d4dbba491cdfaf24dafd42d99b77e547","2014-11-17 21:29:20-05:00","Tame the anger of the onboarding buttons.
+
+Apparently API 21 defaults button text to all-caps!
+So, let's not do that.
+
+Bug: 73543
+Change-Id: I3cfcf8352c03fd213cab6fd1a9df1455afdf0bf9
+"
+"36d9a3535de319b41edd03c7dfc159304b2dcf44","2014-11-18 16:57:12+00:00","Merge 'Show confirmation dialogue when users click on links in preview.'
+"
+"39284f7702fdd2abc2934576f5833df346359f72","2014-11-17 14:52:19-07:00","Use new continuation API for full text search
+
+Mainly to future-proof, and to avoid the API sending us this
+warning for every query we make:
+Formatting of continuation data will be changing soon.
+To continue using the current formatting, use the 'rawcontinue' parameter.
+To begin using the new format, pass an
+empty string for 'continue' in the initial query.
+
+I found some hints for the new continuation API here:
+http://www.mediawiki.org/wiki/API%3aQuery#Continuing_queries
+Still, the documentation could have been better there if it had use actual
+HTTP requests as examples.
+
+Change-Id: I705f4db4855db4de4d062aa2ac808fcfe0cecb99
+"
+"9486051ea3bc3f3f2398de44dd68267e08f7e2e3","2014-11-18 17:26:31+00:00","Merge 'Use new continuation API for full text search'
+"
+"6e237a209b5f762dc7abe57c0e577b50dcc3bfa0","2014-11-18 21:52:35-05:00","Remember correct search panel when exiting/reentering search.
+
+Bug: 73579
+Change-Id: Iaa69891b9dbccf1ff2518840799af25e1550508c
+"
+"c8bf8c19d9533f1d018af0f38babaa23725ee83a","2014-11-19 12:07:28-07:00","Fix NPE in full text search
+
+This is more a workaround. Ideally, this should be fixed on the API level.
+It looks like the two lists we're getting from search are sometimes not in sync.
+
+Change-Id: I3cdc931194bf882ab3debdf938c41a2f7ea5478e
+"
+"4d8d527136c2b82aea236ce384823b76e9b45eda","2014-11-15 12:30:10-05:00","Swipe to refresh!
+
+- Swipe down at the top of a page to reload it.
+- Swipe down at the top of the Nearby list to reload nearby pages.
+
+Change-Id: Ib6f893d0a599eecf20fd75a65c16f190fa82dcec
+"
+"e7ae1368b9352fd972f2382e04e98be45e32080e","2014-11-19 21:49:56+00:00","Merge 'Fix NPE in full text search'
+"
+"bf727e93fbe74da26757448ad77560881998edd6","2014-11-18 14:54:28-07:00","Allow caller to specify maxResults in FullSearchTask
+
+Also fix the related tests.
+
+Change-Id: Ic887b9acd041284c80c279f5cb5c7a05f11f3024
+"
+"61602eb6ff3c46f94a92b3d5abf56df58e326c1a","2014-11-18 20:45:20-07:00","Add SuggestionsTask
+
+and refactor the getter for wikidataDescriptions
+Also only ask for descriptions we don't already have.
+
+(Setting primary language to English for the test. Long
+term we should pass in the language and site.)
+
+Change-Id: I3a05e9d66519a8da4d7b677282fea15b0f96573b
+"
+"5e1f56dc3c60fbeb69d3d9bafdcc3927ccdbc52b","2014-11-18 22:52:11-08:00","Ensure Wikidata description is always shown in correct language in lead image
+
+Right now, if you tap on 'Read in other languages' on an article and choose
+another language, the Wikidata description is displayed in the language you
+just came from. This is because when the page in the other language is loaded,
+the description is fetched in the primary language of the app and not in the
+language of the actual page.
+
+This patch:
+* Refactors WikidataCache to allow you to load descriptions in a different
+language from the primary language of the app, if you want to.
+* Refactors WikidataCache to only actually cache results if the result is in
+the language the app is set to, so that fetching a result in a different
+language for a single page doesn't cause that description to appear in the
+wrong language in places like search.
+* Changes the lead image code to use this refactored code to fetch the
+descriptions in the language of the article, rather than the default language.
+
+Bug: 73598
+Change-Id: If85a6f3d15a9758b1b8efc6faf96032893dc35df
+"
+"3facec3f583c897281ade56024386855a18a4a3d","2014-11-19 23:02:13-07:00","Use continue parameter to avoid API warnings.
+
+So, the server doesn't need to spit out those unnecessary warnings
+about new continuation syntax.
+This warning seems uncalled for for queries that don't provide batching.
+
+Change-Id: If9ac1a113ef99eacad412a9164257a7c054b4697
+"
+"f6b9f26f9baf31f64b81ac7c352547ea181a7701","2014-11-19 23:34:28-07:00","Avoid NPE when going from search to another page
+
+java.lang.NullPointerException
+at org.wikipedia.Utils.hideSoftKeyboard(Utils.java:171)
+at org.wikipedia.search.SearchArticlesFragment.navigateToTitle(SearchArticlesFragment.java:481)
+at org.wikipedia.search.SearchArticlesFragment.navigateToTitle(SearchArticlesFragment.java:476)
+
+Change-Id: I763a4b1c2f4acbc257930eab97206843478f10e3
+"
+"c785c34be2a7c58a5980eb4f18b450d8722f9be7","2014-11-20 14:49:06+00:00","Merge 'Ensure Wikidata description is always shown in correct language in lead image'
+"
+"a9236b680e1fb372e0c0c169f0fbacfee88c2a4f","2014-11-20 15:28:53+00:00","Merge 'Avoid NPE when going from search to another page'
+"
+"275b8830682847990aa3d1659b42919d23358227","2014-11-20 14:18:27-05:00","Add event logging for suggested pages.
+
+(Not hooked up to anything yet, but ready to go)
+
+Change-Id: Ifbe41ce447dc7040d9ea005ed0853be5b8bbb302
+"
+"af18e4f11b4959b2db8965bd0374749daa35f30d","2014-11-20 20:58:43-08:00","Add Javadoc comments to WikidataCache.
+
+The methods in  WikidataCache are quite complicated, and it might not be
+outwardly clear which ones are best to use for any particular purpose.
+
+This patch adds Javadoc comments to the class so that it's a bit clearer how
+to use it.
+
+Change-Id: I2d0595c99a42592bde68114f1e6db2cb14686255
+"
+"8ade2b65b5c0acf56a9366f6f2658e81daa19963","2014-11-21 09:52:45-07:00","Avoid IndexOutOfBoundsException in when loading page
+
+Bug: 73404
+Change-Id: I29ce4a6f682828a1d113246bf63e71b79cb2bec5
+"
+"7039e006ebb3e4ade3572b8d06198780daf910ce","2014-11-21 14:37:30-07:00","Remove W logo icon
+
+Change-Id: I127e103f16f6f424bbba2bb9b20c3d9c20edc966
+"
+"cb7330544c0551861a7b0e0c63d53492e30d2526","2014-11-20 23:00:05-08:00","Improve log messages for EventLogging.
+
+When I'm testing what events are transmitted and to what schemas, it can get
+really confusing. This patch tweaks and standardises the log messages recorded
+when EventLogging events take place, so that it's easier to see from logcat
+what is being transmitted to where.
+
+Change-Id: I03e92aecf4a5a056b65ffa89b01ad8336da34193
+"
+"501765480f063368d6bcd8e7eeab4dd966293ac9","2014-11-22 09:09:17-08:00","Use apply method instead of commit method for SharedPreferences.
+
+The commit method updates the SharedPreferences object in memory, then
+synchronously writes to storage, which can slow things down a bit. The apply
+method on the other hand updates the object in memory but then writes to
+storage asynchronously, which makes the method return faster. The user notices
+no difference except that it's slightly faster.
+
+This patch switches from using commit to using apply for SharedPreferences.
+
+Change-Id: Ib3cb39f0905f87804eafb946db06c70a965f1bb3
+"
+"0836c2be18dd63e2c9bf8f69eb7c496d61310473","2014-11-22 17:45:52+00:00","Merge 'Improve log messages for EventLogging.'
+"
+"8a1a387306453eb8b9698f616b9308d30c8f3a4a","2014-11-22 17:50:45+00:00","Merge 'Use apply method instead of commit method for SharedPreferences.'
+"
+"a6604e1e6bc824b62770858640c0c14f18e8b2cc","2014-11-22 17:51:33+00:00","Merge 'Avoid IndexOutOfBoundsException in when loading page'
+"
+"766c20394be0e9629d59c2f0f3d8a23afbb5d890","2014-11-22 17:53:58+00:00","Merge 'Remove W logo icon'
+"
+"57a7e0231bc3db2bd4f370c7b933504bc5fcc3d2","2014-11-24 08:52:00-05:00","Fix checkstyle and compilation.
+
+- The search_w icon was still being referenced in one place.
+- Another checkstyle error that got through.
+
+Change-Id: Ie77f827316da4ae52efae7faaa37067eb5728815
+"
+"f5d80c23915baff81922c386088a9fdeb05d34a6","2014-11-13 22:05:11-05:00","Start loving tablets more.
+
+- Now providing dimension constants for 7' and 10' tablets, for both
+landscape and portrait orientation, for precise control over appearance.
+- Fine-tuned the constants for default page margins (and enabled
+dynamically setting the margins in the WebView) for various screen sizes.
+- Fine-tuned the font size of the page title and Wikidata description for
+various screen sizes.
+- Increased the default text size for large tablets.
+
+Change-Id: I23bb555e59f4756106bae9b14e16c7e11b9f3db4
+"
+"5120fd3a310a4e8d07cc39c9e1f721a8e1256ce3","2014-11-21 20:00:05-07:00","Material Design icons
+
+from https://github.com/google/material-design-icons
+Some svg files had to be fixed because our convert script
+created some weird streaks in them. I loaded the svg files in
+Inkscape, rotated the object cw and ccw, and saved as new file.
+See also https://github.com/google/material-design-icons/issues/22.
+I tried to use the same names as the originals so that it's easier
+to find them in the Google repo. I just skipped the _..px suffix.
+The _24px files go into the /24/ folder.
+The _18px files go into the /18/ folder, and so on.
+The dark theme versions of ic_expand_less and ic_expand_more
+have been manually tinted light gray.
+
+Created a new hist_search icon based on ic_search but
+different color and smaller.
+
+Also removed a few unused images:
+ic_fulltextsearch
+ic_menu_moreoverflow...
+ic_save
+
+Change-Id: I488205e74adb0ef7e7336d643a2ed91d16d52841
+"
+"c3705704356067843a9c246678e83975e5bae9bf","2014-11-24 20:35:04+01:00","Manual import of translations from TWN
+
+Change-Id: Ia6124a376df16252d341149c7c32f78e93f47b64
+"
+"2f80741355197c1bc5744a37f311367ff116fd94","2014-11-24 14:25:08-07:00","Updated support libraries to 21.0.2
+
+Please update extra-android-m2repository component
+of your local Android SDK.
+
+Change-Id: Ifb8e5cbdf60f744ab33691353af1aca456922569
+"
+"abdc0e774c873d6449f5b0ab205ff3034e6d3a7e","2014-11-24 21:51:07+00:00","Merge 'Material Design icons'
+"
+"01ca1424cccffd7617c28d5aa8f22c160a0abd20","2014-11-24 21:51:54+00:00","Merge 'Updated support libraries to 21.0.2'
+"
+"9ca9a47b5a486251bfe04b3271a3cb39cd8d5278","2014-11-24 15:57:14-07:00","Updated squareup libraries
+
+The big change is in OkHttp from 1.3 to 2.1.
+A few API changes regarding caches required code changes.
+See https://github.com/square/okhttp/blob/master/CHANGELOG.md
+for full list.
+
+Also remove explicit entry for support-v4 since it's
+transitively included through the appcompat-v7 dependency.
+That way we don't accidentally have incompatible versions
+of those two.
+
+Change-Id: I0b2532276c72757e5941aef63cfc2f2dea8445ad
+"
+"79a7fa19a812d6ae39bcea9fc16d8fcd13617f4f","2014-11-24 17:41:23-05:00","Tweak the space between the page title and description.
+
+Change-Id: I48459b3ea764b911e244cc617eb0f31a0e5e49ea
+"
+"98ac4a772f19cf274bacb602bca96672121a1a04","2014-11-24 23:13:42+00:00","Merge 'Updated squareup libraries'
+"
+"ad53bc5684df5d1c74f8e6140886e8ff9cc774c8","2014-11-24 16:53:48-07:00","Make toolbar icons lighter
+
+and make them a bit more transparent;
+according to Android guidelines at
+http://developer.android.com/design/style/iconography.html
+
+Change-Id: I18095d15356bdc19fc6dda204769d793da44649d
+"
+"0a89b7072f79d2b75c5c1f1216afeeee18c87b5d","2014-11-24 18:11:53-07:00","Remove obsolete strings from translations
+
+Had compiler warnings in Android Studio because of that.
+
+Change-Id: I36d4b3c9877fb390dab4b6131673f5058a2f7033
+"
+"aa0f1e5ab2bb2101e36eadf361b83620cb284f24","2014-11-25 00:14:07-07:00","Set search tab text color.
+
+This fixes an issue on 2.3 where the non active tab in search
+is not readable in dark mode: black text on black background.
+
+Change-Id: Ia675eecd3ba530713610b82ea5661aa59609bdad
+"
+"7305928ef0e2d81f4e50c54daec4321bf425e339","2014-11-25 14:45:00+00:00","Merge 'Make toolbar icons lighter'
+"
+"86b27541f5cdab31e8a0f10d820ab223f47fd600","2014-11-25 14:47:22+00:00","Merge 'Set search tab text color.'
+"
+"54782285855edddb3eee0907e16eccdbc110dcb8","2014-11-21 00:06:46-05:00","Update the search button to be a text+image selector.
+
+- Search selector now fills up the entire width of the Toolbar (minus the
+other action buttons)
+- Clicking the search selector simply brings up the Search fragment, like
+before (the selector itself is not an EditText).
+- Put the SearchView into xml, as a child of the Toolbar, instead of a
+menu action item.
+- Updated the SearchView to fill up the width of the Toolbar when it
+becomes enabled.
+
+Bug: 73576
+Change-Id: Ie0f86429fdae95263fc5e1b53ab19f2e7f73a933
+"
+"94ac248172b80f0339e32aa4e2006f53bc0f4161","2014-11-24 12:32:13-05:00","Implement Search event logging.
+
+Change-Id: I8c58836df6ff57a998470184d3501a2a65936921
+"
+"5a844c102458b73bb3dfd6a57b5af27f8c027c90","2014-11-25 12:18:37-05:00","Honor HTML formatting in page title.
+
+Some pages have an italicized title, especially pages about plant and
+animal genera (e.g. [[Australopithecus]], [[Boletus]], [[Homo]], etc.)
+
+This will allow the title to be displayed with the intended formatting.
+
+Change-Id: I9b1fe5ac9ba9f53c5c357c9e5c5e6b0641b863a9
+"
+"df5fc373d01623268a0c4eee15d3fc0f4bb5f6c4","2014-11-25 16:18:31-05:00","Update the Search funnel to have a session ID.
+
+Change-Id: Idb5a1a7a6c535570d3fa42339094fa2f5dba2d65
+"
+"a41c1c27cf917b0de37deff0b737952025f91271","2014-11-25 12:13:15-05:00","Improve collapsed infobox formatting.
+
+- Pull headers from the original table, but don't show them if they
+contain more than *two* links.
+- Don't show table header if it's identical to the page title.
+
+Change-Id: I3f8e863e3e11e4537a4cefa05ce7ab8d3eb36e75
+"
+"3a951b96625f223b41598ffc04f8890bc53909f0","2014-11-25 19:16:48-07:00","ToC tweaks: always on ToC
+
+- ToC button is always visible and enabled
+- still: ToC opened automatically for all pages except Main page
+- if user invokes ToC on Main page the onboarding text could show up
+- show progress bar inside ToC drawer if ToC is opened while page is still loading
+
+Change-Id: If9371dce97589d1c904fe1ca6c37057e74a433c0
+"
+"584392cbb4f93f75097b35d313292fea54cc4f33","2014-11-25 13:06:52-05:00","Improve infobox/edit-pencil alignment.
+
+The real issue was that some infoboxes were not properly moved to the
+bottom of the lead paragraph. This patch moves any tables (including
+infoboxes) inside the lead section to the bottom of the first paragraph,
+which effectively leaves the edit pencil aligned with the first two lines
+of the paragraph.
+
+Change-Id: Iaf9ec6beec7bfd5bdcd00934371577a117475d00
+"
+"ad39903db1286b6d7caa0b6f60d609fc80c56486","2014-11-26 15:50:31-05:00","Keep toolbar shown when scrolling to a section programmatically.
+
+Bug: T75577
+Change-Id: I383fbdd0f9f8df5739f617b05a1bf08bc2e7a8ca
+"
+"2c80a109732b5495eff17e111d17d6f60fc582fb","2014-11-26 15:40:03-05:00","Correctly style page title in ToC.
+
+Honor capitalization and HTML formatting.
+
+Bug: T75478
+Change-Id: I08755b40e2096b6698d4ccd4e5d92db183965894
+"
+"01a24efc006d6c9ffe1d9e09e323558c0cf94734","2014-11-26 15:03:41-05:00","Don't move any tables/infoboxes on Main Page(s).
+
+Certain wikis rely very heavily on <table>s to lay out the content of
+their Main Page.
+
+Bug: T76060
+Bug: T76066
+
+Change-Id: Ia8b241121bb8a223216eaee8f4a0744f6108fce1
+"
+"686e80c43b4ee2f2e76fa04b15bb3968b2d2a807","2014-11-25 16:10:36-05:00","Fix certain links to sections within the current page.
+
+Bug: 71745
+
+Change-Id: I5ad41283bb689aa96770f8c8b460a0fb6e0e47e2
+"
+"9bb52770611b1ee3a0a5b160a4767cceddc51354","2014-11-26 17:34:32-05:00","Ignore empty full-text results when using a continue offset.
+
+Don't show 'no results' when a search query with 'continue' data returns
+zero results due to a mismatch of all of the items in the dual result
+lists.
+
+Bug: T76358
+
+Change-Id: I01145c39984cb356a97efe9496817945b96324e9
+"
+"0b6696c529ef09912bd4e49b2915d43b4974b1be","2014-12-01 19:00:14+01:00","Manual import of Android string translations from TWN
+
+Change-Id: I6f9d017e7a5341448a6ad36f85532aabab251688
+"
+"275b4de59c5dda71232d205ce6e8c9c37e970ca8","2014-12-01 11:24:01-07:00","Remove extra quotes in string resource
+
+Change-Id: Ib0531dcbb4eca98dc78a2007aa6bdc4f614dd809
+"
+"d7a7d2715fe27c56b1facba626c7e5b3c5f0ac63","2014-12-01 12:22:20-08:00","Fix omission in the repository's copyright notice.
+
+Change-Id: I44653becc3469ade080248793eb41c4496ee8814
+"
+"a350d63e8606d2d4ef5ff3e81c9e136b2d34e12b","2014-12-01 23:42:59-07:00","Fix ToC icon color in dark mode on 5.0
+
+On Lollipop the adjustDrawableToTheme call for the
+ToC icon didn't seem to have any lasting effect.
+
+Change-Id: I0cfd7505c50f5a93f86ce29884defb5e6524a228
+"
+"678c2d95c6bcbd5b9b023fd17568cbf5883bfa15","2014-12-01 23:47:02-07:00","Move adjustDrawableToTheme call to onCreateOptionsMenu
+
+Saves a call when tapping on the overflow menu, and is
+more consistent with the rest of the adjustDrawableToTheme calls.
+
+Change-Id: I4aa6c8934b07093f1acc54f325af562b3b8e06d7
+"
+"5a555a878bc47b7bd3d4e1eca068ab0f35bcb58f","2014-12-02 14:28:34+00:00","Merge 'Remove extra quotes in string resource'
+"
+"92c53268bd602e0ffbec970c503babbf048532d7","2014-12-02 14:29:56+00:00","Merge 'Fix ToC icon color in dark mode on 5.0'
+"
+"06fbe8f61d0d2f0a9d79e3dc72fcb7366fd61acd","2014-12-02 14:59:15+00:00","Merge 'Move adjustDrawableToTheme call to onCreateOptionsMenu'
+"
+"355d0c9fdf20854a57cc99c408ed16666b8ebf7f","2014-11-25 14:04:18-05:00","Tweak page title spacing for Lollipop+
+
+Change-Id: I61d153a377f1d89c0a77cff618099dfb73a9ce4f
+"
+"e1da1366a6725b486b2eb742f7f2dee15df3abdf","2014-12-02 18:27:32-07:00","Prevent NPE in ToCHandler.scrollToSection
+
+Bug: T75402
+Change-Id: I468d8ade39170c069073491ac85f8165622a4223
+"
+"9822b08ddbb2f4432a24d8e3c01add96f697c76d","2014-12-02 19:39:19-07:00","Check if EditSectionActivity is finished
+
+Bug: T73299
+Change-Id: I438a77d2116237016bb2a4fd73e4f82e7adb2a0d
+"
+"e704fdaf6fef1f61d89f37330c46fb6d2491acf5","2014-12-03 15:03:50+00:00","Merge 'Check if EditSectionActivity is finished'
+"
+"3e41d2341f02909563ebbdc35b5b0b408c805e6b","2014-12-03 12:21:56-05:00","Fix possible crash when clicking link after activity closed.
+
+The link click event comes asynchronously from the WebView, and may be
+caught after the activity is closed.
+
+Change-Id: Iee75038f673d4512dafcbb6a0d191b1a192440ff
+"
+"45656b87aa0e3691b540b0f89ca0b6836c43d333","2014-12-03 12:24:22-05:00","Fix possible crash when switching language after activity closed.
+
+Also fix checkstyle item.
+
+Change-Id: I0c5513059b419a5a140454b96eeb0e1f428597b0
+"
+"0049a31662b8a0160dbd31f915544f95659ffc62","2014-12-03 12:28:57-05:00","Fix behavior of long-press in Nearby.
+
+Before this patch, long-pressing an item in Nearby took the user to the
+Google Maps app, *and* simultaneously navigated to the page that was
+pressed (which could potentially cause a crash, as well).
+
+This makes it so that long-pressing an item *only* takes the user to the
+Maps app, and doesn't navigate to the selected page.
+
+Change-Id: I96373bd3b4de4219af244f81bc522b94e77070a7
+"
+"46e089e35eae25dfa51542550ed6d14ac5720c61","2014-12-03 11:14:56-05:00","Allow enabling/disabling images in pages.
+
+Implement a preference that enables or disables images throughout the app
+(within pages, lead images, thumbnails, etc.)
+
+Bug: T75315
+Bug: T74031
+
+Change-Id: Ifde8cf4934cc182607f11ef636b8b4eabd5ea599
+"
+"ddbc091071ab67f532ce7b41b56f6e8184f43c2d","2014-12-03 11:14:29-07:00","Avoid rehashing when building HashMaps in staticdata
+
+Setting load factor to 1, and capacity slightly larger than what we need.
+
+Change-Id: Ifa6659306892415e4eb8dba934a5b00e1222d958
+"
+"3ee2c22956fb110e1e67034541a36248f872fb28","2014-12-04 11:12:19-05:00","Add ignored CSS class for table transforms.
+
+Change-Id: I7d2ccbf58e5e121d3ca3c700de520dd9f446c129
+"
+"0ac2a738f06119837cddea88eb30516de335389f","2014-12-03 17:33:31-05:00","Use new 'index' property to sort search results.
+
+Change-Id: Ief73398497c799442f5830c2ad3243caea4f3b43
+"
+"39e3a4ce204dcbcd04ea89b8ecc5b68a578019b8","2014-12-03 17:47:36-05:00","Whoops: explicitly set placeholder image for thumbnails.
+
+...because views can be recycled.
+
+Change-Id: Id147dc4912d63b08eab71022865fcbf6b38f91fc
+"
+"f655d18b16824c1a45db5a39f3d0e2235cb10618","2014-12-04 22:09:21-07:00","More error report content
+
+Change-Id: I52a3572f8cb4605797115473325b5e529577c9c9
+"
+"e0ff4c63e320298e527f2b55d3fbd6140a3e0984","2014-12-05 10:14:11-05:00","Support the latest Gradle plugin in updated Android Studio.
+
+- The 'runProguard' keyword was replaced with 'minifyEnabled'.
+- BuildConfig.PACKAGE_NAME was replaced with BuildConfig.APPLICATION_ID
+
+http://tools.android.com/tech-docs/new-build-system
+
+Change-Id: I12edfdf56eb1af66282d3408e24402694a5e0a1e
+"
+"05abd0359fa14eca439a4c766641d973273241f7","2014-12-04 20:22:59-07:00","Wikidata descriptions retrieved via new PageTerms API
+
+This patch affects retrieving descriptions for
+- Full text search items
+- Lead image
+- Disambig items
+
+Had to change the WikidataCache to use PageTitles instead of
+Wikidata IDs as keys.
+
+Always add the description of the clicked on item in full text search
+to the cache so we don't even try to get it again when the page is opened.
+
+Change-Id: I6b308f57de805b6d1193cf6b55e5d74307f1aaa0
+"
+"ed0000cd1f9bdfe730b4f15f00ea6dc7f6ac9ca8","2014-12-05 00:26:25-07:00","Title search gets descriptions, too
+
+Now that we can easily get descriptions from our own API,
+why not have them for both search types.
+
+Using common data type for both full text and title search: PageTitle
+Also using same layout for both fragments.
+
+This will enable us to refactor things even more.
+The two tasks and the two fragments have a lot of common code.
+
+Change-Id: Ied3ca27a36e0ff26f7c8f5404289e8ecee062336
+"
+"a876e418035f89679ff05a3fc7ddd13245570b46","2014-11-17 21:27:51-05:00","Add native component to the bottom of WebView content.
+
+Move last-modified and license text into the native component, and remove
+them from the WebView.
+Leave room for additional content, for a subsequent patch.
+Add 'section' to ToC that brings the user to the bottom content.
+
+Change-Id: Ic09c828c63bffe1f507d91f8bb836493683e109f
+"
+"de6ab225bae96f6231b464a7efd2b0b0978e37dc","2014-11-20 14:48:10-07:00","Display native Read more section
+
+Hidden on Main page, since there we don't get useful results.
+Hooked up backend task and event logging.
+
+Change-Id: Idbe51ef33b24fd35383565b48331ef4461e4137e
+"
+"6d0ae962ad75c394ff80b6402b509c9f7c36acc3","2014-11-21 12:49:22-05:00","Iron out issues in Read More component.
+
+- Dynamically size the component based on the number of page suggestions
+retrieved.
+- Fix layout issues / inconsistencies.
+- Will follow up with patch to enable scrolling when swiping the list
+items.
+
+Change-Id: Ie5b02c0afca51f44ff444f1759847945fb72aba6
+"
+"85f8afd1093e1f90ab754ff61f91904f8b83eb7a","2014-12-05 15:52:11-07:00","No Read more section on main page
+
+Plus a cleanup of an unused import.
+
+Change-Id: I2254b0015624ff5dc71943ba40c34bf2b6fea109
+"
+"275de01c6399f24c06a3175574de0dad04bc37a5","2014-12-08 08:17:58-05:00","Fix sending of SuggestedPagesFunnel 'shown' event
+
+I thought I removed that line, but it somehow came back (maybe during a
+rebase).
+
+Bug: T76933
+Change-Id: I9498a366cc4eb7f5e1cb69c2361265d411e77447
+"
+"4ea6c8d182091baffb35e28c5ee5da29598b6155","2014-12-08 08:31:50-05:00","Fix bottom padding of Read More component after refreshing page.
+
+- When a page is refreshed, the bottom component sent an incorrect padding
+height to the WebView.
+- Also added some left/right padding to the license and last-modified
+text.
+
+Change-Id: I2e7e2e626b632216497247e86aaddcc6336d2497
+"
+"ea924bf3d9c966e2a6f316c31d8250012928b201","2014-12-07 16:39:49-05:00","Enable lead images only in the Alpha build.
+
+so that we could release a Beta, and wait to debut lead images until we complete the click-to-enlarge functionality.
+
+Change-Id: I6977ecde03a00b231d9369e8d2dc3e674b23d6cd
+"
+"1c727117de8d858b5c51f96e03b72267821b7637","2014-12-08 10:08:52-07:00","Use stable version of mwapi dependency
+
+Same code as before but enables us to have more
+reproducible release builds.
+
+Change-Id: I648593f6bf85b7cd3e29ed7c41e356500f7287e8
+"
+"d03fc9e70976699f744ff48a33fbe06551eb945f","2014-12-08 11:09:53-05:00","Fix scrolling in the 'read more' list.
+
+Also don't fetch images for list items if images are disabled in
+preferences.
+
+Bug: T76934
+Change-Id: Ib1917c992d62f02af5137b53cead33b33d059f9b
+"
+"74a76fb26bbeedc228245ed4f25e41643ff14829","2014-12-08 12:29:20-05:00","Fix 'read more' margins when in landscape mode.
+
+When the screen height is less than the bottom content height, the margins
+were being set incorrectly.
+
+Change-Id: I90f45a84009055bf8d4b14d1402d63b447013e5a
+"
+"b0e5528c737400146c208ded548f6587a50db867","2014-12-08 19:35:45+01:00","Manual import of Android string translations from TWN
+
+Change-Id: Ifcee79d2972da6051bf93e77a7fc3334ec3ff1e0
+"
+"7c8764319582577e5c28a5da3e366de1e2f0a681","2014-12-08 14:04:00-07:00","Avoid NPE calling updateProgressBar
+
+plus in some more callbacks.
+
+Got this myself with recent alpha bits:
+java.lang.NullPointerException: Attempt to invoke virtual method 'void org.wikipedia.page.PageActivity.updateProgressBar(boolean, boolean, int)' on a null object reference
+at org.wikipedia.page.PageViewFragmentInternal.performActionForState(PageViewFragmentInternal.java:520)
+at org.wikipedia.page.PageViewFragmentInternal.access$1100(PageViewFragmentInternal.java:76)
+at org.wikipedia.page.PageViewFragmentInternal$5$1.run(PageViewFragmentInternal.java:405)
+at org.wikipedia.ViewAnimations$2.onAnimationEnd(ViewAnimations.java:127)
+at com.nineoldandroids.view.ViewPropertyAnimatorICS$1.onAnimationEnd(ViewPropertyAnimatorICS.java:90)
+at android.view.ViewPropertyAnimator$AnimatorEventListener.onAnimationEnd(ViewPropertyAnimator.java:1116)
+at android.animation.ValueAnimator.endAnimation(ValueAnimator.java:1089)
+at android.animation.ValueAnimator$AnimationHandler.doAnimationFrame(ValueAnimator.java:666)
+at android.animation.ValueAnimator$AnimationHandler.run(ValueAnimator.java:682)
+at android.view.Choreographer$CallbackRecord.run(Choreographer.java:767)
+at android.view.Choreographer.doCallbacks(Choreographer.java:580)
+at android.view.Choreographer.doFrame(Choreographer.java:549)
+at android.view.Choreographer$FrameDisplayEventReceiver.run(Choreographer.java:753)
+at android.os.Handler.handleCallback(Handler.java:739)
+at android.os.Handler.dispatchMessage(Handler.java:95)
+at android.os.Looper.loop(Looper.java:135)
+at android.app.ActivityThread.main(ActivityThread.java:5221)
+at java.lang.reflect.Method.invoke(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:372)
+at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:899)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:694)
+
+Change-Id: Ia22b82c9e0698ca42e3f67f07f0c6467d9f552a7
+"
+"bc880e44ab7885eea4bfd71a1a0cc2a4d058539a","2014-12-06 00:48:04-08:00","Fix issue where first 'Read more' suggestion was sometimes the current article
+
+Currently, if you follow a link to the current page via a redirect, e.g. going
+to [[Avant-garde]] by tapping on the a link to the [[Avant garde]] redirect
+page, then the first link the 'Read more' section is often for the current
+article.
+
+This patch fixes that.
+
+Bug: T76936
+Change-Id: Idf580246e070fbce26e88c0bb67196b5f7b4f028
+"
+"6749f3499b0f9f2a77c4e606f0c32c8140a9cc36","2014-12-08 15:31:06-07:00","Remove Android Maven Plugin from credits
+
+since we don't use Maven to build the final product anymore.
+We've switched to Gradle a while ago.
+
+Change-Id: I37dbcdaa934b3088c3787af080ad5cb619e0965d
+"
+"b42a9b27f90e57527e6a6695cc17c14f169a7423","2014-12-09 13:51:34+00:00","Merge 'Avoid NPE calling updateProgressBar'
+"
+"f2977879d3e4fb4462f20e4ee0df4c653b24e8db","2014-12-09 13:52:29+00:00","Merge 'Remove Android Maven Plugin from credits'
+"
+"6dbb589dac3c694011ea377f01331ebc974e6067","2014-12-09 18:40:15+01:00","Manual import of Android string translations from TWN
+
+Change-Id: I3fb01f201dca21e4220492bb84a098e5ebfc5765
+"
+"9ac8a1ef7b37655b38b300975fb4970613c31f84","2014-12-09 10:51:42-07:00","Bump versionCode
+
+Change-Id: I94f410425324fb0adcc088e51ff097270f01b541
+"

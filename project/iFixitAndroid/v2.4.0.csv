@@ -1,0 +1,77 @@
+"commit id","commit date","commit message"
+"3ce4826df44f99de461393041d79e6cbe87d412b","2014-01-07 14:27:14-08:00","Hide iFixit.com's footer in webviews
+
+Amazon rejected our latest build of the app because they could get to links
+through the web view to other app stores.  Rather than trying to fix it, we're
+just going to hide the footer because that's easier and it doesn't really
+matter if we have the footer in the apps webview (it's just answers)
+"
+"358743febda5505b6345c6247e322584bbadcb88","2014-01-07 14:39:31-08:00","Only hide the footer on ifixit
+"
+"b69ed0b9ecc6eeeace631e8f62feba99debf51b3","2014-01-07 15:00:20-08:00","Merge pull request #181 from iFixit/hide-webview-footer-for-amazon-appstore
+
+Hide webview footer for amazon appstore
+"
+"8fab7958aa094aec5be6d42317ee28b806edf476","2014-01-07 16:15:56-08:00","Fix NPE caused by unfinished api calls being finished
+"
+"8c380a14838cad10b5f747134b886962ef230b67","2014-01-10 11:39:57-08:00","Add more device names in play store description
+"
+"745fd309feaff6362204c12fcb67a0bfd64167be","2014-01-12 11:34:28-08:00","Start of guide favoriting
+
+This adds a menu item to guide view to favorite and unfavorite a guide.
+Still needs some UI polish and the default state needs to be consistent
+with the server.
+"
+"8cf96870e8f11660e3b4439a419669b303d34685","2014-01-12 12:26:24-08:00","Set initial guide favorite state
+"
+"00f2b3bf2e60292c0d537cf314eae5072eb4392c","2014-01-13 14:07:33-08:00","Add favorite icons
+"
+"fc5098dc6f8d8a72cd58bf3149c8c32801d4278f","2014-01-13 15:14:29-08:00","Guide favorite: Lots of UI polish
+
+1. Updated icons for (un)favorite states
+1. Toasts to convey what action is being performed
+1. Disable icon to avoid multiple requests at the same time
+"
+"436d76370aa29ad09072074a2aaa888c3bd10c60","2014-01-13 15:18:46-08:00","Guide: Use m prefix for favorite member variable
+
+Don't know how I made that mistake...
+"
+"41ef5923d3439cee9d3397a9366fba54483f57eb","2014-01-13 17:01:38-08:00","Disable favorite button if guide isn't loaded
+
+Otherwise the app crashes if trying to favorite the guide.
+"
+"52d1e672363c94f60dcde93b751fd0eb8f570583","2014-01-13 17:34:48-08:00","Handle logged out favoriting more elegantly
+
+Now the toast is only displayed when the API call is performed e.g.
+after the user has authenticated. Also, the menu item is enabled if
+login is cancelled.
+"
+"55250b395f85af47afc61c0d3cdee39fc07cdf1e","2014-01-13 17:54:03-08:00","Fix favoriting guide during reload
+
+1. Reload guide
+1. Favorite guide before the guide is retrieved
+1. Crash
+
+Invalidating the menu fixes it because it disables the menu if
+`mGuide == null`. I also added a guard around `mGuide.isFavorited()`
+just in case.
+"
+"168631cbc2a5d47b4c40ba9d2af52720e4a90a31","2014-01-13 17:55:24-08:00","Fix favoriting then reloading the guide
+
+1. Favorite a guide
+1. Reload the guide
+1. Favorite API call returns
+1. Crash.
+1. Guide API call returns
+
+Guarding the `mGuide.setFavorited(favorited)` call fixes it.
+"
+"f1b990aa16245e2f4320bab88a9e731c17d9c1d8","2014-01-13 18:05:24-08:00","Merge guide-favoriting (#183) into master
+
+Guide Favoriting!
+
+This adds a menu item to guide view so users can favorite (and
+unfavorite) guides.
+"
+"4f382e7c835563f1af422ed1bfca56a045377aff","2014-01-13 18:09:54-08:00","Bump version numbers for release
+"

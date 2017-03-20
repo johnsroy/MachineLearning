@@ -1,0 +1,565 @@
+"commit id","commit date","commit message"
+"0ae9846f8e442c236bd387239a0ebc65528a0390","2015-11-12 15:46:07-05:00","Hygiene: Refactor LoginTaskTest
+
+Updated test to use JUnit 4 and improve readability.  No functional
+changes intended.
+
+Bug: T115903
+Change-Id: I304128c5438428671832ee9465bbe96a24d12792
+"
+"83ad557fc72b7cc8a0494d5e3e100ec26b03b3e2","2015-11-12 17:05:57-05:00","Hygiene: Refactor BridgeTests
+
+Updated to use JUnit 4 and improve readability.  No functional changes
+intended.
+
+Bug: T115903
+Change-Id: I61f8c44f44591bb0233afd6477695f6b1d4fe481
+"
+"6f9b4b2130c063292dd5bcd4f00b5a62e6f57667","2015-11-12 18:55:39-05:00","Hygiene: Remove 'Do' from DoEditTask & DoEditTaskTests
+
+Change-Id: I616feed19f518c5ab9ea7863493cf272d3bfa959
+"
+"1fc4be15e799d0cc3ba6a54c3aa04063e9905f51","2015-11-13 15:16:56+00:00","Merge 'Use protocol relative pronunciation URLs'
+"
+"ee2f09adc5c0b44746c150631c5bb9c1e6ef6263","2015-11-13 15:21:31+00:00","Merge 'Disable some DOM transformations for RESTBase users'
+"
+"883a2a1a6f3ed391f760c9ab4ff8ed51f1c437c5","2015-11-13 07:40:47-05:00","Update Support libs, and disable obfuscation.
+
+The newly-updated Support libraries contain a genuine fix for the
+OEM-related crashes we were seeing previously (by renaming some internal
+classes).
+
+We can now, yet again, disable obfuscation in our release build, and
+remove the specific Proguard rules that we were using as a Band-Aid(R)
+for this issue.
+
+Bug: T117049
+Change-Id: I7585fa89b2d4f5d3395934941d7e8795a1133454
+"
+"9a0e1e47f287b682e60ff755fc5f81640ff12e3b","2015-11-13 16:50:06+00:00","Merge 'Hygiene: Remove 'Do' from DoEditTask & DoEditTaskTests'
+"
+"222554eab8e3a29a121a1ac790e97977f3a1da85","2015-11-13 17:07:48+00:00","Merge 'Hygiene: Refactor BridgeTests'
+"
+"1705c971caa43bcd0283621566e5c53ff064e2d2","2015-11-13 17:13:56+00:00","Merge 'Update Support libs, and disable obfuscation.'
+"
+"d5607bde62fd28b9ddf531f8260f81cfadeb264e","2015-11-13 17:19:55+00:00","Merge 'Hygiene: Refactor LoginTaskTest'
+"
+"300a00614cf50fd728753cdf2ec141ff84ecc17a","2015-11-03 18:24:58-05:00","Hygiene: Refactor DoEditTaskTests -> EditTaskTest
+
+-Decomposed the test code for readability.
+-Removed the code to automatically clear the session, log in, and reattempt
+the edit.  An edit should fail if the user's token has expired, we already
+have login tests, and if we're going to test for this specific scenario
+it should be in a test of its own.
+
+Bug: T115903
+Change-Id: I94b9b91599cc242879f96a250658d74138d5638c
+"
+"5a876a1f0f8f96c8cadfb9ceff25f241d17278c3","2015-11-13 19:04:19+00:00","Merge 'Hygiene: Refactor DoEditTaskTests -> EditTaskTest'
+"
+"d24ea2a592b072142cc45dcf7f8ecd84a2b034d1","2015-11-13 13:50:59-07:00","Hygiene: remove NavigationView header workaround
+
+v23.1.1 of the Support libraries has exposed
+NavigationView.getHeaderView(). Replace the previous workaround with a
+call to the new method.
+
+Change-Id: Iba3834d03432445bedbb578fcd81f4eec945a6e0
+"
+"601c6639e507c8d84241d5f43d4aa68f1a941fba","2015-11-13 14:40:44-07:00","Don't ProGuard debug builds
+
+This patch removes the ProGuard step from debug builds. ProGuarding
+scratch debug builds some how runs faster than not[0]. However, it
+greatly increases incremental build times which is the most common use
+case.
+
+[0] https://gerrit.wikimedia.org/r/#/c/251981/1/app/build.gradle
+
+Change-Id: I935d5e7ec54f40896cb199b3c859d70eccf03563
+"
+"e16cd22c2c38369c4e3eef2227269c85320de89f","2015-11-13 21:59:52+00:00","Merge 'Don't ProGuard debug builds'
+"
+"bc94e74e895e0d97a5d62bab477c5bef5111c63a","2015-11-16 16:31:12+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ibb216877321b4727ad0fa2cd24162c3a8ef5d840
+"
+"b8c1aa921590b950d43d7be664db03a9dfe1158e","2015-11-13 19:09:30-07:00","Hygiene: move lead parallax to Drawable matrix
+
+The parallax effect used by the lead image was accomplished by sizing
+its housing ImageView to the full dimensions of the image and then
+translating the View itself to achieve a parallax effect. This was nice
+because it avoided math and translations are cheap but poor because it
+changed layout parameters without concern for adjacent Views. This
+unusual behavior made it difficult to visualize the View hierarchy.
+
+This patch moves the parallax effect from raw View resizing and
+translations to the ImageView's Drawable matrix. The math is a little
+intimidating in some parts, but it's mostly pure (free of implementation
+details), and the View is now boring and predictable. This change will
+make it easy to add or remove Views without surprising things happening.
+
+Bug: T116122
+Change-Id: I17ae6c24f876a37b1c86180daf4794dfaa2696bd
+"
+"a87f7898d56821fc0aad159243ff37e7d48fed91","2015-11-13 17:12:28-05:00","Consolidate Captcha and abuse filter tests in EditTaskTests
+
+Refactored tests to use JUnit 4 and improve readability, and consolidated
+into EditTaskTests since they all center on the EditTask.
+
+No functional changes to tests intended.
+
+Bug: T115903
+Change-Id: Ibeb03a8410ddf3985b795d28da6bf83ccfc31535
+"
+"7be7f59b98862092d8a7c441122cd690df115add","2015-11-16 22:15:01-07:00","Rename RESTBase routes to mobile-sections*
+
+The service has dropped the 'html' from the name of the
+mobile-html-section* routes.
+
+Bug: T118187
+Change-Id: I452e168343cda0c63244ea19514b511c49bcc8de
+"
+"73bde898585b3c992042df1c439a886007816f98","2015-11-17 09:06:59-07:00","Update www dependencies
+
+* Add Grunt CLI v0.1.13 development dependency as described by
+documentation. All tools should be present after 'npm i'.
+* Add old Browserify development dependency as required by
+grunt-browserify. v3.46.1 is the latest supported version.
+* Reorder dependencies alphabetically as performed by NPM.
+
+Change-Id: I9efba385475439cc75673eac81cc46d70ba7b72b
+"
+"c7cace7fb19b24abc18ccf4b28cb0a619b99199a","2015-11-17 11:19:20-05:00","Add null check to prevent NPE when requesting leadImageUrl
+
+Bug: T118576
+Change-Id: Iea6f782bd397840fff7885e4d791f71d4398b2bd
+"
+"d945afc63d8025a2ae1198987f0b8cf95dc74efa","2015-11-17 00:33:09-07:00","Retrofit link preview requests
+
+RESTBase requests use temporary route /page/mobile-summary.
+Once deployed we should switch to the common /page/summary (no 'mobile-')
+route since currently the mobile-summary route is not exposed via the public RB API.
+
+Also converted the MW API request to Retrofit.
+
+Bug: T118147
+Bug: T118821
+Change-Id: I1656019953a0a602e9568cde4f4b4f1e977a9c9e
+"
+"9a0023478aff1e2a1db7f6b026ed2177aaa8811b","2015-11-14 18:58:56-07:00","Offload IPA transform
+
+Had to switch the ipa_button div to a span since using a div caused
+layout issues (an ugly line break) right after the assignment of the
+HTML section text (pre-transformed by the service).
+Not entirely sure why it didn't when we introduced the ipa_button
+div during the DOM transformation phase.
+
+Depends: I7c79548c9ea8c9cdc22551dfdc77f8455a514f8c
+Change-Id: Iead9d28e55c5e9bcccdd471eba59aa1a3d00a719
+"
+"eb58e60e402d10095a38f0568c30b5b35585266b","2015-11-18 15:38:47+00:00","Merge 'Add null check to prevent NPE when requesting leadImageUrl'
+"
+"4ea7767943067befc5b3997bccde0fc75c67d6dc","2015-11-18 15:46:20+00:00","Merge 'Consolidate Captcha and abuse filter tests in EditTaskTests'
+"
+"fd5e780b20a383f84c2c07c09ba99020d7ddc2e2","2015-11-18 16:07:14+00:00","Merge 'Hygiene: move lead parallax to Drawable matrix'
+"
+"d719de5da4f38b3d44dd7386192c865080d57810","2015-11-18 11:39:58-05:00","Hygiene: Correct login activity title
+
+http://loginisnotaverb.com/
+
+Change-Id: Ie360d20d975b0a6bf92132f20cbd2412c81215ae
+"
+"3ee088e86c8dd37f8ec0e372e87c1835258fe8cb","2015-11-18 17:19:17+00:00","Merge 'Version saved pages'
+"
+"c153b94915177279c6c8d9cb628fb45f4fd9ae7a","2015-11-18 02:45:49+01:00","Add Wikipedia to system text selection menu
+
+- Add Wikipedia as an available text selection option for all other apps. The text selection menu entry will appear as 'Search Wikipedia'.
+- Feature is supported on devices with API level 23 (Marshmallow) and above.
+
+Change-Id: I66210ece4267dcd59f94d66d6df0f67af691c76a
+"
+"7be161f33eda4818ae24f410d20ae7a1a3912ef3","2015-11-18 17:27:29+00:00","Merge 'Hygiene: Correct login activity title'
+"
+"56d52c37b83ed58c3621b8db8cddaee0fc691494","2015-11-18 17:34:48+00:00","Merge 'Offload IPA transform'
+"
+"ffefde394d37e7419405d9c6b6e675d9b61c81e5","2015-11-18 12:38:42-05:00","Further update login activity title
+
+After giving it some more thought, the login activity title should be
+changed to 'Log in to Wikipedia' rather than 'Log into Wikipedia,' for
+the reason Dmitry mentioned on my earlier patch[0] and those given
+here[1], and because we already have 'Log in to Wikipedia' in the nav
+menu!
+
+[0] https://gerrit.wikimedia.org/r/#/c/253928/
+[1] https://english.stackexchange.com/questions/5302/log-in-to-or-log-into-or-login-to
+
+Change-Id: I0b3882f088c8ec8bea9f17c6e8828ceae61bcca7
+"
+"441a2be00be0f2d9846193ebab4a95667e18548a","2015-11-18 17:44:17+00:00","Merge 'Retrofit link preview requests'
+"
+"bf386eb5fbb860357b610cb44f845e2b1985af4e","2015-11-18 18:06:18+00:00","Merge 'Further update login activity title'
+"
+"2b0ea5f89034e4ddfe2743397bd2f361f1bfda2e","2015-11-18 18:40:41+00:00","Merge 'Fix saved pages with spaces in their title not being recognized as saved'
+"
+"b18b0aac32c3b6c1dca9c998b4e48ccde19d59ea","2015-11-18 13:53:28-07:00","Avoid using RB routes on zhwiki
+
+Language variants make it harder for RB to have cacheable content.
+Let's avoid it on zhwiki for now until those issues are solved.
+
+Bug: T118905
+Change-Id: Ie2c408e104baf2356583990237b18a1b3db874ec
+"
+"5906437bf51a1e0edbe6436e6b5538da71d9e629","2015-11-17 21:35:08-07:00","Upgrade Gradle to v2.9
+
+Upgrade Gradle to v2.9[0] and regenerate the Gradle wrapper files.
+
+[0] https://docs.gradle.org/2.9/release-notes
+
+Change-Id: I242e35970dc4b5d98ddcabae2b9d63e023ca4cd2
+"
+"9773a148e98c5fda0235bba8086652525bd39e9f","2015-11-19 01:38:12+00:00","Merge 'Add Wikipedia to system text selection menu'
+"
+"30d18929949b43dac51bf589552392d51808cc59","2015-11-19 16:26:45+00:00","Merge 'Avoid using RB routes on zhwiki'
+"
+"6191e5ee67301a59de36f9eda1a19e5d9d749b6d","2015-11-19 15:06:09-05:00","Set date format when building default Gson to prevent crash
+
+I have not been able to reproduce this crash, but it seems Gson has a
+problem parsing date strings when unmarshalling tab data.
+
+From the info I've looked at online, explicitly defining a date format
+will prevent ParseExceptions here:
+
+https://stackoverflow.com/questions/7816586/gson-java-text-
+parseexception-unparseable-date
+
+https://stackoverflow.com/questions/33408620/java-gson-java-text-
+parseexception-unparseable-date
+
+Bug: T118575
+Change-Id: I516e7352f4997703d250980b3e94e5aa88f7ad46
+"
+"9daec4969051d1f9b21a11876c9b946256c0d732","2015-11-19 16:15:05-07:00","Hygiene: upgrade Android Plugin for Gradle, v1.5.0
+
+Lots of improvements[0] but release notes forthcoming[1]. An amendment
+to packaging options for Espresso testing libs was necessary for unknown
+reasons[2].
+
+[0] http://tools.android.com/tech-docs/new-build-system
+[1] http://developer.android.com/tools/revisions/gradle-plugin.html
+[2] http://stackoverflow.com/q/33800924/970346
+
+Change-Id: I611d164f7fba4dd8d8c2b23d7ba9096074aaec37
+"
+"bb70a800c21dde9e974e65ceb095185465411700","2015-11-19 20:02:58-07:00","Avoid RB usage when image download is disabled
+
+Bug: T119161
+Change-Id: Ib66544b19dcb5b7a71551898890d92e415507317
+"
+"dce76e91cea1b30318bb93ade5118b26e4e32c9b","2015-11-19 16:33:22-07:00","Update SDK Manager Plugin to d0c113b snapshot
+
+There hasn't been a release of the SDK Manager Plugin for a while. The
+latest release does not properly download ProGuard dependencies[0] which
+requires us to use the Jenkins Android Emulator Plugin to download them
+for CI. Since the Android Emulator CI server is very slow, a dependency
+on it is impractical for jobs that otherwise would not need it. Use
+JitPack to grab the SDK Manager Plugin's master HEAD, d0c113b.
+
+[0] https://github.com/JakeWharton/sdk-manager-plugin/issues/57
+
+Change-Id: Ia0f5f8dc64a676bdead0bd79b36b8071d45cb516
+"
+"fd85ef8caf35777b7f12f3e0c4b4d71db2416c9b","2015-11-20 13:43:54-07:00","Use common RB endpoint for link previews
+
+The RESTBase team is going to provide a new endpoint /page/summary,
+which should behave similarly to our /page/mobile-summary endpoint.
+
+This needs to be tested when the endpoint has actually been deployed.
+
+Bug: T119237
+Change-Id: I0647cfc6aa89ecc8ad927dc4d0bab3c86699b3c0
+"
+"2aedb3bd21177a238b2f27dca05c2480034d4f82","2015-11-13 07:16:14-05:00","Upgrade to Mapbox GL SDK.
+
+The good news: This brings the app up to date with the latest SDK from
+Mapbox.
+
+The bad news: This brings our APK size from 4.1MB to 14.4MB (!)
+A sign of the times :(
+
+This patch includes somewhat of a redesign, or more accurately a bit of a
+stripdown of the interface, compared with the previous design. This will
+now be a simple full-screen map with markers. Clicking on a marker brings
+up a link preview for the given article. Nice and simple.
+This means that the 'list' interface with accelerometer-based arrows has
+been removed, pending some new designs for a location-aware link preview.
+
+Also updated the marker image that pinpoints to articles on the map.
+
+Bug: T117803
+Change-Id: I3dc224b02cbbb894ee263525e081fcfe38f9e1d3
+"
+"71bf91e7ed3ca7466c1667cb0f520c2c37fc9bff","2015-11-20 21:30:30+00:00","Merge 'Upgrade to Mapbox GL SDK.'
+"
+"bd85da9ed83d13de8970795cabce23ab9e20a404","2015-11-20 21:39:55+00:00","Merge 'Hygiene: upgrade Android Plugin for Gradle, v1.5.0'
+"
+"27b437137c0bfebffb15ee4ca5000b5627a87ce2","2015-11-20 21:49:19+00:00","Merge 'Update SDK Manager Plugin to d0c113b snapshot'
+"
+"3f6776e5ef92aff6a8f009a5a34812cba11e6c50","2015-11-20 21:59:03+00:00","Merge 'Set date format when building default Gson to prevent crash'
+"
+"dc4332b3c1d7bd90e0c12d059a05bddc70420bd7","2015-11-20 15:12:51-07:00","Hygiene: Update grunt dependencies
+
+npm install -g npm-check-updates
+ncu -u
+
+Change-Id: I2a71d53bdab2cb84dfa9d09bdd6b14bb24e180cc
+"
+"500e32c33a92ee5c7f3ea6e0fc3668f2048f95fe","2015-11-22 20:12:36-08:00","Fix clipped text in alpha and beta 'About' page
+
+Presently, in the alpha and beta apps, the title of the app is changed in
+the 'About' page, but since the height of the TextView and LinearLayout are
+defined absolutely, the text gets clipped on narrow devices (like most
+phones). This patch changes this by letting the TextView and LinearLayout
+height wrap the content, but specificies a minimum size the same as the old
+actual size in order to preserve layout.
+
+Bug: T119359
+Change-Id: I4079a0a842a8b3394a42082aebdf4006503fc77c
+"
+"9b9f224f7dcebc1e31f60ef9a83dad59a16bd4cb","2015-11-22 20:47:06-08:00","Convert some fields to local variables
+
+This patch converts some fields to local variables where appropriate, as this
+generally improves performance and helps code style and readability.
+
+Change-Id: Ibda77087b2d349c2e1f63450afe6d71c61521cf5
+"
+"eb941b44aa14da56afd60671f0c016d9a0394475","2015-11-23 09:37:20-05:00","Replace search results on query result, not query request
+
+Wait until query results are returned before updating the UI in order
+to provide a smoother user experience.
+
+Bug: T113967
+Change-Id: I7d84e276df00b9efd1449305d90945c467936347
+"
+"34e87e527e98524f4e2fe143e35bf952ba0fbfc0","2015-11-23 16:57:48+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I57544bc62439ae5a2207608d25e294c1b3d5a1ca
+"
+"842538723dbc0ac085a60bf2e7df4889df6bf68d","2015-11-23 15:57:50+00:00","Merge 'Replace search results on query result, not query request'
+"
+"8fbb5fe99ae3ef7b2151c9ebfb32ea9b85f0ca66","2015-11-23 16:20:06+00:00","Merge 'Localisation updates from https://translatewiki.net.'
+"
+"8e8e2085fdc850273569669fd8ed79209032e189","2015-11-23 16:27:33+00:00","Merge 'Hygiene: Update grunt dependencies'
+"
+"076c288bf979bc5c9f19b72a80d958e61a7e7589","2015-11-23 22:27:01+00:00","Merge 'Fix clipped text in alpha and beta 'About' page'
+"
+"e71c364f793db52c17b2c699f75791030f24d902","2015-11-24 11:26:42-05:00","Constrain link preview extract to two sentences.
+
+Not sure how it regressed to showing the unabridged extract retrieved
+from the server...
+
+Change-Id: Id675333e241208f684ccd9d05f374f7afd17f75d
+"
+"61a14eaff3979b4c43363e897642188346a683bf","2015-11-25 12:07:52-05:00","Fix issue with Accept-Language header for certain system languages.
+
+The proper Locale was not being used when calling String.format(), which
+was causing the resulting HTTP requests to fail.
+
+Bug: T118910
+Change-Id: I09e8c57d92eb969de816ed5025ad17f66aec386c
+"
+"f601ffd782d62602aa01c8387c48a874537c73be","2015-11-25 19:14:30+00:00","Merge 'Use common RB endpoint for link previews'
+"
+"349862ac1eec2243812cccf1d607799771b385ba","2015-11-25 12:45:01-07:00","Specify Python version required
+
+make-release is incompatible with Python 3. Specify Python 2 explicitly.
+
+Change-Id: I22148614471fe2ba4ba22bf460425bfed1373474
+"
+"fcfde76824d0d89876861456a246aee344be09ea","2015-11-30 15:46:13+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I5844e34044f996dc2f1e5ebcb049e5faee46dce9
+"
+"1d74dfd0c88a9ff38780457e904383ff28b0317a","2015-11-30 16:14:54+00:00","Merge 'Fix issue with Accept-Language header for certain system languages.'
+"
+"97328a0afa5e5c217e449455234180de107c985a","2015-11-30 16:27:34+00:00","Merge 'Specify Python version required'
+"
+"87c1161a4b5b715dc52a3707b503df9e0567a90a","2015-11-30 11:40:43-05:00","Hide MapBox logo in Nearby.
+
+Change-Id: I84e82eb00cdb50e1173e2dea22f8574f6a4e0f56
+"
+"0080c82426835aba582c8ff95475c4acab04a8f2","2015-11-30 17:40:40+00:00","Merge 'Hide MapBox logo in Nearby.'
+"
+"6bd06bc5a6333e42079cd30b3d0992da86cc9a0d","2015-11-30 10:53:44-07:00","Hygiene: update missing-qq script to Python 3
+
+Easy fix. Just change print from keyword to functional notation. This
+change appears to be backwards compatible with Python 2 without future
+imports.
+
+Change-Id: Iac62e7e6346ac06a4c8aa3e0dc72fe9fdbadfd46
+"
+"d7423a0d730c5ec7f34715733ffd0e84ea76b604","2015-12-01 11:47:26-05:00","Add thumbnail to link preview.
+
+This adds a thumbnail to the default link preview layout, to make it
+consistent with other instances where we have a page title and a
+thumbnail. Also a few minor design tweaks:
+- Added a subtle gray divider between the title and extract text.
+- Sightly reduced the font size of the title text, now that there's less
+horizontal space because of the thumbnail.
+- Increased the maximum lines for the title text to 3.
+
+Bug: T119214
+Change-Id: Ifbc38fe20328e7b3237e03d8f8923183783c0e32
+"
+"ded76dac03fcfd83dc2a67412a1ffd64bbfc9700","2015-11-19 20:17:24-07:00","Update roll out config for RB usage in beta app
+
+So older versions don't get RB since we change a lot of stuff.
+This should be merged before we cut the final beta release
+before initial roll-out.
+
+Bug: T118965
+Change-Id: I083b887fb7c38da6d3ec7683f6fe57b3bc1743dc
+"
+"349442d47e9cde36b35ac14cb28f39d766529e47","2015-12-01 16:27:21-05:00","End link preview a/b test.
+
+Change-Id: I0a61af33bca9a4149c468aee085d92b5b9ffe6a1
+"
+"77c8f8f781e883825654a8dd22d841f62fa463ef","2015-12-02 16:38:30+00:00","Merge 'Add thumbnail to link preview.'
+"
+"ebd805799dccd3141a1cbdd9280b3c38ab3987d7","2015-12-02 17:12:04+00:00","Merge 'End link preview a/b test.'
+"
+"1b36bfd6ba5a082b26328cdd8b691a013e8808cf","2015-12-01 15:43:26-05:00","Clear all tabs when clearing history.
+
+When pressing the Delete button in the History fragment, we now also clear
+the tab list by simply deleting the corresponding Preference that contains
+the serialized tabs, and reinitialize the fragment backstack in the main
+activity.
+
+Bug: T117371
+Change-Id: Ic0753214ba1dae2cb0f99a94cd0affd514b06f17
+"
+"be9d080770058b240d33f66565b6f8f0aea52927","2015-12-02 17:33:42+00:00","Merge 'Clear all tabs when clearing history.'
+"
+"d468665f4efc51788471651e622d7267a16cfe11","2015-12-01 13:41:00-05:00","Location-aware link previews.
+
+This adds a button to 'Get directions' to the link preview that pops up
+when tapping on a map marker. The button fires an Intent with a 'geo:' Uri
+that should be picked up by the default Maps app installed on the device.
+
+Note: this patch does not implement the 'Get directions' menu item in the
+link preview's overflow menu (to be shown when the link preview is invoked
+from a regular link in an article that has a location). This will be done
+in a subsequent patch.
+
+Bug: T119215
+Change-Id: I9d59321e89982d79c8255960a01325259d1b3d9b
+"
+"8797731f5d39898bf953df8c110e5e3d588daf4b","2015-12-02 19:14:18+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I14d1c468297b5738288d639e198f7b915688d086
+"
+"c90042572d1183362c7ee910bb50fc1e3ca7e05f","2015-12-02 18:57:16+00:00","Merge 'Location-aware link previews.'
+"
+"eeb236af4bfa2e7c22961a4cae927d825c04275c","2015-11-24 12:08:16-07:00","Promote maps to production
+
+Promote Mapbox maps to production and remove the previous Nearby
+implementation.
+
+Change-Id: Ic779547c27dbf291f0a726973a560a650f010ab0
+"
+"31f9ff7ac409da512a83d827339b51a31fccb497","2015-12-02 14:43:38-07:00","Fix NPE in link preview
+
+No repro steps were recorded but the following crash log was obtained:
+
+ncTask$BackingAsyncTask  D  doInBackground():100:
+D  org.json.JSONException: No value for query
+D      at org.json.JSONObject.get(JSONObject.java:389)
+D      at org.json.JSONObject.getJSONObject(JSONObject.java:609)
+D      at org.wikipedia.page.PageQueryTask.processResult(PageQueryTask.java:47)
+D      at org.wikipedia.page.PageQueryTask.processResult(PageQueryTask.java:17)
+D      at org.wikipedia.ApiTask.performTask(ApiTask.java:44)
+D      at org.wikipedia.concurrency.SaneAsyncTask$BackingAsyncTask.doInBackground(SaneAsyncTask.java:98)
+D      at org.wikipedia.concurrency.SaneAsyncTask$BackingAsyncTask.doInBackground(SaneAsyncTask.java:92)
+D      at android.os.AsyncTask$2.call(AsyncTask.java:295)
+D      at java.util.concurrent.FutureTask.run(FutureTask.java:237)
+D      at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:423)
+D      at java.util.concurrent.FutureTask.run(FutureTask.java:237)
+D      at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:269)
+D      at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1113)
+D      at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:588)
+D      at java.lang.Thread.run(Thread.java:818)
+LinkPreviewDialog  W  Failed to fetch gallery collection.
+W  org.json.JSONException: No value for query
+W      at org.json.JSONObject.get(JSONObject.java:389)
+W      at org.json.JSONObject.getJSONObject(JSONObject.java:609)
+W      at org.wikipedia.page.PageQueryTask.processResult(PageQueryTask.java:47)
+W      at org.wikipedia.page.PageQueryTask.processResult(PageQueryTask.java:17)
+W      at org.wikipedia.ApiTask.performTask(ApiTask.java:44)
+W      at org.wikipedia.concurrency.SaneAsyncTask$BackingAsyncTask.doInBackground(SaneAsyncTask.java:98)
+W      at org.wikipedia.concurrency.SaneAsyncTask$BackingAsyncTask.doInBackground(SaneAsyncTask.java:92)
+W      at android.os.AsyncTask$2.call(AsyncTask.java:295)
+W      at java.util.concurrent.FutureTask.run(FutureTask.java:237)
+W      at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:423)
+W      at java.util.concurrent.FutureTask.run(FutureTask.java:237)
+W      at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:269)
+W      at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1113)
+W      at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:588)
+W      at java.lang.Thread.run(Thread.java:818)
+V  https://ca.m.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=extracts%7Cpageimages&redirects=true&exsentences=5&explaintext=true&piprop=thumbnail%7Cname&pithumbsize=320&titles=List_of_the_largest_information_technology_companies
+AndroidRuntime  D  Shutting down VM
+ckeyAppExceptionHandler  E  java.lang.NullPointerException: Attempt to invoke virtual method 'int java.lang.String.length()' on a null object reference
+E      at org.wikipedia.page.linkpreview.LinkPreviewContents.removeParens(LinkPreviewContents.java:50)
+E      at org.wikipedia.page.linkpreview.LinkPreviewContents.<init>(LinkPreviewContents.java:32)
+E      at org.wikipedia.page.linkpreview.LinkPreviewDialog$7.success(LinkPreviewDialog.java:281)
+E      at org.wikipedia.server.mwapi.MwPageService$1.success(MwPageService.java:37)
+E      at org.wikipedia.server.mwapi.MwPageService$1.success(MwPageService.java:33)
+E      at retrofit.CallbackRunnable$1.run(CallbackRunnable.java:45)
+E      at android.os.Handler.handleCallback(Handler.java:739)
+E      at android.os.Handler.dispatchMessage(Handler.java:95)
+E      at android.os.Looper.loop(Looper.java:148)
+E      at android.app.ActivityThread.main(ActivityThread.java:5417)
+E      at java.lang.reflect.Method.invoke(Native Method)
+E      at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:726)
+E      at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:616)
+
+Change-Id: I04de6ffb1f4a4e69c8fd747b22d51e584119bef2
+"
+"5678852639157f9d18982ebf77b24dca93540d5c","2015-12-03 10:53:30-07:00","Fix infinite search loop
+
+- Only clear results when the query changes and the new result set is
+received.
+- Add @Nullable / @NonNull annotations where obvious.
+
+The search results Fragment has several sources of input including:
+
+1 Prefix search
+2 Full text search
+3 Search suggestion
+4 Cache
+
+There are special cases but the primary flow intents for starting a new
+search (whenever query changes) appear to be:
+
+1 Search term is identical: do nothing.
+2 Search term is empty: clear results.
+3 Cache is nonempty: clear old results and show new.
+4 Cache is empty: perform a prefix and suggestion search.
+5 Prefix and suggestions search was nonempty: clear old results and show
+new, clear or show the search suggestion too.
+6 Prefix and suggestions search was empty: clear or show suggestion and
+perform a full text search.
+7 Full text search completed: clear old results and show any new.
+
+Additionally, when the end of the results list is scrolled to, full text
+searches are performed and the results are appended. This seems to have
+been the source of the issue as results were being cleared instead of
+appended, so the user was always at the bottom of the list and always
+triggering another search.
+
+Bug: T120148
+Change-Id: Iee4107261a572f2e20943eca92f43ff290190520
+"
+"6f329c8138d6f6c8b96f967041bc3f71ad9b0243","2015-12-03 21:40:13+00:00","Merge 'Fix infinite search loop'
+"
+"4f11c295fcb8fb32bbad01cb63bf2891e06d82b8","2015-12-03 15:00:24-07:00","Bump versionCode
+
+Change-Id: I6741691ef2c6c9dc2420cf1134783517c6f268ca
+"

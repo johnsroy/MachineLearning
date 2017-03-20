@@ -1,0 +1,583 @@
+"commit id","commit date","commit message"
+"878189baec201fa60207aa430776f01d6dcd53e4","2014-12-07 04:40:47+01:00","Merge pull request #17 from k9mail/art/espresso-e2e-tests-2
+
+Espresso tests for account setup
+"
+"68c95d0283986f66fa71ee597c259a7459871172","2014-12-07 14:22:03+00:00","Update to be compatible with latest Android Studio
+"
+"825c508ff6026778ad5e8c9fd77118bd11e90772","2014-12-07 20:52:26+01:00","Merge pull request #19 from k9mail/art/update-gradle
+
+Update to be compatible with latest Android Studio
+"
+"8630bb0ad40e487bb10a38e701f50b47b9694365","2014-11-13 17:09:38+01:00","Add simple test to check if writing a parsed message leads to input data
+"
+"bcb6c75c2e87854f6b5479d21d6d3a7c3e2a9c4f","2014-11-13 22:40:58+01:00","Add support for storing raw header fields
+"
+"2404b80b04feb8e1cd04fd636a22d2a4d96e5c5b","2014-11-13 23:24:27+01:00","Fix MessageTest now that we preserve line breaks in headers
+"
+"51a60b5ad33ed381b3851bb6c87228000015d235","2014-11-14 00:27:04+01:00","Modify ReconstructMessageTest to highlight more problems
+"
+"d32d6eed0e3d8a7dbd91df156872512450fbcb61","2014-11-14 00:58:43+01:00","Move 'magic' from Part.setBody() implementations to MimeMessageHelper.setBody()
+
+Now adding message bodies during parsing won't set/modify headers.
+"
+"9f4f0cf6a8705105eea1c3a0da4e36f5841dd7c1","2014-11-25 19:59:05+01:00","Modify BinaryTempFileBody to retain the encoded body
+
+For now this breaks a lot of things, e.g. saving messages to the database
+and making messages 7-bit safe.
+"
+"f7d3eaa0068c2d03ecdb57742b39b599e85811a7","2014-11-25 23:59:03+01:00","Fix setUsing7bitTransport() functionality for BinaryTempFileBody
+"
+"d1d7b60a093407e02259a2b88b9bfd4084005323","2014-11-26 01:11:26+01:00","Add helper method to decode message bodies
+
+Depending on whether a Body implements RawDataBody (which indicates the class
+retains the original encoding) the helper method either strips the transfer
+encoding or simply returns the result of Body.getInputStream().
+
+This should restore the original functionality. So saving messages in the
+database should work fine again.
+"
+"3919c9d2d6483f432b14814bfd44875423a872ca","2014-12-07 03:31:58+01:00","Save multi part epilogue in MimeMultipart
+"
+"e374538110fe3083f000b83f74451568941cd23a","2014-12-08 17:38:30+01:00","Store multi part preamble as byte array
+"
+"0ce7c911e5c39efecd2058112a4643d65664b5d9","2014-12-09 00:41:10+01:00","Update compileSdkVersion to 21 and Gradle Android Plugin to 1.0.0
+"
+"d1d9f1ea19f5e10ffc9b87ceac9364cae52212f9","2014-12-09 00:57:27+01:00","Merge remote-tracking branch 'upstream/master'
+
+Conflicts:
+build.gradle
+gradle/wrapper/gradle-wrapper.properties
+plugins/openpgp-api-library/build.gradle
+"
+"f94491a359006ca1bec2ee7037e6786f8d9dad31","2014-12-10 18:24:27+01:00","Add code style settings for Android Studio
+"
+"37b0666f4a84fd4ecd3a23fe589911ad1d803251","2014-12-10 18:28:54+01:00","Remove Eclipse settings
+"
+"987b8b17b1453d755afbdae46401e1d389128411","2014-12-11 22:00:57+01:00","Merge pull request #21 from k9mail/reconstruct_original_message_in_memory
+
+Reconstruct original message in memory
+"
+"ca10e4d94a7b7b65225e400557ff33c0db34bb3f","2014-12-11 21:48:22+00:00","Use TextUtils.isEmpty
+"
+"f89b0548a6f2b1554f5adcc6b36b414afdb63a01","2014-12-09 00:33:38+01:00","Add test to verify a signed PGP/MIME message
+"
+"ba4dd24bd533905c5d87b265a976cf9aeac83438","2014-12-11 23:32:38+00:00","Package visibility
+"
+"12291bceb54791c5cf4b86a64ff1face99bfaae3","2014-12-11 23:56:02+00:00","Move database code into correct package
+"
+"e59adf46c04d66f99950760ba4d2cb81982ef556","2014-12-12 00:08:25+00:00","Package visibility
+"
+"edfd20bf85feb22502b726fef76d6a3abd57308f","2014-12-12 00:18:16+00:00","Fix visibility
+"
+"6f4610dd5b120cce83ee41c5303b44f5450f1674","2014-12-12 00:30:41+00:00","Fix visibility
+"
+"9fd722d7cd98b0af2fe5898f09080b317c26fd8e","2014-12-12 03:23:32+00:00","Split message code into Local/Remote
+
+The remote network code does not need to be aware of concepts like
+Accounts etc.
+"
+"5af649c27164df1b3347b2f218ee48909baf2a74","2014-12-12 06:54:34+00:00","Avoid cast
+"
+"25367197490dd6e2477b067e2f185f878a980d49","2014-12-12 07:03:14+00:00","Naming
+"
+"9f16b9f465735520f31753f7bb0f9d5075fe0ba2","2014-12-12 12:34:57+00:00","Move SSL code into package
+"
+"6264527abc61358f1f485f950606e9da33e1534b","2014-12-12 12:42:48+00:00","Remove Preferences dependency
+"
+"708fb57c0462ca62feae824b36126522ad3124c6","2014-12-12 12:49:26+00:00","Move things into local
+"
+"0024f39bc6fc7731d317bb4343b701f132b507a8","2014-12-12 13:04:59+00:00","Local messages
+"
+"2e98ff56e5719692b15cf051e78f74ad2f22c3a9","2014-12-12 13:35:36+00:00","Break dependencies
+"
+"40041ac0e0930525f2fa1fae2d24852df5cad6e3","2014-12-12 15:02:59+00:00","Move local message code to local package
+
++ cut some helper dependencies
+"
+"b644194a3d2866ddc543a696b72ba5efa22432e5","2014-12-12 15:16:38+00:00","Fix LocalMessage equality/hash
+"
+"54d62eb7b94e7df35a681efaf08ae424f8c320ff","2014-12-12 15:19:13+00:00","Naming
+"
+"12248bca9248bb469d2e24ae49eee697c87a16ef","2014-12-12 15:32:36+00:00","Fix test location
+"
+"39fc962da049fd61c58e0addfd6c0523a8ec9243","2014-12-13 13:56:22+01:00","Removed useless line
+"
+"ff70bf4e22b9559d859ba8da63cfc8dde1e3fa73","2014-12-13 16:05:41-08:00","Remove K9FragmentActivity
+
+Because it's same with K9Activity now, no need to keep it.
+
+Test Plan:
+./gradlew installDebug, and test the MessageList activity
+"
+"209072398e43d1a878ad947e44c812a0056a53b4","2014-12-14 04:13:44+01:00","Merge pull request #518 from frankdu/clean-up
+
+Remove K9FragmentActivity
+"
+"96413a50a31f717707e27b23f8afa90862709f16","2014-12-14 04:20:46+01:00","Merge pull request #517 from pylerSM/patch-1
+
+Removed useless line
+"
+"bd697bb56d485802dba771ce1e18d09f8d352b3e","2014-12-14 15:26:38+00:00","getUuid() -> getAccountUuid()
+"
+"8ef9eae0d64585b2ffa94b883760c2ff6375224c","2014-12-14 15:28:42+00:00","local -> mailstore
+"
+"238c1650c53bb3b99d3a2c19e4ced01a3511258f","2014-12-14 15:54:27+00:00","Remove URLEncodingHelper dependency
+"
+"476cb1d4ce6a2f1236b8b193362ac604e33bb13a","2014-12-14 15:58:08+00:00","Tidy responsibilities
+"
+"7d6e6b8abea0e9072de911ee061e78d86c6e66f3","2014-12-15 12:05:21+01:00","MimeUtility / Message refactor
+
+* break MimeUtility class into manageable pieces (MessageExtractor/CharsetSupport)
+* move HTML related code out of the mail package
+"
+"36ef6df01837c277ece20f9a064c29f451a6e094","2014-12-15 12:42:05+01:00","Remove unused method
+"
+"2a2e18e8b68aca453685c6741abd632d6bc500db","2014-12-15 12:45:04+01:00","WS / visibility
+"
+"b443af43aed63f25a82bda13c50c807f6c619fb8","2014-12-15 13:01:13+01:00","Cleanup
+"
+"15a4c90f27e75473ed9b863486a54f5092ad0ac1","2014-12-15 13:20:42+01:00","Update javadoc
+"
+"c6082584947822cc57ee43d65213881fc715bef6","2014-12-15 13:46:23+01:00","Unused imports
+"
+"23d9310c6146ccb9711730e3a775151eeaa8c0a5","2014-12-16 03:32:57+01:00","Remove getUuid() from StoreConfig
+"
+"62c5ac8e5fa56b7af3cecd7610fd12bc4c279084","2014-12-16 04:02:54+01:00","Rename 'accountId' to 'accountUuid'
+"
+"d24998d5843cc8adca12499e0199f0887ae54244","2014-12-16 05:16:09+01:00","Fix tests-on-jvm
+"
+"946565347a758a0ff239b809a3c4fa6278af962e","2014-12-16 05:40:44+01:00","Revert adding methods to Message and Part
+"
+"44f6a2479b5628c9d0b78da09590902d044a7616","2014-12-16 10:56:13+01:00","Remove reference to K9#hideTimeZone() + test
+"
+"245a6330ed5c093b529e33c066f3c529cc994cf9","2014-12-16 11:45:52+01:00","Move logic into MessageHelper and add tests
+"
+"231684936bb6528ab1688fe6b9cc8b5387351960","2014-12-16 12:51:52+01:00","break/centralize dependencies to K9
+"
+"deb11b2226cdddf0ee158e4c3996ca6727842b7a","2014-12-17 01:45:16+01:00","Merge pull request #516 from k9mail/untangle-network-code
+
+Untangle network code
+"
+"86487a738da8f406c47de7cf080aec5d3d0a7b9e","2014-12-17 03:17:08+01:00","Make Gradle task testOnJVM only depend on assembleDebug
+"
+"328405419a469a310ed1254064f296b17675a798","2014-12-12 04:40:49+01:00","Don't require Application when a Context instance will do
+"
+"e447257414a5fb89b2ceec3c40599c728565f9fd","2014-12-12 06:32:24+01:00","Stop using K9.app where easily possible
+"
+"b091ae4fa0791029d0c83c9d4893c3e5a029fdb8","2014-12-17 05:54:00+01:00","Merge pull request #515 from k9mail/avoid_using_application
+
+Favor Context over Application
+"
+"5248350953f4de2d47e495217c392624f087d2d9","2014-12-17 12:46:53+01:00","Clean up tests
+"
+"cc6c6bf096c15d38003f6339c48d36652d206c12","2014-12-17 12:47:39+01:00","Tests-on-jvm should be a subproject
+"
+"7c79e7c6b5bc82e340ca9a9bc15c89b150fb735d","2014-12-17 12:57:18+01:00","Forward test
+"
+"ac33de63108ec5380b9c1e9cbc450848eb5ee4fb","2014-12-17 01:08:51+01:00","Fix EOLConvertingOutputStream + add test
+
+Add test for another EOLConvertingOutputStream edge case
+
+Fix bug in EOLConvertingOutputStream
+
+Swap order
+
+Simplify
+"
+"27e0c75021515758e16064e727f704c338515602","2014-12-17 15:28:48+01:00","Move exception error strings out of mail package
+"
+"16f8a3ef14e08a9619ca786bc9b4dbafd5f1e83d","2014-12-17 16:12:55+01:00","Remove trusted socket factory statics
+"
+"b36c788ce0a2105aa70717e0f7775638970b75bf","2014-12-17 17:16:18+01:00","Move ImapConnection out
+"
+"2f30b3956d3b98add0efa713946bf2ff0b280ee7","2014-12-17 17:42:22+01:00","Dependency Inversion, remove K9.app references
+"
+"9c7776d289ea9c54b5c789eef0c06fd28a1240d9","2014-12-17 19:17:13+01:00","Remove leading/trailing spaces from search string
+
+Some keyboards insert a trailing space when doing word completion.
+"
+"51bc464449da646e83098ea882a68ce8383303bd","2014-12-17 19:37:18+01:00","Decouple AuthType / ConnectionSecurity from main app
+"
+"e1fe6a97e1b08029c444bbc90102a75b6a30602b","2014-12-17 20:34:17+01:00","Leftover
+"
+"3c38cb2d7fc5b3c9f7082dcd9c593997e2c3d2b2","2014-12-17 20:38:41+01:00","Not needed anymore
+"
+"0f476978cea9152ca35f39c989f578f77b3bbd08","2014-12-18 09:33:09+01:00","mail.store.* cleanups
+"
+"6a1fee90ee4c78eb5957ed1eb910260d88e5a71a","2014-12-18 10:07:18+01:00","Use 1.6 source compatibility for now
+"
+"0a6920c63e83f659006bd0d92e61b27888d9fec1","2014-12-18 11:24:43+01:00","Refactor IMAP code + tests
+"
+"66dd4990b181bd45c41a72a29e1ad9406b840c5f","2014-12-18 11:56:02+01:00","Move tests to JVM + convert to modern syntax
+"
+"714acabf833ef8c7a72cb61186e523a2f7686344","2014-12-18 12:22:01+01:00","Inverse dependencies
+"
+"043df7e7c5faae55ff1fd1b53fa51d1e470db44a","2014-12-18 12:48:10+01:00","Decouple K9mail logging
+"
+"fd020859461aa353897e600f4e067523b92f3c27","2014-12-18 09:34:10+01:00","Remove JUnitReportTestRunner
+"
+"3f7fc83d58ac2ffdf3a4d2c3a79abf097a2d4c21","2014-12-18 07:51:34+01:00","Add findbugs to Gradle build
+"
+"3760ca95d522c0695a725c15ecc6ecdad4167f42","2014-12-18 11:21:04+01:00","Add checkstyle to tests-on-jvm project
+"
+"df8a823e419ecd2973e73e8ce9e1b69d0f5c7d76","2014-12-18 12:50:33+01:00","Add support for recording code coverage
+"
+"20116553446cad51610cfa6d6caf5e80eb3ccc74","2014-12-19 02:57:39+01:00","Update build tools version for subprojects
+"
+"4b0d016bb7e4e9ef50f937440bec6c3c040a1c97","2014-12-19 03:58:03+01:00","Add support for code coverage to tests-on-jvm project
+"
+"98c1935c857c3e6812f05a4e5130591900055676","2014-12-19 09:48:02+01:00","Reformat according to style
+"
+"e214dbbd99457d5d0a4189beabb80b075462c362","2014-12-19 09:54:17+01:00","Tighten types in Folder#fetch(…)
+"
+"6ed52ac5512eabbf3d9e00826e4d380f069e5c81","2014-12-19 10:01:34+01:00","Fix some warnings in ImapStore / Pop3Store / WebDavStore
+"
+"2eecb2d2c55362ea3d390d7f72d8c374094e0ea5","2014-12-19 10:04:53+01:00","Break ImapConnection#open into smaller methods
+"
+"cfbebdb4b601aefef7678db9e5afd3f7377bbe09","2014-12-19 22:11:38+01:00","Remove files not necessary for Gradle builds
+"
+"1212f9d0f28fc3bda67c80582e01535c32d34999","2014-12-19 23:05:58+01:00","Move main application from root project to subproject 'k9mail'
+"
+"7d3cea87f919d8ea54f314cacc0333c8097b7fac","2014-12-19 23:15:23+01:00","Use default directory structure for tests-on-jvm subproject
+"
+"0a6046cae799b78d28186825d1c043cd239a3e8a","2014-12-19 23:17:07+01:00","Update Transifex client configuration
+"
+"4d61a6407d4fd6c74bf91d8fd561dad19024180e","2014-12-19 23:21:09+01:00","Move lint configuration file into 'config' folder
+"
+"348051cb95d450b1e56e79e99043660882f8cf9d","2014-12-20 00:21:02+01:00","Remove outdated docs
+"
+"9e7721ca62736eb4c2f3f528c5e7980e563afbc3","2014-12-20 00:33:00+01:00","Make ckChangeLog an external dependency
+"
+"6a24aca3431387524132a87c3ade7098851f1329","2014-12-20 00:48:02+01:00","Move TracingPowerManager into mail package
+"
+"105bca735bb329402fefba5aacb6b81cee124cf3","2014-12-20 01:09:49+01:00","Move 'mail' package to library project
+"
+"52b3974c4f761b11f1d2087d93c2ea67e3a14edb","2014-12-20 01:49:09+01:00","Run checkstyle and findbugs on k9mail-library
+"
+"1bd74ad263ac63e024a705d0d3b2711adfb2afa9","2014-12-20 03:03:06+01:00","Move settings to the right place
+"
+"ae6f1fa299a2625021ebd22eedf028e58661ecf7","2014-12-20 03:10:31+01:00","Cleanup
+"
+"7752f42db699f28224d1545cdbacbc56ea1dd86d","2014-12-20 04:46:14+01:00","Merge branch 'gradle_only_and_k9mail_library'
+
+Conflicts:
+k9mail-library/src/main/java/com/fsck/k9/mail/transport/imap/ImapSettings.java
+src/com/fsck/k9/mail/store/imap/ImapSettings.java
+src/com/fsck/k9/mail/transport/imap/ImapSettings.java
+"
+"4f8fc5bc5b6b33537c53ddf89b57ba865c716460","2014-12-20 07:39:08+01:00","Merge remote-tracking branch 'k9mail_pgp_mime/master'
+
+Fixed lots of conflicts
+"
+"c473ddc90a29311a1ae9863b13be6e2f1d991176","2014-12-20 14:50:15-08:00","Make sure to keep font meta info on view recycling
+"
+"8194c20ffeb31e2da304f3436b95f7291d013392","2014-12-21 11:52:05+01:00","Fix IMAP uri decode when user/pw contains ':'
+"
+"703c007fc88f67ce7196b34584a453c0b3c49222","2014-12-22 17:33:48+01:00","Fix code style
+"
+"152e0a0530aa77654d1e10a420d0b62bd631567c","2014-12-22 18:23:52+01:00","Revert ImapStore URI change
+
+Reverts changes introduced with commit 8194c20ffeb31e2da304f3436b95f7291d013392
+Adds test to make sure usernames/passwords with special characters encode/decode properly.
+"
+"6c172f94a1eede32f00969381b11d1c100e9c873","2014-12-22 17:19:12+01:00","Add missing global settings to settings export
+"
+"b0d401c3b73c6b57402dc81d3cfd6488a71a1b98","2014-12-22 22:37:17+01:00","Added note about expected method parameter format
+
+https://github.com/k9mail/k-9/commit/8194c20ffeb31e2da304f3436b95f7291d013392#commitcomment-9069167
+"
+"c96a11212efe0c5fbf275d35ba6d4bc5d51eb89b","2014-12-22 22:36:50+01:00","Update dependencies
+"
+"704cb35d7eebda2e579b9b7f5f66e4fc4197b950","2014-12-22 23:52:34+01:00","Fix Espresso tests
+"
+"fe8e779b32eaa80321cc0c2a4b58a9a77aaf885d","2014-12-23 10:13:57+01:00","Reformat
+"
+"e8c6a56fd223a16e5949d08e3bf73701c6810a25","2014-12-25 14:42:42+01:00","Use correct sub-part of a multipart message when getting text.
+
+946565347a758a0ff239b809a3c4fa6278af962e passed 'this' to
+getTextFromPart() which could be a multipart. This caused
+all multipart messages to show 'No text' as the body.
+
+Fix it by passing it the correct 'part' that was found.
+"
+"78758714c21ca99eb1d6c9ea82a49ba3b1ff3be1","2014-12-31 00:42:14+01:00","Add testcase for #525
+"
+"82736f3a8bdb714f3dfc719f38cf77bd944fb2b0","2015-01-02 22:04:28+01:00","Merge pull request #524 from k9mail/merge_pgp_mime_branch
+
+Merge changes from PGP/MIME repository
+"
+"e2a9dd3042439263de0848449b4b2b06d3853276","2015-01-02 23:43:46+01:00","Upgrade to Espresso 2.0
+"
+"b69bba01da1ff493602d2f926638ceb8676d3546","2015-01-03 02:02:54+01:00","Fix DM_BOXED_PRIMITIVE_FOR_PARSING findbugs warning
+"
+"e45d780c6f8c71c41395661a9670761a9993b336","2015-01-03 02:12:37+01:00","Fix WebDavFolder.equals()
+"
+"928c7f33a3bba271387de3832baecfd7b762e029","2015-01-03 02:46:36+01:00","Add missing hashCode() method to SearchCondition
+"
+"65d2de0fccbfcc465debd32bb57b88e3519066ad","2015-01-03 03:04:44+01:00","Fix bug caused by edge case of Math.abs()
+"
+"6804ee04e3cef6e5576c3ac7abf6f7860d0908dc","2015-01-03 03:46:19+01:00","Fix some MS_SHOULD_BE_FINAL Findbugs warnings
+"
+"b6315b15b04303cd9b12d7858111e45a4140f477","2015-01-03 04:10:15+01:00","Fix equals() method to work with all objects
+"
+"ad8da499913eb9a16ee6ee0df420978e81fbd0b5","2015-01-03 04:27:27+01:00","Remove unused code
+"
+"57ad0fd6b33480f66815d7ba367c6bd3bf167080","2015-01-03 04:39:25+01:00","Remove unused implementation from abstract class
+"
+"72f022d7eda81dd1503af3faa041ea950e15be01","2015-01-03 05:41:29+01:00","Ignore newline in format string Findbugs warnings
+"
+"ddd78bd3e3218e06a7e2f92a44b7508cd9d68aa5","2015-01-03 06:33:43+01:00","Merge branch 'findbugs_fixes'
+"
+"4bc003e17334f0c6825a2597f60d705010511b8c","2015-01-03 16:43:01+05:30","Add Zoho Mail (personal) to providers.xml
+
+Added settings for Zoho Mail personal account (@zoho.com).
+"
+"04b5b4a230c656cfe7aae1a4327022fb83e7a55e","2015-01-04 01:05:17+01:00","Merge pull request #527 from notfoss/patch-1
+
+Add Zoho Mail (personal) to providers.xml
+"
+"c7229e4724cf9505b000eef9b3696125c252b3e5","2015-01-05 23:24:24+01:00","Enable lint checks for k9mail-library
+"
+"63abf05776ea04dd6a61661dea2a2177474344e3","2015-01-09 16:16:00+01:00","Sanitize HTML to remove meta refresh
+
+Using
+<meta http-equiv='Refresh' content='1; URL=http://example.com/'>
+in a HTML message causes WebView to load the URL in the default browser.
+Overriding WebViewClient.shouldOverrideUrlLoading() allows us to cancel
+loading this URL. Sadly, I found no way to find out whether the method was
+called because of a meta refresh or because the user clicked on a link.
+
+So now we're using HtmlCleaner to parse the HTML and remove all 'meta' elements
+containing an 'http-equiv' attribute with a value of 'refresh'.
+"
+"4db57dfc85c027ebb963f2ae33980798269ee81a","2015-01-11 11:35:06+01:00","Merge pull request #529 from k9mail/ignore_meta_refresh
+
+Sanitize HTML to remove meta refresh
+"
+"b481d3f9786949dba3facf2ba0276d134cd3e67c","2015-01-12 19:36:42+01:00","Adding tests for IMAP connection, use greenmail snapshot
+"
+"79584675039e1c5ddb1869c1c60a383b8dd2e420","2015-01-13 01:04:28+01:00","Convert from thread to AsyncTask for espresso tests
+"
+"111212b391e1424c0311bc51a2602b10c95a733a","2015-01-13 01:04:49+01:00","Setup and tear down server between tests
+"
+"60070b788310cc4cf2d4ee232d4393ea34802814","2015-01-13 01:59:51+01:00","Add more tests + descriptive names
+"
+"f7da704007aed8bf9a9dd75aadc5c6ba15320d72","2015-01-13 09:34:13+01:00","WS
+"
+"e98f32322290e11714309b0c707ba33a453241e5","2015-01-13 10:05:15+01:00","Initialize settings in setUp()
+"
+"bdbe97639665b4994d32055c8b730755c35ccd9d","2015-01-13 10:09:42+01:00","Test connection w/o server
+"
+"de4b6d1076c92d87314c7e1e0c303f37f09e924a","2015-01-13 11:43:07+01:00","Merge pull request #531 from jberkel/imap-tests
+
+Update greenmail + add more tests
+"
+"a15583a0806e111054fb1bfed8b242b9f78d4ea9","2015-01-13 15:51:33+01:00","Start server early
+"
+"055d4104b76600e46c42baea75166c1a442df182","2015-01-13 16:12:39+01:00","log ChangeLog click failure
+"
+"0f312f012e6406ddc5e8a9780cecdedd0ef675c0","2015-01-14 03:08:44+01:00","Create test mailboxes
+"
+"0153766dd597d2ccdb9f2236cac7c6c836244105","2015-01-14 03:09:00+01:00","Convert to JUnit4
+"
+"4e964e271c865d58bdf5bc402aebd2887998f78c","2015-01-14 03:09:48+01:00","Convert to JUnit4 test
+"
+"79b03b5e4fdff65243334034e9b31f03ac984e1d","2015-01-14 03:30:38+01:00","Remove account after creation
+
+* Avoid side-effects in static preferences which might interfere with other tests
+"
+"833d9c5de871126fb6146360ebf6cf255fecce27","2015-01-14 03:34:57+01:00","Base class is already annotated
+"
+"4808406739ad517b638cd64b00093d1f59024a5e","2015-01-14 03:45:09+01:00","Make deleteCertificate null-safe
+"
+"dfb025033dba89ebcae84e073d8639a190514885","2015-01-14 04:05:42+01:00","Convert remaining tests to JUnit4
+"
+"c79256684d08bf49c229ce42ec33b11624ad4aa7","2015-01-14 04:29:09+01:00","simplify gradle config
+"
+"9523a589fc2c5b8225636a225f2214eb4063f5a4","2015-01-14 04:29:23+01:00","use `@Test(expected =`
+"
+"ecd316d0afe1fe112b1e40f920ad7c6255c95d7d","2015-01-14 04:22:04+01:00","Simplify ImapConnection#connect
+"
+"74fdbb7859e9a9b03ed1b28cdc8250683803c083","2015-01-27 12:14:56+01:00","Update openpgp-api-library to latest version
+"
+"74820a40dbda00bc65e31cd4b4098088c4ea9834","2015-01-27 12:42:47+01:00","Merge pull request #534 from k9mail/openpgp_api_library_update
+
+Update openpgp-api-library to latest version
+"
+"9ba2725ab1e1a0bf4ef5f6a634bbd9d9f5d11181","2015-02-10 23:14:02-06:00","Fixes issue 6703
+
+- onPrepareActionMode must be called before computeBatchDirection
+because computeBatchDirection ends up referencing mMarkAsRead /
+mMarkAsUnread and mFlag / mUnflag which could be null otherwise.
+"
+"5013f36ba4876850ee715cc295792b417da111c5","2015-02-13 14:52:18+01:00","re-correcting  String glitch by changing layout-height attribute
+"
+"8d510e96a91f1aef347c4f786f811f5eac3d0ec5","2015-02-13 18:48:59+01:00","Merge pull request #543 from gburca/master
+
+Fixes issue 6703
+"
+"9c3cab23545165a0c9162f41199b49444be50a43","2015-02-14 04:23:44+01:00","Don't show changelog dialog during UI tests
+
+This will hopefully make the UI tests more stable.
+"
+"9df1a3ee80214f48f02dc8a9d3e01441ee37a24b","2015-02-15 17:38:10+01:00","Potentially avoid creating new Typeface instances
+"
+"aae71125c676b24aceb933ab4cac5661175b59b7","2015-02-15 17:43:11+01:00","Merge pull request #523
+
+Make sure to keep font meta info on view recycling
+"
+"9b1a0b3614fb67997893c95ff6c15d03d5ac2f27","2015-02-16 13:48:31+01:00","Applying 'match-parent' value to 'next' buttons.
+"
+"980d7990877c91074a01540d42414ef2316b1abd","2015-02-16 14:07:41+01:00","Rename from Searchfield to SearchField
+"
+"63047e0ac6ba3e67df4c611c15d67113052741bf","2015-02-16 15:03:11+01:00","remove redundant cast (Button)
+
+findViewById(R.id.pop) ,
+findViewById(R.id.imap) and
+findViewById(R.id.webdav)
+are Button so it’s redundant to cast it to Button
+"
+"f5cac2c71f54af3efc2b1b8a5b61e8c6f2266335","2015-02-16 15:10:34+01:00","remove redundant cast Button to WelcomeMessage
+
+findViewById(R.id.next) and
+findViewById(R.id.import_settings)
+are Button so it’s redundant to cast it to Button
+"
+"9bf546b33bba47dbf9e19e60d52ae278428858aa","2015-02-16 15:25:36+01:00","removed redundant assignment to AccountSetupBasics
+
+removed null affectation because it’s done automatically
+"
+"c4e202ecd93be1454abd597aa1857683ceed1aa7","2015-02-16 15:31:03+01:00","remove redundant assignment to FolderSettings
+
+removed null affectation because it’s done automatically
+"
+"0d0b80f142a986b98e064acbddfad4708b01caf3","2015-02-16 16:11:38+01:00","Added placeholder for application ID
+"
+"80f8e4a81deddef408ed0b10d6104510b282be41","2015-02-16 17:37:15+01:00","Removing java.util.Arrays import
+"
+"62c2894fcee4fa266ebbbaec76a04d25d37af063","2015-02-16 18:30:51+01:00","Merge pull request #544 from BombTeam/StringGlitchCorrection
+
+Fix height of buttons in wizard screens
+"
+"b4900cc6af2c46516c346f2d0786f5293f8afa5c","2015-02-16 18:46:15+01:00","Merge pull request #551 from BombTeam/remove-redundant-cast
+
+Remove redundant casts
+"
+"9f1ecf72202db2fedbe329faaa0e985e59736acf","2015-02-16 19:47:38+01:00","Merge pull request #555 from BombTeam/UnusedImportsRemoval
+
+Remove unused import
+"
+"d703ac91482b6d096d00ca056cb2cbcd57bf0c80","2015-02-16 21:02:52+01:00","Revert substitution of 'com.fsck.k9' in implementation details
+
+We don't need to change strings that are not exposed to the system/users.
+"
+"ebeed31705a6e465685adacd6c81b1585f44fa1a","2015-02-16 21:38:16+01:00","Fix search for non-default application ID
+"
+"13016453878cd1277812bc1292edd59f13f28cfc","2015-02-16 21:45:04+01:00","Use different application ID for debug builds
+
+This way debug builds can be installed next to the release version.
+"
+"461778ed116057a6bb4b06b1573e7063a4f53134","2015-02-16 21:49:01+01:00","Merge branch 'configurable_application_id'
+"
+"24e6b39dc0366547311481adc2780517c2225d57","2015-02-16 22:27:44+01:00","Stop using Intent.setClassName()
+
+Use the type-safe Intent constructor to reference internal classes.
+"
+"ffb4507776c1b3fdda9854d26ccf7cd95eeb6e37","2015-02-15 07:37:52+00:00","Enums instead of int/String constants (#547)
+
+simplify and add logging
+
+simplify
+
+use == for enum comparison to avoid type mistakes
+
+enum name needs to match previous constant
+
+simplify
+
+Address review comments - formatting, and remove superfluous comment
+
+Shorten DeletePolicy values since not used in settings strings; import enums to reduce clutter
+
+fix whitespace
+
+remove comment per review
+
+address review comment
+
+review comments
+
+remove another superfluous qualification
+
+Last changes
+"
+"ebef8eccb91d705887a3dc3887b89cb28e63cfa6","2015-02-17 00:45:36+01:00","Add missing placeholder for application ID
+"
+"583a637d79fe7bfd083a97c0208b6acade6cb47d","2015-02-18 19:42:33+00:00","Remove duplication, enum-ify String
+"
+"1a706c3113da12ea540f4ff2b9381a57b7b5d92e","2015-02-18 19:48:17+00:00","formatting
+"
+"492d65feedda9a3445e109c5eed66def9df30f53","2015-02-18 19:40:43+00:00","reduce duplication
+"
+"d5d42469b030b4544ef80009cccac236fd6e76d1","2015-02-22 16:03:58+00:00","Avoid confusing reuse of local variables
+"
+"a656a61c65b368d58479328f24cd4d7a93aaabdf","2015-02-22 16:58:46+00:00","tidy method
+"
+"23c01b0390f90689fa51cc1f479c4845c1529295","2015-02-21 15:35:35+01:00","MessageReference class, method equals() unit tests
+"
+"5035e7e3d19a047ab68c541423e02e5c3bd5460d","2015-02-22 21:30:26+00:00","review comments, also use == in preference to equals for enums
+"
+"8fbb3edd1c9423b22ac06b1d29372ed2f8465ae4","2015-02-23 01:45:30+01:00","Fix code style
+"
+"084e7a16877aaa5c766b8080028502a29b238f99","2015-02-23 02:22:10+01:00","Change names of test methods
+"
+"af491fdb418af26007933647cc641ea33d5239ab","2015-02-23 02:23:00+01:00","Remove comments
+"
+"a979accb548c2eb62f1ae8959afcc80a60df8d44","2015-02-23 02:41:57+01:00","Add helper methods to get more readable tests
+"
+"d443a6d4eb8d6315e517f8609d6f9521ff831c0c","2015-02-23 02:50:08+01:00","Add more tests
+"
+"4db7de4ed8efc08d7f019b32b9a781cef87ace29","2015-02-23 03:13:28+01:00","Merge pull request #559
+"
+"737e0d2ac8bf55fe72af806380bd15042262c900","2015-02-23 03:36:34+01:00","Minor code style fixes
+"
+"dd20ff5aa3dca5885764ef08c3324ea61b942e34","2015-02-23 03:39:07+01:00","Merge pull request #561
+
+Reduce code duplication in AccountSetupAccountType
+"
+"d0fa82269ff124a35de0b9755641c6e4859424ae","2015-02-23 17:28:42+00:00","review comments
+"
+"b826d4e98dd07994bb42316bd52b375bb53879b4","2015-03-06 21:17:49+01:00","Use imports for inner classes
+"
+"29f7552c3ab7e5598ed7ae5ada82dd687630bde6","2015-03-06 23:00:18+01:00","Merge pull request #548
+
+Rename Searchfield to SearchField
+"
+"abd2b208508b18d3112903d858a7db7a2a450d03","2015-03-06 23:08:34+01:00","Minimize scope of local variables
+"
+"67404b1883f5be3be640a750cb057a7dbd635d77","2015-03-06 23:13:54+01:00","Merge pull request #553
+
+Remove redundant variable assignments
+Minimize scope of local variables
+"
+"46bac187d5172bd885c092b1d30617734d633620","2015-03-06 23:47:46+01:00","Merge pull request #557 from artbristol/art/account-creation-refactor-2
+
+Remove duplication, enum-ify String
+"
+"2f832e5fa4331ce02d88d60c65a0cce218cea8fc","2015-03-06 23:52:22+01:00","Merge pull request #562 from artbristol/art/tidy-check-settings-async-task
+
+Refactor to make code more readable
+"
+"147db8cc5e258e19bc66c35b0c1c68592594a364","2015-01-03 08:29:45+01:00","Configure 'developer mode' via BuildConfig
+"
+"8e0a30c5f24fff1fa287d98581721738890f5e2c","2015-03-13 12:40:56+01:00","Fix Transifex fixup script
+"
+"e0a249098be76be579255fb3cada811ecd2b47a1","2015-03-13 12:42:16+01:00","Update translations
+"
+"9f2bbe9ae416099dea299db9feb23a18591c34ed","2015-03-13 12:48:50+01:00","Add Serbian translation
+"
+"20a1fa384c965b4b227a411d4b6209af6e52cbb7","2015-03-13 12:53:17+01:00","Prepare changelog for 5.104
+"
+"42419fc4e59945550915cb3845c31717d0e99d18","2015-03-13 13:10:11+01:00","Bump version to 5.104
+"

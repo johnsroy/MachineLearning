@@ -1,0 +1,68 @@
+"commit id","commit date","commit message"
+"a08f6a319e12e5e48d9db2010655a9c1f12b7a9f","2014-08-24 17:57:50+02:00","new constant
+"
+"bcfcf4870dfff888e9378b1f0df48aff70ce6067","2014-08-24 17:58:01+02:00","filters out orwall and i2p app - fixes #26
+"
+"de8db56562ff81308d9cd4e54f165be2abc89680","2014-08-24 18:02:07+02:00","err… forgot about orbot itself - fixes for good #26 now.
+"
+"257e1d07cc38be759ebbff3ef3737ad76c074b12","2014-08-24 18:19:44+02:00","forgot to push this
+"
+"a2b4e97a28ab2b11d37d9f721da6ea40ab4cb0af","2014-08-24 18:31:07+02:00","allow to set up browser grace time
+"
+"32aabdceff1fd7af21da77111118371cf1d5d03e","2014-08-24 18:33:48+02:00","reformat code + optimize imports
+"
+"0ac57f0137784549d9ccdec5b125bb609ae46225","2014-08-26 09:36:36+02:00","Added back per-app DNS redirection and authorization
+
+Mike Perry discovered the way DNS is resolved has been updated, as
+shown in this XDA thread:
+http://forum.xda-developers.com/showpost.php?s=bfb428de97ef545d2c9b2736550a6271&p=44722857&postcount=4
+
+Old version:
+each app was making DNS query directly. This allowed us to filter them
+and ensure only authorized apps may query DNS
+
+New version:
+seems there's a DNS proxy now. This one is running as root (UID 0) and
+this one makes the DNS queries.
+
+We should find a way to bypass the local proxy in order to get back to
+the 'legacy' way, as this one is the most secure for orWall use case.
+
+It also appears some apps are enforcing their own way to make DNS
+queries, like Xabber and, maybe, Firefox.
+
+Thus, orWall has to support both versions.
+This commit should help for #29 and #24
+"
+"08e7335713baafe5f163966a5a105f7ba03cac8c","2014-08-29 17:24:39+02:00","Detect if iptables supports comments
+
+Seems some iptables shiped with ROM don't support comments.
+This patch allows orWall to detect this kind of problem, preventing
+comments to be added to the rules.
+
+This should allow rooted stock ROM to run orWall. Tested on genymotion
+4.2.2 successfully.
+"
+"48a0341a56da0115af946ac9b7c4e944ae97e90e","2014-08-29 19:05:42+02:00","New activity and related style (transparent)
+
+This activity allows to do basic checks in background, while main
+activity will just wait for it to provide results.
+
+This new activity will most probably get extended.
+"
+"8224e4c0a592a9da42460cb8a202d59e2ad9f26d","2014-08-29 19:07:49+02:00","some refactoring
+"
+"94dc2e8f956a8a97b6ce3d6a0dd4f0fc54acf233","2014-08-29 19:08:31+02:00","Refactoring and push stuff to background activity
+
+This allows a smoother app, better experience, and some code cleanup.
+"
+"56c8a21da6d51c614f745aef1d765dc8e548fa83","2014-08-29 19:19:52+02:00","corrected manifest
+"
+"31372cbd6bbae2d5dd72ad524df9a81372e2787f","2014-08-29 19:20:01+02:00","Better logs, added new check for orbot install
+"
+"0ba8927dccd513a5d64a1592d934ba59ea432b9d","2014-08-29 19:48:47+02:00","ensure the value is correct for comment support
+"
+"02cd371f5bb67cdacbc2e565161c42919e35673c","2014-08-29 19:57:18+02:00","reformat code and optimize imports
+"
+"5ebaa9c1386d36ca58c3e91abdf2ce64a7d1b3dd","2014-08-31 11:02:21+02:00","bump version
+"

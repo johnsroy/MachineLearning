@@ -1,0 +1,21 @@
+"commit id","commit date","commit message"
+"4b76027d5d33d7a78de9ea2f8daf4fb25eb202ef","2014-12-04 13:16:12+01:00","Don't throw CertificateValidationException for all SSLExceptions.
+
+An interrupted connection attempt to the server yields an SSLException
+as well, like this:
+
+E/k9      ( 6937): Caused by: javax.net.ssl.SSLHandshakeException: Connection closed by peer
+E/k9      ( 6937):      at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+E/k9      ( 6937):      at com.android.org.conscrypt.OpenSSLSocketImpl.startHandshake(OpenSSLSocketImpl.java:302)
+E/k9      ( 6937):      at com.android.org.conscrypt.OpenSSLSocketImpl.waitForHandshake(OpenSSLSocketImpl.java:598)
+E/k9      ( 6937):      at com.android.org.conscrypt.OpenSSLSocketImpl.getInputStream(OpenSSLSocketImpl.java:560)
+E/k9      ( 6937):      at com.fsck.k9.mail.store.ImapStore$ImapConnection.open(ImapStore.java:2459)
+
+We don't want the user to notify of 'certificate problems' in that case.
+Fix it by checking whether the SSLException was actually triggered by a
+CertificateException.
+"
+"58e9f316c492b43419984b2e34855172648bc502","2014-12-17 19:32:51+01:00","Update changelog for 5.002
+"
+"655d7872e38caadfa0226aa3cb71a024a7b73c53","2014-12-17 19:54:11+01:00","Bumped manifest to 5.002
+"

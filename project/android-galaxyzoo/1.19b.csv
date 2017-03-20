@@ -1,0 +1,391 @@
+"commit id","commit date","commit message"
+"7c12c1ea7f19da8346b9e39ebdd4c3ed995224aa","2014-10-27 10:42:57+01:00","QuestionFragment: Define the ToggleButton state colors in a <selector> drawable.
+
+Instead of in code.
+"
+"14dfa1add0bee28f46d22febbc813e13f7f896d7","2014-10-27 14:50:51+01:00","Use a style for the checkbox (ToggleButton).
+
+However, I still don't see a way to keep the ripple effect,
+because we cannot derive from the borderlessButtonStyle attr.
+"
+"55560083bcc501a743771021ee0d08e05f823570","2014-10-27 15:42:30+01:00","Support API 11 (instead of 12) by using LruCache from AppCompat v4.
+"
+"0d4de65695285ff110cee1474e370e3497e8c835","2014-10-27 15:44:06+01:00","Remove unnecessary imports.
+"
+"fe22d91b7fdaff5dc18eb41b56d0513266e3e33b","2014-10-27 23:16:50+01:00","Toolbar: Make the 'Classify' action name appear dark on older devices.
+
+By setting actionMenuTextColor.
+This isn't necessary when running on Android 5.0 (API 21) but is
+necessary on older devices.
+"
+"5f22a4656a9d4bb6463938b9396ac1df261d97b8","2014-10-27 23:59:25+01:00","ItemsContentProvider: Use getExternalCacheDir() instead of getExternalFilesDir().
+
+For the cached subject images. This seems like a more correct place
+to put them.
+"
+"9c312ede568f81c2a540fcba5bafbd2d53c1f97e","2014-10-28 00:26:00+01:00","ZooniverseClient, SubjectAdder: Disable Volley request caching.
+
+Because it would not be useful to us and could theoretically
+(if Volley doesn't check the timestamp)
+lead to us not doing a new network request for new items,
+because the request always looks the same.
+"
+"5d4993271f981300e56400aba5193b10697776d0","2014-10-28 12:12:47+01:00","styles.xml: Fix typos in comments.
+"
+"ebf347c07fce905bb4215e519468361504d73b38","2014-10-28 15:07:44+01:00","MoreItemsJsonParser: Fix the tests build and close the Reader.
+"
+"7eb684e8f65e268f9e690fe5aa1908e53a7f9d9c","2014-11-03 12:18:16+01:00","Use latest gradle version.
+"
+"5d7b309ae6feb96ea4299209c20432da13b1a70c","2014-11-04 12:48:50+01:00","Use latest gradle version.
+"
+"55211be6ca6b070185e0abed4873809395609604","2014-11-04 12:55:09+01:00","Remove some unused code.
+"
+"c04a399b25e6336254894eb8a9e27a313f0d6836","2014-11-04 12:58:37+01:00","Add copyright headers to some .java files that were missing them.
+"
+"7c6ed2e4bc845518d46bca343c77dc6b283ecbe2","2014-11-06 09:07:15+01:00","ListFragment, ListCursorAdapter: Prevent navigation to not-done items.
+
+Because it is too tempting to skip ahead to only the interesting images.
+As suggested here:
+https://plus.google.com/100123542880051296706/posts/WcjVd8zKT7e
+"
+"fbaebe8c1f3780c1473026b05b48b64614ed7b2a","2014-11-06 09:53:14+01:00","About: Add SDSS and Hubble image attribution.
+
+As suggested here:
+https://plus.google.com/100123542880051296706/posts/WcjVd8zKT7e
+"
+"164a541ed9d27808f9c43a42ed022921a866d5a2","2014-11-06 11:07:14+01:00","Classify: Make the toggle button text visible on older Android versions.
+
+styles.xml: GalaxyZooButtonStyle: Set textColor and textSize to @null
+so that our textAppearance's textColor and textSize are actually used.
+
+I discovered this annoying weirdness via this StackOverflow answer:
+http://stackoverflow.com/a/21104200/1123654
+"
+"cd7e818175399b21cb0bc47e5bf4c117df859289","2014-11-06 11:47:28+01:00","Classify: Toggle buttons: Don't use a custom style.
+
+Because, even when setting textColor, textSize and textStyle to @null,
+we still don't get quite the same appearance as with textAppearance on
+the Button itself. Incidentally, for some reason using
+android:textStyle='@null'
+fails style validation though it works for textColor and textSize.
+I assume that the appearance is more correct when using the
+textAppearance directly on the Button in the layout.
+"
+"a8b3fd474cb4792473654077a8e42d5be1055868","2014-11-06 12:17:55+01:00","Classify: Give the buttons a slight background color.
+
+And make the margin between buttons as small as possible (1dp) and
+add some bottom padding inside the buttons.
+This makes the separation between the buttons more obvious,
+as discussed here:
+https://plus.google.com/100123542880051296706/posts/WcjVd8zKT7e
+though I personally prefer the buttons without backgrounds.
+"
+"4013b84b126adeb36a31ea2358a8dea9ee11882c","2014-11-06 16:45:02+01:00","Add an SVG of the official Galaxy Zoo logo.
+
+This was provided by Kyle Willett under the GPL3:
+https://plus.google.com/100123542880051296706/posts/WcjVd8zKT7e
+"
+"a84f22acda7f727178a9712971c2ed1fc554f7fd","2014-11-06 16:52:59+01:00","ic_launcher.svg: Resave in Inkscape.
+
+Actually, copy it into a new document and save it.
+Something about the original SVG confused the Android Asset Studio.
+It squashed the image about 50% horizontally.
+"
+"ff4c0bb4f943f9aeca2261d65b8c08241a5c2ab6","2014-11-05 08:55:30+01:00","Launcher icon: Generate PNGs from the SVG.
+
+Using the Android Asset Studio:
+http://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.type=image&foreground.space.trim=1&foreground.space.pad=0&foreColor=33b5e5%2C0&crop=0&backgroundShape=bevel&backColor=ffffff%2C100
+"
+"6fc8a795ca5e29031b1ec642677fa8e3b7b48635","2014-11-06 17:02:06+01:00","Add the official Galaxy Zoo word mark SVG.
+
+As provided under GPL3 by Kyle Willett:
+https://plus.google.com/100123542880051296706/posts/WcjVd8zKT7e
+"
+"f93533551a33eae954c26f8e7ecdce5d8fbebeb8","2014-11-06 21:46:25+01:00","ic_toolbar_icon.svg: Resize and resave.
+
+With Inkscape, using the same document height as our
+ic_action_invert.svg icon, to make it easier to generate .png files
+that are the same height as the action icons in the toolbar.
+"
+"8512f52b4a11f06c226199af98585db384e35256","2014-11-06 22:00:02+01:00","Generate PNGs for ic_toolbar_icon from the SVG.
+
+By just exporting the SVG from Inkscape with the various
+pixel heights listed here for the action icons:
+http://iconhandbook.co.uk/reference/chart/android/
+"
+"3ac8b55d128552fa88a17f34658f4839fbc15491","2014-11-06 22:00:56+01:00","Toolbar: Replace the title text with the (word mark) icon.
+
+It is now even more obvious that the title (now our icon containing text)
+is black while the action items are grey.
+However, this seems to be the default in the Material (and Holo)
+dark theme. Google's Photo app has the same colors, for instance,
+though I have not found another suitable example.
+"
+"eff223a08fc3beeb0c48da3e8bd89d99d9ecb1aa","2014-11-06 22:27:12+01:00","strings.xml: Update the About dialog text.
+
+Say that it _is_ an official Zooniverse app. See:
+https://plus.google.com/100123542880051296706/posts/WcjVd8zKT7e
+and remove the text about the galaxy image used in the old
+launcher app.
+"
+"8e615b44d1064d69eeaea9c963ca677e4d77b6f9","2014-11-06 22:35:32+01:00","Toolbar: Add a contentDescription for the toolbar icon.
+
+For accessibility and to satisfy android-lint.
+"
+"577f57845c98eb021cc34c20e634abe4be4cbb53","2014-11-06 22:38:07+01:00","Make a method package local.
+"
+"389ea54111025e8a75b3e2a400f39ea481f3a5d2","2014-11-06 22:38:32+01:00","1.18
+"
+"4f4e0155d5ba8c736bd986647f77a3f82e50e232","2014-11-07 13:11:45+01:00","ic_launcher_web.png: Re-export this from the SVG.
+
+Because the original had too much padding.
+"
+"c7e5faed54baf5c7e6fc5fcf4e07a72b0bd308e1","2014-11-07 14:21:47+01:00","ItemsContentProvider: createFileUri(): Move some code into createCacheFile().
+"
+"94ec4eee0aa8574c1163e52f4170daf1e2e547bc","2014-11-07 14:28:04+01:00","ItemsContentProvider: Add some comments about .nomedia.
+"
+"8ee134dea95dd104cf5e3b0a7c282332ba958a30","2014-11-07 14:28:27+01:00","AndroidManifest: READ_EXTERNAL_STORAGE: Use maxSdkVersion='18'
+
+Our use of WRITE_EXTERNAL_STORAGE has this already, because
+use of our app-private getExternalCacheDir() doesn't need it in
+newer API versions. But WRITE_EXTERNAL_STORAGE implies
+READ_EXTERNAL_STORAGE, but the maxSdkVersion doesn't seem to be
+carried over to the implied permission. I noticed this in
+the Google Play console.
+"
+"5f0975bc1d5383379005743f10245115d90a6113","2014-11-07 14:41:19+01:00","README.md: State why we need the varous permissions.
+"
+"7cf1f34a36fbcda8944b73a214e5db5e20cbb6ab","2014-11-07 21:38:37+01:00","build.gradle: Use the latest build tools version.
+"
+"7e7d147c1d8caeb81fecde5b3050e7bf667260e9","2014-11-07 21:41:01+01:00","Add a small version of the launcher icon for the Amazon App Store.
+"
+"78174182d967c1474f393433cf2f0d09b815463a","2014-11-07 21:55:53+01:00","Activity tests: Set the theme to avoid an exception from AppCompat.
+
+Avoid this exception when using ActivityUnitTestCase:
+java.lang.IllegalStateException: You need to use a Theme.AppCompat theme (or descendant) with this activity.
+"
+"144a38994a1ea13bfab546e0d5a0034ef4cb1334","2014-11-10 08:52:06+01:00","Move the feature graphic into a sub-directory
+"
+"0a129ea11462b6e964e1f4829d96a788e76f9218","2014-11-10 09:34:18+01:00","Slightly improve the feature graphic and add a promo graphic.
+"
+"6633dc8ddce4dea4e2472d5ed63346a71973a9e7","2014-11-10 09:41:05+01:00","README.md: Remove the text about it not being official.
+"
+"c0d9517dab41bc0203438e5cd3542df52fa99a8f","2014-11-10 09:54:23+01:00","Translator Screenshots: Update.
+"
+"3ebc166f6593e5849127f142524d978a12a82e79","2014-11-10 10:26:40+01:00","1.19
+"
+"0153ec5454abdc03c253a2c86a23825350ef92f0","2014-11-10 11:27:23+01:00","README_translators.txt: Mention the screenshots.
+"
+"b23ed531ec1906b3701c697b16e0cf070b668c78","2014-11-10 11:46:51+01:00","Add Phone screenshots.
+
+Instead of only having them in the Google Play store.
+"
+"af114d3950e2eeb265a7720deb368ad3c9d77d4c","2014-11-10 13:08:21+01:00","Fix filenames
+"
+"3e665b873eda75687e532f988caf4cb23e8c06cd","2014-11-10 14:44:54+01:00","List: Use 6 (instead of 3) column on larger widths.
+
+By adding an integer resource with a specialization for widths over 600dp.
+Unfortunately, GridLayoutManager doesn't give us a saner way to do this.
+"
+"03b42bb87c173ac95884df8f34f6ea1237b98b8d","2014-11-10 15:54:26+01:00","Add tablet screenshots, using my Nexus 10.
+
+This doesn't show the status bar being colored because my
+Nexus 10 doesn't run Lolliop yet. And the tablet emulators only run
+with the Hardware GPU enabled, but screenshots don't work with
+the Hardware GPU enabled.
+"
+"3d49a91db03e3022ef37f70713f37ff89d399f63","2014-11-10 17:15:39+01:00","Correct screenshot filenames.
+"
+"ea9dad0bf84a30f35f04cd9a72e6e4ed876a985b","2014-11-10 17:33:18+01:00","Add some Nexus 7 screenshots.
+
+I managed to get the Nexus 7 Lollipop emulator running without
+Hardware GPU enabled, so I could take a screenshot,
+but the emulator won't rotate, so the landscape screenshots are
+missing.
+"
+"7985fc079e04eff46c06f97a31ee0f80eea72791","2014-11-12 10:03:11+01:00","Update the German translation.
+
+It is now complete, though the questions and answers have not yet been
+translated:
+https://github.com/zooniverse/Galaxy-Zoo/tree/master/public/locales/
+"
+"82de8878f55ff67290c736ff6d7c576cb029b41d","2014-11-12 10:06:20+01:00","README_translators.txt: Fix the column width and add a link.
+"
+"eb4591e7c827a7bbee7195ba362436553d47d339","2014-11-12 11:04:08+01:00","MoreItemsJsonParser: Explicitly specify an encoding.
+"
+"bb03e8aa483f9a21d024586f2678d6969cebed7e","2014-11-12 14:16:12+01:00","Toolbar: Use setLogo() instead of manually specifying an ImageView.
+"
+"0f12835b79173c1d9d485fa239edb5d47adc8fee","2014-11-12 18:16:03+01:00","Reorder the file and translate missing strings
+"
+"1e733058c4da89b7f8b966cdb0a8aeef355419d7","2014-11-13 09:44:41+01:00","Merge pull request #3 from egore/master
+
+German translation: Reorder the file.
+"
+"da1db328078084e768b716a37241929f03f9e910","2014-11-13 10:10:24+01:00","Update some comments.
+"
+"4c27dbc930a98939a5b0d5904b8afad099466d74","2014-11-13 13:07:12+01:00","Update the commented-out code to get icons from the website.
+
+And temporarily uncomment it.
+"
+"f9088d33dd8d3e7c2b4adb2a79cc77f8faffd839","2014-11-13 13:19:24+01:00","IconsCache: Comment-out the icon downloading code again.
+
+I just updated it to avoid having to do that later if I need it,
+when I might have forgotten how the code works.
+"
+"c710bd8dd38dc4849950b320a5203431616d8489","2014-11-13 13:36:22+01:00","UiUtils.showToolbar(): Don't crash when called on the Preferences activity.
+
+It has no Toolbar, so we can't call setLogo() on it.
+"
+"3c22b1a6b4c1a9ec9f93b32ed3de379d7f76f03e","2014-11-13 13:42:14+01:00","Fix tiny typo in comments.
+"
+"173fbf2ffc104a175932c331dbab2b9d1aab38fb","2014-11-13 16:48:29+01:00","Settings: Add a Wi-Fi Only setting.
+
+We don't download much data but even that could be significant for some
+people, and we do it silently in the background.
+"
+"bea03be8b06bd6620d30c7d5592245af5bed6561","2014-11-13 17:00:26+01:00","Wifi-Only setting: Add some translations for the new strings.
+"
+"d2836f0bbf2827308bef773962a812da9cb45359","2014-11-13 17:03:47+01:00","Add another German string.
+"
+"af65280fbc897e68674b81a7f3a3263b93d798dd","2014-11-14 09:05:21+01:00","Italian, Spanish: Add translations for the No Wi-Fi Network connection message.
+
+I'm mostly guessing, but the whole translations still need to be checked anyway.
+"
+"a89a3ce236cbdd6963ccc29cb42a085e7d6ac292","2014-11-14 09:48:18+01:00","Italian: Escape an apostrophe.
+"
+"250fd902d88abc4fb57d87a20548a7ff12077bbe","2014-11-14 09:59:21+01:00","SyncAdapater: Set supportsUploading to true.
+
+Though it worked already before and I don't know what effect this really has.
+"
+"9094644bcf3313df4e600463aa36882ba2812f09","2014-11-14 10:51:07+01:00","Fix a comment.
+"
+"907b949d43c6c6f520ebb52cd17af2598739067e","2014-11-14 11:16:46+01:00","SyncAdapter: doRegularTasks: Catch NoNetworkException in each method instead.
+
+Otherwise we cannot unset in-progress booleans, so we never try again.
+"
+"b4f30069b5db51feb7cf286774fce6936810189f","2014-11-14 11:18:58+01:00","ClassifyActivity: requestSync(): Get the account name and pass it.
+
+We have to do this asynchronously, unfortunately.
+Passing null instead works, but it is undocumented so it seems unwise to
+depend on it.
+"
+"7773adf171bcfe62dc79d37d628ba1232fbd72a6","2014-11-14 11:20:45+01:00","LoginActivity, LoginUtils: Call setSyncAutomatically for the account.
+"
+"c2f658005b6db39a6eb68e40540c1ed7eb10225b","2014-11-14 11:21:49+01:00","LoginUtils: Make sure that automatic-sync is always set.
+"
+"5df4475c02168e6944b92c825164dd7cf2f4dc51","2014-11-14 11:23:48+01:00","ClassifyActivity: trigger a sync when the wifi-only setting changes too.
+"
+"209914565257059cbb0156c97bd6ce1d9f2e27ee","2014-11-16 10:29:14+01:00","Change ic_action_help to black, instead of gray.
+
+This is not the default, but it just looks bad with (default) black
+title text, and plenty of official google apps seems to change the
+icons to be fully white or fully black.
+Generated with:
+http://romannurik.github.io/AndroidAssetStudio/icons-actionbar.html#source.type=clipart&source.space.trim=0&source.space.pad=0&source.clipart=res%2Fclipart%2Ficons%2Faction_help.svg&name=ic_action_help&theme=custom&color=000%2C100
+
+I wish this the Material theme had better defaults and I wish this
+was mentioned in the Material design guidelines.
+"
+"b351997a48b3bccac485387e086ea3fd8cf651c8","2014-11-16 10:33:48+01:00","ic_action_favorite: Make this black too.
+
+Generated with:
+http://romannurik.github.io/AndroidAssetStudio/icons-actionbar.html#source.type=clipart&source.space.trim=0&source.space.pad=0&source.clipart=res%2Fclipart%2Ficons%2Faction_favorite.svg&name=ic_action_favorite&theme=custom&color=000%2C100
+"
+"8dc3ed89139622810653bfc771279af63a9e237f","2014-11-16 10:43:43+01:00","ic_action_undo: Make this black too.
+
+And also change it to the new (content_undo) icon for Material design,
+though I don't like it as much.
+Generated with:
+http://romannurik.github.io/AndroidAssetStudio/icons-actionbar.html#source.type=clipart&source.space.trim=0&source.space.pad=0&source.clipart=res%2Fclipart%2Ficons%2Fcontent_undo.svg&name=ic_action_undo&theme=custom&color=000%2C100
+"
+"cb05c35fb9e4e2e1187acf192a0163bf39aaee40","2014-11-16 10:46:45+01:00","ic_action_invert: Make this black too.
+
+Generated from drawable/ic_action_invert.svg with:
+http://romannurik.github.io/AndroidAssetStudio/icons-actionbar.html#source.type=image&source.space.trim=1&source.space.pad=0&name=ic_action_invert&theme=custom&color=000%2C100
+"
+"4af5a6e5246aecd59c281c3a17b16478cb9b95cc","2014-11-16 10:55:43+01:00","ic_toolbar_icon: Make this black too.
+"
+"9950c053deed0c31e8d3405430b8e9cfd4e0467a","2014-11-16 11:32:31+01:00","Regenerate action icons with trim, so they are big enough.
+
+Now they actually have the inner area size as specified here:
+http://iconhandbook.co.uk/reference/chart/android/
+which is based on this:
+http://developer.android.com/design/style/iconography.html
+
+Generated with:
+http://romannurik.github.io/AndroidAssetStudio/icons-actionbar.html#source.type=clipart&source.space.trim=1&source.space.pad=0&source.clipart=res%2Fclipart%2Ficons%2Faction_favorite.svg&name=ic_action_favorite&theme=custom&color=000%2C100
+and
+http://romannurik.github.io/AndroidAssetStudio/icons-actionbar.html#source.type=clipart&source.space.trim=1&source.space.pad=0&source.clipart=res%2Fclipart%2Ficons%2Faction_help.svg&name=ic_action_help&theme=custom&color=000%2C100
+and
+http://romannurik.github.io/AndroidAssetStudio/icons-actionbar.html#source.type=clipart&source.space.trim=1&source.space.pad=0&source.clipart=res%2Fclipart%2Ficons%2Fcontent_undo.svg&name=ic_action_undo&theme=custom&color=000%2C100
+"
+"777501c3d952c228cf383e2949e78626183e2b71","2014-11-16 11:44:02+01:00","Make the overflow icon (But not the back/up icon) black.
+"
+"3d41961d16c1906fc1b243d4ce03504f7554e3d0","2014-11-16 11:43:26+01:00","README.md: Move permissions explanations out.
+
+So we can link to them directly.
+"
+"17b6613d2449731e42c8b5011d4e06e09d6fbcb8","2014-11-16 11:46:05+01:00","README_translators: Use md format, as in the other README files.
+"
+"098cb80ba1053a8957e068cda49fbf423f53824c","2014-11-16 11:49:17+01:00","Store a copy of the Google Play store listing.
+
+So we can track changes in it.
+"
+"483db187714135ae2e18fcb8399864013c651e17","2014-11-16 13:46:03+01:00","Update some screenshots.
+"
+"953f38271dd88e4ae1e269826f3cfde63d6f8e52","2014-11-16 14:21:09+01:00","Generate .po and .pot files with android2po.
+
+See
+https://github.com/miracle2k/android2po/blob/master/README.rst
+
+This is useful to some translators.
+"
+"e9d8179d64d343e318951886add533d209981a0e","2014-11-16 14:22:32+01:00","Import translations from .po files with android2po.
+
+The changes are just formatting, but doing this will make it easier
+to see real changes next time.
+"
+"e0df0e254e9745a67b770eb5c84bc66fd9a1dc1c","2014-11-16 14:24:59+01:00","Add the android2po configuration file.
+
+So we can just do
+a2po init
+a2po export
+a2po import
+"
+"998c57643d39397eced6d668b6b521ea6d555230","2014-11-16 14:41:29+01:00","README_Translators: Mention the exported .po files.
+"
+"5bfff963c105a1a5f25a882a4a859d9c71314068","2014-11-17 09:59:51+01:00","About: Split the text into multiple string resources.
+
+And concatenate them in the code.
+This makes it easier for translators to see when something has changed
+in just one part of the text.
+"
+"d58b51fddaf611c03546f77a9f8eb6ca9712a7b9","2014-11-17 10:03:18+01:00","German translation: Fix some formatting.
+"
+"6b215abddde6fcd7fb659641c2664a1edc4c2b5d","2014-11-17 10:13:02+01:00","Re-export the .po and .pot files for translators.
+"
+"969b89f7fed63954f5b219f906a6887bc48fb90e","2014-11-17 10:16:48+01:00","About: Workaround the version text not being visible.
+
+For some reason the dialog could not scroll down to the lower TextView.
+"
+"59b84a626c5f5200bcc0b2b6861c4c44824c8874","2014-11-17 10:18:36+01:00","About: Use a constant for the \n\n paragraph break.
+"
+"f05e2ee95b8183aa315d2d2a59186babcf74b95a","2014-11-17 11:05:41+01:00","styles.xml: Add a comment.
+"
+"dce1ff1809626fb96d77371bb724c3a35296c3c2","2014-11-18 10:34:31+01:00","Add some null checks.
+"
+"e8e3b10895faa741d14f58835938ccf6292bc9a4","2014-11-18 10:34:42+01:00","Remove an unncessary import.
+"
+"b2e46ca2b8399d82c61b30600f3e57d306b443ab","2014-11-18 10:39:04+01:00","Add a null check.
+"
+"cc061ff41325672a3519e8d6a47da9cfe2272d40","2014-11-18 10:41:33+01:00","Add a type case check.
+"
+"a0eddfd6fee0096260fa106824f311968eb3f521","2014-11-18 13:12:33+01:00","Italian, Spanish: Remove bad whitespace and quotes.
+"
+"15bbb4784128705799692346bf467f3d633a6b72","2014-11-18 13:23:00+01:00","Put arrays in strings.xml instead of a separate file.
+
+I didn't realize that this was allowed.
+Using a single file makes life easier for translators who often expect
+a single file.
+It also helps a2po to generate just one .po file.
+"

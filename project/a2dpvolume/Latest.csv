@@ -1,0 +1,550 @@
+"commit id","commit date","commit message"
+"d0653e287ee531404598e627ab175d48cfe6a446","2010-10-03 20:27:53-05:00","Initial commit
+"
+"eb984b369dde42974aef816c11c4d5819e5b9f6c","2010-10-04 17:02:22-05:00","Just testing
+"
+"ba1fb9fc97b8cdafd3ddbc32b9a5863c80d3dfca","2010-10-04 17:09:47-05:00","Just commented Mmain.java to explain where the test software is on line 358 - 377
+"
+"f734349e19f2955da82cee833e2857af8280ff6e","2010-10-04 20:32:47-05:00","updates
+"
+"0e7fcf2ed859710be68dd93b6867a9d5bf47df02","2010-10-04 21:09:07-05:00","latest changes before sleep.
+"
+"bb8c13956fd728b8332a3ea39ebf2e291dd0099f","2010-10-04 21:25:26-05:00","More last changes to the update in DeviceDB
+"
+"bfc7275e4de4b41094c585575996149211a86f7c","2010-10-04 22:20:28-05:00","Fixed the force close issue caused by the db.update method call from passing an incorrectly formatted string
+"
+"4f4f5d02fb9635013a7d213e01d9aab3f8de053e","2010-10-04 22:28:23-05:00","Used the 'forget' command on everything in the '\a2dpvolume\bin\' directory.
+These files are generated each time the project is compiled and just cause unnecessary cloning of non-source files.
+"
+"5577ba97ea5994f66601c15cd8f085e1bbe64ec5","2010-10-05 21:49:00-05:00","Still need to fix the listview updates.  I need to make an update method that is on the UI thread.  Not sure how to fix it.  See the bottom of main.java  ThatrefreshList function replaces the lstring use
+by the listview adapter.  But, the listview does not update.  If I try to update in that function I get force close.
+"
+"91e318b6a23b83e0355e2f54f7e9ecd527da27ab","2010-10-07 21:51:09-05:00","Finally got the listview loading correctly.  Also commented and cleaned up a bit.  Mostly changes to main.java only.
+"
+"b6d3bd16cfa3bd1fa679c565d0b58d7c26cefc29","2010-10-10 10:13:47-05:00","Added default volume setting slider bar to edit settings view and main.
+So far the service does not use the setting though because I can't figure out how to know what device is currently connected.
+It appears this is not yet in the API's. ;-(
+"
+"a5f2e74e23f2bd2c315b3689deda2cd9de825a96","2010-10-12 22:22:07-05:00","again...removing this stuff because jim didn't pull, but pushed
+"
+"8db786a61a249bdcb5008814713220a5128ffdf8","2010-10-13 21:12:16-05:00","Latest sync after removing the bin files.  No real changes made.
+"
+"3d297bfd035f395cff3bad497389a7569aa28142","2010-10-13 21:12:48-05:00","just updating files.  No real changes made
+"
+"69de988fe020d5f1cc5aec4bf7fccc80b9c355e4","2010-10-13 21:43:31-05:00","Finally figured out how to determine what is connected!!!
+"
+"51e37761a9ef694a1b4679c1c8377566a86f1abb","2010-10-13 22:04:39-05:00","merge
+"
+"1e10e68c4d5f754b5bf45c2c92c91ff637f09681","2010-10-13 22:06:25-05:00","merge
+"
+"291679d93b08f733a850f6636aaa2aa33bcaf422","2010-10-13 22:27:42-05:00","merge
+"
+"472191e10acfac0e3d6c6eab1cde12d6b4cc4939","2010-10-13 22:38:04-05:00","no net code changes...just formatting
+"
+"0f92f8a2c0f465d4ec8bd5c5d24090559b8d7f37","2010-10-14 19:32:48-05:00","Finally got the connection to find the active bluetooth device.  Stll need to fix the service to work right.  For some reason the query of the database forces close.
+I surrounded with try/catch so it no longer forces close but it does not find the device in the database either.  I had the same problem with the main.java
+and I fixed it there by using the compareignoringcase() function.  However, I was comparing a BluetoothDevice to another.  Here I need to get a btDevice from the database.
+"
+"55a16deb76ba09d5a7bcf4f563f1a87f348f20ea","2010-10-14 20:05:05-05:00","Got it all working finally!  Fixed the service.  I had just not initialized the instance of the database class.  Duh.  Now it manages device specific settings on connect.
+"
+"087e976c1d14431609d052794249a1f2f0d3fbf9","2010-10-14 22:21:58-05:00","stuff
+"
+"bd8c62aea227610e9f97b9434493f152d930da3f","2010-10-14 22:28:38-05:00","Merge the mess
+"
+"df1e96032bb09c117cc12227b8ea2af47d5b49d6","2010-10-14 22:33:37-05:00","Merge
+"
+"b9a57686e03aa21b9059274c38f1d70529a1dc6e","2010-10-14 22:39:35-05:00","still cleaning up.  No real changes.
+"
+"8624c4ff91415ff7973e4e923326ea8689aa742e","2010-10-15 21:57:49-05:00","Added a GPS location listener to the service.  When disconnected it will turn ON a GPS location listener and keep the GPS location listener alive until a location of 20m accuracy
+or better is found, then it will turn off the listener.  I really need a timer on this too but did not have time to get that done.  The risk now is that the listener will stay active until the 20m accurate location is found,
+or your battery dies!
+"
+"7723d698b690b94e01380a4618cb55f700c724c3","2010-10-15 22:55:13-05:00","Fixed the service to capture GPS but if it can't withing 15s it gives up and turns off the location listener so it won't kill the battery.
+"
+"34e507cd9640970b46b4a811a99de2f2ad86a745","2010-10-16 08:24:27-05:00","Just cleaning up unused imports and code.
+"
+"feeb91d54b181fa810eafdc9bed010be07324521","2010-10-16 15:40:05-05:00","Fixed a small bug in the GPS capture logic.  I was not checking the timing correctly to cancel the GPS listener so it cancelled prematurely.
+"
+"3c6119f9e7065fab519b13342def24e07f7aa15a","2010-10-17 09:14:51-05:00","Started building preference screen to select the location capture max timeout and max accuracy.
+"
+"8f9480b60094d17bd2107ada4e9ffb111ef7d9d5","2010-10-18 17:39:21-05:00","Fixed bug in service.java that crashed when the location providers list was empty.  Also implemented the preferences for max accuracy and max timeout.
+"
+"35f65d4ec46c7dc88ca38abb5e7e9a9a6abf1966","2010-10-18 17:55:52-05:00","Minor mod to GPS preferences
+"
+"2550d84386c6345b33f61fdedec91728997844cf","2010-10-18 22:04:14-05:00","Fixed bugs with preferences.  Now you can configure the gps timeout and min acceptable distance.
+"
+"7d6f8cd582c00e7af9ec7a9d55c90a34d878d8f9","2010-10-19 21:49:41-05:00","Fixed database exporting utility.  Now exports to sqlite database and XML properly.
+"
+"b15ead5d19f049175c6e6cd387cc02594cea650f","2010-10-20 22:25:35-05:00","Added a method to delete a single device from the database.  Also made some minor format changes to the preferences.  Removed redundant oldVol capture calls from the service.  Now it only captures oldVol right before changing the volume to the connected volume.
+"
+"c8f49fa6c18536902ee0a7c2c1b651dfbf69aad6","2010-10-22 22:23:32-05:00","Added the path to the manage data view.  This way you can see where the exported files went.
+"
+"65573a810acbcbf60c206d7aa8a84c3c3754bec1","2010-10-23 19:36:20-05:00","Created option to disable GPS listener in preferences.
+"
+"40efa096d6e5a4efe26152d8ee8fefa13805d92a","2010-10-23 23:23:35-05:00","Added boot loader
+"
+"6fd3fa76020320ef9e91d8a88162a2c8a8fe95bc","2010-10-23 23:24:05-05:00","Finally got the boot loader working!
+"
+"c79edc85b37b6b6d10543e244453ed0dd8353c76","2010-10-25 05:49:23-05:00","Fixed orientation problem.  Now supports landscape as well as portrait.
+"
+"245fefcf6330013cf82b5a79fac21e564a101691","2010-10-25 19:53:34-05:00","Added help button to launch website
+"
+"8e5e986bfcbada2d20d07bd3db695579a555ad9a","2010-10-26 17:51:08-05:00","Fixed force close when selecting 'no data' device.  Removed up/down buttons and replaced with seek bar.
+"
+"5f7eb981ce6f8e1571670888009803900c9fa5c1","2010-10-27 20:26:14-05:00","Added a list item long click listener to show remote bluetooth device details in a pop-up dialog.  Also put try/catch around the service reading the preferences.  Hoping this will fix force close Cort had when starting service.
+"
+"234354becad408c396862a3c94382ea10d4eddb2","2010-10-28 22:01:37-05:00","Added dabase import and upgrade functions.  Added configuration per device for whether to capture location data on disconnect or not.  Formatted the views.  Edded a 'save' button to the edit data dialog.  2 new problems: save button does not close dialog; import database will not reopen db and require closing the program and restarting.
+"
+"7d81c86b49f26a1b71722196dba287c689ccb760","2010-10-30 19:30:31-05:00","Fixed the edit data button to close the dialog when it is done saving changes (issue 20).  Installed a band-aide to the database import problem (issue 19).  Added a dialog box explaing that the program must be losed and reopnened.
+"
+"254a6f171541acf2aba9854b5107e9d0d4e95a37","2010-10-31 07:59:32-05:00","Fixed issue 21.  Also fixed the possibility of entering a blank for the device description.  If that happens the name will be returned to the default name from the bluetooth device.
+"
+"a4c868ea9337ed85cb5e5151e928ab832280b4f4","2010-11-04 20:53:26-05:00","Just comenting, formatting, and cleanup.  Also made the icon nicer but still waiting for an even better one.
+"
+"bcd6312e70098a59ea036643208db3583ca28e51","2010-11-05 22:47:29-05:00","Updating icons
+"
+"7a592b09cab21e46bb383dee9422d1f029badf85","2010-11-05 22:57:30-05:00","more icon cleanup
+"
+"5638a825cdb8aacb8d59c371ef43b3c6801c10a9","2010-11-06 21:35:53-05:00","Fixed the icons.
+"
+"8c1431ed6f01a1ac9b6e0e5c90870d1cd303844d","2010-11-06 21:38:02-05:00","added icon files
+"
+"0ef6a048d3ff37413277958587d0d73784f25480","2010-11-11 22:07:43-06:00","Bug fixes, handles screen orientation changes better, editing device data in landscape no longer hides save button.
+"
+"df7acdf2a4ce3b47428b8dba915ec86d410cb4a7","2010-11-15 20:41:17-06:00","Added car mode disconnect trigger and preference.  Also made app persistent to prevent it from being kicked out of memory.
+"
+"f27626f7db6fa8a2059b305af4da7c871346e9e9","2010-11-17 05:43:07-06:00","Just small changes for final 1.2.5 release.  Added check to service to make sure the car mode disconnect would not launch if the bluetooth disconnect location listener was already running.
+"
+"4876294c96bfdcf93e651804cca087695fb551e3","2010-11-23 20:22:27-06:00","* Added widget for retrieving last stored location.  Now you can add this widget to the home screen.
+* Added configuration to allow user to stop the pop-up messages.  Some folks may not like those.
+* Added multi-langauge support (or at least started)  It now supports French (mostly) as well as English.  I just used Google translate for this.  I know these mechanised translations don't always work right.  If anyone want to help translate, let me know please.
+* Adeed last location data exporter.  Exports a text file to the BlusetoothVol directory on the SD card.  This is in the Manage Data screen.
+* Several improvements to the way the service starts and stops, and reports status.  The service now starts be default when you open the application.  If you make preference changes, the service will reinitialize to load the new preferences.
+* GUI changes to make it a bit more intuitive and have a better layout.  Too many people did not understand what 'Location' meant.
+"
+"8bd160d72c9043e83e64dcf14959a2dacdee6844","2010-11-24 17:38:16-06:00","Made the service start sticky so it does not get killed so often.  Made service report currently connected bleutooth device to main app.  Changed the ALauncher to a service so the screen does not flash up when using widget.
+"
+"37c1c8b89c42f9e11e2e9523ab1cd67d8e23a8d6","2010-11-25 10:10:19-06:00","Final 1.3.0 release.  Changed the widget appearance.
+"
+"d6d48417124ce4da2bfa4ce45a667f846a987943","2010-11-25 10:12:52-06:00","Added missing files
+"
+"003c95af4846ad5ed2c28f83cb049a6d11e1d33d","2010-11-27 07:15:48-06:00","Fixed preferences error.  The defaults were very wrong and caused the loading to fail.  Also added the notification option.  Added '.txt' extension to the last locaton exported file name.
+"
+"e1330e07f89b32ca3bc08bdd790c65cd682c26ca","2010-11-27 07:17:44-06:00","just added missing file
+"
+"fe359e7020c225e6919a961798d32343a9dd327b","2010-11-28 19:52:15-06:00","Just cleaning up unused icons
+"
+"26a0b1112a62ff6683c3ddf35bd7880d2b9e7d8d","2010-11-28 19:54:39-06:00","more cleanup
+"
+"d46e06be92ba4e138eb2f424ca4d948c427af851","2010-11-30 18:51:12-06:00","Comit just before using Motodev.  Updated streings and preferences too.  Mved many strings from configs to strings.xml file.
+"
+"7ac063921491aa1fe31c5397f765b9dbf24e0710","2010-11-30 20:46:41-06:00","using the new Motodev.  also added spanish
+"
+"804d596c90906de46df54a762d1d4b1ff5f4254e","2010-12-02 05:48:06-06:00","added spanish support.  Also moved menu strings to strings.xml
+"
+"eada09e40d43be9025deeced191d0a83ee20d5d2","2010-12-05 08:57:18-06:00","Removed the check for a bluetooth device to support audio service.  This was every bluetooth devices will be listed.  Samsung phones did not support the reporitng of audio service so no devices would ever be listed.
+"
+"4e7cb72691d477f1efab3985ffc7b231a3956d83","2010-12-12 08:04:27-06:00","Final 1.3.3 release.  Changed the inport database feature to not require an app restart.  Added an intent to manage data java file and main reciever.  Added a list reload function for this.  Added try/catch to database functions to handle the case where the table does not exist.  See 1.3.3 features list.
+"
+"661167b62b234bb8a6177d154b38fff57ff5ed6b","2010-12-12 08:05:30-06:00","Added protugese language support.
+"
+"fdd0b67c8cf2844d318edbb1d3a82cc6ced70317","2010-12-19 21:15:27-06:00","Added a check to enable bluetooth when finding devices.
+"
+"935eeba9233a72ee9b6fa6c72e989770427b2c20","2010-12-25 16:04:01-06:00","Added check for location using netweork service as well as GPS.  This was done to help Samsung devices find a location.
+"
+"0cda25912b94cd0165475f24d66d13a62eaa3171","2010-12-25 20:55:23-06:00","Added passive location listener trigger too.  This is only supported in Android 2.2 and up.  Should help give more location capture possibilities.
+"
+"113cd00d4e16b3e77c72593d9b681b2773a42115","2010-12-29 09:42:49-06:00","Fixed issue #29 by adding validation to the insert function in DeviceDB.  Now checks to make sure the names are both there, and a mac address is present before inserting.  If names are missing, 'unknown device' is used.
+"
+"2f4cf14ccbfe0bbc2b40c8db243b29932811c6fa","2011-01-03 21:02:56-06:00","Added a configuration (preference) checkbox to enable/disable passive mode locations.  This was done since passive locations can sometimes be unreliable.  Also changed launch mode of the activities to singleInstance.  This prevents multiple instances from running.
+"
+"3764f299e5c5c1958ab3206c9b72e57685c8d7cd","2011-01-05 20:51:31-06:00","Added config to use network listener.
+"
+"abb2443a045c8f0afbf09f682e350c7953a1bf09","2011-03-05 11:00:47-06:00","Very minor update to fix volume reset
+"
+"d5d04233f5b6542578c42fad23db3f9a50c61696","2011-03-12 21:56:32-06:00","Just a test.  Edited a comment in the main.java file.
+"
+"3bf77541ec6e4b6bf5906b56be5b13efebb59ffd","2011-04-09 19:36:35-05:00","Fixed problems in service.java to make sure old volume was properly captured.  Also eliminated the volume reset for devices configured to not adjust volume.
+"
+"a55898bb8f791b6c784a26119a9059816b20d3b9","2011-04-17 21:46:03-05:00","added device specific location capture by making service store a redundant location file on the SD card.  This is an html file that can be opens by a bworser to show a simple link to the location.  Clicking the link will act just like using the widget.
+"
+"2f5efcd7981a6cb2b11b6a8b6bc737b09bd7c3a3","2011-04-19 19:15:52-05:00","Implemented device specific location storage.  Long press on device then location button.
+"
+"be688b5abc84c830c84b2e795ee62a52ae2f8de5","2011-04-19 19:22:01-05:00","added string for location button
+"
+"c8838d943c2a57563cdcdebab6704f5124c9ca90","2011-04-20 20:52:23-05:00","Added checks to service to fix null pointed exceptions when creating device specific location file.
+"
+"47692bcf979de85af84efd8cb05ac734a0d22c9a","2011-04-21 21:11:16-05:00","Consolidated the getGPS and grabGPS functions into one.  Added better null checking and validation.  Improved GPS location storage.  Now the device specific html file includes both the most accurate and the most recent location data.
+
+Also made improvements to the DeviceDB to improve robustness (more null checking and db close checking)
+"
+"dd3a76ad2138e260c527137f39b12315ca8cadc0","2011-04-22 08:16:01-05:00","Fixed device long press response to allow dialog even if device data was not available (bluetooth not ON).  This is done to allow the use of the device location button.
+"
+"ef1a323cf95427d2d8cb6e335564c70a5dff490d","2011-04-22 15:26:44-05:00","Fixed the connected device.  It was not switching between a car_mode device to a car, then back properly.  Was resetting wrong variable.
+"
+"72270fd194ecb5a6beb31d5fb3c06932251ec51e","2011-04-24 20:32:25-05:00","Removed German support after a german user complained the translations were terrible.  Also added some robustness checks in the bluetooth device info (long press on item).
+"
+"afb07a0e60a317cc59839493bd0d3b9ee1c669f8","2011-05-03 19:54:35-05:00","Removed French after a French person said the translations were aweful.
+"
+"9d8d965012b36cf57e3ae1a8921b3f6ffa6a8878","2011-05-15 10:04:09-05:00","Modified the service.java file to improve location capture and reduce SD card write cycles.  Also added capture of detail file for car_mode.
+"
+"571ceafa009ea3d043c80e97a65d5e7c0672c1b7","2011-05-15 19:51:33-05:00","More GPS capture fixes in service.java
+"
+"6365c0c37c401991dfabc2884c4f8081b640f26c","2011-05-21 15:21:11-05:00","Improved the gps listener to capture more location.  Removed the accuracy restrictions to trigger grabGPS().
+"
+"f1de850ef26cd61e21415405934b367bdba3461f","2011-06-17 21:46:39-05:00","First pass of version 2.  This adds the auto-launcher capability.  This will update DB to add package name field for each deviced.  Modified DB and btDevice to accomodate storing/retrieving package.  Added the launch utility to the service.
+"
+"1df1be61d8aa04eaf095753c5e9372e5c50c67e9","2011-06-25 22:03:19-05:00","Major changes to editing devices, database updates to add 2 fields, btdevice updates to support new fields, package launcher functional.  This is an interim comit for version 2.0.2.
+"
+"ae7c75eff435ad1a5b83018f92820f79972bef0e","2011-06-26 09:43:05-05:00","added partially implemented bluetooth connector. added wifi toggler.
+"
+"84f315d3747f7cb51a4870a2c49d5087935c663f","2011-06-26 14:31:13-05:00","First test release of 2.0.2 with new features working and all but the bluetooth autoconnect tested.
+"
+"5e7e7be47890ee161af75d7dc728fb086236226d","2011-06-29 21:46:00-05:00","Implemented aidl properly.  Implemented sort on packages.  released as 2.0.3.
+"
+"edac4b598c855ee13defb75a8649d69dd815b86e","2011-06-29 21:49:37-05:00","added the aidl path to archive
+"
+"28a6809e895569441c2d13fd7b71d06f3c803e4e","2011-06-30 20:38:00-05:00","Created a 'car dock' device which has all the features of a normal bluetooth device.  Fixed database error where on create it did not create all columns.  Fixed the reload list issue from the edit device screen.  I had not implemented the reload intent call.
+"
+"c06bcebdf151a67f39582a2fcc9326a01b69001e","2011-06-30 21:42:02-05:00","Fixed preferences so car_dock will only be added if car mode is true in preferences.  Fixed db reload after editing a device.  Changed device info not available message.
+"
+"3fa9afe461fd899e194b62e963fd78f7689f4547","2011-07-01 20:24:57-05:00","Implemented internal or external file locations per issue 42.
+"
+"03cf916b3af53c11114d064e4c7613200069997a","2011-07-02 23:00:06-05:00","post 2.0.5 changes to try to get app closer working.
+"
+"61b8e649f08e4aad6b01cff812b3cf7681afebf5","2011-07-03 00:08:32-05:00","added permission to close background task.  Fixed stopApp function in service.java.
+"
+"414b51255b0ee0b6e3116b4d4fc1a867a3a98512","2011-07-04 10:32:40-05:00","Just added version in the title.
+"
+"d217a760566663a7ae6ae77fe727de02a45719c9","2011-07-04 15:43:49-05:00","Leveraged app chooser from App Alarm Pro (Open Souse project).  Also added version to the title of main screen.
+"
+"4767d64405c7f59dac6dcd624ff3a20abdbc75c3","2011-07-05 22:25:13-05:00","Implement Home Dock mode triggers (similar to car dock).
+"
+"7717b502024e0e8a62bfb43e123a6b53114d9b3f","2011-07-06 21:19:18-05:00","Various cleanup and fixes to the handling of bluetooth auto-connector.  Filtered bluetooth device list in the device edit screen to remove the device itselt (circular reference) and the car and home dock.
+"
+"d4e39f10fbb34018862d3fa18ad7806d3e5d31f8","2011-07-07 21:37:22-05:00","Changed the bloothooth auto connect in the service to be a separate task, change the UUID, several other changes to attempt to make bluetooth auto connect work.
+"
+"ce58bdc09b9aea91f9e7058933a17ffa15355e38","2011-07-11 06:31:34-05:00","Partially implemented more detailed app to launch from App Alarm Pro.  Still working on FC issues with custom untent and shortcuts.
+"
+"2223a71b59532ab9287476cc722fdaab4eb7a34d","2011-07-11 07:04:40-05:00","Added the activities in the manifest (duh!).  Still need to fix the recieving of the action to launch and storing/retriving in the DB.  Will need to implement the launcher in my service too.
+"
+"9f39877f00c7a4ac9f554fe18309ebdf9feb74df","2011-07-16 19:32:54-05:00","Just a maintenance comit to keep a working version of 2.0.9 test.
+"
+"a554584d53132be9aa927298cb39e825142183e7","2011-07-20 20:33:34-05:00","Tried to implement the AppItem.java based on AlarmItem.java from app alarm pro.  This is a big mess actually, and far more complicated than it needs to be.  I will rip this all back out and instead store the 4 strings and 1 boolean that is actually needed.
+"
+"03cf9cc13fcb7b52137105521ee1c3214e4d3274","2011-07-21 06:33:47-05:00","Post clean up of removing the appitem and related property collection junk.  2.0.9 ready for initial debug.
+"
+"3490ba58dfcab4d5376ffa01ddde6d74e697f6eb","2011-07-21 21:57:15-05:00","2.0.9 almost ready.  Final initial bug fixes.
+"
+"e621d3f85a4413b7ba52eb85639b9b6f11216283","2011-07-26 22:07:27-05:00","Still in them middle of moving the stuff out of the broadcast recievers for 2.0.10.  Fixed the DB reload after import issue by closing and reopening it on loadfromDB.  More to come.
+"
+"56255893f63d647970da164da5b9585f49c7c6d2","2011-07-28 22:32:37-05:00","2.0.10 test file release.  This added a new setvice called StoreLoc.java to handle all the location capture.  Consolidated the broadcast recievers in service.java.  Created intents back to main.java to handle the list updates and removed the broadcast recievers for bluetooth from main.java.  Several other related robustness improvements.
+"
+"f8e7062d6974df80806a3dd958d9d12de12b8991","2011-07-31 07:18:53-05:00","2.0.11 release.  Fixed database upgrade functions.  Also fixed the app to launch display in editdata.java.
+"
+"18f924056e52f1283d692ebfb665361f1e8225c3","2011-07-31 19:59:51-05:00","2.0.12 release.  Many database fixes.  Importing and upgrading db had numerous faults.  Also cleaned up database errors in EditDevice.java.  Fixed manifeld to properly handle onActivityResult.  This fixes the enable bluetooth issue.
+"
+"71c0f899d1bd6aab08c1bdb5f4544ba89e41469a","2011-07-31 20:13:36-05:00","Bug fix for find devices.  Had to remove closing the intert statement.  Oops.  Caight before posting 2.0.12 so just reissuing that same release.
+"
+"5c529f05ee255b2cded6546534c46bb862be66b5","2011-08-06 17:38:18-05:00","2.0.13 release version.  Fixed the device list update so it can show multiple connected devices and it can handle the volume better.  Implemented the connected icon preference.  Other misc bug fixes.
+"
+"8af21d7e61c5eb7867dc79383dc96747880a3642","2011-08-07 15:36:13-05:00","Version 2.0.14.  Fixes to StoreLoc.java for issue 57.  Date-Time now use localization handlers.
+"
+"a0e1860593ac1aecedb8fc537586d78fcda20396","2011-08-07 18:11:34-05:00","2.0.15 Added German translations, URL fixes, and fixed home dock OFF preference string.
+"
+"281c02e40b0db900e0ddcd3fb1ebe5d5eae6da18","2011-08-09 06:13:50-05:00","2.0.16 Fixes for issue 44.  Some simplicity improvements in the code that speed it up and make it more reliable.  Fix for service auto-starting on screen re-orientation when service was OFF.
+"
+"d7e4f01234332de646a1a06ecf6bfff7de759aab","2011-08-10 21:16:15-05:00","2.0.17 release.  Minor bug fixes, improved list view (click row instead of just word), robustness improvements, proper open/closing of database, proper unregister recievers, add force app restart.
+"
+"5fb32f88f84be055fc4569464584fd8114b7fcb6","2011-08-11 06:03:14-05:00","2.0.18.  Fixed errors in service.java that caused it to lock when an unknown device connected or disconnected.
+"
+"caecc975712a1991c9949abc2ed4d3e6dddca6a0","2011-08-11 06:30:30-05:00","repost of 2.0.18 with the variable changes to volatile in service as discussed in issue 58
+"
+"c3d5be938e5739f59f6c740f8730b1b2d4449f03","2011-08-11 21:30:59-05:00","2.0.19 release.  Cleanup and fixes in service.java and StoreLoc.java.  Remove redundant variables.  Close database on destroy, etc.
+"
+"9031765e22dcd0123982832039a0c49f05f17537","2011-08-12 22:06:59-05:00","2.1.0 release. added support for headset plug
+"
+"eaeaba4449564b1c7a3fb217aa0256db413d7ce0","2011-08-12 22:30:25-05:00","small fix to service to prevent force close if headset plug was configured in preferences, added to the database, and then deleted from the database .  re-release of 2.1.0 before anyone could download it.
+"
+"82bdd05de4c76b28584b591860435a66b266e5fe","2011-08-13 21:12:38-05:00","2.2.0 release.  This adds the SMS reader feature.  I also added a try/catch in the unregister recievers in service because it was causing some force close in cases where recievers were not registered in 2.1.0.
+"
+"03e7e3663facbb34c9b58ef02d82e41193ca6d0c","2011-08-13 22:19:59-05:00","2.2.2 release.  Fixed issues 60 and 61.  Removed media volume slider bar from main screen.
+"
+"4dd7c3ddf3b6bfd7696ad9c64dc822014bd8b603","2011-08-14 13:24:49-05:00","2.2.3 release to market.  Fixed TTS install to add dialog instead of pootential infinite loop.  Also renames the headset plug to audio jack and made it a string resource to enable translations.
+"
+"6fed4c360a29abda2cdf3ddfba14daedb83b8283","2011-08-14 20:44:48-05:00","2.2.4 development.  Added trabnsparency to headset icon.  Attempted to mute SMS notifications when TTS active.  Does not appear to be working though.  More work needed.
+"
+"88269f52c711ca1a0bba0c63840232604f03c9c4","2011-08-15 21:25:32-05:00","Still working 2.2.4.  Added audioManager focus bits to pause music playback when reading SMS.  Gives up focus but music stays paused.  Added 10s delay to playing SMS message.  Also, added more strings to allow more translations.
+"
+"3edfd74d348b5786782bea1f8d7192c720fa4bc0","2011-08-16 10:01:13+02:00","Add German strings
+"
+"5cbe18f5fbddcce4111a021b662c15f997ebae66","2011-08-16 05:47:37-05:00","Adding Uwe patch.
+"
+"70e3b53e60c1b6579001e8ed57d1bd300fa88729","2011-08-16 14:51:56+02:00","Merge
+"
+"a3060a68dfc9fd95c126c88b5eeddfdce0b76a4f","2011-08-21 19:15:42-05:00","2.2.5 Changed volume change toast to a UI show.  Added old volume capture using app preferences to improve robustness.
+"
+"25a8897dc0ca8db52140fbfc20f1ae9af9e8f3e2","2011-08-22 20:46:24-05:00","Version 2.3.0.  This completed issue 59, adding a setting for in-call phone volume manager, just like media volume manager.
+"
+"5de5205c1a21e5cc9382e195fc6e90c28062f82e","2011-08-23 21:27:27-05:00","2.3.1 release.  Fixed issue 63.  SMS now uses phone stream.
+"
+"d8bcf0a8a830306775b786674a3fdcb4563125eb","2011-08-24 21:02:17-05:00","2.3.2 release.  Simplified and consolidated service receivers.  Fixed FC is both how dock and car dock connected together.  Fixed old volume capture bug.  Fixed volume contorls and notifiy icon contorls to handle multiple connects/disconnects.
+"
+"48fa79d4f9e8b21f83ffbb03c7823b8e4c759b79","2011-08-28 12:18:07-05:00","2.3.3 release.  Added configurable SMS delay.  Added check in EditDevice.java if TTS was enabled for a device it will set the preference to enabled and check installation.
+"
+"8c2b4b21bf8a42dd9c61134953a55228374fc22c","2011-08-30 17:46:37-05:00","2.3.5 release.  Working on (but not done with) issue 63 and issue 68.
+"
+"6af6ae731a70e2184e1334dac0be006562d3930f","2011-08-31 10:06:23-04:00","Added french translation
+"
+"ff6815c72ec6910cc3c7756b6c5a3ef909d700a5","2011-08-31 17:31:58-05:00","2.3.6 release.  Finished French integration.
+"
+"0fff518d17a2d97807f6e665e54956359d5db127","2011-09-01 00:35:58+02:00","Merge
+"
+"28a3416a711b4add0fb7253b82b937fbdb1f7eef","2011-09-01 00:50:30+02:00","Add missing German translations. I am not yet sure if the translation of 'stream' is the good: 'stream' is very technical, so I dont think even English people will understand that!
+"
+"1384f6928af10956567a155b05db4e9535790d6e","2011-09-03 22:52:21-05:00","2.3.7 release.  Fixed issue 68 and issue 70.
+"
+"60c237370578584557d56f06c94d01d3928a6d7e","2011-09-04 08:28:39-05:00","repost of 2.3.7.  Just added a sting to explain what SMS stream is in preferences.
+"
+"4bd6caa9ce3f303c3c48694dd6586073e2bbb849","2011-09-05 11:09:50+02:00","Add missing German translations
+"
+"4eefd629c81173cffd96e55e038b3fe8d5de9bea","2011-09-05 14:42:48-04:00","Added french translations
+"
+"c92a47beefd79ee5485f1a392120d074e10e94d1","2011-09-05 14:59:13-05:00","Version 2.3.8 published to market.
+"
+"42859a1de05d4fbbe12efd166f032932f36299f2","2011-09-21 18:34:01-05:00","2.3.9 release.  Fixed issue 73.
+"
+"eed57a209cef6eb8eed4e008967bdd695d933840","2011-12-23 15:07:08-06:00","Implemented SMS reading contact name if available instead of number.  Issue 64.
+"
+"d4fc80ccbfb305e746e745086b20dc04c4c5b0ea","2012-01-10 21:52:10-06:00","Fixed issue 78 by adding API 11 and up functions to AIDL interface and making a check to use correct functions.
+"
+"7886517ef0b7f3834e6e59b300934c10e62a303f","2012-01-10 22:05:09-06:00","Last comit was actually release 2.3.11.  This just has AIDL cleanup and removal of the 2nd AIDL I created but never used.  Added documentation of compatibility in AIDL file.
+"
+"8231d4dc849e3b9deb2918ab47bc3f11fa256239","2012-01-12 21:20:22-06:00","Fixed issue 80.  Release 2.3.12.
+"
+"a39a5c341af3d369e6706552dee92a23d63191e6","2012-01-22 09:23:31-06:00","2.3.14 release.  Fixed issue 82.  Added improvelemts to selecting a bluetooth device to launch.  Added checks to ensure GPS listeners were closed.  See change log for more.
+"
+"c076238ef473e76a635feaa0caa84ecd9bdfaabe","2012-01-27 05:57:37-06:00","Fixed issue 84 and issue 85
+"
+"d45a4e76ba1963795b1cfa85902a41ff08a8a4a9","2012-01-28 12:03:05-06:00","2.3.16 release.  Fixed issue 87.
+"
+"f2fdc15bc7e632e606b006cdab15f3ab7b454149","2012-02-11 15:33:15-06:00","2.4.2 release.  Working issues 48 and 88.  Also fixed BT connect issue for pre-API 11 devices.
+"
+"b4ee411bfad4d64ecfcf4dab44fe16d7b3dc9de9","2012-02-12 12:43:02-06:00","2.5.0 test release.  Working on issues 89, 88, and 48.  Added 2 new preferences.  Need to add translations for these new strings below release.
+"
+"42ff6913bfb05cd8a3f0479ee9699eaff915cb65","2012-02-12 20:15:30+01:00","German translations
+"
+"f03648392028a667626a3b28ec1f7285c4cb47bf","2012-02-12 17:11:57-06:00","Merged German in to 2.5 release.
+"
+"ff693b5e0bea6af8fdf9479da0278be62925bc8a","2012-02-14 08:39:24-05:00","Added french translations
+"
+"80f2d671f5dc7e25a38fe1ca0ad35e6745220564","2012-02-15 17:31:06-06:00","French translations merged.
+"
+"5d07c1419d3a266dfd38536bd7577956a7ea15ad","2012-03-02 18:46:18-06:00","2.5.2 release.  Removed filter that eliminated the current device from the list of Bluetooth devices to force connect.
+"
+"0249813b53c9337772c66f90da2fbc8a24b470db","2012-03-23 20:49:05-05:00","Version 2.5.3 release.  Fixed issue 94.
+"
+"9cb95c7db5c8a28e80d44ab25b8dda7cb0d1bcc2","2012-03-25 19:27:52-05:00","Added device specific configuration to kill started app.  New database version, editDevice screen, etc.  Fixed issue 91.  Version 2.5.4.
+"
+"a294702fe272d7bc9a261aac826bc7cd3d6e4ca3","2012-03-26 08:54:02+02:00","Update German Translation for Issue 91
+"
+"696ef938450bc7e1a336023f3d07a074ef364f33","2012-03-26 05:32:38-05:00","2.5.4 release with translations added.
+"
+"ed737aed1bc8a4fb8d4a9f4c5e2500c5e7546ceb","2012-03-30 20:01:00-05:00","2.5.5 initial test.  Needs translations for power connection preference strings.
+"
+"71d4d6e72b3c53c9af0747ed8d55860208a41aed","2012-04-01 09:05:40+02:00","German translations for power plug strings
+"
+"39a793e68aee5b6eac1034dc774f9c5afb7c60f4","2012-04-04 21:03:37-05:00","2.6.0 test release implementing issues 95 and 97.  Missing some translations related to issues 95 and 97.
+"
+"9a601eb44921f517f865b8df9912859bb2ccd379","2012-04-05 09:30:08+02:00","Add German translation
+"
+"59b1d418eef10b0d4f37401f07ae2034c9d96701","2012-04-05 16:01:44-04:00","Add frensh translations
+"
+"61eaa1d1874f990d4dcacc7efbbf087f18d548f5","2012-04-05 21:19:57-05:00","Release 2.7.0.  Fixed issue 95 and issue 97.
+"
+"e727208d3f63536b596b17eedebb956b94d3355f","2012-04-06 16:30:42-05:00","2.7.1 release.  Cleanup and minor bug fixes.
+"
+"6015ae7f122cf5b22912cda02fd5621f580d415d","2012-04-22 21:29:19-05:00","2.8.0 partially implemented.  Work in progress.
+"
+"5184a7628bc7cd654d8abf4957a79058cb96f468","2012-04-23 20:47:50-05:00","2.8.0 beta release.  Ready to test.  Still needs cleanup.  Need translations, remove unused preferences, etc.
+"
+"bcd49b8bed279d97a2d30dcdebebe29dfa37228c","2012-04-24 21:59:37-05:00","2.8.1 beta release.
+"
+"a62a2f979cd650b9b1e010dc2e30fa727239e54a","2012-04-27 21:30:56-05:00","2.8.2 beta release.
+"
+"9b7d9f8fa5d81e5d192707f943cf06b38d8bebf0","2012-04-29 08:54:16-05:00","2.8.3 initial test.  Fixed issue 98.  Added IBluetooth.aidl
+"
+"9d5e2548648dcdb4a273ea82601412b9445ed6b1","2012-04-29 23:33:18+02:00","Add missing German translations
+"
+"c5567820d9caf65de7ca70df4a94b51b3f517119","2012-04-29 21:00:44-05:00","2.8.4 release.  Fixed issue 99.
+"
+"64fbc75272288fd986e6e791b68fdf4d3fac65ae","2012-04-29 21:02:42-05:00","Merge
+"
+"40bd99a0c04c66cab885e0f1172a9cde54e30032","2012-04-30 17:08:46-05:00","2.8.5 release to market.
+"
+"1ff7924b02b996dfcfe579dd1d6a9e8c556f61b3","2012-05-03 20:52:46-05:00","2.8.6 release
+"
+"c1feefd5b89ae26b9d67b15f17d319676bd81ccd","2012-07-26 21:38:32-05:00","2.8.8 market release to fix Jelly Bean issues.
+"
+"801e5e5d493bcac6dae8d79754594ef5f65c1602","2012-07-27 22:42:45-05:00","2.8.9 release.  Fix issue 131.
+"
+"ec55a8be3991721ea3b5328b84afc61c9d80f427","2012-08-03 17:29:55-05:00","Fixed issue 130.  2.8.10 release.
+"
+"2250750e7b1720412dcd9901f2c7cfa98a139cd3","2012-08-03 21:23:54-05:00","Fixed issue 124. 2.8.11 release.
+"
+"0ad48ab445ea4d6a9103c33fcd5a1884b0e8e729","2012-08-29 22:01:53-05:00","2.8.12 test version.  Added Danish translations per issue 136.
+"
+"355c68bbc7709586aad7b5c3fe59d2638c273cff","2012-11-21 08:33:09-06:00","Fixed issue 142
+"
+"4393d30e87ea78771f5828123a96c205cb3c171b","2012-12-08 10:36:29-06:00","2.8.15 release.  Mostly optimizations for space, speed, qiality.  Removed unnecessary strings and graphics.
+"
+"858259b478b8187cb954be356c952e9ad2f265b6","2012-12-08 10:39:56-06:00","removed deleted files
+"
+"0bc4e5afc93ef87cd892c57e2a4da0f6c1f34b63","2012-12-16 12:15:03-06:00","2.8.16 release.  Replaced icons.
+"
+"5a7160c26f75489fb76ea2047ec44f1e98410fbf","2012-12-17 18:11:50-06:00","fix for 2.8.17.
+"
+"4df3dfeb5626e3d5f7acb16ce53a125186b1d176","2012-12-26 07:51:10-06:00","2.9.0.  Integrated a listener for reading messages via TTS from other apps (such as A2DP Volume Chat)
+"
+"7767648cbc77a58b0f73479e174e2f8090320c87","2012-12-26 15:30:29-06:00","2.9.0 with Google Talk reader built in.  Still needs username corrected
+"
+"e867ed4068a88dabc0e867d270ca7dc732330693","2012-12-26 16:51:07-06:00","2.9.1
+"
+"1b46fc71a5df448e19266b75c27af4a9db09f7d2","2012-12-28 08:05:09-06:00","2.9.2 release.  Bug fixes for Talk reader.  improvements toward fixing TTS missing_data issues (but not resolved yet).
+"
+"aca169f0411e3a2a6f6974e4d7339730a2397eb1","2013-01-01 16:43:04-06:00","2.9.3 release.  Fixed issue 145
+"
+"9217cbbecc7306c21155853ca3fe6b1123124d15","2013-01-19 18:23:01-06:00","Added missing files
+"
+"a9821b59cac00a531f87b31732500f50118c045d","2013-01-21 08:21:34-06:00","fixed project properties and added ignore file.
+"
+"83792746e1e4d2a33490e6c32d7a6f21f52cdb19","2013-04-14 20:59:57-05:00","2.9.5 release.  Fixed issue 149.
+"
+"a7786c71955f94153b81707126a1b73177a2d521","2013-04-19 18:46:55-05:00","2.9.6 release.  Not ready for play sotre.  Missing translations.
+"
+"fa9a8cdb0125d2cc6fe7980ad0e2d02bf15f0157","2013-04-28 09:29:25-05:00","2.9.7 release in a panick to fix gingerbread incompatibility.
+"
+"43031ce1a81b91d3fa23c52afd4ec221aa29bb6d","2013-05-04 13:34:03+02:00","Add german translations
+"
+"1576bd9e081997b4da6770292f6425f9ae27a73a","2013-09-07 11:17:44-05:00","fixed issue 163.  Added missing German and French translations.
+"
+"627aadd5ddba47f7121222a15f9943c1642ce0c5","2013-09-16 20:50:47-05:00","2.10.0 release.
+"
+"2b2d45970158d076cb51911bd74bc2c8d64fa802","2013-09-20 16:05:58-05:00","2.10.1 release.
+"
+"222c7bf8dd4b261ac715e338d4d40a06cdf76d17","2013-12-08 03:40:38-06:00","2.11.0 test release.  added car mode and started developing a feature to sleep after app launch.
+"
+"0d52c390c50645591bf735e47cdac415deeba21d","2013-12-08 20:23:34-06:00","minor stuff to show location correctly from long press dialog.
+"
+"63d60d5d8b4b088b1cc5099a6088b0160aca0d0a","2013-12-08 21:09:44-06:00","Fixed issue 178
+"
+"93a00fe2bbcc627766a41ecec312fc83245b5a27","2013-12-09 20:35:36-06:00","Working on problem 145.  Renamed the GTalk references and reused the settings for accessibility service.  Other minor fixes.
+"
+"01341576ad65a74ab447faad44e64f467bc26463","2013-12-14 16:19:25-06:00","2.11.2 release.  Changed min SKD to 15.  Fixed many issues.  See updates in wiki on google code.
+"
+"e07644e1500b5dfa90a4be3f5219c83829c521a9","2013-12-15 19:32:23-06:00","2.11.3 release.
+"
+"f92d63ed5bcc9493fa7e1d7839dcab18d5e554fc","2013-12-18 20:34:44-06:00","2.11.4 release to beta.
+"
+"2e2d866bc3de915c476df8180e3b5c3b7df4526d","2013-12-19 12:01:15+01:00","German translations
+"
+"35724424540112b67f3fc4e1962421ccf02adf25","2013-12-19 14:07:57+01:00","Updates to German translation
+"
+"4589020cc242bf6f4b7f3246504eb5e280ff2196","2013-12-27 21:57:29-06:00","2.11.5 release.
+"
+"129bb9519782462b93fd22a8b3b9ba9b344f19e6","2014-01-04 06:22:18-06:00","2.11.6 release to beta.
+"
+"02416d7f94b69befd8d42e9741f1017f46f061c2","2014-01-05 12:59:12-06:00","2.11.7 release
+"
+"634d460a8679a4503f12c7054afadc5208a11dde","2014-02-23 09:36:06-06:00","2.11.8 beta release.  Added preference to allow hiding of volume UI.
+"
+"15814f8478606fcf5eff2245d51d9bc1206e2fc5","2014-03-16 09:49:10-05:00","2.11.9 release.  fix for issue 183.
+"
+"bd875d510310e974c0d3c56e3ba22f3a36f947b6","2014-03-16 18:04:24+01:00","Add German Translations
+"
+"9d6d23dc6495eeccfbbe97681148af12572fddd8","2014-03-18 19:47:16-05:00","2.11.10 release.
+"
+"f984727b4b2ea06ece137fd40a829e5b04b66c2f","2014-05-21 20:52:38-05:00","Fixed TTS bug and package chooser bugs.  see updates wiki.
+"
+"b9c15ece8d446830429c8ce118c673c73c755862","2014-12-14 12:05:04-06:00","Changed car_mode feature to also set flag to open UI.  2.11.12 test release
+"
+"3f587c226e5162cc3cf97c5be63f981e47999691","2015-03-14 08:52:14-05:00","Create README.md
+"
+"4430720673a032b6fc93fa8f872b40a7cf14d90d","2015-03-14 16:39:16-05:00","First pass conversion to AsciiDoc.
+"
+"76630df4e160901219ee00ab8635faed2493a039","2015-03-20 22:07:57-05:00","More formatting fixes.
+
+Fix Basic Install section. Format Additional Features list.
+"
+"9f6d8a13e72678d6114b76452b4ac0d2c103510d","2015-03-20 22:41:29-05:00","Fix images so they show up properly.
+"
+"74fe57e7134454b1edee1ce8443230feff0ff4fe","2015-03-20 22:49:24-05:00","Missed a couple links.
+"
+"09c168c1082e4d419e8fa352174b3b1cdcb50260","2015-03-20 23:01:33-05:00","Use relative links for wiki.
+"
+"d94627b60d831cdd775014dd2724f096435e9945","2015-03-21 07:40:28-05:00","Use relative links for wiki in a correct fashion.
+"
+"bf5caed1cf3527b2eb2effe2f53b16c5c6e74dfe","2015-03-21 20:27:17-05:00","Merge pull request #199 from hoadlck/patch-1
+
+Readme Fixes
+"
+"a84058f9e30822bef1cee508c6db689f35131af2","2015-03-28 06:45:04-05:00","Fix readme to show first paragraph
+"
+"1f058185e5058de442c2727b94d37dbddfeca649","2015-12-31 07:37:53-06:00","Updated readme to point to issues linst and manual.
+"
+"aa731e909b680f8168301ecda118abeae8500db6","2015-12-31 08:04:59-06:00","More readme updates.
+"
+"9aafd108c1039735fc47e082506a0fa277da4f26","2016-01-16 13:17:59-06:00","Converted project to Android Studio and Gradle.  Updated software with Greek language added, fixed tts_check crash, pointed help to github.
+"
+"909e3df87d8a12771769bdac041ca455837e80b9","2016-01-16 14:46:54-06:00","Clean up project settings and make succesful build locally.  Version 2.11.13
+"
+"57644797e20fa3007f15ccd6ae32d59f0f9fedbd","2016-01-16 15:19:59-06:00","remove gradle files
+"
+"9b70e66241f91a4a69d064c50974cf30b624ad18","2016-01-16 15:39:33-06:00","Merge remote-tracking branch 'origin/master'
+"
+"562e69d9ea12f11309f45ce0b45c9cb1a477c58f","2016-01-16 22:58:53-06:00","Fix Android version targets to get to build properly again.
+"
+"9e516dbcd85287bcff638ef6489c0128731f9783","2016-01-17 09:34:32-06:00","Removed gradle files. fixed dependency versions.
+"
+"19958f960d641f317f4ffb920266f9f1ba6dde29","2016-01-17 09:37:54-06:00","fixed ignore file to remove .gradle/
+"
+"1bcf0d3a94b7a0ac43e6bbbe8489511535774e4c","2016-01-18 05:58:09+09:00","Add Japanese messages.
+"
+"ad4167b1048365e437c8ace14a5c842ebd6a72df","2016-01-18 06:59:24-06:00","Last commit for 2.11.13.  Minor changes to versions.  Built and began testing.
+"
+"584f54c7e593c3904029880349ca64dff5a7d6fd","2016-01-18 14:03:49-06:00","Began development of 2.12.1.  API had to move to 19 for new notification listener. Removed the old accessibility service.
+Replace with NotificationListener service. Raised target API to 23. Updated
+dependency to support V4 23.
+"
+"ed054f552f6456d86e3bc1c61df8f61131922a19","2016-03-06 09:16:37+09:00","Merge branch 'master' into japanese_translation
+"
+"fe3e3c8e8bb8be2a2562f888435c14983218f025","2016-06-12 08:11:47-05:00","Progress on NotificationListenerService
+
+Work in progress on implementing the NotificationListenerService.
+"
+"4f0d14ceee1e296172ec6cd6de7c0ca0d1745116","2016-06-12 09:35:02-05:00","Got Hangouts working!
+
+It is a first test of reading Hangouts on L and up.
+"
+"e6bcf58dc96f40769f280ecdd92c057658dce77d","2016-07-01 23:10:23-05:00","2.12.3 release
+
+2.12.3 release to alpha testing.  Work in progress on notification
+catcher. Fixed issue 201
+"
+"6edb161b0489fc9eb2fc20c0f3c808135c02d52c","2016-07-02 22:10:17-05:00","Delete A2DPVolume_2_12_1.apk
+
+This should not be here.
+"
+"faace8e5b53c5ca2f13a2c972971a4c4ce655f83","2016-07-02 22:13:45-05:00","2.12.4 interim
+
+Cleaning up files, removed access.java, and got notifications settings
+better.
+"
+"37cc9016c32d1de9c31dd20c3ef1722a025851a9","2016-07-06 00:48:23+09:00","Merge branch 'master' into japanese_translation
+"
+"ee6d7075c05101258417aa177680a0d5a428aae4","2016-07-06 00:54:25+09:00","Update Japanese translations.
+"
+"63897c80708c09a58f2462e99cc22a8e4e32d44a","2016-07-05 19:00:57-05:00","Merge pull request #218 from nabetaro/japanese_translation
+
+Japanese translation
+"

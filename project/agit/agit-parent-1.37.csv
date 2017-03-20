@@ -1,0 +1,33 @@
+"commit id","commit date","commit message"
+"a02d804d03487c6ff07c30ea61ec8e46f5da0868","2013-02-01 11:55:56+00:00","[maven-release-plugin] prepare for next development iteration
+"
+"698fec3930a50479b791c5f28ae8fe34e4f37b64","2013-03-02 11:11:10+00:00","Hack integration-test .zip assets to .zap to evade ProGuard
+
+The latest version of the Android SDK seems to have changed something
+that means ProGuard now looks into the zip files it finds in the assets
+folder... didn't use to do that.
+"
+"ab3d211eee9e9bc1046d85bef7583d9c421fd8b8","2013-03-02 19:35:13+00:00","Update to AMP 3.5.1
+"
+"6fd4b1c27495d25ab789369ce04eaae00f0221cd","2013-03-02 20:34:38+00:00","Revert back to JGit 2.0, as JGit 2.1 introduced #92
+
+Agit v1.36 updated JGit from v2.0 to v2.2. It looks like some change was
+introduced with JGit 2.1 (and all subsequent versions I've checked)
+that makes the ref update fail... perhaps addressing the ref with the
+wrong name (or made it sensitive to using the wrong name), as we see
+debug like this:
+
+TrackingRefUpdate : refs/heads//master old=AnyObjectId[0000000000000000000000000000000000000000] new=AnyObjectId[ce1e0703402e989bedf03d5df535401340f54b42]
+
+The ref had a proper value before the ref update, so should not have
+been 00000000... and the correct new value we see is lost, not stored
+to any place I can see. Not sure what's going on with the double slash,
+JGit 2.0 has it too.
+
+Weirdly, I've only been able to reproduce this issue with repos cloned
+by Agit - so 'testFetchUpdatesFromLocalTestServer()' always passes,
+but 'testFetchUpdatesOnCloneFromLocalTestServer()' fails with JGit 2.1
+and above.
+"
+"ae4954e622e732ced334fd6ca1cf71f3519143e7","2013-03-02 20:42:25+00:00","[maven-release-plugin] prepare release agit-parent-1.37
+"

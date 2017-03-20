@@ -1,0 +1,75 @@
+"commit id","commit date","commit message"
+"66ae2448b9634794866bd743f6beefe80f9d06db","2015-09-08 20:52:51-04:00","Fix IPv6 [ ] for ViaHeader
+
+Howdy Daniel, et. al.,
+
+I was unable to get the latest Lumicall 1.11.15 to register with my
+Kamailio, and found it came back to an older problem where Lumicall was
+using an IPv6 address in ViaHeader without enclosing it with [ ].  Thus,
+the :'s in the IPv6 address confuse any parser when extracting the port
+number...
+
+I fixed Lumicall by checking for hostnames containing : and then
+wrapping them with [ ] before sending them to ViaHeader.
+
+I created the attached patch via:
+git format-patch -k --stdout --no-signature HEAD~1
+
+If it helps, I can also send over kamailio syslog's and adb logcat's.  :)
+
+- David
+
+From 0fe81a252e5a9041e4a6feffb4d59a33ce112186 Mon Sep 17 00:00:00 2001
+From: David Holl <dholl@subspacedynamics.com>
+Date: Tue, 8 Sep 2015 20:25:57 -0400
+Subject: Wrap IPv6 addresses with [ ] for ViaHeader
+
+Wrap IPv6 addresses with [ ] before sending to ViaHeader, but if an un-wrapped
+address gets into ViaHeader, then log a stack trace.
+"
+"1e852f735fd2ab967d0d5f56a6685f07b8fbd146","2015-09-08 21:39:26-04:00","reorder codecs? (deprioritize A-law and µ-law)
+
+Howdy,
+What do folks link of adjusting Lumicall's default codec order, to made
+A-law and µ-law the least preferred?
+
+Here's my rationale:  (included in the attached patch)
+
+These codecs might be the least preferred because they:
+
+1) sample at a low rate (8 kHz) so their passband is more limited
+compared to
+higher sampling rate (16-32 kHz) codecs.
+
+2) require 64 kbps data throughput (excluding packet headers) and thus are
+inefficient compared to _any_ other 8 kHz codec, and many of the higher rate
+codecs as well.
+
+3) lack any mechanism to compensate for lost packets and thus produce
+distracting choppy or gapped audio.
+
+From e420b353d8b30cddf9a44808fee495708b2843a3 Mon Sep 17 00:00:00 2001
+From: David Holl <dholl@subspacedynamics.com>
+Date: Tue, 8 Sep 2015 21:09:33 -0400
+Subject: Move alaw and ulaw codecs to the least preferred
+
+Reverts part of commit 9b8deb3ec7b15910e127f879bfb41b67f9b4106e
+
+These codecs might be the least preferred because they:
+
+1) sample at a low rate (8 kHz) so their passband is more limited compared to
+higher sampling rate (16-32 kHz) codecs.
+
+2) require 64 kbps data throughput (excluding packet headers) and thus are
+inefficient compared to _any_ other 8 kHz codec, and most of the higher rate
+codecs as well.
+
+3) lack any mechanism to compensate for lost packets and thus produce
+distracting choppy or gapped audio.
+"
+"7a8d31a6dda36506a24d14777034436753508397","2015-09-26 10:03:12+02:00","Update to libphonenumber 7.0.11
+"
+"cb3a69014cba256e5574c15370dd168990c98bc1","2015-09-26 10:04:16+02:00","Update for v1.11.16
+"
+"19559cae1845c582826c55b670f0c06e0d1881d4","2015-09-26 10:21:22+02:00","Remove zone index from IPv6 addresses in Via headers
+"

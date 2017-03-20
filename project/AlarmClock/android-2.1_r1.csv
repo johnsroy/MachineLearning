@@ -1,0 +1,166 @@
+"commit id","commit date","commit message"
+"2ff01ef636c8896455e6780fbe14cd0dca207969","2009-11-13 12:02:08-08:00","Fine-tuning the DeskClock UI.
+
+Date format used is the new full_wday_month_day_no_year,
+which should fix http://b/2254472 and http://b/2247356 .
+
+Font sizes and colors tweaked to match latest spec.
+"
+"a9f7e629baaa592d106c7525632fe164876e6f51","2009-11-13 17:21:12-08:00","Import revised translations.  DO NOT MERGE
+
+Approver: jerryw
+"
+"33137d791aadea46f6ed8ceae198d3f5a2e4a964","2009-11-13 17:45:25-08:00","Merge change Ia9f7e629 into eclair
+
+* changes:
+Import revised translations.  DO NOT MERGE
+"
+"4e1b06ebcf08dd57240a56bac6f923b2e72ea793","2009-11-16 07:50:20-05:00","New UI for the list of alarms.
+
+Still need to put the 'Add alarm' item at the top and the clock at the bottom.
+"
+"c31f08c3c16b83fb5263e87361be8f04abdd8b90","2009-11-16 11:56:04-05:00","Make the default ringtone selected in the list.
+
+Bug: 2260622
+"
+"515f43840b8404b1ad2ef95c0e9704a26c248647","2009-11-16 11:10:02-08:00","Merge change Ic31f08c3 into eclair
+
+* changes:
+Make the default ringtone selected in the list.
+"
+"e3f01aff06d4bddb09215ccad3d8502de9164966","2009-11-16 16:11:32-05:00","Finish the UI improvements for the alarm list.
+"
+"f1e8069bcd1755d9ef2322b705d8d9d6b83728f0","2009-11-18 09:53:03-05:00","UI tweaks to meet Jeff's spec.
+
+Colors and text sizes are exactly how Jeff specified in the pdf. I tried to
+match the size of everything based on looks but I might be a little off in
+padding. The shadow effect on the bottom clock has been left out for now since
+there are no specifics in the spec for each of the shadow components and I
+cannot figure it out based on the drawing.
+"
+"b95b7a63c403a17c3725e1ccfbd65b4283fd6a0f","2009-11-18 14:21:01-05:00","Myriad fixes & cleanups in DeskClock.
+
+- Force the weather widget to actually fetch new data at
+the moment the device is docked, or when the screensaver
+disappears (if the device is plugged in).
+- Use Intent.FLAG_ACTIVITY_CLEAR_TOP to launch weather,
+music, and gallery to avoid jumping into the middle of
+their task stacks (http://b/2267831)
+- Fix layout issues with weather, particularly when the
+Genie widget is unavailable. (relates to
+http://b/2254472)
+- Internationalize the error message shown when Genie
+malfunctions.
+- Clean up weather & time displays to match UX specs more
+closely (fonts, shadow crop issues).
+- Remove some tabs in XML.
+- Internal cleanup: use 'query' in the name of functions &
+variables related to getting updated weather from Genie;
+use 'fetch' to refer to downloading new weather data from
+the network
+"
+"bb4dbac9655226b87502655c1fa7e8fca1357bf4","2009-11-19 09:13:48-05:00","Allow picking ringtones as alarm alerts.
+
+The original request was for just a few of the ringtones but that really isn't
+possible with the current framework. Media files are classified by what folder
+they are transferred to during the build. It would be nice to have a way to
+specify what media files should be allowed in the list of ringtones but for now,
+I think it is ok to allow selecting any of the built-in ringtones.
+"
+"80124aa02f01228f8726e8c972a5882e0f4d10d7","2009-11-19 12:03:36-05:00","Make the alert layout a little better.
+
+Align the time and am/pm text. Pad the alarm message a little more as well as
+the time. Use standard colors and appearances for some of the text.
+"
+"aa378715cf7b99264517250ac196c0fec7999d44","2009-11-19 16:06:27-05:00","Asynchronously handle TIME_TICK to not block the broadcast.
+
+BUG: 2268458
+"
+"ddacabc24b515db4fa6c7a289ef81d8050c8062c","2009-11-23 11:37:05-05:00","Add 'add alarm' menu to the DeskClock activity.
+
+Rather than copying code from AlarmClock, there is now a
+version of addNewAlarm() that can be invoked from any
+activity. (AlarmClock now uses it, along with DeskClock.)
+
+Part of bug http://b/2278197 .
+"
+"638636146d23d7cf88a1a301fe5f8c03dde69ed1","2009-11-23 16:00:02-05:00","Continued UI fit-and-finish for DeskClock.
+
+Bug: http://b/2278197
+"
+"98379599e76b778ae7e281d69c3f8923fa50cb27","2009-11-27 05:10:54-08:00","Fix issue 2192673: Music Pausing Even when notifications are set to silent.
+
+Do not play alarms if alarm stream volume is 0.
+"
+"1afe66749c2cd92af446a107907ffcdf42e6a4ab","2009-11-30 11:35:47-08:00","Import revised translations.  DO NOT MERGE
+"
+"77f3d897765faaa640add814852c7b4ccee33655","2009-11-30 11:55:43-08:00","Merge change I1afe6674 into eclair
+
+* changes:
+Import revised translations.  DO NOT MERGE
+"
+"90c4833f94f4775f747333f8bd67107364a1d9c1","2009-11-23 14:46:44-05:00","UI changes based on feedback from Jeff and Amar.
+
+Bug: 2278206
+"
+"0a8adab905b45d7d7c6a4c467a4530440276bacd","2009-12-01 17:23:59-05:00","Reduce screen saver delay to 5 min.
+
+Discussion in http://b/2282444 and http://b/2227579
+"
+"9bc32c622028a8de012438ccf8d207888d0ae8ba","2009-12-02 08:28:32-05:00","Reverting this change to fix 2252466.
+
+Specifying multiple ringtone types makes the volume stream change to ringer
+instead of alarm. This prevents the user from changing the alarm volume inside
+the picker.
+"
+"a405d7d18cbc7a572a9fbde729bb4182a07c830f","2009-12-02 12:00:46-08:00","Merge change I0a8adab9 into eclair
+
+* changes:
+Reduce screen saver delay to 5 min.
+"
+"1196a729512ca9207c7d5af4862a830d412a68b7","2009-12-02 12:49:26-08:00","Merge change I63863614 into eclair
+
+* changes:
+Continued UI fit-and-finish for DeskClock.
+"
+"abe6771cf86e879005353e52f8618610202d84f5","2009-12-02 14:56:13-08:00","Import revised translations.  DO NOT MERGE
+"
+"630cb4aa77ef52c15295b0ffb4b9ec966b516fa7","2009-12-02 15:02:42-08:00","Merge change Iabe6771c into eclair
+
+* changes:
+Import revised translations.  DO NOT MERGE
+"
+"c1d449d071703d3c2b8c4d9961e812b4632b5c90","2009-12-04 14:47:03-05:00","Fix http://b/2305223 (DO NOT MERGE)
+
+When placed into night mode (dim mode), the DeskClock must
+restore full brightness any time the user returns to it from
+another activity. There are two reasons for this:
+
+1. The other activity won't be dim, so it's sort of jarring
+to return to an almost-black screen.
+
+2. As indicated in bug 2305223, visiting another activity is
+a useful way to restore the display if it's so dark that
+you can't see it to find the nightmode toggle button
+(e.g., ambient lighting is very bright).
+"
+"7e827acae69298441b970262a309a957c92da155","2009-12-03 11:44:30-05:00","Show a long dash instead of 0° if no temperature is available. (DO NOT MERGE)
+
+Fixes http://b/2301604
+"
+"cda260fb9e42d1a470ec0040bd325a97261c88dd","2009-12-09 17:25:36-08:00","Import revised translations.  DO NOT MERGE
+"
+"3d4de660d654fee760cf96f609198489e4d6525d","2009-12-11 02:07:36-05:00","Dismiss the desk clock if it was launched by docking.
+
+In other words: if the clock is behaving like a dock app
+(launched by a dock event), it should finish() when the
+device is removed from the dock.  If, on the other hand,
+it's behaving like a regular app (launched from the
+Launcher), it should ignore an un-dock event.
+
+This change also removes support for entering the desk dock
+via a dialer code (an unnecessary feature since the app can
+always be invoked from the Launcher).
+
+Fixes http://b/2302215, approved by hiroshi.
+"

@@ -1,0 +1,59 @@
+"commit id","commit date","commit message"
+"f89898b46a1d79e80595f708ae688afb9303eeab","2016-02-22 22:59:42+11:00","BUGFIX - Fix duplicate clean when building
+
+Change-Id: Ie6d659c52bfc4e4a8f3b5da4ca2b8c02ec1a1b50
+"
+"53f1fc4044ba1262989d04b9cf648836d2595fef","2016-02-24 21:27:17+11:00","Save and restore diff text state when orientation changes
+
+Don't make a new request to fetch the data from the cache if the diff has already loaded
+and it is text.
+This fixes one case where we were making unnecessary requests, but we also don't need
+to make duplicate requests when the orientation changes while the diff is loading.
+Another attempt to fix possible crash where the action bar is not completely removed
+
+refs #48
+
+Change-Id: I454e619c1a375d5cafb71558172c71b1bdbf1e4f
+"
+"d9efc74d49679ac8cd5fbaf29970565311a8c91e","2016-02-25 23:18:51+11:00","BUGFIX - Reuse previous requests to fetch text diffs after a config change
+
+Check that we are processing the correct text diff
+Rotating the device while the change is loading will not keep making additional
+requests if the diff loads while rotating the device (shouldn't keep seeing the loading
+spinner when rotating the device for text diffs).
+Update navigation drawer library
+
+refs #48
+
+Change-Id: I22eadffffaae1d0fbdaa3d5eade33d19ddd2bed6
+"
+"9fee3d30dc5f5b0564c26f503e0d6c879f4628ea","2016-02-27 10:53:24+11:00","BUGFIX - Fix changes with a duplicate change ID not loading
+
+Make the Image loaded message sticky
+
+Change-Id: Iddd9674fa0ec6e4eaddd0705c01321960534ab33
+"
+"3cc46711f664d47565a6389fa3fb0af752839693","2016-02-27 13:15:11+11:00","BUGFIX - Don't authenticate requests to load images
+
+The /cat endpoint to fetch a binary file at a revision is not an official part of the Gerrit
+rest API. As such, we cannot use authentication to fetch it.
+
+Change-Id: I25517ac61b49d5eb19f22eef2d918bc8be4df1bf
+"
+"1c5bf90d5f0da942d46922a06722a3705c562ba2","2016-02-28 10:24:27+11:00","BUGFIX - Toggle refine search card visibility rather than adding/removing
+
+setHeaderView cannot be called after setting the adapter in Android KK and below.,
+as a result, we need to toggle the visibility of the card which will show/hide it without
+actually removing it.
+This also fixes the issue where the date was not displayed for the first item in the list.
+
+refs #47
+
+Change-Id: I16dfbeaaa29ef90d4e64cb9f24c636ba2c6ec2ca
+"
+"3d2d15e8a2b72e606814f45700ae8bff2845be6c","2016-02-28 10:49:29+11:00","Merge pull request #50 from JBirdVegas/fix/48-diffviewer-oom
+
+Diff Viewer fixes
+"
+"1869ba678ddc7694131e2fb51aa09425878d5275","2016-02-28 10:52:50+11:00","Release: update version to: 2.111.81
+"

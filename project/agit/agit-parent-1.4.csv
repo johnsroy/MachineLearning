@@ -1,0 +1,26 @@
+"commit id","commit date","commit message"
+"4aede8fd20ed9397d24564dacfb52743471b07d0","2011-06-12 00:57:54+01:00","[maven-release-plugin] prepare for next development iteration
+"
+"ec3218042db2d8b772f6f980544885612ecb4072","2011-06-12 12:20:30+01:00","Use reflection to only add periodic sync if the device supports it
+
+Aimed at supporting 2.1 - works on the HTC Hero I'm testing on, but
+unfortunately the commit viewer is now broken?!?
+"
+"3413ca64982bf3f17abd1940a19d1d4a8752df1b","2011-06-12 13:21:18+01:00","tidy
+"
+"7874715825c060f80f25f771124549a10d6034ce","2011-06-12 13:21:47+01:00","Additional debug - trying to work out 2.1 tabs issue...
+"
+"eccaa295a48ea5f4e0ea1a8363f0ba01e27bbaf6","2011-06-12 14:33:02+01:00","Badass Android 2.1 (Eclair) support - fix TabHost NPE
+
+Was getting an NPE at TabHost.dispatchWindowFocusChanged(TabHost.java:295)
+for Android 2.1. Android 2.2 and greater has been fixed with this commit:
+
+http://android.git.kernel.org/?p=platform/frameworks/base.git;a=blobdiff;f=core/java/android/widget/TabHost.java;h=412f817353a99054ab36234e1441b48c6c7ad820;hp=31920e764e6d25523b6dd5ffb1e4087d4d8fa3b0;hb=acdef59d66094f11da4a6f57194747dc06f73da2;hpb=159f0015418955501d8cf2744b0393db2e73f394
+
+-which basically does a null-check in dispatchWindowFocusChanged()
+
+Fix is to extend TabHost, and simply override the
+dispatchWindowFocusChanged() method with a similar null-check.
+"
+"220316c78c702d6ba9b5ff6b80798da1ccd82398","2011-06-12 14:45:02+01:00","[maven-release-plugin] prepare release agit-parent-1.4
+"

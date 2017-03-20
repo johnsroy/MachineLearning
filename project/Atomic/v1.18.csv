@@ -1,0 +1,75 @@
+"commit id","commit date","commit message"
+"e7cc29e08a8e52a02790adb4e7ea209148712663","2014-07-14 13:51:17-06:00","Fix a possible bug that I introduced with autoconnect.
+
+State checking within the autoconnect world should fix a possible problem where I try to connect to a server that's already connected.
+"
+"47e942e9347f4aced661f20b4a89d8525e03de7c","2014-07-15 02:35:45-06:00","Notification mangling! yay!
+
+Pressing the notification will now take you to the most recent highlight.
+"
+"631780e7e602470e0276d1833f797e81a7651d67","2014-07-15 02:42:57-06:00","Update readme.md
+"
+"d51b103db15cd13f710e7b8e1a493e14d3970754","2014-07-15 14:13:39-06:00","IRCService: Fix some notification pressy bugs.
+
+This should wrap up #14 -- It mostly works for me.
+"
+"54a5365b3f6a294911b0fcf66fb6e83e361efdac","2014-07-15 14:14:31-06:00","Merge branch 'master' of https://github.com/indrora/Atomic
+"
+"c83134e54a20e3dd3606e030072a457bc5866a06","2014-07-15 18:08:53-06:00","More notification jumping.
+
+Make the back stack correct by using the onNewIntent override; by doing this, we can catch being the top Conversation, and if need be commit seppuku, coming up as the intended server.
+"
+"1261214a2c898e94a1ff351557b5751d42c426e4","2014-07-15 18:10:29-06:00","Message: Now prepends the timestamp, like other IRC clients.
+
+This cleans up how messages look in the client.
+"
+"787bcf975c5cc4dc6c3116bd556e39f6475cd3f0","2014-07-16 07:03:45-06:00","Change release to 17, state development version.
+"
+"0203399dbc953f84c7fae8f55045af8c13235f68","2014-07-17 00:48:53-06:00","New feature (slash fix to a bug): Reconnecting on transient network
+
+Network changes now schedule a reconnect. This has added a new permission (network state).
+The old feature of having a reconnecting network will most likely go away soon, as it is pretty much
+rendundant (this also saves batteries, as it uses broadcasts instead of
+a wakelock on the system clock)
+"
+"070d03242162ffc9ee20535ef555feccaa63c024","2014-07-18 21:08:33-06:00","Improve logic for auto-reconnect (Being more explcit)
+
+The logic for auto-reconnect was a little flakey. We want:
+
+* Reconnection on loss enabled AND the server being up for reconnection
+OR
+* Reconnection on transient network AND the network being
+transient
+
+to trigger not showing the 'Your connection has broke! Reconnect?'
+
+This fixes basic regression wherein disconnections via ping timeout and high latency drops causing problems.  Also made every call around the reconnecting server list to be synchronized. I probably need to make the call to isNetworkTransient synchronized too
+"
+"b9e149404be3e515a02a0793fc58711e7fb87c1f","2014-07-19 02:37:37-06:00","Clean up model.Message
+
+This has a happy side-effect: Changes to the settings will be reflected -- ColorSchemes and all that jazz are *really* actually reflective of the settings in use.
+"
+"df9ee4b3b616db31a86a57b6751a13eaeef32681","2014-07-19 04:07:31-06:00","Variation, plus fix a slight problem where some color schemes had no valid colors after trying to make all the text look readable.
+"
+"7906667150050467ef49b7fa37e0f199859d1645","2014-07-19 13:36:53-06:00","Fix bug #34 - Autoconnect on first start causes crash.
+"
+"8bc2be73ea9b0a5704dc6f8c536c015a8f4e64de","2014-07-20 00:14:43-06:00","Fix a bug involving the firstrun dance.
+"
+"3ca575b5b76858bea80d163ded5abb6e0b230700","2014-07-20 00:16:27-06:00","UI changes and fixes -- should clean up the interface a little more.
+"
+"1d685a2110c3fefd4ebd7931a465864c54049569","2014-07-20 00:16:51-06:00","Nick Complete in firstrun now matches what reality is.
+"
+"921ee415dd6b59497a5497b2412c20b6aa2f4cfe","2014-07-20 02:07:32-06:00","Update gitignore
+"
+"12fb9c10a819fe6b09c20b53d8810d656561f674","2014-07-20 02:09:43-06:00","First import of strings from Crowdin.
+
+This is the first round of strings from Crowdin. Thank you so much to the translators who have worked on translating these. You never cease to amaze me :)
+"
+"70def03d82a3dd76f3e71c272a2488ca5100734c","2014-07-20 02:15:39-06:00","v1.17 release
+"
+"dfeace9443ef0f4b6b28d46cef58cfb04e618f97","2014-07-20 02:16:19-06:00","We released, bump the version to 1.18-DEV
+"
+"495489026abf65d48036cade56c95d91d3e3800c","2014-07-20 02:22:12-06:00","v1.18: The 2AM release.
+
+I broke it. My fault.
+"

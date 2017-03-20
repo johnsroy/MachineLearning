@@ -1,0 +1,62 @@
+"commit id","commit date","commit message"
+"7ad6b0db6314316561ae08ec61ef6bef21c7178d","2013-07-14 04:07:35-05:00","build: changed version string to debug
+"
+"48b00073069dc2a88fad9b8e6e2ae1d9d824c7e5","2013-07-14 20:22:18-04:00","front: Removed special deadzone for OUYA controller.
+
+My retail OUYA controller has no bias whatsoever -- seems like the
+controller itself has a tiny bit of deadzone built-in to ensure 0 bias.
+Also, deadzone is now a user preference, so that provides a reasonable
+fallback for outlier users.  Technically anyone with a Kickstarter
+controller should be able to return theirs for replacement by OUYA :/
+"
+"9888927707f43ef948f49b302e69d5043c6a0e7c","2013-07-14 23:52:13-04:00","front: Hide/enable volume button mapping in big-screen mode.
+
+Irrelevant to OUYA, GameStick, MOJO, etc. so hide it. Enable it because
+the MadCatz C.T.R.L.R. has volume buttons on it, which would be nice to
+map.
+"
+"fd96927ac7364d78fb4cd45645e6ae794987e553","2013-07-16 13:19:39-04:00","eclipse: Added javadoc for ouya-sdk.
+"
+"ae8db02bbe96d842809f8e007557da3654a08496","2013-07-17 00:35:17-04:00","gles2n64: Replaced frameskip JNI functions with config file parameters.
+
+These values are static throughout an emulation session, so no need for
+run-time communication via the JNI. Just pass the data via config file.
+"
+"061599f9bbe932f06a4319e47103f4bf39e0a75d","2013-07-17 00:46:11-04:00","gles2rice: Remove JNI call for RGBA_8888 setting.
+
+We are already handling this setting on the Java side in the
+GameSurface.createGLContext() and CoreInterfaceNative.createGLContext()
+functions.  Doing in via JNI is redundant.
+
+At this point, the only reason the RGBA_8888 JNI function still exists
+is because gles2n64 still uses it.  That plugin is bypassing the Mupen
+core API to configure the video (thus bypassing the Java context
+creation functions), instead calling SDL directly for context creation.
+"
+"872dc359376faeb4bec7ee4f6e56848b7535e2a2","2013-07-26 23:44:48-04:00","front: Fixed OUYA control regression, updated change log.
+
+Closes Issue #243.
+
+Believed to be caused by one of the last OUYA firmware updates, e.g.
+1.0.393.  OUYA controller now registers an additional 4 phantom analog
+axes (AXIS_GENERIC_*).  On my device generic 2 was heavily biased,
+making it impossible to properly remap inputs or map players.
+
+This fixes the problem by detecting OUYA controllers and ignoring all
+generic axes.
+"
+"348eae97e91600d840087f763dceb1505f1d2182","2013-07-26 23:58:34-04:00","ouya: Updated jar/docs to ODK 1.0.7.
+"
+"8a75005e71a6fbf992c33bbe5fac9b04b32469bd","2013-08-05 12:10:47-04:00","front: Added intent filter (ROMs can be launched from file managers).
+
+A quick implementation that merely sets the selected ROM in the user
+preferences.
+
+In future versions of the app, it might make more sense to forward the
+ROM info through the chain of intent data, rather than through the user
+preferences.  But this implementation is fine for the current version.
+"
+"d8aafc0e1013eb4ffab21ab3413b1a15901a1ec0","2013-08-08 19:53:38-04:00","res: Updated translations.
+"
+"765ef2f88254621fba4e3568740217d81dd89a82","2013-08-10 22:41:42-05:00","build: Updated version string in preparation for 2.3.3
+"

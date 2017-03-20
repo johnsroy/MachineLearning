@@ -1,0 +1,132 @@
+"commit id","commit date","commit message"
+"cd3f0de619b6c69486196f8d9a33e89b51783735","2013-09-24 07:55:01-07:00","Add [LoadApps] tag to debug log messages
+"
+"2aa427bd9893b22b9f7b9c8ed22eab4f9558388e","2013-09-24 08:00:50-07:00","Fix race-condition crash issue where HistoryLoader dialog might be null
+
+There is a race-condition when posting to a handler belonging to a different
+thread in which the logic in the handler might not have finished executing
+by the time we attempt to access data initialized in it.
+
+To correct this issue, we use a FutureTask to ensure the logic in the Runnable
+has finished executing before continuing on.
+"
+"f846f654973a73892bc8ddb5b3dcbb5c15e9ea62","2013-09-24 08:02:05-07:00","Load history from preference in a new thread to prevent deadlock with FutureTask
+"
+"54272366ca6a897b19d17854151aac8b7abe6eb5","2013-09-24 16:16:19-07:00","Use FutureTask to ensure ClearLog progress dialog is shown before continuing on
+"
+"0ab7e59b9da45be290c253a9234923b7f047aa7d","2013-09-25 10:54:22-07:00","Fix so debug logcat generates if device is not rooted
+"
+"cad261058bdd27e4a66d3b54ba0aa4996ac7536a","2013-09-25 22:44:59-07:00","Remove unnecessary logic related to scriptFile path added by previous commit
+"
+"f71373b8bd2146b348ee3cba92ee6f5485dd7c84","2013-09-26 11:31:50-07:00","Add FileSelector library project
+
+FileSelector is a library designed to facilitate the ability to browse
+the Android filesystem and select a filepath to open or save files.
+
+The code is taken from:
+
+http://developer.samsung.com/android/technical-docs/Implementing-a-file-selector-dialog
+
+and modified into a library project.  The modifications include, but are not
+limited to, adding `fs_` prefixes to all resource ids and various bugfixes.
+
+This code was chosen because it did not have a restrictive license at the time
+of copying (2013-09-26), and it has numerous nifty features such as the ability
+to create new folders when saving and the ability to set a file filter.
+"
+"b37c6f4dd3eea897c13b05d8500fa7e6d5c63755","2013-09-26 11:36:35-07:00","Remove .classpath and .project files
+"
+"a1bedb270a0429f02f2c9821efed2fa42f62e81a","2013-09-26 11:41:04-07:00","Indent code example in README.md so it is formatted as a code block
+"
+"52c9d9d2fbd54a37b730a1b331f91d5fc6b1a4ab","2013-09-26 12:12:43-07:00","Improve layout so buttons are always visible and dialog does not resize
+"
+"c6c9a64a007107373a5aa11284a1fd5239430ed3","2013-09-26 19:52:37-07:00","Correct 'fitlesFilter' apparent typo to 'filesFilter'
+"
+"31103300d91b6f3f2104745fd199fca9d344e904","2013-09-26 19:53:32-07:00","Allow wildcard star in filter list; '*.txt' instead of '.txt'
+"
+"7eeb7036dcbdf73abbbb3f9f58844bb4f09545ec","2013-09-26 22:32:44-07:00","Show current location path and improve layout padding
+"
+"170204ed7d86acaacce97c3da686a686cadf5dbb","2013-09-26 22:37:15-07:00","Replace tabs with spaces to fix indentation
+"
+"f053b2641c08db230cf4002e79cf9de0a350dab9","2013-09-27 13:30:30-07:00","Do not prepend current location path if filename is an absolute path
+"
+"20f4c990be01eb54dc2c6e2ca3befaab98d0126c","2013-09-27 13:55:25-07:00","Add ability to set a default filename
+"
+"e63a017f1b7ba2a5dcf6805f622a8577234313d7","2013-09-27 14:45:50-07:00","Disable dictionary suggestions for filename EditText
+"
+"a93b81f2c7ec3610fe117cee3c8658cddff07d42","2013-09-27 15:03:47-07:00","Ensure filename EditText always gets focus
+"
+"b9565718061013610962711dd8e25d8dd0a078db","2013-09-27 15:52:47-07:00","Add ability to change directories from filename EditText
+"
+"6294b9b950568dd067a3aaadfcd295a1ab321ba2","2013-09-27 20:07:39-07:00","Remove superfluous empty line
+"
+"b7d6e50f2ac248de2735b36237eca4a82bde01ea","2013-09-27 20:07:51-07:00","Ensure it's actually possible to save file to selected location -- display meaningful error if not
+"
+"8999f82b7120ba67f955c4e142d2681cccca0cd7","2013-09-27 22:54:13-07:00","Use FileSelector dialog for selecting logfile path
+"
+"8e2609ce8926d6aca3d416ecc21bc7638bc59638","2013-09-27 23:13:33-07:00","Add FileSelector library to project.properties
+"
+"d35351532be2aac412583679f69ae69ef8f0f0bd","2013-09-28 14:50:47-07:00","Add basic framework for exporting log entries (still much more to do)
+
+Added:
+
+- Export menu item
+- Export dialog basic framework (can select start/end dates and file path)
+
+To do:
+
+- Finish implementing DatePicker listeners (confirm dates are valid, etc)
+- Save dialog states on device configuration changes (rotation)
+- Actually export stuff.
+- And more!
+"
+"938661c26396c4451eff6234eab73a2110576412","2013-09-28 17:32:25-07:00","Use proper device-specific theme for error dialogs
+"
+"9b99405c06bb49d1c8da821c503988bc88fb620e","2013-09-28 19:31:03-07:00","Add opencsv to project
+"
+"a0ff34ab8c11a2df7b88e42447a45541610dfed5","2013-09-28 19:40:37-07:00","Move loader.closeLogfile() to finally block to ensure it closes
+"
+"195f7c2030df42212c8ce5faf0cf4471e429d4e4","2013-09-28 19:41:31-07:00","Export feature now exports stuff!
+
+Updated:
+
+- Use opencsv to export log entries to CSV file
+- First CSV line is a header describing each column/field
+- DatePicker listeners now update dates and filename
+- Misc clean-ups and improvements
+
+To do:
+
+- Export between startDate and endDate instead of startDate and Today
+- Update progress dialog max to reflect above bullet-point
+- Save dialog states on device configuration changes (rotation)
+- Use string resources instead of hardcoded strings
+- More misc clean-ups and improvements
+"
+"54bd6974572246367853e45080e3261fce2584b9","2013-09-29 11:27:50-07:00","Export feature now exports between start and end dates
+
+Updated:
+
+- Improved LogfileLoader to properly seek to timestamp
+- Add functionality to LogfileLoader to seek-ahead to latest timestamp
+- Export now exports up to 23:59:59 of endDate instead of 00:00:00
+- Misc clean-ups and improvements
+
+To do:
+
+- Save dialog states on device configuration changes (rotation)
+- Use string resources instead of hardcoded strings
+- More misc clean-ups and improvements
+"
+"d027284e193a82d99045d1d7c6ff7d7f27eee1ae","2013-09-29 15:06:27-07:00","Export dialogs now retain state during configuration change (screen rotation, etc)
+
+DatePickerFragment had to be moved to its own file since Android gets confused
+if it's a nested class and reports that it is missing an empty public
+constructor.
+"
+"b84feccf966aab44ca51536b2268d6391c7318a3","2013-09-29 15:44:41-07:00","Fix issue with DatePicker rotation in FROYO/GINGERBREAD
+"
+"bf0405b761e381f5bdbe753b54abfe47c724c1ef","2013-09-29 16:56:19-07:00","nflog: apparently fflush(stdin) is necessary for some devices
+"
+"6cc3e3cfcb16e4dbda725f1e4264eb6e7dbbf381","2013-09-29 17:09:49-07:00","Update version to 2.20.0
+"

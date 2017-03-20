@@ -1,0 +1,17 @@
+"commit id","commit date","commit message"
+"8ac1c567fd87ac5a0f8ed8e3ae3e17a6840a3ca0","2015-01-16 23:09:13+01:00","QuestionFragment.ClassificationInProgress: Do some defensive copying.
+
+Return copies of lists and copy lists in constructors.
+This is to avoid concurrent changes when, for instance, the answers
+List changes while we are iterating over it. It's not clear when that
+might happen, but we call getAnswers() from AsyncTask(), so it seems
+possible. There is at least one report of a ConcurrentModificationException
+so this might help:
+https://github.com/murraycu/android-galaxyzoo/issues/15
+"
+"60bcad361d4d75c8f294d47ba05fbfead942567d","2015-01-17 10:19:26+01:00","QuestionFragment.showNextQuestion(): Pass a copy of the ClassificationInProgress.
+
+To the AsyncTask, to further avoid concurrent access.
+"
+"fe5bddfd2cd2e0b92efab2ff41496dcb7b12a972","2015-01-17 10:37:35+01:00","1.35
+"

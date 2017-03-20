@@ -1,0 +1,497 @@
+"commit id","commit date","commit message"
+"dbf26c54edb0ad021ef5bc657677dda6943d74ba","2015-11-23 17:54:06-07:00","Tweak title pronunciation icon appearance
+
+* Reduce the size of the icon[0] and increase the hit area.
+* Seperate the view and collision concerns.
+
+[0] https://veuwer.com/i/3e7s,3e7t
+
+Bug: T114524
+Change-Id: I5d506c96069584bc861441fd6612e04d17d58067
+"
+"2fe7fad51d433713a860ae8ca1be4106a98952b7","2015-12-10 14:37:50-07:00","Hygiene: upgrade OkHttp libs to v2.6.0
+
+From the release notes[0]:
+
+> Fix: Don't throw when converting an HttpUrl to a java.net.URI.
+Previously URLs with special characters like | and [ would break when
+subjected to URI’s overly-strict validation.
+This fix may ease T120415.
+
+[0] https://github.com/square/okhttp/blob/master/CHANGELOG.md#version-260
+
+Change-Id: I0342d813d0fd52ffcb2986195a97d3143840bc68
+"
+"1bae506bdcc734b36ac60ecce7f7f008a6fcbbea","2015-12-11 16:56:26+00:00","Merge 'Tweak title pronunciation icon appearance'
+"
+"23dd27c02bcbcc9b00176162e39a1f82b2f8ecfd","2015-12-11 14:41:29-07:00","Hygiene: move intent creation to target Activity
+
+Change-Id: I869ccea27bd66c823b971388332bc425c57e1cfe
+"
+"d219a65881c5686f91d241316f87d39be56540af","2015-12-14 09:35:56-05:00","Remove IndexOutOfBounds bug check.
+
+Looks like the fix was genuine.
+
+Change-Id: I552e576ad604f41e6b1649ced9276384629c1773
+"
+"c9b11bda7ec3c9821143b128e8f6bd3c556ff70b","2015-12-14 15:41:12+00:00","Merge 'Hygiene: move intent creation to target Activity'
+"
+"3aa56d089080724d259fb98d132342fa7fd566b0","2015-11-19 00:13:06-07:00","Move content issues and disambiguations to menu
+
+Move content issues and similar titles to page menu and move save pages
+and share a link to the article toolbar.
+
+* Keep the JavaScript issue and disambiguation parsing logic but send
+the issues and disambiguations payload when available instead of on
+link click.
+
+* Extract 'PageInfo' unmarshaller from PageInfoHandler, where info is
+issues and disambiguations, into a single responsibility class.
+'Handlers' often have nebulous responsibilities, as was the case for
+PageInfoHandler. Move the remainder of the logic to another handler,
+LeadImagesHandler, and delete PageInfoHandler.
+
+* DRY up leadImagesHandler.beginLayout() logic. This required adding an
+inappropriate method to the PageLoadStrategy which has been marked for
+removal, and will be easier to do so in subsequent refactors.
+
+* Annotate PageInfo with @NonNull where appropriate and add a couple
+helper methods.
+
+* Move the lead image and lead image placeholder to
+ArticleHeaderImageView. Improve encapsulation but there are some
+obvious candidates for future improvement.
+
+* Add a new toolbar class, ArticleMenuBarView for saved pages, link
+sharing, and other buttons. The saved pages button does not update
+appropriately. This appears to be a preexisting bug.
+
+* Replace LeadImagesHandler.leadImagesEnabled state with method.
+
+* Minor adjustments to padding offsets in LeadImagesHandler.
+
+* Move intToHexStr() logic from MediaPlayerImplementation to StringUtil
+so it can be used elsewhere.
+
+* Adjust WebView content top margin.
+
+* Remove the last programmatic change to article lead LayoutParams.
+
+* Fix a couple layout bugs in lead layout including top offset
+differences across API versions and some incorrect layouts on
+orientation change.
+
+* Reorder page issues and disambiguations in their dialog.
+
+Bug: T116122 T120400
+Change-Id: I2d716fa5d64386b587d730378c7e28913fcd9221
+"
+"ae3187f1e88a8675d0ed82171804478d256ef47e","2015-12-11 14:38:04-07:00","Add article geo-location navigation button
+
+Display a geo-location navigation button when the article subject has a
+known location and a mapping app is available
+
+Bug: T114523
+Change-Id: I0b2522aa1b68abd8f7a3b19fb3e5cfde940a84c2
+"
+"74bf353b50835f8dbbf070b07501bd4646fdc617","2015-12-11 16:03:17-07:00","Hygiene: reorder methods to match interface
+
+Light refactoring of JsonPageLoadStrategy and PageLoadStrategy:
+
+- Reorder implementation methods to match ordering in interface.
+- Consolidate @VisibleForTesting API below overridden and public
+methods.
+- Replace Log and TAG with L.
+- Make JsonPageLoadStrategy.loadSavedPage and STATE_* private.
+- Move Javadocs from implementation to interface.
+
+No other functional changes intended.
+
+Change-Id: I8c5abc3e855c33d55d592ae572b538e56539c6a5
+"
+"585cddcc72f577e2c909ab27e4fbeb51d9c69a5a","2015-12-14 09:51:05-07:00","Hygiene: consolidate PageLoadStrategy init methods
+
+No functional changes intended.
+
+- Consolidate setup and onActivityCreated to setup. These methods were
+always called together and had similar responsibilities to partially
+set up the strategy. The new method has too many parameters but this
+is not a regression.
+- Rename setup to the verb, setUp.
+- Rename JsonPageLoadStrategy.setupSpecificMessageHandlers to
+setUpBridgeListeners and move the BottomContentHandler initialization
+up.
+- Add some @NonNull annotations.
+
+Change-Id: I449d1230c460e45ec103a154515a78c08935bc8a
+"
+"4f2ebfa55843ee188c7634228832ca8ee6f1e0d3","2015-12-14 20:14:00+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I1bf08020c215b6498938c0c25012565bb7e2e4f0
+"
+"8ca4e88961c535d43f815c5aaf46c703b18fba4a","2015-12-14 12:21:41-07:00","Make EditTaskTest more reliable
+
+Sometime we run this test at the same time, then the expected section text is overwritten again.
+
+Bug: T120035
+Change-Id: Ie195ec76d0c08b743188762d73e4d6977132dc09
+"
+"0bf69e7c4fb568da9363568cec5f652fff4ac4dc","2015-12-14 20:13:30+00:00","Merge 'Add article geo-location navigation button'
+"
+"4eb1a5a63e1b7e30613827078443e4ca5e6a9f56","2015-12-14 15:22:02-05:00","Fix article and menu bar padding on tablets.
+
+On a tablet screen, the article top-padding was too much, since it was
+using the *horizontal* padding dimen, which grows to 128dp for a tablet
+screen. It should always be a fixed 16dp from the top.
+
+Conversely, the padding to the left and right of the new native menu bar
+should in fact be equal to the dimen for the horizontal activity margin.
+
+Here's a 'before' shot:
+https://veuwer.com/i/3g2p
+
+And after:
+https://veuwer.com/i/3g2q
+
+Change-Id: I32a8177d5bfdbd39076e0ecf6a85aca5d10e3fa5
+"
+"461f25f28b538cb6ad54702ef88ab59b81a5c830","2015-12-14 21:13:01+00:00","Merge 'Hygiene: reorder methods to match interface'
+"
+"bfc96ad0dc2d1a8da9136252ad566a2375c72fce","2015-12-14 21:17:17+00:00","Merge 'Make EditTaskTest more reliable'
+"
+"463089a8aa12c4c9ed10626884307c698071e1d1","2015-12-14 21:23:11+00:00","Merge 'Hygiene: consolidate PageLoadStrategy init methods'
+"
+"7ed68bb55a259b2afd0ac9b2b9e819d9289850c1","2015-12-14 15:46:44-05:00","Add long-press hints for article menu buttons.
+
+Also tweak the background style of the buttons to look more like standard
+toolbar buttons.
+
+Change-Id: I315a9bdc2e0fc840674fd9a8c1ddb53c8afec67d
+"
+"d0b78a990adfa3dce357c023dc37d6b12e1d018e","2015-12-14 15:53:47-07:00","Wiktionary definition icon
+
+Bug: T114949
+Change-Id: Ie2ec62e1b4663e6c2d14a9abc4e974746791319e
+"
+"8b5d8507e891db909420ff0f5bee58a2f33ece99","2015-12-15 14:55:25+00:00","Merge 'Wiktionary definition icon'
+"
+"436f525b4af38c94e1b36314af7a9fb482c09316","2015-12-15 11:49:44-07:00","Fix initial keyboard focus of app language picker
+
+Change-Id: I5732ce966c7a2f5c3029502dad52e77f94250e11
+"
+"8cc5c401ebfbf3bc2379fec34cfb05533dc37cfd","2015-12-15 12:16:27-07:00","Upgrade to PhotoView v1.2.4
+
+- Upgrade to PhotoView v1.2.4[0].
+- Add a crash if not fixed line to FixedViewPager. The bug this class
+worked around is marked for the v1.2.4 milestone but the discourse in
+the issue[1] is conflicting.
+
+[0] https://github.com/chrisbanes/PhotoView/compare/v1.2.3...v1.2.4
+[1] https://github.com/chrisbanes/PhotoView/issues/206
+
+Change-Id: I8b37cf5ab746288eb548a9c2343681f7f16c45e8
+"
+"50288f86182549b10412504db0419dd99a1b88d3","2015-12-15 12:36:21-07:00","Hygiene: upgrade Otto to v1.3.8
+
+https://github.com/square/otto/blob/master/CHANGELOG.md#version-138-2015-06-17
+
+Change-Id: I79997137a730227fdaa43300aea1c679cb86ccb5
+"
+"f7d2df0034a2c61e9cd60774db3e339241548eee","2015-12-14 18:57:10-05:00","Set menu color to the dominant color of the lead image.
+
+Change-Id: I46f4436631fcf6403fbea876ea3611b7becca13a
+"
+"a3e19805257e2906392b6ad85755abb12022a821","2015-12-15 20:06:34+00:00","Merge 'Set menu color to the dominant color of the lead image.'
+"
+"0592e45595dc22eccb64d5839ff07cae101a13a9","2015-12-15 20:25:14+00:00","Merge 'Fix initial keyboard focus of app language picker'
+"
+"b6343def511f2b0a8b580478707c11fc8095ab3f","2015-12-15 20:31:35+00:00","Merge 'Upgrade to PhotoView v1.2.4'
+"
+"adc2f844bdc1cdba664e51a8e87ebd57310293d9","2015-12-15 20:39:57+00:00","Merge 'Hygiene: upgrade Otto to v1.3.8'
+"
+"64594d201ff77d6a5c814d820cd8f0ca322fedef","2015-12-15 12:24:55-07:00","Hygiene: upgrade Picasso to v2.5.2
+
+https://github.com/square/picasso/blob/master/CHANGELOG.md#version-252-2015-03-20
+
+Change-Id: If5f0d3ce01e0d7c9d6e1f168ac0fade47bfe1fd0
+"
+"c4d2fbe3d8d4e18d533aa1f97f60011565de7e98","2015-12-15 12:56:05-07:00","Hygiene: upgrade Gson to v2.5
+
+We should have upgraded[0] this sooner:
+
+> Improved Date Deserialization by accepting many date formats
+
+[0] https://github.com/google/gson/blob/master/CHANGELOG.md#version-25
+
+Change-Id: I8cd9ddfb1ca6c244a51ca688f2b51b945ad657ef
+"
+"df7edb617718c34527f6023b85722214240adeb4","2015-12-15 21:31:07+00:00","Merge 'Hygiene: upgrade Gson to v2.5'
+"
+"fefd4fab4c45e193de460e2d2d42f11a9218c018","2015-12-15 12:52:31-07:00","Hygiene: upgrade OkHttp to v2.7.0
+
+- Upgrade OkHttp to v2.7.0[0] and centralize library version strings.
+- Also centralize Android Support library version strings.
+
+[0] https://github.com/square/okhttp/blob/master/CHANGELOG.md#version-270
+
+Change-Id: I87265a956d69f93e8f849ea7328b69a8aa11f579
+"
+"baa4189907bbdd07f820ed8c93e4ac01e1fca7ed","2015-12-15 11:03:32-07:00","Hygiene: update language list and templates
+
+Run generate_wiki_languages.py and make-templates.py.
+
+Change-Id: Ibb98fbce846fce9c2a5b24c6f6976d3aeebba91a
+"
+"c2b57fe101af4ef0972c3f8dba3ecf3d1f530543","2015-12-15 21:52:08+00:00","Merge 'Hygiene: update language list and templates'
+"
+"8fb7f925b96505a7f68b088e7e63e3d755edc185","2015-12-15 15:24:21-07:00","Hygiene: move lead views to leadimages package
+
+These views weren't meant to be generic and are more appropriate under
+the leadimages package where they're used.
+
+Change-Id: I9086c2a78b4ae9ef2dced7b23ccd9319860851d9
+"
+"de17d1a5428572a4f7f54c77ba1a867a918f7d76","2015-12-16 09:08:59-05:00","Display proper title when saving page from menu.
+
+Bug: T121471
+Change-Id: Ia9a442139a7315cf8f2e255f846a64233825d5b1
+"
+"4d9925e3db4b3792e6b39bc1a1973670765b77be","2015-12-14 17:14:17-07:00","Hygiene: rename page loading methods
+
+Rename verbose page loading methods where the class responsibility
+implies function.
+
+- Rename PageActivity/Fragment.displayNewPage and friends to loadPage.
+These classes are primarily responsible for loading and displaying
+pages. The client should expect that pages need to be loaded to be
+displayed but that the class is responsible for any page load request
+from inception to displaying. 'Page' may be dropped in the future, but
+currently these classes have many responsibilities so the distinction
+is still useful.
+- Rename Json/PageLoadStrategy.onDisplayNewPage to load. From the
+perspective of the strategy, this method actually initiates a loading
+sequence and is not a callback terminus. 'load' was chosen because a
+page load strategy should only load one thing, pages. Similarly,
+rename loadPageFromBackStack to loadFromBackStack and a couple helper
+methods in JPLS.
+- Rename Json/PageLoadStrategy.onBackPressed to popBackStack since
+popping the back stack is its primary responsibility and it is a
+sequence initiator not a terminus. It may be called from a Fragment's
+onBackPressed, but that's not its concern nor its limitation.
+Additionally, consolidate a private JPLS helper method.
+- Group Json/PageLoadStrategy methods in the interface and
+implementation according to function.
+
+No functional changes intended.
+
+Change-Id: Ie8279bbd8624694bc9ab247d18a0a3dd421ea6f5
+"
+"f7509396ac45d7cc39e970ef7da874a212711bc9","2015-12-15 10:37:34-07:00","Fix saved page status bugs
+
+Change-Id: I595a19b722ad7a7764a3fe865bf232e91351f4df
+"
+"b8989fcc6b09d87e3bf3b828164b18edd7fa3e7c","2015-12-15 12:20:15-07:00","Upgrade Saripaar to v2.0.3
+
+- Upgrade Saripaar to v2.0.3[0].
+- Update annotations and API usage in CreateAccountActivity.
+
+[0] https://github.com/ragunathjawahar/android-saripaar/compare/android-saripaar-1.0.3...android-saripaar-2.0.3
+
+Change-Id: I4ce376606050a3970fe1f0216d674f2b39bcc68e
+"
+"c176f448c0f79c76080b54ca6ba54110f5aaf2ce","2015-12-16 15:07:21+00:00","Merge 'Display proper title when saving page from menu.'
+"
+"43e845443102d54eeb6462a7534482bcbdb15b76","2015-12-16 10:11:51-05:00","Fix display of thumbnails in Disambig list.
+
+Just noticed that the thumbnails were no longer showing.
+e.g. see the similar pages list in [[Barack Obama]]
+
+Change-Id: I53ccf67421ac1db6570d69f38501fa4f80f3767b
+"
+"a7685074590062047a735ba7da54062626f22557","2015-12-15 11:36:49-05:00","Remove configurable concurrency from SaneAsyncTask.
+
+Change-Id: I343fa6dfe4419fe1b72d1ce1e0da9e706092b448
+"
+"8e9125be725e25ad580d4bcd0b033455d409e53c","2015-12-16 13:48:20-07:00","Show Norwegian when device language is Norwegian
+
+Was falling back to English before.
+
+Bug: T114042
+Change-Id: I08cb4c3a073709d334d8450e450a11c09bcb685e
+"
+"fa5c8d2e7e60fc5cbe4f4af71696cea686fc2f59","2015-12-16 21:11:51+00:00","Merge 'Show Norwegian when device language is Norwegian'
+"
+"ef3e04e6c8ba67c5c218c60f1bf526f07b9a7461","2015-12-17 15:02:55+00:00","Merge 'Hygiene: move lead views to leadimages package'
+"
+"5ebcdf75b9005225a6c2ac8584f2df408feaceff","2015-12-17 09:30:09-07:00","Reset Android emulator clock before running tests
+
+The Android emulator clock is often significantly out of sync. This
+causes network failures like:
+
+java.lang.RuntimeException: org.mediawiki.api.json.ApiException: javax.net.ssl.SSLHandshakeException: com.android.org.bouncycastle.jce.exception.ExtCertPathValidatorException: Could not validate certificate: current time: Fri Sep 04 09:18:17 GMT+00:00 2015, validation time: Thu Dec 10 23:22:05 GMT+00:00 2015
+
+This patch resets the clock to the current time.
+
+[0] https://integration.wikimedia.org/ci/job/apps-android-wikipedia-periodic-test/263/console
+
+Change-Id: I37a6a0b48aa7df902975b9522d63a1fb54e8234a
+"
+"49e0de7bd59e2cd108bb95abc34afa9a54f97128","2015-12-17 10:23:48-07:00","Hygiene: refactor common page load test code
+
+- Move code common to page load tests from PageActivityTests to abstract
+BasePageLoadTest. Move page load tests from PageActivityTests to
+PageLoadTest and convert them from JUnit 3 to 4.
+- Move latched PageLoadCallbacks from PageActivityTests and
+PageLoadPerformanceTests to PageLoadLatchCallback.
+- Reparent PageLoadPerformanceTests to BasePageLoadTest and use common
+code.
+
+Change-Id: I26844deabef522d8f04e562183c505474fb12ca6
+"
+"2ecbf5662a1565c55ad5aca1ad1fe5757fd932fc","2015-12-17 17:34:39-07:00","Hygiene: fix SyntaxHighlighter/Test
+
+• Fix always false instanceof test assertions:
+
+✗ assertThat(result.getClass(), instanceOf(Expected.class))
+✓ assertThat(result, instanceOf(Expected.class));
+
+• Move callback invocation to main thread. In general, UI callbacks are
+expected to be invoked on the main thread.
+
+• Move test's anonymous inline callback to a static nested class that
+just exposes a latch interface. Inline creation blows the method
+count and increases the indentation level which decreases readability
+and often discourage DRYness.
+
+• Use test's new latched callback to just wait until the AsyncTask is
+done and then perform assertions on the data in the test thread.
+Assertion failures in AsyncTasks seem to actually kill the runner
+instead of just failing a single test. I'm not 100% sure on this.
+
+• Add @VisibleForTesting to OnSyntaxHighlightListener so the reader
+knows this is test-only code. Bubble the interface to the top of the
+class so it's better delineated from the data.
+
+• Replace Activity parameter with ContextThemeWrapper. CTW is needed to
+get themed attributes but Activities are heavy to test.
+
+• Initialize handler member prior to setting a listener that could
+invoke it.
+
+• Drop onCatch logging and isCancelled check. These are already done in
+SaneAsyncTask.
+
+Change-Id: I8ba3c2d014e6a1afa021d17fb40d2c9ad8775d2a
+"
+"f01919fbdf753892b1cd66659b5b52f7f70a54c5","2015-12-31 21:14:14-08:00","Prevent app from inserting HTML tags into edit summaries
+
+Presently, in some circumstances, the app can insert HTML tags into edit
+summaries, which doesn't make much sense since edit summaries are
+plaintext. This patch prevents that from occurring by stripping any HTML
+in the edit summary at the last minute.
+
+Bug: T122714
+Change-Id: I339794acdd9cc28650058283aa3789e43429074b
+"
+"65512fbd4a4fc8ed7d019567b2ee12cabe596a4b","2015-12-31 21:27:46-08:00","Directly reference static field in persistence helpers without instances
+
+I'm unsure whether or not this will improve performance, but I think it
+improves code readability since it's more clear at a glance what it is
+actually happening.
+
+Change-Id: I1285205fb00803492375740dd6a69ff088b7d65e
+"
+"488506d8fe5c737560b63c23c1be1c84953efa8d","2016-01-03 21:01:41-08:00","Fix Javadoc errors in MccMncStateHandler class
+
+This patch fixes a few Javadoc errors in the MccMncStateHandler class.
+
+Change-Id: I5b7659f215875e87a1c4f117eacf52f7f3ac3a83
+"
+"393fec4f984fe78854bce6baff114c50c0fabffa","2016-01-06 18:56:40+00:00","Merge 'Prevent app from inserting HTML tags into edit summaries'
+"
+"2a261dc2c2664707f63ad726d505d8a27b928c7c","2016-01-06 16:24:47-08:00","Fix memory issues when switching between different Fragments.
+
+...In which I slightly modify (simplify?) the way we place and exchange our various
+fragments inside the container view in our Activity.
+
+This seems to stabilize memory usage when changing back and forth between PageFragment
+and other fragments, which is the leading cause of OOM errors at the moment.
+
+This shouldn't change any UX behavior (e.g. back button logic, etc).
+
+Bug: T121759
+Change-Id: I745a31f23030b60575cd1b071eabc49c092a1b30
+"
+"e02f8998a84bb6411ab1d98ac74cf88ea9ec3d55","2016-01-07 01:24:20+00:00","Merge 'Directly reference static field in persistence helpers without instances'
+"
+"06c389ecc8718bc812dbc0b55ea79e17922d2cff","2016-01-07 17:15:50+00:00","Merge 'Fix memory issues when switching between different Fragments.'
+"
+"b1d662ed33a1560795b7bfca608b130b2b19a1eb","2016-01-07 10:50:08-07:00","Hygiene: add @NonNull annotations to derivations
+
+Infer @NonNull annotations from super classes and usage.
+
+Change-Id: I5258e2654ef679c10e504abe1118c1913df1e62f
+"
+"ccc8153ad4225a32a0fa4f865d260b1633054a9c","2016-01-08 10:10:32-08:00","Remove unused method.
+
+Slipped by me in the previous patch.
+
+Change-Id: Id1236f8e7923d7166a3ce72d1a704f1c9efae0ff
+"
+"c6acd622cc442be1d836e3ba398c6339616f3c9c","2015-12-16 11:05:27-07:00","Fix NPE in PageFragment.updateMenuPageInfo
+
+Repro steps:
+
+1 Go to the Barack Obama article.
+2 Tap search and enter 'dog s'.
+3 Select the second entry while the results are loading.
+
+Change-Id: Ieadd9d6ad2f980b0b2456ee7ceba551c0c9c6c60
+"
+"4449f5dc3818970bdc7ce11c22238061c0b703d5","2016-01-11 09:45:36-07:00","Hygiene: DRY up Espresso dependency versions
+
+Several Espresso dependencies should be versioned together. Consolidate
+the version in a variable and reference appropriately.
+
+Change-Id: I3463d5d1388b77279d37b80cbba13e4683b2d2cc
+"
+"01f349e8511468d4a5944f0fd111f2b330354588","2016-01-11 09:56:43-07:00","Hygiene: use unchecked Exception for test timeout
+
+Most of the time, the desired behavior for a TestLatch timeout is to
+crash. Change the Exception type from checked to unchecked.
+
+Change-Id: I7e55546f3ad3e4986fb8d4f2cf1a2dc42f7e5047
+"
+"6f80e77e22b1561c47c3d22d36ffa825c382656a","2016-01-11 18:11:27+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: If981ab97ecd8d590093b1ff85d65f63d2ae0d79a
+"
+"86c0d44668ab0c183c16445421f5c637893b2789","2016-01-11 10:56:28-07:00","Make it possible to enable RESTBase for production
+
+To actually enable RB we still need to add the config restbasePercent.
+
+Change-Id: Icd4cea69ddc5a77b8ce2980e6b8fc4b4a9dda41e
+"
+"be67919f383ed8791398b60f79e014e2381af30f","2016-01-11 18:34:05+00:00","Merge 'Fix NPE in PageFragment.updateMenuPageInfo'
+"
+"b26de4f6f7fe85dc877eda411266244dda27da85","2016-01-11 18:50:16+00:00","Merge 'Make it possible to enable RESTBase for production'
+"
+"264aa7e4e08788e863597896d8fe2df87dcb1375","2016-01-11 20:23:27+00:00","Merge 'Hygiene: DRY up Espresso dependency versions'
+"
+"c8120e60be7de4154668a83e70e3c5e30d12f9a4","2016-01-11 13:34:31-07:00","Fix article header landscape height for short devs
+
+The article header height is calculated as a ratio. In landscape
+orientation on short devices, this height was insufficent for the
+page title, subtitle, and menu bar. This patch blanket increases the
+ratio for landscape orientation.
+
+Change-Id: Ibb17a2756d1761315d6975b5a0a72a76dc85cf38
+"
+"8af03b88860eb886a3108ecb87b405abcdd0a933","2016-01-11 20:37:37+00:00","Merge 'Hygiene: use unchecked Exception for test timeout'
+"
+"e630e886f4f61b9c6616e98158f1beaee385db9b","2016-01-11 21:31:47+00:00","Merge 'Fix article header landscape height for short devs'
+"
+"8f43712a30fa999a1164af6077443dbfe91eac2e","2016-01-11 14:36:34-07:00","Bump versionCode
+
+Change-Id: I8ad336c806e694ac755210b9a968a33d533577b8
+"

@@ -1,0 +1,108 @@
+"commit id","commit date","commit message"
+"4f5d7fc7c33600060cacec03b88068c3db4a23a9","2011-08-05 22:39:09+01:00","Add start/end columns to schedule database (preparing to sort events by their
+date instead of atime in the chooser).
+"
+"53fe6cc71bed31dd91302ab8c85ea990a0f7a103","2011-08-06 18:04:20+01:00","Yes. Don't keep gen/ in bzr.
+"
+"ae681c63c7aa099738f83398941831cf5bdd0b8f","2011-08-06 18:12:32+01:00","Update sch_start/end fields in the database from schedule data.
+"
+"463544717ae197789b055cfa2659573cc90b1ba0","2011-08-07 01:36:16+01:00","Monster commit: Biggest change is to ChooserActivity - show start/end dates
+and use them to group schedules (now, coming up, past). And cleaned up the
+repo a bit so 'bzr st' output looks cleaner.
+"
+"162e8e1e7e522651ab441917299f9f255fa8dda3","2011-08-07 11:24:38+01:00","Some more cleaning up of the new chooser layout.
+"
+"f2ac41ade9bf0a30a0d1fe93293a476f26416b06","2011-08-07 11:32:16+01:00","Added translation for menu headers. Menu should work properly again.
+"
+"1816c926315dedb257bd0010b5a568b63a4b7ae9","2011-08-07 21:51:53+01:00","Boring stuff: Messing with the margins. Try to convert dp's to pixels.
+"
+"74bd9218f2d2eac1e3de5a1a3f75b40031e4d7cd","2011-08-07 23:19:26+01:00","Oops. Fixed context menu.
+"
+"78879567cbbcefb6941e1e7ac9812f630dbc946e","2011-08-08 10:34:59+01:00","Hopefully last cleanup of chooser for now: Remove obsolete scheds array and its
+last (incorrect) uses.
+"
+"4420178a4b430fc8df67b73ef40bf33c3e618bcc","2011-08-08 23:13:54+01:00","Try to download schedules with gzip compression.
+"
+"0398ffa9ec0faaa903e90463aefd014550bd1687","2011-08-08 23:24:22+01:00","The options menu is hardly useful and can only cause confusion in
+SearchActivity so disable it there.
+"
+"5def77f43125434b25f72f9343a9361cb47413bd","2011-08-09 00:04:38+01:00","Small adjustments. Forgot one translation.
+"
+"e24add65a46a73c21358c3b3e2a556f48f8e0370","2011-08-10 00:28:30+01:00","Okay, another parser (although not really new): iCal. Turns out it maps pretty
+well to xCal so I can do it internally.
+"
+"39dc55c4098351a2814cf71cf64c918983d67fbd","2011-08-10 00:39:52+01:00","Preseed YAPC. For as long as I mis up both URL and id (usually but not always
+sha1sum of URL), added an id column to seeds.
+"
+"1ada739772b34c2c41ed1964e3723bef4329b626","2011-08-10 00:45:09+01:00","Release time. Hope I didn't add any bad bugs just when CCC started!
+"
+"70057a7efd835193364045129f9ea02b54c19982","2011-08-10 09:42:55+01:00","Order the seed by date, not by time of me adding entries.
+"
+"2468a29613b8a52f62f832e9de67e6f0ba7b39c0","2011-08-11 23:07:26+01:00","Scraper for Loveland. Should refactor that stuff a bit before I use it again..
+"
+"fd953510015fb22bc972b9986d70fd723fbd96a7","2011-08-11 23:16:45+01:00","Preseed Loveland, and set start/end timestamps to something more sane for
+one-day events.
+"
+"332f03a91527f075d3ac6451d6e235c55951699d","2011-08-11 23:47:31+01:00","0.9.7. I'm abusing releases to push out small changes to the menu seed. Should
+find a better mechanism to update it..
+"
+"98d92d633059904b6ebf4661f1532c2b023ee278","2011-08-13 15:07:04+01:00","Add the seeded menu as a JSON file instead.
+
+Code is in progress, the first resulting rant can already be found on
+https://plus.google.com/u/1/117161704068825702652 . So far I have failed
+to find something better... :-/
+"
+"8c16c48b88521c57ec5880c23e80b217dca2bba7","2011-08-13 15:23:51+01:00","Use the included .json as the menu seed now. This needs much more work.
+"
+"c97882e1ff075695fb4370729e75343e61aad86b","2011-08-13 16:55:25+01:00","Improved the JSON code a little bit.
+
+Now, decouple db version and seed version.
+"
+"5d80307caf707845e618543d6ee0affe6d6bd145","2011-08-13 19:52:21+01:00","Separated data versioning from database structure version.
+"
+"2c90f514ba09405001bb8735c66b58d0ae0279aa","2011-08-14 00:11:25+01:00","Move HTTP caching logic into a separate Fetcher class.
+"
+"f5db57cc726e70e717ffb54bd454c29867588f27","2011-08-14 00:26:17+01:00","Added TeeReader.readLine() implementation - offline support for iCal files
+was broken so far.
+"
+"40de9f5ce2db03bdb7dfd5c05d7997d9255b96b4","2011-08-15 23:22:01+01:00","Code for fetching menu.json online. Still a bit buggy.
+"
+"6c54b49427830b16cc9f65701a913570f27acacf","2011-08-16 09:58:54+01:00","Use a four-state instead of a boolean to indicate a fetch source, so you can
+more precisely request how/if cached info is used.
+"
+"4c015d9827697ca7f07b0d60ed44a26daebb8006","2011-08-17 09:31:28+01:00","A fifth state to the Fetcher. Something tells me that thing is partially
+overengineered.
+"
+"cf95f86bd2f207019f8a9558c3f7834b2cd95f93","2011-08-17 09:34:17+01:00","Actually implemented CACHE_ONLINE behaviour.
+"
+"a669921ee04d7a5271c65a85277394c3f17acd1d","2011-08-17 09:38:46+01:00","All activities can handle screen rotations fine without being recreated. This
+fixes a bug where the event dialog disappears on rates when looking at search
+results, and stops reloads of the menu (also on rotates).
+"
+"55d62ee81ee8cd885beea37566d12b991cd73248","2011-09-05 22:44:33+01:00","Adding OpenRheinRuhr 2011.
+"
+"e06c7519fb91cbf46f053bdad15b65dcd8f951fa","2011-09-05 22:52:13+01:00","Enable menu in ChooserActivity too (just for settings).
+"
+"ce923c19c7a734fc5bfe03cd0d07ea71aad56a2d","2011-10-26 01:48:39+01:00","Fix up Fetcher. (Getting source once the download is going.)
+"
+"9c007772c4b995e495d096f8420489acac2aecfd","2011-10-26 01:54:49+01:00","Half-finished (for now hidden) feature: try to, by default, only reload a
+schedule online once a day. The current behaviour can be pretty annoying on
+slow WiFi/3G.
+
+Won't finish it for now because I have to move the schedule loading to
+ChooserActivity - stuff is getting hideously messy the way it is now.
+"
+"1bbe6e1fd39f53203c107f9a9dc10833fb06c7ad","2011-10-27 01:26:27+01:00","Pfft. 'always_refresh' setting hopefully makes some sense now.
+"
+"49a61429b24c4d57e080b182c1bf029353322f86","2011-10-28 18:30:47+02:00","Show a progress indicator when loading a schedule file.
+"
+"8e63cac5bb1687c879e7ad7d08199320b6fd72da","2011-10-28 19:44:42+02:00","For multi-day schedules in per-day mode, have getTents() omit tents that
+have no items for that day.
+"
+"4ea7319424b83f899f9c05de6a862b3c3c53c637","2011-11-01 00:27:08+01:00","German translations, thanks to Birgit Huesken for OpenRheinRuhr!
+"
+"868c02d71973fb5aa115a70429a2165d1941edfa","2011-11-01 00:04:04+00:00","Bump the seed version number. Also, start using DNS SOA serial-like numbers
+instead of just a dumb small integer.
+"
+"5ce725bc568279927d33b8d0984a870aa9479eff","2011-11-02 00:42:31+00:00","0.9.8.
+"

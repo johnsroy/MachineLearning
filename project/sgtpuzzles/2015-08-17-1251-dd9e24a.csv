@@ -1,0 +1,47 @@
+"commit id","commit date","commit message"
+"94648396751ec461fc5bc9b6887abe8f0d4bcb09","2015-07-31 08:01:57+01:00","Re #298, implement stpcpy in library rather than executable.
+
+This appears to work on the emulator at API 21 as well as below.
+
+The reported crashes were reproducible on the emulator.
+"
+"c296301a06ce49b87c954c9d15452521dfeddf1a","2015-08-01 11:14:30+01:00","Replace a TCHAR with a WCHAR.
+
+MultiByteToWideChar expects a WCHAR[256] output buffer if you pass it
+an output length of 256. TCHAR[256] is entirely the wrong size, though
+for some reason Visual Studio seems not to have thrown a compile error
+pointing that out.
+
+Thanks to Jason Hood for spotting this.
+"
+"dd9e24a42fda3a9810ae1e4ce394be1259821fd2","2015-08-14 19:42:42+01:00","emcc frontend: stop indiscriminately squashing mouseups.
+
+The mouseup listener was calling event.preventDefault(), as part of
+the mechanism for making mouse clicks and drags on the puzzle's resize
+handle have resizing effects _instead_ of the normal browser
+behaviour. However, calling event.preventDefault() on _every_ mouseup,
+rather than just the ones associated with the resize handle, was
+overkill, and I've recently noticed that it's breaking attempts to
+select from the game type dropdown by clicking the mouse. So now I'm
+only calling preventDefault() on the mouseups that I have reason to
+think are actually relevant to what I'm trying to do.
+
+(I don't know why I've only just noticed this. I suppose a change of
+behaviour between Firefox versions is the most likely cause.)
+"
+"4c8a22814323602bd09e3d1f1dfee8f65f8fb54b","2015-08-16 12:21:00+01:00","Fix #311: swapLR & hiding Inertia's follow key were interacting badly.
+"
+"7e9249521554691e94916140b34a639485dc2c74","2015-08-16 12:23:23+01:00","Fix #313: make explicit that all tiles must be connected, not just endpoints.
+"
+"6f28533ab53ad625e1afebcab36190e3dade26ce","2015-08-16 13:02:24+01:00","Fix #305: make Loopy's faint lines more distinct.
+"
+"160012ba78b89ae1c5534a1ff87c6349f53a7d1f","2015-08-16 19:35:35+01:00","Fix #299 and improve Map colours generally, including for colour blindness, tested with:
+
+http://www.color-blindness.com/coblis-color-blindness-simulator/
+"
+"4b46d70666554a88bd3b97d3880023d62ed18d09","2015-08-17 12:25:02+01:00","Fix #316: improve Signpost night colours, using complete = black / incomplete = ~white.
+"
+"4bc386410271e8705a90c923da42941f4826f9ef","2015-08-17 13:48:48+01:00","Merge branch 'upstream'
+"
+"2061bb9257161faf6f8a8ee8b7b5b1048d094008","2015-08-17 13:51:06+01:00","Bump version.
+"

@@ -1,0 +1,95 @@
+"commit id","commit date","commit message"
+"7fa0674b953cc5e5d70921f0d4dda8807eed1605","2013-04-30 21:28:02+02:00","Full Italian translation.
+Some phrases rephrased for better grammar and user experience
+"
+"2f8b4acbad6a959d6562509b086f2c950a979018","2013-04-30 18:31:19-07:00","Merge pull request #120 from djechelon/master
+
+Italian translation
+"
+"e59d0579d51c1279d5221fc965dd06b7ac86ed43","2013-05-05 00:27:04-07:00","ukanth/afwall#122: Fix non-escaped apostrophies in strings.xml
+"
+"844683bf1840b84f105054c127783c77496d73f9","2013-05-05 18:54:32-07:00","ukanth/afwall#122: Fix incorrect preference defaults
+"
+"087239b80e3ccd30c40f4f6dcef1edd12ca53684","2013-05-05 19:13:36-07:00","ukanth/afwall#122: Fix summary on color picker preference
+"
+"5e699a1ab0b1495e6ecebdf38d97d5640a1bf8e2","2013-05-05 15:31:52-07:00","ukanth/afwall#4: Add new (Tethering) special uid to create dnsmasq DHCP + DNS rules
+"
+"ee52023c6c8275719ac90b1d32f3503f2f287eb9","2013-05-05 15:37:52-07:00","ukanth/afwall#4: Use new addRuleForUser() helper to simplify dhcp/wifi code
+"
+"1e15bed8eb9899b987f1964771006ac624f08842","2013-05-06 22:07:52-07:00","ukanth/afwall#124: Fix inconsistent coloring on special apps
+"
+"2d7680b6a42b5daeb62676655bc84d8e277f88d8","2013-05-12 15:55:19-07:00","ukanth/afwall#140: API: Check return status from SU.run()
+
+If SU.run() returns null, it means the command failed.  It is incorrect
+to report exitCode == 0 in this case.
+"
+"a6fb90152fb2af954678778d728d7e862cb309c6","2013-05-12 15:55:58-07:00","ukanth/afwall#140: libsuperuser: Hack up library to check exit status
+
+Surprisingly, this isn't supported in the stock library.  A better long
+term solution would be to ask the maintainer to fix the API.
+"
+"38ed254f92d3ed39b8256b71cf4dacb1db60b8b8","2013-05-12 12:21:58-07:00","ukanth/afwall#142: Remove StartupService.java
+
+As far as I can tell, nobody even tries to start this service, so the
+code serves no apparent purpose.
+"
+"05b64a547385d69621b2901778740ec771a2e9cd","2013-05-12 12:38:37-07:00","ukanth/afwall#142: Fix a couple of warnings in the libraries
+"
+"ea9d7eb86b23ab9b26b02aebedd10ab4b6ed50d4","2013-05-11 23:35:38-07:00","ukanth/afwall#142: Rename 'firstseem' to 'firstseen'
+"
+"63d8d602a82ff93f190cb5845005e49787f22983","2013-05-05 23:19:14-07:00","ukanth/afwall#141: UI: Add new LAN icon
+"
+"177ab27f5ca0de2e494c3f332f25f58f7919555d","2013-05-05 18:43:15-07:00","ukanth/afwall#141: UI: Add LAN control items to UI and preferences
+
+Unfortunately this is largely a copy&paste effort...
+"
+"183c1871b1df9e7cfd22f7bb0961bc3a692e508b","2013-05-11 14:16:32-07:00","ukanth/afwall#141: Introduce new InterfaceTracker class to watch active interfaces
+
+Use the ConnectivityChangeReceiver for more than just roaming: any time
+the system notifies us that the network configuration has changed, see if
+any of the parameters relevant to AFWall+ have changed.  If so,
+recalculate and reapply the firewall rules.
+
+This should also address ukanth/afwall#134 (OUTPUT rules left wide open
+after tethering is disabled).
+"
+"8168217c919011763a0ac806c1f3be5d644d37e7","2013-05-11 21:42:52-07:00","ukanth/afwall#141: API: Use common interface lists from InterfaceTracker.java
+"
+"e10465e375a467382471c84c3f231d5545467b5b","2013-05-11 22:07:44-07:00","ukanth/afwall#142: API: Make 'logcat -s 'AFWall:*'' work
+"
+"b579e9bc26fea364c985dcd890e9f4e4928118a4","2013-05-11 23:15:51-07:00","ukanth/afwall#141: API: Set up firewall rules for LAN access
+"
+"4cd314bd777ed5918093f0c90c043bc606ebe70e","2013-05-11 23:45:18-07:00","ukanth/afwall#141: Update TODO list re: LAN support
+"
+"6e928ccdb456ff85e6f62ec1febdec0e1c878e7f","2013-05-11 23:42:38-07:00","ukanth/afwall#142: MainActivity: Sort list based on all checkboxes, not just wifi+3G
+"
+"d768b6540b042e480f927d8c94ea8b8dffb2787c","2013-05-12 11:27:26-07:00","ukanth/afwall#141: Move interface change handling into BackgroundIntentService
+
+Applying new rules directly from ConnectivityChangeReceiver (as was done
+for roam change events in the past) may have been a cause of UI
+responsiveness problems.  This commit represents the first steps toward
+centralizing the apply*IptablesRules operations in
+BackgroundIntentService, which will serialize the requests.
+"
+"dd5813f3cc268816cf898262f321868a25e1ce60","2013-05-15 20:59:40-07:00","Merge pull request #143 from cernekee/lan-v1
+
+Pull request for multiple afwall tickets - Merged !
+"
+"36b26b9d7bc6521a5f1bc465f22fdaa6e5af16fb","2013-05-16 09:44:32+05:30","added minor UI changes along with droidwall import
+"
+"79dadd7977fb1c23931666a2ac970914b9bc57cc","2013-05-16 09:51:00+05:30","removed unwanted files
+"
+"8e421552f44df527e2318efd831dc1c1a276bd5e","2013-05-16 22:40:23+05:30","code cleanup
+"
+"9612a85060436ce056cff63580f08e9ed0775026","2013-05-16 23:18:44+05:30","fixed import issue with droidwall and handler exception while loading application
+"
+"92e0adafccc0b60383fa43670eac875701462481","2013-05-17 23:12:07+05:30","choosable iptables/busybox and bug fixes
+"
+"3379ac5188da139f494e4169e55e76599f2122ce","2013-05-17 23:43:39+05:30","added language translations
+"
+"166c1ee0bd07f3a3f19efd528ed5a0d1dd841c7d","2013-05-22 09:10:26+05:30","prepare for 1.2.5 release
+"
+"417da72beae8f14e3a059216ef1659631dd5a925","2013-05-22 21:25:21+05:30","fixed issue with dead thread while loading progress
+"
+"f6f2d13f4fef36e94ef2247de9940c6e1c0b9e37","2013-05-22 22:02:54+05:30","v1.2.5 release
+"

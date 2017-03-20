@@ -1,0 +1,170 @@
+"commit id","commit date","commit message"
+"f2674bf52af5f065215505f75a2f4ed764b85c49","2012-09-05 00:50:48+02:00","Disable download of current song when no current song
+
+Both the menu item and the action when the menu item is selected is disabled,
+because the player may stop playing while the menu is open. The download is
+also disabled if the song is remote.
+It is a bit awkward because current song may not be null, even if no song is
+playing, but I will fix this in the actionbar branch (which will soon become
+master).
+"
+"83f9fa982f7ee47933b6b8945a1ec7aec9a4e8b5","2012-09-07 09:05:50+02:00","Fix out of memory problem with album artwork images
+
+Images for the Squeezer lists are scaled down on download, to avoid problems when the images stored on the server are to large.
+Also the image used for no artwork and pending artwork are now dependant on the android device.
+This is an intermidiate fix, because in order to find the scale factor, the image needs to be downloaded twice.
+"
+"880b1b4cd7f9fa642cbd0894a127cbb71be86a59","2012-09-09 23:21:25+02:00","Fix crash on server scan on honeycomb
+"
+"cca16327e06be57c1e2cab3734322a6df2c5ad48","2012-11-01 13:14:25+00:00","Note the source of an NPE for future work.
+"
+"1fc6ec332a127b269b4caaa187b0b9fca1a13f1a","2012-11-17 18:18:29-08:00","Update to a newer version of the image caching/fetching code.
+
+Primary differences are as follows:
+
+* The image cache is always added/initialised in a background thread,
+so there are no lengthy operations on the UI thread.
+
+* The JellyBean version of AsyncTask is imported and used (with some
+minor customisations).
+"
+"92468772114a5e9de9944da48927aa451df81140","2012-11-29 08:20:27+01:00","Merged nik/master
+"
+"8c717a782238be88e82fa9469aee785b6ec4e9ef","2012-11-29 23:22:26+01:00","Fixed crash by trying to display album art before the image fetcher was ready
+"
+"c5d65b377d9bf80b22c222bb758c5de0eb09cba1","2012-12-27 15:39:01+01:00","Remove an Eclipse config file.
+"
+"ea70da362d9ad4ff4b844c4935a58c4ab3e633be","2013-01-13 15:31:12+01:00","Disable song downloads when appropriate.
+
+Disable the song download menu when disconnected, there's no currently
+playing song, or if the song is remote.
+"
+"b879f0982c5c39b31bc01b01b4b75d42ae4401a2","2013-01-13 15:51:08+01:00","Use lower resolution icons for albums with no artwork on low-dpi devices.
+"
+"2e2cc6e2ae6c25944b2b5af86597abdf4d14931a","2013-01-13 15:56:07+01:00","Show progress dialog before setting the number and percent formats.
+
+This fixes a crash on Honeycomb devices.
+"
+"57242d0c74d53bcc4308a08106f3ae002b30a528","2013-01-13 16:02:53+01:00","Merge commit '92468772114a5e9de9944da48927aa451df81140'
+"
+"b7ff3baa60e23a2585e72addb603232ab3b2652a","2013-01-13 16:12:10+01:00","Fix crash when artwork is fetched before mLargeImageFetcher is ready.
+"
+"5bd5ce8087c485a4a4eecafe044bd50977802eff","2013-01-13 18:13:12+01:00","Call Bitmap.recycle() to reduce the potential for OOMs.
+
+On Android versions < 3 bitmaps are allocated from the native heap, and
+ones that are no longer used are not collected with a normal Java GC,
+leading to OOMs, especially on low-end devices.
+
+Fix this with the interaction of three components -- a wrapper for
+bitmaps that knows about caching, the image cache, and a new
+CacheableImageView.  The wrapper maintains counters updated by both
+the cache and the image view to determine when it's safe to call
+Bitmap.recycle().
+
+Based on work by Chris Banes, see
+https://github.com/chrisbanes/Android-BitmapCache.
+"
+"cb4ee0eda591abfe26e136348ec371b1580d987c","2013-01-13 18:39:16+01:00","Make uiThreadHandler a static inner class.
+
+Non-static inner classes as Handlers retain a reference to the activity
+which can persist after the activity is destroyed, preventing it from
+being garbage collected and using additional memory.
+
+See https://groups.google.com/forum/?fromgroups=#!msg/android-developers/1aPZXZG6kWk/lIYDavGYn5UJ
+"
+"762498dab166c9ecc4cdde50fe366481217b32cf","2013-01-13 18:39:51+01:00","Correct typo: allready -> already.
+"
+"c51933116f5df8a79b5c2feae24ef7b71b8385a0","2013-01-13 18:46:54+01:00","Ignore .classpath files.
+"
+"83dd1c5e4be77321b5ee537383c52cc8a1fc6117","2013-01-14 11:42:51+01:00","Merge branch 'master' into recycle-bitmap
+"
+"c30b8a420fc66ecb728529bbd6f0949d77e2855b","2013-01-14 23:10:41+01:00","Calculate the artwork icon size correctly.
+
+Use getDimensionPixelSize() to fetch the resource's value instead of
+using the resource ID value.
+"
+"d1687c0cbd2743993181896d994f7879b86a338a","2013-01-15 18:52:06+01:00","Calculate the artwork icon size correctly.
+
+Use getDimensionPixelSize() to fetch the resource's value instead of
+using the resource ID value.
+"
+"da04a44c1c3eda2ec3089f1ed396412346dd472c","2013-01-15 18:53:31+01:00","Merge branch 'recycle-bitmap' of https://github.com/nikclayton/android-squeezer into recycle-bitmap
+
+Conflicts:
+src/uk/org/ngo/squeezer/framework/SqueezerBaseListActivity.java
+"
+"21b198b957cca053fbece94d7db4d8f03ee9a07f","2013-01-15 19:04:16+01:00","Set the memory image cache to 20% of the device memory.
+"
+"c3b97a0e483bf2ddb2b1843414b94e655ca7e180","2013-01-16 21:30:33+01:00","Only add resized bitmaps to the memory cache, keep originals on disk.
+
+Since the disk cache is shared between the activities that show
+thumbnails and the 'Now Playing' activity this ensures that the 'Now
+Playing' activity doesn't show resized thumbnails of the artwork,
+while still benefiting from the disk cache.
+
+Create addBitmapTo{Memory,Disk}Cache methods, reimplement addBitmapToCache
+in terms of them, and only add the processed image to the memory cache.
+"
+"6f837288a0021f65cd2845bca557086ae20eebf0","2013-01-16 21:31:49+01:00","Override onDraw(), handle recycled bitmaps.
+
+onDraw() is occasionally called even after the bitmap has been recycled
+(i.e., cache and imageview reference counts have dropped to zero).  This
+shouldn't happen.
+
+Handle it gracefully, otherwise an exception is thrown when the Canvas
+tries to draw a recycled bitmap.
+"
+"37d640cd9f9ad2dbf03f23a4de9503b388cb5304","2013-01-16 21:53:50+01:00","Manage the image cache over the activity lifecycle.
+
+- Create the image fetcher and cache parameters once, in onCreate().
+
+- Attach the cache to the image fetcher in onResume().
+
+- Close the cache, removing it from the image fetcher, in onPause().
+"
+"14a38e756a6d4503d798dda6150c0d176d28362b","2013-01-18 21:00:17+01:00","Handle bitmaps in LayerDrawables that might be recycled.
+
+This should also catch the TransitionDrawable case.
+"
+"1d7fe2d02896fafad20474eda7da851f170d331a","2013-01-27 23:20:23+01:00","Use v2.1 of the bitmap recycling code.
+
+Pull in Chris Banes changes from v2.1 of his recycle-aware bitmap caching
+library (https://github.com/chrisbanes/Android-BitmapCache/tree/v2.1).
+
+Main changes:
+
+- Wrap the cached bitmap in an extended BitmapDrawable.
+
+- Handle bitmaps that have been cached but not yet displayed, to avoid
+a race condition.
+"
+"f9b188e5f40df72f73dc9d6b52e26fdf9bb03947","2013-02-19 21:04:54+01:00","Fix a 'Canvas: trying to use a recycled bitmap' exception.
+
+From https://github.com/chrisbanes/Android-BitmapCache/commit/6efa586dcd683fb77b5f99d8bc7afb6c54fafe42
+"
+"88f62caa869397d82c6a0af75f6f2f5d3923fc33","2013-03-24 18:12:32+01:00","Rollback changes that recycle bitmaps.
+
+Set the cache size to 12% of available RAM, and use setRecyclerListener()
+to explicitly remove bitmaps from ImageViews that are no longer being
+used, to alleviate memory pressure.
+"
+"ddd340c991795b0a282872b3b3d11aaa83f01127","2013-03-24 20:46:50+01:00","Report on cache stats, commented out by default.
+"
+"dd84f3db84b44b0266cb544b30ecbc5d877a054f","2013-03-24 20:48:43+01:00","Add initial notes for 0.9.1 release, bump version numbers.
+"
+"3dbc939deeea9ad3fd32f85a7f67018369c08784","2013-03-24 20:49:30+01:00","Target android-17.
+"
+"ec0f1c92d5894dc5fe191922cb438f89f1651f45","2013-04-01 14:34:55+02:00","Call setLoadingImage() once per mImageFetcher, not every getAdapterView().
+
+The previous code loaded and decoded ICON_PENDING_ARTWORK every time
+getAdapterView() was called, even if the final image to be displayed
+was already in the cache or otherwise available.
+
+This resulted in a ~ 80K unnecessary allocation on every call to
+getAdapterView(), which happens ~ 3 times per list row when the list is
+scrolled.  Move the list 5 rows and over 1M of memory is allocated,
+leading to additional garbage collections and stalls when scrolling
+the list.
+"
+"ae10814aa77375325e07d9bc6a27ee774b700b73","2013-04-01 15:28:14+02:00","Update Proguard map for 0.9.1 release.
+"

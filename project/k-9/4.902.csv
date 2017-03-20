@@ -1,0 +1,71 @@
+"commit id","commit date","commit message"
+"92e9e6d140dcc81bfd669a48805bc900be2f08f2","2014-02-14 01:25:54+01:00","Fix version codes in changelog
+"
+"0c7740ce86163bb8940f63a5727b1af7a79434a5","2014-02-15 21:30:44+01:00","removed unread field mAccount
+"
+"28398dbdada82ba8335fa5d17953067c22fad2cc","2014-02-15 21:33:08+01:00","removed unnecessary unboxing followed by reboxing
+
+Since id is a Long, Long.valueOf(long) unboxed the Long to a primitive
+long, then reboxed it into a Long instance, which was again unboxed to
+allow it to be set as an element of the array of longs. This commit
+reduces the number of boxings from 3 to 1.
+"
+"309a4d6107f1bfb071989fbe81fbfe86e78cc156","2014-02-15 21:38:05+01:00","Use more efficient entrySet iterator instead of keySet + get()
+
+The loop extracted keys from `folderMap` and then called
+`folderMap.get(...)` for every key. If both the key and the value needs
+to be iterated on, `Map.entrySet()` is a more efficient solution as it
+doesn't require O(n) Map lookups.
+"
+"b942bf28895c694404f83b37418c34e6e5dee294","2014-02-15 21:40:57+01:00","typofix in comment (desti{o,}nation)
+"
+"8ac942d8288f929adca6d7d16402f40936063bb5","2014-02-15 21:43:55+01:00","replaced unnecessary explicit iterator use with for-each loop
+"
+"e8d3553b2c8228185541cee52e0e5850e65d0646","2014-02-15 21:50:58+01:00","replaced unnecessary explicit iterator use with for-each loop
+"
+"1202f5109a77ebe8296e01820d12542f1e41255f","2014-02-15 21:51:19+01:00","removed unnecessary explicit cast
+"
+"1bc3271de301665be6f43656331f66aae2fd3ae2","2014-02-15 21:58:52+01:00","replaced for with for-each loop and optimized List implementation
+"
+"21fe3f6cd20cb82d3d3e7de18766150555f16b57","2014-02-15 22:05:18+01:00","use built-in TextUtils.join instead of StringBuilder
+"
+"7ae3a15d7c8b33cf9c3c3715a058c41413daa3f0","2014-02-15 22:12:57+01:00","converted for to for-each loop with short circuit evaluation
+"
+"572427cb57145b02302c0b589350cb20065ca7a4","2014-02-15 22:19:58+01:00","use built-in TextUtils.join instead of StringBuilder
+"
+"ac1e68af7808d073b152ff4669cc0ed55536f0e4","2014-02-15 22:24:08+01:00","use built-in TextUtils.join instead of StringBuilder
+"
+"8627a3e702bf69b15f73d3b82c29e3a63bbf982e","2014-02-15 22:28:27+01:00","replaced for with for-each loop
+"
+"e75dd7df39eb954ae01b5a6194763bdcbc3db4b9","2014-02-15 22:32:00+01:00","replaced for with for-each loop
+"
+"3d327763b50afd24289af8047088f1c5935431b9","2014-02-15 22:42:20+01:00","replaced for with for-each loop
+"
+"df75853c6416c4cc9d6541b7364923d32180d9c7","2014-02-15 23:10:19+01:00","replaced entrySet + getKey with keySet
+"
+"cbbd0bc4057cb660fb1570d46419e811b9755f62","2014-02-15 23:47:56+01:00","use more idiomatic String.isEmpty() instead of comparing length to 0
+"
+"ab3044c9fa1e29a30bbef8e3e2723bc6a61b44ee","2014-02-15 23:48:35+01:00","use Set instead of implementation type
+"
+"f89544ea8bdcc7f9867c46f10c9296a780b8f92c","2014-02-17 18:19:52+01:00","Add failing test for HtmlConverter.linkifyText()
+
+There's currently a bug in linkifyText() that can lead to a
+StringIndexOutOfBoundsException when the text contains a
+bitcoin URI and a 'web' URI near the end of the text.
+"
+"fab31983abac1404f21f20d797275981d65514e3","2014-02-17 18:30:36+01:00","Fix linkifyText() in the presence of bitcoin URIs
+"
+"70399829c2f96d4b82add2a9dd59cb67c5898442","2014-02-17 19:57:44+01:00","Fix indentation and code style
+"
+"1be9272b9b18ddd198de45e9aa5a890213113bc9","2014-02-17 20:03:30+01:00","Merge pull request #449 from dnet/cleanup20140215
+"
+"dd5ac0f1c4c86722f3bfd8b48bf32aa3c437a6ba","2014-02-20 22:14:40+01:00","Add mailbox.org to list of providers
+"
+"8eb68c416ad32b17ccb9dae9aae8cf9992b478a7","2014-02-23 00:30:53+01:00","Avoid adding the same recipient twice when using 'reply to all'
+
+Fixes issue 6056
+"
+"dd4cbb7d3c7332dbfa3ed6fd374ada476a3935c5","2014-02-23 01:04:01+01:00","Update changelog for 4.902
+"
+"fec864a42644e7ee16e6b8842e1c844167be56a5","2014-02-23 01:36:17+01:00","Bumped manifest to 4.902
+"

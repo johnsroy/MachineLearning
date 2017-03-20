@@ -1,0 +1,221 @@
+"commit id","commit date","commit message"
+"2a3f03ab6c42950583173f14c517769f79334427","2012-06-13 10:08:36+01:00","[maven-release-plugin] prepare for next development iteration
+"
+"990945de361fa754b3bc50be67f76df9c8fb686d","2012-06-19 15:55:24+01:00","Replace pull-to-refresh code with Chris Bane's Android-PullToRefresh lib
+
+This library is under active development and uses Maven, making it easier
+for me as a potential contributor to get it building. It's also packaged
+as an apklib making it easier to use without having to copy and paste code
+into my own project.
+
+Note that it was necessary to change the view's id from '@android:id/list'
+to '@+id/pull_to_refresh_list_wrapper' to avoid this fatal error on screen
+rotation:
+
+E/AndroidRuntime(31031): java.lang.RuntimeException: Unable to start activity ComponentInfo{com.madgag.agit/com.madgag.agit.BranchViewer}: java.lang.IllegalArgumentException: Wrong state class, expecting View State but received class android.widget.AbsListView$SavedState instead. This usually happens when two views of different type have the same id in the same hierarchy. This view's id is id/list. Make sure other views do not use the same id.
+E/AndroidRuntime(31031): 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:1956)
+E/AndroidRuntime(31031): 	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:1981)
+E/AndroidRuntime(31031): 	at android.app.ActivityThread.handleRelaunchActivity(ActivityThread.java:3351)
+E/AndroidRuntime(31031): 	at android.app.ActivityThread.access$700(ActivityThread.java:123)
+E/AndroidRuntime(31031): 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1151)
+E/AndroidRuntime(31031): 	at android.os.Handler.dispatchMessage(Handler.java:99)
+E/AndroidRuntime(31031): 	at android.os.Looper.loop(Looper.java:137)
+E/AndroidRuntime(31031): 	at android.app.ActivityThread.main(ActivityThread.java:4424)
+E/AndroidRuntime(31031): 	at java.lang.reflect.Method.invokeNative(Native Method)
+E/AndroidRuntime(31031): 	at java.lang.reflect.Method.invoke(Method.java:511)
+E/AndroidRuntime(31031): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:784)
+E/AndroidRuntime(31031): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:551)
+E/AndroidRuntime(31031): 	at dalvik.system.NativeStart.main(Native Method)
+E/AndroidRuntime(31031): Caused by: java.lang.IllegalArgumentException: Wrong state class, expecting View State but received class android.widget.AbsListView$SavedState instead. This usually happens when two views of different type have the same id in the same hierarchy. This view's id is id/list. Make sure other views do not use the same id.
+E/AndroidRuntime(31031): 	at android.view.View.onRestoreInstanceState(View.java:9963)
+E/AndroidRuntime(31031): 	at com.handmark.pulltorefresh.library.PullToRefreshBase.onRestoreInstanceState(PullToRefreshBase.java:708)
+E/AndroidRuntime(31031): 	at android.view.View.dispatchRestoreInstanceState(View.java:9939)
+E/AndroidRuntime(31031): 	at android.view.ViewGroup.dispatchRestoreInstanceState(ViewGroup.java:2318)
+E/AndroidRuntime(31031): 	at android.view.ViewGroup.dispatchRestoreInstanceState(ViewGroup.java:2324)
+E/AndroidRuntime(31031): 	at android.view.ViewGroup.dispatchRestoreInstanceState(ViewGroup.java:2324)
+E/AndroidRuntime(31031): 	at android.view.View.restoreHierarchyState(View.java:9917)
+E/AndroidRuntime(31031): 	at com.android.internal.policy.impl.PhoneWindow.restoreHierarchyState(PhoneWindow.java:1600)
+E/AndroidRuntime(31031): 	at android.app.Activity.onRestoreInstanceState(Activity.java:906)
+E/AndroidRuntime(31031): 	at android.app.Activity.performRestoreInstanceState(Activity.java:878)
+E/AndroidRuntime(31031): 	at android.app.Instrumentation.callActivityOnRestoreInstanceState(Instrumentation.java:1100)
+E/AndroidRuntime(31031): 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:1934)
+E/AndroidRuntime(31031): 	... 12 more
+W/ActivityManager(27872):   Force finishing activity com.madgag.agit/.BranchViewer
+"
+"24e98e0f9c8239c0ea13ffff1a538b22a90b31b7","2012-06-24 23:16:31+01:00","Fix crash in Clone launcher when user enters just '.git' for the repo url
+
+URIish should probably blow up when some tries to create it with '.git'...!
+
+java.lang.ArrayIndexOutOfBoundsException
+at org.eclipse.jgit.transport.URIish.getHumanishName(URIish.java:569)
+at com.madgag.agit.CloneLauncherActivity.defaultRepoDirFor(CloneLauncherActivity.java:291)
+at com.madgag.agit.CloneLauncherActivity.updateUIWithValidation(CloneLauncherActivity.java:140)
+at com.madgag.agit.CloneLauncherActivity$2.afterTextChanged(CloneLauncherActivity.java:98)
+at android.widget.TextView.sendAfterTextChanged(TextView.java:6705)
+at android.widget.TextView$ChangeWatcher.afterTextChanged(TextView.java:6894)
+at android.text.SpannableStringBuilder.sendTextHasChanged(SpannableStringBuilder.java:921)
+at android.text.SpannableStringBuilder.change(SpannableStringBuilder.java:401)
+at android.text.SpannableStringBuilder.change(SpannableStringBuilder.java:269)
+at android.text.SpannableStringBuilder.replace(SpannableStringBuilder.java:432)
+at android.text.SpannableStringBuilder.delete(SpannableStringBuilder.java:218)
+at android.text.SpannableStringBuilder.delete(SpannableStringBuilder.java:28)
+at android.view.inputmethod.BaseInputConnection.deleteSurroundingText(BaseInputConnection.java:224)
+at com.android.internal.view.IInputConnectionWrapper.executeMessage(IInputConnectionWrapper.java:377)
+at com.android.internal.view.IInputConnectionWrapper$MyHandler.handleMessage(IInputConnectionWrapper.java:79)
+at android.os.Handler.dispatchMessage(Handler.java:99)
+at android.os.Looper.loop(Looper.java:130)
+at android.app.ActivityThread.main(ActivityThread.java:3691)
+at java.lang.reflect.Method.invokeNative(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:507)
+at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:907)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:665)
+at dalvik.system.NativeStart.main(Native Method)
+"
+"38454289c8a3964827b5b957dd4919cff9e680e5","2012-06-25 08:55:05+01:00","Warn user if there's not enough room when planning a clone
+
+Thanks to José who worked out that his sdcard being full was the reason
+Agit was gnomically failing...
+
+The 128 KB space requirement comes from an quick look at the amount of
+space a blank repo takes on an Ubuntu laptop - it probably takes a little
+less on an Android device.
+
+$ du -h
+40K	./.git/hooks
+8.0K	./.git/info
+4.0K	./.git/objects/pack
+4.0K	./.git/objects/info
+12K	./.git/objects
+4.0K	./.git/refs/heads
+4.0K	./.git/refs/tags
+12K	./.git/refs
+4.0K	./.git/branches
+92K	./.git
+96K	.
+"
+"b038726b49c0243696f7637aae681dcd907a4c01","2012-06-25 12:46:07+01:00","No longer die if the default repos dir is no longer available
+
+Users can now save to different locations, so it's certainly not a fatal
+error.
+"
+"125be60a649e21e533c95a2d3cc1b69194343f87","2012-08-10 11:39:48+02:00","IntelliJ Copyright-updating config
+"
+"568e435b95e79efeb8a07ae4f252c708a7a6596c","2012-08-10 19:59:24+02:00","update with copyright notice for 2012
+"
+"306258f96a99515197c84e5cd12e572dd76b961d","2012-06-26 22:24:47+01:00","git intent tweaks
+"
+"631d2d92f21639c3fb60d3c298fce0df85b9bb73","2012-08-10 19:53:33+02:00","Move commit-log list in Branch viewer to new LogFragment
+
+also tidy CVA
+"
+"9f86c340afcb287eff4cc0821a5136918bfd00b6","2012-08-09 12:45:41+02:00","Create filterable File-List fragment
+
+The searchbox works on honeycomb and above with SearchView, gingerbread
+and below with a subsitute textview.
+
+Caching helps though larger regexes could still take a long time to run for
+a long filter list - doing 'indexOf' instead of regex appears to be around
+ten times faster than regex.
+
+Only decorate the displayed file matches
+
+decorating *all* matching files can take a little time, putting this into
+the viewholder code makes sense if we assume the user is going to spend
+more time typing than scrolling up and down the screen.
+
+respect editor 'action' key hit by minimising search view
+
+Use monospace text for ref name in the file filter query box
+"
+"28d47fe978e139faffb14bc7df35e3b8825b21ea","2012-06-29 09:13:47+01:00","Add File-List fragment to Branch Viewer activity using a viewpager
+
+Users can now see the current file list for the head of the branch they're
+viewing.
+"
+"c60e823cb75d6b594568be03bdba4d15037c4326","2012-06-24 21:24:38+01:00","Fix jerkyness on swiping sideways through Branch viewer activity
+
+Deactiviating the unnecessary animation fixes this jerkyness.
+"
+"a6d3f49c23c53715f60007a019175929eb3f99ed","2012-06-19 12:40:18+01:00","initial commit of google-code-prettify
+"
+"ba57b5be216a6b2d8092775669e4c76bad6d6579","2012-08-10 20:11:12+02:00","Add blob-viewer activity
+
+Use the google-code-prettify library to present text-based blob content,
+or launch the android picker if it's binary (passing thru detected
+mime-type)
+
+Amend blob frag to launch viewer...
+"
+"19907edce0af0ba61b48aa7abc63b33412171ce5","2012-06-28 22:06:19+01:00","Change commit-viewer activity to use a viewpager, add file list
+
+Note the pagerIds for the 2 viewpagers - current and 'next' - are
+deliberately changed to be distinct, so that the pager adapter doesn't
+allocate them identical fragment names. Otherwise the fragment manager
+would just use the same fragments for both.
+"
+"1b38aa94980c6d4dad6dcf6b5ff199cd1770bd81","2012-06-28 22:06:32+01:00","Attempt to stop Commit diff view from buzzing it's impending arrival
+
+Becomes even more apparent when viewpager fragments are involved, as the
+buzzing can occur seemingly randomly. Now the initial progress setting
+is made before the vibration-feedback listener is attached.
+"
+"91452020f30426116ead3f1048752358e3a1dbf5","2012-08-10 20:12:51+02:00","Make FileListFragment respect the search button notification from activity
+"
+"167b8fd9a8aa0ee39712ad5106d2059e02ca4f4a","2012-08-09 15:05:51+02:00","Add ranking of filtered file-list matches, better matches first
+"
+"6bf43a9b8f27f409a48bf8e358259be262235008","2012-08-10 10:14:14+02:00","tweak error message when test repo can not be found
+"
+"43bde449d48ad7bcc5f8a90d2100c950816b835f","2012-08-10 10:14:47+02:00","upgrade to zinc-enabled scala-maven-plugin
+
+not sure it makes a diff here tho...
+"
+"419b2f93a8173afc7dc33fde104f408c93f59fd6","2012-08-10 10:51:07+02:00","Fix integer-overflow-broken Tag-time comparision
+
+Occasionally led to crashes, when TimSort realised the comparison was
+broken, otherwise just gave incorrect ordering...
+"
+"204204dbd13754b146ad81199944c1a69bfcb39e","2012-08-12 09:47:49+02:00","upgrade to amp 3.3.0
+"
+"9e79eec1b6b84d10efca29fc71cdf0a3438efef9","2012-08-12 10:22:05+02:00","Fix file filtering on pre-Gingerbread devices
+
+file:///home/roberto/tools/android-sdk-linux/docs/reference/java/lang/String.html#isEmpty()
+
+...this method is from API level 9 onwards.
+"
+"3a8ad132613969e3aa355a0297f356156c3ff8ae","2012-08-12 10:56:39+02:00","Drop support for obsolete Android v2.1 (Eclair) and target Jelly Bean
+
+context.getExternalCacheDir() came in with Froyo.
+
+http://developer.android.com/reference/android/content/Context.html#getExternalCacheDir()
+
+Eclair is now on only a very small fraction of devices... terrifyingly
+phone operators are _still_ selling Froyo.
+"
+"439a570a8672ca0955f5155980c4dda928d6ceab","2012-08-12 11:42:18+02:00","Update Credits
+"
+"f26edc63e0c5a64d15575a5eb951bfcba1892311","2012-08-13 00:23:48+02:00","Upgrade to JGit 2.0
+"
+"e42190e0f31f3d28086616f782e7f31422e9d229","2012-08-13 23:27:53+02:00","Mildly improve error messages on OutOfMemoryError exceptions in Git ops
+
+OutOfMemoryError is not an exception, so onException() was not getting
+called. Also, the OutOfMemoryErrors I'm seeing generally don't have a
+message, so change to use the exception name as a message until I can
+think of something helpful to write about them...
+
+Note that there is still more that can be done here - for one thing, the
+sync adapter will keep on trying to hit the faulty repo, and will
+consequently cause out of memory errors at will... need to store a flag
+somewhere saying 'last fetch NOT successful' - and leave that remote alone.
+"
+"1d0b7c4cd37b78b872a4d93a22ef61b0904520b1","2012-08-14 08:25:12+02:00","Update to use official release of Chris Bane's pulltorefresh-library
+
+https://github.com/chrisbanes/Android-PullToRefresh/issues/61
+"
+"699b7bd2058af4ac04c9c0711f9235cf8820e9f5","2012-08-14 16:11:30+02:00","fixup commit-navigation when going from a 'latest' commit
+
+This got broken with the introduction of the fragment stuff- there's also
+a small improvement in that the branch name is now passed through to the
+commit viewer activity.
+"
+"83d68cd79fe7c9e8138fd0b29b08047101e5e868","2012-08-14 16:50:27+02:00","[maven-release-plugin] prepare release agit-parent-1.34
+"

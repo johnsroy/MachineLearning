@@ -1,0 +1,25 @@
+"commit id","commit date","commit message"
+"39e78cf4667b8db55f6200c833755e02306488de","2015-04-20 01:05:16+09:00","Fix: no outline found with PDFs
+
+ttOutline() (in org.ebookdroid.droids.mupdf.codec.MuPdfOutline)
+fails to find any outline if the argument `outline` is negative.
+
+The JNI part of org.ebookdroid.droids.mupdf.codec.MuPdfOutline had
+the following code:
+
+return (jlong) (long) doc->outline;
+
+But this returns negative value if the most significant bit
+of outline handle is 1, because `sizeof long` is 4 (32 bit)
+and outline handler itself is a 32-bit pointer.
+"
+"2f429e601a7e46537bde2464de586e6a4d78565e","2015-04-19 18:28:24+02:00","Merge pull request #91 from sss/fix-no-outline-found-on-android-5
+
+Fix: no outline found with PDFs
+"
+"7d4be12ef177c52a50043fdb30b38129ee63ca82","2015-04-29 16:49:34+02:00","Korean translation due to halcyonera.
+"
+"d791c2045ce75da4be4d30f6be0d907c7fb5eac9","2015-04-29 23:04:45+02:00","Include djvulibre as submodule, fix #98.
+"
+"872061ef17df35548b65ac7a314b978ea39fc158","2015-04-30 13:47:03+02:00","Fix #88, v2.7.1
+"

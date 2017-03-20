@@ -1,0 +1,124 @@
+"commit id","commit date","commit message"
+"a802b9348a8ff727f81af9d0773d7f1a95a5c118","2015-03-19 11:39:08+01:00","Move initialization code to class for itself
+
+Move the initialization code from an anonymous class to a private class
+to be able to handle the values from the savedInstanceState bundle
+better.
+A value for users are now saved in onSaveInstanceState since that was
+causing an su call on every orientation change.
+Reported in issue 92:
+https://github.com/jensstein/oandbackup/issues/92
+"
+"a2cf5b978052454ae3033c8ba38ec4993d92c8f7","2015-03-30 10:08:39+02:00","Separate custom lists from schedules
+
+CustomPackageList can also be used for other things than schedules, such
+as blacklists, so showList should take a filename as its parameter
+rather than assume it is being used for scheduling.
+"
+"dd620cab2994471698f8382bb6d25238491d22be","2015-03-30 10:25:16+02:00","Set customlist filename with a static variable
+"
+"29411b5a0761c6be43fe6ae8a995b8ed0e602534","2015-08-04 18:15:58+02:00","Fix typo in variable names
+"
+"bec9cabc6bec4ffc25051330c7a2e9a4f90ef10e","2015-08-04 20:18:48+02:00","Handle exclude check more elegantly
+"
+"082e4fc697f12899b61e5bf3e7f64690b893dc92","2015-08-04 20:26:49+02:00","Change default mode when activating schedule
+
+The default for scheduleMode should be the same everywhere.
+"
+"3dfaf0eb72061012b4cedd03937a87c97d0d586a","2015-08-07 19:10:53+02:00","Accept absolute paths in FileReaderWriter
+"
+"6d2aa0eb9b9e5ebdab6064eee9694423778577e9","2015-08-07 20:22:19+02:00","Add viewer for the error log file
+"
+"0759cfa02dda46cfa27d0146102a6fe1b5caedae","2015-08-22 20:40:44+02:00","Change class for listing openpgp providers
+
+OpenPgpListPreference has been renamed to OpenPgpAppPreference per
+commit bc177ed5e3f110cf372d6303c8e9d21e46fc76d2 of the openpgp-api
+project.
+"
+"72d69fd73801aa484492aa6e5d50532a01d9e1f2","2015-08-22 20:47:05+02:00","Fix broken encryption
+
+As reported in issue #101
+(https://github.com/jensstein/oandbackup/issues/101)
+most but not all encrypted backups were broken, at least in some
+instances because of incomplete pgp messages.
+This may have been a sleeping bug brought out by changes in the openpgp
+provider and openpgp api library.
+"
+"850a3f7f6c3932ffd3747f9e73ed8476f410d328","2015-09-05 13:29:30+02:00","Add Dutch (Netherlands) translation.
+
+Thanks a lot to barturblits.
+"
+"0a1c9a99dcddca3d2982c936c0f2ce2da62c06cc","2015-10-19 21:58:12+02:00","Add permission READ_EXTERNAL_STORAGE
+
+Permission added to handle issue #105
+(https://github.com/jensstein/oandbackup/issues/105)
+where File.listFiles() returns null on a valid path.
+"
+"8de21c61ff6c78b1d717d89fa6defa7841e999c2","2015-11-14 19:39:08+01:00","Add overrideLibrary in preparation of gradle build
+
+Sdk version is checked dynamically in the code so the api level
+discrepancy is ignored (which gradle needs to be instructed to do).
+"
+"bf2a0fb347f78790e21b45913c04b2a9ad045e5c","2015-11-14 19:47:04+01:00","Update openpgp code for library version 9
+"
+"ada75fb74887459cff11251ed8fff00d4a557197","2015-11-14 20:17:35+01:00","Add gradle
+"
+"f5a0e2dbc3b4897a5d11b9f0bf265af0c16bdd35","2015-11-24 18:15:01+01:00","Check for api 23 when swapping backupdir path
+
+As described in issue 108
+(https://github.com/jensstein/oandbackup/issues/108)
+api level 23 (android 6) seems to have reverted to having
+/storage/emulated available to root again.
+"
+"c87e322be1cb91cf55990ea2f7d181cdfefe0047","2016-01-04 15:44:27+01:00","Restore selinux contexts on android 6
+
+As described in issue 111 file security contexts need to be restored
+when restoring on api 23 (and above presumeably). The immediate fix is
+to use the restorecon command but this may not be sufficient since it
+will overwrite any user-made changes.
+(https://github.com/jensstein/oandbackup/issues/111)
+"
+"486ad6c261822d6558acd6f6cc4b456c5787589e","2016-01-04 15:53:06+01:00","Remove openpgp-api-lib submodule
+
+Having this library as a submodule is not needed when building with
+gradle and it cannot be built with ant without manual changes so in that
+case it would be better to pull it in separately.
+"
+"53d427c35822b841ab7ae220a6bfb367bed15786","2016-01-04 15:55:45+01:00","Delete empty file .gitmodules
+"
+"77cc9543602b4e05257939d46dd885c1b01a8270","2016-01-04 16:24:14+01:00","Add gradle build instructions
+"
+"05614098b2aa6e88209ce972b94324cdb31d625a","2016-01-04 16:49:24+01:00","Add description of manually restoring to README
+"
+"bd899f0dc639b9e5ce6aba77bd8c1d59e74c6059","2016-01-04 16:50:42+01:00","Move author note to bottom of README
+"
+"90f4b4df1bb2585e52c048d60de4b35254de050c","2016-01-04 16:54:28+01:00","Update translations
+"
+"c472889fbbcb53861f7041b86e73b6d026b202f0","2016-01-05 12:34:51+01:00","Add attribute for untranslatable string entries
+"
+"1249267dd9ce51e6127613be5fe64cfd61ab24dc","2016-01-11 22:37:14+01:00","Use test instead of [[
+
+Android is moving to toybox which doesn't have [ or [[.
+Moving to test will help portability a bit.
+"
+"b8692e3ae0b55c04b6be82d358771dcc72764ccc","2016-01-11 22:46:11+01:00","Modify commands in setPermissions
+
+There seems to be a problem with the toybox implementation of test in at
+least cm 13 so the line which calls chmod and chown has been rewritten a
+bit for android versions 6 and above.
+Cf. issue 116: https://github.com/jensstein/oandbackup/issues/116
+"
+"9ed21e3b059dc68f0b3cf621d5f619b1e1e0d876","2016-01-11 22:55:28+01:00","Auto-detect toybox
+"
+"0ac94ea05f19b8f6dbd91793d36ed5bb80060f84","2016-01-17 09:16:54+01:00","Add Russian translation.
+
+Thanks a lot to Svadkos.
+"
+"afe7740dc3d14145cc4cfbd864a3698c74ddb11c","2016-01-17 09:24:19+01:00","Update translations
+"
+"908b1d34697f15b1ce58ab27522eb39d9eb44095","2016-01-17 10:08:28+01:00","Add confirm dialog for starting schedules
+"
+"37e8b932ad8b127395ccb902244af569665254cb","2016-01-17 10:28:31+01:00","Update changelog
+"
+"6143886dc3de7a2321c886e6ac7cab5a57268262","2016-01-17 10:29:59+01:00","New version
+"

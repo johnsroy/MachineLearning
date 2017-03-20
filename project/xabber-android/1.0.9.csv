@@ -1,0 +1,50 @@
+"commit id","commit date","commit message"
+"d83d20c5328606bc2a646f621c4355d887c0e679","2015-05-18 19:31:36+05:00","Merge tag '1.0.8' into develop
+
+1.0.8
+"
+"e9a90014c33cbbae7421c2a6a525cb4806758d3d","2015-05-18 19:33:55+05:00","Implementation of a tri-state option for contact specific notifications #344
+New ShowMessageTextInNotification enum. Database migration was not done. Enum stored as an integer instead of boolean.
+"
+"27f542c722b49f2b0b4320a84314698bdbd57070","2015-05-19 12:56:15+05:00","For #344 Database version increased to 67, migration for 'Show message text in notification' chat option added.
+If chat option was same to global, it set to global, if it was different, it set to different.
+"
+"79501938a54d3046e99fb0f8fc543878cb29bcca","2015-05-19 14:33:37+05:00","Should fix #444 in a rude way.
+"
+"d638778861db9fc2989f759137a29f6d6777c50e","2015-05-19 14:40:33+05:00","Fix chat send button behavior when spaces typed #448
+"
+"3296aa304f325efcfc563092fa1a8af2aad04647","2015-05-19 17:14:53+05:00","Navigation drawer UI changed. #449
+"
+"3de96080e77f538e0e98c03a7e958ed6f73b0710","2015-05-19 14:20:24+02:00","Correctly use SRV specified hostname for cert validation (#204)
+
+Initially the XMPPTrustManager queried getServiceName from the
+ConnectionConfiguration and used that for certificate validation. This is a
+bug, because the serviceName corresponds to the hostname of the jabber id. That
+is, if we're trying to connect for account foo@bar.com it corresponds to
+bar.com.
+
+However, we are properly doing a SRV lookup to see which server hosts the
+actual XMPP server for bar.com, which may be on a different hostname. For
+example, everyone hosting their XMPP at fastmail.com will have their XMPP
+server on chat.messagingengine.com. The XMPPTrustManager will then try to
+verify the server's certificate of chat.messagingengine.com against the bar.com
+it expects, which will obviously fail. This issue renders it impossible for
+anyone using a 3rd part XMPP server to connect to their account.
+
+The correct approach is to use the hostname returned by the SRV lookup as the
+hostname checked by XMPPTrustManager. That is, if our SRV lookup for bar.com
+returns chat.messagingengine.com as the XMPP server, we should validate that
+the certificate corresponds to chat.messagingengine.com, NOT bar.com
+"
+"75e655960fdc8f23e2bb7045a868b16c81f336ab","2015-05-19 18:05:16+05:00","Drawer images resized for different dpi #440
+"
+"822404c0e4ab1d1d25fc2675e70ea6da19cf5652","2015-05-19 18:10:01+05:00","Material color 900 used for account names in navigation drawer. #449
+"
+"dd06349ccd11876c8587de65acd2311213c702d9","2015-05-19 18:15:11+05:00","Merge pull request #451 from merijn/develop
+
+Correctly use SRV specified hostname for cert validation (#204)
+"
+"e9870e696b48e4fb4241a7e05c769b4f299a0abd","2015-05-19 18:17:34+05:00","Version 1.0.9 (code 181)
+"
+"21294b022aa6045f4231e9e0470296bc48b41248","2015-05-19 18:21:09+05:00","Merge branch 'release/1.0.9'
+"

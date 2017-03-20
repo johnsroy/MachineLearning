@@ -1,0 +1,201 @@
+"commit id","commit date","commit message"
+"f0e64a33a45032ec23feec586066aa54fdc1e279","2016-05-23 21:53:38+02:00","drop message_parts table before creation in dbCreateDatabaseFromScratch
+"
+"59a818490fbaecd6afe93c3d7121a79c918504d2","2016-05-25 16:32:42+02:00","do not purge messages when downloading missing body for view
+"
+"93bc2794a96741ee2829724f5e04e55acc352912","2016-05-28 21:32:48+02:00","Merge pull request #1406 from k9mail/no-purge-download-for-view
+
+Do not purge messages when downloading missing body for view
+"
+"27a3add959b4b5999ea7e3cff89b6e753356fdcc","2016-05-28 22:27:44+02:00","fix flicker of subject line in MessageHeader
+
+MessageHeader rendered the subject line by default, and only after
+MessageTitleView decided it was large enough to display the entire
+subject line, the subject line was hidden again. This caused a noticable
+flicker during message rendering while navigating with next/previous
+message buttons.
+
+This commit flips the logic, only displaying the subject view once the
+title view finds it can't display it all.
+"
+"7651fe02e72e946871ef4923a0f0e660e1293c70","2016-06-02 18:37:17+01:00","Add UK variants of Hotmail addresses to providers
+"
+"b7c3e5296bfc2375f0cb913743aae7270ed74d53","2016-06-06 09:59:44+01:00","Update web page URL to GitHub website
+"
+"0d9d6acdf6ffdbf364783191b2c9547c2d6b08be","2016-06-06 21:35:10+02:00","Merge pull request #1443 from philipwhiuk/fixWebpageURL
+
+Update web page URL to GitHub website
+"
+"8f4ac55d6cbd0187477a91cc2e6060e921be0320","2016-06-13 16:04:03+02:00","don't rely on cached metadata from database for attachment info
+
+This commit removes use of LocalFolder.MessagePartType as an indication
+of part types in AttachmentInfoExtractor. The enum was intended as a
+caching mechanism to skip loading unimportant parts from the database,
+but only the reading side was implemented. As the expected performance
+gain is negligible, I disabled the reading side for now (computing the
+data instead) and more explicitly disabled the writing side as well.
+"
+"46d4e282da947d5666c140970d9fe1744b363394","2016-06-13 20:12:45+02:00","Optimize size of issue template
+"
+"c2bb16a7604e44d52c9c635b947397b04364cb31","2016-06-16 13:09:23+02:00","Encapsulate attachment resource handling into AttachmentResourceProvider
+
+This commit introduces the AttachmentResourceProvider as a layer of
+abstraction between K9WebViewClient and the message Part structure,
+which allows moving all K9WebViewClient handling into MessageWebView
+itself (making the class package-local).
+
+It also fixes display of uncached inline attachments, e.g. in a Forward
+operation called from the context menu.
+"
+"df877fb4703d04761e081aef69b0c4c17f8a03f7","2016-06-24 23:00:39+01:00","Fix failing com.fsck.k9.mail.MessageTest
+"
+"90e3a337d43c5c3f7155c2da99f59c0d5823e20b","2016-06-25 05:09:35+02:00","Alternate approach to fixing MessageTest
+"
+"8b99095aff11462b395f12be53b82f9b4b3bb314","2016-06-25 05:13:01+02:00","Merge pull request #1472
+
+Fix failing MessageTest
+"
+"4e7f08139695e562a5b2d93f8a034869cc018987","2016-06-28 00:36:05+02:00","Fix extracting alert text from negative IMAP responses
+"
+"6f46a5386162b2d53e885cd660d0c7e35b3ec746","2016-06-28 03:25:18+02:00","Merge pull request #1424 from OllieTerrance-forks/outlook-uk-providers
+
+Add UK variants of Hotmail addresses to providers
+"
+"2f4d0a82049f4936f24262afdbf1d8a9f22c025b","2016-06-28 04:01:37+02:00","Merge pull request #1459 from k9mail/fix-hidden-attachments
+
+Don't rely on cached metadata from database for attachment info
+"
+"dca9d20f990837b333d37f63b17c0a9a18fdfa85","2016-06-28 04:02:33+02:00","Merge pull request #1416 from k9mail/messageview-fix-flicker
+
+Fix flicker of subject line in MessageHeader
+"
+"2c4f6981924aae3103e599219f34c7eb8ebdb952","2016-06-28 10:59:27+02:00","split up displayHtmlContentWithInlineAttachments into set, clear and refresh methods
+"
+"9d1970d79fa8c1d816d309f67f1b3a8893fe7336","2016-06-30 03:58:47+02:00","Merge pull request #1465 from k9mail/extract-webview-resource-handling
+
+Encapsulate attachment resource handling into AttachmentResolver
+"
+"e71cff565e8c16e0a3a6c671175f12ce64a8a074","2016-04-15 21:17:02+02:00","messageview: ditch support for multiple root parts with different crypto status
+"
+"7305a20b8b2dd14ab2cb7cb5de2f69002bc41623","2016-05-23 16:04:58+02:00","messageview: handling for unsupported multipart/(signed|encrypted)
+"
+"43efd6db0b25d43d7cda291c135e1a74e55ae910","2016-05-03 18:06:51+02:00","add some unit tests to MessageDecryptVerifier
+"
+"b73805c59879dbb0e073f6fa3eed59b55fdba276","2016-05-03 19:11:56+02:00","first steps towards primary-part-centered MessageViewInfo structure
+
+This most importantly means moving away from the find*Parts family of
+methods in MessageDecryptVerifier. at the moment, the initial detection
+of parts to process in MessageCryptoHelper still uses the old methods,
+which are strictly more inclusive about what is processed.
+"
+"8f04d60249e7ff716386f72ca16431b7689b96ef","2016-05-14 00:08:26+02:00","messageview: for pgp/inline, only check BEGIN PGP MESSAGE marker
+"
+"240c5c8ea87f36fd04b285c7b9b2c5724eaa4508","2016-05-14 00:13:34+02:00","messageview: support mutt's application/pgp mimetype for pgp/inline messages (fixes #1271)
+"
+"0402eda9682027bd45939a6c35b794cea1d42aa9","2016-05-08 16:01:37+02:00","messageview: use OpenPgpDataSink and -Source for threads (contains api-lib update)
+"
+"04e17564a8b75e8257906f7289838a86eab56569","2016-05-09 16:28:38+02:00","messageview: add logic for display of crypto progress
+"
+"a55db0f3cf6cad108686a6e99ef59c8b83f50e56","2016-05-08 20:39:35+02:00","messageview: start parsing input only if it's not immediate EOF or EPIPE
+"
+"6ceec725cb96f10f1c245160eeb2d1e2738a3e7c","2016-05-13 08:51:33+02:00","messageview: use memory-backed body for decrpyted parts which are small and not attachments
+"
+"b57ef10e9045efc87c8ce80ce56c98a2773aa5e8","2016-05-23 16:29:16+02:00","messageview: add support for encapsulated signed parts (fixes #576)
+"
+"b0b269a7366d78feb1d1e9b84e2e62c0a9e67166","2016-05-24 10:09:22+02:00","messageview: add canceled CryptoError state
+
+Conflicts:
+k9mail/src/main/java/com/fsck/k9/ui/crypto/MessageCryptoHelper.java
+k9mail/src/main/java/com/fsck/k9/ui/messageview/MessageTopView.java
+"
+"6371cde5683035772f61925c6a3d1ae090fae9d8","2016-04-25 21:52:20+02:00","messageview: nicer handling of pendingintent in MessageList and MessageCryptoHelper
+"
+"8f568867a6e3ed6a2960198706c87509be355fee","2016-04-15 21:17:02+02:00","messageview: remove all openpgp info in message view
+"
+"d92155e2b5b61c08f38462bfa4d705ddd76879ed","2016-05-23 16:15:33+02:00","messageview: show crypto status icon in header
+"
+"4da1a011307461949c3dbcafba94a5b2136548bb","2016-04-18 19:58:01+02:00","messageview: add crypto info dialog
+"
+"d98f579b3472f031dd6ff28677ebf6e8b2dce5f6","2016-04-25 21:54:30+02:00","messageview: move some logic into MessageCryptoPresenter, refresh after key import (solves #732)
+"
+"61232cb6318b2b9f8e8d6da355a8b211ad0acc22","2016-05-04 17:12:56+02:00","messageview: display unsigned attachments in LockedAttachmentView
+"
+"c640e4a680f082ebb6bc8dc70cd9e0517d039663","2016-05-25 15:49:03+02:00","messageview: display unsigned text in additional textview
+"
+"293e23d04aebb1f0d8fefd7b8c750cc872cdedf1","2016-05-23 16:29:29+02:00","messageview: display support for encapsulated signed parts
+"
+"9b1e51c559efd3f588b2a18834b72ec5339c8f55","2016-05-09 22:28:09+02:00","messageview: draw progress bar while crypto is processing
+"
+"68e31a985f988d23130241ba90e5de2378043754","2016-05-10 16:00:41+02:00","messageview: cancel operation when fragment is destroyed
+"
+"573bfc4b597baac9fc827bdfc3e34ce45530b839","2016-05-11 13:31:36+02:00","messageview: make MessageCryptoHelper detachable
+"
+"675b167320daf1b85d7f3e2e7ca9f91b69a47e51","2016-05-11 14:30:26+02:00","messageview: retain MessageCryptoHelper over configuration changes
+"
+"c12ce9594102b5529cbd3a548d2bd888e84447b4","2016-05-15 22:53:39+02:00","messageview: add 'View Key' button to crypto info dialog
+"
+"58daf6850395c88c2928f4d494358c48b505f119","2016-04-19 18:24:33+02:00","messageview: handle crypto error states
+"
+"0df44a1457d2af72e9999346333d27e46dfd2777","2016-05-26 18:41:57+02:00","messageview: strip pgp markers for partially downloaded clearsigned messages before view
+"
+"b72dba67dfcdae1e73ec7f9ec0a5073aef2e6f75","2016-05-30 17:18:12+02:00","messageview: move all loading logic into MessageLoaderHelper (breaks MessageCompose)
+"
+"2e9184f8e29e56881dde6f07684953d43e31aa5e","2016-05-30 18:40:28+02:00","compose: use MessageLoaderHelper for quoted message loading (fixes MessageCompose)
+"
+"837aa70486c62922261f001297ca0164af01d9d7","2016-06-03 12:02:17+02:00","messageview: match signature user id with sender address
+"
+"f6f4805076cb59e539f7a27b4caeb754855c5747","2016-06-06 18:20:20+02:00","messageview: move MessageCryptoMvpView into a var instead of implementing directly
+"
+"b5b603001b004834b04b2de5c8479f4db8041dd7","2016-06-06 18:24:43+02:00","messageview: move setShowDownloadButton into setMessage
+"
+"fccb4a4b2454e170d26cb1d7360c3a2d5a811dd8","2016-06-06 22:45:47+02:00","messageview: simplify handling of external pictures, ditch ShowPicturesController
+"
+"1bae68169f9e28cba0fb53b5fbd2cca73b254f72","2016-06-06 23:13:25+02:00","messageview: move more control flow for display of crypto data into MessageCryptoPresenter
+"
+"84c0e4c73006d97c0e52bc27ed8f6bac5865c271","2016-06-09 17:58:45+02:00","improve variable naming and some magic constants
+"
+"ae9ee68f53855a856c5de5f57533734b53858d3c","2016-06-09 18:42:17+02:00","openpgpapi: extract closeLoudly
+"
+"b4bd645eaaf4b2d8e8b972351807dfb10a31773f","2016-06-30 11:21:29+02:00","fix copy paste string error
+"
+"7ebf79cdc0c70704f0bc79af52216b037a458ba4","2016-07-01 10:30:22+02:00","Merge pull request #1299 from k9mail/messageview-simplify
+
+Simplify crypto status in message view
+"
+"099d03f46aa77edbd29432c5e9f05007411f4e34","2016-05-19 00:13:50+02:00","compose: extract AttachmentPresenter
+"
+"1c8a6f05d0b1b340ab6251919d747914a72ace0e","2016-05-28 12:44:11+02:00","make Attachment class immutable
+"
+"4d3bc41c0a5e701c0542f00d7c4967cb8b8c8382","2016-05-23 15:25:45+02:00","unfold+decode header value in getContentType() and getDisposition()
+"
+"af9a5d2fc1dff2bdc0708065f1e6168184c1b7b2","2016-07-02 06:03:48+02:00","Merge pull request #1392 from k9mail/extract-attachment-presenter
+
+Extract AttachmentPresenter from MessageCompose
+"
+"e2e3da262c36555a6d9a8acef3e824ae7f28d667","2016-05-08 19:26:27+02:00","new option: just show notification for contacts
+"
+"1d2509e98f52d3ed7f0e4ee9abea768a7f493c02","2016-07-05 01:27:28+02:00","Change wording in settings screen
+"
+"ee8dd311df3010b4404f3113fcb32bfbc3c4a145","2016-07-05 01:34:40+02:00","Pass Contacts via constructor into MessagingController
+"
+"202595c605754721c0a5a754869f6bf48ba20661","2016-07-05 01:40:51+02:00","Make 'notify for contact only' setting available for import/export
+"
+"e75d3ca1c44569cb6052cd3f3a2ecc94fc4f023b","2016-07-05 02:50:25+02:00","Merge pull request #1479 from k9mail/imap_fix_alert_response_text
+
+Fix extracting alert text from negative IMAP responses
+"
+"cd4be0e466e407313fbf65cddedfa3169590bc1b","2016-07-05 12:04:54+02:00","fix translation issues
+"
+"1d471a86334be7fb3f9d9a54e6db24f72923dfdc","2016-07-06 21:25:20+02:00","Rename method for consistency
+"
+"fcf6e9e9ff142a3fd60f208e597437914eb1b418","2016-06-23 22:54:55+02:00","move text/plain up in extension list
+
+This list is used for extension lookup, higher values will be preferred.
+For text/plain, we want to default to a .txt extension.
+"
+"95c546d992caec044411651961d5b0afa45a9f8e","2016-07-06 21:55:32+02:00","Merge pull request #1485 from k9mail/notifications_only_from_contacts
+
+Setting: only show notifications for messages from contacts
+"
+"06e4ca194556376597495b7f12f7da6ae803dcbe","2016-07-06 22:23:53+02:00","Version 5.110
+"

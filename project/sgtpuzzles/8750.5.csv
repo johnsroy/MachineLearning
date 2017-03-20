@@ -1,0 +1,262 @@
+"commit id","commit date","commit message"
+"665f066b23e7c71e1690f41a23f30b99d3622571","2009-11-01 17:16:45+00:00","Merge branch 'upstream'
+
+Conflicts:
+LICENCE
+blackbox.c
+bridges.c
+filling.c
+galaxies.c
+laydomino.c
+lightup.c
+loopy.c
+map.c
+net.c
+netslide.c
+rect.c
+sixteen.c
+slant.c
+solo.c
+tents.c
+twiddle.c
+unequal.c
+"
+"a71c667250376e75281b4fd8ff059fbf382c042a","2009-11-03 01:57:36+00:00","The Big Commit Of s/NestedVM/NDK/g
+
+Apologies for cramming so much into one commit. This has been done intermittently over many months without getting around to proper version control, my bad... (I am at least splitting out cancelability, i18n and keyboard support into subsequent commits, because the first two of those at least are very invasive.)
+
+Split out Android as its own build target instead of reusing some nestedvm bits (and revert the latter to upstream state).
+
+Use the Android Native Development Kit instead of NestedVM. This improves speed, memory usage, install size, ick factor and probably other things. The downside is things like SIGSEGV are caught by the Dalvik VM and I haven't figured out a way to get a chance to talk to the user about reporting a crash.
+
+Actually try to build icons (and if necessary, GTK binaries to produce them) if the icons aren't already there, rather than failing the build. For those not paying attention at the back, the repository contains only saved-game files for the icons, and generates them by screenshotting the GTK apps. Cool, but does mean you need working GTK build environment (libgtk2.0-dev). Therefore, put our .o files under android/tmp to avoid clashing.
+
+Fix assorted minor bugs especially premature completion messages.
+
+Add zipalign to end of build for a small speed boost when reading resources.
+
+Fix some warnings about unused variables/functions with -DNDEBUG.
+
+...and probably other changes I forgot. :-/
+"
+"cfa3565d86119d2c219c11d12f3a9e95f1c2dc0c","2009-11-03 02:14:17+00:00","Add a .gitignore
+"
+"51fe27e2b4541feb03371f9e2289bea76af22c81","2009-11-03 03:12:37+00:00","Improve cancelability of most games.
+
+'from the I-wish-there-was-a-better-way-to-do-this dept.'
+
+Scatter checks for cancellation through new_game_desc in all the puzzles with wild abandon. There are probably too many. I have only vaguely checked that this is cancelable enough, and not checked at all whether I've inserted any checks in pointless places. This could really do with reviewing by people who know how the puzzles work.
+
+The effect of these checks is that if the UI has set the flag meaning 'user has pressed Cancel', then bomb out of new_game_desc as quickly and tidily as possible, having it return NULL.
+
+The UI thread currently blocks on the cancel operation with Thread.join(), so the risk in the case of insufficient cancelability is one of 'Application not responding for 5 seconds, [press here to kill -9]' rather than disastrous concurrency problems.
+"
+"264e2fb8e3812886b7b6a18b194024a1e599274e","2009-11-03 21:05:09+08:00","Allow for changing the NDK and SDK paths for Android
+"
+"477aefc1a662badd1feb7f48a6a918450be66ff2","2009-11-03 21:05:22+08:00","Create the android/lib/armeabi path before using it!
+"
+"f227950068c642f144b2cccccc22b03da5004a4b","2009-11-03 21:47:27+00:00","Add i18n, in a vaguely gettext-ish style.
+
+Translators just need to supply new versions of strings.xml to put in values-fr, values-de, etc.
+"
+"37eb2fb8c5d47cf7f33434a183e20bbbbb9a716b","2009-11-04 00:40:52+00:00","Revert unintentional change to bridges drawing.
+"
+"cc289176246ddd3d787b31414d921650bde18bd0","2009-11-04 00:41:54+00:00","Put Solo in permanent cursor mode on Android (stop cursor disappearing on typing a number).
+"
+"ca67b91c28d44abbc575dc964ec3575b41cf40c4","2009-11-04 01:13:55+00:00","Revert another unintentional graphics change.
+"
+"bae5f4a402464eaf057c216b22b9e04854991a28","2009-11-04 01:15:35+00:00","Add a few TODOs
+"
+"e09bc7d12b9911a36aa7618d3b722433e44f7130","2009-11-04 01:16:07+00:00","First attempt at keyboard support.
+
+Doesn't yet cope when the keyboard won't fit in one row.
+
+Still has occasional graphics glitches with the game partially drawn before the keyboard gains its size somehow. :-/
+"
+"e85070801b17ca3b0801a87df636527f8c42e0bf","2009-11-04 01:36:21+00:00","Update TODO.
+"
+"80059d181094df0e72812c96ae7fd33442f7c2ee","2009-11-04 12:06:32+00:00","Typo fixes from Debian bug#554341.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8734 cda61777-01e9-0310-a592-d414129be87e
+"
+"13bf2618efc3dbe9b3c6421c4bfe5f09b96159fd","2009-11-04 13:19:39+00:00","Beat up on Black Box docs, after Debian bug #548472.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8735 cda61777-01e9-0310-a592-d414129be87e
+"
+"2444c3736f09bc13ecd085450f07a78759aaedd7","2009-11-04 22:19:34+00:00","Fix building for GTK (I added some double-slash comments in my i18n commit).
+"
+"54e1d59dd5df27d18652ef0e3ed0a28bda2a34d8","2009-11-04 22:22:10+00:00","Ignore some more generated files (mostly docs)
+"
+"93f21cfd3a9780220c62080f8d5151a4b19745be","2009-11-04 22:23:18+00:00","Merge branch 'master' into keyboard
+"
+"ffd413a9f0c7ee3190d04df6ca0f7637a1136f5a","2009-11-05 14:09:04+00:00","Remove ASCII-art arrows. Missing \dash (Debian bug #522439).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8736 cda61777-01e9-0310-a592-d414129be87e
+"
+"192b2b2795c34fe9068e3a37386afd36efd225a6","2009-11-07 15:29:43+00:00","Derive from KeyboardView to get a nicer keyboard with previews. Seems to be working fine except preview position after changing orientation, which is Android issue 4559. :-(
+
+Have the layout inflater instantiate GameView (and the new keyboard) directly, instead of faffing about with a FrameLayout placeholder.
+
+Bump GETTEXTED_COUNT (Solo's prefs dialog at least was hitting it).
+
+Use JNI_OnLoad instead of an extra call from Java.
+"
+"487491ee4ade00b574f12d7d1349b1ec59fad4b3","2009-11-07 16:19:51+00:00","Merge branch 'upstream'
+"
+"2ee8b281844fca57629e0e5448c98d863258adb6","2009-11-07 21:40:43+00:00","Fix some keyboard size bugs, by recreating on orientation change (work around android issue 4559) and determining size during onMeasure (the only correct/reliable time to determine what dimensions we must fit in).
+
+Improve keyboard functionality in a few games.
+
+Bump version for beta.
+"
+"2fc8dc5ce5e58b922dbfd21c3d7c679805cab2b3","2009-11-07 22:12:33+00:00","Allow column shrinking in custom game dialog, since there is no horizontal scroll.
+"
+"32c51241479322f83b0314d5089db09b96c29e24","2009-11-07 23:30:53+00:00","Fix translation of strings starting with a digit.
+"
+"8c719f71ba7fce61babdd8f0e3f9424946a3c235","2009-11-08 00:57:44+00:00","Remove some debug; update TODO.
+"
+"374f82195460aeed08ea70122d89470c63207adc","2009-11-08 02:46:54+00:00","Ship documentation; use a WebView (which launches Browser/Email when needed). That was surprisingly easy. :-)
+"
+"8a683a468deeee1b914ad602881e59f4962621a6","2009-11-08 02:54:30+00:00","Make cursor much more visible in Net; update TODO.
+"
+"4324e8c5af0442c16f6cbd4a91f96f27e0c6b677","2009-11-08 02:56:12+00:00","Bump version; let's update the beta to include local docs.
+"
+"f670672c1c4ab842e55c34cbe3195ac256d253da","2009-11-08 17:09:18+00:00","Fix NullPointerException on rotation during the first game chosen if that game has no keyboard. Bump version.
+"
+"3dceb49bc063dbbe6fe755ff1ca872228891b0c6","2009-11-10 19:11:03+00:00","Add a precautionary pair of initialisations to placate optimisers,
+and asserts to check that the preinitialised values are never
+actually used.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8745 cda61777-01e9-0310-a592-d414129be87e
+"
+"52b035102a28dd059e798a59728fe34a1adc1428","2009-11-12 23:11:53+00:00","Allow saving to/loading from the SD card. You can use this to exchange games with other users and other devices.
+"
+"af45e1195137c604f673743f0a76093fd0c56954","2009-11-12 23:15:10+00:00","Merge branch 'upstream'
+"
+"e758eb7848326d25f241c00a6331a0d4c5865230","2009-11-12 23:16:26+00:00","Bump version: new beta 8745.1 allows saving.
+"
+"6aede2032759658ae3e8f3867b0c0db9389b8181","2009-11-13 00:11:48+00:00","Fix ability to overwrite a save file. Add a TODO. Bump version.
+"
+"d5c30d2402fddc730e1fa7fd93b78e75301a2fac","2009-11-13 23:49:28+00:00","Code cleanup: lose four message types (replace with runOnUiThread)
+"
+"9d2c0fa1044bb62c5decf8cebc8d8b53dc0b0e2f","2009-11-14 15:19:34+00:00","Ensure HTML docs are built.
+"
+"a38b82dcd7d20fe62277996427fc35e1a9330931","2009-11-14 15:20:34+00:00","Improve usability of Save option.
+"
+"639c9d316d77bc61beb8e0f18e1ea9324acd0b3d","2009-11-15 09:32:56+00:00","Disable undo/redo appropriately (just on Android for now) using a new 'drawing' callback changed_state (not really drawing, I know).
+"
+"99e024bc658a960fca1a388b0401dc51c889bba7","2009-11-15 10:39:55+00:00","Fix some probable memory leaks; report load failures after game identification and with a proper message box
+"
+"38dc58a42787b17c5f01e6760557df915e19d5c2","2009-11-15 11:37:50+00:00","Exclude printing.c on Android: we don't support it and I don't think the platform supports it.
+"
+"df389a3686eb81fc36ad475588b35662a7c89501","2009-11-15 12:19:46+00:00","Add/use NO_PRINTING define to compile out printing from each puzzle as well.
+"
+"29308500d1e410b0d027ecda0574577a3ee6743f","2009-11-15 12:28:46+00:00","Oops, missed an ifdef with NO_PRINTING.
+"
+"39f5c760bf814e84f9d639fbc7b00962608ca8b8","2009-08-16 19:40:11+01:00","Provide .po files as normal files not patches
+
+This makes it easier to update the translations and easier to
+enumerate languages.  It also avoids the problem that string changes
+prevent clean removal of patches.
+
+.po files are now provided in the debian/po directory and copied
+into the po directory, where they should be if upstream if adopts
+this translation method.
+"
+"39365933114a7b0ed956962e5e68cd41b15d4357","2009-08-16 20:03:12+01:00","Update German translation, thanks to Helge Kreutzmann
+"
+"3b5621c30b546e20df1e5403b16074e19270e3d1","2009-08-16 20:23:19+01:00","Fix Halibut syntax errors in German translation
+"
+"f6fe9915cd6d8a8b538ac0b8f4ec0bfda340e868","2009-09-30 22:53:20+01:00","Updated German help file translation
+"
+"11b5846e3cc75cb1ecc63d9014338a2feb880825","2009-11-02 01:33:29+00:00","Fix two syntax errors
+"
+"1a459c15fde35b8932b6d37da73319ce43c4f7f1","2009-11-04 02:21:23+00:00","Update German translation
+"
+"00c00d43b74f54a9ed013860c45664021ae5a30d","2009-11-05 00:46:12+00:00","Updated German help file translation
+"
+"51f8556af618eb5c71aed3fa9465f67b4f3d4719","2009-11-16 01:11:44+00:00","Stealing 206_translate-docs.diff from Debian.  --Chris
+"
+"52b86d35416713758b5ca1d07fdede3b52ac94e1","2009-11-16 21:21:00+00:00","Fix for the grid generation in the presence of particularly strange
+grid types.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8750 cda61777-01e9-0310-a592-d414129be87e
+"
+"12312c58c0612727a642803cbceb9f79039121e7","2009-11-16 21:26:20+00:00","Localise documentation! If the device language is German, the German manual will now be used.
+"
+"ed60c4ea415c938897e027a675cc2fe32508fae8","2009-11-16 22:14:18+00:00","Update German translation with differences between Debian and Android.
+"
+"8f961020f3dce79c8fe6bb00a63e35979c168ce3","2009-11-16 22:19:21+00:00","Merge branch 'upstream'
+
+Conflicts:
+loopy.c
+"
+"2424bb29f6fcf9b5923e84502d5677f8d91207e4","2009-11-16 22:27:13+00:00","Bump version.
+
+Also, remove some fuzzy flags in de.po (the changes do not affect the meaning).
+"
+"63afb58ea9aa2771876a66be76c25813b14e6e75","2009-11-16 22:37:29+00:00","Ensure docs are regenerated when .po file changes.
+"
+"74c4b9229bb84c2f457de66bcaef542d2bff63f1","2009-11-17 12:18:52+00:00","WIP: crash handler
+"
+"cb2172778c9ef8ec4b4dad9d386db680c38413de","2009-11-17 13:50:47+00:00","Log saved game and Java trace on crash.
+"
+"ca0d505dc03a58b6fe9b930154784b2acea656f5","2009-11-17 13:51:18+00:00","Fix crash in freeNativeResources: freeing in wrong order.
+"
+"17562a39365bd047668809a8d17b1122b96d385d","2009-11-17 13:51:33+00:00","Ensure doc directory is created before trying to use it.
+"
+"f5edc2622c336342d54a02c0a739826a3eb45cca","2009-11-17 16:27:49+00:00","Scale keyboard for different densities (e.g. Droid).
+"
+"4ba6407d563405563ccd19affc2386dc091e8e39","2009-11-17 16:28:36+00:00","Don't paint black everywhere outside the clipping region. Not sure how this worked; Droid tripped up on it.
+"
+"353831769dd51777b14cf299195071e485722fd3","2009-11-17 16:30:20+00:00","Don't try to join worker if there isn't one yet; first quick hack of right-click by holding trackball. Needs changing to defer the left click until keyUp within long-press timeout. Update TODO.
+"
+"1e8dccaaa447f2927c23abf84791f3173e5f5275","2009-11-17 16:58:58+00:00","Hackily demonstrate that we can read logs. Also, support all screens.
+"
+"11a0559877c3458a598b92f5eb283bc6739106f7","2009-11-17 23:53:56+00:00","Stop Filling coming out of cursor mode.
+"
+"0de40becf11a901217caf5faad1e0fbdd9512dd9","2009-11-19 02:07:25+00:00","Proper crash handling, using logcat and the user's chosen email client to report crashes. Also clean up some old crash handling code and add an uncaught exception handler that crashes natively to get us the native stack trace, because in this project, we probably need that trace.
+"
+"443ee23443106ce18b83c8145907f645582d5ba4","2009-11-19 02:09:18+00:00","Get version number from AndroidManifest.xml.
+"
+"11b53870faafec8dfaa5888f5c59c5fc8cb2ddcd","2009-11-19 02:13:06+00:00","Bump version for a new beta, with crash handling, support for 2.0 and different screen sizes.
+"
+"45508ace5a16898565ba15073fa0b501e8101d33","2009-11-19 09:02:30+00:00","You can now right-click by holding down DPAD_CENTER
+"
+"5dbb150270eac3be11541f4bf45e2c218babec6a","2009-11-19 09:02:46+00:00","Update TODO.
+"
+"af08adec6072a5e7c6cf86f8d748119179b43aef","2009-11-20 20:12:54+00:00","Crash handling: add timestamps and don't finish the crash handler due to lack of email client.
+"
+"31ccdc2bdb168f426b412f703ff28d0cd189415a","2009-11-20 23:53:06+00:00","Put undo and redo on the soft keyboard; ensure disabled/enabled state of those actions is updated.
+"
+"5e80584b77f4caeb96fca0f1e1e2fdf68f6e84c6","2009-11-21 00:05:09+00:00","With hard keyboard, still show undo and redo buttons. Therefore, hide undo/redo menu items.
+"
+"b13ff4f2fc2392d315b01154f29437e78194312c","2009-11-21 00:11:24+00:00","No longer require physical keyboard if there is a touchscreen. Also update TODO, including: mystery solved about the disappearing previews: repeatable keys don't preview.
+"
+"8d34b24f0a6b83fbc41aa5e1c83eca5dcf786ca9","2009-11-21 09:05:06+00:00","Don't crash if keyboard ends up empty.
+"
+"f3ee9ed6cd21eb68b45f4ba0bc7d78e5a892edc3","2009-11-21 10:44:51+00:00","Tidy up keyboard visibility.
+"
+"f49c473f3d83eec9f1690c59a33abe41a17487a6","2009-11-21 13:41:15+00:00","Stability fixes, e.g. don't try to free midend unless we're about to duplicate it or a load has failed (reduce risk of double-free).
+"
+"84b8f345046d351c2ada77c19de520aa5f30e164","2009-11-21 13:49:03+00:00","Bump version for hopefully final beta.
+"
+"f322f9a07c21aa0606008a37b03de81061a22c5d","2009-11-21 20:57:11+00:00","WIP: Actually build against 1.5, to get working on 1.5 devices (oops). invalidateKey is a 1.6 call.
+"
+"b79e0768a252f46ff823755070369c50712c2162","2009-11-21 22:04:39+00:00","Fix key redrawing for 1.5.
+"
+"3eb08f11f1403039ef3df5403b26ac7ed5ed240c","2009-11-21 22:05:32+00:00","Declare our use of the SD card, and bump version for release.
+"
+"ec43b11a598bef71d6b9b8f4aa1a0c0f96c3a87d","2009-11-22 01:33:25+00:00","Reorder menu to make more sense without undo/redo.
+"
+"54c7a207360d95ea04c3e4c2a8954d49b6945209","2009-11-22 01:37:35+00:00","Improve crash handling: show a spinner and cope with logcat hanging (e.g. this T-Mobile Pulse / Huawei U8220 Tom brought in).
+"
+"e2811aa4f4c7d58e4df806491261ce20c89fb8f2","2009-11-22 01:59:15+00:00","Report ro.modversion when emailing author, because mods sometimes mess with schedulers, may mean we're running from SD, may be relevant in other such ways.
+"
+"30452b748cc5ffdad68a2be787494ae9e8ac92e8","2009-11-22 02:03:34+00:00","Bump version for release
+"

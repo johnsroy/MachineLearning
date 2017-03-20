@@ -1,0 +1,138 @@
+"commit id","commit date","commit message"
+"9c05a830137864926c38f4694dce79b3132e0606","2012-05-24 19:12:24+01:00","[maven-release-plugin] prepare for next development iteration
+"
+"a7f1567230c9a2cd5e9b54edc502645032810e25","2012-05-26 14:12:23+01:00","UX tweak, don't show fiddly fields until the Clone url is populated
+
+Establishing the clone-url is always going to be the user's first priority,
+so don't distract them with other fields until they've made headway on that
+task.
+
+This tweak is only enabled on Honeycomb and above, ie where the gentle
+LayoutTransition animation is available. The change is too distracting if
+it occurs instantly without animated fade-in.
+"
+"9b23c292eb1a289a43cfcc67b2553efbc050c3c7","2012-05-25 19:32:04+01:00","disable TagViewer test that fails due to Robolectric bytecode problem...
+
+Caused by: java.lang.InstantiationException
+at sun.reflect.InstantiationExceptionConstructorAccessorImpl.newInstance(InstantiationExceptionConstructorAccessorImpl.java:48)
+at java.lang.reflect.Constructor.newInstance(Constructor.java:525)
+at com.xtremelabs.robolectric.bytecode.RobolectricInternals.newInstanceOf(RobolectricInternals.java:30)
+at com.xtremelabs.robolectric.Robolectric.newInstanceOf(Robolectric.java:59)
+at com.xtremelabs.robolectric.shadows.ShadowApplication.getSystemService(ShadowApplication.java:151)
+
+$ mvn -X
+Apache Maven 3.0.4 (r1232337; 2012-01-17 08:44:56+0000)
+Maven home: /home/roberto/tools/maven/current
+Java version: 1.7.0_03, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-openjdk-amd64/jre
+Default locale: en_GB, platform encoding: UTF-8
+OS name: 'linux', version: '3.2.0-24-generic', arch: 'amd64', family: 'unix'
+"
+"a509087419a7b66a837a1028781abe38c23f6edd","2012-05-25 15:29:21+01:00","switch to ActionbarSherlock for an ICS-style actionbar
+
+Unfortunately this means removing the big friendly Clone button on the dashboard,
+as it's rather bigger than the regular actionbar... need to add some kind of welcome
+"
+"51d34ec49e34b988f51bca1f48310d0887783866","2012-05-31 09:35:31+01:00","delete troublesome dashboard test - maybe replace it later
+
+fake clicking on a button in an actionbar is bit dubious
+"
+"5a6782887d022725203044db729c319b1dec2c08","2012-05-28 12:43:04+01:00","Use prefix titles on actionbar (subtitle-on-top)
+
+Crumb-trail style thing...
+"
+"8b4e84cc6b9d7cae4822293ad7bec60bb46de963","2012-05-29 21:00:45+01:00","Display current branch (if any selected) in commit viewer
+
+Also provides action bar link upwards from the commit viewer- if you've
+specified a branch, the link will head back up to the branch commit-list
+view, rather than directly to the repo page.
+"
+"811b6a12b4ec42cb2e136104026656838a03f9aa","2012-05-31 09:27:48+01:00","Fix TagViewer regression and switch to integration test rather than robolectric
+
+The awful guice repository-scope problems are avoided by passing the repo down
+as a parameter - so the TagViewer is no longer blank.
+
+The robolectric test has been dying horribly on some systems, seemly due to
+bytecode problems, and it didn't give any indication of failure when the
+TagViewer regressed - so an integration test is replacing the robolectric one.
+"
+"f682e82695ffac6e90596632e8fb14ac86c0f114","2012-05-25 21:55:44+01:00","fix spacing of 'thumb' image on diff seeker bar so thumb does not clip
+
+see here for related info:
+
+http://stackoverflow.com/questions/6491266/android-seekbar-clipped-thumb
+"
+"5c235bc62c84c6b4701d476109722699d2bb783d","2012-06-04 23:30:42+01:00","Disable robolectric tests which unfortunately fail on some systems
+
+The 'No implementations match configuration.' errors that occur look like
+this issue:
+
+https://github.com/JakeWharton/ActionBarSherlock/issues/377
+
+...but the 'ActionBarSherlockRobolectric' approach in that thread led to
+NPEs in this case :(
+
+Note that a separate approach ( https://github.com/passy/absshadow-sample )
+to combining ABS and Robolectric has already been implemented in Agit's
+project with a5090874.
+
+
+TEST PASSES: Ubuntu laptop
+
+Apache Maven 3.0.4 (r1232337; 2012-01-17 08:44:56+0000)
+Maven home: /home/roberto/tools/maven/current
+Java version: 1.7.0_03, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-openjdk-amd64/jre
+Default locale: en_GB, platform encoding: UTF-8
+OS name: 'linux', version: '3.2.0-24-generic', arch: 'amd64', family: 'unix'
+
+TESTS FAIL: Ubuntu CI server
+
+Apache Maven 3.0.4 (r1232337; 2012-01-17 08:44:56+0000)
+Maven home: /var/lib/jenkins/tools/Maven/ja_Maven_3.0.4
+Java version: 1.7.0_147-icedtea, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-openjdk-i386/jre
+Default locale: en_GB, platform encoding: UTF-8
+OS name: 'linux', version: '2.6.32.33-kvm-i386-20111128-dirty', arch: 'i386', family: 'unix'
+"
+"e7d25f4a6efbb6f00df9e4636f590a2d8a9fbcaf","2012-06-08 15:36:38+01:00","Use refresh icon from Android Design's Action Bar Icon Pack
+
+These are the '1-navigation-refresh.png' files from
+Android_Design_Icons_20120229.
+
+http://developer.android.com/design/downloads/index.html
+"
+"1c9492072a013f165a811836718f687b743331dd","2012-06-08 15:50:55+01:00","Use a Loader for the dashboard, get work off the UI thread
+
+Also using a 'fragment' for the first time- the repo list fragment.
+"
+"d9d7019fd6e1182aa21e3e9a56c7d24d1ba1da97","2012-06-09 09:00:04+01:00","fix #36: store repo locations in a DB to handle non-default checkouts
+"
+"645dc3224f2484ccebb5a7b1d17936a43d75d472","2012-06-10 21:02:27+01:00","Add 'Open Repo' option to allow opening Git repos already on device
+
+This is a follow on to issue #36, which allowed Agit to remember repos
+located in non-default locations.
+
+The file browsing is provided by OI File Manager, which the use is prompted
+to install if it's not already present.
+"
+"443404da0a584ad908587cf449424002ae76d1c1","2012-06-12 14:27:44+01:00","Play 'click' sound on ClickableText links
+
+See also :
+
+http://stackoverflow.com/questions/7914518/how-to-play-default-tick-sound/10987791#10987791
+"
+"c76231cbd4f4554fa9716c07d02b93a6156d9d9c","2012-06-12 16:15:14+01:00","Add welcome text to dashboard activity
+
+Would be nice to have to the welcome message disappear as soon as the user
+starts their first clone...
+"
+"9efc3c53634bd57893e03bb3b244c34af5c0b752","2012-06-12 23:06:05+01:00","set striped-red background for actionbar
+
+This is similar-ish to the old theme - it doesn't do so well with grey
+menu option drop-downs from the overflow list...
+
+http://developer.android.com/design/style/color.html
+"
+"2682a4f77a8975cec6ff01a9231b502e1e004a8c","2012-06-12 23:39:10+01:00","[maven-release-plugin] prepare release agit-parent-1.31
+"

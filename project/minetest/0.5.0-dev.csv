@@ -1,0 +1,325 @@
+"commit id","commit date","commit message"
+"a704c04f00bfea4b77550169fa08105c2ee0dfd0","2015-01-12 17:01:41+01:00","Network Layer 7 rework (Packet handling)
+
+* Move networkcode to a dedicated directory
+* Rename clientserver.h to network/networkprotocol.h (Better name) and sanitize some includes
+* Create object NetworkPacket
+* It stores command (opcode) and data separated
+* It also stores peer_id
+* Data reading can be done by using a streaming interface
+* Change packet routing analysis
+* Remove old conditional analysis
+* Now uses function pointed analysis and add connection state ({Client,Server}::handlers)
+* Connection state permit to categorize condition to handle before analyze packets
+* Create a handler for depreciated messages, instead of duplicating code
+"
+"dd2bb950be36c3ae34caacfe62df391612364f8a","2015-01-27 01:17:04+01:00","Fix Exit to OS button focus in Pause Menu
+"
+"368496b612931323b589abc1cb07fdc4c8c02a6c","2015-01-26 16:47:03+01:00","Craftdef.cpp: Improve loop and mathematics for CraftDefinitionShaped::check
+"
+"da8199799db9981e6e34f34efa0abb9db16e5f0a","2015-01-06 21:46:00+01:00","README.txt: Simplify initial build steps by using git to fetch sources
+
+Also simplify wget steps and apt-get install zlib1g-dev libjsoncpp-dev
+"
+"bb59a8543d44b566d8b39fd4727d552a8d4f3e90","2015-01-26 12:21:18+01:00","Replace getPlayer(playername) by getPlayer(peer_id) in some possible cases. ok @Zeno-
+"
+"caf8d2a9d16a313bbc86a27ad0642efc76852e9f","2015-02-07 17:52:56+10:00","Increase MapBlock::actuallyUpdateDayNightDiff() performance by 2-8x. ok @celeron55
+
+Before patch, function consumes up to ~8% of the main server loop. After, ~0% (below level of 2 places of significance)
+"
+"cfca5f99e62a32b5488d93f771453ef6935c5d4e","2015-01-20 10:41:51+01:00","Fix FTBFS on GNU/Hurd platform
+
+Minetest fails to build on GNU/Hurd due to a name clash with OSX/Apple,
+both are defining the __MACH__ keyword. This commit fixes the issue.
+"
+"d25ff8fd2592f457b91e8a61240694af3902d23f","2015-02-11 16:02:16+10:00","Remove workaround in itemdef.cpp to enable/disable/enable 'enable_shaders' setting
+* Increase performance (client)
+* Avoid changing a global value to solve a local problem
+"
+"f824866686ddba471a7b0c3178eaf968883bb69e","2015-02-11 17:01:19+10:00","Revert 'Remove workaround in itemdef.cpp to enable/disable/enable 'enable_shaders' setting'
+
+This reverts commit d25ff8fd2592f457b91e8a61240694af3902d23f.
+"
+"98b37e3e0d4d0bcea4d0a202f8519a39163b7493","2015-02-11 02:27:43-05:00","Fix Android build of narrow_to_wide
+"
+"c8f60bd224bf910d7521669ff4f90c372b289c3e","2015-02-11 17:45:49+10:00","Remove workaround in itemdef.cpp to enable/disable/enable 'enable_shaders' setting
+* Increase performance (client)
+* Avoid changing a global value to solve a local problem
+"
+"10b208f5c16d3d608fd029372422dd801aaa56ae","2015-02-11 09:05:24+01:00","Fix Android build since a704c04f00bfea4b77550169fa08105c2ee0dfd0Oxh. ok @zeno-
+"
+"8252e1ecd097abd83a3e9ef95aba37a3d837e00b","2015-02-11 09:57:35+01:00","Fix issue #2279. ok @zeno-
+"
+"a9355284b5c3726de83c6dcd6136dd1ac86e02dc","2015-02-11 11:27:52+01:00","Don't permit to open inventory is playerCAO isn't present. This prevent to open an empty inventory at player load. ok @zeno-
+"
+"704453ff124eaca8ef1b6ff564810c4bebb9cf3f","2015-02-11 17:00:20+01:00","Fix 'Download complete' dialog in the mods store
+"
+"66efaaa983cde27e0ad2f9cc142950a62c868765","2015-02-12 13:16:38+10:00","Fix Android compile warning
+"
+"b2f3ffe3081a3cd49c0536257aab86b82b022cae","2015-02-12 16:13:14+10:00","Enable LUA_USE_POSIX if possible in bundled Lua
+
+Fixes warning:
+src/lua/src/loslib.c:60: Warning: the use of `tmpnam' is dangerous, better use `mkstemp'
+"
+"c3a23ebc2813b0b9692622292eb25c9649a9cdda","2015-02-12 08:00:22+01:00","Make Clang happy with lua lauxlib.c.
+No functionnal change
+"
+"4a6582c13c36cab457b78f32338c6bb4ab9ea58b","2015-01-28 15:58:22+01:00","Small changes in the style of controls
+"
+"a19ec3328ceab7f8ea37748afcdcfcc2d6d2653d","2015-02-12 10:39:39+01:00","Remove unused variables to make clang happy
+"
+"14cc2c23d7dfbbe46450e092fbc6cd060767c81c","2015-02-11 13:42:58+09:00","Fix tab_mods.lua: default screenshot patch
+
+https://forum.minetest.net/viewtopic.php?f=6&t=11201
+Fixed this bug.
+"
+"92d1985802b9b5c8a8ca3540221b078fcaadb697","2015-02-12 19:26:26+09:00","Fix store.lua bug: default screenshot
+"
+"146f77fdb750833c649de7159a0833c398e14a4d","2015-02-10 21:14:24+01:00","main.cpp rework * Move ClientLauncher class to a dedicated file * ClientLauncher now owns print_video_modes and speed_tests functions (they are only called by him) * Move GameParams to shared/gameparams.h because it's shared between server and client and launcher need to know it * Move InputHandlers class to client/inputhandler.h * Cleanup includes
+"
+"e102cbd840c3dc3d52865868369aea3b8ee21028","2015-01-22 17:09:29+01:00","Fix .zip extraction (mod store)
+"
+"d3026293927f560465b325280fef697cc3361daa","2015-02-12 02:55:50+01:00","Fix gettext on MSVC
+"
+"c7a78037809a2f9c431441f7ef91f84eb8744fff","2015-01-21 02:50:33+01:00","Minor fixes in translations
+"
+"2630f45fdf9888038a5f0e08319dd0d4d1ce5e82","2015-02-12 16:21:43+01:00","Update czech translation
+"
+"af7f369d28dcd1f944fa396ab6b79198866cc39f","2015-02-12 19:36:02+01:00","Add german and french translation for minetest.desktop
+This fixes #1573
+"
+"d44cb547f288315628c490a2e0cb7d5e44eff976","2015-02-13 20:45:48+10:00","Suppress CGUITTFONT build warnings
+"
+"7c5accf60501e0ff7fd8f44af963b71da9ac8045","2015-02-12 22:03:24+01:00","Fix crash on passing false as value in table to table.copy(t)
+
+Fixes #2293.
+"
+"7880ff74b65040ccb90bc30ba520d4a4215d45a0","2015-02-14 09:21:04+01:00","Re-apply 4a6582c13c36cab457b78f32338c6bb4ab9ea58b broken since 146f77fdb750833c649de7159a0833c398e14a4d
+"
+"346652a80986d13fdf83705c8cf41ccdeee3f2b9","2015-02-14 23:23:54+01:00","Fix issue #2278, Connection sent before address data loading
+"
+"5eb0eda626942882fa9ac4e040da51c644a2bbbd","2015-02-14 18:51:31+01:00","Updated Spanish translations
+"
+"3b6b9435c5692eb56838867e184e59dbe4f6b5c0","2015-02-15 12:20:32+01:00","Only do the IPv6 unit test if IPv6 is enabled
+"
+"a3e2b3e40467e44ff068c5893bd6ccd3a695db61","2015-02-15 13:11:03+01:00","Fix unit test if there isn't a localhost address (for example FreeBSD jails)
+"
+"8aebc31a173fa3e6b80f25219b23131d9974a160","2015-02-15 14:28:41+00:00","Fix unit test if there isn't a localhost address (for example FreeBSD jails), second part
+"
+"efa977518a60c47f3c409449be202298900372e8","2015-02-12 16:57:22+00:00","Fix minetest.item_eat's replace_with_item, fixes #2292
+"
+"ed04e8e9e407f0dd57fa83a9732b3a3968cb80e0","2015-01-16 11:37:49+01:00","[Patch 2/4] Network rework: packet writing, sending and cleanups
+
+NetworkPacket.cpp:
+* Remove some deprecated functions, we must use streaming interface
+* m_data converted from u8* to std::vector<u8>
+* Add an exporter to forge packet to Connection object
+* implement operator << std::wstring. n
+* implement operator << std::string
+* dynamic resize when write packet content.
+* fix string writing and performances.
+* create ServerCommandFactory, used by client to get useful informations about packet processing (sending).
+* Reliability
+* Transmit channel
+* Implement putRawString for some ugly char (_INIT packet), and use it.
+* Many packet read and write migrated
+* Implement oldForgePacket to interface writing with current connection
+* fix U8/char/bool writing
+* fix string writing and performances.
+* add some missing functions
+* Use v3s16 read instead of reading x,y,z separately
+* Add irr::video::SColor support into packets
+* Add some missing handlers
+* Add a template function to increase offset
+* Throw a serialization error on packet reading (must be improved)
+
+PacketFactories:
+* Create ServerCommandFactory, used by client to get useful informations about packet processing (sending).
+* Create ClientCommandFactory, used by server to get useful informations about packet processing (sending).
+
+Client.cpp:
+* implement NetworkPacket ::Send interface.
+* Move packet handlers to a dedicated file
+* Remove Client::Send(SharedBuffer)
+
+Server.cpp:
+* implement NetworkPacket ::Send interface.
+* Rewrite all packets using NetworkPacket
+* Move packet handlers to a dedicated file
+* Remove Server::Send(SharedBuffer)
+
+ClientIface.cpp:
+* Remove sendToAll(SharedBuffer<u8>)
+
+Connection.hpp rework:
+* Remove duplicate include
+* Remove duplicate negation
+* Remove a useless variable
+* Improve code performance by using a m_peers_list instead of scanning m_peers map
+* Remove Connection::Send(SharedBuffer)
+* Fix useafterfree into NetworkPacket Sending
+* Remove unused Connection::sendToAll
+
+Test.cpp:
+* Remove dead code
+* Update tests to use NetworkPackets
+
+Misc:
+* add new wrappers to Send packets in client, using NetworkPacket
+* Add NetworkPacket methods for Connection
+* coding style fix
+* dead code since changes cleanup
+* Use v3s16 read instead of reading x,y,z separately in some packets
+* Use different files to handle packets received by client and server
+* Cleanup: Remove useless includes
+
+ok @Zeno-
+Tested by @Zeno- @VanessaE and @nerzhul on running servers
+"
+"7c8793cbea1ea83109b7d9d6974d3f6991efcec8","2015-02-15 17:30:38+01:00","Performance Improvement: Use a cache which caches result for getFacePositions.
+This greatly reduce the number of std::list generated by caching the result, which is always constant for each radius selected.
+In the callgrind map, you will see original:
+* 3.3M calls to std::list for 9700 calls to getFacePositions
+In the modified version, you will see:
+* 3.3K calls to std::list for 6900 call to getFacePositions
+Callgrind map is here: #2321
+
+it's a huge performance improvement to l_find_node_near
+"
+"f1fd0f7e144acdd5da08554d996ba56c67ee7c46","2015-01-28 16:57:37+01:00","Add LevelDB and redis to Travis Linux builds
+"
+"98d80e2012ab4856b8b443ef498297e3d3eadbaa","2015-02-17 01:56:09+10:00","Add player direction to on-screen debug text
+
+(PR Modified slightly)
+"
+"f8d5af753617d502920556cff88f451ef670c210","2015-02-16 17:42:13+01:00","SAO work: ActiveObject types & SAO cleanup * Replace u8 types with ActiveObjectType. * Merge content_object.h into activeobject.h * Remove DummyLoadSAO, it's now unused. * Remove ItemSAO, it's also unused
+"
+"c58d49977da5aab88f5a9d5b540c6237ca5cdcb5","2015-02-17 11:37:55+01:00","SAO: re-add old ActiveObjectTypes for a future migration layer
+"
+"718bcafd5174690a7731f9b04873e9a09f7a47b7","2015-02-17 14:30:32+01:00","Replace std::list by std::vector into ServerMap::listAllLoadableBlocks ServerMap::listAllLoadedBlocks and their database backends.
+This adds a speedup on database migration and /clearobjects command
+"
+"54487b3e70f01dc025816c87bbdbb511fb510719","2015-02-17 14:49:21+01:00","Remove old comment from Network Rework Patch 2/4
+"
+"24315db6ef90125c3c62327f2ace654b548811ac","2015-02-17 15:01:54+01:00","Ignore old entities from 0.3.
+"
+"3c91ad8fc2b7a7888503e85d31bfe286afa6560d","2015-02-17 15:04:08+01:00","Replace std::list by std::vector into timerUpdate calls
+"
+"fd70f4f2f040b64064676706e41d6da90c2b00db","2015-02-17 15:28:49+01:00","Replace std::list by std::vector into ClientMap::updateDrawList, Map::timerUpdate and ServerMap::save().
+This will speedup the loop reading into those functions
+"
+"81b9c023c4f96d2db06706496e0578fdd1b6377b","2015-02-17 10:29:44+01:00","Grab GUIChatConsole::m_font, fixes segfault when changing font_size
+"
+"2079462e62b478555b1b614a90692b6bc9bb5d34","2015-02-17 16:49:27+01:00","Change many useless std::list into Environment class (m_players), ABMHandler and ActiveBlockList::update
+This improve looping performances.
+"
+"0a299fd4e5dff20bb09f54f2329aedcc8d22ef9d","2015-02-17 16:53:49+01:00","Fix map_seed not changed when creating a new world after login to another
+"
+"b019221c30f58ce1944d8f2421b40b31ba364716","2015-02-18 09:23:24+01:00","Android build fix
+"
+"27d4e89d326337c8d8cafc681acde8bfbde7de77","2015-02-17 20:09:36+01:00","Fix unused (and so, broken) enable_rollback_recording. This option must be reloaded at server loop but loaded when server starts, for data consistency (not a hot load variable)
+ok @ShadowNinja
+"
+"49f84b76bcacb6de9544ebaf0a05c9f76ccf33b1","2015-02-18 09:53:43+01:00","Update missing files for Android.mk
+"
+"4d744cf87ad1cd108d125c58559cef4316e80a70","2015-02-18 11:45:23+02:00","Use fixed size for builtin menus on non-android platforms
+"
+"9a9fcfc9a302227d60c108d048d86b9d77cf24b1","2015-02-14 20:16:09+01:00","Fix font_size under windows
+"
+"8941ea0cc9ae899c8e43743c7a4efc7e9db9c489","2015-02-18 12:37:53+01:00","Increase default font_size
+"
+"5a0ed780f56a5225b3d7c5f64099586e390e5f39","2015-02-17 01:37:14+01:00","Server: announce MIN/MAX protocol version supported to serverlist. Client: check serverlist
+
+Client now informs about incompatible servers from the list, this permits to prevent the protocol movements.
+Server announces its supported protocol versions to master server
+"
+"804d65a8ecdb70acf868e0a5a9b6c670b473a70c","2015-02-18 16:48:58+01:00","Add modname convention checking
+
+Fixes #2037
+"
+"e6ad2ace1072160adcf34a254add4447f935268c","2015-02-18 19:50:37+02:00","Bump version to 0.4.12
+"
+"627c747470f80847df0e5a3eaf201d339b5339bb","2015-02-18 23:52:51+01:00","Uncomment version patch field
+"
+"e357577cb2c18fe29610ed406e01d8d1fda6bb89","2015-02-19 20:03:22+01:00","Typo fix in networkprotocol.h
+
+InventoryAction is in inventorymanager.h
+"
+"109f0ffeab1e38a74cfc7ec4787548ed8a6230b5","2015-02-20 10:35:39+01:00","update README.txt
+
+* prefix apt-get with sudo
+* git clone minetest_game without going to folder
+* execute minetest binary without going into bin folder
+"
+"38e62805527b774e478617d9781bde72ce2bdcb9","2015-01-21 13:24:11+00:00","Mgv5: Remove blobgen. Remove crumble and wetness noises
+
+Add large pseudorandom caves below -256
+De-link terrain level from water_level
+Cavegen: Mgv5 large cave code
+"
+"b3aeba684b4e27e9fdf2c07949750bb567e40d6b","2015-02-19 09:38:01+01:00","Unit tests must be done at integration process.
+
+* Remove --enable-unittests and --disable-unittests and add --do-unittests function
+* --do-unittests function will exit 0 on success.
+* minetest and minetestserver binaries are launched with --do-unittests in travis build.
+"
+"81930b17297bbb3c5f938d202c68903b18c83734","2015-02-17 23:10:45+09:00","Update Japanese Translation
+
+ok @Zeno- @nerzhul
+"
+"cf4045ff0f7c96614e64b2b336e62a240f443ea6","2015-02-21 11:51:12+01:00","Use proper CMakeLists.txt for network and client directories
+"
+"aa31e3c7f31fc00abc64551ebc03ed757311280a","2015-02-20 23:10:23+01:00","Use skin font for usernames (fixes #2363)
+"
+"3998a1f8f98c9d95a4b91b7a95612c6313081279","2015-02-21 13:00:57+01:00","Move sha1.hpp and base64.hpp to util/
+"
+"c09d026f0561ee3c6db821a7e193716f724a0e4a","2015-02-21 00:11:26+01:00","Fix particles draworder
+"
+"5a5854ea9d0bc346b00f48f40b538b7a8d68b37a","2015-02-21 14:17:36+01:00","Move hex.h to util/
+"
+"009149a073ac02dd412af3c203979157976c0dd8","2015-02-21 17:24:27+01:00","Fix some memory leaks on packet sending.
+"
+"a0affa496dcbcfff9881a79db83bf94916ca242d","2015-02-21 17:37:48+01:00","Fix android build
+"
+"c5defe7a11f58048acfa4568ea784f31d9ffa276","2015-02-21 18:04:47+01:00","Add mod.conf file support This new file only permits to specify a mod name for now
+"
+"47d9b4d9aa80e0268501b8eb927b37ee3660c503","2015-02-21 17:46:33+01:00","Improve FindIrrlicht.cmake module
+
+Linux distributions prefer to link against a shared version of the Irrlicht
+engine instead of using embedded code copies of the same. Search for this
+shared version first and use that but fall back to the static version if it
+does not exist.
+
+This also fixes https://github.com/minetest/minetest/issues/2163
+"
+"cd4324e5a800f12d4bbfea07a47d78e04eace920","2015-02-21 13:16:18-05:00","Fix serialization of floating point numbers
+"
+"38cf080a9c2a1e5b9ad41cf62d2eacdc92133d16","2015-02-23 16:48:51+10:00","Disallow object:remove() if the object is a player
+
+Rebased by Zeno- (conflict in lua_api.txt)
+"
+"51057a56f540f4e74b424e22c94357e5cb5268b2","2015-02-22 14:28:15-05:00","Add src/network/CMakeFiles/ and src/client/CMakeFiles to gitignore
+"
+"3b6480c5b0c968ad9f5a7cfb7ca494989be03629","2015-02-23 16:25:14+10:00","Fix wrapDegrees family of functions
+
+wrapDegrees() (renamed to modulo360f)
+wrapDegrees_0_360
+wrapDegrees_180
+
+Minor errors were present in previous versions; see issue #2328
+"
+"577701cabd6382bb97dc05e9c9244b5ce8202ca3","2015-02-23 23:20:06+10:00","Optimise MapBlockMesh related functions
+
+Directely or indirectly optimises the following functions:
+
+* MapBlockMesh::MapBlockMesh
+* MapBlockMesh::getTileInfo
+* MapBlockMesh::makeFastFace
+* MapBlockMesh::getSmoothLightCombined
+"
+"b4acac706dae66be3ddc3f0a291097ca175417f7","2015-02-24 08:56:52+01:00","Rename --do-unittests to --run-unittests as @Zeno- and @sfan5 requested
+"
+"d65a90a86bf5f1422a64ff190abefb8f7f199460","2015-02-15 19:27:15+00:00","Add camera smoothing and cinematic mode (F8)
+"
+"2a9de348bc6512ef8a0fa0246ddc87bc566195b7","2015-02-25 17:13:01+01:00","Fix CMake version
+"

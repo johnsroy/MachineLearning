@@ -1,0 +1,253 @@
+"commit id","commit date","commit message"
+"70f68e22e0e027e9eb814e6f3ae9ba2a4385d039","2011-12-21 13:46:48+00:00","In Group, the keyboard-controlled cursor should respect user
+rearrangement of the rows and columns.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9372 cda61777-01e9-0310-a592-d414129be87e
+"
+"b9bbec91b1451cd6fa057a13af6cd4beb97f6515","2011-12-28 18:07:46+00:00","Fix bug in --save caused by failure to initialise ctx.error to zero
+before later checking to see if an errno code was dumped in it.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9373 cda61777-01e9-0310-a592-d414129be87e
+"
+"941b8051899577852954551d7999a7fb55a7d507","2011-12-28 18:07:46+00:00","Fix bug in error reporting for --save caused by freeing 'realname'
+before the error messages wanted to use it.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9374 cda61777-01e9-0310-a592-d414129be87e
+"
+"fea989fb69fa75d22b21d885e54b1a18abe7beec","2011-12-28 18:17:30+00:00","Allow --save to work with --soln, causing saved game files to be
+written out with the Solve operation having already been performed.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9375 cda61777-01e9-0310-a592-d414129be87e
+"
+"1db18d1ad03d307c7e91a48a637dbb282432344b","2012-01-17 18:53:02+00:00","Fix a bug causing premature defeatism in the Bridges solver. Deducing
+a better upper bound on the number of bridges leaving a given island
+in a given direction was not counted as having 'done something'; so a
+solver run could make several such deductions, but then terminate in
+the belief that it hadn't achieved anything, when just going back
+round the main solver loop would have enabled it to make further
+deductions based on those new bounds.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9377 cda61777-01e9-0310-a592-d414129be87e
+"
+"4f2256b9474ab5c64f3a5b1d0f9c2da113bbd32b","2012-01-22 14:14:26+00:00","New puzzle! Or rather, new-ish, because this one has been lying around
+in the 'unfinished' directory for a while, and has now been finished
+up thanks to James Harvey putting in some effort and galvanising me to
+put in the rest. This is 'Pearl', an implementation of Nikoli's 'Masyu'.
+
+The code in Loopy that generates a random loop along grid edges to use
+as the puzzle solution has been abstracted out into loopgen.[ch] so
+that Pearl can use it for its puzzle solutions too. I've also
+introduced a new utility module called 'tdq' (for 'to-do queue').
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9379 cda61777-01e9-0310-a592-d414129be87e
+"
+"05fc4322a8d4e9696932d50613417b63eaa68661","2012-01-22 15:12:56+00:00","Tweak right-click processing to be less finicky.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9381 cda61777-01e9-0310-a592-d414129be87e
+"
+"f35a2fcb619707a86f742870a2042c1420624f6f","2012-01-22 15:44:04+00:00","It's a new year.
+(It was a new year this time last year, too.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9382 cda61777-01e9-0310-a592-d414129be87e
+"
+"ea1d780ef17934acb88fa7f23aca89a9e4bc80e7","2012-01-22 15:52:14+00:00","Trivial and silly patch to allow users to configure the Signpost
+victory roll so that adjacent arrows rotate in opposite directions,
+giving the impression that they're an interlocking field of gears.
+Possibly even more brain-twisting than the original version :-)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9384 cda61777-01e9-0310-a592-d414129be87e
+"
+"c5816d1070987a1265cbc648f66aa9154af24e43","2012-01-23 18:56:04+00:00","Fix default parameter assignment in Light Up when validating an
+incomplete parameter string: if the user hand-types a game ID along
+the lines of '18x10:stuff', we should not assume SYMM_ROT4 in the
+resulting game_params, since it'll be failed by validate_params.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9386 cda61777-01e9-0310-a592-d414129be87e
+"
+"d9d3dc4d5b02d3e4f2f5f3d34d5c00221d9dca0e","2012-01-23 18:56:05+00:00","The Light Up solver limits its recursion depth, so if it fails to find
+a solution then it should not deduce that no solution exists. Change
+wording of the error message returned from the Solve user action.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9387 cda61777-01e9-0310-a592-d414129be87e
+"
+"d513b36463a0fc3086300dc6c0bfd842089eb8a8","2012-01-23 19:12:12+00:00","Add comments suggesting some solver upgrades to Light Up (perhaps for
+a new sub-recursive difficulty level?), inspired by a user emailing in
+the game ID
+18x10:gBc1b2g2e2d1b2c2h2e3c2dBd1g1bBb2b1fBbBb1bBgBd2dBi1h1c2b1dBe2bBdBb3cBg
+which I was able to solve without backtracking by the use of these
+techniques.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9388 cda61777-01e9-0310-a592-d414129be87e
+"
+"a573a9d7c4b8f81444774f1295d8a41d4d0f77fa","2012-01-31 08:32:26+00:00","Move a debug statement at the end of new_clues from the caller (just
+after return) to the callee (just before). Might print something
+useful in the soak-test context (where that debug statement will now
+be printed and previously wasn't), but the main aim is to remove the
+variable 'ngen' at the main call site, which triggered a set-but-not-
+used warning if the debug statement that printed it was compiled out.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9392 cda61777-01e9-0310-a592-d414129be87e
+"
+"3c9dc9660a4a8bc416fb6c90a526cdd8592d383c","2012-01-31 08:38:42+00:00","Sort out a bit of confusion between mouse- and keyboard-driven drags
+in Rectangles. Mouse drags now take priority - you can't start a
+keyboard drag while the mouse is held down, and starting a mouse drag
+instantly cancels an unfinished keyboard drag - and also I've fixed an
+assertion failure which would come up if you had the keyboard cursor
+visible at the end of a mouse drag (by pressing arrow keys while the
+mouse was held down).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9393 cda61777-01e9-0310-a592-d414129be87e
+"
+"c3fd06e02aa1e5463c1978a0d33f2b8b74d7d310","2012-02-02 07:13:12+00:00","Can now take the dual of a grid
+
+Taking the dual of a grid creates a new grid with one vertex
+for each face of the original and one face for each vertex. This
+allows the easy introduction of a new grid type, the dual of the
+octagonal grid, which is a square grid in which each square is split
+into four triangles.
+
+Of the grid types currently present, square is its own dual,
+honeycomb is the dual of triangles, cairo is the dual of snub-squares,
+kites is the dual of great-hexagonal, and the dodecagonal ones would
+have vertices with twelve edges, probably not practical. The others
+all have duals that would introduce new classes of puzzle.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9395 cda61777-01e9-0310-a592-d414129be87e
+"
+"dc1669b1b67cb07daf45791466026a3888a42dbc","2012-02-02 07:13:14+00:00","Added 'dual' option to grid generators
+
+It is now possible to produce duals of all grids.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9396 cda61777-01e9-0310-a592-d414129be87e
+"
+"ac0498a73feaff13bab4c8cd388a61583cbf7b9c","2012-02-02 07:13:15+00:00","Added dual floret preset
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9397 cda61777-01e9-0310-a592-d414129be87e
+"
+"b1070e465619f507acbbb36154a91391cb6720d8","2012-02-02 07:13:17+00:00","Fixed decoding bug for dual grids
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9398 cda61777-01e9-0310-a592-d414129be87e
+"
+"7f3964d8a8b8110a430764e2f890dde1190dd461","2012-02-02 07:15:48+00:00","Arrgh! Revert r9395,r9396,r9397,r9398, all of which I just committed
+by mistake in one go by running git-svn dcommit on the wrong branch.
+Those were patches recently submitted by a user but which are not of
+production quality (yet?) and I meant to keep them in my local
+experimental repository. Sorry.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9399 cda61777-01e9-0310-a592-d414129be87e
+"
+"9aae12d093d5568dc5df9fce7164c893eca9e5e0","2012-02-02 07:18:14+00:00","David Nickerson reports that it's possible to lay a line over a 'no
+line here' cross mark by dragging, and furthermore, that doing so puts
+that grid edge into a stuck state that no UI action short of undo can
+get it back out of. Fix drags to stop at crosses, and fix execute_move
+to fault any move string that nonetheless somehow managed to try to
+set a line over a cross without explicitly tagging it 'R'.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9400 cda61777-01e9-0310-a592-d414129be87e
+"
+"db51e5a91d52f856ce8cc76c44c32874e87bf57c","2012-02-02 23:04:38+00:00","Fix a couple of typos in messages.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9401 cda61777-01e9-0310-a592-d414129be87e
+"
+"7cd62178f5409aeccfab49590f3e32502e812642","2012-02-02 23:04:43+00:00","Don't try to run solver_killer_sums on a Killer cage with only one
+square. It isn't equipped for it, and will try to handle it with the
+4-square case and get confused. This can come up if the
+DIFF_KINTERSECT pass before that split a cage, and will cause the
+solver to miss valid solutions; e.g. 3x3kadu#802065940985372 would
+generate an ambiguous puzzle before this change.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9402 cda61777-01e9-0310-a592-d414129be87e
+"
+"824f378eb0289a5dac39da12282ab3c049044226","2012-02-02 23:04:46+00:00","Correct kdiff setting.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9403 cda61777-01e9-0310-a592-d414129be87e
+"
+"b835a2a8854a096bbf5e235aa9c0596107976939","2012-02-08 23:31:58+00:00","David Nickerson reports odd behaviour involving a drag start point
+persisting between separate mouse actions. Revamp all uses of the
+ndragcoords field in an attempt to stamp that out: we now distinguish
+between active drags (>0), a valid click but no drag yet (0), and a
+totally invalid situation in which all mouse activity will be ignored
+until the next fresh attempt (-1).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9405 cda61777-01e9-0310-a592-d414129be87e
+"
+"a05d1909bdc0bad44441a5158c523ebd2102602f","2012-02-13 21:10:47+00:00","Fix one-character typo in r9405 which was breaking right-clicks.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9406 cda61777-01e9-0310-a592-d414129be87e
+"
+"d3b1e25b347728b3f62644cd8661aceb67fc337b","2012-02-17 19:07:31+00:00","Tweak a conditional expression in pearl.c to work around a display bug
+in the Java build - which turns out to be a JVM bug in OpenJDK 6,
+causing the NestedVM rendition of the expression (i==1?3:4) to be
+mis-JITed. OpenJDK 7 appears not to do that any more, but this
+equivalent (for these purposes) rephrasing should perturb the code
+just enough to dodge the problem.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9408 cda61777-01e9-0310-a592-d414129be87e
+"
+"d48227c634526de569a0711d77d84ca1d1e765e9","2012-02-19 10:15:59+00:00","Patch from Jonas Koelker to add keyboard control support to Pearl.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9411 cda61777-01e9-0310-a592-d414129be87e
+"
+"930f3a88e6e5e4f904f2c965c1251854c224b9a1","2012-03-31 17:05:16+01:00","Merge branch 'upstream'
+
+Conflicts:
+lightup.c
+loopy.c
+"
+"6a529ed150b736fbdb0f0611da1d57ff3c7a0c27","2012-03-31 17:05:51+01:00","Don't crash on missing icon
+"
+"9099ffa713c0d8f7d82e1a7349a26a6352e1506a","2012-03-31 17:06:53+01:00","Placate ADT 17.
+"
+"567c58e373db66460cac2aa692e32b3e1ab43e40","2012-03-31 17:13:08+01:00","Obvious translations for Pearl. Non-obvious TODO...
+"
+"9b69d7ce28cfee3ec4d8b6cd89e076de15fbfb3b","2012-03-31 17:24:10+01:00","Ignore pearl binary.
+"
+"10b1aa0706f8497bf9dd2b9962c39055cbae51fd","2012-03-31 17:24:34+01:00","Comment out unused variables to hush a build warning.
+"
+"0b46b7c5c801216c74d40eeafa493160b436675e","2012-03-31 17:25:38+01:00","Update icons (Pearl).
+"
+"78bf0f046c038dbfbbceab1280bb1c3a957b7ffc","2012-03-31 17:58:09+01:00","Detect completion in Pearl.
+"
+"c5873ca4fc317825b40a13418d3212ff07fb1c84","2012-03-31 18:52:39+01:00","Describe Pearl.
+"
+"2ecefa513ef656f67cb0bbe5df4cbd701bd4b476","2012-03-31 23:42:33+01:00","Option to keep screen on. Also use ellipses.
+"
+"4f2b545c9bae11e5eab2c7e2744c9619cb1404be","2012-04-01 00:09:56+01:00","Properly ditch the printing code here.
+"
+"6c84120bc293f7d4e9d8298e301c14482faba7df","2012-04-01 00:40:23+01:00","Remove shortcut 'm' for settings, conflicts with many games.
+
+I don't see a good replacement immediately.
+"
+"caab6a93d44bb597af29091c7ab982314649c3ba","2012-04-01 01:24:41+01:00","Try to catch missing game list in URL handling - someone may have hit this again.
+"
+"02afc85958d5ccdc2932569b355b93654781f15c","2012-04-01 01:52:11+01:00","Option to use old undo/redo, allowing auto-repeat.
+"
+"8b00bd4b80336f716137321eb643b3ae2605bcd2","2012-04-01 10:07:19+01:00","ActionBar home as Up -> chooser. On 3.x it's not noticeable so keep menu item.
+"

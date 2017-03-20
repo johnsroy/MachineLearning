@@ -1,0 +1,249 @@
+"commit id","commit date","commit message"
+"5f5f643fb98790f313f7d4f80af8c605bc1d37af","2011-10-30 00:51:39+02:00","KYRA: fix monster hp in LoL
+"
+"f30e208649748600d78a402393aff6d778326939","2011-10-30 20:33:01+01:00","KYRA: (LOL) minor fix, cleanup and renaming
+"
+"2e1af729b8c37d579ad9665f8bb8fc6403cb5f2c","2011-11-04 21:31:57+01:00","KYRA: replace invalid memset call and add a warning
+"
+"643b3f60b4149109ef916d8205aaf60f037e74d9","2011-11-04 21:39:53+01:00","KYRA: add missing (maybe unused) case to LoLEngine::olol_getGlobalVar()
+"
+"71e8a3777cccd37b39c0cb8b25c723c99f0208f2","2011-11-08 22:27:35+01:00","KYRA: fix bug #3429455
+
+(signed/unsigned bug in LoLEngine::olol_getWallType)
+"
+"623fd6cc8f341d89591777a48bd74c10baf170a3","2011-11-11 11:29:40+01:00","CREATE_PROJECT: Disable OpenGL by default.
+"
+"7ec7cb92b87ae361095248983a907a1fcd438904","2011-11-13 23:35:02+00:00","AGOS: Fix engine crash when playing Feeble Files from cabinet datafiles.
+
+Playing with cabinet datafiles, this failed to find the 'Charisma.smk'
+file in the cabinets when in the Recreation (TV) room on Cygnus Alpha
+and this caused an engine abort after the GUI dialog warning of the
+'missing' video file. This was due to animation.cpp code using
+Common::file::exists() instead of going via the ArchiveMan.
+
+However,a hasFile() method implementation was also required to implement
+fallback to decompressed (movie) files if the file requested is not in
+the cabinet or the cabinet has been externally decompressed to files.
+
+Thanks to fuzzie for the hasFile() patch.
+
+Also, removed noisy warning which this correction triggers repeatedly in
+installshield_cab.cpp hasFile(). This looks like leftover from
+debugging, so not critical.
+"
+"1dfe45b672110d29815a54bb2d2d506f106d4cbd","2011-11-14 01:11:52+00:00","DOC: Add AGOS Cabinet bugfix to NEWS.
+"
+"7bae4b95d3b15261b058fc7b3498a869378ca342","2011-11-14 15:39:59+01:00","KYRA: Fix bug #3437647 'LOL: Unexpected missing save file'.
+
+Formerly the code was confused about what _saveSlots is doing, i.e. creating a
+continous list of existing save slot ids.
+(cherry picked from commit f410480cfd848636cce21d3f89c8a8b0ef068680)
+"
+"4d5e6c85ba89f563e61fe199e322d041009a0f56","2011-11-15 14:55:50-06:00","MAEMO: Update debian/changelog with correct release date
+"
+"f992d05c56d8462b841fabf0c07c8be883ca7b75","2011-11-16 18:29:46+01:00","NEWS: Mention Lands of Lore saveload GUI fix.
+
+(cherry picked from commit 0001826a903e2e6610a963574fd4f1dc9b868488)
+"
+"2653e3193aa75108027972c42ac914772036f51b","2011-11-16 18:31:08+01:00","KYRA: Make message about missing save file a warning and no error.
+
+(cherry picked from commit 7c2145f67c355f18e309b342f27ad8e62d475ac5)
+"
+"e99036bc8588e714fcbbe35cee2bb6ed18424b82","2011-11-17 11:00:09+02:00","SCI: Fixed bug #3439240 - 'QFG1VGA:  Game Crashes While Sleeping at Erana's Peace'
+"
+"67b5b4f97710dbfc1e0578b9ed0e3c41a8b38a59","2011-11-17 11:16:10+02:00","SCI: Updated information regarding bug #3439240
+"
+"b85677cdab145c85df5a6603a2e6e3e1cd305521","2011-11-17 11:24:57+02:00","NEWS: Mention the fix for SCI1.1 palette effects
+"
+"dde25d14d4057a1dfb902e5b3a5435e0932e8a16","2011-11-17 11:28:42+02:00","NEWS: Fixed typo
+"
+"e1b90001e0be28e840648eaee61f86293f1989da","2011-11-17 10:38:37+01:00","NEWS: Shorten AGOS cab entry
+"
+"5cc51e83df63985c8c0034733edd3b265eb0bb7a","2011-11-23 22:35:42+01:00","KYRA: (HOF) - fix ending text in the playable demo
+"
+"8e0dc823c2b6cb25521d0cea970f03abe2da8d58","2011-11-17 22:43:19+11:00","NEWS: Clarify InstallShield bug fix.
+
+(cherry picked from commit bb4915abbe6ed00a59bceb4c98070830b90a91e2)
+"
+"d2a71796df4821e8ff577168864a75a38973764c","2011-11-24 00:47:24+01:00","KYRA: (HOF CD Demo) - check shouldQuit() during ending text loop
+"
+"a7ce0d103fca7315e80a6228c1a38c2aa0900992","2011-11-24 21:27:22+01:00","SCUMM: make FM-Towns save files compatible between DS and other platforms
+
+(only applies to new save files)
+"
+"ac985516554b736a33aca7354a1c7d0450ae8cf0","2011-11-24 21:59:31+01:00","SCUMM: paranoia 'fix' for ae5192c5d396b6ab3caf57adabeb03a832966dd3
+
+(change sizeof check to use int16 instead of Common::Rect)
+"
+"3b6838731bc7d57da99aa25aa58a70e7f4199c41","2011-11-24 23:06:21-06:00","MAEMO: Make setupIcon do nothing
+
+It seems N900 is hit by SDL_WM_SetIcon bug (window cannot receive input)
+http://bugzilla.libsdl.org/show_bug.cgi?id=586
+
+This fix is based on the old 1.2.1 Maemo port code
+
+(cherry picked from commit c451bd4340cc8d76e1ba6bb55d3d75b67c38e4cf)
+"
+"dca32d00bfb6ecc7b159c27f7a1f74490264285a","2011-11-27 21:27:38+00:00","I18N: Update Swedish translation from patch #3443449
+"
+"0ab0ff6ac02952189855b91a21e638fda109fcee","2011-11-27 21:47:25+00:00","DOCS: Add Swedish translation of QuickStart from patch #3443455
+
+(cherry picked from commit 0a7155931f45e7d656a053a1c2dd283d0b6b346a)
+"
+"06635689b02ae5c1344e891e508058c9d9b4ec23","2011-11-29 18:34:25+01:00","SCI: Fix restarting SCI engine with different SCI version
+
+(cherry picked from commit 0192d2f2de5838ac380b4ec3c6f0a72a93a4bc2b)
+"
+"97a71658e09804c6150c813cecde211d15143bf9","2011-12-01 20:53:29+00:00","I18N: Spanish translation update from patch #3446300
+"
+"72ea51356367f2cb1291b35aee67f4467cc380b3","2011-11-29 11:19:47-06:00","MAMEO: Add GMM keybinding for N900 (fix bug #3443043)
+
+The keybinding is Ctrl-Shift-m.
+Ctrl-m is more desirable but is toggling mouse capture.
+
+(cherry picked from commit dabea2b5151b5f220fb06a93e50a3eb43903385c)
+"
+"34654c6304e9ab67964881642c44e647b5b51736","2011-11-29 13:38:17-06:00","MAEMO: Add basic graphics manager
+
+This is necessary for bugfix#3443037
+
+(cherry picked from commit 29c0386f2c5d1a8a03cab0010e7c7c7e27fe2e94)
+"
+"bce2fa7c976c39cf7b3ea684e699df8a4cb43e3e","2011-11-29 14:01:20-06:00","MAEMO: Fix zoom key capture on N900 (fixes bug#3443037)
+
+This was semi-intentionally skipped in the intial port revival
+because the focus was on N810 at the time.
+
+This is mostly copied from the old 1.2.1 port and then cleaned up.
+
+(cherry picked from commit fda6e1534bc1dfad7f1f32ccf0bb51f3eb34974d)
+"
+"523f4af080418f13a810259ed84c6ac8649bc51f","2011-12-02 12:26:58-06:00","RELEASE: This is 1.4.1pre
+
+Actually, 007d9ef7734917e7666189eddc0ab5d6878b2c87 is but it's never too late
+"
+"864a751b174362e9fefae6eb7291236438955f93","2011-12-02 21:26:40-06:00","MAEMO: Fix compile error when using Maemo 5 SDK
+
+Thanks NerdKnight
+(cherry picked from commit ba9eb8bffdf7cfdf085528442a66a265aa394842)
+"
+"8d82e826b5022debc4848858512512f960796bc9","2011-11-20 05:20:31+00:00","BUILD: Change engine configuration options
+
+This changes the set of engine options to ./configure to:
+
+--enable-all-engines
+--disable-all-engines
+--enable-engine=<engine name>[,<engine name>...]
+
+And if plugins are enabled:
+--enable-engine-static=<engine name>[,<engine name>...]
+--enable-engine-dynamic=<engine name>[,<engine name>...]
+(cherry picked from commit dd6c6a36ea80531af3f7c180f1d06df23a93fe5c)
+"
+"6345f6a2c0ba55a9d29345395fa0bb3db645cd56","2011-11-26 12:15:05+00:00","CONFIGURE: Accept plural as well as singular forms for engine build options.
+
+i.e. --enable-engines=* will be accepted as well as --enable-engine=
+(cherry picked from commit 61a1b49a2d8e1ef2cb78b6f23632227c069d4341)
+"
+"6c7800c40346821d1380f637a3799c060871f840","2011-11-26 15:39:43+01:00","BUILD: Report more specific errors for configure engine options
+(cherry picked from commit 9e1829173ce4d79effd5b669cbfbe5ac3c7444ec)
+"
+"9373664b21af74c960b8f0693cb5d503e2e1e99d","2011-12-03 13:29:50-06:00","MAEMO: Add fields to debian/control
+
+(cherry picked from commit 29b1f9f517fcee2e6328502eaaa7271113131438)
+"
+"b903a02a2a0cbafbbf20a8e38cc84c7711c4003c","2011-12-05 01:34:04+01:00","WINCE: Update port specific README
+"
+"f1c772a7d87abc8dc93abb5b2be88d7b7de0e98b","2011-12-05 01:58:01+01:00","WINCE: Update port specific README
+"
+"7d630d6388e63c52e966c3f23e8d4bc2ce33d10f","2011-12-04 21:20:51-06:00","MAEMO: Remove i386 from Architecture field of debian/control
+
+It confuses the maemo.org autobuilder which tries to build x86 builds with ARMisms in them
+(cherry picked from commit 4b315b1f158770b0a24027f07cfb6b1a47f70401)
+"
+"482767c308afdaba4d55b98bfce42fcf94766c1d","2011-12-06 19:23:36+00:00","DOCS: Add Swedish README from patch #3451861
+
+(cherry picked from commit be47635ef9ef639e7aa2500ffa8d4edd121393ac)
+"
+"8604eba95b8cb5d33dd0c0eb6488581f1ea22e56","2011-12-13 16:15:04+01:00","KYRA: Fix for bug #3459000 'KYRA1CD: Accented characters overdrawn in introduction'.
+
+(cherry picked from commit efa52cb79c35a78e624f42e4ab919c6016bdadcf)
+"
+"6898ab917479ae34533193df8cf2f17626b084b9","2011-12-13 16:17:06+01:00","KYRA: Cast char to uint8 before passing it to getCharWidth.
+
+This assures getCharWidth really gets the character number and now sign
+extended version of it in case char is signed.
+
+(cherry picked from commit 77959acd51982d9fedec94ac07241b1702681c6a)
+"
+"7f088096cb4673fd4d79a8742c5d9733669d29ee","2011-12-28 13:07:14+02:00","SCI: Rename _bMultiMidi to _useDigitalSFX and only initialize it inside SoundCommandParser
+"
+"fa5e2f750e384b1d2b7b4a2f7f5d1e00c5f13974","2011-12-28 13:21:19+02:00","SCI: Always prefer digital sound effects to prevent confusion to users
+
+This toggle will be enabled again when a more user-friendly GUI option
+is possible
+"
+"65b3a91fb0aa601b574cab5a3e86e27ed272cf08","2011-12-29 19:34:49+01:00","DISTS/FEDORA: Build against libfaad2
+
+(cherry picked from commit 1aa5608de643cff79bea81132bc18b3a163ccbdb)
+"
+"4a0dc293b525af29a4c39b1028df6b633c418c28","2011-12-29 13:27:45-05:00","AUDIO: Fix M4A seeking with multiple time->sample chunks
+"
+"51b354d9a6fdb613aa582626c1fca01302007e4f","2012-01-06 09:38:41+01:00","AGI: Fix predictive input binary search
+
+Note that there are still issues with this input mode. If the binary
+search hits a prefix match before finding the full match, it won't
+recognize the full match. (Example: typing 'buy' will show 'buz'
+because it's aiming for 'buzzard' without realizing 'buy' exists.)
+(cherry picked from commit 41ba2433f57f064f3119b5b5c1247eadb32d5977)
+"
+"a2b553a017fbc32df69998350eab04a7b8a07b83","2012-01-06 11:20:46+01:00","AGI: Fix ignoring some exact matches in predictive input
+
+The matcher now always tries an exact match before trying an inexact one.
+Together with 51b354d9a, this fixes bug #3470080.
+(cherry picked from commit 43e2fde7a951d362ab06f20bc043698f0e1e47c3)
+"
+"3adc1ab467afd47a938a89a008201b559d37cc4a","2012-01-06 18:16:08+01:00","KYRA: (LOL) - add support for loading original DOS version save files
+"
+"9e4932f96b459b056d7c5a797be2dbc064803f5a","2012-01-09 00:17:29+01:00","SWORD2: Force fake transparency for PSX sprites
+
+In PSX version blending is done through hardware transparency,
+this would have to be simulated using 16-bit mode. As this is
+not yet available in this engine, fake transparency is used
+as a placeholder
+"
+"ef58cc326e142eb0941306167acbc0b02c462c65","2012-01-11 17:18:35-06:00","MAEMO: Update debian/changelog for the upcoming 1.4.1 release
+"
+"3d83111f62f76b9cfc0915378f923ad9e864092b","2011-11-14 20:39:00+01:00","SKY: Support external digital music tracks.
+
+This allows replacement of the supplied MIDI music with tracks from
+the Music Enhancement Project.
+"
+"382a19b29b6b03addafc62aa9b048fe7cda45c89","2011-11-22 14:20:49+01:00","SKY: Don't loop the floppy intro track.
+
+This isn't relevant at present, so this is 'just in case'.
+"
+"0627b0b36a81a21adaf1d726cf0c0ebcf4101311","2011-11-22 14:57:25+01:00","SKY: Map the floppy intro track.
+"
+"f4d52b1151018f7628e88b37f678fa12ef91d6a5","2012-01-13 20:49:30+00:00","DOCS: Update NEWS file, set 1.4.1 release date.
+"
+"1a60e151e8aa53b30b149cc0f95e389eb9ff2207","2012-01-01 11:49:41+01:00","MISC: This is year 2012
+"
+"aec7e082046f2156281578b4a87a1a8b79e323f1","2012-01-13 22:23:31+01:00","WIN32: Update release date in game definition file
+"
+"c3acbadaf4000538efca1351b3b72b1287071b28","2011-11-20 20:56:43+02:00","SCI: Reset parameters for all channels used by a song when it starts
+"
+"971ad533b95fae4e2e5a4558876a093dd49a275d","2012-01-13 23:47:03+02:00","NEWS: Add a note about a bugfix when starting new songs in SCI
+"
+"529f07e79b15998d73d8d91423e36f04e05f8219","2012-01-14 08:36:02+00:00","DOCS: Update German NEWS and README files. By Simon Sawatzki
+"
+"d488e6447afae01653bfe7d2367bc71684564eab","2012-01-14 08:39:26+00:00","RELEASE: This is 1.4.1
+"
+"91c3361e7fd3d108a0bd5978dafff276dd90488f","2012-01-14 08:45:41+00:00","DISTS: Generated Code::Blocks and MSVC project files
+"
+"b793f234255f2141cd3bea604411705f36600da8","2012-01-14 04:39:49-05:00","OSX: Use static zlib library again
+"
+"e2668a20dc234a5f975ca54b9e6b63e4d0c0586e","2012-01-14 10:44:11-05:00","OSX: Avoid use of NSString:stringWithCString, for OS X 10.2 and 10.3 compatibility
+"
+"f0f8d065b34b4fa776d555cccb57bdc4e70be328","2012-01-14 10:47:27-05:00","OSX: Fixed some file paths when copying docs to the bundle, and updated DS_Store
+"

@@ -1,0 +1,198 @@
+"commit id","commit date","commit message"
+"6d7428ad292161cf83b2588daa26535fa2e75dc0","2015-12-09 00:03:39+01:00","Require initialized state for some more actions
+"
+"794ae6d8003ebc051d59aad15926a440317d043e","2015-12-09 17:54:54+01:00","Well, we better return something usefull instead of just false :-]
+
+Please try again #178
+"
+"854a7ee1ac6629313e3b7adb01b2d93938eab050","2015-12-09 17:55:46+01:00","Avoid NPE when DeviceInfo is null
+
+(when a notification comes in while we're connected, but not initialized yet)
+"
+"4528aaf22fbd0c532add57ddc3a7bbefad9d9930","2015-12-11 21:09:29+01:00","Pebble: Allow installing apps compiled with SDK 2.x also on the balast platform (pebble time, pebble time steel)
+"
+"c9d1b9dd4a7dd71fbdedbcf0bc1b38ad48272b35","2015-12-11 21:24:00+01:00","add new icons (thanks xphnx!)
+"
+"b1954eec3e54952b470d97ccb8040d0c55f4c1ae","2015-12-11 21:38:43+01:00","make use of some new icons
+"
+"7cf1e0e004cb52228500ca81a1fd442dba22ca6f","2015-12-12 11:59:52+01:00","Add system app icon and make use of it (thanks xphnx!)
+"
+"f258e626336fac1a691a9885e18fbd987410a1ed","2015-12-13 00:43:07+01:00","Refactoring: centralize GBDevice creation
+
+- created and provided by DeviceHelper
+- passed from UI to service
+- without UI, service uses DeviceHelper directly
+
+=> Cleaner and less duplicated code
+"
+"53fb63781e791a32afc4ee9c3acb51d5c230ece0","2015-12-13 12:03:57+01:00","WIP: Work towards SMS replies / canned replies
+
+- Implement the PebbleProtocol side (2.x and 3.x)
+- Add Preferences for canned replies
+
+This can be tested by enabling untested features in Pebble Settings
+It lets you see and select the replies set up in 'Canned Repies' on the Pebble
+You will get a 'NOT IMPLENTED' message on your Pebble.
+
+THIS DOES NOT ACTUALLY DO ANYTHING USEFUL YET.
+"
+"e5cf22bda63d3b1fd3b60f555686f059bfed8f61","2015-12-13 22:43:53+01:00","WIP: Work towards SMS replies / canned replies, round 2
+
+- parse the reply string in PebbleProtocol
+- put replies into GBDeviceEvents
+- display a toast in AbstractDeviceSupport, containing the reply
+
+THIS STILL DOES NOT DO ANYTHING USEFUL
+"
+"14f8929439f7e15f9061949c0e16e1692b604de1","2015-12-13 23:59:26+01:00","Pebble: fix decoding strings in appmessages from the pebble
+
+This fixes sending SMS from 'Dialer for Pebble'
+"
+"de5f30ae97466638523ca899dd5eb1688d43dddd","2015-12-14 23:31:31+01:00","WIP: Work towards SMS replies / canned replies, round 3
+
+- put random id/phone number pair into limited lookup list (last 16 sms messages) when sms arrives
+- lookup the phone number when replying from the a device
+
+THIS STILL DOES NOT DO ANYTHING USEFUL
+"
+"3961e32c2b099b276dc80a3ad26201cb3061bed9","2015-12-14 23:47:50+01:00","update korean translation from transifex (thanks!)
+"
+"dfa85745e8a5691022da87b2b38c41e20cc1f595","2015-12-15 00:26:06+01:00","Send out SMS when replying with a canned response
+Closes #121
+"
+"53f8221f984a99679fc268f3ca5cb51d04ded7a2","2015-12-15 13:43:16+01:00","Updated Spanish translation
+
+Added a line translating 'Canned replies'.
+"
+"ddd196fab4b743f7dd2ae6b4dd538f0c0eb4f1b2","2015-12-15 14:54:08+01:00","Merge pull request #187 from DaniPhii/patch-1
+
+Updated Spanish translation
+"
+"19afe23703e1beb837721a8fcf408ae9efa13b33","2015-12-16 14:45:01+01:00","Read events from android calendars, one week in the future.
+
+- Needs new permission.
+- Stores the details needed for the pebble timeline and the miband
+- Device support to be done
+"
+"c6e67a9059af1e83b29216e615003e34aea01956","2015-12-16 23:08:27+01:00","update icons again (thanks xphnx)
+"
+"87674db5f993701981191833d0e176c81b3c3c53","2015-12-16 23:21:53+01:00","update translation from transifex
+"
+"f387f7c96b5b6f3408d7dabbc6026983985c1e66","2015-12-17 00:05:42+01:00","increase canned replies from 8 to 16
+
+NOTE:
+
+Total allowed bytes for all replies = 512 - (reply count - 1)
+
+TODO:
+- check with Firmware 2.9.1
+- remove last reply that exceeds the 512 bytes limit completly (else it will be partly truncated)
+"
+"7b12a3b50c2b4ec1402d59a229fc8dd0a74d8912","2015-12-17 00:30:55+01:00","forgot this
+"
+"0dda5c214bc7248f7fde846e21832eb20524109e","2015-12-17 16:11:35+01:00","Add preference for reserved alarm slots (for calendar event notification)
+
+Just this, no logic to support the choice yet.
+"
+"78cd11ad93ecdae9e207e01fd40ba61b7fc9cfbc","2015-12-17 17:02:00+01:00","Hide the last N reserved alarm slots from the Alarm activity.
+
+The original values remain stored in the preferences, they are just not available to the user anymore, further they are not sent to the device.
+"
+"036e92ee64fb49817530181bf72f95cff32b4721","2015-12-17 18:02:21+01:00","Implement sending the upcoming events to the miband.
+
+The reserved alarm slots are used for storing the upcoming events.
+
+The method is not yet called anywhere.
+"
+"c9dcf0652911d9b004874d50052fc9d5dcd825d9","2015-12-17 23:09:52+01:00","Pebble: improve debug output
+
+- decode apprunstate and systemmessage endpoint messages
+- prevent error messages by not using appmanager endpoint on firmware 3.x (it is gone)
+"
+"47a34bb7bfabfd101da28da4af22477d92d9d9b8","2015-12-18 12:41:01+01:00","Pebble: debug output for blobdb responses (get rid of unhandled endpoint -20005 messages)
+"
+"5fb8c7bed8518c381267957dfad89eeeb2f82b25","2015-12-18 18:49:29+01:00","Use the right column for sorting upcoming events.
+Plus add forgotten getQueue
+"
+"89ef950c6204fd53a386d140438ab7f2b8c5cc01","2015-12-18 20:30:09+01:00","Add the feature to changelog.
+Fix max index for alarms on miband.
+"
+"7eabf1e60360bcadd36e8f45f2e1bf064e086490","2015-12-18 21:34:04+01:00","spoof android app version to 3.8.1 (was 3.0.1)
+"
+"6582ead01c9fe3af36b25b8bfd53b4ed68915ac0","2015-12-19 09:43:55+01:00","Add pebble health uuid.
+"
+"9acdefd5c19dc8969fd7fbf2f35497d6df501c16","2015-12-19 14:30:35+01:00","Treat sony SMS app as such for notifications.
+"
+"9fb2e1620e2904db88420bca34f93b0a3417b627","2015-12-19 14:36:28+01:00","Rename misnamed file.
+"
+"070f3fa66facdbe617f895c8cbc46042aafffd80","2015-12-19 20:26:43+01:00","Add further getters, converting the data to other units
+"
+"4b29d63d4e135aef7deb38f3126a3dd3bf1578f6","2015-12-19 20:30:46+01:00","Pebble: more debugging
+"
+"5026cf269fbfb1cff80bfdfb61bc4d15feda65a2","2015-12-19 20:52:44+01:00","Added command to clear the DB on pebble.
+"
+"35c7ab6dde56c9b39794da6f5f4c90049b984a64","2015-12-20 00:40:38+01:00","PEbble: add database parameter to encodeBlobDBClear(), minor cleanups
+"
+"96e21dbf21e5e0654b31955b8a755907de2c35bf","2015-12-20 00:58:14+01:00","Pebble: fix '[Action]' being displayed as SMS action when no canned replies are defined
+"
+"a71c27d25eb047459e541172f58d64a8c976d76e","2015-12-20 19:50:48+01:00","Added subtitle to timeline pins
+"
+"87739d94dba58e6d6aaf5014fbd90ac6a63b0c69","2015-12-20 21:23:39+01:00","Pebble: unify FW 2.x and 3.x action decoding
+"
+"0c805809a5a26b1e1fed8b33c0eb2bf53f59f264","2015-12-21 22:27:17+01:00","Pebble: allow pbw installation with appinfo.json files up to 64k (was 8k)
+
+Fixes DIN watchface installation
+"
+"26646af97459c2bf6f77ee9a7c4dd1656eda8b17","2015-12-22 14:09:14+01:00","Put blocked apps at the beginning of the list, for easier removal.
+"
+"5f189aedbdfd3d6a95b3a7bbc8aa1000f615d814","2015-12-23 09:04:01+01:00","Add support for some configuration options of TimeStylePebble watchface ( https://github.com/freakified/TimeStylePebble )
+"
+"3ee418a45bd54874ecddeb66af6e1a5f1d6b78c7","2015-12-23 14:22:28+01:00","Implement pushing messages upon watchapp start.
+This watchface is used as example: https://github.com/ygalanter/PebStyle because it doesn't initiate a connection like others do.
+
+At the moment this is more a proof of concept^W^W^Wdirty hack then anything else.
+"
+"cf5a0f19edb03af8b3297079e4ccf73fa24f50c5","2015-12-23 21:40:49+01:00","update launcher icon (thanks @halcyonest)
+"
+"15436c59e5c86059d1ceb642d0a0b38db24fbb5f","2015-12-23 22:01:26+01:00","reformat AndroidManifest.xml
+"
+"9f60bf3561de6d0580ff8e577537d39d7a909905","2015-12-23 22:15:50+01:00","fix compilation
+"
+"11e02fbf5f5e40fe1a2e986409709a166fa2fe5f","2015-12-27 19:11:40+01:00","Pebble: add experimental reconnect support for standby-mode on firmware 3.x
+
+- You should also set reconnect attempts to 0 in preferences when using this.
+- It also works when you set flight mode on the pebble, then wait for about 5 minutes and turn BT back on
+- Pebble FW 2.x support ist completely untested.
+"
+"2caef023095b80a0a756e875a16e49a255fd0e40","2015-12-27 19:16:56+01:00","fix typo :/
+"
+"55989c426c9a681e16ea121f864752d0708c7a89","2015-12-27 19:22:10+01:00","fix double SMS on Android 6.0
+"
+"e3d0c63676df783490ff48a176ffa611ec35e5b1","2015-12-27 21:39:46+01:00","fix PebStyle color
+"
+"9ea2977143fa8dbb14634327aaeabf6b6bfc145e","2015-12-28 00:16:00+01:00","Try hard to display a unique device name in ControlCenter
+
+(Makes it a little easier to deal with muliple 'MI' devices, for example)
+"
+"1d9e1d7caf0df70f3ea7ce823a42696afa050307","2015-12-29 09:18:02+01:00","Fix possible race condition when availableSlots == 3
+
+(There are two difficult things...)
+"
+"f9122bc674bdce0f3b5480a8b6576a3320b62534","2015-12-29 10:01:32+01:00","send the calendar events each time the time is sent to miband, until we have a common strategy (e.g. EventHandler).
+"
+"1cbe9658029847e48d1ef7ea6cbb0cd7c9274869","2015-12-29 10:45:14+01:00","Add analog+digital settings
+"
+"790e4d5d80d3da7fe1f6c3784d0a6caed54e813a","2015-12-29 20:45:37+01:00","update LICENSE.artwork
+"
+"eb50040320bdef94843e487eccc1a7affe0db4f6","2015-12-29 20:56:30+01:00","update CHANGELOG.md
+"
+"ae269e51e78a711f3720be38f5792a99aaf81805","2015-12-31 00:40:22+01:00","update README.md, bump version
+"
+"ba446b7b17fe0cfc12f3adc4a28b538d4398da17","2015-12-31 00:41:22+01:00","update spanish translation from transifex (thanks)
+"
+"3655c833a99ed764015a826150786bac3217a54a","2015-12-31 00:57:45+01:00","Add new languages from transifex (Polish and Vietnamese). Thanks!!
+"
+"890016d6529e38b2898882af3655f6ec6b3e0fc7","2015-12-31 01:13:48+01:00","Pebble: Fix crash when turning off bluetooth when connected on Android 6.0
+"
+"d358ed81d2295d0fa1c0dbe091242a9229e219ce","2015-12-31 01:43:00+01:00","Pebble: Display a failure if we cannot map a notification id back to a Phone number when replying to an SMS
+"

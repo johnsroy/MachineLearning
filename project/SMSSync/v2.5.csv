@@ -1,0 +1,289 @@
+"commit id","commit date","commit message"
+"a3be1ac8eddf3c30dada41aa9e401ed85fdb0719","2013-08-12 19:24:18+09:00","Fixed a typo
+"
+"d97cf41ad5fe50ceefb4b182d346fec284fc691a","2013-08-12 19:25:09+09:00","Fixed a typo
+"
+"4d9db9fdbf3486b857e31b17384d7532b5090718","2013-08-23 15:58:21+03:00","Add ability to customize sync scheme i.e HTTP method, data format and payload keys.
+"
+"53a8b64780eb1112385b8afa77f866f71b2bf29d","2013-08-23 16:58:20+03:00","Messages can be synced via PUT or POST as JSON or XML; Now can add more formats and update UI.
+"
+"f60c589b02f0d26298d6efc1f878b2547157a2da","2013-08-23 21:25:32+03:00","Update DB structure and UI
+"
+"08092627b945b9a0fb410261906955723eb14146","2013-08-23 21:57:12+03:00","Small fix
+
+Setup default sync scheme as was in original code
+"
+"06e9e10fc459c1c548368d5ebbbed761448a7b3d","2013-08-28 12:42:53+03:00","Minor update, sync scheme tests.
+"
+"65eeedbcb8f40751ffee5efb00582dad6a8c22e2","2013-08-28 17:30:19-07:00","Merge pull request #119 from aksalj/develop
+
+Add ability to customize sync HTTP method, data format and payload keys
+"
+"2f149f7177bda97345a6f248c9c62da3ac65b790","2013-08-29 14:16:15+09:00","Added link to Ushahid forums
+"
+"3936019884d87ee2c294afb1f3e242fa66375ffe","2013-08-29 08:57:15+03:00","Update CREDITS
+"
+"a8145ebdb6ca9d5ccc2764d4bf815048315db532","2013-08-29 09:14:44-07:00","Merge pull request #121 from aksalj/develop
+
+Update CREDITS
+"
+"4a3ed77479915c9b3fa5f257645acb911bdc5511","2013-09-14 01:09:01+09:00","Merge branch 'develop' of github.com:ushahidi/SMSSync into develop
+"
+"6e08f83862bdc951971cf13955a4d05b57294381","2013-09-14 01:21:18+09:00","Increase version number
+"
+"c9993444d50b4ab00fab0ea1a99246c55fbb772e","2013-09-14 05:01:05+09:00","Add log viewer fragment
+"
+"61d8d92f0e4874b80d2818f682de1686e80b9fe6","2013-09-14 13:14:31+09:00","Add log nav drawer menu item
+"
+"feb2b4bd9cd0f65d7e578715c6cfac016cf4e171","2013-09-14 14:06:38+09:00","Update copy right info
+"
+"375750c0f45974998e15865423701287c2e85ebf","2013-09-14 14:12:30+09:00","Add info about status of the phone
+"
+"7ea86277881352bdf0a17b148c72d9cfbb24c53b","2013-09-16 15:55:09+09:00","Add battery info and connection status
+"
+"228ea6ce9d9eb22464153cf47a2e9acd86aefc72","2013-09-16 17:39:38+09:00","Minor clean up to java docs
+"
+"18f4d98d6dcb4a3e7c3827ba48e5e47917a2a3d5","2013-09-18 06:24:57+09:00","Add sharing support
+"
+"e15fc29ab25b0e54135eedac4c6f4e13ca774285","2013-09-18 08:27:54+09:00","Add battery level value when sharing
+"
+"b2562b0df47cb0c042d517071272e9a79d2eae0b","2013-09-18 13:28:28+09:00","Add lable to show the absolute path to the log file
+"
+"f7888e5f000938e9fc769263f7537673e0966887","2013-09-18 14:21:54+09:00","Add more logging information for debugging and troubleshooting
+"
+"13543fd59d36cf3e0dd25ff7b485f7a07aedc099","2013-09-20 15:01:38-05:00","adds basic auth support and refactored MainHttpClient class.
+
+fixes ushahidi#17
+
+This handled adding user-agent and basic auth headers to all requests.
+Allows easily adding query params or headers via `addParam`. and
+`addHeader`.
+
+Planning to reuse this class a bit more in some related callback
+features. Also was planning to refactor MessageSyncHttpClient and use
+the new methods to simplify a bit and show how to use the API.
+
+I replaced the poorly named `getText` function with a `getResponse` and
+`convertStreamToString` static method.
+
+Also added `$` to URL_PATTERN in case you have that in your basic auth
+password.
+"
+"cf369ea21826894ae850668bc4ce8a76694d6ab9","2013-09-20 15:35:17-05:00","indentation/style tweaks.
+"
+"0654bcd7f35285965848d9f88947bbbfffd49385","2013-09-20 22:31:41-05:00","added getParams, setEntity to MainHttpClient class.
+
+also fixed bug with setting entity correctly.
+"
+"d928a5ec16f53f0b01f294125fb17185ebe57ba9","2013-09-20 22:33:00-05:00","refactored ProcessMessage and MessageSyncHtptClient classes.
+
+Using new helpers in MainHttpClient.
+
+added set/getClientError even though it's not being used yet, should
+probably hook into wherever `getServerError` is called.
+"
+"d347af2f1123569882ac2455ce3d351ee77c5249","2013-09-21 16:28:54-05:00","continued MessageSyncHttpClient refactor.
+
+Changed constructor signature for MessageSyncHttpClient, added message
+and phone. Updated tests.
+
+Fixed call to `getFromWebService` in ProcessMessage, use MainHttpClient
+instead.
+
+Fixed bug in base class for request in MainHttpClient, use
+HttpRequestBase instead of HttpUriRequest.
+
+Removed executeGet/Post/Put, use setEntity, setMethod and executeRequest
+separately.
+
+Added `getRequest` to MainHttpClient for easier testing and backwards
+compatibility.
+
+Renamed `executeRequest` to `execute` to cover base class call.
+
+Fixed bug in `String.format` calls.
+"
+"a95dee24702e3ea30abe8fc412330153dd1013ac","2013-09-21 18:14:20-05:00","removed `getFromWebService` method from MainHttpClient
+
+added helper method `execute` that takes String method arg.
+"
+"89605a81c2563f521225ea06f426222316767e4e","2013-09-23 16:01:01-05:00","added basic auth test, bit more MainHTTPClient refactor.
+
+Changed SyncSchemeTest tests to use try/catch since now
+client.getRequest() will throw an exeption on encoding errors.
+
+Removed `addHeader` using `setHeader` and HashMap.
+"
+"71bfcbed9fccbd4fc107ef60f2d649a71a51c57f","2013-09-23 21:39:16-05:00","removed stacktrace comment.
+"
+"4b2949ab0848277417247b060c3a01156ddbd1b3","2013-09-23 23:11:23-05:00","added example URL in howto on basic auth.
+"
+"69a7c292201b170e1105272510093a520abfead8","2013-09-23 23:16:18-05:00","changed example urls to https.
+"
+"d1995da0ba94ec7314d2e9dec0cb066e9f0e3dff","2013-09-23 23:16:44-05:00","changed example urls to https again.
+"
+"02defbf3d1fcec0c21d64f7b99b947e96a4445e9","2013-09-23 22:18:15-07:00","Merge pull request #126 from mandric/http-client-refactor
+
+adds basic auth support and refactored MainHttpClient class.
+"
+"5ea37194652e9764abe53da7317884aba6fea345","2013-09-24 11:02:43-05:00","fixed html syntax in howto.
+"
+"d290ed5913ed8650aca50e4d72860239f3481cb6","2013-09-24 15:38:47-05:00","fixed bugs in MainHttpClient with string comparison.
+"
+"5d6227f6aded2abb217ae072bb499bc4428e2157","2013-09-24 16:59:53-07:00","Merge pull request #127 from mandric/develop
+
+http client refactor fixes
+"
+"e2fb4c9ff37a48cc0506addcf7e0233c37a37695","2013-10-19 09:59:39+09:00","Minor edit
+"
+"2ffdb15db9fcde17ef64f5dd3a108ef251cc390b","2013-10-21 13:12:13+09:00","Log sms received
+"
+"3dd986f6a38ca34dcca53687037de0299abe5644","2013-10-21 14:46:13+09:00","Refine error messages when sms fails to be sent
+"
+"a900ebc87c86199c90a5301464db254652304401","2013-10-21 18:03:50+09:00","Add more meanginful log messages when a message fails to be sent to the server
+"
+"fb29ec4a4ad0fcbef94be49ab00f5afc0b69751c","2013-10-22 09:13:44+09:00","Log network activities
+"
+"46ac4cdd5db484e4b5bd01431e0060dda361be03","2013-10-22 13:37:27+09:00","Fix connectivity log message
+"
+"d2fcc22859f9000bcf7645fe2705890cbd52bed9","2013-10-22 14:09:24+09:00","Log state of a battery
+"
+"f85a66212782efc68e5a909963ccb22aa992e5d2","2013-10-22 14:16:06+09:00","Log device reboot state
+"
+"009f415c36f937d0238e8afe486b0c65e7b31cb1","2013-10-22 15:14:13+09:00","Log device shutdown
+"
+"1c3e0a15b3e3298f8a96a6188902eb2cffe7f051","2013-10-24 00:41:35+09:00","Log preference changes
+"
+"880e9c97cd2b9cc9d342bd2c6bee237aefd4649f","2013-10-24 01:10:31+09:00","Merge branch 'develop' of github.com:ushahidi/SMSSync into logviewer
+
+Conflicts:
+smssync/src/main/java/org/addhen/smssync/messages/ProcessMessage.java
+smssync/src/main/java/org/addhen/smssync/net/MainHttpClient.java
+smssync/src/main/java/org/addhen/smssync/net/MessageSyncHttpClient.java
+"
+"a77060e6f7eac410511255ff6fdaed136472d6e3","2013-10-24 11:33:38+09:00","Minor fix to base http client
+"
+"7e7c981f622f79396478fbf8e1d4c80b13af0d2f","2013-10-24 14:02:12+09:00","Fix log messages messy formatting
+"
+"ab8ea720939f4ef8279eada7af6163b12da9a326","2013-10-24 22:42:53+09:00","Log settings values
+"
+"d30c8ae9c4ddbe383fe0717f3c99e134f5493578","2013-10-25 00:29:29+09:00","Log messages related to scheduled services
+"
+"34985bddfd1197d92f513f5e2b3f1edc65f00fac","2013-10-25 01:28:52+09:00","Fix #129 issue with task check no working when there is not secret set.
+"
+"7457ddb9cd7cbf5d484a2ba464149cccfd37ef7a","2013-10-25 13:02:20+09:00","Fix #129 typo
+"
+"30b2e7069e15a98543bf81cb1eefea6ef6c1417d","2013-10-24 21:23:21-07:00","Merge pull request #130 from ushahidi/logviewer
+
+Logviewer
+"
+"7ba697aea05f0bc96fe6f766bfcfddffb44742e6","2013-10-25 18:22:21+09:00","Properly formatted error message to make more sense
+"
+"5b79ce2daaba57ab94b9841378ef293cc12d532e","2013-10-27 00:34:29+09:00","Refresh log listing view when a log happens in the background
+"
+"986426afd5257646659767bbc9d9b2e0c96ec04a","2013-10-27 02:42:31+09:00","Fix issue with scheduler not being able to be turned off
+"
+"556b006c77f468c04b77463fe0d87c4a7874391d","2013-10-28 00:32:01+09:00","Fix wrongly registered event bus
+"
+"8f9f6f662a82b8ed01eb199dd04338172ede84e7","2013-10-28 02:10:17+09:00","Restore gitignore entries
+"
+"02d349d312797987b98bbe0a32340360f80645a0","2013-10-28 02:29:20+09:00","Add gh pages
+"
+"76a70c51cf4063b94515be83726a4316692e530c","2013-10-28 02:37:28+09:00","Update website
+"
+"f7d7bbf2ba3834ab9d18239efdad67f23d1acbb3","2013-10-31 00:42:16+09:00","Move changelog to a json format
+"
+"ed90329212a02adea47b4f1601f3b70ccac9e6de","2013-10-31 21:33:03+09:00","Update website
+"
+"7437e7289a6a8b17a452178db33951f8d2775d5e","2013-10-31 21:47:17+09:00","Fix history json file
+"
+"9b154ff41474a71d456e4ee39e64f95940254afe","2013-11-02 11:15:36+09:00","Add contributors as json file
+"
+"8f89637ca48708798b3a271fc6c69b3267586efa","2013-11-02 12:01:05+09:00","Add latitude and longitude support to country names
+"
+"91ff7659b13cf329f60820728c510eeb492cfa37","2013-11-04 22:40:38+09:00","Clean up to release info
+"
+"13c86dd2abe3acad4d2a5c534b9560b3d7878f37","2013-11-05 01:07:56+09:00","Remove unused code
+"
+"e80bdd95b298941efd52f6581f31f34ebb2d30d3","2013-11-05 01:08:50+09:00","Major clean up
+"
+"752aff721c6bea02691ca4b7318ab4410cf35fb3","2013-11-05 01:10:04+09:00","Remove unused po files
+"
+"ddaa0c9e4215876a1c165b2083d49f2628608f55","2013-11-05 01:11:11+09:00","Ignore gem lock file
+"
+"2f5d8ccf27cbe50bb8f3912fd2f4a742ce3a5c83","2013-11-05 08:54:22+09:00","Change phone number field to accept string
+"
+"b3b15b6027044c31d3c265c488d22a78f185ae0e","2013-11-05 11:32:26+09:00","Remove method redundant call
+"
+"dd63ca00918f31dfb4f044a6af2cda61e82bf0e0","2013-11-05 14:50:50+09:00","Add website src to main repo
+"
+"8a104c5c58d35b7169f057a711e12af3c52dd0fe","2013-11-05 14:58:45+09:00","Change configure content from markdown to html. Writing more html than markdown
+"
+"bdc7164c3062f9d2e5feca5c5103cf3111ad2b8c","2013-11-05 15:02:20+09:00","Switch to using cdn hosted version of twitter bootstrap
+"
+"a8d0d8deac2263520b78b2e94318ae963b000586","2013-11-05 15:04:55+09:00","Remove unused js file
+"
+"59f290b11e9c67823777fb905ccd8e34c5ecbc12","2013-11-06 11:49:05+09:00","Restructure configure page so it's easier to navigate through the various sections in the howto
+"
+"871eac193738cd044a865480eac6310179342e3c","2013-11-06 11:55:17+09:00","Rename history to changelog
+"
+"b8a1956855b13b059b3d1debd70c4a0b670a93cc","2013-11-06 13:15:23+09:00","Update change json entries
+"
+"7e0976de37d76074e48688ea05bccd0435d00ebf","2013-11-06 13:18:42+09:00","Make sure changelog json file validates
+"
+"881b42924b7cabab3f169be8154ec3599a1435e9","2013-11-06 13:22:14+09:00","Pull the right changelog json file
+"
+"4d6842470e84af6aa8e6c253c301b1a4d2945977","2013-11-06 13:27:52+09:00","This time changelog json file validates
+"
+"92b35259823fbc88dadb2017ebcf7cecea95e5ee","2013-11-06 13:51:26+09:00","Fix bug with changelog json file
+"
+"889c43f0c0d0a6522a59b6d4bdf46f22390e3fb4","2013-11-06 13:58:36+09:00","Remove duplicate code for reading changelogs
+"
+"bbdb9fdda5e5d8a29839d639153bb70cf4bfc687","2013-11-06 22:27:36+09:00","Update screenshots with new UI
+"
+"f1c5b10bd6c5816edfc513adbb66063b4c0635d2","2013-11-06 22:31:03+09:00","Update features list
+"
+"f781ace38431749218d1d59d7b08a05f7dc7b45f","2013-11-07 13:45:45+09:00","Add how to for configuring a sync scheme
+"
+"561a1002f313500c9de4b00b53a954d52a5ec1a3","2013-11-07 13:55:50+09:00","Fix a typo on sync scheme how to
+"
+"85003036e8fe9822bd2dfcd4da182b96f00dc633","2013-11-07 14:27:13+09:00","Enable google analytics
+"
+"7835286eed4bdf64b156d733383a50f0b1c43ff1","2013-11-07 16:13:07+09:00","Update building doc
+"
+"003d34737129ea7c12e3f98bb6991201322a2f3a","2013-11-07 16:20:42+09:00","Minor update to how to compile smssync website
+"
+"03148102e3c41926b7b1068fdecd3335f2279106","2013-11-11 20:56:54+09:00","Update to contributors list
+"
+"9b89290a10a3174dbfea73e04ce497b6f8ab4479","2013-11-12 00:26:23+09:00","Add ability to build different flavors. one with analytics support or without it
+"
+"97e9838b9fd176c8ca46ea8f0b07d410a3cc9ee7","2013-11-12 12:33:46+09:00","Include content of the log file when sharing
+"
+"09b8533f3526490aad7cf60f75641d8593b63aed","2013-11-12 12:42:35+09:00","Disabled donation menu again. Still haven't been able to create a Google wallet merchant account yet
+"
+"bf13b29c626154712739206b70ee585c0775979e","2013-11-12 15:14:01+09:00","Add test for keywords with korean strings
+"
+"d7727134702f45c837284c25ce8efd4f8066e05d","2013-11-12 16:00:04+09:00","Update Ukrainian translation
+"
+"2f9c4c0c3fa18e1827f4d05ca7d5a37de21eeef9","2013-11-12 16:11:11+09:00","Minor clean up
+"
+"945e5c57d3e1aa31db580848e5a30a5c248a52fd","2013-11-13 14:54:33+09:00","Update README.md
+"
+"47087ff83fd75c6d9c4dff922569968f02269e73","2013-11-13 16:19:19+09:00","Add info about CLA doc
+"
+"67bcfa84e36c4d52066cdb5d4c014cba7c10bff1","2013-11-13 16:19:35+09:00","Merge branch 'develop' of github.com:ushahidi/SMSSync into develop
+"
+"d0cb42605966c769d47facd1c9da145b7d90b1c0","2013-11-13 16:28:38+09:00","Add info about CLA to contributing doc
+"
+"08996e10ba4dd4ece101e65c14214b5be447f8a0","2013-11-13 19:14:39-08:00","Merge pull request #134 from ushahidi/build-flavours
+
+Add ability to build different flavors. one with analytics support or wi...
+"
+"809e74babfe649c18a53e641400b052562a78907","2013-11-14 12:58:17+09:00","Remove base path as it's causing assets not be loaded with the main site
+"
+"71f57dffd58a87f29ef1bdda431c577325b33099","2013-11-14 12:58:48+09:00","Merge branch 'develop' of github.com:ushahidi/SMSSync into develop
+"
+"084d56aaf7ca43ea5f12a549b84a9c0eb103edfd","2013-11-14 14:05:05+09:00","Update changelog entry
+"
+"537bd6ed631328563b32db8ab6aad2150377caee","2013-11-14 14:12:33+09:00","Read changelog and contributors from master repo
+"

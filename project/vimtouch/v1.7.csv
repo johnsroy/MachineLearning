@@ -1,0 +1,154 @@
+"commit id","commit date","commit message"
+"9a374b09260aeb8302d18de3eee6e73345654278","2012-09-17 06:52:40+08:00","Move the download back to code.google.com
+
+remove the https from the manifest and move the download back to
+code.google.com
+"
+"a767572385eafe291a90ba3999262b2d59f76e1d","2012-09-20 22:42:31+08:00","Invoke all necessary routines called in the android_mch_exit()
+Original mch_exit() still handled stuffs that need to close a file.
+So the patch to call android_exit instead of mch_exit caused some
+problems. This patch provides a android_mch_exit to simulate all
+necessary routines from mch_exit to complete it.
+"
+"25fe7cc0d43af208bef33d4a06c3265cfa99b0b8","2012-09-22 09:58:05+08:00","Fixed IME hide after quit cleanly.
+"
+"24a153ed29209f234b25c316004c789d7fae13b8","2012-09-22 10:04:00+08:00","v1.6
+"
+"b726966b19a53042f04e9fc17ef234c23e1c0d93","2012-09-26 03:19:03+03:00","Don't show context menu while scale is in progress
+"
+"a53e2ab7dde3abb2f17e1f5893c5ecfe2b8b8e58","2012-09-26 03:21:38+03:00","Cleanup: remove dead variable and move another one
+"
+"3ad100ce3bb10eee3dd307c68c906d6824cb39fe","2012-09-26 03:22:14+03:00","Cleanup: remove dead variables
+"
+"227eac07e7b7444952e1da2b9fedc404624347b5","2012-09-26 03:22:30+03:00","Cleanup: remove unused imports
+"
+"159df025cfc47c24ef918f793774a64d04081c8e","2012-09-26 03:23:57+03:00","Add my Vim session file to ignore list
+"
+"7d046f96d36ed325d266ca489d310ea32cdc1337","2012-09-26 05:26:46+03:00","Add helper script to build and run
+"
+"1e2a73eb62413d361a35419b842e7ad9d9e4bf11","2012-09-27 00:15:08+08:00","Merge branch 'master' of https://github.com/rtfb/vimtouch
+"
+"b618ff191fe85591ab52df4c39bc0b5863d13876","2012-09-27 00:13:25+08:00","add VimInputConnection to accept IME Composing
+1. VimInputConnection to accept IME composing
+2. TermView to create input connection
+3. add preference menu_ime_composing to toggle the function
+"
+"f55d986e94cad3454934ff7b29e74c7d6bffe541","2012-09-28 12:43:20+08:00","Fixed showDialog can't be triggered by doCommand
+showDialog and doCommand should be invoked by different thread
+(ex: vim thread and android ui thread). In most of case, the
+showDialog was invoked by vim thread and trigger realShowDialog
+later. If someone calls doCommand('new xxx.txt') and cause
+dialog happens, dead lock happened here.
+This patch move the real do_cmdline_cmd always to vim thread by
+using the Fake GPM check event system.
+"
+"0ecb803b98daade854a9942d32bbf0f26d6bb1d4","2012-09-28 13:34:46+08:00","move scrollBy, updateScreen, setCol, lineReplace to vim thread(fake gpm)
+These functions become events in the fake gpm GetEvent. Besides,
+still keep use vimtouch_lock/unlock between setPtySize and
+updateScreen to avoid updateScreen too early.
+"
+"7470d07577acd6169bc7bf0fcbc8056de0b5c545","2012-09-30 02:35:01+08:00","Fixed IME commit inserts wrong text issue
+"
+"963699da5abd79d95c33af1d713be3ab7809ec5d","2012-09-30 21:50:19+08:00","Use default input connection from emulatorview
+"
+"5d2ac4204ebb9c6eae1f05d5fcfb01259b6b0be1","2012-09-30 22:08:39+08:00","Fix sometimes editable and vim content aren't sync
+"
+"c5a2c5994f8e8dc28ece11fc337b3d7fd47e0e55","2012-09-30 22:29:32+08:00","change the quickbar keys to gravity=center
+"
+"4ea8c4baf54ed44cd1f81f75c8dd2f89fba2d979","2012-10-04 00:12:01+08:00","Read IME word-based preference
+"
+"48de0c4467d43afcd3f678814ba59f8559ec8887","2012-10-04 00:25:40+08:00","workaround to limit the minimum font size
+"
+"ce1b50e0e633d2b42c4f721a7492f6406a40b057","2012-10-04 07:15:30+08:00","add string null check before release jstring
+"
+"59aa1ae8fa871e2c7689486d2c65c354b1d195bf","2012-10-03 21:59:05+03:00","Fix include guard
+"
+"7340c5495e873eede4117d35cb9a201ba1d65c89","2012-10-03 22:00:03+03:00","Cosmetics: remove dead comment and trailing spaces
+"
+"83ca9acf6b32cb02d3b6c532cbb89c4073d7681a","2012-10-03 22:00:56+03:00","Add default LOG_TAG
+
+I got tired of defining a LOG_TAG every time I need to log something in
+new place for debugging. So if there's no LOG_TAG defined, define a
+default one.
+"
+"bad78eb8b04447e7f6ef0f96f558cdb72ddb9674","2012-10-03 22:30:24+03:00","Handle some JNI cruft by preprocessor
+
+Hide the annoying long JNI function names behind helper macros.
+"
+"d6ebafff3a0fd7c465ef2634cb2d8679ca0b6a0c","2012-10-03 22:48:21+03:00","Fix 'Copy All' functionality
+
+Copy All used to do a silly thing: copy the array of characters
+currently visible in terminal. Including the Vim's '~' lines and such.
+Instead, this should copy the contents of the whole buffer, which this
+implementation does. Works even with folding enabled :-)
+"
+"d55b8ba666d15292dcd12dcea4196ff819e79a73","2012-10-03 22:52:46+03:00","Cleanup: move var declarations closer to usage
+"
+"549a04c0789d69adea6b63f4be3372679a568e33","2012-10-03 22:54:40+03:00","Remove unused variable
+"
+"24903dc4c7dd07713f9ba161762431e3338e4b1b","2012-10-03 22:55:35+03:00","Fix float constant and remove duplicate semicolon
+"
+"cda5ef9521bfcacb46933e49404caa041a532e52","2012-10-04 02:29:10+03:00","Add ndk-build call to ./run script
+"
+"7bfe21304f8139808d32a3ca042e3fa68bd299bf","2012-10-04 03:18:04+03:00","Add -jN parameter to ndk-build, N = # of CPU cores
+"
+"ce5fcff7dc2fe9bc2b3373a9865f5abee6c37985","2012-10-04 03:23:55+03:00","Remove dead code
+"
+"f5f9b456d9bc3ce9a506ee29367f72c93ba3a6c8","2012-10-04 03:54:20+03:00","Remove emulatorview documentation
+
+It only clutters grep results, while giving no value in return.
+"
+"f3e9099ab65f8a6cf1e5fbea9633e4bc51441c3f","2012-10-04 03:55:42+03:00","Add command to uninstall package
+"
+"1bde30a45a773577011e9a3d919bda227b2ddd49","2012-10-03 18:01:34-07:00","Merge pull request #14 from rtfb/master
+
+Fix 'Copy All' functionality
+"
+"63c42e8ce369aad81ae82854f7b447c47ebe9b47","2012-10-05 00:17:51+08:00","add 'bin/' support in the plugin
+when install the vrz plugin, the installprogress will chmod 644
+bin/* and add the bin/armeabi to the PATH env
+"
+"8e68b1e61f0e84d7b244235402d3b8609591c9c9","2012-10-08 00:08:48+08:00","use horizontal progressbar to show progress
+1. change to use horizontal progressbar
+2. query download manager progress periodically and show in
+progressbar
+3. use another thread to do installation after download
+finished
+4. show notication that 'please restart vimtouch to
+take effect'
+"
+"be45b370ffba4e1e683f4e34f960288b009885a2","2012-10-08 00:23:34+08:00","add EmualtorView check in onConfigurationChanged
+"
+"73f609a4d390d60128229bd3b5f6ebb9dcbde7e9","2012-10-08 14:04:00+08:00","refine touch event handling by split moveCursor and mouseUp
+1. originally, vimtouch will send mouse down and up event for every
+move. The patch changes it to send mouse down only when touch down
+and send mouse up only when touch up.
+2. in zoom mode, still send mouse down and up
+3. adjust fling frequence to improve ux.
+"
+"a176f032024c731a4aee672dcc7609da11fb5705","2012-10-08 20:49:15+03:00","Improve unzip performance by ~15%
+
+The main gain is from increase of the buffer. Using BufferedInputStream
+also seems to have a little positive effect. It's OK to remove
+zin.closeEntry(), since zin.getNextEntry() will call that anyway.
+
+Log progress as info, not as error.
+"
+"684990aa05eeadb8e053eea06efd71d8b6a52313","2012-10-08 17:01:49-07:00","Merge pull request #19 from rtfb/master
+
+Slightly improve performance of installZip()
+"
+"67b903b5baed543ddbf55d69d039beab2b8b4974","2012-10-11 21:26:07+08:00","add long press to toggle visual mode in zoom mode
+"
+"892c2e41f3124e18b14845520859fe3555165b34","2012-10-12 09:59:04+08:00","add debug information in the VimInputConnection
+"
+"2a76387c7b1ea1c77cec92d07764e54ce7286407","2012-10-12 22:11:26+08:00","start vim main function after view created
+"
+"04383a153b42c1a78b836f3e1c3bff9c769ec81a","2012-10-14 23:46:35+08:00","disable Context Menu and zoom after long press
+"
+"78499188015ce204c5994cb7c17e62dfb9843887","2012-10-14 23:47:14+08:00","Integrate Android system clipboard
+"
+"29508c40bc3d73458460b4f75c710966c38f24bc","2012-10-14 23:51:40+08:00","change default quickbar buttons and font size 12
+"
+"7dc4e6eab9ec23c7ecd39ee6bfc6f71f4fd320d0","2012-10-14 23:59:23+08:00","v1.7
+"

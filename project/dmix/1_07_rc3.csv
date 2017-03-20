@@ -1,0 +1,184 @@
+"commit id","commit date","commit message"
+"69da7071a9254a7d96baf40365a9acb40a581c0b","2014-11-04 20:03:33-08:00","SettingsActivity: Don't update connection settings if disconnected.
+"
+"53a74be875a123669e406d6c75275d230fda81a6","2014-11-05 12:04:11-08:00","MPD: Fix Album Artist setting regression from 51cecb7.
+
+Second attempt to fix this one.
+"
+"686e8a2c9b4ac868d6b40d8c2d3cc3ba31b4e506","2014-11-05 12:43:40-08:00","MPD: Generalize parseResponse, add it to Tools.
+
+This method caused an automated crash report, cleaned it up to use
+Tools.splitResponse() which should fix the source of the crash,
+then generalized it as it will be useful at a later time.
+"
+"8594d8dae6671caa1beae04c9cd79337efb932bb","2014-11-05 13:23:59-08:00","MPD: Don't suppress/log exception in the library for no reason.
+"
+"351a56d97c11060ec4f76629374dbbc80dcc02a9","2014-11-06 07:23:23-08:00","StreamsFragment: Check for the listplaylist command availablility before run.
+
+This is like a96a211, but for StreamsFragment as it often asks for it in
+FSFragment.
+
+Like a96a211, this only works on the standard MPD implementation for 0.19.2 and
+greater.
+"
+"83dc28e910b4943aaa15857a258759a404b084fb","2014-11-06 13:11:19-08:00","MPDConnection: Throw IOException if no response and no error.
+
+We've received a couple of automated crash reports which no exception was thrown
+and no result was received. This is probably a bug of some sort. Having the user
+crash isn't going to help, throw an IOException for now, until the bug is either
+found or the code is replaced.
+"
+"d7607ec4f1c0bd1732ff3bf90824f9db83482a01","2014-11-06 17:17:46-08:00","MPDConnection: Add yet more debug information to the no exception error.
+"
+"25ae7aa88e716f53bfefe7a1d50765d4f7d2566d","2014-11-08 14:04:15-08:00","MusicList: Refactor.
+
+This refactoring fixes quite a few issues, some causing internal inconsistency
+which has been in this class since existance.
+
+* When the inner list is manipulated, do not remove the old music entry from
+the inner list. This removal will occur at a later iteration of the changeset,
+if it needs be. This caused a bug which would cause an exception when adding
+or changing in the middle of the inner list.
+
+* Remove unused methods and constructors. There were a lot of unused methods
+that would no longer have any use and would add to the maintenance of this
+class. Since this class is for internal use only, we don't need to worry about
+feature methods.
+
+* Move the list iteration to manipulate(), it's better suited for the task.
+
+* Cleanups everywhere, including the workaround from f232f5f has been
+refactored.
+
+* Replace map with list. Our songID map has /never/ worked correctly, due to
+the way it was constructed. Replace it with an easier to maintain list.
+
+* Use sublist() to clear ranges.
+
+* Implement Iterable.
+"
+"e1d8a8cae99e0bce901e2485a1ba8a0ed6512830","2014-11-11 01:58:46+01:00","Artistfragment: Save and restore genre state
+"
+"f866cbaa31b7631e6435603c823ea2b356e9d394","2014-11-10 20:53:02-08:00","Merge pull request #648 from jpeitz/fix_artistsfragment
+
+Artistsfragment: Save and restore genre state
+"
+"f7716ee36c062582ea890a5d0aa96c72fda06880","2014-11-11 07:22:03-08:00","MPD: Fix album artist response key case.
+"
+"03b1f6dc70b427cb86223e70019c1e6967c9e7bb","2014-11-11 09:23:31-08:00","MPD: Refix album artist stuff.
+
+This commit (finally) removes the setAlbumArtist hack, if a album artist is to
+be set in the track there has to be new construction due to the
+equality/hashcode general contract. This fixes the broken album listing.
+"
+"638283f24fdbb8ef3d05d57229de05769a34fe7e","2014-11-12 01:45:22-08:00","BrowseFragment: Fix regression from bfe8cc0.
+
+We received a crash report of someone trying to go to an artist on a
+PlaylistFile. This doesn't work as it's not an instance that has an artist, so,
+only accept instances that have artist entries.
+"
+"c234b2570b7a217083dcdf1e26c356f32af1686c","2014-11-12 17:41:33+01:00","Updated some German strings and compared with English strings.xml
+"
+"a1b8cb66c30abaa40c3466a9f985192ebd366a10","2014-11-12 17:46:49+01:00","changed tab to 4 blanks
+"
+"f6c7d77deddf366434067a3d3b691899ac8c73c3","2014-11-12 17:49:09+01:00","corrected some hyphen
+"
+"57ec514097f8bc10cdc7867c1b5151027c09ca48","2014-11-12 09:51:15-08:00","Merge pull request #650 from MaDill/master
+
+Updated some German strings and compared with English strings.xml
+"
+"2359f1553b5428f7719cf6dfa2541df775fb3e46","2014-11-12 21:41:02+01:00","New build tools
+"
+"dc872eff47c10cad678127cc24af303050eaf128","2014-11-12 21:50:02+01:00","Bump buildtools
+"
+"eaca04704c0e7edc31a41f85ed2230c69b9c220e","2014-11-12 21:50:14+01:00","Add play services voice search
+"
+"b530de6c6c11fe29161c0b313aaaf198bb759f1a","2014-11-12 22:00:48+01:00","Fix travis
+"
+"46f4a10bd590f96a326c3ba6602803736d82d567","2014-11-12 22:06:06+01:00","Update korean translations
+"
+"065e711241fb9c799b43a56765abaf4bd8f4b186","2014-11-12 14:08:48-08:00","Music: Use smaller, more exact, constructors, fix NPE in getFullPath().
+
+We received a crash report detailing a crash that occured due to a null
+mFullPath field. This really shouldn't happen, but since it apparently does,
+cover it with an if block like the rest of this class. This /could/ be fixed
+with the constructor fix (detailed below); cover it up until possibly post-
+release testing.
+
+While looking into this bug, I also noticed the children classes for the Music
+class are inexact constructors. For instance, we would construct the children
+with getTitle() which is /not/ a getter. Use a better suited constructor and
+change permissions so it won't happen again.
+"
+"23e42142f7cc9df7aba61b3c47b2beb2b843fa51","2014-10-31 15:34:53-07:00","StreamHandler: Setup AudioAttributes for MediaPlayer.
+"
+"fdaf0e6fd3d3cdb77f14d3233d14ae15c3e5c964","2014-11-13 13:23:38-08:00","MPD: Don't send a command queue if nothing was added in add().
+
+We received a automated crash response due to an attempt to send an empty
+command queue. This was due to a user doing an add() with very specific
+parameters which would negate every conditional on the way through and
+never added to the command queue. For this case, I've added a conditional
+which should be negated if there is an empty command queue at the end.
+"
+"544f5c226bdbe8ec5ee76f2d0f7cd7b7edb2a3d3","2014-11-12 17:41:33+01:00","Updated some German strings and compared with English strings.xml
+"
+"b9088d318fd412efa8de5fd42bbf9a434ad5854b","2014-11-12 17:46:49+01:00","changed tab to 4 blanks
+"
+"c677564c68c1539729691eea8581511280bc5b35","2014-11-12 17:49:09+01:00","corrected some hyphen
+"
+"d4aa760f61bfe9205633ed095181d51d0aa36291","2014-11-13 15:02:37-08:00","NowPlayingFragment: Only set rating visibility on init, connection and config.
+
+Setting the rating visibility was happening per track change, now we only
+change it on initialization, connection and if the config option changes.
+"
+"8346b5a4d0bfc15da5e72b9d86946295176fe98c","2014-11-13 15:06:05-08:00","UpdateTrackInfo: Only attempt rating retrival if the config option is set.
+"
+"9258d7aa536dde88871d4a089958d7b85d5aa3c2","2014-11-14 10:16:17-08:00","dmix: Final cleanup to try to fix null responses.
+"
+"b8bae196c1e91a05ff40bd247ae2c966e39a50a9","2014-11-16 16:03:47-08:00","MPDStatusMonitor: Don't wait() when connected.
+
+In certain cases, an idle subsystem update event can be skipped due to a wait()
+used to keep from looping (and subsequently eating too much CPU) too often
+during disconnection. Now, we only only wait() when disconnected.
+
+This is a stop gap fix until this class is rewritten.
+"
+"1609b7141e8440e16cbc47860116864bd12fa65e","2014-11-16 16:24:01-08:00","MPDApplication: Suppress exception if a disconnection timer is cancelled.
+
+We received an automated crash report that an exception caused a crash due to a
+disconnection timer cancellation. This is not a problem as this is part of the
+normal course of operations. Log and suppress this exception.
+"
+"3cf352fc7342d67b70bd4f59aaea73d4dd581f6d","2014-11-17 18:09:44-08:00","dmix: Code style.
+"
+"3a4cec77d23a3702395a3f2bdafe355a873faa14","2014-11-18 15:29:18-08:00","gradle/android: Update for new support library/repository.
+"
+"dd8a344f6d54d8185215ed67980e4fcebb88bc55","2014-11-18 15:37:16-08:00","MPDStatusMonitor: Workaround an Android 5 bug.
+
+First, let me start by saying this code change makes no logical sense, that I
+can tell.
+
+This issue is, intermittently, if state is changed quickly enough, the state
+change wouldn't show.
+
+After a few hours of bisection I traced this down to:
+e0d9799:JMPDComm/src/main/java/org/a0z/mpd/MPDStatusMonitor.java:107
+
+When this line is removed, and the code is replace with code that result in
+the same code result (hard coded or otherwise) the state changes just as it
+should. This is not a cloning issue, the state is not modified in MPDCommand
+(and I could reproduce it post-cloning). Since I've only been able to reproduce
+this in Android 5, so my wild assumption is that this is a bug in ART; but it's
+easy enough to workaround that this patch is a trivial non-issue.
+"
+"c1aec73956ba5d2c0d4fb1e676f2b7969c31fc83","2014-11-19 07:55:15-08:00","dmix: Commit iml changes from 3a4cec7.
+
+This should have gone with that commit (whoops!).
+"
+"72669e6cde2ed166410c716565326c29a4b47f6d","2014-11-20 22:01:17+01:00","1.07 RC3
+"
+"182bf4a19ff7e18ba97893e5785a460fdb6206a9","2014-11-20 22:01:59+01:00","Merge branch 'release/1_07_rc3'
+
+Conflicts:
+MPDroid/src/main/res/values-de/strings.xml
+"

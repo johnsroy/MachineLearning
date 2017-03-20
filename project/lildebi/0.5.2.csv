@@ -1,0 +1,116 @@
+"commit id","commit date","commit message"
+"ddbc5ab72164e8e7574c383a0ebbc5a1ab98ed52","2014-10-17 21:18:00-04:00","bump to version name 0.5.2 code 5200
+"
+"53dc64c629e288423493d5cc63112f23c015de75","2014-10-17 20:10:27-04:00","fix my stupid bug in install, I forgot an argument to a command
+
+refs #131 https://github.com/guardianproject/lildebi/issues/131
+"
+"ccf2f7e1b3f471c12d5084cfdb69947b5b7675f4","2014-10-17 20:10:58-04:00","include feature graphic of Lil' Debi in action
+"
+"e97943238c44474cdf909e68584935ae7fc6d036","2014-10-17 20:47:35-04:00","start-debian: remove rc.d scripts from Debian for things handled by Android
+
+Now that Lil' Debi defaults to using /etc/init.d/rc 0 to shutdown, these
+rc.d scripts need to be removed from any existing Debian chroot as well.
+
+closes #130 https://github.com/guardianproject/lildebi/issues/130
+"
+"c31bdbf02c727ad1efe88d8d4c356c9fe22d1f45","2014-10-17 21:16:50-04:00","/debian/shell: set key environment variables before running login shells
+
+Some standard enviroment variables are set by Android, then passed through to
+the Debian environment unchanged.  That then causes a broken Debian
+environment.  So these need to be set before starting the login shell.
+
+refs #131 https://github.com/guardianproject/lildebi/issues/131
+"
+"27083419bcc061e6b2b82c5ca43b57e9035cb2ec","2014-10-17 21:35:04-04:00","add IDs to TextViews, syncing install_activity portrait and landscape layouts
+
+closes #133 https://github.com/guardianproject/lildebi/issues/133
+"
+"bde7d1e847c46171d978596ada0c206c099b5479","2014-10-17 21:45:19-04:00","fix NPE crash if user returns to PreferencesActivity after a while
+
+The postStartScript and preStopScript static values must be set in the
+Application subclass in order to ensure that they always exist, no matter
+which Activity is launched when LilDebi starts again.
+
+closes #127 https://github.com/guardianproject/lildebi/issues/127
+"
+"579179f693339123987622f40af1f990e58b93b2","2014-10-12 22:23:18-04:00","fix ellipsis characters in translations
+"
+"8b0859704d96bde33515c871451ba27d5a33471d","2014-10-17 22:34:42-04:00","kill /debian/shell directly since it is started outside the chroot
+
+The existing kill logic looks for all processed that have a root of
+/data/debian (aka $mnt).  /debian/shell is started outside of the chroot so
+it have a root of /, and it wasn't getting killed.
+
+refs #131 https://github.com/guardianproject/lildebi/issues/131
+"
+"fb969085ccdd1f6b47bf426d341ded04f7e4cebe","2014-10-17 23:36:53-04:00","stop-debian: when killing all processed, first send TERM, then send KILL
+
+This approach first asks all the processes to shut themselves down.  Then
+anything left still running after 1 second is forced to quit.
+"
+"66b46826ed58629a35e65ea4052d5b53eed65dbf","2014-10-17 23:49:01-04:00","fix detection of not fully mounted loopback image
+
+Somethings when things go wrong when working with a loopback image,
+everything is unmounted except for /data/debian.  That was falsely being
+detected as a stopped state, it should show as started so that the user
+can still try to stop it again.
+"
+"fc6cae28b92ef4841edb6867fda90acdc6ee0efc","2014-10-19 14:53:18+05:30","fix my name in ChangeLog
+"
+"8cfc6d44ad28808908e2c102078e8bf765550548","2014-10-20 13:58:12-04:00","check isInstallRunning then only check free memory
+
+if isInstallRunning is set then no need to check free memory available in
+install path.
+"
+"4e00a2aa427fca29c67b87690368bcfc6aa46017","2014-10-20 16:20:31-04:00","disable 'View Install Log' on menu if install.log does not exist
+"
+"ed52e0f514987a9648d7a469888ad8100ee0acce","2014-10-20 16:20:52-04:00","when deleting everything, also delete the install log
+"
+"7be3d88e7b6d5ccfced29b9e9c32d0f18f53526e","2014-10-20 16:28:58-04:00","fix detection of loopback mount failure in install process
+
+Oops, stupid syntax error my part.
+"
+"5d5d925ad3b6a058d758a97db808aa2646dd945e","2014-10-20 18:59:22-04:00","update embedded Debian keyring to the latest version
+"
+"e2296cdd7e1d738ad7c1185f895fecef79b19091","2014-10-20 16:59:04-04:00","run InstallService in foreground and show permanent notification
+
+Running a Service in the foreground makes it much less likely that it will
+be killed if memory runs low.  Foreground Services must show a Notification
+while running, so this includes a basic notification.
+"
+"b46fe8b09d51aada2f80566804a537fba5ef47c7","2014-10-20 18:50:07-04:00","set InstallActivity as singleTask, there should ever only be one
+
+There is no reason to have multiple InstallActivity instances running, it
+can take a fair amount of CPU/memory to load the install.log text file into
+a TextView.  Often, singleTask behaves weirdly, but I think it should
+make sense here because this is a one time, long running process.
+
+refs #137 https://github.com/guardianproject/lildebi/issues/137
+"
+"faa6ceaf9649fc8f0e2a56fb9927164e0d78c1f5","2014-10-20 18:53:07-04:00","write install log directly to file; broadcast updates to InstallActivity
+
+This commit should drastically improve the performance of the install
+process.  The old process was really horribly inefficient, it reposted the
+entire contents of the log in order to update a single line.  This commit
+also makes it so you can follow the log file in realtime using `tail -f` or
+whatever.
+
+closes #137 https://github.com/guardianproject/lildebi/issues/137
+"
+"9fff6e7ee8bcb49db29eb304ec025e5b659ab6e2","2014-10-21 17:35:12-04:00","disable 'Open Terminal' on menu if Debian is not started
+"
+"c027ea7dcf982ab8c059ef3e2a2c90454cc5eef6","2014-10-21 17:47:17-04:00","include license and properties for android-support-v4.jar
+
+This helps Eclipse find the javadoc for this jar.
+"
+"7e46f3272857ff0a559f4ae91e4c1bb568281349","2014-10-21 18:24:25-04:00","fix header echo in complete-debian.setup.sh
+"
+"4f6df4a3e4af6fdf8c58b09a4c205b063d04602d","2014-10-21 18:26:08-04:00","exit with error if script cannot find lildebi-common
+"
+"3c49a5676025e953dc4b33d5a54e92ea6887ad9a","2014-10-21 18:54:37-04:00","disable Back button while install is running
+"
+"5c1050ded8a928056b89a90bbae4da86ed7b77d3","2014-10-21 20:51:27-04:00","compare-to-official-release: more useful usage message
+"
+"ce86c29ee4109260f3955dbfe800f4b79de9808c","2014-10-22 14:11:22-04:00","update changelog for next release
+"

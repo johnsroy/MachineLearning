@@ -1,0 +1,13 @@
+"commit id","commit date","commit message"
+"508804caef64675759d8e38244da501802edfb95","2010-12-06 20:55:07-05:00","Added tag release-1.3 for changeset dd016d5837cc
+"
+"a51aa0588f28dcfb064985f8f1ecf21eaf13cb25","2010-12-07 18:00:45-05:00","This might address issue #1, or it might not; going to run this build on my phone for a bit to see if it does then either release the new version to market or go back to the drawing board.
+
+It looks like the error happens because multiple instances of the broadcastreceiever get spun up, which means that the first one correctly saves the previous ringer state, but the next one sees it as 'silent', and saves that as the old state. This means that once it gets restored, it just gets set back to silent anyways and bam - bug.
+"
+"c97bab11cb816e78cbe503a78016eea7d655b5bb","2010-12-08 22:58:49-05:00","fixes issue #1
+
+The previous change fixed part of the problem, and this fixes the rest.
+
+The receiver (I think erroneously) gets called when it is registered. This means that when the user starts the service for the first time, reboots, or when the service is destroyed and restarted by the system, their volume will be set. Aside from being unintended behavior, it also causes their 'old mode' to be overwritten, which means that if they are already plugged in (and the ringer is muted), their old mode will be saved as silent and the ringer will *not* be turned back on when they unplug. To prevent this, I'm using a member variable to record if it is the first try or not.
+"

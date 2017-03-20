@@ -1,0 +1,133 @@
+"commit id","commit date","commit message"
+"925d4c384a78cdf5930784f80ac76c42103ae676","2014-09-29 11:06:16+02:00","ItemsContentProvider: Close Cursors instead of leaking them.
+
+How tedious.
+"
+"0718760f7eef0ba0c81bc3747c6cc0b6220cd79e","2014-09-29 11:34:27+02:00","ItemsContentProvider: startRegularTasks(): Avoid unnecessary work.
+
+Set a boolean whenever it's possible that work could be necessary, due to some data changes,
+and don't bother checking otherwise.
+"
+"2237ac113d23f591e81acf0e0926ddddb558887e","2014-09-29 11:43:12+02:00","ItemsContentProvider: Avoid even postDelayed() until necessary.
+
+This should avoid some useless wakeups.
+"
+"022ec1d02b30c5a81f02da43f6bdfd0623f5ef2a","2014-09-29 12:06:06+02:00","1.7
+"
+"7dc388bdf35097a97ec70d44ebed77e76b469f47","2014-09-29 12:28:24+02:00","ItemsContentProvider: Queue regular tasks only on changes to the Items table.
+"
+"14733c8c1c16834dc6e1c47a5366b804b3d3665f","2014-09-29 12:34:49+02:00","ItemsContentProvider.queueRegularTasks(): Avoid queueing one if one is already queued.
+"
+"0e693fb9366a2ff27f297ea4d68ad9598d84b499","2014-09-29 12:44:26+02:00","Classify: Add a Restart option menu item, with an icon if there is room.
+
+The icon is from the Action Bar Icon Pack:
+https://developer.android.com/design/downloads/index.html#action-bar-icon-pack
+"
+"2fa08a45c2c889862fa5db71964bc5e976dd5cde","2014-09-29 20:29:17+02:00","1.8
+"
+"f9fa26e6efaa3ef8278c1860c7d5851b17f2f40c","2014-09-30 10:02:03+02:00","ItemsContentProvider: Add Async suffix to a method, for clarity.
+"
+"defe14c8453959bf7c9a7928c5d19b7aa1d179dc","2014-09-30 10:09:41+02:00","ItemsContentProvider: Remove unused METHOD_REQUEST_ITEMS method.
+"
+"ddba64f437237b4d99d586087f0dea0da4606dad","2014-09-30 10:18:44+02:00","ItemsContentProvider.query(): 'next': Use queueRegularTasks() instead of downloadMinimumSubjectsAsync().
+
+Because queueRegularTasks already has a way to avoid unnecessary parallel tasks.
+It should still get done soon enough.
+"
+"f5e9a7958a4989623fd4f184a9b93c11fe82328d","2014-09-30 10:20:32+02:00","ItemsContentProvider.queueRegularTasks: Use a bigger delay.
+"
+"a821b24c355973895b7270c64e5d91a4953532eb","2014-09-30 10:34:27+02:00","ItemsContentProvider.queueRegularTasks(): Allow re-queuing to actually work.
+"
+"c07ff48c61d1d4e3e0916bb168f89974bb8397e4","2014-09-30 10:52:15+02:00","ItemsContentProvider.queueRegularTasks(): Use Looper.getMainLooper().
+
+Because I saw this exception once:
+java.lang.RuntimeException: Can't create handler inside thread that has not called Looper.prepare()
+"
+"ea28134f40c86f65b3edeb937674dc45655fc7bc","2014-09-30 11:04:32+02:00","Improve some log messages.
+"
+"84b51dcb6ccdc932bdc34e457bdeb66d0159c808","2014-09-30 12:26:48+02:00","Add some comments about update() being called before onCreateView().
+"
+"b9681e671977fe0c90dd2120fbdb40c5da964203","2014-09-30 12:28:39+02:00","Comment out some unnecessary log output.
+
+It is expected and uninteresting.
+"
+"b59961fb1d51833b58872741a0447e6903acc903","2014-09-30 12:55:33+02:00","Remove unnecessary imports.
+"
+"87c7846b624fb92193d90cef16eeae7b88ec27fa","2014-10-01 08:55:59+02:00","Fix some whitespace formatting.
+"
+"9c534b1b4be13a69b2484e9fc18a5c507d9dbc36","2014-10-01 09:52:23+02:00","strings.xml: Add comments for translators.
+"
+"849298c9ffd70e24da2456431db25b16a4dc1c3b","2014-10-01 09:52:41+02:00","German translation: Slight improvements.
+"
+"6c6c07ba850c30f3830b89b6b71dc1b10e7845d9","2014-10-01 10:33:49+02:00","Add screenshots to help translators.
+"
+"b2878e0b57c82a06d071274467161d6938274575","2014-10-01 10:48:25+02:00","Add instructions for translating.
+"
+"720b4a51b50cd6039cec8094994ab73a36027754","2014-10-02 10:07:53+02:00","Add Italian and Spanish translations.
+
+I bought these from Tomedes via Google's APK Translation service.
+"
+"4194f485c5dadf1b0ebd14eb89af2fd7d0b8f6eb","2014-10-02 10:11:22+02:00","Italian, Spanish: Remove untranslatable stuff from translations.
+"
+"cd201b2df3e2c88b1d777f5351662115980f3dee","2014-10-02 10:12:53+02:00","Italian, Spanish: Correct ... to … .
+"
+"42553ec696ad1368b5c68299c7a19901e0299916","2014-10-02 10:32:19+02:00","Singleton: Add localeIsDifferent() so we can compare on configuration changes.
+"
+"bb411d85f74d53dc8d710a82bdf6d5a2279dcb3f","2014-10-02 11:41:19+02:00","ClassifyFragment: showLoadingView(): Hide the child fragments when showing the loading view.
+
+Because they should never appear together.
+"
+"4ccf141fc5081ba617226c00dd3a79197cb64aa9","2014-10-02 13:56:31+02:00","QuestionHelpFragment: Remove mSingleton that shadows the one in the base class.
+
+This led to some unexpected null Singletons.
+"
+"5fb5afe4a9330339f98daa2c5cba026a06a3e22b","2014-10-02 14:26:34+02:00","ItemFragment: Add initializeSingleton() to avoid some copy/pasted code.
+"
+"838f4d4547dca4e6c755c465e6410e9d964c1c82","2014-10-02 14:33:36+02:00","QuestionFragment.update(): Don't continue if we are waiting for the Singleton.
+"
+"eac58fc1776628403db03eb86aa76fdf3897eb8c","2014-10-02 14:39:56+02:00","fix
+"
+"154707bf756f242f5931a064c3f596f069702a85","2014-10-02 14:34:33+02:00","Singleton: Keep a list of callbacks instead of just one.
+
+Otherwise, subsequent calls wipe out the previous callback, so it is
+never called.
+"
+"c16ed611c2940f73e9c20a5d7d55b45e6cee647f","2014-10-02 14:40:07+02:00","Singleton: Avoid calling the constructor twice just to discard one.
+"
+"4fcdfa821347015788c60d0080b6c4aba7f38a9d","2014-10-03 16:48:12+02:00","QuestionFragment: Use a TableLayout instead of GridLayout.
+
+With TableLayout.setShrinkAllColumns() so the buttons do not go offscreen
+when using longer text from translations. The distribution of widths is
+rather odd and certainly does not lead to the ideal line breaks, but it's
+better than before.
+"
+"83b6b66c694a6c228c102b78c474dcada95fe904","2014-10-03 18:10:24+02:00","QuestionFragment: Make the TableLayout columns have equal widths.
+
+update(): Use width=0 and weight=1 for the TableRow's children, and use
+width=MATCH_PARENT for the TableRow, to make all columns have equal size.
+Note that if width=WRAP_CONTENT then the TableRow's children will be
+completely invisible.
+And add extra placeholder FrameLayouts to fill the remaining cells in the last
+column if there is more than one column.
+"
+"cc57eb28f5e5a1c32954ff60476018df4c63c1d7","2014-10-03 19:00:50+02:00","QuestionFragment: Avoid trying to add a whole empty row.
+"
+"fee68d7861a6b001c9dd44083f0a7b1f17e24db7","2014-10-03 19:02:41+02:00","QuestionFragment: Reduce the padding on the buttons to allow for longer text.
+
+This is useful for the translations that might have longer text.
+"
+"ec50b02e3ddcb1e1587d9f39d435081ed549a83c","2014-10-03 19:17:47+02:00","Italian translation: Fix a typo.
+
+File upstream too:
+https://github.com/zooniverse/Galaxy-Zoo/pull/179
+"
+"533f78b6d811ee2ad906219a56032ad0f850914f","2014-10-03 19:18:09+02:00","DecisionTree: Use translations of checkboxes too.
+"
+"9e1d66208ea9953096564e41c730535910325107","2014-10-03 19:51:32+02:00","ListFragment: Rename a constant to match the column name.
+"
+"b4933e87334ec45a3ae834e47e81b9213d16de42","2014-10-03 19:54:13+02:00","Support devices with API Level 15, instead of 16.
+"
+"2b02c383ae929f9580cf7b251ad9bc65a7edc6c3","2014-10-03 19:54:42+02:00","ListFragment: Ignore clicks on items that are still downloading.
+"
+"85505659e41e3430d562dfed79c48fc463f9063c","2014-10-03 19:55:36+02:00","1.9
+"

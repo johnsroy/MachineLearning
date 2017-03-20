@@ -1,0 +1,29 @@
+"commit id","commit date","commit message"
+"cd5e187f92d73db3cf1545819c41cc33438fc200","2012-01-09 21:08:40-08:00","Added tag 1.28rc22 for changeset f664b6e775b6
+"
+"30f004f68aa390f559c9e36dacefde1c3c505837","2012-01-12 13:40:35-08:00","Detail logging for popup creation (currently disabled)
+
+Add additional trace points for figuring out issue 150, disabled for now.
+"
+"7bb36565d94f63619684f880c68448c2b928bd32","2012-01-12 13:42:17-08:00","Popup keys shouldn't have popups of their own defined
+
+Part of issue 150 debugging. Change 'Stone' theme to set null popup layouts.
+"
+"b928ee78de83304ebf270113dec4e8d5183544e4","2012-01-12 13:44:02-08:00","Move popup layouts from LatinKeyboardBaseView to LatinKeyboardView
+
+See issue 150.
+
+Grumble. The original code is really confusing with its distinction between LatinKeyboardBaseView and the derived LatinKeyboardView - the former class is used for popups, the latter for the regular keyboard view. Neither should be confused with the Keyboard/LatinKeyboard classes which represent abstract key grids for use by the keyboard views, and the LatinIME and KeyboardSwitcher classes which tie them together.
+
+Inexplicably, the code for adding long-press popups is in LatinKeyboardBaseView even though only the regular keyboard should be doing this. Android doesn't permit popup windows to be opened from popup windows, and due to unexpected default values apparently the base class decides to do so anyway.
+
+This CL starts moving some of the code which should never be run for popup keyboards to LatinKeyboardView, though this is messy to untangle.
+"
+"de9481b458527b961a23ab3f6d0f713662346b97","2012-01-12 13:45:15-08:00","Add res/values-he and res/xml-he for Hebrew on Galaxy S2
+
+See issue 122.
+
+Apparently the Galaxy S2 looks for XML resources for language code 'he', not 'iw' as normal Android devices do.
+
+Revert the ineffective hack from revision  919281f5e8d1. locale.getLanguage() apparently returns 'he' not 'iw' on this device.
+"

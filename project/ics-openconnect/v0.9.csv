@@ -1,0 +1,230 @@
+"commit id","commit date","commit message"
+"44fded87d66f5e7aca95b383d0be15a697d25bb8","2014-04-20 10:36:12-07:00","AssetExtractor: Add new readStringFromFile() method
+
+This leverages the same buffered reader code used to extract an asset
+into a string.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"509ce8b3a68b64872c9a19bd95eb8dcc47444d7a","2014-04-20 10:37:23-07:00","TokenImportActivity: Disable [[INLINE]] so we can read imported files directly
+
+If TokenImportActivity gets invoked from another app to import an sdtid
+file, we will need to read the content from a file:///foo/bar URI.  So
+let's restructure the code so that common functions can be used for
+both intent handling and for processing the FileSelect result.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"951e9943057258be5c342b57d88eae242ac76ddd","2014-04-20 11:12:13-07:00","TokenImportActivity: Process sdtid files
+
+Add a file association with *.sdtid and allow them to be imported manually
+from the VPN profile editor.  These may require a password but never
+require entering a devid.
+
+As is the case with passworded CTF strings, the token will be converted
+into an unpassworded CTF string and stored in the profile.  We will not
+store the whole XML file.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"4acec12481fc1f07ee53e99047a27b07a77ea8fd","2014-04-20 12:49:47-07:00","TokenImportActivity: Add missing copyright header
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"229b3d426dd74d2072eb7b1a9c58f6bf414373ba","2014-04-20 12:57:54-07:00","TokenImportActivity: Add missing @Override
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"5a7a4a2fe9e98e185b6928c18bcc8e8bbc3206a3","2014-04-20 13:09:22-07:00","faq: Update sdtid instructions
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"05fa78a81a6074b17ae0aab957423f58bcef65eb","2014-04-20 19:25:53-07:00","Add yellow alert icon
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"b1b180e1fe692c387a651e422150b26498c3b466","2014-04-20 19:26:25-07:00","First attempt at a SecurID Diagnostic screen
+
+This shows the current tokencode plus some information about the token.
+If multiple VPN profiles use SecurID tokens, each one can be checked
+independently.
+
+It will probably wind up in its own app someday...
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"52bb12ff5cf079206c22d44b3652e320cebf5559","2014-04-21 18:41:36-07:00","stoken: Update library to pick up getInfo() call
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"ab1b466b41fdf79ebef2ae67d61082efebfe236c","2014-04-21 18:56:41-07:00","Sync stoken binaries with new sources
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"11f383c5b3d84629e1843ca6d767c9cae3cf48cd","2014-04-20 22:53:15-07:00","TokenDiagFragment: Clean up PIN handling
+
+Cache PIN (in memory only) in case the activity/fragment gets redrawn.
+Add a 'New PIN' button to let the user change their mind.  Sanity-check
+the PIN input prior to enabling the OK button.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"1f338dafcadb755bca4e9023afa5b5ca6fbd490a","2014-04-21 19:40:58-07:00","TokenDiagFragment: Show problematic values in bold+red
+
+Initially we will show 'Using PIN: No' in red, since it means that the
+tokencode is incorrect.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d108c1dbb05e89598011cbba25d37013af1acb6b","2014-04-21 19:42:25-07:00","Use mStoken.getInfo() to fill in token details
+
+Display the serial number and expiration date.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"b4d3106c5cd049bf89035adcd7561cba52a4f1d9","2014-04-21 20:12:16-07:00","TokenDiagFragment: Strip off unnecessary text from 'Current time'
+
+Sometimes this can display 'GMT +00:00' which just wastes space.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"7a5b25a266284d8c629d1a552bae404f2ce3dfdb","2014-04-21 20:40:21-07:00","faq: Update 'skip all login prompts' entry
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a31a94562636db034615ffa32b61296a951bb198","2014-04-21 21:31:12-07:00","VPNProfileList: Use FragCache to retain ADD dialog state
+
+This doesn't put the EditText cursor in the right place, but otherwise it
+seems to do the right thing on screen rotation and task switch.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"33aa33d026b92c33a27c876b3ccb1dffbeb8c2ec","2014-04-21 21:50:45-07:00","VPNProfileList: Split generic dropdown menu items into CommonMenu.java
+
+Allow Settings/SecurID/About/... to be reused from other fragments or
+activities.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"6434d214e842e7509faca4787842af120d3b6b0f","2014-04-21 22:03:06-07:00","Add CommonMenu to StatusFragment and to LogFragment
+
+'Settings' is missing in both cases, as we assume the connection is up
+so none of the settings should be modified.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"f292d87a6d86f6ad6e822fecbf50ae3c549ba13d","2014-04-21 22:37:56-07:00","FeedbackFragment: Initial commit
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"9629bdb927cd7f0e2f6a1e41cb1534d1299a180b","2014-04-22 19:20:54-07:00","VPNProfileList: Fix 'add VPN' dialog popping up after adding VPN
+
+The following sequence of events was observed:
+
+1) User clicks 'Add' to create a new profile
+
+2) User enters the profile name and clicks 'OK'
+
+3) onClick creates a new ConnectionEditorActivity
+
+4) VPNProfileList.onPause() is called
+
+5) onPause() saves the dialog state in FragCache, then dismisses it
+
+6) When the activity is resumed, it incorrectly restores the dialog
+
+So, let's dismiss the dialog from the onClick handler so that by the
+time we reach onPause(), it is gone and FragCache will record its absence.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"c5cef0b80a0005bc221b428588078cd2f6d0c7c8","2014-04-22 21:12:30-07:00","FeedbackFragment: Prompt for feedback after 2 weeks + 10 connections
+
+This is intended to gather feedback from people who have an established
+pattern of using the app to connect to their VPN gateway and are likely
+to remain long-term users.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"c61c15c2139ca7c43f2adda10d840d0bd9f84734","2014-04-22 21:30:31-07:00","OpenConnectManagementThread: Log the length of each file written to cache/
+
+This can help identify duplicate or bogus files in the problem reports.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"506a12277d8e216d4b074a376c0f283917f461d8","2014-04-24 20:25:36-07:00","AssetExtractor: Handle errors, skip directories
+
+A repacked apk might contain subdirectory entries that are seen when
+iterating through the ZipFile.  Ignore them instead of aborting
+extraction.
+
+Also, report AssetExtractor failures in the VPN log (previously only
+reported in logcat).
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"8f6ed6f5b17368e84c0d46d8ce6f4f4107e2d5ad","2014-04-24 20:54:06-07:00","Bump version to 0.9 (901)
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"60f80af317226c147bfcba172414960da10c78ee","2014-04-24 21:07:39-07:00","FeedbackFragment: Don't FC if there is no market:// URI handler
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"4cfa1b2cd1a33f53f2f857a932f2920d42e5a375","2014-04-25 20:46:19-07:00","external: Sync with openconnect rev bfd89d3
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"846fbfe60d9728886a1953ea2c16d90c33e37a48","2014-04-25 20:52:12-07:00","libs: Sync with latest openconnect sources
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"5dfa4645cf5d7e1658e59b1eff93a702b21dd883","2014-04-24 21:27:30-07:00","DeviceStateReceiver: Handle broadcasts indicating preference changes
+
+If a PREF_CHANGED broadcast is received, reread 'netchangereconnect' and
+'screenoff', then recompute the current connection state.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"c1a1341d9467d0ae1a5a5b1d041e435db8911df4","2014-04-24 21:32:06-07:00","OpenConnectManagementThread: Export updateLogLevel() functionality
+
+Let OpenVpnService ask us to reread the 'trace_log' preference at
+runtime.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"b84ec88fb98e5c9c85ce94638f31d951efefd234","2014-04-24 21:53:59-07:00","DeviceStateReceiver: Signal OpenVPNManagement on settings change
+
+We'll just send a broadcast intent from the settings activity, and let
+DeviceStateReceiver notify everyone who cares.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"16b9f74d73ef1f059b7f2936b76ff4321a3b0261","2014-04-24 22:25:30-07:00","GeneralSettings: Send broadcast intent on preference change
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"6b4e7c132c6c898474aab3845c26c36e355f2bfb","2014-04-24 22:01:12-07:00","CommonMenu: Enable Settings option unconditionally
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d710808a68a8265bd9cf66b8f6a171b0bdaf6e1a","2014-04-26 08:40:42-07:00","TokenDiagFragment: Use TextUtils.htmlEncode for status fields
+
+This should mirror the FaqFragment behavior.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"3890ff8dc97eedad45536e69873f2cce5f2dcf10","2014-04-26 09:58:40-07:00","FaqFragment: Change to WebView and parse markdown-formatted links
+
+This allows FAQ entries to reference external web pages.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"2818bea2380c41236551ee2bc0fc80f017384bde","2014-04-26 10:07:17-07:00","faq: Couple misc updates; add external links to XDA thread
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"283c387b5021441a08a97f045c0a64c18c09ce67","2014-04-26 10:14:44-07:00","Update changelog and bump version to 0.9 final (909)
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"

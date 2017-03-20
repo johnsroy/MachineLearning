@@ -1,0 +1,221 @@
+"commit id","commit date","commit message"
+"fda15fe4ae9215faefae06873a542206aaf8245d","2014-06-04 15:05:10+02:00","Updated Hungarian translation
+
+Added new string.
+"
+"64343908b08146c0c25fd55668766c47d7aef9d0","2014-06-04 07:23:56-07:00","Update README.md
+"
+"4afd7e7fb221b19e73cfa1df92f48ac329de681e","2014-06-04 07:24:56-07:00","Update README.md
+"
+"a7c9564c746fd86f90ec9426d668213281e9776d","2014-06-04 07:25:22-07:00","Update README.md
+"
+"6202a690cba58ada33e2cfa30e531ead08c61d8b","2014-06-04 07:27:37-07:00","Update README.md
+"
+"07f9d1e325c6cbc24b124c8331bc1390a5dc0d45","2014-06-07 18:22:12-07:00","Merge pull request #336 from gLes/master
+
+Updated Hungarian translation
+"
+"c903ed96cd04b10d75f9ac1a83d08e856aa0d32c","2014-05-04 21:16:03-07:00","TermSession: add a fast path for ASCII in write(int codePoint)
+"
+"0da354d0a255a8cc4d60a67d77c598f2b5fc478d","2014-05-06 03:55:28-07:00","Add some torture tests for Unicode support
+
+These are a set of specially-crafted text files designed to exercise
+most of the corner cases in the Unicode support code, particularly
+FullUnicodeLine.setChar()'s support for overwriting screen columns with
+changes in sequence lengths and display widths.  For best (worst?)
+results, use the tests in vttest mode; the lines of exactly 80 columns
+will be more likely to uncover bugs that way.
+"
+"7335c643f758ce4351ac00813027ce1505f8dbd4","2014-05-05 02:52:08-07:00","TerminalEmulator: conform to standard on handling of invalid UTF-8 sequences
+
+The Unicode standard requires that, when dealing with ill-formed UTF-8
+(version 6.2, page 96):
+
+If the converter encounters an ill-formed UTF-8 code unit sequence
+which starts with a valid first byte, but which does not continue
+with valid successor bytes [...], it must not consume the successor
+bytes as part of the ill-formed subsequence whenever those successor
+bytes themselves constitute part of a well-formed UTF-8 code unit
+subsequence.
+
+This implies that when we hit a byte in the input stream which cannot
+fit into the sequence currently being decoded, we must attempt to decode
+that byte again after resetting our decoder state.
+"
+"9a47042620bec87617f0b4f5d50568535668fe26","2014-05-05 05:28:34-07:00","Fix inserting characters into the middle of an East Asian wide char
+
+We currently assume that the column we're inserting a char into is the
+start of a display character, and compute the length of the subsequence
+of mText storing the column's contents accordingly.  This breaks,
+however, when inserting into the second column spanned by an East Asian
+wide character.
+
+Detect this case and handle it specially when we need to find the start
+of the next independent column's contents (such as when computing the
+length of the existing sequence stored in this column).  Also, to
+preserve column alignment, pad the column before with a space; if the
+character being inserted is a wide character, clobber the next column's
+contents too.
+
+Fixes the second coming of #145, and potentially other
+difficult-to-reproduce bugs concerning East Asian wide character support
+as well.
+"
+"9e02953fc32ca85b4e09e52380315180008e7cd6","2014-05-06 16:37:26-07:00","Draw combining characters at the ends of runs correctly
+
+At the moment, TranscriptScreen's drawTextRun() tracks the screen column
+corresponding to the character it's working on at the moment by updating
+the column after processing each character; this results in combining
+characters being considered part of the column after the one they should
+apply to.
+
+For most purposes, this does not matter -- Android's own text drawing
+routines don't care about our column count, so the combining characters
+will be drawn with the correct base character.  However, there are
+corner cases where this causes problems:
+
+* Combining characters in the last screen column will be ignored
+entirely (after processing the base character, the column count
+exceeds the number of columns, so processing stops)
+* If the last column of a text run (sequence with the same style, or a
+selection range) has combining characters, they will be erroneously
+drawn outside the run (the run ends after the base character, so
+the combining characters aren't passed to the text drawing routine as
+part of the run)
+
+Instead, update a next-column counter after processing each character,
+and use it to set the column count once we hit the next spacing
+character.  This requires us to add array bounds checking to the loop,
+as it's now possible to fall off the end of the array looking for the
+next column; that has the side effect of papering over many possible
+crash bugs involving line buffer corruption.
+"
+"09ead3a9803ddf78ae57697b85f2e858a954db4f","2014-05-06 16:56:21-07:00","Add test of combining characters at the end of a line
+
+For use in vttest mode.
+"
+"c8fb346b201663fea21362c90a916dcf9922e9ee","2014-05-06 17:15:00-07:00","UnicodeTranscript: add fast path for getLine() on an entire FullUnicodeLine
+
+getLine() is called frequently during screen drawing and other
+operations, usually with a request for the contents of an entire line.
+We have a fast path for this case with basic lines; something similar
+works for FullUnicodeLines, so let's do that too.
+
+Also, update the documentation to reflect the fact that the array
+returned from getLine() will not be null-terminated if the array size
+exactly matches the length of the requested text.
+"
+"120a65c17c07f41fb3cc2bd99940322da598056c","2012-03-11 20:45:35-07:00","Make Hangul jamo medial vowels and final consonants combining
+
+While modern Korean is typically written using precomposed syllable
+blocks, Unicode also provides individual conjoining Hangul syllables
+(jamo) which are supposed to combine to form complete syllable blocks.
+Since at least Android 4.1, the Android text rendering services handle
+conjoining jamo correctly -- but in order for a syllable block to be
+rendered correctly, we need to pass its components to the text renderer
+as a unit.
+
+The easiest way to achieve this is to treat medial vowels and final
+consonants as combining characters; that way, UnicodeTranscript will
+automatically store them in the same column along with the initial
+consonant, and all our text-processing code will treat the syllable
+block as a unit.  This behavior is strictly incorrect (isolated
+individual medials and finals shouldn't behave as combining characters),
+but it's the easiest way to get conjoining jamo working in the common
+cases.
+
+On platforms where we don't trust Android to render conjoining jamo
+correctly, we instead treat medials and finals as regular spacing
+characters of width 2.  This is also strictly incorrect (the Unicode
+character database says medials and finals are East Asian
+neutral/narrow), but it's the best match for the way Android renders
+the individual jamo.
+"
+"2b39774dc8b956e0fdc284105845f548defb9954","2014-05-06 21:04:37-07:00","Fix selecting/copying text runs bookended by East Asian wide characters
+
+Text runs beginning or ending with East Asian wide characters can
+currently behave strangely when selected:
+
+* An East Asian wide character immediately before the displayed
+selection is sometimes copied along with the highlighted text, despite
+not being highlighted;
+* An East Asian wide character at the end of the displayed selection is
+sometimes omitted from the copied text, despite being highlighted.
+
+Both of these problems have the same root cause: EmulatorView's
+reporting of selection bounds does not take the width of the underlying
+character into account, even though the drawing of the selection
+highlight does.  In other words, it's possible for EmulatorView to ask
+for half of an East Asian wide character to be selected, but the
+highlight won't reflect this (either the entire character is
+highlighted, or none of it is).
+
+Preventing EmulatorView from reporting selection bounds like this would
+require making the text selection routines aware of the underlying
+characters they operate on (as opposed to just working from screen
+positions).  Instead:
+
+* Have UnicodeTranscript include half-selected East Asian wide characters
+at the end of a selection in copied text.
+* Ensure that a half-selected East Asian wide character at the beginning
+of a selection is highlighted.
+* Adjust UnicodeTranscript.getLineColor() to ensure that the number of
+columns of color information returned in a partial line always matches
+the number of columns in the text that getLine() would return.
+* Ensure that TranscriptScreen.internalGetTranscriptText() doesn't
+truncate the returned text when there are half-selected East Asian
+wide characters at both the beginning and end of the selection range.
+This requires us to avoid bounds checking based on selection width
+(the naive computation based on screen positions would be off by two,
+omitting the last character, and we lack the information here to do
+better); using a try-catch clause to replace the bounds check is
+likely to paper over some crash bugs involving line buffer corruption.
+
+This ensures a consistent user experience: half-selected East Asian wide
+characters are always highlighted and always included in the copied
+text, whether at the beginning or end of the selection.
+"
+"a2b2af18bb476911a7bb88f831e683941c3c18e8","2014-06-07 21:44:51-07:00","Fix text drawing on lines with wide chars or combining chars at cursor
+
+* PaintRenderer.drawTextRun(): compute cursor visibility solely
+in units of screen position instead of mixing screen positions and
+indexes into the line buffer; in a long run of East Asian wide
+characters, this ensures correct placement of text after the cursor
+and prevents the cursor from disappearing midway through the line.
+* PaintRenderer.drawTextRun(): do not assume the display character under
+the cursor contains only one UTF-16 code unit; this fixes rendering of
+non-BMP characters and combining diacritics at the cursor.
+* TranscriptScreen.drawText(): make cursorIncr reflect all code units at
+the cursor position, including combining diacritics.
+"
+"fa40a72eb7f9f16ed3476e117f290642fe3a2085","2014-06-08 21:02:28-07:00","Merge branch 'steven676-for-upstream'
+"
+"e2b53930eec4fa51e271b130b433e80066d63346","2014-06-09 08:48:59-07:00","Allow external file picker
+"
+"9be139078766dc727a622c32156bd877a39d339e","2014-06-09 14:28:21-07:00","Allow external file picker
+"
+"532b07a118d82b68cd9783848267fe27305cba0c","2014-06-10 07:23:54-07:00","Allow external file picker
+"
+"5745765125cc7e3fe189a66f8ea26eee7f7d7633","2014-06-14 12:28:47-07:00","Merge branch 'master' of git://github.com/FrankWestlake/Android-Terminal-Emulator
+"
+"46062fcb1ec023e3904c80cb953fee6bfa08c51e","2014-06-14 12:29:09-07:00","Merge branch 'FrankWestlake-master'
+"
+"5cf4396d5df7db7203524896a272b6ec4134aa62","2014-06-14 22:41:39-07:00","EmulatorView: don't crash when link ends on the last column in a line
+
+When linkifying, endRow/endCol currently represent the screen position
+immediately after the last character in the link; this fits naturally
+with Java subsequence APIs (where the end index is always one after the
+last position in the subsequence), but results in endRow being too large
+if the link in question ends on the last column of a line.  Instead,
+have endRow/endCol point to the last character of the link, avoiding
+this problem (and fixing an off-by-one error in the FullUnicodeLine
+case, where we were already calculating endRow/endCol this way).
+
+Fixes #341.
+"
+"25851597f4e3c3d943ab7d18a4719c6693b0f480","2014-06-20 08:53:31-07:00","Merge pull request #342 from steven676/for-upstream
+
+EmulatorView: don't crash when link ends on the last column in a line
+"
+"5617972b0ee039c4671fb14f5fb53100f4edae0c","2014-06-20 08:57:19-07:00","1.0.62
+"

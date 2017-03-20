@@ -1,0 +1,225 @@
+"commit id","commit date","commit message"
+"0af2e8fb56f6e9f9cd851abd788b9d7b1b6798de","2014-10-07 19:44:31+02:00","LoginUtils.saveAuthToPreferences(): Really avoid the crash.
+
+There was a null dereference crash when using old preferences,
+when we then tried to wipe them out with nulls.
+Also moved the get*Pref() methods to Utils so we can use them
+as public methods in some more LoginUtils tests.
+"
+"2483e1aed07228a3682a5fa7fdeb271abfa969fa","2014-10-08 08:40:45+02:00","The mapping.txt for the 1.11 release.
+"
+"5b9a193f10a6a50a29e97fb5f271f59a9c2b9b4f","2014-10-08 08:41:06+02:00","Remove some unused commented-out code.
+"
+"e95a2ca41fd8b51ef188294d8a53dc213dafc288","2014-10-08 08:49:07+02:00","LoginUtils: Make some methods private.
+"
+"a088bd35f38df887294fa2f9d48c370fd222b19b","2014-10-08 08:53:31+02:00","ItemsContentProvider: Remove some useless commented-out code.
+"
+"91794f28aa63e37acf20272f99dd2a867fb7bf24","2014-10-08 08:56:40+02:00","ItemsContentProvider: Correct a typo in a method name.
+"
+"ae505564396f882eef2515c3bb29fd62ce271dac","2014-10-08 09:06:12+02:00","ItemsContentProvider, HttpUtils: Rearrange some methods for clarity.
+
+This lets us make some private too.
+"
+"cef3734bb85e6a017ee07ea8d5230d24f477f459","2014-10-08 09:19:44+02:00","ItemsContentProvider: Avoid crashes during test cases due to MockContext limitations.
+"
+"4578720e96beb4c99281c768a31f537b4b78cf8b","2014-10-08 09:40:26+02:00","ItemsContentProvider: Move some code to MoreItemsJsonParser.
+
+So it's simpler to create a test case for it.
+"
+"7acc7c7e0b8d822e9713f21c86bff75bbae8f994","2014-10-08 09:51:42+02:00","Add a MoreItemsJsonParser test.
+"
+"6d0c0a76b8c4bd57b40e66712ef36d8ac6e7a810","2014-10-08 11:21:02+02:00","DecisionTree: Close the JsonReader explicitly in case it is necessary.
+"
+"7214996e19bd34a848e0e05a7d7e145f94807252","2014-10-08 11:21:23+02:00","MoreItemsJsonParser: Use JsonReader instead of JsonTokener.
+
+So we can parse the InputStream directly instead of copying its contents
+out to a String first.
+"
+"54331c7c2fa45b122ac7031e1ce0998fa617dca6","2014-10-08 11:57:39+02:00","ItemsContentProvider: Use JsonReader instead of JsonTokener.
+
+This lets us parse the stream directly instead of copying its contents
+into a String first.
+Also moved the parsing code into LoginUtils so it's easier to test it
+separately from ItemsContentProvider.
+"
+"94420cc83c20f18913515f8dd1ac02f206fc1866","2014-10-08 12:00:05+02:00","Remove an unnecessary import.
+"
+"f6c9213c82ad3c53d4e8aa4ab02f1aea1847975a","2014-10-08 12:06:59+02:00","HttpUtils: Remove unused method.
+"
+"7a776a75ebe158480f3df26c79a319bcf9422b30","2014-10-08 12:08:15+02:00","QuestionHelpFragment: Remove an unused variable.
+"
+"1de6fe0c13c41d7e93517bbf77bc91a47e065d1a","2014-10-08 12:21:21+02:00","Config: Use the latest URL for the CSS. I wish there was a stable latest URL.
+"
+"0c7ebfd98db7fab25610b1179ea5b690573f1621","2014-10-08 13:03:35+02:00","Make a test member variable private.
+"
+"577b2600180ad76da8b34232e51829f9f13299fe","2014-10-08 13:03:51+02:00","Remove some outdated TODOs.
+"
+"5fdcd36f0b4cc58a81afc006418424aeb6d47449","2014-10-09 08:42:54+02:00","progress.xml: Rename an id to avoid confusion with the same ID on other layouts.
+
+This can be a problem when refactoring.
+"
+"015ce58cf6733fc6582d7dd8110a80df4bb00a38","2014-10-09 08:44:33+02:00","Change 'Loading…' to 'Downloading images…'.
+
+It's not really what it's doing. In particular, on subsequent starts
+it's really just parsing its local XML and checking the timestamps of the
+icons and example images that it downloaded the first time.
+But Loading… seems generic enough, and it takes long enough, that people
+don't have confidence that it's ever going to finish.
+Even 'Downloading images…' is too much technical detail to ever put in
+a UI, I think, so maybe we'll just have to put the actual icons and
+example files in the executable, with the downside that the
+package would have to be rebuilt and re-uploaded to the Play Store
+every time they are changed on the website. We already do that
+for the decision tree (and its translations), but that seems less
+likely to change.
+"
+"a085ef3eaf483a8fcdc4c4077d58f82da271a6a7","2014-10-09 09:00:42+02:00","Remove an outdated comment.
+"
+"ce1c25fe14fd2fbc82cbe9eba9c6f25f6cfc2eaf","2014-10-09 09:03:39+02:00","QuestionFragment: Move the hard-coded discussion question ID and answer to Config.
+"
+"62b511f92e8aa0d7aa3a0b72f3d91b96ba37327d","2014-10-09 09:04:08+02:00","Put back some whitespace that I like.
+"
+"4c9183ede02486720913ba0bf20ee96ef4ff0331","2014-10-09 09:20:16+02:00","In portrait mode, try to reduce the changes of image height.
+
+By remembering how big the question/answer part has ever been,
+and making it always be that big. This means that the image resizes
+during the first classification, but not afterwards.
+It will resize again if you don't use the 'Is there anything Odd?'
+question until later.
+This is far from ideal.
+"
+"841bac4257c77b84355977f3df3e110bf7c0bf3d","2014-10-09 09:39:01+02:00","IconsCache, DecisionTree: Get a list of all questions instead of traversing the tree.
+
+Add DecisionTree.getAllQuestions() for lower-level things like loading all the
+icons and example images. It simplfies the code greatly.
+"
+"3438f8a2f639699e6f026f4daa8531190d547f55","2014-10-09 11:38:49+02:00","QuestionFragment, SubjectExtrasFragment: Avoid repeat onLoadFinished() calls.
+
+This seems to be an Android bug. It causes us to do the same work repeatedly.
+"
+"3fe8a1aa0a4266ec76c913613191b35c55fd695c","2014-10-09 11:46:22+02:00","Trying to get the minimum height for QuestionFragment.
+"
+"3b1c7774d21ac8cd362b5f35c2cdfb7d44b1e02a","2014-10-09 12:11:59+02:00","QuestionFragment: Get the height in a LinearLayout.onLayout() override instead.
+
+This way we are measuring the height after layout, not before.
+"
+"c27525b07e0886219caf7ad318fa4f3b4f5ffaee","2014-10-09 12:23:04+02:00","QuestionFragment: Add an invisible second row of answers when necessary.
+
+This makes each question's height more similar, though the actual height still
+depends on the actual text (which can vary in unexpected ways when using
+translations) and the actual icon (which is unlikely to be unexpected).
+I don't like hard-coding the number 2, but the decision tree is unlikely to
+change much. This would only be a problem when adapting this code to
+a different decision tree.
+"
+"79b1df17ad3c1292d43bba93417b6b9b0c95bd3f","2014-10-09 12:24:53+02:00","QuestionFragment: Use at least 2 lines for the question text.
+
+Because some questions need 2 lines, and this then makes each question
+take a similar height.
+I don't like hard-coding the 2.
+"
+"bea32778beb2ed2e778194f2554f81008a6a08a4","2014-10-09 12:59:27+02:00","ClassifyFragment: showLoadingView(): Fix typo to really hide the question while loading.
+"
+"a45f621ca82d34ba48c76c54563a44329fce63a9","2014-10-09 13:13:25+02:00","ItemsContentProvider: Comment out debug code that wiped the database.
+"
+"e00c1a8032acd77cfd123cd9ba8e94cd86d93f31","2014-10-09 13:51:16+02:00","QuestionFragment: Don't add vertical space in landscape mode.
+
+Even when the screen isn't wide enough to be using our landscape layout XML,
+adding the empty space just takes up too much of the screen, leaving the
+image tiny.
+Though really, landscape mode on small screens (like my Nexus 4) is almost
+useless because the image is too small even with this fix.
+"
+"0d15133cd9d1b42d7462e1a43e6d6caf8960b5ba","2014-10-09 14:08:31+02:00","Add a log message.
+"
+"61a00cbcd4d733251fa3a5ed199cef589c7daf6e","2014-10-09 19:24:52+02:00","Correct some log messages.
+"
+"bb78fb4f3a4da257bc8d221a330ef31d8d16d031","2014-10-09 19:28:19+02:00","Add some TODOs.
+"
+"6d7b34aa531b4a4377c13376788d8287e49a5dc5","2014-10-09 21:06:54+02:00","ItemsContentProvider.createTable(): Create indices.
+
+Create an index for any field that we use in a where clause or sort order.
+This won't make a difference with the small number of items that we use,
+but it seems like the right thing to do.
+"
+"316ae975e39e6675461fa0b188b6124183bb7ca8","2014-10-10 08:52:26+02:00","ItemsContentProvider: Keep the original image URIs in the database.
+
+So we can use them (in a subsequent commit) to try to download them again,
+if the previous download was interrupted somehow.
+"
+"3d1599b1f705d97e303ce4be583a701048e42c2c","2014-10-10 08:54:17+02:00","Restore some whitespace that I prefer.
+"
+"b03240411704c93d3ce1fd2a890b9f6b6c4a817b","2014-10-10 09:17:47+02:00","ItemsContentProvider: Keep a list of image downloads in progress.
+"
+"9897865584db24aa875bd460a6bf1a54dfa6a29d","2014-10-10 09:42:44+02:00","ItemsContentProvider: doRegularTasks: Download missing images.
+
+This should deal with the situation where an image download fail, for instance when the network
+connection is interrupted or there is a crash.
+"
+"0183ad8de64ffa31fabaaed3dfc5ca32f2b53200","2014-10-10 11:06:29+02:00","ClassifyFragment: Don't stay inverted when starting a new classification.
+"
+"87964bde4ef0f3067e92c7c4ea11e2bf8396a85f","2014-10-10 11:27:09+02:00","provider.Config: Move UI-specific stuff to Config.
+
+This should make it easier to create a mock of the REST web service.
+"
+"fde8de0551a416e91b26dbfee879f62a3c353ba4","2014-10-10 11:47:42+02:00","ItemsContentProvider: Move most network-using code into ZooniverseClient.
+
+This makes ItemsContentProvider smaller and should make it easier to test our use of HTTP.
+"
+"bb7f029c7e1e8b96a78ec9a5ef27251695a64f56","2014-10-10 11:48:45+02:00","IconsCache: reloadIconsForQuestion(): Really reload all.
+
+Noticed by android-lint.
+"
+"db1ecc568bcd3ca758fb6913ec7a6072e663fb28","2014-10-10 11:56:46+02:00","ZooniverseClient: Let the base URI be specified at runtime.
+
+This should let us test it with a mock/fake service.
+"
+"a69974e9287d9fdff974cf5e8722d1218a2b343f","2014-10-10 12:09:53+02:00","provider: Moved some classes into provider.client.
+"
+"7497c6204f37a285256d4c20a2512c1900db202d","2014-10-10 15:26:04+02:00","Add ZooniverseClientTest using MockWebServer from Square's okhttp.
+
+MockWebServer is nice and simple.
+"
+"662961fa5f2d62a16067b2302688dc2cb6f6dd50","2014-10-10 16:09:33+02:00","ZooniverseClient:loginSync(): Fix an error check.
+"
+"6b210605316630e656f10f6212583b7b3e1e6fc0","2014-10-10 16:22:14+02:00","ZooniverseClientTest: Add login tests.
+"
+"3641b3c74b541377c53a9ca0e824c7affc221d0b","2014-10-10 16:25:35+02:00","app.iml: Generated changed by Android Studio.
+"
+"4b3300cc27937b64647bf8f5b4b2417934851acf","2014-10-11 20:27:53+02:00","ZooniverseClientTest: Add upload tests.
+"
+"74228ec934b495cebf6b25c678038e61af485104","2014-10-11 20:38:02+02:00","ZooniverseClientTest: Test what the server receives.
+"
+"65689c85eb27b2770b823fe3b38bbfe08d2344b5","2014-10-11 20:46:08+02:00","Decision tree: Move the files to a sub-directory.
+"
+"d4d3787f113bf8ef0166b5df73ca946a97a3b255","2014-10-11 20:56:51+02:00","Singleton: Avoid an empty catch to avoid an android-lint warning.
+"
+"5b054e7bde7221dad23110946277a2a99af606db","2014-10-11 22:11:11+02:00","AndroidManifest.xml: WRITE_EXTERNAL_STORAGE is only necessary for sdk version <=18.
+
+If you all you want to do is to write to your own cache. So use maxSdkVersion.
+"
+"a80e86866d8517fefd2768d9d1a11c7037f6bd8f","2014-10-11 22:57:22+02:00","IconsCache: Avoid attempting to create files when we just want to know their path.
+"
+"a5585ad695ba0875d8d1ddc90fd6e443f29512f2","2014-10-11 22:58:57+02:00","IconsCache: Bundle icons from assets and use them if they are new enough.
+
+However, the next commit will make us always use them from assets
+and never try to download them, because the CSS file (which describes
+which parts of the icons file to use for each icon) changes
+for each release, and I don't want to bother with coping wth that,
+at least for now.
+
+Note that these icons are extracted from these files:
+https://github.com/zooniverse/Galaxy-Zoo/blob/master/public/images/workflow.png
+https://github.com/zooniverse/Galaxy-Zoo/blob/master/public/images/examples.jpg
+which are under a compatible license (Apache License Version 2.0).
+"
+"8b52b3f1f5a324fb277958910014391d7385cdf6","2014-10-11 23:15:10+02:00","IconsCache: Only use icons from the bundled assets.
+
+Disable all downloading and caching of icons (and the CSS parsing needed
+to do that). Startup is now much quicker, particularly at the start.
+I can temporarily revert this commit to download them again so I can
+update the bundled assets, though I should really extract the code into
+some tool that I can run outside of the app to update the bundled assets.
+"
+"d7001b11c79593475ad0e111a11b9c2bac271dfa","2014-10-12 15:03:25+02:00","1.13
+"

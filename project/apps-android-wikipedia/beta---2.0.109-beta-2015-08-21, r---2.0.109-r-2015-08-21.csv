@@ -1,0 +1,698 @@
+"commit id","commit date","commit message"
+"76c6444cfb64e872b8b15688a8999d96af84a406","2015-08-03 22:13:33-06:00","Hygiene: Use standard Gradle folder structure
+
+It's probably a good idea to start with a fresh git clone of this repo.
+(Don't forget to set git user and run git review -s)
+
+* wikipedia -> app
+** Rename wikipedia folder to app
+** Update value in settings.gradle
+** Update app/build.gradle; also remove the sourceSet overrides
+The remaining block in sourceSet was originally from
+http://tools.android.com/tech-docs/new-build-system/migrating-from-intellij-projects
+I don't think we ever used that.
+
+* Other changes:
+cd app
+mv assets src/main
+mv AndroidManifest.xml src/main
+mv res src/main
+
+* Updated www/Gruntfile.js and .jshintignore to adjust for changes in assets folder
+* Updated scripts to adjust for changes in assets folder and new location of app build.gradle
+* Updated path to AndroidManifest in robolectric.properties
+
+Change-Id: I60edfa89b9934c01087e716c0ed109a55de94bba
+"
+"743bd62272c37777a1824e0967f1cde87a72b3db","2015-08-03 20:43:12-07:00","Migrate persistence helpers to use column name rather than column index
+
+Persistence helpers rely directly on column indices. This has caused some
+nasty bugs, and represents poor abstraction. This patch migrates all remaining
+persistence helpers to using column names rather than column indices, which
+should reduce the future potential for bugs.
+
+Bug: T107783
+Change-Id: I55583e3ccdb88ed03442e2b36f6eb4b9b95e5ac3
+"
+"bbf6621429fa7c668487e72db309257ec17f8c4d","2015-08-05 11:02:05-04:00","Fix duplicate history entries when loading page from cache.
+
+When loading a page from cache, we were forgetting to update our
+HistoryEntry to reflect the page's normalized title, as recorded in the
+Page object.
+
+Bug: T108031
+Change-Id: I443b17e149f2d42c1219904a15330fe7a06f75e9
+"
+"b179c28fbd0f939aa2b34ed1a87a1a72010043e9","2015-08-03 17:21:24-06:00","Add crash button to dev settings
+
+Add button for intentionally crashing the app to the developer settings
+screen. This button is used to test the crash handler.
+
+Change-Id: I00b99a9b724acfe2d828b09a2e1e55f22886184f
+"
+"9d55fd5eabeee97d2cac6c92dc8ca2b723585776","2015-08-05 21:29:42+00:00","Merge 'Fix duplicate history entries when loading page from cache.'
+"
+"a291ced9c15610b633caf15f85ac08ac88584915","2015-08-05 17:38:26-04:00","Fix search icon color in find-in-page.
+
+In API <20, the icon was appearing black, instead of white.
+This is because an incorrect style attribute was being set.
+
+Change-Id: I6c6c5328cce775881bbd433b9d0d9122e19eba83
+"
+"a4cac1fd3d07f7c717efe4abb1202dcec845b374","2015-08-06 12:56:22+00:00","Merge 'Add crash button to dev settings'
+"
+"5b14d649fc04f3a4d765bdee20f938427b79ae24","2015-08-05 12:17:37-04:00","Hide the 'select all' and 'web search' CAB menu items
+
+...since we've determined these aren't useful in the context of our app.
+
+However, we'll still leave them enabled to allow people to access them
+by keyboard shortcut if this is possible and they want to do so.
+
+Bug: T103948
+Change-Id: Id7fae3a7cf732497845da78dcff1b54eccf28298
+"
+"4288244d644f232df4ab2818db43bc093d3230d0","2015-08-06 14:04:30+00:00","Merge 'Fix search icon color in find-in-page.'
+"
+"4fd66a2784ae1e4da31f39ec52ea6da23091b030","2015-08-06 20:31:19+00:00","Merge 'Hide the 'select all' and 'web search' CAB menu items'
+"
+"a769a365c6b618d51370781d1b163303a333bca3","2015-08-06 16:29:28-06:00","Fix test case runtime dependencies
+
+NearbyUnitTests depends on Android Resources which requires Context. The
+test was previously just a TestCase. This patch changes the superclass
+to AndroidTestCase which is described as:
+
+'Extend this if you need to access Resources or other things that
+depend on Activity Context.'
+
+Change-Id: I476b9aaf1b133d79724394f0587969fd89924d31
+"
+"8596c0594904d8c72a0eea9db5490e56f7ae1a6f","2015-08-06 18:35:04-04:00","Hygiene: Fix PageFragment MenuItem variable names
+
+They're menu items, not menus.
+
+Change-Id: Idf8feaa06e08c30c3c8ea0cae1fc2c8e0ce3df10
+"
+"ac13b97523d37a05920f424ec861531a7e2e1699","2015-08-06 21:31:45-06:00","Hygiene: remove 'wiki' from themed styles
+
+* Remove 'wiki' from themed styles and their filenames.
+
+No functional change. Remove needless 'wiki' specifier in theme names.
+In a subsequent patch, 'Theme' will be renamed to 'AppTheme'. This would
+alter style inheritance and require more than patch sized change and so
+does not appear herein.
+
+Change-Id: I2852dbd4f7c8b9ce669d4d44a448cf1298dcd8c7
+"
+"fbf5448a25319e7a3534a9a07c04c89420aeab22","2015-08-05 14:03:37-04:00","Halve RGB values of background colors in tables in night mode
+
+Most colors are inverted in night mode.  However, the background colors
+of some elements in tables  look strange when given this treatment, so
+it was earlier decided to simply strip them as a temporary fix.  This
+resulted, however, in a loss of useful information (see, e.g., the diagram
+in the quick facts box for 'National Assembly of Pakistan').
+
+This patch halves the RGB values of these elements rather than simply
+stripping the colors in order to preserve necessary information.
+
+Bug: T104101
+Change-Id: I567089abf4d39ed1db562d51bd419f26d97d429d
+"
+"b06173c67a1215bae25bddb4ad63301e631b1c00","2015-08-06 16:44:10-06:00","Set generous CI test device timeout
+
+CI is slower than a laptop and needs a lot of wiggle room on ADB
+commands. This patch changes the DDM time out preference as described
+here[0]. It is better to make this change using android.adbOptions[1]
+but it doesn't seem to work[2].
+
+[0] https://code.google.com/p/android/issues/detail?id=104305#c12
+[1] https://code.google.com/p/android/issues/detail?id=104305#c8
+[2] https://integration.wikimedia.org/ci/job/test-T62720-android-emulator/71/console
+
+Bug: T107336
+Change-Id: I373c049c2babc31e2702d79bfa3fe027a2a284a9
+"
+"61ff0fc2184f99215513fce6953f17bd70fd3600","2015-08-07 20:38:32+00:00","Merge 'Hygiene: Fix PageFragment MenuItem variable names'
+"
+"fa442f5f480ca0b4f6f64d9709d9e5f518b4bca7","2015-08-07 20:45:00+00:00","Merge 'Halve RGB values of background colors in tables in night mode'
+"
+"f6474aed95bacb4f9828aa6c5c386511ba06fd63","2015-08-07 23:14:37+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I9a9cf9a5ac3b2e1a7822d9700a638c2d91004782
+"
+"12cafcbd8071c8f4c72fc022ba6d427b059aa450","2015-08-10 09:33:07-04:00","Improve duration/presentation of error Snackbars.
+
+- Set the maximum number of lines in a Snackbar to 5, instead of the
+default 2.
+- Set the default duration of error Snackbars to 5 seconds, instead of
+LENGTH_LONG, which is 2.5 seconds. (This also applies to the Wikipedia
+Zero banner)
+- When handling errors during account creation, one case permits
+displaying the actual error string returned by the server. Since this
+string can contain HTML, we'll now pass it through Html.fromHtml()
+before showing it inside a Snackbar. This isn't ideal, since it removes
+any presentational HTML that might be present in certain errors, but
+it's better than showing actual HTML tags as part of the error message.
+
+Bug: T107082
+Change-Id: Ie0e2ce73787d0ff6ff650e5e6f5b7d8cf79de896
+"
+"c2b99d892070009fbd66904c43aa61d57f512e5e","2015-08-10 19:42:27+00:00","Merge 'Improve duration/presentation of error Snackbars.'
+"
+"75e9a70a5cc05b0b46c87ed1c92bfa47e5d1e75d","2015-08-10 15:22:02-04:00","Improve marshalling of PageProperties when saving state.
+
+One of the latest crash reports relating to Gson unmarshalling has yielded
+something revealing: the PageProperties object contains a private instance
+of a SimpleDateFormat object which, when marshalled, takes up a *lot* of
+unnecessary space, and may possibly be contributing to errors when it's
+unmarshalled.
+
+This patch removes the SimpleDateFormat object from PageProperties, and
+moves it to WikipediaApp (into a method that returns a new instance of
+SimpleDateFormat for every call, since SimpleDateFormat is not
+thread-safe), making it accessible to any PageProperties instance, and
+helps to optimize the marshalling of the app's tab/backstack state.
+
+Bug: T108617
+Change-Id: I9c16b554cbfa84213abd892232ac086a1f469e98
+"
+"17b6cd56def9ef19433d0168dcfdcbf40aa2b816","2015-08-10 21:44:52+00:00","Merge 'Improve marshalling of PageProperties when saving state.'
+"
+"a79acb638a79178323f04d9b618aa9dfbddf6118","2015-08-11 22:10:45-04:00","Apply correct Material background to some buttons.
+
+There's a predefined background attribute that already happens to exist in
+the library, which we can apply to our own buttons, which will make their
+background behave just like the system buttons in the Toolbar.
+
+I went ahead and applied this background to the Language selection button,
+as well as the Clear History button, and the secondary action in Nearby
+items. There may be additional candidates to receive this background, but
+this should do for now.
+
+Bug: T108381
+Change-Id: I0e4366b0fba115e0ea5751797c4c9120a3035658
+"
+"aca6ca981dca276c0f57d17768085bde5583c052","2015-08-05 15:57:19-06:00","Add copy & share link, save page, to context menu
+
+* Add new ContextMenuListener interface methods, onCopyLink(),
+onShareLink(), and onSavePage().
+* Extract common ContextMenuListener implementation to
+PageActivityLongPressHandler.
+* Extract save page completion message to method,
+PageActivity.showPageSavedMessage().
+* Add ClipboardUtil for abstracting platforming differences.
+* Add SearchResultsFragment.getPageActivity() method where previously
+there were numerous casts.
+* Replace redundant PlainPasteEditText.context member variable with
+calls to getContext().
+* Create strings-no-translate.xml as a workaround for TWN integration of
+strings not to be translated. In the future, automatic detection of
+string references and the translatable attribute[0] may replace the
+current need for this file.
+* Minimal and minor miscellaneous clean up.
+
+Add copy link to clipboard, share link with another app, and save page
+for later to the long press context menu.
+
+Note: save pages does not preserve lead images.
+
+[0] http://tools.android.com/recent/non-translatablestrings
+
+Bug: T102541 T107478
+Change-Id: I8b648e4221748dc27454e28a823330c1874a639d
+"
+"27a9b640b72c409285613d474f0ac3782694a393","2015-08-10 16:15:52-04:00","Add page image background color to item_page_list_entry.xml for night mode
+
+Transparent page images looked bad against the default night mode
+background.  This patch gives them a white background like they're
+designed for.
+
+Bug: T104102
+Change-Id: I210b42bc1b4c433721bdef0e5d19df2467f6f48b
+"
+"bb6a94051d9a1566e13bc837dcb401b0b99e73f1","2015-08-13 11:00:29-04:00","Maintain PageActivity instance across screen rotation.
+
+Added android:configChanges flags to PageActivity, so that it doesn't get
+destroyed and recreated upon screen rotation. This is infinitely better
+than our current arrangement, since we'll no longer need to reload all the
+content into the WebView, and the WebView itself adjusts its contents to
+screen rotation automatically, preserving scroll position.
+
+Also, simplified the layout of the page title and description in the lead
+image container. No longer doing the animation and the fade-in of the
+description (it's a bit passé).
+
+Bug: T108951
+Change-Id: I0c9d0ec21d0ec327981e9d4e02b9c65cd3c3a871
+"
+"5b3742b6f49bbb2db94637f3d67e965d2b459119","2015-08-11 21:55:14-04:00","Improve design of password entry input.
+
+Created a custom PasswordTextInput component that has a 'show password'
+checkbox built into it. The checkbox is actually one of those delightfully
+creepy eyeball icons (pulled from the Material Design set) that stares at
+you unblinkingly as you type your password.
+
+Change-Id: I2ea1b965e57590aa4d629646a63274ef60cd8b10
+"
+"7662379c6dce0882732ed4ecf4814cc6235f747a","2015-08-14 13:10:18+00:00","Merge 'Hygiene: remove 'wiki' from themed styles'
+"
+"48cd0badd4e69feabf6f7f0f328ebac5efdcd232","2015-08-11 12:21:23-06:00","Hygiene: use repo keystore for debug, dev, & alpha
+
+* Add a public keystore and properties to repo.
+
+The name 'repo' is used to avoid confusion with build flavors, build
+types, and key types. i.e., the repo keystore is applicable to more
+than the dev flavor, so don't call it 'dev', more than the debug build
+type, so don't call it 'debug', and like any keystore, contains both
+public and private keys so don't call it 'public'.
+
+Properties could be hardcoded in Groovy, but a properties file allows
+for homogeneous handling of both repo and prod signing configurations.
+
+* Change signing configurations:
+
+* Override signingConfigs.debug to use repo. It is a little confusing
+to call the repo signing configuration 'debug' but we don't want the
+implicit debug configuration leaking in. The alternative is to have
+a dummy or redundant debig configuration, each of which is unhappy.
+
+* Always use repo keystore for debug build types, and dev and alpha
+flavors. Always use prod keystore for all other release flavors. For
+dev and alpha builds, that means signatures are tied to package
+names not build types. e.g., you can install a dev release build on
+top of a dev debug build without uninstalling.
+
+A dev keystore is recommend by Jake Wharton[0]. Using this keystore
+for alpha builds as well keeps security concerns out of our Jenkins
+alpha job.
+
+[0] https://twitter.com/jakewharton/status/554242089236828160
+
+* Dev and alpha builds have a new signature. Previously distributed
+dev and alpha builds must be uninstalled which will cause data loss.
+
+* Everyone can install each others' apps without uninstalling.
+
+* Use lowercase.dot instead of UPPERCASE_SNAKE for keystore pre-dex properties.
+
+UPPERCASE_SNAKE seems unconventional[0].
+
+[0] https://android.googlesource.com/platform/build/+/master/tools/buildinfo.sh
+
+TODOs once merged:
+
+* Send courtesy announcement alerting users that an alpha uninstall is
+necessary.
+
+* Update locale ~/.sign/signing.properties.
+
+Notes on keystore generation
+
+# Create a new keystore. Note: some tools guard against usage of
+# keystores without passwords.
+keytool \
+-keystore repo.keystore \
+-keyalg RSA \
+-genkeypair \
+-alias repo \
+-keypass android \
+-storepass android \
+-dname 'CN=Wikimedia Foundation, OU=Mobile, O=Wikimedia Foundation, L=San Francisco, ST=California, C=US' \
+-validity 36524
+
+Notes on keystore validation
+
+# Convert to intermediate PKCS12.
+keytool \
+-importkeystore \
+-srckeystore repo.keystore \
+-destkeystore repo.p12 \
+-deststoretype PKCS12 \
+-srcstorepass android \
+-storepass android \
+-keypass android
+
+# Convert to PEM for comparison with known good keys.
+openssl \
+pkcs12 \
+-in repo.p12 \
+-out repo.pem \
+-nodes \
+-passin pass:android
+
+# Do some diffs against a standard Android debug keystores like
+# Telecine[0] and the release keystore.
+
+# [0] https://github.com/JakeWharton/Telecine/blob/master/debug.keystore
+
+Notes on signing configuration validation
+
+# Build all variants.
+./gradlew -Ppre.dex=false clean assemble
+
+# Verify APK signature.
+# $1 keystore
+# $2 key alias
+# $3 apk
+verify() {
+jarsigner \
+-verify \
+-strict \
+-sigalg MD5withRSA \
+-digestalg SHA1 \
+-keystore '$1' \
+'$3' \
+'$2'
+}
+alias verify-prod='verify prod.keystore prod'
+alias verify-repo='verify repo.keystore repo'
+
+# Verify all repo variants.
+ls -1 app/build/outputs/apk/{*-debug*,*-dev-*,*-alpha-*} |
+sort -u |
+while IFS= read -r -d $'\n' i; do
+echo '$i' &&
+verify-repo '$i'
+done
+
+# Verify all prod variants.
+ls -1 app/build/outputs/apk/* |
+grep -Ev 'debug|dev|alpha' |
+while IFS= read -r -d $'\n' i; do
+echo '$i' &&
+verify-prod '$i'
+done
+
+# Explicitly verify release prod variant.
+verify-prod app/build/outputs/apk/app-prod-release.apk &&
+! verify-repo app/build/outputs/apk/app-prod-release.apk
+
+# Be paranoid. Download known good APK and verify.
+scp \
+caesium:/srv/org/wikimedia/releases/mobile/android/wikipedia/stable/wikipedia-2.0.108-releasesprod-2015-08-04.apk \
+. &&
+verify-prod wikipedia-2.0.108-releasesprod-2015-08-04.apk &&
+! verify-repo wikipedia-2.0.108-releasesprod-2015-08-04.apk
+
+# Verify app installs and launches devDebyg variant from IDE.
+
+# Verify IDE respects repo key configuration.
+adb install -r app/build/outputs/apk/app-dev-release.apk
+
+# Test no prod keystore with dev and alpha debug and release.
+./gradlew -Ppre.dex=false clean assembleDebug assemble{Dev,Alpha}Release &&
+ls app/build/outputs/apk
+
+Change-Id: I7d562413e9f13be1ea514e47ffb8af94858e47aa
+"
+"2c0ed1d17ac29dc72e6ce0db4fa3893649380ed0","2015-08-14 12:57:38-04:00","Speed up tab animation.
+
+This changes the animation time from 'medium' to 'short', making it more
+consistent with other apps that have similar interactions.
+
+Change-Id: I4baae900daaccb3dbcccb67ef056c7fabc6feacf
+"
+"bf8d268a4ef363bdffb148021657854b2c613181","2015-08-14 18:50:30+00:00","Merge 'Speed up tab animation.'
+"
+"a88975255d6476a5ca0b5580ca85a4b0d58a0774","2015-08-13 10:35:30-04:00","Update SQL query generation to handle mainspace and other null params
+
+This patch updates the generation of SQL query parameters to be passed
+to the content provider by generating primaryKeySelection and
+PrimaryKeySelectionArgs values based on the properties of a specific
+object, handling null values for namespace (or any other field)
+appropriately.
+
+This eliminates the problems of duplicate history and saved page entries,
+and allows deleting history and saved pages entries one at a time whether
+the underlying pages are in mainspace (i.e., have a NULL value stored as
+their namespace) or otherwise.
+
+Bug: T102293 T105471 T105472 T107842
+Change-Id: Ie715baefae7b76fb488e0910be5fcf4ad4593b4c
+"
+"2e405121bae121c2b0f1753b1374fd3cef617fa8","2015-08-14 12:29:31-04:00","Fix page title position when Wikidata description is empty.
+
+The final piece of the puzzle in correctly laying out the page title and
+the Wikidata description below it. This patch fixes the case when the
+description is empty, which was causing the title to be totally flush with
+the bottom of the lead image.
+
+This also hides the page title until the description is fully laid out,
+since the title was sometimes 'jumping' when the page is first loaded.
+
+Change-Id: Ibd3991a8f3615670a697cdc09fdb2442936eddec
+"
+"3038d0d0a5a6fc638d64233a10f71f2ca576ab8b","2015-07-23 00:22:04-04:00","Link Previews: TNG
+
+Highlights:
+- Created a SwipeableBottomDialog class that forms the basis for a Dialog
+that can be swiped vertically, and dismissed by swiping all the way
+down. It works by using a ListView with transparent 'items' that fill
+the screen, and the last item contains the actual dialog xml layout.
+- LinkPreviewDialog makes full use of SwipeableBottomDialog.
+- Created a custom View called GalleryThumbnailScrollView, which inherits
+from RecyclerView (finally), and implements a horizontally-scrollable
+gallery of image thumbnails.
+- Modified GalleryCollectionFetchTask to be able to fetch thumbnail URLs
+for each gallery item, which is specified conditionally. The full-size
+gallery works as before, while the thumbnail gallery uses the new
+modified fetching parameters.
+- Clicking on any of the scrollable thumbnail images leads to the full
+Gallery with that image focused.
+- Increased the global preferred thumbnail size to 320, which will
+increase the fidelity of thumbnail images shown in Search results,
+History, Saved Pages, Nearby, and Link Preview thumbnails.
+
+Bug: T108374 T102166 T107785 T107912
+Change-Id: I8326dba91d76b821d5c58550e20544c55d432808
+"
+"358654c973bc73ee6b1a3769bfaf905af7381608","2015-08-14 14:41:21-06:00","Tweak long press menu order
+
+Order long press menu items by frequency of use.
+
+Bug: T102541 T103957
+Change-Id: I39d6d882bc50d4dba13ef55cfa156f6c040daf54
+"
+"d3839a6e25f3ca225637282e5f37d6bdf492cdea","2015-08-14 23:05:04-04:00","Whoops: bump DB version number!
+
+One of our recent patches introduced a new column to one of our
+persistence helpers (PageImagePersistenceHelper), which necessitates a
+bump of our db version from 6 to 7. In fact, the updated persistence
+helper explicitly asks for database version 7, but the actual database
+version number wasn't updated.
+
+This is causing the undesired side-effect of images not being saved for
+any page (and thumbnails not showing up in History, Saved Pages, etc).
+
+Change-Id: Ie69dee237a86752fe5fd924ce3a253f3b6b2deeb
+"
+"773994917d6c95909af949331f4ffad73c00550a","2015-08-17 10:28:07-04:00","Don't collapse tables on the Main Page.
+
+Bug: T104098
+Change-Id: If2b503fc6d4c4f59c1a0105d03157b89f2b97fff
+"
+"bb23f71b19eafe028215b4ae4c818f4fa15b9d64","2015-08-17 15:18:53-04:00","Hygiene: give link preview menu items less ambiguous IDs
+
+These menu items should be more clearly identified with the link preview
+dialog to prevent confusion with other, similarly ID'd items.
+
+menu_save_page, in particular, is awfully close to menu_page_save (which
+just cost me a short session in the debugger).
+
+Change-Id: I5a41cba4f73714a136020e505a47df7ebde2b386
+"
+"88430f07d8fee23d9ad12746a7f01c17350430fd","2015-08-17 15:21:46-06:00","Temporarily revert string renames
+
+Temporarily revert string resource key names made in
+aca6ca981dca276c0f57d17768085bde5583c052. String contents may change,
+or strings added or removed, but string names must remain the same so
+TWN diffs may be resolved safely.
+
+Let this be a lesson in keeping patches small and a tale of caution that
+our translation diffs aren't terribly sophisticated. Devs may
+exclusively change string names or values in patch and in a day.
+
+The following reverts were made according to strings.xml[0]:
+
+menu_page_save                     -> menu_save_page
+menu_page_share                    -> menu_share_page
+snackbar_saving_page               -> toast_saving_page
+snackbar_saved_page_format         -> toast_saved_page
+snackbar_saved_page_missing_images -> toast_saved_page_missing_images
+snackbar_refresh_saved_page        -> toast_refresh_saved_page
+snackbar_saved_page_deleted        -> toast_saved_page_deleted
+menu_page_other_languages          -> menu_other_languages
+menu_page_find_in_page             -> find_in_page
+menu_page_font_and_theme           -> menu_themechooser
+menu_page_show_tabs                -> menu_show_tabs
+menu_long_press_open_page          -> menu_open_link
+menu_long_press_open_in_new_tab    -> menu_open_in_new_tab
+
+[0] https://gerrit.wikimedia.org/r/#/c/229582/9/app/src/main/res/values/strings.xml
+
+Change-Id: Id0294cc2b6035b61203ce8bbbeb13aa0cd50a914
+"
+"8eebabe06da2b151fc8e307785a694abcc826730","2015-08-17 10:16:01-04:00","Share only the page URL from the overflow menu.
+
+Prior to this patch, the behavior when selecting the Share option from the
+overflow menu was to launch the Share-a-fact dialog with the first
+paragraph of text. But in fact, all that users really want is to share the
+URL of the page. At the time of this writing, this is one of the most
+requested features to be brought back.
+
+Bug: T108181
+Change-Id: I371bff4bf5c2b3aeec6dfff708b4de5cba3306cf
+"
+"261cc1e1fc46d5395301bbd39cfa28f64e6e4d75","2015-08-18 15:22:27+00:00","Merge 'Hygiene: give link preview menu items less ambiguous IDs'
+"
+"b2a614c68eabb2e6ba4ea3b6dac20209014e90ab","2015-08-18 15:34:02+00:00","Merge 'Share only the page URL from the overflow menu.'
+"
+"60fdafd90e838f9f77b075bb0d621278c3d09f97","2015-08-17 10:58:24-04:00","Don't allow opening refs or Special pages in new tab.
+
+Special pages are not supported by the mobileview API (that's
+why we bounce them to an external browser in the app), and
+References are external links by definition. Therefore, it's
+meaningless to offer to open these links in a new tab.
+
+Bug: T103992
+Change-Id: Ib97e053363b098afbafd868aae71fe370a038654
+"
+"b685a5497320581a8fddc886ed593e43dd26b9bd","2015-08-18 16:22:16+00:00","Merge 'Don't allow opening refs or Special pages in new tab.'
+"
+"c2fc5205c28e7698ab791830247d3ca2006a3efc","2015-08-18 22:03:17-04:00","Hygiene: Remove unused WikiListView component.
+
+This component provides the ability to obtain the x-y coordinate
+of long-press events, which we were using to display a context menu
+located exactly at that point. However, this turned out to be an
+unsustainable and inconsistent solution, so it was abandoned.
+
+Change-Id: I2afd2128f0598a2e3c27aaba73e60f4cd6c60f27
+"
+"8b8cbb6dfb371e7bd4d3ea98d8bd47fff3043533","2015-08-14 23:59:00-04:00","Link preview tweaks.
+
+- The title is now clickable (Materially), and goes to the target article.
+- Removed the thumbnail image next to the title.
+- Removed dark background from title & overflow button.
+- Removed the persistent button on top of the preview, and moved it to the
+bottom of the content, as it was originally. (And therefore removed the
+'overlay' view code)
+- The bottom button is now Material-styled.
+- Reduced the TextExtract length to 2 sentences, as it was before.
+- Made the TextExtract receiver more fault-tolerant (optString instead of
+getString)
+- Updated the image gallery Funnel to track whether it was entered via the
+link preview (in addition to Lead Image vs. non-lead image). (The schema
+already supports this generalization)
+- Brought back client-side processing of sentences from the TextExtract.
+(Sorry to flip-flop on this, but additional testing of this
+functionality has convinced me that it really is better this way. Once
+we transition to the content service, we can take this out.)
+- An executive decision to refer to articles as 'articles' in this
+instance (Design and mgt. are in agreement).
+
+Bug: T108374 T109342 T109340
+Change-Id: Iec04b087d8864bf35181b9a6523cc2cca34ab7df
+"
+"360c5b2b0cc204303636cd895500863624e10a9b","2015-08-20 03:31:54+00:00","Merge 'Link preview tweaks.'
+"
+"2200cf7c01740bc869460c38f2864c73b961ee5d","2015-08-15 17:00:29+00:00","Revert 'Hygiene: Split off page content loading into two variants'
+
+This reverts commit 1fe3e21d5efaa350e38722f3db15672f56bd99d7.
+
+Looks like java-mwapi structure (Api, RequestBuilder, etc.) is not a good fit for dealing with REST endpoints. Looking into other options, like Retrofit instead.
+
+Change-Id: I0a8e773d07242303e063cf35de642a1fa42c0608
+"
+"10f381139fcf312f677e50cc27c315c0820f83c4","2015-08-18 22:07:14-04:00","Use default Material button selector in a couple more places.
+
+- License icon in Gallery.
+- 'x' button in Tab list.
+- Buttons in the Disambig dialog.
+
+Change-Id: Ied751e4564bd55d1f54db0a50ff1c0de7ff1858e
+"
+"d9143756adcc5851575f12ab9e56fdb9c7d5d314","2015-08-18 22:16:35-04:00","Clean up list highlight colors.
+
+- Removed the explicit background declaration from list item layouts,
+which will allow any ListView to use the default selection effect
+naturally.
+- ...except in History and Saved Pages, where we need to explicitly apply
+the background selector to the items, so that the 'activated' state can
+be applied (we use the activated state to indicate multiple selections).
+- Updated the colors in the custom selectable_item_background selector to
+match the default AppCompat colors.
+
+Bug: T107249
+Change-Id: I5c0f1623f4b8dc3fd7ab89ef249cd8ac3256afe4
+"
+"dc0f670d0efd5fb3239192b38d0201b5c1bc54a2","2015-08-20 21:40:58-04:00","Give the Search bar (gasp) a Material highlight.
+
+Change-Id: I54393cd4d6c046415dca552ee7e8dcc0e98b9f03
+"
+"29d1cb2d76675f59de73c5b2a83fcef5ca02c289","2015-08-21 10:03:47-04:00","Stage link previews for production.
+
+- All users get link previews.
+- Removed the LinkPreviewVersion randomizer, and bumped the version number
+in the Funnel to 3, to distinguish the new events from the previous
+events, which had version 0, 1, or 2. (Also removed the link preview
+version preference)
+- Some final (really) padding/margin tweaks in the xml layout.
+- Removed the subtle zoom animation that gets applied to the background
+activity when the link preview is shown. On two of my devices (API 18
+and 19), and on API 19 in the emulator, the link preview seemed to
+consume a nontrivial amount of CPU (even when idle!) when displayed on
+top of a zoomed-out activity. When the activity is not zoomed out, CPU
+consumption is normal. Until we figure out why this happens, let's just
+not do the animation.
+
+Change-Id: Ieeaf9ed26c058c26556475d5026d498e9532651e
+"
+"a5b3d4954a2a786f6581b62b1ac187217f6b250f","2015-08-21 18:28:20+02:00","Localisation updates from https://translatewiki.net.
+
+A bug in HHVM, T109402, causes most of the line endings to disappear in
+translations. After exporting from TWN, the following approximate
+commands were executed to printy print the XML:
+
+find -name strings.xml|
+grep -Ev values/strings.xml|
+xargs -rd\\n -I{} sh -c 'xmllint --format '$1' -o '$1'' -- '{}'
+
+TranslationTests.testAllTranslations() failed because a format specifier
+was added to one string. This failure is a false positive as it is
+always safe to add a format specifier, but not usually safe to remove
+one without updating all translations since the argument would not be
+supplied in the Java code. As a workaround, the tests pass after
+running:
+
+find -name strings.xml|
+grep -Ev 'values/|-qq/'|
+xargs -rd\\n  sed -ri 's%<string name='toast_saved_page'[^>]*>[^<]*</string>%%'
+
+Change-Id: Ia94b879f1c85befca8c3e4114fded504a808eba3
+"
+"c8af3e755f1c6ef485cfc41befea19150190f7de","2015-08-21 17:17:25+00:00","Merge 'Localisation updates from https://translatewiki.net.'
+"
+"9cc63f234ea5445f3ae70e798af121b4181b1a3c","2015-08-21 21:31:07+00:00","Merge 'Revert 'Hygiene: Split off page content loading into two variants''
+"
+"7cfe989d7c1af68bdda43d89b8f05894ffe6fc55","2015-08-21 13:54:15-06:00","Preserve descenders in link preview title
+
+The stems of gs and ys in the link preview title were cut off because
+the line height was too trim.
+
+Bug: T109892
+Change-Id: I9cb6aa61e78ede0fe0b69617360ab5d0f34ae4f3
+"
+"93b8efef1bf62ea6e8737e1d3a60e59f68f57411","2015-08-21 16:26:13-04:00","Add Beta A/B test for scrolling the link preview to different heights.
+
+- Brought back the LinkPreviewVersion generator.
+- The split is now as follows: 50% of users will see no preview, 25% will
+see the preview scrolled up a short amount, and 25% will see it scrolled
+up a medium amount.
+- The test only applies to Beta. The production app will have link
+previews for everyone, and no height a/b split.
+
+Change-Id: I219ac0ba1e3889146a2de626b3fbf15a61b0c15f
+"
+"cda9a7cb20342be144780e4d20876e2293fc33ab","2015-08-21 16:46:10-06:00","Bump versionCode
+
+Change-Id: I456ef9c1e6f82bff540b6fded81a4816af1d146d
+"

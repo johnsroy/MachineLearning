@@ -1,0 +1,215 @@
+"commit id","commit date","commit message"
+"b7479a123dac24e81925ea66e94c565723b52c0e","2010-11-26 14:51:14+01:00","Merge branch 'hotfix/0.6.2'
+"
+"cd20db25eecd1c2c29cdc1ce43fa47b115c18349","2010-11-26 15:23:16+01:00","The market now requires a high-def icon.
+"
+"1c09b8aa2c3f3d3544b29afc0a587256470e704a","2010-11-30 08:23:08+01:00","We now have a proper 512x512 version of the icon.
+"
+"514bbbb86e6c29745cc4d1e268f8143c5e189d93","2010-11-30 08:27:41+01:00","...and also make sure we have the correct orientation.
+"
+"ca64d7308daa8532ca3a3cf9f1a0de05aa2fc99f","2010-12-21 05:41:11+01:00","The 2.3 SDK changed things again; this seems to be happening on every
+release. We need to find another way to customize our builds.
+"
+"e47b9ad1258124739250b09ecbb40a3ae8b93308","2010-12-21 05:42:35+01:00","fabfile 0.9 is the only version available now, and has changed a lot of
+it's API.
+"
+"a129278c3bc5ecfb2fc991cd6ddc5fcf4e495be4","2010-12-21 11:32:51+01:00","Amazon requires those tags, even if empty.
+"
+"e855fff8f08b938056c2d620e5760f828d24fb99","2010-12-21 12:01:09+01:00","Store the official description of the app.
+"
+"acde5116da75f1a43a4bd171bd9847df4ec062a3","2010-12-21 12:02:35+01:00","Various raw graphics are now stored outside of the repository. There are
+starting to be a considerable amount now, and we can consider it
+branding of the official version vs. the open source code release.
+"
+"b77fab883903899f435af878fb4e44a6d9df5aa2","2011-01-01 14:48:06+01:00","Included Russian translation submitted by Andrew Ivanchenko. Thanks!
+"
+"b0f477d520932dd4ba033b32a8399bfbca1f9fdb","2011-01-01 14:51:14+01:00","Do not include the generated language-specific XML string files in the
+repository.
+"
+"c6fae500788a3d9be0483cb9d5df4e72ebe677c8","2011-01-01 14:52:18+01:00","Updated CHANGES.
+"
+"d7ff2465620e852e0ea144fa4ec2d3c20f19e42a","2011-01-27 15:55:11+01:00","This has been a generic function for quite some time now, we should
+adjust the error messages to reflect that.
+"
+"009d4a4d887d183d12daf89d3a5cc603c75d7660","2011-01-28 00:32:01+01:00","Use PackageManager.setComponentEnabledSetting() instead of requiring
+root. Use WRITE_SECURE_SETTINGS when available to auto-manage the 'ADB
+Debugging' settings.
+
+Many users are confused about the requirement to enable ADB debugging.
+The initial message instructing the user to enable it doesn't seem to be
+enough. It's also a problem in that it can be a security liablity. I
+have a variety of ideas to improve this situation, and this is the first
+change in that regard.
+
+If we're signed with a system certificate, we can use
+setComponentEnabledState() rather than going the root-route. If we're
+installed on the system partition, we can auto-enable the ADB Debugging
+setting.
+"
+"023047536ee4773fa07694c102de194b41cc9d18","2011-01-28 00:37:43+01:00","Ignore Eclipse settings directory.
+"
+"3f61e8a33503ad0be41f08cb4c86fe9ce2fb3f5a","2011-01-28 00:39:49+01:00","Merge branch 'master' into feature/adb-easy
+"
+"732fdde30024fbb3628162cceb89fc823ec6d36e","2011-01-29 13:28:13+01:00","I have given this a try now, and it indeed does work.
+"
+"e9e7a203e97a24d7b8b4077a903542455fa19986","2011-01-29 13:31:23+01:00","I originally ran into trouble with our ADB auto-enable code after repeatedly
+changing the component state, even with our timeout (in that it didn't
+do it's job: the su-process still hang, and this was only fixed by a
+device reboot).
+
+I can no longer reproduce the problem.
+
+So I'm adding another timeout, *before* the su-call this time, hoping
+for some extra safety.
+"
+"fb0284443059869b8e78ebab789c6d15f0cf21df","2011-01-29 14:14:55+01:00","It turns out that we can also use a 'su setprop' call do enable ADB in
+cases where we don't have WRITE_SECURE_SETTINGS. This essentially gets
+rid of the need for the user to keep ADB Debugging enabled.
+"
+"0dcfae4bff3667e1a8a47e74e88bb8fcd02c60f0","2011-01-29 14:18:33+01:00","Update CHANGES file with our new work.
+"
+"c6ba00876a680b4505af062ea34a128142478554","2011-01-29 14:20:29+01:00","Now that we can auto-enable ADB, we really don't need to bother the user
+anymore with this.
+"
+"2fb0a5e01dd4bacfdda41129fdcca6a15c36208c","2011-01-29 14:22:30+01:00","We haven't used a custom exception handler for quite some time, but
+forgot to remove those strings.
+"
+"8d89dfcdf63a8ed547c6551442e1cf71231543fc","2011-01-29 14:30:07+01:00","Always use a timeout.
+
+While we shouldn't really need the timeout anymore with ADB being
+enabled by us automatically, there are still those rarse cases where we
+see problems (as described in e9e7a203e97a24d7b8b4077a903542455fa19986,
+for example). Using a timeout in all cases ensures that the user
+experience in case there are problems isn't impacted too much.
+
+It might be helpful though to indicate to the user somehow that a
+timeout is employed, and that potentially it should be investigated why
+that happens.
+"
+"0bcf9a8bbdac4f695da0e805e1d34cb88e1efc9a","2011-01-29 14:34:11+01:00","Merge branch 'feature/adb-easy'
+"
+"3af521c86b1ca28296cc5e68a86395fbba70cc08","2011-01-29 14:38:33+01:00","I'm not even sure anymore what exactly this TODO means, but it soulds like
+something that's no longer relevant (we are parsing packages.xml these
+days, in efffect).
+"
+"a6308551b98ba4dda646e012b61567f648b059d4","2011-01-29 14:40:42+01:00","I decided when implementing the setComponentEnabledSetting() codepath
+that using the NO_RESTART flag isn't worth it. The documentation warns
+about potentially causing issues with the running package, and while I
+judge the danger to be smaller, potentially causing a lot of issues and
+complication doesn't seem worth a limited speedup of the state toggling
+process.
+"
+"a2475e85af5dafac0c1cb4fc8efb76e7e6ecb061","2011-01-31 15:16:25+01:00","TODO note about autostarts based on services.
+"
+"d50d4e9b4a6db52b9cf9f89e81feed4d9e76b8e8","2011-02-28 03:46:29+01:00","Now using our new py-androidbuild routines to build completely without
+Ant.
+"
+"8ded41cab44e46f30f49f3ed6fec2e597bfb1831","2011-03-01 15:37:24+01:00","Remove the ant build, we no longer use it.
+"
+"5c76c06a61b6ee077d50dcd43117bd8560878e1e","2011-03-01 15:37:45+01:00","Specifically target version 8, as we used to do in the Ant build.
+"
+"bf8b5c81df982c8d85d2c61552a242fad103ce39","2011-03-01 15:39:50+01:00","Merge branch 'feature/new-build'
+"
+"104fc70f2df61d39128ac03d420a7d370d49538c","2011-03-06 00:53:15+01:00","Use transifex for translations.
+"
+"db8f7b56274f162a97772fddad1a3d9b85064b8c","2011-03-06 00:54:25+01:00","Added simple README file.
+"
+"d2086cd340994dcd588b764989d8fd7e8a43905e","2011-03-22 05:18:22+01:00","Added basic 'group by package' support. This comes with a refactor of a
+lot of internals (things that will make also make it easier to implement
+other changes), but a bunch of things are still broken and/or untested.
+"
+"be9c5e24d6fe0248992c0fdff119e521abde3636","2011-03-22 06:15:28+01:00","Merge branch 'master' into feature/group-by-app
+
+Conflicts:
+src/com/elsdoerfer/android/autostarts/ToggleTask.java
+"
+"fbae3d2131e9200d99d1d0164b90be03ff352729","2011-03-22 12:46:46+01:00","Use proper layouts for rows in both grouping modes.
+"
+"06859010211e2138517348379ba4bb0198467edb","2011-03-22 13:30:41+01:00","Created a new PackageInfo class, this makes it easier for us to sort the
+'group by application list' by package name.
+"
+"9f8a4372a066f9814e744109fa7d3c8e51138d34","2011-03-22 14:46:22+01:00","Added GUI to toggle between the two grouping options.
+
+The icon is ic_menu_windows.png from the Browser app. Another option
+would have been a custom icon based on the Browser's ic_menu_list, with
+reduced width for the lower bars (indicating a child item), and 180°
+rotation, so that the darkest item is on the top. It would be similar to
+the 'Sort A-Z' icon in the system 'Manage Applications' activity, but
+with only two different item lengths.
+"
+"66b30f06be0e8dd07789e15a6808e0a5ec07dade","2011-03-22 15:33:45+01:00","Use the proper colours, text styles for the list items in 'group by app'
+mode. The code has been refactored so that both grouping modes can use
+it to initialize their item styles.
+"
+"c65c740ccc27f9f4bcfc40fcc48ccb15fedb018d","2011-03-22 15:36:56+01:00","Update CHANGES file.
+"
+"12580de9f60dd36a5ecba0370a4416cf7f469247","2011-03-22 16:06:13+01:00","There is still room for improvement wrt 'USB Debugging', but we're
+really close enough now.
+"
+"7a3cc89a97aa63c03efc986c4566f03536aa52ce","2011-03-22 16:08:09+01:00","This is now implemented.
+"
+"a6570b9d4ca819c86132587f927abfeee9be892e","2011-03-22 16:08:31+01:00","Make the actual 'disable' dialog work again. This almost concludes group
+by application.
+"
+"cc317362d79c1f0e920bccb53d80779e60781a7e","2011-03-22 16:58:32+01:00","Solve the problem of persisting the selected event when a configuration
+change happens while a dialog is visible. It isn't done properly
+though: Just good enough so that it works, and there are no crashes, but
+the GUI might show the component state incorrectly afterwards.
+"
+"a37e5686813acd685519963c7a73494eaf1e9f47","2011-03-22 20:57:48+01:00","Enabled fast scrolling on the list view.
+"
+"e851baa333b618a8d230dddc0aa7ffa54c0137d4","2011-03-22 21:24:09+01:00","Various TODO items.
+"
+"e4c28f0bb4d0360e6e02952ef003c53c6b0e6d11","2011-03-22 21:35:09+01:00","Fixed 'Application Info', was broken on Gingerbread.
+"
+"6a855340c37f468f28781d4148bfd9bf605822a7","2011-03-22 22:00:18+01:00","Added android2po config file, so we can ignore strings.
+"
+"ebce678b5f9060f6238a5e3143713bee620909f3","2011-03-22 22:00:44+01:00","Update .po files with new strings.
+"
+"163ce4571562d12c858b89b7df526bfb53f5ed6f","2011-03-22 22:15:01+01:00","Split string resources into two groups, the standard UI, and the
+descriptions for all well-known actions. To translate the latter is a lot
+of work, and this split makes it clearer that it may be optional to do
+so.
+"
+"6034cdd4e6516e66b05b152e0482bf2882355793","2011-03-22 22:20:17+01:00","The market text was updated.
+"
+"94e99e349d4c1f9f276cabf10defb72449206687","2011-03-22 23:47:55+01:00","Move the faq text into a separate resource file, and store as a string
+array, so that changes to the text are more managable.
+"
+"8463cd3c7bd7a13c495fac49f1a5dbe16f669116","2011-03-24 14:13:17+01:00","Use Activity life cycle for the 'State Change failed' dialog.
+"
+"ef6a42c8f821cc2376cea1d5721fc653d480d44a","2011-03-24 14:35:59+01:00","The receiver info string was previously not translated. Now it can be.
+"
+"37de7ede419d375116c3611003136f69a93b515d","2011-03-24 14:50:20+01:00","Properly sort actions, either by priority or action order, depending on
+grouping.
+"
+"43ad6fe51d8f8d6e0b70a9d3270233a561f03adc","2011-03-24 14:54:41+01:00","Fixed potential NullPointerException for components that have no name.
+"
+"8515cae112ebf3dc8313e8ce90faa8a1ed183d8e","2011-03-24 14:57:18+01:00","By delaying the creation of the PackageInfo instance during parsing, we
+can slightly speed up the process.
+"
+"79aa691ee3fcfdfdaa8c7829344bf428c6fb3265","2011-03-24 15:04:22+01:00","I removed this file when switching to py-androidbuild, but actually,
+it seems it's still relevant for Eclipse building.
+"
+"b4f7f990df13b62689d3e357597d86be6ca19d2b","2011-03-24 15:09:08+01:00","Note about the parceling of package icons.
+"
+"29e34806f132de63b9d971bc9fbe0755032e41df","2011-03-24 15:24:40+01:00","Very basic Homeycomb-readiness that only extends to using the proper
+theme.
+"
+"d2cbe9554860fc98f73a0a28f7c59b0ccd45aee0","2011-03-24 15:33:01+01:00","Print stdout when a build error occurs so we know what's wrong.
+"
+"f5a1c0a512045f0bdf58cde54a3f48c50341d479","2011-03-24 15:34:50+01:00","Pull new translations as well when building.
+"
+"ae149dbc695b1ef33f00897d1c209039f7d4414e","2011-03-24 15:35:02+01:00","The Transifex client seems to insist on rewriting our config file.
+"
+"b13a36ca2db61496c3fe51f7e5882b961aa8b88d","2011-03-24 20:44:08+01:00","Temporary workaround for the lack of support of ISO-639-2 (three-letter
+language codes) support in Android. From what I can tell we will not be
+able to support this language, but I'd like to move ignoring it into
+android2po later on.
+"
+"c47ba375f9a67b4a42b0020a361a50ce1116d7e7","2011-03-24 20:47:10+01:00","Added events from Gingerbread and Honeycomb to the well-known list.
+"
+"c1ad9f1094dbee917696bf2bdd4eeb6d170b7934","2011-03-24 20:54:54+01:00","Fixed call to sign() in build script.
+"
+"96e7e34b825a73012dbc8610723b29aca9c45267","2011-03-24 20:48:24+01:00","Prepare new release.
+"

@@ -1,0 +1,186 @@
+"commit id","commit date","commit message"
+"0b1c127f4c484943b00a5867adc8cba327730243","2013-10-16 22:11:24+09:00","Tag the version
+"
+"5c01553f5be80f0c3a506ac84df4368a37eedfc1","2013-10-16 22:31:58+09:00","Reduce server calls to make script faster
+"
+"7ccce75e0f3d2ee5969c4dfa03fc5c3b83ca3fd6","2013-10-17 11:37:03+09:00","added screenshot
+"
+"b2e11424f0690609e2420b833276b1d6b2e31f79","2013-10-23 22:09:21+09:00","Added 7inch screenshots by ospalh https://groups.google.com/forum/#!topic/anki-android/bkCN3gw7bGo
+"
+"0961a8367e29c1fa648ec1bf0ac22156aa584cc8","2013-10-24 14:33:08+09:00","Renamed folders for languages for which Play Store does not accept localized screenshots, removed duplicate
+"
+"f0e6a9867fca61932d123c666dc27991094efa15","2013-10-15 05:57:57+11:00","Move non-libanki methods to the bottom and remove commented code
+
+To make comparison with upstream easier, all methods that don't have an equivalent in sched.py have been moved to the bottom of file. Methods that were commented out have been removed since they are not needed anymore.
+"
+"6a3390daf2a58b47563dcac56dc860aef8eefe4c","2013-10-15 06:09:14+11:00","Organize constants and remove unused ones.
+
+The parameter passed to deckDueList was never used, so it's safe to remove it.
+"
+"04e59c099862c7db63d0056633da5985f64f2e8a","2013-10-20 16:07:27+11:00","Organize variable initializations to better match sched.py
+
+Makes it easier to compare with sched.py.
+"
+"7e2692292afa633846bf81ea5c37dcbdf73384b7","2013-10-15 07:16:53+11:00","show (end) when exiting with resched=off (dae/anki 71bc925)
+"
+"8f593ea3902163dd9dffef3cdd9bdc885c5ffca9","2013-10-15 07:21:47+11:00","fix bug where 2 buttons shown on second learn step (#864) (dae/anki a7b9a7b)
+"
+"7b6cc5cd67f54fda26e9fd6bed8946a3af66735e","2013-10-15 07:26:12+11:00","shuffle after importing when random on (#576) (dae/anki 403a53c)
+
+need to order cards after import for sibling spacing (#464) (dae/anki d72fb35)
+"
+"c56f898f8d94275fda864adf24d786ebd4216ce2","2013-10-15 07:31:10+11:00","leave new cards alone when exporting, so order is preserved (#447) (dae/anki 201b547)
+"
+"1ed2e92640838ebe7ce143a164d6a6ad30d70f51","2013-10-15 07:39:49+11:00","make sure we always show 3 buttons for cards in initial learning (#928) (dae/anki 5ea074e)
+
+even if there's only a single learning step, the easy bonus means we need to
+show both buttons
+"
+"0f52d58649265a40137db3c25e5bb642dff82aa7","2013-10-15 07:42:57+11:00","add relative overdueness option (dae/anki 492ed33)
+"
+"5930fdbc288d78c0a9d8eda5d87584895b3c7b8b","2013-10-20 16:47:58+11:00","Update sibling/burying behaviour to be in line with anki 2.0.14
+"
+"9f4e175f0fc9fd22966108b63d81b7b5670e1ee9","2013-10-15 18:34:44+11:00","Don't use single-object arrays in queues + queue building fixes.
+
+- There is no benefit in storing the result of each row in an array when the result only has one column. Store the values directly in the list for efficiency.
+- Don't clear the list until we know we are actually replacing it with new data.
+- Explain why we don't reverse the queues like in libanki.
+"
+"7b3bacee70d14fe8825a12e886f0ea4ad1cec5c9","2013-10-15 18:37:59+11:00","Fix query in totalRevForCurrentDeck()
+"
+"9478f1f01111fbca49c3dc611d3ac70f1b72d5a0","2013-10-15 18:45:03+11:00","Fix fuzz interval range calculation for larger intervals.
+"
+"520339e12fc8db971e699b903e6be3980e4524ee","2013-10-15 18:47:26+11:00","Fix query for _lrnForDeck()
+"
+"98359fa0e82ca107f86992d154dca355bab181ea","2013-10-20 16:52:46+11:00","Sched.java cleanup
+
+- A number of minor changes to variable names, comments, or code layout in order to better match sched.py. Suppressed or resolved some warnings.
+- Changed method signatures to match sched.py. It seems we had a custom approach to leech detection which might explain some of the leech bugs we've seen. Leeches will be resolved in a future commit.
+- Removed a duplicate loop in the day cutoff check (it did NOT differ from libanki, despite the comment).
+"
+"c8c6e757276239c349c528d777dadd703b496859","2013-10-19 22:41:37+11:00","add option to disable burying of reviews (dae/anki 9baa3e1)
+"
+"be103a7c7bdb76463478b61a12762ed37f6265a2","2013-10-19 22:45:15+11:00","do not bump usn/mod when automatically unburying (dae/anki 0a75000)
+
+in the upcoming daily unburying, this could lead to a state
+where the remote end unburies just at the start of sync
+and clobbers more recent changes made on the local end
+"
+"990b069454da08195197c2b252ab0b77d4f32a15","2013-10-19 20:30:51+11:00","strip tags before including on card (#505) (dae/anki cee9b2e)
+"
+"87db90f6bf492f666701fca4b87c790c565a57d5","2013-10-20 21:20:44+11:00","run basic integrity check prior to full up  (dae/anki d2535fd)
+
+This commit omits any code in the UI that handles changes in the full sync result.
+"
+"1cd1cc527200235209297450d7a4f869cb29bdd5","2013-10-19 22:14:29+11:00","catch notes with invalid field count in db check (dae/anki 7ad33fe)
+"
+"40ef0388036d642f74acf8c63abae1e23b779932","2013-10-19 22:16:25+11:00","modding the schema should also set collection modified (dae/anki 84a03d2)
+
+required for the force full sync case
+"
+"a80fa8fed6d6b387ad6391508c355af1278c338a","2013-10-22 20:49:27+11:00","Update sibling/burying behaviour to be in line with Anki 2.0.14.
+
+Includes changes in these commits:
+rework sibling handling and change bury semantics (afde116)
+unbury on open for now (a2463eb)
+unbury on open/close and make sure we set usn when unburying (0bef1d8)
+
+Changes that expose burying options in the UI are not included here.
+"
+"734fb29b411d78804452fb4a7ff3ab553bae7612","2013-10-19 22:30:27+11:00","we can remove graves when uploading and save space (dae/anki e9ab912)
+"
+"cc8100bfc29fe3a64a31a643e0a846fda0e449b5","2013-10-22 20:57:58+11:00","add separate is:buried and use with filtered deck (dae/anki cf51f33)
+"
+"13819fc3ee495a9f3bb973f5172ad8ed38f88687","2013-10-22 21:53:59+11:00","bury card option (dae/anki a9c9452)
+"
+"b987d3b2adda74d0e2660bce6fd526150e1ff867","2013-10-22 21:54:38+11:00","Fix missing parameter in forgetCards query.
+"
+"b63aff2cf0790dd826c798e5cdd95b06bbf38d68","2013-10-23 01:00:44+11:00","Added new burying options in option groups
+
+Also removed the now unused sibling settings.
+"
+"09b5a82e7ecb3455cb964cca7d09066d14eebd32","2013-10-23 01:39:26+11:00","Add unbury option to congrats screen and fix unbury query.
+
+The 'back to study screen' button was removed in this commit to make space for the unbury button. It was not very useful in the first place as it duplicated the function of the back button.
+"
+"28167ce361f76e4f054aee6c45ea112df7cdbe7c","2013-11-02 19:28:46+11:00","Issue 1858 - annotate javascript interface methods.
+
+Native methods in a javascript bridge aren't exposed to javascript without being annotaded in SDK 17+. This meant that we couldn't trigger sound playback on Android 4.2.
+"
+"b34b10f1e3744a4eeae4ac66124c2604a55635bb","2013-11-03 03:05:30+11:00","don't terminate review abruptly when sibs removed from queue (dae/anki d814991)
+"
+"d634f34c444d2e755611cdfa073830a22394e8a4","2013-11-03 03:08:39+11:00","fix new cards not being shown in new order (dae/anki 1f3a571)
+"
+"ca6d63b7f8a53a69fbd90b06dae424d3c863bef7","2013-10-05 19:19:16+10:00","Handle screenSize configuration change to avoid Activity restarts.
+"
+"c976af2ae6d9dff8cece3f6a5461f7a5e1200d2d","2013-10-26 04:26:02+11:00","bump sync ver to 7 and change meta return value (dae/anki f29a04a)
+"
+"2022273065d9f022ff721a2db2589a23a70f20ee","2013-10-26 00:42:04+11:00","include a session key when syncing (dae/anki 8d7edcb)
+"
+"ec29711002249557910d81d2447ce99d36cd22aa","2013-10-26 03:51:54+11:00","include platform in cv (dae/anki 3ed2861)
+"
+"0256985b777eccf309030462857fafb8fc627172","2013-10-19 15:30:08-07:00","Support Nook HD and HD+ in journal_mode WAL
+"
+"09ec8e8cb5cd50e3f705364c4a42e399994c8326","2013-11-14 03:46:00+11:00","cards must be removed from filtered decks before they're buried (dae/anki 1df385d)
+
+if not, removeLrn() resets due=odue and odue=0, leading to an invalid
+delay calculation when they're later reviewed in the filtered deck
+
+to fix this we'll need to make the same changes required to support
+learning cards retaining their state when being emptied from a
+filtered deck
+"
+"714a1784fc446e9451ad081b2c6bc454b3a479f8","2013-11-15 16:01:45+00:00","Bumped version to 2.0.2beta7
+"
+"fa455fbc479c49dff4ce24814156909fe95e575b","2013-11-18 01:25:36+02:00","disableWriteAheadLogging() is API level 16.
+
+The function disableWriteAheadLogging() is only documented on API level
+16. Currently, this causes the app to crash on start up on some devices,
+for instance on a Nexus One.
+"
+"848652c9defb548d2b5ed8a33269ebc27496863e","2013-09-11 00:58:20+03:00","Fix NPE when getting text from clipboard.
+
+The clipboard may return null if the clipboard contains something other
+than text. This is documented in the API but that case was not
+considered by the code.
+"
+"2cd154c59b591305e9fde61969ae24afa61728ec","2013-11-30 14:57:56-08:00","Merge pull request #130 from flerda/v2.0.2-wal
+
+disableWriteAheadLogging() is API level 16.
+"
+"7a17d3c55b1f1ac0eb916cee59746a7e24cb4561","2013-12-03 00:22:16+00:00","Move SDK specific methods into Compat.
+
+On certain devices (e.g., Donut), the application crashes if a class is
+using a method that does not exist with a VerifyError even before any
+methods on the class can be invoked.
+
+To avoid this, we introduced a Compat interface, which hides all the
+platform specific method calls. However, the disableWriteAheadLogging()
+method was being called on SQLiteDatabase without following this
+pattern, leading to a crash on start-up.
+
+This commit moves those calls behind the interface.
+"
+"177216b3fc4c52301b1a6396d9167dafcbb3c9fb","2013-12-03 00:31:31-08:00","Merge pull request #134 from flerda/v2.0.2-donut
+
+Move SDK specific methods into Compat.
+"
+"ff2ff690f0e81a836e630d341719228df6703829","2013-12-08 21:22:25+00:00","Remove unnecessary try/catch.
+
+Since we now use the Compat class, there is no need for the try/catch
+block.
+"
+"9181f982001ff07f99c22f55d28535a17887da57","2013-12-09 00:02:35-08:00","Merge pull request #135 from flerda/v2.0.2-try
+
+Remove unnecessary try/catch.
+"
+"268b92a07362a68a58d6d4c083c8a44d042b3116","2013-12-08 21:40:03+00:00","Add disableWriterAheadLogging() on Nook HD Plus.
+
+The Nook HD Plus seems to have trouble without calling this hidden API.
+This should fix users of this device. Further testing is required to
+know if the same fix is required on other versions of Nook as well.
+"
+"97958b679c38aea8f929af47317acf55b696d556","2013-12-09 04:28:33-08:00","Merge pull request #136 from flerda/v2.0.2-nook
+
+Add disableWriterAheadLogging() on Nook HD Plus.
+"

@@ -1,0 +1,582 @@
+"commit id","commit date","commit message"
+"077b0d81309854dd743e08bd2f96f7e77703c5fe","2013-03-21 20:12:15-04:00","build: Revert commit 2ae556f06d (gcc 4.6 workaround)
+
+In order not to require devs to upgrade gcc if they happen to have
+version 4.7, I've decided to keep this workaround in the make file.
+"
+"b0ddd7029fd4d0dbbb6509345e4e9d9f039a0bb9","2013-03-21 21:19:28-04:00","front: Consolidate lib loading to one location, static.
+
+Loading SDL, core, and front-end in static constructor is all that's
+needed to cover the entire app.  Moved this to GameLifecycleHandler so
+that it's consolidated with the other lib loading calls.
+"
+"6dee3203ff2bdbb35993384aa988bd2da6edc3bf","2013-03-21 21:35:39-07:00","merged heads
+"
+"42acb76ad25ea0235a3bde160f975ac397383856","2013-03-22 09:16:38+01:00","gles2rice: Merge 'upstream/video-rice' hg:dffc6c1d85f25220ff7442b5b37a96a88d16e878
+"
+"c21ce91143f8e7dfcc4f3401bbdd549608a25479","2013-03-22 09:17:08+01:00","rsp-hle: Merge 'upstream/rsp-hle' hg:c93051e9bd4395daf96c2e3d9aa6d714c3312b22
+"
+"c113335e84a3195296218abb84fa4c21d329f087","2013-03-22 09:18:29+01:00","front-end: Merge 'upstream/ui-console' hg:edfa92ec25f9541b4adad61289d33d9c4eb7f092
+"
+"0a7cbbb211aadfe3ab51b82a545a2d4df9277f5a","2013-03-22 09:20:14+01:00","audio-sdl: Merge 'upstream/audio-sdl' hg:20ec14683842240bd66fb2aa57cc3f4b9e11b0fd
+"
+"1df463cfb5ac0595b45363ad0e02bdc64c6029dc","2013-03-22 09:21:39+01:00","core: Merge 'upstream/core' hg:4cd70c2b5d389b8f0344541bfb8caba37a4b9648
+"
+"16f6624820b173866bf80668fa69a998e3950833","2013-03-22 09:23:24+01:00","gles2glide64: Merge 'upstream/video-glide64mk2' hg:4252ae25ac79e55a680a9e87c24bb7abc43781c0
+"
+"24ff8cc9f8801a543dca2e0d27631c6b11d6833e","2013-03-22 19:31:07-04:00","Ensure two if statements only get executed if pEntry->pTexture isn't null.
+
+Before it would access pEntry->pTexture regardless.
+"
+"8a37fbd873b9186f265632b256bcc20ef91ef731","2013-03-22 19:37:54-04:00","Remove an identical check in the same if-statement.
+
+TLutFmt is already checked in the 8-th conditional.
+"
+"0ba349f8d43455f56b72676de7c30a41b5e636d8","2013-03-22 23:05:47-04:00","build: Various remaining cleanups to makefiles.
+
+-fexceptions
+Moved to LOCAL_CPP_FEATURES := exceptions
+From android-ndk-r8e/docs/ANDROID-MK.html:
+'It is recommended to use this variable instead of enabling -frtti
+and -fexceptions directly in your LOCAL_CPPFLAGS definition.'
+
+-lz
+Moved from LOCAL_LDLIBS (gles2rice) to LOCAL_EXPORT_LDLIBS (png)
+Again, from android-ndk-r8e/docs/ANDROID-MK.html, the recommended
+way for a static lib (i.e. png) to let its clients know what system
+libraries (i.e. zlib) they must link with is to use the flag
+LOCAL_EXPORT_LDLIBS.
+
+-shared
+Not needed because the NDK toolchain already does that.
+
+-llog
+Not needed by core.
+
+-Wno-psabi
+Just a warning disabler that I missed in commit
+f0d45b8c00f5d6605301e7feaf72dd34bc3549f3
+
+Only include the relevant source files for SDL rendering (i.e. omit
+opengl, directx, etc.).  Just saves a bit of compile time.
+"
+"76be373875a7483bd498fc0bae3a1a5a84fd5ad9","2013-03-26 11:05:14+01:00","Prefer -mt-less boost libraries by default
+The newest boost version (1.5x) completely stripped the -mt suffix from the
+libraries. This seems to be the default now and was already supported in
+earlier versions (1.4x). Users requiring the suffix can still add them using
+BOOST_SUFFIX and BOOST_THREAD_SUFFIX.
+"
+"2420cf460ecc68323d4fb1f6193079b436bed148","2013-03-26 11:05:14+01:00","Fix mupen64plus OSD by disabling fragment shaders
+Glitch64 uses fragment shaders extensively to emulate combiners. These also
+affect external parts in other components of the emulator. Disabling them
+before returning to the emulator should fix for example the OSD.
+"
+"27be987ca9addfd7b94c3b762709bf3f67399512","2013-03-26 11:05:14+01:00","Use parentheses between '|' operations
+GCC produces warnings when the statement is to confusing for the reader and
+misinterpretations could happen. These can be avoided by adding parentheses to
+clarify the statement.
+"
+"370b984e94b11768f96c73b8c19fddd4e29ec55e","2013-03-26 11:05:14+01:00","Remove unused functions from HQ2x filters
+"
+"4fc96fee0842ae91aa99f40550964ce26440e97f","2013-03-26 11:05:14+01:00","Remove unused variables
+"
+"ba03bb58bf1e21211529aad1f57189e869fcef5a","2013-03-26 11:05:14+01:00","Fix printf-format length errors in UpdateScreen
+"
+"ba0350a9998e1842c65f0fd3d637bbc1c6412179","2013-03-26 22:30:23-07:00","fix apparent vertex index calculation bug found by Lioncash
+"
+"f8b59f5825e7e4dfe0b412c41804365a2f37f616","2013-03-27 09:51:43-04:00","Reduce GHQTexInfo struct size from 44 bytes to 40 bytes.
+"
+"636e6d425b101e1782c4b094381bd15f3388fb58","2013-03-28 10:59:10+01:00","Allow to build without GlideHQ support
+Some systems don't have the required boost support and would not be able to
+compile glide64 without adding a lot of new dependencies to their build
+environment.
+"
+"d8bc55ce2c1e4b53e8581ae5fd3bc71ff1d0eba8","2013-03-28 10:59:10+01:00","Remove warning about wxDynamicLibrary
+The Glitch64 library is now part of glide64mk2 and it doesn't need to check the
+symbols of an external library. Therefore, no wxDynamicLibrary is needed.
+"
+"d82101a8e0c32edcbf3c67cc1256cfc543bf1314","2013-03-29 09:43:40+01:00","gles2rice: Merge 'upstream/video-rice' hg:1b2906a410791048e7a3fc91528f1678b4ffc79f
+"
+"fcd49d8bbf8137d715cd640df1af021e50f70b83","2013-03-29 09:47:40+01:00","gles2glide64: Merge 'upstream/video-glide64mk2' hg:97a462e7925578dbb05e98b5dbd3ffa95c2a9130
+"
+"76524e4a5d0052090638e9c45d9738bbb8d27c3c","2013-03-29 20:09:29-04:00","OUYA: Update to ODK 1.0.2
+"
+"53577ef3ebddf438cba5a9bf29e5ebb848c12ef8","2013-04-01 02:14:10+02:00","Named some constants.
+"
+"9e7a280cdfccd3150fda3e646751d5c6dacd8a47","2013-04-01 02:47:04+02:00","Add support for MusyX ucode detection.
+"
+"82e6d79eaa3799007d8c07ec06d389d44aa96ab2","2013-04-01 04:25:36+02:00","Private mp3 related variables should be static.
+"
+"c39f8d7fb4c3a661ee153d4a6c83fd68bc0b5701","2013-04-01 18:11:24-04:00","core: Fix trivial bug by reverting to upstream.
+
+The mupen-core config file was not being saved in an appropriate
+location. The ae hack did not put a '/' between the dir and filename,
+so the config file was being saved to
+<sdcard>/Android/data/paulscode.android.mupen64plusaemupen64plus.cfg
+rather than
+<sdcard>/Android/data/paulscode.android.mupen64plusae/mupen64plus.cfg
+
+Also, the second ae-hack in the file doesn't seem to be necessary.
+"
+"4df788bc69b826cc60b69f80556818f117a7a057","2013-04-01 19:46:03-04:00","core: Surround android-specific code with ANDROID symbol.
+
+These might actually be useful to push upstream because they aren't
+'hacks' and are generally applicable to any android build (not just
+ours).
+"
+"af5073cd0150fe62ef4c1332a8212e3946aa15fa","2013-04-01 21:21:36-04:00","front-end: Surround android code with ifdef ANDROID, enhance debug msg.
+
+Again, these might be useful to push upstream because they aren't
+'hacks' and are generally applicable to any android build (not just
+ours).
+
+The NO_ASM block in compare_core.c is also useful to all platforms, not
+just ours.
+"
+"81e8f34f20a8c4c988af074bf4734ce090d087e8","2013-04-01 21:41:56-04:00","front-end: Surround paulscode-specific code with PAULSCODE symbol.
+
+Also pulled in some upstream code so it's easy to see the diff at a
+glance.
+"
+"b75ff4f2978ab5f5e60331f6dba0aa16d2b1eb24","2013-04-01 22:14:26-04:00","Fix wrongly set return values in OGLCombinerNV.cpp (from what I've read in the in-file docs).
+
+Comments for those specific branches seem to support this too.
+"
+"eda19f6c7315836309d8b6eaaa422eaff8053db2","2013-04-01 22:53:41-04:00","front-end: Fix incorrect syntax in debug messaging.
+
+Fix mistake in commit
+af5073cd0150fe62ef4c1332a8212e3946aa15fa
+"
+"4368f1d1688dbb2ad8939e09ce464d8739feda7d","2013-04-02 10:29:08-04:00","Cosmetic changes to clarify subsequent changesets.
+
+Assert(no functional changes).
+
+Benefit of hindsight here. I'm consolidating a bunch of non-functional
+changes now to make subsequent changesets cleaner and easier to follow.
+
+This commit only changes:
+- whitespace
+- header order in a few places
+- re-order a few lines related to glBegin
+- replace gl{En|Dis}able(GL_FOG) with TurnFogOnOff({true|false})
+- replace 1.0 with 1.0f in one place
+"
+"6cbdbf57fa9f1b57e8daf5226c1300aa202ea000","2013-04-02 10:30:01-04:00","Add abstraction layer header for GL/GLES2.
+
+Assert(no functional changes).
+
+osal = Operating System Abstraction Layer
+
+Following the naming convention used through the Mupen64Plus core and
+plugins.  Simplifies merging the GL/GLES2 code bases.
+"
+"bc403c88a8739d91bee316dbb9bd39f6a5a4472b","2013-04-02 10:31:08-04:00","Surround OpenGL-specific code with SDL_VIDEO_OPENGL.
+
+Assert(no functional changes).
+
+Symbol defined in the platform-specific SDL headers (SDL_config*.h).
+
+This is a lot of ifdefs, but the point here is to facilitate trace-
+ability throughout the ES 2.0 integration process. The plan is to
+beautify this code later, after we verify that the OpenGL codepath is
+intact and the OpenGL ES 2.0 codepath behaves as intended.
+"
+"f3f45a3c08e758a1d6d554e395e35c3e43e8648a","2013-04-02 10:32:21-04:00","Implement OpenGL ES 2.0 code path.
+
+Assert(no functional changes to OpenGL code path).
+
+Originally implemented for Paul Lamb's (paulscode) Android port of
+Mupen64Plus.
+
+https://github.com/paulscode/mupen64plus-ae
+http://www.paulscode.com
+"
+"79a035ff66a78485645cbcb7fa45f139e65ec3df","2013-04-02 10:33:19-04:00","Use short-type vertex indices (rather than int-type).
+
+Unsigned short vertex indices are more broadly supported across the
+OpenGL variants.  This shouldn't change plugin behavior as long as it
+isn't using any vertex arrays with more than 65,535 elements.
+"
+"68f164d3a0be3c6bd175ae85fb4acd741bcac04f","2013-04-02 13:04:36-04:00","gles2rice: Cosmetic changes to clarify subsequent changesets.
+
+Assert(no functional changes).
+
+Benefit of hindsight here. I'm consolidating a bunch of non-functional
+changes now to make subsequent changesets cleaner and easier to follow.
+
+This commit only changes:
+- comment text
+- debug logging
+- whitespace
+- non-functional code that is not upstream
+- line rearrangement (no functional differences)
+- inline/outline a couple tiny functions (related to fog, alpha)
+"
+"2f559f113ee448e197436a8bd5554ac197b4aa09","2013-04-02 13:10:25-04:00","gles2rice: Simplify/isolate AE-specific code using PAULSCODE symbol.
+
+That is, code that is strictly related to the paulscode Android edition
+that has nothing to do with GLES2.  This material shouldn't be pushed
+upstream (or at least not yet in the case of Gilles' screen position
+feature).
+
+AE-specific code is isolated using the PAULSCODE preprocessor symbol.
+"
+"fd3528efdd9a14d868a90be4925e24e6f5f4b467","2013-04-02 13:12:18-04:00","gles2rice: Surround gles2-specific code with SDL_VIDEO_OPENGL_ES2.
+
+Symbol defined in the platform-specific SDL headers (SDL_config*.h).
+"
+"5a85264ff73e893cefe98e0feb45744fcb8ee850","2013-04-02 13:16:53-04:00","gles2rice: Pull gl-specific code from upstream.
+"
+"c4a01d5d7995055c0d1f2de33bd81d6a139b8038","2013-04-02 13:17:21-04:00","gles2rice: Rename OGLFragmentShaders.* => OGLES2FragmentShaders.*.
+
+The fragment shader source code is so different between up and down-
+stream that it might make more sense to maintain it using completely
+separate files.  The amount of code shared between the two is minimal,
+and it's probably a lot easier to manually synchronize these small
+sections than to maintain two very different implementations in the
+same file.
+"
+"15e4584f40917defc0086faef9fdd27f98045286","2013-04-02 13:17:43-04:00","gles2rice: Pull upstream version of OGLFragmentShaders.*.
+
+These are never compiled but we include them for up/down consistency.
+"
+"90c8ca357ac905b9b0241ef6f97841a29ce4ae12","2013-04-02 13:18:24-04:00","gles2rice: Use macros to eliminate up/down diffs.
+"
+"e9630fbfb24cdb3a09a1efb6cf779354ba39c53c","2013-04-02 13:20:21-04:00","gles2rice: Simplify some gles2-specific code.
+"
+"56d464d7882b05cce686ea341c8c6fe18772092a","2013-04-02 13:20:53-04:00","gles2rice: Add/remove code to match upstream.
+
+**POSSIBLE DOWNSTREAM BEHAVIOR CHANGE**
+
+These changes are apparently benign from my very limited testing. It
+would be good however to get a second opinion.
+
+Render.cpp:
+- Video buffers can be saved to PNG file
+
+TextureFilters.cpp:
+- Option flag is not lowered when hi-res textures fail to load.
+
+Video.cpp:
+- Core API is used to test plugin version compatibility.
+- ReadScreen2 now populates some output variables.
+"
+"d96e9d98af444d7b35a7384811d7601df9b6446a","2013-04-02 13:21:26-04:00","gles2rice: Revise texture-related code to match upstream.
+
+**POSSIBLE DOWNSTREAM BEHAVIOR CHANGE**
+
+Second opinion needed.
+
+OGLExtRender.cpp:
+- Max texture units are queried rather than hard-coded to 2.
+
+OGLGraphicsContext.cpp:
+- Max anisotropy level is queried rather than hard-coded to 0.
+
+OGLTexture.cpp:
+- Anisotropic filtering is applied if user enabled and device capable.
+- Mipmaps are now generated if user enabled it.
+"
+"5530e9faa904f9671acad36205a465c4c34654c8","2013-04-02 13:21:57-04:00","gles2rice: Extension support is actually tested.
+
+**POSSIBLE DOWNSTREAM BEHAVIOR CHANGE**
+
+Second or third opinion needed.
+
+Originally, extension support queries always returned false. Now they
+are actually queried, and might return true.  Two questions:
+- Will anything break if the the support query returns true?
+- Are the correct extension names being used for GLES2?
+- This includes not only the multi-texture and additive texturing
+as seen in this commit, but a whole list of other extensions
+that are queried throughout the code base using
+COGLGraphicsContext::IsExtensionSupported
+in OGLGraphicsContext.cpp.
+"
+"d8b7ab84c1a89d4eada721ffd0d28da68b1d4fe1","2013-04-02 13:23:24-04:00","gles2rice: Revert to upstream by defining some GL constants.
+
+**POSSIBLE DOWNSTREAM BEHAVIOR CHANGE**
+
+Second opinion needed.  Not sure this changes anything.
+"
+"c053b706c746e5be1c30d7a1b41fb5d80d3b5637","2013-04-02 13:25:01-04:00","gles2rice: Revert flush/swap/clear mechanics to upstream.
+
+**POSSIBLE DOWNSTREAM BEHAVIOR CHANGE**
+
+Second opinion needed. Some quick tests didn't reveal any issues, but a
+more thorough test/analysis is needed.
+"
+"50bc1ff16406a17d1823db92df2156fb25fa6ff3","2013-04-02 13:25:25-04:00","gles2rice: Revert initial window sizing to upstream version.
+
+**POSSIBLE DOWNSTREAM BEHAVIOR CHANGE**
+
+Second opinion needed. Some quick tests didn't reveal any issues.
+"
+"960d8839d05286981169b5f9f32209debb06ab83","2013-04-02 13:29:25-04:00","gles2rice: Make internal var static, fix copyright, revert attribution.
+"
+"36e2bd28e447d38d312d122b77683dd3b79ad381","2013-04-03 07:48:50-04:00","front-end: Fix debug message level.
+
+Accidentally changed in commit
+af5073cd0150fe62ef4c1332a8212e3946aa15fa
+"
+"4525cff32dca15bdcc5dd48d42c7a5cfd8df58fd","2013-04-06 00:17:54-04:00","front: Fixed Issue #89.
+"
+"3f29a6e7fd5bb558a090e77719b1e9814e9b28d6","2013-04-06 15:00:58-04:00","ae-bridge: Initial commit.
+
+Starting to consolidate all paulscode-specific code into a pair of
+shared libraries (exports = Java->C, imports = C->Java).  A pair is
+necessary due to the dependency graph with SDL, core, and front-end.
+
+{ SDL             }
+ae-imports <- {  ^ core         } <- ae-exports
+{     ^ front-end }
+
+The goal is to minimize the upstream diff, and to simplify upstream
+synchronizations and creation/replacement of plugins/dependencies.
+"
+"78d545848e927b0a027a57278932716305c2f170","2013-04-06 15:02:03-04:00","ae-bridge: Consolidate imported function prototypes to ae_bridge.h.
+"
+"4d9e458f79b5255c2efc942e97e08a48348854b8","2013-04-06 15:11:10-04:00","ae-bridge: Move main entry from SDL/main/android to ae-bridge.
+
+The version in SDL/main is just a starting example for SDL clients.
+We move our customized version into ae-bridge so that we don't have to
+touch the one provided by SDL.  One less conflict when syncing with
+upstream SDL.
+
+I reverted the SDL_android_main.cpp to upstream SDL revision 4999 (on
+the SDL 2.0 branch) which seems to be a pretty close match to where we
+began customizing.  It's no longer compiled into our app, so it doesn't
+really matter what I changed it to (if at all), but this should make
+synchronizing with upstream SDL a tad smoother and the git history a
+little clearer.
+"
+"f18a69cf11f5086f6595767d3396687e1beb8339","2013-04-06 15:13:32-04:00","ae-bridge: Move imported functions from SDL/core/android to ae-bridge.
+"
+"8666368e6748069cc982b0267dd8b15bce1b9f6f","2013-04-06 15:16:11-04:00","ae-bridge: Move exported functions from front-end to ae-bridge.
+"
+"3949f485c7269a26391d083b3f6fe27506201630","2013-04-06 15:17:04-04:00","ae-bridge: Minor simplifications, encapsulation.
+
+Local jni environment variable renamed mEnv => env to avoid confusion
+with member/global variables.
+"
+"88794ff7a88b9a9b21f82095d342583414f1b7cb","2013-04-06 15:21:39-04:00","ae-bridge: Remove obsolete functions (vibrate, showtoast).
+
+ShowToast no longer used.  Vibrate superseded by Rumble in
+input-android plugin.
+"
+"005618d588a1d50e0572057bebe12b12900af9ca","2013-04-06 15:25:10-04:00","cleanup: Update CoreInterfaceNative to match new ae-bridge implementation.
+"
+"f4ac44beba6af052ba3bb6d32634d717c612a0c8","2013-04-06 15:49:18-04:00","ae-bridge/front: Renamed some JNI methods for clarity, consistency.
+"
+"f4abe2923cea606fa32877350f6e37ba87698b7a","2013-04-06 17:05:16-04:00","ae-bridge: Fix a bug I just created.
+
+Bug introduced in commit
+3949f485c7269a26391d083b3f6fe27506201630
+"
+"52e4e1551bcd35829b6eec0673891b08806f45bb","2013-04-06 22:11:09-07:00","fixed compiler warning and error
+"
+"9404b06cbd3fe847936ce26acce75611f9dad65b","2013-04-07 08:47:49+02:00","gles2rice: Merge 'upstream/video-rice' hg:9358381bbb08fd0b0ecc0d6c52212b3faae365f8
+"
+"623b3018ea95aa42516b3f785c322950844ea93e","2013-04-07 08:51:20+02:00","Merge branch 'downstream/video-rice'
+"
+"cb41c2fabc8d127ce77f4dbd2411dff3b0d4fb00","2013-04-07 12:07:44-04:00","Merge branch 'master' into littleguy77/ae-bridge
+
+Conflicts:
+jni/gles2rice/src/OGLGraphicsContext.cpp
+jni/gles2rice/src/OGLRender.cpp
+jni/gles2rice/src/Video.cpp
+"
+"fb205487e616f89eb72fd2cce400c0f2d07693bb","2013-04-08 10:36:07-04:00","ae-bridge: Revert exported SDL funcs and wrap functions in ae-bridge.
+
+Rather than modifying the names of the SDL functions to match the java
+package name, we just write wrapper functions that call the original
+exported functions.  Again, just minimize the diff with SDL upstream.
+This also makes the transition to SDL 2 a bit cleaner.
+
+Also, I decided not to wrap onNativeAccel, since we don't use it.
+"
+"36931dc0dfae6db2cdfd2a033729195fd81e3441","2013-04-08 10:52:24-04:00","ae-bridge: Rename init -> sdlInit for consistency with others.
+
+All SDL-state-related exports are prefixed with 'sdl'.
+All mupen64plus-state-related exports are prefixed with 'emu'.
+"
+"f90e48ee80bc5a5158139956f470e4a7cf40cadf","2013-04-09 08:41:07-04:00","bugfix: Fix crash when CoreVideo_SetCaption(.) is called.
+
+Just remove the body of CoreInterfaceNative.setActivityTitle(.). We
+don't need that functionality anyhow.  Keep the function just in case
+some SDL versions don't check to see if the function exists before
+calling it.
+"
+"9a3e48d5a3873d7e4b0c0485546c823701ada92f","2013-04-09 08:45:03-04:00","gles2rice: Remove unneeded custom exclusion.
+
+We can revert to upstream because the previous commit makes this block
+of code safe.
+"
+"a8e9decb5aee1945c69ec4b8163c13bac8c584f6","2013-04-09 09:06:53-04:00","gles2rice: Consolidated custom code and sync with upstream.
+
+A pull request was placed upstream to move the #if SDL_VIDEO_OPENGL in
+OGLGraphicsContext.cpp.
+
+The custom code needs to change with this upstream change, so I commit
+both the custom and upstream changesets at once to keep things in sync.
+"
+"ccd58ab0c9fe678f8c6044ad821ca7f6acbbd756","2013-04-09 09:15:10-04:00","Small fix to GL ES 2.0 codepath (less aggressive #ifdef exclusion).
+"
+"74fe8b805bdc6361bd4dc8210b36f2f3fdd51158","2013-04-10 09:42:03+02:00","gles2rice: Merge 'upstream/video-rice' hg:e25d038c196cb7c8cd4dd71839f1994c1257b2ae
+"
+"74183baf81f27b88ce831db793b377dede033fc8","2013-04-10 13:42:40+02:00","rsp-hle: Merge 'upstream/rsp-hle' hg:9bde6881ba0c3b35b6a65d90e577a46861b9994d
+"
+"0971223bafc9f855becc76600a231fad059be91a","2013-04-10 08:36:57-04:00","front: Add compatibility for SDL 2.0.
+
+No functional changes.
+
+SDL 2.0 uses a slightly different function signature for the imported
+Java function createGLContext (config spec is an input).  This just
+splits the existing function to allow compatibility with both SDL
+versions.
+"
+"fcb00bd877abeb0183fe548fc27be3d67f03d5aa","2013-04-10 20:48:05-04:00","front: Specify maximum screen size in config file.
+
+This allows us to remove some AE customizations on the native side that
+are blocking SDL 2.0 compatibility.
+"
+"9250d63cade5deb1aa54c86afa7f0263b71829af","2013-04-10 20:49:03-04:00","gles2rice: Simplify custom video initialization, compatible with SDL 2.
+
+Use config file rather than SDL_GetVideoInfo to get maximum screen
+size.  SDL_GetVideoInfo was removed from SDL 2.0, so this also improves
+forward compatibility.
+"
+"f2411bdb22833590bc9fcc7477938dadc2b795f0","2013-04-11 23:45:52-04:00","cleanup: Remove unused import.
+"
+"26c4e344d752434c35cef27b4110d0feeaa6ec48","2013-04-12 12:04:14-04:00","Revert 'front: Consolidate lib loading to one location, static.'
+
+This reverts commit b0ddd7029fd4d0dbbb6509345e4e9d9f039a0bb9.
+
+This commit caused a crash whenever the user enabled cheats after a
+fresh [re]installation.  Apparently the static constructor was not
+being called before getHeaderCRC(), creating an UnsatisfiedLinkError.
+"
+"77e7097ecf0fa6a8ee3eba20deaf058a0ba22552","2013-04-12 12:50:29-04:00","bugfix: Fix crash when input plugin disabled.
+
+Not the most elegant solution but gets the job done for now.
+"
+"6889c8361365d470cea321b1b996f6b07b7804bb","2013-04-12 13:25:52-04:00","doc: Updated changelog.
+"
+"e9c13830469559a4988fa371c2c677c8c8cfd96f","2013-04-12 16:30:32-04:00","Merge branch 'littleguy77/ae-bridge'
+
+Conflicts:
+jni/gles2rice/src/OGLGraphicsContext.cpp
+jni/gles2rice/src/Video.cpp
+src/paulscode/android/mupen64plusae/CoreInterfaceNative.java
+src/paulscode/android/mupen64plusae/GameLifecycleHandler.java
+
+Hidden logical conflicts, manually fixed:
+src/paulscode/android/mupen64plusae/PlayMenuActivity.java
+"
+"3d84a119a8918acc31627cbf4e40f5767c1a9510","2013-04-12 16:42:17-04:00","ae-bridge: Encapsulate code blocks into bridge methods.
+
+These are big chunks of code that we've been manually maintaining for
+each of the video plugins.  Now it's in one place for easy maintenance
+and cleaner diffs with upstream sources.
+"
+"3cd387b6bfd4030ed166b6b731940430911735d6","2013-04-12 21:50:24-04:00","gles2rice: Use ae-bridge to streamline two code blocks.
+"
+"7d07b79494e325e42c6f2ee3762b5f55edccf0c1","2013-04-12 22:29:26-04:00","gles2n64: Use ae-bridge to streamline two code blocks.
+"
+"cbfb577bf0ccf95d8c464ac35d4db0d4202f93a9","2013-04-12 22:32:15-04:00","gles2rice: Revert custom code to achieve full SDL 2.0 compatibility.
+
+Use the mupen core API rather than the SDL API to set the video mode.
+Not only does this eliminate a diff with upstream, but it also makes
+gles2rice fully SDL 2.0 compatible.
+"
+"e1ab25dfacf1d83df7793d4019a334aaebab94a3","2013-04-15 09:31:13-04:00","gles2n64: Substitute variables to clarify subsequent changesets.
+"
+"41978a7a0b72cd66381eb9ceab60d13754531ef4","2013-04-15 09:44:06-04:00","gles2n64: Remove and simplify some unneeded code, clarify comments.
+
+Currently, we never write display properties to the gles2n64 config
+file, so the default values are always used:
+config.window.xpos = 0
+config.window.ypos = 0
+
+So we simplify the code accordingly to preserve this behavior.
+
+Also the width and height calculation was simplified to an equivalent
+form that is more clear.
+"
+"42105813acfcad62971cbc173da20c370bd237ff","2013-04-15 10:06:03-04:00","gles2n64: Save per-rom window config in separate variable.
+
+Right now, the per-rom window sizing config is based on an assumption
+that the user-provided size is always 800x480.  In the future, we want
+to pass the actual display resolution via the config file.  So to
+preserve the current behavior, we store the per-rom parameters as a
+separate field in the structure.
+"
+"617a59a47a92eea6345700042d538dfe577074ab","2013-04-15 10:07:11-04:00","gles2n64: Pass display resolution via config file; SDL2 compliant.
+
+Passing the resolution this way avoids the need to call an SDL function
+that has been removed in SDL2.
+"
+"34c922d19e6b41cd76aaee0e8500d2f73e38d3cc","2013-04-15 12:46:33-04:00","gles2n64: Apply bandaid for full SDL 2.0 compliance.
+
+In the interest of progress I'm adding a quick and dirty hack to remove
+the last SDL 2.0 non-compliant piece of gles2n64.  Like to come up with
+a better solution.  The offending function is SDL_SetVideoMode and the
+hack solution is to copy the compatibility header from mupen core, and
+modify it a tiny bit to eliminate compiler errors.
+"
+"4749bd9469dd0b62724696b2df98b6addd99fc20","2013-04-16 08:34:24-04:00","ae-bridge: Added method to query SDL version.
+
+Wrap the SDL_VERSION_ATLEAST macro since it's likely to be the most
+stable api and the least ambiguous interface.
+"
+"662db7c401d16b56d44151a857a5aa695352c9ae","2013-04-16 08:45:00-04:00","front: Updated java-side pixel formats for SDL 1.3/2.0 compatibility.
+"
+"133166f3e1e04d0e7ab290e568126ee92bdd0589","2013-04-23 09:47:04-04:00","[front] Fix a javadoc param tag.
+"
+"855036131339d4f5d7283b90e26952858f29b57f","2013-04-23 10:01:41-04:00","[front] Make sure a BufferedReader gets closed in method executeCommand.
+"
+"70c770689f1dc959d8c4a9802418635741e4b31f","2013-04-23 10:13:10-04:00","[front] Make sure a BufferedReader gets closed in method exec.
+"
+"25ccfedefdc5e68897fafd4fbe9a93351069943f","2013-04-24 17:01:25-05:00","cheats: Added cheat to fix Pokemon Snap camera bug
+
+This isn't the best solution to the problem, but it does make the
+game playable.
+"
+"285c22fa31612f1fca61939482a7a3671cf0e3a0","2013-04-25 18:59:27-04:00","front: Popup warning if library files are missing.
+
+UnsatisfiedLinkErrors are the dominant cause of crashes right now.
+Looking through the crash logs shows that the user is literally missing
+the libraries (or they're not in the expected location) in many of the
+cases. This provides a warning to the user and suggests they reinstall.
+"
+"d841abe6002e52c6248a32649ced328599aa676a","2013-04-25 20:38:53-04:00","front: Use API to get libs directory, rather than hard-coding it.
+
+Still not 100% sure this solves every library loading exception, but
+it's worth trying.
+"
+"6372c0520b6936c2d21c047c3cd0ec7f082419fe","2013-04-26 01:43:18+01:00","res: Updated translations.
+"
+"f3c727f2ff205fac58f04cd0a21cfe79c14b1a1d","2013-04-26 01:53:27+01:00","res: Updated translations.
+"
+"eb6fa76be793f4dc664683fa4f967672f551e5f4","2013-04-25 21:06:25-04:00","doc: Update changelog.
+
+Feel free to tweak, not sure if I described the pokemon snap fix in the
+best way.
+"
+"fd17fb05447290bd036740ac17a7b76398beba77","2013-04-26 09:21:21-04:00","front: Hide action bar transparency option in some cases.
+
+Avoid confusion on devices where it never applies.
+"
+"383c7e90322f01dfe85e9c877c00a1bdba3eb8c0","2013-04-26 11:45:42-04:00","front: Log all the matching EGL configs on context creation.
+"
+"53aff576c2f026777c0fa47ad9a72f16cbf8ea01","2013-04-28 19:44:10-05:00","front: Increase max touchscreen scale
+
+200% was not large enough on the Samsung Galaxy Ace GT-S5830i (and
+possibly others)  Tester confirmed that 400% was perfect.
+"
+"9f817d92dc21f5b84dc358d7f8522b8ae57bb484","2013-04-28 19:48:20-05:00","Updated changelog and version in prep for 2.2.1
+"
+"10f995add0a8eb90186d1487304c726e79539d3e","2013-04-29 08:37:36-04:00","front: Fix controller quirk for another raphnet adapter.
+
+Should fix issue #99.
+"

@@ -1,0 +1,127 @@
+"commit id","commit date","commit message"
+"0d05a18b428c17691196ede6d79c46cf7c11665d","2015-05-12 17:20:55+02:00","improve layout with help of keyline pushing
+
+Keyline Pushing v1.2 by Faiz Malkani is an app, which helps a developer
+to check if the app fulfills the Google style guidelines for material
+design. It draws an 8dp grid and the keyline over all other app,
+allowing one to easily check the baselines of any app's components.
+
+Also set card corner radius to 0dp to have the rectangular material
+design.
+
+Note: this is still not the final layout.
+"
+"110e69f056c9e8c2b505f2646a5e6487ca9e5ea2","2015-05-12 21:33:47+02:00","apply style guidelines to gastro details fragment
+
+Previous commit applied the material design guidelines with help of
+'Keyline Pushing' app to the card view. See last commit for further
+details. This commit improves the layout of the gastro details fragment:
+the indentation is either 8dp or 16dp, and the vertical gap is either
+8dp or 4dp.
+"
+"f4fd819403d673ea1c3f56c469de5ac51284e2f5","2015-05-12 21:48:02+02:00","refactor gastro details fragment
+
+Put source code into several methods to increase readability.
+"
+"5ab3e84d7c137c55f2735ff9394dceb3f4794200","2015-05-12 21:57:26+02:00","add margin to the top of gastro description fragment
+
+This way we are consistent to gastro details fragment and main list
+activity.
+"
+"4d4367c83e115997d1888cb2dbf6dd0b9b602089","2015-05-14 09:31:51+02:00","remove soft hyphens from gastro description
+
+Unfortunately soft hyphen (&shy;) is only partially working with
+fromHtml(): the word gets split at the correct place, but the hyphen
+(dash) is not shown. This might be very annoying to the user, because it
+just does not look right. As a workaround we do not split words at all.
+
+Closes #13
+"
+"bef912cfc8133f06630f76d0087e22625820b583","2015-05-14 09:37:45+02:00","update gradle plugin to version 1.2.3
+"
+"ebc57abaf1a29bc5d99d1bc92689b3e7ffa22737","2015-05-14 18:35:15+02:00","added vegetarian (including vegan filter)
+modified code to easily add multiple other filters if needed.
+"
+"78698d4f1f5a8d404d53199b55f900919b46e471","2015-05-14 18:30:25+02:00","prefix recycler and card view
+
+This shall make dependencies clearer.
+"
+"f962922b528dfa8387a2a8e2e0be2969eadb2e61","2015-05-14 18:34:47+02:00","unify id string in main list card view
+"
+"af48eccef5a1fac3dfc6395dac112525576b8fbb","2015-05-16 19:54:42+02:00","clean up main list activity
+
+* move specific overrides from base activity to main list activity. this
+also gets rid of an instanceof
+* rename menu xml to be more specific where it is used
+* rename filter icon to its original name from
+http://google.github.io/material-design-icons/
+"
+"7d525765dae5df8ef7696d5441b80ee7f7649fa1","2015-05-16 20:03:56+02:00","allow reporting errors in gastro activity
+
+A user can select an option from the menu in gastro activity. This fires
+Intent.ACTION_SENDTO and sends the user to his/her mail program, where
+he/she is presented a pre filled form.
+
+Also add the icon for reporting a problem from
+http://google.github.io/material-design-icons/
+
+Closes #11
+"
+"298b62b94e57c7fdfd8ac0986f47d15c3af8d5e9","2015-05-18 19:38:58+02:00","use 24dp instead of 48dp for icons
+
+I saw this in TextSecure app and think it just looks nicer and not as
+dominant.
+"
+"d7bfb5c0fa6c8c18b519e64f38e678aa2a0c2cf2","2015-05-18 19:48:13+02:00","rename variables on the analogy of json/readme
+"
+"1e1f469931954456b364eaa65de2124379354559","2015-05-18 20:50:36+02:00","improve and simplify filtering
+
+* reorder filter from omnivore to vegan only
+* show additional text in filter dialog
+* remove if/else from filter list calculation
+"
+"0880b30c13410aafdf2ee6e40cdc460174137eee","2015-05-18 20:55:11+02:00","no need to be a member variable
+"
+"75e8cd32b1fc26c368d5d08d4e02e1edc762f7f8","2015-05-23 10:02:02+02:00","do not set empty array in single choice's constructor
+
+The empty list is never used and never should be used.
+"
+"81040721fe4a05233659d58382b826aa6986333a","2015-05-23 10:12:45+02:00","move removing soft hyphens from comment into method
+"
+"037ad508765118455086c246bb0a21c59ca1558f","2015-05-23 10:06:50+02:00","add search feature to main list activity
+
+A user can search for the name and/or the description of a gastronomy
+location.
+
+Resolves #5
+"
+"039366d9bf3d0a3cf35708f1dfb1f04ed8ecd5ca","2015-05-23 12:37:30+02:00","fix following findbugs warnings
+
+* Possible null pointer dereference
+* Method concatenates strings using + in a loop
+* Class defines compareTo(...) and uses Object.equals()
+* Reliance on default encoding
+
+Using FindBugs-IDEA 0.9.996 with Findbugs version 3.0.
+"
+"0300488c7dc8270f36e161ec8f535ab460068749","2015-05-23 12:45:56+02:00","remove unnecessary use of 'this'
+"
+"483635d8f2300b6448ef60a132d4da8ad53388f3","2015-05-25 21:36:33+02:00","introduce gastro locations class
+
+Introduce a class, that holds an object of all gastro locations,
+filtered gastro locations, and the gastro locations, which are currently
+presented to the user. Latter includes searching through the gastro
+locations lists.
+
+This shrinks the main list activity and centralizes functionality used
+on the gastro locations in one object.
+"
+"59dc4fa70e5130b8a18569e677e04ff8db9335ce","2015-05-25 22:04:36+02:00","correct order of using fall back
+
+Take the fall back if something went wrong, e.g. the gson parser returns
+null.
+"
+"945ed0ea88f9436166921fa46e880afb97e74932","2015-05-26 18:25:42+02:00","remove unneeded TODOs
+"
+"6ba230f94f204df97b84205d8b5b475c97815f16","2015-05-25 22:08:23+02:00","bump to version code 2
+"

@@ -1,0 +1,53 @@
+"commit id","commit date","commit message"
+"34cc8e19518360d7d681851d71d45883e01dd186","2015-11-24 11:32:58+01:00","Do not release wakelock on destroy
+
+11-24 11:23:06.613 17818 17864 I NetGuard.Service: wakelock=false
+11-24 11:23:28.191 17818 17818 I NetGuard.Main: Destroy
+
+--- wakelocks are being released
+
+11-24 11:23:28.213   792  9532 I ActivityManager: Killing 17818:eu.faircode.netguard/u0a500 (adj 16): remove task
+11-24 11:23:28.271   792  2662 W ActivityManager: Scheduling restart of crashed service eu.faircode.netguard/.SinkholeService in 10300ms
+11-24 11:23:28.920   792   805 I ActivityManager: Start proc 29215:eu.faircode.netguard/u0a500 for broadcast eu.faircode.netguard/.Widget
+11-24 11:23:28.959 29215 29215 W System  : ClassLoader referenced unknown path: /data/app/eu.faircode.netguard-1/lib/arm
+11-24 11:23:28.962 29215 29215 I NetGuard.App: Create version=0.40
+11-24 11:23:28.963 29215 29215 I NetGuard.Widget: Received Intent { act=eu.faircode.netguard.APPWIDGET_ON flg=0x10000010 cmp=eu.faircode.netguard/.Widget bnds=[828,300][1044,549] }
+11-24 11:23:28.976 29215 29215 I NetGuard.Service: Create
+11-24 11:23:28.982 29215 29215 I NetGuard.Service: Restart
+11-24 11:23:28.983 29215 29215 I NetGuard.Service: Start intent=Intent { cmp=eu.faircode.netguard/.SinkholeService (has extras) } command=start vpn=false
+
+--- service is recreated
+
+11-24 11:23:28.984 29215 29215 I NetGuard.Service: Start intent=Intent { cmp=eu.faircode.netguard/.SinkholeService (has extras) } command=start vpn=false
+11-24 11:23:28.985 29215 29233 I NetGuard.Service: Executing intent=Intent { cmp=eu.faircode.netguard/.SinkholeService (has extras) } command=start vpn=false
+11-24 11:23:29.000 29215 29233 I NetGuard.Service: Starting wifi=true metered=false/true roaming=false interactive=true
+11-24 11:23:29.022 29215 29233 D NetGuard.Service: Predefined com.google.android.apps.adm blocked=false roaming=false
+11-24 11:23:29.022 29215 29233 D NetGuard.Service: Relation com.android.vending related=com.google.android.gms,com.android.providers.downloads
+11-24 11:23:29.022 29215 29233 D NetGuard.Service: Relation com.android.chrome related=com.android.providers.downloads
+11-24 11:23:29.578 29215 29233 I NetGuard.Service: Allowed=9 blocked=164
+11-24 11:23:29.597   792  2662 I Vpn     : Established by eu.faircode.netguard on tun0
+11-24 11:23:29.610 29215 29233 I NetGuard.Service: wakelock=false
+
+-- executing second start
+
+11-24 11:23:29.610 29215 29233 I NetGuard.Service: Executing intent=Intent { cmp=eu.faircode.netguard/.SinkholeService (has extras) } command=start vpn=true
+11-24 11:23:29.610 29215 29233 E NetGuard.Service: java.lang.RuntimeException: WakeLock under-locked NetGuard wakelock
+11-24 11:23:29.610 29215 29233 E NetGuard.Service: java.lang.RuntimeException: WakeLock under-locked NetGuard wakelock
+11-24 11:23:29.610 29215 29233 E NetGuard.Service: 	at android.os.PowerManager$WakeLock.release(PowerManager.java:1157)
+11-24 11:23:29.610 29215 29233 E NetGuard.Service: 	at android.os.PowerManager$WakeLock.release(PowerManager.java:1128)
+11-24 11:23:29.610 29215 29233 E NetGuard.Service: 	at eu.faircode.netguard.SinkholeService$ServiceHandler.handleMessage(SinkholeService.java:97)
+11-24 11:23:29.610 29215 29233 E NetGuard.Service: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+11-24 11:23:29.610 29215 29233 E NetGuard.Service: 	at android.os.Looper.loop(Looper.java:148)
+11-24 11:23:29.610 29215 29233 E NetGuard.Service: 	at android.os.HandlerThread.run(HandlerThread.java:61)
+
+-- under locked, because wakelocks were released
+
+11-24 11:23:34.070 12346 12346 D Finsky  : [1] AppCrashProxy.onCreate: Sending feedback for crashed eu.faircode.netguard to com.google.android.gms
+11-24 11:23:37.810   792   805 E ActivityManager:  +0% 29215/eu.faircode.netguard: 0% user + 0%
+11-24 11:24:41.708   792   805 E ActivityManager:   0.2% 29215/eu.faircode.netguard: 0.1% user + 0% kernel / faults: 9 minor
+11-24 11:25:42.400 29215 29215 I NetGuard.Service: Received Intent { act=android.intent.action.SCREEN_OFF flg=0x50000010 }
+11-24 11:25:42.402 29215 29215 W NetGuard.Service: Wakelock not held
+11-24 11:25:42.404 29215 29215 I NetGuard.Service: Start intent=Intent { cmp=eu.faircode.netguard/.SinkholeService (has extras) } command=reload vpn=true
+"
+"bd0aef5a34c717ff802869f36dc099582f7d7be2","2015-11-24 11:38:54+01:00","0.41 beta
+"

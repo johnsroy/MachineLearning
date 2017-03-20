@@ -1,0 +1,23 @@
+"commit id","commit date","commit message"
+"6438ab4761aca40e015fa56bb8176254350478ca","2015-07-03 01:04:27+01:00","Fix #273: don't return early having only copied some of the changes.
+"
+"aa1a9375be96cd8e0f89a670359c3c80ad7cf937","2015-07-05 21:57:38+01:00","Fix redrawing of Undead 'done' clues after a resize.
+
+The is_hint_stale() function has the side effect of copying a path
+hint's new colour-relevant information into the game_drawstate, where
+draw_path_hint will then use it. But it returns TRUE early in some
+situations, notably !ds->started, which can happen after the actual
+game start if the window is resized and a fresh drawstate is created.
+
+This patch, thanks to Chris Boyle, fixes it by eliminating the early
+returns from is_hint_stale - the return value is unchanged, but now
+the side effects happen reliably.
+"
+"82878ab318d4d56cfdc9f5f5ca84205989acad64","2015-07-05 22:05:47+01:00","Fix #274 (Inertia completion) and bump version.
+"
+"6d46b83b17965c3ef3cc6cae885643da56ee5837","2015-07-05 23:57:39+01:00","Fix #271: just for Mines, use status bar text as completion popup title.
+"
+"93ddbfb63568e2f683eefdffb3305f2ac2b6457d","2015-07-05 23:58:13+01:00","Merge branch 'upstream'
+"
+"7c40ba239581e30769ac25885389cbed5cbeda17","2015-07-06 07:13:20+01:00","Update Android Studio droppings.
+"

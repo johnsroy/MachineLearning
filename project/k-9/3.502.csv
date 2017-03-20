@@ -1,0 +1,68 @@
+"commit id","commit date","commit message"
+"bb5052f84842af6ece25f1f535e5faf16f1ae256","2010-12-17 17:25:27+00:00","Fix possible NPE.
+"
+"c5f7dbf02883707e6a50d40763b987bf682e7765","2010-12-18 10:12:52+00:00","Execute LocalMessage.appendMessage() & LocalMessage.setFlag() in the same transaction for small message storing in order to speed up DB update.
+This is a per message basis optimization. More improved speed could be attained by batching several messages in the same transaction.
+"
+"ab5caba92c139af4f84de8cd2aab112d9689da5b","2010-12-18 22:56:40+00:00","Factor out store locking code in an intermediate DB access layer.
+"
+"dbe4bea29027b6f28f67e07dad7a2c7322d90bf9","2010-12-19 01:30:03+00:00","Give our 'send failed' notification a contant
+"
+"b59eb6c69f5b32ba20a2e3f6a701c37f42871461","2010-12-19 01:30:07+00:00","lift lastFailure up so we can reference it in an outer scope
+"
+"eda76640c0b57de77d0f9e84d89253036887a22a","2010-12-19 01:30:11+00:00","When mail is sent successfully, cancel the 'couldn't send mail'
+notification
+"
+"1e389acbdf7da580aab82ba040c28fe0b4e80730","2010-12-19 01:52:00+00:00","Updated Italian I18N from paolo.maccione. Fixes issue 2778
+"
+"79d4ca5930b47aa02b1200bbb82105bef04d4e33","2010-12-19 01:52:03+00:00","Fixes issue 2782:  Dutch language localization word spelled incorrect -
+Thanks to thayoung0
+"
+"0abbeb443edb40440ac35893d3b47a2909bc5748","2010-12-19 11:51:54+00:00","Batch storing of unsynced messages to speed up DB update (chunk size set to 5).
+Execution code path is modified since it's not longer handling one message at a time when inserting in DB - might require review.
+"
+"7c652f6acc08867fe046f722c39343527e519cf6","2010-12-19 20:59:16+00:00","Don't blindly localize date pattern
+Fixes issue 2783
+"
+"bf9818dc6804ccd7de16998ad0272b592daf27a5","2010-12-20 02:44:31+00:00","Updated Italian translation from paolo.maccione
+"
+"df44a1f89b55968afce6be08fc113a98036ce3d5","2010-12-20 21:34:01+00:00","Add @Override annotations (1.6) for safer compile-time checks
+"
+"f5421f32b8f77a42f13a8a93738f3951100a5420","2010-12-22 22:08:15+00:00","Fix bug where replaceAll result was being discarded.
+Fix javadoc.
+"
+"a3b669251b40396d6daf5dc4fa270bdea8935db4","2010-12-23 16:56:39+00:00","Fix for typo in fr translation.  Thanks to marc.poulhies.  Fixes Issue 2796.
+"
+"6c52c8d927dd940ad14eb42fa045171c24791367","2010-12-23 17:15:20+00:00","Set a default hostname if we can't get the local hostname.  Fixes issue 2750.
+"
+"302339545b228f52ccf4cbeca4f056b00bfd8d07","2010-12-23 17:43:57+00:00","Try using IP address for EHLO if hostname is unavailable.  Only use a default hostname if the IP address is unavailable.  ref r2958, issue 2750.
+"
+"2806c267c923cd763b5fe7e004760f08d050ea51","2010-12-23 23:16:54+00:00","Remove unreadable characters from message previews.
+"
+"0b3dc2840b070471cc2048210e603b5ae2b3039d","2010-12-24 18:54:56+00:00","Bump us up to android-9 so we can have strict mode for development
+"
+"c49a856046a056d843923bca13ecb33c45151beb","2010-12-24 18:55:01+00:00","Enable Strict Mode when a new 'developer mode' is enabled and we're running on 2.3 or newer
+"
+"9878b743792abd372916a41f87e4b27378f73941","2010-12-24 18:55:05+00:00","astyle
+"
+"30b74025698f8ec8d2e332f829c44d5962963cc5","2010-12-24 22:48:11+00:00","We shouldn't be resetting visible limits every time K-9 is opened, only when the user changes
+how many messages they want to be synced, otherwise the 'fetch more messages' option is session-only, which is really, really wasteful of network. (and 'session' is poorly defined, since android manages our lifecycle.)
+
+Additionally, doing this at startup has huge overhead. If this functionality is ever restored, we should make it asynchronous
+"
+"df96d0fbe02b6542a50e4f03e3f90e57d6c0c105","2010-12-24 22:48:14+00:00","avoid use of a temp variable
+"
+"d64d9c460a97e660cbcc881d5dbad0493f2f13c7","2010-12-24 22:48:17+00:00","Disable webview cache and javascript. (Mail + Javascript == scary)
+"
+"fa510f2dab8f63b3dfaab39b1c94ec74d63b2547","2010-12-24 22:48:19+00:00","Turns out that UUID generation is expensive. deferring it until first access improves startup performance.
+"
+"4a97f4a1a076b72bd0538d578abcfdd744586fd9","2010-12-24 22:48:22+00:00","astyle
+"
+"b99eb47d15024b3e2c91ca6f0e113159819e096a","2010-12-24 22:48:26+00:00","extract folder preference setup to a method, so we can push it onto a thread
+"
+"db7649c9afb3fb8a3a574aa0fbe7cd81a9914b5d","2010-12-24 22:48:29+00:00","move folderlist initialization into an asynctask, so it's not so slow to populate
+"
+"a1872fee21d6264bdbf1a2dcdbce5f9b8da5392b","2010-12-24 23:14:16+00:00","Bumped manifest to 3.501
+"
+"17477c6f909565933964ac029ca753c0139cb94e","2010-12-24 23:14:41+00:00","Bumped manifest to 3.502
+"

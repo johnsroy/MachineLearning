@@ -1,0 +1,166 @@
+"commit id","commit date","commit message"
+"369718f8c07a524bca9e02c3bbcd9b2c853de9f1","2009-12-20 16:30:55+00:00","fix the grey background for not-yet-downloaded messages in landscape mode
+"
+"41d7ca51a3de28451fa6d2b39ed310a67b8925f0","2009-12-20 23:13:49+00:00","Implementation of complete IMAP two-phase 'delete/expunge' behavior.
+
+On each IMAP account, the expunge behavior can be set to expunge
+messages in a folder as soon as a move or delete is performed on the
+folder ('immediately'), each time the folder is polled, or only when
+executed manually.
+
+In the Message List, there is now an Expunge action in the option
+menu.
+
+In the Folder List, there is now an Expunge action in the context
+menu (long-press on the folder).
+
+For IMAP accounts, it is also possible to disable the copying of deleted messages to the
+Trash folder, by setting the Trash folder to -NONE-.
+
+Fixes Issue 536.
+
+Separately, in WebDAV accounts, the user can now choose the
+server-side equivalents of the special folders, just like for IMAP.
+"
+"4859ff7e8f1838644efc5cc986dac83c8b20bfef","2009-12-21 01:48:15+00:00","Add wakelocks for calling between MailService and Push/PollServices.
+I don't know if these are truly necessary, but they should not be
+harmful and might be a big reliability boost.
+"
+"361cc4cbb10d91c34a8817cee3d563176b796f54","2009-12-21 05:53:16+00:00","Reverted r1108 as it causes issue 892 on Android 1.5
+"
+"8fca99bef404b1c7d278e5058c0e486a4b64285b","2009-12-21 17:49:16+00:00","Fixes to unbreak incoming account setup after CRAM_MD5 implementation
+"
+"022b0241a131ecd21f33706245714980f2ab57e4","2009-12-21 18:39:45+00:00","250, 500 and 1000 messages may now be synced per folder.
+"
+"070fd635d433c89927981d2e7eadc0399d805174","2009-12-24 18:08:23+00:00","Allow user to set a limit on the number of folders to be handled with
+push technology.  This provide a layer of safety in case of
+misconfiguration (accidentally setting too many folders to push using
+classes), which can bog down the device till it is unusable.  On a G1,
+25 folders is a very large load.  Fixes Issue 871.
+
+Also, move some pending commands to the background to make way for
+more important user interface activity.
+"
+"ea65007b9989d7dce912bf3558df3aab6f1f43ae","2009-12-26 18:31:55+00:00","Disable inter-message animations, except when initiated by a swipe.
+
+Fixes Issue 926.
+"
+"1ea96796d64bb4408706d99ef639fdcc9d42ac5b","2009-12-27 00:54:19+00:00","Add a global preference for enabling animations, beyond those that are
+necessary.  Defaults to 'enabled.'
+"
+"9796cb64874f044c1edfdf8aca970126eb4d2970","2009-12-27 16:50:14+00:00","First rouind of extracting the 'load messages from the db' column list
+"
+"9bcc991ec82a08f6569fe74379a408821ea175ab","2009-12-27 16:50:21+00:00","Extract out the code to 'load mesages from SQL' from inside our 'load messages in this folder' code
+"
+"9ba102599ffa193c71b033bc45093e75cac2c9ed","2009-12-27 16:50:28+00:00","Fix SQL statmeent
+"
+"151ae5a2a367f7244fb9b9c3479c3090a06f4261","2009-12-27 16:50:37+00:00","First pass at adding 'Searchable' infrastructure
+"
+"56cdfa88c9eba792a5abdb4844c3cd6676b72201","2009-12-27 16:50:44+00:00","tiny grammar fix
+"
+"721e29854219225e4da61f9bf88b791608eafc9c","2009-12-27 16:51:00+00:00","Invert some logic to clean up MessageList a bit
+"
+"c8bcad6a21ae3fc4efd50f4d587ee6137639e0a4","2009-12-27 16:51:06+00:00","Refactor and reverse logic to be a bit cleaner
+"
+"5b907c2d940d919265eb762a9bc1ea6c33eeccd7","2009-12-27 16:51:13+00:00","Remove an overridden subroutine that's now a noop
+"
+"5e0bbf18aa0fc361ec2755ca55a219905fafbb32","2009-12-27 16:51:19+00:00","Extract parts of title setting code into their own methods
+"
+"5c8a0a908c725a238bcc8c6c5be2810dad82a9dd","2009-12-27 16:51:25+00:00","Remove a lie from a comment
+"
+"c953ff2c1bcfaf6f6bbe6b19ca6f9f0b6e550678","2009-12-27 16:51:32+00:00","Bulletproof MessageList against not having a folder loaded
+"
+"9d417133b53f2db5c5257f2dffab5b6571fabe47","2009-12-27 16:51:38+00:00","reduce duplication of code
+"
+"94e61ab62c28e1127880dfdcd56707bd8cfddc48","2009-12-27 16:51:45+00:00","Extract out the listener we're using when we ask for new messages.
+
+It may eventually get further extracted.
+"
+"e2f84c4fa8441606426ab3c24c5e7e1cf57fc015","2009-12-27 16:51:59+00:00","wrap a debug message in a debug-mode check; eliminate a temporary variable
+"
+"854da2664ca2745e3bf6273a9a8589726792a6b9","2009-12-27 16:52:06+00:00","Unify our 'guard' against syncing the outbox or errors folder
+"
+"9a40457a2a71e75b7e147505bf888e73af7902b5","2009-12-27 16:52:17+00:00","Remove giant commented out method - that's what we have version control history for
+"
+"2a77001accf9a674a19bce5af31a41f279158a25","2009-12-27 16:52:26+00:00","First steps toward adding search results
+"
+"7c8a7b1f275cbf556d122e323e961e840464c6c7","2009-12-27 16:52:33+00:00","Remove an old comment/obsolete code
+"
+"81a5820e5dbe7136e55d32c154f79612d8d37129","2009-12-27 16:52:39+00:00","swap the order of two methods for readability
+"
+"54ad16edb881cce9130da4821f06a811a489ad9a","2009-12-27 16:52:45+00:00","Push a 'is this the right folder?' check into our 'add/remove messages from the message list, to better support search
+"
+"0005a8ea60378fc9b944db909424166568a4298d","2009-12-27 16:52:50+00:00","Remove lies from a comment
+"
+"47b338fb949588d4882aec5b1195765590be916d","2009-12-27 16:52:57+00:00","Move message population to the message class.
+"
+"fe67f0a40c906b82fe3bf78a907c4521cde97585","2009-12-27 16:53:03+00:00","temporarily disable new unfinished search code
+"
+"4cec24769910a5b5ad5f04864984e8ef2c1a6c35","2009-12-27 16:53:09+00:00","Make it possible to populate a MessageInfoHolder without a FolderInfoHolder
+"
+"09ecd2bc9a1f7584675a8f078035c0b94de00122","2009-12-27 16:53:16+00:00","Make it possible to instantiate a localFolder by id.
+"
+"ddd6db3a7c0706ba581bde9e29f55064b93e2941","2009-12-27 16:53:24+00:00","Made our search activity actually exist
+"
+"6dcb10add6abc0067a739da66d0f26de0c1f97cc","2009-12-27 16:53:31+00:00","Lift our column list for 'load messages' out to the LocalStore, as the
+first part of lifting 'get messages' out of 'folder' for search
+"
+"580a56208593b2c5a2e915efb50cf6c337dccd00","2009-12-27 16:53:37+00:00","Lift the generic getMessages and searchForMessages up to the 'store'
+level from the 'folder' level so we can search for messages across
+folders
+"
+"da45b81866f51e709466de13d95b92ac4f059eed","2009-12-27 16:53:45+00:00","minor query reformatting
+"
+"70f35a537ebadfbc16c3d29b728da75f5427cb48","2009-12-27 16:53:51+00:00","If we loaded a message from the local store without an associated folder, load up its folder.
+"
+"1b74c176a2134497003634638b5885f73dcd0c2b","2009-12-27 16:53:59+00:00","Add multi-account search to the MessagingController
+"
+"3ad69c799dd52ec6449afa92d948d8e16b2194a1","2009-12-27 16:54:06+00:00","When listing off messages, make sure that our 'refresh the list' fires,
+even if we didn't start off empty.
+
+This could have prevented updated messages from showing up
+"
+"302deea53e9f3412bd26e3b8140affd9b7bf8dd8","2009-12-27 16:54:12+00:00","addOrUpdateMessage calls now propagate the account of the found message
+"
+"ed19a8284edd774c43dcc98e30ce161f27b5a013","2009-12-27 16:54:23+00:00","Propagate per-message account info into MessageInfoHolder and FolderInfoHolder
+"
+"81d72a2d8cf5306a285b4a6a13340b40d7a94277","2009-12-27 17:15:38+00:00","make the color chip genuinely calculated per message
+"
+"bc61c90e1aa92d60e3d3797d8ca0f4d710412d51","2009-12-27 17:15:46+00:00","make the auto-open folder not trigger if we're doing a search
+"
+"f6756879efce337ba45363b7c916491395dde2c3","2009-12-27 17:19:49+00:00","Temporarily disable 'left-handed' controls if we're doing a search.
+
+view configuration needs to move to be global for this to work right.
+"
+"204289a4fff14e856ad4b30040f9d870a369e5a9","2009-12-27 17:19:56+00:00","when opening a message for display or edit, use its notion of account, not the folder's.
+"
+"a736a4267cbc200f20ccf896383e51aee42a527f","2009-12-27 17:20:06+00:00","Only trigger our 'loading' indicator if the account matches 'our' account
+"
+"21238a3084e79f4f7583e66d836d9b89800ac95e","2009-12-27 17:20:13+00:00","If we get a message from listLocalMessages and we're doing a search,
+assume it's for us. Later, we may want to be smarter about that.
+"
+"1c4a0be0da6fbfe0f31eb663ad21b7f5c11900fd","2009-12-27 17:20:21+00:00","enable searching of messages
+"
+"c608ffb67280ffb5871b8e8fc6769bd18b19f6fc","2009-12-27 17:20:28+00:00","Eliminate a variant of addOrUpdateMessage that was only called once
+"
+"6c7782b4bd9209ef1a874a867ba05cac4bd7b583","2009-12-27 17:20:50+00:00","remove another alternate calling convention for addOrUpdateMessage. Code
+will get still cleaner when we start propagating back message folders as objects
+"
+"d60521f06f75ca9a453bac4bc7e3c26516e266f6","2009-12-27 17:20:56+00:00","further push down our 'is this message for us' logic.
+"
+"63b6f6bf6299240776239a56dfe995c8190af2fc","2009-12-27 17:22:26+00:00","Refactoring to better propagate 'folder' along with messages as they're instantiated
+"
+"bfaba499fe3b094ec80b7f69c8fe023171d6ca1d","2009-12-27 17:22:32+00:00","Fix the Search header on search results
+"
+"0a2d9b9c9f771e3389b400339bfea1d556d23045","2009-12-27 17:22:38+00:00","make sure search results aren't updated incorrectly on incoming messages
+"
+"6c383256a2a6ce5b1035cb516c04a9a0164f6779","2009-12-27 17:22:44+00:00","Remove duplicate code from onCompose. make starting message composition without an account actually work
+"
+"a53e9d1b897edb445ba413731e9c465cad40f0e6","2009-12-27 17:22:51+00:00","on search, only fire one start event and one end event
+"
+"794f515bc8b2da4b9fb063cbb1b28446f9ef8f0d","2009-12-27 17:22:57+00:00","Numerous small fixes to search results
+"
+"bbd9e567705fc70a35462ba70f0261f3229d276f","2009-12-27 17:47:30+00:00","Actually display 250/500/1000 options for 'number of messages to sync'
+"
+"3cbb9714dd398e8d68abefb9204328b7c39653dd","2009-12-27 17:49:23+00:00","2.305
+"

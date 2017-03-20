@@ -1,0 +1,35 @@
+"commit id","commit date","commit message"
+"e3fbcd18699923ef364f8ce62e49adbfe0d2c402","2014-11-09 21:53:15+01:00","Added tag 1.78 for changeset d4de79358ffa
+"
+"2dfe0c05590e1cc140e77d618d6a933c2c6f25c5","2014-11-10 11:13:24+01:00","- Store size of tablet view per feed
+- Fixed tab resizing in horizontal mode
+"
+"5eddf1ae81c1f06acd23678eff625ff06c83b602","2014-11-10 12:01:11+01:00","Make sure to use only one SQLite Connection throughout the whole app. Even the Memory-DB in CategoryFragment is static now, DBHelper returns the OpenHelper-Instance to the content adapters and all db-accesses are going through this instance.
+"
+"3ea8bfa9bd5593739a84cc0eed75ca2119699658","2014-11-14 16:38:53+01:00","- Removed lots of dead code
+- Reduced visibilty where appropriate
+- Introduced ReadWriteLocking in DBHelper, can be disabled in the central readLock() and writeLock()-Methods. Not sure if this is the right approach to the 'database is locked' exceptions. Right now it seems to be as fast as before.
+- Refactored some code in DBHelper
+
+-> After marking anything as read there seems to be a problem with what is actually marked. Problem existed before but has been made visible by the locking.
+"
+"622c0947d8b40850dd995f9fb72158c86fd079bd","2014-11-14 16:46:24+01:00","- ReadStateUpdater: Move DB access out of the constructor so it is also done in the asyncTask
+"
+"16d9c77cbd30e85dad3439c2b3f5a1a84b06880a","2014-11-15 14:08:47+01:00","- Removed dead code
+- Fixed mark as read bug, counters are not handled by DB anymore but all updating operations decide at which point the counters should be updated
+- Refactored MarkReadUpdater, split into Articles and everything else
+"
+"e4b60463c126ba9ec9ef1a2745d13515c6f2c00a","2014-11-15 14:34:08+01:00","- Refresh of UI unified
+"
+"35e35150bf4b9ca54de5298211a8a6deda62d8ac","2014-11-15 14:37:06+01:00","- Reduced visibility of methods
+"
+"ca6574d1ef6d2bb3f76c97ddf5747016785d1e57","2014-11-15 15:12:54+01:00","- Flash screen when notify is necessary and device has no vibrator
+"
+"dbce8dd9573ad29f362fe8ae8b0e3f0d3003c860","2014-11-23 16:42:52+01:00","== Version 1.79 ==
+* Flash screen when notify is necessary and device has no vibrator
+* Store size of tablet view per feed
+* Fixed tab resizing in horizontal mode
+* Make sure to use only one SQLite Connection throughout the whole app. Makes the UI quite smooth and you can start reading while updates are fetched in the background which was quite annoying before.
+* Removed lots of dead code
+* Moved some DB-Access into background tasks, missed these bits before.
+"

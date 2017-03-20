@@ -1,0 +1,1273 @@
+"commit id","commit date","commit message"
+"4aa61a626c90b1f05e0c51288bb23c22f075ff51","2016-05-26 16:09:20-06:00","Update Feed UI for continue reading
+
+• Replace the placeholder cards with something closer using the mock
+from Zeplin. I think I would prefer to adjust some of these metrics.
+For now, I've tried to mimic the mocks as closely as possible and
+I'll address tweaks in separate patches as wanted.
+
+• Add FeedTheme. Set FeedActivity to use it in the manifest and override
+the unfortunate ThemedActionBarActivity default behavior which is to
+use Theme.Light / Dark. There's no dark Feed theme since there's no
+mocks.
+
+• Fix some of the margins in FeedActivity. Namely, the feed should go to
+the screen edge, so drop those margins and use ItemDecorations for the
+margins instead.
+
+Bug: T130963
+Change-Id: I67e796734201c7afd91d56662152be0f3f554807
+"
+"6440aedc325e9e577fac82165b63fa7530ca939b","2016-05-31 16:59:42-06:00","Add header & footer View support to Feed list card
+
+The continue reading card, and other cards, have a header View that is a
+little different than their item views. Add support for header and
+footer Views without requiring adapter index and type logic.
+
+Bug: T130963
+Change-Id: I53bbf5dc70223c2775e83f38df49cce6480c7700
+"
+"5ef1ca7f462864386c56a7b9e602872e4337723b","2016-06-06 17:48:00-04:00","Hygiene: remove non-functional code.
+
+This removes the code for interfacing with the Gather API :..(
+
+Change-Id: Ic0cbd19a1e0c58a4d4afc92c68e66434c9affcbb
+"
+"8a44ab3c241e258e42b8fb3630f23e681d90d8c5","2016-06-07 14:43:26-06:00","Remove unused test files
+
+A follow-up to 5ef1ca7, remove test files no longer in use.
+
+Change-Id: I7dba687c3813ab24f3b9a02f594c8a05651eac71
+"
+"9b4a1c6bfc5a0128f5b8a970dd8eae8a451059ed","2016-06-07 14:55:21-06:00","Hygiene: extremely light clean up
+
+• Replace deprecated method call.
+
+• Add missing @Override.
+
+• Remove unused namespace.
+
+No functional changes intended.
+
+Change-Id: Ieb8d172269f5f721f45823d53d9f1f4a13669e4c
+"
+"d0f8105ccb44232089f331ba584c54e559cb7627","2016-06-06 15:27:51-06:00","Check responses of synchronous network requests
+
+A follow up to 9a21153, check the response statuses of synchronous
+network requests. Probably simply because synchronous requests are less
+common, I don't see checking the status called out explicitly in the
+docs for the synchronous case. However, the status is checked in many
+usages of the asynchronous Callback.onResponse(), and it seems
+surprising not to for either case. There is also mention of checking the
+synchronous status in this sample[0].
+
+[0] https://github.com/square/retrofit/blob/0e4fe60/samples/src/main/java/com/example/retrofit/DeserializeErrorBody.java#L60
+
+Change-Id: I37042a3d4a36b63988d350a90ff7d5df02bfaff4
+"
+"de04caa1865418e3efd08edf1d9b7b37f380b9b5","2016-06-07 23:36:32+00:00","Merge 'Check responses of synchronous network requests'
+"
+"daf6207967ef40f25f8e631bb71f373fbdf34127","2016-06-08 22:35:21+00:00","Merge 'Remove unused test files'
+"
+"1b40db2a559bac98c76248a101b1c9bd59a8b925","2016-06-03 10:34:08-06:00","Add continue reading card logic
+
+• Add continue reading card.
+
+The continue reading card is populated with the most recent article
+from history when it's a day old+ and wasn't just dismissed. The check
+is initiated when the FeedFragment is resumed. Any previous continue
+reading card is removed from the Feed card list and a new one is
+added, if available. The Feed card list may be owned by a greater
+coordinator later. You can try out the new continue reading card by
+hardcoding ContinueReadingCard.daysOld() to return 1.
+
+The nasty disk IO stuff is in ContinueReadingClient. This class
+leverages LastPageReadTask which is pretty similar to
+MainPageReadMoreTopicTask.
+
+The simple coordination state machine (literally just checks the age
+of the most recently viewed article and that it wasn't just dismissed)
+is in ContinueReadingCoordinator.
+
+ContinueReadingCard is just a simple wrapper around a HistoryEntry.
+Its existence is justified because everything expects a Card and both
+ContinueReadingCoordinator and ContinueReadingCardView care about the
+card age (in days).
+
+For the ContinueReadingCardView subtitle, 'x days ago', use Android
+plural strings. According to T47695, TWN supports this.
+
+The FeedView's RecyclerView.Adapter is now a distinct file,
+FeedRecyclerAdapter. It was getting big, difficult to think about, and
+was completely static. There's some manual type checks in this file
+instead of polymorphism that may want for revision.
+
+• Move the demo code to a demo package. The demo part of ListCard is now
+a ListCard subclass, IntegerListCard. This code is still useful for
+testing and verifying disjoint cards work well. It will probably be
+removed soon.
+
+Bug: T130963
+Change-Id: If8b255a397d36dd2821c29c1eff879ac10009196
+"
+"5b022ad776fc51852ae02e3e4fd8fc8d649c6886","2016-06-03 10:48:04-06:00","Add continue reading coordinator test
+
+Test simple but easy to exercise logic.
+
+Bug: T130963
+Change-Id: I6e7f95bdec60364739d484af8929ff7613eefc0e
+"
+"3d805595044091a9862a1935bcc278f547dcef47","2016-06-09 01:11:15+00:00","Merge 'Update CSS files'
+"
+"f63cbdc00048c36a89d05e049f4fb8c068c38335","2016-06-09 16:28:09+00:00","Merge 'Add continue reading card logic'
+"
+"056429fc223d98577db271f851b7871bdef646e1","2016-06-09 19:41:29+00:00","Merge 'Add continue reading coordinator test'
+"
+"d991f85958221ca08ee36ccee57643e79e71d374","2016-06-07 14:39:06-06:00","Add most read models and unmarshaller tests
+
+Add models for the most read Feed card. Since the models specify
+unmarshalling annotations and have a tiny bit of deserialization logic
+themselves, add tests.
+
+Bug: T129082
+Change-Id: I9771f06ea563c66cbc6d03c030d8c48f15721fa4
+"
+"9e2c9eda1669861a9e31064166b4f91a7557b233","2016-06-08 11:04:46-06:00","Hygiene: consolidate MockWebServer set up
+
+Make an abstract test case, MockWebServerTest, which is responsible for
+set up and tear down of its server.
+
+Change-Id: Id7b59b851eabc628d0a1f990b4ce1ae74edcf146
+"
+"9961bb1bb0c2f5fff3d3efe19ee2a842f6361c3d","2016-06-08 20:21:58-06:00","Add test Retrofit factory
+
+Supplement MockWebServerTest with a Retrofit factory that executes with
+MockWebServer on the main thread. Retrofit calls can be made
+synchronously but our current code structure makes this unwieldy.
+Instead make calls as in production and change the Retrofit client
+instance to execute them synchronously.
+
+Change-Id: I6d3525ad98ed7a8e8f7901ac6389a3c3e199d7c5
+"
+"9d254d2c5a44d715847e58afcbb3e9f7dca13bee","2016-06-08 20:26:04-06:00","Add most read Feed data client and test
+
+Bug: T129082
+Change-Id: Ie6af592039255515ad71b3937d0db98d6aeaca98
+"
+"63749f61f01b4c5eeec9f3d07c537228416e4149","2016-06-08 10:04:05-04:00","'Because you read' feed card
+
+This card displays up to three results from a morelike API search based
+on a title from the user's recent browsing history (retrieved by a
+subclass of our existing MainPageReadMoreTopicTask).
+
+I implemented the search API call with Retrofit.  The existing 'read
+more' section still calls the API with an AsyncTask as before, but moving
+all API searches to Retrofit could be a follow-up task.
+
+I deferred on enforcing a minimum browsing time limit as specified in the
+card for now, but in the future maybe this could be implemented by creating
+a PageTimer and storing the page the user has most recently spent 30+
+seconds on (or a queue of such pages) in a SharedPreference.
+
+I also deferred on creating the 'FeedManager' control logic since that will
+likely be a substantial task in its own right.
+
+Bug: T129080
+Change-Id: I11ef1f59ee2530f116e7c02d2a238898210eb2ee
+"
+"b14f9ffdcaaaf4785a8f8fc775368225b477f05b","2016-06-13 17:39:14+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I05aaef9a95377fdf02e22cd330759fd1b4214f0f
+"
+"9157719fbd88c415490623cc892cb5afc7ff771e","2016-06-13 10:46:11-06:00","Hygiene: remove dead code
+
+Change-Id: I5276e06c126f54964c6db1368f903f542723de5b
+"
+"11c0c2f8f53acd726d8a4ccfa2e6698ec548c6ce","2016-06-13 18:39:32+00:00","Merge 'Add most read Feed data client and test'
+"
+"0a32f34e46acebca56df2ad881365c16c9cf0e55","2016-06-09 10:45:24-06:00","Hygiene: move constant from WikiApp to Constants
+
+Move constant symbol from WikipediaApp to Constants. No functional
+changes intended.
+
+Change-Id: Ia555abfe900b8d0ef14fd55d06375cbf39a0f31e
+"
+"28c237f6e3a8db9fdc2c4f74f384feb801bc0245","2016-06-09 14:27:16-06:00","Use the default Gson unmarshaller with Retrofit
+
+Our default Gson has custom TypeAdapters that are expected. Use that
+instead of a new Gson().
+
+Change-Id: Icc3a6587e9857bcbfcd5477ec59b6d8f3dd9078e
+"
+"f43a37d1372c2df7dba9f426553cd36e2b7498ec","2016-06-09 10:48:09-06:00","Hygiene: change URL to Uri
+
+Uris are expected by SimpleDraweeView.setImageURI() which is where these
+thumbnail identifiers are used.
+
+Change-Id: Ib436c0d43f1a7ad0c26982d5ce413479b6e248fb
+"
+"f04a91224a30a11fc4b6f5f9f2cf8c1693fc38a7","2016-06-09 14:05:04-06:00","Regenerate test JSON
+
+• Regenerate JSON used by most read Feed tests. d991f85 was made for
+an early version of the service. Revision IDs are no longer included.
+
+• Remove redundant unmarshalling code in MostReadArticles. The service
+guarantees that successful responses will always have one or more
+articles.
+
+Bug: T129082
+Change-Id: Id0fd39da1d532c3884adeff6a6fe089a76844974
+"
+"2dbcd20e5ff4644e11fae7dd64d5a1a1220e3740","2016-06-10 11:10:44-06:00","Override hashCode and equals for Cards
+
+Make sure Cards equality comparisons work properly by subclassing
+BaseModel.
+
+Change-Id: Id202c2f102607348f8a98a5e2013c4c96f336c1e
+"
+"5ca0b6916f43ac8da6bb61e3045e6a6459fdeb4c","2016-06-13 19:35:06+00:00","Merge 'Hygiene: remove dead code'
+"
+"b9347302eb6426b1ccfae7cc48a2e77d8006b056","2016-06-13 19:50:15+00:00","Merge 'Override hashCode and equals for Cards'
+"
+"3259286b8316547b9169599a9a45ddcb4b1b4fb5","2016-06-10 11:07:59-04:00","Implement feed coordinator.
+
+Bug: T137446
+Change-Id: I25ebe596605bae07b24c4cc2cd9b2008d985ebda
+"
+"465532d7fe44d1b5ba907da528d7785f9467f20c","2016-06-10 12:04:39-04:00","Fix title and thumbnail in 'continue reading' card.
+
+Change-Id: Ifc4ef9396cfe40560b70b76045920503a6e7d696
+"
+"6a8ba2567acc1295acf3796acd286b85ed3ae4f1","2016-06-14 00:20:39-06:00","Easier switch to labs MCS instance
+
+In dev settings you can switch to the labs instance but you'd have to
+lookup and type the RESTBase URI format. With this added entry to the
+preference hint you can just copy&paste the correct value to use our
+labs instance for the Mobile Content Service.
+
+Change-Id: I6ad8c9200111170451b3f9b89ed928088ce09762
+"
+"85b06ca60c61451076bb2aaabb7e81c969e7711d","2016-06-14 00:54:21-06:00","Switch RB and MW backend servers without restart
+
+Listen for SharedPreference changes and update the respective EndpointCache to
+facilitate a faster switch of backend servers by not requiring the app to restart.
+
+Change-Id: Ie806452d03af1dfed0a84d7dc25eba63f9de71b9
+"
+"900bc899dc412e7c4b212e5abefdcd257c74424e","2016-06-14 15:24:34+00:00","Merge 'Easier switch to labs MCS instance'
+"
+"2eacd18304192a69a6df0e61749168836ad28f73","2016-06-14 15:46:34+00:00","Merge 'Switch RB and MW backend servers without restart'
+"
+"aadf1fb787fe286e325b9d8ad30d17a3569a9344","2016-06-14 10:14:49-06:00","Upgrade Robolectric to v3.1 and API to Marshmallow
+
+Upgrade Robolectric to v3.1[0]. Also, upgrade the test API to v23 since
+that seems to be compatible with OkHttp v3.3.1[1].
+
+[0] https://github.com/robolectric/robolectric/releases/tag/robolectric-3.1
+[1] https://github.com/square/okhttp/issues/2533#issuecomment-222366551
+
+Change-Id: I2920ea8368b35f06615d45536ce5c7b733234303
+"
+"ee1a3b9f7f5cb8edda523a7fc753c4f8e3d1a2ef","2016-06-14 09:23:53-04:00","Upgrade to OkHttp 3.3.1
+
+Change log: https://github.com/square/okhttp/blob/master/CHANGELOG.md
+
+Notably, version 3.3.0 introduced recovery from REDUCED_STREAM errors in
+HTTP/2, which will allow us to resolve T134817 and benefit from HTTP/2 at
+long last.
+
+Change-Id: I735a7b5c5bb34032a275758c08684fbea27ff3ed
+"
+"e6a32bccd245afa50c63a571d86864dd8c361c25","2016-06-14 17:00:02-06:00","Upgrade Gradle to v2.14
+
+Java 6 is deprecated[0].
+
+[0] https://docs.gradle.org/2.14/release-notes
+
+Change-Id: Iea8d9bf5767348aa5a1a4e1f0512965cd6129a0e
+"
+"d488d2887d9de6d6c801813bdcaaa2bdb7045370","2016-06-15 13:15:45+00:00","Merge 'Upgrade Gradle to v2.14'
+"
+"191d0c05b3a75bf0e2a8aecfa8687ceab5a69efb","2016-06-14 12:14:28-04:00","Update design of existing feed cards.
+
+- Updated design of CardHeaderView.
+- Created CardLargeHeaderView, which is another type of header view to be
+used by 'because-you-read' and 'continue-reading' cards.
+- Added logic to retrieve and use the thumbnail image in the
+'because-you-read' card.
+- Tweaks to list item margins (not final).
+
+To come: automatic color extraction from the image in CardLargeHeaderView,
+for use as the card background.
+
+Change-Id: Ic76db7cb83ba9d5d9541688cba57809b6fabda6e
+"
+"89de7c93a5c653389e81f80f070d4471816185b1","2016-06-15 15:30:58+00:00","Merge 'Upgrade to OkHttp 3.3.1'
+"
+"a904160f730a9fd81f4df1916b2b4c6145a410bf","2016-06-14 10:45:19-04:00","Add Search bar to feed.
+
+- Modify FeedCoordinator to allow conditional pending clients, based on
+age.
+- Add Search bar card, inserted only at the top of the feed.
+
+TODO: tie it into the Search interface in PageActivity. It will be
+sufficient if clicking the Search bar simply brings up the current Search
+fragment.
+
+Change-Id: Ib074c8f14232fc60032d01839ad12a99e72fa7b4
+"
+"b8fd664cae5b0ad61794293aaed91271bee675df","2016-06-16 16:28:14+00:00","Merge 'Update design of existing feed cards.'
+"
+"9b2dacc075661524d06e00f59ebd3aa1ab0ac204","2016-06-16 16:33:21+00:00","Merge 'Add Search bar to feed.'
+"
+"08adc316a804c16bc8321a3db21ef4694ac6d530","2016-06-14 13:55:00-06:00","Add Retrofit service cache
+
+• Add Retrofit service interface cache. The previous implementation in
+WikipediaApp did not work for multiple clients.
+
+• Move Site parameter from construction to request time. This allows
+localizations to change between requests.
+
+• The centralized place for generating Retrofits seems to be in
+*PageEndpointsCache. Expose a static method for non-page services and
+use it.
+
+• Rename some of the 'clients' to 'services' to match Retrofit
+terminology.
+
+Bug: T129082
+Change-Id: I6413f34113b7d110202b2db9c288b6e1836c8da9
+"
+"6ecc1705ca2e240b1eeeb08dfb465da8360be3b9","2016-06-14 14:01:16-06:00","Prevent NPE
+
+FeedFragment unbinds (nulls) its Views in onDestroyView(). Check the
+Fragment state before interacting with the Views in an asynchronous
+callback.
+
+Change-Id: I2a0507f4da82e76886589cbe490575c421182865
+"
+"935f552f5983394f7283a656e60d654870cb84ad","2016-06-14 14:13:36-06:00","Allow FeedClients to return Card subclasses
+
+Change-Id: I039ba6291f90506f05eb74750084aedbcdcf9bda
+"
+"b3070e831356027386b28ab1f73770932fe191a3","2016-06-14 14:14:34-06:00","Remove redundant null check
+
+Change-Id: I089b8032e4163b0e813daa17765505b27f10eed4
+"
+"c609b403632f8da3e3c9cab05ee0565a3cd3170d","2016-06-14 14:52:56-06:00","Integrate most read
+
+Bug: T129082
+Change-Id: I688329f705646d917e00662be57385bc2cd4e50a
+"
+"22568a9810c36c2c9762fa285ef6fa9d6401e7ce","2016-06-14 16:37:21-06:00","Apply variant C most read UI tweaks
+
+https://app.zeplin.io/project.html#pid=575030de30a17087229662e6&sid=5756ffc19bf6204842c64ebf
+
+Bug: T129082
+Change-Id: I5a25213007c600be2882b38b3de425ca2c3c555f
+"
+"f4bb28c0818ccc66d622b2227a3b33baac1b78e1","2016-06-16 12:55:02-06:00","Hygiene: rename PageActivity to MainActivity
+
+• Replace all occurrences of PageActivity with MainActivity.
+
+• Move MainActivity to org.wikipedia.
+
+No functional changes intended.
+
+Bug: T136961
+Change-Id: I8a93a66d4b99130d56708b1c64b6535c1a12518c
+"
+"6150962759a2e4c3e264e78423edf3021e64afd8","2016-06-16 14:58:29-06:00","Hygiene: remove redundant lint suppression
+
+Android Studio v2.1.2 no longer seems to incorrectly lint Preference
+styles. Remove the suppressions.
+
+Change-Id: I0729a2fdd6b45deab81bf5b37f74bb96dd0409d9
+"
+"49915faddb4fdca6ed5df7712aaed796607ed300","2016-06-16 15:01:07-06:00","Hygiene: move less often used dev settings down
+
+Change-Id: I568e5aabf053118c1d9aed0b74e82719c6a9416a
+"
+"2f8a5baa08aab626948d9788245deedb08868439","2016-06-16 15:45:56-06:00","Add logic to show the Page/FeedFragment
+
+Bug: T136961
+Change-Id: I62e21c1222c8390a0fbc6ffa3076ecb62004e347
+"
+"4c039da02e4c3530227169fa7b4f87453090b283","2016-06-20 18:49:42+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I9ea604b02849c01af1cbd04d52deb6baeed6ab2d
+"
+"f7e91322d62c66d99be68857fc87b04d1d9b65b5","2016-06-14 09:37:16-04:00","Remove custom protocol list from OkHttpConnectionFactory
+
+OkHttp will recover from REFUSED_STREAM errors in HTTP/2 as of v3.3.0.[1]
+
+This patch removes the workaround we had in place while awaiting the
+fixes in nginx and OkHttp so that we can benefit from HTTP/2.
+
+[1] https://github.com/square/okhttp/blob/master/CHANGELOG.md
+
+[2] https://nginx.org/en/CHANGES
+
+The relevent change is:
+
+*) Change: HTTP/2 clients can now start sending request body
+immediately; the 'http2_body_preread_size' directive controls size of
+the buffer used before nginx will start reading client request body.
+
+Bug: T134817
+Change-Id: I50de05e1de4840f181a4d94360ecad1db41ecd08
+"
+"a18d97f81137fd49f7694dfe3938ee0546dbe90a","2016-06-21 14:58:43+00:00","Merge 'Integrate most read'
+"
+"a13d01a6338282785aa325e12a2b72d7a09eba02","2016-06-21 15:06:01+00:00","Merge 'Apply variant C most read UI tweaks'
+"
+"e901190becf4487aface93ef2053b4ecb2ab18cf","2016-06-21 15:09:30+00:00","Merge 'Hygiene: rename PageActivity to MainActivity'
+"
+"9863b6985afc930948ab0756f593dcfd489080cb","2016-06-21 15:13:22+00:00","Merge 'Hygiene: remove redundant lint suppression'
+"
+"313eae9b770b5a7e1696973a9589487207aff1d3","2016-06-21 15:20:33+00:00","Merge 'Hygiene: move less often used dev settings down'
+"
+"eff23acee529870b667a1fe7ff65101b4eac8f63","2016-06-21 15:31:14+00:00","Merge 'Add logic to show the Page/FeedFragment'
+"
+"5241ea72b619e46cb58764a016ffec28bf2cef13","2016-06-15 15:26:12-04:00","Top o' the feed.
+
+- Composed the layout of the feed header, using a CoordinatorLayout and
+AppToolbarLayout.
+- FeedView is now itself a descendant of RecyclerView, instead of
+RelativeLayout.
+- FeedFragment now has a Callback through which it passes a Toolbar view,
+and expects the parent activity to take this Toolbar and make it be the
+'active' toolbar of the activity (i.e. override the default toolbar of
+the activity).
+
+Change-Id: I93e4868594f19033c9fcd561d036719f21a8b8fe
+"
+"f788fdcc9b2aa28591a1117436f65b2c9ea8650d","2016-06-21 14:32:16-04:00","Update bundled CSS stylesheet
+
+Latest changes via make-css-assets.bash.
+
+Change-Id: I29bd4c3fa41721017b7f8b7eefa7b38c25562e0a
+"
+"127170e3a4bc2caa4a265d0d28e126317193b809","2016-06-20 14:56:33-04:00","Add interactivity to 'because you read' card.
+
+- Added some more methods to the Callback provided by FeedFragment, so
+that when PageActivity overrides them, the desired behavior is achieved.
+- Wove a callback mechanism into the View hierarchy of feed cards.
+- Created PageTitleListCardView (a descendant of ListCardView) that takes
+a PageTitle as a data provider. This is inescapable, since the original
+PageTitle (including its language code, namespace, etc) needs to be
+preserved in order to navigate to the correct page upon clicking.
+- Updated the fragment backstack logic and back-behavior in MainActivity.
+
+Change-Id: I0663b26dd247f65a28655213b73e08e07078426b
+"
+"891701ee47125b9bf90ed4bc794bfe9ddf26d072","2016-06-21 10:21:30-04:00","Integrate search into Feed (with voice).
+
+Change-Id: Iff74f9054f1f6913dc1e15d433cc78e6283d1e9e
+"
+"a5baae91493beb3b8cc0b7d974cc252497b83e87","2016-06-22 12:02:53-04:00","Color extraction for large feed card images.
+
+- Moved the old ImageViewWithFace to a more general location.
+- Made CardLargeHeaderView use the color extraction feature, and set its
+own background based on the extracted color.
+- Made a performance improvement in FeedRecyclerAdapter, wherein it no
+longer unconditionally reloads the entire child View structure for every
+card. Instead, it now checks if a Card is being loaded into the same
+View.
+
+Change-Id: I4cdf6599f2e064b37d6f239e09fe2a515130c66c
+"
+"b7d6b59b771416a20f705445dbffc16f219e3936","2016-06-22 13:44:15-04:00","Add transition animation when switching between Fragments.
+
+- Added a short fade effect when transitioning between fragments.
+- Improved the appearance of HistoryFragment when exiting out of it, by
+explicitly setting its emptyView to null (otherwise it has the jarring
+effect of momentarily flashing the 'glasses' image while closing).
+- This also fixes the transparency of the system status bar when the
+default Toolbar is hidden.
+
+Change-Id: I7e09b9e4c4ee6e025964c3e50b1ba7c3bc3b9d63
+"
+"fdc2e0b57b8bd5c3444e7e9ed9ed869e4ee1ea85","2016-06-22 20:30:26+00:00","Merge 'Top o' the feed.'
+"
+"d3f60a002b01b0633456a9e24b517ff4a3580028","2016-06-22 20:35:40+00:00","Merge 'Color extraction for large feed card images.'
+"
+"1ad631c8ab22723c6a275ee6ab960ad08bda3d76","2016-06-22 22:02:29+00:00","Merge 'Add interactivity to 'because you read' card.'
+"
+"c832b4083af70d4bac6aa3701b94a76f598a9cd1","2016-06-22 22:14:06+00:00","Merge 'Integrate search into Feed (with voice).'
+"
+"9ee52443a466dafb10b229b58307a0b7651f752f","2016-06-22 22:15:21+00:00","Merge 'Add transition animation when switching between Fragments.'
+"
+"2f18a768f4f3ad016e57a59d1514d98f81e97130","2016-06-22 19:25:05-04:00","Whoops: fix toolbar coordinator logic.
+
+- Show/hide the correct component in the coordinator.
+- Make sure to clear out the OptionsMenu when in search mode.
+
+Change-Id: I7070b73d20fb6bd4ec5140086176b2a41cd60c9c
+"
+"f0d0999eebfa1bf343a51427a82172f0e366a75b","2016-06-22 20:57:47-04:00","Whoops: Fix possible fragment duplication.
+
+Also fix options menu behavior when switching between fragments.
+
+Change-Id: If83dd623b657f4b7be1689f0f3fff1f8998fd6d1
+"
+"80aef156c4ccd0eb633f27954140bc8b5af0871d","2016-06-13 14:05:46-04:00","Add Today's Featured Article card
+
+This card adds a feed card for Today's Featured Article, and in doing so
+adds some additional components:
+
+* A BigPictureCard and associated View and layout files; and
+
+* An aggregated feed endpoint client.
+
+Bug: T129079
+Change-Id: I7e4ac7b2f2e81f8cdf40f9649daecb08db0cdfc1
+Depends-On: I4ae8e6bbaeb221872b1bc1d07be92f33002ff606
+"
+"33fb160a3e1a836775aeeba19f3a2096ae4b845a","2016-06-23 10:42:02-04:00","Improve toolbar overlay when scrolling feed.
+
+- Now uses the correct attribute to specify the overlay offset of the
+FeedView in relation to the AppBarLayout, and looks better when
+scrolling.
+- Now hiding the 'search' button in the toolbar until the feed is scrolled
+down sufficiently.
+
+Change-Id: I1d8a4219e27f03fad59eeb25475cc4478d7999b9
+"
+"56e02b7a45c25e742b86d1839c96aa79b80128c1","2016-06-23 11:24:37-04:00","Fetch more feed contents automatically upon scroll.
+
+This adds the piece of Feed interactivity where it automatically requests
+more feed content when the user scrolls down sufficiently far.
+
+Quick implementation note: I put the call to notifyDataSetChanged() into a
+Runnable that is posted to the message queue. This is because the request
+to fetch more feed contents is made during the view-binding phase of the
+RecyclerView. Since some feed cards may return their contents immediately
+(in the same thread), it may cause the RecyclerAdapter to be invalidated
+while it's still laying out its contents. This will ensure that
+notifyDataSetChanged() will get called only when it finishes its previous
+layout.
+
+Change-Id: I2667ad4aa4c59260ed117c4624aa413306b6d1ec
+"
+"5de502900d9bcbdc7e9d76cd132fddd7f80af4e9","2016-06-23 12:57:43-04:00","Swipe to refresh the feed.
+
+Change-Id: If587bdc0ae50e8d1817e04cee2eebf0d1fece141
+"
+"26e9ead93318cba521585e2d44224102a0b66419","2016-06-23 17:30:54-04:00","Feed: Remove placeholder String fields from AggregatedFeedContent model
+
+These add nothing and break aggregated feed content deserialization
+every time a new endpoint is added.  Let's just take them out and add
+fields as we need them.
+
+Change-Id: I92cb538f3a5e3fea6961ff30f52c4a74fc702452
+"
+"d38c37a2f7fb72c2d62802d277c017d31049c4cc","2016-06-24 13:01:19+02:00","Hack to have Jenkins recognizes the compile SDK version
+
+The Wikimedia Jenkins job is able to automatically install the proper
+SDK. Unfortunately the Android Emulator plugin does't recognize
+android.compileSdkVersion from app/build.gradle instead it:
+
+* Looks for files matching **/default.properties or **/project.properties
+* parse the file to find a 'target' value which is then used as the
+Android platform to install
+
+https://phabricator.wikimedia.org/T138506#2404266
+
+Add a project.properties file that has the target platform expected by
+the Jenkins plugin.
+Add a comment in app/build.gradle to remember to keep the version in
+sync.
+
+Bug: T138506
+Change-Id: I6be92df22396f87753599981d2800f4157c93936
+"
+"a8f21662244f11bc9835209b6bcd9a3602147f34","2016-06-23 08:41:01-04:00","Upgrade support library to 24.0.0
+
+http://developer.android.com/tools/support-library/index.html
+
+Bug: T138105
+Change-Id: If0cc49751d1bfe32656fd612958a3737bdb917a3
+"
+"cd1088e4882172b130f768d8cb1f27f95ccfd417","2016-06-24 15:35:13+00:00","Merge 'Feed: Remove placeholder String fields from AggregatedFeedContent model'
+"
+"d6d9d2990c4232da03914db86606f47f7ea723c6","2016-06-24 20:04:28+00:00","Merge 'Improve toolbar overlay when scrolling feed.'
+"
+"189e36e21d547fcaae19e3b999d716440554aa7f","2016-06-24 20:07:13+00:00","Merge 'Fetch more feed contents automatically upon scroll.'
+"
+"d41efd2a8d4ccfa3cc51dd030bcc68d81b831631","2016-06-24 20:08:38+00:00","Merge 'Swipe to refresh the feed.'
+"
+"80ffa64a47f9c255ec6c95a79c9b31b42c31a97b","2016-06-24 09:06:13-04:00","Design tweaks to feed card headers, based on final mocks.
+
+- All cards now have a standardized header.
+- The header now accepts a Drawable resource id for its icon, and a color
+for the background circle.
+
+Change-Id: I8fd0edcd125f4e8e8371b28d4108c6787461a9cc
+"
+"8b529309268269b0220b96b359b2bb45a91c8bb6","2016-06-24 10:34:57-04:00","Add interactivity and design tweaks to Featured Article card.
+
+- Made the entire text area of the card clickable, and working.
+- Made the Save and Share buttons in the footer work.
+
+Change-Id: Iaaff6f7d53fff52bbc247d69d4325c11a311cc95
+"
+"a0790d9801d89ecd21eb5e91269e8cf1cc646588","2016-06-24 11:05:01-04:00","Add interactivity to Continue Reading card.
+
+Change-Id: I29067aea688e875e3b999089faec50bf20ebb03a
+"
+"8a46a699b30bd608ef0b04e90fdd1444d6a9773c","2016-06-24 11:31:56-04:00","Add interactivity to Trending Articles card.
+
+- Make items clickable.
+- Hide the footer for now, since it's not yet clear what happens when it's
+clicked.
+
+Change-Id: I453a9274c2354bb5231d0c3b32d13f08e5a12e3e
+"
+"61dcc845f5ace39d8a3c275a54643936a256a9f9","2016-06-24 14:21:11-04:00","Add overflow menu to card list items.
+
+- Provides 'save' and 'share' options for any item in a card list.
+
+Change-Id: I0f5c55363bd3e575858bc5107728181985b01c25
+"
+"5e637357cf84374bb2a7769e3d368cb4d1fbf536","2016-06-23 11:45:08-04:00","'Random' feed card layout and view classes
+
+Adds a random card to the feed.  Based on 'static card' layouts and
+view classes that can be also be used for the main page card.
+
+Bug: T132339
+Change-Id: I0d838cf28f14a3f1619cfc6e9db6e187d7019b00
+"
+"2dea2869260b8fcdc4d6d0e32b22fbbff43c9e74","2016-06-27 09:58:57-04:00","Feed: make sure all client code paths end in a callback invocation.
+
+Change-Id: Ie746cb4dba04d7d41f79da701f23dece400bc08e
+"
+"ffa3ab38795986ba81b5b1f37ecfe0f62e67127b","2016-06-28 15:07:56+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ifdd791500dc62bc68164f74e6d98b9fe4a0e7efa
+"
+"f65081601979e96a46a5939816f3ef07727b709c","2016-06-28 20:09:49+00:00","Merge 'Remove custom protocol list from OkHttpConnectionFactory'
+"
+"3e5c425ac30d4e743c051825464a11531abab302","2016-06-28 21:16:04+00:00","Merge 'Feed: make sure all client code paths end in a callback invocation.'
+"
+"98398ea30799fb2043cc37bb4f3768911df2e710","2016-06-23 17:55:23-04:00","Move TFA card strings to strings_no_translate
+
+The TFA card is for now an experimental English-only card, so its
+strings do not need to be translated to other languages.
+
+Change-Id: I27d5ef3e9e687e50d5630bfe2f5e18ff10932832
+"
+"17007f920388ff01d77add80a3dad363f705c197","2016-06-28 20:13:45-04:00","Integrate eventlogging for floating search bar in Feed.
+
+- Added an 'invokeSource' parameter to track from where the Search
+fragment was invoked.
+- Added a 'position' parameter to track which search result position
+is selected.
+- Fixed bug where opening a search result in a new tab wasn't working
+properly.
+- Removed A/B test logic for prefix search autocompletion (this is now
+done by default on the server side.
+
+Bug: T129085
+Bug: T76412
+Change-Id: If1c14b60a634f5bea53173398082e092ec51d1b6
+"
+"19e6c020bc7d640fe4c8ffbdf7825693d7e4a03a","2016-06-28 13:19:43-06:00","Exit with nonzero when qq strings are missing
+
+Change-Id: Ife0f114dbe48faa445397aa7a94f74de2309d117
+"
+"a84a8c09589f5f939e90e57b8339b3478eeb9916","2016-06-29 15:02:46+00:00","Merge 'Integrate eventlogging for floating search bar in Feed.'
+"
+"03c347fd5e2f4cbce4d99454fde3df6857c4f454","2016-06-29 12:21:13-04:00","Integrate eventlogging for pages navigated from the Feed.
+
+- Extended the LinkPreviewFunnel (which was already sending 'navigate'
+events for every link clicked) to contain a 'source' parameter which
+maps to the HistoryEntry source that we use when navigating to pages.
+- Made the Feed callback interfaces return HistoryEntry objects instead of
+plain PageTitles, and allow different card types to specify their own
+history source parameter.
+
+Bug: T129085
+Change-Id: I2bad6d8f08b6de4ad58bf9485add911c12548581
+"
+"5913e36876e841efc8b385f31189b7dd1c9d4db7","2016-06-29 14:56:13-04:00","Improve positioning and behavior of feed refresh circle.
+
+Now using a more correct arrangement of SwipeRefreshLayout ->
+CoordinatorLayout -> RecyclerView.
+
+No longer need custom refresh start/stop offsets.
+
+Change-Id: I4918a00bfe1c16b71c95fa6b0f490ff1ea8865b0
+"
+"b3b253476996bf84a52dc3fdc42add93a1e4bb07","2016-06-29 20:06:47+00:00","Merge 'Improve positioning and behavior of feed refresh circle.'
+"
+"f288b3ead236dab2cd8bcad9ce9931f2e4b61e02","2016-06-29 16:43:38-04:00","Remove most-read field from aggregated content model
+
+This is unused, since we get most-read results from MostReadClient.
+
+We can put it back in if and when we move to using the most-read results
+from the aggregated response.
+
+Change-Id: I0f31d1b9a6dd772f9c997ae17bfa18dfdbd8c310
+"
+"d7fbe3d2ed6bff318eec71c2c897e87241f54f44","2016-06-29 16:10:28-06:00","Update languages supported & namespace translation
+
+scripts/generate_wiki_languages.py &&
+scripts/make-templates.py &&
+mv \
+FileAliasData.java \
+MainPageNameData.java \
+SpecialAliasData.java \
+app/src/main/java/org/wikipedia/staticdata/ &&
+mv languages_list.xml app/src/main/res/values/ &&
+rm filealias.json languages_list.json mainpages.json specialalias.json
+
+Change-Id: Ie024730ba6d42092f538708b3bed1d414470f470
+"
+"b663d68deb6ccf741b2ef7b76373f4e2767e5e48","2016-06-29 16:39:13-06:00","Use Norwegian Bokmål language code not wiki code
+
+A follow up to 8e9125b, the languages supported and namespace
+translation scripts assume that the wiki subdomain matches the language
+code. This is not true for Norwegian Bokmål which has a subdomain of
+'no' and a language code of 'nb'. Update and rerun the scripts to record
+the correct language code and move the 'nb' to 'no' language code to
+subdomain translation from LanguageUtil to Site. A translation in
+LanguageUtil is unwanted as 'nb' is understood by the Android
+configuration loader and only Site needs to be aware of the conversion.
+
+Bug: T114042
+Bug: T138720
+Change-Id: Ia34c0791986e0b9904e178f599b43a4e06b503d6
+"
+"120d0215de2a5eab539d72e619f72604e6fa36f5","2016-06-30 12:49:23+00:00","Merge 'Exit with nonzero when qq strings are missing'
+"
+"ff3d96531473b16474e1428736031af2a3af1fd4","2016-06-27 11:46:22-04:00","Remove 'Today' from nav menu
+
+The feed is replacing 'Today' as the app's functional homescreen, and so
+'Explore Wikipedia,' which links to it, is replacing it on the nav menu.
+
+The appified main page is still accessible via the feed's main page card,
+which is being added separately (no need to make it an explicit dependency
+here, I think).
+
+Bug: T129086
+Change-Id: I75300d73951fb0f126f9c65307ca1841e235e9c2
+"
+"5edf7b996bed187da36ccc022a612a3133fc1f5a","2016-06-30 14:01:01+00:00","Merge 'Use Norwegian Bokmål language code not wiki code'
+"
+"ef02a740ae474bfe7df51c69e1e2956966ed8fc5","2016-06-30 14:05:57+00:00","Merge 'Remove 'Today' from nav menu'
+"
+"89f61be42a03f67f784d0be130b1b41494a3bd9c","2016-06-30 14:10:41+00:00","Merge 'Remove most-read field from aggregated content model'
+"
+"d0215da43a33465e501c3e10cfd80dda325d945b","2016-06-27 14:22:04-04:00","In the News card view/model classes
+
+Interactivity to follow.
+
+I think there will be a general round of header/footer cleanup later
+so I didn't spend time getting those 100% to spec either.
+
+Bug: T129084
+Change-Id: I189e16d3934aa31cb5ef7fa6cef363febec2bfd3
+"
+"1522abf4e1dabed86e595f517adf256335432b59","2016-06-30 12:22:32-04:00","Eventlogging for the Feed itself.
+
+This implements logging for the actions of requesting more feed contents
+when scrolling down, as well as refreshing the feed when swiping down at
+the top of the list.
+
+This also provides a function for logging of dismissed cards, to be used
+when we implement dismissing of cards.
+
+Bug: T129085
+Change-Id: I222cc0220c16f099b1df4307e22a04c815639a4d
+"
+"cf948b6ba1d0fe5903a2dc2f05c7dfc60bf551e5","2016-06-30 17:34:57+00:00","Merge 'In the News card view/model classes'
+"
+"3cf9b1f69caab03eba36b1f1c7d85ab8694b41ac","2016-06-24 18:48:03-04:00","Add main page card, interactivity for both static cards
+
+Bug: T132339
+Bug: T138593
+Change-Id: Ic5e5a011b23f66aa2259d6daa5dcd957238ed92b
+"
+"aee7ac23d74cc182fc9e7172e35fb67f974a187e","2016-06-30 11:58:37-06:00","Remove Feed demo card
+
+Change-Id: I81b271e95b6f93448cc64e2d40940fd5c0613e1a
+"
+"5be3fca0b684c72c1c6307c42fd06d1cada9ec77","2016-06-29 16:54:56-04:00","Progress indicator at bottom of feed.
+
+- Implemented as a permanent 'card' that sits at the bottom of the current
+list of cards. There's no logic to show or hide it, since seeing it always
+implies that more feed content is currently being fetched.
+- Changed the 'base' view class for cards to be View instead of CardView.
+
+Change-Id: I903519d7e8b1f6426105fa0a4acc8d9ee95caa88
+"
+"65d7da81f21e2ac94cc1dce150526749b2ce3537","2016-06-30 13:59:54-04:00","Make feed cards dismissable.
+
+- Factored out the assignment of the Callback into a new base class called
+FeedCardView, from which any card that wants to take a Callback can be
+derived.
+- Made CardHeaderView also accept a Callback, and added a callback method
+called onRequestDismissCard, which the Header view is responsible for
+calling when its overflow menu item is clicked.
+- Wired the dismissal of cards into the Coordinator, as well as into
+eventlogging.
+
+Bug: T136975
+Change-Id: I25fca7b8b49ce154741b34d9e0c5ab79daafb45e
+"
+"d84a8ca6f87317c97e936b7ac300ee46c781c850","2016-06-30 14:38:39-06:00","Hygiene: suppress unused lints for Gson models
+
+Android Studio doesn't recognize fields that are hydrated by Gson as
+being initialized. This patch suppresses some of the warnings generated.
+
+Change-Id: I674d74a1a8ce3c5bb7be2f04d3fdcc3a0383c69e
+"
+"5943cb7abcc4cb286ebb161a03b6b23e1fb5010f","2016-06-30 16:55:45-04:00","Fix translucency of system status bar.
+
+...by removing the 'fitsSystemWindows' attribute from the top-level
+SwipeRefreshLayout, for some reason.
+
+(It had lost its translucency when we shuffled around the
+SwipeRefreshLayout / CoordinatorLayout / etc.)
+
+Change-Id: I58e69009dae7dc4a7617e5cf2b141e55cc5c49ce
+"
+"9ee0ca82ff408e8b967579a428986e61dc7ca086","2016-07-01 02:19:04+00:00","Merge 'Fix translucency of system status bar.'
+"
+"665d1468a9bc8f95581257d0b780355869ec5d6e","2016-07-01 10:09:06-04:00","Make dismissing of cards undoable.
+
+Change-Id: I3c64118f06afe2d5fc2314b75bb70aa8125f5394
+"
+"f2329fd6ddac4a5b0193d36cf8712e26b824f404","2016-06-30 17:13:41-06:00","Allow cards to be dimissed by swiping
+
+Change-Id: I085c5c0c1180196654ea493c04a746a98d4037a9
+"
+"1c836998ff613afba7d894561b75a9043c3ae0cd","2016-06-30 17:20:38-06:00","Hygiene: use return value according to docs
+
+According to the docs for OnMenuItemClickListener, we should return true
+when handling the event. This doesn't seem to have any effect in the way
+we're using it but is good practice.
+
+Change-Id: I3381618a417693ca1827efe87c07cdbd55d71cb9
+"
+"8ed6734a6725f19ffad8ee733b80ce901a586d4c","2016-07-01 14:03:34-06:00","Keep the Feed background from overlapping contents
+
+When scrolling down, allowing the search bar to disappear, then
+scrolling back up quickly, the telescope background overlaps the search
+bar for a split second, then the search bar 'jumps' back on top.
+Override the default AppBarLayout elevation[0].
+
+[0] Possibly related: https://code.google.com/p/android/issues/detail?id=181618
+
+Change-Id: I907fc708f9c9c28ed6a09e0e92dd22ee82d48f0f
+"
+"db8c990611a9197cc81fa277663d6bd5141e0c46","2016-07-01 15:41:21-06:00","Remove Feed 'MostReadClient'
+
+Most read cards are available in the aggregated feed. Remove
+MostReadClient and use the aggregated results instead.
+
+Change-Id: I11dafa803500ff45c9dd38229e74efdf51fbbe72
+"
+"49ecba91f6f5e7c21b35669082f242c0170e5ac9","2016-07-04 15:53:34+00:00","Merge 'Keep the Feed background from overlapping contents'
+"
+"8749c348795ddb07ef4820086b5e0a6bcd7ee429","2016-07-05 17:15:30+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: If3d4dc5fa9d787141fafdacd94f108f690cf6783
+"
+"6d5d5f00ddf3ed297364638f16258763701334ca","2016-06-30 13:39:08-06:00","Hygiene: minor clean up
+
+• Replace Resources.getColor with ContextCompat.getColor which fixes a
+lint for deprecation and a lint for supplying a themed resource.
+
+• Remove unused class, RetrofitExceptionBuilder.
+
+• Remove unused type parameter on PageTitleListCardView.
+
+• Add typing to a couple raw types.
+
+• Remove unused string.
+
+Change-Id: I5c5ee6b70b7fdf4b2c7c434ba47cdd929b0a27f1
+"
+"96137e1f6282323544a62519aae5c647f34afa20","2016-07-05 12:15:49-04:00","Finalize nav menu icon for Feed.
+
+Change-Id: I581b25879faf996c16d762b50aca4bc06b80b64d
+"
+"a7d3096635c992628faaa38d02f28ca90aff118b","2016-07-05 13:53:19-04:00","Fix sizes of 'trending' and 'news' icons.
+
+Change-Id: I1eae4799a27dfe7cdebba0e9ef0cc5f8dc2236a5
+"
+"8f6dbf2084cdd89751f543b4cc614fed1d3ee123","2016-07-05 18:53:36+00:00","Merge 'Finalize nav menu icon for Feed.'
+"
+"94c4899a018b2c0c33790cc7a7c2c75031f86b39","2016-07-05 18:53:38+00:00","Merge 'Fix sizes of 'trending' and 'news' icons.'
+"
+"9694c8ff0a8caa5ed293d0daffbea1c3069c1b35","2016-07-05 13:25:05-06:00","Don't repeat random and 'Today on Wikipedia' cards
+
+Bug: T139373
+Change-Id: If12a4ade4140f08c657adbfb8a25bd94e6d0ee6a
+"
+"a264233ae32b8ea4cc2c9aab8cf861fb5ea4eefe","2016-07-05 14:02:26-06:00","Strip IPA from today's featured article cards
+
+Bug: T139404
+Change-Id: Ifa2552b033c57c55613d5aae436d95d35b742923
+"
+"14c55931a4b1b96e74fd4d955cac8be18a9acd62","2016-07-05 14:03:26-06:00","Hygiene: reduce state
+
+Change-Id: I7d39aa38412f9fe11ba2b1d225a5285a0afcd298
+"
+"3085f98ace103c8c059445f65e8ca27f9f7427e3","2016-07-05 13:20:18-06:00","Darken the translucent status bar
+
+Bug: T139379
+Change-Id: I1bb0e68e2d3af256ce729476da7864064d380f98
+"
+"405941da5d95b847e7bd463abe96605468af5560","2016-07-05 16:26:23-06:00","Tweak Feed footer margins
+
+Move save and share footer actions 6dp closer to the extract and add 2dp
+padding below.
+
+Bug: T139404
+Change-Id: Ibdb303d5c8f6e01d0f4012b1a635f6dc8313d715
+"
+"8d02b88820a1cdb047575a9d71fa7c6ffb038350","2016-06-30 14:56:07-04:00","In the News card: add interactivity
+
+Note: this has a soft dependency on
+I725c7c98af8a9f28eaa1e94bca9dc55de468c947 (you don't strictly need it, but
+the lead image in the news detail view will use a too-small thumbnail and
+look bad without it).
+
+Bug: T129084
+Change-Id: I2d10e72876f337388a00958186ac4fe1e88f6d2c
+"
+"555023cb1e107004781a5e07c409ce979b3f9c73","2016-07-06 00:08:36+00:00","Merge 'Hygiene: minor clean up'
+"
+"b509fb33697db91ea828784e56dcf02952ee07ce","2016-06-30 17:25:13-06:00","Hygiene: remove unused type parameters
+
+Change-Id: I1a652bd4013a4f8421382cb7eb0faf032e9b05c6
+"
+"4b8ea62c2941380363dfa5247020949faef46e04","2016-07-06 00:31:11+00:00","Merge 'Darken the translucent status bar'
+"
+"a9cd01df2f35310c4552ca23ef4dd1c3082d9990","2016-07-06 00:52:06+00:00","Merge 'Don't repeat random and 'Today on Wikipedia' cards'
+"
+"0fb4b2fbfdf5f15448bdfef373b72e18a7e15336","2016-07-06 00:58:08+00:00","Merge 'Hygiene: reduce state'
+"
+"394ed0788eb1a18521204c98a08e556925076ecb","2016-07-06 01:08:52+00:00","Merge 'Strip IPA from today's featured article cards'
+"
+"bcc97d0af2f81e7b360fc10ba7dce81bbf1039d3","2016-07-06 13:50:00+00:00","Merge 'Tweak Feed footer margins'
+"
+"a84ca1e297004bd4872162e956fba13cf3ac4696","2016-07-01 11:47:03-06:00","Update Feed strings
+
+• Promote experimental strings from no_translate and add qq
+descriptions.
+
+• Change suggestion terminology to cards.
+
+• Remove unused demo string.
+
+Change-Id: I32f7ca64e578048380fe01849a52de8439c42dd0
+"
+"1ec800de006cce885a7433a3265bea1df8343481","2016-07-06 15:35:56+00:00","Merge 'In the News card: add interactivity'
+"
+"b39d615cdffd861dff912e6ed6500eb61d91be6b","2016-07-05 16:38:58-06:00","Tweak Feed paragraph text
+
+Make paragraph text a darker #555 color and size to 14sp.
+
+Bug: T139404
+Change-Id: I7cf9be9d326f2659f8964072cd12810761eb7e9b
+"
+"443dcb0ec95928ce988da63bf676974f7f9f896f","2016-07-05 17:00:04-06:00","Update Feed date format to 'MMM DD, YYYY'
+
+Bug: T139382
+Change-Id: I668137e5647868ea7bd3f8bb030b025cfb97cc5d
+"
+"d7dccfbadd97347bae04a8fa31c44e76745b55e9","2016-07-06 16:02:34+00:00","Merge 'Update Feed strings'
+"
+"843cb0ee0ddbadc60621f82727c464077341c753","2016-07-06 16:14:20+00:00","Merge 'Tweak Feed paragraph text'
+"
+"81f151d88099899121563838ec54ca9bbe2dd80a","2016-07-06 16:22:12+00:00","Merge 'Update Feed date format to 'MMM DD, YYYY''
+"
+"9360955303ffabf71b2ec296d30fcdaac59101f7","2016-07-06 11:29:10-06:00","Pad Feed cards not the RecyclerView
+
+When swiped left or right, Feed cards are truncated by the padding of
+the parent RecyclerView. Move the padding from the RecyclerView to the
+card ItemDecoration. This gives a better full screen experience and
+makes the cards feel like their falling on the ground.
+
+Change-Id: Iec1bf40a4b18ba3b4b7d460c802a660823e424b2
+"
+"e415aff408d1e3d94ec9e83f0723ac3bdccef033","2016-07-06 14:05:24-06:00","Tweak Feed list card item UI
+
+• Titles are now a roman font with a color of #222 and 6dp closer to
+the top of the item row.
+
+• Subtitles are now colored #555.
+
+• Thumbnails are now 40x40dp with a 2dp corner radius and a 1dp
+rgba(0,0,0,0.12) border inset visible when the image is translucent.
+
+• Overflow menus are 8dp lower.
+
+Bug: T139391
+Change-Id: Ib8ea91d994311bc2a1230578187a714f8505a9c8
+"
+"8faf3bd78b8b07d005879b551d81f2a188cb49ac","2016-07-06 14:59:07-06:00","Move test to JUnit v4
+
+• Update ImageUrlMapTests to use JUnit v4.
+
+• Move ImageUrlMapTests to ImageUrlMapTest.
+
+• Add missing @RunWith annotation to WikipediaZeroTaskTest for
+consistency.
+
+Change-Id: I57be2e8bde6d8bffeabb474504c714a64f5d7255
+"
+"37ff27cf315e5f2c23a0b0d0945a4e50e29a348a","2016-07-06 23:23:04-06:00","Drop language name from card title strings
+
+'Today on English Wikipedia', with English is passed in as a parameter, is problematic for translations
+to languages which have different suffixes for genders/declinations.
+When I switched to German language and refreshed the explore feed, it said
+'Today on Deutsch Wikipedia'. When translated it would say
+'Heute auf Deutsch Wikipedia', but it should say
+'Heute auf der deutschen Wikipedia' instead. (It also requires an article.)
+Even then it sounds weird.
+When I got to German Wikipedia it just says
+'Willkommen bei Wikipedia' and not
+'Willkommen bei der deutschen Wikipedia'. The language name is not used.
+
+I grant that if you switch languages often and for testing it would be nice to see which
+WP the feed is based on. It feels awkward for most people, and would be grammatically wrong.
+
+Change-Id: Id5d832d03cc9e7af62442cac1575ab9d23ae29ce
+"
+"d132aeb50924cec86de333995bedcd21b4b9e6d0","2016-07-06 18:04:51-04:00","Picture of the Day card, pt. 1
+
+Basic view/model classes.  Interactivity to follow.  Header icon size also
+needs fixing as usual.
+
+Bug: T132765
+Change-Id: I35c9301b81939e535648fbc730ee41286e6d2552
+"
+"5d57e552b0776851cae47ec72973e3176fa8d2ee","2016-07-07 15:13:12+00:00","Merge 'Drop language name from card title strings'
+"
+"396bad998c672d63df9cf631405b78f26dceaf7c","2016-07-07 15:22:30+00:00","Merge 'Tweak Feed list card item UI'
+"
+"348a17226addd884ed244252e787bb1abdaf943f","2016-07-07 15:31:19+00:00","Merge 'Picture of the Day card, pt. 1'
+"
+"b7b3fc7e705e33985e30feb0db4bb3d367b02c79","2016-07-07 10:10:46-06:00","Allow for picture of the day without description
+
+See also If17f02ef09704293355db508b205d8c34512a409.
+
+Change-Id: I1bd8efa0085f814054ba17dba19e36a1bfd39431
+"
+"a86333fc720b53c2ec6219ed90946087ea625298","2016-07-07 16:11:49+00:00","Merge 'Move test to JUnit v4'
+"
+"3335113c6b914375f25bae9f8df045255911e4a2","2016-07-07 11:19:47-04:00","Feed: further general design tweaks.
+
+- Standardized color scheme throughout all feed cards.
+- Slight adjustments to margins and paddings.
+- Nail down Dark mode!
+- Hide footer in News card, until we know what to do with it.
+
+Bug: T139389, T139478
+Change-Id: I68c2012b8160a0ca3f560481e34c6e6d3ce6326c
+"
+"5428ab0f2fd03de62f4004e96c23a028c74b9a56","2016-07-07 11:34:04-06:00","Hygiene: convert setOnClickListener() to @OnClick
+
+No functiona changes intended.
+
+Change-Id: I83c599a4233e9811e732c1df58bb9db6263c921a
+"
+"db9d9ad743d9b5734a175aa8681a24c039dded1c","2016-07-07 18:00:51+00:00","Merge 'Allow for picture of the day without description'
+"
+"4f6d27d07d3ed05db317c964d6b280f7b8b7b286","2016-07-07 18:12:51+00:00","Merge 'Hygiene: convert setOnClickListener() to @OnClick'
+"
+"473847159a5514d0be95a95cbfe6f846699a7649","2016-07-07 13:23:08-04:00","Whoops: fix divider drawable for API <21
+
+...Forgot that attribute references are not supported within <shape> tags
+in API <21.
+
+Change-Id: Ia120ad65ab98db96f56eb6d895825e41dbcf9212
+"
+"c20e8d5037be4b77ee9674ee44b49db68e1bc333","2016-07-07 15:15:21-04:00","Factor out common action footer for Featured cards.
+
+- Made a unified 'footer' view with a customizable 'action' button.
+
+Change-Id: Idb61f06e349ab2d43816e19886d20f70c5e85783
+"
+"128542c269534fdc54fb350ae5da6cbc404d9553","2016-07-07 14:06:39-04:00","Fix some stuff in NewsActivity.
+
+- Give it a Toolbar with home-as-up arrow.
+- Give list items a divider.
+- Fix adding a page to reading list.
+
+Change-Id: I5d3fff75841b0e99d87e956f7a989f7201c6a62a
+"
+"674904cdcf6583cf1e3256fd063bc1a863658445","2016-07-07 14:22:31-06:00","Hygiene: rename page_activity to main_activity
+
+Missed in f4bb28c. No functional changes intended.
+
+Change-Id: I2ea44f5bdacdd01a9e7ac26182439c1dc99d7ca0
+"
+"02d6e818555646701ac99ee4bd8d6978a974df4f","2016-07-07 11:21:19-06:00","Tweak continue reading & because you read cards
+
+• Resize header and image to be 96dp tall and the image to 96dp wide.
+
+• Change title font to 16sp romanized.
+
+• Make the header interactive. Tapping goes to the referenced article.
+
+Bug: T139402
+Change-Id: Iad2cb74330d2ff168787151d74f4f184cdb9b862
+"
+"bf528b315fe697e35478dfb2dd0c53b6479f65c8","2016-07-07 20:45:18+00:00","Merge 'Hygiene: rename page_activity to main_activity'
+"
+"b5b514b72bf04b469b43467dcf649953311e37b1","2016-07-07 14:55:52-06:00","Hygiene: remove unnecessary merge nodes
+
+• Remove needless merge nodes. Merge nodes are only useful when they
+might have more than one child.
+
+• Simplify custom View superclasses to FrameLayout where all that's
+wanted is a ViewGroup implementation.
+
+Change-Id: If84313f1bf59d61701db6c58eb050a420bb658ee
+"
+"1f44aef6fa5a9f5448fb2b39537553ea63d2e043","2016-07-07 17:00:24-06:00","Hygiene: misc Feed clean up
+
+• Remove unused footers. These are currently unused and seem a little
+crufty to keep around.
+
+• Remove unused last page dismissed preference.
+
+• Lots of miscellaneous minor clean up.
+
+Change-Id: I52c33459e8f19e23a10615629cc965b73fd9c16b
+"
+"2e2f920f4db47a00a5445615567ad6331d90e24a","2016-07-07 17:08:03-06:00","Remove Feed feature flag
+
+Feed is about production ready so always enable it and remove the
+feature flag.
+
+Change-Id: Iea5e08d80bf5b6d93a5e190225911f0a5a34b094
+"
+"9063ab7d45ffd98b75edfb061a26488f32633851","2016-07-08 10:19:21-06:00","Don't repeat news Feed card
+
+Bug: T139480
+Change-Id: Ia1a8ab61b898b08bfc2cd92d8ba360e295ea46c6
+"
+"fb99d0eb54cbd3f6877b968957fb6e6bfd3cffb8","2016-07-08 13:14:38-04:00","Ripple background in news items.
+
+Change-Id: Ie610de28a0bf65a689f1fb367013303d23538c4e
+"
+"17b76e451521b08844b9bdedbfd530661f014334","2016-07-08 12:21:32-04:00","Featured image card: enable sharing from card footer button
+
+Bug: T130962
+Change-Id: I17936897be1fee0571fec62bd6a8b00b031fe8cb
+"
+"8dd3bc804ef4f84e6897413e21faa4729416966e","2016-07-11 00:58:10-06:00","Adjust feed layout dimensions
+
+* Increase the minimum width. On a Nexus 9 in portrait mode the feed has three columns,
+which are too narrow, to the point that headline text gets clipped. In landscape mode it
+still has three columns, but there it's ok. Tested also on a Nexus 5.
+* Reduce horizontal margin because the space between two columns was too wide.
+* Increase vertical margin because sometime it's harder to see where a new card starts.
+
+Change-Id: Ibfce7c8edc1d4ca5f5b0534eb0e12a199d6cdb36
+"
+"1460f84dc03f05658b43bfbd8aca95112e295c77","2016-07-11 15:23:15+00:00","Merge 'Featured image card: enable sharing from card footer button'
+"
+"a55f68f81a1a5084d1a317691bdc9935d4dac16d","2016-07-08 14:46:22-04:00","Remove in-Wikitext image captions from news stories
+
+The Wikitext we scrape for the In the News stories often includes a
+parenthetical referral to a thumbnail for the section, which we don't use.
+Instead, we get thumbnails for each card from the metadata for the linked
+pages for each story.  This patch removes the inapplicable caption.
+
+Note that this has a soft dependency on
+I295c01b48a0d4feea6b21e07e85179deadf1f216 in that merging without it won't
+hurt anything, but you'll need that patch applied to the service to see
+the effect here.
+
+Among current stories on enwiki, this applies to the one concerning the
+Juno spacecraft.
+
+Change-Id: I04284d257858f9d50494c8b0f4a459da099a2091
+"
+"524e9b2aff9fbb812481968c9cc76a8f09400371","2016-07-11 17:58:40+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ica50cf8e211c67c36cdbfe2f618dd540893b0d82
+"
+"8854536edd0fad68fa3f8293f2392e478e1755b4","2016-07-11 16:25:40+00:00","Merge 'Remove in-Wikitext image captions from news stories'
+"
+"40d58133a11d9a7957d42197fd0ed3440ce1e20b","2016-07-11 09:48:43-04:00","Update feed header wordmark and nav icon.
+
+- Replace the telescope with a vector drawable of the Wikipedia wordmark.
+- Use a lower-quality aurora background.
+- Update the nav icon for the Feed.
+
+Change-Id: I9dfd9fa51b20baf541eb2472462ae56ee216192c
+"
+"1179b30a51a8f4ce32ff942047b519a5e33959dd","2016-07-08 11:17:51-04:00","Featured image card: enable image downloading from footer button
+
+Bug: T130962
+Change-Id: I320c8ea6414d4edd7efcf3924505a89b93abae86
+"
+"7fb68cbcd3f14e545fe37d8bce39e3a6aadb5b18","2016-07-11 20:13:25+03:00","Change '1 day ago' to 'yesterday'
+
+Change-Id: I08f68a4857b06102397c13f6004fb57217bcd4de
+"
+"1968a1f789aabdb8687d480f8b2eb1dde3ed749c","2016-07-11 19:02:19+00:00","Merge 'Featured image card: enable image downloading from footer button'
+"
+"f966ee0d9a7ff556b9cee1973b6a53fd6840decf","2016-07-12 08:36:57-04:00","Update CardPageItem and consumers to reflect updated service output
+
+In I5eb24688a774316481b98a494d3984044d09d948 we changed the output for
+the random and featured article endpoints to include both the normalized
+title in the normalizedtitle field, and the raw title in the title field
+(where the normalized title previously was).  As an effect of this, right
+now you'll see underscores in the Featured Article card article title.
+
+This updates the relevant consumers to handle the updated output.
+
+Change-Id: Id112b7ab904704ecb85d6cbe9b5f45e97fb2130f
+"
+"7ac6ef0b9925953b32b0638de65fcce2fcadb7a3","2016-07-12 10:16:28-06:00","Hygiene: move PageTitle test to JVM JUnit
+
+Move PageTitleTests from Android instrumentation to JVM JUnit and fix
+the name and package.
+
+Change-Id: If1521443c498d6c9feebe0f2ef113256b302b165
+"
+"dfa6711b7af9a669f61549fe80155dbed80a186e","2016-07-12 13:31:45-06:00","Hygiene: update test to JUnit 4
+
+Change-Id: I57ea4b3e389684717017ba7b4972d75d99491b1e
+"
+"6bfada80b9bd50586a8f14ec1f86898156a17057","2016-07-12 14:39:20-06:00","Hygiene: infer nullity
+
+There are seven public constructors to PageTitle, one of which accepts
+raw JSON. Many paths of execution make it difficult to reason about a
+class. Try to infer member variable nullity of PageTitle and add
+annotations. For site, a bug existed where hashCode() expects it to be
+nonnull but the JSON constructor sets it null. I've rewritten the
+constructor to throw a RuntimeException in non-prod builds and use the
+app site while remotely logging the error otherwise. I also changed a
+couple of the hasProperties() conditionals to just check for properties
+== null directly as the IDE isn't intelligent enough not to erroneously
+flag subsequent dereferences.
+
+Change-Id: Ibfff6290c6e5b7b9b35113d9688e15c76159fdbc
+"
+"44f6cd510e5cd2cb3fa01b249a360dca117a90e7","2016-07-13 14:04:59+00:00","Merge 'Adjust feed layout dimensions'
+"
+"ba070f1c3bad2ec5d4bbd5b6f16b3693a6943e24","2016-07-13 14:13:58+00:00","Merge 'Hygiene: move PageTitle test to JVM JUnit'
+"
+"af03664026ac3a2127f0dda887724ce0043bf2da","2016-07-13 14:21:04+00:00","Merge 'Hygiene: update test to JUnit 4'
+"
+"6d46bdc93020b5daf2fc7cbec1bcf4bd8566027a","2016-07-13 15:01:11+00:00","Merge 'Hygiene: infer nullity'
+"
+"5570540889b21f8563b1c658bec80f8b92b81f63","2016-07-13 12:30:37-04:00","Filter out Main Page from 'continue reading' card.
+
+Change-Id: Ie8eab134c38488d815aa529ae8342122d039fbf9
+"
+"38b80c08f9bd5c2aa6f2c5f0938663bcaff4db25","2016-07-13 16:39:41+00:00","Merge 'Update CardPageItem and consumers to reflect updated service output'
+"
+"d25b1a83e43a1baaa5cf3b5c329b0ba175f07588","2016-07-13 17:03:54+00:00","Merge 'Filter out Main Page from 'continue reading' card.'
+"

@@ -1,0 +1,282 @@
+"commit id","commit date","commit message"
+"a01e9af0ae5b70ce63f0e3860e7a5c7478571e3d","2013-05-24 22:02:47+02:00","Remove abstract Activity from manifest
+"
+"88c7b20c438e783950b557abc61707b11e84ac75","2013-05-24 22:33:09+02:00","Update targetSdkVersion to 17
+"
+"ed354eea3271d5f52eed93487f074c81b7028fce","2013-05-24 22:55:13+02:00","Increase minSdkVersion to 8 because we're using SearchView in FolderList
+"
+"34812fa5b8efb0eeb01f47419518b7bbc0a52302","2013-05-27 16:59:07+02:00","Correctly initialize mSingleAccountMode
+
+This fixes a NullPointerException when trying to open account settings
+from the Unified Inbox (when there's only one account).
+"
+"c884f6dd1eeba0f903b1daac1bc72008dbac18dd","2013-05-24 09:48:06+03:00","Update Greek translation
+"
+"c4bbbc2d05f2928de8e89bb696882e06a51ec571","2013-05-27 21:01:07+02:00","Update French translation
+"
+"4022c10f4c68e9d1a494dbdd5cf8385a0abf53a5","2013-05-23 20:43:40-03:00","Update Brazilian Portuguese translation
+"
+"ada383d3dfa8663d8fbcdcd9119f39633f5c368e","2013-05-29 00:45:14+02:00","Fix error in XML of French translation
+"
+"35d9ada55a6b00b4006cf532530525e3b53ccf40","2013-05-29 11:30:59+03:00","Update greek strings (29 of May 2013)
+
+After reinstalling K-9 on my new mobile, I observed some misinterpretations and I fixed them.
+
+I hope this translation makes it in the stable version 4.400.
+
+Enjoy
+"
+"b2e1b356e5fe9bea011f5d989721e86aa852b6b0","2013-05-30 22:35:13-03:00","New translations and tweaks (PT-BR)
+
+Missed strings and improvements.
+"
+"53fcdd180a94787dc5ad187f9d31323791b4da8e","2013-05-26 00:20:59-04:00","Update Eclipse classpath file for Android SDK Rev. 22
+
+http://stackoverflow.com/questions/16596969/libraries-do-not-get-added-to-apk-anymore-after-upgrade-to-adt-22
+
+https://android-review.googlesource.com/#/c/57063/
+
+https://android.googlesource.com/platform/sdk/+/fa89a37dc29bb60f27820d81674ff547793b0a1a%5E1..fa89a37dc29bb60f27820d81674ff547793b0a1a/
+"
+"c40dd196a6a329aadb582a3befdae23337bf2923","2013-05-31 18:00:45-04:00","Simplify Eclipse setup.
+
+Create .project files for all the Ecplipse projects
+so they will all have project names and can
+all be brought into Ecplipse together with a single
+'File -> Import -> Android ->
+Existing Android Code Into Workspace'.
+
+(Not bothering to remove the .project exclusion from
+all .gitignore files.  Once the .project files are
+checked in, they will no longer be ignored.)
+
+Modify the top .project file so that Eclipse knows
+k9mail's dependence on it plugins, and thus will
+build everything in the correct order.
+
+With the latest Android SDK Rev. 22, the top .classpath file
+needs modification or else K9 will not run (see parent commit 53fcdd1).
+But the initial import of k9mail into Eclipse works more cleanly if the
+.classpath file doesn't exist on import, in which case Eclipse creates it
+automatically.  So rather than modify the .classpath file, remove it
+from git and leave it untracked.
+
+(For an existing Eclipse project, this commit will remove the file from
+the working directory.  A corrected version can be restored with:
+git checkout 53fcdd1 .classpath
+git rm --cached .classpath)
+
+Add .classpath to the top .gitignore, now that no
+.classpath files are being tracked (with one exception,
+see below).
+
+Create a tests/.classpath so that Java can find the k9mail
+project in order to build the k9mail-tests project.
+"
+"b042776aa46f2b788033d4a7dde03981ac2186a2","2013-06-02 15:43:40-07:00","Merge pull request #319 from zjw/eclipse_build_changes
+
+Eclipse build changes
+"
+"769ad843ddeef687c4d8ea6235e4f39677760bfe","2013-06-03 11:59:58-04:00","Revert 'Fix for StrictMode error.'
+
+This reverts commit bbdec62e37210d6abf39cb32a8a6651483d88382.
+
+Aside from being the incorrect solution for fixing the problem
+described in pull request 211, the patch generates 'Dead code'
+warnings inside the if(){} statements on lines 46 and 47.
+
+The correct fix for the problem was already implemented in commit
+5678786c97596703b1b466e7f474f391df617ec1.
+
+Although the logcat in the pull request was generated after the fix,
+line numbers in the log indicate that it was based on an outdated
+version of MimeUtility.java from before the fix.
+"
+"a485c4c0d1dff2db61007b2162bc224c6144cf18","2013-06-07 06:40:23+02:00","Add new multi-select checkboxes to message list
+
+Use the checkboxes of AOSP's Email app.
+"
+"cb906ee6a43a8760d3c514bf2b0286fa89473dbf","2013-06-07 06:47:24+02:00","Use the color chip area as click target for the multi-select checkboxes
+"
+"20ec9eb325e5f5814fa560dafa74bb43584ed8b8","2013-06-07 06:52:08+02:00","Make the color chip area slightly smaller
+"
+"0cff0c0fed1a2694462953f1310c80fae9cdeccb","2013-06-08 20:28:21+02:00","Added explicit width and height for the new message list checkbox
+
+Without this change Android 2.x does weird things.
+"
+"6a6bb95ad4d2241a194b094ee6bb7be4fbd9c03c","2013-06-09 02:36:12+02:00","Only enable debug logging when running a debuggable build
+
+There have been some complaints from Android developers that get flooded
+by K-9's log messages when debugging their own apps. Oops :)
+"
+"08e249a2e984e2bdd43430ff1db75f94e7eb56d2","2013-06-13 02:48:01+02:00","Remove submenu from the account context menu
+
+There seems to be a bug in Android that makes submenus inaccessible on
+some devices, e.g. the Samsung Galaxy S2.
+https://code.google.com/p/android/issues/detail?id=53239
+"
+"2789e9fa383b6bbeacf148ec4336cc049ec14926","2013-06-17 16:26:49+02:00","Don't use extended notifications when privacy mode is enabled
+"
+"06ae2a071b80b063ae4eafb635d6f8df728d4d6d","2013-06-23 03:29:17+02:00","Explicitly export content providers
+
+With SDK 17 the default value for 'exported' changed to 'false'.
+"
+"b03b487d626d24549498b3a9b074a4fcd45c6a64","2013-06-25 22:47:47+02:00","Remove contacts helper code specific to SDK 7
+"
+"75ff5baaff52ffd97d77b204aad0017c65318e52","2013-05-25 23:14:46+02:00","Add initial Gradle support
+"
+"5fc39e6719a8a7dcaed25da0fdf9de76dcb5181a","2013-05-26 01:46:55+02:00","Add support for building and running our tests with Gradle
+"
+"85e7d4fa124f1f3c7f8fe57f832e83d4d2c2f988","2013-06-29 03:20:58+02:00","Don't crash when MessageList is started with no intent extras
+"
+"25e9df8c45d77062b1ac07f2bf62e55b16441f32","2013-06-30 00:51:56+04:00","Update Russian
+"
+"92faef62f180b89f4048bf6b3c42ae25ca317598","2013-06-30 15:49:38-04:00","a much more robust tools/build-beta
+"
+"27e16ca37265e1d2a266ef04674907df08a11965","2013-05-11 20:35:33+02:00","Update changlog with changes for 4.390
+"
+"360d5219d20aff89e7e38a2f21c6e398eaa33c34","2013-05-23 22:00:27+02:00","Update changelog
+"
+"700e03d392bba83ac871b12a27986395674c6327","2013-06-04 16:39:25-04:00","changelog for 4.392
+"
+"8339a837085c7f276e503c861b2426b041371daf","2013-06-24 12:53:50-04:00","update changelog
+"
+"f781f22383be451691eb84dc8632fb2cd003c787","2013-05-29 08:11:33+09:00","Updated Japanese translation of the changelog on stable branch
+"
+"32e49b16fdb63318c4f61fa8d3409857b0cfd1b5","2013-06-07 22:50:12+09:00","Updated Japanese translation of the changelog.
+"
+"7d902beaf48616d2153769d34035184695ba0325","2013-06-26 09:02:18+09:00","Updated Japanese translation of the changelog.
+"
+"d48b4d3a2b5054122cdaedfb3c2f21eef317cdda","2013-06-26 17:08:57-04:00","4.400 production release changelog
+"
+"96a4e7fd37d1b1b36733719e7c4551c7b626f406","2013-06-26 18:29:46-04:00","Japanese Changelog for 4.400 from @miyagawa
+"
+"2ef5c11e9b18c81752f566bd8a81576d64622e53","2013-06-27 12:07:28-04:00","market-reported NPE
+
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.fsck.k9/com.fsck.k9.activity.MessageList}: java.lang.NullPointerException
+at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:1970)
+at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:1995)
+at android.app.ActivityThread.access$600(ActivityThread.java:128)
+at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1161)
+at android.os.Handler.dispatchMessage(Handler.java:99)
+at android.os.Looper.loop(Looper.java:137)
+at android.app.ActivityThread.main(ActivityThread.java:4517)
+at java.lang.reflect.Method.invokeNative(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:511)
+at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:993)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:760)
+at dalvik.system.NativeStart.main(Native Method)
+Caused by: java.lang.NullPointerException
+at com.fsck.k9.activity.MessageList.decodeExtras(MessageList.java:368)
+at com.fsck.k9.activity.MessageList.onCreate(MessageList.java:216)
+at android.app.Activity.performCreate(Activity.java:4470)
+at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1053)
+at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:1934)
+k
+"
+"fa1b7dec31d3d61c05cb6262e3f6b734765742b1","2013-06-27 12:23:54-04:00","broaden a 'catch' to catch other failures showing all headers.
+
+Market reported NPE:
+
+java.lang.NullPointerException
+at com.fsck.k9.view.MessageHeader.showAdditionalHeaders(MessageHeader.java:186)
+at com.fsck.k9.view.MessageHeader.onShowAdditionalHeaders(MessageHeader.java:318)
+at com.fsck.k9.fragment.MessageViewFragment.onToggleAllHeadersView(MessageViewFragment.java:300)
+at com.fsck.k9.activity.MessageList.onOptionsItemSelected(MessageList.java:867)
+at android.support.v4.app.Watson.onMenuItemSelected(Watson.java:119)
+at com.actionbarsherlock.ActionBarSherlock.callbackOptionsItemSelected(ActionBarSherlock.java:603)
+at com.actionbarsherlock.internal.ActionBarSherlockNative.dispatchOptionsItemSelected(ActionBarSherlockNative.java:78)
+at com.actionbarsherlock.app.SherlockFragmentActivity.onMenuItemSelected(SherlockFragmentActivity.java:205)
+at com.android.internal.policy.impl.PhoneWindow.onMenuItemSelected(PhoneWindow.java:1047)
+at com.android.internal.view.menu.MenuBuilder.dispatchMenuItemSelected(MenuBuilder.java:735)
+at com.android.internal.view.menu.MenuItemImpl.invoke(MenuItemImpl.java:149)
+at com.android.internal.view.menu.MenuBuilder.performItemAction(MenuBuilder.java:874)
+at com.android.internal.view.menu.ListMenuPresenter.onItemClick(ListMenuPresenter.java:180)
+at android.widget.AdapterView.performItemClick(AdapterView.java:301)
+at android.widget.AbsListView.performItemClick(AbsListView.java:1276)
+at android.widget.AbsListView$PerformClick.run(AbsListView.java:3067)
+at android.widget.AbsListView$1.run(AbsListView.java:3963)
+at android.os.Handler.handleCallback(Handler.java:615)
+at android.os.Handler.dispatchMessage(Handler.java:92)
+at android.os.Looper.loop(Looper.java:137)
+at android.app.ActivityThread.main(ActivityThread.java:4898)
+at java.lang.reflect.Method.invokeNative(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:511)
+at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1006)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:773)
+at dalvik.system.NativeStart.main(Native Method)
+"
+"74c7aa2c90ee12f1d20c0d6a04d52e99b09857ad","2013-06-27 22:10:42-04:00","Changelog for 4.401
+"
+"44e5ce0efe3e909f5ef271fba7fc8cfa1811d189","2013-06-29 21:26:58+09:00","Updated Japanese translation of the changelog.
+"
+"d85315222ec0510637bec3bab360d08c58041db6","2013-06-30 16:29:37-04:00","make the folders button in the account list more like a button. backcompat for pre-sdk-11 styles
+"
+"4baaafcd88ded371005795d2ac6130f2d10becaf","2013-06-30 16:38:02-04:00","Add a 'Folders' menu item back to the message list to ease nav discoverability
+"
+"0a029561d19655932d40082c9009acc73f0e81f1","2013-06-30 16:52:45-04:00","Back, by popular demand, an empty trash button in the accounts context menu
+"
+"fea29dab99562b9d7f07030dc5147ceceb9f49ad","2013-06-30 18:04:46-04:00","changelog for 4.402
+"
+"07d2f4cc53d4596659901b8b7d6e4466279379a4","2013-07-01 17:32:12+02:00","Merge branch 'master' of git://github.com/bboa/k-9 into bboa-master
+"
+"1b6e9bd4ba51cd21ca143e2d670b4e270ec28cf3","2013-07-01 16:27:38-04:00","Fixed a bug that caused K-9 to crash on the Accounts page on 4.x if you were using the dark theme
+"
+"4a7c340359f51a300dc7ebbafac1c46b8adad453","2013-07-02 01:44:17+02:00","Fix XML of changelog
+"
+"b7cf3e421abbc3f7770eabb51d16738751a9e8eb","2013-07-01 23:21:34-04:00","Play store NPE:
+
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.fsck.k9/com.fsck.k9.activity.UpgradeDatabases}: java.lang.NullPointerException
+at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2117)
+at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2155)
+at android.app.ActivityThread.access$700(ActivityThread.java:139)
+at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1248)
+at android.os.Handler.dispatchMessage(Handler.java:99)
+at android.os.Looper.loop(Looper.java:137)
+at android.app.ActivityThread.main(ActivityThread.java:5062)
+at java.lang.reflect.Method.invokeNative(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:511)
+at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:795)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:558)
+at dalvik.system.NativeStart.main(Native Method)
+Caused by: java.lang.NullPointerException
+at android.app.Instrumentation.execStartActivity(Instrumentation.java:1409)
+at android.app.Activity.startActivityForResult(Activity.java:3389)
+at android.app.Activity.startActivityForResult(Activity.java:3350)
+at android.app.Activity.startActivity(Activity.java:3562)
+at android.app.Activity.startActivity(Activity.java:3528)
+at com.fsck.k9.activity.UpgradeDatabases.launchOriginalActivity(UpgradeDatabases.java:183)
+at com.fsck.k9.activity.UpgradeDatabases.onCreate(UpgradeDatabases.java:109)
+at android.app.Activity.performCreate(Activity.java:5058)
+at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1079)
+at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2081)
+... 11 more
+"
+"3f82a50c99c1477196aefc92fbb6c0cb23c3c35e","2013-07-02 22:24:53+09:00","Updated Japanese translation of the changelog.
+"
+"b4c8afbe220a5217ae40a0ee4dbca582038f9723","2013-07-02 13:14:43-04:00","better guarding for the  folders menu item in the face of search folders with multiple accounts
+"
+"1c6072a1cce510ef994765e09bdb285c48c6f0fc","2013-07-02 20:03:45+02:00","Fix 'Folders' menu item and hotkey handling in MessageList
+"
+"d392fc30b17669244726a80b8d2641f6f291523b","2013-07-03 03:40:40+02:00","More ignoring!
+"
+"ed6eb7bade657179eef2a937d32aa5c9c5b4e40a","2013-07-03 04:56:40+02:00","Fix code to reset the database when upgrading fails
+
+Previously the app crashed when upgrading the database failed. Now we
+reset the database version and run the upgrade code again (recreating
+all tables).
+"
+"82c0a92049f8b69b7d979ed4b87f3476cc3f31f9","2013-07-04 02:49:09+02:00","Fix actions started from the message list context menu
+
+This patch makes sure actions started via the context menu operate on
+the correct message even when the message list changes and the 'adapter
+position' accessible via the menu object points to another message.
+When the message the menu was opened for is deleted the context menu
+will be closed.
+"
+"d22ec9f4dccee9726a6dc64c77d48d3f113096f3","2013-07-05 05:30:31+02:00","Remove changelog entries from the 4.4 branch
+"
+"cd7cdcb8fca0999781005d5ae5f3cbdcc6049ca2","2013-07-05 05:36:27+02:00","Update changelog
+"
+"457458d9402bc22962b2fe3896ed036a1e20c7e4","2013-07-05 17:51:47-04:00","Bumped manifest to 4.503
+"

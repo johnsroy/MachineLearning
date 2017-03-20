@@ -1,0 +1,89 @@
+"commit id","commit date","commit message"
+"0ff5ee719db0fd98ca728d39aadbe054e14dc28a","2013-04-15 16:51:51-04:00","add android.permission.ACCESS_SUPERUSER following Koush' plan
+
+https://plus.google.com/103583939320326217147/posts/T9xnMJEnzf1
+"
+"72324c44b8d54c99807f246482172733d4e58372","2013-04-16 15:00:17-04:00","if all loop devices are in use, create a new one like Android does (closes #47)
+
+patch from 9omorra
+"
+"4973ea723d6766e0063ff3ac59e727c39af084e4","2013-05-09 13:38:43-04:00","move key names out of strings.xml so strings.xml is only translatable things
+"
+"591318730ef5eedcdc69e588c02659ffdf449dc3","2013-05-09 13:39:17-04:00","make sure that touchscreen and wifi are considered 'required'
+"
+"5b1d4a911b83ec849cdeef63803a8fc1876a044e","2013-05-09 14:22:01-04:00","update native build to support 64-bit NDK starting in r8e
+
+If you're still using 32-bit NDK on 64-bit, override with:
+
+make NDK_PROCESSOR=x86
+"
+"a89b71c6bb4e0619081caba7dda40822ca952a53","2013-05-09 16:46:25-04:00","remove android:configChanges, its not needed or used at all
+"
+"b786b83cb99991ea1c3b3d6379066a1fc74666d4","2013-05-09 17:22:34-04:00","move untranslatable defaults to separate file so they don't show in transifex
+"
+"a167c7f2b6036e0c9ef72d1f3c1fb4aea7781a1f","2013-05-09 19:08:33-04:00","added Turkish translation
+"
+"867a8567dcaeb5880539b55809872656c4415193","2013-05-10 10:21:58-04:00","standardize spelling of Lil' Debi
+"
+"d21e480bc403b42e194f57a94d7c5bdf421d6f2a","2013-05-10 10:41:49-04:00","move all strings to strings.xml to make the interface fully translatable
+"
+"1997843e0ad6bc91550900136473808dd1df9e85","2013-05-10 11:45:14-04:00","add release names ('squeeze', etc) to list of releases to choose from
+"
+"28a6535fcbe1ed43b10b09e934b4cd5e331dd855","2013-05-10 11:49:08-04:00","move default values to separate file to get rid of warnings
+"
+"c4fed32cbe95f14cd97d2acb98d739d841721c6f","2013-05-10 11:55:15-04:00","use a list of mirrors that will work for both Debian and Ubuntu
+"
+"198f7222ac2c6dfd71ec3e5c5a18a9144a526926","2013-05-10 12:14:56-04:00","support selecting the 'arch' to install, currently armhf and armel
+"
+"b917e9a5a78c763d13591905555d8e4f24fb56b2","2013-05-10 14:46:07-04:00","clean up install_activity and create a landscape view
+"
+"d9397890c58fc8de6d0456d206374c02d29d98cc","2013-05-10 15:24:21-04:00","run dpkg in noninteractive mode to get rid of warning messages
+"
+"1cfd63b29e5f1616cb7c1fa4a525bcdf47ee1f24","2013-05-10 16:29:53-04:00","run final setup stage in the Debian chroot (closes #49)
+
+The tar warning was caused by the busybox tar still being in the path,
+and its much more limited than the GNU tar in Debian.
+"
+"d5ebd401dcb421388e07be4eca9bfb82da5024e1","2013-05-10 16:35:15-04:00","standardize name of 'Image Path' variable names to: image_path
+"
+"f69512a4dd07102bc71b38d3f43753b84db2c091","2013-05-10 18:06:17-04:00","rename misnamed defaults.key to proper defaults.xml
+"
+"dcd5bd99eb39a3ae61a5a8f510c8de7940aa512c","2013-05-10 19:05:48-04:00","convert NativeHelper.args to a method so its current when its used
+
+if image_path is a preference, it could change at any time.
+"
+"40292549e49c494d27d5e999cce0cef60671e9a9","2013-05-10 19:07:44-04:00","make 'Image Path' a preference rather than staticly set to /sdcard/debian.img
+"
+"e36ef0294b2ace4f7fa4b2aeb30c8feeb2bc4fd8","2013-05-10 19:08:32-04:00","make app_bin unpacking run as normal user, no need to run as root
+"
+"97a2bed0b34552f5ccb4010e0f00561cd468a4c9","2013-05-10 19:24:12-04:00","bump version to v0.4.2 build 7
+"
+"8ac180757af290783f9b647bb7bc24c19e042409","2013-05-13 11:24:31-04:00","update variable names to avoid conflicts with NDK; remove cruft (closes #50)
+
+* update NDK_TOOLCHAIN var to have the same definition as the NDK
+* remove unused cruft
+* fix PHONY declaration
+* clean up assets/
+"
+"4ac5c6a9ffe8b4e80abc554f76a0b7b93b3f1b08","2013-05-13 14:46:15-04:00","add symlinks to make debootstrap support latest Debian and Ubuntu releases
+"
+"26f55e3e3f9caa60b14879dd717a7b597c97cc45","2013-05-13 15:24:24-04:00","move the mount creation section before debootstrap so gpgv can use /system
+"
+"02b8c568389a124535412e70969ddcaa8b7572e1","2013-05-13 15:33:28-04:00","make our gpgv run in Debian chroot so `debootstrap --second-stage` validates (closes #20)
+
+The chroot needs to have /system mounted to find libc.so, libz.so, libdl.so
+"
+"97b88eff875d4bb0d208b35a1a98e1712ce8328b","2013-05-13 22:48:08-04:00","stop the main log from duplicating itself whenever the screen is rotated
+
+onCreate() should handle all the restoring of data stored by
+onSaveInstanceState(), we certainly don't need it in both onCreate() and
+onRestoreInstanceState()
+"
+"69eab37052aef58a551aa88d74257cfae7a4d27c","2013-05-14 12:40:55-04:00","update Turkish translation
+"
+"467f1b09587d08658d7048439c3fe15a089bae30","2013-05-14 21:49:26-04:00","make-release-build.sh: include the android env vars so it just works
+"
+"126eb6801e45e091d4960e18d10e86877453ee5f","2013-05-14 22:02:19-04:00","include local build properties when making a release build
+"
+"be67487f28e1c376d63a11e42c068df1bf5dbb8a","2013-05-14 22:10:21-04:00","when making a release, sign the actual release apk, not the unsigned one
+"

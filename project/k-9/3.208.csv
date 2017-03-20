@@ -1,0 +1,56 @@
+"commit id","commit date","commit message"
+"3dd7af2cacd03c0c98b370a1ac1950f8639afe69","2010-11-26 03:55:18+00:00","refactor getHeaders and removeHeaders to use a common method and an
+iterator to address a Market FC:
+
+java.util.ConcurrentModificationException
+at java.util.ArrayList$ArrayListIterator.next(ArrayList.java:573)
+at com.fsck.k9.mail.internet.MimeHeader.getHeader(MimeHeader.java:87)
+at
+com.fsck.k9.mail.internet.MimeHeader.getFirstHeader(MimeHeader.java:51)
+at
+com.fsck.k9.mail.internet.MimeMessage.getFirstHeader(MimeMessage.java:437)
+at
+com.fsck.k9.mail.internet.MimeMessage.getContentType(MimeMessage.java:130)
+at
+com.fsck.k9.mail.internet.MimeMessage.getMimeType(MimeMessage.java:159)
+at
+com.fsck.k9.mail.internet.MimeUtility.findFirstPartByMimeType(MimeUtility.java:971)
+at com.fsck.k9.crypto.Apg.isEncrypted(Apg.java:464)
+at
+com.fsck.k9.activity.MessageView.updateDecryptLayout(MessageView.java:2702)
+at
+com.fsck.k9.activity.MessageView$Listener$6.run(MessageView.java:2466)
+at android.os.Handler.handleCallback(Handler.java:587)
+at android.os.Handler.dispatchMessage(Handler.java:92)
+at android.os.Looper.loop(Looper.java:144)
+at android.app.ActivityThread.main(ActivityThread.java:4937)
+at java.lang.reflect.Method.invokeNative(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:521)
+at
+com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:868)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:626)
+"
+"73565abfdda09f55b3808639694a3408c2fe0dc5","2010-11-26 03:55:22+00:00","BatchButton area toggling should't happen from anything other than the
+UiThread:
+
+Fixes a common error from the market:
+
+android.view.ViewRoot$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.
+at android.view.ViewRoot.checkThread(ViewRoot.java:2802)
+at android.view.ViewRoot.invalidateChild(ViewRoot.java:607)
+at android.view.ViewRoot.invalidateChildInParent(ViewRoot.java:633)
+at android.view.ViewGroup.invalidateChild(ViewGroup.java:2505)
+at android.view.View.invalidate(View.java:5139)
+at android.view.View.setFlags(View.java:4502)
+at android.view.View.setVisibility(View.java:3030)
+at
+com.fsck.k9.activity.MessageList.hideBatchButtons(MessageList.java:2883)
+at
+com.fsck.k9.activity.MessageList.toggleBatchButtons(MessageList.java:2906)
+at com.fsck.k9.activity.MessageList.access$500(MessageList.java:77)
+at
+com.fsck.k9.activity.MessageList$MessageListAdapter.pruneDirtyMessages(MessageList.java:2302)
+at com.fsck.k9.activity.MessageList$1.run(MessageList.java:811)
+"
+"f46208296c1580b9ccd91403a88e55ed2bdfd20d","2010-11-26 03:55:26+00:00","Bumped manifest to ${version.name}
+"

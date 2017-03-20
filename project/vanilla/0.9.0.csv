@@ -1,0 +1,383 @@
+"commit id","commit date","commit message"
+"199a46a1390d8c1c093e4213e2af5a0d9125f06a","2011-08-19 01:28:15-05:00","Switch to MIT license
+"
+"2f69afc5296a57234f396a200c0e42f96de16f35","2011-08-19 02:35:29-05:00","Update Android target version to 10
+"
+"cce204e727ba1ef776f0a4b67f1aaa4d522baca7","2011-08-19 03:01:12-05:00","Use AUDIO_BECOMING_NOISY event; remove headset only option
+
+The AUDIO_BECOMING_NOISY intent seems to be broadcast before the
+HEADSET_PLUG intent. In some cases, the HEADSET_PLUG intent fires so
+late that audio starts playing through the speaker..
+AUDIO_BECOMING_NOISY also handles Bluetooth.
+
+The headset only feature was useful to prevent accidental 'noisy' playback,
+however it is cumbersome to implement with the Android audio API being the mess
+that it is. Thus I've removed it.
+"
+"fc56df74a479fb73217123e611ab20260865031c","2011-07-11 23:03:22+10:00","Fixed null pointer exception when no songs are present in the
+device's library.
+"
+"bd0596cd9e2d92ce11a5a981f0d2f76f8cae06a8","2011-07-11 23:03:22+10:00","Fixed null pointer exception when no songs are present in the
+device's library.
+"
+"b8f3e3819fd8d587952f465bec7fede98793bcdc","2011-08-20 00:42:11-05:00","Handle corrupt/missing songs better
+
+The old behavior would try to skip the song automatically and not tell the user
+what was happening. The new behavior shows a Toast and stops playback.
+"
+"3fd61bcafe33fe1d7b1d63dfd603fb3c5b373686","2011-07-21 19:45:19+10:00","Playback is stopped immediately on song change before further
+processing, so the user has feedback on their input. Some operations in
+this method can cause a delay on my phone.
+"
+"d4568218913c0b87845daa850dd6bb2c0097cbf5","2011-08-20 17:25:08-05:00","Move media content observer into ContextApplication
+"
+"7715ec7ddec1d56fb465b2cbc3d628c92c90f26a","2011-08-20 20:12:39-05:00","Implement new randomization method to reduce repetition
+
+randomSong() now draws from a shuffle list of all songs in the library. Each
+time the end of this list is reached, it is shuffled. The list is updated when
+the library changes.
+"
+"e5d3053a44ebb3ced9d2b65d6e4bf2ff05e8c0c6","2011-08-23 21:07:17-05:00","Remove programming-created media button receiver
+
+This was an optimization (since manifest-defined receivers have to be
+constructed again for each broadcast) that doesn't seem to help all that much.
+I mainly removed it because it makes using the Froyo registerMediaButton API
+harder (impossible?) to use.
+
+Also change receiver priority to 999, since apparently >=1000 should only be
+used by the system.
+"
+"a8bf7536acb0f62ae3f6ca38f5b1afa155a2de49","2011-08-23 22:04:35-05:00","Handle media keys in PlaybackActivities
+
+Avoids the overhead of the broadcast when the activity has focus
+"
+"a9db1f55fb92b1462de5a22ffb7674a1a146451b","2011-08-23 22:39:21-05:00","Use Froyo registerMediaButtonReceiver API
+"
+"17e8e400e41aa3b203183af70ae2113a883fb683","2011-08-24 00:05:18-05:00","Add option to disable cover art
+"
+"c69f74a482a54631fad04af52ea28299946d300e","2011-08-24 10:17:21-05:00","Rename Song Selector/Choose Songs to Library and change icon
+"
+"025c6e20f886e86d8b14d1add404c9e9c62231a6","2011-08-24 10:27:28-05:00","Include all image resources in app
+"
+"9224095dbaa037a9d0c99d1b58e4a541628ec36e","2011-08-24 16:37:55-05:00","More detailed time display in IdlePreference
+"
+"f54be18e5ba7fc874fb37b58961253e4640751a3","2011-08-25 00:10:59-05:00","Call userActionTriggered() in the correct places
+"
+"f65cb06978699a134746ff64aff843532dd22e39","2011-08-25 00:13:49-05:00","Remove dead code
+"
+"6e3c8e758083ab8774b7b6d713d906b22cc3305a","2011-08-25 23:55:39-05:00","Fix cover scaling
+"
+"0303cfb08f27854f62642ab1b473cc2be2186d12","2011-08-27 15:24:41-05:00","Add a new style for FullPlaybackActivity
+"
+"09cf5a89303ccb824906c68d17d205a9da6a2e6c","2011-08-27 15:37:04-05:00","Handle CoverView long-presses better.
+
+This treats them the same way as normal presses: they can be activated with up
+to a small amount of movement.
+
+Also executes scroll-reset code even when a press is detected. Before small
+movements were not being reset.
+"
+"13f80aaca4b50ffcc2739fc70908cbfa78fd5d29","2011-08-27 16:08:35-05:00","Fix MediaUtils.shuffle
+
+Was ignoring the first element of the list.
+"
+"444b7f588b7a9c61d1c138963f03443de5aad9f5","2011-08-27 18:07:22-05:00","Optimize isSongAvailable()
+"
+"d1d875fd5f13bea0597e6655f8100d7cc83f1ac4","2011-08-28 00:08:57-05:00","Refector library limiters
+"
+"33374c2ebd25ac60594c5f553d7fa20d42434146","2011-08-28 01:50:47-05:00","Add genre tab to library
+"
+"83cdef201f07e3e0163a0377ccce3a002035ced1","2011-08-28 02:11:28-05:00","Persist the visibility of the controls
+"
+"7bbe6184e9f7c5e9ec01365d56dc1af799234cec","2011-08-28 02:45:21-05:00","Cleanup updateState()
+
+Changes are mostly aesthetic. Was annoyed by the long conditionals.
+"
+"17ea717535629b530c2f8a3c5fb6e1af3a891f99","2011-08-28 03:28:35-05:00","Update proguard.config
+"
+"b038af1ba21e6af4f769232bb76d2c0568e306ce","2011-08-28 03:29:10-05:00","Remove dead code
+"
+"df570d507c8ccfaa220bcc5b77a4697cd84ff2c4","2011-08-28 03:45:53-05:00","Use song duration data from MediaStore
+
+Allows the duration to be displayed before the song starts playing.
+
+Also add a missing synchronized around a call to wait()
+"
+"a2d8710ae87092e5f387f8516ee1db5a4622e76d","2011-07-21 19:43:42+10:00","Added ability to navigate songs by moving left and right on the dpad
+when play controls are focused. Preference to come later.
+"
+"6ea6688a2753c68d6b91e609aec2ae90ca44cd0e","2011-08-28 04:34:15-05:00","Fix dpad navigation.
+
+Call super and update CoverView immediately
+"
+"3c76f4359fd9875d76412f49eb829869e5b80798","2011-08-28 04:36:01-05:00","Fix duration improvement
+"
+"7336b69e08f28a1ea0e98815253f4e5c580982c7","2011-08-28 04:56:57-05:00","Fix duration improvement again
+"
+"13e30746ed038acbbe88e0d23c1a71109c87922d","2011-08-28 18:11:53-05:00","Restructure play/pause and song change to update UI immediately
+
+PlaybackService methods return the new song or state immediately, the calling
+Activity updates with the result, the rest of the work is done in the
+background, and inactive activities update with the broadcast.
+
+Previously, everything was done in the background and the UI did
+not update until the work was done and the update was broadcast, which took
+forever.
+"
+"07c29406e25ff36ca4eb3cafd65884098ebb4e08","2011-08-28 18:21:35-05:00","Handle text alignment in TextView rather than the layout
+
+This allows the alignment to be updated immediately instead of in the background
+"
+"f0abd282cc0ba8b6cf36385c9f6b3cc731971272","2011-08-28 19:13:09-05:00","Fix the long press fix
+
+Hmm...
+"
+"fa63a36bbc9e8cb4db90d825acd9a782ca410448","2011-08-28 19:47:26-05:00","Fix purge
+"
+"a4ea3089f6eb2a8f365e389268ab18760c7c2226","2011-08-28 23:10:19-05:00","Move media button registration into MediaButtonHandler; only register when media buttons are enabled
+"
+"cc1a5cb4480f60c6acb6259edddba91d697ca0d6","2011-08-29 01:32:59-05:00","Handle notifications better
+
+Don't update them when unecessary. Fix an edge case where the notification
+wouldn't update from the paused to playing style.
+"
+"69bbfbb255322f8ea531787a9d7ca6ed06f1bd5e","2011-08-30 01:35:18-05:00","Run playback activity song/state change methods on UI thread
+
+This allows CoverView and song info views to be updated in one go, rather than
+in multiple posts to the UI thread.
+"
+"339a9fcf85962c04b13450d46ded6639477a43fb","2011-08-30 01:53:50-05:00","Make media button play/pause pause immediately.
+
+It provides a faster response and there isn't any reason not to---a double
+click will restart playback.
+"
+"76b6fe134d5c3bdd05ba68292c0a6951db2670e1","2011-08-30 18:44:36-05:00","Add widget display mode without zoomed cover art
+
+This changes the id for the zoomed mode, just for consistency. Since this
+feature hasn't been released yet that should be ok.
+"
+"91094a85abab2592d88d92b9ff02ea7c086f1192","2011-08-21 21:35:00+10:00","Mandated Java 1.6 so that the @Override annotation can be used
+with interface overrides.
+"
+"e7ea4941eaaf4c17fe5c41efdb2fa596c5aa47e6","2011-08-31 15:32:04+02:00","Add option to invert colours in notifications
+"
+"7c00dc44967aa71e00e474115262c254e738dacb","2011-08-31 21:24:55-05:00","Tweak inverted notification
+
+Use American English, clarify description, simplify code a bit, and
+default to disabled.
+"
+"283a53e4db0707f12b96888727ad5ffe3cc908f7","2011-09-02 00:41:17-05:00","Fix PlaybackService.onDestroy
+
+Pausing in onDestroy was broadcasting an update which would
+cause receivers to restart the service and/or crash.
+"
+"8617a7c7c6548f45ee4dfbde3b8acea67abebf0b","2011-09-02 01:06:13-05:00","Update track progress when play pressed
+"
+"d0ee5e8676a3d09a033aa65472b2ca22e11f69c7","2011-09-02 02:34:28-05:00","Load saved song position
+"
+"605e14f930535407f2a2f3fa22d149d5f3ebc6ad","2011-09-02 02:36:49-05:00","Account for sorting that takes place when querying random songs
+"
+"9bc3e97e9d294986e15e9bfecafd0fcf2e15deb4","2011-09-02 02:40:25-05:00","Properly initialize mCurrentAdapter
+"
+"3f99f98a5620d324c99487aea65b9cffcc8da428","2011-09-03 00:26:16-05:00","Add configurable up/down swipe actions
+
+More actions to come...
+"
+"4abbbfd6f3c2ecdae0c8a4922409a11b3f90e5fa","2011-09-03 13:59:48-05:00","Clear mPendingSeek
+"
+"b8c137310a7a1cc0eb391e07a36862c9bf7ddf50","2011-09-03 19:05:08-05:00","Make widget double tap setting global
+"
+"53e40f85f232db73227a6778f079b43d5bc7e6d6","2011-09-06 00:30:39-05:00","Fix random cache shuffling when it is not completely full
+
+We were shuffling around the null elements
+"
+"06915f6cf7d73f7ad38001abbc5b348c7a1905de","2011-08-30 22:45:47-05:00","Add serialVersionUID to MediaAdapter.Limiter
+
+I don't know that this is strictly necessary since the serialization is only
+ever saved in memory, but Eclipse wants it.
+"
+"744432a744d437c6d1222d64801b55a922b1bc4b","2011-09-11 00:25:02-05:00","Don't call startService to pick songs from library
+"
+"027489b4a1de638c0b65042e15b759bba18c327a","2011-09-11 00:38:12-05:00","Reset queue offset when using play items
+
+Since we clear the queue, we must also clear the offset..
+"
+"8172618a098e37f8526aa784eb1a634d36c0cefa","2011-09-11 14:27:19-05:00","Add swipe actions to enqueue songs
+"
+"a3aa6b4d6e6c25093c38280c6298b73815e6c4ce","2011-09-11 14:40:30-05:00","Add swipe action to clear queue
+"
+"cf776d40bb0a8a5e068ac74b730d316a6c98eb2a","2011-09-11 15:10:14-05:00","Store the current song in PlaybackService
+"
+"cb1221e00ca59c71d19660d021b519adb078da33","2011-09-11 15:14:33-05:00","Disable repeat option when there are no songs
+"
+"fdb3e0b23802cca6abbf03ce41d0cfc47287102a","2011-09-07 01:47:21-05:00","Attempt to fix ever-lasting Toasts.
+
+I'm not actually able to reproduce this issue, so I'm not certain of what the
+cause might be. Apparently this can happen when Toasts aren't created on the
+UI thread. I've attempted to mimimize that...
+"
+"d37c151b02d8987f786d6eab686c20e82467c0bf","2011-09-11 18:40:39-05:00","Implement wait/notify properly
+"
+"9471e2a0bc3214c7ebb4041cf538b41344811b70","2011-09-11 18:39:56-05:00","Handle PlaybackService.onCreate in one step
+"
+"7621c9312e6eee168d4f85e35748e0913fd96332","2011-09-18 09:27:23-05:00","Only hold one wake lock
+"
+"0fd623049765fbc987c72b76a1534469673cf2c8","2011-09-17 03:03:10-05:00","Show quantity of picked songs in toast
+"
+"4191ba031ffe350a1d3d99c5eb328cd4bcc956c2","2011-09-16 17:52:37-05:00","Require 2.0
+"
+"4311632dd5975eb9003f1d1c8d2bddce674e21dd","2011-09-16 18:05:25-05:00","Add back headset only feature
+"
+"25ce5d6daf9ccee80b700bfab4c8c4953ed432ef","2011-09-16 22:56:52-05:00","Don't send bitmaps through a parcel; send Uri instead
+
+This speeds things up quite a bit, but requires some reworking to the widget
+layouts...
+"
+"34624b00c342994a96fa576bef10e60dc21d2e91","2011-09-16 23:12:29-05:00","Don't attempt to load songs when service is not loaded
+"
+"4ba2eddd8062662027069c22a00efde34ba9ca9e","2011-09-17 02:12:57-05:00","Do less work when widgets are inactive
+"
+"399631d4ad57e0d375d813d7e8d6c8d9a8230208","2011-09-17 02:37:51-05:00","Update queue offset when changing songs
+"
+"cce040ded8c708596fa34e8a30627c7daa495760","2011-09-17 21:04:54-05:00","Query all info for songs chosen from library
+"
+"0f95ac6336e12ed032ebb24b29efc71275cf1df5","2011-09-17 21:26:53-05:00","Volume always controls music volume
+"
+"5c45c4540ab72463492683b68c17bbad68d3cc0b","2011-09-18 08:54:48-05:00","Add random option
+
+Disabling this option makes Vanilla function more like a typical music player.
+"
+"e19ac9bca579f152d24a26c5c4956e49f78e7cbb","2011-09-18 09:35:34-05:00","Don't synchronize MediaPlayer
+
+Preparing sometimes takes a long time and this causes a freeze in the playback
+actively when it requests the song position.
+"
+"ccac6233229f07f48cdc872c058d96754d1d4983","2011-09-18 09:42:52-05:00","Remove exit button
+"
+"34326718adda9780426145c65af9a2bf31fd8b26","2011-09-18 15:36:13-05:00","Move service-related code out of ContextApplication
+"
+"1a24a3df4d626851406f149228b50e43929c2987","2011-09-18 15:54:34-05:00","Avoid using intents in broadcasts
+"
+"5837753b4aad79f1987d68d71151f0beecd55ac1","2011-09-18 16:52:42-05:00","Eliminate Song.query; always query populated songs instead
+"
+"2023409bd963892425146f9b14f1e3457ce1af6d","2011-09-19 21:53:39-05:00","Remove ContextApplication
+"
+"e23598aef14490c2cdeaf88b08105fbef6980f14","2011-09-18 17:24:50-05:00","Start playback when using play action from library
+"
+"af069c208b866b61789ec52aaa090e396c46d86f","2011-09-18 18:50:55-05:00","Run library queries on worker thread
+"
+"a60d6ec330e1b90a05ad977e69defa9d5cd02a2d","2011-09-18 19:25:29-05:00","Change 'Preferences' to 'Settings'
+
+Settings seems to be the more common term in Android apps.
+"
+"4ad42c72859a7684d12d72dec994f278e2017b6a","2011-09-19 00:55:31-05:00","Move random song code into MediaUtils
+"
+"0cb2b325d394f31374086d7588575596c3b5eb1b","2011-09-18 21:44:01-05:00","Use separate layouts for library with/without controls
+"
+"0f38aa4159732c819688019617691642bab85bc5","2011-09-21 16:25:26-05:00","Add library section indexer
+"
+"e94c40bdcb502df28f93f30d5c6b98f97550751e","2011-09-21 16:26:41-05:00","Remove SongMediaAdapter
+"
+"95a7a32e3560ce4858aa7de2668c1d509bd8af44","2011-09-21 16:27:36-05:00","Separate MediaView from MediaAdapter
+"
+"690789273b5346db9f086217d38cf72a90c3309f","2011-09-20 21:49:28-05:00","Run MediaStore queries on background thread
+"
+"f524be719905179e4f290ae6953475cad3657825","2011-09-21 16:32:34-05:00","Add a play all row
+"
+"eb7930543c62bb9e205b9e8900f10b0f3ff54db3","2011-09-21 13:34:21-05:00","Remove playlist instances
+"
+"8e83d85a59f4933355dfb1c485dfc1ab7b568c83","2011-09-21 16:34:00-05:00","Rename SongSelector to LibraryActivity
+"
+"48e2aa1d91378a116f52d7703c95ffcef0a9b01c","2011-09-21 16:52:01-05:00","Shuffle current songs when enabling shuffling
+"
+"5341772d0cea85ecea5b71981c3cd64d9e41a35a","2011-09-21 17:32:38-05:00","Move state file code to PlaybackService and add a version code to state file
+"
+"84f0e02882c7e4c627dba23cfca7f48dfca4a713","2011-09-21 22:20:39-05:00","Add repeat current song mode
+"
+"827201a644cd545a59e1a5da553268977666e566","2011-09-22 12:55:44-05:00","Implmenent some optimizations suggested by layoutopt
+"
+"b842b7e46fbb790bd1a7cba58d59f0d799082c3e","2011-09-22 13:08:06-05:00","Share layout content between library with/without control layouts.
+
+Also make search box not overlap.
+"
+"268a53796918f63f155664247782aabdde5eb964","2011-09-23 01:03:06-05:00","Don't use TabHost
+"
+"98873972f79989d332febef163db0af1da3721c3","2011-09-23 01:59:40-05:00","Make library controls prettier
+"
+"5620d240b523f96fe5d7f81a80cb1deef69a6d35","2011-09-23 02:23:24-05:00","Add a default album art icon for the library controls
+
+Mostly to prevent the need to shift the postion of the buttons back and forth
+when changing between songs with/without cover art.
+"
+"1088ea67eeb5e34234b226765ed0a830baa15f62","2011-09-23 02:40:02-05:00","Make disable cover art affect widgets
+"
+"ef924a80b9e4e03f57e627f4086f97ebb8f3dff1","2011-09-23 03:18:15-05:00","Make cover press/long-press actions configurable
+
+Also don't update the swipe action preferences through the service. There's no
+reason to do that; I'm not sure why I was doing so before...
+"
+"f194262c992caf37f52f7ce71316040c9a4dedf0","2011-09-23 21:56:13-05:00","Don't shuffle songs unnecessarily
+"
+"370514a316847cf6721127b88ed81b878b47ace0","2011-09-23 22:17:07-05:00","Add album shuffle
+"
+"2894c2aca4ba2d215a620bc3dbccbf8767ca4f36","2011-09-24 17:45:08-05:00","Add HDPI icons; new play/pause/next/previous buttons
+"
+"09135ac52df230ffc0470282e4cbaffcb8965a1c","2011-09-24 17:50:02-05:00","Used focused icons for hidden buttons in widgets
+"
+"6be7e4d69e8ecc08d0075e823ffd3e11884ac4b4","2011-09-24 18:15:45-05:00","Remove ControlButton
+"
+"221e3857f3efbde31a9bc1e757dac298501b1a64","2011-09-24 19:28:36-05:00","Move clear button to the side of the search field; use different icon
+"
+"6da2526648118ad82955f34b33d44a01747f0957","2011-09-25 01:16:58-05:00","Use a cached SharedPreferences instance
+
+Reduces allocations a bit
+"
+"ae78e465174247d2f7fb020675cfcde3d10ca116","2011-09-25 01:50:14-05:00","Reduce allocations in playback activity song position code
+"
+"086596b230cfbe7d24956341ab2e244230657c44","2011-09-25 02:08:48-05:00","Reduce allocations in CoverView.onDraw
+
+The Paint parameters for drawBitmap is unnecessary and we can avoid requesting
+the clip rect.
+"
+"20a1ff1ae76c834f19ab5168df030aa2e5594087","2011-09-25 02:49:30-05:00","Change some log messages; remove SongNotification pref reset
+"
+"9270c1a02de246cc81c7b8f7d3d963cbd142b44d","2011-09-25 02:50:53-05:00","Update proguard.config
+"
+"870bc77e8b172c5b762314ad092186a3cdf8c028","2011-09-25 03:10:46-05:00","Avoid adding null songs to the library
+"
+"6cdaf3787dfd7230f2d7529f95fbb29be68a0fa2","2011-09-25 03:45:24-05:00","Pass ContentResolver instead of Context in some cases
+"
+"d17df425cd46dced405e4d1fd3588d91a0765945","2011-09-25 03:50:49-05:00","Move deleteMedia into PlaybackService
+"
+"cd935206e431f8aa125fc4403eecc26715bd2f0a","2011-09-25 04:01:46-05:00","Don't crash when failing to query a saved song
+"
+"31651e491e3b40685493c11d4efb81b7ed6ef6f4","2011-09-25 04:22:54-05:00","Fix SongTimeline.removeSong
+
+We were skipping songs as the index changes whenever we remove a song. Use an
+iterator so we don't have to worry about that.
+"
+"fa24f2aa0f79f182f5351a04b405cf50387f6d7c","2011-09-26 19:30:24-05:00","Remove STORE_SIZE constant
+
+It bothers me?
+"
+"7c98ba54ed7b83c2006a616945e3f5b4a7837bdf","2011-09-26 19:31:31-05:00","Speed up CoverView scrolling a bit
+"
+"4a939a4ac16b1737b7f4bc6bb2b9280714d4e9c4","2011-09-26 19:45:59-05:00","Make swipes harder to accidently trigger
+"
+"396bc20bfdfb996434f5b008234bdfccda8c8f10","2011-09-26 20:02:32-05:00","Prevent cover bitmaps for the actives songs from being deleted
+
+Since previously we loaded directly from the cache, the actives songs' bitmaps
+could be deleted if the next song was changing very frequently. While this is
+fairly unlikely to happen, this new intermediate method should be a bit faster
+anyway.
+"
+"78d471010d87d7c9b2f4d92f2b3541d292287470","2011-09-27 01:13:49-05:00","Add emulation of stock music player broadcast
+
+This in the very least works with the CyanogenMod lockscreen controls.
+"
+"4a618c38ce9764bf94be1afe8067854a0e611f65","2011-09-27 01:29:50-05:00","Add play when headphones plugged option
+"
+"0938428514da19ac39cda4e5c3c4864a6c99d1f8","2011-09-27 02:06:51-05:00","Version 0.9.0
+
+Just a test release
+"

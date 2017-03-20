@@ -1,0 +1,39 @@
+"commit id","commit date","commit message"
+"6198eb75872933bf04cb194b53a6c67d8f06c318","2014-02-24 15:23:41+01:00","Update arrays
+"
+"df6d65ef942226f2fd838d413b5d19ea3f09cf04","2014-02-24 15:33:33+01:00","Update spanish translation to latest version
+"
+"5f23a79913e919e70bf9f6c5b95bc059cabde89c","2014-02-27 15:24:56+01:00","Updated Slovak translation - add missing strings
+"
+"5fbd283b4e0cab9b1b9f7803b452e334bc20384e","2014-03-02 11:22:04+01:00","some small fixes
+"
+"503fc2bf9db6d3796adf494b4255db05aced9607","2014-03-02 06:10:00-08:00","Merge pull request #295 from McGiverGim/master
+
+Update spanish translation
+"
+"70106a0daf0c66378ae2e892701089f9a7c7a60d","2014-03-02 06:10:55-08:00","Merge pull request #296 from pylerSM/patch-3
+
+Updated Slovak translation - add missing strings
+"
+"0f859dc950fc85f21bb6dfef56dc49a3c046b970","2014-03-02 06:25:41-08:00","Fix file syntax error introduced by earlier patch.
+"
+"86129f51ea0b64af08dd2a4dcd88be638d2e8597","2014-03-02 06:13:39-08:00","Revert 'Close all unneeded file descriptors before exec.'
+
+It turns out that some of the open file descriptors were pointing to
+resources that were used by the C runtime. So closing them broke some
+C runtime methods.
+
+sven-ola writes:
+
+Sorry to write so, but this change has a side effect: no access to Android properties from within the terminal. Test: '/system/bin/getprop' should show something, maybe compare with ConnectBot/Local. No access to properties means: the Debian-Kit app's 'Put-current-DNS-setting-to-etc-resolv.conf' daemon fails. Workaround AFICT: do not close file descriptors pointing to /dev/ashmem (props working via shared memory).
+
+I'm willing to consider an updated version of this patch that tries to
+be more selective about which descriptors to close. However, I am not
+sure what to do about new descriptors that are added to the Android runtime
+in future versions of Android -- how will we know whether to close them or
+not?
+
+This reverts commit 0e9b7f0cfd4aee527a79ac4c1f36c6f5f5c927b9.
+"
+"db2f87c5c19dadd1c1a59d79836016559aae78d6","2014-03-02 06:32:28-08:00","Update to version 1.0.57
+"

@@ -1,0 +1,414 @@
+"commit id","commit date","commit message"
+"c2b489ad24b0edb245661f853b34d6edb21b6766","2016-01-24 14:43:20-07:00","Hygiene: update to Gradle v2.10
+
+https://docs.gradle.org/2.10/release-notes
+
+Change-Id: I38fc712a44cbf067970e8c4166a151db49ef997e
+"
+"e8cc03c3aec1a92bb65a64a24671d4859a8610a5","2016-01-24 14:55:18-07:00","Hygiene: remove duplicate method
+
+Change-Id: Ied63c835fad388443f99648f4fe1d2b7cba60747
+"
+"6cf610772d70a217d61ce51bede1fbea875e596c","2016-01-25 17:00:36+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I09b3514d0b89d41a50aa3011933362e950577170
+"
+"f862f5f5d43f35000d9b3c671d5a02ad50a4a463","2016-01-25 16:37:39+00:00","Merge 'Hygiene: rename Site usage from 'primary' to 'app''
+"
+"5b22d067a0de91b036d1f70c233f92f2e611e3a9","2016-01-25 16:45:06+00:00","Merge 'Hygiene: remove PageLoadUtil'
+"
+"b5c7b0da95cd720a8aff72e57721f2f994486df7","2016-01-25 16:49:33+00:00","Merge 'Hygiene: remove duplicate method'
+"
+"9c1c4275898fe39fa7c5cee41986094d2a191476","2016-01-25 11:19:08-05:00","Add provenance parameter when sharing text.
+
+A bit late to the party, but still a nice thing to have.
+
+Bug: T112146
+Change-Id: I7a544551774e10d264d9250d1e045724b8612a99
+"
+"10bbe2535cf4c3fbafdb6ad1658e7ea7eccd7713","2016-01-25 16:59:54+00:00","Merge 'Hygiene: update to Gradle v2.10'
+"
+"6104ae3a273722c78035a6e7a37ccc43c25d7e83","2016-01-25 10:05:52-07:00","Respect ANDROID_SERIAL when executing Spoon tests
+
+Spoon does not respect ANDROID_SERIAL by default[0]. This can cause the
+wrong devices to be tested.
+
+[0] https://github.com/stanfy/spoon-gradle-plugin/issues/49
+
+Change-Id: I9a480f301b4075690f171a96718d5c446870621b
+"
+"487cbc97c3226d10706527da0c1b2fc842131234","2016-01-25 17:45:25+00:00","Merge 'Improve documentation of getEventLogSamplingID method in WikipediaApp'
+"
+"014eaf6f92cae5fc03ce0852ad1547d5e2d91a91","2016-01-07 10:42:24-07:00","Hygiene: refer to interfaces not implementations
+
+No functional changes intended. Prefer interfaces to concrete
+implementations for APIs and reference holding.
+
+Depends-On: I1c564fa24cafe9ec68a96e263dfa3568a7c4509a
+Change-Id: I73f5b8c6a1b42ee481c320168ae61708289dc9ab
+"
+"7895e4b17cb559b055f5b90700ccab0eb67f6f34","2016-01-25 12:03:14-07:00","Hygiene: refactor PreviewTaskTests
+
+• Extracting subject usage to a private subclass that owns threading.
+This concern obscured the intent of the test with copious boilerplate.
+• Upgrade test to JUnit 4.
+
+Change-Id: Ic9dfafac39122c3ce209600a596e5f69f51f9989
+"
+"67ea349f97f245efbd47c5f59b2931284b5c51a7","2016-01-25 12:09:03-07:00","Fix PreviewTaskTests
+
+The service's HTML output has changed. Make the test a little less exact
+and a little less fragile by just checking that the response contains
+the input.
+
+Change-Id: I6bc82f9fdcd7bd2b6362575ae159fe8ef819836c
+"
+"ede66592fa949f0a7aac42bc17e7bf93d12af187","2016-01-25 12:12:24-07:00","Hygiene: PreviewTaskTests to EditPreviewTaskTest
+
+Rename PreviewTaskTests test to 'ClassTest' convention,
+EditPreviewTaskTest.
+
+Change-Id: Iead7b8e2776470683d150905721849f6c044a4a9
+"
+"52324d25a55cdddb516f594932739ed7dae08ecf","2016-01-24 18:03:54-07:00","Fix cookie removal
+
+• Check for expired cookies and remove them.
+• Fix remove cookie logic to use name not value. Deleted cookies from
+old logins should not be retained when logging out and back in.
+
+Change-Id: I1602b2fb5100722a982a2ca8a7c10da5c4a671bc
+"
+"1935eb19011f46339449c2cfdd67205bd4d11d69","2016-01-24 18:13:30-07:00","Show cookies and edit tokens in dev settings
+
+Change-Id: I3a8d3bd01cf33fcdd1a81d58b5871a5dc0a20d67
+"
+"05bed48ae8b0a11b526eeba0315a840ab91ec1c2","2016-01-25 20:22:18+00:00","Merge 'Respect ANDROID_SERIAL when executing Spoon tests'
+"
+"3bada809eef895b446a6431504a1f5ad194331cd","2016-01-25 14:25:58-07:00","Fail on page load error
+
+• Rename PageFragment.commonSectionFetchOnCatch() to onPageLoadError()
+for parity with onPageLoadComplete().
+• Fail tests on page load error instead of timeout (currently 5
+minutes).
+
+Change-Id: I9b240744576bbd17698267146c692a6e5245bf7f
+"
+"a4a316c3af7ce0adf4e134d376cff17c52a444de","2016-01-25 15:40:24-05:00","Fix validation of optional email field.
+
+This fixes things by creating a custom annotation.
+Ideally we should switch to the @Optional annotation that should be
+available in the next version of Saripaar. (It's technically exposed in
+the current version, but not functional)
+https://github.com/ragunathjawahar/android-saripaar/issues/102
+
+Bug: T124240
+Change-Id: Iecea7351eb884c975391678377e28d7c92849975
+"
+"548ab53e459ad0f636ddaeb82a1a6206a904594a","2016-01-25 15:13:54-07:00","Work around service failure on test wiki
+
+• Work around service failure on test wiki by using an equivalent page
+on English wiki for PageLoadTest.testPageFetchWithAmpersand().
+• Make micro clean up in PageLoadTest.testPageFetch() to use implied
+test wiki.
+
+Bug: T124124
+Change-Id: Ic5c6aa391e47df1f0707281d0966eeb134a3fd57
+"
+"7a5dba4a09d42bd666de3608070817362047e49f","2016-01-26 15:01:10-06:00","Remove @Expose Gson annotations
+
+Bug: T124375
+Change-Id: Ie3c19fd26f99a989272a0db22a8b79e0e0ed55ae
+"
+"9623ed7ce05cd5c0d210864d8b441c504090692a","2016-01-27 15:39:50+00:00","Merge 'Fail on page load error'
+"
+"5c6bc7ca7bb41b1484e97ecbfd17471e34b9f153","2016-01-27 15:46:35+00:00","Merge 'Work around service failure on test wiki'
+"
+"828730418ba3adb77351c796de1ecfe69bcd1ac3","2016-01-13 12:49:36-05:00","Kickin' it with Fresco.
+
+NB1: This removes Picasso as well as PhotoView, because PhotoView does
+not support Fresco-based views, so it can no longer provide the pinch-to-zoom
+functionality that we so crave.
+In a subsequent patch we'll restore pinch-to-zoom in the Gallery using a
+different means.
+
+NB2: This also restricts the native ABIs that get packaged into the APK,
+since Mapbox doesn't come with arm64 libs, which causes link errors. Once
+Mapbox is updated for arm64, we should remove the restriction.
+
+Bug: T124733
+Change-Id: I1edf132ee8a3ee50321bd5ab4c8ded9f1b1daad1
+"
+"e6f76a17065df6e35d273f02e9cc210da730708d","2016-01-27 17:21:10+00:00","Merge 'Remove @Expose Gson annotations'
+"
+"30e439f8c71dd4f08434133a7e4b8602ad63ba50","2016-01-27 19:02:04+00:00","Merge 'Kickin' it with Fresco.'
+"
+"807181e2c231ef77fd6577ca1588870ce42f9807","2016-01-27 15:59:16-05:00","Restore CSS class for overflowing wide images.
+
+Somehow this had mysteriously disappeared, and was causing wide images to
+make pages scroll horizontally.
+
+Corresponding MobileApp patch:
+https://gerrit.wikimedia.org/r/266910
+
+Bug: T124961
+Change-Id: I1371c9b23d7922f207e0691c1682426a50d5713e
+"
+"0532e036dfe94290a8857a058df12159649f38b3","2016-01-14 16:34:41-07:00","Update adb-setup to use all attached devices
+
+Spoon better enables us to support testing on multiple devices
+simultaneously. This patch updates adb-setup to operate on all attached
+devices.
+
+Change-Id: Idfee8c3ef8f65277f8b6c068d240290b169fba00
+"
+"d5d07fdeeeadd52f6c1bb8815b1723d36f02b1a5","2016-01-27 17:07:36-05:00","Fix white background for GIFs in gallery.
+
+Bug: T124790
+Change-Id: Ieffda45eebce85aacdd2d37727da50cf533102f9
+"
+"c7f8a6fdfa742904bb8eecdd135f2fb6ffaad239","2016-01-27 17:36:44-05:00","Add Kaity to list of contributors.
+
+Change-Id: I1cfb7a518179915719f91df7c98312ea939e24e2
+"
+"82adae810ba1e84321750730f8c997725677631d","2016-01-27 23:09:50+00:00","Merge 'Fix white background for GIFs in gallery.'
+"
+"6fb790b2f3a9e5de0c1e0617fbd981b6645d5374","2016-01-27 23:47:24+00:00","Merge 'Restore CSS class for overflowing wide images.'
+"
+"d18fc51af9bed4b26cd99cd6b874870546243d12","2016-01-27 18:51:56-05:00","Whoops: Fix video thumbnail in gallery.
+
+CopyPasteException: I was loading the image into the wrong view.
+
+Change-Id: Id31b5985d8e1facf76b1fee16fefe56aa42d0eeb
+"
+"2b18cea8108b074dcbb305258186c7abf6ca0c41","2016-01-28 15:28:36-05:00","Put RECEIVE_BOOT_COMPLETED permission into custom channel builds only.
+
+This puts the RECEIVE_BOOT_COMPLETED permission into the 'custom' and
+'dev' flavors of the build, and leaves it out of the main build.
+
+The receiver and intent-filter remain in place, but it simply won't be
+called if the permission isn't present.
+
+Bug: T125110
+Change-Id: I294fa223280a6a4a7cb2f24bd1204ddc16dbc06d
+"
+"26c544b57f0606fb39c8cd1a9e79b4d413aaf53f","2016-01-29 10:56:28-05:00","Don't use javascript bridge for copying to clipboard.
+
+When passing the text selection from the WebView to the Java layer, we
+limit the number of characters on the WebView side, which is not a bad
+thing, because a large enough selection can lead to an OOM error.
+
+However, for the purpose of copying the selection to the clipboard, it can
+be a hindrance to limit the number of characters, and is confusing to the
+user. This patch copies the selected text by simulating a 'Ctrl-C'
+keyboard event, and dispatches it to the WebView, which causes it to copy
+the selection to the clipboard natively.
+
+Additionally, this allows the copied text to preserve any *formatting*
+and/or links, instead of simply copying plain text.
+
+Change-Id: I935cf1d9dc8ac78650b76c6e8cfb758114dea4ac
+"
+"3bef7a96121bea265a630d2c7e3acf472ee075b6","2016-01-29 20:34:38+00:00","Merge 'Put RECEIVE_BOOT_COMPLETED permission into custom channel builds only.'
+"
+"17f9666e11ffce12b1d5a008bb96423b024218c2","2016-02-01 17:12:35+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I012bacca795d674e61f7c9a25d8c2d3b94b951f8
+"
+"b3e761607b3cbdb8b9112d9c4312ea5323226953","2016-02-01 11:45:59-05:00","Implement A/B test to measure CirrusSearch 'opening_text' performance.
+
+Bug: T125393
+Change-Id: I27a3c196b0a9129e9e25d763df5a8d68beb5dc46
+"
+"85377f155f75734980147a989f55c69147f50891","2016-02-01 19:36:33+00:00","Merge 'Implement A/B test to measure CirrusSearch 'opening_text' performance.'
+"
+"33f26221002e3967844a087c9da9ede9a529b8ea","2016-02-02 13:18:03-07:00","Hygiene: remove 'never happens' comments from RTEs
+
+Remove 'this shouldn't happen' type comments where RuntimeExceptions are
+thrown. RTE subclasses are used for unchecked Exceptions but generic
+RTEs are not thrown casually and indicate in themselves that the program
+is expected to crash. No functional change intended.
+
+Change-Id: I27030102504f447947bd3c5d6797c136152f069a
+"
+"d049d60e00965f7fc852e91517675d074971a845","2016-02-02 16:41:42-05:00","Rework and improve sharing and saving media in gallery.
+
+Apologies for the size of this patch; it's larger than originally
+envisioned. However, as I started to work on fixing the initial crash, I
+saw an opportunity to improve the whole thing, in the following ways:
+
+- When sharing an image, we're now using the Fresco image pipeline (per
+their guidelines), and making a copy of the resulting bitmap for the
+purpose of sharing. It might look like the code asks Fresco to download
+the image again, but it's extremely likely that Fresco will pull the
+image from cache instead of going to the network, so this is OK.
+
+- When saving an item, we ask ourselves: 'Is the user's intention to
+save the scaled-down image shown in our gallery, or the *original*
+full-resolution image from Commons?' It's highly likely to be the
+latter. And also, when saving videos or other types of media, it
+*must* be the latter. The app now handles all of this correctly. We
+now switch to using Android's aptly-named DownloadManager, which
+handles downloading of files automatically, and even gives us a
+Notification for free (with a progress bar)! We then intercept the
+download completion event, and notify the device's MediaStore to
+update its Gallery app, so that it shows the new media items.
+
+Bug: T125270
+Change-Id: Ie5e742f6be911d591071dca1d801d7e47eee908f
+"
+"234d9839387c6a5256ba58323c10306b83109433","2016-02-02 09:41:58-07:00","Indicate success in ContentProvider.onCreate()
+
+• The docs for ContentProvider.onCreate()[0] say to return 'true if
+the provider was successfully loaded, false otherwise.' Change the
+returned value to unconditionally true.
+
+• Add missing @NonNull annotations to ContentProvider and
+PersistenceHelper subclasses.
+
+• In ContentProvider subclasses, replace calls to
+getContext().getContentResolver().notifyChange() with a new method,
+notifyChange(). The new method also null checks for the unlikely
+scenario of being called in onCreate() when getContext() will return
+null to inhibit potential NPE warnings.
+
+[0] http://developer.android.com/reference/android/content/ContentProvider.html#onCreate()
+
+Change-Id: Ifc15554be4db3b46451561f91fe6c5384e007a4d
+"
+"ebaa1466bb1f3814252b6f06a8c5d6033214e405","2016-02-03 10:07:56-07:00","Hygiene: move common logic to super base class
+
+Move common logic for acquiring a ContentProviderClient into the super
+abstract base class. No functional changes intended.
+
+Change-Id: I04ec4fdb9e273a1e785dfafe59871fd7ee4436ff
+"
+"c496995078f514b9a579808029b05517a18abbe7","2016-02-03 10:44:54-07:00","Hygiene: make db feature version callback abstract
+
+PersistenceHelper.getDBVersionIntroducedAt() defaulted to 1. This was
+used implicitly by two subclasses but could accidentally be used by new
+subclasses. Make this method abstract. No functional changes intended.
+
+Change-Id: Ie8e57c8a554e31860dd932aefae01b84e61b2ecf
+"
+"799f91b6a889a95cd0431da6371cc96b6023e8d7","2016-02-03 11:47:28-07:00","Hygiene: remove ContentPersister subclasses
+
+No functional changes intended.
+
+• Move ContentProviderClient acquisition logic to PersistenceHelper.
+• Remove ContentPersister subclasses. The only value these classes had
+was in their constructors but is now in the subclasses of
+PersistenceHelper.
+• Replace duplicate
+context.getContentResolver().acquireContentProviderClient() logic with
+calls to the new PersistenceHelper.acquireClient() method.
+• Replace raw types in Wikipedia.persisters and getPersister() with
+parameterized types.
+
+Change-Id: Ibe3f9c9ca984c4ccb1f5055c64a4ff2f73a001cb
+"
+"d67e1a4d305920ace9e06811b42112cc26f8cfe1","2016-02-03 14:28:06-05:00","Fix jerky auto-hide behavior of the Search bar when scrolling quickly.
+
+Apparently, SearchBarHideHandler had its own definition of human
+scrolling, and was never updated to support the 'isHumanScroll' parameter
+that's automatically given by ObservableWebView.
+
+Bug: T124810
+Change-Id: Iee41bafc63d564a66866a2f5f9be8812e7c3e6b5
+"
+"6cb5e9d841ae851cad995442ad7e736f60a5944d","2016-02-03 21:13:10+00:00","Merge 'Hygiene: move common logic to super base class'
+"
+"e034a23bc89ce93e46a49794e849a8ff712bda20","2016-02-03 14:21:28-05:00","End A/B test of showing vs. hiding tooltips for highlighting text.
+
+We've seen that our tooltips are effective at helping user engagement with
+new features, such as share-a-fact. There's no further need to A/B test
+this functionality.
+
+Change-Id: I2e6c08b1c0807c618c94d718cd228a38e06293c9
+"
+"61530088b5904dfa5920cb75bc229196e06b49fb","2016-02-03 21:53:17+00:00","Merge 'End A/B test of showing vs. hiding tooltips for highlighting text.'
+"
+"66845a283f52ae29db3e2de3e7feca0f00dc7358","2016-02-03 15:16:27-07:00","Hygiene: rename PersistenceHelper to DatabaseTable
+
+There's a clear line of distinction between a ContentPersister and a
+PersistenceHelper. A ContentPersister uses a ContentProviderClient to
+interact with the underlying database table. A PersistenceHelper
+interacts directly with the database to, for example, create a specific
+table, upgrade a specific table, operate on a specific table's rows and
+columns, and defines a Column nested class and the version of the
+database that the table was added. Rename PersistenceHelper to
+DatabaseTable so it's clear it has a lot to do with a specific table in
+the database. No functional changes intended.
+
+Change-Id: If80d7ea792a907b278e0894cf23c9694b605037d
+"
+"91d422767bb2066a021e6806b5d92467c9f1191b","2016-02-03 16:15:58-07:00","Hygiene: rename ContentPersister to DatabaseClient
+
+• The app interacts with the database's tables through clients of type
+ContentPersister. Rename ContentPersister to DatabaseClient.
+• Rename DBOpenHelper to Database. DBOpenHelper is a subclass of
+SQLiteOpenHelper, however, 'Helper' is too generic a term and
+'Database' makes it clear there should only be one instance, and that DatabaseTable and DatabaseClient are closely related.
+• Change WikipediaApp.getDatabaseClient() to use classes themselves
+instead of Class.getCanonicalName() for the keys.
+
+Change-Id: I0a6adbf067ff34248b1bab743e5eb8967c7b6e59
+"
+"e97d14d76b02f850f4cb31f2fc431aa11ad921b8","2016-02-03 23:24:51+00:00","Merge 'Hygiene: make db feature version callback abstract'
+"
+"ef85dbc65da3a0df4b13b51760f07d30c7d744ee","2016-02-03 16:23:24-07:00","Hygiene: update database and JSON Java packaging
+
+No functional changes.
+
+• Move Database, DatabaseTable, DatabaseClient, and
+SQLiteContentProvider from org.wikipedia.data to
+org.wikipedia.database.
+• Move GsonMarshaller, GsonUnmarshaller, GsonUtil,
+SessionUnmarshaller, and TabUnmarshaller from org.wikipedia.data to
+org.wikipedia.json.
+
+Change-Id: I1e3e10d742bda36e70a31877ee5c07d3d2b6823b
+"
+"8432bc39bca70c58b5e6482f9e275352fd7e1fba","2016-02-03 23:36:23+00:00","Merge 'Hygiene: remove ContentPersister subclasses'
+"
+"3849f07703ea6349e091a286945b960b14317188","2016-02-03 17:11:45-07:00","Bring back testing of testwiki page
+
+Follow up of Ic5c6aa391e47df1f0707281d0966eeb134a3fd57
+Bug: T124124
+
+Change-Id: I1de4b8bfb3f39a9fe6b0cf8769c972cfcfa524e2
+"
+"3053829c21615566195a8cf94d7d26a01d74b4c1","2016-02-04 07:11:23-07:00","Hygiene: remove needless type parameterization
+
+Remove the type parameter on SQLiteContentProvider and replace usages
+with wildcards. No specialization was necessary. No functional changes
+intended.
+
+Change-Id: I781f449ac6218b8c459af6047870320a9cf75ce9
+"
+"078a3188fc032abab53fa205b381479de4e9b227","2016-02-04 14:27:07+00:00","Merge 'Hygiene: rename PersistenceHelper to DatabaseTable'
+"
+"79d6fc79605f9e8f5c91ef87da7c45fd10cbce55","2016-02-04 14:35:18+00:00","Merge 'Hygiene: rename ContentPersister to DatabaseClient'
+"
+"32278040577a223d658ddba2529c2b9dda37ed49","2016-02-04 14:43:36+00:00","Merge 'Hygiene: update database and JSON Java packaging'
+"
+"7edfd233c9943dcbb9bde458f73668647daf4b64","2016-02-04 14:55:22+00:00","Merge 'Hygiene: remove needless type parameterization'
+"
+"ed0a18d67d0cb4e1a1a7f8d0377c64804ce3e70b","2016-02-04 11:02:05-07:00","Hygiene: consolidate duplicate database URI logic
+
+No functional changes intended.
+
+• Consolidate duplicate URI logic in DatabaseTable. In some cases, a
+database client was acquired by URI, in others, by authority. However,
+the underlying call to
+Context.getContentResolver().acquireContentProviderClient(Uri) makes
+an equivalent call to acquireContentProviderClient(String authority).
+• Replace lazy initialization of DatabaseTable.baseContentURI with
+initialization in the constructor.
+• Replace Uri.parse() with Uri.Builder; use content protocol symbol.
+
+Change-Id: I61bd2376bfb12168bffa002ed91444a7ab600d61
+"
+"a3b7980ea33450def33784a37a3a3e17398271ed","2016-02-04 12:23:10-07:00","Bump versionCode
+
+Change-Id: Ifc51f433776b495a20e59534ec3bb713fd6bb79d
+"

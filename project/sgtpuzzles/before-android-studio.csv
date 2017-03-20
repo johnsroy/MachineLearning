@@ -1,0 +1,1097 @@
+"commit id","commit date","commit message"
+"5b622dc286ca765cf99546de6adc41b6c9a92800","2012-07-29 21:29:26+00:00","Don't fail an assertion when setting up the provided clues at the
+start of the solver, if they contradict each other. (Could trigger on
+user-provided grids.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9594 cda61777-01e9-0310-a592-d414129be87e
+"
+"24553fbc7bce546cfa864ea872ed303bc757f2db","2012-08-17 19:45:03+00:00","Fix implicit split to @_. Also add 'use warnings', which would have
+spotted it for me.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9605 cda61777-01e9-0310-a592-d414129be87e
+"
+"dc8a2c7ca79f857b3c0e530daf1f0686def9c7df","2012-08-17 19:58:53+00:00","For the convenience of Linux package maintainers, add to Makefile.gtk
+and Makefile.doc a command-line parameter 'BINPREFIX' which will be
+prepended to all the game binary names. E.g. 'make BINPREFIX=sgt-' and
+'make BINPREFIX=sgt- install', and correspondingly 'make -f
+Makefile.doc BINPREFIX=sgt-'.
+
+Also included in this commit by mistake, changes to singles.c to add
+\n to the end of all its debug() statements. I meant to commit that
+separately. Oops.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9606 cda61777-01e9-0310-a592-d414129be87e
+"
+"f87f76598d7b2c643394e4d30ca7725110a05adc","2012-09-08 10:48:05+00:00","New puzzle! Contributed by Steffen Bauer, an implementation of
+'Haunted Mirror Maze', a game involving placing ghosts, zombies and
+vampires in a grid so that the right numbers of them are visible along
+sight-lines reflected through multiple mirrors.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9652 cda61777-01e9-0310-a592-d414129be87e
+"
+"551b29bfda490f176457e0cd34fbf0a9222206fd","2012-09-09 11:50:05+00:00","Minor tweaks to Undead docs.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9656 cda61777-01e9-0310-a592-d414129be87e
+"
+"04cf4e754c396cd534d79a9c3db2dca15117342c","2012-09-09 18:40:12+00:00","New rule: interpret_move() is passed a pointer to the game_drawstate
+basically just so that it can divide mouse coordinates by the tile
+size, but is definitely not expected to _write_ to it, and it hadn't
+previously occurred to me that anyone might try. Therefore,
+interpret_move() now gets a pointer to a _const_ game_drawstate
+instead of a writable one.
+
+All existing puzzles cope fine with this API change (as long as the
+new const qualifier is also added to a couple of subfunctions to which
+interpret_move delegates work), except for the just-committed Undead,
+which somehow had ds->ascii and ui->ascii the wrong way round but is
+otherwise unproblematic.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9657 cda61777-01e9-0310-a592-d414129be87e
+"
+"5f6691b7c492062a3d21a16b060b8fd4d7149eb6","2012-09-09 21:55:14+00:00","Oops, forgot to initialise changed_ascii on all paths in r9657.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9658 cda61777-01e9-0310-a592-d414129be87e
+"
+"017398b2860ad11484850046ef3e8ab9726f551f","2012-09-10 18:05:54+00:00","Forgot to add the new 'const' in the unfinished subdirectory. Oops.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9659 cda61777-01e9-0310-a592-d414129be87e
+"
+"357ef1a491b2b4c10b637cbc302f2f3f29f20d01","2012-09-10 18:24:34+00:00","Make indentation consistent. (Somehow I forgot to do this before I
+originally committed the puzzle, as I usually do.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9660 cda61777-01e9-0310-a592-d414129be87e
+"
+"9d4a7ada955364bfb9e663282bce2d67c5e3646a","2012-10-07 10:18:33+00:00","New puzzle! 'Unruly', contributed by Lennard Sprong, is an
+implementation of a puzzle usually called 'Tohu wa Vohu'.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9680 cda61777-01e9-0310-a592-d414129be87e
+"
+"ce3cec91e214142b06a231954b89551cf33b4bf5","2012-10-07 15:41:44+00:00","Remove an unused variable spotted by gcc 4.6.3.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9682 cda61777-01e9-0310-a592-d414129be87e
+"
+"20f1f34a1d620964c51c0ba1b0bce89ac39aa9b1","2012-11-03 16:27:49+00:00","A user points out that I could usefully clarify the Undead clue
+semantics when a reflected sight-line crosses the same monster twice.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9694 cda61777-01e9-0310-a592-d414129be87e
+"
+"20b5720a39184f03f4cda3be9ab78c7180a8c997","2012-11-20 20:05:27+00:00","Work around an annoying GTK behaviour I noticed the other day on my
+Ubuntu 12.04 machine. What seems to happen is that we set up a window
+containing a menu bar, a drawing area and a status bar, and set the
+size of the drawing area; then the window is displayed _without_ the
+menu bar; then we reduce the drawing area's size request to (1,1) to
+let the user resize the window smaller; and now GTK gets round to
+constructing the menu bar, and the drawing area helpfully shrinks a
+bit to make room for it.
+
+My fix is to set a 'shrink pending' flag instead of shrinking the
+drawing area's size request, and defer the actual shrink operation
+until the menu bar and status bar are both present.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9711 cda61777-01e9-0310-a592-d414129be87e
+"
+"f006a93a69b5c1b46656d4a26102514a8ea3ebc6","2012-11-21 18:45:07+00:00","Fix overnight build failure last night, by making the new call to
+gtk_widget_get_allocation conditional on GTK being new enough to have
+that function.
+
+I'm assuming until someone proves otherwise that if it isn't that new,
+then it also isn't one of the versions of GTK which exhibit the bug
+which that call was working around (since gtk_widget_get_allocation
+came in 2.18, and the problem seems to have arisen since 2.20).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9712 cda61777-01e9-0310-a592-d414129be87e
+"
+"841cc90a2253a8b85f02afeb78d78155682dcfa5","2012-12-28 11:22:13+00:00","Actually do what the comment says at the top of main() regarding not
+bombing out due to an option that we don't recognise but GTK will.
+Somehow my basically workable plan had been completely nullified by
+putting the error check in the wrong place.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9733 cda61777-01e9-0310-a592-d414129be87e
+"
+"cddca23b98891637bb1233286738065d35f43fd5","2013-01-09 08:04:24+00:00","Pattern's display was broken for non-square puzzles, because
+draw_numbers() was considerably confused between the width of the clue
+border at the left and the height of the clue border at the top.
+Unconfuse it (I think).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9737 cda61777-01e9-0310-a592-d414129be87e
+"
+"62c8119f63392e09782b5e426148f97b0b9e4aff","2013-01-19 18:56:05+00:00","Revamp of the Windows command-line parsing and puzzle-loading code.
+
+The Windows puzzles now accept similar command-line syntax to the GTK
+ones, in that you can give them either a game ID (descriptive, random
+or just plain params) or the name of a save file. Unlike the GTK ones,
+however, the save file interpretation is tried first; this is because
+some puzzles (e.g. Black Box) will interpret any old string as a valid
+(if boring) game ID, and unlike the GTK puzzles it's not feasible to
+require users to disambiguate via a command-line option, because on
+Windows a thing that might easily happen is that a user passes a save
+file to a puzzle binary via 'Open With' in the GUI shell, where they
+don't get the chance to add extra options.
+
+In order to make this work sensibly in the all-in-one Windows app, I
+had to get round to another thing I've been planning to do for a
+while, which is to write a function to examine a saved game file and
+find out which puzzle it's for. So the combined Windows binary will
+auto-switch to the right game if you pass a save file on its command
+line, and also if you use Load while the program is running.
+
+Another utility function I needed is one to split the WinMain single
+command line string into argv. For this I've imported a copy of
+split_into_argv() from Windows PuTTY (which doesn't affect this
+package's list of copyright holders, since that function was all my
+own code anyway).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9749 cda61777-01e9-0310-a592-d414129be87e
+"
+"8dba1ff73bee6133fa2568127e47b6e4dd5eb9ac","2013-01-19 18:56:06+00:00","Bring Pearl's game-completion handling in line with my usual practice:
+the 'completed' flag is not reset if you make a new move transforming
+a solved game into an unsolved state, so the game won't flash again if
+you manually erase and redraw a line segment (though it still will if
+you undo and redo past the first solved state in the undo history).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9750 cda61777-01e9-0310-a592-d414129be87e
+"
+"4eff62f5b9de95097da1fc9c25cab0d571bf60d5","2013-01-19 18:56:07+00:00","Stop the analysis pass in Loopy's redraw routine from being
+conditionalised on !ds->started, so that we still do all the looping
+over everything even if we know it's all going to be redrawn. This is
+because deciding how much needs redrawing is not the only important
+thing in those loops - they also set up arrays like ds->clue_error,
+which tell the individual redraw functions _what_ to draw.
+
+Fixes a bug in which, if you start a Loopy game and make moves causing
+a clue to light up red for an error and then save your game, loading
+the same save file at the start of a Loopy run would fail to highlight
+the erroneous clue.
+
+(This commit diff looks large, but actually it changes almost nothing
+but whitespace.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9751 cda61777-01e9-0310-a592-d414129be87e
+"
+"617b251dd2df8f323a9023f114f05859c91e8da5","2013-02-24 12:52:17+00:00","Stop using CLUE2CHAR to translate clues into text; just do the obvious
+sprintf in both locations (screen and print) that need it. Fixes a bug
+in which clues greater than 9 came out as hex digits in printed
+puzzles.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9765 cda61777-01e9-0310-a592-d414129be87e
+"
+"0e26f30a7b284b8fc81a9ddcb37dfdae0ab83f04","2013-03-10 12:28:13+00:00","Fix entering pencil marks from the keyboard; the cursor is no longer removed
+(this brings Undead into line with Solo, etc).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9769 cda61777-01e9-0310-a592-d414129be87e
+"
+"7262a64744a36ee7f9718a2d6b7609ea0216a3fa","2013-03-10 12:49:06+00:00","Make Unruly's keyboard controls match the documentation and other puzzles in
+the collection -- now Enter = black and Space = white.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9770 cda61777-01e9-0310-a592-d414129be87e
+"
+"1e317930f439844d199716278e6886a53bac6545","2013-03-10 13:56:12+00:00","Clarify instructions for 'Range' -- I initially read the last point as
+meaning the maximum white squares in any direction, rather than the total of
+all directions.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9771 cda61777-01e9-0310-a592-d414129be87e
+"
+"6a0081e4184bdc2a5b2676ce6d4965e93342f0e7","2013-03-11 19:58:28+00:00","Remove a redundant and also erroneous memset.
+
+(If you're going to memset a struct to 0 before filling in the fields
+you care about, do use sizeof the struct rather than sizeof the
+pointer; but also, if you're filling in _every_ field, there's no need
+to bother anyway.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9773 cda61777-01e9-0310-a592-d414129be87e
+"
+"4d872dda2a296e0daa3b265f6e8085c14eb5fb17","2013-03-30 16:59:17+00:00","Found a bug in nullgame! Its vestigial game_redraw lacked a
+draw_update, which isn't really setting a good example for people
+cloning it :-) Add the missing draw_update call.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9776 cda61777-01e9-0310-a592-d414129be87e
+"
+"f7c1e80b5238b9b02bfefafdef728e9ef1acca48","2013-03-30 16:59:18+00:00","Add documentation for the identify_game() function which I introduced
+in r9749 and forgot to write up.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9777 cda61777-01e9-0310-a592-d414129be87e
+"
+"3b3a089029cc06de8ccd3f8694a664bd4489a3b3","2013-03-30 16:59:19+00:00","Add a midend function to return the current random seed, parallel to
+the existing one that returns the game id. No front end has so far
+needed this, but one is about to.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9778 cda61777-01e9-0310-a592-d414129be87e
+"
+"04504a9b785bb499b716e6efbdc3f164ef1c12b0","2013-03-30 18:03:15+00:00","Edit the paragraph in the midend_deserialise() docs which I forgot to
+fix in r9777 when I added documentation of the function it wistfully
+imagined might one day exist.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9779 cda61777-01e9-0310-a592-d414129be87e
+"
+"80d39703fb1a3d8cabe5249aced7952f9bbe0adc","2013-03-30 20:04:10+00:00","Introduce a mechanism in this source tree for building the container
+web pages for the Java applets. Previously, those have all been
+maintained by hand in my website's svn area, which is a bit silly. Now
+we have a file per puzzle in the 'html' subdirectory which contains
+the puzzle's name, one or two attributes, and the instructions snippet
+to go below the puzzle applet; and then there's a Perl script that
+builds all the real web pages out of that by adding in the parts
+common across all files: the header, footer, and middle fragment with
+the <applet> tag and resizing bits and pieces.
+
+One piece _not_ checked in here is the footer text specific to my
+hosting at chiark, which I think does still belong in the www area. So
+Buildscr doesn't actually build the web pages; it just delivers the
+bits and pieces by which my nightly snapshot script will be able to
+run the program that _does_ build them, passing that footer as an
+extra argument.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9780 cda61777-01e9-0310-a592-d414129be87e
+"
+"517510250d9b824b76f6897c40dcf32ffcb966f3","2013-03-30 20:16:21+00:00","New front end! To complement the webification of my puzzles via Java
+applets, here's an alternative webification in Javascript, using
+Emscripten in asm.js mode (so that as browsers incorporate asm.js
+optimisation, the game generation should run really fast).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9781 cda61777-01e9-0310-a592-d414129be87e
+"
+"c0985c1cdefe42c1c041f1ed584917bdf6040ad1","2013-03-31 08:55:21+00:00","Forgot to make the web-page-building scripts executable.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9786 cda61777-01e9-0310-a592-d414129be87e
+"
+"9bcfc95658928351b0830100685fd4ae2d34b64f","2013-03-31 09:58:45+00:00","Stop using the dangerously unescaped 'innerHTML' for <option>
+contents; use document.createTextNode like I do everywhere else.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9787 cda61777-01e9-0310-a592-d414129be87e
+"
+"69091ea3232bd689b41485e06bfbed600feeb72b","2013-03-31 09:58:46+00:00","Apply a bodge to arrange that if the user selects Custom from the game
+type dropdown, we still get an 'onchange' event if they select it a
+second time. Normally this wouldn't happen, because onchange means
+what it says and we only get it if a _different_ element is selected.
+
+My solution is to create two list items called Custom, set one of them
+as display:none to stop it showing up when the list is dropped down,
+and to select it after the configuration box closes.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9788 cda61777-01e9-0310-a592-d414129be87e
+"
+"7cde5738d01a88ebd906c811dd1eb5b614096c6e","2013-03-31 09:58:47+00:00","Don't forget to restore the correct selection in the dropdown list if
+the user cancels a configuration dialog.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9789 cda61777-01e9-0310-a592-d414129be87e
+"
+"03d41caf7b4505a499ffeeb8282f7c8592f6614a","2013-03-31 09:58:47+00:00","Fix a crash when changing presets in Inertia. Turns out that my
+Javascript-side blitter creation function had forgotten to return the
+new blitter's id, so the C code was still trying to use blitter #0
+after it had been thrown away and replaced.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9790 cda61777-01e9-0310-a592-d414129be87e
+"
+"7957843bafe040a499727bcbd9aa6cb64beb8cd2","2013-03-31 09:58:48+00:00","Oops. I consistently misspelled my desired lineCap and lineJoin values
+as '1' rather than 'round'. Must have had my Postscript brain in,
+and/or been confused by lineWidth = '1' just beforehand. This fixes a
+display glitch in Towers, where there's a tiny spike at the top left
+corner of each tower due to a very sharp mitred line join.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9791 cda61777-01e9-0310-a592-d414129be87e
+"
+"148d3cf63215f73766e19a4d8437b3200f5d881b","2013-03-31 09:58:50+00:00","Reinstate a missing semicolon.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9792 cda61777-01e9-0310-a592-d414129be87e
+"
+"02bf847694a54c7863b219a03aa9d89c46f8d9d6","2013-03-31 09:58:52+00:00","Introduce a mechanism by which calls to midend_supersede_game_desc()
+can trigger a call to a front end notification function. Use this to
+update the game ID permalink when Mines supersedes its game ID.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9793 cda61777-01e9-0310-a592-d414129be87e
+"
+"4706909a44229becbaf629e90a5b4e6d60f0c345","2013-03-31 11:50:46+00:00","Make sure the right element of the game-type dropdown starts off
+selected. Previously we were leaving the first element on the list
+selected, which is _usually_ right, but not right for Slant.
+
+In the process of doing this, I've also reorganised to fix a crash
+which shows up with non-configurable games (admittedly currently only
+Nullgame :-) when we still try to call js_select_preset in spite of
+not having any preset options to select.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9794 cda61777-01e9-0310-a592-d414129be87e
+"
+"1e8ba7dc9c0934300f8cef2d651579f0d68ac3d2","2013-03-31 18:25:25+00:00","Undead was not ever actually draw_update()ing to the edges of its
+rectangle, which showed up on the Javascript front end since the JS
+canvas doesn't start out defaulting to COL_BACKGROUND. Fixed it to
+draw_update to the edge of its area, and while I'm at it, narrowed the
+border (since this proves we didn't really need that much space
+anyway).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9795 cda61777-01e9-0310-a592-d414129be87e
+"
+"502924ee711220469b3c915fbfa7f807b65a08f9","2013-03-31 18:36:03+00:00","A UI suggestion from Ben: label the Custom element in the dropdown
+with a trailing '...' to hint that it opens a further dialog box.
+However, the _invisible_ Custom option is merely indicating what you
+_do_ have selected, so we leave that one as it is. (So now they're no
+longer exact twins of each other, of course.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9796 cda61777-01e9-0310-a592-d414129be87e
+"
+"baa1eb0d20fb3bf0d0fc1b95cfdaf3c1ef54ccc2","2013-03-31 22:06:07+00:00","Fix the icon makefile in the wake of r9795.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9797 cda61777-01e9-0310-a592-d414129be87e
+"
+"16bdafe76fbc7a1f04137cfe606535282a7aa1e6","2013-04-01 09:38:04+00:00","Greg Hewgill points out a code path on which the angle parameter to
+the Penrose grid generation function can fail to be initialised.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9798 cda61777-01e9-0310-a592-d414129be87e
+"
+"c0f25994898b9dc82dfdc42041e964478a15a65d","2013-04-01 16:23:03+00:00","Rewrite trim_rect() for robustness.
+
+The previous version dealt adequately with rectangles _partially_
+overlapping the edge of the canvas, but doesn't correctly handle a
+rectangle that's completely out of bounds in one direction. Replace
+with a complete rewrite which is more easily seen to be correct. Also,
+while I'm at it, add a missing condition to draw_update() so that we
+don't even bother calling the Javascript half of it on any rectangle
+that's been trimmed into nonexistence.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9800 cda61777-01e9-0310-a592-d414129be87e
+"
+"f286d23aaa4ce32cdfd4d39f78f1795ac1d2b9a0","2013-04-02 10:58:52+00:00","Fix a grammatical confusion on the Unruly web page.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9801 cda61777-01e9-0310-a592-d414129be87e
+"
+"1dbee557941e7f8cc2d6af382c799f3d7f1daec4","2013-04-03 19:04:00+00:00","Try to give a more friendly message if anything goes wrong during
+puzzle startup. The puzzle web pages now enclose the whole puzzle
+(buttons, canvas, permalinks) in a div set to display:none, and
+instead display an apologetic message saying 'sorry, it didn't work';
+then, if we get through the whole init function without crashing, we
+show the puzzle and hide the apology.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9802 cda61777-01e9-0310-a592-d414129be87e
+"
+"d1ae6b84bfd29e33ea17d065ada4e46d1ab17b8f","2013-04-05 15:49:18+00:00","Clarify header comments in the Emscripten frontend's source files to
+mention that the HTML pages generated by html/jspage.pl are also an
+integral part of this front end. (The NestedVM frontend is more
+self-contained, needing only an appropriate <applet> tag, but this one
+expects quite a few components to exist on the page and have the right
+ids.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9803 cda61777-01e9-0310-a592-d414129be87e
+"
+"693382ffcc5191322c8b13626461b78853a58689","2013-04-05 15:49:19+00:00","Remove trailing commas at the ends of initialiser lists. IE 8 and 9
+didn't like them, which doesn't matter as such since they won't run
+these JS puzzles anyway (no TypedArray support) but it hints that
+other JS implementations might be picky about this too.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9804 cda61777-01e9-0310-a592-d414129be87e
+"
+"9c1e111492eba47e26b234d6cc9899c5cdf1ccca","2013-04-05 15:49:20+00:00","I've just realised that the JS puzzles' permalinks were not updating
+when the user pressed 'n' for a new game, because all the front end
+knows is that it passed a keystroke to the puzzle, and it has no way
+of hearing back that a particular keypress resulted in a game id
+change.
+
+To fix this, I've renamed midend_request_desc_changes to
+midend_request_id_changes and expanded its remit to cover _any_ change
+to the game ids. So now that callback in the Emscripten front end is
+the only place from which update_permalinks is called (apart from
+initialising them at setup time), and that should handle everything.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9805 cda61777-01e9-0310-a592-d414129be87e
+"
+"cb3014b3482544095ae577ee6a72cf7181b4b33f","2013-04-05 15:49:21+00:00","IE doesn't default to giving focus to the puzzle canvas on a mouse
+click, so manually implement that behaviour. (Without it, it's quite
+hard to focus the canvas at all in IE.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9806 cda61777-01e9-0310-a592-d414129be87e
+"
+"fce4adb744b020f70b0ed8ae5efb6bf6c15ae5d4","2013-04-05 15:49:22+00:00","Implement debug_printf() in the Emscripten front end, since that's the
+easiest way to call js_debug with formatted parameters.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9807 cda61777-01e9-0310-a592-d414129be87e
+"
+"bd70b0d3a42adf2a7a99e401628eab91921e2f77","2013-04-05 15:49:24+00:00","Stop accidentally subtracting onscreen_canvas.offset{Left,Top} from
+the return value of relative_mouse_coords! I only got away with that
+error because the canvas was at offset zero compared to its immediate
+parent element.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9808 cda61777-01e9-0310-a592-d414129be87e
+"
+"d851486d186eeeb05347ea44c924d2d30746f35a","2013-04-05 15:49:25+00:00","Assorted HTML/CSS fiddlings to make things work better in IE. I've
+added a trivial doctype (IE complained without it), but that caused a
+gap to appear between the puzzle and the status bar, so I tinkered a
+bit more and ended up removing the <table> completely (no great loss)
+as well as adding display:block to the canvas and explicitly setting
+the width of not only the status bar div but also its parent div.
+Meanwhile, I'm putting the 'px' on the end of a lot of properties I
+set from JS, because IE complains about that too if I don't.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9809 cda61777-01e9-0310-a592-d414129be87e
+"
+"bd742c0358b98d073e7a1f8ebdfd28f8499b5144","2013-04-05 15:49:27+00:00","Rewrite the JS keyboard handling to cope with IE and Chrome.
+
+Unlike Firefox, IE and Chrome don't generate keypress events at all if
+you suppress the default handling of keydowns. Therefore, we have to
+figure out everything from the keydown event, because if we unsuppress
+the default handling of any keydowns then we'll get annoyances like ^R
+going back to meaning reload-page rather than redo-move.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9810 cda61777-01e9-0310-a592-d414129be87e
+"
+"a13b520f15e1e00777e02597a5be171c14cd21fb","2013-04-05 15:49:29+00:00","Regretfully remove my trickery with a hidden <option> element inside
+the game-type <select>, since IE turns out to ignore display:none on
+options. Oh well.
+
+Instead I now do a more transparent thing: when custom game params are
+in use, there's a 'Custom' option selected in the dropdown, and a
+separate 'Re-customise' option which brings the config box back up.
+When an ordinary preset is selected, the Custom option is missing, and
+there's just a 'Customise'.
+
+In the process I've tinkered a bit to arrange that the custom 'preset'
+is always represented by a negative number rather than one past the
+last real preset; that seems more consistent overall.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9811 cda61777-01e9-0310-a592-d414129be87e
+"
+"6f0358ea91848a46cf114cfe5a45c1019e0a3c9a","2013-04-05 15:49:31+00:00","Update the list of tested browsers.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9812 cda61777-01e9-0310-a592-d414129be87e
+"
+"d8ec0feeda21d8f072d0a8c9eec7bb575a4570d8","2013-04-05 19:27:55+00:00","Mention Safari in the list of tested browsers.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9816 cda61777-01e9-0310-a592-d414129be87e
+"
+"4af3de700dcfd892cff221bb4d969f7c8511080b","2013-04-06 08:08:15+00:00","Don't forget to NULL out the new game id notification callback, or
+else it might start off accidentally initialised to nonsense in front
+ends which don't use it.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9817 cda61777-01e9-0310-a592-d414129be87e
+"
+"f85b115c983c738d8ed764a3ca2f87053388caa7","2013-04-06 12:28:21+00:00","Fix the 'puzzle doesn't work' apology, which I'd accidentally moved
+inside the top-level display:none puzzle container as a side effect of
+r9809.
+
+Also, while I'm at it, reword the apology to mention typed arrays as
+the most likely cause of failure (AFAIK that's the most modern feature
+required by the JS front end), and fix indecision between singular and
+plural ('this puzzle' doesn't work, perhaps a feature 'they depend on'
+is missing).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9818 cda61777-01e9-0310-a592-d414129be87e
+"
+"7d3a3e0d25a59939ec352d45500e2e039586242c","2013-04-07 10:24:34+00:00","Small refactor to relative_mouse_coords: now the functionality which
+returns an element's absolute position on the web page is split out
+into a subfunction that can be called directly.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9819 cda61777-01e9-0310-a592-d414129be87e
+"
+"7c3e54ce82e5610e67a464039a53958721c48871","2013-04-07 10:24:35+00:00","Add a new midend function to reset the tile size to the puzzle's
+default (but still counting the <puzzle>_TILESIZE user preference
+environment variables, where available).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9820 cda61777-01e9-0310-a592-d414129be87e
+"
+"22f3d542b270deb83e8c91591c077504af00a462","2013-04-07 10:24:36+00:00","Fix a typo I noticed in passing.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9821 cda61777-01e9-0310-a592-d414129be87e
+"
+"26806482b71dd399fa8e1fcc64d4fcfabcea2bd6","2013-04-07 10:24:37+00:00","Add a draggable resize handle to the JS puzzles.
+
+Rather than design an ersatz 'window frame' surrounding the puzzle
+canvas, I've simply overlaid the resize handle on the corner of the
+puzzle itself (canvas or status bar, depending on whether the latter
+exists), trusting that all games in my collection provide a reasonable
+border within their drawing area. (OS X already does this with its
+resize handle, so it's not as if there's no precedent.)
+
+Unlike the desktop versions, I control the resize behaviour completely
+in this environment, so I can constrain the canvas to only ever be
+sensible sizes with no dead space round the edges (and, in particular,
+preserve the aspect ratio).
+
+Right-clicking the resize handle will restore the puzzle's default
+tile size. I had intended to implement a maximise-to-browser-window
+button too, but was annoyingly foiled by scrollbars - if you maximise
+to the current window width, and as a result the text below the puzzle
+scrolls off the bottom, then a vertical scrollbar appears and eats
+into the width you just maximised to. Gah.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9822 cda61777-01e9-0310-a592-d414129be87e
+"
+"a78f60a124623185226f9ffebfd8fbc76469866c","2013-04-07 10:44:56+00:00","Split Untangle's background colour into two. COL_BACKGROUND is still
+defined the same way and used to draw the normal background of the
+puzzle, but there's a new slightly darker COL_SYSBACKGROUND which is
+not used for anything at all in the puzzle backend but which occupies
+colour slot #0 so that the system will use it to fill around the
+playable area if the puzzle is imprecisely resized.
+
+This doesn't _sensibly fix_ the annoyance in Untangle where a non-
+square window gives rise to unusable dead space, but it at least works
+around it by making the dead space obviously something to stay away
+from.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9823 cda61777-01e9-0310-a592-d414129be87e
+"
+"5e64c7488e46dc8983c2d2c73c98f2fb63e1b1b8","2013-04-11 12:51:05+00:00","Revamp the triangular grid generation in Loopy, which I've been
+meaning to revisit for a while. The new version generates more nicely
+symmetric grids (best at even heights, but still improved even at odd
+heights), and avoids any 'ears' on the grid (triangles at the corners
+connected to only one other triangle, which tend to be boringly easy
+places to start solving).
+
+I've reused the grid-description-string mechanism invented for the
+Penrose tilings as a versioning mechanism for the triangular grids, so
+that old game descriptions should still be valid, and new triangular-
+grid game descriptions begin with an '0_' prefix to indicate that they
+are based on the new-style construction.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9824 cda61777-01e9-0310-a592-d414129be87e
+"
+"fe5e5bb736d9aba054d0d7cd19efaec765127ce4","2013-04-11 12:51:06+00:00","Introduce some extra testing and benchmarking command-line options to
+the GTK front end, plus a 'make test' target in the GTK makefile which
+uses them to automatically generate 100 puzzles for each game at each
+preset configuration, test-run them back through the solver without
+their aux_info to ensure that can cope, and produce an HTML box plot
+of game generation times for each preset.
+
+As part of this work I've removed the TESTSOLVE mechanism from r9549,
+since the new --test-solve option does the same thing better (in that
+when something goes wrong it prints the random seed that caused the
+problem).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9825 cda61777-01e9-0310-a592-d414129be87e
+"
+"12da3c0fe94ee679bfc3f9663a4addef2791953c","2013-04-12 16:28:52+00:00","Apply some optimisation to Undead's get_unique() function, which was
+not only enumerating all possible arrangements of monsters along a
+sight-line in O(3^n) time, but also allocated memory for them all and
+then does a quadratic-time loop over that list to find arrangements
+with a unique visibility count from both ends. Spotted by the new
+'make test', which observed that 7x7dn#517035041807425 took 45 seconds
+to generate.
+
+This revised version still does the initial O(3^n) enumeration, which
+can probably be got rid of as well with a bit more thought, but it now
+doesn't allocate nearly so much memory and it spots uniques
+efficiently. The above random seed now generates the same game ID in
+less than a second, which drops this puzzle off the 'make test' hit
+list of things most obviously needing speedup.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9826 cda61777-01e9-0310-a592-d414129be87e
+"
+"698517210ab4fe284c9a0826a34789ed63944e78","2013-04-12 16:28:53+00:00","Adjust Keen's grid generation to constrain the maximum size of clue
+blocks, because 'make test' showed up very large blocks as an
+occasional slowdown factor in game generation (takes too long to
+iterate over all possibilities). This is a good idea in any case,
+because really big multiplicative clue numbers have trouble fitting in
+the square.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9827 cda61777-01e9-0310-a592-d414129be87e
+"
+"6833b26bdddf2740c451dc157f1ad24cf84f1648","2013-04-12 16:28:55+00:00","Patch from Rogier Goossens to speed up the Pattern solver.
+
+do_recurse() now prunes early whenever it encounters a branch of the
+search tree inconsistent with existing grid data (rather than the
+previous naive approach of proceeding to enumerate all possibilities
+anyway and then ruling them out one by one); do_recurse also tries to
+split the row up into independent sections where possible; finally the
+main solver loop (all three copies of which have now been factored out
+into a new solve_puzzle function), instead of simply looping round and
+round over all the rows and columns, heuristically looks at the ones
+most changed since the last time deduction was attempted on them, on
+the basis that that will probably yield the most information the
+fastest.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9828 cda61777-01e9-0310-a592-d414129be87e
+"
+"3438155aa2b4c2332fe30e2181572499bb1f45ba","2013-04-12 17:11:49+00:00","Add 'const' to the game_params arguments in validate_desc and
+new_desc. Oddities in the 'make test' output brought to my attention
+that a few puzzles have been modifying their input game_params for
+various reasons; they shouldn't do that, because that's the
+game_params held permanently by the midend and it will affect
+subsequent game generations if they modify it. So now those arguments
+are const, and all the games which previously modified their
+game_params now take a copy and modify that instead.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9830 cda61777-01e9-0310-a592-d414129be87e
+"
+"8c89395bcbaace163b9e4b2c0330b549c45d0746","2013-04-13 10:37:27+00:00","Fix a memory management bug in Filling: in some situations its
+solve_game() was returning its aux parameter un-dupstr()ed, which is
+wrong. Also clarified the developer docs on that function to make it
+clearer that the returned string should be dynamic.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9831 cda61777-01e9-0310-a592-d414129be87e
+"
+"d5438ae7a17eed50f38c07ee8e469b81c1c64f99","2013-04-13 10:37:32+00:00","Giant const patch of doom: add a 'const' to every parameter in every
+puzzle backend function which ought to have it, and propagate those
+consts through to per-puzzle subroutines as needed.
+
+I've recently had to do that to a few specific parameters which were
+being misused by particular puzzles (r9657, r9830), which suggests
+that it's probably a good idea to do the whole lot pre-emptively
+before the next such problem shows up.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9832 cda61777-01e9-0310-a592-d414129be87e
+"
+"de97ad5686c9f7ccf7c17abd958ed44281e4c0f8","2013-04-13 10:51:53+00:00","D'oh, forgot to adjust devel.but for the const changes.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9835 cda61777-01e9-0310-a592-d414129be87e
+"
+"f4f530fb29a3a59f44020602c34059ed17e30921","2013-05-05 20:21:50+00:00","New configuration option in Unruly, to enable a mode in which no two
+rows are permitted to have exactly the same pattern, and likewise
+columns. (A row and a column can match, though.) This rule is
+sometimes used, but not always; http://www.binarypuzzle.com/ in
+particular has it (as a user just pointed out).
+
+Since the filled-grid-generation stage of Unruly is implemented by
+repeatedly choosing a square and then calling the solver to fill in
+all its consequences, simply adding a solver mode conditional on this
+flag is sufficient to do the whole of the interesting part of the job.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9837 cda61777-01e9-0310-a592-d414129be87e
+"
+"75a222d819ac0e06178e1a93ad802d44f90f62e1","2013-05-05 22:27:20+00:00","Correct the comment at the top of unruly.c, which is out of date as of
+r9837.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9838 cda61777-01e9-0310-a592-d414129be87e
+"
+"ed46e0465e706784de87079a0f129848f6267ee4","2013-05-10 17:56:00+00:00","Fix grid generation crashes at Penrose 3x3 sizes. What seemed to be
+happening was that at the point of calling grid_make_consistent, the
+grid had no faces or vertices, probably because grid_trim_vigorously
+had removed them all, causing grid_make_consistent to try to allocate
+a negative amount of memory and die in snewn.
+
+Fixed by detecting this case in new_desc_penrose and retrying until
+generation is successful. (It wasn't happening 100% of the time, just
+_most_ of the time.) The same verification step is also used in
+validate_desc_penrose in case a user manages to manually construct a
+set of parameters leading to this failure mode.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9840 cda61777-01e9-0310-a592-d414129be87e
+"
+"56787a0030afd263abbe084c28fd48685ca95d8d","2013-06-08 16:29:15+00:00","Rename wingames.lst to gamedesc.txt, and add a couple of extra fields
+to it giving each game's 'internal' name (as seen in the source file,
+.R etc) and also a brief description of the game. The idea of the
+latter is that it should be usable as a comment field in .desktop
+files and similar.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9858 cda61777-01e9-0310-a592-d414129be87e
+"
+"d532df6e85dda535de268d875c86a2bc07766040","2013-06-08 16:50:28+00:00","Script to read the new gamedesc.txt and create .desktop files. My
+immediate intention is to run this locally so that my XFCE main menu
+acquires shortcuts for my locally compiled puzzle binaries, but I
+expect the script could probably be adapted for systemwide
+distribution use if any distribution hasn't already done this job in
+their own way by now.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9859 cda61777-01e9-0310-a592-d414129be87e
+"
+"2479c26a87e555096288b46cd8a1e0972e39c53c","2013-06-08 16:53:57+00:00","Add comment to remind myself (and anyone else) how to refresh the XFCE
+menu.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9860 cda61777-01e9-0310-a592-d414129be87e
+"
+"b2225ac985d289a2837f2427bc9ebd3e55aa5f37","2013-06-08 16:55:33+00:00","Remove spurious 'unfinished/' that appeared at the start of the
+unfinished puzzles' gamedesc.txt lines due to a Perl error. Ahem.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9861 cda61777-01e9-0310-a592-d414129be87e
+"
+"90d6062f8cc450a9a4462a238880067c0611a7f6","2013-06-19 19:21:36+00:00","Remove stray bashisms from the NestedVM makefile.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9872 cda61777-01e9-0310-a592-d414129be87e
+"
+"2d6205b2fdf94f171c0e8a5bd663bc92f5edb68c","2013-06-27 21:17:04+00:00","Adjust the build script to turn the NestedVM build into a delegation,
+so that not every machine on which I want to run the full Puzzles
+build will have to have a local NestedVM installation.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9882 cda61777-01e9-0310-a592-d414129be87e
+"
+"6d826fe9ad71c5207718be6b8fb02a90b34b58cd","2013-06-30 07:26:13+00:00","Belated adjustment of svn:ignore to replace wingames.lst with
+gamedesc.txt.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9885 cda61777-01e9-0310-a592-d414129be87e
+"
+"7ab829af27c7bcc3143ca864bb29b5f12fbe52ea","2013-06-30 08:58:45+00:00","Support building via autoconf and automake. mkfiles.pl now outputs a
+Makefile.am, and there's a new mkauto.sh which builds a corresponding
+configure script.
+
+The old makefile has been renamed from 'Makefile' to 'Makefile.gtk',
+indicating that the intended new _default_ approach is to use the
+autoconf world. Makefile.gtk is provided as an emergency fallback in
+case anything fails with the new stuff that used to work with it.
+
+The new configure script does not support the same $(BINPREFIX) system
+as the old Makefile did. However, as I understand it, it should be
+possible to configure using --program-prefix='sgt-' (for example) and
+then the binaries should all be renamed appropriately at install time.
+
+The Makefile.am is quite painful. The Puzzles codebase relies heavily
+on compiling individual object files multiple times with different the
+cpp flags per build deliverable (program or library) and not per
+source file. Solution: anything built with non-default compile options
+has to go in its own little library. But that doesn't work either in
+the general case, because as soon as you have more than one such
+library linked into an application, Unix ld semantics bite you if the
+objects in the libraries both refer to each other. So I ended up
+building all those little libraries but not _using_ them - instead the
+link commands for the programs needing those objects refer to the
+objects directly, under the silly names that automake gives them.
+(That's less fragile than it sounds, because it does _document_ the
+names of the intermediate object files. But still, yuck.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9886 cda61777-01e9-0310-a592-d414129be87e
+"
+"3c31f2296effed01566d269e4a32f3f72c9ec187","2013-06-30 10:16:57+00:00","Add a mechanism to the automake system to allow 'make install' to only
+install the actual games, not the auxiliary binaries or nullgame.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9887 cda61777-01e9-0310-a592-d414129be87e
+"
+"ece8255abad4c7e70ff3be5b6b6332bd221fc9b1","2013-06-30 10:51:31+00:00","Add a check in the new configure script to enable lots of gcc warning
+flags if gcc is in use - but _only_ if they don't lead to problems in
+a test compile which includes all the system and GTK headers I'm going
+to want. Ubuntu 13.04 includes a version of Pango which breaks at
+-Werror -pedantic, so I can't unconditionally enable all the warning
+flags I might want without breaking the build in ways beyond my
+control.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9888 cda61777-01e9-0310-a592-d414129be87e
+"
+"d0897ecc265659077be9c0798759ae4cd45cf6ad","2013-07-02 06:48:26+00:00","Fix small bugs in the automake construction which were preventing the
+revision number from being automatically baked into the automake-built
+binaries.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9890 cda61777-01e9-0310-a592-d414129be87e
+"
+"90cdc5d222e979569e888d0f4e66b4e4bc8f3dc3","2013-07-02 07:04:04+00:00","Make svn-based version identification still work in VPATH builds.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9891 cda61777-01e9-0310-a592-d414129be87e
+"
+"d94f7f6b2122d324d1a1a8225428d96e5d9ac965","2013-07-05 21:54:45+00:00","Stop using a zero precision specifier with sprintf ('%.0d') to cause
+zero to be generated as the empty string rather than '0'. Instead, do
+the job by the obvious approach of not calling sprintf at all if the
+number is zero. Works around a bug in Emscripten's C library, whose
+sprintf doesn't correctly handle that corner case.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9893 cda61777-01e9-0310-a592-d414129be87e
+"
+"659b788ae5e70f9b91c1fbcda1e72d3e9559b207","2013-07-30 20:18:14+00:00","Fix a failure to warn about non-unique rows/columns in non-square Unruly grids, reported in Debian bug #718354.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9976 cda61777-01e9-0310-a592-d414129be87e
+"
+"cb124d0a6548ef9908720e2d8b92ab636d745d15","2013-08-29 09:27:34+00:00","Document 'Unique rows and columns' option in Unruly, plus formatting tweaks
+elsewhere.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@10035 cda61777-01e9-0310-a592-d414129be87e
+"
+"f3b4cf434d619a8e3af457f6837a78c56e574a27","2013-10-09 20:44:50+00:00","Faintly highlight the leading diagonal of Group's grid.
+
+This makes it easier to spot elements whose square is known, which is
+useful in turn for identifying subgroups.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@10050 cda61777-01e9-0310-a592-d414129be87e
+"
+"c8820f478b45f5bed108e7a68601c0a38d55119b","2013-10-09 20:44:51+00:00","Fix an edge case of divider-obsoletion in Group.
+
+When you drag group elements around, previous dividers are meant to
+dissolve whenever the same two elements are no longer on each side of
+it. One case in which this didn't happen was that of dragging an
+element from the left of a divider to the far right column - the
+divider became invisible, but would then startlingly reappear if you
+drag that element back to the left of whatever it was left of before.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@10051 cda61777-01e9-0310-a592-d414129be87e
+"
+"710e834ccdccf618f343bc195e60e40b28fe0e9a","2013-11-26 10:52:13+01:00","Create application.mk
+
+This allows to build with NDK r9, which considers format-security warnings as errors.
+"
+"a7de1b6260b4419fcb19bbdb2cee63af628d8f22","2013-11-26 10:53:11+01:00","Update build.xml
+
+Allows building with r19 build tools.
+"
+"639d49a4024dcd6228af263d50d6973bafb82b15","2013-11-26 10:53:45+01:00","Allows building with r19 build tools.
+"
+"c5798a62ea4680b1f219aefe8a0cb824feee27ab","2013-11-26 11:11:52+01:00","Fix #77: some games having non filled text
+"
+"9c645cc51086ef6f7f4133eacb3c745ad275fa9c","2013-11-28 18:32:29+00:00","Fix a printf 64-bit-cleanness error.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@10098 cda61777-01e9-0310-a592-d414129be87e
+"
+"8a56b638bc7909df737254e66852fc104b2b9b8b","2014-01-07 18:21:24+00:00","Position the monster counts more sensibly.
+
+Now they're centred within the spare grid cell at the top of the
+playing area, rather than being too far down so that the bottoms of
+the monster drawings collide with the background of the path clues at
+large magnification. Also, while I'm here, I've simplified the code
+that draws the monster counts, by moving duplicated parts out of the
+branches of the 'if'.
+
+(In fact, almost all of this patch is cleanup; the only substantive
+change is the one that changes dy from TILESIZE/2 to TILESIZE/4.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@10108 cda61777-01e9-0310-a592-d414129be87e
+"
+"ca1dbe4fb65d950b01251cced4cc9dd289c64aa5","2014-01-16 01:03:58+00:00","Continue the tradition of only remembering to update the copyright year
+every other year.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@10116 cda61777-01e9-0310-a592-d414129be87e
+"
+"23bc7333894591609807e8ca5c2686b7710547d8","2014-02-22 18:19:05+00:00","Fix the Automake makefile for automake 1.14.
+
+This is a combination of PuTTY r10142 and the relevant pieces of
+r10141: we now enable the 'subdir-objects' mode in Makefile.am, and
+stop using $(subdir) in source file paths.
+
+(As a consequence of the latter the automake machinery now cannot live
+anywhere but at the top level of the source tree, but since that's
+where it was already, this is less of an upheaval here than it was for
+PuTTY!)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@10146 cda61777-01e9-0310-a592-d414129be87e
+"
+"a00a02b5ecdceb00a78026a0718ae4d539abe3c3","2014-03-30 15:19:30+00:00","Reinstate the Mac OS build step.
+
+Now I've got a working Mac, I can build it again.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@10167 cda61777-01e9-0310-a592-d414129be87e
+"
+"ced8a1996d7f01ea3e6ab2500e7809c8b61b245c","2014-04-15 22:41:11+01:00","Merge pull request #78 from neclepsio/master
+
+Thanks neclepsio! Solves #77, allows building with r19 tools
+"
+"94040b6d070690f1188a0135d770df9944a67722","2014-04-15 22:58:13+01:00","Revert Windows-ness in build (to be fixed portably later); add new Eclipse droppings.
+"
+"02af632512be3c804047e10732303ecf5e3f8e97","2014-04-16 01:13:49+01:00","mv *.c jni/ to avoid Eclipse build failure; remove crash handler as it's no longer effective in modern Android.
+"
+"2699cd51876ac92a86a59bb24e8b35997c97c7e3","2014-04-16 01:36:28+01:00","Fix a couple of warnings.
+"
+"7f02643e85d64345201087ab3f49a7822454bdde","2014-04-17 23:26:58+01:00","Merge branch 'upstream'
+
+Conflicts:
+LICENCE
+Makefile.doc
+jni/blackbox.c
+jni/bridges.c
+jni/cube.c
+jni/dominosa.c
+jni/fifteen.c
+jni/filling.c
+jni/flip.c
+jni/galaxies.c
+jni/guess.c
+jni/inertia.c
+jni/keen.c
+jni/lightup.c
+jni/loopy.c
+jni/magnets.c
+jni/map.c
+jni/midend.c
+jni/mines.c
+jni/net.c
+jni/netslide.c
+jni/nullgame.c
+jni/pattern.c
+jni/pearl.c
+jni/pegs.c
+jni/puzzles.h
+jni/rect.c
+jni/samegame.c
+jni/signpost.c
+jni/singles.c
+jni/sixteen.c
+jni/slant.c
+jni/solo.c
+jni/tents.c
+jni/towers.c
+jni/twiddle.c
+jni/unequal.c
+jni/untangle.c
+puzzles.but
+"
+"d5989498de1f1eaef5a150c6d66d647fb4c7794e","2014-04-17 23:32:53+01:00","Move new games to jni folder.
+"
+"0bdcb732cbf258abcd362dfe5d2fa2a5487c5218","2012-09-09 22:37:52+01:00","Add Undead where needed
+"
+"eedf2d782999efeb41b4a377895f53ff418561fa","2012-09-10 00:07:20+01:00","Fix a bunch of lint warnings, incl: hopefully prevent stale Handlers.
+
+Stale Handlers with associated SGTPuzzles instances might explain
+some crashes if you squint at it, I suppose.
+
+Conflicts:
+src/name/boyle/chris/sgtpuzzles/FilePicker.java
+src/name/boyle/chris/sgtpuzzles/SGTPuzzles.java
+"
+"eeb6ac7b8f8d9bcf1b7b3f3168956b83294e92d8","2014-04-17 22:44:36+01:00","Previous WIP: Undead Androidification
+
+Conflicts:
+jni/undead.c
+"
+"296baab67de31e14e2b938a76378f94c90ed34fc","2014-04-18 08:05:40+01:00","Add unruly
+"
+"3a288311417015e922d5db8d6c66f9e9f9bdbad3","2014-04-18 08:34:32+01:00","Correct ABI for min version.
+"
+"f745d68fa824330b203ee246778753767991f3d3","2014-04-18 08:56:44+01:00","Move the rest of upstream into jni, to have some hope of having non-Android builds work
+"
+"2e7d9c548a5f322184154aba647dba57426f5208","2014-04-18 09:06:04+01:00","Add unruly icon
+"
+"565ab9a1efc33311b2dd081aff291b746f16fa23","2014-04-18 08:28:55+01:00","Bump version and target.
+"
+"8777cf85f2dca3014a5102a03b38d6351939be49","2014-04-19 13:13:26+01:00","Fix and update docs
+"
+"c00a868583a23d29ac5bc5a6a7bc3a7d7d752866","2014-04-20 13:24:49+01:00","Remove shortcut keys for solve (v) and custom (z). (fix #82)
+
+They clash with Undead (vampire, zombie) and there's no easy way to have
+game keys take priority. They're also not easily visible on modern
+Android anyway.
+"
+"bd09f6c44a83abcc86ee7baf228dfdd77f9e37af","2014-04-23 22:56:48+01:00","Update NDK include paths (not used for building, but stops Eclipse
+complaining).
+"
+"e5ca96849eef4930bba2de468aca424866e24698","2014-04-23 23:51:14+01:00","Don't return void in non-void.
+"
+"ed75676782d42214499ecacefb29ef05dd90347d","2014-04-23 23:51:40+01:00","Disable undo/redo buttons on new game (fix #83).
+"
+"e3ae0e87437b1015a3f55ae0e35ea0b1e2b9a0d4","2014-04-24 00:35:17+01:00","Fix dialogs (was calling messageBox with too few params) also allow 'alert' dialogs that don't finish Activity. (fix #65)
+"
+"0489ce0e9af97063f0a39124c326000a1c2c06a6","2014-04-27 23:34:36+01:00","Grab Helge Kreutzmann's German translation updates from Debian.
+"
+"86d7a384147b0d614c9d3d02edadfcae43d1136c","2014-04-30 21:38:43+01:00","Help view: grab title on progress 100, because onReceivedTitle doesn't work on back button (fix #87).
+"
+"e98aad6ccdd91f7cef65d497ec943e2623a0d600","2014-04-30 21:51:29+01:00","Oops, remove remnant of crash handler.
+"
+"64509d112b04259b75b8962eaec742279d9c39f8","2014-04-30 21:52:10+01:00","Temporarily remove UI translations as they're stale (fix #86).
+"
+"6409bebcda22cefff63339cfe44a39d7460f3a27","2014-06-18 09:36:35+01:00","WIP: separate process for game generation
+
+Params aren't honoured yet.
+
+Needs puzzlesgen manually pushing - next step, extract from assets or something.
+"
+"2d7c71eef75f4bfb840b8b0091aaecc4cfa1e68b","2014-07-21 22:38:14+01:00","Game generation in a separate process works.
+
+Some cleanup still needed, see TODOs.
+"
+"a70745aa8b93889d310598f3681f86c4d4526341","2014-07-21 22:43:14+01:00","Assorted Android version-compatibility fixes
+"
+"1183ed5a1af4c28b7f1b53c8c3b255ae4c1a20c8","2014-07-21 23:12:18+01:00","Bump target to 20; a few more lint fixes
+"
+"b176b6f4268b28cc33d85c04466dd99035da0643","2014-07-22 08:11:47+01:00","Package native executable in apk (cheat: name it libpuzzlesgen.so)
+"
+"12862f1cd95262b482a69f6d1a9ca383d256f13e","2014-07-22 08:40:57+01:00","Handle change of backend and new game in one place; fix a crash on cancel.
+"
+"7421dc82a53fa652c1ae66a26ac438204628219c","2014-07-22 21:15:30+01:00","Require Android 2.1 (api 7); copy & chmod binary.
+
+Earlier versions fail to link the game generation binary at runtime
+without adequate explanation, so I can no longer support them.
+
+We can now execute the game generation binary without manual
+intervention to set it up: we copy it from dataDir/lib to dataDir
+and chmod it.
+"
+"44df9019c2a5929af67f7cd78695af548e7928c8","2014-07-29 00:10:01+01:00","Finish game-generation-process reorganisation.
+
+Introduces some unity about different ways of generating a game
+(New Game, Type presets, Custom dialog, etc. etc.) in that they now
+all end up in startGame, so less scope for one of them to forget to
+reset something.
+"
+"8932dc8a54a1a1d4fc775ed7ad6156a2409bfa04","2014-07-29 01:06:22+01:00","Fix #88 etc: delay game chooser until after error has been seen.
+"
+"5e6ba718d41bd4ff84464d0cc3f965815800aa31","2014-07-29 01:10:28+01:00","Ditch the Background button, everyone knows how to press Home now.
+"
+"fbb62171cc2cd2baa5fe3bf5b7728e5d2ccba2d0","2014-07-29 01:13:39+01:00","Fix potential NPE during cancel.
+"
+"b167474ee9742f1dd0b4e4e7c1091f40dca88785","2014-08-01 02:45:42+01:00","Correction on #17: really use params, not game id.
+"
+"243ee59d328e46f3cfa436f5dcf78b010f885ab7","2014-08-03 09:13:54+01:00","Fix format string warnings properly.
+"

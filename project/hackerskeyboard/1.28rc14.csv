@@ -1,0 +1,17 @@
+"commit id","commit date","commit message"
+"e8828ec88fdbf0e9a307be80ea08eccb964f7d49","2011-12-31 12:22:43-08:00","Added tag 1.28rc13 for changeset e78bb75120a1
+"
+"82fdf846d0fc9ced43a0272596c2cbb90550a879","2011-12-31 23:23:16-08:00","mark transparent theme as experimental, it doesn't work quite right yet
+"
+"c901b630c97ee7f0480a5eceeedd1ed43fc44001","2011-12-31 23:28:07-08:00","Fix shift state dependent popup keyboard display
+
+The code assumed that the normal and shifted keyboards are distinct entities, this is no longer the case after the refactoring and confused the popup keyboard handling.
+
+Changes include:
+
+- automatically add the unshifted char to the shifted popups and vice versa. These no longer need to be explicitly included in the alt map, though duplicate definitions are ignored if present. For example, the German '7' key had the alt map '7/{', now a simple '{' is sufficient for the same result.
+
+- add internal 'isSimpleUppercase' boolean to keys to make it easier to distinguish interesting from uninteresting shift characters.
+
+- Keep distinct mini keyboard caches for normal and shifted state.
+"

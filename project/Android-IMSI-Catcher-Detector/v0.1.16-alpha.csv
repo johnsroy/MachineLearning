@@ -1,0 +1,46 @@
+"commit id","commit date","commit message"
+"01e2293a81cf0aafed339b4b5d279afc2bf2852f","2014-05-11 18:25:31+00:00","Update CHANGELOG.md
+"
+"a8a6e14fd72c7a851eaa397043ade64c1db8cee5","2014-05-10 21:11:29+10:00","Save CID & Lac in Hex format.
+
+Save both the CellID and Lac variables as hex values within the database.
+"
+"90a74023db9ea6a87e67e6fe6f073bc1eae0b90b","2014-05-10 22:15:20+10:00","Database & Cell/Location Tracking tweaks
+
+Disabling Cell tracking will now also disable Location tracking if enabled.
+
+Updated the insert methods for Cell and Location tracking tables to ensure useless
+entries are not saved to the database.
+"
+"c2b2a456789d6b94b44bba4302700f7525ebf3f3","2014-05-21 21:43:29+10:00","AT Command Injection Started, Code Cleanup/Updates, Java 1.7 Language Updates
+
+Extension of the Samsung MultiRil to attempt hooking of the OemHookStrings method,
+presently I am not 100% certain this will work but the basic framework and extensions
+have been made to modify the current implementation to deal with the Strings request
+data and responses.
+
+This still requires work and as such is currently disabled until further testing
+has been completed as it will cause the socket to disconnect.
+
+Huge code cleanup and updates to a number of areas with optimisations across a large
+number of packages, some unused imports removed and code comments added to a variety
+of methods.
+
+Addressed a number of possible NPE causes through different parts of the application
+which will ultimately provide better stability and an increased user experience,
+although in saying that these items were not causing any issues that had been reported
+but prevention is better then a cure right?!?! :)
+
+Use of Java 1.7 language rules have further allowed updates to take advantage of
+the highler langauge level with removal of explicit types within arrays, lists, maps
+etc plus other changes.
+
+Unnecessary compatibility library removed which has resulted in a reduction in size
+of the APK.
+
+Reversed the previous change to insert the Cell ID and Lac in Hex format to allow
+further time to ensure all methods that utilise these variables to be updated, the
+original change was made too quickly and resulted in a number of issues so I have
+returned to the standard integer format until I have more time to ensure this
+change is implemented correctly.
+"

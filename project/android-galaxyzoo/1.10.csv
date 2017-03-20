@@ -1,0 +1,127 @@
+"commit id","commit date","commit message"
+"a8cbe9d3d32d1a7e63a4e1fd76d0a7ae167890cc","2014-10-03 21:42:39+02:00","IconsCache: reloadIcon(): Really avoid crashing when cache files have been deleted.
+
+And really let the caller know so the files can be downloaded again.
+"
+"a3252c68b7c63ad655770eba118a1ad8941bbb6a","2014-10-04 08:42:40+02:00","HttpUtils.getLastModified(): Disconnect the connection when finished.
+
+When using StrictMode we get this exception if we don't explicitly
+disconnect the HttpConnection:
+5893-5903/com.murrayc.galaxyzoo.app E/StrictMode﹕ A resource was acquired at attached stack trace but never released. See java.io.Closeable for information on avoiding resource leaks.
+java.lang.Throwable: Explicit termination method 'end' not called
+"
+"7c99fdec3762082ba29dd6f7e3518762c9738dbc","2014-10-04 09:03:36+02:00","ItemsContentProvider: Add some more infor logging.
+
+This seems to show that the UI is not responsive when lots of
+FileCacheAsyncTask.doInBackground() is happening, presumably
+because of the writing to file storage.
+"
+"e3aba6cbd7c079872ef6446a297ef0e16e36d0f5","2014-10-04 09:07:46+02:00","BaseActivity: Add commented-out code to use StrictMode.
+
+This is useful to find leaks and other problems.
+"
+"9309be1db03d0af965679046619c856044183d15","2014-10-04 09:42:51+02:00","Remove an outdated TODO comment.
+"
+"e2bbdd2da7b8c3f4f7601010125cc7a5e9bce046","2014-10-04 10:17:06+02:00","ItemsContentProvider: UploadAsyncTask.doInBackground(): Extract a method to make it clearer.
+"
+"d552dc551d5698c8a5e28d82aee9a5ef7baaee4f","2014-10-04 10:29:22+02:00","ItemsContentProvider.requestMoreItemsSync(): Do not request too many.
+
+In order to avoid too much network and disk IO all at the same time
+as we download the images. This can make the UI non responsive.
+It doesn't seem to help to do it in a Thread with Thread.MIN_PRIORITY
+either - too much IO will just slow the UI down.
+"
+"3937051a05957f20a8521145d08f64fef3089bfe","2014-10-04 12:24:33+02:00","ItemsContentProvider.requestMoreItemsSync(): Do not request too many at once.
+
+This slightly avoids the problem of buttons not responding during image
+downloads or classification uploads, but not completely.
+"
+"61bdab08068f8a3940d740874b2a2418e593586c","2014-10-04 12:26:29+02:00","ItemsContentProvider.query(): Don't leak a Cursor.
+"
+"f8bd77ae8cdd320040f83a5d8dd86bb7918f9da9","2014-10-04 12:54:52+02:00","ItemsContentProvider: Respond to preferences changes.
+
+For instance, to start removing old items or downloading new items
+if the preference has changed.
+"
+"89ba03e3fed859b4c3760de9c7c01d81677aa742","2014-10-04 12:56:02+02:00","ItemsContentProvider: Do the initial queueRegularTasks in onCreate.
+
+Instead of in the constructor, which could lead to us needing the Context
+before getContext() will return non-null.
+"
+"f52408264d8b030b5a7ac4046419c8a655e08cb9","2014-10-04 19:48:03+02:00","Correct a log message.
+"
+"b676b4fba25f99a8e70294f31c6341ddf898c396","2014-10-04 17:04:44+02:00","ItemsContentProvider: Make some methods static.
+"
+"addc381c5d8f09fb7bebfaa31cfdc7038cf0dd83","2014-10-05 22:30:06+02:00","ItemsContentProvider: Remove an unused field.
+"
+"0499eee35ca9aa0e0b46e81139054683653d87e8","2014-10-05 22:45:03+02:00","ItemsContentProvider: Don't do regular tasks (I/O) until UI seems to be idle.
+
+queueRegularTasks(): Instead of scheduling the work for x seconds after it
+was requested, keep waiting until there have been x seconds without a request.
+None of the work is urgent apart from getting at least one item to classify,
+and we already get one synchronously if that is really necessary.
+This should reduce the chance of the I/O happening while the user is doing
+classifications, reducing the chance that the user experiences the UI being
+momentarily non responsive.
+
+Also reduce the delay from 20 seconds back to 10 seconds.
+"
+"233140c7dd851d01d8f3340ea714d6bf1a3aa07e","2014-10-06 09:51:43+02:00","Put preference key names in an XML resource file as <string>s.
+
+Instead of hard-coding them in the code. This gives more of an overview in one
+place for the whole app, and seems to be the normal way to do it, as
+suggested by the official code examples:
+http://developer.android.com/training/basics/data-storage/shared-preferences.html
+"
+"7e780bc1cc12893d8d0ca3708057453be42ee4bd","2014-10-06 10:27:25+02:00","Move all setting/getting of login details to LoginUtils.
+"
+"30dad1ab42fb4e827414b8e65df7165bc784672e","2014-10-06 11:27:29+02:00","LoginUtils: Encrypt/Decrypt the auth name and auth key.
+
+This does not provide much real extra security. The SharedPreferences
+are already private as long as you do not have root access.
+But this obfuscates against very casual browsing and avoids us
+having to explain why encryption isn't really useful or
+necessary.
+"
+"2bfeb3356b00d4089bcdc52519fe5c3ee1d2114b","2014-10-06 13:46:45+02:00","DecisionTreeTest: Fix the build.
+"
+"c5a6153d3c69aa4a0e58f2121eb1051af990307f","2014-10-06 13:47:00+02:00","ItemsContentProvider: Add a comment about how the server doesn't fail on bad credentials.
+
+It would be nice if it did.
+"
+"76419151db0f041f0f671db17cdc8e28f735bf79","2014-10-06 13:56:43+02:00","LoginActvity: Try to stop autocorrections in the username.
+
+Apparently this is the most reliable way to do this, though even
+then it depends on the (bugs of the) input method being used.
+"
+"54d6fc320ad9e37c8560897dc13040fc0d980c76","2014-10-06 14:08:50+02:00","QuestionHelpFragment: Really add space between the example thumbnails.
+"
+"4ff4f163c13c2b7491615d71fb239f7409e94076","2014-10-06 22:45:26+02:00","ItemsContentProvider.getIntPref(): Avoid an exception when the preference is empty.
+"
+"8e8e85128bbf51e8f937354d29a816217ec60ea3","2014-10-06 20:29:31+02:00","LoginUtils.encrypt(), decrypt(): Specify UTF-8 encoding for all string/bytes conversions.
+"
+"1d70af94e21612efaca2597150e3ee2da503a6f2","2014-10-06 22:50:27+02:00","LoginUtilsTest: Fix some whitespace.
+"
+"287010f74c1ff4494f647de6596dbda6291c76a4","2014-10-06 23:03:52+02:00","LoginUtils.getEncryptionkey(): Move some code out to another method.
+"
+"5c00aa7112302f10529170cff67cf1730202ecde","2014-10-07 09:44:21+02:00","LoginUtils.getCipher: Specify the modes and padding, and specify good ones.
+
+android-lint said:
+'Cipher.getInstance should not be called without setting the encryption mode and padding.'
+so I used the example transformation (algorithm/mode/padding) mentioned here:
+http://developer.android.com/reference/javax/crypto/Cipher.html
+
+This also meant having to get the initialization vector used during encryption to
+provide it when doing the decryption. We use a new initialization vector for
+every encryption of every message.
+
+It was interesting to do this (apparently) correctly, but note that encrypted the
+authentication details is still mostly pointless and unnecessary anyway, because we
+already store them (and the encryption key and initialization vector) in private
+SharedPreferences anyway. If someone has root access to the device then they will
+still be able to get the unencrypted text - it's just a bit more difficult.
+A secret key that's hard-coded in the source code might be a little more secure,
+but even that could be obtained from the app's executable.
+"
+"fc7a16f3171e76a3dc44e5757f67d34171ed0b0c","2014-10-07 10:07:11+02:00","1.10
+"

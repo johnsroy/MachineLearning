@@ -1,0 +1,58 @@
+"commit id","commit date","commit message"
+"797937ba456484198248da7949d7fea228725273","2014-10-17 23:02:44+02:00","ItemsContentProvider.downloadMissingImages(): Use the local URI instead of the content URI.
+"
+"708fd63060e6d12382e9994737e318ed5bae113c","2014-10-18 20:50:35+02:00","ItemsContentProvider: Try to catch NoNetworkExceptions that could cause crashes.
+"
+"4eaf97c9365267db49f7a4293948b67f56eb4f62","2014-10-18 21:04:22+02:00","ItemsContentProvider.cacheUriToFile(): Check that it's not in progress.
+
+In theory this could happen just after adding a new subject if
+downloadMissingImages tries to get it before our regular async task has managed
+to get it.
+"
+"8fbe0f07aa2bef5e1c56a47adec0bb150d4238ee","2014-10-19 11:43:19+02:00","HttpUtils: Specify a timeout for connections.
+
+Otherwise they can just never return (the default), so we never know that the
+connection/download has failed.
+"
+"960be613048c24bbc6e6439cba6ab0e5e0679c44","2014-10-19 11:57:55+02:00","ItemsContentProvider: Unmark image downloads in progress after failure too.
+
+Otherwise we would never try them again until after an app restart.
+"
+"f2ff63a4a4046edcf9d80cf7e31dedc58d76acc4","2014-10-19 12:07:50+02:00","ItemsContentProvider: Avoid multiple simultaneous requests for objects.
+
+Because this would just slow us down and lead to use getting items we don't need
+when using a slow connection.
+"
+"27ca17416beddbda96a6d87e28626fac59aeec64","2014-10-19 19:23:40+02:00","SubjectFragment: Ignore 'next' items.
+
+The parent ClassifyFragment will give a real item ID to its child
+SubjectFragment anyway, so this would be an unnecessary simultaneous
+request for a first item at first startup.
+"
+"fa9b88dbf6529d426f35c52e4d73178f5fe43eb3","2014-10-19 19:45:01+02:00","ClassifyFragment: Avoid unnecesssary repeated queries for 'next'.
+
+Because that is unnecessary and slow.
+"
+"9cd57b79bba004c49fa8080f8f6f7398f57067ed","2014-10-19 20:03:19+02:00","About: Mention the license of the answer icons and example icons.
+
+Because we now bundle them.
+"
+"0b0db87ebcd42cfdbf4b46d5e5318e2e4de75283","2014-10-19 20:10:23+02:00","About: Change the CC license name for the app icon image.
+
+Because eso.org seems to have changed from
+Creative Commons 3.0 Unported
+to
+Creative Commons Attribution 4.0 International
+"
+"c71e43cc3bab9f6e8340b51eda504b635c4e604b","2014-10-19 21:18:07+02:00","Remove extra semicolon.
+"
+"fcd030a8b6065e4abd16d38a22ece8a13cdc1189","2014-10-19 21:20:10+02:00","QuestionFragment: Do not use == to compare Strings.
+
+Sometimes I forget that this is not C++.
+"
+"3fb6c222d2ab4559627e376fd964a50f319ab5f0","2014-10-19 21:20:46+02:00","strings.xml: Escape ' with \.
+"
+"ce3c63bf5bee3ff1268d4637639d05d89903efe9","2014-10-19 21:21:20+02:00","build.gradle: Update build-tools and compat versions.
+"
+"8ad5ec2e018a88611e1a3c342cce9a360511aedc","2014-10-19 21:35:57+02:00","1.16
+"

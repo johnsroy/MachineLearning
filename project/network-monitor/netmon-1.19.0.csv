@@ -1,0 +1,116 @@
+"commit id","commit date","commit message"
+"5b965e5f0de16e0eb7c331bb07f7d0dd94c136e9","2015-05-16 20:08:04+02:00","Fixed the names and links of contributors in the about screen.
+"
+"27222e9b26c4c3580c1e33206fae8842e7acff63","2015-05-17 10:15:43+02:00","Add copyright header to xml files
+"
+"9369d262f7d431936f5a4a96b8aa19852e3a6537","2015-05-17 10:53:01+02:00","Update java copyright headers
+"
+"83bd73ebcfc03638c47762d1a1af912a9d30f2f2","2015-05-17 11:19:39+02:00","Add copyright headers to build script files
+"
+"87bb7cf0de3e49c2750f8086fbcf7dd97504f910","2015-05-17 11:08:41+02:00","Ignore .DS_Store
+"
+"cddab48ca7861ceed577ef7eca59fe1838baf9ae","2015-05-17 11:10:25+02:00","Remove eclipse files
+"
+"7e2ecc19aab19ffa116b7b10eb663ef02ce1e02e","2015-05-17 11:19:25+02:00","Removed unused proguard file
+"
+"c36b670b845e78009a80452d43a9c7ad0a9eb569","2015-05-17 11:43:52+02:00","Android code inspection: suppress lint warning...
+
+For layout files and the manifest using attributes only available on newer apis
+"
+"29055698bc3e5e8248c193a853cd440157863122","2015-05-17 11:45:32+02:00","Code inspection correction: remove unused imports
+"
+"9a6299a425934f56fdc974e58c5d3826820ed67a","2015-05-17 11:46:25+02:00","Android code inspection: remove unnecessary methods and method parameters
+"
+"83134e7400f62fe91f2de446b0ed72f7965fbc33","2015-05-17 11:48:47+02:00","Spelling correction
+"
+"26a20a0b39ec8bcd18010eaff647e14cd0f7dac5","2015-05-17 18:41:02+02:00","Change 'Test frequency' label to 'Log frequency'.
+
+Since we can opt to disable connection tests, the tests
+are not necessarily performed each iteration.
+"
+"dc9c699c45cfe1d545d51f433fc986bcca0fa953","2015-05-17 22:05:23+02:00","Fix for speed test upload: enter local passive mode.
+
+For some reason, this solves an unexplainable (by me)
+error trying to upload from the emulator:
+FTPConnectionClosedException:Connection closed without indication
+"
+"94632a0334300b16f39106187658c85fa01851e4","2015-05-11 14:17:34+02:00","added GUI for toggling advanced speed test settings
+"
+"aeeadd8fd07945fa64a743df12202c3ef8564f3e","2015-05-11 16:50:56+02:00","added hooks to the GUI in speed test preferences
+"
+"7c9adf4d4b09f6301bf85b703987e17271cdb318","2015-05-13 15:38:54+02:00","Added alternating intervals for download test
+"
+"65193cd27a538c7561f48c56ff72a4231e13609c","2015-05-13 16:04:59+02:00","Added comments for the unimplemented advanced speed intervals
+"
+"f33d51b778b869a486de65aff82a1cb34d962674","2015-05-15 23:23:17+02:00","added function for checking dbm changes within a certain range
+"
+"534577b7b4634d480490562449f2943c6a0a43ba","2015-05-16 00:10:09+02:00","added function for checking network changes and added functions for network and dbm changes to upload test
+"
+"4d91a1fca77ec5a4925e6720d64e9c2f209d5c64","2015-05-16 00:14:25+02:00","Changed description since the advanced speedtest intervals are implemented
+"
+"324600c8fab08883dc456dc5e96c68b2ae622365","2015-05-16 11:06:12+02:00","Removed alert for enable/disable of andvanced speed settings
+"
+"18bc4dd398f9189bc1803c5e9e98a6be6849c148","2015-05-16 12:30:05+02:00","Factored out the advanced speed test interval
+"
+"9354e9a5ef0d34b24a45b3c95f778d647dd0c2ae","2015-05-16 12:34:58+02:00","Removed old comment
+"
+"6751f049b5ee0dc564da2ca8c37cdb00fc4ea87f","2015-05-16 18:47:02+02:00","Added constants for treshold and the more advanced modes in advanced speed test interval, also simplified doUpdate() in 'SpeedTestAdvancedInterval'
+"
+"0054ecc9efe7f4764fc0115cbad33c86ed8101be","2015-05-16 19:09:09+02:00","Coffee deprived, the default case should not always be true
+"
+"096412f389771cfc60a4da3775e61d408fc94992","2015-05-17 13:43:44+02:00","Update copyright headers: add Rasmus Holm to files he contributed to
+"
+"fdd8e108e3769f7d124d65a014e971d5e9496fd9","2015-05-17 13:50:53+02:00","SpeedTest interval: reformat modified files and remove unused imports.
+"
+"3e34f3edb9eedf29615e08912fa506a97a8f5edf","2015-05-17 13:56:17+02:00","Fix code inspection issues on speed test interval changes:
+
+* Removed unused preference setters
+* Declare variables as final
+* Call onDestroy of the SpeedTestAdvancedInterval class
+* Reduced some visiblility of classes/fields
+"
+"28ef0514d5071d9233b8d017301452bc9768350a","2015-05-17 14:40:45+02:00","Improve clarity in SpeedTestAdvancedInterval.
+
+* Renamed the class to SpeedTestExecutionDecider.
+* Renamed some methods for clarity.
+* Read the last network type and signal strength from the DB.
+This is probably technically slower than the previous implementation,
+but the performance hit should be negligeable (this code
+is called at most once every 10 seconds).  It seems easier to
+read this way.
+"
+"5fea72aa7565cbdc2cbaa9bdb391b3de9c0c14e7","2015-05-17 15:08:13+02:00","Removed the 'advanced speed test' setting.
+
+We just need one setting for the speed test interval, with the
+default value set to do a speed test every time we do a basic
+network monitor test.
+"
+"6a2ff4b8b6459d4a1016d01313d3ec91468d7df8","2015-05-17 16:10:45+02:00","Speed test interval changes:
+
+* Only listen for signal strength when we need it
+* Determine if enough network monitor tests without speed tests have
+passed by reading from the db, instead of keeping an interval
+count in memory.  Will be slower, but only negligeably, but the
+logic is closer to the other conditions (network type, signal strength).
+"
+"19e1c45acd68c6f95849e149328647dc2741799f","2015-05-17 16:37:29+02:00","Moving speed test classes:
+
+* Moved SpeedTestExecutionDecider to the speedtest package.
+* Moved NetMonSignalStrength to the util package.
+"
+"ede2ad129651b0a74a7a955f9dad5148a90c4d2e","2015-05-17 17:10:37+02:00","Fix for speed test execution decision based on network type and signal strength:
+
+Look at both the network type (wifi vs mobile) and the subtype
+"
+"317050461d6ecf34da70870c5aaa5cb32ff81b05","2015-05-17 18:17:33+02:00","Speed test interval calculation fix
+"
+"7682401afd0c943b71e8cb26a6ec3729272542e1","2015-05-17 19:09:25+02:00","Translated speed test interval preferences into fr and es
+"
+"5487fcbe48e4ffbe4cbf4102f3669e195fee4542","2015-05-17 22:56:00+02:00","Small simplifcation to SpeedTestExecutionDecider.shouldExecute()
+"
+"281ee51d8215e459d9a552cc7ab2ac3703f87b88","2015-05-17 23:11:01+02:00","Merge branch 'motorolja_speed_test_interval'
+"
+"8ca18849c0376f6532d8fe5463a1307f9bac1e23","2015-05-17 23:13:26+02:00","New version 1.19.0
+"
+"05f52ad0f3f1836acc0e844afa4d978f73ea0d5a","2015-05-17 23:50:45+02:00","Add proguard mapping for 1.19.0
+"

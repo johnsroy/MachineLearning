@@ -1,0 +1,91 @@
+"commit id","commit date","commit message"
+"46da1fc833cb74fa688775c25ffb28f453b228b2","2016-04-23 12:21:36+02:00","termux.c: Re-indent whole file with vim
+"
+"afaa91b2caa0ccc2766e460d69841d5f07fd36d4","2016-04-28 11:07:43+02:00","Update gradle
+"
+"ff2f77c427e2ece31707d8a8e0e65e38608ddce5","2016-05-04 22:27:43+02:00","Mark reset() private
+"
+"cc7b6cba132f748b095060e818874a608bdcdf12","2016-05-04 22:44:38+02:00","Change minimum cols&rows from 8 to 4
+
+This avoids e.g. the keyboard overlapping the terminal in setups
+that can actually happen. Closes #88.
+"
+"bdd5c80fcac164213a035e80e9599b91fca12f57","2016-05-09 15:39:11+02:00","Commit the text on finishComposingText()
+
+This handles e.g. text written with hand writing input methods
+as mentioned in #91.
+"
+"5be3099a5b9067c85b400be68eb3ca0bb909fdc4","2016-05-13 00:18:51+02:00","Update build tools SDK version
+"
+"887d7810f63d0b6c2a1dd3bf5f9ac47e2445cb24","2016-05-20 10:09:39+02:00","Update build tools versions for travis
+"
+"f86c7a85d3bd9bef706c67f4df72f1de6471c79a","2016-05-20 10:10:14+02:00","Update .idea config
+"
+"cf19d43bb72855f4c931d5c5211c6521db6c264e","2016-05-20 10:30:25+02:00","Gradle build updates
+
+- Switch to using gradle to build jni lib.
+- Enable proguard minification.
+- Add the Android support library.
+"
+"08d6d1706de4bd597d20302519377dbf614e235b","2016-05-20 10:36:20+02:00","Add pref for showing extra keys
+"
+"042fbfaea3eddfda01187804c54ed7518d6aa4c7","2016-05-20 10:41:07+02:00","TerminalView: Start support for extra keys
+"
+"8714800c6b3de79eb6dfd1c20253c0a5a1afca92","2016-05-20 10:41:38+02:00","Add an extra keys view
+"
+"d1c0b6abdcd02618982c0edd234aab025d945860","2016-05-20 10:44:23+02:00","Add initial support for extra keys
+"
+"0861be363b831a87aae80f766b5f27429c1b8f66","2016-05-20 10:46:48+02:00","Remove some inspect code warnings
+"
+"a2ebcdcf49b6eff5ba9f3cde6689f156e856c64c","2016-06-06 00:56:42+02:00","Extra keys view: Implement sending text
+"
+"f047160fd6b4db1b55b196c16260d4943223fd63","2016-06-06 01:16:20+02:00","Tweak layout for extra keys view
+"
+"2104252244206ca6788e1f07fda0c19a61c9839f","2016-06-08 01:37:08+02:00","Change session exit detection
+
+Previously we waited for all opened file descriptors to the terminal
+to be closed. This caused problem when e.g. running 'sleep 900 &'
+and then exiting the shell, with sleep keeping the session alive and
+had to be killed manually (killing the process group did not help -
+the shell had already exited and was in zombie state). This is also
+what most other terminal emulators do.
+
+Relatedly, switch to sending SIGKILL to force quit a session instead
+of SIGHUP, since SIGHUP can be ignored.
+"
+"20d57908a7ddd9ed791217304017e8a522451d36","2016-06-08 02:13:14+02:00","Make cursor visible by forcing to text color
+"
+"599aaff723ee71d1696e2903741566cbee3a941c","2016-06-08 16:09:23+02:00","Update android gradle plugin
+"
+"491240ee3fd217b1d5c401e57ed4ef9f377f94b6","2016-06-08 16:09:42+02:00","Fix MockTerminalOutput to implement all methods
+"
+"9be6470d191a480a8d8daebf3bbec549f92b1bb1","2016-06-22 00:23:18+02:00","Add .idea/inspectionProfiles/
+"
+"a020d7c484093ae893b600fe34bebe9451699d23","2016-06-22 00:23:38+02:00","Add a wcwidth test
+"
+"d17bbab8ee8cae4b1fed2632baab08be5b3fffc6","2016-06-22 00:23:57+02:00","Strings update for process killing
+"
+"1cc7829847fd9206c50c0e95bc49ee506a4e20c4","2016-06-22 00:24:18+02:00","Update version
+"
+"33d1477d4a7b48f213b2e2948ca01dc007dc37b1","2016-06-22 00:24:42+02:00","Remove KeyboardModifiers
+"
+"9519727f38abf876e331fc6ca53a610cf870d5d9","2016-06-22 01:31:21+02:00","Enable installation of x86-64 packages
+"
+"5566b1307381e731c04f36809c05054e51f78033","2016-06-26 22:37:12+02:00","Remove stray character
+"
+"95a0878e10010f0b4c81cfd046e0c8fe08796a6b","2016-06-26 22:38:36+02:00","Update gradle configuration
+"
+"a049ea50d7447a3fc1bcb6bafa785b60085a8221","2016-06-26 22:38:52+02:00","Update android studio lint configurations
+"
+"964c0b7b4f95e0c5ec05f8844bd50f489f349efd","2016-06-26 22:39:46+02:00","Cleanup imports
+"
+"d72fd579eea1c7d0bdcab0625d214b0a58d6d1c5","2016-06-28 00:56:30+02:00","Various updates mainly for extra keys
+"
+"2db6923bc4d946586c061f00d30a0b1678d56fd5","2016-06-28 01:03:03+02:00","Reformat code project-wide (getting rid of tabs)
+"
+"f156ce259ebd474ec3d7ce5bee4a56037c8d80ad","2016-07-04 22:24:38+02:00","Update travis configuration for androi-24
+"
+"f57232b40e99f8b3c991cbaec0040e44c6d275e6","2016-07-04 22:55:24+02:00","Use jdk8 for travis build
+"
+"b16f11cd87bc5a49052beecd6c2c2edc4d473c05","2016-07-04 23:08:22+02:00","Formatting for .travis.yml
+"

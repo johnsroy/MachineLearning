@@ -1,0 +1,457 @@
+"commit id","commit date","commit message"
+"76e9a4458c77937b013940ab8f62a6a9957b771f","2015-05-16 23:39:57+01:00","Merge tag 'release-1.3.0' into develop
+
+Code for the 1.3.0 release.
+"
+"41f3efac697ed374c9f9687ba18eb6ebaf198c68","2015-05-16 23:56:10+01:00","Merge branch 'develop' into imagefetcher-singleton
+"
+"b415c3d889d564617d5aa0721af47bbe8307e555","2015-05-17 09:51:44+01:00","Merge branch 'develop' into alarm-clock
+
+# Conflicts:
+#	Squeezer/build.gradle
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/framework/BaseActivity.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/service/CliClient.java
+#	Squeezer/src/main/res/values/colors.xml
+#	Squeezer/src/main/res/values/styles.xml
+"
+"9e786212bb707a93506ad7cff724f1fa16c68424","2015-05-17 10:21:31+01:00","Use the styles introduced on the 'develop' branch.
+"
+"1618e7913264d503f140ba3cda6e6a5b86e9acab","2015-05-18 19:43:03+01:00","Merge branch 'floatlabel' into json
+"
+"06e16e5a9e3464d628e01dfbc6bbbced52a62f7f","2015-05-18 20:33:04+01:00","Merge commit 'b92b6682eb29289c9afb0d4aca41920e67be2a94' into json
+
+# Conflicts:
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/service/SqueezeService.java
+"
+"82c54b8e43a9a484c26a92694b15edb94a60948d","2015-05-18 21:48:10+01:00","Merge commit '941c05655d8d4f4083a44ce99c04fe7f04cf8296' into json
+
+# Conflicts:
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/service/CliClient.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/service/SqueezeService.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/service/event/PlayStatusChanged.java
+"
+"61820619aeaf1fb7916cc525117fd5a82b8b5bf3","2015-05-18 21:51:34+01:00","Merge commit '3d9cb283d024c131c0ca5ecbc9132d6217cd88b6' into json
+
+# Conflicts:
+#	Squeezer/build.gradle
+"
+"9a1cfad672c29d37d65697ea78c8ed314062e174","2015-05-18 21:56:09+01:00","Merge commit '262321f516f8910536dbe885040185c07d44ab0d' into json
+"
+"db44b26d983f82c7921a23aeb3d886cd7d1fbbd6","2015-05-18 22:05:04+01:00","Merge commit 'bd96bc5df95d1aba8f970113ce31253a21d7432a' into json
+
+# Conflicts:
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/service/SqueezeService.java
+"
+"6c8eb39ae974047a60a7cd70467af3a57c19a63e","2015-05-18 22:15:30+01:00","Merge commit 'b5c3e67a390d1abddebc1a6040f9501890cb3636' into json
+
+# Conflicts:
+#	NEWS
+#	Squeezer/build.gradle
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/service/SqueezeService.java
+"
+"a99cd93429d8d11919e19301986e78b834b13c7a","2015-05-18 22:19:15+01:00","Merge branch 'develop' into json
+
+# Conflicts:
+#	NEWS
+"
+"5a57109953d9513b73dca7a1a19ab7f5bde3224c","2015-05-23 18:22:50+01:00","Move the floatLabelColor from being a drawable to a colour.
+"
+"ecd946d9cb586502c953a80bc9185bcdad93b65c","2015-05-23 20:44:04+01:00","Fix a crash caused by showing dialogs when the fragment is not added.
+
+The previous code called ProgressDialog.show() in startVisibleConnection()
+which would occasionally crash.
+
+Fix this by making startVisibleConnection() only responsible for
+starting the connection, remove the code that creates the connecting
+dialog.
+
+Responsibility for showing and hiding dialogs, as well as the rest of
+the UI changes, moves in to the onEventMainThread(ConnectionChanged) and
+onEventMainThread(HandshakeComplete) methods. This removes the need
+for setConnected() and updateUIFromServiceState().
+
+Update ConnectionState so that LOGIN_FAILED is a terminal state. Without
+this, the state transition goes from LOGIN_FAILED to DISCONNECTED and
+the UI tips in DisconnectedActivity do not show for this state. Adjust
+the unit test accordingly.
+
+Update DisconnectedActivity to take an @IntDef that specifies the reason
+for the disconnection (instead of a boolean). Provide appropriate helpful
+text for these events. Only launch HomeActivity after the handshake
+has completed.
+"
+"1859838a1d3b8687979ad5bdc403aa5771e03f30","2015-05-24 22:13:12+01:00","Remove all 'active' player handling from CliClient.
+
+Move the code that deals with selecting and maintaining the active
+player in to SqueezeService.
+
+Update the events (which are predominantly posted by CliClient) to
+remove references to the active player. Update the event handlers
+that only operate on the active player to check that they are
+receiving events about the active player.
+"
+"4e295c06ace75322a7064d6b252fb911ed5e47ab","2015-05-24 22:13:23+01:00","Remove unnecessary variables.
+"
+"117b46f450c2b7d1f5091bd4c40f7507375fb096","2015-05-25 11:06:55+01:00","Add a timeout when waiting for a connection state.
+
+Without this, it's possible for a test to wait indefinitely, e.g.,
+if it's expecting a LOGIN_FAILED but the code to determine that is buggy.
+"
+"9587871db9def230c553ebc6405ea8b842d77a40","2015-05-25 11:08:46+01:00","Fix login handling issue.
+
+LOGIN_COMPLETED was posted too soon, and LOGIN_FAILED was never being
+posted.
+"
+"c5127c17b1139cfd017abcf6e41671afa0458be3","2015-05-25 11:24:48+01:00","Merge branch 'develop' into json
+
+# Conflicts:
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/service/ConnectionState.java
+"
+"4117be1cb0baba0627fd539bbceb4b2d60ab9f07","2015-05-25 18:31:11+01:00","Update references to code.google.com to point to the GitHub pages site.
+"
+"90b9473a11d6ba08ca253eff69bd56a013908f39","2015-05-25 19:38:45+01:00","Update references to code.google.com to point to the GitHub pages site.
+
+(cherry picked from commit 4117be1cb0baba0627fd539bbceb4b2d60ab9f07)
+"
+"8e56a6eefe0fa106b60422e1a6ecd277cd0fc1b8","2015-05-27 22:11:55+01:00","Generate URLs for artwork, downloads, and icons when items are loaded.
+
+The previous code used a 'just in time' method to determine URLs for
+an item's URLs for artwork and downloads. This required a round-trip
+to SqueezeService and a dependency between model objects and
+SqueezeService.
+
+Break the dependency by ensuring that the tokens for 'artwork_url',
+'download_url', and 'icon' are converted in to absolute URls as the
+information is parsed from the server.
+"
+"b65926822cba0866760825f5bde9ec9faf8d3b82","2015-05-27 22:52:18+01:00","Merge branch 'develop' into alarm-clock
+
+# Conflicts:
+#	Squeezer/src/main/res/values/styles.xml
+"
+"49092528f4af6de2cd0e2c8f25d4c3e7662c2aa5","2015-05-28 17:57:21+01:00","Fix width of alarm toggle button lower API devices.
+
+The previous configuration forced the AM/PM TextView to be as small
+as possible, and the switch would expand to fill the available space.
+This change reverses that, so the switch is always the correct size
+and the text view fills the remaining space.
+"
+"fbd3304f5bf46c38e366fe3bf74f77eed7cfb6f7","2015-05-31 11:27:22+01:00","Hide the checkmark in alarm playlist category headings.
+
+Spinner drop down item views are CheckedTextView. At some point spinners
+stopped showing the checkmark, but it is still present on lower API
+devices.
+
+This makes no sense for alarm playlist category headings, so replace
+it with a transparent drawable.
+"
+"2915217a282cc8ec7c0e91e5e3a871dfa6e4ca25","2015-05-31 11:31:37+01:00","Change the hint when all alarms are enabled/disabled.
+
+The previous version showed a toast on the change. This version is more
+consistent with Android settings, with a smaller second line that shows
+a persistent hint about what the state of the setting means.
+"
+"c29aa07d2b414bf705d6d4fe6eccd4ab7ae71cff","2015-05-31 11:56:20+01:00","Adjust the layout for playlist categories and items.
+
+- Explicitly use the correct height, ?attr/dropdownListPreferredItemHeight.
+This prevents widgets from being cut off on some devices.
+
+- Remove the extra margins for category headings which were causing
+display issues on older devices.
+
+- Display items as a dialog on devices where API >= 11
+"
+"cee0baf92e5736fb8bbd8c3af1c48a8a328d6978","2015-05-31 20:40:06+01:00","Correct how spinners are displayed.
+
+Spinners have two views, one for the spinner 'at rest' when it's
+showing the selected item, and one that's used to construct the
+list of items that the user can choose from. The previous code was
+using the second version in both places, which caused issues with
+the UI on earlier devices.
+
+To fix this:
+
+- Introduce SpinnerItemAdapter which overrides getDropDownView() to
+call through to the itemview's getDropDownAdapterView().
+
+- Introduce SpinnerItemView which calls methods in the Util class
+to provide default implementations for itemviews that need it.
+
+- Use SpinnerItemAdapter instead of ItemAdapter in GenreSpinner and
+YearSpinner.
+
+- Change GenreView and YearView to inherit from SpinnerItemView.
+
+- Stop trying to use something akin to a floatinglabel layout for
+the labels for spinners in AlbumFilterDialog, as it doesn't work
+properly across multiple API versions. Simplify with traditional
+labels, which also removes the need for fragile padding values on
+"
+"d67c2b09fd5da9b5189fed2279814eeddf83925a","2015-05-31 20:41:40+01:00","Merge branch 'develop' into json
+"
+"4ad427466e45f7df0a976bab2ca4ea7b09c5ae90","2015-05-31 20:51:51+01:00","Add a comment re parameters to onScanFinished.
+"
+"3a97108b113e1e5d03da96793560a07b7bfd19b4","2015-05-31 21:09:04+01:00","Merge branch 'json' into develop
+"
+"93a0e6643f9027162c3f1c6396876bbfba417c85","2015-05-31 21:51:25+01:00","Merge branch 'imagefetcher-singleton' into develop
+
+# Conflicts:
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/NowPlayingFragment.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/framework/ItemAdapter.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/itemlist/GenreSpinner.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/itemlist/PlayerListAdapter.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/itemlist/PluginItemView.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/itemlist/PluginView.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/itemlist/SongListActivity.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/itemlist/YearSpinner.java
+"
+"1e117f9285d18d559b438af98fd3dd44de6b1827","2015-06-01 21:15:14+01:00","Fix #121, update the UI state when the user selects a different player.
+"
+"c0bf544ec42afc1a7ae7303291a70955f2c32183","2015-06-01 21:52:46+01:00","Simplify position-in-song updating, remove UiThreadHandler.
+"
+"d967becdb4a8c14598876648420b80dcf757fa09","2015-06-01 22:56:59+01:00","Simplify updateUiFromPlayerState, updateSongInfo, remove updateAlbum.
+"
+"7f281411891a598c0fcc70d6f8b3e3121e275ad2","2015-06-01 23:02:44+01:00","Remove unnecessary includes.
+"
+"21330a41dc9ae540464510b24e149206c4ecaf77","2015-06-10 10:13:06+01:00","Ignore .directory files (dropped by KDE file manager).
+"
+"4cce2cad4ef0d7af5f34e82ccc8896bfa7b67f92","2015-06-10 10:13:28+01:00","Update to gradle 1.2.3.
+"
+"82141b786792fcc6d9ae6ead40cc367aee3c9497","2015-06-10 10:21:53+01:00","Avoid updating notifications if the state hasn't changed since
+the last time a notification was posted (same song, same playing state).
+
+- Track the state at the time of last notification in mNotifiedPlayerState.
+
+- Check this against the current state when updating the notification.
+"
+"92acd9ef7ac0f33dc85cf2d4727c588e4aadd3f9","2015-06-10 10:36:41+01:00","Avoid network operations on the main thread when updating notifications.
+
+- Refactor ImageWorker to provide additional loadImage(...) methods that
+can:
+- load an image, and then call a callback
+- load an image in to a RemoteViews, and post a notification
+
+- Use these new methods in updateOngoingNotification() to load the
+images in to the notification's view and post the new notification.
+
+This causes a problem with EventBus on pre-Lollipop devices, as it uses
+Class#getDeclaredMethods() finds methods that do not exist or have
+non-existent return types on earlier devices. Guarding the code with
+@TargetApi or checks against Build.VERSION.SDK_INT does not solve
+this problem.
+
+This is discussed in issues on EventBus, such as
+https://github.com/greenrobot/EventBus/issues/149#issuecomment-76316437.
+
+The fork of EventBus at https://github.com/yuzeh/EventBus fixes this,
+per the pull request at https://github.com/greenrobot/EventBus/pull/158
+and https://github.com/yuzeh/EventBus/commit/dc326b0bc6966945924d616327ef0b657954562e
+so for the moment pull that code in as a submodule and use it in
+preference to the official EventBus code.
+"
+"c9919c09f46b5ef3b9c1632875acde96e7bb3260","2015-06-10 12:27:42+01:00","Update support annotation library to 22.2.0.
+
+Start using some of the new support annotations (@UiThread, @MainThread,
+@CallSuper) in a few places where it makes sense.
+"
+"f81fabcec62c082d367b45c3ad9072c9fc2cd89b","2015-06-10 13:09:57+01:00","Use the same Gradle, SDK, and support library versions as Squeezer.
+"
+"d2100e77ac37d09b214ca71baf7bc0cf35656b6e","2015-06-11 12:37:54+01:00","Merge branch 'develop' into alarm-clock
+
+# Conflicts:
+#	.gitignore
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/NowPlayingFragment.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/framework/BaseItemView.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/framework/ItemAdapter.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/framework/ItemView.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/itemlist/GenreSpinner.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/itemlist/YearSpinner.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/service/CliClient.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/service/ConnectionState.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/service/SqueezeService.java
+#	settings.gradle
+"
+"13fe04e2027b36a64e9ee415bed22cff7a61cc54","2015-06-11 12:40:55+01:00","Fix NPE, caused by checking menu_item_playlist but calling menu_item_alarm.
+"
+"10f46936c8bbcf923bb4f3b37d846e88aeed1ea6","2015-06-11 13:15:46+01:00","Add a partial Turkish translation.
+
+Submitted by https://www.transifex.com/accounts/profile/echelon/.
+"
+"30ced15561fc9a5af3dcf0213db62f9b3eebf00e","2015-06-12 00:03:19+01:00","Shorten the PLAY_NEXT string.
+"
+"fbe123abc88c9cd9f97c36a8f3948216c041ddba","2015-06-12 13:47:29+01:00","Use loadImage() with dimensions where possible.
+
+In most situations when loadImage() is called the dimensions of the
+target Imageview are known. Use those dimensions instead of using the
+version of loadImage() that figures them out to remove unnecessary
+code from the list-scrolling path.
+
+- Amend BaseItemView to store the default width and height of the
+ImageView.
+
+- Override this in AlbumGridView and SongGridView which use a different
+ImageView size.
+
+- Amend AlbumView, PluginItemView, PluginView, and SongViewWithArt to
+pass the width and height to loadImage().
+"
+"6425c0b0bdcd2ee7e2b52aec2c959da72672661b","2015-06-12 14:07:27+01:00","Switch to gradle 2.4.
+"
+"50c087c8edf61e1ddaa7376cdbc0745a83a14e4c","2015-06-12 14:42:55+01:00","Remove unused translation strings.
+"
+"26ed8a993c5c81defcd1c47adac6ec683e732b36","2015-06-12 14:59:42+01:00","Ensure song duration time is shown when the activity resumes.
+"
+"515792f6265918e031637e905130238e717f2b4a","2015-06-12 15:51:40+01:00","Prepare for release 1.3.1-beta-1.
+"
+"d236bc39dbd7227faad2bd0dbd21a6030abee229","2015-06-14 23:14:41+01:00","Fix a reported NPE in SongListActivity::onPrepareOptionsMenu().
+"
+"376489151f01886ac042ca7aa9d3cda803dc6154","2015-06-14 23:39:31+01:00","Replace 'WiFi' with 'Wi-Fi' in a couple of strings.
+"
+"761a9eff79a25463eaa9db47283ed61e9676ff82","2015-06-14 23:46:09+01:00","Prepare for release 1.3.1-beta-2.
+"
+"9cafe160279df87a7e1120313ec17a273b2ba208","2015-06-17 23:28:09+01:00","Show player alarm settings as a dialog instead of an activity.
+
+- Create AlarmSettingsDialog with associated layout.
+
+- Use Android string resources for hint text, and include the current
+value of given preference in the hint. Show hints all the time,
+modeled after practices for Android Preferences.
+
+- Modify AlarmsActivity to provide the interface that AlarmSettingsDialog
+requires to fetch information about the player and its preferences.
+
+A side effect is that the user's changes only take affect after selecting
+the dialog's positive button, but this also allows users to safely
+cancel changes.
+"
+"2b179750c9de6706e6f5a21d78e8fe72e1f7ca9a","2015-06-19 23:09:19+02:00","Updated album art handling to work with plugins
+"
+"3f98ab89082744dca3d56aeb7888f08256cd327f","2015-06-20 13:15:23+01:00","Use android.net.Uri for URLs instead of strings.
+"
+"ab2b953f1ef65f3da80c580c5375b8e985cf272b","2015-06-20 13:41:45+01:00","Merge remote-tracking branch 'origin/pr/128' into release-1.3.1
+
+* origin/pr/128:
+Updated album art handling to work with plugins
+"
+"0bd56260cb103f442847e3817481789293660cff","2015-06-20 13:55:17+01:00","Fixed #125 by listening for the 'newsong' playlist notification.
+"
+"40a637b083a5a78208772318a6d7ce0821993de4","2015-06-20 14:12:41+01:00","Prepare for release 1.3.1-beta-3.
+"
+"1893c7450e4e00ba3c6ab5a10302950653feb4c4","2015-06-20 16:53:23+01:00","Rewrite PlayerPref enums as @StringDef constants.
+"
+"e342490429b7b80d9f3af49d37f7468bf4cd39cb","2015-06-20 20:29:29+02:00","Limited support for plugin navigation
+"
+"633dbc5ce2793377d4f1e7c53f0aec55e4699d25","2015-06-20 21:19:04+02:00","Updated album art handling to work with plugins
+"
+"71b162e04ad26166f55868d09e6d0da10a9d55d8","2015-06-20 21:39:30+01:00","Adjust the 'Repeat Alarm' UI.
+
+- Remove the dedicated TextView for the label, and set the text directly
+on the checkbox. This required a new 'getButton()' method in
+CompoundButtonWrapper. This also means that tapping the text will
+toggle the checkbox.
+
+- Remove the hint button and text. This should be familiar to Android
+users, as it's the same as the Android alarm clock.
+"
+"4412356dde65d8cfb1222c4121e1b4d34382bea6","2015-06-20 21:47:30+01:00","Update PlayerPrefReceived comments and field names to match reality.
+"
+"6a66661a542a7f1d0b37f9b4e63e1cab0fca9f6c","2015-06-20 22:22:49+01:00","Fix typo.
+"
+"e3e210e1fd0d17aee2f4fd675427fbaf9d56a372","2015-06-20 22:28:42+01:00","Reformat alarm layouts for consistency with style guide.
+"
+"9ec783cc229d107495396bf20d634b28e21fd0e1","2015-06-20 22:36:41+01:00","Resolve lint errors in AlarmView and AlarmsActivity.
+"
+"cca647d3cb47c8861887a42521fb25b5ca939e74","2015-06-20 23:39:39+01:00","Lint related cleanups.
+
+- Add comments in a number of places.
+
+- Rename variables to match conventions.
+"
+"50c54af181b65fd1d10c3a2552609733a0ca7157","2015-06-21 18:00:53+01:00","Use <p> as a paragraph separator in Javadoc, not <p/>.
+"
+"e8a076ac1a5fc09a923112e1fab489033332a4a3","2015-06-23 20:06:13+01:00","Prepare for release 1.3.1.
+"
+"c84405b2b87778a961a3a33627e8496928738469","2015-06-23 20:28:09+01:00","Merge branch 'release-1.3.1'
+"
+"23c35fd0e8f789b002200ba9abbb80bb3e951d4b","2015-06-23 20:29:19+01:00","Merge branch 'release-1.3.1' into develop
+"
+"f72dc12b03bb5dabe7faddb6c31c072ab7faad3a","2015-06-23 20:36:30+01:00","Merge branch 'develop' into alarm-clock
+"
+"830abe1249dc1bbf3e16ffdeacda181c34b17b91","2015-06-26 11:39:32+01:00","Fix potential NPE in getActivePlayerState() and getPlayerState().
+
+Fixes https://fabric.io/squeezer/android/apps/uk.org.ngo.squeezer/issues/558a8d0af505b5ccf03d7dcc.
+"
+"0e533fe772e5414b949aee2d10f91e73fe89c972","2015-06-26 12:14:34+01:00","Fix ConcurrentModificationException seen iterating over mPlayers.values().
+
+Fixes https://fabric.io/squeezer/android/apps/uk.org.ngo.squeezer/issues/558b73a4f505b5ccf03f847f.
+"
+"ed777fa2ef84c25db7495ee9baee4e0048891c11","2015-06-26 13:22:42+01:00","Set EventBus logging to verbose instead of info.
+"
+"74fb4feed8d7e6a626f0c25b8f8e2e7a2997b795","2015-06-30 23:46:17+01:00","Remove unnecessary UiThreadHandler, replace with onEventMainThread().
+"
+"d1f2cbc7d19243e4fce69ab1b098caecac1e8846","2015-07-01 21:07:05+01:00","mMediaSession might be null in unit tests, protect against this.
+"
+"5df3cc8c8f12fe0638e202362aeb465ab97f5ca2","2015-07-01 22:58:23+01:00","Fix #131, only clear players in PlayerListAdapter when they change.
+
+- Update PlayerListAdapter to retain a copy of the last known sync
+groups, and compare the new sync group against the old in
+setSyncGroups. If they're identical then notify, but do not rebuild
+the UI. This prevents some player updates (e.g., the sleep time
+changing) from appearing to be a complete change of players.
+
+- Recalculate player subscription types in SqueezeService when a
+player's state changes.
+"
+"51e4eb9345883cc8162e87925b04e40037ad931f","2015-07-01 23:14:32+01:00","Use the default BufferedReader buffer size.
+
+The previous value, 128, was artificially low, and resulted in the
+buffer being resized multiple times.
+"
+"c6ccc25c90dba8003138611de06719e2e5fe7e69","2015-07-02 22:31:35+01:00","Fix an NPE in the framework calling expandGroup() before setAdapter().
+
+Fixes https://fabric.io/squeezer/android/apps/uk.org.ngo.squeezer/issues/558dc6d2f505b5ccf044ba88.
+"
+"bf7cccc221ecc8992bb0ab654f1b0ced939998a8","2015-07-02 22:40:09+01:00","Fix crash on Samsung devices.
+
+Fixes https://fabric.io/squeezer/android/apps/uk.org.ngo.squeezer/issues/558f9397f505b5ccf047f6b1.
+"
+"463453b742edd13d070d2b1dac29fd9d03d72ad6","2015-07-02 23:05:58+01:00","Fix potential HandshakeNotCompleteException.
+
+Move UI setup code to onEventMainThread(HandshakeComplete).
+
+Fixes https://fabric.io/squeezer/android/apps/uk.org.ngo.squeezer/issues/558e9fc2f505b5ccf0464708.
+"
+"a6ce0e95278c393f22f237309cfa60dd79832326","2015-07-04 12:40:14+01:00","Reduce bitmap memory use.
+
+The previous code would always decode the bitmap to full size in order
+to save it to the disk cache. This could cause OOMs for massive bitmaps,
+even if they were never going to be displayed at that size.
+
+Change the code so that the disk cache now saves the image bytes that
+were received (i.e., the undecoded bitmap). This keeps the full size
+image on disk (encoded), so it needs to be redecoded every time its
+fetched from disk, but that's relatively rare.
+"
+"cff9fd9631343951031410aab39aa330dd8c3483","2015-07-04 13:04:51+01:00","Use the 'apps' CLI command instead of the myapps plugin.
+
+This merges pull request #129, by @ChristerWendel.
+"
+"9360a0b2bfd2fddbc6b5a110079c4d66dd7352bf","2015-07-04 14:29:16+01:00","Move datetimepicker from libraries/ to libs/.
+"
+"53ac17d317f479f2f1a9db484dec095301898b00","2015-07-04 14:43:01+01:00","Merge branch 'alarm-clock' into develop
+"
+"4c3ed33671c126ecd799fbb802d854aafedf1b1a","2015-07-04 14:52:17+01:00","Remove unnecessary modifiers.
+"
+"2765858089645f16c49cdc850cbe38b7a4133f6d","2015-07-04 15:07:14+01:00","Clean up some unused imports.
+"
+"a2421c7a227af88a43b20b1eef52af872e1cd8ec","2015-07-04 16:05:45+01:00","Move HACKING.md to CONTRIBUTING.md. Flesh out the content.
+
+Takes advantage of GitHub's support for linking to it when creating
+issues and pull requests.
+"
+"4a2bba3569dd3b2199a34e51f872847811806b4c","2015-07-04 17:07:27+01:00","Prepare for release 1.4.0-beta-1.
+"
+"ef0cb5e333d7bfa93090840ba74a5818cb6cf8eb","2015-07-09 22:20:09+01:00","Prepare for release 1.4.0.
+"
+"ff5c61dcb53bd02e69abb39d0f7aa190f33baadd","2015-07-09 22:31:20+01:00","Merge branch 'release-1.4.0'
+"

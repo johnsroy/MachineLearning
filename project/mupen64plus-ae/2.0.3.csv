@@ -1,0 +1,164 @@
+"commit id","commit date","commit message"
+"3ce6dc498dbd0873d71546369bfb001e2c7f705c","2013-01-20 23:27:48-05:00","front: Added some programmatically-set user preferences to UserPrefs.
+"
+"110a237a50ea9bf12c76a1f2683144e06e58d25d","2013-01-20 23:28:25-05:00","cleanup: Renamed variable (no functional changes).
+"
+"3ecabf860cfbda992d16892de7793120ea325587","2013-01-20 23:45:13-05:00","front: Nyko PlayPad controller mostly supported.
+
+Still difficult to map the left analog nub, since it sends both
+AXIS_X and AXIS_HAT_X (and Y) at the same time.  But all other axes and
+buttons are easily mapped now.
+
+This should fix issues with other composite controllers, such as the
+OUYA controller, which combine mouse emulation and joysticks on one
+device.
+"
+"2d1423c1ff3c4f5d606be957a5c403ea3a189de9","2013-01-20 23:52:06-05:00","front: Exposed some of the Key/Axis providers' functionality.
+
+Will be used in of the upcoming commits.
+"
+"6e25a6228158b7d9bc72408ce3cfd3dd4b334f97","2013-01-21 00:16:51-05:00","front: Added InputMapActivity, soon to supersede InputMapPreference.
+
+The InputMapPreference UI is too limiting for the many functions needed
+during input mapping. This is because it uses a neutered version of an
+AlertDialog provided by DialogPreference. We need more control, namely
+a simple way to add extra menus and callbacks, without the limitations
+of the AlertDialog UI and without the show/hide semantics forced by
+DialogPreference.
+
+So we give the input mapping process its own activity.  This commit
+provides most of the implementation for that activity, but stops short
+of actually replacing the old InputMapPreferences in the menu.  This
+commit provides a possible branch point for testing the new activity
+while safely maintaining all of the existing UI and functionality.
+"
+"9c028556b12e62dd6c6198b4b8acacb56b368b49","2013-01-21 00:24:00-05:00","cleanup: Renamed some widget IDs to follow a naming convention.
+
+No functional changes.
+"
+"1b285a128823d1d627be6286797f3bc7a8f6aa42","2013-01-21 01:18:45-05:00","front: Replaced InputMapPreference with InputMapActivity.
+
+Controller enabled/disabled is persisted as its own boolean now, rather
+than being serialized with the input map. This is much more logical and
+easier to maintain in the long run.
+
+Fewer buttons/axes are mapped by default now, to minimize conflicts out
+of the box.  They are
+- analog stick <-> AXIS_X and AXIS_Y
+- d-pad <-> KEY_DPAD_* (no AXIS_HAT_*, conflicts w/ Nyko PlayPad)
+- start, R, L buttons to their virtually universal keycodes
+
+A TogglePreference was implemented.  Basically a fancier version of a
+checkbox preference.  Besides the slider/toggle widget, the main
+difference is that clicking on the list item in the preference menu
+does not do anything (checkbox preference it toggles the check state).
+This is so that you can handle the click in your own custom way, e.g.
+to launch an activity like InputMapActivity.  To change widget state,
+you need to click on the widget itself. This imitates the 'master on/
+off switch' pattern used in the Android settings:
+http://developer.android.com/design/patterns/settings.html
+"
+"2d9c808ad501a450399fa17eaf8623750c6a5445","2013-01-21 01:45:30-05:00","bugfix: Pre-Honeycomb devices can exit input map activity.
+
+As a side benefit, makes users aware of the other items in the menu.
+"
+"f95a1780d0c4c10d2d19083b1e0346c387c4fe5f","2013-01-21 11:27:30-05:00","bugfix: Fixed NPEs discovered in BugSense
+
+https://www.bugsense.com/dashboard/project/ad73db70#error/97976122
+https://www.bugsense.com/dashboard/project/ad73db70#error/97551051
+https://www.bugsense.com/dashboard/project/ad73db70#error/97340424
+https://www.bugsense.com/dashboard/project/ad73db70#error/97976122
+https://www.bugsense.com/dashboard/project/ad73db70#error/97340424
+"
+"8a5b08ab826f029a2cdf83f00c01819effe60b2b","2013-01-21 23:57:30-06:00","input: Fix for stuck AXIS_GENERIC_1 on OUYA controllers
+"
+"68d83e3899fdd2a9b4726345c4ebec2eb13b672c","2013-01-22 21:39:16+01:00","bugfix: Fixed analog doesn't redraw bug
+"
+"b51d5b303e45db2fd5af462c7bf7ace312c18b00","2013-01-22 20:19:00-05:00","Added some final modifiers.
+"
+"65b3a0208560076a2a6761641225abd7aad2b54b","2013-01-23 17:41:50-05:00","bugfix: Use appropriate Locale for machine-readable strings.
+
+I had assumed the appropriate choice was ENGLISH, then I came across
+this while looking into the Locale API.  From
+http://developer.android.com/reference/java/util/Locale.html
+
+Quote:
+The default locale is not appropriate for machine-readable output. The
+best choice there is usually Locale.US – this locale is guaranteed to
+be available on all devices, and the fact that it has no surprising
+special cases and is frequently used (especially for computer-computer
+communication) means that it tends to be the most efficient choice too.
+"
+"c254655bf2754d664c4214096c186a388f73f235","2013-01-23 22:25:49-05:00","front: Locale preference only affects Mupen, only shows available.
+"
+"3bae1d3d8501c1140a5e62b08145c42f944cecf1","2013-01-23 23:13:29-05:00","front: Simplify some code.
+"
+"59ca551bd27f1db09dca295c2e9f2c28b1da85bd","2013-01-23 23:27:02-05:00","front: Move some java code functionality into xml resources.
+"
+"8873fab903b17f88dbab842cfa0cba3aa375d04a","2013-01-24 00:05:09-05:00","front: Added some string resources, to be used later.
+
+Packing them all in at once so that the translators don't get micro-
+nagged.
+"
+"47c9acc468849ec06bcacb43aaf17dccb3dea982","2013-01-24 10:26:50-05:00","front: Refactored locale stuff a bit, added country/variant support.
+
+Example:
+To provide users the choice between French (France) and French (Canada)
+just update the string array in res/values/arrays.xml to include fr_FR
+and fr_CA.
+
+In such cases, you should include the following resource directories:
+res/values-fr
+res/values-fr-rCA
+res/values-fr-rFR
+
+Non-regionalized French resources should be maintained so that a user
+whose system locale is French (Switzerland) will still see a French
+translation.
+"
+"247dec1cc4a990c17f4e06d5b3ed95921a925674","2013-01-24 11:21:43-05:00","front: Moved some strings to no-translate, fixed texture import summary
+"
+"76968d0c0f889cacd602cb51f847f8a000f0b310","2013-01-24 22:04:45-05:00","front: Simplified the creation of confirmation dialogs a bit.
+"
+"5a35efe4af613efdd2ee3c156a4e41c702e75436","2013-01-24 22:10:06-05:00","front: Added more mapping menus, added strings.
+
+Note: New menus are not functional yet.  This commit just adds the new
+resource files.
+"
+"4d70b7241d60ddbbe4b88f623b3222ed0705aeae","2013-01-24 22:25:45-05:00","front: Big update to input mapping activity.
+
+This commit considerably improves the input mapping experience.
+- Multi-button highlighting (easier to detect issues like Nyko PlayPad
+ganged AXIS_X and AXIS_HAT_X (and _Y) inputs)
+- Auto-classification of analog channels into sticks, triggers, or
+unknown
+* Classification defines how the channels will be normalized
+- stick: range normalized to [-1, 1]
+- trigger: range normalized to [0, 1]
+- unknown: range not normalized
+* In coming updates, user will be able to override the auto-class-
+ification, e.g. to address Xbox 360 unorthodox triggers
+- Profiles menu added; for now just a few hard-coded profiles
+* Empty: just unmaps everything
+* Default: for OUYA, PS3, and many of the new bluetooth controllers
+* Xbox 360: provides workaround until manual classification ready
+
+The implementation required either expanding LazyProvider or removing
+its use from InputMapActivity.  I chose the latter, with the hope that
+it will soon be eliminated altogether.
+"
+"ab025ec8b9bf5549fe1233fbf93ff8c817a55159","2013-01-25 14:34:23-05:00","front: Removed uninteresting stuff from Controller Info string.
+"
+"e944e36cb2ea8df9b6af6d27f355a4aa3239e67b","2013-01-25 14:50:17-05:00","front: Consolidated map classes and simplified a bit.
+"
+"27e45927fecb1822a9f72e7270d97a243b0e435d","2013-01-25 15:36:54-05:00","Cleanup in Utilities.java
+
+- Fixed javadoc with a link within it.
+- Added javadoc to the isDeviceRooted() method.
+- Made checkRootMethod1..3 private. isDeviceRooted() should only be
+exposed
+"
+"076b148c4437f7b98261dac46424cca434f5a404","2013-01-25 21:08:47-05:00","front: Minor code cleanup and variable renaming.
+"
+"f9ecb59c794f9bf83c9333fd5d028d9a63194832","2013-01-26 05:21:01-06:00","Renamed version string for 2.0.3 update
+"

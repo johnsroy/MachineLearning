@@ -1,0 +1,235 @@
+"commit id","commit date","commit message"
+"4253de6a94152dd3fd4afc4d9507094b123a8201","2014-10-21 22:07:38-04:00","Merge pull request #1059 from Djfe/updated-de-and-en-strings
+
+updated de translation, fixed en strings
+"
+"5d96a3f39f4b62d80a0260ac01fc8c02e996162d","2014-10-22 15:07:10-04:00","Only use pretty format in english, use regular numeric date+time in
+other cases. After 1.0 we should try get this working on all languages.
+"
+"0da8a202cc559658318476b62da138e7350d04ce","2014-10-22 22:49:15+02:00","keep_screen_on pref default to false
+"
+"5d0b39b700881822b63b2dde01b4b6e06f88dab0","2014-10-22 15:25:51-04:00","Switching to show all cells scanned, the count we are using isn't
+showing all the cells that are seen at the current time
+"
+"d7c192466852831ea9ea9170e490a080f3eed9d5","2014-10-22 21:16:55-04:00","init checkin of osmdroid source from github.com/mozilla/osmdroid
+
+revision 231b59a1bd32a1b4b2e12c2b81202840cf23aef8
+"
+"9ae2bf0a3338729cb5ab9a28f5afef308b07be60","2014-10-22 21:22:04-04:00","* Moved org.osmdroid into org.mozilla.osmdroid.
+* Reformat and organized imports
+"
+"a8a2161e009fab4f5280c01df37d41023e2be798","2014-10-22 21:33:21-04:00","1068 - Change the name of the app to Mozilla Stumbler
+"
+"872150962c35f93f42effb53605045077193ab84","2014-10-22 21:26:40-04:00","* moved osmdroid under org.mozilla as we're going to start making pretty invasive non-API compatible changes
+* removed slf4j logger from osmdroid and replace it with the mozilla logger
+* Aggressively prune down the osmdroid codebase to just the parts that are essential so that we can properly test components.
+* Fixed some bad exception logging in HttpUtil::get
+* Discarded the LRUMapTileCache::TileRemovedListener as it's never used
+* Removed < GINGERBREAD support from the LRUMapTileCache::remove method
+* Added some comments to recycling ReusableBitmapDrawable instances - I'm pretty sure we *only* use ReusableBitmapDrawable instances
+* Added more warning level logging to see what's going on with download errors in the TileDownloaderDelegate.
+* Removed useless logging message when the SmartFSProvider fails to load anything.
+* Threading has been simplified now so we don't have separate disk IO threads and network download IO threads.
+* We just have IO threads as networking and caching is tightly coupled together within the SmartFSProvider.
+* All threading is actually handled by an ExecutionService within the MapTileModuleProviderBase
+* Dropped MapTileFilesystemProvider as it's no longer used.
+* Dropped MapTileFileStorageProviderBase and adjusted the class inheritance.
+* All error logging now requires either an exception (possibly null) to be passed in as the last argument.
+* Some error logging events have been demoted to just warnings as no actual error has occurred.
+* Removed unused constants
+* changed noisey log level messages to debug
+* bump the size up of the size of the MapTileCache in the abstract TileProvider by 100 tiles.
+* In debug builds - I've added Map and Cover prefixes to the tile overlays so that you can see which tile are actually being used.
+* The BitmapTileSourceBase will now label tiles based on a BuildConfig parameter
+* Swapped out DefaultApacheHttpClient for HttpUrlConnection when downloading tiles
+
+* I've disabled the handleTile method in the ZoomInLooper as well as
+the ZoomOutLooper so that they no longer do anything.  This forces
+tiles to load from disk or network instead of trying to rescale
+pre-existing tiles and storing/loading them from an LRU cache which
+may evict tiles.
+
+I believe the bugs in ZoomInLooper and ZoomOutLooper are causing
+the long standing bug in osmdroid listed here:
+https://github.com/osmdroid/osmdroid/issues/52
+"
+"25131a8b48b91bf275ceceef0da0062007345a43","2014-10-22 21:34:35-04:00","* Changed the initialization of the map to be 300ms delayed as per comments.
+* added a 5 second connection timeout to HttpUtil
+* Added GET support to HttpUtil
+* Disable debug logging for release builds
+* repointed the AbstractMapOverlay to use BetterTileProvider
+"
+"ccc2c65b1fa61ffd1b2919061ed1389519bc19a0","2014-10-22 21:36:05-04:00","updated build system for the osmdroid megapatch
+This brings the features/957-megapatch branch to an exact match of rev f8f11f43c04 in features/957-merge-dev
+"
+"db98db71dfec0150812aa8e20fd26740d873c758","2014-10-22 22:04:47-04:00","demote a bunch of info level logging down to debug
+"
+"df2d1a2d2bdf8c2abc2300bf98ed29673f3cbdf1","2014-10-22 22:11:33-04:00","1069 - Keeping screen on pref only takes effect when scanning.
+"
+"aab106f5fd485d39afc1893243a4e6fd73b868e9","2014-10-22 22:25:39-04:00","Changed pref to say: keep screen on while scanning
+"
+"63cb2f6db2ba9b0b17fd1d26b67f3cc13e91810c","2014-10-22 22:44:33-04:00","changed function to keepScreenOn as requested
+"
+"1ff973948a82673514c81d4d1be29e23f44c374d","2014-10-22 22:46:56-04:00","Merge pull request #1072 from garvankeeley/1066-last-upload-time
+
+1066: Only use pretty format in english, use regular numeric date+time in other cases
+"
+"684732dac915a218b44399bf20a52c86c340f0fa","2014-10-22 22:54:46-04:00","Merge pull request #1070 from cascheberg/fix
+
+Change keep_screen_on pref default to false
+"
+"a759867bf141c646fbcf930dabc77b7f4e3e169d","2014-10-22 23:00:40-04:00","Merge pull request #1073 from garvankeeley/1068-app-name-change
+
+1068 - Change the name of the app to Mozilla Stumbler
+"
+"d6cb31d89a5d37cf37526b1b00ab9988fa6698ef","2014-10-22 23:01:37-04:00","removed commented out code
+"
+"3120de20cc579c9ec26fdc3317ef8ab32becff29","2014-10-22 23:02:33-04:00","Merge pull request #1074 from garvankeeley/1069-keep-screen-on-fix
+
+1069 - Keeping screen on pref only takes effect when scanning.
+"
+"ff9e1e46d88149e064be232649403dfa00f1305e","2014-10-22 23:25:27-04:00","Merge pull request #1071 from garvankeeley/1067-wrong-cell-count
+
+1067:Switching to show all cells scanned,
+"
+"77ae7ddb6a45ed0377de54a4d62b0b502928f3af","2014-10-23 13:42:27+02:00","Fix NullPointerException in errorMLSResponse
+"
+"772ed41d914d00f11b13c0781789b88c966c0948","2014-10-23 10:25:27-04:00","Merge pull request #1082 from narfg/fix-observationpoint-npe
+
+@narfg Fix NullPointerException in errorMLSResponse (fixes #1080)
+"
+"8b0f225c8c8e3dc34071f50268dfaf34b497a0a9","2014-10-23 11:52:53-04:00","Listen for Reporter to flush bundle, then clear the cell count on next
+scan.
+"
+"3c1dff18bac5027f684ddb905dae9dba7716aee9","2014-10-23 12:08:21-04:00","1076: drop cell radio type of zero
+"
+"0e7672c89f69389e603e237c6b4655bf2c1a0a25","2014-10-23 20:34:10+02:00","use table layout in metrics drawer, improves l12y
+"
+"e794a6e249cbdc18c760917e624aaf3adca3f6fc","2014-10-23 14:52:54-04:00","Merge pull request #1075 from crankycoder/features/957-megapatch
+
+957 - etags, 404 filtering, cache control, networking updates and zoom fixes.
+"
+"00863b826bc65f48a329dd5194047e5205594ab4","2014-10-23 21:14:10+02:00","metrics drawer: titles can use both columns
+"
+"05dc4f7bd11cb80407731793cbbf35bcc536feff","2014-10-23 21:17:48+02:00","metrics drawer: add padding
+"
+"7bff7b8c98cd49b9f6e6735a6da49124527d4109","2014-10-23 15:28:31-04:00","Merge pull request #1091 from cascheberg/fix-RTL
+
+@cascheberg Use table layout in metrics drawer, improves l12y
+"
+"5f97ff19bc553e232a44d2c0452cf331110b9f22","2014-10-23 13:49:42-04:00","Reduced LRUCache size overshoot back to 0 from 100 as it caused heap
+to grow too large.
+"
+"b5b08f40040f937f1a0d225537914b4715700466","2014-10-23 16:01:37-04:00","changed the subsample to 2 so that map tiles consume less heap memory
+"
+"706a1335c2d6d0d7a2086a58e0ad77e6c50ee005","2014-10-23 16:19:33-04:00","1084 - Upper bounds on log lines
+THe log is now 500 lines max, with longest lines bounded at 1000 chars
+(the first 30), and the remaining lines bounded at 200.
+- Add ellipse in the middle instead of the end, se we get line numbers
+of exception
+- Make the timestamp shorter
+"
+"5984f3c171529bcf35fc2bcb57a08d70c1d464f0","2014-10-23 16:25:39-04:00","full stacktraces should only show up in stdout in unittest builds.
+
+Anything else should use e.toString() or '' if the exception is null.
+"
+"1dc36266b483f44d05ae903205dde804e9322236","2014-10-23 16:33:48-04:00","added apache license file for the osmdroid code
+"
+"1b41b3a9434974ec4bb0697a46f2a6ac3455611c","2014-10-23 16:40:10-04:00","Merge pull request #1096 from crankycoder/features/1094-no-stacktraces-in-logs
+
+1094 - shorter log messages for exceptions
+"
+"48e438cd12dc48cd0c1e23a14e6b0af50e3e6e75","2014-10-23 16:53:16-04:00","Merge pull request #1097 from crankycoder/osmdroid-licenses
+
+added apache license file for the osmdroid code
+"
+"804cb8623f60b82995caa9c093129f18d1951c3b","2014-10-23 16:59:54-04:00","Merge pull request #1095 from garvankeeley/1084-log-OOM
+
+1084 - Upper bounds on log lines
+"
+"3c5f6539e5a00c9004d29ba64423bfd04e22f731","2014-10-23 17:00:13-04:00","Merge pull request #1086 from garvankeeley/1076-zero-radio-type
+
+1076: drop cell radio type of zero
+"
+"cb1ed079d2514ef2645786fbd0bad44b5acab3e0","2014-10-23 23:54:10+02:00","remove unused resources
+"
+"547ae6e64435ed118c984fd06859e51e69a6cddd","2014-10-24 00:04:51+02:00","Merge branch 'dev' of github.com:mozilla/MozStumbler into fix-resources
+"
+"ebb23b5c66f93575705e23c49b71120e55426fdb","2014-10-23 18:30:27-04:00","Timer was calling broadcastsync on the timer thread, and in general,
+doing a bunch of other thread-unsafe access. Made this thread-safe
+through use of a handler. (A handler is on the thread where it is
+created).
+"
+"69b6360eb6eb0f7a8a8eab8444d33366ab963be3","2014-10-23 19:13:34-04:00","Revert 'changed the subsample to 2 so that map tiles consume less heap memory'
+
+This reverts commit b5b08f40040f937f1a0d225537914b4715700466.
+"
+"b69af595c7cc98c831fc25676be04127c50701b1","2014-10-23 19:36:23-04:00","Merge branch 'dev' of https://github.com/garvankeeley/MozStumbler into 1067-cell-count-fix-v2
+
+Conflicts:
+android/src/main/java/org/mozilla/mozstumbler/service/stumblerthread/scanners/cellscanner/CellScanner.java
+"
+"ce6ecbcc3e87868897f7c789588e15677f89ce73","2014-10-23 19:33:16-04:00","The max wifi check never triggers a bundle flush, fixed comparator
+Flush should be nulling the bundle immediately, fixed.
+"
+"b06099254bf717319ed840d937fa507ebef56e11","2014-10-23 20:37:47-04:00","changed to 'Current session' + 'Previous sessions'
+"
+"e377637cb5117af7300269b577875181739375c6","2014-10-23 20:40:20-04:00","Merge pull request #1098 from cascheberg/fix-resources
+
+@cascheberg Remove unused resources
+"
+"d5739e23b3071fd8ab3fe9372d9543e8cc888e30","2014-10-24 15:07:33+02:00","cleanup more resources
+"
+"bea1b2077f90ea2c3cb22367e2214ba75c7e57f7","2014-10-24 10:04:34-04:00","Merge pull request #1104 from cascheberg/fix-resources
+
+@cascheberg Cleanup some more resources
+"
+"61f01a286abf49e2ec905a41a7e4ca73e47d9569","2014-10-24 10:19:33-04:00","Merge pull request #1100 from garvankeeley/1027-rename-all-sessions-v2
+
+1027- Metrics: changed to 'Current session' + 'Previous sessions'
+"
+"e931a28c0acc96426d49537f1c847385294257eb","2014-10-24 10:40:33-04:00","Merge pull request #1085 from garvankeeley/1067-cell-count-fix-v2
+
+1067: Better fix: Listen for Reporter to flush bundle, then clear the cell count on next scan.
+"
+"ecae4de87c8ecb4bcd149b7e4197b5c375a24f75","2014-10-24 11:18:43-04:00","Merge pull request #1093 from crankycoder/features/1092-oom-maptiles
+
+1092 reduce heap usage to prevent OOM
+"
+"e3601cab464d6d10da8b6d5b3873c83a4fa33389","2014-10-24 11:50:26-04:00","Minor cleanup items for developer screen
+"
+"e16a28f3bbaa1a03a3e5cf8936ae0e804a89c5b6","2014-10-24 11:51:08-04:00","Merge pull request #1110 from garvankeeley/cleanup-dev-screen
+
+Minor cleanup items for developer screen
+"
+"1ab1e430f4ad5187d4f5dbc32c4d5c28db9c8837","2014-10-24 12:01:12-04:00","Added test for acra, long press on the Developer title, and a dialog
+pops up to ask to test ACRA ok/cancel, on ok forces a crash
+"
+"a79ce2f9dd6b8fe8640b8fd454e557bb27a7f531","2014-10-24 12:03:50-04:00","Stop invoking .toString() in a log.debug statement.
+"
+"7280428d91e1d57fe4bc9ef6d62c9b8f579def03","2014-10-24 12:04:28-04:00","Updates to testcase as flush() will force the bundle to be null and the Reporter needs a handle to a live context object instead of null.
+"
+"d17d0a523a8cd2bd73fbbaf83adf946adb1e307c","2014-10-24 12:11:17-04:00","Merge pull request #5 from crankycoder/fix-receiver-max-cells
+
+test case fixes
+"
+"527133b9d35497d8d5811ff186e5034cac42a5aa","2014-10-24 12:18:01-04:00","Merge pull request #1099 from garvankeeley/fix-receiver-max-cells
+
+Saw lots of errors in log due to max wifi check
+"
+"90685a8c1d1145c6cb1ae9e708f7268b93678ca1","2014-10-24 14:21:08-04:00","Merge pull request #1111 from garvankeeley/acra-test
+
+Added test for ACRA crash reporting in Developer screen
+"
+"79fe39052d1c3b4e0710853c1de3a3c0d0c9cbba","2014-10-24 14:42:32-04:00","In debug, log bundle to ADB
+"
+"9ed10444272769c327c3a436ca2c275cd85cbece","2014-10-24 14:44:35-04:00","Merge pull request #1113 from garvankeeley/debug-log-bundle
+
+In debug, log bundle to ADB
+"
+"fd2731d72fcaa6144fc459cea5ad3e246d2d486e","2014-10-24 15:02:48-04:00","silenced some noisey log messages in TileDownloaderDelegate
+silenced a lint warning for osmdroid.views.MapView
+"
+"0d811e75c29c54b7006576e4d45af2d453db6a2a","2014-10-24 15:03:30-04:00","minor build tweaks to be paranoid during a release build
+bumped version to 0.42.0.0
+"

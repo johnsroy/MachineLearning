@@ -1,0 +1,159 @@
+"commit id","commit date","commit message"
+"60fc29cc4d2e280558216587b781bede4ac18f43","2016-06-03 04:43:12+02:00","Add support for shifting the device time by N hours to allow for sleep data gathering of shift workers
+"
+"8096cad6264012a94168a8cb7b881f83272faa84","2016-06-03 10:56:11+02:00","Update README.md fix pebble wiki article
+
+Update README.md fix the link to the pebble wiki article
+"
+"409097bc0059df16b9b740acbf92d2a518dbd649","2016-06-03 17:41:19+02:00","Merge pull request #320 from white-gecko/patch-1
+
+Update README.md fix pebble wiki article
+"
+"edb7471e0c79146cb07ee39cf61f5bf797bcaf7f","2016-06-04 17:14:29+02:00","Added a paragraph about questions
+
+In the hope this helps for issue #319
+"
+"968d15c8d8143af66f4a2e1d7af3d8e73f1daf79","2016-06-04 18:21:49+02:00","Keep the pebble health data on the pebble watch if the activity provider is not pebble Health.
+
+This will nack all pebble health datalog messages. As mentioned in #322, this would allow to use multiple android device without secondary devices 'sipping' the health data from the watch.
+"
+"321707af8f3016c6aa0a602d644e71fa7fc1a0f4","2016-06-04 21:33:38+02:00","Pebble: ignore incoming misfit data if misfit is not set as the preferred activty tracker
+"
+"9d3f3c57cd68408e453fbdd86ae26ed1ce1cea5a","2016-06-04 21:50:26+02:00","Pebble: make disabling of appmessage handlers more generic
+
+Also disable morpheuz handler if morpheuz is not the chosen activity tracker
+.... and bump reported version to 3.12 to match the latest pebble release
+"
+"0fb664c1410b957cae028143eb152d72e35ec9f7","2016-06-05 14:33:09+02:00","allow to switch languages at runtime
+"
+"1ed0dc59b2ef11b627901a06cdcaaff9d7557e2b","2016-06-05 22:29:44+02:00","Merge pull request #321 from pragmaware/mi-band-device-time-offset
+
+Add support for shifting the device time by N hours
+"
+"ca26e27c60be772f0172b785ed3b6b6f7666f782","2016-06-05 22:27:02+02:00","Basic support for Mi Band 2 #323, untested
+"
+"cb4dcf9fa6c6001b6055838829431f48dbc2325d","2016-06-05 22:33:24+02:00","Disable LoggingTest, fixes travis failures
+"
+"2b6ee419704357895abf7d3f411be6270f96eb83","2016-06-05 22:37:42+02:00","Add logging of heartrate values #318
+"
+"389a143bdbcb7064c50af8e09459f3bf3d8a95a9","2016-06-07 19:34:37+02:00","Set music info for PocketCasts
+
+PocketCasts tells about its current media state via notifications. This
+patch tries to parse incoming notifications from PocketCasts and if
+successful tells the device about it. Currently supported are track and
+artist.
+"
+"32429df7bc81a817b841ba7a3811b551ccb22af9","2016-06-07 22:51:14+02:00","Pebble: allow to enable or disable sync for each activity tracker in settings
+
+This is useful if you have multiple phones and do not want to have your data synced to one of them
+"
+"0470731e4bbd2737e0f5a3dfd1562ea4efa4e199","2016-06-08 20:16:28+02:00","PebbleProtocol: Do not call encodeSetMusicState in encodeSetMusicInfo
+
+encodeSetMusicState will be accessible on its own. If it was used to set
+the music state, a call to encodeSetMusicInfo must not reset this info
+arbitrarily.
+"
+"1d5c8bae9d7a0070185fbcb1026a04d3350a9dc7","2016-06-08 20:22:05+02:00","MusicStateSpec: introduce new class describing the music state
+
+Contains:
+- state
+- position
+- playRate
+- shuffle
+- repeat
+
+This is close to what PebbleProtocol currently supports.
+"
+"e386d6da439c38340818ef11922349f9fbb1396d","2016-06-08 20:27:25+02:00","Add onSetMusicState(MusicStateSpec stateSpec)
+
+This commit contains the infrastructure needed for the
+NotificationHandler to send music state information to the device. That
+is, it introduces a call onSetMusicState(MusicStateSpec stateSpec), that
+in turn sets up an intent to the service, which will then call the
+encodeSetMusicState() function of the device. encodeSetMusicState is
+available for pebble only. There are empty stubs for other devices.
+"
+"73fbaf0a54f7ea817e406c7cc6e4ff2c0b1fabbe","2016-06-08 20:32:32+02:00","Restore previous working of the debug activity
+
+The previous commits broke the debug activity's setting of the music
+info. This commit restores this functionality.
+"
+"fb71cdf55b2ab539b9c13ca7595565279f98ff25","2016-06-08 20:33:20+02:00","Add handling for media session notifications
+
+Since Android 5.0, media players can have interactive notifications that
+reside in the notification area, and offer up to 5 control buttons
+(play/pause, next, previous, etc), and information about the currentlu
+playing media file.
+
+We use these notifications to get information about the currently
+playing media file such as:
+- artist
+- track (title)
+- album
+- duration (length of the media file)
+- play state (playing, paused, stopped)
+- position
+- play rate (how fast is the media file being played)
+
+We then send this information up to the device.
+
+On Pebble, the music app will display the title and the artist, as
+well as a progress bar showing the current position. The progress bar is
+animated when the media file is being played, and if it is being paused,
+it displays a pause symbol.
+
+This code will be skipped when GadgetBridge is run on a device with
+Android version older than 5.0 (lollipop).
+"
+"204748c518c0477689c05730c30ab57859ef89fd","2016-06-08 20:43:46+02:00","'duration' parameter in onSetMusicInfo uses microseconds
+
+This is in line with Android, and saves some calculations (and thereby a
+tiny little bit of battery life).
+"
+"91f374edec601c001288f9018830f2173a11a06c","2016-06-09 20:02:01+02:00","Revert ''duration' parameter in onSetMusicInfo uses microseconds'
+
+The decision on granularity of APIs is up to the maintainers.
+
+This reverts commit 204748c518c0477689c05730c30ab57859ef89fd.
+"
+"c5262869d94922123ee88776c9105fb781b22a9a","2016-06-09 20:00:14+02:00","Use names for playstates
+
+These names need to be mapped to device specific constants in the
+device code.
+"
+"fd31bfe56b1a52f0de96098a135765cfe9252e7b","2016-06-09 23:12:17+02:00","Merge pull request #325 from stepardo/steffen/pocketcasts_notifications
+
+Set extended music info by dissecting notifications on Android 5.0+
+"
+"b76619bb5bd4e9dde1c00e0c68177d73e288bacc","2016-06-09 19:55:36+02:00","Pebble: implement app reordering in PebbleProtocol
+
+Not yet used.
+"
+"66b5a21cf27d7d7dc4d65c18d08669dd00ba0a53","2016-06-09 23:39:00+02:00","also gather music info from notifications when screen is off
+"
+"243250f41fb43049ddca57aedbd1cadc3d27a08a","2016-06-10 00:08:00+02:00","update translations from transifex (thanks!)
+"
+"6de002c88bec8ef8813b39de7504ba1c6296ebc9","2016-06-10 22:20:55+02:00","also try to get track number and number of tracks from notifications
+"
+"26ca526fdd81d976653cd1b16c14492857c3bffe","2016-06-10 22:23:06+02:00","update gradle plugin
+"
+"771ff7b2bed49ff1d76afa829ff44972c6159c15","2016-06-10 22:39:00+02:00","bump version, update changelog
+"
+"8d3bd494b4600bb486e1efe740ecde7cb38c8501","2016-06-10 22:45:38+02:00","fix broken xml tag
+"
+"d1a62968f69ebb7dd6dd7cb273a06aa0761681a4","2016-06-10 23:13:33+02:00","Do not send new audio metadata to device if nothing has changed
+
+This prevents some players which send a metadata changed intent every second to drain the battery
+"
+"2d080cabb2689b56b720f05d6defd6f88d568d80","2016-06-11 22:32:38+02:00","fix NPE by using Objects.equals()
+"
+"f812fb1b1f4eef52118909dfe3f16e19f0bed079","2016-06-11 23:37:03+02:00","Improvements to MusicPlayback receiver
+
+- Also send duration if 'duration' extra is present
+- If 'playing' and 'postion' extras are present send a music state update
+
+treat previous state and current state as equal if position delta is <=2 seconds
+(Neccessary for some players which update every second - the pebble however counts by itself)
+"
+"f20b659b8620447befaa156ec34d80e915a79f85","2016-06-11 23:45:14+02:00","update changelog again
+"

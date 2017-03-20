@@ -1,0 +1,45 @@
+"commit id","commit date","commit message"
+"b1558d884fd1e065c7ebcfb9ca6fd6bf77c3b531","2010-01-15 19:14:26-08:00","Added tag 1.06 for changeset 02a0758f99b0
+"
+"dfab0cde808648e1f9559388dedb9df454d1959a","2010-01-16 20:25:48-08:00","Changed name of temporary output files.
+"
+"2f65ad6757016230b4f6d7040f438b862511a771","2010-01-17 01:19:54-08:00","Removed @Override and changed version tags for updates.
+"
+"8300797b134d770926024458149e316144c0ac40","2010-01-17 15:47:00-08:00","Menu item for viewing plus exported display of graphs to its own file for use in
+view mode.
+"
+"45e6b1d8fd568e3c6a0ecd84e704d5647feb1dea","2010-01-17 16:08:44-08:00","Added a new view for view mode.
+"
+"7fcd54d1cb33b7d1fcc04cf5d73492cbe66df205","2010-01-18 02:21:16-08:00","Couple of things:
+1. Independent updater/display thread periods.
+2. Changed updater/display thread communication to use LinkedBlockingQueue
+instead of notifications. This means updater thread is almost never blocked
+on a display update leading to the holy grail: regular data point sampling!
+3. Added Profiler class to gauge performance. Initial results: 70% of time
+is spent fucking around drawing the awesome line, most of the rest is
+background plus g.
+4. Added a method to draw FPS to the screen. Let's just say recorded FPS
+sucks.
+5. Tons of shitty debug code is now everywhere, so removing that will make
+things speedier.
+"
+"c4cd542721d685d3b98b809b1f90bbbac988b85e","2010-01-18 18:20:14-08:00","Couple of things:
+1. Removed profiler/FPS code from SeismoViewThread.
+2. Forced SeismoViewThread to wait to display until at least one new item needs
+to be drawn (max FPS now == 30).
+3. Moved some repeated allocations in inner SeismoViewThread drawing code to
+class scope to avoid slamming the garbage collector.
+4. Added some code to try to maintain thread state between activity switches.
+So far, no good.
+"
+"f5b22e571eaa923fc8d302d7cc5593b1f40610bc","2010-01-18 22:10:38-08:00","Reverted all the changes intended to save state between hiding the app. Turns
+out the way to do this is to move state outside of Thread into View, which is
+more work than it's worth at this point.
+"
+"c5287e50c189166c3d73bef739f252b5cf304481","2010-01-18 22:45:34-08:00","Tired of this project. Last commit with first attempt at log scale. Going to
+branch and commit for improved speed.
+"
+"e3c9ea8bca4feb9fee8018da583764b7d4fb2afb","2010-01-18 22:56:58-08:00","Removed view mode.
+"
+"8621a05ebef6c14d4e5d3f2cc7795c40c0cde0a9","2010-01-18 22:58:12-08:00","Unused import.
+"

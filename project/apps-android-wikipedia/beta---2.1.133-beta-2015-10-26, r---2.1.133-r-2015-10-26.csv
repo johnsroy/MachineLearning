@@ -1,0 +1,65 @@
+"commit id","commit date","commit message"
+"c03e59e395118819ff046e34becd703056e81114","2015-10-23 14:10:23-06:00","Include CSS styles for Parsoid Cite extension
+
+The HTML for references has changed to use a different CSS rule with Parsoid: <span class='mw-ref'> vs. <sup> in mobileview.
+I found the CSS rules through:
+view-source:https://en.wikipedia.org/api/rest_v1/page/html/Cat
+<link rel='stylesheet' href='//en.wikipedia.org/w/load.php?modules=mediawiki.legacy.commonPrint,shared|mediawiki.skinning.elements|mediawiki.skinning.content|mediawiki.skinning.interface|skins.vector.styles|site|mediawiki.skinning.content.parsoid|ext.cite.style&amp;only=styles&amp;skin=vector'/>
+--> https://en.wikipedia.org/w/load.php?debug=true&modules=ext.cite.style&amp;only=styles&amp;skin=vector
+--> https://en.wikipedia.org/static/1.27.0-wmf.3/extensions/Cite/modules/ext.cite.style.css
+So, I had to add 'ext.cite.style' to the list of modules to be loaded.
+Will see if we can make that an automatic dependency in mw-vagrant.
+In the meantime you should enabled the role 'cite' as well.
+
+Bug: T116390
+Change-Id: I5f01e8c1aeb129e2aa4bd42211f36d329ca4aac7
+"
+"c05925342abc7cd3015d74182825419eeb140f32","2015-10-24 00:33:08+05:00","Open new tabs from Nearby Pages in foreground
+
+Overrode onOpenInNewTab() method in LongPressHandler in NearbyFragment
+to use PageActivity's displayPageInForegroundTab() method.
+
+Bug: T107891
+Change-Id: Id2c3232baef33adee389a46e42d0da981d646614
+"
+"34493076bb18a403a46ffe4e4c3637ec24d709a4","2015-10-24 14:05:55-06:00","Remove ProGuard map archival from release script
+
+ProGuard'd builds are no longer obfuscated so mapping.txt is no longer
+generated. Remove the mapping archival step from make-release.py.
+
+Change-Id: Ibfd40251a37548853d81e63dc906d1663b31103f
+"
+"e884419ebfb5fa6c39f6dd623cc6585e4c3c6d9a","2015-10-24 17:49:45-06:00","Fix HockeyApp ProGuard rules
+
+* Fix HockeyApp ProGuard rules. The old rules don't seem to work any
+more. Blanket keep all in the HockeyApp package.
+* Check for crashes in PageActivity. When transmission of the crash
+report fails in CrashReportActivity, the report lingers until the next
+check. Always check in PageActivity so we get reports as soon as
+possible.
+
+Change-Id: I3450136cb849b647169de1cbe06a7127026dff2e
+"
+"3e516ac20304c7bddb4516be5eeda16b92445914","2015-10-26 15:50:05+00:00","Merge 'Fix HockeyApp ProGuard rules'
+"
+"ad4524c4733235707250e227ad83b6f139199909","2015-10-26 15:57:15+00:00","Merge 'Remove ProGuard map archival from release script'
+"
+"18ed101ce8532131faa12fd5f6fbf7ba8c3b3baa","2015-10-26 16:02:22+00:00","Merge 'Include CSS styles for Parsoid Cite extension'
+"
+"5117aab50f8273423b6339a468147b45c36129f9","2015-10-26 12:05:31-04:00","Fix top padding in Nearby fragment.
+
+Bug: T116081
+Change-Id: I54d48cfac5ec21c3442820b78898b8465dbd1005
+"
+"b8baaab6711ccb7a42ab7ab84898c8685b969e28","2015-10-26 16:22:48+00:00","Merge 'Open new tabs from Nearby Pages in foreground'
+"
+"18df60b8c2a3be2b89384dc26d756dddd644f056","2015-10-26 16:32:08+00:00","Merge 'Fix top padding in Nearby fragment.'
+"
+"0751eea4cf0005519e5e0bfc7c250577d26a7711","2015-10-26 17:38:02+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Id36ae1868b5345e2b34b6cfbf9cdf4340764a5f2
+"
+"e4be0cbc9d1cdf3313015acfc7c097a88bfe3617","2015-10-26 10:57:53-06:00","Bump versionCode
+
+Change-Id: Iacb7d9c396078325a64943bd344055596119b4f4
+"

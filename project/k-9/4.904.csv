@@ -1,0 +1,221 @@
+"commit id","commit date","commit message"
+"949f8ae47e3763382070bcec48bf4d7ea1fb945e","2014-03-06 13:58:06+01:00","Fix documentation and variable naming
+"
+"db62215eca4d9f9e5e9a5525ab0c23e79fe47dea","2014-03-07 11:25:24+01:00","Update OpenPgpApi
+"
+"862d1267a84b6592736a2d74b8523716a96c0986","2014-03-07 23:07:11+01:00","rename library to avoid confusion and remove OpenKeychain specific intents
+"
+"fba406c29ffc1b38e925e2cdd2891affcf9d96ae","2014-03-07 23:34:23+01:00","Fix compilation with new lib
+"
+"e55feee952ba6dfc8958343085e49b8cb75dd248","2014-03-09 00:00:58+01:00","Use latest Gradle Android plugin and build tools
+"
+"c2abfbe1657e0039ae0bf3522cae6e1cccae620c","2014-03-09 04:34:46+01:00","Exclude error folder from unread/starred count
+"
+"18da76f4aafec6da36d54ebd800297729e803b53","2014-03-09 05:47:14+01:00","Increase number of values available for 'local folder size'
+
+Fixes issue 6235
+"
+"a7898fa2eb493260e4bc105ff91608a4fd322c1b","2014-03-11 19:06:00-04:00","Fix issue 6269:  IMAP LOGIN failure
+
+Some IMAP servers are broken and don't correctly handle string
+literals with the LOGIN command.
+
+This switches to using quoted strings instead.
+
+This is what Thunderbird does.
+"
+"e475e5173111374214bab35fba3bc4f192c09811","2014-03-06 17:30:15-05:00","Rework handling of certificate errors while pushing
+
+Eliminate import of MessagingController in ImapStore.
+"
+"dc920b8641c2cf88cf67c0b6789a02ad5cafacef","2014-03-09 18:18:26-04:00","Use the mApplication field in lieu of K9.app
+"
+"01d2247ffda5c35b462d5c3e22a01809d9eb8213","2014-03-08 18:41:43-05:00","Change POP3 error response detection
+
+Instead of interpreting a '-' at the beginning of a line as
+an error response, consider the absence of a '+' at the
+beginning of a line as an error response.
+
+This is what Thunderbird does.
+
+http://hg.mozilla.org/releases/comm-esr24/file/55e96a433bd1/mailnews/local/src/nsPop3Protocol.cpp#l1177
+
+The problem arises with godaddy servers spewing additional
+lines of data upon login failure.  The login was being
+interpreted as successful, and a STAT commanded was subsequently
+being sent, resulting in a dialog saying 'Cannot connect to
+server. (Invalid int: 'auth_error:')'.
+
+$ openssl s_client -quiet -crlf -connect pop.secureserver.net:995
+...
++OK <24984.1394317012@pop.secureserver.net>
+user testuser
++OK
+pass testpass
+testuser not found in the auth database
+warning: auth_error: authorization failed (no such object)
+-ERR authorization failed  Check your server settings.
+"
+"5162d847ade831557b36c435b6bb9265bec80caf","2014-03-09 23:12:14-04:00","Build plugins and tests with SDK 19
+"
+"b490773546752f87f0e90cccef8a0f49c8ac4433","2014-03-07 20:08:57-05:00","Include send failures in the K9mail-errors folder
+"
+"b17890251d7ee6719ca367c484fd6ac13506920f","2014-03-19 23:06:32+01:00","Prevent a 'Resource.NotFoundException'
+
+AAPT is a bit too aggressive per default and will kill some needed resources (e.g. forward mail icon). Prevent AAPT from optimizing too much.
+"
+"7e3ae3ca3d1b2cc3ced54c618e1003a96a598463","2014-03-19 23:09:40+01:00","Merge pull request #458 from rtreffer/patch-2
+
+Prevent a 'Resource.NotFoundException' when building from AOSP tree
+"
+"95f62785fc837d52680f5c4c845779aa439dc01d","2014-03-05 09:56:43-05:00","Eliminate unused field/parameter
+"
+"bd4b7d36645a6ea5548100ada1a1b928c46a9b96","2014-03-20 10:56:02-04:00","Issue 6280 -- SMTP Setup: ArrayIndexOutOfBoundsException: length=0; index=0
+
+When the outgoing server settings don't require
+authentication, userInfoParts.length == 0.
+"
+"5c93f105ea4744fe85aa6053f3a52986113f9e53","2014-03-23 00:39:10+01:00","Avoid NullPointerException reported via Google Play
+"
+"8f1723a451635d141e76c24640f3e47f62f1164a","2014-03-26 21:46:26+01:00","Update openpgp library
+"
+"974a73b07d4386767b8ef8a71b5cff5fa63ef8eb","2014-03-26 22:11:19+01:00","Use new account extra to allow multiple accounts
+"
+"3fb9cddb33ca23c80fdc63620c1172b98d9a0b0a","2014-03-26 23:05:45+01:00","Fix gradle build
+"
+"71a8ffc2b55e5375368ec2509197437f8c052c6e","2014-03-30 19:20:46+02:00","Parcelable versioning, API_VERSION=3
+"
+"6175c4c72dd17f338023de8c19bfa461af5fb259","2014-04-01 00:16:14+02:00","Use identity instead of account in MessageCompose, simplify account naming
+"
+"cc8353d25572b5f1c19047c0c093371f5ac721b4","2014-04-01 02:44:32+02:00","Merge pull request #457 from openpgp-keychain/openpgp
+
+OpenPGP Provider API
+"
+"49dbaf034cd9df4c6837de985d50090dd9b0d279","2014-04-01 02:38:47+02:00","Try to use the correct identity with OpenPGP API's EXTRA_ACCOUNT_NAME
+"
+"16ec0337d196d246c4c55cba609fc2ed7bd60c33","2014-04-01 02:49:14+02:00","Fix building with ant
+"
+"c36ef88e648b10010d528190df6a091a71f41afa","2014-04-03 15:42:57+02:00","Hide lookup key button explicitly, previously it was still visible after downloading a key
+"
+"929a61c035aace63666ffe328bc196dafd177068","2014-04-05 12:57:28+09:00","Should match the buildToolsVersion with other build.gradle
+"
+"16df038157a241237de9699ae6785ce418494078","2014-04-05 17:36:00+02:00","Merge pull request #464 from jca02266/master
+
+Should match the buildToolsVersion with other build.gradle
+"
+"e0065ce0141f9010e65473e14166c3db85647d72","2014-04-06 16:36:43+09:00","Changed for Android Gradle plugin 0.9
+
+see http://tools.android.com/tech-docs/new-build-system/migrating_to_09
+"
+"6a6e9979e2ef3db169812e550078356b81ea4710","2014-04-07 17:22:20+02:00","Fix potential ClassCastException
+
+Implemented the fix suggested by zjw in pull request #463
+https://github.com/k9mail/k-9/pull/463
+
+Fixes issue 5928
+"
+"088549ab621dcc8e07d8d29c4e00c077e53e0f4f","2014-04-07 18:15:40+02:00","Merge pull request #465 from jca02266/master
+
+Changed for Android Gradle plugin 0.9
+"
+"857c72d6910abbdc6c660c6a68c596323e95f6b8","2014-04-07 18:17:23+02:00","Fix typo
+"
+"945e539341f54485900133c4079844427d5ad167","2014-04-07 18:24:22+02:00","Remove some unused strings
+"
+"4df53080d39934f8a66f668479359e1229a054d9","2014-04-07 18:48:57+02:00","Ignore missing translations
+"
+"19b808b93b807997a1339ecf8203318a8e9f4f6f","2014-04-07 18:50:30+02:00","Don't use hardcoded package in namespace
+"
+"c53973910fa3547b8af53819b0f34920840e9f29","2014-04-07 18:53:47+02:00","View class referenced from a layout should be public
+"
+"ab72aa0dd71032a68660a81d8fe4cea1b744acf2","2014-04-07 19:17:50+02:00","Don't reuse IDs
+"
+"114d72da3c9bdd4ef729e64c64f561f272ea5771","2014-04-07 19:31:10+02:00","Remove deprecated resource attributes
+"
+"0526ddd2aaf2cb7742ac6482c0265090466867e4","2014-04-07 19:52:37+02:00","Remove unused resources
+"
+"136bdbc4833bccbe745f8aa86a7bf721ec65b25f","2014-04-07 19:56:08+02:00","Fix whitespace to get rid of ExtraText lint warnings
+"
+"8b93d37b393b41eb404058969f844ed75dd81470","2014-04-07 20:00:14+02:00","Suppress warning about 'inlined API'
+"
+"3da2ef7fbe4ec598cb978c5a034ad51587829617","2014-04-07 20:00:53+02:00","Fix PxUsage warning
+"
+"7e040ea84ce57978e8b1ab99d36d3c9b567dc335","2014-04-07 20:09:22+02:00","Fix SpUsage lint warnings
+"
+"5c59b253679594de74c2fe55d49dab2afb23caff","2014-04-07 20:12:46+02:00","Fix (bad) manual boxing
+
+Fixes UseValueOf lint warning
+"
+"ebed217c13ed86ab07b5bdb660f8e830cadc4d78","2014-04-07 20:19:51+02:00","Add missing inputType attribute
+"
+"efc5565b915defe7ecb50655d1759987dbcc4fde","2014-04-07 20:24:01+02:00","Extract hardcoded string from layout
+"
+"510195bce70e33552e1217a91ca853e82af00d6f","2014-04-07 20:35:16+02:00","Explicitly use the default locale
+"
+"95cc31910184c594a8336c706579fa92c738f305","2014-04-07 20:41:20+02:00","Merge branch 'fix_lint_warnings'
+
+Fix some lint warnings
+"
+"13bc441c7b0056175090914dccf3770585cb37ea","2014-04-08 03:34:06+02:00","Remove and rearrange comments to better work with Transifex
+"
+"eaa12d2bd43cef9b77b9c939772052965c0ee445","2014-04-08 04:01:06+02:00","Sync translations (and remove place holders)
+"
+"24cdf811e646dd8ac1373029714c081bad42e6e1","2014-04-08 04:19:44+02:00","Prepare to integrate Transifex translations
+
+Change the translated strings files to a format similar to what
+Transifex exports. This should make it easier to see the content changes
+when translations are pulled from Transifex for the first time.
+"
+"c4d930f326a48ce7dbb1c9932068795b8f7b0a49","2014-04-08 05:09:36+02:00","Remove newlines that mess up Transifex
+"
+"d5c6d96112169b3da282e3bf55d5466b2bf7e16d","2014-04-08 17:35:11+02:00","Fetch translations from Transifex
+
+Include new Basque (eu) translation
+"
+"a7e157eac7821b65a9be86e96205f903c0f259ae","2014-04-08 17:46:45+02:00","Remove Canadian French translation
+
+It looks like this translation hasn't been maintained for quite some
+time.
+"
+"1b14472a59beea572a61df5e94ac56540b0f4fc1","2014-04-08 18:00:02+02:00","Remove scripts to sync translations
+
+Now that we're using Transifex  for translations we no longer need
+those scripts.
+"
+"420e6a91bebd2af002e33c2c54411f7455aec61b","2014-04-08 18:02:47+02:00","Remove scripts to modify translations for Gradle support
+"
+"6267f1249b8a46b9c3e676a55e565e080ac74b94","2014-04-08 18:05:04+02:00","Add script to fix up the files we pull from Transifex
+"
+"6924d68376e0649b8749bc88b3cc645ecb76ecd7","2014-04-08 18:07:14+02:00","Merge branch 'translations_from_transifex'
+
+This has the potential to break stuff. Please report all translation-related
+oddities.
+"
+"c597d63ae64af849cd265fe0db93174abba4ba2e","2014-04-08 21:03:33+02:00","Fix more Lint warnings
+"
+"d6a9b4e4d419a38cad3cc86125cedde02477ef9a","2014-04-08 21:26:44+02:00","Remove obsolete layout attributes
+
+Fixes more Lint warnings
+"
+"3054ff757bda6c52c58ef816c0027d2390265d84","2014-04-08 21:29:40+02:00","Update translations to use ellipsis character
+"
+"5640dece0fda604f27f0552f65d9c1210c1d158f","2014-04-08 22:18:18+02:00","Merge pull request #462 from open-keychain/openpgp
+
+OpenPGP: Hide lookup key button explicitly if not needed
+"
+"b7659884239dca3a6ac255943dd106a2f59910b5","2014-04-09 19:45:37+02:00","Fix APG legacy encryption
+"
+"8e078bc0146cf0ab02a54c1d852842f6ee734f23","2014-04-09 20:28:19+02:00","Merge pull request #466 from thi/fix-apg-legacy-encryption
+
+Fix APG legacy encryption
+"
+"79ae191c2e6978bdc62b81fb4981146ca9101864","2014-04-14 16:03:36+02:00","add information for MyKolab.com and its variants to providers
+"
+"e1d9c60b831fdb11df8af80c364673cc89338919","2014-04-15 01:42:34+02:00","Merge pull request #467 from grote/master
+
+Add information for MyKolab.com and its variants to providers
+"
+"818aed5f8c6bdea0e083be297cff730834b8d437","2014-04-18 16:53:40+02:00","Update changelog for 4.904
+"
+"da74253f7be3e74819305724b276ed246b1a508e","2014-04-18 16:55:41+02:00","Bumped manifest to 4.904
+"

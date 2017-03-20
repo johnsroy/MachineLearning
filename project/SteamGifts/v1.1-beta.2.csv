@@ -1,0 +1,54 @@
+"commit id","commit date","commit message"
+"332d1a542e0b14b9fb2addc39c23f440c8d53c27","2016-01-29 20:38:28+01:00","set up the permissions/receivers required for fetching notifications
+"
+"a38e7b72c81829810d6bd1179262ddedf24f1ae1","2016-01-29 21:25:49+01:00","check for logged in/network state
+"
+"ccf1c10dc55725b8f572db37720e1bc6163b4890","2016-01-30 00:31:25+01:00","display a single/multiple messages
+"
+"836e71eaf8e6a11a26aae305afc5ca4bab97b3b0","2016-01-30 00:48:12+01:00","check for the last message shown to check whether or not we want to display a notification again
+"
+"b91e7b3cbf6e820e539d1c332b6370cd691158e4","2016-01-30 00:50:19+01:00","check for Comment.permalinkId equality if no id is given
+"
+"b3455e7c9222887e3a94988b2c3b76d6b3ef6c2b","2016-01-30 00:59:01+01:00","fixed layouts that were previously off-screen
+"
+"43be4404c0fde346af500d6531047aa9d45aa2f8","2016-01-30 01:44:18+01:00","removed logging from SteamGiftsUserData
+"
+"bd81f24aa760a430c4ad2879d1923d5a2f1c51dd","2016-01-30 02:18:14+01:00","tweaked scroll-to-top behavior for paged fragments
+
+As of this change, paged fragments have a floating action button to scroll to top. Instead of relying on loadItemsInitially for paged fragments, this value is now determined by whether or not the current fragment is active in the relevant FragmentStatePagerAdapter.
+
+If it is not, the FAB is not changed. If the current fragment is active, we set the click listener to scroll up in the current fragment. Beforehand, a FragmentStatePagerAdapter could have changed the scroll click listener even if it wasn't the active fragment, often appearing as 'does nothing'.
+"
+"4a414cbf11e61f047a5a932993f280523e7abba5","2016-01-30 02:40:03+01:00","make UserDetailFragment.CustomPagerAdapter inherit from SimplePagerAdapter
+"
+"860a37ee18817e5417db69c512b60e8feee9d900","2016-01-30 02:50:14+01:00","extract SimplePagerAdapter into FragmentAdapter
+"
+"81b36e419190e7be01da7704bc85127db51107e2","2016-01-30 03:39:37+01:00","tweaks to StoreAppFragment and StoreSubFragment to use a normal ListFragment instead of the custom implementation
+"
+"89f382fbd48927a1dac5421d0ebb2b1596f32c4f","2016-01-30 04:41:37+01:00","refresh steam sub/app pages; do not persist transient fragments
+"
+"6e413e14bb4fbd1f912b3ed402e6e69f022a531e","2016-01-30 04:59:04+01:00","check for transientFragment == null before resetting it in saveState to fix a crash when rotating a UserDetailFragment twice (no crash when rotating once)
+"
+"cfce9345f08b31f29766527d6eed65fe1069fe42","2016-01-30 06:14:25+01:00","minor adjustments to FAB + ListFragment.
+
+There's still an issue with the ListFragment not properly recreating the FloatingActionButton if the instance is recreated. If we're on a pager with 3+ pages though, it is possible to see the FAB again by swiping to a page that was not the direct neighbor.
+"
+"98e2da6d09e50bb9501a83b4109f5e440f8e8638","2016-01-30 06:47:36+01:00","swipe to dismiss a message
+
+Dismissing a message ensures the message itself and all older messages will no longer be shown in any notification.
+
+Ignoring a message until a new message arrives, without dismissing it, will still stack it into multiple messages.
+"
+"39a78333c3f79bd69d46e54d3389e824395725c5","2016-01-30 07:00:54+01:00","open message view on clicking them
+"
+"2b4fc4462d22898d4ab6260cfe6ee61e3690d871","2016-01-30 07:10:13+01:00","Merge branch 'notifications'
+
+This pulls occasionally from SteamGifts to fetch new, unread messages.
+
+Conflicts:
+core/src/main/java/net/mabako/steamgifts/fragments/ListFragment.java
+"
+"58129110fb6912472ecefd69b45b52ef363235df","2016-01-30 07:36:54+01:00","access SteamGiftsUserData.getCurrent via context so that it may load any required user data
+"
+"6188fabe99b9f91b8c226c7812c6ba0b82337a09","2016-01-30 07:51:18+01:00","update app name
+"

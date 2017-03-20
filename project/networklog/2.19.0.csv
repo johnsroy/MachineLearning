@@ -1,0 +1,71 @@
+"commit id","commit date","commit message"
+"ebddc4d81b746d03557a4ff5b8c6b229ebcf0168","2013-09-17 22:51:28-07:00","Add return statements after finish()
+
+Fixes a crash issue where finish() does not immediately exit and the code
+continues on to access a null pointer.
+"
+"1a2624a5fc215deb21c9e28cd0efcf3c173f445d","2013-09-17 23:16:51-07:00","Don't use BigInteger to convert md5sum to hex
+
+BigInteger removes leading zeros.  Instead, add and use internal
+toHex() function.
+"
+"9a10bb42b29c09ff1f28b71837d566e5cd9bcf0c","2013-09-17 23:22:21-07:00","Remove [] brackets from log tag and change level to warn
+"
+"f57a80c450bea12c9862be2e1472bef495df353d","2013-09-17 23:36:28-07:00","Fix issues related to ShellCommand
+
+- Use command.waitForExit() instead of command.checkForExit() to get exit value.
+
+By using checkForExit() the command may or may not have exited yet, and could
+incorrectly return the default exit value of -1.  Using waitForExit() makes
+sure the command exits and returns the correct exit value.  This fixes the
+iptables command issues (check-rules error, etc).
+
+- Check command.exitval in addition to command.error in checkRoot()
+
+Previously, we only checked to see if there was an error rather than ensuring
+that the correct exit value was returned.  Now we check both cases.  This
+fixes the issue where sometimes a device would incorrectly be detected as
+rooted.
+
+- Add error as member of ShellCommand instead of returning a String
+from cmd.start()
+
+It's just cleaner this way.
+"
+"373275881b7f9accdd0f3e830dd5cd13294c5ec8","2013-09-18 02:49:58-07:00","Remove superfluous empty line
+"
+"81101cd039aa2c9c45cd3fd39021b635035d15c2","2013-09-18 04:18:45-07:00","Add indicator of whether device is rooted to Feedback report
+"
+"adb50677eabcd8abeb28a9ce85c22a9cfe18511d","2013-09-18 05:03:05-07:00","Add ability to filter MyLog by verbosity level
+
+Add verbosity level to several existing MyLog statements
+"
+"528241958cddad9bf96ededf972e038a7c5dfd9e","2013-09-18 06:40:33-07:00","Fix Connection Notifications Opacity preference dependency
+
+The Opacity preference for Connection Notifications was not dependent
+on the 'Toast pop-up' preference, and so was always enabled.  Now it
+is correctly enabled and disabled along with 'Toast pop-up'.
+"
+"d06296b601988934d470e19b7fcc765ee6c94bd4","2013-09-19 10:03:06-07:00","Fix issues with sample toast in Connection Notifications preference screen
+
+On GINGERBREAD, creating a new Toast object causes them to queue up and
+continue to display long after the user stopped moving the postion/opacity
+sliders.  Meanwhile, on JELLYBEAN it is necessary to create a new Toast object
+otherwise the Toast.cancel() permanently kills the current Toast object.  To
+fix this, we now test against SDK_INT to determine whether to create a new
+Toast object.
+
+We also now inflate the toastLayout every time otherwise 4.3 crashes.
+
+Note: The sample toasts still do not display properly in HONEYCOMB and ICS.
+"
+"f899a5646bcc980db23f0b7db22704a4e05b2168","2013-09-19 11:20:39-07:00","(envsetup.sh) Make it possible to pass -d, -e or neither to logcat functions
+"
+"1b454fd5f3e78382be594d0fdc6925a60d28f517","2013-09-19 11:23:55-07:00","Add spaces to getTargets debug log output
+"
+"c6777d6804f6c6b90a4fdfd77ccc3bf2e51a26a8","2013-09-19 11:26:01-07:00","Add 'NetworkLog' to onResume/onPause debug messages
+"
+"59592649b6be1630e43fe33221ce931f0821697d","2013-09-19 11:30:13-07:00","Move fragment-updater stoppers to dependent thread
+"
+"387d435d79edcb9fb94dc38ab0591aa539fb3b11","2013-09-19 11:37:32-07:00","Update version to 2.19.0
+"

@@ -1,0 +1,377 @@
+"commit id","commit date","commit message"
+"94897c2a360eade98b556e47b5ae8bc0bedd0f28","2013-02-26 14:20:48-05:00","bugfix: properly test null function pointer before use
+"
+"94657604a0e573603f90f71dd5afba5bffd94312","2013-02-26 21:21:08+01:00","Enable list iterator compile time checks
+
+The gnu c compiler can use its preprocessor functionality to generate code
+which causes compile time warnings when a wrong type for the iterator element
+is used in the list helpers.
+
+This code was removed earlier because MSVC doesn't support typeof(x).
+"
+"c2226711fe36a019b6040cf296640faec4ce5b00","2013-02-26 21:28:16+01:00","Add video-glide64mk2 to m64p_helper_scripts
+"
+"7840b2a83737c6287cdf38882d00dc3585120c48","2013-02-25 13:01:27-05:00","doc: Added Lioncash's much-improved inline Java documentation for EGL.
+
+Highly recommended for working with GameSurface.java.
+(cherry picked from commit 586c27e3dac8de92f23d5b75b7070923435a5836)
+"
+"3acaaedee4b7b58976ff5113f97be2b8ff44b350","2013-02-26 09:47:22-05:00","res: Add (debug) to version string.
+
+To avoid confusion between releases in the crash reports.
+(cherry picked from commit 1641a903203889edb5a4f5de5affa382b95907a5)
+"
+"b16d3cbb141f12bb8f84f6bf66aa66cc8459ec99","2013-02-26 09:47:56-05:00","jni: Suppress benign compiler warning.
+
+This suppresses the warning:
+'note: the mangling of 'va_list' has changed in GCC 4.4'
+
+Apparently benign:
+https://groups.google.com/forum/?fromgroups=#!topic/android-ndk/mrk5dDqWioM
+(cherry picked from commit 45541ea7e49c86299c396bdf83f980e1f7547982)
+"
+"998dbf77b468ee94faf008c1f3ff7a6e1c135f66","2013-02-28 10:18:29-05:00","git: Fix EOL attribute syntax for bash scripts.
+
+(cherry picked from commit b80b90d2dceba638ac2f63413c36c9062bd18012)
+"
+"61483f8427539499f8e4b541bfd4d92d222eeccb","2013-02-27 19:36:22-05:00","bugfix: Validate list preference values on load.
+
+This eliminates problems when list items are removed between releases.
+For example, if you remove an available input plugin, and the user had
+been using that plugin, you want the app to quietly revert the setting
+back to the default value.
+(cherry picked from commit df531e24951e3b1e2a8ac4e9ac0cf5556f6891e5)
+"
+"f94a7bbd786887403614d2a269dc5ba8a45ff2bc","2013-02-28 14:21:32-05:00","Merge remote-tracking branch 'origin/ecsv/video-rice'
+"
+"29c28bbb5369358a5367069817976a31df57a9e1","2013-02-28 14:49:02-05:00","make: LOCAL_CXXFLAGS is obsoleted, replaced with LOCAL_CPPFLAGS.
+
+LOCAL_CXXFLAGS is just an alias for LOCAL_CPPFLAGS, but if you read the
+docs in NDK relating to Android.mk, it states that this alias is
+obsolete and that there's no guarantee it will continue to be in the
+NDK. It's already compatible with C++98 and C++03.
+"
+"eecd26b49bc907b6d56c9ea9ea3a4ea605c95669","2013-02-28 16:53:53-05:00","front: Fixed ConcurrentModificationException in FPS display refresh.
+"
+"0f12961dc0b3f405ea66f14f5d0c1e19c6ba404b","2013-02-28 17:14:54-05:00","front: Eliminated unnecessary auto-saves.
+"
+"004e22e5efe0aa3be364c951473b9fc52ece164a","2013-02-28 17:20:51-05:00","front: Removed field from acralyzer report.
+
+This data is not worth the user's bandwidth to collect.  Clutters the
+reports as well.
+"
+"926c24d5cbfd711348507da47b3d1d8ee4d35221","2013-03-01 21:43:46-05:00","front: Fixed a lint error regarding API.
+"
+"aba1cd7d85f0ac94ae889ff2d2b3ec9bece110ce","2013-03-03 18:37:00+01:00","Move Makefiles for upstream modules to projects/android
+
+The upstream modules store all project files in a projects/${PROJECT_TYPE}
+directory. Using the same scheme for the Android target maybe makes it
+easier for an upstream merge.
+"
+"9def4455b2025f9e74778afc6d0cc9ccfb680e48","2013-03-03 18:52:47+01:00","rsp-hle: Merge together with rsp-hle-nosound
+
+The only difference between rsp-hle and rsp-hle-nosound is a small hack
+which disables the audio microcode emulation. Merging both together allows
+an easier merging of upstream changes.
+
+The difference is now handled by the preprocessor. A configuration option
+should be considered for the future.
+"
+"5f3ee37256ac82d682d19c9638433a7c2dce0e54","2013-02-23 22:18:43-05:00","front: Created preference for new input plugin (input-android)
+
+input-android will be a very thin input plugin for communications
+between the Android Java front-end and the Mupen64Plus native core.
+It will be a simple de-evolution of input-sdl, stripping out all code
+not required for the Android front-end, removing dependencies on SDL
+and other libraries.
+"
+"77078fd46992a933ded6610212ead88f0a86ff68","2013-02-23 22:21:57-05:00","input-android: Initial check-in.
+
+Just input-sdl renamed to input-android. As a Mupen core plugins noob,
+it's easier for me to start with a working example and tear down,
+rather than building the plugin from the ground up.
+
+input-android: Removed code for loading config from Mupen API.
+
+We are managing all input configuration using Android's scaffolding, so
+we do not need to interact with Mupen's configuration file API.
+
+input-android: Removed more stuff related to unused Mupen config API.
+
+input-android: Tell core that all controllers are plugged.
+
+This is just a temporary solution until the actual plugged settings can
+be obtained from the front-end.  (Will require an additional JNI func.)
+
+input-android: Removed SDL dependency completely.
+
+This is a bare-minimum removal. A ton of unused code remains, which can
+be cleaned up later.
+
+For now, I had to break vibration and in-game pak switching, but for
+the most part the plugin is completely functional as far as I can tell.
+Anyhow, this is a good base to streamline from.
+
+input-android: Removed unreachable code.
+
+input-android: Removed unreachable __linux__ code.
+
+input-android: Replace printf with generalized debugger calls.
+
+input-android: Formatted code, with no other changes.
+
+input-android: Removed #ifdef _DEBUG directives (redundant?).
+
+input-android: Removed unused #includes.
+
+input-android: Remove more unused code.
+
+input-android: Consolidate some code.
+
+input-android: More streamlining.
+
+input-android: Code rearranged with few other changes.
+
+input-android: Fixed debug logging and cleaned up variable names.
+
+input-android: Remove raw data processing, and more streamlining.
+
+input-android: Eliminated header files, removed unused function.
+
+input-android: Deleted irrelevant doc files.
+
+input-android: Streamlining pretty much complete.
+
+TODO:
+- Create JNI interface to communicate
+- which controllers are plugged
+- what pak they're using
+- Verify proper operation of paks
+- Verify proper swapping of paks in-game
+- Implement rumble feature
+
+input-android: Remove mercurial ignore file.
+
+I don't foresee this ever being pushed upstream since it's so tightly
+integrated with Mupen64Plus-AE.
+
+input-android: Final simplifications, fixed debug logging.
+
+TODO:
+- Create JNI interface to communicate:
+- which controllers are plugged
+- what pak they're using
+- Verify proper operation of paks
+- Verify proper swapping of paks in-game
+- Implement rumble feature
+
+input-android: Reduce verbosity.
+
+input-android: Tweaked variable names and formatting.
+
+input-android: Re-added code stubs for rumble.
+"
+"38743e957e8a6b0f913a165bef0e1ae0320022e7","2013-03-03 14:54:08-05:00","front: Remove input-sdl plugin and associated preference resources.
+"
+"b387ae681cf9a135eb68e747af8471df46b12ad4","2013-02-28 22:36:39-05:00","front: Removed input-sdl config file syncing (no longer needed).
+"
+"f97c863dc688990a9466144eb44c1d98f9ce07b1","2013-03-02 21:29:36-05:00","input-android: Rumble working for player 1 via phone vibrator.
+
+Tested on Diddy Kong racing. The pattern might need a little tuning in
+the Java code, but otherwise working fine. The native code is basically
+finished. The only remaining native items are to re-wire the debugger
+to the extern implementation, but this should wait until the front-end
+plugin has been slimmed down.
+
+Remaining items on the Java side:
+- Create UI for specifying pak type. The button mappings do not
+currently work and should probably be removed. I favor using the in-
+game menu to switch paks, rather than a mapped button, as this would
+be much easier to implement.
+- Get rumble working on peripheral devices (gamepads). This will just
+require some Java code in the *Controller classes.  Presently, only
+the phone vibrator is used, and only for Player 1 rumbles.
+"
+"597c81ba42f40f57fd8f3cc13543fa0a29896b7e","2013-03-02 22:59:07-05:00","input-android: Implemented native side of in-game pak switching.
+"
+"cdfba4631036c69ce7daf178222b752d319cb953","2013-03-02 23:25:19-05:00","input-android: Cleanup with no functional changes.
+
+Formatted with Eclipse built-in C++ format 'BSD/Allman' using spaces
+rather than tabs.  Seems closest to most of the other native code.
+"
+"46c7de3b621dd604a2c704148432259bfab2ef57","2013-03-03 00:05:55-05:00","front: Implemented Java infrastructure for multiplayer rumble.
+
+TODO: Find the device vibrators and register them in Java.
+"
+"fea65fbfe392900ece350992dad1e35f899dd25c","2013-03-03 13:47:27-05:00","front: Rumble now working for gamepads & multiplayer.
+
+TODO:
+- Create UI for changing pak in game (and persisting to prefs).
+"
+"fbf1cccffc79cba2dc4067cc6d35fd056d919692","2013-03-03 15:46:52-05:00","Eliminated compiler warnings about implicit pointer-to-int casts.
+
+Using Android NDK-r8d build tools (GNU Make 3.81, gcc 4.6) generates the
+following warnings in Eclipse:
+warning: assignment makes integer from pointer without a cast [enabled by default]
+warning: initialization makes integer from pointer without a cast [enabled by default]
+"
+"6cfff95c269a3aad48a138d1cd5fcb81e383b4b9","2013-03-03 18:52:53-05:00","SDL: Fixed 'stale global reference' causes
+These changes were cherry-picked from SDL 2.  I'll be fully upgrading to SDL 2, so this is just a temporary fix in the mean time.
+"
+"9fa7d7f0b91492b1a3f722437cf4ea1834fdee42","2013-03-03 19:07:36-05:00","acra: Tweaked logcat settings for more lines and limit to mupen pid.
+"
+"a18e0e4874d32fa3de6e74f9663ba9917b9d4fd5","2013-03-03 19:08:41-05:00","Merge branch 'master' into paulscode/issue-30
+"
+"b0154e3c440a29045b1022aefcefc5e4b6b343b8","2013-03-03 19:10:49-05:00","Merge branch 'master' into paulscode/issue-30
+"
+"f930a8f6bb34f3d20a2172680b1422b57618f6ae","2013-03-03 19:24:53-05:00","SDL: Missed a DECLSPEC ... SDLCALL
+"
+"658d325a01e8dc55d3e02e36e7f68fba40841785","2013-03-03 21:36:23-05:00","front: Added input profile for N64 USB adapters
+I figured as common and cheap as they are, it would be useful to have a profile for the N64 USB adapters.  This profile also works with my modified controllers :)
+"
+"a45828bee7d31932272638431395f3d0c6744d17","2013-03-03 22:23:24-05:00","front: Hooked up Frame Advance and Gameshark button
+"
+"c0a09912b0f153ed01268e1a8e05abf892602415","2013-03-03 19:27:09-08:00","merge heads
+"
+"be131d978d5cc8bd9a525c11f340bb41035ca2a1","2013-03-03 22:42:45-05:00","input-android: Remove leftover logging during rumble, and cleanup.
+"
+"286fd7f691e7d670e3e43978134490df4629fd73","2013-03-04 00:32:40-05:00","front: Created UI for changing paks from the in-game menu.
+"
+"543655d88191d9b735834386c1ef9d2fa3fa4785","2013-03-03 21:50:12-08:00","merged heads; this int-typecast change from littleguy77 is okay because it's only for the ARM target
+"
+"4084e9717537de584b8e95b6ec0e4ad4aa5d2b1c","2013-03-03 22:39:49-08:00","moved the debugger memory type and memory flags enumerated types from the dbg_memory.h header into m64p_types.h, and prefixed them with M64P_
+"
+"b2732dbc146068ed76c2227329478b13b677d11f","2013-03-04 08:28:51-05:00","Add javadoc to SeekBarPreference and TogglePreference
+"
+"99dbce8826fabb596e8a9b210373f5cba6b25a65","2013-03-04 10:31:23-05:00","Add javadoc to PathPreference.java
+"
+"7c3b5395274cd95f4f5af60f18fad239bf788fec","2013-03-04 10:32:48-05:00","Change the exception that is caught in audioQuit in CoreInterfaceNative.java to be more specific.
+
+Any [thread].join() call will only ever throw InterruptedException.
+"
+"1e648e21f2965fab5190b0e415439c7d39e53920","2013-03-04 12:13:43-05:00","Remove an unnecessary line of code in TouchMap.
+
+Assigning to null is redundant considering the GC handles it either way.
+"
+"f2b1c0110930ebc81604784688bf4e8ee9473e9a","2013-03-04 13:02:29-05:00","Generify clamp in Utility.java
+
+Requires being explicit (in terms of floats and doubles, and maybe long when it comes to using the short-form L), but this makes the clamp method much more flexible.
+"
+"da66b6f911c6231c01a137bc15067ed718843edc","2013-03-04 16:00:44-05:00","Fix deprecations regarding audio channel output in CoreInterfaceNative.java
+"
+"ed661ac687e08cc2ac2c26e7b360c14c812052a5","2013-03-04 16:01:38-06:00","front: Added some items to changelog
+
+Decided to list a few items while I'm thinking about it.
+"
+"e98d90357ddad3aad161073d15460acac3d14e4e","2013-03-04 20:27:42-05:00","Replaced two for-loops in DeviceUtil into foreach loops.
+
+Lets us omit a variable declaration.
+"
+"c4b61fede9bfcf21f1c8d64d072be64485e38ed6","2013-03-04 22:28:30-05:00","bugfix: Flattened in-game pak menu hierarchy for compat with API < 11.
+
+The double-nested submenu in the previous commit created problems with
+the gingerbread device I tested on.
+"
+"8f4e744d1e195d7ce823447738bfe42a33078868","2013-03-04 22:43:25-05:00","front: Pak switches are no longer mappable (use in-game menu instead).
+
+In the Mupen64Plus core, button indices 14 and 15 are denoted
+'reserved'. In the input-sdl plugin, those button indices are used to
+switch the controller paks, and the switching logic occurs inside the
+native code. I prefer the simplicity of using a menu rather than making
+the switches mappable.
+"
+"b40c36e51772786c9a34dc83977843e8aa4d051f","2013-03-04 22:53:31-05:00","front: Simplified some vibration command syntax.
+"
+"c4b7664f7768990dc4d070fa79015de202812e90","2013-03-04 22:56:24-05:00","Merge branch 'master' into input-android
+"
+"da4c1ee3aa6acc25aca96ebcb30d8a738aff2f32","2013-03-04 23:03:54-05:00","res: Remove unused string.
+"
+"feedef17c0733ba73cbda14c5d4f9ca120a10834","2013-03-04 23:23:16-05:00","front: Changed name from 'Expansion Pak' to 'Memory Pak'.
+
+Forgot that the real 'Expansion Pak' plugged into the head unit.
+
+Technically they were called 'Controller Paks' not 'Memory Paks' but I
+suppose this is clear enough since that's what's used throughout the
+internal Mupen docs.
+
+If you have any better ideas for wording, please suggest or revise.
+"
+"df236142d8cc075407462964d8c9df8730611ad3","2013-03-04 23:46:22-05:00","doc: Updated changelog.
+"
+"6cb8679efa89b62c51290af5044ce0dcf8ec4eff","2013-03-05 09:30:17-05:00","bugfix: Checkmarks shown for each player's controller pak.
+
+Before, only one radio button was marked across all the players. I just
+needed to add IDs to the groups so that Android can separate the radio
+groups.
+"
+"324da7615044dc97bec0fed62400c16e64f0e7ab","2013-03-05 18:08:12+01:00","core: Merge 'upstream/core' hg:1f3c9856c9fbb8795a5624d3886512afd5ab54c0
+"
+"819ea1fdf29c2722159beb82ef7e4f632f3c36b5","2013-03-05 18:09:22+01:00","rsp-hle: Merge 'upstream/rsp-hle' hg:7745ce374fe726c565b99a3fb4e0f6d27afff627
+"
+"79fc3280226de6218183eeb356aae05adac94950","2013-03-05 19:31:08-05:00","front: Expedite some garbage collection for xperia play touchpad.
+
+Recommended by lint.
+"
+"74aebd650abe5201da7ed85bfd6fa3c569e835dc","2013-03-05 19:37:15-05:00","bugfix: Use NUM_N64_PSEUDOBUTTONS for array size.
+
+Changed BUTTON_STRING_MAP.size() to NUM_N64_PSEUDOBUTTONS to avoid
+future index out of bounds problems.
+"
+"ea5b1fe7b83aa74dee9679f542a0cecf770368c1","2013-03-05 19:50:05-05:00","bugfix: Use NUM_N64_PSEUDOBUTTONS for audoHold arrays
+
+I updated these as well for consistency.
+"
+"eeba0251d1082b6229bb0690ccff2cf2e1560bbc","2013-03-05 20:01:08-05:00","Merge branch 'input-android'
+"
+"fdd2a2d7a83ce701b5d007029fc1994f45480e70","2013-03-06 03:23:15+00:00","res: Updated translations.
+"
+"7c99373fe54f54cd8f2b47d327f55b44956205b9","2013-03-05 22:24:00-05:00","res: Updated transifex script and config.
+"
+"fa6f67d495e3adc452f74b07835cb6ff16b7804b","2013-03-06 18:08:42+01:00","core: Fix byte sign extensions for architectures with default -funsigned-char
+
+Architectures like armel, armhf, arm64, avr32, powerpc, s390 and s390x use a
+unsigned type definition for char. Therefore, the macro for sign extension is
+just a nop instruction there. Being more specific on these arches about the
+signedness avoids this problem.
+"
+"ef1c06651e577c6b0d8acb7bcc095f17bcb53cd0","2013-03-04 20:37:11+01:00","Revert 'front: Commented out R4300 emulation preference until it's ready.'
+
+No further problems could be noticed and therefore enabling it again.
+
+This reverts commit 6f9fec67f37aa3976a81d007f2f74fe69664e810.
+"
+"73682d34917fad849c47b0a814a533f3fd63623b","2013-03-07 09:38:48-06:00","OUYA: Add axis class to compensate for analog bias
+
+This is the framework to allow compensating for analog bias.  The
+OUYA-specific numbers still need to be added (as described in the TODOs)
+"
+"762a151402882d70e35c7cef0228143c4ab11876","2013-03-07 10:31:56-06:00","OUYA: New official method to check for OUYA hw
+
+Upgrading to ODK version 1.0.0 provides an official method to call for
+determining whether the app is running on OUYA hardware.  I may have been
+overly cautious using Class.forName here instead of calling it directly,
+but I figured this would be the safest way to avoid potential problems on
+other devices (and will allow the app to be built without having to
+include the ODK jars)
+"
+"00a3f8269d2358f60207147c30c143f641c34cdb","2013-03-07 14:43:01-06:00","OUYA: Simplified OUYA check
+
+This also corrects the error where I was attempting to call a
+non-static method from a static context.
+"
+"1ff0e2eb54da1915ed50f30982a796cc969bf99a","2013-03-07 15:23:41-06:00","OUYA: Use ODK to determine if controller is OUYA
+
+This should do the trick.  Haven't tested it yet since I don't have access
+to the OUYA right now (using github to share code between computers :)
+"
+"6c7e589be9e51e55272af62121273374923fe57c","2013-03-07 21:37:19-05:00","OUYA: Compensated for bias in left x-axis
+Normally the bias is around .15, but occasionally it is up to .33,
+so I decided to use that as the cutoff point.  I also rescaled
+strength to the new range, so that small axis movements in the
+0 - 0.3333 range can still be made (I assume this will be needed
+for some games, since that is a third of the total range).
+"
+"e654bb7734f47b2163705b5c1d7fd70d9a2bd600","2013-03-07 22:51:23-05:00","OUYA: Move check for OUYA hardware to AppData
+"
+"022772554575b1bc42c228e8234285f6f03e0b1c","2013-03-07 22:59:07-05:00","OUYA: Prepare to build for review
+"

@@ -1,0 +1,166 @@
+"commit id","commit date","commit message"
+"8a3015026b57bffcc392e8cb02b9591c3b2fa36b","2009-11-10 14:51:26+01:00","Code for grading a card in the srs
+
+Implements the answering of a card and spaces it as desktop Anki does.
+Not tested yet and the code is not used from the GUI yet. This does not
+include support for leeches as I don't know what is going on with the
+SQLAlchemy magic.
+"
+"fd3dab4ea8786c72c6b29cf1c94d4d25132f8146","2009-11-10 15:21:09+01:00","Merge branch 'master' into srs
+
+Conflicts:
+src/com/ichi2/anki/AnkiDb.java
+src/com/ichi2/anki/Ankidroid.java
+src/com/ichi2/anki/Deck.java
+src/com/ichi2/anki/Stats.java
+"
+"554419d4714e5bcfc22e7d08d300330ff0c3f179","2009-11-11 22:12:44+01:00","SRS integrated in the UI
+
+The SRS algorithm is now used in the UI to show and space cards in a
+similar fashion as the desktop application does.
+"
+"b0771235f87a68aa6dc6211d6cf6bbd395c9b830","2009-11-09 20:31:35+08:00","Unregistered the BroadcastReceiver on onStop, fixed a minor bug and added a verification for the ProgressBar Dialog to make it work correctly on the emulator.
+"
+"ef249b5d29c4b88e480ac7b2dd44555dacd71d7a","2009-11-10 19:19:11+08:00","Added unRegisterReceiver on onDestroy in Ankidroid.java, cleaned the code in openDeckPicker (deckPath is always obtained form Preferences so it's not necessary to put it into the Intent), created a new control variable called deckLoaded, cleaned the content of the previous card for a better visualization and fixed various minor bugs.
+"
+"54379fc7bc0f540a20448d112e47f2c9d87708c1","2009-11-19 12:31:36-05:00","Merge branch 'master' of git://github.com/daniel-svard/Anki-Android
+"
+"340b12363c04464bed0a244e09b871f8baeaeaec","2009-11-19 22:25:31+01:00","Refactoring and time precision fix
+
+Moved all deck-related code from Ankidroid to a the new class
+DeckThread. This class employs a separate thread for deck operations and
+uses a callback mechanism to allow ui operations in Ankidroid.
+
+Data types for time entries in the database changed from single to
+double precision floating point numbers. Single precision was not
+enough.
+"
+"b980b1b29a1700f67cea08fa1b57901c2754e8e1","2009-11-19 22:39:29+01:00","Cleaned up old unused code
+"
+"285451c31deae30db87aff7bf3c51b5ad91a6bd3","2009-11-20 01:41:49+01:00","Fix timer not starting on new deck
+"
+"e04c5c5427290a2a489526215700553d5d5ad28d","2009-11-20 05:22:29-05:00","compile fixes for java 1.6
+"
+"3d13d12d479a8a568c4fe86e3d24b5fc3e1d06eb","2009-11-20 05:22:38-05:00","Merge branch 'srs' of git://github.com/daniel-svard/Anki-Android into srs
+"
+"594196bd69a3ef14beb5af4f06ff0c8cede21c03","2009-11-20 09:49:44-05:00","Create AnkidroidApp, a singleton, which holds the reference to the currently loaded Deck.
+"
+"8f26dda080f9ce91936e18797a3fd1a14cd3ba06","2009-11-20 09:52:12-05:00","Add DeckPreferences (aka, Study Options). This activity allows for the editing of the currently loaded Deck's Settings.
+"
+"d8f225c30962084fd14d7e8b7503b14427c7f542","2009-11-20 09:53:14-05:00","Deck: Make some members private, and add getters/setters. The setter saves the changes to the database immediately.
+"
+"56842370295a219f253daeff3fe7507c235501a9","2009-11-21 04:00:26-05:00","Ankidroid: Implement support for max session time limit
+Currently once the session time limit is reached, the deck picker is shown. But
+there should probably be a summary screen, like the desktop app.
+"
+"0163484d898ce10c665d501ff595064167576f68","2009-11-21 04:10:09-05:00","Ankidroid: Implement Session Rep/Question limit feature.
+The review session will terminate (go to the deck picker), after
+the question limit has been reached.
+"
+"853403cd00cab2d33a1603b5b74f322aaeabffd7","2009-11-21 05:42:06-05:00","Deck Preferences: Add preferences to change the Review order, and Spacing options.
+"
+"8a7263cf17f8b711ac9e664c0e066e6a21dedc36","2009-11-22 10:47:57+01:00","Adding write answer field
+"
+"e0438b18fbda962bba09990cb594ef06a7d405f2","2009-11-22 14:29:05+01:00","Improved the diff routine. First, it checks for prefixes and suffixes. Then, if the body of the strings have differences, it looks for groups of two or more characters that are in both strings. Need to be strongly tested since the algorithm is kind of complex.
+"
+"7b1365ceaf095e080a2089aed9d57c127655eb56","2009-11-22 14:46:48+01:00","Added control of the font size. Depending on the actual content of the question/answer, the font size will be greater or smaller. Min and max font has been established.
+"
+"5f64c4e17dacf85354009d0bf75c75b119b0aa7a","2009-11-22 23:13:57+01:00","Fixing a bug: the content (question or answer) was first showed and then resize it, and the user could realize that. I myself introduced that bug :D
+"
+"cd40f6d3f1a4393c32451b09dff9df8d7737bbfb","2009-11-22 23:34:09+01:00","Solved a bug introduced before about the content. Answer field won't expand itself more than two lines. Max and min size are now lower than before. Also the string with the answer of the user may content newlines, and now these are replaced by <br> so that they can be matched against the <br> of the correct answer. The bad part of this is that sometimes, if the amount of newlines don't match, some <br> can be shown as plain text. We'll have to figure out how to solve this, but not now :)
+"
+"570d24e516b8bf3d130890bf8b1a06d58d479f29","2009-11-23 10:09:44+01:00","Removed unnecessary imports.
+"
+"e86df8ac2106eecfab72db1d2a710930cd7e131c","2009-11-23 10:26:29+01:00","Fix for session question limit and message toast
+
+Make the session question limit behave as expected. Previously it did
+not honour the 0 setting and the flag was kept true across sessions.
+Also fixed the session limit toast so that it actually shows up.
+"
+"bf0e561f87193ad5e31c7fdd9595629b26dd4376","2009-11-24 13:53:25+01:00","First version of the Update Notification System.
+"
+"6c59770984905ca38e630bae936bcbc7ef9d926b","2009-11-24 08:14:54-05:00","Merge branch 'master' of git://github.com/edu-zamora/Anki-Android
+"
+"2c054cf2f5c141e8ff46db12ce95fa17db9425ce","2009-11-24 14:25:51+01:00","Merge branch 'master' of git://github.com/jordi-chacon/Anki-Android
+"
+"e762927d23fe5e199e6774263ef9f8eacebbf7dd","2009-11-24 08:30:05-05:00","Add default license header to all the files.  PLEASE, authors, add your copyrights to the files you have edited.
+"
+"96244b81e8001b757da31c8132c49056adb48029","2009-11-24 14:38:36+01:00","Merge branch 'master' of git://github.com/Ramblurr/Anki-Android
+"
+"fb380337222eab9f5bc4254d031ef1ae4d8429ba","2009-11-24 17:15:24+01:00","Merge of all srs branches, fixed a new bug loading other decks and added a verification before unregistering the BroadcastReceiver on DeckPicker.java
+"
+"3048d8893562e3ec0300c40b2ccc4813f32270b5","2009-11-25 12:57:21+01:00","Update Notification System implemented: The user can choose in Preferences if he wants to be notified when an update of Ankidroid is released. If the notifications are activated, when a new version of Ankidroid is out and the user opens the app an informative dialog asks the user if he wants to upgrade to the new version. If his answer is affirmative, he is directly taken to the Ankidroid download page on Android Market.
+"
+"e48d75c69e2c77a73ed88c49ca873eec5f0cb8f8","2009-11-28 17:51:45+01:00","Added external diff library stored in DiffEngine.java. Previous diff function has been removed. Now the diff computation is performed through DiffEngine. Results are now supposed to be exactly the same as in the desktop Anki.
+"
+"9e1ee243ad503f3c3e3fb76833eca47feef7392a","2009-11-28 17:55:22+01:00","Merged from edu-zamora repository
+"
+"cc0e9f68a746f56270a98431ccb59002fe958e13","2009-12-01 18:54:40+01:00","Veecheck 2.0 library integrated and minor modifications (function intentToString in PrefState.java) to make it work like we expected (Veecheck is a library that allows us to check automatically for new updates and notify the user about them)
+"
+"08ce9ff1f9630580ec16a4f24779d1111bc91d6c","2009-12-05 11:51:15+01:00","Correct displaying of html tags: now bold, italic, underline and colors are working fine.
+"
+"1f137bf9c6e4f47b93e669c6668df681b74543b9","2009-12-05 22:54:13+01:00","Srs branch merged into master.
+"
+"0ff08588a1a62130568775c1d7f222738e2b4644","2009-12-06 01:18:03-05:00","Update License headers based with names/emails on git blame.
+Also removed trailing whitespace.
+"
+"f432e5911dccaaac01c38d2889d2c25106357ef1","2009-12-06 18:59:54+01:00","Fixed bugs on deck_preferences.xml and preferences.xml (the xml header had to be on top in order to compile), bugs regarding the visibility of some elements (the EditText to write the answer and the Whiteboard/Timer were shown coming back from Preferences, when there was no more cards) and crashes when there was no deck loaded on DeckPicker and DeckPreferences. Also, right now Study Options is only enabled on the menu when a deck is loaded.
+"
+"6f1bffed93fe8248ea36e40264d98d564a026e7d","2009-12-06 19:37:58+01:00","Fixed crashes when unmounting the sd card with no deck loaded and when navigating to DeckPicker with a deck with some cards answered and the sd card unmounted.
+"
+"eca1ccc7be3eba0917a5d12365b4552e82b86bf2","2009-12-07 14:01:06+01:00","Fixed bug that made the app crash when the sd card was unmounted while being on DeckPicker.
+"
+"d5e9e6ccfe00459d5ad1fda4869d7b5946413db7","2009-12-09 13:14:21+01:00","Added sound support in cards.
+"
+"e598afbe85554c92b1c47220e4bcc0a262cb8d1a","2009-12-09 17:50:07+01:00","Increased sound volume.
+"
+"c115b649068f55aed5ec29a3f1842d0c48aea4e4","2009-12-13 20:54:19+01:00","Added image support in cards and fixed a little bug that prevented DeckPicker to work properly with different deck paths.
+"
+"90623d9933197d8dd3c7f104c18164a8a2331ab3","2009-12-23 00:43:54+01:00","Changed delay columns to correct datatype
+"
+"31bd969093222e007601015fab7797c35a941f92","2009-12-23 01:09:14+01:00","Fix for issue #36
+
+Moved the decrease of failed, review and new card counts to before getting a
+new card.
+"
+"2724b70e24d5ff220b17d1073540f7d195565af7","2009-12-23 09:45:24+01:00","Modified the compare method on DeckPicker to not use parseFloat, for more safety.
+"
+"edb21d412e152e89d29c0999b3bcb3d853d357a2","2009-12-23 13:32:58+01:00","Fix for exception when inserting a new CardHistoryEntry into the db
+"
+"6ec38da831838bfdc3a76079eb5b1e9444d90be3","2009-12-23 14:15:27+01:00","Fix for issue #42
+
+For big time limits, the time limit computation overflowed with a
+negative time limit as a result. This fixes the overflow.
+"
+"39103923a42204c7f6835f1d71e1ed21bbee424a","2009-12-23 15:55:29+01:00","Merge branch 'master' of git://github.com/daniel-svard/Anki-Android
+"
+"d8321c68e94ce70f972842880dd72c867abd3710","2009-12-28 14:13:44+01:00","Fix for issue #46
+
+Zero session time limit now interpreted as infinite time limit.
+"
+"3dd71079049c99388899a16156190d6da4bac281","2010-01-08 14:03:06+09:00","Running with ant
+"
+"289eb382e7efe5aa7e1c97d9fd676211ddc25e9a","2010-01-11 00:51:26+08:00","install-emulator/device ant tasks
+"
+"4b753460a6245501f1a180cc1699967b6c70dc35","2009-12-28 21:13:44+08:00","Fix for issue #46
+
+Zero session time limit now interpreted as infinite time limit.
+"
+"13fa2cde1a7eaeaf1e3ca67de90cb3cd7bedfb31","2009-12-22 00:21:46+08:00","The capital of USA is more correct with 'DC' (abbreviation of District of Columbia) appended.  'Washington' alone can be several other locations in the USA, and would more commonly refer to the state of Washington rather than the capital city.
+
+Also, capitals for China, Indonesia, Bangladesh, and Nigeria were added - their inclusion warranted by virtue of being among the 10 most populace countries (ref: http://en.wikipedia.org/wiki/List_of_countries_by_population).
+
+Finally, capitals for South Korea, Mexico, United Kingdom were added due the stature and size of the cities themselves (ref: http://en.wikipedia.org/wiki/List_of_national_capitals_by_population), and because I'm on a roll.
+
+I understand that this deck was likely intended solely to demo Anki-android, but it may as well be accurate and thorough :)
+"
+"c5f9ace0c23cf2c2556b6842d4f80829424cfabe","2010-02-02 21:53:11+09:00","Merge branch 'master' of git://github.com/daniel-svard/Anki-Android
+"
+"d70d1c290bc8de7b65b8af10e396427982bf75ff","2010-02-02 22:32:48+09:00","Added Suspend feature
+"
+"cfe6d83f85e9367403ee930e1b8fc78374c311b4","2010-02-02 23:31:21+09:00","Added some Javadoc, removed dead code, cosmetic changes
+"
+"44531ff430106c1f750741a305175196a2474644","2010-02-02 23:57:09+09:00","Removed stale file, as per Ramblurr. Somehow I didnt manage to pull this one from Ramblurr, Git was saying: Already up-to-date
+"
+"07fe0c884fc62313e7f89946350386acf7435520","2010-02-05 22:53:52+09:00","Changed CSV format for import by Anki, updated sample Anki file based on CSV file modified by gravel
+"

@@ -1,0 +1,128 @@
+"commit id","commit date","commit message"
+"289cdbd5c1e95607942b84844d0dcc1585f66e0a","2012-12-29 18:40:14+01:00","Initial Commit
+"
+"a8d58768f3e7b68262682caa2049e855961b2488","2012-12-30 00:26:28+01:00","Init.d Script: Extend the debug log
+Add property values to the debug log so that one can track the current settings from within the log file
+"
+"90cb8fd76af8615248ba64edfd1a3af28e9694e8","2012-12-30 10:41:03+01:00","SettingsHelper: Move configs to seperate XML
+"
+"4b0eae7735c6497dbf37b475ea18f72efdc6a2f1","2012-12-30 11:54:47+01:00","Drawables: Add new Launcher icons
+The old icons (White and black) did not look good on white or black backgrounds. So we add some new once with gray shadow to fix this issue
+"
+"5fcb8df223622ded5957416dd3e6dd5c7ec7b3a1","2012-12-30 11:57:28+01:00","Drawables: Add market Feature banner
+"
+"d7691cf29f6965841fe50564ebdd0a8869080900","2012-12-30 12:22:25+01:00","Raw: Update recovery installers
+"
+"1fdb605aa525281e55dbdc6259a0506b1fb90380","2012-12-30 12:30:59+01:00","Add changelog for latest released version
+"
+"c92448e24a49ad9e832c1d2cfc43a7442acadbc7","2012-12-30 23:29:10+01:00","Init.d Script: Small fixes
+* Fixed default prop values
+* Fixed missing = behind a variable
+* Fixed SWAP not working
+"
+"c3e2e08c5aedf0db9b2faefd522afff110b3ac56","2012-12-31 10:07:53+01:00","Init.d Script: Add support for app-lib
+In Android 4.2 the /data/data/<app>/lib has been moved to /data/app-lib
+"
+"6b6cd340fd2759edc2e5e04d0754c04456071ad8","2012-12-31 10:19:50+01:00","Init.d Script: Make regular app folder static
+Make sure that app and app-private is handled even if they don't exist in init.rc
+"
+"13da854f4aefc608fe6cfe06df92fa3ff68db4cb","2012-12-31 12:05:44+01:00","Init.d Script: Do not use lines starting with #
+Do not use any lines from init.rc starting with #
+"
+"6e68e70d2681abe0c640387128a81deade289043","2013-01-01 23:14:32+01:00","Init.d Script: Do not check init.d sub folders without rmount
+If we do not have r-mount enabled, we don't need to double check data sub-folders as they have been handled by init already
+"
+"23782306f3870a9118eaa537a4cc8b3a6dcc5512","2013-01-01 23:31:09+01:00","Init.d Script: Add support for Internal Fuse (/data/media)
+We need to add support for devices using fuse to mount /data/media as internal sdcard. Otherwise options like r-mount will move the internal storage into the sd-ext partition
+"
+"1a81a3d0edf209abc141908d4584eb3355c6f147","2013-01-01 23:35:29+01:00","Init.d Script: Do not empty do*Content variables on each loop
+"
+"8b9caa739311ba6981c837d92739610c69f7fa77","2013-01-01 23:38:17+01:00","Init.d Script: Small typo fix
+"
+"e0e2b3283e4efa9b5cffc2c47b3715cfc34aa97d","2013-01-01 23:39:23+01:00","Init.d Script: Do not use i and x variables in functions
+These will overwrite any used in a loop where the function is called
+"
+"429b3ecff67987b82c7d7edebfb577725c5cefb8","2013-01-01 23:44:02+01:00","Init.d Script: Use all *.rc files and not just init.rc
+There might be some other folders defined in other *.rc files. These will be used as well
+"
+"4b3fc3c8efd2330d7aaa9bdc6d545e25d48e336c","2013-01-03 07:54:45+01:00","Init.d Script: Fix small typo
+"
+"b3cc7899510cefbfb45f8460a032d57c2241608d","2013-01-03 11:05:17+01:00","Init.d Script: Add better support for inproper init.d (Safe-mode)
+Inproper init.d means that the scripts are executed from an service within init.rc. A better way is using 'exec' from 'onboot' which will allow all the scripts to finish before the main and core services are started.
+
+The issues in this case is that newer phones is to fast to boot into the UI. The script has no chance of finishing everything before then, especially not if a great deal of content needs to be moved. This means that content is being moved away from /data into /sd-ext while the UI is started, and content already placed on sd-ext will not be registered by the package manager because sd-ext has not yet been linked to data.
+
+This fix will make safe-mode more stable on devices which boots fast into the UI. The content might still be moved while the UI is started, however temp symlinks will make sure that the system always has access to the real APK's no mater where they are placed, until the script get's far anough to link the folders
+"
+"4428759a50c2b456b551048e403fa34f4661b1c0","2013-01-03 11:27:30+01:00","Configs: Update Versions and ID's
+"
+"adf5c0171336e00676dbdf78a7d88a467858e90c","2013-01-03 11:47:36+01:00","Update Changelog
+"
+"715f3295ce9c5122ce7468d99c22f2b000a99584","2013-01-03 12:13:53+01:00","ConfigureActivity: Add warning when disabling safe-mode
+"
+"148a177d453cca47d1e01955d24c12a46bbb85c4","2013-01-03 12:16:29+01:00","MessageDialog: Add Title and Message to savedInstanceState
+"
+"52c6f728d90e6b9092be8f6603eddc3e69e78b73","2013-01-03 12:20:15+01:00","Update Changelog
+"
+"80dead759f79e84c7383906b663ba2b95f42272e","2013-01-03 17:22:55+01:00","Init.d Script: Fix small typo
+"
+"1d934fe41b9189a656d4686d6d815dd4a4e954a9","2013-01-04 09:04:23+01:00","Init.d Script: Add support for random proc ouput
+Some devices, when using --bind option on mount, does not use consistent data in /proc/mounts. Example when mounting /sd-ext/app on /data/app, you will normally search for /data/app in /proc/mount, but some times it will put /sd-ext/app in the proc file instead. So we will look for both
+"
+"93d5c5f9724464ff7fc226236793ceeece20ca29","2013-01-05 06:30:49+01:00","Init.d Script: Add support for Android 4.2 user data
+Android 4.2 supports multi users and uses /data/user/[*]/ to store different users app data
+"
+"8a752c3d8dd4d8f7d9a65e904ff3a60274d64c16","2013-01-05 07:34:52+01:00","Init.d Script: Fix R-Mount on Android 4.1+
+"
+"5d96c8a4e78d99f54ec1a813a9037f4a878f11d1","2013-01-05 08:02:01+01:00","Update Versions and ID's
+"
+"7bc4801d70e5568f5918c3af659bfbc45f73f46b","2013-01-05 08:06:09+01:00","Updated Changelog
+"
+"1feb26e70fb5b039278583c3ba1c859175505e16","2013-01-06 03:20:27+01:00","Init.d Script: Add support for /cache/dalvik-cache
+Some CM ROM's uses /cache/dalvik-cache for all system apps and framework files. We need to add support for this into our cache system. Otherwise bad things will hapend
+"
+"67eebbc99936f5879cd9d859141f54deb921f33b","2013-01-06 03:52:04+01:00","Update Versions and ID's
+"
+"f3b28a5ae788d746f0d62f7bab8f65a7804c6ae2","2013-01-06 03:54:04+01:00","Update Changelog
+"
+"5f94f854463cc04506c5aba11b0e50eecec27b03","2013-01-08 12:22:14+01:00","Init.d Script: Small fix for checking existence of /cache/dalvik-cache
+"
+"2da276e86af236be23347ab6c3e2c2f24c59c441","2013-01-08 12:49:56+01:00","Init.d Script: Add hidden files support to limited busybox
+It's true. There are actually some busybox versions that does not understand a simple loop on [folder]/.*
+
+Who would make something like that?
+
+Also, we should maybe make sure that we do not try to move '.' and '..'
+"
+"67cd89e663455a6aa310ab874a5d082e8a78d46c","2013-01-08 13:09:24+01:00","Update Versions and ID's
+"
+"dc42a74e8fab3c645883d56a931d5a61003abc8c","2013-01-08 13:09:57+01:00","Update Changelog
+"
+"7fb84d565bf6705cc399d4521886dfb0e9a92826","2013-01-09 08:10:01+01:00","Init.d Script: Fix invalid log warning
+"
+"7674aea5cfbae831cc316a77384dca7a8dec1766","2013-01-09 08:12:04+01:00","Init.d Script: Cleanup CM dalvik after failed link
+If the script fails to link /cache/dalvik-cache to <Cache Location>/dalvik-cache, the system dalvik will be build into <Cache Location>/dalvik-cache. Make sure to cleaup after this on next boot
+"
+"792da4ff3c0f5f4d261f9b52e35d2beeaaee1794","2013-01-09 08:18:28+01:00","Init.d Script: Remove warning when missing sqlite3 binary
+"
+"301c0da36c2d9b5addb56a81cdbe980dc80c8de5","2013-01-09 19:14:25+01:00","Selector Values: Add more readahead options
+"
+"900da650ba7f96940c0249eacedfd969e780c306","2013-01-09 19:55:41+01:00","StatusActivity: Display selector names instead of raw values
+"
+"34862c6a5931b089e14a7bace70ea453ba1f0a62","2013-01-10 10:05:22+01:00","SelectorDialog: Automize the selector options
+"
+"3e3c465577113ee037754c6b004e45df92d75f15","2013-01-10 10:15:57+01:00","SelectorDialog: Add more file systems
+"
+"afd1c1c156b69e930d1c64fef4452af540d83fc9","2013-01-10 12:08:41+01:00","Add Swappiness option to App and Script
+"
+"aacef6026a5cc20fabe3cd6971fccd16291e292c","2013-01-10 13:44:57+01:00","Init.d Script: Enforce more init.*.rc owner and permissions
+Permissions and Ownership differs some times from Android version to Android version. This is why we use info from init.*.rc as these files will always contain what is right for the current system that M2SD is being executed on.
+
+Now we add the rest of the directories as some issues has been found on some devices regarding the cache partition
+"
+"4e63d51ddb3f4446c74731a16cb7aab5f2373514","2013-01-10 20:43:57+01:00","Init.d Script: Add more debug information
+"
+"578180aa9aa17a43edd1b65a469cdfbd6681ef60","2013-01-10 20:49:40+01:00","Update Versions and ID's
+"
+"53f4a69cec2a5ca8a7396768910d91c9481620d6","2013-01-10 21:00:53+01:00","Update Changelog
+"

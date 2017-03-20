@@ -1,0 +1,125 @@
+"commit id","commit date","commit message"
+"8f986c2027ab8a8786cdb1965d059d3dfe85f8fa","2012-08-02 13:41:39+01:00","Unprepare for release
+"
+"68fe4bd099b0be77451b15495f5f278ef142d467","2012-08-02 13:46:02+01:00","Add a TODO
+"
+"02ec7111b109cd2bf9b47711cd42a02ac5145952","2012-08-02 23:31:17+01:00","Allow the app to be installed on an SD card
+
+The app is reasonably large and it doesn't have any services so it
+probably makes sense to install it on an SD card.
+"
+"d4df1c7e20aa42e9569025928abf7d1c048fb943","2012-08-04 11:21:06+01:00","LanguageDatabaseHelper: Don't use insertWithOnConflict
+
+insertWithOnConflict is not available in Android 2.1. Looking at the
+code, it just seems to generate a statement anyway so it doesn't look
+like there's any advantage to it over just using execSQL directly.
+"
+"e3c00f3dd20d3a2379b1ca28bfe5a3ddaa173517","2012-08-04 11:23:38+01:00","Assume the default charset is UTF-8
+
+The String conversion methods that take an explicit Charset object are
+only available since API level 9. If you don't specify a Charset
+object then it will use the 'default charset' which as far as I can
+tell is always UTF-8 on Android. This should make it work on Android
+2.1.
+"
+"7700f1878328f779ef1bd1b203071984411fdc4b","2012-08-04 11:24:10+01:00","Set the minimum SDK version to 7
+
+The package has now been tested on Android 2.1 so we might as well
+support that.
+"
+"72c00dedb82f22f2861a83493b35ec07c60fb76b","2012-08-05 10:43:01+01:00","pdb-xml: Initialise the handler callbacks
+
+The handler callbacks are optional except they weren't being
+initialised so that if they weren't specified then it would crash.
+"
+"df8aa79b7c44241cbdf8a53b943c8bedcdb353b5","2012-08-05 10:44:07+01:00","prevodb: Add a test program to find missing refs
+
+This adds 'dump-marks' which is a standalone program which parses all
+of the XML files in the revo zip file and outputs a list of <ref> tags
+which point to a missing mark.
+"
+"0180e02e4f27945705539d2362281154fa531083","2012-08-05 13:00:58+01:00","pdb-db: Make a function for the common code to resolve a reference
+
+There were two identical bits of code that were resolving
+PdbDbReferences to an article and section number so we combine them
+into one function.
+"
+"e0b51181763ffca472c34a9eacb99cde7b3940b6","2012-08-05 14:24:29+01:00","prevodb: Add an embedded linked list type
+
+Embedded linked lists are more efficient and convenient for some
+situations. This pinches the list implementation from the Wayland
+source code.
+"
+"b9d0b33d37a07e4065218fad9feb7945233c1b95","2012-08-05 14:26:50+01:00","pdb-db: Use an embedded linked list for the list of spans
+
+This will be used so that we can remove span from its list. An
+embedded list helps here because we can easily work out the spans list
+node.
+"
+"53872682dadef8154780d29830525c7dd816ff06","2012-08-05 14:32:05+01:00","pdb-db: Strip out references with no corresponding mark
+
+If we couldn't find the mark for a reference, instead of just leaving
+a link to article 0, mark 0 the span for the reference is now removed.
+"
+"599e5c1a3dbca9398aa0bd8375cb638ee696abec","2012-08-05 15:55:54+01:00","Add more versions of the icon with different resolutions
+
+The icon looked a bit naff on the home screen because it was being
+scaled up. This adds ldpi, hdpi and xhdpi versions of it so Android
+can pick the right size.
+
+The icon ID has been renamed to ic_launcher and the old icon that was
+in the stub package has been removed.
+"
+"e9efee30d6f76b55ae387d54c30ffedccdac8315","2012-08-09 00:20:04+01:00","pdb-db: Try less precise marks if some are missing
+
+If a link is found to a missing mark, instead of immediately giving up
+on the mark it will now try increasingly less precise marks until it
+finds a match. The mark is made less precise by removing one of the
+components separated by dots. It sounds like some of the articles
+deliberately point to a section that is expected to be written later
+so this should at least let it find the right article.
+"
+"b21c779cd87bdfde6f7d12efc64f9b46eb4f7dd6","2012-08-09 00:33:42+01:00","dump-marks: Print best matches
+
+Try to find and print the next best mark when a missing mark is found.
+"
+"80f0fd0edc1fc325a52e4d9b6102e4634d60c8f7","2012-08-13 10:35:50+01:00","pdb-db: Expand abbreviations in 'uzo' tags with tip stl
+
+Any uzo tags that have the tip attribute set to ‘stl’ will now be
+expanded instead of showing the abbreviation.
+
+PdbDbRefType has been replaced with PdbReplacement so that the code to
+look for the right replacement in the list can be shared.
+
+The element handlers for spannable string elements can now set a flag
+on the parse state to ignore the element's children. This is needed to
+avoid adding the abbreviation once its expansion has been added.
+"
+"96a2b6774254cb705683463fb920da781ea4806e","2012-08-13 22:01:48+01:00","Add menus to the article and search activities
+
+The article and search activities now have menus to jump back to the
+language selection and search activities. There is a common menu class
+with static utility methods to implement the menu actions. Whenever a
+language is selected, a preference is updated to store the last
+language. When the search option is pressed the search for the last
+used language is shown.
+"
+"ac69d9b0587164e8a0c0a3424762f790284a6cf1","2012-08-13 22:42:37+01:00","ArticleActivity: Jump to search activity when search button is pressed
+
+The article activity now has a key press handler which makes it jump
+to the search activity when the search button is pressed.
+"
+"ddb327aa393bb3181ca542e8764b376bb9617c8d","2012-08-14 08:56:14+01:00","dump-marks: Print to standard out
+
+All of the messages were going to standard out except the new lines
+were going to stderr. It is probably most useful to send them all to
+stdout.
+"
+"4b434f4a2594b039c3b6e1d150f9c492288b4d57","2012-08-14 10:20:38+01:00","pdb-db: Show errors about articles with no content
+
+Some of the articles such as '-i/' and '-iv/' don't have any <drv>s or
+<subart>s so they don't get handled properly. This adds an error
+message so that I won't forget about them.
+"
+"5bbaab6852978e82a78483b66fdeb5286f9f56b6","2012-08-14 19:43:53+01:00","Prepare for release
+"

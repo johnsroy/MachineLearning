@@ -1,0 +1,54 @@
+"commit id","commit date","commit message"
+"8d8233bcc0e465c5fd3057a73e91aae3a8c96476","2010-02-11 05:37:50+00:00","Store attachment on sd card is now off by default (which is what it should have been in the first place)
+"
+"6fe2dad5ccc929b052eea17bc22fd047a2f59879","2010-02-11 21:16:37+00:00","Added some defensive code to prevent crashes caused by the LocalStore getting in a bad state due to issue 1205 (still being worked on). This fixes issue 1214.
+"
+"ae12453a57dd7754fc59347f350f0382304a4438","2010-02-12 15:21:10+00:00","Implement support for android.intent.action.SEND_MULTIPLE (e.g. send multiple images from gallery)
+
+Fixes issue 1210
+"
+"58048a4e19b025cfbbb1f37aec7adfb5db5a2a66","2010-02-13 02:08:24+00:00","Correct silly text error
+"
+"645ce28e18a91b81504a5c74efd2dbb07695b775","2010-02-13 15:14:28+00:00","Throwing the Exception will, at least, cause the exponential back-off
+to take effect.
+"
+"2c3da067c36f5186ccba6d9cee09d9f3aadadaaf","2010-02-13 17:02:27+00:00","Fixes Issue 1219
+
+At cketti's suggestion, change the methodology for counting
+server-side unread messages on an IMAP server from STATUS (UNSEEN) to
+SEARCH UNSEEN NOT DELETED.  STATUS (UNSEEN) does not ignore DELETED
+but unexpunged messages and leads to incorrect results.
+
+http://www.mail-archive.com/c-client@u.washington.edu/msg00929.html
+http://www.mail-archive.com/c-client@u.washington.edu/msg00931.html
+
+This variant only checks for unread messages in the last 300 messages
+in the folder, so will be wrong if there are unread messages earlier
+in the folder.  However, it'll be more often correct than the old
+version for the marjority of users.
+
+Also, change the opening of folders for IMAP IDLE purposes to
+read-only using EXAMINE instead of SELECT.
+"
+"7b75b07f1f03cb42ec3763318ffe2ead4bbd03d2","2010-02-13 17:26:54+00:00","Fixes issue 849
+"
+"f2f3b4263df0ec9cb23c6b1ae3b7c97934999e39","2010-02-13 18:20:08+00:00","Fixed editable TextView
+"
+"e435d9d616ed80a646a67e21fed70020fc2a8afa","2010-02-13 19:07:10+00:00","Fixed issue 1205: Attachment storage location setting now takes effect immediatly. LocalStore is also better at handling when attachment are stored in a mix of internal and external storage (migration state after a setting change)
+"
+"ab4e2ca2ecd2625c2030fbe2d8696dc8ecae818f","2010-02-13 19:35:47+00:00","Commented out enhancements introduced in r1443 so we don't loose Android 1.5 support.
+"
+"6d84f199c59661947cd71ccf6ae2f7bb0e600cd2","2010-02-13 23:45:45+00:00","Enforce maximum line length for 8-bit encoded messages transmitted via SMTP (998 characters + CRLF).
+
+Fixes issue 1176
+"
+"51b92aaf8005a45864937dc34b603679c874ae4f","2010-02-14 15:51:09+00:00","Fixes issue 1225
+"
+"31459fa70a2c7ab15806600a074c582dd988d8c6","2010-02-14 17:29:46+00:00","2.508
+"
+"e6cabe4a827d696380366f269f045acc07092d76","2010-02-14 17:29:52+00:00","2.509
+"
+"f7094a2a8e930dd64e2ba2b6d3d975f1024d28c3","2010-02-15 12:51:38+00:00","I broke email address validation with r1447. I changed EmailAddressValidator.isValid() to only accept email addresses without name part ('foo@bar.com' but not ''snafu' foo@bar.com') because AccountSetupBasics used it to verify the email address for an account. With the old validator spaces were allowed in the email field but lead to an exception later (issue 849). Unfortunately I missed the fact that there are implicit calls to isValid() to validate email addresses e.g. in the 'To field
+"
+"7459f6cd2684eff0ce22490a466e6f36bcf6b572","2010-02-16 00:25:14+00:00","2510
+"

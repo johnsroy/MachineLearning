@@ -1,0 +1,130 @@
+"commit id","commit date","commit message"
+"5413c8dc3beec44e0b20f89269e9b2b649621f3d","2013-09-20 16:45:06+04:00","Fix broken encoding of the mobileorg.org file in the Ubuntu One synchronizer
+"
+"054ca0b17e396b6607527456fcdce369178e88ff","2013-09-20 08:27:32-07:00","Merge pull request #414 from cybem/master
+
+Fix broken encoding of the mobileorg.org file in the Ubuntu One synchron...
+"
+"3288d075abcca98ec1c46fbf0ecfeac4c93bf3f1","2013-09-22 11:14:55+02:00","Converted project to gradle.
+"
+"4b5bc8dfc297ecaf730404f43cc00ca3313fda42","2013-09-22 11:27:07+02:00","Fixed tests.
+"
+"fb3b6c783f7c9b6fc6909a1873ac901bdb8a709d","2013-09-22 11:32:58+02:00","Fixed warnings in AndroidManifest.xml.
+"
+"e8dec98090f71c11cafc5d010bea4141319964cb","2013-09-22 12:00:43+02:00","Updated build.gradle to allow signing of release and donate versions.
+"
+"db0f42eb5fb2cb9a6013aac5a6d93067da0fb2f0","2013-09-22 13:07:44+02:00","Set version number in settings dynamically.
+"
+"eee5668a103f1c761a3dd7badf4d8f12d650a2c6","2013-09-22 13:30:00+02:00","Replaced jsch jar with maven dependency.
+"
+"02b5ef0b7d0b2917eb09615b241a68e004e2e9d6","2013-10-01 13:34:15+02:00","Fixed small mistake in version preference population.
+"
+"0f4b6bef04b4d462daf414ddf5e9c19db6fe89e5","2013-10-01 13:59:48+02:00","Added printing of sync errors to logcat.
+"
+"612f2d38a8c874c8914ac28f2654c8fe2cc1d1b2","2013-10-22 20:26:20-04:00","Fix HACKING.md link in README.md
+"
+"bf7b50eee31eeea931149d360077ca26a33bf51f","2013-11-15 13:17:50+01:00","Added inputType to edit_payload EditText view to enable convenient textCapSentences.
+"
+"eaec9eb3a8ba3a21a22692ffb4fa6eb5189fc01c","2013-11-20 21:51:06-05:00","Allow password field to be used as SSH pubkey passphrase.
+
+This is a partial fix for issue #348.  This is no less secure than storing a
+user's SSH username and password, and it does offer a feature that is useful
+when you don't want to have passwordless private keys sitting around on your
+sd-card.
+"
+"5e6b9a2d41779558953b5fa212c32a64bf33fa95","2013-12-04 12:46:00-08:00","Merge pull request #415 from hdweiss/gradle
+
+Converted build system to gradle
+"
+"fd85636fd7beb6f327855401bb15db77e8f00a58","2013-12-04 12:46:27-08:00","Merge pull request #417 from brunoqc/patch-1
+
+Fix HACKING.md link in README.md
+"
+"88b35bf8b4ad6b1facbabc4e63ab7e3f652bf984","2014-01-01 16:34:20-07:00","Split queries into Agenda and TODO list types.
+
+The eventual goal is to allow for construction of most queries provided
+by Emacs Org Mode's variable org-agenda-custom-commands. Toward this
+goal, we have added a few options and views for them to the Agenda entry
+settings.
+
+Don't convert all day events to UTC. Doing so makes them come after
+events starting at midnight (00:00) of the same day in timezones east of
+UTC, and before such events in timezones west of UTC. By default, Emacs
+Org Mode converts dates to days since the epoch, but it can use seconds,
+(org-agenda-todo-ignore-time-comparison-use-seconds), so it is important
+to know what time zone it uses. The last element of decode-time's return
+value is 'an integer indicating the number of seconds east of
+Greenwich,' which (decode-time (current-time)) gives as -25200
+(GMT-7:00, MST) on my system. Therefore Emacs calculates times in the
+local time zone. We should emulate this behavior so the same entries
+appear in our agenda queries as in Org Mode's.
+"
+"a9d1729f54ab24d957175dd4088bf2380b32e1de","2014-01-15 03:42:34-07:00","Add deadline warning days to agenda; bugfixes
+
+Query events for the agenda that are due in some number of days.
+
+Include completed items that have a date within the span.
+
+Fix bug in spanToNDays where for span == 'Month' or 'Year' the sign is
+wrong. Fix another bug that when span == 'Month' or 'Year', nDays == 0.
+
+Fix database connection leaks (seen in logcat when running an agenda
+query after previously running one (either the same or another)). Make
+sure we close the db in AgendaFragment and wrap OrgQueryBuilder's
+cursor.close() in a finally block.
+
+Prevent repeated allocation and deallocation of the variables in
+matchesAgendaQuery by combining it with its calling method, getNodes,
+and moving the variables outside the loop.
+"
+"2971419a6b00477f8508e692c968f976e2f8a51d","2014-01-19 12:36:09+01:00","Updated gradle to compile with Android Studio 0.4.X.
+"
+"43e8a4adfe9d110d023147c24456c73386d30b42","2014-01-19 12:39:23+01:00","Merge branch 'master' of github.com:matburt/mobileorg-android into gradle
+"
+"bfcd3b5b0d1dc247b0377fe1cdd049da8ee88fa6","2014-01-19 12:45:20+01:00","Merge branch 'agenda-query-type-agenda' of https://github.com/imd/mobileorg-android into agenda
+"
+"826e240e55fc8fb6087b8f928e6d20d36841a144","2014-01-19 13:21:40+01:00","Made dropbox wizard work with new android API.
+"
+"ac1fa50955ce2c41c0339baff21d2be16d69ebd1","2013-11-20 21:51:06-05:00","Allow password field to be used as SSH pubkey passphrase.
+
+This is a partial fix for issue #348.  This is no less secure than storing a
+user's SSH username and password, and it does offer a feature that is useful
+when you don't want to have passwordless private keys sitting around on your
+sd-card.
+"
+"87629b26e52fff77375bf8f692dcda1a14e6fea0","2014-01-19 13:33:47+01:00","Merge https://github.com/mf0/mobileorg-android into inputType
+"
+"82d6ef3fb05889486fba7705a72eba3edb05371a","2014-01-19 13:35:45+01:00","Merge https://github.com/edgimar/mobileorg-android into sshkey
+"
+"991ebbcc4d839ce0222fbef955a8c5109c22bf18","2014-01-19 15:15:15+01:00","Removed misc.xml from repo.
+"
+"0b7bda714c89ccbaf929fb07e70d3e46fc28fc28","2014-01-19 15:55:38+01:00","Removed idea project files and updated gitignore.
+"
+"665b016c9b60ad14fea1949667378ec2fa5b1615","2014-01-19 16:10:26+01:00","Updated HACKING.md
+"
+"96dfb712cc6728fdc3ec66f9323816243598a2c0","2014-03-24 10:09:17-04:00","Updated checksum file parser to support spaces in filenames
+"
+"a9297345109ff97a9150ee04990a96dce2a8da0e","2014-04-04 09:35:32-04:00","Merge pull request #431 from xnoise/master
+
+Updated checksum file parser to support spaces in filenames
+"
+"8d42ea064e0c3227dcfb4505b6bd68afcdc66dbc","2014-04-29 22:41:03+10:00","When synchronisation fails, show complete error message in a dialog.
+"
+"4a79dc7d3473f8ee25a7909352ccc21b28471254","2014-04-29 16:52:51+10:00","Added basic PROPERTIES drawer support, to facilitate org-contacts support.
+"
+"01940ad72c98a63c961e7cb2bbb60dd4c1ad0d03","2014-05-03 19:01:57+10:00","Added further PROPERTIES drawer functionality: make display of drawer contents a preference, allow customisation of which fields are displayed when.
+"
+"d9736956063c19d10d1fa143e8168ca8e1b1b33f","2014-05-03 22:33:27+10:00","Fix for issue #317.
+"
+"99da1eb6c7e691afb4924d2f94523aff7c5424af","2014-05-03 13:33:14-04:00","Merge pull request #435 from flexibeast/issue-317
+
+Fix for issue #317.
+"
+"a33647412fc676eca2a45610fedb86896b775edf","2014-05-07 00:55:35-04:00","Merge pull request #434 from flexibeast/properties-drawer
+
+Add basic PROPERTIES drawer support as a foundation for org-contacts support.
+"
+"72e7c0e655afb7af535b02151d979bcaf9bd6977","2014-05-07 00:55:50-04:00","Merge pull request #433 from flexibeast/notifications
+
+When synchronisation fails, show complete error message in a dialog.
+"

@@ -1,0 +1,1199 @@
+"commit id","commit date","commit message"
+"b660d45b6c0ba546ceb17728e7a98fb95af66991","2015-05-02 18:11:40+02:00","Merge branch '5.103_with_bugfixes'
+"
+"f96ffdcd4e4a86b22ab3cb0e3fa8bae6576a6ae5","2015-05-20 18:04:20+02:00","Update Gradle Android plugin to 1.2.3
+"
+"b45065a5b2cee4e5d917c8bba41cf8f27eceb471","2015-05-20 20:55:24+02:00","Improve FindBugs Gradle task
+
+Based on https://github.com/square/sqlbrite/blob/master/gradle/android-findbugs.gradle
+"
+"0f66cacf1025ea6ced103d7806ad52466e596523","2015-05-20 19:21:33+02:00","Move JVM tests into main k9mail module
+
+Use Robolectric for the tests that use framework classes.
+"
+"4b273c1749e4761a86b045a2b40e93d267e878cb","2015-05-20 20:57:21+02:00","Move some tests from 'androidTest' to 'test' folder
+"
+"a24d85d754dcdcd4499c67abc4ebeb5e335d14fe","2015-05-20 23:48:30+02:00","Move library tests to k9mail-library module
+"
+"9c258ee60ca38b48e62057ad3911c552dd2a53d4","2015-05-21 00:15:53+02:00","Ignore Lint warning for OldTargetApi
+"
+"916929e5073398b343fb6d1435c66f44d260aad7","2015-05-21 14:52:50+02:00","Fix getting code coverage on CI builds
+"
+"706fd85a0479666d7a01adcb10734634ec72eaaf","2015-05-21 14:53:34+02:00","Remove tests-on-jvm module
+"
+"1cd7df136953d1c278ae238e8039f5b8da979620","2015-05-22 03:41:24+02:00","Don't write the new push state to the database for every message
+"
+"6138afb579fb4367c0a9e653c420e21fbe630c77","2015-05-22 07:16:35+02:00","Don't write messages without (partial) body to database
+
+Opening such messages during download will display 'No text' and (probably
+due to a bug) might lead to the synchronization process being aborted. Instead
+of fixing the UI issue we now don't write these incomplete messages to the
+database. This has the potential to massively speed up the sync process. But
+it will take longer for messages to show up in the message list, especially
+with slow connections.
+"
+"a63a91fa542f145d7e66df3712d95d5161997240","2015-05-23 21:32:22+00:00","Support GCM cipher suites.
+"
+"4fb12ff12b4514cb11a975f7b495b7bbc1284c3d","2015-05-25 18:12:18+02:00","Fix cipher suite names
+"
+"586fc314a192195d1ba45469af3d51a9d1850723","2015-05-25 18:33:16+02:00","Merge pull request #657
+
+Add support for GCM cipher suites
+"
+"37a313efb502a4cff87cae1dffd63ede98c9d69f","2015-05-29 12:57:23-04:00","Disabling support for SSLv3 protocol/ciphers and all RC4 ciphers.
+"
+"f0962fdb6a12da0582565efd50b0e9d24bb92a0c","2015-06-01 17:55:59-04:00","Create a protocols blacklist that should work in the same way as the ciphers one does.
+"
+"270d22681f4b80062eea486c5ff64302ac88a1d1","2015-06-03 10:19:45+01:00","Merge pull request #652 from k9mail/gradle_unit_test_support
+
+Gradle unit test support
+"
+"3c1c1e4e5821434375c781503cb64044fef65791","2015-06-06 12:11:20+01:00","Remove unneeded static modifier
+"
+"2fdf076d4ecc1f77e7e08c893a0d06d95d3ddbf2","2015-06-10 01:41:23+02:00","Merge pull request #669 from vt0r/disable_sslv3_and_rc4
+
+Disabling support for SSLv3 protocol/ciphers and all RC4 ciphers.
+"
+"e01b1b189fce5b17444aa809fd17d36cd2911742","2015-06-10 02:29:50+02:00","Merge pull request #653 from k9mail/change_folder_sync
+
+Don't write messages without (partial) body to database
+"
+"2d45e537394daef4a68a0c94a0287887619ba701","2015-06-13 15:29:58+01:00","fix potential NPE
+"
+"591785a3aba6c22b500cca2a26267868aabe0e86","2015-06-13 16:09:24+01:00","fix up some dodgy nulls
+"
+"7fc8767a5c68ee64946dba35a7db5b247c7f46e8","2015-06-13 16:47:35+01:00","fix static analysis warnings and stop using nulls everywhere
+"
+"366531bdf74e85df72ba434098a24e4e48504484","2015-06-17 21:11:24+02:00","Fix code style
+"
+"ee7a95b750ac58e65ba93ad32b7d8f111838635a","2015-06-17 21:51:11+02:00","Merge pull request #685 from k9mail/art/static-analysis-fixes
+
+static analysis fixes
+"
+"05f4002a2a3a2f93e1e8542f33d2cde94a448560","2015-06-19 12:13:55+01:00","Build script for Debian
+
+Add a script which builds the project on Debian
+and produces an apk. This makes creating test builds
+a little easier
+"
+"777ace34203df2dffa9572195840ff012ca4dad8","2015-06-19 23:02:56+10:00","Created README
+
+Copied from the google code page.
+"
+"d16d95d8401ecda49f91e1e978cf77bd52aedfa1","2015-06-21 18:21:48+01:00","Use standalone sdk
+
+This makes the build script a bit more independent
+from Debian specifically
+"
+"9d44f0e06232661259681d64002dd53c7c43099d","2015-06-22 00:37:48+02:00","Improve send failure handling
+
+We now no longer parse the exception message in MessagingController to find
+out if it was a permanent SMTP failure.
+Overall the code is still a mess, but the error handling should be a little
+bit better and more readable now.
+"
+"17a2309bb99843cbf08f95780061a06acf11b379","2015-06-24 09:08:40+01:00","Use https to download SDK
+"
+"d301d632745065760037c79d8d131ac13cd44768","2015-06-25 22:47:17+02:00","Add support for saving message/rfc822 parts
+
+Fixes #603
+"
+"a489cc3771177e0c3d6d8789424c1b06102b749f","2015-06-28 04:14:28+02:00","Merge pull request #692 from bashrc/bashrc/linux-build-script
+
+Build script for Debian
+"
+"07c12e83d0dd7b1d8d9d84273878adf66d366383","2015-05-27 16:18:27+02:00","Add option to disable notifications in quiet time
+
+Fixes #661
+"
+"7959033f2671a3d10b373ef4ca62d887792a0439","2015-06-28 05:08:31+02:00","Change naming/wording
+"
+"d08942cc506c3865405ff23aa3e44dec0b584727","2015-06-28 05:24:30+02:00","Add 'notificationDuringQuietTimeEnabled' to settings import/export
+"
+"54d30833fcfa729a4b80bc0290527b6ed6876d96","2015-06-28 05:54:43+02:00","Merge pull request #694 from k9mail/send_error_handling
+
+Improve send failure handling
+"
+"67d2db7c853527bbaab552a993d0ee702bc68fc7","2015-06-28 07:27:06+02:00","Update README
+"
+"8494d9942d843dc49ddca23471cb1b6623fdbda6","2015-06-28 07:29:34+02:00","Merge branch 'readme'
+"
+"32cc97207c80214c34a4945317ce234840fafc3e","2015-07-01 16:57:13+01:00","do not throw exception in MessagingController per review comment
+"
+"e935feb0686d1395b51430824e13e842c9d3e1de","2015-07-01 16:59:57+01:00","extract variable per review comment
+"
+"ecb6893e6c2ff8d00795efc47afabde0365a44b0","2015-07-06 20:02:19+02:00","Properly encode folder name in MessageProvider delete URI
+
+Fixes #706
+"
+"2f7afa8288e0757d507915a286dd021aa4ef852d","2015-07-06 20:06:43+02:00","Merge branch 'GH-706_fix_delete_uri'
+"
+"d8aef84127fb6be9edf8c97ae4ae69d456ea371a","2015-07-06 20:40:10+02:00","Don't overwrite delete policy when editing incoming server settings
+
+Fixes #616
+"
+"53c87ff97498547cfc5767257641f4b3f15d685c","2015-07-06 21:07:39+02:00","Merge branch 'GH-616_keep_delete_policy_when_editing_server_settings'
+"
+"fde7b985fc4c2730edb1e1204cc18e2d763fa065","2015-07-06 22:23:45+02:00","Merge pull request #700 from k9mail/issue-661_disable_notifications_during_quiet_time
+
+Add setting to completely disable notifications during Quiet Time
+"
+"9050ef16a2d7d766f99c68a615a2489de881144d","2015-07-16 08:39:34+02:00","Merge pull request #686 from k9mail/art/more-static-analysis-fixes
+
+Fix static analysis warnings and stop using nulls everywhere
+"
+"ecd5239c2b4bf14924e9e135fd8809be68fd212a","2015-07-23 00:07:21-05:00","Don't use StringReader in HtmlConverter as calls to read have unnecessary locking.
+"
+"66e379c6fd53b5fafef2382abb9a51016f4ef279","2015-07-24 13:09:21+03:00","Add autoconfig settings for some Greek providers
+"
+"8de2ec7f27cfcb81baed81b0b8039c323401479a","2015-07-24 11:23:31+01:00","Merge pull request #719 from dougsparling/master
+
+Don't use StringReader in HtmlConverter as calls to read have unneces…
+"
+"54f9fd36a77423a55f63fbf9b1bcea055a239768","2015-07-24 23:52:14-04:00","Set SNI hostname if we can for TLS connections
+"
+"93f896516490725b61ad91f6b48e355c5e86a3cd","2015-08-03 11:01:06-07:00","Make K9 themeable by layers.
+
+Moved all custom attributes from the base theme to the light/dark theme. That way, the parent theme for the base can be easily changed.
+"
+"e857ca1f54f015359a7513e7ee60d60b76f13d93","2015-08-17 00:48:18+03:00","Update providers.xml
+
+fix typo in mycosmos.gr provider
+"
+"207ee0f359a886f876b5d68a54d72dafd66871cb","2015-06-04 09:53:54+01:00","added a confirm dialog if accidently pressed the menu entry discard in the
+message compose string. The dialog is default on and can be disabled in
+global settings > interaction > notifications
+"
+"46ac437d7b64eb22bf14d18766ef4c963861e98e","2015-08-21 14:43:39+02:00","Fix naming and code style
+"
+"ff369cc92233aeefc499dcdaa5264bffa76649c1","2015-08-21 15:52:57+02:00","Use framework to show confirmation dialog
+"
+"cb8c11e767c2e3d91bb4f5102a9e500790fb3194","2015-08-21 16:15:01+02:00","Add message discard confirmation setting to settings import/export
+"
+"10cb346c198b481c01958ffa3fca6de4b926b78c","2015-08-21 17:01:07+02:00","Merge pull request #672
+
+Add confirmation dialog for discarding messages
+"
+"ed6655fc1899600c77b42b99e54e3e8d84ed4eb1","2015-08-21 17:44:27+02:00","Merge pull request #720 from dalevizo/master
+
+Add autoconfig settings for some Greek providers
+"
+"767976c97347192462abd04d3c18e996654ed9d8","2015-08-21 20:37:24+02:00","Use helper method to case-insensitively compare MIME types
+
+Fixes #741
+"
+"4486617611d6a9afec77de94c4d655a77a5a4584","2015-08-21 21:14:37+02:00","Merge branch 'GH-741_case_insensitive_mime_type_checks'
+"
+"5cf39dde440e1134f41bd6d973b64fc0d25f7793","2015-08-07 17:05:47+02:00","Fix an issue when passphrase is cancelled
+
+Cancel the window asking passphrase crash the app due a missing error.
+"
+"129f9a74a1fc09172cd66118c7b1b20eb5b6dc7c","2015-08-21 22:57:38+02:00","Fix wording
+"
+"cae278b283a11fd6bf5cf3c10e0271fac8a5813f","2015-08-21 22:58:17+02:00","Merge pull request #739 from GuillaumeSmaha
+
+Fix issue caused by missing error object
+
+Closes #739
+"
+"be18d06afd0db49b4c111f5091ca3d12f3ace357","2015-08-24 02:34:57+02:00","Update OpenPGP API to v8, use jcenter dependency, remove sub-project
+"
+"16bd8a53ed967a113c3d664a95597b6e20b995d5","2015-08-25 08:30:31+02:00","Remove debug log that slipped in
+"
+"fb218ee17efaaabc313b84f9a5722ed5f2d82460","2015-08-29 05:54:10+02:00","Add first version of guidelines for contributing
+"
+"ebfd5b398cebc2d017caa2df6591c28001b3b860","2015-09-03 22:48:13+02:00","Reformat CREATE TABLE statement
+"
+"e16778f72ec4ce3f5ca7f9ecaa6c2b259b148c24","2015-09-04 22:54:47+02:00","Remove duplicate attributes
+"
+"7fbaba92802c460ddf737e96e5a744ecde131a0c","2015-09-04 22:11:04+02:00","Add comment to explain why we have empty base themes
+"
+"d89bf8f33ee91e2aa351678931f2dabe3621eb58","2015-09-04 23:01:04+02:00","Remove compatibility theme attributes
+"
+"62a1f2bd26c9080799a282ac6aa51eeb26f298f2","2015-09-04 23:11:19+02:00","Merge pull request #731
+
+Make K9 themeable by layers
+"
+"4b11974e0dfc6399f70e2be3348b4e6d7776847e","2015-09-05 01:50:16+02:00","Bugfix: Export settings for folders containing '.'
+
+Fixes issue #765
+"
+"82b2e0280fbdff6d095c862f8afd38a75c37e954","2015-09-05 03:58:25+02:00","Prefer MIME type from content provider over information from intent
+"
+"c4bbae288b7343f28a6be8ee4cab0ccf3bda0573","2015-09-04 20:44:32+02:00","Hide the 'Load up to X more' footer when there are no more relevant messages on the server
+
+This is tricky for IMAP because we only care about non-deleted messages and
+there's no easy way to count these. So when necessary we list all remaining
+messages on the server to check whether any of them are relevant for us.
+"
+"1f160026853890018afd9df4974f9888028eaac9","2015-09-07 03:27:42+02:00","Don't needlessly write message reference when saving instance state
+"
+"bb5d0682c3453c2592742c73c2a8f720aecc449c","2015-09-07 04:12:55+02:00","Clean up MessageViewFragment a bit
+"
+"a6b938463543fa523a6d0b58b1fac7b2798315c4","2015-09-07 06:24:54+02:00","Don't crash when callback is called after the fragment has been detached
+
+Fixes issue #690
+"
+"ebc73c9138703cce5cfd7df639171c6e000d3c59","2015-09-08 10:20:02+02:00","Update providers.xml
+
+added posteo.net domain
+"
+"f0ae55874eb1e35607232999b0c0f734a393a30a","2015-09-08 14:48:55+02:00","Merge pull request #784 from calimou/patch-1
+
+Update providers.xml
+"
+"83eadbbbead9f733c9fb63e7959edd319ba31873","2015-09-08 17:34:10+02:00","add poste + vodafone
+"
+"65ee6d7a64ab80cff4067f846dcfac7d60f7b9b8","2015-09-13 01:07:16+02:00","Merge pull request #785 from gaionim/provider
+
+Add server settings for providers poste.it and vodafone.it
+"
+"d4d701ae105b60ba283c4bc77b5e320972a06627","2015-09-13 02:14:57+02:00","Merge pull request #774 from k9mail/GH-773_hide_load_more_button
+
+Hide 'Load up to X more' button
+
+Fix issue #773
+"
+"696579fcd5d6004a7ecb2ea4459ece28ff49f960","2015-09-13 02:39:54+02:00","Merge pull request #775 from k9mail/GH-765_folders_export
+
+Fix folder settings export
+
+Fixes #765
+"
+"065088feb2f91ad5a51c8acb8166f18e56d2e34e","2015-09-13 03:03:16+02:00","Merge pull request #776 from k9mail/GH-744_attachment_mime_type
+
+Prefer attachment MIME type from content provider over information from intent
+
+Fixes #744
+"
+"9c8fa3230389840ae9775b34c0e8241d71ef35b0","2015-05-01 19:56:01+02:00","Add Android Wear support
+"
+"4508e125044b1062d9dcb96497ee536a9c405c1e","2015-06-25 18:27:50+02:00","Remove double synchronization
+"
+"8be56fab90bfb3ae980a7304deeabe28c8afcfe9","2015-06-25 18:58:08+02:00","Don't reinvent the wheel when creating MessageReferences
+
+Also, we don't care about flags when dealing with MessageReferences for notifications.
+"
+"e95916c529cc769ef93a6248ee54de7e6bb6c88e","2015-06-28 09:24:54+02:00","Remove unnecessary EXTRA_DONTCANCEL
+"
+"5d3f6ece1fd14b940ccf4ca7ac516acc2a711b85","2015-06-28 10:20:21+02:00","Remove unused methods
+"
+"5b0883e49c6701ca4413b1b5fa68ca5215a6ca96","2015-06-28 10:30:42+02:00","Use MessageReference instead of message UID as key in 'stackedNotifications'
+"
+"acd18291f2ded8f176beb074415f8c42ca829966","2015-07-02 09:03:40+02:00","Extract notification-related code from MessagingController to NotificationController
+"
+"2c49f21a520b4224fe6cce98e0c9a3893b4261b9","2015-07-02 09:20:38+02:00","Reuse reference to the system's NotificationManager
+"
+"55bdc1e5c2990bd8696e8ae8bff949bd600a23ca","2015-07-03 02:45:12+02:00","Extract code that deals with generating notification IDs
+"
+"0f696bb1c55d2a72c7bd6755689e45b5ec5e2ed9","2015-07-03 04:36:25+02:00","Clean up and refactor code
+
+Functionality (and bugs) should be the same as before.
+"
+"29bd67641b3c4fe6906cc1d5becc3024ab8fd126","2015-07-09 07:33:22+02:00","Split NotificationController into multiple classes for maintainability
+"
+"ecd78095754d6a64ada14acf4ca7f38d7289f340","2015-07-13 10:40:58+02:00","Rewrite new mail notification code
+"
+"ca5f3620808fe98607811e67921571b98eaa0d4a","2015-08-03 02:23:17+02:00","Add tests for notification code and fix bugs found along the way
+"
+"732463a89f28ad0249e568aeaf2851e72adcbe8c","2015-09-15 21:30:29+02:00","Clean up code
+"
+"c0924c20310982e18c05751e56ff8785e340e1d0","2015-09-15 21:32:08+02:00","Reverse order of conditions in if clause
+"
+"952da74b0e2559feb23994a42d3f929baea22d81","2015-09-15 21:34:13+02:00","Merge pull request #718
+"
+"3e1b8639b13b2531c59a319a9a10b25dad1c3615","2015-09-24 21:38:10+02:00","Change the way notification IDs are generated
+"
+"5bbb7b7164bd4f202c57dfcc7b1c7a22173782b4","2015-09-24 22:02:04+02:00","Rename NotificationsHolder to NotificationData
+"
+"ae092e1c6ebba74dc18a53fdcc250e873f28c815","2015-09-25 00:31:09+02:00","Add a little bit of documentation on summary vs. stacked notifications
+"
+"d84ce23ecf784e553ffe9fe3d1b3bd9a00a6d87a","2015-09-27 08:10:46+02:00","Replace 'cid:' URI with 'content://' URI when viewing/saving inline image
+
+Fix #818
+"
+"75cdb7b4986da72a3481a5a85c2ef886fd33cb69","2015-09-27 14:10:31+02:00","Rename some variables/methods for better readability
+"
+"532aa76fceaafe1532b8c5f3c72a508206a440ee","2015-09-27 15:01:27+02:00","Switch NotificationIds.getNewMailStackedNotificationId() to a 0-based index
+"
+"e76c489941d9bb0164541ed53425662c31e2a7bb","2015-09-28 01:52:51+02:00","Merge pull request #795 from k9mail/GH-619_android_wear_support
+
+Add Android Wear support
+
+Closes #619
+"
+"3c92196db0e11ac7e46e516ccd332c4c2116829b","2015-09-28 17:06:35+02:00","Replace NULL in 'messages.empty' column with proper value
+"
+"3bea7123e6769d2e081584cb6e803499b02f5026","2015-09-28 18:19:27+02:00","Simplify SQL queries by not checking for NULL in 'empty' column
+"
+"535e045a0b44fe7b6e5e53c92db877d18726751b","2015-10-01 03:04:27+02:00","Merge pull request #820 from k9mail/clean_up_database_to_simplify_queries
+
+Clean up database to simplify queries
+"
+"bb4c0b07a02d8f675d28d99898d0c3682d454274","2015-09-30 11:17:57+02:00","Reformat code
+"
+"d686ae86b2fa08ef82efa97a7ece31a150b62cb3","2015-10-02 01:00:30+02:00","Increase test coverage of ImapResponseParserTest
+"
+"de401db9cd9658ea6c545863838e98889a38cbe5","2015-10-02 06:37:47+02:00","Add support for folder names with brackets encoded as 'astring' in LIST response
+
+Fixes #786
+"
+"5247679fbaf8ab82d16d07a94e6d99b3a9321dc5","2015-10-03 10:34:25+02:00","Always load headers when fetching a message from LocalStore
+
+Fixes #604
+"
+"ecef32141fb63e9cc5f62fbcaeca24ce70a5daf0","2015-10-04 08:50:24+02:00","Add support for auto-detecting Archive folder
+"
+"e6c52d35808780db6472d2e2332776097404006a","2015-10-11 11:47:30+02:00","Merge pull request #825 from k9mail/GH-786_fix_parsing_for_folders_with_brackets
+
+Fix parsing IMAP LIST responses containing folder names with brackets
+"
+"86d7a1746654cd52df5d2c7f34445b2737eddc31","2015-10-11 12:55:52+02:00","Merge pull request #827 from k9mail/GH-604_always_load_headers
+
+Always load headers when fetching a message from LocalStore
+"
+"0fe317c7ac9b76271bbaabede3f951d9ea7ea0c0","2015-10-11 14:35:09+02:00","IMAP: read LIST response until end of line
+
+Fixes a bug introduced in de401db9cd9658ea6c545863838e98889a38cbe5
+"
+"2567f8c7af72ba3bca5b08d2b74876790473c436","2015-10-11 15:37:00+02:00","Merge pull request #829 from k9mail/auto_detect_archive_folder
+
+Add support for auto-detecting Archive folder
+"
+"bb3a6823a3fb5bb429ebc7667f546c7b627ac2f3","2015-10-26 13:59:07+08:00","Compose a new message as a forward of the given message,attachments were not able to be attached
+"
+"ce31e3460cf42880289246c546b2c5a2b533b6de","2015-10-20 17:07:36+02:00","Update the project url, which is contained in the welcome message and is shown when the app starts for the first time.
+"
+"9e012384a1af735e221d8a341f95728284699dd7","2015-11-06 04:58:23+01:00","Merge pull request #853
+
+Update project URL in welcome message
+"
+"e1d34a27b59daf155ddacdc19fe354da1c8b5784","2015-11-28 21:25:02+01:00","Don't throw CertificateValidationException on generic SSLExceptions
+"
+"de160299d79e333832a0c17af5279e21488a844e","2015-11-28 22:32:22+01:00","Merge pull request #917
+
+Don't throw CertificateValidationException on generic SSLExceptions
+
+Closes #917
+"
+"acc2e428f16c82c600a28487c6980f33bcbd0bf4","2015-12-03 21:25:39+01:00","Retain caret position when toggling 'show password'
+
+Fixes #926
+"
+"8d451766b5541a996dc315db4bdd97360c94d362","2015-12-12 05:47:34+01:00","Merge pull request #932
+
+Retain caret position when toggling 'show password'
+"
+"51fe459dfcbd2e51587523b010a25062feb7bd1a","2015-12-13 02:17:38+01:00","Remove Flag.X_GOT_ALL_HEADERS. Fixes #891
+"
+"ded66625780584066d4dba01ef40d15bbd37c3d4","2015-12-13 03:53:37+01:00","Prepopulate user name field with mail address in account wizard. Fixes #872
+"
+"ad54a1bff814567d143a1abcb84b4ac511e7367c","2015-12-14 10:26:51+01:00","Merge pull request #949 from mawiegand/891
+
+Remove Flag.X_GOT_ALL_HEADERS
+
+Fixes #891
+"
+"756ef446916f304c3ec020e6365b43c9279c1d87","2015-12-14 10:43:15+01:00","Revert part of previous commit
+
+The variable 'user' in finishAutoSetup() is used to replace $user in
+providers.xml and must hold the local part of the email address.
+"
+"2bec5efefee1c6c910944d2c0277832416dc7def","2015-12-14 10:43:53+01:00","Merge pull request #950
+
+Prepopulate user name field with email address in account wizard.
+"
+"a0a362a19dc612aa7c1c29c6e47b05b7c71be614","2015-12-14 09:52:57+01:00","Rewrite message preview extraction
+"
+"d6b4452ade0bf76c9b58dc94c9094b933c38975d","2015-12-16 15:10:47+01:00","Display '*Encrypted*' in preview of encrypted messages
+"
+"fb10b66371e66f44fb42efbae9e9bd119f7b6fbc","2015-12-16 22:49:03+01:00","Check protocol parameter to exclude non-PGP/MIME encrypted/signed messages
+
+Fixes #571
+"
+"5d2de3b1938e981b60dd5180349ac6c2cf6a796c","2015-11-13 21:48:35+01:00","Errors on decryption were not handled #588
+"
+"9ef7a4c8f16c211dd0f0280d31940ae9f02ed16d","2015-12-16 23:35:20+01:00","Code cleanup
+"
+"29ecd424e772e6dbec6f72ee8e4ae4bc79df999c","2015-12-16 23:39:16+01:00","Merge branch 'AND-588_handle_decryption_error'
+
+Fixes #588
+"
+"971ae08426ad57e3dc70c9698b2afbaceae60fb0","2015-12-16 23:52:18+01:00","Merge branch 'GH-571_check_protocol_parameter'
+"
+"a3539bd052cb5cee203045956cbbc128caeed50d","2015-11-29 17:57:52+01:00","ContactPictureLoader: lower bound for the view reference is ImageView, not QuickContactBadge
+"
+"b6fa7b832275c60696f94d75e5bd433a4594ac5c","2015-11-29 19:31:24+01:00","compose: use TokenCompleteTextView for recipient selection
+"
+"4f1b917022844cdaaaf165648623fb09e0f7f57e","2015-11-29 21:53:23+01:00","compose: add key info from OpenKeychain to recipient dropdown
+"
+"7e1c47aa3f94652ebbd3221cff608d17ba7171f7","2015-12-01 01:38:25+01:00","compose: start moving recipient field logic into presenter
+"
+"8d42cdca74e713b25b48019b3b5b4d40030d316e","2015-12-01 15:21:06+01:00","compose: display overall crypto status
+"
+"2bb284bd367a06e8b4c4fdaa7cfea11ca3e78c31","2015-12-01 17:01:37+01:00","compose: load recipient data for addresses before adding tokens
+"
+"367532c9e39edf7df80b31df879e89e7a804a549","2015-12-01 21:01:00+01:00","compose: better querying of added recipient data, move 'add from contacts' into action bar
+"
+"5d00303677cc8127473f4c19cc82eaa3a2735c79","2015-12-02 00:38:44+01:00","compose: layout overhaul, opan gmail style
+"
+"e533d8177edd60be493a8d0672e5eeb4150eb17c","2015-12-02 18:42:04+01:00","compose: move RecipientSelectView into appropriate package
+"
+"c71555ec153576e63579edbfeb3bd7b7a9d87154","2015-12-17 13:37:25+01:00","compose: add (experimental) crypto settings dialog
+"
+"a3fe6389ebfb6cd4a4ead480a9214f95b2411c78","2015-12-17 22:42:40+01:00","compose: use enum for RecipientCryptoStatus
+"
+"a5ad84481dbd25e91ffc78da61d4393df0731583","2015-12-19 18:25:32+01:00","Merge pull request #959 from k9mail/display_encrypted_in_message_preview
+
+Display '*Encrypted*' in message preview
+"
+"f12da270984d19aace55608d1a7ca860445f3b8b","2015-12-20 01:36:28+01:00","compose: incorporate feedback
+"
+"ba9cd4bfb9dda7ee3749f61ec18dc6b892dbf91e","2015-12-20 01:46:18+01:00","rename RecipientView to RecipientMvpView
+"
+"02daf45c9a4932f7b2acc2977d41c52309d83e29","2015-12-20 03:06:52+01:00","compose: leave uncompletable unparsable text as-is
+"
+"96b71227826ab7f5b8d59d70f63d6db8a6dbf0cd","2015-12-20 17:34:36+01:00","compose: show alternate address popup on recipient token click
+"
+"57a3eccc0e40955d12be00024e318fa7a45f4f60","2015-12-21 00:48:44+01:00","compose: use position as item id for recipients
+"
+"6f01b5e0118a3f2516f420910767620567854abf","2015-12-21 00:45:39+01:00","Code cleanup
+"
+"cfe193b120dc48927d226cb11ddf3ba108cb2425","2015-12-21 01:15:59+01:00","Refactor code to set crypto status view in AlternateRecipientAdapter
+"
+"667ac923bddd348eab32596d0b24330a815b3a64","2015-12-21 01:22:23+01:00","Merge pull request #962
+
+Key-aware recipient chooser
+
+Fixes #915
+"
+"6adee8f35375940759bc2a745d576e7936a12f86","2015-12-21 02:44:39+01:00","Remove MessageInfoExtractorTest
+"
+"32fae731cb302b49e3c1d5a6e8d9d07a602de700","2015-12-22 00:32:58+01:00","compose: use e-mail address picker instead of contact picker
+"
+"b71b46195904c9800e9e93113953891a9c54f40a","2015-12-22 01:31:37+01:00","compose: highlight query in dropdown text
+"
+"e42cc629eca488de7b5aadc28156764d244d75ed","2015-12-22 02:04:30+01:00","compose: hide keyboard while alternate popup is shown
+"
+"c34b9b5ad7d7feaad66d937e06b4d137b2acd53e","2015-12-21 02:11:37+01:00","Increase compileSdkVersion to 22
+"
+"8373a0c62e9a5f04184e0f0da40e10f20a159aca","2015-12-21 02:16:29+01:00","Update Android Gradle plugin version to 1.5.0
+"
+"e8d16722ed2aad9fe9e363f1675b90ea1c536576","2015-12-21 02:18:42+01:00","Update build tools to 23.0.1
+"
+"6783dbf28afce100c75ec173fde01ad8c98cabf9","2015-12-21 02:24:28+01:00","Update to Gradle 2.9
+"
+"0e71ce5e89e5c4ef74295997707d042e1c31bbc7","2015-12-21 02:35:10+01:00","Increase targetSdkVersion to 22
+"
+"cf0c91cea9c0562a9a3098a81d84ade81cfa6684","2015-12-21 02:42:43+01:00","Remove unused support-v13 dependency
+"
+"0341402f95af3d7bd884ba2745254e3680bed7b2","2015-12-21 02:57:04+01:00","Update support-v4 to 23.1.1
+"
+"929c8cf66b1cf69e85e417fcd58e434c0d39b989","2015-12-21 03:05:23+01:00","Update htmlcleaner to 2.16
+"
+"099a3969f227c0e01b813165d151e5b00b96f68a","2015-12-21 03:05:38+01:00","Update glide to 3.6.1
+"
+"ff18f9b3f8bb972055a2d615150bc116c7d8bab7","2015-12-21 03:25:54+01:00","Update test dependencies
+"
+"c69b7400f8085ecf23b13e736c07d9328c41fb44","2015-12-21 03:49:32+01:00","Update to Robolectric 3.0
+"
+"49d239af56d4d6b6642f64c93ef3ff0249c0bc3e","2015-12-21 19:13:08+01:00","Remove targetSdkVersion from k9mail-library
+"
+"b202661e6233d72bd9c0dc59a33541d5d5e88ef5","2015-12-22 14:34:27+01:00","Set sourceCompatibility and targetCompatibility to JavaVersion.VERSION_1_7
+"
+"e0a772561d16c1b81cae5fc89a82e56b11b69609","2015-12-22 17:17:49+01:00","Remove tests dependent on GreenMail
+
+GreenMail referencing classes that are not available on Android seems to
+break the 'connectedCheck' Gradle task. The end-to-end tests were also
+quite flaky.
+"
+"ea0d2ef570741e73176dd85653db5ac634c280db","2015-12-22 17:27:33+01:00","Move things from the AndroidManifest.xml to build.gradle
+"
+"0ade2e4ed47d791e1683048fdd458416ae4cce3c","2015-12-22 17:32:02+01:00","Enable debug logging for newly installed debug builds
+"
+"986ece21fc798fa0be1a1b3a315a53dfcc781c6e","2015-12-22 18:03:25+01:00","Add config for TravisCI
+"
+"2055e429332b108d1d2d6e2317870dd50b8be5d2","2015-12-22 18:13:05+01:00","Don't abort on Lint errors
+"
+"f7a828c640e5ba4953372a386e60ca2922dfa5fd","2015-12-27 20:21:39+01:00","Merge pull request #972 from k9mail/compose-minor-ui-fixes
+
+Minor fixes for new recipient UI
+"
+"f6621829c5ce3c2c0bdde2a4dd88619e264784b9","2015-12-27 21:17:15+01:00","Merge pull request #973 from k9mail/build_stuff
+
+Various build-related changes
+"
+"52b28f91c4148d727f7b700becbb9a4893f7febf","2015-12-28 21:17:51+01:00","Remove unused code
+"
+"abbefe42c506fdddeca0a03c7cf444be1b54b893","2015-12-29 03:00:30+01:00","Don't recreate pending intents for wear summary actions
+"
+"5b16fae70b4e01577d27621f0918d725211a85d5","2015-12-29 15:45:09+01:00","Adjust emphasized notification color after targetSdkVersion update
+"
+"69590af82404ecf041b45abb3ddd91d07bc394ff","2015-12-29 15:50:44+01:00","Merge branch 'notification_fixes'
+"
+"1cbc67f09a5fbe124642431f703a6de3292a607d","2015-12-29 16:53:52+01:00","Rename vector drawables used in notifications
+"
+"e1ff5089ed663a3f5d54bfc8a194cae683997b76","2015-12-29 17:42:25+01:00","Generate PNGs of notification icons from vector drawables
+"
+"5ceb384442fe2d0da951ae579270999e771020a3","2015-12-29 17:53:15+01:00","Don't manually select vector drawables for notifications
+"
+"ed2a7e3454794a1e10cc9e27f7f65bf2fdc71392","2015-12-30 22:18:11-08:00","Adding attachment infomation to downloads database for it will appear in
+Downloads App
+"
+"e1ca89bd5db7d273da5628bd208f2182dcae4bf0","2016-01-02 01:43:40+01:00","make UidReverseComparator transitive, order null elements to right (fixes #969)
+"
+"a6dff1af160e175c8cdc2e6a59af69935e22d272","2016-01-06 22:41:04+01:00","Inject DownloadManager via constructor
+"
+"d47305a58feb14898a95e92e2aa5f71d8c57aee8","2016-01-06 22:46:57+01:00","Code cleanup
+"
+"905359a291e9566cb32bf646b64ad99ec38d3066","2016-01-06 23:27:43+01:00","Change 'save attachment' experience
+
+- Don't use toast with path to file to notify user of success
+- Don't trigger scan of file using MediaScanner API
+
+Both functions are now handled by the DownloadManager.
+"
+"9e8bd2e3fecdedfccccebab133026011e4fa2b42","2016-01-06 23:35:00+01:00","Merge pull request #987
+
+Use DownloadManager to keep track of saved attachments
+"
+"4330af6f5858c2748dfad4a84b5942742fc4ebb5","2016-01-07 00:19:10+01:00","Merge pull request #983 from k9mail/vector_drawables_cleanup
+
+Notification icons cleanup
+"
+"10e8f7e0dddc2eb7b95700ffa184325e7ac208c1","2016-01-07 00:24:03+01:00","Remove test with randomized input
+"
+"e4432ffa6c06ee6e07b156d525070cdea68ce369","2016-01-07 00:27:17+01:00","Fix assertions in UidReverseComparatorTest
+"
+"4ec6e88f4fa48da639facc7aba7b2b2998f9f38b","2016-01-07 00:32:49+01:00","Rename method
+"
+"75121d85fec8a5f569e7794bbead6f352a888f35","2016-01-07 01:25:41+01:00","Add more tests for UidReverseComparator
+"
+"89321cf6ebf6ef4113dd06496e318f2bce75a0e1","2016-01-07 01:28:51+01:00","Make UidReverseComparator a top-level class
+"
+"cb667198dc24d30707c6c5765cd1dacd68b89997","2016-01-07 01:30:45+01:00","Refactor UidReverseComparator
+"
+"d36ee12fc40f92ea79fb8e57eeba8e4ac30b6635","2016-01-07 01:33:28+01:00","Parse UIDs as Long in UidReverseComparator
+
+ImapStore does the same.
+"
+"fe822db1c60e6d48beeb9dbd51a36d89a76042c2","2016-01-07 01:55:40+01:00","Merge pull request #992 from k9mail/transitive-uidreversecomparator
+
+Make UidReverseComparator transitive, order null elements to right
+"
+"a8ed1752ca23fc3fbc9a6dc23b142d11fb5c2950","2016-01-07 02:09:03+01:00","Use Download folder as default for saving attachments
+
+Fixes #745
+"
+"ac131a2919040f5ef34b7d30cdb815f0a31b83aa","2016-01-07 03:23:55+01:00","Merge pull request #1002 from k9mail/GH-745_save_attachments_to_download_folder
+
+Use Download folder as default for saving attachments
+"
+"a7c9b8040c60b254a4d25a45dbcf83dfbed0613d","2016-01-09 04:00:50+01:00","pgpmime: use returned intent as new decrypt intent (fix #864)
+"
+"15571b597665aeddddf65db2337ff7b4210c7844","2016-01-09 17:23:40+01:00","fix nullpointer if mime part isn't available in scan for pgp/inline
+"
+"110238e6af8443bc31056dc4165367165db959ce","2016-01-09 19:20:02+01:00","disable search in message bodies with a warning
+"
+"0366633ff83086f3c7620a618ae7b3b5cc6ade1a","2016-01-12 01:17:39+01:00","replace saslAuthPlain() with saslAuthPlainWithLoginFallback()
+
+Microsoft Exchange Server and probably others need this in some cases.
+closes k9mail/k-9#899
+"
+"f018902ebcab396af22f54916d18595155212285","2016-01-12 02:38:58+01:00","Merge pull request #1017 from mmehnert/fix-899
+
+IMAP: If AUTHENTICATE PLAIN fails, try LOGIN
+
+Fixes #899
+"
+"733f7f63f1f9efd3d8b731efe73d9104500b1ec7","2016-01-13 08:32:44+01:00","Merge pull request #1011 from k9mail/fix-openpgp-decrypt-loop-864
+
+Fix OpenPGP decrypt loop
+"
+"4b5231279fc5f6a31dd979f0caffe3dbd3f2e4ad","2016-01-13 08:34:27+01:00","Merge pull request #1013 from k9mail/fix-pgp-inline-nullpointer-871
+
+Fix NPE if MIME part isn't available in scan for PGP/inline
+"
+"6c250e1489737be020aa8d1166b90945e1373536","2016-01-13 08:35:58+01:00","Merge pull request #1014 from k9mail/disable-search-1005
+
+Temporarily disable search in message bodies
+
+Fixes #1005
+"
+"a6ab976ac92fbcd8585c0c1b0cacb5ef6e3d6780","2016-01-05 22:41:16-08:00","issue#964 Extract code to decode mailto URIs
+"
+"26bdd0bf45acf787e5144caf2666f7266307f7ba","2016-01-13 09:22:31+01:00","Make MailToTest run on the JVM using Robolectric
+"
+"1c475033b0eeb6156c6315879a0ab62dea7a9ca8","2016-01-13 09:26:36+01:00","Code style fixes
+"
+"b8bfd57c787cf88e098545d22566dda86ad7f976","2016-01-13 09:43:28+01:00","Clean up and add some tests
+"
+"41897a24c1bc13a186b018027ae0f8e431054dab","2016-01-13 10:17:25+01:00","Make use of internal implementation detail
+"
+"042346301f751f1ea6bd9bb5eeb259e592c0e416","2016-01-13 10:40:09+01:00","Rewrite MailTo to improve readability
+"
+"68fc9a95551fcd9338d209f1cdac718fed209eee","2016-01-13 10:48:10+01:00","Pass MailTo instance to RecipientPresenter
+"
+"73f1bca8a624ba6718b32b59e3576729d1cfe5c3","2016-01-13 11:00:46+01:00","Remove unused class
+"
+"b30ee72d76bd7cd15285c7425b2c5899d3f3c999","2016-01-13 11:02:28+01:00","Merge pull request #996
+
+Extract code to decode mailto URIs
+
+Fixes #964
+"
+"deff0ce80df08c161998516aa5ab2cdece63a1e5","2016-01-15 08:11:05+09:00","update to API 23
+"
+"47a6d1bf27d79508081558715e4cbf97d9e7bf3b","2016-01-15 08:13:02+09:00","enable syncing while idle on Android M devices
+"
+"4d241f0f04d760035bb93df184147d5c23d2e3fa","2016-01-15 08:56:29+01:00","Remove unused methods
+"
+"3e23eeb289d23422a47a27a73b9dbfc562db3743","2016-01-15 09:39:29+01:00","Add tests for K9AlarmManager
+"
+"93df7525c4bcd911d6d8849ac0a6cbe731e38873","2016-01-15 10:49:48+01:00","Merge pull request #1021
+
+Enable syncing while idle on Android M devices
+"
+"f483426a12244462262388ecac80e859a29121ca","2015-12-12 16:03:40+01:00","include openpgp-api-lib, again
+"
+"e70b5076c61e472478f846c452bd3544d08991ec","2015-11-06 14:29:33+01:00","add parameters to Content-Type header #572
+"
+"99503960e557ec39f31603965966ebe4cccf8dfc","2015-12-12 16:04:20+01:00","compose: move pgp/mime construction into PgpMessageBuilder
+"
+"f94d6e387f0df7a30f95489e08c37fc799ec81a4","2015-12-16 01:21:15+01:00","compose: stream data, never keep entire message in ram
+"
+"eab24b812f69d4f4cd32ad6681e08395fcf75859","2015-12-16 02:44:59+01:00","compose: work on asynchronicity of MessageBuilder
+"
+"dc57e5b3ab1487b5d65c814f4ed1ee9721656eb8","2015-12-17 01:15:07+01:00","compose: add micalg parameter to pgp multipart/signed
+"
+"b8827b613f9bbc2f4cdb58b5eef7f5877bdfacd0","2015-12-17 01:54:01+01:00","compose: some work on PgpMessageBuilder
+"
+"66520a2cb3ed25a40e5966a7c965d28d584e6cd5","2015-12-21 12:10:16+01:00","compose: just custom set headers, for now
+"
+"90c6b666c81ef9e6825a4a72d46d689a2b4e0d6a","2015-11-10 13:46:17+01:00","RFC-2015 : further encode text quoted-printable to be sign safe #572 #576
+"
+"bb8a9e8994f4a5c6ebf0047c85598289c9f367f9","2015-12-21 20:36:35+01:00","compose: work on SignSafeOutputStream
+"
+"f2d77d63f9b22149d4fc311de6e663f453f52ee5","2015-12-23 16:33:19+01:00","compose: introduce PRIVATE crypto mode ui
+"
+"bbc52b32650bad805cbc13e44a45ea87badb26d4","2015-12-24 01:29:41+01:00","compose: handle draft saving (though not encrypting yet)
+"
+"441e35f1cd9ab54fea807209c3fa730d93b73395","2015-12-26 22:44:16+01:00","compose: centralize pgp crypto status into immutable ComposeCryptoStatus object
+"
+"64ab769034d370b39a8fd0309148be73cc21b62f","2015-12-29 19:36:04+01:00","compose: display progress while message is being built, update draft saving
+
+draft is only saved remotely if the message is not encrypted
+"
+"1529e41ce3d15a1398034a988bcb542a6e479b3a","2016-01-08 17:09:11+01:00","compose: fix recipient expander visibility
+"
+"4c999736bba32ecf61f459bcbf593de0d1dace9e","2016-01-08 17:42:50+01:00","compose: clean up a bunch of warnings
+"
+"f5ee2229cc5281a121ab0b16532f4936de212775","2016-01-08 17:47:38+01:00","compose: move compose-related classes into compose package
+"
+"e08cd7419e6460d2a6586565a40ec1b689fde0ae","2016-01-08 18:31:39+01:00","compose: add icon for opportunistic encryption
+"
+"284a13070adb3f00176a71951d1c3e7b73bb0909","2016-01-08 18:36:48+01:00","compose: extract some strings I missed
+"
+"67541a60cbf5eb321f0eb700e53f1ccfec18eb72","2016-01-09 01:12:15+01:00","compose: add workaround for glide sometimes not loading contact pictures
+"
+"8b5811077f800fa83e38e9c2d12bccd39e2e89c4","2016-01-09 01:47:06+01:00","compose: show address label in its own line in alternate popup
+"
+"e642bed63ed5b1b8b71e4b972dfa9d3f44330262","2016-01-09 01:56:53+01:00","compose: clean up some old openpgp logic remnants
+"
+"2586421d7b0c2462c82d1214db849a7c63480963","2016-01-20 21:25:05+01:00","compose: change cryptostatus to builder pattern
+"
+"8ceaf13648ff1eaab88c022923c68cab352bb8f8","2016-01-22 02:11:45+01:00","Merge pull request #924 from Valodim/openpgp-compose
+
+OpenPGP support: Compose Logic
+"
+"ac83b0062d14048c82dfb6e31f756e213a126b4a","2016-01-07 21:31:31+01:00","break migration down into methods, clean up some warnings in mailstore
+"
+"d81b2031e51c370dcd7f7c1a08f3e041e41fdc8f","2016-01-24 02:36:20+01:00","Merge pull request #1030 from k9mail/localfolder-cleanup
+
+Break migration down into methods, clean up some warnings in mailstore
+"
+"973319b8cf49177ebd3d47b5d79e117ab426eb40","2016-01-24 03:19:30+01:00","Use settings from root project when building openpgp-api
+"
+"321577803d409fde16242dd4328c6b3788b6fce2","2016-01-24 05:40:40+01:00","Remove unused resources
+"
+"390b42412f7a6722b9a9fe2a4c6598bb17f4757c","2016-01-24 05:42:44+01:00","Set allowBackup attribute in the manifest
+"
+"c71b40e484052a40723a6970897d90b71cfc2517","2016-01-28 19:56:56+01:00","Merge branch 'cleanup'
+"
+"cad01ab5b2db1138e7164379479217697677787d","2016-01-28 00:54:04+01:00","migration: first steps for migration
+"
+"99d4e2b964db432100f7a0c1a6c2750b2480fd2b","2016-01-28 14:08:40+01:00","migration: break down migration, fallback to multipart/mixed
+"
+"ec58961888e627d8f4ada3be646fc21b333a5c58","2016-01-28 15:07:03+01:00","migration: assign new attachment ids
+"
+"1f1014ea65f8c9ab23eed0c9a389525f5fc54060","2016-01-28 17:09:41+01:00","migration: replace content:// uris in html content with original cid: uris for known contentIds
+"
+"b6e3587aeb6f5a632fddcdd953f91ed804b6e659","2016-01-28 22:30:25+01:00","migration: add MIGRATED_FROM_V50 flag
+"
+"bbd2b0d5a71b56e28420a46d11ab4869b0fb00ee","2016-01-29 08:27:30+01:00","migration: restructure, document, add some assertions
+"
+"74cdfcddcd49d972b605c8b71f73e837be1fb6b9","2016-01-29 13:16:49+01:00","migration: fix multipart/encrypted parts for pgp/mime case
+"
+"b7c6ceadeda8efbbb313df42fdb1b47408302993","2016-01-29 14:10:32+01:00","migration: keep old ids for messages, lest we break threading and message_part_ids
+"
+"21204f8bec4d1fe3430d4bdd146c2f7ee67d9378","2016-01-24 18:14:39+01:00","Add tests for ImapConnection
+"
+"0a80335ba722cc19c1b0ff3007fa982a778a1e0d","2016-01-29 15:17:56+01:00","Use lower socket timeouts for tests
+"
+"7887c23bef9d9db9e9f6cf727bbcaefb98cce1dc","2016-01-29 15:31:57+01:00","Don't swallow IOExceptions leaving the connection open
+"
+"a76f7e8f7e0a70d29eb9a20e64484dd8b956206c","2016-01-29 15:51:37+01:00","Fix support for capabilities in initial response
+"
+"cf92ccaae5e9f2355c156258866d24a8189f051a","2016-02-01 20:00:37+01:00","Remove test that no longer compiles
+"
+"5fb5e011b721038d946da75b928a734bc6248ea1","2016-02-01 20:29:38+01:00","Merge pull request #1052 from k9mail/imap_connection_tests
+
+Add unit tests for ImapConnection
+"
+"c4d62b13d032f1c5c85da39d3f6a5d5ede7af4a2","2016-01-29 19:08:38+01:00","Code style fixes
+"
+"37fbbb0b212169d2363c26ead4636ac0290294e2","2016-01-29 19:28:34+01:00","Make internal methods private
+"
+"cf718c638073b7035a6c11b2b60a5b03960f91aa","2016-01-29 19:51:13+01:00","Reorder methods
+"
+"c4a4a3bb168b092c089e55f3e8c09073cceb843b","2016-01-29 20:08:40+01:00","Get rid of ImapConnection.getCapabilities()
+"
+"c427f6df2662ed9fa46de88488a560021efce2ae","2016-01-29 21:24:48+01:00","Extract methods to make ImapConnection.open() more readable
+"
+"9b5a3bfff3cfc20f47042fa037134726766be263","2016-01-29 21:29:24+01:00","Rename ImapException to NegativeImapResponseException
+"
+"6859eef35af36f89f27cb83151f68e2eafa9aa40","2016-01-29 21:39:53+01:00","Be more specific by using NegativeImapResponseException in some cases
+"
+"0dbfa5ab9d901a5f9b521aed752566a1130c6117","2016-01-29 22:15:25+01:00","Extract command/capability/response constants
+"
+"bc5069bfac1221cfe42fc1ade2862f0aa40589fe","2016-01-29 23:27:21+01:00","Extract NAMESPACE response parsing to NamespaceResponse
+"
+"96f99f6e1c196ba9c3a0c3766b47fd886ed3f4c1","2016-01-30 00:37:51+01:00","Extract CAPABILITY response parsing to CapabilityResponse
+"
+"9dc267f56dcbd54a2679516d38df62cd9bed2e27","2016-01-30 00:40:04+01:00","Make classes package-private
+"
+"61771533587f162eea973629aab38e3f6c3cb66d","2016-02-02 02:20:55+01:00","supress confirmation when closing totally empty new mail
+
+Fixes #1027
+"
+"d3391ae1351e0275f31f846d29daea1d9af66758","2016-02-02 18:49:05+01:00","Fix test flakiness
+"
+"3aa80f3ce18b6312d2cdba0a03617a7d87bcbffa","2016-02-01 19:54:57+01:00","Make ImapFolder a static class
+"
+"e1a2c68d5661caf6386ab58149a437697bc8ad35","2016-02-01 21:09:31+01:00","Extract ImapFolder from ImapStore
+"
+"973b674cf23b2701f4f65d99c9defef6c86b9a29","2016-02-01 21:16:26+01:00","Make ImapFolderPusher a static class
+"
+"6dd220cc5a5430575253eff164858bdf13c2aeb2","2016-02-01 21:20:23+01:00","Extract ImapFolderPusher from ImapStore
+"
+"fb1d0ad533fa5c3c28952cd804fbc1a76504a000","2016-02-01 21:21:40+01:00","Extract ImapPushState from ImapStore
+"
+"62befc0c9c136d2f03882188684cd0fe434c275e","2016-02-01 21:22:52+01:00","Extract ImapMessage from ImapStore
+"
+"b092ab0f5b2bfc5d9eb220711f535a7e9be65e77","2016-02-01 21:24:07+01:00","Make ImapPusher as static class
+"
+"caca473465fe6ee996d4830433794aae589c973b","2016-02-01 21:24:31+01:00","Extract ImapPusher from ImapStore
+"
+"a7f53f0c3b26e3ab598b25951250efd80f64cf2c","2016-02-01 21:33:30+01:00","Extract ImapSearcher from ImapStore
+"
+"619ab8629dbbc24afc08907ba5ac5d5fb7108dab","2016-02-01 22:27:46+01:00","Add unit tests for ImapPushState
+"
+"7b5e5bc2233c5e8bcc5a485e1a953d210ed5a665","2016-02-01 22:44:15+01:00","Refactor ImapPushState
+
+The old code supported a more complex input argument format. But as far as I
+can tell this 'feature' was  never used.
+"
+"ee25de07db8f7468397cbb0f25dbb5689ac919c1","2016-02-02 03:03:01+01:00","Add unit tests for ImapPusher
+"
+"5cd64dc2412fb61a9b6cab9f955b2ec3b8c4c5c4","2016-02-02 03:08:06+01:00","Code style fixes in ImapPusher
+"
+"0c31ed911975a44b36573f0be4a7153b4de926c1","2016-02-02 03:17:25+01:00","Get rid of ImapFolderPusher caching mechanism
+
+start() will never reuse ImapFolderPusher instances because stop() is called
+unconditionally, and that will clear the 'cache'.
+"
+"bbf6a07e94ab7ea83e11707ca4840747b33b90e0","2016-02-02 03:32:14+01:00","Extract ImapStoreSettings from ImapStore
+"
+"7f3fc84c112f4403a856b0953650a7b4a52215ac","2016-02-02 05:00:49+01:00","Extract helper method to ImapResponseHelper
+"
+"2d887b31ac41e8f157a74a3772bb28f4d854e024","2016-02-02 14:34:38+01:00","Add unit tests for ImapStore
+"
+"13663dbc1d3489934dd7e48b54e3d5bb9123ff1b","2016-02-02 18:17:17+01:00","Remove support for Gmail-specific XLIST command
+
+Nowadays Google implements RFC 6154 and XLIST was deprecated in 2013.
+"
+"d0f4ab84fc49259349a58ed822c91cccd437c5b5","2016-02-03 19:30:21+01:00","Extract LIST response parsing to ListResponse
+"
+"d9797d02bf8b997c4bab310e92734530205af151","2016-02-03 20:16:43+01:00","Also use special LIST path in ImapResponseParser for LSUB response
+"
+"06ee1ff1b9f112dc12280a5c62230bf8dfc20176","2016-02-03 20:37:29+01:00","Move url encoding/decoding functionality from Store to UrlEncodingHelper
+"
+"ad1e2caa9cee32a2a13ae99a9cdbacc5ca9f1e38","2016-02-03 20:54:51+01:00","Extract code to encode/decode ImapStore URIs
+"
+"2f9a427b22fc61fe8f2e2defb400b0de55a2490d","2016-02-03 21:18:57+01:00","Code style fixes
+"
+"e562c4bd5e21c88a00914fbe7a9eabe843487562","2016-02-03 21:51:42+01:00","Move RFC3501_DATE constant to ImapFolder
+"
+"d8cd58e42ba2d243cd9375fb73b01dc46f9272cc","2016-02-03 21:53:14+01:00","Move encodeString() from ImapStore to ImapUtility
+"
+"1f766b69191b3c37052721118974f2af84e123e7","2016-02-03 22:09:49+01:00","Avoid unnecessary creation of ImapFolder instances
+"
+"c44af70bfcb7a8570b0d9428e44edba847edb9db","2016-02-03 23:05:15+01:00","migration: respect part boundaries
+"
+"a101a153533fa69ddf1ddb29da2838bfb823ddfb","2016-02-03 23:05:53+01:00","migration: pop parent once for complex content
+"
+"a2012a1a38544fe16c3e0f8ae67d07b8eca97a25","2016-02-03 23:06:36+01:00","migration: mark parts with content-id and inline as HIDDEN_ATTACHMENT
+"
+"f1bc2b4f21ea96b14a6798c5b00d9fd9d2d9d2ef","2016-02-04 02:11:13+01:00","Reduce visibility of some methods in ImapFolder
+"
+"4280537ddec59dfe36128a3d6e3fa9c1f64f76af","2016-02-04 16:06:34+01:00","migration: minor formatting fixes, add a bunch of tests
+"
+"a1399a9e091b5460ed8cab7bed6e24890e3a8ce0","2016-02-07 17:15:38+01:00","Merge pull request #1060 from k9mail/imap_connection_refactoring
+
+Refactor ImapConnection
+"
+"43aa969de745f91f6ba2eeec524e701260211ba6","2016-02-08 21:50:18+01:00","migration: incorporate feedback
+"
+"057309c14789daabdbe8a3f0a78c1056e979f67b","2016-02-08 22:37:11+01:00","migration: test and nail down MimeStructureState behavior some more
+"
+"863cb9a2e7be9f94ba53dc0e84ebd1506dd88985","2016-02-08 23:26:33+01:00","migration: some cleanup and better test coverage here and there
+"
+"877ad2aa728585e270f948b724b73f89a5247bc1","2016-02-04 03:22:59+01:00","[WIP] Add unit tests for ImapFolder
+"
+"d9f8d86ff47977e198461e53ea946c799066aeff","2016-02-09 03:48:10+01:00","Add unit tests for ImapFolder
+"
+"a4072d30e5a045f2b1f86b721c1283a0dc86114c","2016-02-09 04:46:07+01:00","Code style fixes and minor code cleanup
+"
+"60da56fa7a93c7af27237d23c3715fe26a25343e","2016-02-09 05:00:07+01:00","Inline constant arguments for getMessagesFromUids()
+"
+"7875b4e99d6bf893a7b87e35941bb7985dc25160","2016-02-09 05:01:04+01:00","Tidy up return type of getMessagesFromUids()
+"
+"ef82fe9df11b0ec0e6ab6fe77e3bf42dc42546a3","2016-02-09 05:48:22+01:00","Extract code to parse PERMANENTFLAGS to PermanentFlagsResponse
+"
+"ed7221be03fddd777a8c36becb389732dfa03285","2016-02-09 05:57:58+01:00","Extract code to parse SELECT/EXAMINE response to SelectOrExamineResponse
+"
+"51ab4d23dc4700918f3e9c2290e518bc4b18bd8a","2016-02-09 06:47:51+01:00","Extract code to parse COPYUID response to CopyUidResponse
+"
+"61e0df5513cb6f678a5dfc368b0ac91d93274a9d","2016-02-09 07:38:53+01:00","Extract code to parse SEARCH response to SearchResponse
+"
+"ab1e5ce691d1a48b146c33e413fc92d0133979be","2016-02-09 18:42:04+01:00","Remove LocalFolder-specific methods from Folder
+"
+"d1cbac47b139a8fb2b1bf1bf87db03ad466c84e0","2016-02-09 19:03:12+01:00","Remove now unused methods from remote Folder subclasses
+"
+"54963b6e1ecacfe9c7394e6085dc7feb6e58f9ca","2016-02-09 21:41:55+01:00","Extract code to encode/decode folder names to FolderNameCodec
+"
+"39c4cf321878b45479301905af5a2814b960a48e","2016-02-09 22:25:37+01:00","Code style fixes and minor cleanup
+"
+"5b58aac7489140b06644064e4f998a95114596ef","2016-02-09 22:28:21+01:00","Remove unnecessary local variable
+"
+"6b4da3503594d93ca47cb7eb6eaf1729884aa962","2016-02-09 22:33:11+01:00","Remove unnecessary variable increment
+"
+"4a80ab6aa3783840accfcf640bf034d93b0e7207","2016-02-09 22:38:30+01:00","Extract Push thread code to named inner class
+"
+"51723e46ca2f85665c43539feb402d5c93c584c8","2016-02-09 23:36:07+01:00","Extract methods to make the code a bit more readable
+"
+"da49dd47a2368e4a8a61d7fdabd484f02a3134bd","2016-02-08 19:34:45+01:00","Make WebView 49.0.2623.34 happy
+
+Fixes #1072
+"
+"6465cbe8be3b7f99983eda964c66a48ff08c50db","2016-02-10 15:24:12+01:00","anchor pgp inline message matching to beginning of message
+"
+"23d4c3fd68381bd48b3b461583729ae36cf5a89d","2016-02-10 23:55:59+01:00","Reorder methods
+"
+"690693a21c4f688ca2d300c8b9581a8fc9f08f89","2016-02-11 00:00:47+01:00","Synchronize access to listeningThread
+"
+"1d52a357a6152a4cf688a258daadac63eab3b553","2016-02-11 21:48:17+01:00","Make sure DONE continuation is only sent at appropriate times
+"
+"2c5bcac66fa558011af7bebf8070e9680aeb67cc","2016-02-11 23:55:02+01:00","Exclude CRLF when logging sent commands
+
+Android Studio 2.0 beta 3 skips those log messages in its logcat view.
+"
+"af941396bc1de7f18842b6a49a67c55a0eb8e51a","2016-02-12 04:11:48+01:00","Make sure that stopping, then starting ImapPusher is atomic
+"
+"1db9fc169ed8addddd4c0cbf0dbf0020a903951d","2016-02-12 05:30:00+01:00","Make wakeLock final
+"
+"ca4e6c21397d0253b363890f9ca48d04fef2fee7","2016-02-12 05:36:19+01:00","Remove unnecessary method
+"
+"b8957f6fee3e443653bc890c24fa395b8d78dc51","2016-02-12 05:44:49+01:00","Move all messages that are only called from listener thread into PushRunnable
+"
+"42e07d035549b6a2eee07ad9e52052a4c3a291dd","2016-02-12 05:52:17+01:00","Move fields that are only used by listener thread into PushRunnable
+
+Also, there's no need for them to use Atomic* instances.
+"
+"41ca6b789925c733c9313c1ef167e46d7146ad68","2016-02-12 05:57:09+01:00","Use volatile booleans for 'stop' and 'idling'
+
+We don't use compound actions that would need to be protected.
+"
+"01a14b9f1f379ab471bd04d622bbaa7a14ece41b","2016-02-12 06:13:03+01:00","Synchronize access to storedUntaggedResponses
+"
+"b34f3ad6699dabf8eacd2600bf9a73c9550f3771","2016-02-12 06:27:14+01:00","Make sure ImapFolderPusher is not started or stopped twice
+"
+"66930c00814ae676c308b513368750f8f9201a22","2016-02-13 01:25:17+01:00","Merge pull request #1048 from k9mail/mime-migration
+
+Migrate old messages to new mime format
+"
+"06e1777bb1afa20a4adfad1d41e51f0cf36cdfc7","2016-02-13 01:43:32+01:00","Merge pull request #1081 from k9mail/pgp-inline-anchor-to-beginning
+
+anchor pgp inline message matching to beginning of message
+"
+"1024f190af40ab6d5c415e586293d945aa91fcdd","2016-02-13 02:19:44+01:00","Don't reset signature when restoring state
+"
+"c62fece0dddbf5e5e6607a4a84342bde7b18bc0e","2016-02-13 02:49:07+01:00","Merge pull request #1061
+
+Supress confirmation when closing totally empty new mail
+"
+"0dc6605ccbcb997d667327ca8e7f83fbc6c6b255","2016-02-13 03:02:09+01:00","Minor code style fixes
+"
+"e5bae5a56ca6ea6c7fe4badd30615e17440fa419","2016-02-13 03:05:40+01:00","Merge pull request #868
+
+Fix loading attachments when forwarding message
+"
+"e3ed9f68729ea48703c34e663973911da11b4d32","2016-02-13 05:15:54+01:00","Remove unused strings
+"
+"42e322f9e892d2fdefbdcf227bc9c60b18fd96e5","2016-02-13 06:42:35+01:00","Fetch updated translations from Transifex
+"
+"7b0c94f6bb681894a3f259da96e136e1d3b0e7c0","2016-02-13 07:01:03+01:00","Merge branch 'update_translations'
+"
+"bbc9098ceff846dfa874b44e6c17efb0e3ec7074","2016-02-13 07:04:24+01:00","Add missing super calls
+"
+"9519f8ec8eb565becfe9f0901a007ce7563fef4f","2016-02-13 07:11:25+01:00","Remove unnecessary View.setId() calls
+
+Using layout resource IDs as View IDs was triggering Lint errors
+"
+"71459ed88e0c8a60bbe437386990567458fdfb9b","2016-02-13 07:26:01+01:00","Rename method to not clash with new one introduced in API 23
+"
+"06dbb47f795bcf036947c266a510b5a54be6ada1","2016-02-13 08:14:06+01:00","Fix InflateParams Lint warnings
+"
+"2fbb32935f6f40322f341e99721b39c873637dac","2016-02-13 08:19:19+01:00","Ignore GoogleAppIndexingWarning
+"
+"eac65df806031417d5ad752300a0fc317519d135","2016-02-05 23:49:22+01:00","compose: improve handling if crypto provider is not available
+"
+"5bde6bf8372bdeec872b3ab801ddac3fafe62b99","2016-02-11 20:12:43+01:00","compose: nice dots for the crypto status icon
+"
+"2a8b8555e70052abceafb4358918ff9aad4c50fc","2016-02-16 22:29:11+01:00","Merge pull request #1082 from k9mail/openpgp-error-handling
+
+Improve handling if crypto provider is not available
+"
+"c7e3e8bf320f0308b38a9cef0ef2852c8832b29b","2016-02-16 22:50:13+01:00","Merge pull request #1091 from k9mail/fix_lint_warnings
+
+Fix/ignore some lint warnings
+"
+"70aef890d1553d3d67a0043b0901234ded17cf06","2016-02-17 00:13:24+01:00","Stop pretending we use SharedPreferences to store global/account settings
+"
+"c915089df57affaf7a2885eaa6ad0c01a80c3e32","2016-02-17 00:50:48+01:00","Remove unused methods
+"
+"200ee27980d9d680321ca68c9bfd200694fac62e","2016-02-17 20:04:08+01:00","Don't hold 'connections' monitor while checking retrieved connection
+"
+"ca4a6b6cfc2a44c466e19dbbb3dc8f7a88375d7a","2016-02-17 20:12:19+01:00","Close connection when IDLE command fails
+"
+"9ebe1801e20c1c894efbe5c6690155f424ab5bbc","2016-02-17 23:43:31+03:00","Added GNU email provider
+"
+"f88a915a5d16b6baaca91616319678884551dfd4","2016-02-18 00:28:43+01:00","Don't hang on to ImapConnection for too long
+"
+"5cd38c42af438d027d33a22974fcf44d62b18560","2016-02-18 01:52:35+01:00","Merge pull request #1106 from Karlson2k/gnu_provider
+
+Add GNU fencepost email settings
+"
+"3c68c8aeb56714bcc79d0b01a310b0a3811448d0","2016-02-20 01:17:06+01:00","Merge pull request #1102 from k9mail/remove_fake_shared_preferences
+
+Don't implement SharedPreferences interface to store settings
+"
+"6ad1673da11a3c0dd86ebf55a200b99913b3149c","2016-02-20 01:10:25+01:00","Refactor database migrations
+
+Separate package, one class per migration
+"
+"97b38809674888e05339b0c96e918884cb157a8a","2016-02-23 11:20:19+01:00","Update KolabNow (MyKolab) settings
+"
+"4bd56c9258740f47b4df5581ee15d27e347bd554","2016-02-23 16:14:23+01:00","Merge pull request #1121 from alecpl/patch-1
+
+Update KolabNow (MyKolab) settings
+"
+"e27205873d661d5a192d2838e210605fafdf620f","2016-02-24 11:02:49+01:00","Merge pull request #1108 from k9mail/migration_cleanup
+
+Refactor database migrations
+"
+"126a8766d6380e14155d237bb75d497658d42b83","2016-02-24 11:08:34+01:00","Avoid incrementing field inside expression
+"
+"07c5f0ffba441202f9a780ba25cfe728d94bffb1","2016-02-24 11:31:36+01:00","Use ThreadLocal for RFC3501_DATE
+
+… instead of serializing access to one single SimpleDateFormat instance.
+"
+"41a32bd3472a25a392037bc9cb71730395cd3e9f","2016-02-26 05:27:41+01:00","Cancel notification when viewing a message
+
+Fixes #1110
+"
+"f99dd61bc438259b858ef4387add8e8e69133219","2016-02-26 14:40:55+01:00","Merge pull request #1098 from k9mail/imap_store_refactoring
+
+Refactor ImapStore
+"
+"a349398f4f16b1ca9459dcb62eb333f48db49711","2016-02-27 07:13:05+01:00","Explicitly set time zone when testing date formatting
+
+This should fix the test failure on CloudBees.
+"
+"7e43b5848412ad7c0b5a20c578c55eea0aa337d8","2016-02-28 07:49:42+01:00","Allow import of 'future' settings files
+
+We have strict input checking. So unknown/invalid settings will be ignored anyway.
+
+Fixes #1092
+"
+"b09d5bd2c5753daed22d85d740ef3c27153acdc5","2016-02-24 16:40:01+01:00","compose: get rid of key references for crypto status, mail addresses are a perfect identifier
+"
+"fcbfc4da5c892a5dcb0b5e4231936ced2f19515d","2016-03-02 22:19:43+01:00","Merge pull request #1126 from k9mail/GH-1110_cancel_notification_when_viewing_message
+
+Cancel notification when viewing a message
+"
+"916e83d4d9cfa9767c3912fb720d3a981b79d4a1","2016-03-02 22:42:40+01:00","Merge pull request #1132 from k9mail/GH-1092_allow_import_of_future_settings_versions
+
+Allow import of 'future' settings files
+"
+"14054ec977f94d42c8648acd6d05ef295ce598a8","2016-02-28 08:39:16+01:00","Avoid ClassCastException in ImapResponseParser
+
+Fixes #811
+"
+"150fc822c28dd43cd6667dbf792b3f74372f62cc","2016-03-03 01:48:15+01:00","Merge pull request #1133 from k9mail/GH-811_fix_ClassCastException
+
+Avoid ClassCastException in ImapResponseParser
+"
+"38b64ea6510c7088c7d0d3a595626cabd6fb719a","2016-03-02 17:10:43+01:00","compose: couple of small ui updates for encryption status
+"
+"fb4cee428afeac75df5c5b44103c0c43aacd70b8","2016-03-02 18:20:57+01:00","compose: focus to/cc/bcc field on label click
+"
+"0a073fdf9c99e14f0cee6310f12237dd08668f72","2016-03-03 17:31:11+01:00","Merge pull request #1138 from k9mail/compose-minor-fixes
+
+Minor OpenPGP related things in compose interface
+"
+"d946e3750da8a49f16627c3ab8db8c61dd1088fe","2016-03-03 18:34:42+01:00","Remove unused argument
+"
+"b12c048190d4afabf0c79889b19ec75f9cf9719c","2016-03-05 14:34:47+00:00","Support binary encoding
+"
+"833e1cc4186b6703cef28a9dc825d7d68d24c1b8","2016-03-05 17:06:14+01:00","Merge pull request #1148 from philipwhiuk/binaryEncodingMimeFix
+
+Support 'binary' encoding
+
+Fixes #1146
+"
+"9bcd3b32856a8c3f797eab88ecf1c5d5cb5acff1","2016-02-27 14:16:17+01:00","Adding a unintrusive warning on no subject
+"
+"6b4c0f457168e7fa7e1e8113c008c6cc171f7890","2016-03-05 17:59:37+01:00","Merge pull request #1128
+
+Display warning when trying to send with empty subject
+
+Fixes #1089
+"
+"474c7493ec7d5d13419e4a262fc76dd5cbc4ce97","2016-03-08 16:01:57+01:00","compose: fix error behavior when no crypto provider is installed (fixes #1150)
+"
+"41bfaf28caef99bfef0a70d6cfba9533afad446d","2016-03-08 18:23:46+01:00","compose: split off CryptoProviderState from CryptoMode, these are separate state (fixes #1151)
+"
+"0c340f7f786639b8aa45c876828f495e86b9f99d","2016-03-09 01:48:20+00:00","If no cryptography application is available, clear the cryptography settings
+"
+"eade765262e56bd412a0f17393fa199e4cc58f68","2016-03-09 01:48:54+00:00","Add the subject of the email to the debug when failing to sync
+"
+"e9c40303b881b1c03c797ad181ec9cebf0fd1db4","2016-03-09 09:38:14+01:00","Merge pull request #1162 from philipwhiuk/cryptoUninstallFix
+
+When in AccountSettings, clear the cryptography settings if none are available.
+"
+"59cfc8c4622e27e237a7c1d0a5ee99655621d157","2016-03-09 11:55:59+01:00","Merge pull request #1163 from philipwhiuk/syncDebug
+
+Add the subject of the email to the debug when failing to sync
+"
+"4d45897eb18838d22172786a7a7caa329177b7c3","2016-03-09 16:00:33+01:00","compose: move all OpenPgpServiceConnection handling into presenter
+"
+"17f25b574b7e8b2e12efdf184cbc16c8c96a9ae4","2016-03-09 16:57:33+01:00","compose: handle lost connections to the openpgp service
+"
+"8847d20af9ba5802f7aca2e33af3f23dd5d7273b","2016-03-09 17:10:29+01:00","compose: if sending fails, display the reason
+"
+"73553a8e09772bb0d31d3499a7cde581bf3f9c5c","2016-03-09 17:18:04+01:00","compose: actually skip pgp processing while sending if no crypto provider is configured
+"
+"2bc92441e95d3e0bb8979b817d5194a4e3eedcdc","2016-03-10 00:34:58+00:00","Fix bug fetching flags and envelopes
+"
+"950dad02db0caa66606d99c7226a1feb5ae8a097","2016-03-05 12:18:08+00:00","Refactoring of WebDAV code
+"
+"2137e8bc688b082e9c6ae853f3e2e640ba22b57a","2016-03-05 13:03:31+00:00","Fix another bug with synchronizing messages
+"
+"044564f843d9873728954f8cd0293e829e757db7","2016-03-05 13:14:57+00:00","Clean up prior to submitting a PR
+"
+"60a4cc7efa59add1bd2153aa0b1654f4ac8aa18a","2016-03-05 13:18:06+00:00","Extract another class
+"
+"42da31c3b9c6ae39eca9e32c3a3a78bc19f224f6","2016-03-05 14:02:02+00:00","Rename WebDavHTTPClient.java to WebDavHttpClient.java
+"
+"46a44272286d112c22320c3b94053c44d4e143a4","2016-03-05 14:08:21+00:00","Fix import
+"
+"6daa513704c82f4cf247ecc4ad575b2b4e390fa3","2016-03-08 01:10:06+00:00","Improving test coverage of WebDAV
+"
+"5ca1fd4575b95c76d642bab1960832d677a9d3f9","2016-03-08 02:32:31+00:00","Adding tests similar to those on ImapFolder to WebDavFolder
+"
+"aa602643d3b04a7185e380066f0f9cbe4f859bda","2016-03-08 02:59:05+00:00","Add comment for future work
+"
+"1970b3f333d36ccde70c15e2d91f16920f980b58","2016-03-08 19:50:37+00:00","Create test infrastructure for WebDavMessage
+"
+"9e67555407bc9738fe6c9eff966f3c95798aa3fc","2016-03-08 20:12:01+00:00","Tests for WebDavMessage
+"
+"5cd5b5fc556489b5d19c6cf8543467d929b05761","2016-03-09 00:27:51+00:00","Improving the WebDAV fetchMessage code and testing of it
+"
+"69c0fc54e3f42aa68cb60f71d39d14dcea908f12","2016-03-10 16:24:26+01:00","compose: flag and correctly handle opportunistic encryption
+"
+"7e0f756778b01a9f0c8ad1b33f05e5052961fac4","2016-03-10 17:39:53+01:00","compose: use grey icon for no crypto if opportunistic
+"
+"0f929514ff0edfa4efcdaacc7c8cabe40c8a719f","2016-03-10 03:56:17+00:00","More lint fixes
+"
+"eb31a0fa46877d28266d09e29dee9eb2e0f945fb","2016-03-11 00:23:57+01:00","Merge pull request #1147 from philipwhiuk/webDavFixes
+
+Refactoring and fixing bugs in WebDAV code
+"
+"3491f99595ab402353e6356f2c5b7cebd0e51de1","2016-03-11 13:25:06+01:00","Merge pull request #1158 from k9mail/fix-no-crypto-provider
+
+OpenPGP provider and status fixes
+"
+"5fdc46386bb584dd74b4a479dadd46f34a234f2d","2016-03-11 13:55:46+01:00","Merge pull request #1169 from k9mail/compose-opportunistic
+
+Add actually opportunistic behavior to compose
+"
+"a06ed9b170999507b78218bd3dc59861d7d0c85b","2016-03-02 17:42:03+01:00","Add option to copy sender/recipient email addresses to clipboard
+"
+"3e001734c1eea272e78b22a2781510ea55b19d5d","2016-03-13 11:47:17+01:00","Code style fixes
+"
+"c664f65bb820eca3f43f5cef44cf1f9b34e739e1","2016-03-13 11:59:28+01:00","Copy comma-separated list of email addresses to clipboard
+"
+"af7e0a1b70e178c6f11e21f3be721b67472de9b2","2016-03-13 12:14:49+01:00","Merge pull request #1137
+
+Add option to copy sender/recipient email addresses to clipboard
+
+Fixes #1070
+"
+"4a095089be34214f46947ca2fc685d0d4a908520","2016-03-14 22:15:33+01:00","Use strict hostname verification
+"
+"9ebf411d95a9cb1f6918016d982d8ca6467d1a8a","2016-03-14 22:40:42+01:00","Merge pull request #1178 from philipwhiuk/fixBadHostnameVerification
+
+Use strict hostname verification
+"
+"63d30ac1c28639b8ebae6fd4b24e88e7e0d04531","2016-03-18 04:00:31+01:00","Don't include placeholder text in strings.xml
+"
+"4a75a7f839f48ab29122ea2d78f2ddd98fcbde54","2016-03-18 04:07:05+01:00","Merge pull request #1170
+
+Android Lint fixes
+"
+"121748e3792049ef05d2f2b179319cad265a7153","2016-03-19 09:13:17-04:00","Updated tap_hint message: s/envelope/circle/
+
+The envelope icon was replaced with a circle icon a long time ago.  This
+change updates the message to reflect this.
+"
+"27dbc3b534cc1bfa1e4b80762d0cb79effba9f0a","2016-03-19 14:18:23+01:00","Merge pull request #1191 from uniqueid001/update-tap-hint
+
+Update outdated string
+"
+"5e04bce44bad28a8511814346fa24cb3fdb9ae05","2016-03-22 03:40:28+01:00","Add change log for 5.107 to this branch
+"
+"8b31101325eaadbef22309a3912b5180b5ae5c18","2016-03-22 04:25:47+01:00","Update translations
+"
+"49f4f5608c24754b127489048c8fccc51dc8880d","2016-03-22 04:32:30+01:00","Version 5.108
+"
+"cd37bf73caf84972b3a822ae0c3d2f2b112c617b","2016-03-22 22:35:38+01:00","Update change log to include disabled full text search
+"
+"bfd7a5d87e5a5aefae5ba1cb020ef55da3ae3a77","2016-03-22 16:23:25+01:00","compose: don't consider placeholder token uncompleted text
+"
+"89e78e03bba57e2427fdc8e9051f36c978af8e53","2016-03-22 16:23:48+01:00","compose: show keyboard when recipient field gets focus
+"
+"b586522ca11b190717c24e4abea2583be7ff9043","2016-03-23 00:06:10+01:00","Merge pull request #1202 from k9mail/compose-fixes
+
+Compose fixes
+"

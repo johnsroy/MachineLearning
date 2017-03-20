@@ -1,0 +1,220 @@
+"commit id","commit date","commit message"
+"07814db9f41af0d9ae4434ebb44cd9069c2914e8","2011-01-29 17:56:58+00:00","Fix range check for ISO-2022-JP stream.
+
+Signed-off-by: HIRANO Takahito <hiranotaka@zng.info>
+"
+"dfda1b60a3432358400358e68a7297ddc1714c38","2011-01-29 19:37:27+00:00","bump trunk's machine version to the next series
+"
+"bec094326a4b857cb91d07cd822c0e81ffb69655","2011-01-30 03:00:46+00:00","Make decodeQ() actually use the 'fixed up' string. Will fix Q-encoded subjects where space is encoded as '_'.
+
+Fixes issue 2926
+"
+"65dc3c7d1b6463bcb3c68c54b791fed3b3217a95","2011-01-30 15:11:16+00:00","Fix display of icon in About box on Android 2.1 and earlier
+"
+"fe8ba6078e483efa988745489111554767448d0b","2011-01-30 22:05:47+00:00","Propagate the ACTION_DOWN event to the ScrollView so we can stop scrolling after a fling.  Fixes issue 2892.
+"
+"4d5381f33d50dd19fe5fc06c773482d4a31f3a3c","2011-01-31 01:54:27+00:00","Turns out to be some code which tries to be clever about removing the
+multipart envelope in LocalStore.java. It is thrown away if there is
+just one item in the multipart. This breaks the display of attachment
+only message, since the attachment is no longer detected by the code
+which creates the view. I made a fix (see patch below) which checks if
+the single item in the multipart is not a attachment.
+
+-- patch from wernermann29 at googlemail.com
+"
+"a82444bd64d5bf1d548c75fa18c3b65fb4ca3871","2011-01-31 16:16:22+00:00","Improved Japanese translation
+"
+"eb6e48c7bd10659556bddeac34a237373d55d0b6","2011-01-31 17:19:43+00:00","Add support for building with precompiled JARs
+"
+"7b2cd531cae72d23345fcbf07b22d59d71668158","2011-01-31 17:19:58+00:00","Start building using a JAR of MIME4J
+"
+"d03818079a77f55a5a33114677a2ee91b50b5e70","2011-01-31 17:20:43+00:00","Tell eclipse to bundle JARs in libs but NOT to bundle libs in
+compile-only-libs. (Results in Eclipse building something much closer to
+what ant does)
+"
+"2ce5b9ed03e430031657416d4bebf794e92a7cc6","2011-01-31 18:25:26+00:00","Replace Apache Commons IO with v2.01 downloaded from apache.org as a
+prebuilt JAR
+"
+"4cc114c568cf2254ee60e5b9bf89da61ca313e1f","2011-01-31 18:25:52+00:00","Replaced local version of jutf7 with a homebuilt jar from:
+
+URL: https://jutf7.svn.sourceforge.net/svnroot/jutf7/trunk
+Repository Root: https://jutf7.svn.sourceforge.net/svnroot/jutf7
+Repository UUID: 1064e9db-3825-0410-a553-84549dc1c2c0
+Revision: 20
+Last Changed Author: jtbeetstra
+Last Changed Rev: 20
+Last Changed Date: 2010-04-22 11:31:16 -0400 (Thu, 22 Apr 2010)
+"
+"fbb62ff1589086094980624b36d384b8c241319e","2011-01-31 18:26:01+00:00","Replaced our local copy of jzlib with a clean jar built from jzlib 1.0.7
+downloaded from jcraft: http://www.jcraft.com/jzlib/jzlib-1.0.7.tar.gz
+
+Built using the following build.xml (since jzlib doesn't include one)
+
+<project>
+<target name='clean'>
+<delete dir='build'/>
+</target>
+<target name='compile'>
+<mkdir dir='build/classes'/>
+<javac srcdir='com' destdir='build/classes'/>
+</target>
+<target name='jar'>
+<mkdir dir='build/jar'/>
+<jar destfile='build/jar/jzlib.jar' basedir='build/classes'></jar>
+</target>
+</project>
+"
+"2f6586a8f2ff0b3fd6ddd7261e067eb5f7e6bcd1","2011-01-31 20:25:03+00:00","Remove empty directories
+"
+"ea73a4c6987ce00192aa5ba97717b5e9a3c7d011","2011-01-31 20:41:19+00:00","Remove empty directories
+"
+"00e13665d5bdc423f05ac0e16ab1646635e5078d","2011-01-31 20:48:04+00:00","Remove empty directories
+"
+"a3972479078cfaae0c855386b64bd9bc08655d8c","2011-01-31 20:49:18+00:00","Remove empty directories
+"
+"f36128f46e737886049594967606dfec2bcf08f1","2011-01-31 20:50:51+00:00","Remove empty directories
+"
+"8d3358b54380c9dcb4028b904d5fb53f07b5014e","2011-01-31 20:51:48+00:00","Remove empty directories
+"
+"a1732ba03a9e0040dd49d97cda130fb7f6461560","2011-01-31 20:52:27+00:00","Remove empty directories
+"
+"b7471280c71164037d9c1a92f252a5bef5cd46f6","2011-01-31 23:17:37+00:00","Add test case for quoteAtoms().
+"
+"56ec148cbcbdeeab79ed1bc9f0b472491449d5ba","2011-01-31 23:25:06+00:00","IntelliJ support appears to be abandoned (K9.iml refers to platform 1.6...)
+
+Checking in new k9mail.iml (which matches the module name) with the latest dependencies.
+"
+"65501516847f966580dcccd3c70bbf330a5ee3db","2011-01-31 23:45:14+00:00","Add serialVersionUID to Serializable classes to make eclipse happy
+"
+"3d090e9626d14b34c3c0f13363a95e6c4677b62f","2011-01-31 23:45:23+00:00","astyle
+"
+"ff717d0dec6a758dd76c20ad5e18583fcd0b9fa4","2011-01-31 23:45:29+00:00","compile in the libs we only need at build time when building with
+eclipse.
+
+This is an annoying default, but it'll make life easier for newbies
+starting out with K-9 for eclipse.
+
+We should ALWAYS do release builds with ant
+"
+"203f9fbaf4b45baf46a38387bf765d48cc9367b3","2011-02-01 01:13:24+00:00","Better explain what 'recreate an account' means and that it now resets
+folder classes. Translations into every language K-9 speaks. (With help
+from google translate and native speakers)
+"
+"9e5435a5f3f0ebe1d56ad9b7d770757c2bd2c71b","2011-02-01 13:15:54+00:00","Fix the ability to accept invalid SSL certificates for exchange support.
+"
+"4d9f7793019dab2e6c1eb0cda0d9e27ab8638240","2011-02-01 20:48:14+00:00","Chinese translation update from sunnavy
+"
+"ff0f517cbb0c41adab90e646eeb06c7acebef7ec","2011-02-01 20:48:20+00:00","Configure MIME4J to not die when there are long header lines or a large message header
+"
+"0ec8ef32a395e1161a09ace348999e91724d2fe9","2011-02-01 20:58:50+00:00","Added a Galician (Galego) translation from fernando.coello@gmail.com
+
+Fixes 2940
+"
+"f75c1073111790fb396e1d9e6d476a13d565ea59","2011-02-02 08:54:36+00:00","update on italian translation
+"
+"5fa757bba1a2df6e92a922e0fce3bd63817a9a38","2011-02-03 03:35:50+00:00","Only include name with an address if it's non-empty.
+"
+"6c03c968ef42265830f1ce2b34a4374ae1adca53","2011-02-03 03:42:45+00:00","Provide for users with good eyesight to completely take advantage of the
+'smaller' (and smaller) fonts by allowing the Accounts and Folder List
+items to have a height smaller than the normal Android minimum.  This
+option is off by default to maintain existing behavior for
+uninterested parties.  The preferences text is not especially
+compelling so could certainly be changed if better phrasing is found.
+"
+"33e5520a9d3cc6bd9ab5c162c00551ae27f6c80c","2011-02-03 06:32:29+00:00","Mark messages as ANSWERED only on send.  Save a reference to the message in the identity so that loading a draft of a reply also marks the referenced message correctly.
+"
+"ea3619b733bdcd1d85e35de81833a77f8d1acba3","2011-02-04 08:26:16+00:00","Display a message in the titlebar when K-9 Mail is not performing any message synchronization. This state will happen when no network is available, when background ops/background data/auto-sync settings turn off synchronization, or when no account is set for polling or pushing.
+
+This revision respects the intention of r3011 that when K-9 Mail is
+set for pushing only no message is displayed, as that condition is a
+normal state.  However, it provides valuable feedback in other cases
+that synchronization is off-line, as was done in r1433.
+
+Although the case when the user has intentionally set no account for
+polling or pushing can be considered 'normal' and therefore unworthy
+of a message, it turns out to be a significant burden to detect that
+situation when the network is offline, since we normally do not even
+try to figure out the account configurations in that case.  Therefore,
+without making substantial, otherwise unwarranted, changes to
+MailService.java, 'Syncing off' would be displayed sometimes to such a
+user, and sometimes not.  Since it is presumably a rare case, and
+there is minimal harm to display the 'Syncing off' message, the
+message will be consistently displayed when no account is set for
+polling or pushing.
+
+Note to translators:
+'Syncing off' is different than 'Polling off'.  The new phrase 'Syncing
+off' means that K-9 Mail is not performing any synchronization with
+any mail server.  The prior non-English phrases for 'Polling off' are
+currently in-place as translations for 'Syncing off', as it seems that
+the meanings are close enough that it would be better to show the
+obsolete translations that to fallback to the English 'Syncing off'.
+However, better translations of 'Syncing off' would be welcome.
+"
+"40bdf999256e6c4898e1adfb22c8ca34a7752318","2011-02-04 12:26:14+00:00","Fixes Issue 2934 Fixes Issue 2935
+
+Provides for storing Folder Settings in the central Preferences
+Storage as a back-up to the settings stored on each folder.  In this
+way, even if the LocalStore DB is recreated or otherwise lost, Folder
+Settings can be recovered.
+
+1) Does not change the methodology used to read settings while
+running, nor the changes in r3107 & r3116 which tremendously improve
+Accounts list loading time.
+
+2) Loads Folder Settings from Preferences and stores on the folder
+only when creating a new LocalFolder
+
+3) Saves Folder Settings to Preferences and the DB row every time the
+Folder Settings are changed.
+
+4) When upgrading from DB version 41 to 42 or later, copies all
+settings for existing folders from the DB storage to the Preferences
+Storage.
+
+5) Transactional bulk folder creation and single pass local folder
+existence check during 'Refresh folders' operation drastically reduces
+time spent when refreshing folders from the remote store.
+
+6) Uses prepared statement during Editor commit to reduce Preference
+storing time.
+
+Probably needs a reversion of r3239, but I'm unfamiliar with
+translations, so am leaving that to others' discretion.
+"
+"66f6999c53de1cefc565bdb70618b7a75de94228","2011-02-04 15:41:39+00:00","Fix for NPE introduced in r3258.
+"
+"945fd2ab71f8ee717e61ff1acf0d2607716f8433","2011-02-04 15:45:31+00:00","At Jesse's suggestion, changing (Syncing off) to (Syncing disabled) and deleting obsolete translations.
+"
+"e31d218dc5f1fdb8aa12e0767bbf219ec8d58d5d","2011-02-04 17:01:22+00:00","At Jesse's suggestion, avoid the use of the Android term-of-art 'density'. Instead use 'Compact layouts' to refer, both internally and externally, to the feature of elminating minimum sizes on UI elements and other minor layout changes for maximizing information quantity to be displayed on a page.
+
+Others are free to adjust the user-facing text further.
+"
+"bb224bc37f3760f665022e53772f8f586fec2b14","2011-02-04 17:34:07+00:00","Add test cases for MessageReference serialization.
+"
+"f1b4ca6905319111b4d5a23cd6f0fdc370dcaf47","2011-02-04 17:34:28+00:00","astyle
+"
+"1b37fc69f65768bc11402202bebebaaca2f1520f","2011-02-04 18:31:01+00:00","Another potential NPE fix.
+"
+"19d863ee419861f60df2be29c4f7461bd71f4d6a","2011-02-04 18:41:36+00:00","Move linkification into a separate method. Linkify text in textToHtmlFragment. Fixed Issue 2951.
+"
+"4842051de6f8b02978414844d4390cdd780f7bc9","2011-02-04 23:18:08+00:00","Immediately update the title bar when the syncing status changes due to external events.
+"
+"d2561f19af50ec8430ba104ff90a8487938987cf","2011-02-05 00:19:22+00:00","Removed unused imports
+
+git-svn-id: https://k9mail.googlecode.com/svn/k9mail/trunk@3270 9a7fa126-a48b-11dd-a887-7ffe1a420f8d
+"
+"98d8ba51a0bc7e6f7c118e93ef78010557549230","2011-02-04 23:33:34-05:00","Initial commit in our new home. Just bumping a version
+"
+"fd013ec34109148a4ef5758f11bc52a5c0beaf48","2011-02-05 14:03:50-08:00","Create empty button shells (based on btn_dialog_*.png).  The gradient on 'selected' isn't great, though.
+"
+"026ace509c7fb1fcc67c44711b9633be62aa86ef","2011-02-05 14:35:57-08:00","Move out of res directory (breaks build).
+"
+"cc9d6ac5ea8073c877a9080d08ed1191b634df8b","2011-02-05 15:14:02-08:00","Add button to allow editing of quoted message in HTML mode by dropping user back to text mode.  Fixes issue 2959.
+"
+"35fcbd342846fe35a2ca24a528693531ba442dfa","2011-02-05 21:45:12-05:00","switch build infrastructure to git
+"
+"c1df45414f8222267e988f69df37c03a76457cb6","2011-02-05 21:45:39-05:00","git push --tags
+"
+"6222e9b23dd8282f1070cccb4763051390f548ec","2011-02-05 21:46:21-05:00","Bumped manifest to 3.701
+"

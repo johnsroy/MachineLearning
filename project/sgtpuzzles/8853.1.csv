@@ -1,0 +1,488 @@
+"commit id","commit date","commit message"
+"c85f45fbaeff51db8f10e08377230de74ce5046e","2009-11-24 21:31:44+00:00","Note right-click on long-press option.
+"
+"576d03933cf3835281b0061edb622d8103a54c42","2009-11-24 21:33:13+00:00","Use RegisterNatives; update TODO.
+"
+"78cb09ca9b88a9be96b70176eaa7722787954b20","2009-11-24 21:33:29+00:00","Bump version.
+"
+"7dedc5c94b08f8009231fca4e2315d2f26ab53a2","2009-12-11 19:49:16+00:00","Call setShifted() on the right thread, hopefully fixing issue #4 (CalledFromWrongThreadException).
+"
+"be14d42bf216cff1c3c159994e6a5062093efa04","2009-12-11 20:50:19+00:00","Fix issue #5: can't enter non-numeric seeds/IDs
+"
+"7c3dce8dc1fdea16e8aa85f65bca6ad59e002872","2009-12-11 21:36:10+00:00","Reporting improvements: fix reporting of saved game; just log a key count on crash not every onKeyDown
+"
+"2ceb4767862f4a37f6cc1462fd0ebb3094618bbb","2009-12-13 12:47:10+00:00","Another wording tweak from Helge Kreutzmann.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8780 cda61777-01e9-0310-a592-d414129be87e
+"
+"ba923b843af5ac8a9a0d343b89c3e55961234add","2009-12-17 17:55:42+00:00","Patch from Frode Austvik to permit passing CFLAGS in to the Unix
+makefile.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8782 cda61777-01e9-0310-a592-d414129be87e
+"
+"9f582ce6791e5b35708cd313bbb09bbb9ec8fd67","2009-12-17 18:12:18+00:00","Patch from Frode Austvik to tinker with the GTK interface if
+compiling gtk.c with STYLUS_BASED defined: most notably, it provides
+a row of numeric 'keys' made of GTK button widgets for puzzles that
+want a numeric keypad.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8783 cda61777-01e9-0310-a592-d414129be87e
+"
+"53900c2fc8414961fa5800d63f5f23579bf03641","2009-12-17 18:16:42+00:00","Patches from Frode Austvik to modify the effects of the mouse
+buttons in several games if STYLUS_BASED is defined: in games where
+you can set a puzzle element to 'on', 'off' or 'not yet set', when
+it's hard to mimic a second mouse button, it's better to have the
+one 'button' cycle between all three states rather than from 'on'
+back to 'unset'.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8784 cda61777-01e9-0310-a592-d414129be87e
+"
+"65df25dc2f191b4da8d1cef51c1b812e90b6eef6","2009-12-17 18:20:32+00:00","Minor bug fixes from James Harvey.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8785 cda61777-01e9-0310-a592-d414129be87e
+"
+"420effd44a80c94397c82aa7ddd7b0474ba4d3ac","2009-12-20 10:01:57+00:00","Jonas Koelker points out that the backspace key didn't work in GTK
+Guess, because Guess expected ^H whereas GTK generated ^?. Other
+puzzles that use Backspace do it by being prepared to see either,
+which seems wasteful. Now the midend normalises both into ^H, so
+front ends can generate whichever they like while puzzles can
+safely just look for ^H.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8786 cda61777-01e9-0310-a592-d414129be87e
+"
+"a316e2ec7dce97c6331d4a60b324d2fdccf8450f","2009-12-22 16:47:42+00:00","Keyboard control for Dominosa (patch largely due to James H, though
+with considerable meddling from me).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8788 cda61777-01e9-0310-a592-d414129be87e
+"
+"8826b94f19f034465fe237296599d1266dc51533","2009-12-23 11:34:25+00:00","latin_generate_quick is long gone, so remove it from the header file.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8789 cda61777-01e9-0310-a592-d414129be87e
+"
+"08e66a1b05d8fedb09e802471a3d8b9aa68d428e","2009-12-27 10:01:09+00:00","New mode for Unequal, from James H. In this mode, called 'Adjacent',
+the < and > clues are replaced by bars separating every pair of
+squares whose contents differ by exactly 1. Unlike standard Unequal,
+which presents only a subset of the available clues, in Adjacent the
+clues are _all_ present, so you can deduce from the absence of a bar
+that the two numbers it would separate are _not_ consecutive.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8790 cda61777-01e9-0310-a592-d414129be87e
+"
+"c62213f235eb01752474cfb85046e1727b9f5054","2009-12-27 10:01:10+00:00","Refactor latin.c to make it easier to reuse. Instead of client
+programs having to clone the latin_solver() function and insert
+their own extra deduction routines, they can now just _call_
+latin_solver with enough parameters to let it fit its own deductions
+into their difficulty framework and call a set of provided function
+pointers to do user deductions. Modified Unequal to work in the new
+world, of course.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8791 cda61777-01e9-0310-a592-d414129be87e
+"
+"3825ac0534f86c6e711798427aa4e794e2e5dc05","2009-12-27 10:01:11+00:00","Tweak the semantics of dsf_merge() so that the canonical element of
+any equivalence class is always the element with the smallest index.
+This is slower (the previous behaviour, suggested by Jonas Koelker,
+was to choose the new root element to maximise performance), but
+still more than acceptably fast and more useful.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8792 cda61777-01e9-0310-a592-d414129be87e
+"
+"dbd1d0dc3ea881449c413402babe51fb942209e2","2009-12-27 10:01:16+00:00","Introduce, and implement as usefully as I can in all front ends, a
+new function in the drawing API which permits the display of text
+from outside basic ASCII. A fallback mechanism is provided so that
+puzzles can give a list of strings they'd like to display in order
+of preference and the system will return the best one it can manage;
+puzzles are required to cope with ASCII-only front ends.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8793 cda61777-01e9-0310-a592-d414129be87e
+"
+"e246da4d0549a3644455882ed0c13bc3a265d61d","2009-12-27 10:01:18+00:00","I've never trusted common variables. Take those bare ints out of
+latin.h and put them in latin.c with 'extern' declarations in the
+header.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8794 cda61777-01e9-0310-a592-d414129be87e
+"
+"354049b52e608ed08838c6386eb4c4428f60798a","2009-12-27 10:01:20+00:00","Normalise Unequal (and latin.c) so that solver diagnostics start
+their coordinate from 1 rather than 0, for consistency with Solo.
+(My geek instincts would rather work from 0, but I've generally
+found that puzzle users sending me email tend to prefer 1.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8795 cda61777-01e9-0310-a592-d414129be87e
+"
+"68bb3e4752b4d28835c5afac1510d3420106f94a","2009-12-27 10:01:23+00:00","New puzzle! 'Keen', a clone of KenKen.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8796 cda61777-01e9-0310-a592-d414129be87e
+"
+"053f003effc0d648a717ed587d7be73568164990","2009-12-27 10:03:13+00:00","Add keen and keensolver to svn:ignore.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8797 cda61777-01e9-0310-a592-d414129be87e
+"
+"326184120d5de725721efbcd069078bc4616835c","2009-12-27 19:18:22+00:00","Fix bug causing array overrun. Only seemed to be showing a symptom
+on Windows, presumably because the data after the array was harmless
+elsewhere.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8798 cda61777-01e9-0310-a592-d414129be87e
+"
+"5db030376adcb0d3d9ae7ae6e44b19e8c67bbe45","2009-12-30 16:53:36+00:00","New puzzle in 'unfinished'. Essentially, Sudoku for group theorists:
+you are given a partially specified Cayley table of a small finite
+group, and must fill in all the missing entries using both Sudoku-
+style deductions (minus the square block constraint) and the group
+axioms. I've just thrown it together in about five hours by cloning-
+and-hacking from Keen, as much as anything else to demonstrate that
+the new latin.c interface really does make it extremely easy to
+write new Latin square puzzles.
+
+It's not really _unfinished_, as such, but it is just too esoteric
+(not to mention difficult) for me to feel entirely comfortable with
+adding it to the main puzzle collection. I can't bring myself to
+throw it away, though, and who knows - perhaps a university maths
+department might find it a useful teaching tool :-)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8800 cda61777-01e9-0310-a592-d414129be87e
+"
+"eea64e09e4240667fa2f63d5fb3af11171175cd1","2010-01-01 19:41:59+00:00","Couple of missing 'static's.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8801 cda61777-01e9-0310-a592-d414129be87e
+"
+"140e786059a6fe739c6224857247d852519d40a3","2010-01-01 20:06:34+00:00","For my own use in local Windows builds of the 'unfinished' puzzles,
+add an include directory to the Windows makefile so that source
+files in subdirectories can find the main headers.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8802 cda61777-01e9-0310-a592-d414129be87e
+"
+"110b51a49a75730b1f3683636ede7e478825335e","2010-01-04 18:55:56+00:00","16-bit cleanliness patch from James H.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8803 cda61777-01e9-0310-a592-d414129be87e
+"
+"8ec398b4814840960db06101d70962b9949cef8e","2010-01-04 19:14:35+00:00","Memory leak fix from Tiago Dionizio: whenever we free the midend's
+collection of game states, we should also free the move strings from
+which they were constructed.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8805 cda61777-01e9-0310-a592-d414129be87e
+"
+"e9b6f588cb3802d71f6c303fa9919f51a2cd0d80","2010-01-05 18:26:42+00:00","Another 16-bit-cleanliness fix (and for once I spotted it before James!)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8806 cda61777-01e9-0310-a592-d414129be87e
+"
+"ef7ea3d4ed3c23061812c70c198f9e3e17264758","2010-01-05 18:26:44+00:00","Missing piece of code I should have cribbed from Solo: we have to
+lay out large numbers of pencil marks differently in a square
+containing a clue.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8807 cda61777-01e9-0310-a592-d414129be87e
+"
+"e43ac0bddc282e86a98fe1348cbc759edbf5a6a2","2010-01-05 18:26:55+00:00","A user asked for the < signs in Unequal to be bolder.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8808 cda61777-01e9-0310-a592-d414129be87e
+"
+"1582cf47c56094680bb5563c38c0f6454cca4b71","2010-01-05 18:51:42+00:00","Yikes! Fix a misaimed 'sizeof' which I only got away with because
+ints and pointers are usually the same size.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8809 cda61777-01e9-0310-a592-d414129be87e
+"
+"62b4b69cb03f3ea3b678b9a96432ac93a9ec9de1","2010-01-05 19:52:52+00:00","Add an even more evil (!) game mode, in which it's not made
+immediately obvious which element of the group is the identity - at
+least two elements including the identity have their rows and
+columns completely blanked.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8810 cda61777-01e9-0310-a592-d414129be87e
+"
+"8c7bdf6d9279c27bbbce58f06a5c7e36aafb44ec","2010-01-05 23:40:40+00:00","Add a facility in the latin.c solver diagnostics to allow a puzzle
+to call the digit values by custom names.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8811 cda61777-01e9-0310-a592-d414129be87e
+"
+"67efcafa99e0e2db94962e3a7d455a562d4222f5","2010-01-05 23:40:41+00:00","Refer to group elements by letters instead of numbers, in keeping
+with usual abstract group notation. In puzzles with a clear
+identity, it's called e.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8812 cda61777-01e9-0310-a592-d414129be87e
+"
+"7804c6a900f09da3bc67c82540b570214090f78c","2010-01-05 23:40:42+00:00","Proof that check_errors() is sufficient.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8813 cda61777-01e9-0310-a592-d414129be87e
+"
+"1d48315370a382d2fd1cd0f037044846191c2392","2010-01-07 18:15:09+00:00","Memory leak fix from James H.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8815 cda61777-01e9-0310-a592-d414129be87e
+"
+"727ee365bc84d1c6b5c4dcae6062b3dc69d45da1","2010-01-07 18:42:00+00:00","New puzzle, again using the revised latin.c: 'Towers', a clone of a
+latin-square puzzle which I've seen described by several names but
+the most common is 'Skyscrapers'.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8816 cda61777-01e9-0310-a592-d414129be87e
+"
+"1cdb7814a1184c94287af3ed9ee50127ee9213dc","2010-01-07 18:42:01+00:00","Upgrade the graphics in Towers to include a thematically appropriate
+3D effect. (I only committed it without so that I could preserve a
+record of how the code looked before I added it.) The 3D effect can
+be disabled by setting TOWERS_2D in the environment, should anybody
+seriously dislike it.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8817 cda61777-01e9-0310-a592-d414129be87e
+"
+"641d07f71d84d99f130f77cba621ad4fdbbd0cae","2010-01-07 18:42:21+00:00","Update svn:ignore.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8818 cda61777-01e9-0310-a592-d414129be87e
+"
+"0299d6ff464ffd1ed807dc1bd65f50fc33f74c48","2010-01-07 18:53:40+00:00","Merge branch 'upstream'
+
+Conflicts:
+dominosa.c
+gtk.c
+nestedvm.c
+osx.m
+ps.c
+puzzles.h
+unequal.c
+windows.c
+"
+"ceec06c36fb7f018873aedd884677ed08366a88f","2010-01-07 19:09:58+00:00","Crop the Towers icon more sensibly (i.e. at all).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8821 cda61777-01e9-0310-a592-d414129be87e
+"
+"645776dee10f813300f8243f1e198675ca18ca13","2010-01-07 20:05:34+00:00","Fix compilability; add keys and NO_PRINTING to keen; list keen; ensure new games appear.
+"
+"bbf7b67d1d1386fe700eea91558062925650582c","2010-01-07 20:50:49+00:00","Fix formatting.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8822 cda61777-01e9-0310-a592-d414129be87e
+"
+"582fbc89bdd2da1cc60b28b547414dbb98cfa81b","2010-01-07 23:04:51+00:00","Bump version number.
+"
+"6646ed77720ca5a9447d3a7d0e03bdce45c8dadf","2010-01-07 23:54:16+00:00","Remove spurious defines in de.po.
+"
+"d7ad2ca80c465e40f4ede92cb4648277a79ae2d1","2010-01-08 12:25:44+00:00","New year, new puzzle.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8823 cda61777-01e9-0310-a592-d414129be87e
+"
+"84500a5c2a94047267f460604a9820f7cf591731","2010-01-09 17:21:36+00:00","Oops. Uncomment the difficulty exceptions! (Also add another
+constraint in validate_params.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8824 cda61777-01e9-0310-a592-d414129be87e
+"
+"3d889876920c945a133d38c7976124f95044a132","2010-01-11 18:41:28+00:00","Oops! Remove evidence of blatant clone-and-hack from Keen. :-)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8825 cda61777-01e9-0310-a592-d414129be87e
+"
+"f0bfa336c4d3ea223e51746ee9859d62c45ce0cd","2010-01-11 18:41:29+00:00","The 3-D graphics in Towers need a corresponding change on the input
+side: instead of locating a mouse click in whichever base grid
+square contained the click location, we should check to see if a
+tower protrudes on to that location from a neighbouring square. That
+way, a click should reliably activate the tower that was actually
+drawn under the mouse pointer.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8826 cda61777-01e9-0310-a592-d414129be87e
+"
+"45b510723ce83aea05f681b20b49e696d067ddba","2010-01-11 20:32:55+00:00","Retire the YTRANS and YUNTRANS macros in latin.[ch]. They were
+introduced to mimic similar macros in solo.c, in case Solo ever
+moved over to being based on the latin.c solver framework; but even
+Solo has long since lost those macros, so latin.c has no need to
+keep them.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8827 cda61777-01e9-0310-a592-d414129be87e
+"
+"74f673df234b194c1e6f8470dac37fa611d15b44","2010-01-11 21:21:07+00:00","New puzzle from James Harvey: 'Singles', an implementation of
+Hitori. One infrastructure change in the process: latin.c has
+acquired a utility function to generate a latin rectangle rather
+than a full square.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8828 cda61777-01e9-0310-a592-d414129be87e
+"
+"20c6a3a613e13cd92b79f7dd4bfadffaa71cb46f","2010-01-11 21:21:29+00:00","svn:ignore update.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8829 cda61777-01e9-0310-a592-d414129be87e
+"
+"8b87bf7948d393a1c68902c6fbea03d84dd34a77","2010-01-11 21:27:37+00:00","Misspelled keyword.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8830 cda61777-01e9-0310-a592-d414129be87e
+"
+"acafd3e1e75ef8aefbb5c1e15ea21a553c7c76f6","2010-01-11 22:46:02+00:00","Corrections to Singles documentation, plus index terms.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8832 cda61777-01e9-0310-a592-d414129be87e
+"
+"a3eeb1c1c79cf35a8f1a497338b505074583dd1d","2010-01-12 18:34:06+00:00","Add a couple more checks to the 3d collision detection, without
+which a click miles above the invisible RH surface of a tower would
+sometimes select that tower.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8833 cda61777-01e9-0310-a592-d414129be87e
+"
+"54a752631d9c4532defdc3ede968c2da125451e7","2010-01-12 23:32:22+00:00","Patch from James H: make the Windows debugging output conditional on
+an enabling environment variable.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8834 cda61777-01e9-0310-a592-d414129be87e
+"
+"0839149ec444493045e55acf8fd8f26c8c4faaa2","2010-01-12 23:32:23+00:00","Couple of small changes to Singles from James H which missed my main
+commit: tweak the grid generation a bit, and fix the use of the
+Solve function on a grid containing errors.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8835 cda61777-01e9-0310-a592-d414129be87e
+"
+"c3dee466945faf68736771b86e6a5b491380e78e","2010-01-13 19:12:32+00:00","New puzzle from James H: 'Magnets'.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8836 cda61777-01e9-0310-a592-d414129be87e
+"
+"4dcf8e7a6fceb7d2f0dc8f08281f4b8bec963fb8","2010-01-13 19:19:37+00:00","svn:ignore update.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8837 cda61777-01e9-0310-a592-d414129be87e
+"
+"8a021dc9df247cdb179da9eb92fa562a15ccc969","2010-01-13 19:25:56+00:00","Placate optimiser.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8838 cda61777-01e9-0310-a592-d414129be87e
+"
+"b220dd561df6b5c6ace3470a0a89eef22f73c54a","2010-01-13 19:25:57+00:00","Don't use payload strings directly as the format for printf.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8839 cda61777-01e9-0310-a592-d414129be87e
+"
+"237b934d1f41a1e511b29564d41b385745b5a452","2010-01-15 00:11:14+00:00","Add my first pass at a German translation. Still needs all the game-specific strings.
+"
+"9dbf145c21104ef40af2a945c0073f61d14ee5e3","2010-01-15 00:12:16+00:00","Merge branch 'upstream'
+"
+"df9cd45ee8a630a65cdba387d40b384c286dd0bf","2010-01-15 00:53:07+00:00","Android compile fixes for the 3 new games; allow missing desc_ strings; tidy up de.po a bit (stopgap).
+"
+"e34e0ad2443c6a3c0f970336d27372d3f9910701","2010-01-15 01:05:01+00:00","Fix soft keys and cursor permance in Towers.
+"
+"d833afe7edc46df26dfd38fe7de0a937c8712e0c","2010-01-16 10:28:08+00:00","Translate strings in the new games
+"
+"34bb8922e73b7615a38aa4ed0592af58bbf8ecf6","2010-01-16 10:51:15+00:00","Check for missing translations in extra languages.
+"
+"d1e24b9e3fc6da717b74e34127de1aba2ffc14b0","2010-01-16 12:38:15+00:00","Highlight the sides as well as the top of a tower when it's
+selected. I think this is a more or less aesthetically neutral
+change for the actual selection, but the selection code is reused to
+draw the victory flash and that's greatly improved by not having the
+tower sides remain unflashed.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8843 cda61777-01e9-0310-a592-d414129be87e
+"
+"b492f473aaf93e2cb9258473b5bc8198ff75b00b","2010-01-16 13:03:36+00:00","Typo/formatting fixes for Magnets documentation.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8844 cda61777-01e9-0310-a592-d414129be87e
+"
+"471f7007aebfe93eab02c2f149bd1e1650e12a76","2010-01-16 22:44:46+00:00","values-de/strings.xml nearly there, except descriptions. Describe new games.
+"
+"822e005982bdc59ae79189f90305e44d935ec165","2010-01-17 01:05:55+00:00","Patch from James H to fix a bug in which ambiguous puzzles would
+occasionally be generated, e.g. by 8x8de#417341658689473 .
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8845 cda61777-01e9-0310-a592-d414129be87e
+"
+"1e69d68e183ca8952a2cb29663fd8f2af594af82","2010-01-17 10:54:55+00:00","Translate game descriptions (and some corrections).
+"
+"e2b263c2485dbe80a1c5200abf3425ce86364874","2010-01-17 15:53:40+00:00","Tidy up strings.xml a little.
+"
+"8c44fa6327f9dfdf918642b13475aaf4a30e64ca","2010-01-17 16:11:14+00:00","Fix issue #6: Android restores menu to open while we're loading/generating a game.
+"
+"6a1e0c31bb7e9977344987db2d18fd1e1733c857","2010-01-17 16:13:58+00:00","Merge branch 'upstream'
+"
+"0a9d60d56de7e1024e3be2fd0acacce3d37d96ed","2010-01-17 16:15:36+00:00","de.po update resulting from merge.
+"
+"3832c379afb08b404a92bbf00c365d072996f1b9","2010-01-17 17:06:29+00:00","Spelling/grammar improvements (I hope)
+"
+"00b62e494159ae8351d424eaaa02b96d0ece8d11","2010-01-17 17:23:26+00:00","Note intention to switch to po4a.
+"
+"a94fbe89c4c833ef9403f9e060a0581d24474ea2","2010-01-17 17:24:16+00:00","Note new upstream revision.
+"
+"57afd880931166dba646b67d468357382dbefe85","2010-01-18 00:17:32+00:00","Really translate difficulty levels in 4 newest games.
+"
+"c8f9942311470d8e7d1d3cdac5cdd3f646daeb03","2010-01-18 21:23:25+00:00","Memory leak fix from James H.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8850 cda61777-01e9-0310-a592-d414129be87e
+"
+"ff2403076ad7afd94084995c24cc6fec2852c223","2010-01-18 21:23:26+00:00","Fix from James H: in printing mode, the shared code between drawing
+and printing must avoid referring to stuff in the game_drawstate,
+since the game_drawstate isn't a real one.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8851 cda61777-01e9-0310-a592-d414129be87e
+"
+"5e15cdb33cbaac9e184f063f16248f59ed35f3a4","2010-01-18 21:23:27+00:00","Fix from James H: the shared code between drawing and printing
+should use state->adjacent rather than ds->adjacent, because the
+latter won't be initialised in printing mode.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8852 cda61777-01e9-0310-a592-d414129be87e
+"
+"978546820ba97ae42c79d406c39914d1a11cb9c2","2010-01-19 00:56:37+00:00","Patch inspired by one from James H: remove spurious references to
+$mw (it should only ever have been used in the Cygwin makefile), and
+move the libraries to the end of the link line in the Unix makefile
+for better portability.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8853 cda61777-01e9-0310-a592-d414129be87e
+"
+"956d3dab8605f6435a65533c5acf5557779c720a","2010-01-21 00:25:33+00:00","de: Request use of English if possible.
+"
+"5fb891b5268196d984f32493958887b432237ac2","2010-01-21 00:46:04+00:00","Double text size in Pattern on Android.
+"
+"8329c28475c76ac449bbdf16c23323ecf1676a54","2010-01-25 07:53:01+00:00","Add a few soft keys and move the shortcut for Random Seed out of the way of the pencil mark feature.
+"
+"17f33016b12b98500c3e4751e38d88bb63fb5968","2010-01-25 08:10:23+00:00","If we can't delete a file the user wants to overwrite, try just overwriting rather than a dialog loop.
+"
+"f76a604bb33b13bd202baed5efbdef78997cd835","2010-01-25 08:30:34+00:00","Fix ALIGN_VNORMAL. Most noticable in Keen, but also Solo (Killer mode) and Tents (column labels).
+"
+"117f7858b7467744437ca5fe911f90101106e987","2010-01-31 10:55:21+00:00","Merge branch 'upstream'
+"
+"86945cdfce25df7154137322f03739ed61d079d3","2010-01-31 10:57:25+00:00","Update version number.
+"
+"7cd926871bf433e26762febc4e965fbf463f35b5","2010-01-31 15:09:09+00:00","Fix completed popup on Solve in Guess (issue #10).
+"
+"9750c6836dda2e1ad00a7299ca6ce9b05072eee1","2010-02-01 01:21:14+00:00","Use pthread_setspecific to store env, like Dalvik would without TRUSTED_JNIENV. Also zero FE initially. Might help with issues #1, #7, #8, #9.
+"
+"0403ad0bd5b737057062c5bdbd332a3894a63924","2010-02-01 01:34:05+00:00","Add COMPLETED! popup in the 4 newest games.
+"
+"131bfbbd4be1d21702f878de627a68f1f66515b7","2010-02-01 09:35:03+00:00","Don't send keys while the progress dialog is up.
+"
+"92f474dcb09f4cdd228e5bfd95b8333b5fc46cd5","2010-02-01 23:24:45+00:00","Some speculative defense against double-free.
+"
+"53dda18b8c128ef4f092360e4f7c213112965f2d","2010-02-02 12:13:25+00:00","Remove unused native declaration.
+"

@@ -1,0 +1,113 @@
+"commit id","commit date","commit message"
+"ae43a83d4d520937eff6a799b85fec1005c642a5","2014-08-16 17:49:46+02:00","Re-enable bandwidth accounting, disabled some other things
+
+Mike Perry reported some security and usability issues. This patch
+corrects some, but there is others requirering some deeper changes.
+
+Corrections:
+
+- close orbot local ports so that no app can access it 'by chance'. Only
+especially authorized apps may access the TransPort. Polipo (8118) is
+now closed, as well as SOCKS and TransPort
+
+- enable accounting, using a (new) dedicated chain 'accounting'. This
+one just links to bw_OUTPUT in order to make Quota work again. Seeing
+how it's done, it's possible we can even see which app eats bandwidth,
+at least fir the outgoing data.
+
+- we flush OUTPUT completely before doing anything. This allows some
+easier configuration.
+
+- INPUT chain is now managed in such a way nothing may enter unless it's
+related to TOR traffic
+
+There's also some cleanup in iptables rules, and, well, now, it's locked
+up. For good.
+"
+"8b0254da65ca150a4248506ca6f151462af2054e","2014-08-16 20:33:16+02:00","Changed system apps color
+
+It seems the red color isn't that good on black — thus, moved to light
+blue.
+"
+"abf32dffb517bbea062399f9177db02060e45c63","2014-08-17 08:53:26+02:00","Accounting changes: push only true traffic to it (allowed from orWall)
+"
+"284dd980dfe93b40f4f09a8635a7c77443047f8b","2014-08-17 08:53:41+02:00","corrected comment
+"
+"0c8cfd4b3a5e49b6d90e2db3e45304c8f4ce94ae","2014-08-17 10:35:17+02:00","corrected some rules
+"
+"a5fedf28f3e49c276c82c72ee52eeab9608eee4d","2014-08-17 10:55:16+02:00","xml cleanup
+"
+"54ee3d605b119f172ed5066714f037f7716f1b36","2014-08-17 10:56:30+02:00","Add a new useless chain ip iptables for state checking
+
+This allows orwall to ensure iptables has been initialized properly at
+boot time.
+
+It also requests a reboot if init-script is enforced and the witness
+chain is absent.
+"
+"8d68968264cce96a740dbbc42d357245bf831b34","2014-08-17 11:05:16+02:00","get a real bool for command output
+"
+"0fb8e40c644fab8331b6ab77d672f72bc0ed56e0","2014-08-17 11:05:22+02:00","New dialog
+
+This one requests a reboot if a specific IPTables entry isn't found.
+This also allow to ensure the init-script runs as expected.
+"
+"adbe7d842bae6135889379bc9a5a0e1b4a5e1826","2014-08-17 11:56:30+02:00","First try: get Orbot 'Internals' accounting
+
+This part isn't easy: try to get Orbot bandwidth usage without having
+the applications in it.
+
+Orbot uses some MB in order to query Directories, it may be good to get
+them in order to have some accurate accounting.
+Problem: filtering such traffic isn't easy, as ports aren't fixed 'for
+good':
+- some are dynamically allocated
+- others may be moved in the confuguration file
+
+Thus, this part will be hard.
+This explains why the default Orbot 'transparent proxy' doesn't show up
+per-app bandwidth usage, but Orbot itself.
+"
+"7e06e37fc68bb1878b7da1ed8a9c049d4313de76","2014-08-17 12:07:14+02:00","reformat code, optimize imports
+"
+"5acf95ffabdae45f9c202d6e94e88f97c8b72004","2014-08-17 12:37:49+02:00","local input are not to be put in accounting
+"
+"02b50a9f38bd98778392e1cb29b0a1ce3e342e95","2014-08-17 12:38:04+02:00","new string and integer values
+"
+"e729dba05a0a6c8dc1084263f2d209c11982c62b","2014-08-17 12:38:20+02:00","allow to set polipo port in orwall configuration
+"
+"2f390cb60e15546105c1a8bf3d22414df06c97f9","2014-08-17 12:38:32+02:00","new constant
+"
+"e95600e7f8a7187e79d4a80f4f93ef5426940747","2014-08-17 12:38:46+02:00","Allow to enable polipo connections
+
+As pointed out by Mike Perry, Polipo (as well as all other Orbot service
+ports) should be closed by default.
+
+Thus, Polipo isn't reachable anymore.
+This new option allows user to enable it back. BUT it has to be used
+with caution: for now, once it's opened, any other app discovering this
+port may connect and thus access to Internet (through Tor). Of course,
+such vamps won't be able to do DNS queries, but it doesn't protect from
+malicious outputs using IP (or embeding some resolver or host file).
+
+Next step will be to say to what port redirect the app, thus this option
+should be useless. It's just a quick workaround, and you shouldn't use
+it. At all.
+"
+"3bea9458e0a62901f6d5c98cdaa30343dea832ab","2014-08-17 12:58:02+02:00","ensure polippo status is persistent
+"
+"02e578ae26d3fdc1d88003e3bddaa4219d6d4d60","2014-08-17 13:06:03+02:00","Refactoring: moved iptables initialization in a dedicated method
+
+This will allow to call it from other parts, like the popup asking for a
+reboot.
+"
+"6e50835463db6836a3a24f79537527bbc550cbfb","2014-08-17 13:11:35+02:00","avoid some useless error logs at boot time
+"
+"0aa0b525b043092e003fb7d04138b1194497d481","2014-08-17 13:12:31+02:00","allows to apply boot-up rules without a reboot, though this is not the best way to ensure we are safe
+"
+"2eabb28534d64fc12e9d387f8bf5dae7d4246d1a","2014-08-19 09:13:49+02:00","Update README.md
+"
+"b690ac9eace97593aa8018ae615d7e0839923f7d","2014-08-20 18:23:38+02:00","updated submodule
+"
+"57915b0332bbcc5b555e505309424e463364244d","2014-08-20 18:23:52+02:00","bump version
+"

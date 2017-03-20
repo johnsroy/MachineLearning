@@ -1,0 +1,123 @@
+"commit id","commit date","commit message"
+"0206ebf809412487b42928b9f693ebb469173061","2010-11-21 13:25:21+00:00","Fixed issue 2680
+
+Should not set empty string in auto-expand folder list.
+"
+"4f0882068315790a2b1dcd09814de9cea8639f4b","2010-11-22 08:12:48+00:00","http://code.google.com/p/k9mail/issues/detail?id=2682
+mark multiple mails as SPAM
+"
+"23254e8998dfe89cbc687b873d466a77bea36a15","2010-11-26 03:53:10+00:00","BatchButton area toggling should't happen from anything other than the
+UiThread:
+
+Fixes a common error from the market:
+
+android.view.ViewRoot$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.
+at android.view.ViewRoot.checkThread(ViewRoot.java:2802)
+at android.view.ViewRoot.invalidateChild(ViewRoot.java:607)
+at android.view.ViewRoot.invalidateChildInParent(ViewRoot.java:633)
+at android.view.ViewGroup.invalidateChild(ViewGroup.java:2505)
+at android.view.View.invalidate(View.java:5139)
+at android.view.View.setFlags(View.java:4502)
+at android.view.View.setVisibility(View.java:3030)
+at
+com.fsck.k9.activity.MessageList.hideBatchButtons(MessageList.java:2883)
+at
+com.fsck.k9.activity.MessageList.toggleBatchButtons(MessageList.java:2906)
+at com.fsck.k9.activity.MessageList.access$500(MessageList.java:77)
+at
+com.fsck.k9.activity.MessageList$MessageListAdapter.pruneDirtyMessages(MessageList.java:2302)
+at com.fsck.k9.activity.MessageList$1.run(MessageList.java:811)
+"
+"1149f2d9164c7f8aabab9fecb66c6cc320ee8ca0","2010-11-26 03:53:15+00:00","refactor getHeaders and removeHeaders to use a common method and an
+iterator to address a Market FC:
+
+java.util.ConcurrentModificationException
+at java.util.ArrayList$ArrayListIterator.next(ArrayList.java:573)
+at com.fsck.k9.mail.internet.MimeHeader.getHeader(MimeHeader.java:87)
+at
+com.fsck.k9.mail.internet.MimeHeader.getFirstHeader(MimeHeader.java:51)
+at
+com.fsck.k9.mail.internet.MimeMessage.getFirstHeader(MimeMessage.java:437)
+at
+com.fsck.k9.mail.internet.MimeMessage.getContentType(MimeMessage.java:130)
+at
+com.fsck.k9.mail.internet.MimeMessage.getMimeType(MimeMessage.java:159)
+at
+com.fsck.k9.mail.internet.MimeUtility.findFirstPartByMimeType(MimeUtility.java:971)
+at com.fsck.k9.crypto.Apg.isEncrypted(Apg.java:464)
+at
+com.fsck.k9.activity.MessageView.updateDecryptLayout(MessageView.java:2702)
+at
+com.fsck.k9.activity.MessageView$Listener$6.run(MessageView.java:2466)
+at android.os.Handler.handleCallback(Handler.java:587)
+at android.os.Handler.dispatchMessage(Handler.java:92)
+at android.os.Looper.loop(Looper.java:144)
+at android.app.ActivityThread.main(ActivityThread.java:4937)
+at java.lang.reflect.Method.invokeNative(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:521)
+at
+com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:868)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:626)
+"
+"ae7ce4de7b91edbc6ba08336f97057d0d2b21912","2010-11-26 03:53:18+00:00","fix the eclipse project name
+"
+"f9981dcf7cd413d90590cfbd9b7391f07e8e2a4f","2010-11-27 04:02:56+00:00","lift hasAttachments to LocalMessage
+"
+"60a538e0717f0a4b3cfe2c908090b0d34613dbb6","2010-11-27 04:03:02+00:00","Remove 'preview' form messageinfoholder
+"
+"580f47998dddc87b49f4fc161fc73f9075453b3a","2010-11-27 04:03:06+00:00","Remove subject from messageinfoholder
+"
+"75108f4078e0a80fb1858691ccb730885bb4c21f","2010-11-27 04:03:10+00:00","move toMe and ccMe into LocalMessage from MessageInfoHolder
+"
+"621f87fcbcd4f4262fa7f9f5b6e0e259c75d74b2","2010-11-27 04:03:15+00:00","Revert 'refactor getHeaders and removeHeaders to use a common method and an'
+
+Subtly flawed. Returned the wrong headers
+
+This reverts commit 657b3961f86b1b694fb7587216ecefeb0b20f5d2.
+"
+"d3c86a39dd9ce34a1f6bced77a9316988e232d2f","2010-11-28 20:28:19+00:00","initial import of a timepicker preference widget
+"
+"a521d231e699fe8d9c5ea5fe2a477a998a5b4e93","2010-11-28 20:28:26+00:00","rename the 'notifications title' string for reuse
+"
+"a75098013a60baf26ef611567b8381c38354744e","2010-11-28 20:28:32+00:00","add a new quiet time preference
+"
+"4f376e833222ba29498b7ec2607b8533adb48de2","2010-11-28 20:28:37+00:00","astyle
+"
+"36bb10fb2cdc202ad538758e21c92d43161ed1ee","2010-11-28 20:28:42+00:00","extract out 'sync one account'
+"
+"3404edca282fba31fce463778523926c0f278d11","2010-11-28 20:28:46+00:00","extract the 'synchronize one folder' method
+"
+"b7617a34973e61d410d0e178636de0cf573bcb9a","2010-11-28 20:28:50+00:00","extract 'determine what to do with a new message' out of
+downloadMessages Probably wants a better name
+"
+"fa64f4c3a8a18a13e7d64e8013f5a47ecc99b681","2010-11-28 20:28:53+00:00","Minor refactoring for readability
+"
+"9784d0e9434d626a470e25f32dd859cec1c93237","2010-11-28 20:28:58+00:00","remove 100loc by replacing a pattern with a method.
+"
+"99d5704b823d2d4c2bc23d5246b92e9204d99491","2010-11-28 20:29:02+00:00","extract 'sending messages' notification into methods
+"
+"28c126b8a51ee30c7aec3312f807fd370ea2a322","2010-11-28 20:29:05+00:00","extract notification code from actual 'action' code
+"
+"b7f52a834fc7498aca93d787017261a10929a675","2010-11-28 20:29:09+00:00","isVibrate -> shouldVibrate to match shouldRing
+"
+"64667d03dc0a03fdb232723ef616f2e2575c2463","2010-11-28 20:29:14+00:00","extract vibration pattern metadata out ouf MessagingController into
+notificationsetting
+"
+"70922989d3e4fb575b2748f02eba21f4e6c3fe78","2010-11-28 21:48:21+00:00","genericize configureNotification in preparation for code reuse
+"
+"2b8f7c0bbccbbaea7bb7e46473969cbd4199fde3","2010-11-28 21:48:25+00:00","unify all our beeping, buzzing and flashing codepaths
+"
+"fb6dfb3bde2d0d091d6150922cf588c67142dd33","2010-11-28 21:48:29+00:00","removed a commented-out method to show notifications on changes to
+system connectivity
+"
+"15bf83bbe487fd9b085c18a8aee7fd1228b745ab","2010-11-29 02:21:16+00:00","preliminary implementation of 'quiet time'
+"
+"dbc07d14eec1a7413ee338d88390c8fb550dd33f","2010-11-29 02:21:27+00:00","Revert 'http://code.google.com/p/k9mail/issues/detail?id=2682' until we
+can make it configurable, per discussion with Marcus
+
+This reverts commit 1436eeefa292f64c8c9aa6ec9fa2daaeafeb93fd.
+"
+"3ca2b936195c3fbadcee4f7b718867168d2cf4e0","2010-11-29 02:21:37+00:00","Move notification preferences up a bit
+"
+"3f4a26da78ef85b52fa0b2f00baf4c5e7db12899","2010-11-29 02:22:09+00:00","Bumped manifest to 3.317
+"

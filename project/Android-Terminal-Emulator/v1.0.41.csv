@@ -1,0 +1,89 @@
+"commit id","commit date","commit message"
+"c4e8ccc6eb37c6829bae56f214086794460bb1b1","2012-01-16 14:25:39-08:00","Remove non-working portugese translation.
+"
+"3b1a6884b9a45beffbb1177e07cb73de59e17619","2012-01-17 01:08:02+01:00","Update French translation for your new options.
+
+Regards.
+"
+"aee32fa2c2b7c05a1a03ea1a3b9d49118b00bb48","2012-01-17 01:17:20+01:00","Update French Translation (arrays.xml) for action bar.
+
+Regards.
+"
+"9d6c156a7d18e05f5a6c77a6aaa7228bef0d2c43","2012-01-17 13:32:24+01:00","Added portuguese translation and a small german update
+"
+"05f9aa800782fa77ed080d20f0fbb0f8571efbb2","2012-01-17 15:14:33-08:00","Merge pull request #77 from damor/master
+
+Portuguese and German localization
+"
+"a7df732a4a7d4214d4beb484bcdb20f50e2bddc7","2012-01-23 01:39:56-08:00","Make sure IME closes when last window is closed via the confirmation dialog
+
+The request to close the IME doesn't work reliably when the confirmation
+dialog is displayed on top of the activity window, so dismiss the dialog
+and post the request to close the terminal window via a Handler instead.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"9ca6313151f1ea2a2cd417386341ec245ff663c1","2012-01-23 01:40:02-08:00","Update LayoutParams and redo layout on EmulatorView resize
+
+At the moment, when we resize an EmulatorView, we're only resizing the
+contents and the area on which we're drawing, not the view itself.  This
+is fine in most cases (any blank space is being covered by the soft
+keyboard), but on ICS, when the status bar is disabled and the action
+bar is always showing, rotating from portrait to landscape with the soft
+keyboard showing appears to result in an EmulatorView large enough to
+push the action bar off screen.
+
+Work around this by resizing the EmulatorView itself through adjustment
+of its LayoutParams, not just the contents.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"7515d24cb6684fa2702efff4a68b6a25030f30e7","2012-01-23 01:40:10-08:00","Change TermViewFlipper background color to match EmulatorView background
+
+With the previous patch, EmulatorViews no longer always take up the
+whole of our activity, causing the TermViewFlipper's background to show
+through briefly when opening the soft keyboard.  Make it match the
+EmulatorViews' background color to avoid a distracting visual flash.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"dfa93dd41b7ad43ee843cb69cd6f89308c67c932","2012-01-23 01:40:17-08:00","Delay allocation of the transcript until after we know the terminal's size
+
+During the modularization for by the multisession patches, the lazy
+initialization which used to ensure that the transcript wasn't allocated
+until its final size was known was lost.  This results in the transcript
+always being allocated at least twice for a newly created session
+(unless the final width of the window is exactly 80 columns).
+
+To prevent this, delay allocation of the transcript in TermSession
+until after the size is set with a call to updateSize().  This requires
+some changes in the EmulatorView's initialization code to ensure that
+the TranscriptScreen and TerminalEmulator objects aren't used before
+they're allocated.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"c2f128dcdf07d39b21ac969b2095bfbcfaae6a52","2012-01-25 13:32:49-08:00","Merge pull request #74 from eauland/patch-7
+
+Update French translation for your new options.
+"
+"78a6f71995b2f9f9287c688a80f42481e049eab4","2012-01-25 13:33:15-08:00","Merge pull request #75 from eauland/patch-8
+
+Update French Translation (arrays.xml) for action bar.
+"
+"d953f98b6b289c95d29484d346ac664b16a3ce3a","2012-01-25 17:00:50-08:00","Handle Android 3.0+ full keyboards correctly.
+
+Our toggling behavior was confusing people, especially with respect
+to the CTRL key on Android 3.0+ full physical keyboards.
+
+We now never toggle when we receive the physical ctrl key. The physical
+control key is only present on Android 3.0+ full keyboards.
+
+We now leave it to the system to handle physical caps lock. Caps lock
+is only present on Android 3.0+ full keyboards.
+
+We don't toggle shift or alt on keyboards that report that
+they are MODIFIER_BEHAVIOR_CHORDED. (i.e. Android 3.0+ full keyboards.)
+"
+"10d20881b611a99842bbe42046f98218e6381250","2012-01-25 17:05:06-08:00","Version 1.0.41
+"

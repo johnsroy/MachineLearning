@@ -1,0 +1,119 @@
+"commit id","commit date","commit message"
+"9cf99709d4d6021680afd08a57591ff09da2e607","2012-08-14 20:14:29+01:00","Unprepare for release
+"
+"6727290712f1b748443891b1a57205565d64e1f9","2012-08-29 19:20:10+01:00","Extract the version number from the package in the about dialog
+
+Instead of having to manually update the version number in the string
+resources for the about dialog, it now contains a placeholder string
+which gets replaced by querying the version number from the package
+manager. In release 0.2 I forgot to update the string so this should
+fix that problem.
+"
+"e087abaf8c75ccdb31bd9359da4900d01ad4ac9d","2012-08-30 15:31:50+01:00","Add some things to the TODO list
+"
+"f5a81ae67b4f2a1992638014a3551aebaec47247","2012-09-04 10:44:51+01:00","Add another TODO entry
+"
+"6a1109000dcf346e2b2253e50e0a55dafa44e847","2012-09-25 17:39:49+01:00","Add an entry to the TODO
+"
+"6b3e63b22bd7ba2fb809db2b43f146fc899769f6","2012-09-25 21:39:10+01:00","pdb-db: Temporarily store span offsets as byte offsets
+
+In the article file, the span offsets are stored as a count of UTF-16
+code points to make it easier to work with from a Java string.
+However, to make it easier to generate a database targetted for other
+applications, this patch makes it now store the offsets in memory as
+UTF-8 byte counts. They are then only converted to UTF-16 offsets as
+the file is written.
+"
+"4a9c4017414585843a8f182c4a2764ae3c57a667","2012-09-28 09:47:05+01:00","prevodb: Use GOptionGroup to parse the command line arguments
+
+Instead of just taking the input and output as the only two arguments,
+it now expects a -i and a -o option.
+"
+"889ebb58ca7c91f4db5dfe7d901580c800f954c8","2012-10-02 20:53:16+01:00","Add a wrapper for writing to files with GErrors
+
+This adds a PdbFile type which wraps a file that can be written to. It
+generates GErrors with the filename in the message.
+"
+"9ed955dfd91f48da9aba337ef9d76783b01232e6","2012-10-02 20:55:00+01:00","prevodb: Add an option to save the database to a single file
+
+This adds a -s option to save the database in a single file. The idea
+is that a separate utility program could access this database. The
+format is slightly different and is intended to be easier to access
+from a Linux system instead of Android.
+"
+"9038c26edcae922f82e268ef874a942037bf41e2","2012-10-03 19:34:03+01:00","pdb-file: Add support for reading
+
+A PdbFile can now either be opened for reading or writing and there
+are equivalent functions to all of the writing functions to read the
+data again.
+"
+"878981d2e176246cc60607520383d4f7b0a2f23d","2012-10-03 19:35:33+01:00","prevodb: Add a tool for reading the single file database
+
+This adds a tool for showing an article from the single file database.
+It takes an optional language code and a word from the index and
+displays the strings from the article. The idea is eventually to
+format these strings either with nroff or html and display them in
+some pager.
+
+The tool can also complete language and word names with the intention
+that eventually this could be integrated with bash completion to make
+a convenient command line dictionary.
+"
+"fa782b7580d5b7cd947c348be3aa3f525a85df0e","2012-10-04 23:41:57+01:00","pdb: Pipe the output of the prevo tool to groff and less
+
+The generated article for the prevo tool is now passed on to a bash
+subprocess which sets up a pipe between groff and less. Groff is
+configured to parse a man page. The article is still generated as
+normal text but the idea is to change it be in nroff format.
+"
+"914a2bd66c744329ad8e84c3663a7ae51981a1d4","2012-10-05 10:36:01+01:00","Move the prevodb project to its own repo
+
+The prevodb project now no longer solely relates to the Android
+version of PReVo so I think it makes sense to live in its own repo.
+The code has been moved to:
+
+git://git.busydoingnothing.co.uk/prevodb.git
+"
+"afe71d9de087949f46b4ee53752228612a73b168","2012-10-14 12:57:30+01:00","Support copying definitions from a context menu
+
+When a long press is performed on the text view for a definition it
+now pops up a context menu with an option to copy it to the clipboard.
+The definitions are now represented in a tiny subclass of TextView
+which stores some extra context menu information to grab the text back
+out.
+
+The clipboard is set using a helper class that will either use HTML
+data or plain text depending on is supported by the SDK. The
+appropriate methods are retrieved using reflection so that it won't
+break on older Android.
+"
+"e84a77678265464f6dc701c5bc757daac2cd9866","2012-10-14 15:59:08+01:00","Add context menu options to create flashcards via Anki
+
+This adds two menu items to the context menu that get shown for each
+definition which will create a flashcard either with the word on the
+front and the definition on the back or vice versa. The flashcard is
+created by just launching the intent
+org.openintents.action.CREATE_FLASHCARD. At least Anki handles this
+but presumably there may be other flash card apps that can do this
+too.
+"
+"3acded7da5a0778d99447668b25201aa05b9e8f6","2012-10-15 10:35:55+01:00","Add an option to change the text size
+
+There is now a menu option in the article view to 'zoom' the text.
+This will create and display an instance of ZoomControls with a
+timeout so that it will be hidden after 10 seconds of not pressing the
+buttons. When the buttons are pressed a configuration option is
+updated which causes the text size to change. There are 10 text sizes
+which are used to scale the original text size of the layouts.
+"
+"ea6c5776b4bb040ed12d161df3503f8f7427341a","2012-10-21 20:16:55+01:00","Remove some debugging Log calls
+"
+"6a59b0ac08509780d2630d2e8288b58c7cc0fb79","2012-10-21 20:51:26+01:00","Update the TODO list
+"
+"4a53c7f139ce903608731b30552d74ed6ef4465c","2012-10-22 00:29:55+01:00","Remove the old create flashcard action for AnkiDroid 1.1.x
+
+The old AnkiDroid seems to just crash if you pass an intent to create
+a card so we might as well limit it to the action for AnkiDroid 2.0.
+"
+"f9e734f9e022305cad2516458c9ef337fc905252","2012-10-27 10:13:15+01:00","Release 0.3
+"

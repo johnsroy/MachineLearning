@@ -1,0 +1,316 @@
+"commit id","commit date","commit message"
+"dbd297d99ec90a3c269625577185e103ea2516fa","2012-09-04 01:40:03-04:00","Support manga in database
+
+Updated MALSqlHelper to create a table in the database for manga, as
+well as update an existing database with the aforementioned table as
+well
+"
+"f9f41dc2aa757a37c75290f0ea7210cd9d69b3ee","2012-09-04 01:45:53-04:00","Generic-ing the records
+
+I moved all of the methods that I could from AnimeRecord into
+GenericMALRecord, where they should've been in the first place
+"
+"c0e3772a55816904073701237391e31cff1fe7ca","2012-09-04 01:56:15-04:00","Generic CoverAdapter
+
+I updated CoverAdapter to cast to GenericMALRecord, as well as adding an
+abstract method getAmountConsumed() to GenericMALRecord, which is to be
+implemented by AnimeRecord and MangaRecord to return a 'consumed'
+amount, in the case of AnimeRecord, the watched count. AnimeRecord's
+implementation is already handled, and everything should continue to
+build and run fine without errors.
+"
+"e96a115d4ed73516b4c5b08c332f0441b6ab08ab","2012-09-04 02:12:01-04:00","Hotfix Crash
+
+Had to do blank string + getAmountConsumed for it to become a string, I
+simply assumed it would before and so it crashed. Fix'd
+"
+"5d9136a376ef9d8bb09dcc19a180f610e34a0fe0","2012-09-04 14:35:31-07:00","Change non-standard concatenation to standard method
+
+Normally, you don't prepend an empty string to an integer to convert it
+to a string. This changes the behavior to use the more standard
+Integer.toString() form.
+"
+"66753326a614cd1619fce000810eb74a66c0c05b","2012-09-04 15:01:08-07:00","Refactor Progress Method Name
+
+Make the method name for getting the user's progress something more
+obvious. This also completes the change made in the previous commit.
+"
+"8e1e316cc20a4756c7da0139f36a352ae9fb8d83","2012-09-04 15:17:59-07:00","Make the Anime Grid Ready for Generic Use
+
+Refactor some names from 'Anime' to more generic names for use with both
+anime and manga types. Set up the home pager so it will pass the type of
+record we should display to our fragment.
+"
+"5e0bef4cbdaeca1cefa2eaa30a9716f4d2b5afff","2012-09-04 15:23:49-07:00","Clean Imports and Style on Record Files
+
+Just some housekeeping. Remove unused imports on the Anime and Generic
+record types and adjust braces to the standard Android/Java/K&R modified
+style. This is used by the helpers in the Android SDK's Eclipse stuff,
+so we should follow their style for cleanliness.
+"
+"1a609292b1625ed013ef09a09e6f0044516fedb9","2012-09-04 20:58:52-07:00","Remove Deprecated getWatched Method
+
+Cleaned out references to the deprecated getWatched method in favor of
+the (hopefully) cross-media getPersonalProgress method.
+"
+"65e5c5ea258e1b903a76c893dc541c6c026139d7","2012-09-05 02:46:19-04:00","'Action' button on Covers
+
+This commit added the cover_action drawable, and modified the grid_cover
+layout to include this button in the bottom left, beneath the title. As
+of now it's strictly looks, todo is making it make a popup menu.
+"
+"2dc426dba4445be97b58f47c10f1ae1f0caf716e","2012-09-04 22:14:29-07:00","Manga Record Work
+
+All this work does the best possible to make functions generic where they
+can be. It also enables pulling down the manga list. For some reason,
+force refresh isn't working on manga, but it's probably something simple.
+Display of the manga items in the grid does not work yet. You can confirm
+download of list by examining the database directly.
+"
+"2da51bac45c793139a54f0cf2da3ca48e33129b9","2012-09-06 22:16:19-07:00","Allow Manga List to Display
+
+Set up the ability for the manga grid to display on the manga tab.
+Temporarily, force both the anime and manga grids to refresh when switching lists.
+
+Currently broken / to fix:
+- Changing the list works for the anime list, but the manga list never changes.
+- Selecting a manga tile causes a Null Pointer instead of viewing the details.
+- The tiles for manga still use the anime wording: 'watching' instead of 'reading'.
+"
+"d0b92fc42b9408ffe3e0108656fe8b58e618e53b","2012-09-07 20:17:30-04:00","Fixed multiple crashes with manga
+
+Basically, I generic'd tons of code and added logic to DetailView to
+allow for different loading logic depending on whether a manga or anime
+was passed in.
+"
+"498caeeb121665c7dce6e7f283d9708163d98a1f","2012-09-07 23:04:38-04:00","Genericizing DetailView methods
+
+Fixed a crash on leaving manga DetailView. Also added the logic for the
+methods to handle which type is loaded. Also made Set Status work with
+minimal effort, and made a placeholder for Update Progress, which has
+replaced Set Watched (for both anime and manga)
+"
+"9fc5015b5ecaade11c0088ea42ba88b1f40f5fd0","2012-09-08 00:22:16-04:00","Cover Actions display PopUpMenu
+
+Basically what the commit says.
+"
+"c052726a907e9e6051ab3786c0c4b013df1d51fb","2012-09-08 00:43:37-04:00","Merge branch 'mangasupport' into plusonecovers
+"
+"efe82df625f9ced09523afad7bcce4d838f07fe4","2012-09-08 01:54:40-04:00","Cover Action tweaks
+
+For now, the Cover Action button is only shown on either
+Watching/Reading, and has either a +1 Watched or +1 Read option
+respectively.
+"
+"11c107de7700fe1292f383e623b0eb435f7bd385","2012-09-08 04:14:45-04:00","+1 Watched/Read works!
+
+Mostly changes to CoverAdapter, most of the code went into the. The
+MALRecords got a setPersonalProgress() method so I could just refer to
+them with GenericMALRecord, and updated ItemGridFragment to match
+CoverAdapter's new constructor, which now accepts a reference to
+MALManager and the media type its currently handling.
+"
+"f4776f41a57087fd9107b87f1e02a00141d2a975","2012-09-08 04:15:13-04:00","Merge branch 'plusonecovers'
+"
+"dd94cf14159642a08cd5b9f2a4e98b27855ae251","2012-09-08 06:09:14-04:00","Record updates, not sure why.
+"
+"3145d792c768ecdac3b68e5c7168101832f4b0b3","2012-09-08 06:09:54-04:00","Merge branch 'working' into mangasupport
+"
+"d2290d59993253e7c55df88dd3404c51d47c1ccb","2012-09-08 06:14:28-04:00","Merged Cover Actions code
+
+I merged in the Cover Actions code from the working branch so that manga
+support can hopefully avoid any conflicts, since the Cover Actions did
+require me to manually merge once because there was some modifications
+in some of the files that are also used in manga support (ie.
+CoverAdapter). Since Cover Actions are done, merging this in felt like a
+smart idea in order to prevent conflicts. Also I updated the .gitignore
+with the .settings folder for my Eclipse.
+"
+"85e1d59202f283ca489b8d8f6c541c9275c160d3","2012-09-08 11:44:25-07:00","Allow both lists to change on type change
+
+Added reference to the manga grid and set things up so that switching the
+list type (complete, dropped, etc) will update both anime and manga
+display lists.
+"
+"2e402fbce8295852d165c5e6c5977479e53858bc","2012-09-08 11:58:12-07:00","Use generic terms for list switch menu
+
+Change the anime-specific 'watching' and 'plan to watch' terms to
+something more generic to cover both anime and manga.
+"
+"ba45b31a3bc40a57b18e3785cec141da1d2752b5","2012-09-08 16:13:08-04:00","Refresh Manga Fragment onResume()
+
+Was currently refreshing the anime fragment twice, so if you updated a
+manga from the detail screen it wouldn't update in place like it should.
+Fix'd.
+"
+"591e4ac37133c8551013b55694fcc8b54b7f4acf","2012-09-09 21:16:02-04:00","Added 'Mark Completed' cover action.
+
+I added the mark completed cover action, as well as moved some of the
+final strings from Anime and MangaRecord into the GenericRecord. Also
+made the getTotal() method part of GenericMALRecord, so I could access
+it from cover adapter to automatically mark as completed if +1 Watched
+would finish the series.
+"
+"abda2e12925bb478c2349eda8a03127225e47a40","2012-09-09 22:16:00-04:00","Fixed manga not syncing
+
+The problem was as simply as the final string for the write manga api
+was wrong. Changed from 'mangalist/anime' -> 'mangalist/manga', works
+now.
+"
+"1448dc5a548044ac62689daa868c6abc7e466ffa","2012-09-10 18:02:26-04:00","Traditional List View Setting
+
+Added the 'Use Traditional List' setting, as well as made it work 100%.
+Really simply changes really, mostly just check the boolean preference
+and load the different layout if enabled.
+"
+"0ca0a8c7dab9e5f501f99a69be69d661e9c0f91d","2012-09-10 18:08:59-04:00","Updated readme!
+"
+"8424256d6a034e440104325dec1ce84fc9e162d8","2012-09-10 18:39:24-04:00","Import cleaning + Visibility.GONE
+
+Use Visibility.GONE instead of Visibility.INVISIBLE. This change will
+allow the flavour text to reposition itself thanks to the attribute
+'alightWithParentIfMissing'
+"
+"d22e36b94c301a3a25dfed27eae47af6403f07e9","2012-09-10 18:40:45-04:00","alignWithParentIfMissing
+
+Added the above attribute to the layouts so the flavour text can
+reposition in the absence of a number next to it. Still needs a bit of
+tweaking to look good though.
+"
+"c11d015564396beb97adf414304f6d53ede45a0f","2012-09-10 17:02:58-07:00","Clean up Detail View
+
+Clean up the detail view to add headers for the data we display. Also,
+adjust spacing to indent items to show relations. Hide the progress
+display for completed items as it's rednundant.
+
+Note: Many of the changes are due to reformatting the affected source
+files to match Android best practices.
+"
+"38b1701af12901c1b273df633ac4b7a5951ddc8b","2012-09-10 18:17:47-07:00","Adjusted Layout Spacing
+
+Cleaned up the layout spacing in detail view to be a bit tighter.
+"
+"1e637845739d28b548b4e56f80d196d199370b8c","2012-09-10 22:38:51-04:00","Scrolling Optimizations
+
+I rewrote CoverAdapter to use the ViewHolder pattern, greatly reducing
+the number of called to findViewById(). That change alone made a pretty
+good performance improvement, but I didn't stop there. I went into
+ImageDownloader and put decodeFile() onto a separate thread, as it was
+running on the UI thread and was the sole reason the scrolling was
+choppy. Now the list scrolls smooth as butter. TODO: A loading image
+that's not a black panel.
+"
+"84a11a42e1bcbd6b9af42082b9208fea4967f527","2012-09-10 22:53:16-04:00","Update Database version to 3
+
+Not so important for our internal builds, will be important when we
+release a beta/official build. May as well do it now.
+"
+"d3c5dfa9cb139041eefc0e7339154c31dfc031f6","2012-09-10 23:11:56-04:00","Crash protection
+
+Fix some crashes that happen when upgrading the beta version. It's
+likely they'll occur in the official update too, so sorting that out
+now.
+"
+"f4d477290146a75a470c3e210e270ed809d477ab","2012-09-10 20:36:46-07:00","Merge branch 'mangasupport' into working
+
+Conflicts:
+res/values/strings.xml
+"
+"ab0fea1bf710f6168acfeebf3d46a23f932486d3","2012-09-10 23:46:23-04:00","Crash Fixing
+
+Fixed another crash. This one was caused by calling an AsyncTask from
+another AsyncTask, but AsyncTask has to be called from the UI thread.
+And so, we were calling the ImageView on the UI thread from not the UI
+thread, crashing. Fix'd.
+"
+"f0deb80f8f9ab7f0d74123e8d05a13257faf46e5","2012-09-10 23:47:46-04:00","Sorting out local issues
+"
+"79c039fbb25c0f21e87afa5cdd0bff1c952ae971","2012-09-10 23:47:54-04:00","Merge branch 'working' into mangasupport
+"
+"4f49461d5a07407319e894823b32b13802370d6d","2012-09-10 23:54:15-04:00","Re-added DB version check
+"
+"3ed7ba8abae53dbf80b1c46ac5d8cc74f15a4745","2012-09-11 00:41:46-04:00","Enabled Fast Scroll Thumb
+
+Added the XML attribute to enable it. Works pretty good. TODO: Possibly
+a letter indicator next to it, like in People. If it's possible, of
+course.
+"
+"2a63633800a5720b5db2cdf6c78b1b934000c440","2012-09-12 20:05:11-07:00","Fix status messages on main view
+
+Some quick changes to support special manga status messages in the main
+view (cover and list). Also cleaned whitespace on affected file.
+"
+"c9c27e77cb2a540dd20c8db4b1b7d2e5ab97c340","2012-09-13 17:30:40-04:00","Added BSD 2-clause license
+"
+"149efb77accad5b99628ea6a58ccfef06dd0a14b","2012-09-13 22:47:26-04:00","Very rough Manga Progress Dialog
+
+I whipped up a MangaProgressDialogFragment, added an interface callback
+for it in DetailView, and gave it a very rough layout. Please feel free
+to make a better layout for it, mine is pretty bad. Oh, the callback is
+implemented in DetailView but doesn't actually do anything yet.
+"
+"953a62587ba462f2962aaf63e9a16f60ad4d3007","2012-09-13 23:35:56-04:00","Cleaned up MangaProgressFragment layout
+
+The labels and spinners are more centered now, looks much better.
+"
+"794c61b859e8063f155bd655ac29e3de4bb594fb","2012-09-15 20:55:59-07:00","Cleaned up LICENSE file
+
+Fixed missing list numbering and added hard line breaks on LICENSE.
+"
+"45e4ba0ffbefa3f440a2cf89414793d619866c1e","2012-09-17 20:51:34-04:00","Critical Fix
+
+When I fixed the series of crashes a while ago to make the detail view
+work with manga I missed this important fix: actually passing the
+recordType when a manga is selected. At least I think this was my fault.
+Fix'd.
+"
+"8aa98ff43a2c9f4633471a97db3e2a030399b82a","2012-09-17 20:55:00-04:00","Update Manga Progress Works
+
+Added the code to process the information received from
+onMangaDialogDismisssed, it now works beautifully. Something to note is
+that we don't display volume progress anywhere, but it is stored and
+updated. Should consider adding a indicator for that.
+"
+"0814d89a0b29f8b6807e8b74d3389476295477be","2012-09-17 21:25:49-04:00","Cleaned up README
+
+Cleaned up the readme and fixed a glaring mistake: forgot to change the
+name in the header. Herp. Fixed.
+"
+"2089e258d7996a774c0d489880a2c434f51f372d","2012-09-17 21:58:28-04:00","App Credits
+
+Since making a new layout for an about screen is too much effort at the
+moment, for now I shuffled some things around in the settings. The
+settings screen now mentions the app under the credits as a open source
+project. Tapping it opens a new screen with contributors to the project.
+"
+"eead7026e9e4c6104a0395de681a793fc7d8d7e4","2012-09-17 22:21:49-04:00","Removed Set Score
+
+Removed Set Score temporarily until I can decide how I actually want to
+do the UI. Undecided between another dialog or menu (like set status).
+Neither option seems ideal, honestly.
+"
+"15a7969a1c2c9b5a070a1a4923e5caf055fb2a2e","2012-09-17 22:54:01-04:00","Fix Login Crash Bug
+
+Finally figured out what was causing a few users to crash, the culprit
+being accidentally inserting a trailing space after their username while
+signing in, resulting in an IllegalCharacterException when creating the
+URI to sign in with. Simple fix, just silently delete the spaces when
+they sign in. This one's been haunting me since all the way back to when
+I released the very first version (pre-rewrite), so it feels good to
+finally fix this.
+"
+"d5441fe2e7913ae25b8f0328fbb541a81bb4efe1","2012-09-17 23:07:57-04:00","ImageDownloader Crash Fix
+
+I had multiple reports of a crash due to ImageDownloader, and the cause
+appears to have been a NPE when calling cover. I can't reproduce the
+crash, but as cover is a weak reference, the likely cause was it was
+garbage collected. Added a check to only run the code if the reference
+isn't null, hopefully that should fix it.
+"
+"74b08686ab26213849e2b96aa968690ce651f404","2012-09-17 23:24:33-04:00","Very Hot-Fix
+
+Crazy crash related to downloadAndStoreTask when opening the app or
+syncing apparently. I want to pin it on Eclipse being a terrible
+program and mucking up R.java, but I went and changed hard strings to
+use final constants from MALManager and it seems to be working now.
+"

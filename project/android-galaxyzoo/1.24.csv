@@ -1,0 +1,75 @@
+"commit id","commit date","commit message"
+"33af5a116366f8ad8162dc5b3d3d02b354ce16c4","2014-11-20 20:09:47+01:00","Revert 'Temporarily remove translations.'
+
+This reverts commit 00f0be7aa8bdd0b0495766c6f0c64daeb25148e2.
+"
+"e17f4ad23ccc2e35d5226bc8b59b233687e3e7fb","2014-11-20 20:33:36+01:00","Add extra decision-tree translations.
+
+By looking at the list here:
+https://github.com/zooniverse/Galaxy-Zoo/blob/master/app/views/navigation.eco#L36-L46
+and guessing the URI like so:
+http://www.galaxyzoo.org/locales/LOCALE.json
+as suggested here:
+https://github.com/zooniverse/Galaxy-Zoo/commit/cf694a24d23989b3fb2432adb314d0b354b8a81a
+
+These are under the Apache 2 license:
+https://github.com/zooniverse/Galaxy-Zoo/commit/0a54404f8fe3282bbea349d9a2075ee310c5ac01
+"
+"76773f4cc20edffb7c3c5753ed032cd381d9b155","2014-11-21 09:03:25+01:00","Updated the Google Play store description.
+"
+"45755ab2a8beffd489c33956bd28a4dfd8f836d4","2014-11-21 09:03:39+01:00","Changes by the latest Android Studio version.
+"
+"0591463d66571f091e0aacd092d50c2d939c5d51","2014-11-21 09:06:34+01:00","Make some API access weaker.
+"
+"bef8992a760d8be97f9e0af2e6606323414d1ca6","2014-11-21 10:22:15+01:00","ClassifyActivity: Don't call LoginUtils.addAnonymousAccount() from main UI thread.
+
+Because it uses the AccountManager, which we should not use from a UI thread.
+"
+"a2f9c1a01c5b73023ef56f871431a23611294295","2014-11-21 11:27:32+01:00","SubjectFragment: Avoid calling BitmapFactory.decodeStream() in main thread.
+
+Move the code into an AsyncTask.
+"
+"9edc930c83a07116dc0f1699bf06f691a97ffeed","2014-11-21 11:45:06+01:00","SubjectFragment: ShowImageTask(): Let this work for any ItemFragment.
+
+And rename it to ShowImageFromContentProviderTask.
+"
+"fdef5fdba83d6ef4dd767e728a08378e294bc631","2014-11-21 12:49:29+01:00","ListCursorAdapter: Avoid calling BitmapFactory.decodeStream() in main thread.
+
+By using an AsyncTask in onBindViewHolder(). I don't like that much,
+but it seems to be OK with a position check, as suggested here
+(for ListView, not RecyclerView):
+http://lucasr.org/2012/04/05/performance-tips-for-androids-listview/
+"
+"6a18ce07c4ad136eed94c6d8a9d8eaec96bb303e","2014-11-21 13:16:18+01:00","QuestionFragment: save the classification in an AsyncTask.
+
+This reduces the amount of work happening on the main UI thread.
+StrictMode complains about this at least on API 15 and API 16 target
+devices.
+"
+"426918f8c43e5aab0c9946c6fa7e8eebe2f5b531","2014-11-21 13:57:04+01:00","LoginActivity: Do the account addition in an AsyncTask.
+
+Because StrictMode complains about this at least on API 15 and
+API 16 targets.
+"
+"bbd7f9e1a4fe1d535e540fc2c1fd74b08edd8ac5","2014-11-21 13:57:36+01:00","QuestionFragment: Avoid responding to 'Done' twice.
+
+In theory, a user could press the Done button again while we are saving the
+classification.
+"
+"49ca8421d72ff6abd0770efe84a5b3daead601f9","2014-11-21 14:05:22+01:00","LoginUtils: Make sure that we have an anonymous account.
+
+This call to addAnonymousAccount() got lost in one of the
+prevous commits.
+"
+"3371f6a05c22d54ef9c6c204b5b93ef67e7d25d8","2014-11-21 14:08:45+01:00","Temporarily remove translations.
+
+Because the only finished app translation (German) doesn't have
+a finished decision-tree (website) translation,
+and the only finished decision-tree (website) translations
+don't have finished app translations.
+
+Hopefully more app translations will be ready soon. Then I can
+revert this commit.
+"
+"07a0198aa98c491a02923e9973eec696161e8cdd","2014-11-21 14:18:56+01:00","1.24
+"

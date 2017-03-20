@@ -1,0 +1,1042 @@
+"commit id","commit date","commit message"
+"5979e8bb7b9aad3bcc2abb7eac29f3eb3ebaf435","2013-08-08 14:23:36-04:00","mGerrit: Fix project card not properly being removed
+
+Previously swiping away a selected project would only
+affect your current tab. Changing tabs would reselect
+the project, a very frustrating 'feature'.
+
+Now swiping away a selected project has the expected
+result of not showing the project as selected while
+navigating throughout the app.
+
+Thanks Evan Conway from the Google PlayStore for pointing
+this out!
+
+Change-Id: I5bfec6ba3be86dee87c4a13fdead4e300b897472
+"
+"c8fac609c75938aac519024bdafd43ff698faaea","2013-08-08 17:23:27-04:00","mGerrit: Lower min API version to v11 (ICS)
+
+By providing a values res folder with a modified styles.xml
+(removing fontFamily tags) we can now support ICS+ devices
+
+Change-Id: I5375b94d22ec95d9fa801d1df6bfd2649e3b4f83
+"
+"a4df9d1b7b5408f37d0c77439aad94a2f733b248","2013-08-11 11:57:15-04:00","mGerrit: Fix GerritTask not showing transfer progress on some devices
+
+UrlConnection transparently sends 'Accept-Encoding':'gzip' by default.
+Because the underlying mechanisim has no way of knowing the unzipped
+size of the stream it appeared to download more bytes than was returned
+by UrlConnection#getContentLength().  On other devices UrlConnection
+stripped the value from 'Content-Length' header as its inaccurate
+while the stream is gzip'd returning -1 and causing the ProgressDialog
+to show a generic message instead of showing the bytes as they are
+downloaded.
+
+Moved calculations off the main thread to show bt progress updates
+quicker... Its still not as fast as possible but much better.
+
+Thanks @razorloves for pointing this error out and spearheading
+efforts to resolve the issue.  Razor did all the work here by
+finding the docs to support his theory and providing sample
+code to fix the issue. Thank you for such on point helping!
+
+Change-Id: Ida506e46a40af2b87eaaf2ba4c01f15a7df380bf
+(cherry picked from commit 7bc8fa1a268a997f2ded6bb6a8ae38fbfb3e394d)
+"
+"da898f4e90b2a569828eba2acb18c873d55e0daa","2013-08-11 12:02:22-04:00","mGerrit: Bump version release for market
+
+This version is mostly bug fixes with a few optimiations where
+network communications are handled.
+
+Change-Id: Ib5e74d0ecbbd20b503afe53f9d1259bacb737a92
+"
+"daf0de8b02ecd9d790ad8afb5ae343dd78b1949d","2013-08-08 13:53:35+10:00","Added gradle build files; target API 18
+
+Switch to gradle build system
+Target Android 4.3 (API 18)
+
+Change-Id: I44bce44502d586ab269e33595b1fad6dbe7159c9
+"
+"af326c6a3f219e54eb16b4d05168479fc36afe2f","2013-08-08 17:03:38+10:00","Switch to flat holo light icons
+
+Change-Id: I4b8d7f892742b0c5553aab4f8a3af6a9d6890d0b
+"
+"e3b879a749c418be2ffccc0827703057ab88621f","2013-08-08 14:28:34+10:00","Implement Up navigation
+
+Implement Up Affordance (Up Navigation) on all the child activities
+Add support library
+
+Change-Id: I99fa2daa815cda331d020f200dab2d7226fe6863
+"
+"e7ba083c9a7e86124a4aa250648ceefce54c8c76","2013-08-29 07:26:18+02:00","Merge 'Switch to flat holo light icons'
+"
+"c1eb02ce3d20a2ff698c8db2b82c8ebe7a00d6fc","2013-08-09 15:26:03+10:00","Fix non-translatable strings
+
+Patch Set 2: Remove Koush's UrlImageViewHelper references
+Patch Set 3: Actually remove Koush's UrlImageViewHelper
+Change-Id: Ia57391d371a7a45ff4d7ca672ba9161565debb30
+"
+"5bcb3218d189fc642d5924a683f674be56702ad6","2013-08-29 16:51:23+10:00","Some more icon changes
+
+Changed gerrit source to use an icon from the Android icon pack
+Added share icon from Android icon pack.
+
+Change-Id: If0f40ffe2233b56e0d2070e5c7f17b30281a0de7
+"
+"8a82939daf270cbf230a4c04252eff4fe1e07588","2013-08-31 16:40:55+10:00","Add .gitreview
+
+Add the gitreview configuration file for this project to enable
+Gerrit contributions to this project with gitreview instead of
+repo.
+
+Change-Id: I32ae92f73fe979d7aad6f08e823ea2cfab757c88
+"
+"bc8e1f03242ddc5ee9eb25f8c9f945021ff13c40","2013-08-31 19:48:43+02:00","Merge 'Some more icon changes'
+"
+"90c9d93bfa86a91d83e8a8f5aa288c8c3552c62b","2013-08-29 22:34:05+10:00","Inital ViewPager Support
+
+Support for tab-swiping using a ViewPager
+Transitioned tabs from Activities to Fragments (from the support library)
+Removed intent passing to tabs as they are now fragments
+MyTabListener: ViewPager tab listener class
+CardsFragment: Refactoring and restructuring
+Some other general code cleanup and improvements, including try-catch
+optimisations.
+Moved the commit countdown to start closer to when the request is made.
+
+This merges in the entirity of the merge commit 'Merge change timer start with fixes for refreshing when gerrit changes'.
+This includes both branches for the ViewPager implementation.
+Drawable changes have been separated from this change.
+
+Patch Set 2: Fix build
+
+Change-Id: I29ea3e95fc619c3c02e40a7898d271df52eb14f3
+"
+"adae806c09d943e9375cfc63e0de11ba71719d70","2013-08-29 15:36:44+10:00","Use PreferenceFragment for preferences
+
+Much of the functionality of PreferenceActivity has been moved into PreferenceFragment and depricated in PreferenceActivity since API 11 (ICS).
+This fixes those deprication warnings.
+
+Patch Set 2: Remove windows line endings
+
+Patch Set 3: Call PrefsActivity to start the Preferences. Let PrefsActivity load the fragment
+
+Change-Id: I26db6ee323acc189306807dcd16a621ea85a33e1
+"
+"556cc2fb46ea2cbc3a31d730509b4753804c823d","2013-09-01 17:27:07+10:00","Layout tweaks, optimisations and font changes
+
+Use Roboto thin font on API 16+ (Android 4.1) devices (Why not?)
+Changed some LinearLayouts to RelativeLayout and removed some superflous layout
+nesting. I have tried to keep the original structure here and just refactor
+some layouts.
+Fix some warnings about using the fontFamily attribute on pre-API 16 devices by
+including new values/styles.xml file.
+Some font size changes - making some things slightly bigger and easy to read.
+
+These layout and UI changes are open to review and may change.
+Hopefully by flattening some nested layouts there will be a performance
+improvement, although proper performance testing has not been done (and the
+impact is expected to be negligable in comparison to better data caching).
+
+Change-Id: Ie6b8f063e9c941197e10684d1f4d79fa18efe28b
+"
+"817b0f52511a0ae7544875509c7a08623c2269e7","2013-09-01 13:08:45+10:00","GerritURL implemented; ViewPager now refreshes tabs on reloading.
+
+The ViewPager still is caching tabs, and not redrawing the ones that are already
+loaded. However, it cannot have all the tabs loaded at once so with enough tab
+switching they will be up to date. There is (still) problems with tabs showing
+the wrong data (projects not being set/unset, wrong status such as merged instead
+of abandoned etc.). We want to force a redraw of the fragment's layout on
+refresh instead of tearing it down and recreating it.
+
+With the GerritURL class, we can set individual components of the query url.
+This is especially when components change.
+
+Use a FragmentStatePagerAdapter for the ViewPager and manage the tabs inside
+this class. This manages the tab titles and resets (recreates) one when the
+title changes.
+
+Set the project globally from the preferences and add a listener for project changes.
+CardsUI (library): Refresh invalidates the parent layout
+GerritURL: Better string construction
+TrackingClickListener: Remove intents to startActivity due to use of fragments.
+MyTabListener: Import re-ordering
+
+Patch Set 2: Remove Windows line endings & add add liscense to GerritURL
+
+Change-Id: Id34a59f39b91a4afadfd2c80d1bb1bd8a01216fd
+"
+"25c08dba7a743f238ba1e79369fb4ace3ba1b92f","2013-09-02 15:46:05+10:00","Add change comment support for Cyanogenmod Gerrit
+
+Change-Id: Ie5c160efd29eacffdc0f6c6468bfb40f14819140
+"
+"4b7e2cd29723ab35c32f07579d021a8e09b192b6","2013-09-04 23:25:50+02:00","Merge 'Layout tweaks, optimisations and font changes'
+"
+"741ec1934b116a4729af1157039335f62814b809","2013-09-02 10:31:03+10:00","Fix getting selected tab
+
+ViewPager monitors the current tab position so use that instead of
+trying to monitor the current selected tab in the ViewPager's adapter.
+This appears to fix issues with the current tab not refreshing (there
+are still other refresh issues).
+
+Patch Set 4: Expose SectionsPagerAdapter to fix build
+
+Change-Id: I556ba06dd3d24412b151bf6715dba4581ba01b4b
+"
+"c018483d5e6ab43e20df466ba9466b8cc38e40ae","2013-09-04 18:56:52+10:00","Disable caching (fixes tab refreshing)
+
+Disable caching cards till a better caching
+mechanism can be found. The old method of caching
+meant that old data (or data from other tabs) was
+being restored. See comment in CardsFragment
+regarding caching.
+
+Patch Set 2: Remove extra getAdapter() method I added
+oops.
+
+Change-Id: I387596e88f9eb8ee3e77d4f59b5ac2219932a242
+"
+"c4c4b2165fc899365f4a1d3661348a148f634fb9","2013-09-05 02:17:19-04:00","Allow removing of followed projects and authors
+
+Previously swiping was used to remove watched items, however
+since ViewPager steals all click actions something new was needed.
+Cards that represent the stalking of a project/user have a ' X '
+button users can use to remove the stalking quality when they
+no longer care about a project/user.
+
+PS2: Remove redundant linear layout
+PS3: Remove unneeded drawable
+: Fix create on date in ProjectCard
+
+Change-Id: Icf19608a2ec9e4bfcc827cf14b00613cf981d149
+"
+"686724de1a975d059d12e90278060c7151b101eb","2013-09-05 02:25:42-04:00","Bump market version to 2.04.001
+
+Now that everything is back to working again lets put a release out
+
+Best Version yet thanks Evan!
+
+Change-Id: Ib911bbab4504e70a74ea8937032c487aaa6c022f
+"
+"fb087fb345d6c063654373d9fff08242c7763d10","2013-09-05 11:41:32-04:00","Add per file Apache license
+
+also optimize imports
+
+Change-Id: Ic596a609de99d4604fda899f8bdef2d527ad1a77
+"
+"795ec4b61f72968f1578f46f2084ee3bc1b2429a","2013-09-06 11:31:33+10:00","Add market signing capibility to gradle
+
+Change-Id: Ia13c70858abb10dc3369362e014e88a3f6032271
+"
+"987e7909f3d0b01850f44b4d43d9040e15395b5d","2013-09-06 00:31:20-04:00","Add mako market resources
+
+via Evan Conway
+
+Change-Id: I122d787a11e20ccd08acb803910564fbb00d07ee
+"
+"5747c4e510b92cf6da034c3e4531d5b7eb13ef9a","2013-09-07 21:24:41+10:00","Change GerritTask to broadcast state changes
+
+This decouples UI feedback from GerritTask so it can be managed instead by the associated activity.
+It also removes the necessity that GerritTask be an AsyncTask.
+
+Added the different message types (classes under message/)
+Added main abstract message type GerritMessage
+Added DefaultGerritReceivers which contains default (from GerritTask) broadcast listener behaviour
+Added listeners for GerritControllerActivity
+
+Note: While the progress in data loading is sent, the progress dialog does not get updated.
+
+Change-Id: I8e65e76ffb85ef00d77d05196aa14ba3e4c75c29
+"
+"4db29351d8be7962d775664878f7cb2f047c2bfd","2013-09-08 16:36:35+10:00","Action bar spiner instead of progress dialog; fix infinate loading;
+
+Use the activities progress functionality to set a spinner in the action bar instead of a progress dialog
+Keep count of the number of Start and Finished messages received to know when loading is finished.
+As these messages could come in any order and at any time, use an AtomicInteger to ensure thread safety.
+This should ensure that after data is finished being fetched, the loading spinner will disappear.
+GerritURL: Add ability to construct project list request URLs; new string comparison method
+Change visibility of menu items out of overflow
+
+Change-Id: Iea0dcb11683b99bafd66f06212bdacc4649bd754
+"
+"19fb8a401cfd78cceb3859656f5429eb8afe63c2","2013-09-07 20:40:08+10:00","Added database foundations; Content Provider conversion
+
+Added initial database classes, including Projects table.
+Database files now end in '.db'
+Projects table bug fixes
+DatabaseFactory is a content provider
+Fixes issue where the database would not change on changing gerrit instance
+There should be no user interface/feature changes here, just A LOT of back-end
+improvements.
+AndroidManifest: Registered Content Provider, don't export data
+
+This change isolates only the changes to the database,
+up to the 'Content Provider conversion'
+
+Patch Set 5: Fix build
+Patch Set 6: add missing licenses
+
+Change-Id: Ie885d852f7994dd3af71c1e8cc1c37496f4fd3c3
+"
+"813e3d2574e1092400984e03e3e620a50146f6d5","2013-09-10 13:21:58+10:00","Database: Cleanup; Add Users table
+
+Change-Id: I2db3490cfa156c913a95b525a7db4a3ab6859cc2
+"
+"0397c75b76dc27abcc2f56098e1d0c366b3f1beb","2013-09-10 13:48:02+10:00","Working redesigned Projects List
+
+Projects list searching support
+Selecting a group in the project list with no children will select that project
+Added StartingRequest message, broadcast when a request is being created
+AndroidManifest: Removed unnecessary labels;
+Registered Content Provider, don't export data
+
+Change-Id: I89598c600a77bcb4ad38da8def6447db0d9d78ee
+"
+"24ba44735b12adff60684dadca4f9a08dacc007b","2013-09-11 06:08:53+02:00","Merge 'Working redesigned Projects List'
+"
+"dc94facfdd78140756a188ac47eac0b63eaa6393","2013-09-11 16:47:12+10:00","Projects List: Dynamic Query responses
+
+Add textwatcher to the searchview to listen for query changes
+and update the listview. Due to the way the expandablelistview
+is implemented, the listview will be collapsed on query changes.
+
+Change-Id: If47b8d27fe3abc8550dd513110f5a2590826ed60
+"
+"6527a33ddcb23dda760b4c4e86effab1bceec0bc","2013-09-11 16:03:19+10:00","Projects list sync interval (Gerrit specific)
+
+Only sync the projects list if it has not been fetched in within the specified interval
+Added constants resource file to specify sync intervals
+Added SyncTime database table for storing when syncs last occured
+
+Change-Id: I7f341aa64701be623e7b728389ed63c1334ec220
+"
+"2a7c642ee7d42140d765c3789c236e1e300a36bb","2013-09-12 05:31:29+02:00","Merge 'Projects list sync interval (Gerrit specific)'
+"
+"5a6e16829812c094d1eee47957e7dc8a9f2cec87","2013-09-11 16:08:05+10:00","Database: Add more tables
+
+Add Changes table for change overview information
+Add FileInfo table for information about file state with a change
+Add MessageInfo for comments about a change
+Fix some table issues.
+
+Change-Id: I049696f602da64e785ceef082cb5b996da0fd671
+"
+"8773a367be26f26617c30c60f2d35f0c44fc3678","2013-09-12 13:54:43+10:00","Respond to external sharedprefs changes
+
+Manually check if the current project or the current Gerrit
+has been modified while the main activity was paused in
+onResume and call the appropriate callback.
+
+Change-Id: I927ece502366193b4b604c8a076d9cab60dc9ee7
+"
+"402aba730d4108e2354fce0f2100df2df023a277","2013-09-13 11:43:32+10:00","Gson deserialisation and refactoring
+
+GerritService uses a more generalised SyncProcessor class to help with handling the different requests
+The projects list is now deserialised by the Volley GsonRequest class
+Added gson library to build.gradle
+Added Project custom json deserialization
+Added Reviewer (committer) custom json deserialization
+
+Change-Id: I1af5659e782a272910c4499d7992cc6cc5ae3bcd
+"
+"e898c27c32a4395787718651b95c0d30ca3ac1e4","2013-09-13 12:03:10+10:00","Use unified view for browser change diffs
+
+Change-Id: If140bf6c92db1e0e39eb7f1b001050da5f4f625d
+"
+"ca114c2e42826a54ed74453e1b4ac6652935552b","2013-09-13 15:03:51+10:00","Added project list screenshots for mako (Nexus 4)
+
+Change-Id: I982bf87b2cc26e3aa075f39a74f69ba8cac2013f
+"
+"e566b41b4eec5fa3b30f55209792fd204fe91558","2013-09-16 03:41:09+02:00","Merge 'Added project list screenshots for mako (Nexus 4)'
+"
+"7dd70028008886e6ca483665c9018a7601a1c8e2","2013-09-16 03:42:23+02:00","Merge 'Use unified view for browser change diffs'
+"
+"231bb0330f4ba8e815336f9239739a59a26c287c","2013-09-16 04:05:25+02:00","Merge 'Gson deserialisation and refactoring'
+"
+"3fbd2c1d3cb771f7acc4f6f2cfba316b24cebe27","2013-09-15 21:33:26-05:00","ProjectsList: Expand lists after search query changes
+
+GerritControllerActivity: Gracefully handle a possible NullPointerException
+when user backs out of a fragment before the tabs are setup.
+
+Change-Id: I89de395fcfe30def57f9c846ccaa170860f5970c
+"
+"d4b4d09d3833df195a7d1329c04feb6d413201ec","2013-09-16 13:28:19+02:00","add missing gson library
+
+Change-Id: I1c08c5e697ea5c4a9d48ffe259e14cab2501ec9d
+Signed-off-by: Dirk Rettschlag <dirk.rettschlag@gmail.com>
+"
+"40b92fd14afb44d7e64e194367d30c1a97f7f0d4","2013-09-16 17:08:51+10:00","Commit list database implementation
+
+Added virtual User_Changes join table for multi-table querying support
+Projects table: Add full path as PK column due to sqlite database limitations and foreign key constraints
+Other database updates (table updates and actually dropping all of the created tables on upgrade)
+Use changeID instead of legacy commit id for querying full change details
+CommitterObject: Add equals method to optimise insertion of users during commit processing
+Projects Sync: Always sync if there is no projects (in case something goes wrong)
+
+Change-Id: I738fcdfff471b70cb3620997a4a7b34f1356d720
+"
+"8ac7a58767b6d23f319671f678821430583bc024","2013-09-18 15:00:50-05:00","mGerrit: Fix forever running sync indicator
+
+Broadcast was previously never being sent.
+
+Change-Id: I73eac889711207cda57274cf8d9fc570b9d1f350
+"
+"f4017f988dc01cb1be4773f8fae60fef1f6694a7","2013-09-19 13:32:03+10:00","Change list sync interval
+
+Set sync interval for change list
+GerritService now can accept an option to force refresh, bypassing the SyncProcessor's isSyncRequired method
+SyncTime now uses query to determine the last sync time (syncing for open changes is different from merged or abandoned changes)
+CardsFragment: Do not set the url when changing projects or (un)stalking a user, this is done by the loader (as we will have all the necessary data in the database)
+DatabaseTable: Add general isEmpty method, more commenting
+GerritURL: Remove bracketing (should no longer be needed)
+SyncProcessor: Added doPostProcess method for setting the last sync time and bookkeeping stuff
+
+Change-Id: I29b36e01d88af7a63b88d0bc3b383ead06794167
+"
+"f3b5f80fcd31e1607524ccaee7ba01d51e7ea7a2","2013-09-19 16:46:50+10:00","Offload database handling to seperate thread
+
+While debugging, I realised that the onResponse method used by Volley is called on the main thread.
+This is good for some/most situations but not here were we use loaders to monitor the database,
+reporting changes on the main thread. Since we do not need access to the UI from the response
+listener at all we can use a simple Java Thread here. A basic cancellation method has been provided.
+
+Change-Id: Ibf8f1390da5d6862561ba8735b7bf4fd7735edff
+"
+"e0c300939117f1d28729fff6fc43eab3157b5a64","2013-09-22 10:03:32+10:00","Preserve links in commit and change messages
+
+We are expecting plain text links in the commit message and any change
+messages/reviews so we can use the textview's property 'autoLink' to
+pretend that this contains link-enabled text.
+An internet intent will fire, which will automatically open the link in
+the user's browser.
+If we added intent filters for gerrit urls, we could intercept these
+intents.
+
+Change-Id: Iff64d83b9cabcec3fe1a492c52ce0cb2eb55dbe1
+"
+"07cedc8f576c233c84f2e5ecf47ce589c2b3a3b4","2013-09-23 16:57:19+10:00","Fix infinate initial load.
+
+The UserChanges table is a join table comprising of both the Users and
+the Changes tables. When either the Users or the Changes table is
+modified, queries of the UserChanges table may need to refresh.
+This notifies that the UserChanges table has been modified when either
+one of its subtables are modified.
+
+Register a content observer to intercept changes and re-broadcast them
+in the UserChanges table.
+
+Change-Id: I329d08b79e82a00365d8cd1e0f82baaeb704d80b
+"
+"6431b1b9bd78fecd75c0a2f8a21b9dd336a20a52","2013-09-22 12:36:43+10:00","Resumable queries with sortkey
+
+Gerrit allows resumable change list queries by passing in a 'sortkey'
+associated with a given change, which is now saved and retreived from
+the database when making change list queries. The sortkey allows
+providing the server with the change we are up to regarding a given
+query.
+GerritURL is parcelable so it can be stored in intents.
+SyncProcessor now preserves the original GerritURL instance that was
+passed in.
+Make the Status (or query) the primary key and usethe replace conflict
+algorithm.
+
+Change-Id: I1adc924d7c6bd7be79077c2a423f6185923cfc10
+"
+"5909467265c0eceae981d5829e705cf79f7c72ef","2013-09-25 11:50:43+10:00","Selectively hide AOKP changelog
+
+Only show 'AOKP Changelog' menu option when the AOKP Gerrit is selected.
+
+Change-Id: Iee4e5a65374ed656cdc1326e0a71aad94d57b27e
+"
+"b28ae66bc34530a7e8dbdf9f45006574d6d4a163","2013-09-20 16:51:40+10:00","Fix switching Gerrit instance
+
+Previously, DatabaseFactory.changeGerrit was not called so changing the
+Gerrit instance in the preferences would not change the database. This
+adds an Application-wide shared preference listener, so wherever the
+sharedPreferences are modified, the lister code is guarenteed to be
+called.
+
+Added Application class (and modified manifest accordingly).
+This class will help to fix loosing broadcasts.
+Implemented locking mechanism in DatabaseFactory to not disturb
+CRUD operations, switch the database after they are finished.
+
+This fixes the menu option for the Gerrit instance switcher (the cloud
+button).
+
+PS5: Mildly fix changing Gerrit instances via cloud button
+PS6: Fix a sort-of race condition where the activity would
+refresh with old data before the application had loaded the
+new database.
+
+Change-Id: I6c6b2fc40fb82a07969a261ca36eef0ab072eec3
+"
+"e6459785d84ec40e5ddac77b8246b3d0efd0ddea","2013-09-22 12:51:10+10:00","Only store status part of query in change list sync time
+
+Store only the status:xxx portion of the Gerrit query URL in the
+SyncTimes table for the changes list. This allows more specific
+queries to match.
+
+Change-Id: I754b16685a8c8c3773b6c3a4b7c1a69512b46004
+"
+"7751e9f210a62e935843fb38bd226cee1a27b6a8","2013-09-25 20:15:03-05:00","Fix selectively hide AOKP changelog
+
+onPrepareOptionsMenu is always called onCreateOptionsMenu. onCreateoptionsMenu is only
+called once, the first time the menu is created. This ensures the changelog will always
+be approprately hidden if it should be.
+
+Change-Id: Ied76cb9b4ae82b0297fb58720a72bf4d1d3969a6
+"
+"090f012694e30b02906a7e8af6ff4cc0ba921590","2013-09-25 20:34:51-05:00","mGerrit: Bump version to v2.04.002 for market release
+
+Change-Id: I5d5529dc7b017f1148ae4a320a3b55e5cf763979
+"
+"10058298d96219f58ac7b8a9eb47f2b5ad7ab96f","2013-09-28 13:25:35-05:00","Allow exporting of AOKPChangelog
+
+Allow ROMControl to call AOKPChangelog directly. Required to interact
+with prebuilt apk
+
+Change-Id: Ie222c6b67c52067cf8848d034e50ab3a500d09f1
+"
+"5a262ddbad03a2f4d05c70753622aea5bd0f49f0","2013-09-29 13:21:56+10:00","Master-detail flow conversion
+
+Converted PatchSetViewer into a fragment
+Added new master-detail layout, with the tablet layout split in half
+(half screen for each fragment)
+PatchSetViewerFragement maintains the changeID itself.
+Included the fragment as a seperate layout file.
+PatchSetViewerFragment: Disable caching. Similarly to
+GerritControllerActivity, this caching mechanism is flawed
+Save and restore selected change (for tablet layouts) in database.
+Use card onClick listener instead of a small icon on tablets.
+Store and retreive the legacy change number in the database so we
+can obtain the change URL in the changes list.
+
+PS2:  This fragment is a container for the viewpager.
+Use a PagerTabStrip instead of the action bar for the tabs. This looks a bit
+different.
+Added missing SelectedChange database table class.
+PS3: Fix tablet layout issues.
+
+Change-Id: If76feb28b904d895a3bc5480b527960ba321a465
+"
+"73c98353ed114220bc0bb06f80e7a20adb35929a","2013-09-30 20:17:08-05:00","Allow mGerrit callers to specify initial gerrit instance
+
+Also catch a potential null pointer
+
+Change-Id: If21c96158fa699d6d19d9f2315e4a99710c0b897
+"
+"abaa4e5152b2fdf855b2be57e9a91c099245ddf4","2013-10-02 17:19:03+02:00","mGerrit: Add Paranoid Android as a reference remote
+
+Added Paranoid Android's gerrit url.
+"
+"36ca0f7cdf5151bec49cc7b4024efb358110564b","2013-10-06 00:18:14-05:00","Bump version to 2.04.004
+
+Bumped so PlayStore edition will include Paranoid Android's gerrit
+
+Change-Id: I89234af12a0220aa581c1dc8d859c6577fdb9894
+"
+"71eba076a85e86045c7a2307f35c5a55948d60d9","2013-10-06 13:57:46+08:00","Updated simplified Chinese translations
+
+Change-Id: I9c39a9f93761b693a42b55bb4aeb1f67c2bc897d
+"
+"89c6af7aa137847bf2e79b7e9a408f0f1de7370e","2013-10-06 08:03:44+02:00","Merge 'Updated simplified Chinese translations'
+"
+"51d013872af30160dfbba9d55a436d47608fd3d0","2013-10-07 13:10:17+11:00","Update cardsUI library to Androguide fork
+
+Major cards ui library update, too many changes to list here.
+Decrease card spacing
+Switch to flatter cards by removing drop shadow.
+Change list: Set cards to not swipable, we are using individual button instead.
+Without this all the cards would be swipable.
+All cards now extend RecyclableCard which handles view recycling
+Commit, PatchSetProperties, Reviewers and comments cards: Use the ViewHolder pattern (where applicable)
+UserChanges: Fix inproperly formed SQL query, added change list querying methods
+JSONCommit: Fix crash when processing merge commits
+
+Change-Id: I23c1f5f69e31d6b8a5323ce40556bc25b749d5f3
+"
+"c7f59f6558852479167bcbfe6af2a2c022ea19ea","2013-10-07 17:02:54+11:00","Update screenshots
+
+Add rk30 (Rockchip 10') tablet screenshots.
+Removed outdated screenshots.
+
+Change-Id: I983d7b7757c4035feddf0565c41188cecd317c05
+"
+"0f77296da77cd12c3b3dad427adde4aef20cf291","2013-10-10 13:26:23+11:00","Don't show gravitar if not available
+
+If a user does not have a email address, the gravitar image will not be shown
+Clear the SyncTime table when refreshing, this clears all bookkeeping data so
+it will be as if no data was ever syncronised.
+CommitComment: Use gson to process the author object, it will still create an
+object without all the fields (e.g. email) being present.
+
+PS2: Fix gravitar images not being added to the change comments card
+
+Change-Id: I37fa0b62e700a5000c08a2430ff3054eb1a0e789
+"
+"f261e4412cdddabcdc130984c0aa55277ebdfbd3","2013-10-08 13:22:04+11:00","Change list searching
+
+Tested that search query text is correctly processed and a database query can
+be formed.
+Added change list querying methods
+Moved the content observer in UserChanges to separate class file.
+Unbind any previous cards before trying to add new ones
+Use a layout change listener to (un)hide items in the overflow when
+there is not enough room.
+Search when query is submitted and when the query is empty
+CardsFragment: Loader accepts database query (where and bindargs) directly
+Manifest: Add searching and cleanup
+GerritControllerActivity: Style fixes
+Cleanup variables
+ProjectsList: Remove redundant conditional
+
+~Fix conflicts
+
+Change-Id: I8e6ee93cc5da91af2c77ac7706f15a7eb7000413
+"
+"aec54cf8f41aa20598d18a75524b53cac238335d","2013-10-17 14:32:22+11:00","Bump version to 2.04.005 for market release
+
+Change-Id: Iaa142bbd8a3227e099ca1eda4320f63b24a0392e
+"
+"d3f36dd125e509a862e553f44d71a6a4169b1fd8","2013-10-17 14:48:28+11:00","Fix bump version to 2.04.005
+
+Change-Id: I52fecd7546daaa8d205b9d4c17fe60c6d35ceb7c
+"
+"a149cd68006c55313f761ad4bccc1122fa139715","2013-10-16 14:09:30+11:00","Remember and restore last selected change detail (tablet)
+
+Properly remember and restore the last selected change detail
+for each tab. Only affects tablet mode.
+Broadcast a status message when a new tab (status) is selected
+PatchSetViewer: Support changing changeid without reloading fragment;
+general cleanup
+Changes: Get the status of a changeid
+Broadcast when finished loading change list
+JSONCommit: Fix comparison bug
+PSViewer: Always clear cards before adding new ones
+ChangeList: Self-monitor selected status
+
+Change-Id: I17479290e93ac857947908fd710cb1a112d48c2f
+Fix: https://twitter.com/HoundDude/statuses/386877279638679552
+"
+"f6c80253e911a755dcb3b7d819a120ef656c68e5","2013-10-18 13:34:35+11:00","General cleanup and aapt warning fixes.
+
+Icon renaming
+Added some xxhdpi icons
+Fix some translation typos
+
+Change-Id: Ib092d3eaa07a9ee5b1f8b79ca1f51fd0072b87ae
+"
+"a747c20699830a343cb41cdb4337946462ff22af","2013-10-19 12:22:48+02:00","Czech translation update
+
+Change-Id: Icc43ecd7b7446c1c349a196a88dfedb9441a432d
+Signed-off-by: kecinzer <kecinzer@gmail.com>
+"
+"fb46bd8039edb2594e45d6ec52805645a7dc10b1","2013-10-19 16:33:50+11:00","Update README
+
+Change-Id: Ifee473d9d5a52667038921737944eff3deb125e5
+"
+"05cfab07516b8b69f27ce59dc8c245ddf1d2186c","2013-10-21 00:11:53+02:00","Merge 'Update README'
+"
+"e5dd4465b1a0b344e6204e1b4c989d683f0a2ad7","2013-10-21 23:27:52+11:00","Redesigned Gerrit Switcher
+
+Consolidate the two different Gerrit switcher into one. This new Gerrit
+switcher shows the currently selected Gerrit and streamlines adding a
+new instance in the form of a placeholder at the end of the list.
+Add new Gerrit switcher to preferences and action bar
+Fix string resource name
+Update Gradle wrapper version inline with new Android studio release
+
+PS5: Fix multiple selection problem - Let the listview itself handle
+whether items are checked or not
+PS8: The placeholder row is selectable. Clicking on one of the
+EditText fields selects the row (if not already selected) and again
+enables editing. Not ideal, but it works.
+PS10: Fix EditText contents being reset; sort Gerrit options in
+alphabetical order by name.
+
+Change-Id: If5cdaa1036e6ed116d45fb7f35c607f2859587ce
+"
+"51b71b82f8714d0832e2e50737ad1832bea39810","2013-10-23 14:12:20+11:00","Fix PA Gerrit URL
+
+Using the http protocol causes the server to redirect to the
+https protocol which Volley does not support.
+
+Change-Id: I8cc6728710d57f61b3b24f6bb1fc3a5ffd0175d5
+"
+"79fe00553c4cb905711787aea2ac55e263fa6b50","2013-10-23 05:37:05+02:00","Merge 'Redesigned Gerrit Switcher'
+"
+"cdc5887faa34c3d284b03a66006ee90a952eb64d","2013-10-22 22:42:23-05:00","Stability improvements
+
+Better handling of refreshing current fragment on tab switching
+Better error handling and logging for users with no name
+Log when a constructor could not be called when building search tokens
+via reflection
+Reformat search query processing.
+Add missing menu title
+
+Change-Id: I3359a2ca0385bd891c5b9e76d2ae28c9de667d0e
+"
+"99e409131accb5e68348ed17c0e55f16361b1889","2013-10-24 10:25:35+11:00","Bump version to 2.04.006 for market release
+
+Change-Id: I7512164705fe41bc233ee78e14653448015c9faa
+"
+"abe461b609aacd9f22ab9d4136566b6ab95b182f","2013-10-24 13:16:54+11:00","Update mako screenshots
+
+Change-Id: I80d08cb6ebcd54fd096879a641ea6431b4116cfd
+"
+"5b7bcf72ea44973392dd993dc91bea399a3079f7","2013-10-25 16:54:23+11:00","Lint warning fixes
+
+Update SDK build tools version
+
+Fix @Depreciated warning
+Suppress unchecked warning
+update Readme to note build tools v18.1.1 version requirement
+
+Change-Id: I3c9fe3d5a19b736b72fcebb38d17e95069f9ce71
+"
+"48e6c5c89e8408d614eac13af963d68157399be0","2013-10-27 10:45:18+11:00","Request compact JSON
+
+We do not need pretty printed JSON responses anymore. This should
+remove alot of unnecessary whitespace, reducing the amount of
+data downloaded.
+
+Change-Id: I944640c9c6fa6afd6c75b6088e6551e70cccc6dd
+"
+"9101fb5f120f6254192dc4d4e41e5e09d69aedc2","2013-10-27 17:44:06+11:00","Bump version to 2.04.007 for market release
+
+Change-Id: Id8b351c8930ca9314c1387d9f406324731a6dacf
+"
+"2790920347c18c9f7a4b86f786d97b0e4dece150","2013-10-29 17:47:20-05:00","mGerrit: Fix ChangeList not loading / never updating
+
+Its possible Request<T>#getHeaders() returns an AbstractMap so using put
+on the map throws UnsupportedOpperationException and silently fails.
+
+Then new bahavior is to add the AbstractMap to a HashMap which is
+a supported opperation.
+
+Change-Id: I42dfede6c8f06f413f1c1655650a3cf2facdbdef
+"
+"581178f524f5e327ca5ca934a1bcf50d850d3d59","2013-10-29 19:39:52-05:00","Bump market version to v2.04.008
+
+Change-Id: Ic49c28ca179dd206f4b2e4f2859199af1365dc3c
+"
+"bf54a312e6ea6583dff91c935c75d4ae7210a9d4","2013-10-30 16:53:58+11:00","mGerrit: Utilize Google Analytics
+
+Eventually I'd like to use this to hunt down edge case failures
+
+Change-Id: Id3247a4a981197972cd91a367e1e234e4453b368
+"
+"1262d80a71131f9c55d62ddb650abfcc4a3e9c43","2013-10-25 16:57:03+11:00","Remove apache commons library
+
+Use builtin android Base64 library
+
+Change-Id: I338614c7df6a9e2cc4f990479329a4acdf879c04
+"
+"e6f38b74cc03be54832e77b2c53d1ce3186356d5","2013-11-02 21:10:44+11:00","First draft of privacy policy
+
+Change-Id: I8f20609f8a72963997ed0a877e86c8c3e8f47b96
+"
+"fef5b4913fc87f8795942fdc81c1fdc4448dd7c3","2013-11-04 13:50:14+11:00","Add project/owner searching; Change list listview
+
+Depricate the ProjectCard in favour of a modifing the search query
+to add and remove projects. Setting a project in the search query
+and submitting it will refresh the current fragment.
+Changed owner searching similar to project searching above
+Use ListView for change list
+Add the project to the search query and expand initally it if a project
+has been set
+ChangeListFragment: Perform the search query processing and send
+it off to the current tab (fragment) via an intent
+
+SearchKeyword: Fix processing capturing bug with ''' character;
+added more token helper operations
+
+Unset the project when the Gerrit instance changes
+
+Fix sync interval logic
+Depricate tracking click listener
+Maintin user tracking in preferences - store the userid
+SearchKeyword: Set a list of escape arguments
+Changes table: Commit owner references account id as some users may not
+have an email
+CommitCard: Remove the commiter object
+Remove owner tracking card
+UserChanges: Remove functions to list commits by owner, find commits
+should be used instead
+Users: Add function to get user details from their userid
+
+Add adapter and view binder for the change list
+Re-style commit_card to look like the cardsUI list
+Handle change selection changes by sending intents
+PatchSetViewer: Use seperate list layout
+
+PS2: Colour commit cards based on status
+
+PS3: Start main activity on pref change; Change list animations
+Register preferences change intents through manifest so
+GerritControllerActivity will always be started when a preference
+changes.
+CommitCardBinder: Save the userid and project for use in the click
+listener as we cannot rely on the cursor in callbacks.
+Prefs: Only set the user and project preferences if they have changed
+GerritControllerActivity: Store SearchView query changes before it is
+initialised with the SearchViewProperties class. We can then query
+what the text was most recently set to when the SearchView is setup
+
+PS4: Add topic searching
+
+PS5: Remove: Restore animations in change list and add helper library.
+Will add to seperate commit.
+
+PS9: Fix onClick listeners referencing cursor in ChangeListAdapter.
+Set the adapter on the listview.
+
+Change-Id: If9c64879b60c016b975cc609c97cdd3fde0cf4cc
+Note: This breaks changelog functionality in CardsFragment.
+"
+"21a3bd604363a97cfeb64154b82780b3f4370149","2013-11-04 13:50:14+11:00","Restore animations in change list
+
+Add helper library listviewanimations
+
+Change-Id: I36952ab3f6dc4a64f9d70511dad11bcb067d0e6e
+"
+"24d797555741671790df6118db5345364e6b770d","2013-11-07 21:57:19-06:00","Add holo light orange for Review cards
+
+PS2: Move defination of orange resource to a field
+PS3: make field final
+
+Change-Id: Ifac0221b8b56021d9f171174b02c2d143a9d2ddf
+"
+"162df55391be25d904d0df036e30cf183f6858b0","2013-11-07 22:29:04-06:00","Fix rotation based crashes.
+
+App now functions as expected during multiple rotations
+
+Change-Id: I64803a1ae27e33dbda92d4d881412958ae619d02
+"
+"0457ca919afa60274e5d3e0010d50d6780ac5206","2013-11-09 10:34:28+11:00","Add branch searching
+
+With a new release of Android comes a new branch to merge the changes into.
+This change allows for searching for all changes from a specific branch. The
+branch number is currently NOT displayed on the cards.
+Store the branch in the Changes table
+
+Change-Id: I9de773331903509adb1e5e0d363b543418d8fe84
+"
+"f552b021f1392e4898c1c2b07c69977b3d30217e","2013-11-09 10:37:49+11:00","Bump version to 2.04.009 for market release
+
+Change-Id: I63510ae4862502f7b3752c666fa4eb85b924e2c8
+"
+"58596acd04f725a0808e5a0c0aad540017762ec3","2013-11-09 18:47:56+08:00","Updated simplified Chinese translations.
+
+Change-Id: I470299f4ba7c4db3877cdb0a92d05e7f948bf8b5
+"
+"8443e9c1d3ca36ffcb96f94b0ad9f9c64e8ab91e","2013-11-09 23:09:06+11:00","Update README for new search keywords
+
+Change-Id: I79e2de2c982e71c63a68fd7e05794556e46aa82f
+"
+"29354864a251d7ce8f2bbac743782c9485856a0b","2013-11-09 23:38:25+11:00","Add animations to CardsUI
+
+Restore animations to changes detail list
+Add toggleAnimations helper function
+The animation library does not support expandable
+list views so the projects list will not be animated
+
+Change-Id: I9e130577412b86e148fee6349f530f14ec97186e
+"
+"79869f6dbfad697ba4ae206d1d739ae729de4604","2013-11-09 16:53:48+01:00","Merge 'Add animations to CardsUI'
+"
+"ffdc81396e7b773c8e80d2caba0c3f6329aaf807","2013-11-09 16:55:13+01:00","Merge 'Updated simplified Chinese translations.'
+"
+"3422502e3c87809173e1f5201f57d623fe117d1c","2013-10-17 10:49:11-05:00","mGerrit: Add Omni as supported cloud option
+
+also reorder the Gerrit instances to be alphabetical
+
+Change-Id: Ib7acb20e63317600ea314c37283f667e497f2541
+"
+"ee00dfac9fe40a832c8dd5c79fbb2e78cba6cb3d","2013-11-10 11:14:21+11:00","Fix up arrow navigation NPE
+
+When using up navigation to go back from the change
+detail screen, a new intent is sent with null for the action.
+
+Change-Id: Ie56f9fa444f95ed90c4cb79b307fef8082389125
+"
+"d058d46fa20fa00762375bcc1e95cc89bbf6af1b","2013-11-10 02:07:36+01:00","Merge 'mGerrit: Add Omni as supported cloud option'
+"
+"ac8ea40eb35e7fd05273408fe2ecc03f37a00999","2013-11-09 19:37:21-06:00","bump to version 2.04.010 for market release
+
+Change-Id: I0d6d78fc30f84a313511bab017265c55063e5a8b
+"
+"aba1e2900a2d947441f5f284c1fbef116a01bf3c","2013-11-09 12:51:44+11:00","Support alternate Dark theme
+
+Use the theme selector in the preferences to pick either the
+light (default) or dark theme.
+Add Holo dark icons
+Style menu icons based on current theme
+Rename default theme to Theme.Light
+Add alternate dark colors
+Remove some unused styles and colors
+Re-styled the help dialog to make it easier to read
+"
+"1c37ffbd451c3ff49653f5043262405d990bf63f","2013-11-10 15:38:29-06:00","Nontranslatable strings; Fix compiler warnings
+
+Change-Id: Iebcc32f3b2471972e6289f75aa659ba93fbb8739
+"
+"ab55edffa3dbb0ef5cd2e7f304c660121b0e4872","2013-11-10 15:40:28-06:00","Bump Minor version code to v2.05.000
+
+Change-Id: I97d2d824963a2333ed03f26a69b7098ddbb7a212
+"
+"6b54ae449c4209bca627b7877d2a6c5343145b47","2013-11-11 11:45:24+11:00","Update credits to libraries used
+
+Dynamically create library preferences options
+Remove references to Apache Commons library
+Update CardsUI library link to that of Androguide
+
+Change-Id: I17d9b1f40b5ccbd636e79753cf4f1b82b946d5a3
+"
+"5fd4ac97a44b71ab4939255ba2a44d61fe850f96","2013-11-11 13:52:07+11:00","Don't override the background in comments card
+
+Change-Id: I82851a0f7575349d8fbcd6501749cfc9ea05a8c5
+"
+"6d940e4e82dc2e9491d0c0efcbc8a58a0b174f45","2013-11-11 10:34:30+11:00","Add analytics for the theme being used.
+
+Change-Id: Iba343cb39cb933a93f3067474bb797bf99c7956a
+"
+"77a1c62c55f76ad23fcef0971821ba3400de1b02","2013-11-11 20:08:00+11:00","Credit Gson library in the preferences
+
+Change-Id: I3ea57fdd2cbb9fac2b489215fcacded5f18786ec
+"
+"d25f102297593649722f9ca415e2bf5178a31589","2013-11-11 23:55:12+01:00","Merge 'Add analytics for the theme being used.'
+"
+"630b601649bfef9e45b87b8014a9207ecc8d6120","2013-11-12 00:41:18+01:00","Merge changes I97d2d824,Iebcc32f3
+
+* changes:
+Bump Minor version code to v2.05.000
+Nontranslatable strings; Fix compiler warnings
+"
+"f181351fb10dc1fe2060088a048396099b023d45","2013-11-13 20:03:15+11:00","Fix ellipsised comments
+
+CommitCard: Use orange stripe for open status.
+CommitCard is not currently used.
+
+Change-Id: Icc76c27b2ff1d6fbd9d66034cb8aa506e21c63e6
+"
+"16ea4303e412c1edc86cd1d8b8ba530c3cc82618","2013-11-13 20:17:17+11:00","Fix logic error when removing Gerrit
+
+Previously, this guard would be useless as position would never be greater
+than the size of the array as position is 0-based and the size is 1-based.
+
+Change-Id: I1a58f32bcd1a71fb6d4078b4a323d0a98e38d89a
+Fix: IndexOutOfBoundsException (@GerritSwitcher:removeItem:201) {main}
+"
+"f7c0c4e56c0163fd80874037fb4f2dd0c5af412d","2013-11-11 20:37:12-06:00","Utilize Java 7's diamond operator for collections
+
+Now that Android supports Java 7 its time to start using the new
+features.
+
+This commit updates Collections to use the diamond operator (<>) and
+no other features.
+
+TODO: Add multi-catch where suitable
+
+NOTE: try with resources is only supported in API version 19 (KitKat).
+Since we target 2.3+ we can not utilize this feature
+
+Change-Id: I60c174d021feac0439ff3a8dca4a2a5241d3a4f8
+"
+"5ff389515510cc36fc4f5272a30b262d00876763","2013-11-15 11:04:36+11:00","Further Java 7 migration
+
+Update remaining Collections to use the diamond operator (<>)
+for main package
+
+Replace for loops with foreach where applicable
+
+Use a switch to test one string against many.
+
+Change-Id: I1861f0fd0c718e8f9859b0e33a761f5e9f8e8001
+"
+"bcde44c5736958a347f5451a26e190374cbbb2ef","2013-11-15 13:08:43+11:00","Fix selected change receiver being disabled
+
+Previously, after changing the theme, trying to select a change no longer worked.
+This was because onPause was called after the last call to onResume.
+Registering/unregistering the listeners when the activity is started/stopped instead
+fixes this.
+Fix bad merge in GsonRequest.
+
+Change-Id: I964019cbfbbcdc421f9b578fefb8db230307c268
+"
+"0a0cb04754535c0d50304c9744d6da37da600638","2013-11-15 13:51:02+11:00","mGerrit: DE, IT translations
+
+Add Italian and German translations sourced from Google Translate
+Toolkit.
+
+Change-Id: I7e49e45c981127203ea992530ec6ef1f5ecef726
+"
+"7c376e3548b00d6f6ca538cd95b4eb5382d9f468","2013-11-14 11:59:30+11:00","Deserialise JSONCommit with Gson
+
+Rename changedFile object to FileInfo to match Gerrit documentation
+Added CommitInfo to store patchset-specific details
+Added FileInfoList to help with deserialisation
+Added ReviewerList to help with deserialisation
+Changed value in Reviewer to integer (it is not a string)
+
+PS2: Fix reviewers getters and score parsing
+
+Change-Id: Ibbf8267c6612047cba51aec29a5346d6210d94fe
+"
+"d300e26e7f7def73efca9e0316c75891cb91799e","2013-11-15 11:38:31+11:00","Show file status in change details file list
+
+Colour file paths by status (green: added, red: removed)
+Mark files as binary if so
+Don't show lines inserted/deleted if there weren't any lines
+inserted/deleted
+Disable the onClick listener for binary files - there will be no
+diff available regardless.
+Use an enum to store the file status in FileInfo
+GerritControllerActivity: Added some null checking
+PatchSetChangesCard: Removed some dead code
+JSONCommit: Convert reviewers getters to List
+ReviewerList: Add method to get all labels reviewers are associated with
+
+Change-Id: I9308fdcb58d588ba340618b5280b573f98301d44
+"
+"11df1392cd2e655a5f2080380172cb724e100523","2013-11-16 12:07:24+11:00","mGerrit: Add missing files; fix build
+
+Change-Id: I05a838b1629009d66de3d1b71b49093c222f5d4e
+"
+"ee9947ca1366584b4f6fc4c1010b3d548d38f242","2013-11-16 12:08:58+11:00","Bump version to v2.05.001 for release
+
+Change-Id: Ic3e63939c15346a2696df1626b277b143cecc0a6
+"
+"049cf267bcd16e477f7716dabc4854e058c3840a","2013-11-20 20:04:26+11:00","Fix change details not loading
+
+The wrong processor was added previously (I renamed CommitProcessor to
+ChangeListProcessor and modified GerritService accordingly). Somehow,
+these were left off an earlier commit.
+
+Change-Id: Ib5662b6d58c0a5e21da2da5759469bff799728b2
+"
+"254458deadd6ffacb5a5e15a9c9982dc8f3e24d6","2013-11-21 14:01:08+11:00","Add more detection of more ROMs
+
+Change-Id: I761773b256f4cc5f25601d7443d57cb962bb8e53
+"
+"b64d334cd5911cb42ece3b020901bbc20cec1816","2013-11-21 14:11:27+11:00","Bump version to v2.05.003 for release
+
+Change-Id: Iee258fe2f4b2fcc5b29ca6c8c5e0cc37bf228daa
+"
+"de78c9f27275cd9c549e00962e21062fd688d6a5","2013-11-23 11:17:18+11:00","Update Italian translations; Style refactoring
+
+Change-Id: Id35c46c26ff447c907784afcae1e7b2c84f62e22
+"
+"41e72c2cd2d54259c42ace723d5cb9943859f014","2013-11-25 11:24:20+11:00","Update translations
+
+Update DE, FR translations from those on crowdin
+Cleanup unused strings
+
+Change-Id: Icdb03283486eefc07db7da0d722b0a33ff953bd0
+"
+"717f503eb8833dd87e3e1050a8b35532b2307446","2013-11-25 15:33:33+11:00","Add link to help documentation in help dialog
+
+Change-Id: If775a66f86dfab017a05c8f084ab4c158db3c565
+"

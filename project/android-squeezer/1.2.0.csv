@@ -1,0 +1,221 @@
+"commit id","commit date","commit message"
+"34b7093d69bbbd0b98f3f5c4caa91f1a2a47fb44","2014-10-23 00:17:02+02:00","Merge branch 'release-1.1.1' into develop
+
+* release-1.1.1:
+Prepare for release 1.1.1.
+"
+"6d0b163dfcb08507ec57b335617dfa65a1d997fd","2014-10-25 18:00:54+02:00","Merge branch 'develop' into player-groups
+"
+"9f862788dc43573ec8ad8fd092a01bcd70456e40","2014-10-25 18:02:53+02:00","Merge remote-tracking branch 'origin/develop' into player-groups
+"
+"de92015b60aaeb8c63e358adff6c8e9fece746c1","2014-10-25 19:02:32+02:00","Update the UI when player states change, not players.
+
+As the service is tracking players from the time it connects to the
+server there is no need to re-fetch the list of players in this
+activity.
+
+Instead, use the service's current list of players, and rely on player
+state change notifications to update the UI.
+
+Refactor some method names and variables to make more sense.
+"
+"f06e748766e801aee5d72746a1d4f62d31a80730","2014-10-26 12:45:46+01:00","Disable collapsing each player group expandable list view.
+"
+"09d20c5d14de1f691021f049970322699130c054","2014-11-01 13:35:05+01:00","Add @Nullable annotations to methods that handle the active player.
+
+The active player may legitimately be null -- for example, when there
+are no players connected to the server.
+"
+"c03b691f347f1d0db35488bf70390d6ae9a1cc30","2014-11-02 18:57:57+01:00","Fix bugs with player tracking.
+
+- changeActivePlayer() now handles the case where the active player is
+now null -- for example, if there are no players connected to the
+server.
+
+- Unsubscribe from status updates when refreshing the list of players.
+"
+"ad28282bbd9cbe1c33fc0d5a0759b3ac73010561","2014-11-02 18:59:47+01:00","Ensure players with no syncmaster return null, rather than ''.
+
+Add @Nullable annotations to getSyncMaster() and setSyncMaster().
+"
+"02ddc86f3613e2d26d3072c10f1d0c4323e257c2","2014-11-02 19:36:56+01:00","Refactor and simplify player group management.
+
+- Move the player group creation code in to PlayerListActivity. This
+sets the way for future work to move players between groups, which
+will be managed by the activity.
+
+- Simplify the code that determines player groups, with the additional
+side effect of making it correct. The previous code had problems with
+players that were synced to an un-connected master (which can happen).
+"
+"32aa65ace93db130d037288798897a4711960c3e","2014-11-03 01:21:31+01:00","Support managing player sync groups.
+
+- Add a context menu entry for each player to manage its sync groups,
+initially disabled.
+
+- Enable the context menu entry if more than one player is connected.
+
+- Extend the service to support the commands for syncing two players
+together, and completely unsyncing a player.
+
+- Provide a dialog that allows the user to select from the available
+sync groups, or break synchronisation, when selected from the context
+menu.
+"
+"6496cd94a68d58739f42d0fab996e83ece10aca8","2014-11-03 20:31:19+00:00","Use radio buttons for the list of sync groups.
+
+The previous code presented a list where tapping an item would sync
+the player with that group immediately.
+
+This code presents each item with a radio button, and includes 'OK'
+and 'Cancel' buttons so that the user has more control if they
+fat-finger the list.
+"
+"ab59fd1c06c8b556c50a10f6f602fed4ad36b8a3","2014-11-04 11:34:51+00:00","Merge branch 'develop' of https://github.com/nikclayton/android-squeezer into develop
+"
+"9adfd8ba1f7e0d07116bf36beae0bc7b2d9eed6c","2014-11-05 18:12:07+00:00","Use gradle 2.1, and version 0.14.0 of the Gradle plugin.
+"
+"a7c7b7520e302a986bab7226608f5a06bc0da363","2014-11-05 23:57:59+00:00","Move volume key handling in to BaseActivity.
+"
+"e6469acadc51762ffa8a4a777c9fe621cbac98b5","2014-11-05 18:12:07+00:00","Use gradle 2.1, and version 0.14.0 of the Gradle plugin.
+
+(cherry picked from commit 9adfd8ba1f7e0d07116bf36beae0bc7b2d9eed6c)
+"
+"338b5d53e01192ce8fd63511a3dee46c81b39b4b","2014-11-06 19:13:20+00:00","Save the current playlist name when parceling a PlayerState.
+"
+"9312f8433e7cde0873e26b7f902adcf7f20dc489","2014-11-06 22:21:02+00:00","Handle sub menu items in player context menus (sleep durations).
+"
+"e2ba6fd2fd82d2feac7fa45e02396816a2e5a3d8","2014-11-08 23:06:08+00:00","Show sleep information for players other than the active player.
+
+The server does not respond with status updates as the will_sleep_in
+timer counts down, so players with a count down to sleep need to have
+second-to-second status updates enabled.
+
+- Move the PlayerSubscriptionType enum in to PlayerState.
+
+- Keep track of the player's subscription state on an on-going basis.
+
+- Determine the appropriate player subscription state every time a
+status line is received, and update as necessary (e.g., if the
+player has started counting down to sleep).
+"
+"2f9345b6e223e9b60e0fec744c0dd4ed16240136","2014-11-08 23:24:42+00:00","Include player sync group support in the NEWS file.
+"
+"566ad9861d2a3201857cfd9fb2f3efba6a01ceef","2014-11-09 20:18:19+00:00","Only enable the player_sync menu if a player context menu is being created.
+"
+"c5c27e01d9ec3082265f97059c9050b0cf296429","2014-11-09 20:37:59+00:00","Show information about the current song in each player group header.
+"
+"abe3aae16d46339d375067e57f46eaa52a016453","2014-11-09 20:44:36+00:00","Replace '...' with ellipsis unicode character.
+"
+"7208f402ad71fbd1d59817667f1963b6822e0ac3","2014-11-09 20:45:40+00:00","Remove unused import of android.view.Menu.
+"
+"489d1c4eef2f24f5be12451c092eabaeef4a2417","2014-11-09 20:47:39+00:00","Remove unnecessary cast.
+"
+"f31a58930a48b3ae54c0b9ceb8732bd5bdefe19b","2014-11-10 16:46:52+01:00","Use gradle 2.1, and version 0.14.0 of the Gradle plugin.
+
+(cherry picked from commit 9adfd8ba1f7e0d07116bf36beae0bc7b2d9eed6c)
+
+Conflicts:
+Squeezer/build.gradle
+"
+"c86c4559351f9ef9b26eb48f8304644c340ea8a7","2014-11-11 20:40:43+01:00","Add a copyright header to PlayerSyncDialog.java.
+"
+"e1bfc8fefe8def057d5f31f22effcf208e751020","2014-11-11 20:51:31+01:00","Merge branch 'player-groups' into develop.
+"
+"cc71c31d222def7f4bbe85e17ceba08f38f5ff17","2014-11-11 21:03:11+01:00","Merge branch 'theme-support' into develop
+
+Conflicts:
+Squeezer/build.gradle
+Squeezer/src/main/java/uk/org/ngo/squeezer/Util.java
+Squeezer/src/main/java/uk/org/ngo/squeezer/framework/BaseActivity.java
+"
+"a692be7198133cc4d8c25f16a6eb0febba73fe54","2014-11-12 07:35:36+01:00","Merge branch 'volume-panel' into develop
+
+Conflicts:
+Squeezer/src/main/java/uk/org/ngo/squeezer/framework/BaseActivity.java
+Squeezer/src/main/java/uk/org/ngo/squeezer/itemlist/PlayerListActivity.java
+"
+"7076265da21f4028faba43a9e384dd0a1ecc469b","2014-11-12 23:48:10+01:00","Fix an NPE when possibly displaying the volume panel.
+"
+"c20fe5e46ac2475fe1584d5b2152c74029359e7c","2014-11-16 20:32:58+01:00","Use BaseActivity.this as the client for volume callbacks.
+
+Without this it registers as the sub-class, and is not removed correctly
+when the activity is paused.
+"
+"240592008487eba379d3abb30b769affd52cea46","2014-11-18 18:52:19+01:00","Add 'changedSong' to the conditions that trigger onPlayerStateReceived.
+
+Without this the displayed songs in PlayerListActivity don't update.
+"
+"f22062d81c7ad10db8615a77e426d8a0848f051d","2014-11-18 19:22:35+01:00","Fix two NPEs when no players are connected to the server.
+
+(cherry picked from commit 0c167b3285670fc385cd00cef933bf3416936e0e)
+"
+"f9e6c572001fb27e6ffe0dd1a5769a653c12b572","2014-11-18 21:00:22+01:00","Update to the latest version of dependant libraries and tools.
+
+SDK version stays at 19 to avoid bringing in Wear / Material Design themes
+which are not handled well.
+"
+"7f87c8e36a8f3b374952b1fb5d218110b020a1fa","2014-11-18 21:44:50+01:00","Prepare for release 1.2.0-beta-1.
+"
+"516f9291da498cc76bfdf9869cf23a6df10e73c1","2014-11-19 00:05:56+01:00","Use equals() instead of == when comparing songs.
+
+Fixes bug where the song was always considered to be different.
+
+(cherry picked from commit d5318de40a9165bd20baf80e97888dae7933b659)
+"
+"172f3b2007406c24c51e5d6cd66b18555a5ef366","2014-11-26 21:59:01+01:00","Fix a bug where the UI was not updating when returning to some activities.
+
+It was possible to get in to a situation where the service binding had
+happened and the handshake had not completed. Attempts to e.g. fetch
+album artwork URLs, or order information from the server in this period
+would fail. This manifested as e.g. returning to SongListActivity from
+another application and the album artwork and track details disappearing.
+
+Fix by:
+
+- Adding a HandshakeNotCompleteException to the service, thrown by methods
+that require the handshake to have completed.
+
+- Changing ItemListActivity to request pages ordered before the handshake
+completes, not just before the service binding completes.
+
+- Changing NowPlayingFragment and SongListActivity to update the UI after
+the handshake completes.
+
+Fixes https://code.google.com/p/android-squeezer/issues/detail?id=79.
+"
+"97284771b0f6ca67a476352086b53a995c57e70f","2014-11-26 21:59:22+01:00","Update to Gradle 2.2.1.
+"
+"d8e204c5e8c9934ed55048ce2ffcdfd07cf38cb5","2014-11-26 22:37:17+01:00","Prepare for release 1.2.0-beta-2.
+"
+"728143efded502e77f73219ed79b24e1625f0563","2014-11-30 18:37:33+01:00","Check for a null getPlayStatus() response.
+
+Annotate the response as @Nullable, with Javadoc that explains why.
+"
+"3de8f3858aa2abd2470cf248d681d457c8f51eb9","2014-12-02 22:23:44+01:00","Prepare for release 1.2.0.
+"
+"55c7098eb64600e15de5bc768b85f6bdb55645a3","2014-12-02 22:23:59+01:00","Merge branch 'release-1.2.0'
+
+* release-1.2.0: (49 commits)
+Prepare for release 1.2.0.
+Check for a null getPlayStatus() response.
+Prepare for release 1.2.0-beta-2.
+Update to Gradle 2.2.1.
+Fix a bug where the UI was not updating when returning to some activities.
+Use equals() instead of == when comparing songs.
+Prepare for release 1.2.0-beta-1.
+Update to the latest version of dependant libraries and tools.
+Fix two NPEs when no players are connected to the server.
+Add 'changedSong' to the conditions that trigger onPlayerStateReceived.
+Use BaseActivity.this as the client for volume callbacks.
+Fix an NPE when possibly displaying the volume panel.
+Add a copyright header to PlayerSyncDialog.java.
+Use gradle 2.1, and version 0.14.0 of the Gradle plugin.
+Remove unnecessary cast.
+Remove unused import of android.view.Menu.
+Replace '...' with ellipsis unicode character.
+Show information about the current song in each player group header.
+Only enable the player_sync menu if a player context menu is being created.
+Include player sync group support in the NEWS file.
+...
+"

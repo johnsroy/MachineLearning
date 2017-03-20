@@ -1,0 +1,1316 @@
+"commit id","commit date","commit message"
+"73352ff70daf2b94fdbaad8ba8bd3633ed5a3ac9","2014-07-09 11:58:27-07:00","Gradle Fixes
+
+Some small fixes to allow Gradle to work. Google released v20 and 21 of
+the support library, and as we were not forcing a specific version, it
+was choosing the newest. This caused issues with Crouton and also SDK
+versioning. Force support library 19 to avoid the error. Additionally,
+update the version of Crouton to pull in some bug fixes from it.
+"
+"69439d23054c68d7695b656349366c570c1a2f95","2014-06-28 17:06:55+02:00","Rewrite (IGF & Detailview & SearchActivity) + Remove (ABS & SND) + Added (HEW)
+"
+"cff561db123183bfd76111b29095ee6663f0fe52","2014-07-11 12:48:25-07:00","Merge pull request #174 from ratan12/User_Interface
+
+Major UI Changes
+
+Convert to using Support Library where possible, removing unused
+libraries like ActionBarSherlock, SherlockNavDrawer, and the
+numberpicker backport. Use Holo Everywhere for UI consistency.
+"
+"4f5e13cdcfe3b2be8acb7b9329e0b21a572320f0","2014-07-12 16:11:45+02:00","Fix actionbar title android 2.2 & 2.3 (Detailview)
+"
+"27a1bca0dce384c3710105eed2ae1af778d63b8e","2014-07-12 16:30:11+02:00","Fix Horizontal lines in (EPDF -> Detailview)
+"
+"6ba8582c0b64ed2fd02253034477511038b86044","2014-06-17 20:04:44+02:00","Unify Anime/MangaNetworkTask callback interface
+
+The callback functions always contain the same logic for Anime and
+Manga, so they can be unified in on function. This removes some
+duplicated code and avoids repetitions if something needs to be changed
+in the callbacks.
+So now there is only one callback for Anime/MangaNetworkTask:
+onNetworkTaskFinished, without type separation. To determine the list
+type the function has the additional ListType parameter 'type'.
+"
+"8b6e4c8d10ea56b40afef62756cc2bcb5c489750","2014-07-14 20:01:54-07:00","Merge pull request #185 from ratan12/Fix_episode_picker
+
+Fix Horizontal lines in (EPDF -> Detailview)
+"
+"d6c44f890661970ec480595ec50f2e445df3caee","2014-07-14 20:02:06-07:00","Merge pull request #184 from ratan12/Fix_detailview_text
+
+Fix actionbar title android 2.2 & 2.3 (Detailview)
+"
+"dda81ab2396180ac9eea49bf3f723b280ae15d26","2014-07-14 20:09:50-07:00","Merge pull request #176 from d-sko/callbackUnification
+
+Unify Anime/MangaNetworkTask callback interface
+"
+"ae7a3fea0ac353b8dc5f50be8dc88e4b0ca8ee6d","2014-07-11 08:16:08+02:00","Implement SwipeRefreshLayout
+
+Forced sync is now possible by swiping down like e. g. in the G+ or
+GMail-App.
+"
+"4c13ac3e6e2244805c496b726e1f72f496112bc4","2014-07-11 09:44:23+02:00","Only enable swipe refresh for own list
+"
+"e96d631bd3a4641bcdcf3d65ec5f9c939f7e0def","2014-07-11 09:54:54+02:00","Don't try to sync if there is no connection
+"
+"235742c193dc9b8dd19e8f78285dedd72f437941","2014-07-11 17:58:32+02:00","Use synctask() for forced sync
+
+forcesync() has done the same, so it was implemented twice (thx @ratan12
+for pointing at it).
+"
+"98c1a558389d6e1ddc4e3d1da8ea83bb1dc0e12e","2014-07-11 19:42:42+02:00","Fix notifications for synctask()
+
+Only disable notification for swipe refresh.
+"
+"6fa282bf2811dec90763a46dbacefa3be9ab8943","2014-07-11 20:17:48+02:00","Don't use holo colors from android resources
+
+They are available for API 14+ only
+"
+"dbaf4057d341742f970555f9115e5190fed2c58a","2014-07-15 16:56:08+02:00","Show loading indicator if forced update and clear=true
+"
+"193ae0e5598576ec15ff52187ffa39d2939425d3","2014-07-15 11:21:19-07:00","Merge pull request #180 from d-sko/swipe_refresh
+
+Implement SwipeRefreshLayout
+"
+"6d20fcc48fff08394c12527c87f276cfb8a3a77b","2014-07-13 16:49:49+02:00","Fix results from previous search are shown (Search)
+"
+"2a9b5930a93386d6287a4e2daa38e3fda735f362","2014-07-15 11:47:45-07:00","Merge pull request #187 from ratan12/Fix_search
+
+Fix results from previous search are shown (Search)
+"
+"df09642c59f36ead44337122072759dfdc532820","2014-07-15 20:11:20+02:00","Unify Anime/MangaNetworkTask
+
+They are doing the same, so they can be easily unified. This makes less
+and cleaner code.
+Also changed GET and GETDETAILS tasks to return Anime/Manga objects
+instead of ArrayLists with only one element (now possible as the task's
+return type is Object since #176).
+"
+"074bd4ec4691598169b638f174cb909fc13bbe96","2014-07-15 22:41:40+02:00","Implement NetworkTask cancelling
+
+Don't continue loading data if the user selects an other list. This
+prevents unnecessary loading of useless data and fixes #190.
+
+Exception are FORCESYNC-tasks, there is no reason to interrupt them.
+Instead let them finish but don't display results (thats why there is
+the new 'cancelled' parameter in the callback function).
+
+Cancellation code is a little more complex as it could be because of our
+low minimum API level. It can be simplified as soon as we drop < API 11.
+"
+"b9d5afa67b1cc20a85c59faff4a38c3904051b0e","2014-07-15 22:45:12+02:00","Only display network error info if it is actually a network error
+"
+"864d958cf67f4e5ee8b4d9955b4af1986b572dad","2014-07-16 07:49:33+02:00","Disable swipe refresh for SearchActivity
+
+This is not needed there and causes a crash.
+"
+"7daa25f5d96f75bb3cb58893fc457cd4e8be93e3","2014-07-16 10:19:58-07:00","Merge pull request #191 from d-sko/search_swipe_fix
+
+Disable swipe refresh for SearchActivity
+"
+"5794bed985fbe59bb23485fd1dfaa472f27f6272","2014-07-16 10:20:25-07:00","Merge pull request #192 from d-sko/networktask_improvement
+
+Networktask improvements
+"
+"bc522a459dc0873cbd9997ad52a7785dec47c4cd","2014-07-16 17:42:38+02:00","Removal seperated arraylists & adapters (IGF)
+"
+"6c52a2f513b9252b2a48f2884478788eb79cf635","2014-07-16 11:10:37-07:00","Merge pull request #193 from ratan12/Cleanup_IGF
+
+Removal seperated arraylists & adapters (IGF)
+"
+"adb1821554443e14e04c1af58399de9d6e9f310f","2014-07-16 20:53:33+02:00","Fix indents & organize imports (res & src)
+"
+"324f2d8f45187d3294e5ca2e5fe8c9ca63682461","2014-07-17 17:52:32+02:00","Return an empty list if there is no data and no error
+
+Fixes #195
+"
+"43dfa0c6e4b30be53ee6e256a3c415c3ad0fed21","2014-07-26 11:48:46-07:00","Merge pull request #194 from ratan12/Fix_indentations
+
+Fix indents & organize imports (res & src)
+"
+"4d9f75bbe1dbbd746433a46ebd53693d946e1710","2014-07-26 11:49:49-07:00","Merge pull request #196 from d-sko/networktask_fix
+
+Don't return null for list tasks with empty results in NetworkTask
+"
+"22aa0e2611e87739a5a0571a56c1bab1aed6fa59","2014-07-17 18:24:24+02:00","Don't show swipe refresh animation for search
+"
+"82fc2c9c9586c40ac716bff7b35077d28a1a986d","2014-07-17 18:34:21+02:00","Don't declare af and mf in Home as static
+
+Static variables are considered as bad practise in most cases and can
+cause subtle bugs as well as GC-problems and should be avoided if
+possible. Also there is not really a reason for them to be static in
+Home so generate them dynamically.
+"
+"d417f3752e94a7cee94a4aa42b7fb9885fa6cae1","2014-07-17 22:24:41+02:00","SearchActivity improved
+
+- no static af & mf
+- rename HomeSectionsPagerAdapter to SectionsPagerAdapter and use it
+for SearchActivity too
+- improved search intent handling
+"
+"8f5406e6403798b2ec6a1e04e67bb5316d661203","2014-07-17 22:50:56+02:00","Error callback for NetworkTask
+
+NetworkTask now has an error callback. In case of an error
+onNetworkTaskError() is called instead of onNetworkTaskFinished. So
+onNetworkTaskFinished is never called if there was an error in the
+NetworkTask.
+"
+"294c8cc883a24f501ed57e64be14d3abf4d50f3b","2014-07-18 00:15:57+02:00","better af & mf assignment
+"
+"2541a35e1a046b3f360fb67211f830933a8b2e4f","2014-07-18 00:23:47+02:00","Use ListType-variable instead of boolean for type definition
+
+ListType is made for this, so use it :)
+"
+"c9c17f19916fdeb115f2a26aeedce507609aa68e","2014-07-18 21:58:17+02:00","Remove static callback in SearchActivity
+
+- replaced by callback interface: onRecordsLoadingFinished()
+- improved crouton messages: always show only one crouton, not two if
+af & mf tasks failed, also show a crouton if sync failed
+"
+"a3f5197a32255638be28468c614270dd5f8bc6ab","2014-07-18 22:03:54+02:00","Don't set taskjob in SectionsPagerAdapter
+
+Avoids unnecessary getRecords()-call in SearchActivity
+"
+"78622d1147a3a8eaf0f341ead5254d8ce4da043a","2014-07-19 13:40:34+02:00","Fix some messed up indents
+"
+"6e26c55d913166b42de82757898fd99ee99c5f64","2014-07-19 13:41:00+02:00","Fix possible NPE
+"
+"b8660141b099c515acdefdf97f159204c3c765fb","2014-07-19 13:50:55+02:00","Remove useless resetPage()
+
+getRecords() calls resetPage() if clear is true, which is always the
+case here.
+"
+"01828ece11ee31c91c19c5cce94d4b8f5d54b106","2014-07-19 14:48:13+02:00","isEmpty is API 9+ so remove it
+"
+"ef9ebf24f101a21a86fdedc9d609d1ca356c6f47","2014-07-19 15:21:10+02:00","No need to call getRecords in onCreateView
+
+Just refresh if there are records (e. g. after rotation)
+"
+"a0a3810a6ccb034c9a114394df042ed02676072a","2014-07-19 15:23:43+02:00","Fix NetworkTask error handling
+
+The tasks which return paged results return a 404 if the page is
+invalid, so handle this properly.
+"
+"09ea2ec503218d698d46024018526745ba4b5e6f","2014-07-19 15:54:48+02:00","Fix infinite calling of getRecords when reached last page
+"
+"acae1c26a22f3386d91e11cd8cb4b0480f10ff95","2014-07-19 15:55:16+02:00","Fix loading more another page on rotation
+"
+"2ac5765ce4d0048a7a267a69590dda7bdd795e74","2014-07-19 16:17:14+02:00","Keep own list filter when loading more pages on other list
+
+Fixes bug: the filter on the own list was overwritten when more pages
+were loaded on an other page (like upcoming).
+"
+"8db4a05313e7b5b9d7af7657aacb9573231c4f31","2014-07-19 17:45:47+02:00","Do list updates based on broadcasts
+
+Now everytime a WriteDetailsTask finished it sends a broadcast which is
+received by IGF. If the IGF currently shows the users list and has the
+same ListType as returned by the broadcast callback it will update the
+list.
+This way we're only updating lists if necessary.
+"
+"af529c963c0d646f276a122cbd5b324834d15a4d","2014-07-20 00:45:48+02:00","Correct jobReturnsPagedResults()
+
+- use isList()
+- Search does not return paged results
+"
+"38966ce4d800c82e86bed69fd4e0aedf24bd5e47","2014-07-20 09:10:59+02:00","Fix loading indicator displaying
+"
+"c63f29cd1904ac1d8de0e20cf4e397d96ceddfc4","2014-07-20 11:02:01+02:00","Better empty list handling in onAttach()
+"
+"7b1fe40479712aae107c2fc11a5eeeacea1caa0a","2014-07-20 12:27:08+02:00","Don't show swipe refresh animation when clearing
+"
+"36b215e295df5a50d59253b97169ca68c4c74c1f","2014-07-20 19:03:34+02:00","Fix scroll position reset in resetPage()
+"
+"967c706cdb4643be14f69be098a2e11db3282211","2014-07-21 20:18:23+02:00","Fix some missing translations in DetailView
+
+These are gone missing in the in the last rewrite:
+- media status
+- media type
+- user status for manga
+Now they're back :)
+"
+"660538fa3e9f15f294a9a5faf534ccbaa92c2126","2014-07-28 11:20:29-07:00","Merge pull request #197 from d-sko/igf_improvements
+
+IGF fixes and improvements
+"
+"153242cda3b51b6c2ada274e76b25fafa6a1980a","2014-04-02 16:32:02+02:00","Switch to Account manager, syncadapter & contentprovider.
+
+Changes in short:
+- Cleanup unused imports
+- Rewritten auto-sync (Works now on the background)
+- Prefs user/password has been moved to the safe account manager
+- Updated androidmanifest for the requied permissions
+- Added/Removed strings
+- Removed old settings
+- Updated login screen (use accountmanager)
+"
+"939e2a52db064fb34c723d47cdaa317342a4a178","2014-07-29 16:55:20+02:00","Change Atarashii icon (& Beta icon).
+"
+"f2fdc5756920fc34662813394463eee3358bfdd9","2014-07-30 14:47:44-07:00","Merge pull request #181 from ratan12/Account_Manager
+
+Account manager, syncadapter & contentprovider.
+"
+"b4b37d4935e1f5f1818130721ce1231a55f40b81","2014-07-30 14:48:05-07:00","Merge pull request #199 from d-sko/detailview_translation_fix
+
+Fix some missing translations in DetailView
+"
+"3328ab766077f82699157cb90d228aaec2b9beed","2014-07-30 14:48:57-07:00","Merge pull request #201 from ratan12/Icon
+
+Change Atarashii icon (& Beta icon).
+"
+"d101d3dbd273771a7eb779934f5ec3d9d47eda55","2014-07-23 19:19:33+02:00","Add new cards for UI improvement & #26
+"
+"3f4952cab1b151afebeff13b5536e51279f11d2f","2014-07-30 15:22:55-07:00","Merge pull request #200 from ratan12/Cards
+
+Add new cards for UI improvement & #26
+"
+"662c375b06d06b01686f2f6b746d1bae30b0e3a6","2014-07-31 08:16:04+02:00","Fix #202
+
+Don't reload records if connection is lost.
+"
+"fe37acf1a1661ee003039865dfa651c6df2fc058","2014-07-31 08:04:54+02:00","Handle authentication errors after password change
+
+WriteDetailTask and NetworkTask now have a callback if there is an
+authentication error (HTTP status 401). These callbacks are handled in
+Home and DetailView.
+Now if the user changed his password and does something within the app
+that requires authentication a dialog is shown asking for the new
+password.
+"
+"79ed0edbd66c2410038897db4660b7881b66426d","2014-07-31 14:32:02+02:00","Center textview horizontal (FirstRunActivity)
+"
+"4c76549d3fd89a4efc0da3c02c10728441d9a6bc","2014-07-31 14:55:26+02:00","Fix orientation (FirstRunActivity)
+"
+"90c7a908ff16effa5383dd0c5b894f1de260f31d","2014-07-31 18:14:38+02:00","Changes for latest switch to AccountManager
+"
+"407775812f3df02fe94c09c60c7705b00c5147ff","2014-07-31 18:31:37+02:00","Use AuthenticationCheckTask in FirstTimeInit
+
+This removes the networkThread and the messenger-Handler.
+"
+"0f3c34f61d81272df8c3880aade4a22dc3597c1c","2014-07-31 22:28:51+02:00","Automatic code reformat as suggested by @ratan12
+"
+"ba8f1d24f6997b435c2afb0911e080facb564dc2","2014-08-01 19:17:53-07:00","Merge pull request #203 from d-sko/startup_crash_fix
+
+Correct record reloading.
+
+Fixes #202
+"
+"d7641640abb134dd116acfcf02678ba24602f0c3","2014-08-01 19:18:20-07:00","Merge pull request #204 from ratan12/Fix_Firsttime
+
+Center textview & fix orientation (FirstRunActivity)
+"
+"b1c12a9a3e58a18c199a0357658710306e6bcf53","2014-08-01 19:18:36-07:00","Merge pull request #205 from d-sko/auth_fix
+
+Handle password changes
+"
+"d0d049431631012689af8fa986864710d806b497","2014-08-01 22:00:42-07:00","Bump Version
+
+Bump the version number so that any crash reports properly show as a
+pre-release build.
+"
+"25a9c98929df6141846429d0ff76c0df354e36e7","2014-08-06 19:49:47+02:00","Fix first sync after login
+
+autosync() was not working because af and mf are null in onCreate().
+Now this is done in onIGFReady().
+"
+"5524a6eb7fe2fdedc5cb29c06841a13c912ac4f3","2014-08-06 20:12:01+02:00","Fix possible SQLite error 1802
+
+After deleting the database (on logout), no new one was created because
+the MALSqlHelper was not recreated for two reasons:
+- the MALSqlHelper is designed as singleton (object is retrieved by
+calling getHelper()), but instance was not unset after deleting the
+database
+- malSqlHelper was defined as static in DatabaseManager, so even fixing
+the first point would not fix the bug, because all instances of
+DatabaseManager share the same malSqlHelper
+
+Now MALSqlHelper has the new function deleteDatabase() that deletes the
+database and sets instance to null so the next call to getHelper() will
+recreate the database. Also malSqlHelper is not defined as static in
+DatabaseManager. Also cancel running NetworkTasks on logout to make sure
+that the tasks are not accessing the database when it is deleted.
+"
+"b9639bef574da3d0cb6d7c3ef4bfb04eb0844013","2014-08-06 20:12:32+02:00","Remove unused MALManager variables
+"
+"56cb8f8c9cff2384e8d52676de21977debce353e","2014-08-08 20:58:12-07:00","Merge pull request #212 from d-sko/first_sync_fix
+
+Fix first sync after login
+"
+"6ceced802e250cab2d59f152c40a2485dc718083","2014-08-08 21:00:29-07:00","Merge pull request #213 from d-sko/database_fixes
+
+Database fixes and a little cleanup
+"
+"9eef633fc9f58d56e52e84638937769cc27b880b","2014-08-02 15:55:34+02:00","Fix Unknown Item Totals shows 0 on Detailview (fixes #207)
+"
+"812a5ea0b3c0703b11917a9922f9b4c3768863e0","2014-08-04 14:50:53+02:00","Fix numberpicker if total volumes are unknown
+"
+"0c9fc52c09647846473d23d0c4c20f44266cab5e","2014-08-07 21:09:16+02:00","Database cleanup
+"
+"0969a5cd23b0c1e2fa9e36a4854854b85816ddc4","2014-08-09 21:29:21-07:00","Merge pull request #208 from ratan12/Fix_indication
+
+Fix Unknown Item Totals shows 0 on Detailview (fixes #207)
+"
+"3e8311330926be22bef06566db72c0b2c12f6b99","2014-08-09 21:31:20-07:00","Merge pull request #214 from ratan12/Database
+
+DatabaseManager cleanup
+"
+"9f04cadc1c134aad801ccd592939cab934255150","2014-08-09 22:19:15-07:00","Add Detection for Beam in onCreate
+
+NFC beam of titles doesn't always run through onResume, sometimes it goes
+through onCreate. Add detection of the beam there as well.
+
+Fixes #215
+"
+"321afde9d79096e5862ebf52de3892215b6d727c","2014-08-04 22:38:15+02:00","Fix Grid Too Short on specific devices
+"
+"951ed8697fbc44b4b90b26596ca5b0b0e3d186a3","2014-08-09 18:10:22+02:00","Remove old itemgridfragment & basicdetails that have been removed.
+"
+"1b7f19bede8fbb328a672d71ffd2c8876942522b","2014-08-10 17:30:38-07:00","Merge pull request #211 from ratan12/Fix_gridview
+
+Fix Grid Too Short on specific devices
+
+Fixes #210
+"
+"10b3040c0d660e63d6e02f3e6ec6683f37d186d3","2014-08-21 17:11:08+02:00","Change HEW maven URL to the new maven URL
+"
+"00b4444265367dbc12437bf86aab693d81f9cce4","2014-08-24 14:55:53-07:00","Merge pull request #217 from ratan12/Fix_gradle
+
+Change HEW maven URL to the new maven URL
+"
+"63ec7dbc1920b5ee84f5df07cec2a750dbe15add","2014-08-26 18:13:52+02:00","Revert 'Add Detection for Beam in onCreate'
+
+This reverts commit 9f04cadc1c134aad801ccd592939cab934255150.
+"
+"e0d628cfe89cd8060fcc5b378809390d6faa16bc","2014-08-26 18:42:35+02:00","Check if type is null to prevent NPE
+
+This fixes an app crash if the Activity was called by an Android Beam
+event.
+"
+"ba571931b0c686c68d04e090d1b52efc0a0d1359","2014-08-25 20:26:50+02:00","Add roboto fonts to fix the actionbar item bug (Friends)
+"
+"7fa804649da5a3f50c957bf85a077811e01b0af0","2014-08-27 20:14:50+02:00","Remove unnecessarily columns because null does the same
+"
+"f91848cee446955f93a64371b25acfba1370502e","2014-08-27 20:18:35+02:00","Replace the replace function with update and insert.
+"
+"0b8b1eba502f914ab6d85d694542600bef97f821","2014-08-29 14:06:08+02:00","Add highlite colors onClick
+"
+"ce306aad8b184e71f316081b42b6058cb5727d0a","2014-08-29 14:12:00+02:00","Drop friendSince because of inconsistency.
+"
+"69e0e4ee88694fc59b2bda5cd11caf13534218bc","2014-08-29 14:19:40+02:00","Update UI & add viewholders
+"
+"666debe439964f0a08cb7374e336a17928b49004","2014-08-29 14:24:37+02:00","Add SwipeRefreshLayout
+"
+"6ddc865b3397bbdfa2f15c7dbbf54bd8e478b58a","2014-08-29 15:10:29+02:00","Remove old sorting method
+"
+"0b8da310b560607f025d27ba0a44f351950ec19b","2014-09-01 16:11:53+02:00","Fix aspect ratio problem of the cover (Detailview)
+"
+"a67df83ba5e071f0b4c6f7f88f4a88aefa789ed0","2014-09-07 18:32:31-07:00","Merge pull request #220 from d-sko/nfc_fix
+
+Alternative fix for #215
+"
+"f398cdf8665015d89eaa91c0f645a40b77251874","2014-09-07 18:33:17-07:00","Merge pull request #218 from ratan12/Friendlist
+
+Friendlist UI
+"
+"cd6abc8a3e4a3cc485dfc21427334e14faebc4bc","2014-09-07 18:33:38-07:00","Merge pull request #221 from ratan12/Robotofix
+
+Add roboto fonts to fix the actionbar item bug
+"
+"f7febe12ebc2db92743c95e47736b989e8388f4e","2014-09-07 18:34:24-07:00","Merge pull request #222 from ratan12/FixDatabase
+
+Fix anime & manga overwriting in database
+"
+"65bc921b618a09a80725b0e679c42d9283ce8839","2014-09-07 18:35:22-07:00","Merge pull request #225 from ratan12/FixAspect
+
+Fix aspect ratio problem of the cover (Detailview)
+"
+"0491d148c6b7948989f4bdd727eb6c3179735c49","2014-08-28 21:59:54+02:00","Add SwipeRefreshLayout to activity_detailview.xml (DetailView)
+"
+"fa1e6d85640352554f1b020e30532ee52f5c9148","2014-08-28 22:00:55+02:00","Add SwipeRefreshLayout to src (DetailView)
+"
+"4ef8f280ecade0be3d3ac964bc8acc6c13970f90","2014-08-28 17:26:41+02:00","Change put and get to pass data (Detailview & IGF)
+"
+"af9fc68504fdbf61954662700f7106142403393d","2014-08-28 17:31:37+02:00","Fix offline support & removal old database request method (DetailView)
+"
+"33ebf87a3228844fd708ba4bd08e028bbd127e46","2014-08-28 17:32:40+02:00","Remove the old methods that are requesting data from the database (MALManager)
+"
+"ba330e502aab4fe15fc11a1b5d0c8e85ac26a31a","2014-08-28 18:22:50+02:00","Fix memberscore overwriting bug (DetailView)
+"
+"5ede2aac06fd9dd37cd4ba650574e7408099914f","2014-08-28 21:16:19+02:00","Fix not added animes/mangas showing in myList (DetailView)
+"
+"5708264a5a2f4c0e85ba9e84eeb7d2b9e86b7ed7","2014-08-29 14:44:50+02:00","Merge Friend table into Profile table
+"
+"dd47ca3976c19bdfafb9f659b4a8584330b3c1a4","2014-09-12 14:30:26-07:00","Merge pull request #223 from ratan12/swipetorefresh
+
+Add Swipetorefresh to the DetailView
+"
+"df142c0291dfc24f085c49f25b81d2d0d8030fdc","2014-09-12 14:32:00-07:00","Merge pull request #224 from ratan12/IGFtoDV
+
+Pass IGF records to the DetailView
+"
+"4326604c2afa593b48c018ebf405c84003d77c65","2014-09-12 14:33:14-07:00","Merge pull request #226 from ratan12/Databasemerge
+
+Merge Friend table into Profile table
+"
+"a9c21223f7d2407013d771204211f4ee1d19ddcf","2014-08-29 15:18:07+02:00","Pass User record from Friendlist to Profile
+"
+"d5dc6b089661a641484b6d6c6854d7b9dd25fb52","2014-08-29 15:18:42+02:00","Fix crash by making responses serializable
+"
+"7d061362d294e7550c6bb8fc3709084ef81c3611","2014-09-13 17:03:35+02:00","Fix isAdded() method on refresh by requesting more details (DetailView)
+"
+"c8a08550296977d6bd88715ab118c4e83ea3995d","2014-09-13 18:22:52+02:00","Update strings & setting .xml (Language)
+"
+"d02128bcf53b642bb3415016d651638d8afe0a31","2014-09-13 18:24:02+02:00","Add the update mechanism & the get method (Language)
+"
+"b42018a1a07e538602d11913095480b577f067d1","2014-09-13 18:28:24+02:00","Fix language revert after boot (Language)
+"
+"3f9edc99d0bc357569c84b50e17fa80c04a449bd","2014-09-13 18:49:17+02:00","Move the programmatically Locale creator to the prefManager (Language)
+"
+"525a10ac2df0551a08c5623cd911067c46f753d7","2014-09-13 18:50:34+02:00","Update summary string (Language)
+"
+"4736b0801e008665741db5e0c8b62572983360a6","2014-09-14 16:33:49+02:00","Fix landscape crash caused by swipe to refresh (DetailView)
+"
+"6340a013d9721efd3212528b89a29c13b2d3dfa8","2014-09-14 17:15:26+02:00","Show loading indicator while downloading additional data (DetailView)
+"
+"22b8b238dd05d0404dd4bb58f8b8402d4f8227fe","2014-09-14 17:25:33+02:00","Fix crash on pressing back after DV is done with loading (DetailView)
+"
+"45731468b7a1062c270a7d7d9a5df3a00a1297fd","2014-09-15 17:45:33+02:00","Remove old unused onConfigChanged method  (DetailView)
+"
+"ecdd51221c7fef09791cd2d6a6a457a20e2f8021","2014-09-15 17:47:54+02:00","Simplify isAdded method by replacing the condition (DetailView)
+"
+"69467499f4dddd655144c2af35a48a78fd230968","2014-09-15 18:07:03+02:00","Replace Separated dialog creator with a universal one (DetailView)
+"
+"a96ec6c02df41a444e58dad475572d8ba82ec030","2014-09-15 18:11:18+02:00","Change removeConfirmationDialog from support lib to HEW (Dialog)
+"
+"8de78a8dbd5398c929bae153de3280e1218ae623","2014-09-15 18:12:17+02:00","Replace removeConfirmationDialog method with the universal one (DetailView)
+"
+"b67fcf9f1718ef7dfe19df5605ef70e6a6c079ac","2014-09-26 12:53:15-07:00","Merge pull request #227 from ratan12/FLtoP
+
+Add passing between friendlist and profile
+"
+"39a769dfb16a88a312aa7aa46f9bab5d71c6e6c7","2014-09-26 12:53:27-07:00","Merge pull request #228 from ratan12/Fix_detailview
+
+Fix isAdded() method on refresh by requesting more details (DetailView)
+"
+"5f8dbf31c8a7d8014788f744976d5d28d6a95be3","2014-09-26 12:58:25-07:00","Merge pull request #229 from ratan12/add_language
+
+Add language changer in the settings
+"
+"a31721108380fd732c8dd111aeef2d96450c8e0b","2014-09-26 12:58:48-07:00","Merge pull request #230 from ratan12/Fix_DV_swipe
+
+Fix landscape crash caused by swipe to refresh (DetailView)
+"
+"3db95d8b352e0b97b0e50609e7c0e97c3346b419","2014-09-26 12:59:26-07:00","Merge pull request #231 from ratan12/add_loading_DV
+
+Show loading indicator while downloading additional data (DetailView)
+"
+"d1ea5afea96f1af26f55906deb253bd9b6eb0ea5","2014-09-26 12:59:40-07:00","Merge pull request #232 from ratan12/Fix_crash_DV
+
+Fix crash on pressing back after DV is done with loading (DetailView)
+"
+"c46ceaf65a810d8c652e4ae91d8c714e57603be3","2014-09-26 13:02:23-07:00","Merge pull request #233 from ratan12/Clean_DV
+
+DetailView cleanup
+"
+"ec6f85a19dbc2d938b9c25b423816b7181e2902e","2014-09-27 15:57:46+02:00","Fix show dialog when pressing next to Textview (Card)
+"
+"bc46ac8a2bd0572e7220981c4ce1657a8893ff77","2014-09-30 17:25:23+02:00","Fix text outside the card shadow (Card)
+"
+"85056888ca603b9ae1902231d1a9042e40025382","2014-10-01 20:23:37-07:00","Merge pull request #235 from ratan12/fix_status
+
+Fix show dialog when pressing next to Textview (Card)
+"
+"8f8fca3314d83d6a6534f10b56b5fb985786e4db","2014-10-01 20:24:32-07:00","Merge pull request #236 from ratan12/Fix_shadow
+
+Fix text outside the card shadow (Card)
+"
+"396e106e665df476d0bc30812c14a37867765b3e","2014-10-01 18:17:49+02:00","Fix language when the device has been rotated (Language)
+"
+"c07d70e444ace04b8649b466740ca93d48e9b21f","2014-10-02 17:32:30+02:00","Cleanup language switcher in the theme file (Language)
+"
+"8016973c07093214422fd2758363810707a5c722","2014-10-02 17:50:13+02:00","Restart app after language change to apply it (Language)
+"
+"9dc66b56d076cbc9a65b110737011bb61f5c993b","2014-10-02 17:54:40+02:00","Fix capital character in strings, changed russian into Russian (Languages)
+"
+"11e05fd15bd143bc41301ef62fd2b7c6cfd5bb04","2014-10-01 17:26:16+02:00","Modify Dialog strings to use the right res ID (Strings)
+"
+"6f1896cc7fb7c7cd31b23919683c8b61874d1aa1","2014-10-01 17:28:46+02:00","Make query public for the getActivity method (SearchActivity)
+"
+"597f09619f2d25f21ff0c279988c8a2670dac502","2014-10-01 17:29:59+02:00","Create type chooser dialog and update strings (Strings & Dialog)
+"
+"268802e6e582df324d1f2401c347f4fddde9748f","2014-10-01 17:30:59+02:00","Download the anime details if there is only an ID (DetailView)
+"
+"291a411e692394c0df6fed46929577e84427851a","2014-10-01 17:33:40+02:00","Show dialog if there is only an integer in the query (SearchActivity)
+"
+"13a086ab7ab9aab39044fd854853521d066488fb","2014-10-01 17:34:37+02:00","Fix search on start while entered an ID (SearchActivity)
+"
+"e26cff57d2a7e991d2d7d205aaf0419dd7a8cd33","2014-10-01 17:36:04+02:00","Fix imports & indents (SearchActivity)
+"
+"5f67a975538d235d82918b39ad138f4912fbcd84","2014-10-02 18:20:19+02:00","Add new menu icons for the inverse option (Home)
+"
+"412decefc8d1af35be8fe7347b802569ff7cbf14","2014-10-02 18:21:23+02:00","Add inverse method (IGF)
+"
+"2b51cef242ac25433fef5ab93bed82bec7fb93b8","2014-10-02 18:22:35+02:00","Add menu item & inverse method (Home & Res)
+"
+"1e6cfa94ca3a48ebab9986069b556a45a774d1ad","2014-10-02 18:23:23+02:00","Fix inverse option available when myList is false (Home)
+"
+"84e0d0959c3187e0d7669c0840cbbd912008c934","2014-10-30 11:14:21+01:00","Add different icon sizes for better quality (res)
+"
+"64ccc7629d101b57468abe66910c315ace28b860","2014-11-03 13:52:01-08:00","Merge pull request #237 from ratan12/Id_search
+
+Id search
+"
+"44c8cf9e7f7d40c880f060efc81aa99d6d57cb4d","2014-11-03 13:52:16-08:00","Merge pull request #238 from ratan12/Fix_lang_changer
+
+Fix language bugs (orientation and restart)
+"
+"c00cd433eac478c8dcc931b2571d09c300c7d4ff","2014-11-03 13:52:44-08:00","Merge pull request #239 from ratan12/Reverse
+
+Inverse feature for My list
+"
+"e6db16e8ee7df8fd5d9dd3880519970d886fcb16","2014-11-03 13:54:00-08:00","Merge pull request #243 from ratan12/icon_sizes
+
+Add different icon sizes for better quality (res)
+"
+"3a9b4fddc6c6fbfcbf2a0b9355bde93e56f471e4","2014-10-06 16:43:58+02:00","Remove syncDialog & automatically turn sync on in the settings (Account)
+"
+"a94736e5d023a2ad82b1d0e974da2d5fc0a49e3f","2014-11-04 08:55:34-05:00","Merge pull request #240 from ratan12/account_fix
+
+Remove syncDialog & automatically turn sync on in the settings (Account)
+"
+"b8ff97241ec924c2c4e77c6d54a73629cd1d494a","2014-10-06 17:51:02+02:00","Save Anime-/Mangalist in relation table
+
+This allows us to store the lists of friends too! Updated all related
+functions (they now have a username or userId parameter to define the
+user).
+Also removed the recordId field from the anime and manga table: as the
+ID's provided by the API are unique we can use them directly.
+"
+"62aa671201e224892dd0b878606e2012136558ec","2014-10-12 19:04:20+02:00","Save all API details (part 1)
+
+Now the database can store all details provided by the API:
+- added required fields to the anime and manga tables
+- added genre and tag tables
+- added relation tables to store genres, tags and record relations (like
+side stories, sequels, alternative versions...)
+- updated DatabaseManager to save the new informations (except for
+record relations, this will be part 2 of this commit ;) )
+"
+"9e4598e2f58f599b342489d6886a09843eb99cb5","2014-10-12 19:22:40+02:00","Fix database upgrade from previous version
+"
+"6607122e15a13a0f6a9001c878ad980d81538252","2014-10-13 20:06:36+02:00","Save all API details (part 2)
+
+Save record relations (side stories, adaptations, summaries etc.)
+"
+"aa1260924f75f28f577dffa9f270a276bcab65ec","2014-10-13 21:26:46+02:00","Save all API details (part 3)
+
+Save other titles of records.
+"
+"f1b4522c2b9deac11e48b4fd8d23d42e3da22cd6","2014-10-13 21:29:32+02:00","Don't save the synopsis on database upgrade
+
+This way we can force all records to be updated when loaded for the
+first time in DetailView to get the new details.
+"
+"854d69852a26f4f2ad0cd9dd05fc5c08c79564ab","2014-10-14 17:50:42+02:00","Save anime prequels and sequels
+"
+"87301abd7e0e22f9c5cb29c6f0bfef5dbacead4a","2014-10-14 18:23:39+02:00","Fixed search
+"
+"cea923ec2aafd3df730efc408726b48b06d36cc4","2014-10-14 18:37:24+02:00","Only pass full record on own lists
+
+... as other lists like search or toplists (most popular) don't have
+additional informations like record relations, genres, tags and other
+titles.
+"
+"88b08093b7a54bebeace35f266bc2aaa3b4145e7","2014-10-14 19:06:27+02:00","Try to load the record from the own anime-/mangalist
+
+If DetailView is called from an not-stored list (search result,
+toplist), then it tries to load the record from the own anime-/mangalist
+to show personal details (status, rating). Only if that fails it loads
+the record from the API.
+"
+"b28a0be91f0c45e9c47162289b5f00c40a7a9440","2014-10-14 20:09:27+02:00","Fix search result page loading
+"
+"a61329af9367ffb4112378cf5cd4bb8223618f1e","2014-10-15 20:23:32+02:00","Do not pass complete records to DetailView
+
+Without passing the full record to the DV we don't need to get all
+record details in the anime-/mangalist which results in faster load
+times.
+"
+"1cf082660164d5cb7bbd5c5cc69ddc59eaaac93e","2014-10-17 22:29:42+02:00","Fix details never saved
+
+GETDETAILS tasks never saved the new record details because saveAnime()/
+-Manga() was not updating without a username. Also changed getRecord()
+in DetailView so a swipe action will always fetch from the API.
+"
+"ce02234fe10194e59986735114583ceca4418916","2014-10-19 11:55:10+02:00","Implement some cleanup functions
+
+As now all records are accessed by relations (anime-/mangalist or record
+relations like prequels, adaptations etc.) all records in the database
+that are not related somehow are 'dead' records. So I implemented some
+functions to delete them:
+- deleteFrom(Anime/Manga)List() now checks if the deleted record is
+still related to other records and deletes it if not
+- a full sync now also checks for unrelated records and deletes them
+"
+"b500ed664007637a0b191214a03f6dc3e5215c60","2014-10-19 18:30:40+02:00","getRecords() should do something useful when offline
+
+... so now it tries to get the record from the Database and shows a
+crouton message if this didn't work.
+"
+"67a480d7a2e40d7d874ba117ca611ac1be7d8f8c","2014-10-20 18:41:48+02:00","Fix sync after beeing offline
+
+When using the '+1 watched/read' button on IGF the dirty flag was not
+set if offline, so these changes where not synced to MAL.
+Also don't show the loading indicator when the connection is back and
+changes are synced, only show the refresh animation.
+"
+"f514d29792b572a72fd2852b443de2421fdb3d2a","2014-10-20 19:50:28+02:00","Fix two possible NPEs
+"
+"66239da521b69606a4b541cda455915c5f0bbaf2","2014-10-21 16:54:29+02:00","Unify AnimeRecordStub and MangaRecordStub in RecordStub
+
+They were only separated for deserialization by retrofit, but that can
+be handled in one class. Basically the getId() function just has to
+return the correct variable.
+Also added a check to the relation saving functions to prevent saving
+a record with 0 as id.
+"
+"d66127f6c806bcdc74ebb1c62c8af060f1393aca","2014-10-21 21:39:00+02:00","Add getType() to RecordStub to know if it is Anime or Manga
+"
+"081664419a3c40ac9246c230c839c6936efa7e11","2014-10-21 21:55:41+02:00","Save parent story
+"
+"193363c94daa030e2de378cc490bb20a2d3543d8","2014-10-27 17:48:30+01:00","Adjust other_titles to API fixes
+
+Other_titles is now always a two dimensional array, so change it in the
+response class accordingly.
+"
+"d354aa7632a6705bbcd1d31ad71e150f2362fb48","2014-11-04 17:53:40+01:00","Search fix after rebasing
+"
+"d8a5a265da3d0c5ec2d8ac8d89b73e971b0ef916","2014-10-15 20:12:44+02:00","Add setViews method and order all the views (Detailview)
+"
+"7ef834ca81c059616be1416ac584b8137b7e189b","2014-10-17 16:54:22+02:00","Create ViewPagerAdapter & Detailview fragment & add tab strings (Detailview & Strings)
+"
+"bbdee3cdf09d1abe14890867fd952d7e48d69b67","2014-10-17 17:00:47+02:00","Remove old layout-land to fix crash (DetailView)
+"
+"f5c9b7b1701f8791432889e1cadcb09cd6279802","2014-10-17 17:01:53+02:00","Replace DV with tabbed fragments (Detailview)
+"
+"50bac0eb4df171f01c4a3189ac7ff427e71fa94b","2014-10-19 20:23:54+02:00","Add new Detailsfragment & resources (DetailView)
+"
+"4a7cd02bc88b944616de97da9f709676debd38f1","2014-10-19 20:30:23+02:00","Use new Details fragment (DetailView)
+"
+"f4e33dff4127fdf26ae12f7c4eda0649c906ddf4","2014-10-19 20:29:57+02:00","Let getRecords take care of the extended details instead fragment (DetailView)
+"
+"cd93aa64057c2357b722dc7095bd5354bc53cfff","2014-10-19 20:25:25+02:00","Update card header that used stats instead of Info (DetailView & Strings)
+"
+"ff467ab3daac5efa168fea34195a2deb16a27a2f","2014-10-19 20:36:28+02:00","Use isEmpty in isAdded to stop nullpointerexceptions (DetailView)
+"
+"9c8296d2192d14213868b5df235eb0e05ad0f14d","2014-10-19 20:51:49+02:00","Fix some indents src & res (DetailView)
+"
+"daa1d22d365a2cc2592c422fffef635daef90ddb","2014-10-19 21:03:12+02:00","Add some descriptions to methods (DetailView)
+"
+"b89b0fc83aa16d6ecee618ffcab6ab99b3dbf292","2014-10-20 16:22:33+02:00","Add translation support to all strings (DetailView & Strings)
+"
+"70d7aca6fb97139e05e21ed93eadcc8033d03c78","2014-10-20 17:03:33+02:00","Remove fromHTML in fragments and use existing method (Record & DetailView)
+"
+"a41f29fcf8e240d6525c0ef23d28b9530dadf438","2014-10-20 17:11:38+02:00","Close after the records has been marked by the DeleteFlag (DetailView)
+"
+"2803f3adfd390e2cdfa1d782a155bd94728bebe3","2014-10-21 16:03:41+02:00","Cleanup cards & add Listview support (Cards)
+"
+"97179fa582ba15d6fe0489077a98acec24a8797e","2014-10-22 14:38:23+02:00","Add support listview (Cards)
+"
+"44f35cf46c16170342858285eca68c50dc8cecbf","2014-10-22 14:40:05+02:00","Add support Relations & update colors/strings (DetailView & Colors & Strings)
+"
+"cabc80021133939750d09542b4152e07e517332d","2014-10-22 14:48:18+02:00","Fix crash when pressing back while the NetworkTask is active (DetailView)
+"
+"5c0e50f39e58f0d3a96e1040df1c2442be5005fd","2014-10-22 14:51:50+02:00","Fix indents & rearrange (res & src)
+"
+"cfb7588594b1a61d87f1b6e39ecc1eba18a315e7","2014-10-22 15:00:04+02:00","Fix progress card showing while we didn't added it (DetailView)
+"
+"2f3ce93a11ff66603595cb6b856f05bac0b444d9","2014-10-24 14:49:56+02:00","Set title in actionbar (DetailView)
+"
+"303526cc429a21d8c7574fa0638f8a38c28601c8","2014-10-25 16:39:15+02:00","Fix cards not showing after adding the anime/manga (DetailView)
+"
+"6e804d398975a078748333391e2599522956ef7e","2014-11-04 11:16:25-08:00","Merge pull request #241 from d-sko/db_upgrade
+
+Database upgrade
+"
+"306b4fa3e6e5e4aad583eb8ef0bf3632a0977bf5","2014-11-04 20:33:14+01:00","Fix id search after rebase (Dialog)
+"
+"8d8a781627085d69be2f717d2aac48f7ed347f93","2014-11-04 20:54:10-08:00","Merge pull request #244 from ratan12/Detailview_update
+
+Detailview update
+"
+"813a0816cb9b93ef546cefeb9c524a08a2b3be59","2014-10-25 16:45:41+02:00","Remove unused Init method (PrefManager)
+"
+"d1e71aab9bbd2366c27eae3f6ef1c499e2d712e5","2014-10-25 17:26:04+02:00","Add JavaDOC (PrefManager)
+"
+"68c2fea6f96f70424aed5a6681dfbaea2edb0ee6","2014-10-25 17:31:09+02:00","Change method names to be more consistent (PrefManager)
+"
+"6ddf56ccefe0519f2f41f8df68e815b1a8e0bcc7","2014-10-25 17:33:39+02:00","Fix indents & remove notes & reorder (PrefManager)
+"
+"9ad56b3f416b15afb78bb48781d9e34acf6b3c40","2014-10-22 20:15:46+02:00","Add support maxWidth & cards aside each other (Cards)
+"
+"0ea4c526b2bb73319bea6c893f65a651a3fb20ea","2014-10-23 20:45:47+02:00","Merge Progress & Status to create personal (Cards & DetailView)
+"
+"157dfd4f5f6587f5d84f6975a500d238ea362df7","2014-10-23 21:07:04+02:00","Create alternative for landscape mode & tablets (res)
+"
+"5d3e57b415a9cf59900e1609a4c3834bab24b6a0","2014-10-24 18:11:52+02:00","Add minHeight support (Cards)
+"
+"3744bfd64e78f700ae9ad3adfa5959ad3bd4eff7","2014-10-24 18:13:52+02:00","add Convert method for dp to px (Cards)
+"
+"0d44b594896f6155bd2ba6d2b0ddb104452d06d5","2014-10-24 18:15:52+02:00","Fix card sorting when IsAdded is false (Cards & DetailView)
+"
+"768c573c10739bce7653b909ba806e1431b3eb8d","2014-10-24 18:16:34+02:00","Use other rating label text for consistency (res)
+"
+"eb6d747500a84b3b6d00653067a2e89f1adbdace","2014-10-24 18:29:08+02:00","Set synopsis + image maxWidth to 850dp for consistency (res)
+"
+"8cd15258e768d16f05923fd825a9a9788be6dacb","2014-10-24 18:30:06+02:00","Fix scoreCard stretch & overlay bugs (res)
+"
+"50eb2ec5583df05eb8abd7a226fb03c396b4b5ee","2014-10-24 18:32:31+02:00","set Image maxwidth for nice display at loading (res)
+"
+"305bf2f147df5d109b73f8b2032a9b0e06de71f0","2014-11-03 18:41:20+01:00","Remove old landscape resources (res)
+"
+"ac43276d2093bf96ceca8257000055e40d99d92c","2014-11-03 18:42:16+01:00","Update about resources to support tablets (res)
+"
+"25812f33f16d25101453d0543d491972d6456a45","2014-11-03 18:43:35+01:00","Add profile & firstrun tablet support (Profile & Tablets)
+"
+"dfd644b28349ca865d5a40c31aa6fb07b05dbcb1","2014-11-05 20:32:54+01:00","Remove the maxWidth to make the layout simple (Cards)
+"
+"c096b9a54c6c62aee0c907f383e2f05bab2fcaf4","2014-11-07 12:45:44-05:00","Merge pull request #246 from ratan12/tablet
+
+Tablet UI support
+"
+"476a0f2def9bda2188815be246c89592bfbf8cfc","2014-11-07 12:46:11-05:00","Merge pull request #245 from ratan12/PrefManager_cleanup
+
+Pref manager cleanup
+"
+"02eccfd0bc30802d1885d35e8370663b4ba874d2","2014-11-05 14:39:45+01:00","Fix card that were not centered (DetailView & Profile)
+"
+"017868b2356cebabb7903b0fc7144ab4f697182b","2014-10-24 20:53:48+02:00","Reorder variables (Card)
+"
+"ba5a43a765a9fc62d02d04df43b00290b9046f4e","2014-10-24 20:54:56+02:00","Replace docs with normal notes
+"
+"0d0e12c8ce409aa4319deabf31d893180289deec","2014-10-24 20:56:19+02:00","Remove unnecessary card attribute (values & Cards)
+"
+"8f84870f49315554296076709be5e2159b0619fa","2014-10-24 20:57:09+02:00","Add Java documentation to all the methods (Cards)
+"
+"f58cf57dd2e2e05ba639f00e91faf6bc6f51fe65","2014-11-02 17:40:01+01:00","Add cardview of support library (Gradle)
+"
+"d64eeb7559a107c499cc7ed5f8dc37b1e5280f2a","2014-11-02 17:42:21+01:00","Remove background color for compatibility (Cards)
+"
+"4cf60608c87764d7c9c8c8d2155f0253b95dd229","2014-11-02 17:47:29+01:00","Use the real Cards of the support library (Cards)
+"
+"b2999b701a0085d8b8477107d8413c3caf2439dd","2014-11-07 18:56:52+01:00","Change padding dp to the recommended padding (Cards)
+"
+"b132ddbf50994c3a6280d10bb6f08299b3e63edf","2014-11-05 16:14:38+01:00","Add Ratan to the contributors (About)
+"
+"73d80165263d894f5103f6bb2ead38e97a87ef59","2014-11-05 16:15:08+01:00","Add ratan's full name (Authors)
+"
+"2aadbda23a5729451cbbf1d73bb85e4f34c68095","2014-11-05 16:15:34+01:00","Update opensource info (About)
+"
+"6b19ab750dce9e04f8452804bc3a41a0ebcba0ba","2014-11-06 19:14:48+01:00","Add translations info (About)
+"
+"8684a49b38c3ebd4dc5c7c8b06eef5ca8acd9932","2014-11-07 13:13:00-05:00","Merge pull request #247 from ratan12/Cards_cleanup
+
+Cards (cleanup, CardView & JavaDOC)
+"
+"c827be4a309523314e71a3bd0970e9597577ae9f","2014-11-07 19:44:56+01:00","Rename getauth method for consistency (AccountService)
+"
+"e575dd0b9d1fe51ca6fdf76c977e2c51a51db30c","2014-11-07 19:46:02+01:00","Simplify return in the getAccount method (AccountService)
+"
+"b10afc4346c85f12ff9550d28cf5f653e2951427","2014-11-07 19:47:38+01:00","Change newPassword into password for consistency in the updatePassword method (AccountService)
+"
+"754a63e7ce6540ea06fa6dbc02f529d048e6deb3","2014-11-07 19:48:29+01:00","Fix freeze bug when an user pressed on add account in the settings (AccountService)
+"
+"8fe4a454f42047ab02b50f4a67716bfc20704800","2014-11-07 19:49:04+01:00","Remove unused method onDestroy (AccountService)
+"
+"dfb845022fd1033bad8e42339b955a5e1e28729b","2014-11-07 19:49:29+01:00","Add JavaDOC (AccountService)
+"
+"afc53d64f1f40f2c05a3484486be65939607d1d6","2014-11-07 19:50:07+01:00","Fix indents (AccountService)
+"
+"2a9661d90caa47b3412085f333206d3dd55cc2d1","2014-11-07 19:52:05+01:00","Remove TODO comments created by Android Studio (Provider)
+"
+"98650d5bf73df58370951411c659efcc0cdc43af","2014-11-07 19:52:34+01:00","Fix indents (SyncService)
+"
+"93dfb4289d4eda95e964fbdae64638fc356164e1","2014-11-07 23:34:43+01:00","Show a loading animation if there is no record
+
+This looks better than empty cards. The animation is only visible when
+there is no record (when both anime- and mangaRecord are null).
+"
+"7b0885bff8d2a3ae021731fcc522105c673595be","2014-11-07 23:36:43+01:00","Small cleanup
+
+- search_item.xml is not used, so delete it
+- there was no need for the RelativeLayout in
+card_detailview_synopsis.xml
+"
+"5fec4539451f9b9f70ce9436b8b1e790973bfa09","2014-11-07 23:48:01+01:00","Fix NPE when Add to list is pressed before the record is loaded
+"
+"001084724f04dc929cb0fb7ac9d587626bcb40f7","2014-11-08 00:14:26+01:00","Fix manga rating not saved
+"
+"5b20b581ebc3eff869f1c0835d3239b4ba483444","2014-11-08 00:40:53+01:00","Fixed Android Beam in DetailView
+"
+"ce5e2adf95ae0a4bbc0019dbb0d58ba82b2a618e","2014-11-08 15:47:35+01:00","Simplify SwipeRefresh processing
+
+As the onRefresh() callbacks on both fragments have done the same
+(calling a function in the host Activity), the Activity can handle the
+callbacks directly.
+"
+"38a065ba85eed297f1190e2bce5805259a126e2f","2014-11-08 16:53:05+01:00","Remove unnecessary static assignments (PrefManager)
+"
+"d87697ad268ac24f4cec0da767cca58534f13803","2014-11-08 16:56:26+01:00","Create method for deleting old pref accounts and apply it (PrefManager & FirstTimeInit)
+"
+"54513177f1831ace469702af993e48c3234e3699","2014-10-08 13:03:10-07:00","Crashlytics Integration
+
+Add integration for Crashlytics tool.
+"
+"1b6c68cdfb6fdca20b17326dbe1151c3e3e2a998","2014-11-09 14:51:24-05:00","Merge pull request #251 from ratan12/removeaccount
+
+Remove old account in prefrences
+"
+"cd9db122e424619d92474422e49ab07ec69bcc32","2014-11-09 14:58:14-05:00","Merge pull request #249 from ratan12/AccountManager
+
+Account manager (Cleanup & bugfix)
+"
+"7feb4e15979592b7d4019032653c02fafcdee494","2014-11-09 14:58:45-05:00","Merge pull request #248 from ratan12/about
+
+About (Update opensource info, add Ratan12 & add translations card)
+"
+"a800c5389a658134de16ede1b3fed0e3fdc9c269","2014-11-11 18:12:24+01:00","Add JavaDOC (IGF)
+"
+"8ed7bb6c9d89a79c2460563c02db3e3c1777151d","2014-11-11 18:13:53+01:00","Simplify methods (IGF)
+"
+"41730a24a9c1d890d7bab24444b34edf65094755","2014-11-11 18:50:22+01:00","Move setStatus method (IGF)
+"
+"fcc7e394dc513a7fd19b69680a602b5036b27df9","2014-11-11 18:51:42+01:00","Fix indents (IGF)
+"
+"f630efaacef0fc986466dd21910c263dd74ff684","2014-11-11 17:39:14-05:00","Merge pull request #250 from d-sko/dv_loading_indicator
+
+Minor DetailView changes
+"
+"42b5803d715744a6f8d41cac2f82ef6a594c885b","2014-11-11 17:39:24-05:00","Merge pull request #254 from ratan12/Cleanup_IGF
+
+Cleanup IGF
+"
+"ca0317106a5923ab454e643fba9c89c0ab8e3e82","2014-11-10 19:46:35+01:00","This will still show the logs through the log applications, the only difference will be that we will send the log on a crash.
+"
+"2aa46a11e50a384edcd18ec29bdc1b5a85004347","2014-11-10 20:01:43+01:00","Add setUsername method to support Crashlytics.setUsername & apply it (Crashlytics & AccountService)
+"
+"70b3296a9c3c0f6b3ea49dc8c0c1237bf296f4c5","2014-11-10 20:28:03+01:00","Move crashlytics to application subclass (Theme & Crashlytics)
+"
+"5496a65268a948fda2d4ccd2a0f5b984aed0ab93","2014-11-10 20:29:37+01:00","Add report of IDs, page numbers, usernames and language (Crashlytics)
+"
+"be9ee05f5ccc172e943417b8d38d875daf606688","2014-11-11 16:38:25+01:00","Add Crashlytics.logException to send caught exception also to the dashboard (Crashlytics)
+"
+"b572aeb7751d3e9e6e71a2fa0e7f15774c8af5db","2014-11-12 17:50:54+01:00","Improve Card: now the content can be set in the XML-layout
+"
+"3f0bc26b979cc664f9b541dbaf23d8baf79998a5","2014-11-12 17:55:15+01:00","Add offline info card
+
+This card is shown if there is no network connection and the record is
+not in the database.
+"
+"0b61fbecf1e0d457cc94765d2f780b76a298cd06","2014-11-12 22:25:51-08:00","Merge pull request #256 from d-sko/dv_loading_indicator_2
+
+Follow up for #250
+"
+"bdb1492da6f56ef896d9949c7a696fb9c48546f1","2014-11-11 21:49:07+01:00","Replace listview with expandable listview (DetailView)
+"
+"3240e0b36a7c97c1bfffb294ed23afaef69b1241","2014-11-11 21:49:39+01:00","Fix automatic scrolling bug (DetailView)
+"
+"73b5ecf3580d7e35835b0f4512e2403b266a99e6","2014-11-12 16:24:06+01:00","Add indicator to the headers (DetailView)
+"
+"7a7ba6bc434670e7c38b148f55d131067ac1eeb4","2014-11-12 20:29:22+01:00","Add viewholders to make relations smooth (DetailView)
+"
+"986c506df55637ff0d0a2508ec076ffb5998b9a4","2014-11-12 21:20:25+01:00","Change the green card color (Colors)
+"
+"d4bbb1c99a5c2163ffd10a5be799cbffd65edf37","2014-11-16 16:21:14-05:00","Merge pull request #255 from ratan12/DetailView_update
+
+Replace Listview with Expandable listview (Detailview)
+"
+"7abab3df4989b6a7a4725fdf0ee9e0ae25ad7eb0","2014-11-16 16:21:20-05:00","Merge pull request #252 from ratan12/Crashlytics
+
+Crashlytics extending
+"
+"a9ffb00043061fd9183ccf1ac69fe625d1b5434b","2014-11-24 18:17:14+01:00","Remove HEW and drop < Android 4.0 support
+
+Also update all library dependencies and use the most recent support
+library features.
+"
+"656e50ba9631670ca3ee1ef34e588a2197d932b2","2014-11-24 20:23:42+01:00","Use AppCompat Theme and change everything accordingly
+
+Also removed the deprecated tab handling in the ActionBar and replaced
+it by PagerTabStrip.
+"
+"eedc3d3aea3771763512aa0b43162ab20e21cc7e","2014-11-24 20:25:10+01:00","Removed some last HEW leftovers
+
+They must have been hiding somewhere when Android Studio searched
+through the code ;)
+"
+"80e94439858182fb7fe3edf1d47a39a62bace372","2014-11-24 20:54:32+01:00","Fixed search
+"
+"7139c3a43b777c500d93b49692e144d604477ef7","2014-11-24 20:57:15+01:00","Fixed default text color
+"
+"52ab6ef7401f6e85d1895dc4a12be29cecb6d7cb","2014-11-24 14:33:25-08:00","Merge pull request #257 from d-sko/no_hew
+
+Remove HEW
+"
+"67c3e605540feb676b53108eaf4775502368577e","2014-11-25 07:39:30+01:00","Fix relations group header padding
+
+... because the text overlapped the open/close toggle graphic. Also
+removed the indicator ImageView as it's not used.
+"
+"23c5a80fac670e71ded2397ac25a1eca28419d21","2014-11-24 22:44:12-08:00","Merge pull request #258 from d-sko/expandablelist_fix
+
+Fix relations group header padding
+"
+"1a9067f4ca5c31efb4e6d0dba24a21c736daafd7","2014-11-25 17:20:22+01:00","Rename and move SelectionsPageAdapter (Adapters)
+"
+"0244c0bb0bb065abf35e31307b11d2a742a72db3","2014-11-25 17:21:24+01:00","Move & rename NavigationDrawerAdapter (Adapter)
+"
+"c00f97eb41768b7be1a1625c6902942cdb0eba45","2014-11-25 17:22:18+01:00","Make listtype public to support the Adapter file (Adapter)
+"
+"85e553376587562e368e6afc2be27d65d3aee8bc","2014-11-25 17:25:44+01:00","Move DetailViewAdapter (Adapters)
+"
+"d61d33f465380ab1ef3b4769a3627ba5ba7143b1","2014-11-25 18:20:46+01:00","Move & rename FriendlistAdapter (Adapters)
+"
+"93e4d5d2c166b9c2e75c7d1314b5960e4e06acd1","2014-11-25 19:49:30+01:00","Move Relations adapter and rename it (Adapter)
+"
+"4d8c818bc601a77010e2a42ea290b999eb5bc76e","2014-11-25 20:09:20+01:00","Fix the header margin after removing HEW (Cards)
+"
+"d139cbec16ee7d7ebe44e0d82a7c4c127e4c10c2","2014-11-25 11:16:47-08:00","Merge pull request #259 from ratan12/adapters
+
+Move Adapters to separate files
+"
+"dba039b17d033746e253c7ac78b5bcfabfeb399f","2014-11-25 11:16:59-08:00","Merge pull request #260 from ratan12/fix_cardpadding
+
+Fix the header margin after removing HEW (Cards)
+"
+"6f2b8d74f020ed81aa867bbcb23fe8a4f9e31970","2014-11-25 21:00:04+01:00","Add viewholder to the navigationdrawer (Adapter)
+"
+"f8b025cb789d5f37d0aee8bfdf0b6b1509f72730","2014-11-25 12:06:33-08:00","Merge pull request #261 from ratan12/nav_drawer_viewholder
+
+Add viewholder to the navigationdrawer (Adapter)
+"
+"2448863a0227f88c4a2c1dd723ce78946d0c3e4c","2014-11-25 21:07:53+01:00","Remove the capital R which caused the spacing problem (Strings)
+"
+"300222050b0b1e115a6025b4f703a77eddad0a66","2014-11-25 12:15:09-08:00","Merge pull request #262 from ratan12/name
+
+Remove the capital R which caused spacing problems (Strings)
+"
+"7d8ceb6612c97d6d0197467356cf68964e0bfea0","2014-11-26 13:40:21+01:00","Move the relation list to the adapter & simplify the refresh method (Cards & Adapters & DetailView)
+"
+"59460a0edc5f4229efa415c1f2ba1a609376cf8e","2014-11-26 14:09:34+01:00","Remove HEW subproject files (HEW)
+"
+"3711ff95c367c5cb8a818adaa2eca527c36ccd91","2014-11-26 13:05:27-08:00","Merge pull request #263 from ratan12/DV
+
+Move relation list & simplify the refresh method (Cards & Adapters & DetailView)
+"
+"afb5cc142544b51a4eef55965280d77a40d7696c","2014-11-26 13:05:36-08:00","Merge pull request #264 from ratan12/Remove_HEW
+
+Remove HEW subproject files (HEW)
+"
+"8464728da7abca080e3f604f35a91476282bc466","2014-11-26 15:46:12+01:00","Add new stings for alternative titles support (res)
+"
+"2f1bc77eafaf3d6228ca4b6e65e704028c2d2c70","2014-11-26 15:52:01+01:00","Rename listadapter & cleanup onClickListener (DetailView)
+"
+"93acd7915763d361c20694e63183a62dcf49173e","2014-11-26 15:52:38+01:00","Add alternative titles cards (Cards)
+"
+"9bf099f2004b67f6efffa3f885f4446eda4f8864","2014-11-26 15:53:27+01:00","Add the add method for alternative titles (Adapters)
+"
+"113b8f90ccda4d0d582459f162dd40c01d587786","2014-11-26 15:54:22+01:00","Link everything to show the Alternative titles (DetailView)
+"
+"9c3e6b884ef3c6a87f7c0ac7e1eba580c97a80c3","2014-11-27 15:08:23+01:00","Add manga support for other titles (DetailView)
+"
+"f729fea107cdee7245d719bf54abcfb1fafe6af3","2014-11-27 15:20:27+01:00","Fix wrong list height calculations (Cards)
+"
+"d869b3a637c122d31d2982d7d0cfec4e993540f4","2014-11-27 16:50:23+01:00","Rename totalRecords to visable to make sense (Cards & DetailView)
+"
+"ba14ae69b6af3bdc2f76bae02e17e96f9757c431","2014-11-27 19:13:34+01:00","Add privacy policy (About)
+"
+"46a7ca592dc1aa056d1695eeee4bc85d4c7d4372","2014-11-27 20:05:39+01:00","Cleanup method for the links (About)
+"
+"56665a4d4b10f675b1c2992a86c7804792cfa51e","2014-11-27 18:54:23-08:00","Merge pull request #265 from ratan12/other_titles
+
+Add alternative titles
+"
+"df9d8586482d5b613b9d5766bf8c6301f4f16833","2014-11-27 18:54:34-08:00","Merge pull request #266 from ratan12/policy
+
+Add privacy policy (About)
+"
+"db40a19ce08449e6f79c8306c5c56d109801e802","2014-11-28 16:48:51+01:00","Add network connection card (res)
+"
+"ddf17233771489180f371a7f889a0295bfa2ccc2","2014-11-28 16:55:04+01:00","Add xml support for the setContent method (Cards)
+"
+"84cb9d543c1f726dd0332c7ed641aae4e67d1e03","2014-11-28 16:56:14+01:00","Replace old xml method with direct inflating (DetailView)
+"
+"41c9e2d2ad48eab1d9dc91071c08edc0497fbc6f","2014-11-28 18:50:34+01:00","Add loading indicator and network card (ProfileActivity)
+"
+"235fd9213024d28a74c241657b4a1ca32019b315","2014-11-28 18:51:16+01:00","Remove the Button from the network card (res)
+"
+"3ce967797a728572b7544f2f8791e4f2536389f3","2014-11-28 18:55:02+01:00","Move the indicator to fix the Picasso bug (Profile)
+"
+"81f0f90e3270e8853b2696ea3aafcb837721ad50","2014-11-28 18:55:41+01:00","Add indicator & network card (Friends)
+"
+"974436e0cf893f98735caca87dc224dc95d9e79b","2014-11-28 18:57:02+01:00","Move onItemClickListener (Friends)
+"
+"e69e84cebe9bf08f5c932820373827f0202eee41","2014-11-28 20:39:55+01:00","Rewrite wrapWidth method to be more accurate (Cards)
+"
+"5a002c7af7a4997f204ebaf5d591ffb82079aa7d","2014-11-28 20:41:13+01:00","Apply new method (DetailView & Profile)
+"
+"bf783de1f3554b6a35703d740e34a37767b270d6","2014-11-28 20:42:10+01:00","Replace 2 imageviews by 1 consistent one (res)
+"
+"215a27e8da3cbab0751cf69ccda6737ca0df7c53","2014-11-28 20:54:10+01:00","Disable settings check to hide the anime & manga card (Profile)
+"
+"934369a59a4e6a75f7553a880d23b146c021b9f7","2014-11-28 20:55:53+01:00","Remove leftovers from the app (Strings & settings & PrefManager)
+"
+"b01636cde91983a399d7fa36d9eb047a7554e892","2014-11-28 12:02:34-08:00","Merge pull request #267 from ratan12/loading
+
+Add loading indicator & network card (Friends & Profile)
+"
+"b0c498e139d48898af9eeefb28a6ee328876a16d","2014-11-28 12:02:46-08:00","Merge pull request #268 from ratan12/remove_setting
+
+Remove automatic hide setting (Profile)
+"
+"d965dea88bb7f0ba6a24d487ae968a9bbc23e530","2014-11-28 22:10:39-08:00","Merge pull request #269 from ratan12/fix_Images
+
+Fix images
+"
+"918106e1eb02ac211f669d3effff541e363339f0","2014-11-29 15:23:53+01:00","Use mixed case in the card titles for consistency (strings)
+"
+"386937127d5266f9ebbd72b30e59503255404e74","2014-11-29 18:16:30+01:00","Remove the copy title action on longclick (IGF)
+"
+"8b2c9df85ce44ea5a29a1c220f31cf8dee58f194","2014-11-29 18:17:51+01:00","Add copy title action to the popup menu (IGF)
+"
+"56254949f9e9a01a65e4038fac4c96e2223aa993","2014-11-29 18:18:16+01:00","Add copy title action (DetailView)
+"
+"637a3b660066c9772c2a148617371cab75ee2a76","2014-11-29 18:22:08+01:00","Remove not working text resize method (Profile)
+"
+"53a25120ae27013bfca67bf5d217bd875414cd1c","2014-11-29 18:40:20+01:00","Add SwipeRefreshView (Profile)
+"
+"342ce2fcdb87bff0bda702f31286f17a2be3dfd7","2014-11-29 18:40:47+01:00","Replace crouton messages with the loading indicator (Profile)
+"
+"ad24d1cd23cec88c28b1b0c1ab90d0db0da33a76","2014-11-29 19:17:46+01:00","Add atarashii blue color (res)
+"
+"303ee34db5080cefb0d08cad623312f65b7716a9","2014-11-29 19:18:10+01:00","Make the actionbar atarashii blue (res)
+"
+"a883dfca9849ff2b171c5496f6827089abea6393","2014-11-29 12:08:38-08:00","Merge pull request #271 from ratan12/copy
+
+Add copy title action
+"
+"d611f49826668cb723446dc22e562e8539107d48","2014-11-29 12:08:54-08:00","Merge pull request #272 from ratan12/remove_resize
+
+Remove not working text resize method (Profile)
+"
+"0588727e615c965536abea08200427ef0de098fc","2014-11-29 12:09:02-08:00","Merge pull request #273 from ratan12/swiperefresh
+
+Add SwipeRefreshView (Profile)
+"
+"0c94469a34fa75c4bfc369368aef78704337a075","2014-11-29 12:09:21-08:00","Merge pull request #274 from ratan12/actionbar_color
+
+Change actionbar color
+"
+"f9fbc76789a51f8c4c511e5d650ad489d9dac588","2014-11-29 22:11:58-08:00","Merge pull request #270 from ratan12/Card_Titles
+
+Use mixed case in the card titles for consistency (strings)
+"
+"737bb36a50b56b82c499e3c55d35591ca6501020","2014-11-30 16:07:33+01:00","Modify the TaskFinished method to show the Network card when there are no items (Friendlist)
+"
+"0dd4e29f5a09b3c04e37c6392a1b4f29ee937e7e","2014-11-30 16:23:24+01:00","Fix gridview scrolling up not working because it triggered the SwipeRefreshView (Friends)
+"
+"cfd15aa8ff654446f015cc4be29b198a631e46a8","2014-11-30 16:24:41+01:00","Fix gigantic loading indicator (Friends)
+"
+"0a727a12364e5b79849f3192ea92fb119ef9f659","2014-11-30 16:37:18+01:00","Fix scrollview when scrolling up (Profile)
+"
+"bfd074551d4664ae7ad5cada037f6058e6499847","2014-11-30 16:39:00+01:00","Center loading indicator (Friends)
+"
+"493c79f8c50f734d69e54fc089b4b25476ef556f","2014-11-30 08:23:41-08:00","Merge pull request #275 from ratan12/Fix_network_friendlist
+
+Fix Friendlist
+"
+"33fcac14a3565088dacee7a921b29553495ceada","2014-11-30 08:24:08-08:00","Merge pull request #276 from ratan12/fix_scrolling
+
+Fix scrollview when scrolling up (Profile)
+"
+"1c7bedd1ea6f097ec029833718a36325bbc49114","2014-11-30 17:47:07+01:00","Remove crouton module (modules)
+"
+"42f13fcb0045d6ca6676699d3dc78c24a7bb0a9a","2014-11-30 18:44:59+01:00","Remove Crouton from all activities (Crouton)
+"
+"f6fe509131bf74f319cd17d645f797a054b8f7c1","2014-11-30 18:46:51+01:00","Remove crouton (Gradle)
+"
+"97612baef58d0408b804958ada0225db3d1f8c18","2014-11-30 18:52:58+01:00","Remove old unused crouton strings (Strings)
+"
+"a457bfc187bf2626ed60b6e26ed2c3062bc64bc7","2014-11-30 18:57:55+01:00","Replace crouton prefix with toast (Strings)
+"
+"f8d7a824879853471d1e3591aefdfddada947d8f","2014-11-30 19:04:10+01:00","Remove unused fonts
+"
+"faa1ad860f6b09c7fb3712704a027db1bd74fb1a","2014-11-30 19:04:36+01:00","Remove unused images
+"
+"e38f9e4e5580752efd854c0e7376f2ec7cf5fec6","2014-11-30 10:41:06-08:00","Merge pull request #277 from ratan12/Crouton
+
+Remove Crouton
+"
+"c1860dcec8861a4f29c2fe82c7b9b9163a6038c6","2014-11-30 10:41:29-08:00","Merge pull request #278 from ratan12/unused_images
+
+Remove unused fonts & drawable
+"
+"e86e7f49314e47cf6fdd34361b5081ef4970f7f2","2014-12-01 20:35:19+01:00","Change match parent to wrap content of the image layout (res)
+"
+"0e02c1d42b60ffabd0616447a3efb4e29cfb88f8","2014-12-01 20:36:53+01:00","Add ImageView holder to skip findViewById (Cards)
+"
+"09e7fb1d825e835d4c2bdc49545fc7e4d1d54b57","2014-12-01 20:37:17+01:00","Remove margin image layout (res)
+"
+"de8e549dc298c2be9471a6f3bafea8f3cf83e9e1","2014-12-01 20:38:08+01:00","Fix Card bug that had influence on the image ratio (Cards)
+"
+"5f03bbb2842aa68695b4a9948de7af396b3cb59d","2014-12-01 20:38:30+01:00","Reorder variables (Cards)
+"
+"7c836b3fd67204d1dd58398cf8bd221ceb916ae2","2014-12-01 20:39:06+01:00","Rename wrapWidth method with wrapImage (Cards)
+"
+"7523d049e7bf2fc5d6680c1d9372f03eeef82a7b","2014-12-01 23:33:18+01:00","Update settings to use PreferenceFragment
+
+...and also make the settings layout more compliant to the design guide,
+which in our case means: no sub screens, only categories.
+"
+"6da14a636369df369bb045ce2583f8c35f296928","2014-12-01 15:04:26-08:00","Merge pull request #279 from ratan12/Fix_card
+
+Fix Image ratio
+"
+"8fd119c664c3e542c9b7f4a2052c311c7fb31cc6","2014-12-01 15:04:50-08:00","Merge pull request #280 from d-sko/preferences_update
+
+Update settings to use PreferenceFragment
+"
+"4d5debb90aa1096e21d116cc79f222a25ff42bb5","2014-12-02 16:33:03+01:00","Fix indents & sort methods (src)
+"
+"7372d95df497a41dd341f9cdcbeb7024b7941bb3","2014-12-02 16:35:20+01:00","Fix indents & sort methods (res)
+"
+"8e766021c17b700428564dfdcbcd78eb1097ecd9","2014-12-02 16:44:33+01:00","Merge pull request #281 from ratan12/Fix_indents
+
+Fix indents (res & src)
+"
+"39cb3e18e44ca7214c5c82df2d033fd4e3e4fa85","2014-12-02 17:39:12+01:00","Add home button in the actionbar (Settings)
+"
+"cf613fda474479a1475a7a57611d3a79ba57a2a9","2014-12-02 17:40:06+01:00","Merge pull request #282 from ratan12/settings_actionbar
+
+Add home button in the actionbar (Settings)
+"
+"fbd997c0fe479a5ee69089e7468e39fe8bcf0ac4","2014-12-03 15:43:42+01:00","Show No network card if there isn't any offline details (DetailView)
+
+Note: the scrollview will bug if we use a viewflipper.
+"
+"6f02f1fb28241b3455db7ea683da26435128f65c","2014-12-03 15:45:53+01:00","Merge pull request #283 from ratan12/Details
+
+Show No network card if there isn't any offline details (DetailView)
+"
+"cf438471e92cf955f6b217706723ac4aaf8e0498","2014-12-03 16:37:32+01:00","Show the profile after the profile image has been resized or failed (ProfileActivity)
+"
+"e5e4887bab25c59425aa01cbd750e8353ccb708a","2014-12-03 16:38:21+01:00","Fix error & loading images not showing (DetailView)
+"
+"136e8d024416be72924085b715178fab91d9fe5c","2014-12-03 16:42:41+01:00","Merge pull request #284 from ratan12/hide_resize
+
+Fix imageview bugs (Profile & detailview)
+"
+"b86c8a4727e1939b2770c0ac49f38a96d3ccf9d8","2014-12-03 16:58:32+01:00","Don't call setText if there isn't any data (DetailsFragment)
+"
+"21d8bf9a8e977da0674eabefcb98686026ae6a92","2014-12-03 16:59:18+01:00","Fix network cards bug that hides after a setText call (DetailView)
+"
+"530320109511418d7994035fdd9bce696f691609","2014-12-03 17:01:58+01:00","Merge pull request #285 from ratan12/fix_setText
+
+Fix set text (DetailView)
+"
+"3dc0c1512e17f06983fd6975b6f20739d6b8935e","2014-12-05 14:00:09+01:00","Gradle update for Android Studio 1.0
+
+This updates the gradle configuration to support AS 1.0. It also removes
+the proguard config as runProguard is not longer available (is now
+'minifyEnabled') and it was disabled anyway.
+"
+"545a2cde2a7ff5aa4bfa4f61db0ad04675d80b48","2014-12-05 14:05:15+01:00","Add statusbar color for Android 5 and simplify statusbar coloring
+
+This adds a darker version of the Actionbar color for the statusbar on
+Android 5 and also simplifies setting the actionbar color.
+"
+"9a063c3d956032a2d539c959b9b614083f0c705e","2014-12-05 15:03:03+01:00","Don't capitalize the user status string
+
+This can be grammatically wrong (e. g. in german).
+"
+"9b6dc263e2d85aa65afc8d441ff86ad891c0a790","2014-12-05 17:24:34+01:00","Merge pull request #287 from d-sko/lolipop_statusbar
+
+Add statusbar color for Android 5 and simplify statusbar coloring
+"
+"7622febd33c8402935389d5a5cf6934f480569d0","2014-12-05 17:27:38+01:00","Merge pull request #288 from d-sko/don't_capitalize
+
+Don't capitalize the user status string
+"
+"d2aa76e117fa71e0ba3e092b40138b7f653a794a","2014-12-05 17:40:27+01:00","Merge pull request #286 from d-sko/gradle_update
+
+Gradle update for Android Studio 1.0
+"
+"7666fd7b1f88cdfdb5fcec8b4e72ca806a94a9b6","2014-12-05 22:47:19+01:00","Fix autosync crash caused by ghost string (SyncAdapter)
+"
+"33ca59e4125b18c0f72dcc42f2b08ab3b1d9284c","2014-12-05 22:48:21+01:00","Merge pull request #289 from ratan12/Fix_autosync_crash
+
+Fix autosync crash caused by ghost string (SyncAdapter)
+"
+"5a90fe573e5ca11b99e9cae2422a93f9ff2b38c5","2014-12-05 23:20:08+01:00","Replace Listview hacky method with a valid one (IGF)
+"
+"8b0c97375329693d30a83242fc5613236e72b97f","2014-12-05 23:20:33+01:00","Fix listview height (IGF)
+"
+"03de0b953267f3e4009969bcde25f253b6af242c","2014-12-05 23:22:15+01:00","Merge pull request #290 from ratan12/Fix_listview
+
+Fix listview
+"
+"846ff6a938000f6c2892724ff6fb891475afd926","2014-11-25 19:07:56+01:00","Simplify overcomplicated navigation drawer item layout
+"
+"1507cbf8433604908f42ceed463f1c5002975d15","2014-11-25 21:07:07+01:00","Improve IGF item layout
+
+- separate the 'bar' in an extra layout file for reusability (as list
+and grid layout use the same)
+- optimize View structure
+"
+"d0b158124bc8abd89a973e7f5ceec287bfd4eca5","2014-12-06 16:47:22+01:00","Show load indicator even if we pass the user record (Profile)
+"
+"48b0b6f0258196bc3b56f6bad5daa93584cd2299","2014-12-06 16:48:57+01:00","Merge pull request #291 from ratan12/fix_loading
+
+Show load indicator even if we pass the user record (Profile)
+"
+"26adbfa9cceac432e34422382ba0cbad5e4f2ed3","2014-12-06 16:59:09+01:00","Update translations (Strings)
+"
+"b9a95e428ed8b06a3e02727a83276cf460b5f528","2014-12-06 17:01:14+01:00","Merge pull request #292 from ratan12/Translations
+
+Update translations (Strings)
+"
+"1c17cd20ef375cddced123b0e127500f00371a81","2014-12-06 17:28:03+01:00","Fix gridview selector
+
+There was no visible feedback on item selection since switching to
+AppCompat. This will fix this and adds a ripple for Android 5+.
+"
+"0bfa58927a1eaf928fc58dfa8b434b78be344a0d","2014-12-06 17:40:50+01:00","Fix popup selector
+
+Same thing like the gridview selector in the previous commit.
+"
+"c82c10c1e97c3b678bf9ab5d22ab47ea7c597e35","2014-12-06 18:40:44+01:00","Merge pull request #293 from d-sko/layout_fixes
+
+Some layout fixes
+"
+"893d294198ff923a70926ad595e58aac7a2379f8","2014-12-06 19:23:34+01:00","Fix messed up episode/volume counter when preceding text is wrapped
+"
+"4090258d6007f9a96b1704ae669b38cc97437d26","2014-12-06 19:31:08+01:00","Merge pull request #294 from d-sko/counter_fix
+
+Fix messed up episode/volume counter when preceding text is wrapped
+"
+"b0681697a450e39d471d00dd37438d55f53a505a","2014-12-06 19:39:51+01:00","Fix possible text overlapping in MAL info card
+
+This replaces the old RelativeLayout by a TableLayout to prevent text
+overlapping. It's now wrapped if it is to long for one line.
+"
+"b61405841d9aebc024306d44c2c8b1503e8cc041","2014-12-06 20:30:50+01:00","Merge pull request #295 from d-sko/mal_info_card_fix
+
+Fix possible text overlapping in MAL info card
+"
+"713c4a98d8abbd739b4079290edad0a33a386b77","2014-12-07 18:19:24-08:00","Move to Beta API
+
+Change the endpoint to the new API beta address.
+"
+"902683ac17567f3b25e324b3cdeda814ef2b4160","2014-12-08 16:16:00-08:00","Beta Product Flavor
+
+Set up product flavors to allow building the beta product easily.
+"
+"63941f47fc77522a3cbeaa12c00d2bc84f959515","2014-12-09 08:51:55-08:00","Set Proper Version
+
+Gradle needs the version code in the build file for the flavor.
+"

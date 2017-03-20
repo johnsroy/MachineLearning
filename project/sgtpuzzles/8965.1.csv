@@ -1,0 +1,85 @@
+"commit id","commit date","commit message"
+"85ee2a16d6a1585269989975c07ba1fa5ed30092","2010-05-16 06:58:09+00:00","Patch from Ben Hutchings to fix an error-checking goof: Keen
+division clues were failing to light up as erroneous if the quotient
+of the numbers in them came out right under rounded-down C integer
+division (e.g. 2 and 5 would be accepted for a 2/ clue). Apparently
+I copied the code that invents clues in the generator straight into
+the solution checker, without remembering that the generator was
+allowed to do it that way because exact divisibility had been
+checked elsewhere.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8951 cda61777-01e9-0310-a592-d414129be87e
+"
+"889519507b070fa0feb96cf13e77e8872ba20d80","2010-05-29 13:44:12+00:00","Make mkfiles.pl clean under 'perl -w'. Fixes one minor bug in the
+output (a comment from Recipe mistakenly got into the Unix
+makefile); more importantly, lets mkfiles.pl run in up-to-date Perls
+(where implicit split to @_ is now obsolete).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8957 cda61777-01e9-0310-a592-d414129be87e
+"
+"54dbfbb686735641503918c03d6390a76463fd93","2010-05-29 15:43:40+00:00","Patch from Mark Wooding to use GTK stock items for standard 'OK',
+'Yes' and 'No' buttons, which means they get the standard icons that
+go on thos button types. Also reorders yes/no boxes so that they're
+the GNOME standard way round.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8959 cda61777-01e9-0310-a592-d414129be87e
+"
+"9920bdff2e852960ee915aa770df5b31b9646048","2010-05-29 15:43:41+00:00","Patch from Mark Wooding to disable GTK's internal double buffering,
+which I didn't know about, but which is clearly a waste of effort
+since we keep our own backing pixmap for the puzzle window.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8960 cda61777-01e9-0310-a592-d414129be87e
+"
+"52180b2ba4d6a332bae3f32ac17ccccbb777eacf","2010-05-29 15:43:42+00:00","Patch from Mark Wooding to (optionally at compile time) use the
+Cairo rendering library in place of GDK, which provides pretty
+antialiased graphics much like we get on MacOS. Inertia and Untangle
+are perhaps the two games most obviously improved by this.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8961 cda61777-01e9-0310-a592-d414129be87e
+"
+"f698445296e9eb2b322989d7f174d9bbcf45d88c","2010-05-29 15:43:46+00:00","Patch from Mark Wooding to introduce a draw_thick_line() function in
+the drawing API, for use by Loopy. It's optional: drawing.c will
+construct an acceptable alternative using a filled polygon if the
+front end doesn't provide it.
+
+Net and Netslide previously had static functions called
+draw_thick_line(), whose claim to the name is less justified and so
+they've been renamed.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8962 cda61777-01e9-0310-a592-d414129be87e
+"
+"244b0d91c4c722b877a71e85e1bf637a48548c69","2010-05-29 15:43:48+00:00","Patch from Mark Wooding to reorganise Loopy's redraw function to be
+properly antialiasing-safe: all redraws are now done by clearing a
+rectangle of the image, clipping to that rectangle, and redrawing
+everything in it exactly once.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8963 cda61777-01e9-0310-a592-d414129be87e
+"
+"52f7603ca8dc7b149f1263e702a68c301939ae9b","2010-05-29 15:43:50+00:00","Patch from Mark Wooding to add antialiasing-safety in repeated
+redrawing of inequality signs in Unequal (which are redrawn when
+they change colour).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8964 cda61777-01e9-0310-a592-d414129be87e
+"
+"f6e1322941284bcd78cf79da2f64d0e231601b16","2010-05-29 15:43:52+00:00","Patch from Mark Wooding to add documentation of the new
+draw_thick_line function, and also add some general thoughts on how
+to draw puzzles' windows in an antialiasing-friendly way.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@8965 cda61777-01e9-0310-a592-d414129be87e
+"
+"d5c1c078ce09263e67c330a7f5ad9d67fc8e462a","2010-05-30 12:58:26+01:00","Merge branch 'upstream'
+
+Conflicts:
+gtk.c
+loopy.c
+puzzles.h
+"

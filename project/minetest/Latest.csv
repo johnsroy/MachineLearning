@@ -1,0 +1,685 @@
+"commit id","commit date","commit message"
+"fb31bd3806c56b467dbaaf4dba26aaff4224fdc6","2016-05-15 14:49:15+02:00","Continue with 0.4.14-dev
+"
+"01a784bd11d833724fdf826d805429d3a6f7b1f5","2016-05-12 04:39:05+01:00","Documentation: Remove incorrect and excessive mapgen flags text
+"
+"7a828de1bc658938243c0ddf85b7aab7a1087ccd","2016-05-13 00:14:24+02:00","Android: enable parallelism for main target too
+
+This adds to the changes that commit
+
+98d16e0d9a945f5f48462c05f26ae4bde2db5731 'Android: Tell make about sub-makes to speed up build'
+
+did, and enables parallel builds for minetest
+itself as well.
+"
+"decbd396df0855f0a356c836cf7c0c5b133964cf","2016-05-16 12:42:51+02:00","Really fix ncurses lookup on Arch Linux
+
+Commit 27ee8d8943080a5dd735c9faa47c726604bafdff forgot to add the paths
+without ncursesw/ to the find_path() call
+"
+"143401451c457da5079b2970fe260acea45bd85a","2016-05-14 12:23:15+02:00","DB::loadBlock copy removal & DB backend cleanup
+* Remove the copy from db::loadBlock by using a pointer to the destination
+* cleanup db backend, the child backend doesn't have to set their functions as virtual
+"
+"8b940c005fd13db4e611ec49bc44881048b42cf7","2016-04-30 10:31:11-04:00","Add on_punchnode callback
+"
+"8ba6d9f227398d2004d1fe7ae095f5e342dc6d7b","2016-05-17 09:59:02+02:00","Implement DatabaseException for databases
+"
+"88acda02567d586820867059718cac551dc7a58b","2016-05-20 21:18:59+10:00","Fix tooltip height for versions of irrlicht < 1.8.2
+
+Version 1.8.2 of irrlicht changed the way that IGUIStaticText::getTextHeight() works and since that release properly deals with newlines.
+
+From irrlicht changes.txt for 1.8.2, 'IGUIStaticText::getTextHeight returns now the correct height for texts with newlines even WordWrap is not set.'
+"
+"643ac9dd7aa1852b24348d853e82aa267dade789","2016-05-17 00:22:27+01:00","Item entities: Don't show description as infotext
+
+Partially reverts #3547
+Infotext remains optional for objects, empty by default
+"
+"0f184d77c871b564b773b7fb81e7a3f16a197813","2016-05-20 22:08:07+02:00","Gitignore: ignore idea and ninja files
+"
+"ce42ff9cf74ebb8d4b68bc78c95e90ea3db02b78","2016-05-14 11:00:42+02:00","Implement a PostgreSQL backend
+"
+"f64a6259b2b5e79103cfd4bc151304e6da39bca9","2016-05-22 13:31:41+02:00","Fix a m_camera not used warning fix pointed by clang
+"
+"423d8c1b0d3841f6ce9756ab0d6b2e10408fc89b","2016-05-18 06:18:08+02:00","Tolerate packet reordering in the early init process
+
+Fixes a bug where packet reordering made the server give the
+client two peer ids instead of one. This in turn confused
+reliable packet sending and made connecting to the server fail.
+
+The client usually sends three packets at init: one 'dummy'
+packet consisting of two 0 bytes, and the init packet as well as
+its legacy counterpart. The last one can be turned off since commit
+af30183124d40a969040d7de4b3a487feec466e4, but this is of lower
+relevance for the bug. The relevant part here is that network
+packet reorder (which is a normal occurence) can make the packets
+reach the server in different order.
+
+If reorder puts the dummy packet further behind, the following
+would happen before the patch:
+
+1. The server will get one of the init packets on channel 1 and
+assign the client a peer id, as the packet will have zero as
+peer id.
+
+2. The server sends a CONTROLTYPE_SET_PEER_ID packet to inform
+the client of the peer id.
+
+3. The next packet from the client will contain the peer id set by
+the server.
+
+4. The server sets the m_has_sent_with_id member for the client's
+peer structure to true.
+
+5. Now the dummy packet arrives. It has a peer id of zero, therefore
+the server searches whether it already has a peer id for the
+address the packet was sent from. The search fails because
+m_has_sent_with_id was set to true and the server only searched
+for peers with m_has_sent_with_id set to false.
+
+6. In a working setup, the server would assign the dummy packet to
+the correct peer id. However the server instead now assigns a
+second peer id and peer structure to the peer, and assign the
+packet to that new peer.
+
+7. In order to inform the peer of its peer id, the server sends a
+CONTROLTYPE_SET_PEER_ID command packet, reliably, to the peer.
+This packet uses the new peer id.
+
+8. The client sends an ack to that packet, not with the new peer id
+but with the peer id sent in 2.
+
+9. This packet reaches the server, but it drops the ACK as the peer
+id does not map to any un-ACK-ed packets with that seqnum. The
+same time, the server still waits for an ACK with the new peer
+id, which of course won't come. This causes the server to
+periodically re-try sending that packet, and the client ACKing it
+each time.
+
+Steps 7-9 cause annoyances and erroneous output, but don't cause
+the connection failure itself.
+The actual mistake that causes the connection failure happens in 6:
+The server does not assign the dummy packet to the correct peer, but
+to a newly created one.
+Therefore, all further packets sent by the client on channel 0 are
+now buffered by the server as it waits for the dummy packet to reach
+the peer, which of course doesn't happen as the server assigned
+that packet to the second peer it created for the client.
+This makes the connection code indefinitely buffer the
+TOSERVER_CLIENT_READY packet, not passing it to higher level code,
+which stalls the continuation of the further init process
+indefinitely and causes the actual bug.
+
+Maybe this can be caused by reordered init packets as well, the only
+studied case was where network has reliably reordered the dummy
+packet to get sent after the init packets.
+
+The patch fixes the bug by not ignoring peers where
+m_has_sent_with_id has been set anymore. The other changes of the
+patch are just cleanups of unused methods and fields and additional
+explanatory comments.
+
+One could think of alternate ways to fix the bug:
+
+* The client could simply take the new peer id and continue
+communicating with that. This is however worse than the fix as
+it requires the peer id set command to be sent reliably (which
+currently happens, but it cant be changed anymore). Also, such a
+change would require both server and client to be patched in order
+for the bug to be fixed, as right now the client ignores peer id
+set commands after the peer id is different from
+PEER_ID_INEXISTENT and the server requires modification too to
+change the peer id internally.
+And, most importantly, right now we guarantee higher level server
+code that the peer id for a certain peer does not change. This
+guarantee would have to be broken, and it would require much
+larger changes to the server than this patch means.
+
+* One could stop sending the dummy packet. One may be unsure whether
+this is a good idea, as the meaning of the dummy packet is not
+known (it might be there for something important), and as it is
+possible that the init packets may cause this problem as well
+(although it may be possible too that they can't cause this).
+
+Thanks to @auouymous who had originally reported this bug and who
+has helped patiently in finding its cause.
+"
+"725edc78b214f8ffa5494ed846755083295c3feb","2016-05-22 20:33:06+02:00","Move updateTextures and fillTileAttribs to ContentFeatures
+"
+"22f78ea38e415c40ef445786b77788a40f4ddac3","2016-05-24 00:27:11+10:00","Fix irrlicht version checking macro for tooltip_height calculation
+"
+"ef100f12a1346f7bfd2a05dc606cb22e97179c02","2016-02-12 18:39:03-05:00","Fix rollback.txt migration
+
+Broken by b1965ac20922e3722392114bd63a22b403dcbe98.
+This also prepares the begin and commit statements only once.
+"
+"fa6b21a15b415cd82dce6896b94a5341b7dd76f0","2016-05-14 16:25:57+02:00","Tell irrlicht if we handle a key or not.
+
+We can remove the function in MtNativeActivity now
+as it serves precisely that purpose: to tell irrlicht
+that we handled the esc key.
+
+TODO for later:
+* Perhaps try to find a more performant container than KeyList
+"
+"76f485647983ebd7eb4c3abbca0869d13f76920b","2016-04-28 03:43:09-04:00","Move biome calculation to BiomeGen
+
+BiomeGen defines an interface that, given a set of BiomeParams, computes biomes
+for a given area using the algorithm implemented by that specific BiomeGen.
+This abstracts away the old system where each mapgen supplied the noises
+required for biome generation.
+"
+"87bc39dca733a2cc805bc1071794c4d5d7937115","2016-05-02 02:24:57-04:00","Mapgen: Combine generateBiomes, dustTopNodes, and generateCaves
+
+This commit condenses the above methods into a single implementation used by
+V7, V5, Flat, Fractal, and Valleys mapgens and introduces MapgenBasic.
+"
+"9b5c492be57945c2df63e84ce8dbf057f45b2754","2016-05-02 02:45:59-04:00","Fix MgStoneType and BiomeType enum names
+"
+"1bb5eb1da2c2e34c4413c01b45c63f6a67b214a2","2016-05-10 00:01:37-04:00","Cavegen: Merge CaveV5 and CaveV7 into CavesRandomWalk
+"
+"bf25837617541eee0317e1231abca65233edeb8e","2016-05-10 00:10:59-04:00","Cavegen: Rename CaveV6 to CavesV6
+
+- Add comment explaining why it exists
+- Remove unused 'flooded' variable
+- Rename shadowed variable
+- Fix some code style
+"
+"a605d690921670008d605d067f1cf8cd1619def7","2016-05-10 13:21:13-04:00","Cavegen: Remove CavesV6 dependency on Mapgen
+"
+"68b1cd8d1bda704dc174c2e39a03276f68984164","2016-05-10 13:35:39-04:00","Cavegen: Merge instances of repetitive surface level-finding code
+"
+"db1b4dc8908c83aef5560718af7466d95d86e44f","2016-05-10 22:56:03-04:00","Cavegen: Remove CavesRandomWalk dependency on Mapgen
+"
+"5b05f75a272ede582d7f86d8dbbbf7bc81e81970","2016-05-11 00:00:05-04:00","Cavegen: Re-add small caves to CavesRandomWalk
+"
+"b1eb757e60c155707b8fc1b2497b632246819c7b","2016-05-11 03:47:45-04:00","Fix undefined evaluation order when constructing random vectors
+
+MSVC and GCC evaluate parameters in right-to-left order, whereas Clang
+evaluates in left-to-right order, and of course, an optimization could
+leave the order of evaluation completely indeterminate.
+
+This commit fixes all instances of the error by explicitly assigning the
+results of expressions that use PseudoRandom::next() or range() to their
+respective vector components.
+
+The right-to-left evaluation behavior is preserved since Clang is much less
+commonly used to compile Minetest than GCC and MSVC combined, and would
+therefore cause the least harm.
+"
+"6151f7bc4b32c2576035bd3381bd81ae287c57eb","2016-05-14 22:46:50-04:00","Cavegen: Minor misc. fixes
+
+- Convert instances of numeric literal doubles to floats
+- Move dswitchint to a local variable now that being a member is unnecessary
+- Improve const correctness
+- Indentation fixes
+"
+"548d99bb456931192609e8c6fa1eb4c80679af42","2016-05-19 03:40:22-04:00","Cavegen: Move V5-style caves to CavesNoiseIntersection
+"
+"c5968049bbf73ceff08a2b1d35bb34192fa3f315","2016-05-19 14:05:51-04:00","Mapgen V7: Remove now-unused ridge heightmap
+"
+"0df5c01a8ce927c33ae9b67f459365505b980c33","2016-05-20 03:37:31-04:00","Mapgen: Remove calculateNoise from most mapgens
+
+This commit moves noise calculation to the functions where the noise is
+actually required, increasing the separation of concerns and level of
+interdependency for each mapgen method.  Valleys Mapgen is left unmodified.
+"
+"081090176666e849d01f9a02b15279bdf72570bc","2016-05-22 02:17:19-04:00","Mapgen: Deduplicate common constructor code
+"
+"fd0efb21c3d40a963a813d73a09bb80df625b247","2016-05-22 16:27:31-04:00","Mapgen: Combine dungeon generation code
+"
+"c8fd232678698b8be469b3792e7acc9418231a38","2016-05-22 16:50:43-04:00","Dungeongen: Remove dependency on Mapgen
+"
+"c4e083f7e142d8e25e906bb19f9b1f03bb7b430d","2016-05-26 23:23:05-04:00","Disallow external linkage for default Cavegen NoiseParams
+"
+"62d15ac7c1fcd7214a9e45d46bbc560f998edb95","2016-05-28 04:37:28+01:00","Add base64 encoding and decoding to the lua api. (#3919)
+"
+"d499ec483837fa7210176ef39beba2d5a3a5a61d","2016-05-27 21:08:23-07:00","Particles: Add option to remove particles on collision
+
+Adds the particle option `collision_removal = bool`
+
+Some particles are hard to use right now since they either go through
+solid blocks (without collision detection), and with collision
+detection enabled they (e.g. raindrops) would just stop dead on the
+floor and sit there until they expire, or worse, scrape along a wall
+or ceiling.
+
+We can solve the problem by adding a boolean flag that tells the
+particle to be removed if it ever collides with something. This will
+make it easier to add rain that doesn't fall through your roof or stick
+on the top of it. Or clouds and smoke that don't go through trees.
+
+Particles that collide with this flag are marked expired
+unconditionally, causing them to be treated like normal expired
+particles and cleaned up normally.
+
+Documentation is adjusted accordingly.
+
+An added bonus of this patch is that particles can potentially collide
+many times with nodes, and this reduces the amount of collisions to 1
+(max), which may end up reducing particle load on the client.
+"
+"a9bc7dc405df04d5a3cb5fe5de43190200dc692d","2016-05-30 22:37:40+10:00","Remove unused code in s_security.cpp (#4172)
+
+Note that the macro CHECK_FILE_ERR implements the code removed
+"
+"4134d8ad13c371820a485a9752b1197a8d7007f3","2016-05-30 14:40:32+02:00","protection_bypass priv can now be revoked in singleplayer (#4169)
+"
+"27db92925261ed6646d0a1c0512711ab3aeb5fb8","2016-05-30 23:27:48+10:00","Add minetest.check_password_entry callback
+
+Gives a convenient way to check a player's password.
+
+This entirely bypasses the SRP protocol, so should be used
+with great care.
+
+This function is not intended to be used
+in-game, but solely by external protocols, where no
+authentication of the minetest engine is provided, and
+also only for protocols, in which the user already gives the
+server the plaintext password.
+
+Examples for good use are the classical http form, or irc,
+an example for a bad use is a password change dialog inside
+formspec.
+
+Users should be aware that they lose the advantages of the SRP
+protocol if they enter their passwords for servers outside the
+normal entry box, like in in-game formspec menus,
+or through irc /msg s,
+
+This patch also fixes an auth.h mistake which has mixed up the
+order of params inside the decode_srp_verifier_and_salt function.
+
+Zeno-: Added errorstream message for invalid format when I committed
+"
+"3842c3de656c8eebe46c63b67ecc50f1afdee981","2016-05-11 04:34:34+02:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (887 of 887 strings)
+"
+"526c978f9691f2d7d389ed50d511bf9a788baffd","2016-05-11 22:36:17+02:00","Translated using Weblate (Russian)
+
+Currently translated at 57.1% (507 of 887 strings)
+"
+"dc33ecad6d0f8651e0e3cd0716f7e3c49138f3ed","2016-05-11 22:34:38+02:00","Translated using Weblate (Russian)
+
+Currently translated at 57.0% (506 of 887 strings)
+
+This is a merger of three commits.
+"
+"30cd77a30ba5d8086947fe4abbc958d3cb8a9415","2016-05-12 01:10:28+02:00","Translated using Weblate (Ukrainian)
+
+Currently translated at 39.3% (349 of 887 strings)
+"
+"5e9663d3d4cdfe2fea540a0c7dc5b4f06c666440","2016-05-14 13:34:53+02:00","Translated using Weblate (Italian)
+
+Currently translated at 100.0% (887 of 887 strings)
+"
+"6792447dfa6ae4f13c0166c2c85016fbb557a8ee","2016-05-20 15:18:33+00:00","Translated using Weblate (Russian)
+
+Currently translated at 57.2% (508 of 887 strings)
+"
+"0e44af9f7056a78a8e561f708751acceacd149c1","2016-05-26 21:02:00+00:00","Translated using Weblate (Hebrew)
+
+Currently translated at 7.8% (70 of 887 strings)
+"
+"1d40385d4aacf0cbea4b19ff06940e8c9bebaf47","2015-01-16 14:54:26+08:00","Colored chat working as expected for both freetype and non-freetype builds. @nerzhul improvements * Add unit tests * Fix coding style * move guiChatConsole.hpp to client/
+"
+"14ef2b445adcec770defe1abf83af9d22ccf39d8","2016-05-31 17:30:11+02:00","Add colored text (not only colored chat).
+
+Add documentation, move files to a proper place and avoid memory leaks.
+Make it work with most kind of texts, and allow backgrounds too.
+"
+"569998011e0a9cb6179f1e79fb15b7a3ce80977f","2016-05-30 13:15:14+01:00","Mgv7: Always carve river channels in mountain terrain
+
+Previously, rivers were sometimes blocked by vertical walls
+of mountain terrain due to river carving being disabled
+when base terrain height was below water_level - 16
+Remove now unused base terrain heightmap created in
+generateTerrain()
+"
+"7ea4a03c835d68a6fb58aa55aa6a6315ec80b79f","2016-06-03 00:50:21-07:00","Sapier's fix for the RESEND RELIABLE problem (#4170)
+"
+"1e86c89f3614cf298916149a8f13d44ea671da64","2016-05-25 09:22:20+02:00","Input related generalisations
+
+* Move key types into own file
+* Use Generalized input methods in game.cpp
+"
+"2060fd9cbe587d7e8ffe0cecdd67925f13a56c05","2016-05-27 08:35:07+02:00","Initial Gamepad support
+
+Adds initial ingame gamepad support to minetest.
+
+Full Formspec support is not implemented yet and
+can be added by a later change.
+"
+"dfbdb5bcd7bc48efb21d585d5c22454a9d5f0f1e","2016-06-04 01:35:37-04:00","Change internal type for seeds to s32
+
+This fixes value truncation (and therefore incompatibility) on platforms
+with an LP32 data model, such as VAX or MS-DOS.
+"
+"8ed467d438634ffe45806a6a6a325bb00774d651","2016-06-04 02:16:06-04:00","PcgRandom: Fix/improve documentation
+"
+"109c7e334920f859068aeda31463f644e6b69895","2016-06-04 03:00:45-04:00","Biomes:  Define and use biome_t for biome IDs
+"
+"7841f1c5098d73b7538623cf898ca1e32ac6773d","2016-06-05 01:30:36+02:00","Mapgen: Performance improvement and fixes for updateLiquid (#4065)
+
+- Adds only ~100 nodes per chunk to trans_liquid with similar processing time
+- Adds liquid nodes themselves instead of potential solid nodes below them
+- CONTENT_IGNORE nodes are interpreted as if they continue their neighborhood
+- This allows liquid columns to span multiple chunks without being interrupted
+- NOTE: Expects an one-node border in generation chunk without liquid changes
+"
+"d24f3841740b471eff384c8bd6e8bbfdfd03a3e2","2016-06-03 12:58:50+01:00","Biome API: Add per-biome riverbed material and depth
+
+Mgvalleys: Remove riverbed sand placement from base terrain generation
+Riverbed material placement moved to MapgenBasic::generateBiomes()
+Document fields and add note that the biome API is still unstable
+"
+"d4457ef42061435a1ccf6f5e056f37bac9b30c02","2016-06-04 20:24:07-04:00","Mapgen: Optimize biomemap creation by combining with generateBiomes
+"
+"c7297e552be9c265eba77e58dbd8f69be23b4131","2016-06-07 03:23:23+01:00","Lua_api.txt: Split long lines. Capitalise 'Biome API'. Minor edits
+"
+"3ef71edd818b15ed2ba2f184b8a2dc4ee6198042","2016-06-08 07:43:27+01:00","Sky: Fix sunrisebg texture motion (#4199)
+
+Top of texture no longer shows above horizon during night and day
+"
+"b24d21d1ae25c377e14223ee20d9de9158fe916c","2016-05-25 00:56:49+01:00","Sky: Darker, bluer sky and improved horizon haze at night
+
+Add new colours 'skycolour_bright_night', 'bgcolour_bright_night'
+and enable these between sunset end and sunrise start
+Night sky has same hue as day sky but is darker and more saturated
+Night horizon haze (bgcolour) is slightly less saturated and
+slightly brighter than night sky, to be consistent with daytime
+horizon haze
+"
+"dac40af6eeeb7205d507046fd4d9ae06ae182095","2016-01-04 22:49:11-03:00","Server: Add reason for leave to `on_leaveplayer` callbacks
+"
+"817fea6330b9fceb4070b3ee83283140929b3ddc","2016-06-11 05:41:12+02:00","Fix android build
+
+Thanks to @Wayward1 for reporting the bug.
+
+Fixes #4212.
+"
+"33b874fea3948dfcbcc2d6761c28b325ca4aa367","2016-06-11 00:10:25-04:00","Settings: Clean up settings changed callback code
+"
+"27aff22a9b68044d3ea51db731597834336effa3","2016-06-11 03:23:53-04:00","Random misc. warning fixes and cleanups
+
+- Fix unused c_sand member warning in Valleys Mapgen
+- Fix some code style
+- Make some std::string params const ref
+"
+"559dd9946988cd35a7c26bcafe7d0f8c42dc547a","2016-03-21 12:58:52+01:00","Make node timers more efficient
+"
+"a39d53628283ecbb6d7fa617eadeabe9bc5ef127","2016-06-09 03:15:41+01:00","Sky.cpp: Improve code style. Define sky colours as SColor
+"
+"1b8dbf072ad042542b6bfb29eaed81b8a21ac38c","2016-06-14 06:29:15+08:00","Move unknown node message when applying texture overrides to infostream (#4218)
+
+Texture packs have no way to know what nodes are available, so this shouldn't be a error message.
+"
+"39a9e9874ee739aea91acf36c6f81fc38bce7363","2016-05-30 15:07:09-07:00","Builtin/game/item: Add `place_param2` nodedef field
+
+This allows a nodedef to specify a fixed value for param2 to be
+used for all normal placements.
+
+There are several uses for this:
+
+- nodes that require param2 to be set to a non-zero value for
+internal mod use. E.g. leafdecay could use this to detect that
+leaves are played by players.
+- force wallmounted or facedir value at placement at placement
+
+This overrides any player look direction or other on-the-fly
+param2 setting during placement.
+"
+"04fb10914c0d03ee77dafe610f336f23c58949ab","2016-06-12 03:11:26+01:00","Dungeons: Generalise use, add capabilities, various modifications
+
+- Generalise node names to c_wall and c_alt_wall
+- Remove 'mossratio' and instead disable alt_wall loop if
+c_alt_wall == CONTENT_IGNORE
+- Use one generalised 3D noise for alternative wall nodes and in
+mgv6 create moss distribution similar to the previous
+
+- Rename rarity noise to density noise and enable the option of multiple
+dungeons per chunk determined by the value. Recreate previous distribution
+- Add parameters for min and max rooms per dungeon
+- Add dungeon y limits
+
+- Integrate river water properly
+
+Generalisation is needed now that we have sandstone and desert stone
+dungeons by default and can choose any node for alternative structure.
+The current code is based around cobble dungeons with mossycobble
+alternative nodes, the 2 noises controlling the alternative nodes
+are based on wetness.
+
+Enabling multiple dungeons per chunk with definable number of rooms
+allows the option of very dense and complex underground structures
+that could interconnect to create megastructures.
+Y limits are added to be consistent with other mapgen elements, and
+enable locaton of dungeon or megastructure realms as part of our
+'stacked realms' philosophy.
+"
+"fa0bbbf96df17f0d7911274ea85e5c049c20d07b","2016-06-17 12:57:27-07:00","Player: New get_look, set_look API
+
+Deprecate get_look / set_look pitch / yaw
+"
+"9997e2030c86b938d1889ee71522bc26d01226e6","2016-06-21 03:48:24+01:00","Mgflat/fractal/v7/valleys: Denser 3D noise tunnels
+
+Reduce spread from 96 to primes 61 and 67 (either side of 64)
+Prime spreads help to keep 3D noise periodic features unaligned
+'cave width' 0.2 to preserve tunnel width
+Reduce octaves to 3 to improve network structure
+"
+"ab7a5c4ff138c39a2491592731d677c9f392caa0","2016-06-24 20:43:29+02:00","Also shut down when SIGTERM was received
+
+Fixes #4251
+"
+"80cebdc23c29ed778958ba3a35662cbc5f5e2f09","2016-06-28 06:34:22+02:00","Only allow strings to be passed to minetest.global_exists (#4253)
+
+Sometimes you accidentally forget the quotes when using global_exists, this makes minetest abort if you did so.
+
+M  builtin/common/strict.lua
+"
+"b6eef1c0c2e76e56f148bf296a42fb3a4bae4a55","2016-06-19 08:48:12+01:00","openbsd's port fix for non Linux systems w/o libRT
+
+X11 headers are not always in expected locations, add them to include list.
+
+Modifications by est31: indentation fixes, commit message improved
+"
+"70e2c1c7d413d20757f571e3f1e02b05c95418f1","2016-07-03 13:30:09+02:00","Remove old docs. We have VCS history anyways. (#4266)
+"
+"92705306bfb4994107a43514f29997cea15d48dc","2016-06-14 00:10:55-04:00","Mapgen: Refactor mapgen creation and management
+
+- Move mapgen creation logic out of EmergeManager and into Mapgen
+- Internally represent mapgen type as an enum value, instead of a string
+- Remove the need for a MapgenFactory per mapgen
+"
+"3c63c3044d5e4ca36c2649c530f31622581d90fd","2016-06-24 18:15:56-04:00","Add MapSettingsManager and new mapgen setting script API functions
+
+This commit refactors the majority of the Mapgen settings system.
+- MapgenParams is now owned by MapSettingsManager, itself a part of ServerMap,
+instead of the EmergeManager.
+- New Script API functions added:
+core.get_mapgen_setting
+core.get_mapgen_setting_noiseparams,
+core.set_mapgen_setting, and
+core.set_mapgen_setting_noiseparams.
+- minetest.get/set_mapgen_params are deprecated by the above new functions.
+- It is now possible to view and modify any arbitrary mapgen setting from a mod,
+rather than the base MapgenParams structure.
+- MapgenSpecificParams has been removed.
+"
+"e1aa98fe077faecb14a9820f3861bb1c82b5db6e","2016-07-03 19:36:51+02:00","Remove top left minetest watermark
+
+Move version information into the window caption.
+
+On popular player request.
+
+Fixes #4209.
+"
+"f64914708092958f735337b3a14a33ca402b7893","2016-07-04 20:49:13+02:00","Disable joysticks per default for now
+
+It seems that various different devices register as
+Joysticks on linux, and their presence has caused
+lots of confusion amongst minetest users.
+
+Therefore, disable the joystick feature.
+
+Closes #4261
+Closes #4221
+"
+"1dfd977ec43370da6931b11a8d0469792c8ebc36","2016-07-04 21:00:57+02:00","Fix & make linux conditionals uniform (#4278)
+
+The source used a hodge-podge of different combinations of different
+macros to check for linux: 'linux', '__linux', '__linux__'.
+
+As '__linux__' is standard (Posix), and the others are not, the source
+now uniformly uses __linux__. If either linux or __linux are defined,
+it is made sure that __linux__ is defined as well.
+"
+"c1bdb552bc3ec0fda1b82ab2c44a5c31ab53bd24","2016-07-04 21:32:32+02:00","Temporarily disable 'testStartStopWait' Threading unit test on mac
+
+The 'testStartStopWait' unit test is unreliably failing on mac,
+for some time already. See bug #3786.
+
+Having the unittest fail unreliably doesn't help anybody but mostly
+inhibits the main feature of travis builds: to test PRs for regressions.
+
+Therefore, disable the specific unit test for until bug #3786
+is fixed.
+"
+"5d4d3f8366b74d9c3da892d94188defc49407ebf","2016-07-04 01:33:46+02:00","Finally set a window icon on X11
+
+Since the creation of minetest, it had no window icon on X11.
+Now we have one.
+
+The misc/minetest-xorg-icon-128.png file is a rendering of the
+misc/minetest.svg file with inkscape, created with something like:
+
+inkscape -z -e misc/minetest-xorg-icon-128.png -w 128 -h 128 misc/minetest.svg
+"
+"538af97d8d0d0a3c50a7092c029d8585079144c4","2016-07-04 18:01:58+01:00","Remove cinematic toggle on F8
+
+Also update cinematic mode's description to include mouse
+"
+"6014e7257e1052b8a4b3e29793aaf296b94b80d7","2016-07-05 07:43:25+00:00","Fix for cropped text 'Toggle Cinematic'
+"
+"7a532056e29d00006382caad9ccde66e54ca8aa5","2016-06-20 18:11:05+02:00","Use mathematical function to determine yaw direction
+"
+"281e9f39fdffd106e79122ae23e2b5443a5daea3","2016-04-25 18:50:10+03:00","Adding minetest.clear_craft
+
+Modifications by est31: grammar fixes in doc + error messages and
+a little style fix, no functional change.
+"
+"795f1c75cb6e337984cccd042371cb8b9a3ef6c1","2016-07-06 20:15:36-05:00","Fix warning in porting::setXorgWindowIcon when building without X11 (#4288)
+"
+"483cca78a1312aa3b9c01049b5ebf6842929ec7a","2016-07-08 06:24:22+02:00","Fix -Wterminate warning on GCC 6
+
+Fixes #4137
+"
+"9db78dc4c4130c1ef08696e5d381a157cb66e656","2016-07-08 07:26:00+02:00","Fix -Wterminate warnings in rollback.cpp as well
+
+Fix #4137 for rollback.cpp as well.
+"
+"27905f1a4a87a284e95673eeee2440a806b15d16","2016-07-08 17:07:31+02:00","Ubuntu build HOWTO: Suggest to install git instead of git-core
+
+The package docs for the git-core Ubuntu package in all supported
+Ubuntu versions, including 12.04 say:
+
+This is a transitional dummy package.  The 'git-core' package has been
+renamed to 'git', which has been installed automatically.  This git-core
+package is now obsolete, and can safely be removed from the system if no
+other package depends on it.
+
+Fixes #4109
+"
+"4c530dea1a156c1ae307b5f304fb55d0619ee372","2016-07-09 14:00:14+00:00","Fix typos (#4298)
+"
+"c7cd76f69a1d251159b2b220ed7a3bda11c496d9","2016-06-03 12:31:02+00:00","Translated using Weblate (Chinese (China))
+
+Currently translated at 74.1% (658 of 887 strings)
+"
+"235d2ed2460388253477eae84caeb8e282a3ef30","2016-06-04 13:18:08+00:00","Translated using Weblate (Esperanto)
+
+Currently translated at 32.2% (286 of 887 strings)
+"
+"ac20a5182f5160a5326aca4a8bce8713389fe2d7","2016-06-09 08:40:00+00:00","Added translation using Weblate (Serbian (cyrillic))
+"
+"c9c07ae7541e9808006b7e0fb885bddaf3b8b8a8","2016-06-09 11:11:15+00:00","Translated using Weblate (Serbian (cyrillic))
+
+Currently translated at 31.5% (280 of 887 strings)
+"
+"e07247f8da4763187f2eabbf7e189f2fce8fcaa8","2016-06-11 10:56:31+00:00","Translated using Weblate (Chinese (China))
+
+Currently translated at 75.1% (667 of 887 strings)
+"
+"18c2aed1c9c86a501e5bddabf5afb0c8f24cdca1","2016-06-13 18:39:36+00:00","Translated using Weblate (French)
+
+Currently translated at 91.2% (809 of 887 strings)
+"
+"8667566f78f40f1ab1bdd780a55220e5204e0c1e","2016-06-14 21:57:46+00:00","Translated using Weblate (Spanish)
+
+Currently translated at 59.0% (524 of 887 strings)
+"
+"bda12ddd7dd9f9d36d8d567e74c708869e0fe102","2016-06-23 17:34:59+00:00","Translated using Weblate (Indonesian)
+
+Currently translated at 55.8% (495 of 887 strings)
+"
+"23933dcb24637b67c6adb555b707640172467d61","2016-07-08 10:32:09+00:00","Translated using Weblate (Dutch)
+
+Currently translated at 89.6% (795 of 887 strings)
+"
+"e323ba4f270125528796eb5a6d16c891041d8b82","2016-07-12 16:56:29+00:00","Translated using Weblate (French)
+
+Currently translated at 100.0% (887 of 887 strings)
+"
+"24ca754bd5cc2a6340d8a393a37b71643c6fda60","2016-07-12 20:49:33+02:00","Update minetest.conf.example, and settings_translation_file.cpp
+"
+"7eeb735cab749958fdad996d4804942155806ab6","2016-07-12 20:50:20+02:00","Run updatepo.sh
+"
+"91f68e7d11e89dbc73ec259eb057de51099dfe8c","2016-07-10 16:03:53+01:00","Treegen: Improve use of signed vs. unsigned integers
+
+To fix GCC 6.1.1 compilation warning:
+'assuming signed overflow does not occur when assuming
+that (X - c) > X is always false'
+"
+"d6865c4d8d0eb7aaf2d35447ab01e06ef8249010","2016-07-11 09:46:01-05:00","Lua_api.txt: Fix description of node drop behaviour
+"
+"d7060c212f3d9fb9a69719e9041fdef1f5792fef","2016-07-12 21:51:10+02:00","Builtin/profiler: Replace game profiler (#4245)
+
+Use the setting 'profiler.load' to enable profiling.
+Other settings can be found in settingtypes.txt.
+
+* /profiler print [filter] - report statistics to in-game console
+* /profiler dump [filter] - report statistics to STDOUT and debug.txt
+* /profiler save [format [filter]] - saves statistics to a file in your worldpath
+* txt (default) - same treetable format as used by the dump and print commands
+* csv - ready for spreadsheet import
+* json - useful for adhoc D3 visualizations
+* json_pretty - line wrapped and intended json for humans
+* lua - serialized lua table of the profile-data, for adhoc scripts
+* /profiler reset - reset all gathered profile data.
+This can be helpful to discard of any startup measurements that often spike during loading or to get more useful min-values.
+
+[filter] allows limiting the output of the data via substring/pattern matching against the modname.
+
+Note: Serialized data structures might be subject to change with changed or added measurements.
+csv might be the most stable, due to flat structure.
+
+Changes to the previous version include:
+
+* Updated and extended API monitoring
+* Correct calculation of average (mean) values (undistorted by idleness)
+* Reduce instrumentation overhead.
+* Fix crashes related to missing parameters for the future and occasional DIV/0's.
+* Prevent issues caused by timetravel (overflow, timejump, NTP corrections)
+* Prevent modname clashes with internal names.
+* Measure each instrumentation individually and label based on registration order.
+* Labeling of ABM's and LBM's for easier classification.
+Giving several ABM's or LBM's the same label will treat them as one.
+Missing labels will be autogenerated based on name or registration order.
+* Configurable instrumentation and reporting. Skip e.g. builtin if you don't need it.
+* Profile the profiler to measure instrumentation overhead.
+"
+"6621daee504bbc6755e0240a5515e16f56199197","2016-07-12 22:45:34+02:00","HTTP lua API docs: correct some function references
+"

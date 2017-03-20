@@ -1,0 +1,167 @@
+"commit id","commit date","commit message"
+"d49b39879cda0c9e1fa8b281dcd39ad1e77ef8b2","2015-03-23 16:06:19-06:00","Avoid cache fragmenting URLs for Share a Fact shares
+
+Use wprov=sfia1 for image card sharing
+The Android app doesn't use the URL when sharing as text.
+So, nothing to do there.
+
+Bug: T90606
+Change-Id: If1c84c8b1380092817b0bfae2d62d93747da0d25
+"
+"847d87aa636ff7e1af39edccd68efdb54381f38a","2015-03-17 09:39:17-04:00","Resolve redirects when doing prefixsearch.
+
+Our search experience provides the user with prefix-search and full-text
+search results. However, in the case of prefix-search results, if the
+result is a Redirect page, it may be more useful to the user to see the
+*target* of the redirect, rather than the redirect name itself.  In
+addition, the redirect (source) page doesn't come with a thumbnail or
+pageterms, which is even less useful to the user.
+
+This patch enables automatic resolving of redirects for prefix-search,
+whereby the target of the redirect will be shown, complete with thumbnail
+and description. This is accomplished in a slightly roundabout way:
+- The search API allows us to specify 'redirects=true' to automatically
+resolve redirects. Simple enough...
+- However, when we receive the results, any result that is a redirect
+target will no longer have the 'index' property, which we use to sort
+the results in our list.
+- However, the query response also contains a separate 'redirects' array
+that contains a list of all the redirected results, apparently in the
+correct order.
+- So first, I take all the results that have an 'index' property, and
+make a list of the 'holes' in the indices. I then fill the holes with
+the results that don't have an 'index' property, in the order that they
+appear in the 'redirects' list!
+
+This can be vastly simplified, of course, if the API includes the 'index'
+property with the redirected results. However, this may be difficult to do
+on the API side, so this will have to be the solution for now.
+
+Change-Id: I65e281fa83071a4dbf288ecdd7d3bf5ee39a0aee
+"
+"f25a9363861a2b5f45b79e11162325941ccfe9f9","2015-03-24 11:56:31-04:00","Fix transform of video links in pages.
+
+The transformation of video links contained a bug that could potentially
+throw an exception within JS that would stop the page from loading.
+Example: [[Bill Clinton]]
+
+Change-Id: Ic9f617518bbb62e0e28a57bfd210b963cca1a237
+"
+"0ab089d191493d776ff516acb95152b1d741e95a","2015-03-19 00:32:32-04:00","Remove parenthetical information from lead sentences.
+
+Currently restricted to non-production builds, and to enwiki only.
+
+Bug: T91792
+Change-Id: I1252ee46410daf0d110c0dea9dc249de87ede848
+"
+"697788456107f0a83a2eb33e484a6c8453539604","2015-03-28 18:52:37-04:00","Fix possible crash when highlighting text to share.
+
+Bug: T94311
+Change-Id: I4b6a7daead430656d2e12a0bc375b92ecaa9fc0a
+"
+"ef5b3695b42f61ee7427607cbba711b6fc7b07ee","2015-03-30 19:09:01+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I432985106fa23aeb92eddb58f6edf03e2b7fd98c
+"
+"01725bb791be2b674f12fc35ecc537f6bb0b2aa5","2015-03-28 18:58:21-04:00","Fix possible crash when failing to clear shared image folder.
+
+Bug: T94185
+Change-Id: I2ef9153f6b7ba07eb13b5194a7714a86c3d2e812
+"
+"c166fd18d12e4fe42c8b4816ff6477bbcc37fc7d","2015-03-29 19:28:42-07:00","Add documentation to TriggerAbuseFilterTest class.
+
+This patch adds documentation to the TriggerAbuseFilterTest class, which
+contains unit tests for how the app handles various responses from the abuse
+filter.
+
+Change-Id: I551f9d61601588ad4d9e1b4bc2e1d88712d57653
+"
+"a9d867a0f06074f407a5af46e7f3b01fac5ccdc0","2015-03-31 11:58:00-04:00","Display local article name in 'Read in other languages' list
+
+Bug: T68917
+Change-Id: I1df15145cd3bf409d71be9d99be535c2e952891e
+"
+"f9e116e611659894c73e2658d2a29e52bcb14267","2015-04-01 10:43:06-07:00","Update credits to include new team members.
+
+Change-Id: I4d223afe6d82ee16ce473748cbd9a7a1f29669c4
+"
+"95ebc7caa2cd4017682ae9e6753dcb868e40779d","2015-04-01 10:24:09-04:00","Fix possible crash(es) when highlighting text to share.
+
+Bug: T94311
+Change-Id: I9f45dc87c3971b42955216f12a57f3605e09fbe8
+"
+"201aee2abdffafe602fcd5013eebe796b7e545c2","2015-04-01 19:02:44-06:00","Update Java MW API
+
+Bug: T94559
+Change-Id: I9366350b8695c8860647e4e2bc528b11fe3a1c43
+"
+"ea22fa9e6803ce3c106bb9ced034031bda979e1f","2015-04-02 09:56:09-04:00","Reduce size of face detection image copies for performance
+
+Bug: T94702
+Change-Id: Ib152d4f1231fc64b0e3db2e20f3d9cd54967e6da
+"
+"4703ec3fd0b11a534bac1df3942cf8185b31aadc","2015-04-02 20:37:40+00:00","Merge 'Reduce size of face detection image copies for performance'
+"
+"8e6a483085490424f936e0b2347e600f7ffe0a82","2015-03-17 11:57:39-04:00","Reuse the same WebView for article navigation.
+
+The plan so far:
+- PageViewFragmentInternal shall now become a true Fragment (and
+I've deleted the 'old' PageViewFragment class).  Once this patch
+is merged, we can rename it back to PageViewFragment. I'm not
+renaming it yet, to better keep track of what is changing.
+- The new fragment structure of the main activity shall be: a single
+PageViewFragment (to display n pages), and at most one other fragment
+on top of it (History, Saved Pages, Nearby) for selecting pages to
+navigate to.
+- Added additional sequencing logic to async tasks that fetch page
+content, so that they correctly invalidate themselves when a new page is
+loaded.
+
+TODO: Perform some additional profiling, and see if there are any
+remaining resource leaks.
+
+Change-Id: I40ac4c6f1a0351e7fec7b462d5b950c12fd09122
+"
+"56b0c9c0760321ae570ec932eb35f5a476b73b04","2015-03-27 11:46:55-04:00","Fix a couple issues with single WebView.
+
+- Properly remember the y-scroll offset of the previous page.
+- Improve our WebView's custom onClick handler so that it gets
+consumed properly if it's handled by the Lead Image or Bottom
+Content container.
+
+Change-Id: Iafcbfadb9fcfac6d86841e2094808adb6c662848
+"
+"7d5888de56b4702bf9a280fa3c2e52914cb83dd2","2015-04-02 19:32:45-06:00","ShareAFact: use static image for English WP wordmark
+
+and for languages that have the same text for the wordmark.
+Other languages still have the wordmark drawn using text,
+meaning the type font is not correct.
+
+Aligned bottom of wordmark with bottom of CC-BY-SA icons.
+Adjusted the text variant to match better the image variant
+(smaller font, stretch a bit horizontally).
+
+Started L10nUtils, which I hope we can move more of the L10N
+specific util methods from Utils to this new class.
+
+Bug: T94760
+Change-Id: I4b996a0908313a8eaad37eccb0c15d0d3ee9b320
+"
+"d3e7406e67ae801885c71d5c19fc69967aa48ef4","2015-03-31 17:07:59-04:00","Reverse the Ken Burns effect on lead images.
+
+(and make it more subtle)
+(and speed it up a bit)
+
+Bug: T94529
+Change-Id: I2801bbe50c81aef90d772bbfd023610e1cab56c5
+"
+"57be9044cbda70f756fb5a59354fd461a18a2afa","2015-04-03 19:56:58+00:00","Merge 'ShareAFact: use static image for English WP wordmark'
+"
+"2a7c3e65a3cfdeafcc75b740f941bf8ec9d192dc","2015-04-04 01:38:40+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Id6edb941327fa608ee6287bde069a1401f8d3cda
+"
+"5d3d1a056850cfd64821e792f3ee831ab632a234","2015-04-03 17:46:55-06:00","Bump versionCode
+
+Change-Id: I84afbc4f9ba865b7cd9319b3ed9d9c4a289f3128
+"

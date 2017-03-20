@@ -1,0 +1,63 @@
+"commit id","commit date","commit message"
+"c5851f2866dbe2334aef6e78eb1eaa40690696a7","2010-02-16 06:53:02+00:00","Fixed issue 698: Set default attachment preview image in the code (and not only in layout) so that whne moving from a message to another we get the right preview
+"
+"f9d39e4814a9e1b1c87c0397e1155430566f0ba4","2010-02-18 03:28:31+00:00","Back out Attachments-on-SD support (it's on a feature branch now, while
+Bao-Long makes it extra-awesome)
+
+This commit should revert:
+r1445
+r1437
+r1436
+r1449
+r1442
+r1441
+r1419
+r1414
+r1413
+"
+"ec3d9eb9ea34a18a995cca14be1d0da657ac9f72","2010-02-20 01:07:38+00:00","Removed code from ImapStore.internalOpen() that tried to get the path delimeter before SELECTing a mailbox. This shouldn't be a problem since the delimeter
+a) is already known if the server supports the NAMESPACE capability.
+b) is included in the prefix anyway (=also known if namespace was set manually).
+c) isn't needed when selecting a mailbox because we currently don't support folder hierarchy. So the delimeter is included in the folder name.
+
+Fixes issue 1217
+"
+"6b5ea9fedafe90fb2aa0f5f8e7a98dc9dc449563","2010-02-20 20:15:21+00:00","Reverted the revered version of AttachmentProvider so that people who used the attachment on sd card can still get to their attachments
+"
+"366eda13f726454fe66bb09a80fffb14704d05fe","2010-02-21 15:19:11+00:00","- Fixed project setup for Eclipse
+- Removed Debug activity from manifest (activity class doesn't exist)
+"
+"583d827c60075b6fca1a8683ae4503a8d89b48ef","2010-02-21 15:25:16+00:00","Don't let eclipse build the .svn directories.
+"
+"8eb8e392cae0663ece0d2ee4c5211d226362957b","2010-02-24 22:50:33+00:00","Issue 1253
+
+Updated german localization with new strings.
+"
+"f6e7d5d4c0d3402bb745dc96278db471a784757f","2010-02-27 17:34:38+00:00","Fixes Issue 1252
+
+Handle CAPABILITY response in following cases:
+1) When sent as part of the banner, no longer sends explicit
+CAPABILITY command
+
+2) When sent as an UNTAGGED response to LOGIN, updates stored
+capabilities.
+
+3) When sent as part of the TAGGED response to LOGIN, updates stored
+capabilities.
+
+Due to odd implementation of the CRAM-MD5 authentication, the
+capability updates will not happen as part of the CRAM-MD5
+authentication.
+"
+"97c7bf1d655533d425be56b2de10f5defff4bca1","2010-02-27 17:48:00+00:00","Hopeful (but untested code) to get updated capabilities after
+successful CRAM-MD5 authentication.
+"
+"6fb59467b7207a0b1449f35c313ddacf56975b55","2010-03-02 02:48:52+00:00","Changed SmtpTransport.writeLine() to only use one OutputStream.write() call. Apparently some servers got the 'be liberal in what you accept from others' part of the robustness principle wrong. When we used multiple calls in writeLine() (command + CR + LF) a separate TCP packet was send each time. It appears that those broken servers accepted the DATA command after DATA + CR and interpreted the LF as part of the actual data. This caused our headers to become part of the body because that LF was interpreted as the empty line that separates headers and body.
+As a side effect of this fix sending mail could be slightly faster now due to less packets being sent.
+
+Big thanks to Kevin Newland of Michigan Technological University for organizing a test account.
+
+Fixes issue 799
+"
+"9e855c9ebdc5ad52f13cffb9a8be1f1c29aabe6d","2010-03-02 08:02:46+00:00","2.511
+"

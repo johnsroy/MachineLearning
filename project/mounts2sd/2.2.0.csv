@@ -1,0 +1,19 @@
+"commit id","commit date","commit message"
+"b075d097938c2c4dc5c932e76299c9e0372af657","2013-01-25 09:09:59+01:00","Busybox Configuration: Encrease loading speed by 90+%
+We add another way to check the busybox configuration. This is not quite as presice as the other methods, but it encreases loading speed by aprox 90% or more. It still checks whether busybox has been replaced or system has been reflashed.
+"
+"8bc76d554c7f99d977e9b15dda56cbb114210025","2013-01-25 23:39:24+01:00","Init.d Script: Add Service Init.d Support
+There are two types of init.d methods used by different ROM Developers. One is a direct execution from withing the init process which will execute the entire init.d folder before continuing down through the rest of the init.rc file. The other is adding init.d as a service within init.rc which will execute init.d within a new process while continuing down through the rest of the init.rc file.
+
+The problem with using the service version to execute init.d, is that all the main and core services such as dexopt, packagemanager and such will be executed while init.d is running. This is not the best option when adding things like sd-ext scripts that manipulates with the internal partitions. Why? Well dexopt will be building and checking it's dalvik collection while a script is in the process of moving it, and the package manager will be scanning packages, libraries and appplication data while a script is in the process of moving it. Fast booting phones might even finish it's boot before all the mount points are set, wich means that the package scan will have found nothing, making the system think that you have no packages installed.
+
+For the last year or so, M2SD has been built with the so called safe-mode state that will detect when a ROM is using the service version of init.d and adapt to this situation. One problem is that some options like moving dalvik-cache or application data will be disabled in this state, as it will not work properly.
+
+This commit implements a very ugly hack to get back the dalvik and data option of M2SD while a ROM is using the service init.d version. What we do is simply killing the system_server and continue doing so until M2SD is done. Doing this we continue to reset all of the package related services which will never get a chance to scan/built anything until system_server is allowed to stay alive.
+
+Note that this is a very early test stage which has only been tested on two devices (Galaxy S3 and Galaxy Y)
+"
+"2904cf1cc333e62b280fef8057609db71158c413","2013-01-26 00:02:45+01:00","Init.d Script: Fix optimizing wrong partition with R-Mount
+"
+"0aa367febec68429e29c285321b996a1434bf894","2013-01-26 00:51:41+01:00","Prepare release version 2.2.0
+"

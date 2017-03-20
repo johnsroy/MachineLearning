@@ -1,0 +1,53 @@
+"commit id","commit date","commit message"
+"14719d6043173f412e359dd376cc4f2df14eab9b","2013-12-19 23:28:09+01:00","Merge remote-tracking branch 'nik/master'
+"
+"b366e4b619e434fa2ae0147bb5475a469ec15b60","2013-12-20 18:10:30+01:00","Resolve IllegalStateException, Fragment not attached to Activity.
+
+It appears that isDetached() != isAdded(), and isAdded() is the correct
+check to use.
+"
+"1da4b538f0577a6a7ce445df20e38cc0060ec255","2013-12-20 18:51:32+01:00","Handle BitmapFactory.decodeFileDescriptor throwing an IOException.
+
+This can happen (although is not documented as such) in
+BitmapFactory.nativeDecodeFileDescriptor.  Throw the exception up in
+ImageResizer.decodeSampledBitmapFromDescriptor, and catch and ignore it
+in ImageFetcher.processBitmap.
+
+Update the documentation and add @Nullable annotations to make it
+clearer to future readers of the code that this is OK.
+"
+"f85fae8b94082fa76d39e35ae44e14ca6a261226","2013-12-20 21:58:28+01:00","Add an isAdded() check in updateUIForPlayer.
+"
+"eb1588011cfbeaac056251b1d666b9a37c1739ef","2013-12-22 11:21:16+01:00","Add a local build setup
+
+to make './gradlew build' work on a fresh clone, even if you don't
+have the passwords for the official release key.
+This will also enable any developer to test the release version of the
+application.
+
+When keys are not provided in squeezer.properties the app will be build
+just like the official release version, but signed with a local release key
+with password 'squeezer' for the key and the keystore.
+"
+"db60b830e013f05325f0eaa08b85e8d1197acc09","2013-12-22 11:35:27+01:00","Parse status line from LMS more conservatively
+
+This will fix a reported crash from bugsense.
+
+When the status line come, from some servers  or in some circomstances,
+the token for the playing mode (play/pause/stop), may not present.
+
+To handle this and because this is dependant on the server version, and
+at any rate beyond our control, Squeezer now checks if mode, shuffle and
+repeat status are present, and if not, doesn't update the internal player
+state or the UI.
+"
+"f53129b7639f25c1b6651a94320e925ca829a6fd","2013-12-22 19:48:54+01:00","Merge remote-tracking branch 'kaaholst/master' into develop
+"
+"3b4c323d835008f6d8f603c4e5f50999015d2b56","2013-12-22 20:21:48+01:00","Check items.size() to avoid NPE, not whether items.get(0) != null.
+
+The previous code didn't actually avoid the NPE.
+"
+"d07f53fecd356ff06539bc09615b2a583f5bcf3c","2013-12-22 20:50:20+01:00","Prepare for release 1.0.1.
+"
+"e7e78dd7c816b84b6df49698632cbd51d5863335","2013-12-22 20:50:54+01:00","Merge branch 'release-1.0.1'
+"

@@ -1,0 +1,256 @@
+"commit id","commit date","commit message"
+"ecce69b75fb0fb21837422f4621eb1027f989320","2014-06-03 15:55:29-04:00","Fix Location 'Remove' button
+
+To remove postmeta fields via XML-RPC, we need to send a custom_fields
+entry with the meta ids. When a location was removed, we would just not
+send the custom_fields entry, which doesn't work.
+
+This change sets the id for the location meta fields if they exist. If
+the location is being updated, we set the value. If the location is
+being removed, we don't include the value. If the location is newly
+being added, we set the key and value.
+"
+"74a0fb759e16fa9b448dc31f6473dd3dddb267df","2014-06-03 17:29:00-04:00","New helper class for PostLocation
+
+Instead of encapsulating the lat/lng behavior in the Post model, we can
+move it to its own class. Includes matching tests to catch invalid location values.
+"
+"8fd3afed7f03e70c6b02fdbf31c06efef4be6547","2014-06-03 18:09:10-04:00","Utilize new PostLocation class for Posts
+
+Replace all instances where latitude and longitude were being
+manipulated directly and replace with the appropriate implementation of
+the PostLocation class.
+"
+"73bdf3a0e317d10666b68a1897eaeb1539bc2d4a","2014-06-03 18:22:39-04:00","Use supportsLocation method instead of isPage
+
+Makes it more flexible to modify what things support Location in the
+future.
+"
+"159ef4d2197bc8517c843619c54de66e7b8d2ba9","2014-06-03 20:08:33-04:00","Set PostLocation class as Serializable
+
+Because Post is serializable, all its properties must be too. Prevents
+fatals when attempting to serialize a Post object.
+"
+"d069e86c056f611d63cf578a593a18cfad7b0c3e","2014-06-03 21:17:07-04:00","Use Post Location when viewing map
+
+Previously, we were using the current location, which may or may not
+accurately represent the post location.
+"
+"474bdea50350a16ab1a2453596dfb0fb059f3070","2014-06-03 21:27:31-04:00","Catch null loc values when getting post from DB
+
+We were just grabbing the lat/lng values set in the db and setting as
+is. For posts without a location, this meant that we would set their
+lat/lng to 0,0 which is a valid location.
+
+We now check for null db column entries before setting the location
+value for the post to prevent that.
+"
+"0bfee7dbf31e19db05d0f49271ec71fa834c5f92","2014-06-03 21:29:46-04:00","Call getLocation only for posts without location
+
+Post.isNew has a bug currently, which causes it to return
+true for almost all posts (see #1463). Instead of prompting the
+auto-location detection for isNew posts, so it only for posts that don't
+have a location so we don't end up unnecessarily overriding things.
+
+We will override this behavior soon to make the location setting
+on-demand.
+"
+"148faf3063f6163c3ac6eaaaff1f9e62d1da1e46","2014-06-03 21:41:27-04:00","Update out-of-date comment
+"
+"23abe3bca5375013d30739081638c2fe28fbf979","2014-06-04 00:00:49-04:00","Post.hasChanges should check is location is set
+
+Prevents null pointers when checking for Pages, where the location is
+never set.
+"
+"8f79f2886ca7b2575f3501edc5a510408828a763","2014-06-04 00:04:00-04:00","Store a PostLocation object in PostSettingsFrag
+
+It's more relevant to our current usage and we can more easily control
+and check its validity. This prevents odd errors when the 'View Map'
+button is pressed immediately after updating the location.
+"
+"b7f2952a4e369c157b81dd24061d0730ebf43e6a","2014-06-04 00:54:59-04:00","Move Location Settings to ViewStub
+
+Because the Location section is not always applicable, it makes more
+sense to move it to a ViewStub and only inflate in contexts where it is
+going to be used. This is more performant and simplfies the layout
+quite a bit.
+"
+"a2c9c7e43613f3b4d6871695814692fbcf42d3cf","2014-06-04 18:26:34-04:00","Geotagging UI Refresh
+
+Make the geotagging for a post on-demand instead of automatically
+adding location to any new post or post without a location.
+
+When a post doesn't have a location, users have to explicitly choose to
+add a location. They can use their current location, if available, or
+search for a location.
+
+The experience now more closely mirrors the updated 'add location'
+experience on WordPress.com.
+
+see #870
+"
+"0f6756d350ad4023295c7f00f3852f828ea2db1b","2014-06-04 18:31:27-04:00","Refactor: move hasLocationProvider to a method
+"
+"7a57dcb172d4b6f4e314ae0b8c802eea3c94ab67","2014-06-05 12:22:34-04:00","Implement Editor Action for Location search input
+
+When the search key on the soft keyboard is hit, we should start the
+search. Also show and hide the keyboard when edit is requested and
+search is triggered.
+"
+"33942f15590ad7f1742e1c22c6d8849bba3893e3","2014-06-05 12:31:47-04:00","Remove 'View Map' and make the Location clickable
+
+Simplifies things a bit by removing clutter from the Post Settings
+screen.
+"
+"a6d07c9cd01ba4fdf2c992df2f718a4a03d612e3","2014-06-05 12:44:50-04:00","Add icon to 'Add Location' button
+
+Add a cue that the button is for geotagging
+
+h/t joen for the icon
+"
+"a55e3a91a0147cbf9a5bbbcfc36e9b212b4840f6","2014-06-16 22:10:12-04:00","rm unused location strings
+
+location_toast + view_map were removed
+
+h/t maxme
+"
+"b7b3055f70a8462fe86e848142585f3c9bbd4511","2014-06-16 22:35:09-04:00","Update location search button based on context
+
+If we're searching for the current location, 'Locate' makes more sense
+than 'search'.
+
+h/t maxme
+"
+"4375ba60c5a98e8506b8ca0538a176f095bc05c6","2014-06-16 22:40:57-04:00","showSoftInput helper needs to requestFocus first
+
+EditText needs to have focus for showSoftInput to fire correctly.
+"
+"3789e5f25ac2a6ca0c1c3218835eb3540fe78675","2014-06-16 22:42:45-04:00","showSoftInput helper should always requestFocus
+
+Remove param that made it optional. This is because requestFocus is
+necessary for softInput to open.
+"
+"3e04c24f2c85ceb0593721047af333a9ae95dffc","2014-06-16 23:34:48-04:00","Remove geotag setting for blogs
+
+We no longer need it since all locations added to posts need to be
+explicitly set by user action.
+
+h/t maxme
+"
+"761bcc53b95e63f480031978e6eea3d1c2ab74fd","2014-06-17 00:24:01-04:00","Fix broken Location tests
+
+Invalid instantiation tests start with the var as null. When the
+instantiation fails, the var stays null but our assertion was expecting
+a value, which is incorrect.
+
+h/t maxme
+"
+"ed48742ee46297b4a046ad78c4ddd4f8498e8559","2014-06-17 11:28:07+02:00","Merge pull request #1331 from anirudh24seven/issue/222-dialog-text-when-deleting-untitled-draft
+
+Fix #222: Stop showing quotes in dialog text when deleting untitled draft
+"
+"8e07352d3ccea9dcfa83e108ea30a86fc511e906","2014-06-17 12:43:41+02:00","Open stats related links by using a web view.
+"
+"b81b847ffa4711c7daa811e8e606462fd7aeb8bb","2014-06-17 15:23:29+02:00","Jetpack: Make sure to load Stats by using the correct user.
+"
+"c9782a33fbb5a80edd7de00aa0cb7629fb7d9043","2014-06-17 16:00:49+02:00","Make sure to log with the correct STATS tag.
+"
+"6c56c43bbf9c57ad01cfcb6c634df268cb34ceb6","2014-06-17 11:59:43-04:00","Fix code style issues flagged by checkstyle
+
+h/t maxme
+"
+"1f5552ada81a573326b2ebb4c042ed25191eb922","2014-06-17 13:42:06-07:00","Use Simperium 0.4.8
+"
+"e83c7cd22c25ab5ee162589693cdce5459125d93","2014-06-17 19:08:13-04:00","Persist location changes to local db
+
+savePost should also save the post location so that when we make changes
+locally, they are persisted. Previously, we were ending up with a
+situation where removing a location would not stick.
+"
+"6fbd22bc45ad82ed6ed305c8e3c0cbbb0dc01ff7","2014-06-17 19:09:17-04:00","Only add geo meta keys on location add
+
+When editing, we don't need to set the key.
+"
+"fb8458926319d9a39362a3b3541f4f677f27b247","2014-06-18 10:20:13+02:00","fix #1513: init mMixpanel in constructor
+"
+"e709ad16a9c9019b1ba07b71fad4312fee264ee9","2014-06-18 10:21:23+02:00","only start/end session when mHasUserOptedOut value changed
+"
+"5843fac74dc88d8918784f79d592a2e1271418c1","2014-06-18 10:32:07+02:00","Merge pull request #1512 from wordpress-mobile/issue/update-simperium-0.4.8
+
+Use Simperium 0.4.8
+"
+"09cf37fe252999b076b6fc0ac8f47540c0431088","2014-06-18 13:24:41+02:00","Merge pull request #1514 from wordpress-mobile/issue/1513-mixpanel-init
+
+fix #1513 mixpanel init
+"
+"6fa7dbde9c367c8cc4b4c0e4ad24f9c5d2b21e87","2014-06-18 14:16:22+02:00","new theme to override android:dropDownListViewStyle
+"
+"5f1d6e0f8cd2c7cfa063342b77b02f8f295d8797","2014-06-18 14:38:09+02:00","Merge pull request #1511 from wordpress-mobile/issue/738-stats-links-open-in-app
+
+Stats links open in app
+"
+"2ad87653cc526a4d96e15c1501852aa0ba8849b4","2014-06-18 15:25:32+02:00","move long _title_ to _summary_
+"
+"8f6707db015e9d719e287f32ef24a889b12b7a7e","2014-06-18 16:17:25+02:00","remove rounded corner from transparent white scrollbar
+"
+"cba9acd129ecbcc92a8a9ac1d0aebceecfc23263","2014-06-18 10:33:19-04:00","Fix equals check for PostLocation class
+
+Override the equals method in the class to do explicit checks against
+the lat/lng values. Also use a utility method to compare if two location
+objects are equal when checking is a post has local changes.
+
+h/t maxme
+"
+"2ff26928d10dab387a872b39391e019435b75331","2014-06-18 17:41:00+02:00","s/updatePushNotificationToken/updatePushNotificationTokenIfNotLimited/
+"
+"6c891c2be2b900c06703a2988a6b87335261eecc","2014-06-18 18:01:06+02:00","Merge pull request #1507 from wordpress-mobile/issue/1335-auto-update-wpcom-blog-list
+
+fix #1335 auto update wpcom blog list
+"
+"c5c8ac6483b7e5a4f1189e776d25567f95ba27e5","2014-06-18 12:19:02-04:00","In initLocation, use the local post var reference
+
+No need to grab the post from the Activity again.
+"
+"fddb8ec6d10a92c23e90c58d3cf45fc13a908ebf","2014-06-18 12:23:39-04:00","Reduce num of hasLocation lookups in initLocation
+
+Combine two different if statements, since they're doing similar things
+"
+"058d840034ba2dd6e6fb24c9e223013115bfa052","2014-06-18 12:37:26-04:00","On initLocation, set the Location instance var
+
+If a post has a location, we should set it to the instance var right
+away to avoid losing the location.
+
+https://github.com/wordpress-mobile/WordPress-Android/pull/1468#issuecomment-46451795
+
+h/t maxme
+"
+"31c71eb7cd81a123d5ddadd41c0a87fc3ccb79f9","2014-06-19 12:20:08+02:00","Merge pull request #1501 from wordpress-mobile/issue/1472-restructure-tag-storage
+
+Issue/1472 restructure tag storage
+"
+"f7f3c868ae4e311bffd3c5dcad063c181237990b","2014-06-19 12:33:04+02:00","fix #1238: remove left gravity in edit comment text box - allow auto text direction
+"
+"335c97aa3401ff7b5e09c8fbd5c47f32bea762b3","2014-06-19 13:13:35+02:00","Merge pull request #1510 from wordpress-mobile/feature/dropdown-scrollbar-contrast
+
+Proposed restyling of vertical dropdown scroll bar
+"
+"77bafcb707c31e1f8036d1f930af02301064eaa4","2014-06-19 15:55:37+02:00","Merge pull request #1520 from wordpress-mobile/issue/1238-edit-comment-rtl-fix
+
+fix #1238: remove left gravity in edit comment text box
+"
+"402a92962ddbacf93fc1b3b1075c488b5496c0af","2014-06-20 15:00:22+02:00","Merge pull request #1468 from mjangda/feature/location-ui-refresh
+
+Location UI Refresh
+"
+"1e69b89e50c808884dd0fe69bfeb8156aaf1a76e","2014-06-19 17:45:47+02:00","fix #1509: use EditTextUtils.showSoftInput util function everywhere
+"
+"5243782b7fc69319dd474f0bfefc78fa0904bb3e","2014-06-21 15:52:14+02:00","Merge pull request #1516 from wordpress-mobile/issue/739-signature-checkbox-preferences
+
+fix #739: text too long - settings -> signature checkbox
+"
+"4846708df957bd1ebfeaa28d714034ae4e0138fa","2014-06-21 10:43:02-07:00","Merge pull request #1525 from wordpress-mobile/issue/1509-showsoftinput
+
+fix #1509: use EditTextUtils.showSoftInput util function everywhere
+"
+"65fcf2cdee45279b7ced24fa5ed6fe94c7aca5a2","2014-06-23 14:40:45+02:00","3.0-beta-2 version bump
+"

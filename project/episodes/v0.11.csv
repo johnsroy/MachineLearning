@@ -1,0 +1,112 @@
+"commit id","commit date","commit message"
+"7c8878e9ba5776aad9e6f6731d90bb4fe25a1487","2015-04-20 23:11:21+02:00","Grey out title for upcoming episodes
+
+Signed-off-by: Daniele Ricci <daniele.athome@gmail.com>
+"
+"7431b1a00d6141f9bf17f4db1f856b4404615a1c","2015-04-21 22:27:44+01:00","Merge pull request #36 from daniele-athome/feature/grey-upcoming
+
+Grey out title for upcoming episodes
+"
+"732cb7d58c351a32fb8a331cad32bfd43c278dba","2015-04-22 20:45:28+01:00","Add build flavours with different applicationIds
+
+Since somebody else uploaded this application to the play store without
+changing the applicationId, it needs to be changed for me to release it
+on the play store. I do not want to completely change it, however, as
+that would be disruptive to F-Droid and existing users.
+
+Add a gradle productFlavor called 'playstore' that builds with the
+applicationId 'com.vindustries.epsiodes'. And one called 'fdroid' that
+builds with the old id 'org.jamienicol.episodes'. Ensure that the
+content provider uses the correct applicationId, meaning both versions
+can be installed at the same time.
+"
+"f2a002aae8f03fcdf6dddffdb198d4c901b37bb1","2015-06-07 18:19:58+02:00","Google play badge added
+"
+"589dc46b6c40efce0816253f7c25ed674cd85080","2015-06-14 23:55:27+01:00","Merge pull request #43 from SweetLion/patch-2
+
+Google play badge added
+"
+"d4b638b3bca45af61a8a6215be89858fa786ddbf","2015-04-23 18:52:18+01:00","Add play store assets
+"
+"9e92411ee218e5f4eb1a3384cf8a4d223d64be18","2015-06-04 11:01:43+01:00","add suffix to id and version on debug builds
+"
+"5dd6922adbf3a0a001b1d6cfe5543f39a7064f03","2015-06-04 11:09:49+01:00","Move launcher icons to mipmap folders
+"
+"35a4a5cd5c6c308bc406275231706dfee64469de","2015-06-04 11:12:58+01:00","Add debug versions of launcher icon
+
+With a pink background instead of blue, to make it easy to identify in
+the app drawer.
+"
+"82574bebea064ecc71280c8bacc70f3d411578fa","2015-06-02 23:37:00+01:00","Fix NoActionBar theme for newer support libraries
+
+New versions of the support library don't like it if windowActionBar is
+set to false without setting windowNoTitle to true. So set that to
+appease it.
+
+http://stackoverflow.com/questions/29790070/upgraded-to-appcompat-v22-1-0-and-now-getting-illegalargumentexception-appcompa
+"
+"69d74994dc5b24f5010ec8ff7eb213ee881e485a","2015-06-02 23:40:27+01:00","Use latest build tools and support libraries
+"
+"7faa91109456fd673a4380ba1a52557835489ee8","2015-06-02 23:41:25+01:00","Use material design support library tabs
+
+Instead of PagerSlidingTabStrip.
+"
+"0e99d85c80597d5d574baf36938227f641bbe656","2015-06-05 20:06:10+01:00","Use RecyclerView for seasons list
+"
+"b5bf455f60d599ebb9a18d50a5e49e149c0a7078","2015-06-05 19:20:50+01:00","Use new design library's widgets for ShowActivity
+
+Rather than my custom widgets which were a bit hacky, use the
+CoordinatorLayout, AppBarLayout, and CollapsingToolbarLayout widgets
+from the new material design support library.
+"
+"c733ec8859ea649422ad2e2d1415322a6f5ff8e5","2015-06-24 11:51:24+02:00","Personal notes linked to shows (database)
+
+Signed-off-by: Daniele Ricci <daniele.athome@gmail.com>
+"
+"b1c612b4846e35f4ccb504cd40b6171b059eadb3","2015-06-24 11:58:47+02:00","Personal notes linked to shows (UI; read-only)
+
+Signed-off-by: Daniele Ricci <daniele.athome@gmail.com>
+"
+"d7db6c7a4ebe7286a1fcf4de7046fd4474f2f1c2","2015-08-31 12:20:00+01:00","Move episode watched checkbox to fragment content
+
+In EpisodeDetailsFragment move the 'watched' checkbox from the action
+bar into the fragment content. Being in the action bar was a bit weird
+and caused some issues.
+"
+"c48c11ebea67f90f633411c190a1940e8af5cd07","2015-08-31 12:36:16+01:00","Remove episode title from EpisodeActivity
+
+It often gets ellipsized which looks bad, and it's redundant because
+EpisodeDetailsFragment shows it in large text.
+"
+"fcc8ec21f3edcca3c1f11ec2d40c2a5d4beb945b","2015-10-24 00:39:48+01:00","Add next episode tab to ShowActivity
+
+Create new fragment NextEpisodeFragment, which is just like
+EpisodeDetailsFragment but instead of being given a specific episode id,
+it is given a show id and displays the next unwatched episode.
+
+This should be refactored to share code with NextEpisodeFragment rather
+than duplicate it.
+"
+"e9b6fc75aa992fed14f678f8dd1a2dc3199a331e","2015-10-24 01:58:32+01:00","Trim multiline text
+
+Some text fields end in newlines, making the spacing between widgets
+look odd. Call trim() on those strings.
+"
+"cc6136f679004a7d9f22e57a2dcb986bdb2f4275","2015-10-24 01:59:47+01:00","Use consistent padding across fragments
+"
+"1d4d5976c5d4c3480fe3b2d6878ba68f10b605d6","2015-10-24 05:05:45+01:00","show/hide episode details fragment on cursor load
+
+show and hide not the fragment's view, but its direct child which holds
+everything else. this means that when the next episode fragment is the
+current page in show activity you can still scroll it up and down (to
+collapse the header image). This also ensures that the checkbox is
+invisible before the data is loaded, without treating the checkbox
+differently to the other items. Do this for both NextEpisodeFragment and
+EpisodeDetailsFragment.
+"
+"af4203546f33fa2e2512dd81a9e760ae168bb25e","2015-10-28 18:57:08+13:00","Temporarily hide ShowActivity's notes tab
+
+This is what feature branches are for...
+"
+"3c31de16d177603713d2cfb41f1505ac1debaeaf","2015-10-28 18:58:39+13:00","bump version to 0.11
+"

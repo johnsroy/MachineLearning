@@ -1,0 +1,75 @@
+"commit id","commit date","commit message"
+"93f9d386772bbe9c8c7941033ba25639109a4211","2013-07-06 00:30:43-04:00","SettingsActivity:
+-implimented dialog to choose ringer type
+-saveSettings saves ringerType correctly
+"
+"e3df1e0a74f2249c496c6a68926ca2c2ef944f95","2013-07-07 00:30:41-04:00","Numerous small changes
+
+-cleaning up unused strings
+-organized strings
+-changed code to use string substitution
+-removed unused Preferences and RefreshDialog
+-stripped unused variables and members
+-updated COPYING and README.md to include icon license
+"
+"35a4f8a772d62e9a086fd0f6f9d52960e16f5125","2013-07-09 18:01:02-04:00","Minor Changes:
+-temporarily removed donate link in about.html
+-increased font size in main activity
+-changed version number from YYYYMMDD to Major.Minor
+"
+"73f4983bef15915c8743a99c7b9be4a652c85fe4","2013-07-12 00:35:43-04:00","Beginning implimentation of per-event settings
+-added EventList singleton to hold a list of CalEvents
+-added icons for ringer state
+-mainActivity shows a list of events for the next few days with a custom view
+-onClick for this list is still a stub
+-added background to clickable items
+-PollService:activeEvent() should stop processing at the first matching item
+-numerous small changes to layouts
+-some small bug fixes
+"
+"06faa24c6e21487809a250c7160b3cd0a66f524b","2013-07-15 21:23:45-04:00","Beginning support for widget, calendar broadcast intent support, prettifying the interface a bit
+
+PollService:
+-will now refresh when the calendar is updated (through PROVIDER_CHANGED broadcast intent from the calendar [reliability seems spotty])
+-keeps track of its state within the SharedPreferences: 'notActive', 'eventActive', 'quickSilent'
+-recognizes when it has been woken after boot to clear the saved sate
+
+QuickSilenceProvider:
+-first attempt at a homescreen quick silence widget, still does not work correctly
+
+Activity Settings and Activity Advanced Settings:
+-cleaned up interface a bit
+"
+"6b67d17323cc8c5edc4110fc961135ba2b874dd1","2013-07-18 00:40:50-04:00","Beginning transition away from fixed refresh intervals
+
+PollService:
+-nextEvent() returns the first event in the next 24 hrs matching user preferences (free time & availability)
+-onHandleIntent() checks whether an event is active based on the returned events begin time, schedules a wake at the events end time.
+-takes into account buffer minutes for begin
+BUG: does not use buffer minutes with end time
+
+PollServiceReceiver:
+-renamed to BootCompletedReceiver
+"
+"d6ddd83be2377f01ea6f9936ddd29acc745125df","2013-07-28 13:50:49-04:00","Transition to SQLite database (many changes)
+-MainActivity and PollService now access events through DatabaseInterface
+-DatabaseInterface provides an abstracted interface to EventProvider
+-EventProvider exposes the local SQLite database of calendar events
+-many changes, events in MainActivity can have specific ringer types set
+-each calendar event is tied to a specific instance.  This means that reoccuring events can have different ringers for each occurance
+-blank icon is used to indicate that the event has no specific ringer set and that default will be used
+-tap event to cycle ringer types
+-long press event to reset to default ringer
+
+Known Bugs
+-trailing buffer seems to be ignored
+-icons need to be updated
+"
+"3bc337ebe28fe550c326808e25c9cde5b0a6c95e","2013-07-29 22:01:03-04:00","2.0 Release
+-events immediately following another event will now silence
+-lookaheadDays restores to defaults
+-events with no title set will now return <No Title>
+-vibration icon added to replace placeholder
+-app icon changed
+-about page expanded
+"

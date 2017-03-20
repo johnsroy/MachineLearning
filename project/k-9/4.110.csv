@@ -1,0 +1,94 @@
+"commit id","commit date","commit message"
+"3ee0889529737bfb2d6207164367a1444aba8999","2012-02-16 14:43:38+01:00","Use the Androiod framework for the file manager error dialog
+
+This will automatically recreate the dialog on configuration changes
+(e.g. orientation change).
+"
+"53ae9d7fe77c5c1ab0c5e5bc1778f8bb061e71cc","2012-02-16 14:52:56+01:00","Avoid exception when a screen reader is installed but not active.
+"
+"4db048343f153b7bb946f9af4e41022b38467041","2012-02-16 18:35:25-06:00","account setup changes:
+added gmx.com.
+set delete policy to DELETE_POLICY_ON_DELETE for IMAP on automatic setup like manual setup does.
+set default names for Archive and Spam on manual config like automatic setup does.
+"
+"21d0b0275d508442bd4641517c272cbfbeb591a0","2012-02-18 01:29:35+09:00","Updated Japanese translation. catch up with 4c318d1.
+"
+"8ce78408c2b66bb09ae41c8a8cfdc220db64ddbc","2012-02-17 19:40:58+01:00","Fixed HTML generation in MimeUtility.extractTextAndAttachments()
+"
+"b9803ece1942accf30ee7041670de492063f5432","2012-02-18 00:04:09+01:00","Fixed divider before text part with filename
+"
+"03d4cee14af8d8520a5fc6a3f124ae6aa85dab8f","2012-02-18 00:25:14+01:00","Added tests for MimeUtility.extractTextAndAttachments()
+"
+"4adfc51339066234af6d14218acffd02b379c0d5","2012-02-18 00:44:24+01:00","Use HtmlConverter.convertEmoji2Img() in LocalFolder.updateMessage()
+"
+"8e32320f5ddba96bc471ad2cf3338ba9e431ce96","2012-02-18 19:29:34+01:00","Merge branch 'viewables'
+"
+"fbc187a3e2577b48db408296ad2473cf6d2ab1f1","2012-02-19 19:51:06+01:00","IMAP: Send the Message-ID as quoted string in getUidFromMessageId()
+"
+"309eeb72ac3c4fb2b93766550eed24e5cab39bb8","2012-02-21 04:56:05+01:00","Got rid of the ScrollView in MessageView
+
+The ScrollView around the WebView caused all sorts of problems. This
+change removes the ScrollView and uses the undocumented method
+WebView.setEmbeddedTitleBar() to set the MessageHeader view as 'title
+bar' of the WebView. This allows MessageHeader to scroll away making
+more room for the WebView.
+All of the 'magic title bar' code was originally implemented by Jesse
+for Kaiten.
+
+Because WebView doesn't support a scrolling footer we can no longer
+support scrolling buttons or attachments at the end of the message. Now
+users can switch from message view to attachment view via a button just
+below the message headers.
+
+I also copied some code for which I was too lazy to create a separate
+commit. It allows to display attachments we didn't use to show by
+clicking on a 'More...' button in the attachment view. Those
+attachments are mostly images referenced by the HTML part (e.g.
+background images).
+
+Fixes issue 3291
+"
+"9f42ff61d3e1cad4cd13d403245c8b15d81c2378","2012-02-21 15:16:36+01:00","Removed settings for scrolling buttons
+"
+"ec6645bf6ad53dc2d9ea34a81a3bb2af5410df2c","2012-02-21 16:21:47+01:00","Avoid creating new objects for handling click events
+"
+"d44849d239f80acfbba6f2562cc31d0ecb2fa461","2012-02-21 16:54:35+01:00","Restored previous/next animations
+"
+"80cb0cce35325437588bc343e79201729dc52e20","2012-02-21 23:38:43+01:00","Changed the layout to include a color chip again
+"
+"9a42a146e352dd04fc0ff3e61dd2ca181b8df87a","2012-02-22 00:05:00+01:00","Limit the size of TextViews in the message header
+"
+"a7337d7a934862bdc33eb797549e3241dd250865","2012-02-22 02:41:11+01:00","Add vector graphic for 'show more' indicator
+"
+"63b43a40a9f9f92c06c6ccda69a472fa898121b9","2012-02-22 19:37:21+01:00","Changed german translation
+"
+"0ef9c516be0572edef8f1e16ba3d2f3e6642230a","2012-02-22 22:44:31+01:00","Moved click listener from MessageView to SingleMessageView
+"
+"2b54599c2b5a4cc5ae37f05ff205b3c9c9f4c6d7","2012-02-22 22:56:05+01:00","Small code cleanup
+"
+"4984a6b9e52d0c2c068d9b6cdd2caa9fc70df21e","2012-02-22 23:07:48+01:00","Keep current view state after having downloaded the complete message
+
+If the attachment view was visible, keep it that way.
+"
+"18c96f94d6107d32aa4b782896fcd2d41e053cb2","2012-02-22 23:26:59+01:00","Retain 'show pictures' state on orientation change
+"
+"2c09d75afae0ca55a6b0b66afc1345cbbac68094","2012-02-23 00:10:47+01:00","Switch to 'message view' when displayMessageBody() is called
+"
+"4e12dc154e267b61b5fc1339499f5c5fdcf5fa5e","2012-02-24 03:43:42+01:00","Save/restore instance state for SingleMessageView
+"
+"c1d663b0841baa73dc59db95448cfc2891201de0","2012-02-24 04:07:29+01:00","Save/restore instance state for MessageHeader
+"
+"7c97527d733a92f7dcd7562069c7be26300873e7","2012-02-25 00:43:09+01:00","Allow message header to scroll when displaying the attachment list
+"
+"3632978b495461e21c3dd47a43a180e0644a2661","2012-02-25 01:08:55+01:00","Don't animate the previous/next buttons in message view
+"
+"1af5476b9609131e35a54d6e2c3a0c582f1a06d3","2012-02-25 04:19:27+01:00","Hide refile batch actions in the message list for POP3 accounts
+"
+"8e7950164b387f277969b909cd0aae4c4b10082a","2012-02-25 04:28:08+01:00","Hide 'Expunge' menu item for all folders in a POP3 account
+
+Also hide 'Check mail' for all folders except the Inbox (POP3).
+"
+"de2c6cdae35e659de595f94d298c4aac31f95f41","2012-02-25 05:05:21+01:00","Prevent users from changing special folder assignments for POP3 accounts
+"
+"6d7f2b26b0aa0bdf360c35bb3b57730e7a7fffee","2012-02-26 16:33:43-05:00","Bumped manifest to 4.110
+"

@@ -1,0 +1,138 @@
+"commit id","commit date","commit message"
+"ee2922b80e48babc6a1ea0beeacdf78e23292b20","2012-07-26 18:08:39-04:00","Remove car mode activation, as it didn't work.
+
+This should have not made it into the release build. It was untested,
+and I haven't found a device that triggers the desired intents at all.
+"
+"61ef1121f2321215b0071f1fd7e74b169581999f","2012-07-26 18:09:52-04:00","Bump version for future 0.8 release.
+"
+"5f6baf639d6aee2935cabc0bae1eccf05c46cd5a","2012-07-26 20:57:52-04:00","Move activation code into SoundServiceManager.
+
+This cleans up SoundService quite a bit, and allows for using these
+intents via the manifest should we choose to later.
+"
+"8491afd77471212582fb1bb6168abc3225db564b","2012-07-26 21:23:48-04:00","Add a broadcast for state changes.
+
+This allows the UI to receive updates when tracking starts and
+stops.
+Also added the location to location updates, as it will be used
+when I split off the DB stuff later.
+"
+"10c0e8bbd0014ca878cf7efb48ba1242c77b8f0c","2012-07-28 14:27:26-04:00","Add an upgrade framework for future versions.
+"
+"5e51e131d42006e730945dde1831d63380e865e9","2012-07-28 14:32:22-04:00","Move speed conversions into a utility class.
+"
+"90c822ea2e2c07119088bcae367db2af7a8173fd","2012-07-28 14:52:52-04:00","Moved some classes into utility package.
+"
+"6e86eab0cf213e16ccfcb8b50c79c1e377883df6","2012-07-28 18:38:31-04:00","Split out preference handling into a utility class.
+"
+"3da5f6f3ad6d7bd6cd2500d51f2394db18b8eb35","2012-07-28 18:38:54-04:00","Cleaned up duplicated intent filter in main activity.
+"
+"9226ca8165d10f803f05a390b89b9b910d7dc211","2012-07-28 18:39:44-04:00","SoundService should use AppPreferences
+"
+"d1abcc5e7eb73ab8163aff2b3f1e6f4443b741c3","2012-07-28 18:41:31-04:00","Add a replacement song/location tracker.
+
+This is ultimately a replacement for DatabaseManager, and fixes a few
+issues with how that operated. It also allows for multiple routes, but
+in 0.8 we'll initially ship with these disabled.
+
+The code isn't active yet, either, and won't be until I strip out
+DatabaseManager and some leftover activation stuff.
+"
+"a0093ca78f4de6354c5168143bc54a1883439e4e","2012-07-29 02:00:02-04:00","Delete the old locations database on upgrade.
+"
+"f8a2fb369e2a9f8b776b5bc550b16f83ee380fcc","2012-07-29 02:01:38-04:00","Activate SongTracker support.
+
+This is much more flexible in how we store song data and listen
+for music player changes. All that's left is to clean up
+DrawMapActivity.
+"
+"befa944cfbe2db7c7fcdcdbdba1b8198e285b6ec","2012-07-29 14:32:20-04:00","Fix an NPE on sticky start.
+"
+"4ebbd96b7c3998e8bdd8b98ef995f4a55736822c","2012-07-29 16:16:16-04:00","Move SongInfo to its own class in util.
+"
+"4bfad1ef48b19fe473df5269128e554cf18baf01","2012-07-29 16:17:54-04:00","Make SongTracker a singleton.
+
+It's difficult otherwise to access it from both the service and activity.
+"
+"def521d569b40ec6f2d34a62ccfe0776ca99fa20","2012-07-29 16:19:29-04:00","Use anti-aliasing on map paint.
+"
+"af9fd3339fa6487c029df43051b0a91e0d9403cb","2012-07-29 16:19:53-04:00","Increase max_dist to 6000.
+
+This compensates for the slower record rate of 1.5s (vs 1s).
+"
+"3d402ce9038791fa4f71200c8c0adfc98a53416e","2012-07-29 16:36:40-04:00","Add getSongInfo to SongTracker.
+"
+"4e95c338aeb64bc2788cb32d33d1fa38049efcf7","2012-07-29 16:53:29-04:00","Clean up DrawMapActivity.
+
+Dropped DatabaseManager; this is now fully replaced by SongTracker.
+"
+"d149cd9edffcc0b471bb5e120b852663b77dd617","2012-07-29 17:27:11-04:00","DrawMapActivity -> MapperActivity
+"
+"4ecc626e766b393de861104fda30a6b65ae93df4","2012-07-29 18:00:11-04:00","Add a horizontal layout for map.
+"
+"b6bd894b45942c14e354a98db0505c12ef35c783","2012-07-29 21:51:03-04:00","Add (inactive) bluetooth activation.
+
+Uses undocumented intents; not sure if I want to keep this.
+"
+"728d2cb76e2d3b7f05dec990c56354b01e13b3b8","2012-07-29 22:11:52-04:00","Fix map sizes.
+"
+"19dad877531b2cfbbad3e0bc0568ab1599576f46","2012-08-04 19:40:30-04:00","Bluetooth activation support! Closes #5.
+
+There are two implementations in use:
+* One for 2.3 and below devices with an undocumented A2DP intent. Yikes!
+* Another documented API for 3.0 devices and up.
+"
+"82c223b4937b14f5980badcf782fc1a40ee6a0f8","2012-08-04 21:28:59-04:00","Improve the volume smoothing algorithm.
+
+It is now much more uniform across devices where the maximum volume
+differs, as it operates on percentages instead of volume counts.
+
+The update rate has been increased (and approach rate adjusted) for
+smoother adjustments. To make sure we're not needlessly spinning the
+CPU, the thread will sleep once it has reached its target, and will
+be awoken when a new target volume is set.
+"
+"31a4369c58bacb2364966763a38e90a91a035a8b","2012-08-04 22:23:01-04:00","i18n support.
+
+This was much easier than expected. Extracted some strings out into
+an en_US locale, as they could convey different meanings in other
+languages.
+
+Translate here:
+https://www.transifex.com/projects/p/speedofsound/
+"
+"80fe2d1a8471642ccf937ee6fb4bd5fee68af075","2012-08-04 23:13:57-04:00","Fix a crash when no location providers are available.
+
+Not much we can do but show a message to turn one on.
+"
+"707d0c4069fecf2a3177d3e8abab93c8c650067f","2012-08-05 00:00:07-04:00","Fix a missed cursor close.
+"
+"e9ac6c6885c82a4326db52aa4f864aedaf318ebb","2012-08-05 00:00:43-04:00","Add a distance-based rate limiter to tracker.
+"
+"fc701782189691981bc955f5d449b749c157ba84","2012-08-05 00:01:36-04:00","Lazily update song meta.
+
+This means we don't have to hit the database whenever a song changes
+(and the service isn't running) and we don't have to fetch on every
+location update either.
+"
+"a9852137bb9f8806c974a062f77594391678ddd0","2012-08-05 01:18:39-04:00","Add an incomplete About dialog.
+"
+"b305ffaa863eb77d303936714d990c8a83fe64a1","2012-08-05 16:00:47-04:00","Finish the about activity.
+"
+"5d976a20aaeea0e70f28a9e47d51643b9ad8fe94","2012-08-05 17:25:06-04:00","Add five more music players.
+
+HTC, Samsung, Winamp included, along with any player that sends
+Last.fm or SLS intents.
+"
+"6547033c8f42ee2b7bf5fdcbbec0a0a815ed70ad","2012-08-06 21:50:21-04:00","Replace activation mechanism.
+
+This one is much more accurate and doesn't spiral out into a bunch of
+conditionals. Every time there is an event (bt/headset/power) we check
+if we should be running and just match that, instead of trying to handle
+each event separately.
+
+Fixes #7.
+"
+"e41a1283f501cf66dd6b9c6a112d4065b0d7e76d","2012-08-06 22:07:31-04:00","Forgot to add music player intents to the manifest.
+"

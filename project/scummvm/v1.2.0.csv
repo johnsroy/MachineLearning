@@ -1,0 +1,591 @@
+"commit id","commit date","commit message"
+"77e5605fddb6d1285ab654dac74efaca90c2bf43","2010-09-17 19:15:48+00:00","MIDI: Ignore MDT_PREFER_MT32 and MDT_PREFER_GM
+
+This is a branch-specific hack to prevent unusable devices
+(such as the mt32emu without roms present) from being selected
+by default. To be fixed properly on trunk.
+
+svn-id: r52774
+"
+"f9cae800167cebff29cc936e98e3e83027f19c20","2010-09-17 19:42:11+00:00","DISTS: Sync a few .in files
+
+This fixes dists/iphone/Info.plist.in not being updated by r50752
+and dists/meta.xml.in not being updated by r52074.
+
+svn-id: r52776
+"
+"66a78bbb56f269fe3b5f3a3f5321137c900eb96e","2010-09-17 21:39:40+00:00","DISTS/REDHAT: Package png and svg icons
+
+svn-id: r52785
+"
+"1b0e464eb0ae3675a19b2e50488a5a578a94dabb","2010-09-18 09:46:06+00:00","SCI: Some changes to the fallback detector
+
+Added more graceful handling of the case where SCI32 isn't built in and the
+user tries to detect or start a SCI32 game
+
+svn-id: r52788
+"
+"b0dd96c3a0016347169499898f7f70092c94fd1e","2010-09-18 14:22:22+00:00","SCUMM: Backport fix for bug #3070077 - MMC64: No music when Syd plays the piano.
+
+svn-id: r52797
+"
+"4edff88212264c7ce30bed4f41c67d250ddf2e48","2010-09-19 08:18:52+00:00","SAGA: Fixed bug #3068840 - 'ITE: ScummVM crashes when talking on the ferry'
+(sync with trunk)
+
+svn-id: r52800
+"
+"a21375b1f2daa3f90fa035db6aa9431463f7aceb","2010-09-19 12:37:24+00:00","DC: Disable serial for release
+
+svn-id: r52803
+"
+"e5412cd9bae609e5f13562e92adbb863b57dc410","2010-09-19 17:41:42+00:00","I18N: Remove Hungarian from 1.2.0 branch.
+
+I will add it again if I receive an update before the translations freeze date
+for the release.
+
+svn-id: r52805
+"
+"129986da5461ae27f2e106e8a84091a2a08a7c8f","2010-09-19 17:42:48+00:00","I18N: Add lowres context for one string.
+
+svn-id: r52806
+"
+"59b5e4a997025aefb4934d1369cd06e0d25d1177","2010-09-19 17:44:27+00:00","I18N: Update German and French translations.
+
+svn-id: r52807
+"
+"fca5b40367b708ea9f7773a2c9aa07871135fcee","2010-09-19 21:08:12+00:00","SWORD2: Backport plugging memory leaks
+
+svn-id: r52812
+"
+"d082f46517e6b3bc1563f3f99ded01fc0c9f607f","2010-09-20 00:02:34+00:00","GOB: Don't crash if getCharData() returns NULL
+
+This happened to me when playing the floppy version of Gobliins 2. I
+don't know if it's a fix or a workaround, but the function can clearly
+return NULL so let's guard against it.
+
+svn-id: r52814
+"
+"a977c3f19f7e080910b84be9131b5625d96f8baf","2010-09-20 18:43:21+00:00","SCI (BACKPORT): Handle bit 2 of scaleSignal by not updating nsRect values when
+it's set. Currently game-specific for Hoyle4; fixes bug #3038424. But
+other SCI1.1 games should be tested with a general version of this to
+see whether it fixes relevant bugs.
+
+svn-id: r52819
+"
+"ca14510ec0e36b11275badb0545e223b7fc648d2","2010-09-20 20:12:32+00:00","I18N: Update Spanish German and French translations
+
+svn-id: r52822
+"
+"2e2bda41e4cb75c0027f4746d22df9ef47c929cc","2010-09-20 20:24:08+00:00","SWORD2: Backport fix for bug #3032763
+
+svn-id: r52824
+"
+"e86b8194e7613656b59551cc8bae1e4494ecfbd5","2010-09-20 20:32:50+00:00","SWORD2: backport more safeguards for mute setting
+
+svn-id: r52826
+"
+"acc7fd4e7d083ba02935d81c3c979829fb9e2fa3","2010-09-20 20:38:34+00:00","SWORD1: Backport fix for bug #3032772
+
+svn-id: r52828
+"
+"cd702214b4d093c10675089276916b4c60bbf64a","2010-09-20 21:06:15+00:00","GUI: Fix Subtitles speed option cut in Audio tab of game options.
+
+In normal (no scaling) mode and aspect ratio correction turned off, the
+height of the Audio tab of the game options was too small and the subtitle
+speed option was subsequently cut.
+
+svn-id: r52829
+"
+"4df346489272579d29fb0c30975bca4fd4de9f69","2010-09-20 21:19:09+00:00","AGI: Backport fix for bug #3061578: AGI: PCjr Mode Not Default
+
+svn-id: r52832
+"
+"fa9ac7716fd2e8658129a2882686ea01bf202509","2010-09-21 05:37:51+00:00","AGI: Backport changing meaning of pcjr sound device
+
+svn-id: r52837
+"
+"2bd8fb56b00286415f9e84293991859784d47702","2010-09-21 06:06:37+00:00","AGI: Deconfusify the AGI music driver
+
+(After a brief discussion with sev.) AdLib is now the old Sarien sound,
+PCjr is the new PCjr emulation. PCjr is still the default; we don't
+need to ask getMusicType() how to get there.
+
+svn-id: r52839
+"
+"f173eb0d7083da92a23d94825f694d0cb80f15cc","2010-09-21 07:02:29+00:00","Added translations.dat to pkg files
+
+svn-id: r52841
+"
+"7b3020a2dfeb398dd1c6d1c71900be2e36d3bf0d","2010-09-21 17:20:44+00:00","DRASCULA: Fix invalid memory access on inventory screen
+
+Backported from the trunk. Hopefully fixes a potential crash I
+encountered once.
+
+svn-id: r52844
+"
+"68ca2219a16e5fc03583dfc5ec325558befb9072","2010-09-21 17:58:09+00:00","DRASCULA: Fix bug #3069977 ('Grafic Glitches in text')
+
+Backported from the trunk. May fix some other similar bugs, but I
+haven't verified that. May be a good idea to replay the game, but
+I'm not very familiar with it myself.
+
+svn-id: r52846
+"
+"badcce4c9c55d2466dd7fcb3eb2413d322257982","2010-09-21 18:43:19+00:00","I18N: Update Italian translation
+
+svn-id: r52847
+"
+"ea3dd0ed94e66f1c4f8392189bf6f197a6a6997f","2010-09-21 19:38:26+00:00","NEWS: Mention that Hoyle Classic Card Games is now supported (sync with trunk)
+
+svn-id: r52848
+"
+"900fed41b4a777a1636db3961c3232a697edc54b","2010-09-21 19:50:30+00:00","GUI: Quick fix for the mute checkbox label being cut in the in-game options
+
+This happened with some translations as the width of the checkbox was
+fixed to 80 pixels, even though more space was available. I have increased
+it to 120 pixels.
+
+svn-id: r52849
+"
+"0284a52a690e2664f82b16392ccf4b2ea1289eea","2010-09-21 21:42:23+00:00","I18N: Backport the catalan translation from r52851
+
+svn-id: r52852
+"
+"4c588d0f0b730496190d7cf42dd4eff547dc25c9","2010-09-22 20:19:35+00:00","KYRA PC-98: backport fix in music frequency endianess
+
+svn-id: r52857
+"
+"abe72b029b098ca4417ba951ab181076180d9725","2010-09-22 21:13:13+00:00","AGI: Backport of r52856 : Fix for Bug #3067263 'SQ2: ScummVM hanging on the inventory screen'
+
+This was due to a loop in AgiEngine::selectItems(int n), which lacked a check
+that the engine was quitting or restarting.
+
+svn-id: r52859
+"
+"97f86ad606a573248c57f23b7f699c222110d115","2010-09-22 21:22:15+00:00","I18N: Update Ukrainian translation
+
+svn-id: r52861
+"
+"555890bcb8017329c59fd5da5ee6653b2c4cf2a3","2010-09-23 20:03:29+00:00","DRASCULA: Play the English 'von Braun' track
+
+Backported from the trunk. We have the missing track now, so the
+workaround is no longer needed.
+
+svn-id: r52867
+"
+"bd29d01d237af6442a7296186f7806db2bd4c51d","2010-09-23 21:24:33+00:00","CONFIGURE: Backport: Rework GP2X/Wiz/Caanoo and OpenPandora builds.
+
+Just some small cleanup to make the building of debug and
+release builds follow the convention expected from the
+configure flags.
+
+svn-id: r52869
+"
+"6518b8ebd4f85bff5f147ffb50739034a5e84a91","2010-09-24 00:26:14+00:00","IPHONE: Updated xcode project, and added iPhone 4 highres icon from atombone1180
+
+svn-id: r52870
+"
+"c2fec8d6f24d8674576f746fd0ae99a5ed7c3ba7","2010-09-24 01:02:07+00:00","BUILD: Add MSVC project files.
+
+svn-id: r52872
+"
+"67112b58c77204b3324709bd95d27846ab839c36","2010-09-24 09:05:32+00:00","PSP: backported from trunk
+
+PSP: moved VramAllocator to display_manager.cpp.
+
+It didn't really belong in memory.cpp and we're going to want to include memory.h everywhere.
+* * *
+PSP: more Vram Allocator cleanup
+* * *
+PSP: Split up PspMemory class.
+
+PspMemorySwap is more specific ie. it only needs to be known by PSP files. It could be put in another file, but not worth the effort.
+* * *
+PSP: switch from wrapping memcpy to defining our own memcpy
+
+The advantage is that we get to do inlining and even use lwl and lwr instructions where appropriate. We have to do it ourselves because the PSP doesn't tolerate built-in instructions, but also we have a more efficient memcpy than the lib's.
+
+svn-id: r52873
+"
+"48d71a446654559ef459ad498d7a1a4c763478a7","2010-09-24 09:06:27+00:00","PSP: backported from trunk. Fix issue in ME MP3 code. Release and init the ME when seeking.
+
+Without this fix, the ME allocates more and more memory with every seek until it can't work.
+
+svn-id: r52874
+"
+"40cbaa99e399b90570e1c13c327d7880a1e4f41a","2010-09-24 10:16:16+00:00","SCI: backport r52875: save/restore intensity of sysPalette
+
+fixes bug #3072868
+
+svn-id: r52876
+"
+"44cac5a46bcce1dbbcb86e74bcbc77169a9b20cb","2010-09-25 13:01:48+00:00","IPHONE: Fixed suspend mode, corrected some formatting and copying all icons when creating package.
+
+svn-id: r52879
+"
+"c1cdd98d1740ae676739e6970f29fad414e5d1e0","2010-09-25 15:00:45+00:00","SYMBIAN : Fixed working translation for Symbian (and for Platforms using built in classic theme)
+
+svn-id: r52883
+"
+"06ccd0859b794c794d9630ff264da07402f96f87","2010-09-25 18:04:24+00:00","IPHONE: Merge Info.plist changes back into Info.plist.in
+
+svn-id: r52884
+"
+"18b89ac71a76d306564fdbc8188f2e371d996e30","2010-09-25 18:04:49+00:00","MACOSX: Fix Info.plist doctype
+
+svn-id: r52885
+"
+"3350213ff0ce2522732b7471e3f00d02323a9b2c","2010-09-25 20:32:17+00:00","PSP: backport from trunk. ME MP3: cache stereo status
+
+Bad timing can cause stereo status not to be picked up if at some point a MAD _header is not initialized.
+
+svn-id: r52889
+"
+"17005b523cc1d7d33ab11591f7f6c596073c3b8a","2010-09-25 20:51:35+00:00","SCUMM: backport fix for bug #3052804
+
+svn-id: r52892
+"
+"0ee240bc721a2b4c4497723f0d962425c86bd5b9","2010-09-25 21:09:54+00:00","I18N: Update Spanish and French translations
+
+svn-id: r52893
+"
+"3adfaa2ce68a7e3832050721dd65604eb354e519","2010-09-25 21:57:11+00:00","DINGUX: backport of r52894
+
+svn-id: r52895
+"
+"a0ddd062b2988e47040874f66442e3eccbcbfd3c","2010-09-25 22:48:58+00:00","GUI: backport r52896 (Partial fix for bug #3075649)
+
+svn-id: r52897
+"
+"0c46a61003bf77eb205c2a5ead5aa5cf9ee8e0ae","2010-09-26 10:59:26+00:00","SCI: backport r52887/52888: changes to kAddToPic
+
+kAddToPic doesn't do loop/cel fixups, it also doesn't support global scaling
+and will only set nsRect on scaled Cels, not reusing fill() of kAnimate
+anymore, but doing those things separately.
+
+Fixes kq6 - 2nd window shown instead of peppermint bush (bug #3070465).
+
+svn-id: r52898
+"
+"c7e2ed60683af052f463c4276321b71b89bd91e2","2010-09-26 11:21:58+00:00","AGI: Fix bug in cmd_cancel_line()
+
+Backported from the trunk to fix Ctrl-C. Part of bug #3054184 ('SQ1
+AGI: keyboard special keys are not functioning properly').
+
+svn-id: r52900
+"
+"66b693762091665bace50ca1e6e0028c198da6c9","2010-09-26 12:08:16+00:00","AGOS: Fix Valgrind warnings on exit.
+
+svn-id: r52905
+"
+"061c1f33111d9da5e0c53ccebe531a1087336132","2010-09-26 12:23:57+00:00","AGOS: Backport fix for bug #3011638 - WAXWORKS: Crash retrieving spear from the crocodile carcass.
+
+svn-id: r52907
+"
+"03f81c6cad48612783fbe80b37a7d19f1f67bcb0","2010-09-26 12:29:40+00:00","AGOS: Hopefully fix bug #3000876 ('FF Crackling/static popping')
+
+Backported from the trunk. I think it was caused by not counting the
+first eight byte as part of the WAV data.
+
+svn-id: r52909
+"
+"70d292046694372cf423b2ab5e822816cb6d42aa","2010-09-26 15:54:04+00:00","SCI: backport r52911: kDrawPic setting _picNotValid on non-front
+
+fixes lsl5 english graphic corruption during taj mahal wakeup, should also fix
+sq5 1.03 graphic corruption right after scrubbing (bug #3041069)
+
+svn-id: r52912
+"
+"a2f6dfdaef3919d0cafdd272e057ca43f86d75dd","2010-09-26 18:59:01+00:00","SCI: backport r52913: adding separate status drawing code
+
+now also draws 'IV' in KQ4 correctly. This wasn't the case before because we
+reused the regular drawing code, which would see the 0xA ('IV') as linebreak
+
+svn-id: r52914
+"
+"6ccf56df66be84a994809091030ddcda026f31d4","2010-09-26 20:19:16+00:00","NEWS: Update NEWS file with GP2X/Wiz/Caanoo stuff.
+
+svn-id: r52915
+"
+"cd24ecdcee8e38b8061e92d74986ac1812f0e3f6","2010-09-26 20:26:09+00:00","CONFIGURE: Backport: Clean up overuse of _exeext for GP2X/Wiz and Caanoo.
+
+svn-id: r52918
+"
+"010a469a37e9d4efd38e5df1375ceaf165dee573","2010-09-26 21:07:38+00:00","I18N: Translate default KeysDialog title
+
+The same string was already translated somewhere else. Therefore the
+translation files do not need to be updated.
+
+svn-id: r52919
+"
+"0913e83237d9ea22c13a088fa1929e9f3a54fb4b","2010-09-28 04:53:51+00:00","SAGA: Initialise _driverType
+
+svn-id: r52923
+"
+"9a5a697c2e9ad77071b463cdc89c10de6a42c460","2010-09-28 18:17:33+00:00","SAGA: Fix ITE intro regression
+
+Backported from trunk. The bug caused p2_a.voc to not be played.
+Possibly related to bug #3076822 - ITE: Dialog repeats in intro.
+
+svn-id: r52929
+"
+"ddbeadee6f347615cc88899eb80b8089d42c6bba","2010-09-28 18:56:30+00:00","SAGA: Fix wrong logo animation in some versions of ITE
+
+Backported from trunk.
+
+svn-id: r52931
+"
+"ac184006e361886fe445435f80d09c0bd932336c","2010-09-28 21:31:37+00:00","CONFIGURE: Wrap PLUGIN_DIRECTORY define so the OpenPandora backend can set the value.
+
+svn-id: r52937
+"
+"838a017251c5470d364950bc5fe6eca693dd90ed","2010-09-28 23:44:08+00:00","Updated xcode project
+
+svn-id: r52938
+"
+"f4471d89ced9d9334f6314f92eeacaa6270baf3a","2010-09-30 18:03:47+00:00","CREDITS: Remove credits for Hungarian translation in branch
+
+That might have been confusing since the Hungarian translation is not
+included in the branch.
+
+svn-id: r52958
+"
+"12c4c53147fcdeb41df5c7f624318c05fd115d90","2010-10-01 18:20:41+00:00","MAKEFILE: Add scummclassic.zip to DIST_FILES_THEMES
+
+svn-id: r52964
+"
+"790a2f61137e49f8fd88e5e85175814efe7cf6fb","2010-10-01 19:16:09+00:00","GUI: Error message for theme incompatible with current language
+
+Add an error message when switching to a theme that does not support
+the current language (i.e. it does not have fonts for the charset used by
+that language).
+
+svn-id: r52965
+"
+"14f013bd9a5057465a30641933c4745d3358834e","2010-10-01 21:43:12+00:00","GUI: backport fix for bug #3075649 (Fonts not found with built-in theme)
+
+svn-id: r52970
+"
+"44be43e4d9e9f12590b601059f17af55144ff782","2010-10-02 00:10:21+00:00","LURE: Backport for #3008511 Goewin getting stuck
+
+This workaround prevents the Weregate from closing whilst Goewin is still within it
+
+svn-id: r52972
+"
+"75579e6b9c44b281099274d3ace1c0d0c3d143dd","2010-10-02 09:19:28+00:00","SAGA: backport bugfix for bug #3065113 with patched sound glitch
+
+svn-id: r52976
+"
+"d09d8c0848ae056f22647cf614375ff91b4d3fc1","2010-10-02 13:29:12+00:00","i18n: Update Russian translation (backport)
+
+svn-id: r52980
+"
+"32fb02e581f151b49c6cfbce56dc994b115f2315","2010-10-02 21:38:12+00:00","I18N: Update German translation in 1.2.0 branch
+
+svn-id: r52983
+"
+"5ec2bdfef79d52e655144278e25197899781227e","2010-10-03 18:32:39+00:00","AGI: Properly detect the autosave slot in the save dialog
+
+It's not always the topmost slot. The more elegant solution is
+probably to not show the autosave slot at all in the save dialog.
+
+svn-id: r52996
+"
+"2706853f4f4f846e90c25951ebd7987da352b3c0","2010-10-03 18:44:07+00:00","OPENPANDORA: Large control layout changes and small fixes.
+
+Code matches the OpenPandora 1.2.0 preview release.
+
+svn-id: r52998
+"
+"6aa7123f2ab42b3d4a8fec63aff9cacb3661389a","2010-10-03 22:52:55+00:00","SCI: Added support for SCI1.1+ magnifier cursors (bug #3034973) (backport).
+
+These are special cursors which zoom parts of a view dynamically. Examples
+are Freddy Pharkas, when reading the prescription with the whiskey and LB2,
+when using the magnifying glass on the Rosetta Stone
+
+svn-id: r53004
+"
+"e597110ff16ef1a898e7930d75e63b396942b635","2010-10-03 23:12:18+00:00","SCI: Added detection entry for KQ5/PC-98 (bug report #3073583) (backport)
+
+svn-id: r53006
+"
+"2ba6c0592ec7c70954ce189fd4583c8193e30ef8","2010-10-03 23:56:49+00:00","SCI: Added missing initialization of _zoomBitmap (backport)
+
+svn-id: r53009
+"
+"4d5333c0b396d9307514b1a8e1a496bc2cfb6a32","2010-10-04 06:07:11+00:00","SCI: Several corrections for magnifier cursors (backport)
+
+svn-id: r53011
+"
+"8b6f973c1b19444e9613560f79ab7d81e4f2bef2","2010-10-04 08:45:08+00:00","SCI: Backport r52992: Fix textwidth computation for chars >= 128
+
+svn-id: r53012
+"
+"c260f75a72abeaaf3a4dd458a484b49e66f55fe8","2010-10-04 11:58:51+00:00","SCI: Removed the recently added WIP magnifier cursors from the stable branch
+
+svn-id: r53015
+"
+"85a15e05b08d464364b26fe88fee69e0d9bddf43","2010-10-04 22:20:08+00:00","DS: Backport of athrxx's work to reduce the memory footprint of the FM Towns audio on the DS. (rev #52994)
+
+svn-id: r53018
+"
+"5eaf2c4aa50d40c1eb3b4b26a17354ddf45055aa","2010-10-04 22:36:44+00:00","FOTAQ: Fixed a possible memory leak, destructor was not virtual.
+
+svn-id: r53019
+"
+"b934c76e9febac39a1ba10e3cb4a530a14f5d2c8","2010-10-04 22:37:45+00:00","DS: Only allow Beneath a Steel Sky to have 50 saves when running on the DS - fixes a crash when saving via the GMM.
+
+svn-id: r53020
+"
+"240ff87cf4472538d25a1c5628c8d15f1791ab1c","2010-10-04 22:39:55+00:00","GUI: Allow disabling of Mass Add dialog.  Saves a few Kb of binary size on the DS, and is not particularly useful on that platform.
+
+svn-id: r53021
+"
+"fe3b18ce0df03117081e83d99f4a2cbd864d3286","2010-10-04 22:41:22+00:00","GUI: Don't search for theme zip files on startup when running on the DS.  Themes aren't supported anyway, and the search severely delays startup.
+
+svn-id: r53022
+"
+"5f3a90a5f6911188b8d1ded08dbdf6d233e9eb7b","2010-10-04 22:42:28+00:00","DS: Prevent the command line help string from being included in the binary.
+
+svn-id: r53023
+"
+"492f01c3f969ecfb5afa1d99ac2b2d4dae5d2d9b","2010-10-04 22:44:34+00:00","DS: Add DISABLE_MASS_ADD define to makefile.
+
+svn-id: r53024
+"
+"b96573798e893ab4cdad48e7012a5b88668bfc8c","2010-10-04 23:12:35+00:00","FOTAQ: Reverted my earlier commit.  There was no memory leak and I left some printf's in as well.
+
+svn-id: r53025
+"
+"93309950cf13a120be92edb7c156391b6c64fb19","2010-10-05 09:16:15+00:00","LURE: Backport of #3060480 - Ratpouch alternating between rooms
+
+svn-id: r53027
+"
+"b182aae193e77f216ddcc934457a0f14f9d71a13","2010-10-05 10:52:20+00:00","LURE: Backport for #3008511 - Goewin stuck at counter
+
+svn-id: r53030
+"
+"28cabcf3c97ecfa43d410ef7584090124e0a4dba","2010-10-05 20:38:34+00:00","GOB : Backport of r53032 'Fix text display in Gob3 Windows/ADI'
+
+Fixes Gob3 Windows/ADI Blount's speaking text output, which is otherwise missing.
+
+svn-id: r53035
+"
+"2ed45c233c24153bcddd518711466d28df1db8af","2010-10-05 21:23:04+00:00","GOB: Backport: Try to also open VMD files in Gob3 Win
+
+Because the scripts reference it as IMD, while there are actually
+only VMDs files in the data files of the Windows version
+
+svn-id: r53038
+"
+"2611a4c984a81081a576966bf09708dfc6910d5f","2010-10-06 09:57:51+00:00","LURE: Backport for #3062794 - Diermot cannot leave room 7
+
+svn-id: r53040
+"
+"e31394851d746bdab00660ab599240959e2c12ef","2010-10-06 11:48:25+00:00","NEWS: Fix whitespace
+
+svn-id: r53041
+"
+"49eaf4e755fbc12ee6a3f0a56b79dafb20119ed0","2010-10-07 09:18:40+00:00","GOB: Backport: Fix object videos with more than 255 frames
+
+A regression of the CoktelDecoder rewrite.
+
+svn-id: r53044
+"
+"606a487835fb3e4f3fa150f9c85d47d8b4963112","2010-10-07 14:58:35+00:00","SCI: Backport r53046/53047: unknown valgrind cases->fake 0 when official
+
+we will fake 0 instead of error()ing out in official releases, when an uninitialized temp is read
+
+svn-id: r53048
+"
+"a1b59f250c327d198302172353d98c0f9c77fc4d","2010-10-07 15:48:52+00:00","Backport of revision 53050
+
+svn-id: r53051
+"
+"7cb1e82f3edca5ec861de5911bfa16363c80b7ee","2010-10-07 20:35:59+00:00","DS: A few small memory optimisations
+
+svn-id: r53056
+"
+"d36e915797df79fb9dea80561b537e996ce926a6","2010-10-07 20:40:16+00:00","DS: Updating port specific readme for 1.2.0
+
+svn-id: r53057
+"
+"a5c1a08fb5601edec1865646e1d21ad2d389d650","2010-10-07 20:50:15+00:00","SCI: Backport r53058: Add one more workaround for end of QfG3 Awari
+
+svn-id: r53059
+"
+"bac567c5bd9c01d3deb49ecc4c916e3990469401","2010-10-07 22:34:45+00:00","I18N: Improve the lowres catalan translation.
+
+svn-id: r53062
+"
+"139f252ddcbae563c08c16d33139017479abcc0d","2010-10-08 00:29:58+00:00","I18N: Minor lowres fixes and cleanup.
+
+- Reduced some english strings that didn't fit their space in lowres mode.
+- Rename the 'context' context to 'lowres'.
+- Update the .po headers.
+- Clear unused strings in translations.
+
+svn-id: r53063
+"
+"f37d2d2a1456ee3c37dc6e3941baa982c7c1d783","2010-10-08 05:10:49+00:00","SCI: Fix for bug #3083151 - 'QFG3: Long pause while loading specific savegame' (backport)
+
+svn-id: r53064
+"
+"2f1c90075b3cce787f4caac25a7e373c5a5888a5","2010-10-08 08:15:17+00:00","TOOLS: Add RELEASE_BUILD to autogenerated MSVC project files.
+
+This is only done for the release target and not the debug target.
+This is a backport of r53065.
+
+svn-id: r53066
+"
+"b6e918eb825c13a2e1b7d1761d3ed88551afaba9","2010-10-08 08:19:22+00:00","BUILD: Update MSVC project files for 1.2.0.
+
+svn-id: r53067
+"
+"03a11854ed1a80760cbd430919ba051694d8ed6c","2010-10-08 10:41:55+00:00","SCI: Backport r53068: add global scaling again to kAddToPic
+
+fixes regression of r52887 - lb2 actors not scaled correctly bug #3083577
+
+svn-id: r53069
+"
+"d9139c3980e5227748bb9d440dbf442583dff283","2010-10-08 12:31:54+00:00","SCI: Backport r53045: fixing kBaseSetter on scaled views
+
+adding check, if view is scaleable
+also just copying nsRect now instead of recalculating - fixes lb2 regression at
+the docks (calling taxi hangs the game, bug #3982289) - i noticed this
+difference before but copying nsRect didnt work back then (i guess because of
+other bugs), that's why i recalculated it
+
+Backport note: LB2 and QfG3 (which both have had bugs related to this code) have
+been fully replayed with this patch to test.
+
+svn-id: r53070
+"
+"9c62e144b18713692ed3d2b399a92370e27d2d31","2010-10-08 17:40:13+00:00","DISTS/REDHAT: Don't package dxa script in tools
+
+The script is broken and no longer necessary with SMK support.
+
+svn-id: r53075
+"
+"a1a19cd886e657aa1e98309a79026c174a229ea9","2010-10-08 18:35:43+00:00","SCI: Backport r53077: Support kGetTime modes 2 and 3 in SCI 0_LATE
+
+This fixes bug #3083879 in Iceman.
+
+svn-id: r53078
+"
+"3d41b2c5597eb377429d95d1d306d4b69669e4a3","2010-10-08 19:31:53+00:00","updated for 1.2.0
+
+svn-id: r53079
+"
+"de8d75b17fb95ab587562d98fe03167815d5f363","2010-10-08 19:33:05+00:00","renamed for 1.2.0
+
+svn-id: r53080
+"
+"3da87f61f67a070a01646811926cdedfbe875c3e","2010-10-08 20:40:09+00:00","NEWS: set 1.2.0 release date
+
+svn-id: r53081
+"
+"6a4e6d1c79296abe365f600b6183118e00c6ed91","2010-10-08 20:49:22+00:00","RELEASE: This is 1.2.0
+
+svn-id: r53085
+"

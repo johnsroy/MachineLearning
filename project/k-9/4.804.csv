@@ -1,0 +1,76 @@
+"commit id","commit date","commit message"
+"06f31dd8728359edc591ae234baa7a541bc76e2d","2014-01-22 16:06:52+01:00","Disable pull-to-refresh when remote search is not allowed
+
+Fixed issue 6151
+"
+"0910e0bedbbacc8c0daa66b133f452727f34da6d","2014-01-23 01:35:21+01:00","Restore instance state in correct order
+
+Fixes issue 5968
+"
+"5437dc39e1a82bf72090fbe3a835e60a5b0e0242","2014-01-30 02:47:10+01:00","Support extras for ACTION_VIEW + mailto: URI
+
+Support the extras documented for ACTION_SEND to be used with
+ACTION_VIEW to support another app that doesn't care, namely Twitter.
+"
+"aef6321ecd90d8f27233f9679fe96da9e137b094","2014-01-26 11:32:59+11:00","Alternative fix for issue 5697 - ASUS display bug
+"
+"5d130b2de1610c2e2671ece58f897decbf562c76","2014-01-31 20:05:00+01:00","Don't crash when startActivity() fails
+
+Fixes issue 6201
+"
+"25c3c635fc7548c77c9a248c644565952e3a30eb","2013-11-23 09:00:41+09:00","Should disable COMPOSE menu item
+
+When message viewing and tap the next icon, menu icons (previous, next, delete and replys) disappears for an instant.
+But a compose icon remains, then tap it accidentally.
+"
+"e8f7f6ef389a5b902a2aeb53c19b6c6bfdcb3278","2014-02-11 20:17:34+01:00","Fix 'endless' loop in ImapFolderPusher
+
+Under certain circumstances it's possible that the 'push state' isn't
+updated to contain the most recent 'UIDNEXT' value. In that case
+ImapFolderPusher.start() would execute the same code path through its
+main loop over and over again, preventing the device from going to
+sleep.
+Rather than changing the code to update the 'push state' in the corner
+case that triggers the behavior described above, this commit introduces
+another mechanism to track the 'UIDNEXT' value. This should also catch
+as of yet unknown cases where the 'push state' isn't properly updated.
+
+At some point in the future I hope we get to a point where we only
+persist the 'push state' when we manually stop/restart the service.
+During normal operation there's no need to read from/write to storage
+all the time.
+
+Fixes issue 4907
+"
+"d3a5395d2c7238da6b80ba078220ccbff97ac426","2014-02-20 22:14:40+01:00","Add mailbox.org to list of providers
+"
+"ca16f36db9b47f2823697558712b6b86becf80eb","2014-02-23 00:30:53+01:00","Avoid adding the same recipient twice when using 'reply to all'
+
+Fixes issue 6056
+"
+"dcd1e63812d8cb256c231f62fb2a6cddac93e9dc","2014-02-28 17:02:05+01:00","Fix sendCommand line splitup for some imap proxys
+
+When sending a command it would be sent like this:
+PKG1: 1 STARTTLS
+PKG2: \r\n
+
+Some imap proxys (maybe from Fortinet?) don't accept commands across packets:
+PKG1: 1 STARTTLS\r\n
+"
+"0c37a28754db8c5c914fc66b862fcfc273af3ceb","2014-03-09 04:34:46+01:00","Exclude error folder from unread/starred count
+"
+"19b180a3b62ffeb0497a293d103702185e2bd7a9","2014-03-23 00:39:10+01:00","Avoid NullPointerException reported via Google Play
+"
+"3b17aa04965d67d737c054306206cf0d81c70348","2014-04-07 17:22:20+02:00","Fix potential ClassCastException
+
+Implemented the fix suggested by zjw in pull request #463
+https://github.com/k9mail/k-9/pull/463
+
+Fixes issue 5928
+"
+"4ece2bb4283eecdf8f3850e3c0e63bd380fcac6e","2014-06-21 01:47:08+02:00","Add missing import
+"
+"c578fcae6f3f447c2983aaa8280160dd337acda3","2014-06-21 00:37:22+02:00","Update changelog for 4.804
+"
+"39026ec3a58a0d80d98e2102d4be086c24a00ac0","2014-06-21 14:57:01+02:00","Bumped manifest to 4.804
+"

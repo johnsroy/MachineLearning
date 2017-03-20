@@ -1,0 +1,498 @@
+"commit id","commit date","commit message"
+"4f024d4c32f3ed6dd006473c0526a3cc86fbfbd9","2012-01-09 18:18:05-08:00","initial checkin
+"
+"2aa78cd76a0ffc423061598fb3f2d2e9f22d8052","2012-01-09 20:05:38-08:00","added divider line between timer and lap times.  it's a bit of a hack
+since the actual one didn't work...
+"
+"b7693860264c72469c0cbdae124f0a2de16fe805","2012-01-09 23:25:27-08:00","skeleton for countdown in
+"
+"10a4b87e97ef512df04c81fc1f204e748b99e920","2012-01-10 08:23:06-08:00","Change jar ref to be within project rather than absolute filesystem ref,
+so that git syncs will work and still build.
+"
+"f8d5d52f02d34231a3e0f88a854c00ba744da296","2012-01-10 08:23:28-08:00","actually do the add
+"
+"235c519389b5d666bcd6c4b3623662c91e9d1113","2012-01-10 09:08:58-08:00","Make start/stop button toggle the input mode
+"
+"02704eec5144d54d31de42c8ea911562545d12b4","2012-01-10 09:19:48-08:00","Start making input verification
+"
+"48a28fbba44b0a9d8edb5f77bbac9a3cced5adb7","2012-01-10 15:45:13-08:00","countdown now counts down and plays ringtone / alarm sound at 0.
+"
+"e032ea9d040640faedb058af7f6b6e2b1b7343b9","2012-01-10 20:12:47-08:00","Add android notification for countdown timer expiration
+"
+"5a673afbef54a0e908e9a06a6a3cb69c26a0079f","2012-01-10 23:32:34-08:00","Mostly fix the countdown stuff.
+"
+"adc6d4d73c3784d9b2798b5dd7856b5d87c63639","2012-01-11 18:13:45-08:00","Adds countdown expiry system notification and tap-to-dismiss (via dirty
+hacks)
+"
+"58f1a854c48292d52913e18c727ffa42d2aa03f3","2012-01-12 09:11:08-08:00","Fix breaking on rotation in the countdown timer.
+"
+"e81b83e5d51dca8c37ceef3dd89660231fb40231","2012-01-12 18:55:36-08:00","Start moving alarm tracking into AlarmService
+"
+"78d58ac8e6e4a3b51c5fee6d883f10fc160fdb72","2012-01-13 18:31:24-08:00","Extract alarm code into AlarmService.
+
+TODO: start AlarmService on Activity startup instead of just binding,
+save and restore the countdown input boxes state
+"
+"ac722542017e8bb27252096030198f2124512525","2012-01-13 18:44:01-08:00","Add save/restore state for the countdown inputs.
+"
+"5a606b1009e9902d9d2887d782a83127acf81500","2012-01-17 07:52:19-08:00","More AlarmService changes
+"
+"75126adc084303fe6a108d1ece2695711cb78284","2012-01-18 19:30:27-08:00","Migrated AlarmService to use AlarmManager... code is almost working, but
+still need an AlarmService to manage playback of the alarm sound itself,
+so that it will be cancellable - BroadcastReceivers have too short a
+lifespan.
+"
+"83a890b9d7d208b72becc442b18103cd6f6edff3","2012-01-19 09:19:22-08:00","Reinstate AlarmService, but this time a non multithreaded version which
+uses Intents for inter-object communication - much less messy
+conceptually.  Also, change the stopwatch ui thread to target 60fps
+updates rather than just doing Thread.yield().
+"
+"93cb1592d43aff27e9e331494f43ef7b4ce1a64d","2012-01-20 09:07:33-08:00","Switch to using NumberPicker for inputs, and fix cancelling the
+countdown making the alarm no longer ring.
+"
+"42d6933e7c0d85d88b098d257578351d0bdecfc3","2012-01-20 18:12:54-08:00","Delete dead code since we are now in a different branch
+"
+"f3b6a8ab7ee1125320d1e02f4131023fbb00befb","2012-01-20 18:38:44-08:00","Finally make an xml for the text countdown timer instead of making it
+programatically.
+"
+"564114d544b03e87ec0d25d12fb95aa2172024b5","2012-01-20 19:13:07-08:00",".
+"
+"cd4e9e483873d74cc8156c891c4566cb03b3748a","2012-01-25 18:58:24-08:00","disable keyboard input for the numberpickers since it's horribly fucked
+up as far as focused element goes :(
+"
+"2243cc4916e85c7db95982c2b3607c73ec8464c5","2012-01-25 19:03:50-08:00","remove unnecessary line
+"
+"ad8f1651500e557d02732f4f845a81fdff240610","2012-01-26 09:02:09-08:00","testing performance... really need to figure out how to load via
+bluetooth or some such :/
+"
+"5d1731a7b2fec468300878e2608bcea0ae5134ce","2012-01-26 18:12:58-08:00","widen button
+"
+"a81c420fe97feb0875edbfe28bd2fe63c0459e4a","2012-01-26 18:40:15-08:00","clean up crash on screen rotate
+"
+"8ffd4a5f223ff55fe1b7a2cd173d2b36dbf591bf","2012-01-27 18:42:56-08:00","Initial add of the world clock.  Currently doesn't have a way for you to
+choose the timezone... also needs a subtext saying the timezone of each
+clock.  Required hacking the digitalclock and reimplementing the
+analogclock.
+"
+"b56757f738f62716fed00b5110e87f68ce0ae814","2012-01-29 21:59:13-08:00","switch to use ListView, and fix background on add button
+"
+"57c32a0376c24c4c1371c9c0bc6133d67e9697ee","2012-01-30 00:27:41-08:00","tried filtering the timezones in the selection dialog
+"
+"7db39841600b776137580f8366446411f1f9e69d","2012-01-30 08:39:01-08:00","add edit/remove interface for existing clocks, synchronize updates
+between analog and digital clocks, add textview saying which timezone is
+which
+"
+"41784889df717a8cbbfa9027f90992d63d18d93b","2012-01-30 08:56:52-08:00","annotate timezone offsets and sort dialog list.  should still try to
+curate the list to be shorter...
+"
+"93c4323d4cf8c0029a78477f1310b046768e49eb","2012-01-30 22:25:32-08:00","fix incorrect timezone setting
+"
+"3ef763ecaa196cbc321185c2b614bca73ea3ac7b","2012-01-31 18:17:59-08:00","change the timezone input dialog into something that's actually usable
+instead of a giant list.  now it's a slider and a giant list.  lol.
+"
+"fdb5040b5f5084daa197b97abc4e5657098f476a","2012-02-01 07:44:03-08:00","change the pressable linearlayout into an actual button
+"
+"0dc9d95fd49d6a34fd5dcb1f65e17e1699350763","2012-02-01 18:30:43-08:00","hack to get the bottom divider to be the same as the listview one
+"
+"7475b2c7f039e43614ef04f07ed045c0c736a4df","2012-02-01 23:18:36-08:00","use same divider trick to replace fake divider in stopwatch
+"
+"96b09c90814efb0a2d3459d530eea7930d9037d3","2012-02-04 19:43:46-08:00","start switching lap times to listview
+"
+"0241865d2bedc136e1b129fb93ac34be9ecca8b8","2012-02-04 20:57:08-08:00","add workaround to scrolling issue.  scroll to bottom now works, although
+a bit bouncy.
+"
+"9d36b431d342e222cb33b2049774846a8180561c","2012-02-04 22:11:15-08:00","workaround for broken listview
+"
+"e1e4e01ecc7d84bbbe9673db06b7f087e057c585","2012-02-04 22:33:07-08:00","enable debug mode to debug on physical device
+"
+"49391f1ec9e2fde1e020abe2822b842d53384fe1","2012-02-05 03:24:47-08:00","fallback hack since the scroll still doesn't reliably work...
+"
+"1f3d5db367edd6b31112f0e4d983994924ae28cd","2012-02-05 04:59:02-08:00","pretty much revert all of the listview stuff for the lap times, since it
+just wasn't working.  extract the scrollview veresion into LapTimes
+class, add additional logic to save/restore scroll position even on
+layout change.
+"
+"3528e4bbbfc6af5d6020a6e9bdc7ad35b18dd63e","2012-02-06 18:38:55-08:00","fix crash on double rotate while paused in stopwatch.
+"
+"f8e453b81d701e6f173e247168f30c8451a11886","2012-02-07 09:14:10-08:00","make rotating work for world clock.
+"
+"0e1198a7f0e03117621b9edb7afff710e20038c1","2012-02-07 16:44:29-08:00","remove dead code for the old LinearLayout button background.
+"
+"5739c94015af7b07973316cbe4671c2e7bcda3c6","2012-02-07 17:41:18-08:00","quite a major refactoring of stopwatchfragment.  also cleaned up its id
+names.  now no longer explicitly deals with threads.
+"
+"55cfa46a6bd530638087baa0a5268d4c4fd46fbd","2012-02-07 17:49:18-08:00","not sure if the binary changes were pushed right
+"
+"0de46ba2a71e0d1ad3ae2c449e61cac6f3bff74d","2012-02-08 00:18:29-08:00","this works for now... should really make the countdown finished dialog
+part of the activity probably, which would mean notifying via the
+service instead of using the timer.  in which case, might as well make
+the timer more like TimerTextView and have it update on draw, if that
+will work.
+"
+"19f50c2585b2714d312169cf2fb1e958e4da42ee","2012-02-08 08:24:36-08:00","change analog clock update code to use same timing method as
+DigitalClock.
+"
+"1e29d2b14daa2ae4016d6ceaff96c296bcd0309b","2012-02-08 09:08:02-08:00","countdown changes: dialog now part of Activity instead, so it will show
+up independent of the selected tab; change to use CountdownTextView
+instead of a separate thread.  Still need to remove dead thread code.
+"
+"8933a7a8c10e607d62a41e16026004eddbe46c39","2012-02-08 09:13:16-08:00","cleanup old thread code.
+"
+"560a28b42d039fb6f8f95649cc11207d693ab514","2012-02-08 18:00:05-08:00","fix rotate bug in countdowntimer which didn't correctly save state (it's
+saved twice, but now it saves the same state both times.)
+"
+"2c8cb9e131bbc0989a6c407c16c17a9c008d6589","2012-02-23 23:23:50-08:00","Deprecate DanWidgets, add icons
+"
+"5f1641360e3eb5dfbc50f2a057bc691a24e6fd8b","2012-02-23 23:59:00-08:00","Fix bug where cancelling an active countdown after rotating toggled
+input mode but didn't cancel the scheduled alarm event.
+"
+"2598ae4014bbfed10c904a668252e016e363f948","2012-02-24 00:39:28-08:00","Preserve world clock list across app restarts, and make world clock the
+default tab.  Also, change displayed time zone name to human-friendly
+version.  Should also dedupe and display these in the selector dialog.
+"
+"4ef816f46734b8c8a33834d1d5d020c834efe874","2012-02-24 18:24:21-08:00","State save/restore from cold restart for stopwatch fragment.
+
+Random thought: would be better to do continuous save for the instance
+vars which don't change a lot - might want to consider wrapping them in
+an object, i.e. BooleanPreference, and then have a boolean getValue()
+and void setValue(boolean value).
+"
+"92bb3ee5baf5019c8a5cd3362f96c367e9ff490d","2012-02-24 18:43:27-08:00","add 1px line divider between tab pages
+"
+"66eca4229c768eb845c60e7a7f3d587c669c01b1","2012-02-24 18:47:59-08:00","begin work to move countdown to use sharedprefs
+"
+"4961d3e615b3cb9d2fecc3a170ccc6f56ac86c59","2012-02-27 08:47:10-08:00","patch up toggleinputmode on timer finish... might need a bit more to
+handle corner cases
+"
+"a364f9bdc2e3ef45b516655dd864ac64f1adede2","2012-02-28 08:34:21-08:00","SavedPrefs for Countdown working
+"
+"5a1e49534d0f0600d00d818b56f59961fdd528c2","2012-02-28 18:25:38-08:00","fix a state restoring bug in Countdown fragment
+"
+"fed653985f438b4c0bb7c0872933cfd79cb0cfc2","2012-02-28 18:28:22-08:00","code cleanup
+"
+"168fd774ba41005ca9f1651868cf0452fc06393b","2012-02-29 18:37:31-08:00","(hopefully) make selected tab state persist across app restarts.
+"
+"511d494953629a354a4d37391a3b60d030890f87","2012-03-01 09:06:35-08:00","Make timezone select dialog use human readable names and deduplicate
+using these, and make world clock time text white instead of grey.
+"
+"e4c6cbf9fd97ea11e177621c44b4a327fc9e78c8","2012-03-01 09:24:00-08:00","pass 2 on the logo.  may want to get rid of the dropshadow still.
+"
+"0878ea5c7a32db321f870a3bac75702d7a99e0b1","2012-03-01 17:52:04-08:00","reduced drop shadow amount a bit in the icon
+"
+"f1b3b02394b886558d6d0226cf2140a8cf84e3f9","2012-03-01 18:03:40-08:00","Refactor and remove various dead code
+"
+"532ea29b941dc2d9eb02438b0aa9547b16fa5527","2012-03-01 18:34:36-08:00","Rip out all the savedInstanceState code from StopwatchFragment
+"
+"3a26eb852465f9e7469a98858cbc4a37b3ad4a02","2012-03-01 18:47:15-08:00","Rip out savedInstanceState from Countdown.  Bug appeared but could not
+reproduce...
+"
+"3efd67cdb9132fbb9a428dd01e789bdafde1460d","2012-03-02 08:43:39-08:00","Fix how TimerActivity gets CountdownFragment to re-enable input mode on
+timer finish.
+"
+"a3e77d5db6b23663f21f65b3cfb85796fd317d67","2012-03-02 08:50:37-08:00","Split toggleInputMode into inputMode{On,Off}, since TimerActivity only
+ever wants to turn it on.  Should help solve corner cases.
+"
+"8504546a27b6b02144a3b3aa94d0638ef64b49df","2012-03-06 22:49:42-08:00","Start to speed up numberpicker so the render speed isn't crazy slow.
+Some strange differences from the native version came up...
+"
+"c40c941d90a72bb88c4b53f37e39b64a8d050ec7","2012-03-07 00:17:31-08:00","get numberpicker working, mostly
+"
+"ddfad461f32b0aa3de18e228aa8b8454cc2482e5","2012-03-07 00:41:52-08:00","maybe more reliable way of getting the attrarray
+"
+"2c0867d54a5abfc1fd9158b239cd92bf992bbb9d","2012-03-07 09:25:39-08:00","fix missing numberpicker indices, and improve longpress behavior - still
+has a bug on longpress decrement
+"
+"11ab5671c8ee55e20c75949afca5f6808649c38c","2012-03-08 11:22:40-08:00","fix missing last number on scroll down, and fix mis-format of countdown
+hour text for hour > 60.
+"
+"1975247f2cad05f577d749a8370918efbbe41d88","2012-03-09 16:48:24-08:00","fixed the numberpicker scroll not being reset when you swipe across
+fragments by first selecting a numberpicker.  also disabled the thing
+where they initially show up as selected and then fade out, because it
+activates more than once (the intended behavior) when re-initialized as
+part of a fragment.
+"
+"1490cffb279677cea727aee22b59479e7988db47","2012-03-09 17:24:05-08:00","much less messy bitmap caching - just caches the entire scrollwheel.
+"
+"a912c583545c734d3b4297f5e167429fbf1346dc","2012-03-09 17:57:32-08:00","fix black box on clear
+"
+"dfde5f9b33f4e93edf6acaeb81129782537ca3b7","2012-03-10 01:41:07-08:00","fix why the new caching i was doing didn't work on the actual phone.
+the cached bitmaps were larger than the max texture size.  now they
+aren't, they're just segmented into the largest possible segments.
+"
+"6a1f2ec6cf09695e1c632ed5f98e750731af867e","2012-03-12 18:29:02-07:00","the remaining slowness in the numberpickers seems to be due to fading
+edge.  add another caching layer that will allow for us to cache the
+fading edge effect.  just need to copy the implementation from View.
+"
+"b94ad1d33594316f97c8f23da3dfa2c23948f287","2012-03-12 23:22:00-07:00","copy over implementation of fading edge from view.  also fix the
+numberpicker not honoring the height measure spec, it now works when
+rotated.
+"
+"019311b10912fdf9f8041c47d3dc5b9031db374b","2012-03-12 23:25:11-07:00","keep item separation constant on rotate.
+"
+"81e77e0eabdcc434ef1cb3cdd7a3c81a09d6267c","2012-03-13 10:52:11-07:00","fix the last number in each cached pane having anything rendered below
+the baseline cut off.  wish there were a nicer way to do this...
+"
+"f28bc14595cb13759d7b4d19348c7d7915024ebb","2012-03-13 11:00:01-07:00","fix the top element disappearing when scrolling up sometimes. should
+really rework the whole scroll offset system now that the caching just
+needs the offset of the first element.
+"
+"842b61c22746d5f7140024cacd6c22467a5d67ca","2012-03-13 20:40:57-07:00","mess around with the viewpager to keep things cached so scrolling is
+faster.  not finished yet - the initial loading stuff doesn't restore
+state correctly...
+"
+"75612e3121b25afda54640c8cfafd4d34ff51475","2012-03-13 20:59:59-07:00","fix restoration of last selected tab.  doesn't help with preloading
+though...
+"
+"1a70d25dca94fea98de8631b4efe78b2eda04ab6","2012-03-13 23:55:46-07:00","figured out how to force a pre-render, by rendering to an offscreen
+bitmap at the end of onCreateView.
+"
+"50abb8946c9450658c14fd60eaf8b8bb4640f0f8","2012-03-14 09:37:19-07:00","change the scroll offset calculation code to be absolute offset based
+rather than also maintaining an array of indices.  this way makes way
+more sense given the rendering code changes.
+"
+"4f5b104b65b4087f7ada035cfb17b071f0ec3edb","2012-03-14 16:47:42-07:00","fix broken scroll offset for numberpickers on rotate.  needed to redraw
+cached tiles on changed selector element height.
+"
+"5befea27adcd00fc4f703a742f6dee7ea481015b","2012-03-14 17:02:33-07:00","fix overscroll on long press of the increment/decrement buttons
+"
+"c65671610766488742d4264cec0aebe2935a300a","2012-03-14 23:03:02-07:00","fix for rotate messing up displayed text.  weird that it was
+happening... maybe there's a better fix.  also changed the longpress
+scroller finish behavior - it now just stops and lets the adjust
+scroller finish the scroll.
+"
+"2b8ec7dc29ba3582e8b7762e42aa816d68c32ef8","2012-03-15 00:15:12-07:00","remove excess logging from FasterNumberPicker, and synchronize
+AnalogClockWithTimezone's tick to the actual second bound rather than
+uptime mod 1000 = 0.
+"
+"2ed4767df6d3c282766677625a34051dcad5c1ac","2012-03-15 02:19:21-07:00","partially working on older devices.  most likely broke a lot of stuff on
+ICS to get stuff to work, so making this a separate branch.  will try to
+slowly work around the broken stuff.  the worst offender is (of course)
+the countdown view with the numberpicker.... ugh.
+"
+"97aa28681fc17aaa80d98c349885f86edee5d38e","2012-03-16 18:01:32-07:00","fix world clock - arrayadapter doesn't support addAll in earlier
+versions
+"
+"33c11776d59e3041589e2d95ef9f253ba1ed5e73","2012-03-16 18:56:04-07:00","start adding linearlayout compat class
+"
+"f842c66512047e92bee02ec0ffbf4dcbc336e30c","2012-03-17 01:04:37-07:00","finished linearlayout compat class.  seems to work fine
+"
+"3a93b9bd91724e3ac885b35757894c9ade05f909","2012-03-19 18:26:03-07:00","start creating compat numberpicker
+"
+"dc6ba06cd13d3a6e0a7829e38c5ae6d2a50c7325","2012-03-19 23:11:48-07:00","copy in a ton of numberpicker stuff from sdk for compat
+"
+"dd84dfc24244f4ee55720a72058ec54e324c0237","2012-03-20 09:16:23-07:00","add more ids to compat.R.  i have no clue why it's trying to commit so
+many files :/
+"
+"56584675573810d9587ca36eaceb492c2709a559","2012-03-20 20:57:23-07:00","we're almost working!  need to fix numberpicker having the wrong min/max
+on paint and the first offset being wrong (probably the same problem).
+"
+"aea4df64e5876511be4f43b96019bf38b1e5bbdf","2012-03-20 21:12:48-07:00","fixed both previous bugs.  far right edittext is 1px off though still,
+idk why.
+"
+"439507c0bd177e27d5620c5784b6d30b61b92be8","2012-03-21 21:05:16-07:00","'fix' the excessive edittext padding by making it invisible when in
+compat mode and manually drawing the part that should show up, in a
+cached way.
+"
+"6062d8566fd17673b32a7c8bfc6fc06257d994dc","2012-03-22 09:23:08-07:00","start switching the caching strategy for the numberpicker so that we
+don't have to cache everything, since memory pressure was a big issue.
+"
+"a9c7599d220e8ba3dc157de9a9853d5b59654847","2012-03-22 18:21:25-07:00","fixed bug in new caching method causing tiles to be glitched
+"
+"857b25577e2cb90ab36f73c7747c2aa3c008c5dd","2012-03-23 09:15:59-07:00","get us working again on ICS
+"
+"c463e55ef85f5e68ed924c07a7c6a4fe5846acb2","2012-03-23 18:34:24-07:00","get numberpicker dividers working again in ICS.
+"
+"a9c898c996d540cb0d5b07b0376f7e7e2fe30488","2012-03-23 18:40:45-07:00","start putting the animators back in.  i think they'll perform fine with
+the new second-level caching.
+"
+"db1d0cc83e01027249e07d5c2f385dc886c41de3","2012-03-24 10:40:14-07:00","finish putting the animators back in.  also fix max fling too low on
+older versions.  remove some debug logging no longer needed.
+"
+"2cbc9eeb5614ecb2857944a563d02dce54a2e92c","2012-03-26 00:06:46-07:00","fix not realigning numberpicker scroll offset on a slow and slight move
+"
+"4336a3befb3f5d8c181ea7bff2debb2d46ac00ce","2012-03-26 00:24:42-07:00","fix bad initial bump offset due to change in caching
+"
+"fd9d1952d8520d84d207b1ecfdaa173502b8f5c6","2012-03-26 00:40:55-07:00","persist dismiss dialog state, and do cleanup of it properly.
+"
+"78fcdd39973e07f49bbd799fe3fb915dcf27aab4","2012-03-26 11:13:49-07:00","fix numberpicker not rendering for a bit after load
+"
+"67d3fcddebc78ac476e74783102f49e17db32837","2012-03-26 11:22:49-07:00","fix long fade wait on initial touch in numberpicker
+"
+"be9079dafc96c642c81c51f5b11294f366aa1107","2012-03-26 17:54:47-07:00","save numberpicker value changes instantly instead of waiting for
+destroy.
+"
+"78187b85a7994a9e7833ff68a5ef8674f7646109","2012-03-26 18:18:58-07:00","change the stream type of the countdown alarm from music to alarm, so it
+will play back at the volume level set for alarms rather than music.
+"
+"3ed690c4f6dc8316ec12fcaab647676db1cf1311","2012-03-26 18:33:36-07:00","start code cleanup
+"
+"656658e9a704b98ea0b4d498c607331ff5e0801e","2012-03-27 18:40:09-07:00","more cleaning up, added a backwards-compatible Space clone
+"
+"21c7182e53930b843f4391e3cfb5e923e2bd7344","2012-03-28 09:08:39-07:00","start adding alarm sound picker in countdown
+"
+"2e99b36d1a3a268620157f7de9a144dabfdc205c","2012-03-29 17:52:51-07:00","get the alarm sound selector working
+"
+"46a04178e92cbf6a0458d95ba9f79e1e4c90c0c1","2012-03-29 18:41:33-07:00","get numberpicker to work with the more cramped space now
+"
+"e29fc61e205940eea6a0dbea2ad8531455461f72","2012-03-29 23:51:53-07:00","try a different sideways layout for countdown
+"
+"40410b94c912c5bf785a4a34404849ac99c15edb","2012-03-30 08:46:50-07:00","new stopwatch landscape layout
+"
+"6464321d54f85ddfd6bb3a7ef7714000d23fb48b","2012-03-30 18:13:17-07:00","fix broken saved scroll position.  note that saved data for the app must
+be cleared when switching to this revision.
+"
+"842f426443c67feda820c3f7cf92c680c2945933","2012-03-31 12:56:50-07:00","working on honeycomb (galaxy tab 10.1)
+"
+"540505a61aea1fc0ca0b7eb6fa35b5ea7ae21a31","2012-04-01 20:08:22-07:00","successfully canonize default ringtone uri.  should either remove hard
+paths or save them in prefs.
+"
+"c5033187d751a7be246e463da0ea3045f3bc48e9","2012-04-02 17:51:15-07:00","fix broken ICS compatability
+"
+"a15b6c1e33fb99cab79083a0066eac5ee348c95a","2012-04-02 18:33:01-07:00","extract alarm selection into separate class
+"
+"a1db1e5b67a29dff314e7b6380d442cca4601fd7","2012-04-02 23:23:02-07:00","add caching and cache reloading
+"
+"e9672295e7a54308d6bbac63e383bdf2c06c547d","2012-04-03 08:57:08-07:00","save filesystem path instead of content uri
+"
+"3ad6f8066cac5d3bb02a8d11ad77ed7c8f8000be","2012-04-03 18:28:09-07:00","got working again on 2.1.  lost the divider on add button in world clock
+though...
+"
+"5d47fd835ecb8c499bcfd8218b9bb0c8b21b3311","2012-04-03 18:33:18-07:00","fix missing divider in world clock add button.
+"
+"8eab1e7de3ca197b640435b7d192a298fc7334a7","2012-04-04 17:59:23-07:00","updated logo
+"
+"954f4a2a1606081db6af00c72db91e3f62039655","2012-04-04 18:19:37-07:00","use sinc scaling in gimp instead of exporting directly to output size
+from inkscape
+"
+"4c3224c4d2139da84992b98e4f4c256e8a8f7d7f","2012-04-04 18:22:07-07:00","compile the binaries with new logo
+"
+"9940b4de9b8c37cc12dde655a1927f496015d768","2012-04-09 23:07:45-07:00","updated icon
+"
+"63da69fdf29999548eaa4faf8c20ab01544add52","2012-04-11 18:37:14-07:00","remove dependence on middle item index
+"
+"07d4ef3b08f7b95bf490c87110b972fd7ae16fa7","2012-04-11 22:45:14-07:00","size textgap relative to text size rather than aiming for a specific
+fixed number of visible texts
+"
+"3634521671166066935812754c0078463af00da0","2012-04-11 22:59:01-07:00","remove unnecessary compat logic
+"
+"616bbbe4a4fe2cc7e18c860b1ee5d248c33a4861","2012-04-11 23:02:45-07:00","something weird happened
+"
+"5f1a5fc9865bb8317006a1319a1bdd99f1277eb7","2012-04-11 23:07:36-07:00","rebuild the apk
+"
+"20d69d3f0a68b2fcee6ebfbb832d6226a14497be","2012-04-12 08:51:13-07:00","FasterNumberPicker: complete the previous scroll on downward
+touch regardless of whether or not the inc/dec buttons are visible
+"
+"37895acf14f235121151f4fdd964250e34ac9160","2012-04-16 09:13:43-07:00","scale down lap times if they would have wrapped
+"
+"c939a2949ca96526fb74339ffd7743c62939e509","2012-04-16 18:24:45-07:00","Get world clock view to work correctly with larger font setting.
+"
+"e7b4f8c71b9503ec72ee02317f300debd78409da","2012-04-16 18:25:29-07:00","clean up some unused imports
+"
+"002161c38bb451a9483d0317f58d809433156775","2012-04-21 23:01:26-07:00","seems to be a more reliable way of resizing the texts when they get too
+big
+"
+"0e38c96e890aa1e2ecb5d6e1ac0439fe494f1409","2012-04-22 00:57:56-07:00","add checks to keep from possibility of starting a new countdown while
+alarm for the old one starts ringing
+"
+"cb7d32e03b810d60293b32d7aa48a5f278c2de58","2012-04-23 09:04:10-07:00","fix the pst showing as -2 of est issue by using a different form of
+timezone name which includes dst.
+"
+"2d041ccfdec687eb32c2c6dc25b175ba4f93d7b1","2012-05-07 10:10:16-07:00","delay prerender of other tabs, to speed up rotation.  also, force
+invalidation of timer text - not sure if this is the issue, but the
+symptom is a non-changing timer text view.
+"
+"454a99251a06d148f2b961589a5f448ac6b08933","2012-06-29 08:56:07-07:00","enable compatibility mode for jellybean since it breaks the numberpicker
+with stock resource ids
+"
+"9ab60a69d748e11409a7e3c6eb1c4f65668c346e","2012-06-30 01:06:47-07:00","remove log calls and imports
+"
+"9dc484d17f51cb912c2ca6395c093cb6d3830af1","2012-06-30 01:12:41-07:00","add copyright notices
+"
+"edbbc25a2627e039e902950155ebe339e885a972","2012-06-30 01:17:52-07:00","update manifest
+"
+"2910af4777e86b70c46c0feddc8e9d792e822c6e","2012-10-09 16:16:34-04:00","Support auto-start when launched via NFC
+"
+"6746d39eb4dbfb8733f3e5efe83e51ab53f86494","2012-10-10 08:13:36-04:00","add comments
+"
+"8cdb4d181515dacc25d7b5dae1f0aaaf64d27ed2","2012-10-10 17:20:31-04:00","remove menu
+"
+"03ea9b3e6963a3b679eca125cda70a4c3cba92fd","2012-10-11 15:52:05-04:00","renamed NFC to AutoStart
+"
+"02326fee6e55ad3259b85fb6687b6cf152931fde","2012-10-11 15:55:12-04:00","Release 1.2+NFC_0.3
+"
+"2333c835ed244b4e316706e9995d326cc95416c2","2012-10-17 14:23:48-04:00","remove NFC
+"
+"b5bcfe25b57029b024da74e06c855eeb52c7b905","2012-10-17 14:40:18-04:00","Clean up names and types
+"
+"8920ed3bdaa4b07edbfb37a6d0d16d89838e184f","2012-10-17 18:36:30-04:00","Release 1.2+NFC_0.4
+"
+"921c98a5908aaa89a032679bef236413ba802a13","2012-10-19 08:07:15-04:00","Remove the setContentView, it is not necessary
+"
+"7b56ab37dd1358a6e7e071999881bdd66a5e0646","2012-10-19 08:07:38-04:00","add spaces in-between methods
+"
+"15995f41a8936e210a75944a1b5ce75d495113ff","2012-10-19 08:08:40-04:00","Remove the hard-coded digit and use a method to determine the STOPWATCH tab
+"
+"7560db4dc2c965218b069cd303cefce29dba8845","2012-10-19 08:13:17-04:00","Document StopwatchAutostartActivity as a javadoc
+"
+"2e443dc9806cfec588c72295446e3d10e4a8c863","2012-10-19 08:16:19-04:00","clean up the necessary imports
+"
+"d1fbb11ad4229690404d7bb0528aabc679dbc814","2012-10-19 08:33:19-04:00","android:text is not needed
+"
+"66e716c5f09c479aa612b3f090ab4a6313d19af5","2012-10-19 08:37:23-04:00","hello_world string is not needed
+"
+"b54bac2efea04f5948ac3d8e56c33e03c3fa7047","2012-10-19 08:43:16-04:00","menu_settings string is not needed.
+"
+"fd91810c0c82bbe7586a897342947cb9980e76d0","2012-10-19 08:44:55-04:00","Release 1.2+NFC_0.5
+"
+"d151092fdf33569770323efe6fb459d7ca17affb","2012-10-20 10:26:52-07:00","Merge pull request #3 from danielschudel/release_1.2-NFC
+
+Release 1.2 nfc
+"
+"dc5c762abec6050a0a1a8e5b8873d5e760bebf20","2013-11-10 22:06:54-08:00","fixes:
+- compile error due to bad parent in styles.xml
+- avoid reading from SD card if we get SecurityException while
+finding ringtones.  instead, current workaround is to read only from
+the system alarms directory.  SDcard-based ringtones should work via
+the system default alarm sound, which can be changed in system
+settings.
+"
+"f118dc413650e92e79ff4c3c0bb6b2a3e4a8f09c","2013-11-10 22:08:21-08:00","bump up version number for KK fixes
+"
+"d5e617b0862d70342431e1a319688556729438e0","2013-11-11 00:55:14-08:00","add larger icons for higher res/dpi displays.
+"
+"798214aff73a4702f4787d1e8ba28b39b2068e63","2013-11-11 00:57:25-08:00","recompiled
+"
+"778ae06e971d2d7e70e9a2edee0affd3e6582fbb","2013-11-11 01:14:17-08:00","changes to make exporting an APK work, don't know why it was failing
+"
+"b799d20decb3b8cb40d9cc75cf1df9799a7b25ff","2013-11-11 01:40:43-08:00","add default ringtone to list, for backwards compat
+"
+"0f51d9e67344091aa718e52e94a67cfba7d8bf9b","2013-11-11 02:31:12-08:00","hopefully final? changes to support upgrade seamlessly.  was using the
+array adapter incorrectly before actually, so this will probably also
+fix bugs associated with that
+"
+"b2f30c7428c3d8323fa22a304a28c3d5c38b36b4","2013-11-11 02:35:09-08:00","switch debug back to false
+"
+"5282ae967e9df7b1ac02da4da1ce7cedac9a434a","2013-11-12 00:29:18-08:00","made final 1.3 apk
+"
+"9a6f6a972785d90faff7d8cfec28763ecdff2fec","2014-02-13 19:37:40+01:00","Added .gitignore to the project.
+"
+"1a2897648ab92a278386ac39637d281a9c9e313b","2014-02-14 22:25:22+01:00","Extracted visible strings/texts to prepare the application for
+localisation.
+"
+"1deedb1e29ced4cba12a453e1ce0a8a364bae42f","2014-02-15 20:11:17+01:00","Extended .gitignore.
+"
+"8a97832b357e07cc3b2e6eb8d87f75bbe7766b25","2014-02-15 20:12:21+01:00","Untrack .classpath and .project.
+"
+"f2bc8560e2d04fbcabd6f9bfe7c93254b0cc3f9c","2014-02-18 20:34:46+01:00","Added localization for German.
+"
+"83edd1164fe159882cec00a7fdc942ce26c6833f","2014-02-19 22:37:13-08:00","Merge pull request #8 from jufickel/release_1.3
+
+Release 1.3
+"
+"5cf93a636ff6ed2fe0c07373de293e3bbf379279","2014-02-19 22:38:56-08:00","Merge pull request #10 from jufickel/l10n_de
+
+L10n de
+"
+"94cdce64b324a67326b2c15e582750cb9f5846a5","2014-02-19 23:09:14-08:00","fix nullpointerexception when running in emulator (due to no ringtones
+installed)
+"

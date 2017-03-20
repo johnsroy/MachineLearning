@@ -1,0 +1,478 @@
+"commit id","commit date","commit message"
+"5c1e88f7301161e73a82d926681509d260803ba1","2012-12-12 22:31:01+00:00","Initial commit
+"
+"e5c15d06a63515e541ac3b4782c9420474ebd888","2012-12-14 21:10:38+00:00","Add an 'add show' search item to the action bar
+
+Launches the new AddShowSearchActivity with an Intent containing
+the search query. Doesn't actually do anything yet though.
+"
+"13046402f7dde41383b329df1d40fa3ea4ba0af4","2012-12-14 23:21:53+00:00","Bump minSdkVersion to 11
+
+Required for SearchView.
+"
+"c38ceaa145808b884b38aed6cd2ecf36f29af795","2012-12-14 23:43:16+00:00","Allow 'up' navigation from AddShowSearchActivity to MainActivity
+"
+"5a05b44e6b2d8e1aa75b27dc2af51922cd8a7a14","2012-12-16 17:30:34+00:00","Add internet permission to manifest
+"
+"aa497d38f07617fe6c3bdb37dbe9c6a0c840a394","2012-12-17 23:17:18+00:00","Add function to search The TVDB for shows
+
+Create package org.jamienicol.nextepisode.tvdb for TVDB related code.
+Add to it a class Client as the main interface. Its constructor
+requires an API key. It has a function searchShows which takes a string
+query, and returns a list of SearchResult objects. SearchResult is a
+simple class which stores data about results from show searches:
+currently the show's ID, name, and overview description.
+
+Create a class SearchResultParser to extract SearchResult objects from
+the response. Uses a SAX XML parser with the android.sax utility classes
+to help do this.
+
+No proper error handling yet, just logs the message and returns null if
+any exceptions are thrown. This needs improved.
+No UI to accompany this yet, just the backend.
+"
+"97312d5a536f18a8bf0bcf4eea39fc0fae784103","2012-12-18 21:33:08+00:00","Search for shows and display the results
+
+Make AddShowSearchActivity call tvdb.Client.searchShows with the query
+it received in its intent. Perform the search in an AsyncTask and display
+the name of each returned show in a ListView.
+
+Change AddShowSearchActivity to be a ListActivity for convenience.
+Results are quite ugly for the time being.
+"
+"53f937e7fc0aa582fa2ceda400c4c2d9568be71f","2012-12-19 23:12:38+00:00","Use XMLReaderFactory instead of SAXParserFactory
+
+Saves a couple lines of code, and avoids using the javax package.
+From reading a few stackoverflow answers this seems like the better way,
+if it makes a difference at all.
+"
+"4d53a073545ae7d5ef071c2e2e9aab0ddd433ddb","2012-12-19 23:51:01+00:00","Spin progress bar while searching
+
+Show activity's indeterminate progress bar (the spinning circle) while
+the search is being performed. Hide it when the search completes.
+"
+"dbea78c2b13226ef8daaf9564adb981d248f313c","2012-12-23 23:35:24+00:00","Fix indentation
+"
+"22fadc0e636741ff501ce6a9feaae6cea7a73c26","2012-12-24 11:38:59+00:00","Use AsyncTaskLoader to perform new show search
+
+Create an AsyncTaskLoader subclass SearchLoader to perform the search,
+and display the results in the activity's callback. Replaces using an
+AsyncTask.
+
+This is a simple AsyncTaskLoader implementation, which doesn't do
+override anything besides forcing a load to start in onStartLoading.
+Plenty of examples (in the docs and on stack overflow) override more
+functions, which may be required in the future, but this works for now.
+"
+"84eebeb710e7393b2f97ab28800ddc70c574f8cd","2012-12-24 15:47:32+00:00","Cache results in SearchLoader to avoid multiple searches
+
+Taken and slightly simplified from AsyncTaskLoader example.
+"
+"5a245836c5ee1fca6b756cea19d2345ce537e661","2012-12-24 16:40:57+00:00","Spin progress bar for recreated activities if loader is busy
+"
+"335dbf4a701c98e1a43655326884bb8098431226","2012-12-24 18:08:17+00:00","Ensure that activity always initialises the loader
+
+Introduced a bug in previous commit where the loader wouldn't be
+initialised if it had already completed for previous activity.
+Fix that by always calling initLoader in onCreate.
+"
+"ae4295c510cabf7e7c86dd3f3b023f7826f5cc8c","2012-12-25 22:26:21+00:00","Create (empty) shows list fragment
+
+Create ShowsListFragment as an empty ListFragment.
+In the future this will read shows from the database and display them.
+For the time being it does nothing.
+"
+"c5c62d7052b610e5c223a414262c205ea7765d52","2012-12-25 22:41:12+00:00","Fixup layout files
+
+Rename files, replace fill_parent with match_parent, and fix XML
+formatting.
+"
+"3423024e87b5066f98e1f94658c4d04c944c6cf8","2012-12-26 22:41:07+00:00","Add ContentProvider for television shows
+
+Uses a SQLite database under the hood. Contains an _id column as a
+primary key, a unique tvdb id column, a name column, and an overview
+column.
+
+The content provider is not exported to other applications.
+"
+"4de588e5cfd9bde428bb7543fcffc80d94b70403","2012-12-26 22:48:19+00:00","Add show to content provider when search result is clicked
+"
+"0ad9317c418b09ee66c31f43a552bf97e1bfa537","2012-12-26 22:49:27+00:00","Display added shows in list
+
+Use a CursorLoader to load shows from the ContentProvider and display
+them in ShowsListFragment.
+"
+"8ded67860cd34f43d0a8c9516178cd3a9310703d","2012-12-26 23:08:08+00:00","Sort displayed shows by name
+
+In ascending alphabetical order.
+"
+"eacf003a3d7f51baf296244168aba7d82927fc2f","2012-12-26 23:20:53+00:00","Fixup AndroidManifest.xml
+
+Fix indentation, newlines, spaces, etc.
+"
+"15f9bf196221208d1dbf353b0ae3ba312dc1300d","2012-12-26 23:33:53+00:00","URL-escape query text for TVDB searches.
+
+Makes queries with spaces or other special characters work correctly.
+"
+"09d9e9f795f7ee035fc02c3a80a74968c6fc6ce4","2012-12-27 15:16:16+00:00","Don't use system search framework to search for new shows.
+
+Just start the new activity with a simple intent specifying the query.
+If in the future we do use the search framework for anything, it will
+probably be to search for shows and episodes which have already been
+added.
+"
+"7778b6254702b906bd9cce5ecded4263a97da793","2012-12-27 22:04:17+00:00","Make small name changes for a few classes and layout files
+"
+"e6f00958607b9a20732e3471cfe28bc78070c59c","2012-12-28 00:35:46+00:00","Store search results when adding a new show in a singleton
+
+Create a singleton class AddShowSearchResults, which contains a list
+of search result objects. The singleton instance replaces the private
+list of search results that AddShowSearchActivity used to use. Keeping
+the results in a singleton instead of a private member variable will
+allow them to be shared with other activities/fragments, i.e. for
+displaying details about each search result.
+
+Singletons are not evil in android, apparently.
+
+Synchronisation will probably not be needed around the singleton's
+data, as long as it is only read from and written to by the UI thread.
+"
+"f88bf847c76b34638f0dad62c153ce4923e87749","2012-12-28 21:59:27+00:00","Split AddShowSearchActivity into an activity and fragment
+
+Create AddShowSearchFragment and move most of AddShowSearchActivity's
+functionality there. These are still too tightly coupled, but works for
+the time being.
+"
+"9638de08d94e04ce76afc693959132c2bcfa904c","2012-12-29 00:32:09+00:00","Display a preview of the show when a search result is clicked.
+
+Create AddShowPreviewFragment contained in AddShowPreviewActivity.
+These are passed the index of the selected search result via an intent
+then fragment argument. They then read the show's information from the
+singleton and display its name in the activity's title, and its overview
+description in a text view.
+
+If the activity is restarted (eg by leaving it, or rotating the screen),
+and if the singleton data has been destroyed (eg due to low memory),
+then the activity will finish. This will take the user back to the
+search results activity which will restart the search. Not ideal, but
+hopefully should not happen very often in real life. A persistent
+database may be required instead in the future, however.
+
+Shows can no longer be added, as this now happens instead when a search
+result is clicked. This preview activity/fragment needs that
+functionality implemented.
+"
+"a8de881fac372dd932b90b6fbb4b6b752579594a","2012-12-29 21:14:08+00:00","Read correct argument name in preview fragment
+
+'searchResultIndex' not 'searchResultsIndex'.
+Otherwise the 0th result's details will always be displayed instead of
+the correct result.
+"
+"e9f229c215947e136c021d48e62ac4ac9264fe2c","2012-12-29 21:59:14+00:00","Add 'add show' item to action bar for preview fragment
+
+Add show to database when it's clicked. This is done synchronously for
+the time being, which is okay because only the tvdb id, name, and
+overview are added for each show. In the future we'll need to perform
+another request to tvdb to gather information about all the episodes,
+and maybe some pictures, so this will need to be done asynchronously.
+"
+"7483c5a8a0139b10333616b4326dd37a19f74888","2012-12-30 14:55:20+00:00","remove whitespace before parameter list
+"
+"b7999dc023006090306deb79e29990dbafe2ea1f","2013-01-08 22:33:59+00:00","rename tvdb.SearchResult class to tvdb.Show
+
+This class will be extended to contain all fields that a show can have.
+It will continue to be used by the search, but will also be used by the
+TVDB API calls which return more information about shows. Different API
+calls will simply return instances of the Show class with varying levels
+of information filled in, as opposed to the original plan of using
+different classes for each API call.
+
+Also rename SearchResultParser to SearchShowsParser. Now named after the
+function whose result it parses, rather than class it is parsing
+instances of from the result.
+"
+"2cf9c6d2aa015cdc899e3bfead0b4456e1bff339","2013-01-08 23:47:24+00:00","Parse shows' first aired dates from search results.
+"
+"9476649f468f9580ac10837be5a715c1b9c81228","2013-01-09 00:15:31+00:00","Display shows' first aired date in search result previews
+"
+"5b03d47952a7a2ad31a26d3fad89dce1136a6c62","2013-01-15 16:07:11+00:00","Log info messages when parsing search results.
+"
+"d25b5e540b2e4e004c714ab22cbf7e4a18446060","2013-01-15 17:14:05+00:00","Add function to get show and episode details from The TVDB.
+
+Add tvdb.Client.getShow(). It takes the show ID as its argument and gets
+the full information about the show and all its episodes from The TVDB.
+Add the tvdb.Episode class to hold episode information, and add an
+episodes list member variable (with a getter and setter) to tvdb.Show.
+"
+"3d5891334f8e7d4217879f380401978291eaa466","2013-01-16 14:36:47+00:00","db: add first aired column to shows table
+"
+"f47cb08f8eb5d07006849350a73cb36de771ea78","2013-01-16 14:42:25+00:00","db: add episodes table
+
+Contains columns for the ID, the TVDB ID, the ID of the show the episode
+belongs to, its name, its overview, its episode number, its season
+number, and the date it first aired.
+"
+"bd131b9c606190d0ffd6dafa6412302c9807a887","2013-01-17 01:51:42+00:00","db: add access to episodes table to content provider
+
+Add access to table through the Uri CONTENT_URI_EPISODES, and to a
+specific episode by appending the id to that Uri.
+"
+"56b4590ff4f8bd78c710e1f52678109dc065774f","2013-01-17 11:09:30+00:00","insert episodes into database when adding a new show
+
+When the add show menu item is selected in AddShowPreviewFragment,
+call tvdb.Client.GetShow() to get full information about the show and
+its episodes, and insert all that data into the database.
+
+Uses an AsyncTask to perform this. There are issues to do with using
+AsyncTasks if they outlive their Activity or Fragment. This should be
+fine for the time being, however, especially as it shows no UI while it
+is running. In the future we must show some sort of UI and also handle
+the lifecycle correctly.
+"
+"378fa0f25c33d85c4942ebf287a9819915ae5456","2013-01-17 12:26:13+00:00","start ShowActivity when show is clicked in ShowListFragment
+
+ShowListFragment propogates its click event to the containing activity
+through a OnShowSelectedListener interface. MainActivity then starts
+a ShowActivity with the correct show ID.
+
+ShowActivity is a new activity which will display various information
+about the show. For the time being it simply displays the show's name
+as the activity title. It uses a loader to load the name.
+"
+"b6cf3e293262cdad404407500b621bbe2f0bd6e5","2013-01-17 23:10:16+00:00","Display list of seasons in ShowActivity
+
+Create a fragment SeasonsListFragment, which displays a list of season
+numbers for the specified show. Add this fragment to ShowActivity.
+
+List of seasons is obtained by querying for episodes which match the
+show id, and reading their season number column. A MatrixCursor is used
+and has a row manually added for each distinct season number found in
+the cursor returned from the content provider. This is to work around
+the content provider not allowing distinct or group by statements.
+"
+"4e00b58e92b70ed54296b198332d93e5471670ef","2013-01-20 15:27:36+00:00","display pretty season names instead of just the numbers
+
+Use 'Specials' for season 0. Use 'Season 1', 'Season 2', etc, for all
+others.
+"
+"8052facda54fc94d151c6a2ac2c7f53b8ae4f023","2013-01-20 15:56:08+00:00","communicate season selected event from SeasonsListFragment to activity
+
+Create interface SeasonsListFragment.OnSeasonSelectedListener which
+contains function onSeasonSelected(int seasonNumber). Make ShowActivity
+implement this interface, and make SeasonsListFragment call its
+attached activity's onSeasonSelected when a season is selected.
+"
+"0ed79985d7f76289ed8671363c831dce547e4114","2013-01-20 16:24:06+00:00","remove accidental setBackgroundColor
+"
+"96aed8c3cd4ce17c9576b8ca2550eff477d0da67","2013-01-20 17:02:54+00:00","display list of episodes in a season when a season is selected.
+
+Create new activity SeasonActivity, and start it when a season is
+selected in ShowActivity. SeasonActivity contains an instance of the
+new fragment EpisodesListFragment, which displays all episodes from
+the specified season in a list.
+"
+"e2f99efa6927df838af8580169181fbbc89e9c3f","2013-01-20 17:51:12+00:00","remove empty widget from seasons list fragment
+"
+"aefefc4098a749ffeadad6f6d17a71442701193b","2013-01-20 23:47:09+00:00","db: add watched column to episodes table
+"
+"d4c8521591e435bb2ea9865b0928ae6720eef645","2013-01-21 00:18:40+00:00","Place a 'watched' checkbox next to each episode in list
+
+Place a checkbox next to each episode in each item in
+EpisodesListFragment. Use a ViewBinder to display it as either checked
+or unchecked based on the value of the corresponding row's watched
+column.
+"
+"cb9f874a5ccd8ec3ca34b47b910f98a5e001efdf","2013-01-22 13:50:27+00:00","Use custom CursorAdapter subclass in EpisodesListFragments
+
+Instead of SimpleCursorAdapter. This will allow access to the
+individual widgets in the future.
+"
+"cac818212a55deed3830008d55e76930abd9621a","2013-01-22 14:27:15+00:00","Update episodes' watched column when checkbox is checked/unchecked
+"
+"7966b0ded5d66ac4a7f176309c7b9865d7b48c97","2013-01-23 00:22:53+00:00","Add menu item to mark an entire season's episodes as watched
+"
+"78110506447cc4c9e3c387102c24c50288d42021","2013-02-03 13:32:47+00:00","don't fall through switch case statement
+"
+"56b6266dbe3943c49503ad2c70f4715bd5ed9ce4","2013-02-03 14:04:19+00:00","add delete show menu item to ShowActivity
+
+deletes the show and its episodes from the database, and finishes the
+activity.
+"
+"988b107880d6ce2a09cc2438cf7cd0e73c92b4a4","2013-02-03 20:29:06+00:00","communicate episode selected from EpisodesListFragment to activity
+
+By making container activity implement EpisodeSelectedListener.
+"
+"49c34854cfed69b252ac3182d0208a58341377a7","2013-02-03 20:31:28+00:00","Display new activity EpisodeActivity when an episode is selected
+
+At the moment this activity does not contain anything, but sets its
+title to the title of the episode. In the future this activity will
+display details about the episode.
+"
+"1726aa738db2c32bef683b128d5b25330266c844","2013-02-04 12:18:44+00:00","tvdb: parse correct xml tags for show ids
+
+For the show records use 'id' instead of 'SeriesID', since 'SeriesID'
+actually refers to the show's id on tv.com. For the search results,
+use id instead seriesid, even though they are the same value, to be
+consistent.
+"
+"72e42e872fecae467af0308950909bfe6f3e98e6","2013-02-06 11:01:19+00:00","use holo light with dark action bar theme
+"
+"c1dfb25249d4167395c72d9cd14ca60b4294fbc7","2013-02-06 11:08:54+00:00","add 4dp of padding to most ui elements
+"
+"335345d590ffdba234ad7060a5580baeaa32124a","2013-02-06 16:18:42+00:00","display episode overview text in episode activity
+
+Create fragment EpisodeDetailsFragment and display it in
+EpisodeActivity.
+Make it display the overview text of the episode.
+"
+"15dec90cdbad856146d85970347ffb29396bd1d2","2013-02-10 14:12:47+00:00","display season and episode numbers in EpisodeDetailsFragment
+"
+"5966e9e638b28efd85fa9e7b441ed3e353370c3b","2013-02-10 22:42:41+00:00","add mark all as not watched menu item to EpisodesListFragment
+"
+"f30ba534486136a4fe935db655c0d1737ab640ea","2013-02-10 23:11:42+00:00","add mark all watched/not watched menu items to SeasonsListFragment
+
+which will mark all episodes of all seasons as watched or not watched,
+rather than episodes in a single season.
+"
+"61fa4a24c414c31f74042ddbaf5cf7755d0f90a9","2013-02-10 23:14:08+00:00","uncapitalise menu item strings
+"
+"313a3e7fe8109f85756ee472112222ee213024fc","2013-02-10 23:54:44+00:00","use a service to add new shows
+
+Creates AddShowService, an IntentService which fetches show and episode
+information from tvdb and adds it to the database.
+
+This replaces (and most of the code is directly copied from) the
+old AsyncTask which did the same job
+"
+"309f989f2154bab012c600f135581fc2e92c42cc","2013-02-11 01:00:39+00:00","build with sdk version 17
+"
+"2bbab37fc84bd6cc3b8c276a0df64db183c34bb7","2013-02-11 01:06:53+00:00","small tidy of manifest file
+"
+"6c890389afe0be3f913e0de7d445cf17d46e7cdc","2013-02-11 19:38:25+00:00","use format string for first aired text
+"
+"56777f037929dd6defec9a55c282bec4e5fc0c5f","2013-02-11 20:19:58+00:00","display episodes' first aired dates in EpisodeDetailsFragment
+"
+"2b1a7ec6dcc98366aeae4e05125614b57f2e9c37","2013-03-10 22:21:17+00:00","Rename app from 'Next Episode' to 'Episodes'
+
+Update package name, database uri, etc.
+"
+"c8afb7b88eeeb05bdb89645d515d8e6a253deb1d","2013-04-29 00:31:30+01:00","Add refresh show menu item to show activity
+
+Fetches show and episode information from tvdb and updates the
+corresponding information stored in the local database.
+
+Performs this task in a service called RefreshShowService.
+"
+"7f7cd04303efd2f5e3d1b78da2ba412b7c3b216f","2013-04-29 23:44:17+01:00","ui: hide episode detail views if information is null
+
+e.g. if there is no first aired date for an episode in the database
+then hide the view instead of saying the episode was first aired in
+1970.
+"
+"e5ae5734dc3aff507630082913e1ba063eab5d4c","2013-04-30 01:07:10+01:00","use support library activities, fragments, and loaders
+
+doesn't affect our min sdk version as we still use action bar and
+recent themes/styles
+"
+"eb246204ae4c6d6937b05a2e21893e1b672b1156","2013-04-30 01:49:04+01:00","add ActionBarSherlock
+
+Add as a git submodule.
+
+Have made a local commit to the submodule though:
+Overwrite the support library jar that it bundles in its libs
+folder with the same one that we bundle in our libs folder. Also
+change its project.properties to build against the same sdk version
+as us.
+
+Add a library reference to it in project.properties.
+"
+"6a4216d2bc8e1c724e2e6d84a64138fcf4023bb9","2013-04-30 02:09:29+01:00","use my own 'fork' of ActionBarSherlock for submodule
+
+so that when this repo is cloned and its submodules initialised,
+ActionBarSherlock's support library version will be correct.
+My ActionBarSherlock 'fork' will have no changes besides that commit,
+and this should only be a temporary solution until I find a better
+way of handling this.
+"
+"2ecf72afcb177be7e66b0dda8b13a50f4865f774","2013-04-30 02:40:18+01:00","use support library for CursorAdapters
+"
+"9b589a0935b0987fd67c7dd0a3cb731a4dce6e89","2013-04-30 03:47:06+01:00","use action bar sherlock instead of regular action bar
+
+minimum sdk version is now lowered to 8. this is the minimum at which
+action bar sherlock's SeachView widget will work.
+"
+"56236901acd2a4e0c6631d88bde980ccb4dfbf4c","2013-05-01 17:20:35+01:00","ui: add watched check box to episode details action bar
+"
+"c1f9b9448db66fbe21e8500e2fb4339bd1f62bfb","2013-05-12 02:17:00+01:00","ui: sort data loading in episode details fragment
+
+load data as early as possible, instead of waiting for options menu
+to be inflated. refresh views on data load and when the options menu
+is prepared.
+"
+"0097575af6be9a877bb530ebb1422f2932855b8d","2013-05-12 02:56:18+01:00","db: silently fail if attempting to insert existing show
+"
+"85c3c66ed63991fd33433519598407e0ac8e7e77","2013-05-12 17:00:58+01:00","ui: view show details in show activity
+
+add ShowDetailsFragment, which contains the show overview and
+first aired date.
+Page between it and SeasonsListFragment in ShowActivity.
+"
+"e3755b172efcdcb3d97c7f4de920b2fc4fb5b257","2013-05-12 18:45:57+01:00","ui: show tabs for show details and seasons list
+"
+"a6297ac52f108116d29f67e5149880c470d2ca19","2013-05-21 13:21:42+01:00","ui: don't show season and episode number for specials
+"
+"65a6d1b521b8a536c4e6f6c7b878e66e30403ff3","2013-05-21 13:24:30+01:00","ui: move 'mark as (not) watched' menuitems to activities
+
+instead of in fragments.
+make names more descriptive: 'mark season...' and 'mark show...'
+instead of just 'mark all...'
+"
+"b1e1ddb8f02300b98d950fa7c9107ae4eb18ba26","2013-06-03 13:11:50+01:00","check if show exists before adding to database
+
+instead of attempting to add then checking for failure
+"
+"db8d819172f913693603d8ecc2b2c0aedf282f44","2013-06-03 13:58:57+01:00","notify user when adding shows
+
+popup toasts when:
+a show isn't added because it already exists in the library
+a show is about to start being added
+a show has completed being added
+"
+"420b9509984f1ce13102dcc2a45af6e5183516fd","2013-06-03 22:53:55+01:00","make AddShowSearchResultsAdapter an inner class
+
+of AddShowSearchFragment, the only place it is used. other equivelent
+classes are already inner classes of where they are used.
+"
+"40d801697ce46847ecbfb070be107b287ab55bdb","2013-06-04 01:03:55+01:00","don't use git submodule for actionbarsherlock
+
+silly idea since we needed to have our own fork due to jar mismatches.
+easier just to include the source directly.
+
+upgrade to newest support library (revision 13) while we're at it
+"
+"772994ef9700a0ab355eed9256591eaddcb39ab2","2013-06-04 01:59:57+01:00","add menu item to refresh all shows
+
+add to ShowsListFragment. start a RefreshShowService for each show.
+only show menu item if there is 1 or more shows.
+"
+"809199dc38e935f7879681a8281c53c8c3c87541","2013-06-04 02:24:28+01:00","gitignore actionbarsherlock's generated files
+"
+"559bf41e9b2ff4d50f259d7d5ae4c5ebfac186e8","2013-06-04 02:32:19+01:00","check if views are null before hiding them after loader reset
+
+Only seems to affect EpisodeDetailsFragment, on older api versions
+(level 8 - froyo). first load completes (resets) before views have
+been inflated. so when refreshViews() is called with a null cursor
+check whether views are null or not before touching them
+"
+"22dc886ce41a15c8c30fac41205df9b0c84cf96d","2013-06-05 12:47:54+01:00","use styles for list items
+
+use style xmls to determine the width and paddings for the list item
+containers and the text appearance for list item heading texts.
+apply to shows list, seasons list, episodes list, and search results
+list.
+
+use different values when necessary for different api levels.
+fixes #1
+"
+"1f3b48d9e3475bcf31f6a3f007163b615bdf7afe","2013-06-06 01:09:10+01:00","add README
+"

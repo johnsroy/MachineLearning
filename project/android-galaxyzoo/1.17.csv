@@ -1,0 +1,441 @@
+"commit id","commit date","commit message"
+"8a0be2fa688c8ae4529f9c36013a91d818360f1d","2014-10-20 20:54:17+02:00","Classify: Provide an icon for the Invert action.
+
+* app/src/main/res/drawable-svg-originals/ic_action_invert.svg:
+Created in Inkscape, based on the icon used in the Galaxy Zoo web app:
+http://static.zooniverse.org/www.galaxyzoo.org/images/icons.png
+* app/src/main/res/drawable-*/ic_action_invert.png:
+Created with the Android Asset Studio with the default settings
+for action icons, with the Holo Dark theme:
+http://romannurik.github.io/AndroidAssetStudio/icons-actionbar.html#source.type=image&source.space.trim=1&source.space.pad=0&name=ic_action_icon_invert&theme=dark&color=33b5e5%2C60
+"
+"b67d7224c670f39e72b3c145c5d3e98a227674c8","2014-10-20 21:04:03+02:00","Action bar: Define a sequence for the action items.
+"
+"c9aa0b72d1ca21783f1842c61d135b68bf858467","2014-10-24 11:05:45+02:00","DecisionTree: Make getFirstQuestion() private.
+
+Because it is not used outside the class.
+"
+"82f23b5795fc193880494d4d3ea262870af5b2a8","2014-10-24 11:06:17+02:00","QuestionFragment: Restart: Do not change the itemID by getting 'next' again.
+
+Just wipe the classification in progress and clear the question ID
+so we show the first question again.
+"
+"dc32b44c68c619276c4d2dce466645496c59aacb","2014-10-04 15:01:55+02:00","Initial skeleton code for a SyncAdapter.
+
+Based on
+http://developer.android.com/training/sync-adapters/index.html
+"
+"dc38ac490e2490835d7034bceddfbc6333edb885","2014-10-05 09:23:56+02:00","LoginActvity, ItemsContentProvider: Store the login details in the AccountManager.
+
+Instead of in SharedPreferences.
+
+Conflicts:
+"
+"95c9fc39bfebecd9c0bfe35477603107c9efbe69","2014-10-05 09:25:26+02:00","Add accounts permissions.
+
+Otherwise we are not allowed to get our own account details and our own
+credentials from that account.
+"
+"1e537714376f1579bce8deba5402b3e2fd89b4b8","2014-10-05 21:48:51+02:00","Authenticator: Implement addAccount() so the user can add an account via Settings.
+"
+"8b8abe5ad1eb8a03d446dd6b2c4d91c6f2e757e0","2014-10-13 19:41:44+02:00","Remove unnecessary imports.
+"
+"a9319462380b7f152657ba00f02d323c45943a48","2014-10-13 19:42:52+02:00","Remove unused preference keys.
+"
+"9700451517f3b39d74a2628484926aaf84af0926","2014-10-13 19:45:49+02:00","Remove decrypt/encrypt tests of API that we removed.
+"
+"f45e487e71756b7a41ecb0b3ca63af2640d4b9b4","2014-10-14 15:49:28+02:00","ItemsContentProvider: Move all network IO to SyncAdapter.
+
+This is not quite working properly yet, and we don't trigger it at the right times
+yet.
+
+At the least, it's nice to separate the database and network code, even if we use the nasty
+ContentProvider API to do it.
+"
+"18236ecf56f4ae036fba63a98d623cf56058a379","2014-10-14 19:25:03+02:00","Remove unused code.
+"
+"25583561ce218f0c3d43886659f11bd1edebc3d2","2014-10-14 19:28:27+02:00","ItemsContentProvider: Remove unused parameters.
+"
+"bffb4ce8ccb14e22a86016d3a88d14cd51c7e3ba","2014-10-14 19:31:19+02:00","SyncAdapter: Make a constant private.
+"
+"79b850300caf19e9801c55d99cf31d6f44e39796","2014-10-14 19:50:22+02:00","ClassifyFragment: Warn (and don't crash) if we cannot get a Next item.
+
+This can happen if the network is connected but is not really working.
+"
+"1914d770e08319bf6bd133dc96d6d1e60b9b4dc3","2014-10-14 19:58:07+02:00","ZooniverseClient: Raise the maximum count of items to request.
+
+Because our SyncAdapter seems to manage this much better, with no noticeable
+effect on the UI responsiveness.
+"
+"6597a15b5c59d0966ccef6bd0067ecf8c7753701","2014-10-14 20:03:20+02:00","UiUtils: Move error messages to strings.xml so we can translate them.
+"
+"73952eb151d365352bbc47f1b4e20e853216e0de","2014-10-14 20:27:50+02:00","SubjectFragment: showImage(): Fix a typo in the check
+"
+"e26685633195d1198b0631a520c203fe828b772b","2014-10-15 10:45:32+02:00","ClassifyActivity, LoginActivity: Always have an anonymous Account.
+
+Because otherwise our SyncAdapter will never run.
+Unfortunately we have to delete the account when loggin in with a real account name
+(or when logging in with a different account name) so we lose previous data
+(though it remains on the web site under your profile).
+"
+"576ef873b57fcb22fac1b0463475284df2a59c25","2014-10-15 11:11:58+02:00","SyncAdapter: Respond to preference changes.
+
+Like the ItemsContentProvider used to.
+"
+"d36dafb809d6a41c04ae5f6f0230103495e95f25","2014-10-15 11:20:13+02:00","ItemsContentProvider: Ask our SyncAdaptor to do work when appropriate.
+
+Call our requestSync() wherever we previously called queueRegularTasks(),
+when it's likely that an upload, download, or delete could be necessary.
+"
+"abbaf67ef7271e550100914b72ea26795bb0eea6","2014-10-15 12:49:24+02:00","SyncAdapter: Move some code into a SubjectAdder class so ItemsContentProvider can use it too.
+
+ItemsContentProvider needs to get and add a subject (and its images) immediately, and
+synchronously, in the unusual (maybe initial) case that the SyncAdapter has not added any yet.
+"
+"ea7cbe2a9d9ea9d9b0f77b99003a8ad7c7fd8d34","2014-10-17 13:13:57+02:00","fix
+"
+"245b30062959c2cf84c262423ba1177e6a1341eb","2014-10-15 13:02:00+02:00","LoginActivity: Remove incorrect comments.
+"
+"dbad47d9b3ecfc61ec218c614b5908fc60f87e1d","2014-10-15 20:21:34+02:00","SubjectFragment, ListCursorAdapter: Abandon a subject if we cannot load one of its images.
+"
+"452de091c7571bfb0efccc287825b680e66b7886","2014-10-16 09:37:15+02:00","ClassifyActivity: listen to preferences changes here instead of in SyncAdapater.
+
+Because it doesn't work in SyncAdapter when the SyncAdapter is in its own
+process (when AndroidManifest.xml's <service> for it has
+android:process=':sync' ). This is semi-documented: The SharedPreferences
+docuementation says
+'Note: currently this class does not support use across multiple processes. This will be added later.'
+However, do _get_ the correct preferences values in the SyncAdapter even
+if we cannot listen for changes to them.
+"
+"b5d7d70fb53a98f9e7c7663cbf23bb4e77ad0586","2014-10-16 09:41:13+02:00","ClassifyActivity: Improve some comments.
+"
+"c762073be282beaa7f9df8f1943f79a11cf707f1","2014-10-16 09:46:48+02:00","ClassifyActivity: Don't bother making the SyncAdapter respond to all ContentProvider changes.
+
+Because our ItemsContentProvider requests a sync when it is necessary.
+"
+"b697a6d48bb291b9c92c878699de8898678840ca","2014-10-16 09:47:50+02:00","Remove unnecessary imports.
+"
+"a2a8c7b096c7bb3123dfebedff074b51bbe20c2d","2014-10-16 09:48:10+02:00","SubjectAdder: Use <> to instantiate generics.
+"
+"a4f1694ac18f53b1fa359f38c1e0e828bc476d64","2014-10-16 09:49:03+02:00","Make some fields final.
+"
+"63acd1504ce0a1c34518c1de61ac0abd7e2b1894","2014-10-16 08:58:47+02:00","SubjectFragment: Fix a typo in a null/empty check.
+"
+"fd9af66d463a610fe57f103a21f7f4e2763f74d8","2014-10-17 23:02:44+02:00","SubjectAdder.downloadMissingImages(): Use the local URI instead of the content URI.
+"
+"6f76ebd989d9fc997380b3d54b9a232dc4c66a4e","2014-10-18 20:50:35+02:00","SubjectAdder, SyncAdapter: Try to catch NoNetworkExceptions that could cause crashes.
+"
+"7c8dc5ecab45fda42a82d8ca127c4fb6257ccca0","2014-10-18 21:04:22+02:00","SubjectAdder.cacheUriToFile(): Check that it's not in progress.
+
+In theory this could happen just after adding a new subject if
+downloadMissingImages tries to get it before our regular async task has managed
+to get it.
+"
+"8919864b14907ecc2b97286a2d8828871aa45a27","2014-10-19 11:57:55+02:00","SubjectAdder: Unmark image downloads in progress after failure too.
+
+Otherwise we would never try them again until after an app restart.
+"
+"0d6244f1fe5c9ea9991d1e2e183fbff3d08fe751","2014-10-20 09:08:25+02:00","SubjectAdder: downloadMissingImages() Fix the build.
+"
+"6eca2ef67c675eeb392067869a6cb84ac68bb2ae","2014-10-20 10:15:16+02:00","Allow opening account settings from the Accounts list in the Settings app.
+
+* app/src/main/AndroidManifest.xml: SettingActivity: Specify an
+<intent-filter> so this activity can be opened via an (arbitrary, I think)
+action:name.
+* app/src/main/res/xml/account_preferences.xml: A new <PreferenceScreen>
+(actually one inside another, as is apparently necessary) to show
+in the Settings app under the account.
+This has a child <intent> which will open our SettingActvity (with the
+action:name form AndroidManifest.xml.
+We could instead show preferences directly but that is a) harder,
+and b) maybe confusing.
+* app/src/main/res/xml/authenticator.xml: Specify account_preferences.xml
+with android:accountPreferences so it shows up in the Settings app.
+"
+"5cd97718a05cdbfa17ce07e9b3ce3cc29035d89f","2014-10-20 13:02:38+02:00","LoginActivity, SettingsFragment: Sync the preferences to the Account.
+
+And get the preferences from the Account in Utils.java.
+This lets the SyncAdapter get the correct values.
+It turns out that we cannot really use the SharedPreferences across
+process at all.
+"
+"d1b89a7d3358e89118ea8cfb6e015fcde35a65d1","2014-10-20 13:26:56+02:00","ItemsContentProvider.removeItem(): Add a null check.
+"
+"81f31a1537b2c01373f35f04e10c6aeed2fb852e","2014-10-20 13:40:16+02:00","LoginUtils.addAnonymousAccount(): Fill the account with the prefs too.
+
+This means that the SyncAdapter gets our default 'preferences' on first start too.
+"
+"273fda87a2f77f343cc9fe2c3c2815aa401d962a","2014-10-20 13:45:36+02:00","ItemsContentProvider: Add a comment about calling requestSync() so much.
+"
+"12e728792ab4b6dbf09ae54f8fb8aec164af7b9f","2014-10-20 13:51:52+02:00","Reduce access level of some API.
+"
+"23e5fb41d625a836cee662dbd5e90024eba19a16","2014-10-20 13:54:48+02:00","HttpUtils: Comment out an unused method.
+"
+"4d2cd34e25bb1785f042eebc9a66d862f9d717d4","2014-10-25 12:26:12+02:00","ItemsContentProvider: Re-comment out onUpgrade(), left over after some debugging.
+"
+"c06ac5cb8d5dfdf1d4264813d1637f00087ddd50","2014-10-25 14:14:47+02:00","DecisionTree: Make some inner classes a bit more immutable.
+"
+"38d9ee764b84322e089b506de9bcaa4d4187ad33","2014-10-25 14:33:27+02:00","ZooniverseClient: Make Subject immutable by making internals private with no setters.
+
+This makes the code rather verbose, but immutable classes are inherently
+thread-safe. Even though we try not to use Subject across threads, it would be easy
+to make that mistake, so this gives a little extra safety.
+"
+"c10c798f5c5759d67fb804b961f89b491aa0f600","2014-10-25 14:34:54+02:00","ZooniverseClientTest: Update the expected result.
+"
+"aebe91051c43ebe7915ca7e61caff5eea8a11139","2014-10-25 16:30:44+02:00","gradle-wrapper.properties: Use HTTPS, which is the new default.
+"
+"f7540087edaf121d40b14e4e6f447cd269491cd5","2014-10-25 17:51:19+02:00","Use the latest gradle plugin version.
+"
+"4dc3308b723df74a8024ebc57cf0431284a00b9c","2014-10-25 17:51:31+02:00","German translation: Add an (English) string to make the APK buildable.
+"
+"6c5c446a73c4a3a71968247fed303f126e7e5306","2014-10-25 21:09:12+02:00","Changes by Android Studio.
+"
+"d0277d6f59afa255121040b39fe0c76e7226abba","2014-10-25 21:25:10+02:00","A change by Android Studio.
+"
+"781195c08b30ecf3b1c2900b9e923cfa5177fb0e","2014-10-26 09:35:27+01:00","HttpUtils.parseGetFileResponseContent(): Close the ParcelFileDescriptor.
+
+To avoid leaking it. Discovered by StrictMode (see BaseActivity).
+"
+"dd3e714cfdcdca6e82a82ce7a50694c0f37753da","2014-10-26 08:35:50+01:00","SyncAdapter, SubjectAdder: AsyncTasks: Take parameters in the constructors.
+
+This seems to be allowed. It is cleaner, requiring less runtime checks.
+And it should make refactoring easier too.
+"
+"5d68712546e8884be0cfb82767b44651e21a9ec4","2014-10-26 09:23:59+01:00","SyncAdapter, SubjectAdder: Replace use of AsyncTask with Runnable and Thread.
+
+Because older (API <15) versions of Android don't seem to like us using AsyncTask in
+the SyncAdapter (which doesn't have the UI thread), giving us this ExceptionInInitializerError:
+'Can't create handler inside thread that has not called Looper.prepare()'.
+"
+"e94c77b37bdd52b9cc6941d346fdf0b5609cc4c4","2014-10-16 11:43:08+02:00","Use the Android 21 SDK and the Material theme.
+"
+"4d53ab2d32ea9905044ff9712015e0db3dff97cd","2014-10-21 08:39:49+02:00","Only use the Material theme on SDK 21 targets (older ones don't have it).
+
+By creating values-v21/style.xml, as suggested here:
+https://developer.android.com/training/material/compatibility.html
+"
+"271cd62407748ca6422d858417b5aeb7b512aeff","2014-10-21 10:24:32+02:00","Use AppCompat-v7 and its Theme.AppCompat theme.
+
+Instead of using Material for >=v21 and Holo for <21.
+This should let us have the same theme on all devices.
+See https://chris.banes.me/2014/10/17/appcompat-v21/
+
+It (or the Material theme) also seems to make it easier to
+specify simple modifications to give some identity.
+"
+"80ead45bd32a27d5ae30d636ea21d8dcf272e74c","2014-10-21 12:18:55+02:00","Attempting to style the ActionBar.
+
+But the icons are still white.
+"
+"0a00abb50c23ba0063152366998e733b5a7cdc88","2014-10-21 13:40:54+02:00","Use the new Toolbar instead of ActionBar.
+
+This lets us specify the Light theme for the toolbar, so we can have the
+dark overflow (three vertical dots) icon, without specifying a custom
+icon for it.
+"
+"3b0151eaa734f5598240e65b3bbd11e5358d09cf","2014-10-21 13:54:20+02:00","Action icons: Regenerate 'light' (dark on light) icons.
+Using the Asset Studio again:
+http://romannurik.github.io/AndroidAssetStudio/icons-actionbar.html#source.type=clipart&source.space.trim=0&source.space.pad=0&source.clipart=res%2Fclipart%2Ficons%2Faction_help.svg&name=ic_action_help&theme=light&color=33b5e5%2C60
+"
+"d0ca9e9db1f54c537c4d655a16c73b8f0ff7bd3a","2014-10-21 13:58:04+02:00","Action icons: Regenerate the invert icon from the SVG
+
+Again using:
+http://romannurik.github.io/AndroidAssetStudio/icons-actionbar.html#source.type=image&source.space.trim=1&source.space.pad=0&name=ic_action_invert&theme=light&color=33b5e5%2C60
+"
+"506482ed58b7d9aa9085d69480c7d6b5362b4bca","2014-10-21 20:21:38+02:00","styles.xml: Enable transitions on API v21, which supports them.
+
+* app/src/main/res/values/styles.xml: Move most styling into
+an AppTheme.Base style and derive AppTheme from it.
+* app/src/main/res/values-v21/styles.xml: Derive AppTheme again
+here, but enable transitions.
+See http://antonioleiva.com/material-design-everywhere/
+"
+"abf6f4e35db1d1288f79ad8ea2248acf9f58784f","2014-10-22 11:31:41+02:00","ListFragment: Replace GridView with RecyclerView.
+
+With some nasty code in our RecyclerView.Adapter to handle the
+Cursor, because there is no equivalent for CursorAdapter as with
+ListView/GridView.
+I suspect that all the Cursor.setPosition() calls are very bad for
+performance.
+"
+"4a88f1b9ec058eb4ae1052475302aff14b450e13","2014-10-22 11:34:28+02:00","ListFragment: Make the grid width/height match the parent.
+
+It was not a problem, but it feels correct.
+"
+"3d1e2bf480bebbc2168ef24e85031d9ec3d4e2a5","2014-10-22 11:47:20+02:00","RecyclerView: imageView: Set android:background='?android:attr/selectableItemBackground'
+
+This should apparently give use the 'ripple' effect on click, but it
+doesn't seem to work.
+"
+"b9021577c07efc0b4a0f15e96abe390163c87c59","2014-10-22 12:04:43+02:00","ListCursorAdapter (RecyclerView): Respond to cursor changes.
+
+This code doesn't actually seem to work, but new items showed up
+already anyway. Mysterious.
+"
+"74344fc0ca003f2e31deca0d7fbef2a5508573f6","2014-10-22 12:23:10+02:00","ListFragment: Try to make the ImageView have the ripple effect.
+
+This doesn't actually seem to work, however.
+"
+"8fbc2e481d0f18e5f6a0ef97fb576a44f45fe5be","2014-10-22 13:14:11+02:00","ListFragment: Try to specify a transition to the Classify Activity's larger image.
+
+I think I've done everything from 'Start an activity with a shared element' here:
+https://developer.android.com/training/material/animations.html
+but it does not seem to work.
+"
+"94993f2c2e29f82cf637442be739c20ef70db471","2014-10-23 09:50:40+02:00","BaseActivity: Move the transitionName into a constant in SubjectFragment.
+"
+"25eaeba2ac3035318093503a76551ebf3afbf78e","2014-10-23 09:53:35+02:00","QuestionHelpFragment: Use a transition when opening the example image viewer.
+
+By using the shared transitionName and ActivityCompat.startActivity().
+"
+"5487633da1a2e18613b33456265e2c85a3713bf0","2014-10-23 11:54:06+02:00","Material design: Use colors from the Material design palette.
+
+Including specifying a colorPrimaryDark which changes the status bar
+above the actionbar/toolbar, because that seems to be normal.
+"
+"f7f18804cef780a01d692a1d2ad1626ccb246c35","2014-10-23 12:09:42+02:00","Login: Move the toolbar up out of the LinearLayout that has padding.
+
+So it is flush with the status bar and the sides, like the other
+activities.
+"
+"66354dce5f624c4a851eac8415d0f035156ffd3b","2014-10-23 12:10:38+02:00","Layout XML: Fix typos in the tools: attributes.
+
+These were copy/paste errors.
+"
+"5a9ca203de4ced3b3f6f5ebf8b67443209eba09d","2014-10-23 13:14:11+02:00","QuestionFragment: Reduce the minimum padding inside the answer buttons.
+
+To avoid words being broken across lines on the 'Is Anything Odd?'
+question with the Material (AppCompat) theme on, for instance,
+a portrait Nexus 4.
+"
+"ad9804c4d217ac6d9ccb258b6fbf6293409ec4cd","2014-10-23 13:38:15+02:00","QuestionFragment: Make the answer buttons transparent.
+
+This gets rid of the standard background drawable that draws margins that
+we cannot otherwise avoid.
+"
+"863feb0ea3d036577bbd96d89671771a64b25b36","2014-10-23 17:02:15+02:00","Toolbar: Use a derived style to get a dark menu.
+
+Instead of just using Theme.AppCompat.Light to get the dark title text
+and overflow icon in the toolbar, use a special theme for the toolbar
+that derives from Theme.AppCompat (with the dark menu) and change
+textColorPrimary and textColorSecondary to get the dark title text
+and overflow icon.
+
+However, the menu colors are not quite right, because those two
+values affect it too. But setting popupTheme on the <Toolbar>
+lets us change the menu's theme back again, leaving our customization
+only for the toolbar itself.
+https://chris.banes.me/2014/10/17/appcompat-v21/
+"
+"22d530d4cacbf72a073197c7844c992f97bccb02","2014-10-23 20:47:28+02:00","Utils: Move showToolbar() to UiUtils.
+"
+"29653cdc1840f1b161d1a519512e4d8c194e405b","2014-10-23 20:49:09+02:00","ListCursorAdapter: Make some fields final.
+"
+"658635bb62551aa561a2a310e379e0b636676e7c","2014-10-24 13:03:16+02:00","Use the latest Android SDK build tools version.
+"
+"89a927707a192f00c3b37d072db50fad78d5c7a0","2014-10-25 12:12:58+02:00","Material design: Use the AppCompat textAppearance styles.
+
+Because that is what this advises:
+http://android-developers.blogspot.de/2014/10/implementing-material-design-in-your.html
+Though I am not convinced that this is different than using the
+normal attr styles such as '?android:attr/textAppearanceLarge'.
+
+Along the way, QuestinHelpFragment/fragment_question_help.xml got some textAppearance
+styles where it had none.
+"
+"c953a24a985fd7fa62a00f838884c48527ca3ac5","2014-10-25 12:25:26+02:00","Move the transition_name into strings.xml.
+"
+"df20e7172f030fe375ac9474faa561b1939be881","2014-10-25 12:30:50+02:00","Material design: List: Specify elevation.
+
+Though it's not clear how this should really be used,
+and I doubt it will have a visible appearance on a dark theme.
+"
+"18f4aacd6db3cba9dd3aa9a4f5e1ea0cb775e4d5","2014-10-25 12:32:10+02:00","Remove unnecessary imports.
+"
+"7f772144f99e41d3a6eca1747ce94543c02e8c52","2014-10-25 12:55:10+02:00","Action icons: Update the help icon to the latest from the Android Asset Studio.
+
+This apparently the correct one to use with Material Design.
+
+ic_action_help was generated from this:
+http://romannurik.github.io/AndroidAssetStudio/icons-actionbar.html#source.type=clipart&source.space.trim=1&source.space.pad=0&source.clipart=res%2Fclipart%2Ficons%2Faction_help.svg&name=ic_action_action_help&theme=light&color=33b5e5%2C60
+
+I can't tell if the other icons need to be updated too.
+"
+"f3c1681c11004c23260976430e2961facfd3695b","2014-10-25 17:00:24+02:00","Action icons: Give the Invert icon rounded corners.
+
+With a 2dp radius as specified here:
+http://www.google.com/design/spec/style/icons.html#icons-system-icons
+though the
+'Each system icon size set requires a different round corner for optical consistency.'
+text there might be trying to say, in designese, that we need a custom SVG
+for each icon size.
+
+The PNGs were generated from the SVG with this:
+http://romannurik.github.io/AndroidAssetStudio/icons-actionbar.html#source.type=image&source.space.trim=1&source.space.pad=0&name=ic_action_invert&theme=light&color=33b5e5%2C60
+"
+"6cf2176763966153687f26cc5bfbce8c146c1747","2014-10-25 21:22:17+02:00","LoginActivity: Show the Toolbar by using a copy of ActionBarActivity.
+
+I don't like this at all, but there doesn't seem to be any way around it:
+https://chris.banes.me/2014/10/17/appcompat-v21/#comment-1652981836
+"
+"648772f898e6b6d82ed493f99211f401d6e7aac4","2014-10-26 11:22:27+01:00","ZoonAccountAuthenticatorActivity: Suppress the android-lint warning.
+
+This doesn't need to be declared in the manifest because it is just a
+base class.
+"
+"fbdae7e0e60eadb0d2d867dd21d95cc0b3675efe","2014-10-26 12:35:20+01:00","Depend on the Volley library.
+"
+"d67d5dab9360b4495421360a3919dd6d55c69558","2014-10-26 15:14:28+01:00","Correct some log output.
+"
+"894393939d63d115da505f6156961dd65655d36d","2014-10-26 18:13:41+01:00","Use Volley for getting the JSON list of subjects and for getting the images.
+
+The code is now a bit awkward, but it seems to have much better performance,
+probably because it avoids doing too many simultaneous network requests.
+Login and Upload are still using plain HttpURLConnection because they
+are so simple.
+"
+"afdd465be140598a63361a8c1ddb60e88fc9bab3","2014-10-26 19:28:29+01:00","strings.xml: About: Mention the use of the Volley library.
+"
+"bf8722b382519488c2ef84d9a87f98744d8a54b9","2014-10-26 21:01:31+01:00","LoginActivity: Fix the crash due to a null ZooniverseClient.
+"
+"9c10b13b4acc731bb666e785f09c2df1f198c3c9","2014-10-26 21:02:25+01:00","ItemsContentProvider: Improve some log output.
+"
+"c0ba5f189d4a88eccbdf4b9966a25cdbaf81c4ee","2014-10-26 21:25:26+01:00","Italian, Spanish translations: Add English strings to fix the build.
+"
+"08fbb94fa71c139c3df69c49e93ea788adc9afa4","2014-10-26 21:26:35+01:00","Removed some unused methods.
+"
+"ccaaf7a724a5f2146c6831a3097cd0669cd97dac","2014-10-26 21:29:34+01:00","Remove unnecessary import.
+"
+"d848efd55f2faa0fe1f79737efa0e9293566b450","2014-10-26 21:44:22+01:00","LoginActivity: If the network fails (but exists) don't say the password is wrong.
+"
+"ab8d903abed5f28a7e2ee17c7d998d5afc8db70c","2014-10-26 21:59:30+01:00","Let errors stop Volley's RequestFuture.get().
+
+Provide the RequestFuture as the errorListener too.
+Otherwise it waits until the timeout, though the
+onErrorResponse() is called while we are waiting.
+"
+"cb508f7e486ae9aebf3d244d4ebefb54ac220900","2014-10-26 22:20:07+01:00","SyncAdapter: requestMoreItemsAsync(): Do not stop trying after one failure.
+
+onErrorResponse(): Unset mRequestMoreItemsTaskInProgress so we will try
+next time.
+"
+"ba81192f4e7e54c833e70d8be95b296f9cc75697","2014-10-26 22:22:44+01:00","SubjectAdder.cacheUriToFile(): After errors, unmark the download in progress.
+"
+"a1e276b69060e13b0f209fe42c87addbcfad8acd","2014-10-26 23:38:35+01:00","QuestionFragment: inflate() the buttons from Layout XML.
+
+This lets us specify the borderlessButtonStyle, instead of manually
+setting the background.
+"
+"171f09b6aedbbb2fd3d0d0322059fa5eb8aaea7d","2014-10-26 23:59:43+01:00","QuestionFragment: Change the ToggleButton background when checked.
+
+Because a ToggleButton with borderlessButtonStyle or otherwise
+with a transparent background doesn't show any state otherwise.
+"
+"551ecea07d62254c09b572591489e79b269e22d5","2014-10-27 00:13:53+01:00","Remove unnecessary imports.
+"
+"5065f1d1dff2fa115dec8fbd3aad01f70c5e3094","2014-10-27 00:14:02+01:00","Translations: Add an English string to fix the build.
+"
+"1764e8c5da590a1217bf17e184540929445e2c8a","2014-10-27 00:21:46+01:00","1.17
+"

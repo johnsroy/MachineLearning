@@ -1,0 +1,1044 @@
+"commit id","commit date","commit message"
+"80c197d9f0f0e5ba900dbf9205d6d7dacf659878","2013-11-27 11:45:50+11:00","Fix some lint warnings
+
+Change-Id: I57a24f602a1ae55efc2ed03f1785c50522339de9
+"
+"8d69c78d7eda11951163e181e720373a4986469b","2013-11-27 11:39:46+11:00","Fix some possible NPEs in commit deserialiser
+
+Change-Id: I1d1538b233ceef21ca056217a74049e6283f7dfc
+"
+"c26093f9b8de24173bfbb08afa12c21588b76dc3","2013-11-28 14:21:57+11:00","Use proper context when showing error dialog
+
+Use activity context not application context as we need to draw a dialog
+
+Change-Id: Ib57cbe2e7b818cf97dd9b3eb71d58906d0fc8afc
+"
+"6d78ed0c5ddccc643d26efd67c5b9ff12ef58ca7","2013-11-21 14:04:54+11:00","Card selectors; new activity titles
+
+Display the branch in the change details on the first card and the
+topic (if provided)
+Changed preferences title
+Set title of the change details screen to the commit number
+(phone layout only)
+Set the background color on the cards layout not the template cards
+Change the card's background when pressed
+Store whether we are running in tablet mode in the preferences
+Disable the moar info button and always use the card listener
+Add draft status (not currently used)
+
+PS3: Use fixed background for non-clickable cards
+Finish removing moarInfo icon from commit cards
+Add custom selected attribute for commit cards (mainly for
+tablet layouts, not used yet)
+
+PS4: Change drawable state of selected changes
+Save whether a change is selected in the change list card and change its
+state when it is un/selected
+Support telling the adapter that a change has been selected
+Remove some unused methods from CardsFragment and CommitCard
+
+PS5: Remove the alternate commit card layout
+
+PS6: Highlight the change whose change details are initially displayed
+if a change has not already been previously selected.
+
+PS7: Don't try and load change details if no internet connection
+Add high-contrast warning icon
+Fixes for loading changes on phones
+
+PS8: Restore pretty printed dates in commit cards
+Fix branch text display on properties card
+Use a SpannableString to set the title next to the user image
+Simplify the properties card layout
+Move date conversion code into Tools helper class
+GravitarHelper: Switch to non-depricated method call
+
+Change-Id: I7f8ae6b6dfeac2b390f946d2d84532ab45d92400
+"
+"2bfcb1193c1aca8e0e26a885d50f7f9a981babaa","2013-12-04 15:32:20+11:00","mGerrit: Add mako screenshots
+
+Add corresponding screenshots for both light and dark themes
+
+Change-Id: I06c4519483082096f4b82e060dcef35cc9e45c55
+"
+"7361cc8910df93f70d2f8da5f371743d972e3ee9","2013-12-04 15:47:42+11:00","mGerrit: Bump version to v2.05.004 for release
+
+Fix some build issues
+
+Change-Id: I2890cf9c7c5cf55e30b58edcdfbfbf8cdb6a5d28
+"
+"767c79442f5075418ee4d42f060d785345159902","2013-12-07 17:01:58+11:00","mGerrit: Update RK30 10' tablet screenshots
+
+Change-Id: I715554462930fb63519e2915dd655b79adb66ef8
+"
+"f088eb30d35af69244c82d9bd9ef5f7b0c00cbf8","2013-12-12 14:35:39+11:00","Remove holo blue from actionbar divider
+
+Use black as actionbar divider in light theme and white in the dark theme.
+
+Change-Id: Ic4e382bf3809ba63b9498ff94be96cde5699a1eb
+"
+"7f7a018076619a1b4e9efe8191f5f2baccae34dd","2013-12-20 10:10:45+11:00","Update project to use new gradle version
+
+As required in latest Android Studio update
+
+Change-Id: I608ab38ab9c070fb3f4984b6defe327d6ca84df7
+"
+"d08e495fd45446024f25c22af1cb1d7a959b0bd4","2013-12-23 11:50:53+11:00","Fix: Search keyword processing
+
+After processing a ''' or a '{', the following space was ignored
+resulting in two keywords being processed together.
+
+Change-Id: I56f6f9158c5317347f8eecb484ba1490b143403f
+"
+"ce71a47bfb0f16757b30ce5762a37e567a02a871","2013-12-16 20:10:50+11:00","Add age searching
+
+Support for specifying relative time periods (the format the Gerrit web
+interface uses) and also absolute time
+Added Joda Time library for datetime parsing assistance
+Add age searching documentation to README
+Output the AgeSearch in the same format it came in
+SearchKeyword: Throw an exception if the name is invalid
+
+Change-Id: I7d3ffbd9f03e0cbbf3aea38f3ac8e526d4718558
+"
+"152d285e89ffa382e5bf7588af535f80ef9ca194","2014-01-08 11:30:35+11:00","Credit Joda-Time library in preferences
+
+Change-Id: Id59d0b12d436c4c8f96b4528bf9e944e82b40a9a
+"
+"4e2f447162eff66a7d63cce46a6c7dc364176257","2014-01-08 11:27:04+11:00","Add CarbonROM as officially supported Gerrit
+
+Change-Id: I512b6a8227ef88723b88019b1f65ed14ad79d2da
+"
+"9f5dd6ba5ec86a62d2b5f3bc56a1153b9bb537a6","2014-01-01 16:43:34+08:00","Updated simplified Chinese translations
+
+Change-Id: I30221fdc46e9f55f72a6da09734d7e5097a85d20
+"
+"1810b427a9a019e8ce90eff40c1e6de7347fe355","2014-01-07 14:14:28+11:00","Redesigned AOKP Changelog
+
+New AOKP Changelog screen that shows only the merged changes introduced
+by each build. It is backed by AgeSearch and allows the same searching
+functionality as on the main screen.
+
+Send owner of the searchview with the search intent
+Add the searchview to the changelog screen
+Handle prefs changes affecting search in the searchview
+Add heading to the changelog card
+
+TheApplication: Send a local broadcast when the Gerrit changes
+Let CardsFragment handle its own adapter
+Only clear project/user if they were previously set on empty query
+Changelog card: Show loading prompt inline
+
+Note: Older builds may not have changes listed if there is
+no data in the database for that time interval. This will be
+fixed when functionality is added to fech more changes
+
+PS2: Fix: Tracking user from details screen unselects previously
+selected change
+ChangeListAdapter: Check what change was selected for given status on
+init.
+
+PS3: Improve SearchKeyword.replaceKeyword
+Work with keywords of all SearchKeyword-based classes
+Fix issue where removing an item could result in a
+ConcurrentModificationException
+Remove SearchViewProperties
+
+PS7: Sync missing files for new GerritSearchView and general develop
+branch syncronisation.
+
+Change-Id: Ia4c218d0a26df70c81d11ee31ff367c33765559d
+"
+"cd9e7df8143131418314a47fdda552b9059f743e","2014-01-10 16:34:41+11:00","mGerrit: Bump version to 2.05.005 for release
+
+Change-Id: I0647d20c53b70d04510464c9833616c839b17588
+"
+"da09652687be5525c5f156471901fab54611d0fd","2014-01-11 01:00:50+01:00","Merge 'Redesigned AOKP Changelog'
+"
+"5aa1a9bf291f58876b27c0f8373704d05518f880","2014-01-11 01:03:34+01:00","Merge 'mGerrit: Bump version to 2.05.005 for release'
+"
+"0fa27591309c1ce1adf1f3e0fc2bc55eda31afbd","2014-01-12 11:36:40+11:00","Fix saving build in AOKP changelog
+
+Calculate a goo.im build url using the path field if no short url
+given. This fixes the ActivityNotFound exception for the
+AOKPChangelog.
+Gson deserialise changelog object
+
+Change-Id: Ia45adef6acae023e1e301c7ceb693fcfeb42a054
+"
+"39e3b581deff1bc85c3b8de0a8e5984a287f80f2","2014-01-11 15:52:38+08:00","Updated Simplified Chinese translations
+
+Change-Id: I3e008328270cd0edb99d728d466d8e13979c6004
+"
+"c4ada6307a9ea2c22c75c4e9ad8f435e6c9117b7","2014-01-12 12:46:00+11:00","CardsFragment: Fix for IllegalStateException
+
+Use isAdded instead of isDetached.
+Check if fragment needs refreshing in onAttach
+GerritSearchView: Send an intent when search query changes but don't
+include the query. Instead save it so it can be queried when the fragment
+is ready to display it (in onCreateLoader)
+Remove analytics for this issue.
+
+Change-Id: Iba0569ab4c6ba0bfcecd8e70a071ab362ced8827
+"
+"1cff2b1257326c99c9ad460177b7b8392c6e7dcb","2014-01-11 23:23:11-06:00","Fix VerifyError Force Close on older devices
+
+ReflectiveOperationException is only available in SDK v19+ causing
+FCs on older versions of Android
+
+Change-Id: I6cf2f20915f04addd40ea808790e0499f1bdc71b
+"
+"4866ffdec5a46198895d8e67446e2f19c5f84117","2014-01-11 23:45:35-06:00","Bump version to 2.05.006 for market release
+
+Change-Id: If9b8478abdda0502b46e5c404c1e42de3b608021
+"
+"0b182ff0349f19407fdae839dc90a4536b9f8008","2014-01-12 00:26:55-06:00","Stop lint from forcing build to hault
+
+When building using gradle clean build lint will abort the build
+if lint is not perfect. With this patch the lint output will be
+forwarded to <PATH>/build/lint-results.html
+
+Change-Id: Idf7321f05ca51ddd0e34371627b78970fb47acc3
+"
+"d385f8431550f7478e30577ba6371737d02efbd8","2014-01-13 14:18:41+11:00","Develop branch sync
+
+Analytics refactoring
+Lint analysis fixes
+Added some null checking
+Removed unused files
+Fixed some copyright header info
+
+Change-Id: I31e44659fa79b14641e38ffab43aad8627aa9de5
+"
+"952ff6fceaf4f181cb3fc0f586517a66029a679e","2014-01-13 14:51:37+11:00","Update README
+
+Add missing ROMs and update age search notes
+
+Change-Id: Ie9addebaa2c3f4d08e940f87c49247f08303438f
+"
+"9f5b158b57023cb991aa7cd49de92b3a5da7688d","2014-01-12 15:14:57-05:00","Add PAC-man Gerrit to mGerrit
+
+Change-Id: I9e7cfb8290934e4ed04e89442dc8e136e171a08a
+"
+"178c2ff78a7e51ad969fdce679fff60561cd6b71","2014-01-12 22:04:35-06:00","Fix missing detail fragment
+
+Change-Id: I1b48a63c8adecfa11647ef2721dfb4d38da5ab5c
+"
+"2e2edcec52d2411ab9ad4fc59513c5251e0d65c9","2014-01-13 05:07:39+01:00","Merge changes I1b48a63c,Idf7321f0
+
+* changes:
+Fix missing detail fragment
+Stop lint from forcing build to hault
+"
+"1108e39a49ec9939755e3b9463b08b442a3185f9","2014-01-13 05:17:03+01:00","Merge 'Develop branch sync'
+"
+"dae53ca76757318a631313ce41b500b8da9a7c1c","2014-01-12 22:23:40-06:00","Bump version to 2.05.007 for Market release
+
+Fix Master/Detail flow
+
+Change-Id: Ifbb61fe3834898af4f726485d2605d6ef2270d29
+"
+"35c62c6b876098a629c1fafbbb05107483ede78c","2014-01-13 05:32:30+01:00","Merge 'Bump version to 2.05.007 for Market release'
+"
+"95f7fee7bc2a6c1d42c0b45ea66c53d824e27e29","2014-01-14 13:39:58+11:00","Fix possible sync from detached fragment
+
+The call to refresh did not check whether the current fragment was
+attached before trying a force update, causing a possible NPE in
+SyncTime.clear with a null context.
+
+PS2: Fix unwanted extra syncs
+
+Change-Id: Ifff19d4b5b063fe4e296d89d9136040cd6c8ba96
+"
+"440c3f233c21103f3bc3f5e52a15e11df4a173b4","2014-01-12 23:52:02-06:00","Begin adding annotations
+
+Using annotations allows for better Code flow analysis. Uses
+Jetbrains annotations from IDEA
+
+Change-Id: Iedb92fd44780a5a5d50c2300618ac7a173e3de5b
+"
+"f24dff08f902c019151e294db5c3b21ccc2c9211","2014-01-18 14:41:03+11:00","Resize activity indicator
+
+Move themes styles into seperate file
+
+Change-Id: Iad2d7c6a2742be4aee04917fab79e5157629aba1
+"
+"5a588671f74a8f11bab9cd22c4fc276e792de32b","2014-01-18 06:21:45+01:00","Merge 'Begin adding annotations'
+"
+"a0131236260b1903391a932df7c24cc4b7fb4062","2014-01-15 13:29:21+11:00","Refactor diff colors; Move GerritSearchView
+
+Make the TextView in DiffDialog its own view and have it handle
+its colouring/formating
+Extract diff colours to attributes so they can change based on theme,
+improving diff readablity
+Move GerritSearchView to a new Views package
+Diff and DiffDialog refactoring
+
+Change-Id: I7223cc94b74382357a194b53440efbce7a56c188
+"
+"ca08d94cd65c1407101b2e1159e9601b6852f2e3","2014-01-24 20:25:00+11:00","Refactoring and extracting dimensions
+
+Removed unused dimensions
+Extracting dimensions from layout and style files
+Added new styles for help dialog text
+Renamed some dimensions
+Extracted hard-coded retry string to strings resource
+
+Change-Id: I75d36ae88dba2ea3986cddbb090927787f75a09f
+"
+"28092ca10940841cbb3a4442955073173a1de735","2014-01-24 23:18:02+11:00","Workaround bad base64 being sent by Gerrit
+
+Occasionally Gerrit will return Base64 that is impropperly encoded
+while attempting to download the diff. We can avoid the base64
+fails by downloading the patch in ZIP format. This methodology has
+two benefits.
+
+1) Avoids bad Base64 encoding
+2) Smaller network IO as the patch's diff is compressed
+
+PS2: Resolve conflicts
+
+PS3: Use Volley for download; change DiffDialog to use the file path
+rather than a FileInfo object.
+
+Change-Id: Idc0cdf04eacc69d0faf2422cd9af30386cec599a
+"
+"3012ae9b7cb7e6ebe8962c7a9240e7cb3f737fd3","2014-01-18 14:42:40-06:00","Fix NullPointerException reported through market.
+
+If user selects the oldest build our changelog won't have a begin point
+so we assume user is asking about since the begining of time (UnixTime=0)
+
+PS2: Catch and log possible NullPointers from the market
+ChangelogFragment.onClickSave -> NullPointerException
+
+PS3: Form url if shorturl is not provided
+
+Change-Id: I5f2ab7e78a72dca756005127e8d944c68d1f6607
+"
+"16bc26804d3d0f093ba11dd4551324a3acf6fa2b","2014-01-25 23:03:04-06:00","Bump version for market release.
+
+add cahces/ and daemon/ to gitignore
+
+Change-Id: I485f99d4181c1f9ff0d8463ef63ef9dbcaec4380
+"
+"1eb59d10fe91318e2b0a2914d949b0403c24d853","2014-01-25 23:23:27-06:00","Remove unused permission
+
+-android.permission.WRITE_EXTERNAL_STORAGE
+
+Change-Id: Ib1015af581775381b0c146f3819b469f70cffb44
+"
+"57035c16c7f451fb3e08c41788fd74978e693ac1","2014-01-26 08:44:25-06:00","Actually add Request to request query
+
+Change-Id: I57271c3feb5abfdf4c5d621bf4faefc1722095a4
+"
+"6b3c8e68252ef2bf81549795b699329433d4b7a8","2014-01-26 09:13:23-06:00","Bump Market version
+
+Change-Id: I9c665498ca2083186d79a0bd94f39e1e74395b59
+"
+"d9f882c9c03a337d481dc6af94237a0b365c84c7","2014-01-30 12:31:13+11:00","Fix diff colours
+
+Switch colours for removed lines
+
+Change-Id: I56954183f98ffe72b47a8507e05510efa190d53e
+"
+"2a61f79508b4cdaffb145d7fc9e3cc865eb87e34","2014-01-27 16:33:25+11:00","Working new change details list
+
+Database changes:
+Revisions: Store change information that can change with each patch set
+FileChanges: Supports query the file changes in a change and get the
+change's legacy change number (virtual table)
+UserMessage: Virtual table for querying change comments
+Added patchset number to FileInfo database table
+Store change number along with changeID in SelectedChange as fetching
+change details uses the change number.
+Rename ChangedFiles database table to FileInfoTable
+Added new virtual table UserReviewers
+All verified reviews where bing overwritten in the database due to
+how the Review object is structured. This inserts the review row
+and updates the verified/code-review status independently.
+
+Change detail cards changes:
+Converted patch set cards to use cursor
+Move last updated time from message to properties card to make querying
+easier
+Modified deserializer to put revision details inside CommitInfo object
+Comments card: Added timestamp to each comment
+Renamed code-review and verified labels
+
+Remove CardsUI library
+
+GerritURL: Use 'Get Change Detail' endpoint when requesting change
+details
+ProjectListProcessor: Don't use GerritURL
+Reviewer: Store label as enum
+
+PS3: Fix change detail cards layout issues
+PS4: Fix colours on changed files card
+PS5 & 6: Fix database crash; display change details when internet
+disconnected
+
+Change-Id: Ic22a3c4cba0525424ccc8cb609b4556ad31b367c
+"
+"576858c6f1ca2105a824b74ed218a0f3078647a9","2014-02-01 22:03:51+08:00","Updated Simplified Chinese translations
+
+Change-Id: I8036949def5e4d7800819a6fa02c9f01f327962c
+"
+"02433288f6c00896fc2babeef6d4493694b28ef2","2014-01-29 15:44:18+11:00","Support legacy change details
+
+TheApplication: Request server version when Gerrit changes
+SyncProcessor: Use same request queue for all syncs
+VersionProcessor: Better extraction of version number
+Changes card: Ensure the server supports diffs before showing the dialog
+Add support for using the legacy method of getting change details from
+the 'query changes' endpoint.
+Merge StaticWebAddress into GerritURL
+GerritURL: Self-manage gerrit base URL
+Add new legacy commit details processor
+Note: With this commit, change details for Omni are now supported.
+
+Change-Id: I28f3c7d024c13d90836627799dca1507e21ab800
+"
+"5206d9b96200ed883582cf6511af1a2844d7adcd","2014-02-03 16:33:41+11:00","Merge: Brazilian Portuguese Translation
+
+Merge old translation pull request.
+
+Change-Id: Ibab63c610229f0dc1663418950f041daca08f637
+"
+"f8617cbf0dad40b275df0e9cdc4bd8477f5dd6eb","2014-02-03 16:52:00+11:00","README: Fix contradictory example
+
+An example showing how unit stacking works when performing age
+searches was contractory by implying that they do not stack.
+
+Change-Id: Ibbcf3f67ecf55a37d56d9352c24b73fa07a29504
+"
+"70733bfb406449b33c476b52c0c5a27de0d99a24","2014-02-04 13:20:02+11:00","Searching fixes
+
+Age searching when the operator is equals returns results not newer than
+specified; don't include operator if equals.
+Check if the project changed when setting up
+the search view. Otherwise, selecting a project in the projects list
+will have no effect.
+
+Change-Id: I8fd502fdd23cf6dbe3949f42af0640b1eaec7c71
+"
+"dc2fed7abafa33df6db072d24da4520082d46bdc","2014-01-30 16:07:05+11:00","Changelog: Detect no builds available
+
+AOKP Changelog: Show message when no builds are
+available for the device.
+Improve error checking around getting the change to
+select from the database.
+
+Change-Id: I0d50b89f47f1518612f54a793f34cd02d90f34be
+"
+"70cbcf820d6853f3db4fdb372d72c7b571b6fe29","2014-02-02 13:56:13+11:00","Minor UI fixes
+
+Add change status stripe from the commit
+cards to the properties card.
+Fix some overdraw issues where the same background was
+being painted multiple times.
+
+Change-Id: I7f8e863a1ed113fcbdaf5d4ca0a0ffe1762d5706
+"
+"0bc243c85ad1057d487b1d9150999d4350e0896e","2014-02-04 17:48:44+11:00","Change detail tablet fixes
+
+Always restart loaders as calling initLoader will return the
+old data. For tablets this means that selecting a new change
+will have no effect.
+Fix parameters in GerritURL, status, owner and project are
+ignored for change detail queries when we have a change
+number.
+
+Change-Id: I7b0d5bdc98714268d8b34755b3be18584a04b2ef
+"
+"f0c8729d881ca7812b4118daf73c4538b7e6805f","2014-02-02 14:04:15+11:00","Redesigned full-screen diff viewer
+
+Merge Diff class into DiffTextView
+ZipRequest: Override server cache headers; calculate own URL
+Convert Diff Dialog into an activity (DiffViewer)
+DiffViewer: Remove debugging code
+Added previous and next button drawables
+
+PS2: Improve whitespace handling
+PS5: ZipRequest: Fix decoding problems
+
+Change-Id: Id10b83f479ab9362a73dbea307525b5099f0e40e
+"
+"549229a59e2ae333f69a290985fee5bd982eeddb","2014-02-05 11:05:57+11:00","mGerrit: Bump version to 2.6 for release
+
+Change-Id: I8ff979856b7d79f2c1c8b584807a19ac71a0f76a
+"
+"45dce1cea0c1e825268e89def7b63c5881c23c03","2014-02-05 16:40:43+11:00","Start the comments card loader
+
+Change-Id: Iad916dab1e0f2abfd4463b8689833b0b46790b4c
+"
+"5dd4d5d68de62f40504d99821e994b28aac1a6ad","2014-02-05 16:47:02+11:00","mGerrit: Bump version to v2.6.001 for release
+
+Change-Id: I6369c31970106482f33b4bf268a544e54c518b89
+"
+"18ccb3e9510a54f884d0ae2712842cc18c596dc8","2014-02-05 00:36:32-06:00","Add FLO screenies for market
+
+Adds both dark and light themed screenshots
+
+Change-Id: If61bc3910ce17742b02a4497a676a52bc1f78c95
+"
+"e69edb0f934ba3c1682980dd8977cd4f1f63f92f","2014-02-05 07:50:42+01:00","Merge 'Add FLO screenies for market'
+"
+"aaba5e653b340e794fd0e49ba64fc12dcdba2fe4","2014-02-06 14:20:03+11:00","Comments: Assume Gerrit user
+
+Automatic comments from Gerrit do not specify a user so we will make one
+up for Gerrit. Cannot make up an email address so no picture
+unfortunately :(.
+Revisions: Check for possible NPE when precondition is not satisfied
+Diff Viewer: Properly apply the fillViewport attribute so the diff fills
+the available screen real estate.
+
+Change-Id: I89326da638e3fa7088d1b70fe4dd2a915b5e9d1b
+"
+"b218043500f7ef35801dcab07260dfde30ca1de3","2014-02-06 15:25:22+11:00","mGerrit: Bump version to v2.06.002
+
+Change-Id: Ifd1ea7d01138062dabdd0b5638d4c4e368d891ce
+"
+"51a06ab93ed5e0784ace6bad89623e6473911b0a","2014-02-06 16:25:45+11:00","Update mako and rk30 screenshots
+
+Update Nexus 4 (mako) 4' screenshots
+Update Rk30 10' screenshots
+
+Change-Id: I9b501708382ba936f7b8548de89d216ed2f49ad3
+"
+"546201b95f4284a16e96f399e1c4102ea90b7494","2014-02-09 12:26:11+11:00","Lint analysis fixes
+
+Change-Id: I1d5e9e0fbee657b87016baf7b9f8f5db3d21bf54
+"
+"c1672bc3a2ab81ebc98f648615ef5b5c2f2867ca","2014-02-08 13:39:21+11:00","Contextual action bar diff options
+
+Add preference for viewing change diffs so clicking on a changed file
+card can open the internal viewer or view the diff in the browser,
+works with changed files header too
+Added contextual action bar for long presses on any of the changed files
+cards to either open in the internal viewer or in the browser.
+Added new 'view in browser' icon
+Change internal diff viewer icon to old view in browser icon
+Bump min-API level to 14 (ICS) - A method to provide data to the
+contextual action bar was added in ICS and none of our users run
+versions less than ICS.
+Selected card changes background when pressed/selected
+Close the CAB when the selected item is hidden
+
+Patch Set 4: Fix build
+
+Change-Id: If9e939620c88bee5b01ac49cdcbd87bc5351ec05
+"
+"8c07fa56ee1ec69ac84d67bd41a9f892395cb770","2014-02-09 12:29:00+11:00","Menu options for change details (phones)
+
+Add menu options to share and view selected change in browser
+
+Patch Set 3: Fix conflicts
+
+Change-Id: Ia9101f719346871673f1a8420f5a81dcf7cada79
+"
+"59fbc8602e9373c9f718085ef236e04cf48bfd34","2014-02-09 12:29:00+11:00","Develop branch sync
+
+Add some things that were ommitted when merging
+
+Change-Id: I47f78d01a6d938e8748a9622d77bbe008c0c5fd8
+"
+"c86068c83ec19ba2f4cbb019008b07ec59d8e894","2014-02-10 11:41:19+11:00","Fix build; lint fixes
+
+Properly rename DiffActionBar to FilesCAB
+Lint fixes for string comparision so that the constant is on the left
+
+Change-Id: Ifff2e7ffc2528b69fe46a05bd76d92cd2fca8616
+"
+"18c9d6c2654cf17e2a15b0e0852fa85422280881","2014-02-10 15:34:59+11:00","CommitDetailsAdapter: Fix NPE
+
+Fix a possible NPE when collapsing a group in the change
+details if the contextual action bar is not visible.
+
+Change-Id: I844760c78a74dd6110a46b735bad727b58984f5d
+"
+"09efc79ef25fc4d77492fd6a4fd89fa15c33fffa","2014-02-09 23:37:57-06:00","Allow DiffViewer to handle images
+
+When binaries are .png || .jpg load the image from gerrit. This
+does not affect nonImage binary files.
+
+Patch Set 2: Resolve conflicts; merge FileAdapter with DiffSpinnerAdapter
+
+PS 4: add Intent import
+Change-Id: Ifa0e99d314fe00ca2432b7522d97c190ad2b5c40
+"
+"b7fdd6a59fb9c24177689d37e9f523229a9fea4c","2014-02-11 11:34:27+11:00","Change list: floating context menu
+
+Added long click context menu for the commit cards in
+the change list with actions for viewing the change details,
+viewing in browser, tracking user, tracking project and
+sharing change.
+Removed image buttons from commit cards
+
+Fix conflicts with ImageViewer patch
+
+Change-Id: I98b7808d171e19ffb51bcccadd028908beb638e3
+"
+"9b0095aacd2ea08de8223b0bc039a4da0277ab24","2014-02-12 13:37:39+11:00","DiffViewer: View deleted images
+
+DiffViewer: If the image was deleted, load the image from the
+base revision; show file status of the current image with stripes
+down both sides.
+themes: Add missing card background for dark theme
+Let ZipImageRequest calculate its own URL
+Added StripedImageView to support showing the file status with
+an image
+PatchSetChangesCard: Enable card when tags are set
+
+Patch Set 2: Minor layout change to better handle small images, see
+comments for before|after
+
+Change-Id: I991fac3d53168c39af652a335a7e4ef0772495be
+"
+"9407e3aaf25929d230ffa032c89a17498dbb0f24","2014-02-13 21:01:47+11:00","Revisions: Null checking
+
+Fix possible NPE when inserting into Revisions table.
+
+Change-Id: Ibaaa28cdb6dd4683bf7929f03e5a07e466a6bdcd
+"
+"6d951029233b7fb79929389c5fded43c26e56f69","2014-02-13 21:32:07+11:00","Diff Image: Force stripes to screen edges
+
+Change-Id: Iaf3cebddc3009871741b72d353b4bcf39b70342c
+"
+"866b93406e68ecabd7a790c4132de90e8f5ea763","2014-02-14 11:13:04+11:00","DiffViewer: Show loading placeholder
+
+Show loading spinner when loading text/image
+Don't display an image if it is not the currently requested one
+
+Change-Id: I1ba0c67be2cfc415eeae3509660c8b74dc5f926c
+"
+"0594243295de38580dd620f2178c878462cace96","2014-02-14 19:59:10+11:00","mGerrit: Bump version to 2.07 for release
+
+Change-Id: Iedbc48f156241b35a4c559beb92b4a0c29c4ae1e
+"
+"bbe869e40de47325b404087433434a2e6e96cc5b","2014-02-15 14:15:11+11:00","Update mako screenshots
+
+Also remove navigation bar from mako screenshots
+
+Change-Id: Ic8ae49fa30630ec59017147e2034af1afba1fa64
+"
+"0753f8aa924a96862f1a3ea7a5bb9c5cc8c060be","2014-02-15 11:43:03+01:00","Czech translation update
+
+Change-Id: If20d8600352664b27239f4ae270e67ec5ff22d4c
+Signed-off-by: kecinzer <kecinzer@gmail.com>
+"
+"7a58e7d9768a47ba04226e760a4e5b0c3704cef9","2014-02-15 19:21:19+08:00","Updated Simplified Chinese translations
+
+Change-Id: I945b447c87f0b37eb1a2d79bcbff232e7f4bbab3
+"
+"19e1d6d94377901ddc9858048b8d369ab2082e73","2014-02-15 21:50:33+01:00","Merge 'Czech translation update'
+"
+"988be1d9e92931a060827d41c8af18dd22c0ca54","2014-02-27 15:35:27+11:00","Add NamelessROM as supported Gerrit
+
+Change-Id: I6790722f6e2bba0c77b2fb30e552eb7bf9556fd5
+"
+"6c3d5815c98847df04efafe78def1f780122e6de","2014-02-28 09:39:41+11:00","Fix ListView padding
+
+Hide ListView top and bottom padding when change list scrolls
+
+Change-Id: I6065bfe2727e59fdf1c3ae328006a74e966c8324
+"
+"3e95c6f236d7c4ae749082b88a8c70017b11892a","2014-03-01 10:26:49+01:00","mGerrit - updated CarbonDev url
+
+Signed-off-by: STELIX <ssspinni@gmail.com>
+"
+"8b50d932a7e5739b5b73675e47e4bb7b0e892954","2014-03-02 21:32:18-05:00","mGerrit: Add TEAM Gummy Gerrit
+
+Change-Id: I3c6cd82ced4dcc99a4011322c8c5f252339b26ce
+"
+"b802fee5882c4a9e965c514aed5d7757e1b26fca","2014-03-08 12:29:32+11:00","Update Gradle wrapper
+
+Update Gradle wrapper version in line with Android Studio update
+
+Change-Id: I81bb6595cd2769ce5713dd20a3d187e4f78b6a8d
+"
+"b5cb81347d1f13e1e31383d33f1ba7d4b9c3c655","2014-03-09 12:32:01+11:00","Full screen Gerrit switcher
+
+Converted Gerrit switcher into an activity
+Added ok and cancel icons
+
+Change-Id: Ia4a56d02bd3d680026b63bb863e6ccadc0791954
+"
+"5657a341de12dedad1cf3136eb7cea28db448a2e","2014-03-10 14:13:40+01:00","Import czech translations from crowdin.net
+
+Change-Id: I1db6720d91eaa415fac187e4f5c89d7e71fb7dfe
+Signed-off-by: Dirk Rettschlag <dirk.rettschlag@gmail.com>
+"
+"09357201b9bb810db973e16287b6fd4695d92900","2014-04-04 11:41:54+02:00","Merge 'Full screen Gerrit switcher'
+"
+"5664c9cc08957657000838262f3ee922cd5f07f3","2014-03-14 08:38:50+01:00","Import translations from crowdin.net
+
+Change-Id: I19444b19e754f5018f6c6f03507aa6bff4c190f5
+Signed-off-by: Dirk Rettschlag <dirk.rettschlag@gmail.com>
+"
+"cb04359db75503b65f165f09962d3d883a284b1c","2014-03-08 13:01:27+11:00","Endless/infinate change list; Pull to refresh
+
+Scrolling to the bottom of the change list will send a request
+to load more changes if there are any more to be loaded.
+
+Full list of changes:
+
+Add before and after search keywords as aliases for age searching. The
+mimimum server version for these is v2.8.2. This will allow fetching
+changes to work with stable v2.8.1 releases and will switch over to the
+newer searching operators when the next Gerrit version is released
+(even if it is v2.9 or v3.0).
+Improve server version checking
+Pass processed intent as extra into Finished message
+Remove unused GerritTask class
+Close open cursors when finished in database methods
+Limit the max number of changes to fetch at once to 100
+Detect and block duplicate syncs - don't process new requests
+when the URL is identical to one already being processed
+Fix marking of more changes in database
+
+GerritURL: Use search keywords instead of project/owner/changeid field
+variables; add copy constructor
+Tools: Change toggleAnimations to return the top adapter
+ProjectSearch: URL encode project's Gerrit query
+ChangeListProcessor: Use direction when determining if sync required
+GerritSearchView: Add method to obtain keywords
+AgeSearch: Fix issue in timestamp parsing
+SearchKeyword: Trim quotes off parameter; make parcelable
+SyncProcessor: Added abstract method to get the number of items fetched;
+added context as a parameter to isSyncRequired; add null checks on the
+resulting data; pass intent to constructor; insert returns number of
+rows updated.
+DatabaseFactory: Change insert method to return whether the db changed.
+
+PS2: EndlessAdapter: Implement disabled state
+AgeSearch: Delegate before and and after Gerrit query generation to
+BeforeSearch and AfterSearch classes; Fix instant formatting;
+Add comparitor
+SearchKeyword: Add some more helper functions
+GerritURL: URL encode search keywords
+
+PS3: Always enable endless list adapter
+
+PS4: Swipe Refresh view
+Use status colours and transparent for the SwipeRefreshLayout's colour
+indicators. These are theme-independant colours.
+Fix url limit param & Gerrit query for relative age searching
+GerritService: Block sync when syncing same status changes
+
+Change-Id: I282e235e7af78d6ea9903a5b153c6bacd94641ef
+"
+"9375b680ec1c9229922f0306a823e06d7c62838a","2014-04-06 10:12:39+10:00","Fix translation errors and Gerrit switcher
+
+Change-Id: I4fe0623f702f313a376e4995e6f5bb39e511a24f
+"
+"e5ecf71c70a5636ec5414fb274a45a8d10805890","2014-04-04 21:04:51+11:00","mGerrit: Bump version to v2.10 for release
+
+Change-Id: Id6be0cb7958d12eea1ed017da3dbb8e8c91a42b1
+"
+"ebc085ac7ba3f810f976d2775da468cc3b326dde","2014-04-06 16:06:47+10:00","Fix NPE when checking server version
+
+Set and unset the swipe refresh listener when fragment starts/stops
+
+Change-Id: I5c5cb4acb7c0d94627a6fd4ce9e2fd3df620cecf
+"
+"8cdbd767ca402c313fe44ac1f61b722214d50015","2014-04-06 16:09:58+10:00","mGerrit: Bump version to v2.10.001 for release
+
+Change-Id: I47751cecc1b65f4bc4bc899d3a8c4baea027f2f1
+"
+"386491fbb4188d5e4f6f9d685843f4cbba876963","2014-04-04 13:40:41+02:00","Import translations from crowdin.net
+
+Change-Id: Iea7c531581f22699ae3df8ed5bde3dada70ea456
+Signed-off-by: Dirk Rettschlag <dirk.rettschlag@gmail.com>
+"
+"e6f56bd42cb6204e137096ff8fd276c31e20b867","2014-04-06 16:30:12+10:00","Have TheApplication provide a default refresh listener
+
+Change-Id: Icac3ef6a551bb222a6cbbc7fbf045690594eb448
+"
+"d12f2a52c715be55878ee0d5c1c032bacbbd7565","2014-04-08 04:39:14+02:00","Merge 'Have TheApplication provide a default refresh listener'
+"
+"a07459f062a32564a5d1bd3c5c448937f861c665","2014-04-08 09:31:39+10:00","mGerrit: Bump version to v2.10.002 for release
+
+Change-Id: I3628798c21d5c1409e1c2afaba6b19f084e1c089
+"
+"e3720735db9e676513f79d8898b437c9d2d215b3","2014-04-08 22:14:05-07:00","Fix NullPointerException seemingly cause by SwipeRefreshLayout
+
+The Exception was because previously the SwipeRefreshLayout reference
+was set when we created the underlying Activity that loaded
+CardsFragment.  Since CardsFragment is a super class for ReviewTab,
+MergeTab and AbandonTab the previous behavior was problematic as
+the refrence would only get set for one Fragment (ReviewTab). The
+new behavior is to gain the reference everytime we create a subclass
+of CardsFragment.  Since all subclasses of CardsFragment will now
+have the correct reference to the SwipeRefreshLayout the library
+behaves as expected.
+
+Change-Id: Ibf8015294d4ad38d0dc90d8aed19d4ea4da08a9c
+"
+"4f410bea050079371a7147d947e08c6f92a8bb2a","2014-04-08 22:27:38-07:00","Remove unneeded stub in Application subclass
+
+Now that the root issue is resolved there is no longer a
+need for stubs to prevent throwing Exceptions
+
+Change-Id: Ic7ca0a9db537c9f9d11fe682bf26e94bfc90e54b
+"
+"96d0d32bafcaa623a11ab63261250e25b65950d5","2014-04-08 22:37:33-07:00","Welcome WikiMedia!
+
+Support WikiMedia's gerrit instance by default
+
+Change-Id: I07db0a96a9b4032005a0e399290af8a62da43380
+"
+"3f86fc9de18b8340fd92b7a6cf3bd9db4fcbcd53","2014-04-09 14:54:09+02:00","Merge 'Import translations from crowdin.net'
+"
+"1e350d2fbd7b3de8aec8ec3be677963789364e78","2014-04-09 16:59:37-07:00","mGerrit: bump version to 2.10.003 for release
+
+Change-Id: I8868db4d82fdfccc6ea67c7b004dbacfe8639a84
+"
+"a0726bab4c97229e8844062846875f798e65e9d2","2014-04-10 06:01:00-07:00","mGerrit: Don't camelCase proper nouns
+
+Wikimedia not WikiMedia... oops
+
+Change-Id: Ieb10f328cc6191d617b84006d62c12bfe55db194
+"
+"dd537817f61c6dce1b448c1bc76ab2ad3f64ac55","2014-04-10 15:02:37+02:00","Merge 'mGerrit: Don't camelCase proper nouns'
+"
+"5b21e49d9ace6d1f8338dc3ef516925ebf6972a3","2014-04-29 09:10:52+02:00","Import translations from crowdin.net
+
+Change-Id: Ie744846d4becdc941e599a160256281c14954019
+Signed-off-by: Dirk Rettschlag <dirk.rettschlag@gmail.com>
+"
+"d628892272906dcfcb88d08ff92b5056477c8aad","2014-05-08 18:21:34+02:00","mGerrit - updated CarbonDev url
+
+Change-Id: Idaa768c64d54c9fbce96e08eeb88e39f7e04285c
+Signed-off-by: MURA Stefano [STELIX PippoX3] <ssspinni@gmail.com>
+"
+"7dcbf7c107fa1514bc9b99b8e80def1f78fadb8a","2014-05-13 19:19:13+02:00","Merge 'mGerrit - updated CarbonDev url'
+"
+"11fe26a34e428372145f1484c14f1817ec782d2e","2014-05-15 06:48:56+02:00","Import translations from crowdin.net
+
+Change-Id: Ic83bebe10a12ce9d69ecca2118cf1eac71dc351c
+Signed-off-by: Dirk Rettschlag <dirk.rettschlag@gmail.com>
+"
+"95e5515e8b9093dab589b6cc675aa1603fcf8e8a","2014-05-17 10:56:38+10:00","mGerrit: Bump version to 2.10.004 for release
+
+Change-Id: I2abe12bbea086ae374268f5f08aea2b69654bdb4
+"
+"81dd06db528e791edc0f92345f8237982975cef3","2014-05-18 04:10:58+02:00","Merge 'mGerrit: Bump version to 2.10.004 for release'
+"
+"a9a7a9b1f740525dc724d8dc2c3c555c0af1fba7","2014-05-23 22:16:58+02:00","Import translations from crowdin.net
+
+Change-Id: I60e7fedebfff5a1fefafdd57dd28899716c45a18
+Signed-off-by: Dirk Rettschlag <dirk.rettschlag@gmail.com>
+"
+"38dd9b9f208021418965056bf70712144eecd136","2014-05-24 12:03:59+10:00","Improve refreshing
+
+Don't show the action bar spinner if the swipe refresh indicator can be shown
+Show the swipe refresh indicator on the projects list (not manually refreshable)
+Update Volley library
+Don't use age searching in Gerrits below v2.9, fixes sync issues with CM and other Gerrits
+The kind attributes of projects is not available any more (fixes a possible volley exception)
+
+PS2: Check if fragment is attached before trying to indicate if it is refreshing
+
+Change-Id: I3e1869e5b82e5e4c02b20e668183eede62526946
+"
+"65db2ab5cb3a59689b33b446f95ba882563bb61d","2014-05-25 06:10:45+02:00","Merge 'Improve refreshing'
+"
+"d3b09959b58eaab3de066f2c45513b6a882552b6","2014-05-25 14:16:06+10:00","mGerrit: Bump version to v2.10.005 for release
+
+Change-Id: I47aa18c496ecd4fc6ae2e3d9896aed8acb57e0a6
+"
+"f38e4917c3f63181b411c86adfcaa73614b16926","2014-06-01 10:42:49+10:00","Fix some lint warnings
+
+Update Gradle tools version.
+
+Change-Id: I53802c79ef30ae43d27fb1939d4470f3d7c0af3d
+"
+"179b45703ff41898791d27087caf4436420ab281","2014-06-01 10:57:56+10:00","Add EventBus Library
+
+Start converting intents and broadcast receivers to use EventBus library
+Credit EventBus library in preferences
+Check which change list is refreshing before showing animation
+Remove unused DefaultGerritReceivers
+Get correct date when searching for older changes
+Fix SearchKeyword.retainOldest to actually use the oldest search keyword
+not the newest. This should fix not loading older changes.
+
+Change-Id: I6b4b1a4b3ba172d24dc2f03d90100d5889be10c8
+"
+"f6457016027ff5047fc54e85a591539885ff1b4b","2014-03-30 11:01:37-06:00","mGerrit: Add SlimRoms Gerrit
+
+Change-Id: I05213f10d71549914ed6398aab8d3c76e99124f9
+"
+"8fb2cf24210b803cc929aeeffa965c44abf27fba","2014-06-01 12:41:08+10:00","mGerrit: Bump version to v2.10.006 for release
+
+Change-Id: I411b2982ddfaf8a4495abd20dc0e6fdd7d3d6ee9
+"
+"71f6889a0c2cc2e45d391e83ab8b58f60f343c59","2014-06-01 20:36:16+02:00","Mark libraries not translatable
+
+Current translations are funny, but they make no sense at all.
+
+Change-Id: I46e3836955db30b5c1859e11491547809a196428
+Signed-off-by: Dirk Rettschlag <dirk.rettschlag@gmail.com>
+"
+"af807973f8838b41981e75adbcfe53108b807cce","2014-06-07 01:54:10+02:00","Merge 'mGerrit: Bump version to v2.10.006 for release'
+"
+"a6ceeab834a2f55ad37fa019ae338d13013d1e1d","2014-06-07 11:34:54+10:00","Fix before and after searching logic
+
+The logic for before and after searching was not consistent with the one on the Gerrit web interface.
+This fixes the logic so that after will search for more recent changes and before will search for older
+changes than the date given.
+Don't broadcast the change loading finished message if not in tablet mode as it is only used when
+by the patch set viewer panel in the master-detail layout.
+Update Gradle tools version with latest Android studio version
+
+Change-Id: I6f71635cab2fbcb94b468569f09d47984918f9a2
+"
+"29a1d53767a3538ecef4f9e02b6cedae3521717b","2014-06-08 11:12:15+10:00","Fix user images not loading on properties card
+
+Change-Id: I286cfd50131500b6a5135f4f7178b848d4fdfdf5
+"
+"64d355ef45453d6cba822992ac82356d60f3258b","2014-06-08 15:06:16+10:00","Disable endless adapter when not connected
+
+Remove unused Refreshable interface
+
+Change-Id: I0bfad6fa1bc34c80417e49d6cfda579d05de2784
+
+Conflicts:
+README
+"
+"23613877618a97d3a792cc306e165d661774ae7a","2014-06-08 15:12:48+10:00","mGerrit: Bump version to v2.10.007 for release
+
+Change-Id: I02ff62b04530e73e6af552c75121234e0573bfc5
+"
+"8897da7a4a178ca70e31a58b8aec9d6a0640340d","2014-06-08 16:13:17+10:00","Fix AOKP Changelog
+
+Fix infinate request loop for AOKP changelog
+Fix view caching in AOKP changelog build spinner
+Properly inflate rows (pass parent to layout inflator)
+
+Change-Id: I1b72b5e361c70ab34092de544321c6463c0bd6ef
+"
+"0371e8ff828f0710aa29c74f6638ecebd988cc75","2014-06-08 16:19:25+10:00","mGerrit: Bump version to v2.10.008 for release
+
+Change-Id: I52ced74ea1ef5c6e2df3e83c37aec902b7bfb4f6
+"
+"f77de8802513046fbf8ea3aab6b8e38ea1cd09ae","2014-06-09 19:28:35+02:00","Import translations from crowdin.net
+
+Change-Id: If02e7ded0ec965b8551f4edcdaf95bc0c6b9e23f
+Signed-off-by: Dirk Rettschlag <dirk.rettschlag@gmail.com>
+"
+"f3a514af1c9ac57949254730f31cc7a033a74c08","2014-06-22 09:59:22+10:00","Fix server version crash; Move screenies; add Hugo debug library
+
+Don't fail when comparing server versions if one of them is not valid.
+Move all screenshots out of the assets folder. This added around 10MB to the size of the released apk for no reason.
+Added Hugo debugging diagnostics library
+Add WIP proguard configuration file. Currently does not save information to database
+Removed unused parcelable construction/deconstruction
+
+Change-Id: I9678021410185b6fc182cff8c54985071dd3d8b7
+"
+"5ed2af314c21ca65406b2ee17994e3ce9f49db1c","2014-06-22 10:16:13+10:00","mGerrit: Bump version to v2.10.009 for release
+
+Change-Id: I5366aac492b185823c1b64adda2a363dcf239070
+"
+"7b405db55b710d31835589ed9ac55f3d5ad8ee47","2014-06-22 11:09:44+02:00","Add AICP rom
+
+added http://gerrit.aicp-rom.com/
+
+Merge pull request by Sasa Stefanovic <djevrek@gmail.com>
+
+Change-Id: I72a8048799a2438f26720f56ad832911eba425b2
+"
+"ff9ceb95e978ac6039c9989bc606259a47cf1a25","2014-06-24 23:11:20+02:00","Import translations from crowdin.net
+
+Change-Id: Ib10274e4d2595480ac1c931f3e042538ea489fc0
+Signed-off-by: Dirk Rettschlag <dirk.rettschlag@gmail.com>
+"
+"f35941a070c9042a18ac52d4271a223041d29ef2","2014-06-29 01:47:33+02:00","Merge 'Import translations from crowdin.net'
+"
+"de3ee21ca94906e8a006c5931f442550e14043df","2014-07-06 12:27:15+10:00","Change details swiping support (phones only)
+
+Add viewpager support for change details screen in single pane mode.
+Tablet users can easily view next and previous changes details through
+the two pane layout.
+Update selected change highlighting to match last viewed change details
+Let NewChangeSelected event object handle layout inflation
+Changed some gradle dependencies to prefer loading from maven central
+
+Change-Id: Ida0d070d237c05b0eb777df565ff9401aab1fb6a
+"
+"9459cf6a699f9bb0f6547cef98284eb100a7eccd","2014-07-12 10:37:14+10:00","Added commit number searching support
+
+Search for a commit by change number using #<change number>
+Removed request loop when less than two changes are returned from search query
+WIP: Expand change when only one change is found and at most one was expected.
+
+Change-Id: Id1dc98c3f8716d2db7276b23335b9111ec5da644
+"
+"a211c4f3b602514328617a9f1f821de42c78cf35","2014-07-19 09:20:22+10:00","mGerrit: Bump version to v2.10.010 for release
+
+Change-Id: I17a3ce8390f8e505bcdff72824155f7336e39abb
+"
+"6b0fe3522f6a3025b99d9f689f8ce028a1dc10ae","2014-07-19 10:32:12+10:00","Updated README; removed duplicate promo assets
+
+Change-Id: I8369607519b66c9ac915f303b556ddf155ee489b
+"
+"b1f6cfcdd25c6d2e69fbe78fa8bfc3a69347f644","2014-08-02 10:24:18+10:00","Card layout tweaks; Fix AOKP changelog showing AICP changes
+
+Change-Id: If85bd7311ee19222b7e6de3b80840446c67971e1
+"
+"783d88c63462f9ed8120289c95e3c95b6e2d5d40","2014-08-03 13:36:00+10:00","Fix loading selected change details
+
+Don't reuse the bundle when instantiating each page of the change details screen (phones)
+as the last page the viewpager instantiates is not always the first page (the first change in the
+list will always be brought up first and the fragment arguments to load the change we want
+will be overwritten.
+Fix version number comparison - 2.10 > 2.8. AOKP will now not use the legacy change details
+Default diff options to internal viewer
+Bug fix for getting change commit number
+Reformat README and TODO list
+
+Change-Id: I8360394fd39642002add37e733fec31b9f4a92a0
+"
+"27dfb30f30e686a398c1aa50c4c0ac1f1e3d5b26","2014-08-03 15:24:47+10:00","mGerrit: Bump version to v2.10.011 for release
+
+Change-Id: Iad55aa37491cbfc693e7c3c2d9a88b98b65923f1
+"
+"4f68d2332ccd7f99880e325115e63bc2896a1a26","2014-08-06 10:01:16-05:00","Add LiquidSmooth ROM
+
+Added http://gerrit.liquidsmooth.net
+
+Author: brock.shahan@cox.net
+Change-Id: I0792878d9ef69fdea2418fb08d3e6753b75c07f1
+"
+"0bdc09c090f8a790ad6f0c8ca6cba0b56694b0f7","2014-08-16 13:48:20+10:00","Add MerkMod to list of supported Gerrits
+
+Change-Id: Ie72ebd91726ba1031f2c5f7183a8ffb80f8561c9
+"
+"8e71d3014b68ccd7d37a9788844a2156ba870d98","2014-09-02 22:01:56+02:00","Import translations from crowdin.net
+
+Change-Id: I08075217893c2d464b7ec42c7d7f322046e4e89d
+Signed-off-by: Dirk Rettschlag <dirk.rettschlag@gmail.com>
+"
+"118f80a6b137743808605ebb5adb1852b880c2bd","2014-09-07 11:04:54+10:00","mGerrit: Bump version to v2.10.012 for release
+
+Change-Id: I11c917c3186875c299affae174a4e024719a4018
+"
+"3fdd21fa2211c18d6d0ef0408cb2d1e68da5da71","2014-12-31 13:14:22+11:00","Materialize
+
+Use the material theme on API 21 (Lollipop)
+Style tweaks
+Fix crash when saving commit marker if sort key is null.
+
+PS2: Update libraries
+PS3: Add z offset to CardViews
+Add Ripple effect to onClick animations
+Optimize imports
+PS4: Update overflow icon so it uses the correct theme
+
+Change-Id: Icf9a62501ddd6906d15bc1ae9ea32b18cb6609d2
+"
+"b08cc17fefabafac002ef3008ed19b9ee1a8ff93","2015-01-03 19:49:07-06:00","Material
+
+Change-Id: Ia75b2068e52e68519be89517d22d08d20d13d421
+"

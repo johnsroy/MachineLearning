@@ -1,0 +1,80 @@
+"commit id","commit date","commit message"
+"86ff4e1f9413f185df73e3f5e21d3d6b66a55719","2015-07-07 20:31:08+02:00","ZooniverseClient: getGroupIdForNextQuery(): Avoid work if there is only 1 group.
+"
+"1ec4d87489b1a632baa361cf54a95be6e85a72b5","2015-07-07 22:11:36+02:00","QuestionFragment.onAnswerButtonClicked(): Check the questionId is correct.
+
+And, when we set the click listener, use final Strings to make the code
+slightly safer.
+"
+"b34781bec6fab14f41ef298fbb9dea13657f6756","2015-07-08 09:30:40+02:00","HttpUtils: Add getUserAgent() and use it.
+
+So we can change it more easily in one place.
+"
+"f2fde4240d7c20d9a5d3e91d8ba5a6b8752bf616","2015-07-08 09:33:49+02:00","HttpUtils.getUserAgent(): Append the app version.
+
+For instance: murrayc.com-android-galaxyzoo/1.49
+This should help us see if any classification problems are specific to
+particular versions of the app.
+See https://github.com/murraycu/android-galaxyzoo/issues/22#issuecomment-119355816
+"
+"41ac5cae12f4f144249bb9a6d14f87e861f636f6","2015-07-08 09:49:07+02:00","Config: Add a commented-out SERVER URI for testing.
+"
+"6ee4db1a8fc8327a24b00e37fd786229e92622d6","2015-07-08 09:54:15+02:00","ZooniverseClient: Move MAXIMUM_DOWNLOAD_ITEMS to Config.
+
+So we can change things in one place.
+This is the number of items to request for each group at one time.
+Using a smaller number will mean that the user alternates between
+surveys after less classifications, when we are using multiple surveys.
+"
+"7faa78baeb916e1aa898f4682f856918d6498f1c","2015-07-08 10:16:10+02:00","Config: Add getSubjectGroupsToUseForNewQueries().
+
+Instead of building the list every time in
+ZooniverseClient.getGroupIdForNextQuery().
+"
+"7f59619dd6499c33a74e7d3391f3b2757f22b420","2015-07-08 10:38:14+02:00","ItemsContentProvider.query(): Try multiple times to ge the first item.
+
+This could be helpful if we are using multiple survey groups, and if some
+of those groups are no longer being provided by the server.
+"
+"5955ded0419227eb5ecf09780a1ef991fa2283a0","2015-07-08 10:56:23+02:00","QuestionFragment: showNextQuestion: Abandon obviously-too-small classifications.
+
+And abandon the item. Instead of uploading the classification.
+See https://github.com/murraycu/android-galaxyzoo/issues/22
+"
+"5d01cbcc4d9aa6cb5e45ef6d1f66d6797c854e32","2015-07-08 11:17:15+02:00","Slightly improve some log output.
+"
+"93462d53f4f30b7de85d91066028c011674e2353","2015-07-08 12:01:56+02:00","Config: Add commented-out survey groups for use with dev.zooniverse.org
+
+For use when testing.
+"
+"5b5d92a13ac115a8befd8b92eb75f5703a94d483","2015-07-08 12:03:19+02:00","Add a comment.
+"
+"5f572222394ecbf49fa8d72d82916846a8613eb4","2015-07-08 12:11:14+02:00","Make some API private.
+"
+"c43bf38b57b19ef5fa8834e35af6cc32d437af26","2015-07-08 12:20:31+02:00","Remove unnecessary explicit type.
+"
+"346457184f4098ab8bdfd5bede36b80f2f2b537d","2015-07-08 12:24:26+02:00","gradlew: Make this executable, so we can build on the command line.
+
+This is useful for fbinfer and cov-build.
+"
+"9a3569637c33717063c835b5ef74d9f4a48ccfd8","2015-07-08 13:00:25+02:00","Set the GET Accept and POST Content-Type headers.
+
+Because the new server API will need this and it seems to do no harm with
+the current server API.
+See http://docs.panoptes.apiary.io/#introduction/headers
+"
+"db7574aa68aff456befbf7a64b467f84d7d9327e","2015-07-08 13:04:43+02:00","Singleton: Close inputStreamTranslation at the correct scope.
+
+Otherwise it could leak.
+Found by Coverity.
+"
+"fc7ee29ab51ef5188a7de3160d0311f84f39f9ab","2015-07-08 13:07:54+02:00","SubjectFragment.doDownloadImage(): Return after the null check.
+
+Found by Coverity.
+"
+"7fd2591c2ca2294bcb34f500b2623f8af5881c9a","2015-07-08 13:10:14+02:00","ExampleViewerActivity: Avoid use after null check.
+
+Found by Coverity.
+"
+"9dc0c4928e35351cd82e1be08f27e84118ab36bb","2015-07-08 13:24:19+02:00","1.50
+"

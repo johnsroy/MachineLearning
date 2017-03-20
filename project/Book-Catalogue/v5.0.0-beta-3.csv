@@ -1,0 +1,55 @@
+"commit id","commit date","commit message"
+"927c2731e0e2f04b2a6561ab849a7b9cd997f2a1","2013-02-15 13:09:57+11:00","Force everything in FTS to lower case, and force a rebuild on install
+"
+"abe454e2ffc1b7f785b1feb6661e36827eb40f7a","2013-02-15 13:12:46+11:00","A fix to bring the app to the front when goodreads OAuth completes
+"
+"467803c9d547e48f912da0719ca988561230980c","2013-02-19 13:12:38+03:00","* Added latest Russian translations
+"
+"33855e39584d6e3102e5da018945d114759a3a33","2013-02-19 23:25:30+11:00","Bug fix for Android 2.1 and double-dereferencing SQLiteDatabase objects
+
+There seems to be a subtle bug in Android 2.1 that results in the
+reference count of SQLiteDatabase objects being decremented too many
+times.
+
+The simplest way to see this is to:
+
+- comment out the onPause() code in BookEdit
+- start the app
+- go to 'My Books'
+- click on a book
+- press 'back' until you get back to MainMenu
+- select 'Ny Books'
+
+This will crash in Android 2.1 with an 'already closed' message on the
+database (an SQLiteClosable).
+
+There may well be other similar sources of this problem.
+
+A more drastic solution would be to call acquireReference() on the
+database 100 times, then use reflection to make sure the number never
+drops below 100...but it's probably best to avoid such techniques.
+
+With luck, we can just discontinue support for Android 2.1 Soon(tm).
+"
+"f06e2f24703a626de9a19f486ca919738e2563a9","2013-02-19 17:15:36-08:00","Merge pull request #34 from silin/master
+
+Russian xlations
+"
+"aea7f96827dac6d5d540551bac8393a922487321","2013-02-20 19:25:03+11:00","Rationalize the hiding and showing of fields
+"
+"9ba47574936fc8c890bd31a1285450835f0f3e9c","2013-02-20 21:44:43+11:00","Fix crash on importing loaned books with differing internal IDs but same
+UUID
+"
+"a26b94a35784d26d85e77110e60f20755531f54a","2013-02-20 21:46:44+11:00","Header for location field + XML cleanup
+"
+"ce12b39a1711592d32880fc3dcb5ccf356ed616c","2013-02-20 21:58:21+11:00","Add search criteria to book list and cleanup book display and editing
+
+- 'signed' books now display correctly
+- notes & location have headings when editing
+"
+"c1638dc25c41953ca983de814784ec6160837e07","2013-02-20 22:27:55+11:00","Final horror fix for Android 2.1 bug
+"
+"6ecf60936f77711a88e3ab9835e516da8f70720c","2013-02-20 22:29:59+11:00","5.0.0 Beta 3 relese changes
+"
+"4926c6f3e60c098a5e778c29969213dc4692e039","2013-02-20 22:50:53+11:00","Merge branch 'master' of https://github.com/Grunthos/Book-Catalogue
+"

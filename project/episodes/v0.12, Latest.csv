@@ -1,0 +1,51 @@
+"commit id","commit date","commit message"
+"27689951b2ef1ce601c87243f19836e36811774e","2015-10-28 19:00:28+13:00","Revert 'Temporarily hide ShowActivity's notes tab'
+
+This reverts commit af4203546f33fa2e2512dd81a9e760ae168bb25e.
+"
+"5b8ecc0035953cd53db11c7c016cca8e2e1cb16d","2015-10-31 06:54:23+13:00","Delete unused custom widgets
+"
+"f85fc0d770985b59f9bb14a8b9e5cdf411849367","2015-03-15 19:45:23+01:00","tvdb: Parse show language in search results
+"
+"f09781851f3683194c43e4f3997a55f0a1007bc9","2016-03-06 12:07:44+00:00","db: Add language column to shows table
+"
+"466df551a5f297cdbe00b74007ff4a3cbf26252c","2016-03-06 12:21:22+00:00","db: Store show language in database
+"
+"94c3ddeaf8caab8d83d16996d672e0e8f5c0fc85","2016-03-06 13:00:51+00:00","Use language when adding and refreshing shows
+
+Add language parameter to tvdb.Client.getShow() and send it to tvdb. If
+null, fall back to 'en', so as to not break anything.
+
+When adding a new show, pass the language along with tvdb id and name in
+the intent to AddShowService, which will pass it getShow().
+
+When refreshing a show already in the database, first query the database
+for the language as we currently do for the tvdb id, then pass it to getShow().
+"
+"a834e6306bd6b2541638235994a6b1963718a74f","2016-03-06 11:33:44+00:00","tvdb: Search for shows in all languages
+"
+"534b6647218bb7a713b3d612ece4aea431eac1a4","2016-03-06 15:40:36+00:00","Show each show's first language in search results
+
+And simply ignore the other ones. This looks better than displaying each
+language as a different show. But the downside is that the user cannot
+choose which language to add the show in. In the future we should find a
+way to allow the user to do that.
+"
+"99a930ab603261f2708ece2788c87e0731b43fc4","2016-03-06 15:56:23+00:00","Merge branch 'search-all-languages'
+
+Fixes #56
+"
+"f5150a70ff6105a63b6c91a4937d2596e7234363","2016-03-06 22:26:26+00:00","tvdb: Parse language in GetShowParser
+
+Not doing this meant that when adding or refreshing a show, the returned
+language was null. This meant that we were always inserting null into
+the database as the show's language. That lead to the show's data
+reverting to english (or disappearing if the show has no english data on
+tvdb) upon first refresh.
+"
+"4ca9244ab19f2f5cc54725706a939e1d40fccc31","2015-10-28 18:57:08+13:00","Temporarily hide ShowActivity's notes tab
+
+This is what feature branches are for...
+"
+"ef5b99371f466ab15690fd01a23073e2ae0ce97a","2016-03-06 21:43:53+00:00","bump version to 0.12
+"

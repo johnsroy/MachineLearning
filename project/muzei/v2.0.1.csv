@@ -1,0 +1,94 @@
+"commit id","commit date","commit message"
+"9716dd152266e7d96a37806e71baccb04aa51bea","2014-12-10 19:35:51-05:00","Fix issue 107. Ensure when viewing settings through wallpaper picker that the local renderer looks right
+"
+"71739810cec8eaf74bc1051cbfc9f39982c78524","2014-12-10 19:50:10-05:00","Further null guards to try to fix the createBitmap NPE in the play dev console
+"
+"ae91b63237fd27116b00f568a1150eeeec5292c5","2014-12-12 21:59:03-08:00","Use Renderscript Support Library
+
+Instead of relying on possibly buggy native Renderscript implementations, use the Support Library version which is consistent across all devices/API versions.
+"
+"2e2701f2b9aed6b2b3591c09122226cbcb397467","2014-12-12 22:31:32-08:00","Prevent transient crashes due to invalid images when building notifications / syncing to Wearables
+
+Adds additional null checks, replaces IllegalArgumentException with Log message. Also does not update ContentProvider if cache image location was not able to be saved, preventing invalid images or image desync with artwork details.
+"
+"d9763772513a87683a060266f22e5f9f4b0f88b3","2014-12-12 22:32:47-08:00","Merge pull request #113 from ianhanniballake/null_check
+
+Prevent transient crashes due to invalid images
+"
+"b2ebd168532567e0717d903628e96dc0e6159193","2014-12-12 22:53:08-08:00","Remove Wearable.API warning messages when API is unavailable
+
+When connectionResult.getErrorCode() == ConnectionResult.API_UNAVAILABLE, this means we are on an unsupported device and we should not attempt to update the data layer. However, since that status is unlikely to change over the course of the app's lifecycle, creating a warning message each and every time this happens is unnecessary. Instead, we can do a simple verbose statement that does not spam logcat unless specifically requested.
+"
+"4f1d019585b6fbf919ce311f354cbe6bff7390ea","2014-12-12 22:54:17-08:00","Swap boolean expression to match intended logging action
+"
+"1e037c5676688a66786116b5db1ecc34736b239a","2014-12-12 22:54:59-08:00","Merge pull request #114 from ianhanniballake/wearable_log_spam
+
+Remove Wearable.API warning messages when API is unavailable
+"
+"7c2b1f2aa317894401b5f60de5c13d2bcf6757c2","2014-12-13 10:24:08-05:00","Merge pull request #112 from ianhanniballake/support_renderscript
+
+Use Renderscript Support Library
+"
+"5e63a1f0207dd763f8df470244f1e3757a37b946","2014-12-13 10:27:02-05:00","Prevent further NPEs related to a BitmapRegionDecoder bug (internal bug 18738868)
+"
+"4476063b5cfed17debee7161f7e8b470fce0a8f7","2014-12-15 10:28:40-08:00","Improve Watch Face first run experience
+
+In the case where the user has just updated to Muzei 2.0+ (i.e., went from no Wearable app to a Wearable app) AND has not yet had their wallpaper change, there may be cases where the DataLayer has valid artwork, but it is not yet cached locally or made available via the Artwork API.
+
+In those cases, the Muzei watch face would show a notification stating that the user should activate Muzei when no artwork is found. Instead, we should attempt to retrieve the artwork from the DataLayer first and only if that fails should we show the activate Muzei notification.
+
+Note: this moves a lot of code from MuzeiWearableListenerService to ArtworkCacheIntentService, but the functionality is identical.
+"
+"453b6693783b025f0d5225a3e2636c92ed43e017","2014-12-15 10:29:39-08:00","Merge pull request #117 from ianhanniballake/watch_face_artwork_datalayer_fix
+
+Improve Watch Face first run experience
+"
+"9dabc694c8e9846ce8a5d0d06d7dfaefcb1d7010","2014-12-18 15:20:02-08:00","Optimize when to create scaled watch face background
+
+Previously, we would create the scaled image in onDraw the first time after a resize event or after a new image was loaded. However, by utilizing onSurfaceChanged we can retrieve the current width and height prior to onDraw, allowing us to move the scaling from onDraw(). This also allows us to handle the more common case of a new image being loaded and allows us to scale the new image on the background thread.
+"
+"0f4221febda145317af0d7eef04ccdc9806436c8","2014-12-18 15:21:18-08:00","Merge pull request #120 from ianhanniballake/watchface_scaling
+
+Optimize when to create scaled watch face background
+"
+"252cc718b9c0a5f76ebe119dc47e705d05193108","2014-12-18 18:41:51-05:00","Clean up double tap code to make it more legible. Also switch from
+window animations to a custom ViewPropertyAnimator to work around a
+Samsung device bug. Also clean up a little animation glitch in the
+source chooser fragment.
+
+Also bump version code in prep for 2.0.1.
+"
+"13a1e223538dfe2dafbcf980f4f71b8685070480","2014-12-18 18:43:30-05:00","Merge branch 'master' of https://github.com/romannurik/muzei
+"
+"2d33da034b8f5044633420cbc97bda8cf1e96ede","2014-12-19 01:33:31-05:00","Switch from OPEN_DOCUMENT to GET_CONTENT for gallery picker. Also fix bug #66, which was caused by a math error
+"
+"ce6331b2deb19f76660140c29e0a405a5251cfe7","2014-12-19 02:08:45-05:00","Fix issues #111 and #98
+"
+"7383dc6e3aa217dd2c7f276cd2b17be02d32fffb","2014-12-19 09:25:59-05:00","Add external contributions to about body
+"
+"5fbcb37046297530cc5bbb586c736f96b24d1f54","2014-12-24 15:02:53-08:00","Limit Wearable timeout
+
+Fixes #122 by
+1) Doing a check on API level before attempting to connect to the Wearable API (as Wearable API is not available prior to Android 4.3 / Jelly Bean MR2 so no need to attempt to connect)
+2) Limiting the timeout to 5 seconds to reduce any delay even on 4.3+ devices.
+"
+"fd79d608050ca735bf90d3b26cec013ad4862647","2014-12-24 15:03:33-08:00","Merge pull request #123 from ianhanniballake/wearable_timeout
+
+Limit Wearable timeout
+"
+"255a1b7ae2cc82257e7eca66a588a7655d6fa2af","2014-12-26 23:56:53-08:00","Update AppCompat from 21.0.2 to 21.0.3
+
+Update to `com.android.support:appcompat-v7:21.0.3` to ensure we have the latest bug fixes
+"
+"31bfee677c9e45767812dfae7cafecd3de5bb986","2014-12-26 23:57:35-08:00","Merge pull request #124 from ianhanniballake/update_support_library
+
+Update AppCompat from 21.0.2 to 21.0.3
+"
+"3c6ca0071280bcdd1afd88f75f275ad2b644955a","2014-12-27 03:00:49-05:00","Add cropping to backroom
+"
+"8b1f04a0707460ff29fb2a55d8185bb556a8a5f0","2014-12-27 03:00:54-05:00","Merge branch 'master' of https://github.com/romannurik/muzei
+"
+"d9bb094d839824b184a8aaa460de04cec5dbfb42","2014-12-28 01:09:14-05:00","Version bump for 2.0.1 beta 1
+"
+"1220b0ce4e11a638c6e64646907d9314e1591ef5","2014-12-29 23:16:30-05:00","Bump versioncode, add Debug to version name for debug builds
+"

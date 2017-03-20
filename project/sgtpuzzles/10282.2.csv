@@ -1,0 +1,72 @@
+"commit id","commit date","commit message"
+"a015dd3f5d8fb343603056ee93b64d9517c130c9","2014-10-11 12:03:16+01:00","Fix #198: change behaviour of 'Unlocked' to use 'unspecified'.
+
+This means if the OS has locked orientation, we don't set it back to sensor, which would be inconsistent with the chooser and generally unexpected.
+
+No need for migration code since old values of 'sensor' will be caught by the default case anyway, and I don't think it's worth offering 'sensor' in its own right.
+"
+"f545db6c0609ff2f890cf711c7935186f465589e","2014-10-12 09:55:22+01:00","Fix #195: don't exceed the GPU's texture size.
+"
+"d833821bedbbba68a5e6c79aff4e496008ee3da2","2014-10-12 10:29:41+01:00","Remove incorrect 'm' icon in Solo (part of #197).
+"
+"1fdf1bc3d59f2f57a5e16ce67f2e0fbf9f625553","2014-10-12 15:46:08+01:00","Fix #202: use icons for startingBackend not currentBackend (which might be null).
+"
+"d0539caa65e32295dd8e8cb0a7ed5693ec64881e","2014-10-14 15:49:01+01:00","Fix #194: tap to toggle pencil status and tap out of bounds to clear cursor.
+"
+"4c955a22bf4b97e104d3ad819c361ddd13c0a67e","2014-10-14 17:13:18+01:00","#194: oops, fix number entry.
+"
+"f4ff1b894f4c8699a152b87add543c5044389b88","2014-10-18 11:13:24+01:00","Fix #204: tint the icon for visibility in grid mode.
+"
+"8f2cb0eb9a3c19387cc528d02834fcf50adfeabf","2014-10-18 12:03:20+01:00","Fix #203: reset keyboard whether or not there's a message box to show.
+
+The blanking was only because the keyboard layout pre-emptively changed for the new size - now, if that happened (i.e. if keyboard was a different size), changing it back will redraw.
+"
+"e4f67ce20d1a258ce81a0893beafe85940f240d2","2014-10-18 12:10:22+01:00","Part of #200: Flip: don't start with cursor showing.
+"
+"f3a910e134761d0fd3a2cc8288e2c94f199f02b8","2014-10-18 12:42:41+01:00","Bump to API 21 (Lollipop) everywhere.
+
+This, in particular the support library upgrade, removes the Action Bar from Settings for some reason (probably would need to be a fragment-based prefs activity to get it back) and also changes the top-left icon to an arrow. :-/
+"
+"a5968fe1b1ae9ba8243ddd31ebfac2b2970070c9","2014-10-18 13:00:48+01:00","Re #203: don't explode when there was no previous game!
+"
+"556348ee4c676e734fbaae5fb3bdda5f47b5918b","2014-10-18 13:13:41+01:00","Account for new native library location on Lollipop.
+"
+"f9e7ec0be5e458bd974a53522357d167b82a18fe","2014-10-18 16:00:26+01:00","Tweak keyboard: let the puzzle specify lowercase to match what's on the board (Solo).
+
+(and stop using case as a signal for that one weird key in Bridges)
+"
+"f1c3230dab39dcd89c90c5256782b5c5661a0951","2014-10-18 17:38:53+01:00","Sort out the immediate problem on #207, also bump spinner size.
+
+They were a bit small as seen on the screenshot.
+
+This is certainly not the best way to get a consistent style, but will do for now, if nobody comes up with a better one before the release is otherwise ready.
+"
+"e89171f4e65c5ef11582105a1ec6cc6cec43cc4b","2014-10-18 23:38:18+01:00","Treat uppercase letters as non-data-entry.
+
+This is the part of #197 that might apply upstream:
+
+For u, r, and Unequal's h and m, let uppercase versions be interpreted
+as commands even when they might otherwise mean enter that letter, and
+lowercase versions enter the letter if possible otherwise be the command.
+
+This means games small enough that clashes don't happen are unaffected,
+and when a clash does happen, a frontend that sends uppercase letters for
+these commands (as Android now will) can always be unambiguous. If an
+Android user has a Bluetooth keyboard or something, and plays a large
+game, they will need to know to use uppercase to disambiguate in this
+way.
+"
+"650c651e5636338a06a896ded06f89140bd5f24b","2014-10-18 23:42:25+01:00","Fix #197 (the rest) - send uppercase U, R, Unequal H & M; only show icons for uppercase, etc.
+"
+"2b8b4d97a2971764807a93ef1ce1f95f03599358","2014-10-19 02:51:38+01:00","Revert to API/support lib 20.
+
+This material design stuff still looks a bit unfinished and especially unsuited to a dark theme (many widgets end up black on grey). Looks much more polished pre-upgrade. Revisit later.
+"
+"c4f2bc80c88bab2263840a8ae15df5dc7f7b0ba0","2014-10-19 03:49:58+01:00","Fix #200: arrows setting sets cursor visibility initially and when toggled.
+"
+"9563812419758912015414419a323fe7ad55a7a5","2014-10-19 11:07:56+01:00","Fix #208 I hope: use original icon resource name.
+
+(At any rate, I have no other ideas for that.)
+"
+"155df47d7af4824bd3ff2d016090332d4dfbbe90","2014-10-19 11:16:39+01:00","Bump version.
+"

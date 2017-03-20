@@ -1,0 +1,248 @@
+"commit id","commit date","commit message"
+"1843704b7653904faae03fd35a2aa38a6d3d8b50","2015-11-13 01:57:40-05:00","start updating to latest SDK (23) and library versions
+"
+"687917ad04e8c5241dd892cb4b697f7e9c85e1af","2015-11-14 11:30:17-05:00","Switch to runtime permissions for Marshmallow. Update tutorial icon UI. Update web landing page.
+"
+"5d4714ba2690d1ea205b5d036b31d7d65b1b3241","2015-11-14 11:38:34-05:00","bump web version
+"
+"806d6e8309b65550debce69ea2edf629ae202183","2015-11-15 00:51:04-05:00","Minor tweaks, and add Android Experiments link
+"
+"c33cfb2782efdbf745d1e27bed1493ffa2821240","2015-11-15 02:23:23-05:00","minor imports cleanup
+"
+"f1fdf7e85c7b014bb8743ca1bc61fbcadd94b028","2015-11-15 12:01:20-05:00","Move all art source operations to a single thread. Previously, some art source operations were on the app main thread and some were on a separate intent service handler thread, which resulted in race conditions such as IndexOutOfBoundsException in publishCurrentState when iterating over user commands.
+"
+"15c302e8d744a1cd3cfa7330b5172b3f520f1416","2015-11-15 15:18:21-05:00","update javadoc generator
+"
+"63cbf38f8c87c560dd81aa23fcefe86e11337d4a","2015-11-16 10:25:23-08:00","Ensure Android Wear wallpaper updates immediately.
+
+In Google Play services 8.3, DataApi calls may be delayed up to 30 minutes. Calling setUrgent() ensures the wallpaper is updated on the Android Wear side immediately upon being updated on the phone side (subject to connectivity, of course) as explained in the 8.3 blog post: http://android-developers.blogspot.com/2015/11/whats-new-in-google-play-services-83.html
+"
+"20ac6d254462243f58e5217abde13327786ce365","2015-11-16 12:25:54-06:00","Merge pull request #187 from ianhanniballake/wear_urgent
+
+Ensure Android Wear wallpaper updates immediately.
+"
+"82d3b0f223adb1a407b080c19414897da80ade6a","2015-11-16 11:27:06-08:00","Move Wearable specific code to its own package
+
+Make it easier to determine what code is required for Android Wear integration
+"
+"46003c4eecf664c45dceaf303245f5543e5ced7f","2015-11-16 12:32:50-08:00","Convert WearableListenerServices to new filterable approach in Google Play services 8.3
+
+Rather than receiving all data/messages in a single WearableListenerServices, Google Play services 8.3 allows filtering to only specific messages/data APIs, simplifying our logic.
+"
+"bc5e9e55516c0208719a88374d3b7507fb19a593","2015-11-16 14:34:13-06:00","Merge pull request #188 from ianhanniballake/wear_listener_service
+
+Convert WearableListenerServices to new filterable approach
+"
+"4eb7cb5b219463c31b1daec8e23d37ed93f6efab","2015-11-16 12:37:37-08:00","Update Wear Google Play services dependency to 8.3
+"
+"5c72a9db36f4241559cc0cceae1db80d043858e8","2015-11-16 14:37:52-06:00","Merge pull request #189 from ianhanniballake/wearable_dependency_update_83
+
+Update Wear Google Play services dependency to 8.3
+"
+"f2c5a52c585b2a02d5a7bac2022ae4e03d353554","2015-11-17 00:56:55-05:00","minor javadoc gen tweaks
+"
+"45fd25d4f035d54c2ce7d9737f8c432714057a39","2015-11-17 00:57:03-05:00","trap some NPEs
+"
+"0e9107936d7a53be9749ac413b7181926031b8a4","2015-11-17 00:57:11-05:00","Merge branch 'master' of https://github.com/romannurik/muzei
+"
+"2dbbca2fc3982ba1d59f132f277e1f90879bc952","2015-11-17 01:58:32-05:00","add two font choices in API, add setters to Artwork class in API, bump version
+"
+"24b652d13127a265a1c813fdd7fed43f412686a8","2015-11-17 02:30:14-05:00","Add attribution field to API
+"
+"84ccbcec028cbda424b8d2d70a9e1a1065d349b6","2015-11-17 02:37:17-05:00","add attribution support to web admin
+"
+"dfd486f66b5e33ce4d00202f324fac655ef75d4b","2015-11-17 03:07:42-05:00","fix attribution support in web admin
+"
+"d83161b99974858ba6c581ee3b6a713689373dbe","2015-11-19 00:55:50-05:00","admin console: don't allow adding art to dates with existing art
+"
+"0fe457d72e2f8df28d9abe2b6ec78832f8420ec1","2015-11-21 03:04:08-05:00","refactor permissions-asking to a public API for art sources, instead of special-casing GalleryArtSource
+"
+"69c8c129277011c5ad6c24ec99c10c9e10da2ade","2015-11-21 14:19:05-05:00","update archive UI
+"
+"614ebe540a05c167bda52cac27b67c1bef637c76","2015-11-21 14:37:42-05:00","minor admin fixes
+"
+"b86945b08995dc2aa3d04d7afb6f4623f6e89636","2015-11-22 15:41:42-05:00","add mousewheel support to archive
+"
+"72bc42b1f0f8d80d4491b87029c599b257bb91b3","2015-11-22 15:44:20-05:00","unbreak vertical mousewheel in archive
+"
+"ada5aad626fa8d068933d94e3854567ee8658036","2016-02-07 15:00:04-05:00","minor archive tweaks + copyright year update
+"
+"d512114a869da7d849c9c5d6843a3604962084cd","2016-02-13 17:52:05-08:00","Add setupActivity for sources
+
+Replaces requiresSetup metadata tag with a separate setupActivity metadata element, allowing sources to completely separate the setup logic from their Settings activity if they chose. Rework the Gallery extension to take advantage of this, removing the need for a specific GallerySettingsProxyActivity.
+
+Current flow for the Gallery source is now:
+- If the storage permission is granted or the user previously selected any images, enable the source on click
+- Otherwise, ask for the storage permission
+- If denied, send the user to the Settings activity to show rationale/a link to app settings or allow users to select photos
+"
+"d46e3adb6aa2dc55d742a5a9dba334dd9dadb667","2016-02-16 20:50:15-08:00","Merge pull request #193 from ianhanniballake/setup_activity
+
+Add setupActivity for sources
+"
+"3bc52b28f2af16c5af3130d651b969edf826a39e","2016-02-21 19:38:42-05:00","web backend refactoring and randomizer
+"
+"a3215bc02d0ca21174766e4601a8de50bb03e6ac","2016-02-21 19:38:52-05:00","Merge branch 'master' of https://github.com/romannurik/muzei
+"
+"71211f987980bab6fb50f06274dd1129a322897d","2016-02-27 18:45:28-08:00","Merge pull request #162 from fvasco/master
+
+Some minor memory enhancements, expecially when blur is absent.
+"
+"74a1ca8778c0f99a12c4cad479c323b300522fa7","2016-02-27 18:46:23-08:00","Merge pull request #136 from hzsweers/master
+
+Cache and reuse generated cubic gradient drawables
+"
+"4ccee31cabf06d20705fbf7e4c9b8fd1d558a354","2016-02-27 18:46:37-08:00","Merge pull request #152 from gabrielduque/patch-1
+
+Update .muzei
+"
+"b6fb66ecafb6d6de02f47b150809b3ed1fe997d0","2016-02-27 21:03:27-08:00","Cleanup Lint warnings and unused code
+"
+"c7bfcb88d1aa33c0668006511b80c34c7e2917a1","2016-02-27 21:08:01-08:00","Merge pull request #195 from ianhanniballake/cleanup
+
+Cleanup Lint warnings and unused code
+"
+"681185a9f256715f72d8f1dd3b76c76b9b1732fb","2016-03-13 21:49:01-07:00","Add sources table
+
+Adds a table to the Muzei ContentProvider for retrieving information about the sources used with Muzei
+"
+"effd8e9fd963a4c3f8348f2f33b019f348ba8b16","2016-03-26 21:28:09-07:00","Add sources table
+
+Adds a table to the Muzei ContentProvider for retrieving information about the sources used with Muzei. Converts Muzei to use it where possible internally.
+"
+"ea7863405e1f057b542db3301205c25d6134f4da","2016-03-26 22:21:38-07:00","Migrate source data first, fix crash issues with sources table
+"
+"be51eb1645e25a1164033ea9b54819e1fc888caa","2016-04-03 15:58:07-07:00","Making parsing commands a MuzeiContract API
+"
+"1398a8d476971b20c692185bc59db2d911c99e47","2016-04-03 18:22:52-07:00","Split out 'Next Artwork' command from others
+"
+"a2aab913d15dab0fd53fd57dbd2045b329a52b08","2016-04-03 22:36:54-07:00","Convert MuzeiActivity to Loaders for Source and Artwork
+
+Rather than listen for an event, use the updates from the source and artwork tables themselves to drive UI changes.
+"
+"aa1ca0a5ed04810bd84574657e4271c088ccdf8c","2016-04-04 21:32:36-07:00","Remove SelectedSourceStateChangedEvent from SettingsChooseSourceFragment and MuzeiApplication
+
+Moved various Fragments to the Support equivalents to ensure we're actually using the latest Fragment/Loader code.
+"
+"96d8ce3a8b717774c24012ed6206ff20b44864d1","2016-04-10 03:05:42-07:00","Rename WearableController.updateDataLayer to updateArtwork
+
+Better describe what exactly is being updated
+"
+"88ab3cc0365af7ff121da9cb827b17d30d16a28f","2016-04-10 06:07:44-07:00","Sync Selected Sources to MuzeiContract.Sources on Wearables
+"
+"7d2e00b1ce76b3a449907ba938fa99eabcd18bfa","2016-04-11 00:32:32-04:00","minor update to backroom
+"
+"4df9f3326e1c8a230205e9cabe1db5d50092eb64","2016-04-11 00:32:39-04:00","Merge branch 'master' of https://github.com/romannurik/muzei
+"
+"7a42e32310fff41adf599c5b38d1d9c72f547d8f","2016-04-11 22:31:12-07:00","Send broadcast Intent when the Sources table is changed
+"
+"9c3cbc189a9fcd50339e748a6f75ce95bf88f025","2016-04-11 22:51:25-07:00","Ensure broadcasts are only sent once for batch operations
+
+Only send at most one artwork and at most one source for batch operations.
+"
+"961f5b5161532924d80c898b15331377f321a93d","2016-04-19 15:15:15-07:00","Merge pull request #201 from ianhanniballake/tables_everywhere
+
+Move Source Information to Content Provider
+"
+"cff4bc2d3ff53467bea483fc187a9fe5379c11cb","2016-04-19 16:32:10-07:00","Remove no longer needed PROVIDE_BACKGROUND permission and tasks for watch face
+
+Watch faces do not need the PROVIDE_BACKGROUND permission nor do they need android:allowEmbedded='true' and android:taskAffinity=''
+"
+"7815d43fdd6e59e04abe940300eec1ead9505667","2016-04-19 16:32:44-07:00","Merge pull request #202 from ianhanniballake/watchface_perm_cleanup
+
+Remove no longer needed PROVIDE_BACKGROUND permission for watch face
+"
+"5f1c533290371e5eeb4bb778718b929a4f02cea3","2016-06-06 09:39:48+02:00","Support for quadratic Bezier curves.
+
+Add support for quadratic Bezier curves through Q and q commands in SVG Path parser.
+"
+"73581091c31f4413e5da303e0b96f49c81aa76ba","2016-06-06 19:02:51-07:00","Merge pull request #208 from eskalera/patch-1
+
+Support for quadratic Bezier curves.
+"
+"8e7c38138da201fa7d87fb4574017a8acb92d663","2016-07-02 15:58:30-07:00","Upgrades to Gradle 2.10, Gradle plugin 2.2.0-alpha4, compileSdkVersion 24, and build tools 24.0.0
+"
+"f5de57c9b77235c38576a20e9ee49f774b8f699a","2016-07-02 16:12:22-07:00","Upgrade to Support Library 24.0.0
+"
+"fdc10fe5e99b4947bd312a26d52f01ed7f292280","2016-07-02 16:14:50-07:00","Upgrade to Google Play services 9.2.0
+"
+"efcd765599049b1e24acec1e8ac80f852bfabb4d","2016-07-02 16:19:00-07:00","Replace method deprecated in upgrade to Google Play services 9.2.0
+"
+"633d66face45ed9d843e2018c0ce964636ada59c","2016-07-02 16:19:39-07:00","Upgrade to Wearable Support Library 1.4.0
+"
+"529da161bd63e6b6188c99c0a30272299fa75d68","2016-07-02 16:32:55-07:00","Upgrade to EventBus 3.0.0
+"
+"2ec8324ea308e0b3a148d3ec0ee137b987d5bcb4","2016-07-02 18:59:46-07:00","Fix missing Subscribe annotation
+"
+"fa4ea4010a665343eb7d7f1f8594918fcace49ff","2016-07-02 19:30:48-07:00","Upgrade 500px sample to Retrofit 2.1
+"
+"426631ea3e980c98e3af355c13b6e61bbbda7f4f","2016-07-02 19:45:07-07:00","Upgrade to Picasso 2.5.2
+"
+"7322dd41f54134a0ab585bca7709a72216484721","2016-07-02 21:21:21-07:00","Upgrade to okhttp 3.3.1
+
+Drops HttpURLConnection API use as it has been deprecated in okhttp3
+"
+"585187bc0685de7a20d9c78c35fe673c312d48d9","2016-07-02 21:29:36-07:00","Replace usage of GooglePlayServicesUtil with GoogleApiAvailability
+"
+"0b7cda06962a75e8b6ce8173d7dc93d5812b81b2","2016-07-02 21:29:55-07:00","Replace deprecated singleLine with maxLines='1'
+"
+"c727206e0a855a4c38bfe4fe0a465dff6d18f054","2016-07-02 21:32:49-07:00","Remove unused imports
+"
+"278f984e96c9498053ec7091566f9b5da08d25cf","2016-07-08 15:41:18-07:00","Downgrade Play services on Wear to 8.4
+
+Work around potential issues with Wear devices not having the latest version of Google Play services
+"
+"c9b797ab6866579d654c9272aa4bbed69e85e6f0","2016-07-08 16:10:48-07:00","Merge pull request #209 from ianhanniballake/upgrade_everything
+
+Upgrade to latest versions of almost everything
+"
+"c609ec7397244a3d735015ff16cc823df9900489","2016-07-08 18:38:31-07:00","Upgrade to Gradle plugin 2.2.0-alpha5
+
+Android Studio 2.2 Preview 5 requires 2.2.0-alpha5.
+"
+"6ce6994caa92c5f010b1dbcb5ec438664b0c7792","2016-07-08 18:39:15-07:00","Merge pull request #210 from ianhanniballake/preview2.2_5
+
+Upgrade to Gradle plugin 2.2.0-alpha5
+"
+"ae2aae48b0500b6357259f5564dbaaa32294878c","2016-07-08 21:34:11-07:00","Remove the need for a custom Application class.
+
+We only need to subscribe to the current source if the Wallpaper Service is active so let's do it there than every time the app starts. Similarly, there is no need to keep a subscription around once the wallpaper is destroyed so attempt to unsubscribe.
+"
+"ea699c983ee7f6baa027a9fd1ad0fbcdacbe1a88","2016-07-08 21:35:17-07:00","Merge pull request #211 from ianhanniballake/no_application_for_you
+
+Remove the need for a custom Application class.
+"
+"5e387c32dd518d5f20a39ac37cc870f1911146d8","2016-07-08 22:40:04-07:00","Split the Featured Art source into its own module
+
+Decouples the Featured Art source from the main module, segmenting all featured art specific code and resources away from the main module.
+"
+"84883f9ca449c3a7ced48b1b5165db9ef29dc2e9","2016-07-08 22:41:01-07:00","Merge pull request #212 from ianhanniballake/featured_art_module
+
+Split the Featured Art source into its own module
+"
+"d4e89ce55bf2b0ad23ce09154a37c23a96ed0d72","2016-07-09 07:49:51-07:00","Rename source_featured_art module to source-featured-art
+
+Use local custom of hyphenated module names
+"
+"fabb1b1fd8bb526aced93d1d70ae154a4dc7e13a","2016-07-09 07:55:31-07:00","Use resourcePrefix to help enforce resource prefixing in the featured art module
+"
+"b3e4a7e9b912b97aa1101bcc632b206d3b4b672f","2016-07-09 08:08:37-07:00","Remove unnecessary featured art load
+
+There's no need to reload artwork when a new subscription starts as the default code will automatically check to ensure artwork is loaded. Should help with #194
+"
+"dc087244910d83ee7d0453a317da3eab45257e29","2016-07-09 08:16:33-07:00","Hardcode Locale.US for parsing dates from featured art JSON
+
+Rather than rely on the correct default locale, always use Locale.US to provide a consistent locale parsing to match the server's format.
+"
+"e044425d6cff7a73feb03ac7510bd8292c85c164","2016-07-09 08:23:00-07:00","Merge pull request #213 from ianhanniballake/featured_art_cleanup
+
+Featured art source cleanup
+"
+"1e2c18ba9dc7908317f842ca523429a7c383ec14","2016-07-09 16:57:42-07:00","Remove the deprecated Time class from the watchface
+
+Replace with Calendar
+"
+"78bbf67e8fc945ff2d3e4ec80ad81f95577bbb2d","2016-07-09 18:02:27-07:00","Merge pull request #214 from ianhanniballake/deprecate_time_itself
+
+Remove the deprecated Time class from the watchface
+"

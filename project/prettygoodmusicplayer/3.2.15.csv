@@ -1,0 +1,39 @@
+"commit id","commit date","commit message"
+"d2961159f1aeccb35ca14874e45ab4e8a04cc95f","2015-10-11 18:22:13+02:00","Update SDK version, fix build error due to spurious space
+"
+"a852fe5e1c64b1d7f3dccca12e85ddcfa813aa3a","2015-10-11 18:32:54+02:00","Update support library to the latest version
+"
+"90de7d521b3292956d26b6366dc32c9f56e760fd","2015-10-11 18:25:11+02:00","Fix crash-on-close when wakelock is not held
+
+Before this patch when audio playback stopped pressing back until you
+can exit the app caused an 'app has crashed' dialog to appear. The
+traceback was as follows:
+
+FATAL EXCEPTION: main
+Process: com.smithdtyler.prettygoodmusicplayer, PID: 22792
+java.lang.RuntimeException: Unable to stop service
+com.smithdtyler.prettygoodmusicplayer.MusicPlaybackService@2428d0f7:
+java.lang.RuntimeException: WakeLock under-locked
+
+Caused by: java.lang.RuntimeException: WakeLock under-locked PGMPWakeLock
+at android.os.PowerManager$WakeLock.release(PowerManager.java:1053)
+at android.os.PowerManager$WakeLock.release(PowerManager.java:1024)
+at com.smithdtyler.prettygoodmusicplayer.MusicPlaybackService.onDestroy(MusicPlaybackService.java:484)
+at android.app.ActivityThread.handleStopService(ActivityThread.java:2954)
+... 9 more
+
+The fix, as recommended by the wisdom of stackoverflow[0], is to add a
+check to see if the wakelock is held before releasing it.
+
+[0]: https://stackoverflow.com/a/14949367/4596
+"
+"0f523324c34efd6fa0c3c5bcb55086b1c97cd1fe","2015-10-12 10:24:31-05:00","Merge pull request #97 from richq/crash-on-close
+
+Fix crash-on-close when wakelock is not held
+"
+"2db27ae9d538bd787196cc9e0ee9cc323655d8f9","2015-10-12 10:25:15-05:00","Merge pull request #96 from richq/update-sdk
+
+Update SDK
+"
+"37960ee195f0408be5fffa7fcb908bbf0c584037","2015-10-12 10:26:13-05:00","Update AndroidManifest after merging pull requests.
+"

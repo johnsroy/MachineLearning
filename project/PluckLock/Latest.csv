@@ -1,0 +1,195 @@
+"commit id","commit date","commit message"
+"ea98891ce36c87503365e005ad07df1b168a138e","2014-11-06 14:41:16-05:00","Initial commit
+"
+"382a66d7731159187a0856240bcf3f938973c474","2014-11-06 14:45:45-05:00","Change preference input to numeric input
+"
+"7ebe7af7cec9be899d88e0e9cda0d6394de79e3a","2014-11-06 15:03:57-05:00","Use linear acceleration instead of accelerometer
+This means we don't have to do complicated stuff like check for
+acceleration deltas in place of just reading instantaneous acceleration:
+it's harder to lock yourself out by setting a threshold below 1 (which
+you'd have to fix while skydiving, heh);
+"
+"cba53d431b2cf3fa229ede5d3b7aa893bf19180b","2014-11-06 15:05:27-05:00","Add safety threshold
+this threshold threshold will prevent people from locking themselves out
+of their phone: they need only set the phone down now if they want to
+change the preference
+"
+"5057eceda5730d0644c33ed2ade4cd09e709a2f8","2014-11-06 15:10:42-05:00","Prevent phone from locking if already locked
+it's a little annoying if you're in the middle of unlocking your phone and
+you activate this. Realistically it should never happen because that would
+mean your threshold is set too low, but maybe you're unlocking to change
+your threshold ;)
+"
+"a2b26c1ac2d014a8af51b1caabaf681844fd5e63","2014-11-06 16:08:17-05:00","Fix app to correctly start on boot
+not sure which change fixed it, especially because of the new security
+features from android 3.1. but it works now. you might need to manually
+start the app once for it to start working on reboot.
+"
+"d936b6db121eb2d9487f25e6aaee61f1f3a81ee8","2014-11-06 16:10:44-05:00","Format manifest
+"
+"dc1f33eeca1bb9118a9803e4c542da4ec30698ce","2014-11-06 16:28:58-05:00","Remove some log messages
+"
+"d7a78cf176791b90a05b0e1c701350904f18d75c","2014-11-06 16:46:32-05:00","Update icon
+"
+"d773bf9a38ca780927c690506c45447ab1f9296f","2014-11-06 16:51:29-05:00","Update launcher icon for all screen sizes
+"
+"fe8a19ce6829e110ba779d24e1d0f24001568ce1","2014-11-06 17:32:33-05:00","Increase temporal resolution to improve detection
+might set this to UI instead of GAME, depends on how battery-intensive it
+ends up being
+"
+"790383699fbda27de9005e2e4bd64e8cd172638b","2014-11-07 09:40:39-05:00","Remove some silly comments
+
+yeah
+"
+"1918395c6ab994ab2cc94e3e022a3791d35b6224","2014-11-08 19:58:28-05:00","MIT License
+"
+"ab2f39d4a580cb40597bbce2a61438fb81661549","2014-11-09 11:22:54-05:00","Create README.md
+"
+"f7ce9d969d1616f1e2b675c690662b1ea954d103","2014-11-10 06:13:09-05:00","Remove old thread stuff that shouldn't exist
+
+that code was from an age long past. we totally didn't need it anymore. sorry
+"
+"73aa4db64de7012090cdfd267301650093569d83","2014-11-10 15:23:35-05:00","Add tooltip for plebs
+"
+"d5ff5abce4bd0fdbcbf019c5f3a6c27e7f627921","2014-11-10 15:24:05-05:00","Merge branch 'master' of https://github.com/SyntaxBlitz/PluckLock
+"
+"f24eb6d5edcae5cdaf60fba052c55d616af2aea7","2014-11-11 18:34:14-05:00","Update README.md
+"
+"a95bde205eb8562bbd6e5559a864a676674cc515","2014-11-12 15:07:40-05:00","Add banner for Google Play store
+"
+"23c0c14e928f477e2834c81158137afaed30dde9","2014-11-12 15:08:20-05:00","Add French localisation files
+"
+"82e46592a20560b2a1939d9f254b235726e10ff0","2014-11-12 15:08:41-05:00","Merge branch 'master' of https://github.com/SyntaxBlitz/PluckLock
+"
+"405307f11183494f439ef712f5d51b9509fd858c","2014-11-13 17:40:19-05:00","Poll less frequently
+"
+"60bda496b0445ab0bb8109aeee410db0d21c155c","2014-11-14 19:04:23-05:00","Attempt to conserve battery life
+Stupidly, I had neglected to STOP polling the accelerometer once the
+screen was locked. Which made it drain battery *really* quickly.
+
+Turns out the Android API is broken and won't stop polling the
+accelerometer no matter what, even if you call unregisterListener(). The
+receiver will just keep receiving legit samples and calling your receiver
+method, even after you set everything to null. And battery still drains
+a LOT.
+
+Gr.
+"
+"50a8b92db362e3e057e9b08fde25b27d30480b57","2014-11-14 22:39:35-05:00","Merge branch 'master' of https://github.com/SyntaxBlitz/PluckLock
+
+Conflicts:
+src/net/syntaxblitz/plucklock/AccelerometerService.java
+"
+"7d330b18a984f35752976984e7cdd32b19527717","2014-11-15 17:51:47-05:00","Get threshold each time there's an update
+
+I removed this because I thought it was inefficient, but I've just realised that the reason I had that there in the first place was that otherwise you couldn't really change the threshold -- not without killing the Service somehow first.
+
+I might still move some of this out of the event listener to improve efficiency.
+"
+"cf8ae32ab4cce465946de3fdbc0465496ca1404f","2014-11-16 16:24:42-05:00","Update less often
+
+this change got borked in a merge. Popped it back.
+"
+"39fe5f9e50f4a402e52d7fde681439fcb77d0c59","2014-11-17 17:28:23-05:00","Version update to v1.0.1
+"
+"0b2937deb9d1f52c70cc019149b7dad51e6553f2","2014-11-18 18:50:00-05:00","Change settings activity to a normal Activity
+Sorry about this, didn't commit often enough: I also moved the threshold
+into an input thing instead of an every-time thing. That needed to be
+moved.
+"
+"6ee943ee4bb2f0950e2c4b2d36d243066d7e5284","2014-11-18 19:12:16-05:00","Make sure no one gets locked out of their phone
+generally common courtesy
+"
+"8e34039c940865d564e6e7d72958f74e33d13950","2014-11-18 19:14:48-05:00","Merge pull request #7 from SyntaxBlitz/add-normal-activity
+
+Add normal activity
+"
+"910c983f9a75af9cd511400e7a4f7981d6d36a16","2014-11-18 19:26:06-05:00","Version update to v1.0.2
+also added French translation
+"
+"7e53db00afb87e3d5c7eefe91ffff536dc4a84ac","2014-11-18 19:30:36-05:00","Autofill text box
+whoops
+"
+"13e968de5914be49c45c309053e7b4a3f939f3cd","2014-11-19 19:09:58-05:00","Add device admin checkbox
+"
+"f8c02bc81bb5dd0d14a49338895bd34d66274972","2014-11-19 19:13:23-05:00","Add French strings
+"
+"38464063672f0e350ec32791c41a5bcbc060cc8f","2014-11-19 19:31:23-05:00","Inform user gracefully if device admin is disabled
+instead of crashing
+"
+"69be3735da4010845c68eb0c4c4b36198b50a6cf","2014-11-19 19:33:57-05:00","Merge pull request #13 from SyntaxBlitz/device-admin-checkbox
+
+Add a device admin checkbox to the settings screen
+"
+"5074832e3f90784ce0b949de3237d77d829f3098","2014-11-19 19:58:42-05:00","Version update to v1.0.3
+"
+"77abf719667b23e6482eba55276765ceb62d217f","2014-11-20 10:42:46+01:00","Changed device administrator wording from 'enable' to 'add'
+"
+"1b11424dd7ed8736a96197dc4de6c454708e7cfa","2014-11-20 10:43:52+01:00","Add German translations
+"
+"12fde41696cb724cf4f379969ae632d8a4d86605","2014-11-20 10:46:54+01:00","Change encoding of file with German translations to UTF-8
+"
+"1df5f42e270dcea4389bb12ffc0c0ed6db72fbce","2014-11-20 19:08:20-05:00","Merge pull request #14 from kuleszdl/master
+
+Minor wording change and German translations
+"
+"9e158dc1c8d09e53aa41fe6b6b7a5ff7eb4de8c1","2014-11-21 15:57:58-05:00","Add enable/disable checkbox
+"
+"c2f995a063604d937dcdc06305fe5bc28129eab4","2014-11-21 16:03:47-05:00","Disable PluckLock when removed from administrators
+Also removed the relevant string
+"
+"41efe4f5f37587aa3ca765df0f49d4bc903a773b","2014-11-21 16:07:25-05:00","Update other languages
+"
+"0b29bb48400cd7b4572e9b4ef4d2e5ac91b37b45","2014-11-21 16:07:40-05:00","Fix English spelling error
+"
+"6849e67eb94afe703cbff6ef40a6667de62546b5","2014-11-21 16:08:06-05:00","Version update to v1.0.4
+Sorry, didn't make a branch/PR for this stuff. forgot/was lazy.
+"
+"d66fb091062b4d9300c1e167ff692b220afb538a","2014-11-21 16:09:35-05:00","Fix language files
+spelled something wrong
+"
+"b5e2fba4ac37fdef59f0ee9cf8675df4b7bf02db","2014-11-22 12:02:28-05:00","Small code cleanup
+"
+"4c98d4b27a6089d42fb28e9c804dfa6243776d48","2014-11-22 12:04:46-05:00","Be DRY
+<3 ruby folks
+"
+"4cb967c65cf92914e9fbc1db3f2066397b562894","2014-11-22 12:08:20-05:00","Clean up AndroidManifest.xml
+"
+"3bc3be0f13dccf9243a1e8922475c4491c51f84c","2014-11-22 12:12:56-05:00","Clean settings activity xml and ids
+"
+"2a710a6566e772dff4cb697a9137865cf591655d","2014-11-23 14:18:20-05:00","Remove references to g
+"
+"70cc1f551d71ed1c821b6ff43f9c8ee4103b1fee","2014-11-24 18:56:03-05:00","Remove generated files from repository
+"
+"24cf96ac8b59002cf8b65e3886c71313dd8c0cca","2014-11-25 20:20:37-05:00","Add color xml. Because it used to be sad.
+"
+"fbe626c8fe7463c777337c5e72a518ee320489f9","2014-11-27 19:00:07-05:00","Make my name bigger in the banner :)
+"
+"2cd40f50ba1a8eb8abaa0ac02b6059a40d2a1555","2014-11-28 20:38:43-05:00","Rename settingsactivity.xml
+"
+"e77170d426b5786993c3e9f401283d85a1a0a9c3","2014-11-29 17:37:15-05:00","Add credit for German translations
+"
+"ed86924327184917357057eb4ab6f714524c5544","2014-11-30 07:38:53-05:00","Add F-Droid link
+"
+"8dca1bb30435bbc96a3c2edcaa3d12a828543476","2014-12-01 16:43:47-05:00","Add preference version, auto-update old prefs
+This will prevent users from having insanely low thresholds when they
+update to the version that does not store acceleration in terms of g.
+
+This also includes a version update because otherwise it would be awkward.
+
+This commit is untested right now; I won't push it until after I've tested
+it, but I can't really test it without committing because I need to
+install an old version first.
+"
+"04c7ec1337bc46e15a5d087e7fd89762aeae6383","2014-12-01 16:45:35-05:00","Merge branch 'master' of https://github.com/SyntaxBlitz/PluckLock
+"
+"27d9ca4f865aaee1a50fb7d95b8a6ec608f92bba","2014-12-02 20:30:46-05:00","Not anymore
+
+hehe I've used this commit message before
+"
+"13901784fde714567c31d8b0addf03476ca76aed","2014-12-06 18:13:31-05:00","Update verbs
+
+I really need to stop using the word 'ping', it doesn't really make sense in this context.
+"
+"3a7e0861b377bd3892aa26f836f89b7deb1b059b","2016-02-15 13:12:05-05:00","Update LICENSE
+"

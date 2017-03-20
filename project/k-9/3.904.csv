@@ -1,0 +1,97 @@
+"commit id","commit date","commit message"
+"d310167b99ebc025ddb0248efae6ba0e6df031ec","2011-07-07 03:05:12+02:00","Rewrite mime type image/pjpeg to image/jpeg
+
+Fixes issue 1712
+"
+"a60a2a42955a7ea04a0284467dd5dc56230b3096","2011-07-07 04:59:45+02:00","Changed code to show/hide the correct views for CC/BCC
+
+Fixes issue 3509
+"
+"c7e8969b01a54a74f164df747673e37af798f769","2011-07-09 00:27:56-04:00","remove a bunch of listener notification duplication that crept into the
+code. this caused all attachments to be double-opened, among other
+things
+"
+"8cffc5b682835a2952dcd10bb2a38031f67962e5","2011-07-09 15:26:30-04:00","Bullet proofing for user-reported exceptions in WebDAV sync:
+
+E/k9      ( 5735): java.lang.NullPointerException
+E/k9      ( 5735):      at
+com.kaitenmail.mail.store.WebDavStore$WebDavMessage.setNewHeaders(WebDavStore.java:1903)
+E/k9      ( 5735):      at
+com.kaitenmail.mail.store.WebDavStore$WebDavFolder.fetchEnvelope(WebDavStore.java:1655)
+E/k9      ( 5735):      at
+com.kaitenmail.mail.store.WebDavStore$WebDavFolder.fetchEnvelope(WebDavStore.java:1627)
+E/k9      ( 5735):      at
+com.kaitenmail.mail.store.WebDavStore$WebDavFolder.fetchEnvelope(WebDavStore.java:1627)
+E/k9      ( 5735):      at
+com.kaitenmail.mail.store.WebDavStore$WebDavFolder.fetchEnvelope(WebDavStore.java:1627)
+E/k9      ( 5735):      at
+com.kaitenmail.mail.store.WebDavStore$WebDavFolder.fetchEnvelope(WebDavStore.java:1627)
+E/k9      ( 5735):      at
+com.kaitenmail.mail.store.WebDavStore$WebDavFolder.fetch(WebDavStore.java:1404)
+E/k9      ( 5735):      at
+com.kaitenmail.controller.MessagingController.fetchUnsyncedMessages(MessagingController.java:1418)
+E/k9      ( 5735):      at
+com.kaitenmail.controller.MessagingController.downloadMessages(MessagingController.java:1253)
+E/k9      ( 5735):      at
+com.kaitenmail.controller.MessagingController.synchronizeMailboxSynchronous(MessagingController.java:1031)
+E/k9      ( 5735):      at
+com.kaitenmail.controller.MessagingController.access$400(MessagingController.java:81)
+E/k9      ( 5735):      at
+com.kaitenmail.controller.MessagingController$30.run(MessagingController.java:3768)
+E/k9      ( 5735):      at
+com.kaitenmail.controller.MessagingController.run(MessagingController.java:276)
+E/k9      ( 5735):      at java.lang.Thread.run(Thread.java:1096)
+"
+"220be75473525e6c364e92dd5f7d8991d1f25e1d","2011-07-09 16:24:18-04:00","Add a bit of logging to find out what webdav servers tell us about how
+many messages they have in debug mode
+"
+"d7dfba15cff136ced2fb68d359b099dc3343f749","2011-07-09 17:00:35-04:00","It appears that Exchange is returning responses
+without a visiblecount element for empty folders
+Which resulted in this code returning -1 (as that was
+the previous default.)
+-1 is an error condition. Now the default is empty
+"
+"ea4978093ef9406e10d5c73f07e8d0f274652f91","2011-07-10 19:43:29-07:00","Merge pull request #38 from Jan-Bart/patch-1
+
+Email is e-mail in Dutch. And some other minor (but important) changes :-
+"
+"98ae8cf2be83ab2dc3c1f22f6e7aacbb1041c2d4","2011-07-09 18:44:14-04:00","refactoring to use the object we extracted from the array
+"
+"b85c9b7b0edb6a36c53cc0d0db0b2b285cdcb3b1","2011-07-10 14:27:36-04:00","Work around the fact that when we can't get read status for a message,
+we'd end up with an NPE as we then queried the hashmap
+"
+"87640719ddc32e3130b61f0c62e2df6ad7b14afe","2011-07-12 21:47:37-04:00","Disable 'download by date range' for webdav and pop3.
+The previous behavior caused catastrophic network abuse, downloading
+messages outside the date range over and over.
+"
+"2e173150d55a4fb0780ae1fa7609fcc360fe9731","2011-07-13 22:15:36-04:00","Rather than disabling imap-specific preferences on POP3, hide em
+"
+"45e29ccba4eedaa78cd158bb7f76da39b7a49fe3","2011-06-16 00:35:27+09:00","Fixed issue 3530.
+Should not HTMLify the message when it is sent without quoted message.
+
+The problem is:
+1. set MessageFormat in Account setting to the TEXT.
+2. reply a message without quoted text.
+3. it is sent with HTML tags.
+"
+"9f581cb6f3631d26183d182fd4f5bc34620d503f","2011-07-17 14:13:04+02:00","Extracted POP3 commands and capabilities to constants
+"
+"2acd55a9ef9a7b409010588825c064a86b198c9e","2011-07-17 14:37:21+02:00","Implemented work-around to handle malformed UIDL responses (POP3).
+
+Fixes issue 3546
+"
+"1d3e0df21d5bddc9f5d8d371067fdd8d4cd37d08","2011-07-18 00:16:42+04:00","The updated russian translation
+"
+"5dc1409a10d643c0996aeb23d5f0ddce8cc8837a","2011-07-17 14:18:22-07:00","Merge pull request #43 from emanov/master
+
+updated russian translation (values-ru)
+"
+"0543183b11be1125461b1b04567ee4ec8fba01ac","2011-07-19 22:43:32-04:00","Work around a weird NPE in WebDAV sync reported by Jon Blow
+"
+"fda43206a30b2cf7bafdc3ffd5d29d4fac2b84ba","2011-07-19 23:37:19+09:00","Fixed the below issue for GalaxyS and S2.
+
+When scrolling a ListView, all items turn black.
+it was reproduced on FolderList, MessageList and Accounts, other views were not.
+"
+"e31964db0ac30318aab5a092b76acabbbaea8649","2011-07-20 18:05:37-04:00","3.904
+"

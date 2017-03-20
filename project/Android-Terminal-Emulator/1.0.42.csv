@@ -1,0 +1,197 @@
+"commit id","commit date","commit message"
+"5a8534deea3d3ec17655135404be2a2d81bfd971","2012-01-29 01:40:03+01:00","Improve 7 Strings, Add 2 Strings and I translate CTRL / Fn Keys
+"
+"833fdc5be18ea19219d8a71189326e179d593761","2012-02-09 11:01:41-08:00","Merge pull request #80 from eauland/patch-9
+
+Improve 7 Strings, Add 2 Strings and I translate CTRL / Fn Keys
+"
+"a25ac82d2ee62c75ac3a90651d387d2f7001f66d","2012-03-10 11:27:33-08:00","Replace ad-hoc intent script execution with more formal interface
+
+The current intent script execution mechanism has at least two
+serious problems:
+
+* If a Term activity is already running, it will just bring the activity
+to the top, without opening a new window or running the provided
+script.
+* It allows any other application to use our permissions, even if they
+don't have those permissions themselves.
+
+Replace the current ad-hoc mechanism with a more formally defined remote
+intent interface, which provides two actions:
+
+* jackpal.androidterm.OPEN_NEW_WINDOW opens a new terminal window.  No
+script execution is allowed, and no permissions are required to use
+this action.
+* jackpal.androidterm.RUN_SCRIPT opens a new window and runs the script
+specified in the jackpal.androidterm.iInitialCommand extra.
+Applications using this intent must have the
+jackpal.androidterm.permission.RUN_SCRIPT permission, which must be
+approved by the user at install time.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"eec1db809ce98589362f29434a5a7c077253a18c","2012-03-11 10:17:54-07:00","Add a localization for CZ - Czech Republic
+
+Thanks to Jozka.1@seznam.cz
+"
+"0e55c7f25a61e453b6f14e444145b4e3ebb7a696","2012-03-11 14:22:21-07:00","Fix spelling mistake.
+"
+"be0e0e1910479a2f119500b4ac34054303f5dd96","2012-03-25 18:13:53-07:00","Add proguard-project.txt file
+
+Doesn't do anything currently, we may start using proguard in the future
+to save a few bytes in the apk.
+"
+"ce9557eb3c41fbb38a24c56954d1d2e2f809e588","2012-03-25 18:14:12-07:00","Update build script for NDK version 7b
+"
+"2f06c89e67fed7c19d921a7762a4a95fe2c9a358","2012-03-21 03:00:05-07:00","Deal with null row color when getting transcript with colors
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"0ebc55b1d64d501fd959a402e191413f5023d5aa","2012-03-21 03:00:11-07:00","Move some getChar() logic from UnicodeTranscript into FullUnicodeLine
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"e9e0901e8403f1fa07286355773f5740e84f4102","2012-03-21 03:00:28-07:00","Handle C1 control characters other than CSI
+
+Each C1 control character (U+0080-U+009F) maps to a corresponding
+seven-bit-clean escape sequence (ESC U+0040-U+005F).  We already handle
+most of these escape sequences, so instead of just handling CSI (U+009B)
+in an ad-hoc fashion, handle all the C1 controls systematically.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"14c7cebbafa3c8806252db3830dad478e33f5113","2012-03-21 03:00:40-07:00","Properly handle UTF-8 sequences decoding to C1 control characters
+
+Applications which emit UTF-8 sequences that decode to C1 control
+characters expect these sequences to be interpreted as C1 control
+characters, so send them back through process() instead of trying to
+emit them.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"c4b50ab98ce60a551d2f72876c31c0fecde037cb","2012-03-21 03:00:46-07:00","Fix emission of combining characters following wide characters in transcript
+
+At the moment, combining characters which follow an East Asian wide
+character are not being stored in the same column as the characters they
+modify.  Fix this by keeping track of the width of the last spacing mark
+emitted and using this to place combining characters into the correct
+column.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"c5b4ec402fb96f1df1e83e22cef16785035aae90","2012-03-21 03:00:56-07:00","Revise screen resize check handling
+
+Move the screen resize check code out of EmulatorView and into
+TermViewFlipper, where it logically fits now that there are multiple
+EmulatorViews per Term activity.  While we're at it, instead of making
+the activity tell us how much of the window doesn't belong to us, use
+getGlobalVisibleRect() to figure that out ourselves, eliminating the
+need for a WindowSizeCallback.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"41a06bfb1891256896fa3ca71b292e0015c91b6d","2012-03-25 22:30:44-07:00","Check to see whether selection start/end are in IME buffer bounds
+
+Should fix a frequently-reported crash on Market:
+
+java.lang.StringIndexOutOfBoundsException: length=0; regionStart=0; regionLength=1
+at java.lang.String.startEndAndLength(String.java:593)
+at java.lang.String.substring(String.java:1474)
+at jackpal.androidterm.EmulatorView$4.getSelectedText(EmulatorView.java:594)
+at com.android.internal.view.IInputConnectionWrapper.executeMessage(IInputConnectionWrapper.java:234)
+at com.android.internal.view.IInputConnectionWrapper$MyHandler.handleMessage(IInputConnectionWrapper.java:77)
+at android.os.Handler.dispatchMessage(Handler.java:99)
+at android.os.Looper.loop(Looper.java:137)
+at android.app.ActivityThread.main(ActivityThread.java:4507)
+at java.lang.reflect.Method.invokeNative(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:511)
+at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:790)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:557)
+at dalvik.system.NativeStart.main(Native Method)
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"491e20043c385ba05e499bd0035554a6103a1f88","2012-03-25 22:30:51-07:00","Don't attempt fast resize on finished TranscriptScreen
+
+Should fix a frequently-reported crash on Market:
+
+java.lang.NullPointerException
+at jackpal.androidterm.session.TranscriptScreen.fastResize(TranscriptScreen.java:395)
+at jackpal.androidterm.session.TerminalEmulator.updateSize(TerminalEmulator.java:370)
+at jackpal.androidterm.session.TermSession.updateSize(TermSession.java:287)
+at jackpal.androidterm.EmulatorView.updateSize(EmulatorView.java:980)
+at jackpal.androidterm.EmulatorView.updateSize(EmulatorView.java:1014)
+at jackpal.androidterm.EmulatorView.onDraw(EmulatorView.java:1033)
+at android.view.View.draw(View.java:6903)
+at android.view.ViewGroup.drawChild(ViewGroup.java:1640)
+at android.view.ViewGroup.dispatchDraw(ViewGroup.java:1367)
+at android.view.View.draw(View.java:6906)
+at android.widget.FrameLayout.draw(FrameLayout.java:352)
+at android.view.ViewGroup.drawChild(ViewGroup.java:1640)
+at android.view.ViewGroup.dispatchDraw(ViewGroup.java:1367)
+at android.view.ViewGroup.drawChild(ViewGroup.java:1638)
+at android.view.ViewGroup.dispatchDraw(ViewGroup.java:1367)
+at android.view.View.draw(View.java:6906)
+at android.widget.FrameLayout.draw(FrameLayout.java:352)
+at com.android.internal.policy.impl.PhoneWindow$DecorView.draw(PhoneWindow.java:1868)
+at android.view.ViewRoot.draw(ViewRoot.java:1407)
+at android.view.ViewRoot.performTraversals(ViewRoot.java:1163)
+at android.view.ViewRoot.handleMessage(ViewRoot.java:1727)
+at android.os.Handler.dispatchMessage(Handler.java:99)
+at android.os.Looper.loop(Looper.java:123)
+at android.app.ActivityThread.main(ActivityThread.java:4627)
+at java.lang.reflect.Method.invokeNative(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:521)
+at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:876)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:634)
+at dalvik.system.NativeStart.main(Native Method)
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"4c3cedd22849c8b27a87e01a51370c51c9b36d59","2012-04-08 20:44:46-07:00","Show the status bar by default.
+
+This helps on devices that place the menu key in the status bar. On those
+devices the user is stuck because they can't get to the menu key without
+showing the status bar, and they can't change the status bar preference
+without using the menu key.
+
+(Users on those devices can paint themselves into a corner by hiding the
+status bar manually, but hopefully they'll figure out that uninstalling
+and re-installing ATE will reset the preferences.)
+
+We originally hid the status bar by default way back in Android 1.0, when
+the standard screen size was 320 x 200. Screens are larger now, which
+makes it more reasonable to show the status bar by default.
+
+This change won't affect anyone who has already run ATE once, since the
+preferences will have already been set to the default value on the first
+run of the program.
+"
+"f59f1d931fd1a1accdcc308185db199476157af7","2012-04-14 12:04:12-07:00","Update Basque translation.
+
+Courtesy Asier Iturralde asier.iturralde@gmail.com
+"
+"52dfbe677ae014da57f785a7c59b6f1cdc641ac1","2012-04-14 12:10:18-07:00","Move uses clauses in front of activity clause.
+
+Suggested by Android SDK Lint.
+"
+"33abe793abfbc2c49701bf90f8f612b5bfe029c4","2012-04-14 12:22:39-07:00","Use FloatMath.ceil instead of Math.ceil
+
+Apparently slightly faster.
+
+This is a Lint suggestion.
+"
+"66a51e7897844841d66b93bc4217c309a583a0f2","2012-04-14 12:35:25-07:00","Move atari_small.png to the right directories.
+
+It's drawable for API level 3 devices, and drawable-nodpi for more
+recent API levels.
+"
+"f6693d52ef5d7bd7e2a0e01fc7c1f83714144611","2012-04-14 12:38:39-07:00","Remove unused imports.
+"
+"c3d85685a8426a9a3a3b6cf212b2616c0ee358fc","2012-04-14 13:32:39-07:00","Fix 4x8 fonts on API level 4+
+
+(Use a runtime API level check to choose whether to load the nodpi
+version.)
+"
+"977ff82064798a97eeb9de286b9faf637c3ee031","2012-04-14 14:15:35-07:00","Update version number to 1.0.42
+"

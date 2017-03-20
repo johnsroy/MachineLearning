@@ -1,0 +1,58 @@
+"commit id","commit date","commit message"
+"7730ff5e3d3ae71bb7919d294493eb6e7e89c75c","2013-03-13 23:20:54+01:00","Replaced hyphens with underscore for shells compatibility
+"
+"23e77a7af60508638b075e824a172c1d9e6eaf22","2013-03-12 15:59:42-04:00","add /pds Android mountpoint from TeamEOS 4.0.3 on Motorola Xoom 3G
+"
+"965b00038ecbd8ddb6985d04f17e2746cc5b6f6e","2013-03-15 14:39:48-04:00","support /storage mountpoints from Android 4.1
+"
+"ccf40e87a9568d21651ff94735ede55db43f9af6","2013-03-15 15:00:23-04:00","handle new Android 4.2 mountpoints
+"
+"2ef73a357729fca5ab526e3df536c5208f2160be","2013-03-15 20:50:56-04:00","set target SDK to android-17 (4.2 Jelly Bean)
+"
+"fd742f85bca2af48e59de7e472dc44683b8234e1","2013-03-16 10:51:52-04:00","move fsck logic to lildebi-common so it can be shared among scripts
+"
+"dc7bd21acf138ba5a91aa6f4dc2ab7517914af8b","2013-03-16 10:53:12-04:00","use 'minbase' variant for debootstrap to make install as small as possible
+"
+"03ef1014b2899197613608806ada2d78617d27fa","2013-03-16 20:49:00-04:00","stop leaked receiver by unregistering in onDestroy()
+"
+"4f1db799fa6f7d74dfbb0180fea39e5621b6f703","2013-03-21 14:07:00-07:00","stop-debian.sh: try harder to unmount $mnt, and give error message if fails
+"
+"98d68aa0bbd4de07ae9bb7eb2e641462ed2c4b47","2013-03-21 15:07:24-07:00","standardize debug log header, it is printed first thing as each script runs
+"
+"98f79fa30e211e4dfe43b637c72b0e4efd6649a9","2013-03-21 16:19:50-07:00","split out operations from create-debian-setup.sh into separate scripts (closes #35)
+
+this makes things more reusable, and also works around an odd bug where
+/system/bin/sdcard would claim the imagefile, and not let go even when
+umount was issued. For some reason, running umount in a separate script
+fixes that issue, and then /system/bin/sdcard lets go of the imagefile.
+"
+"e4dbe8b36a969d11213be1dffd820e01d63634d8","2013-03-21 16:20:49-07:00","create-debian-setup.sh: move 'apt-get clean' to clean after all is installed
+"
+"682fb8c0d64554c49cfdcce74d8d89028f75d284","2013-03-21 16:22:53-07:00","use find_best_filesystem for initial format, to enable ext3/ext4 by default
+
+This should be safe since busybox's mke2fs will fall back to using ext2 if
+ext3 or ext4 is not supported properly, even though find_best_filesystem
+reports otherwise.
+"
+"88183bf4d5453a4fe499fe151e4111574c09a26d","2013-03-21 16:53:51-07:00","ran Eclipse auto-formatter on all .xml files
+"
+"dcfa9fa9c20ba4bbdfe63df5640d7518a32b369b","2013-03-21 18:14:29-07:00","start-debian.sh: always use the best available filesystem (ext2/3/4)
+
+It seems that a filesystem that has been formatted as ext2 will mount fine
+as ext4, so always use the best available filesystem.
+"
+"180e95e09e7ef504aeaf76cfda385bda07adecf2","2013-03-21 20:03:58-07:00","convert all shebangs to use the busybox sh included in the app's app_bin/
+"
+"413a784f693430e2c3deff35f94c70dc13001a8b","2013-03-21 20:10:13-07:00","simplify PATH in scripts to use included tools first, then default PATH
+
+Before the busybox suite was included, the app needed to make sure that it
+found all the included utils. Now it comes with everything it needs builtin
+"
+"41dd399ce7d490eb68a74c0dbcd7539e3b34946b","2013-03-21 23:10:41-07:00","make writeCommand() log command to logcat
+"
+"c5014202579ce9408d2750830581ac918f2b96d9","2013-03-21 23:58:09-07:00","sometimes the ssh host keys aren't created on setup, so try again manually
+"
+"1b6b011cad0c4963842f1c71113642dddf70c1a4","2013-03-29 14:50:35-07:00","set app version to v0.4.1 build 6
+"
+"853d31d1ae784e76f7f4faf32671bab14a4bad6e","2013-03-29 15:10:52-07:00","add script for the release build process
+"

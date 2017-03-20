@@ -1,0 +1,167 @@
+"commit id","commit date","commit message"
+"f0bb91b5cecd5731b01648d2709ab1588e6e25ca","2015-09-11 18:04:12-07:00","First commit
+"
+"6275ff89dbd368f36d79c4c130f552ffb796d8e2","2015-09-11 18:06:19-07:00","Add a license
+"
+"1b7582b4fba6396a702c4aaa8e59ef325fff5d7b","2015-09-12 16:19:01-07:00","Add a ticker. Also check location updates and hours in service
+so the UI only has to worry about responding to it.
+"
+"7dfcd3ef46c3b008ba8192e25f0459454dcfa8a6","2015-09-12 16:44:59-07:00","Be sure to un/reregister receivers where appropriate.
+Also fix some debug log tags.
+"
+"960358a373cdc69f756fdc44c567b105d0286b06","2015-09-12 17:08:58-07:00","Don't permanently disconnect from service after checking
+the settings. Also make the settings screen work properly
+themability wise.
+"
+"03bdb72894d34c3e5160ab7b69e859e37475bd37","2015-09-12 17:25:24-07:00","Organize the classes
+"
+"b33f562c7d4917a855dee236fdcfe69a4654be71","2015-09-12 17:33:03-07:00","Be sure to stick the planetary hour in the ticker too
+"
+"fc1aa2fdb8f2415f6d574ccd73b862d77d3223ef","2015-09-13 11:06:13-07:00","If the date we're checking hours for is before sunrise,
+calculate the hours for the previous day.
+"
+"38241ce1ae9231beeca3f41cded373524bebcf11","2015-09-13 11:08:37-07:00","Move the sticky notification creation to the service
+"
+"9aaebbbbf6988e75ea9ea16ebd9d553e70490e4d","2015-09-13 11:09:02-07:00","Store an internal reference to the current adapter (sometimes
+getListAdapter() is reset to null when the screen rotates after
+the app has been sleeping).
+"
+"80b15326361dd964dfd0d08e0867054dd5d390f7","2015-09-13 11:22:26-07:00","Use LocalBroadcastManager instead of sending a broadcast across the system
+"
+"a12393d0285dd40330f87afba7acdc932e7d7464","2015-09-13 13:03:27-07:00","We don't have data, so remove data sync
+"
+"a7a2e700039d4789755e9050c5ea4fae14ad5745","2015-09-13 13:03:50-07:00","Replace the launcher icons
+"
+"7a2b2f2cbc22fabcd56d6a5680602a0e532e3508","2015-09-13 13:05:58-07:00","Make use of altitude if the user entired it. Also, don't clear the
+ongoing flag when setting an hour notification for the app.
+"
+"c63575d852f0b6030e512bfa9ba7bf0ce159c2cd","2015-09-13 23:44:17-07:00","Move around some of the code and add in moon phase code
+"
+"c7a98697c69f7c34c6dc61eff401cd7dee49b98d","2015-09-14 15:26:06-07:00","Build swisseph from source (via gradle, not by hand) to make it
+eligible for F-Droid submission
+"
+"f1d08da8ffaf0d6568a6d8cfe427d8e0ca53c644","2015-09-14 23:56:25-07:00","Decouple refreshing the hours further from the UI. Also remove the
+'LOCATION_CHANGED' filter since that's redundant with refreshing hours.
+"
+"52af07ea6494712c7161d0da8eb7661796cb0cc9","2015-09-15 00:04:27-07:00","Forgot to rename the path creator for the Rhombus earlier
+"
+"7e23cfaf501ae387711eff1a3cf8f35137105d5f","2015-09-15 09:54:17-07:00","Make sure that the refresh receiver is called before the highlight receiver.
+Also, make sure that external access to getPlanetaryHours is synchronized
+and that refreshing is synchronized to prevent UI inconsistency.
+"
+"eac9ff8655f4ecf86cf211735f8f31c9c5ec5e0a","2015-09-15 10:34:47-07:00","Turn down the brightness of the current hour row. Mercury wasn't visible
+due to the previous colors being a bright shade of sky blue.
+"
+"0daa8773ebbee3eb678cff4a6e4dee18e1048511","2015-09-15 11:40:04-07:00","Implement switching to planet symbols for hours indicator.
+"
+"fdbeffa35310f16a6ae4c0607d4b3def184e93a9","2015-09-15 22:09:12-07:00","Add an extended list of moon phases (approximations of crescents @ 45 degree angles and gibbouses @ 135 degree angles). Also set the drawables for the moon phase icons.
+"
+"649d532303070d21a5144c67940edd6ea2fdc73f","2015-09-15 22:24:01-07:00","Make sure to set the content intent in the planetary hours app in case the user wants to jump back to the app through the notification.
+"
+"6faa3e8d1f5a915b8125e25891187b7ec5c5931c","2015-09-16 00:53:30-07:00","Fix a typo that was causing the morning hours and night hours to appear with 0 length (in case of morning hours) and super long length (in case of night hours) when the app checks the hours with the after midnight compensation.
+"
+"bea821a23ecb65ab5ed9022224edfa23c19e2d16","2015-09-16 13:15:26-07:00","Refresh receiver wasn't being called during the startup.
+
+Because of this, the architecture of the app was reworked a bit so any broadcast
+receivers the fragments may have are registered and unregistered by the activity
+hosting them. The activity's onResume() gets called before any of the
+fragments' onResume()s.
+
+Also with this update is rebasing the data adapters on BaseAdapter to avoid
+duplicate copies of the calculated data in RAM (since ArrayAdapters use
+their own storage backing).
+
+The final notable change in this commit is moving where planetary icons
+are retrieved to the themes themselves and just having the adapter resolve
+the necessary themable attribute.
+"
+"ed0b89a6163c2b1896be036ca76ca83a929aabf2","2015-09-16 14:54:40-07:00","Retrieve the service through peekService in MoonPhaseFragment
+"
+"0e35d4395b3863332e449180e07efb9641881d87","2015-09-16 15:31:37-07:00","Tell the hours fragment to re-retrieve the current hours if the screen rotates.
+"
+"1a6eb8b141b132f0b048ecf2bdf14c7ddb239428","2015-09-16 17:41:57-07:00","Show the hour end time for all of the hours. Also, give the user the option to change the notification icon style they want for the application.
+"
+"39650e817228168d04610a21e605e6e7097deefd","2015-09-17 13:42:31-07:00","The color white needs to be referenced for android:windowBackground (only applicable in the cases of really ancient android versions)
+"
+"5c8764ea03a429430038880e298d2618ef763482","2015-09-17 13:47:45-07:00","Restore the forced refresh when the activity starts. The reason why this is done is that due to the service running in the background, it won't fire off the refresh hours when bound back to in the GUI if it's during the middle of the night or something (it's hard to catch, but I was able to reproduce it with the debugger).  Thus, PHFragment's pha property would remain null until the next planetary hours refresh.
+
+The GUI will manually send a refresh so the fragments can be updated on first launch.when the GUI starts to cover this rare case.
+"
+"f65f133b5859c237198ece5f8c0114ca1437c36c","2015-09-17 17:03:27-07:00","Do the moon phase checks from a separate thread. Also, never EVER call sendBroadcastSync from one of the worker threads. That forces the receiver's response to be on the same thread as the worker (clearly not what we want since we're doing GUI updates through those receivers).
+"
+"6cc3cde3e8fe5d17eaaf87e02ed4c0d5a85c8d54","2015-09-18 00:33:44-07:00","Fix the retrieving of the planetary hours for cases like Greenwich. Not exactly sure why this code misbehaves more than the python API, but switching between my location and Greenwich revealed this bug.
+"
+"ee70882dea23dec91f3591c4d78c1961e8ddd429","2015-09-18 00:35:09-07:00","Move the string arrays into their own *.xml file. Also, put the names for the astrological signs into the arrays.xml file.
+"
+"01ef0aeee373fd31c3be49b5a9598e971d6a7ebf","2015-09-18 00:35:42-07:00","Add the resources for Uranus through Pluto
+"
+"17d6d798545a19f19f37d5751e3c3d0287fe71cc","2015-09-18 00:37:42-07:00","Move the phase icon retriever and phase text function into another class since the RightNow Fragment (WIP) will be using this.
+"
+"1fa73256b71cbf95aadbbadca00fb03d8e875de9","2015-09-18 00:40:00-07:00","Add the right now panel. The purpose of this panel is to show astrological signs in real time. The sun and the moon are stickied because they have the strongest influence. Currently, the VoC moon predictor routine has not been ported to Java yet. On an additional note, it's probably best to move the inner thread classes in AeonDroidService into their own package.
+"
+"8a531c62bea3726d918538040b437e5000dcce19","2015-09-18 14:09:18-07:00","Part two of the fix for Greenwich time. When replacing the hour for datetime calculation, a
+lways do it in local time rather than UTC. This way, the target hour is always at noon for
+the target location. We also encompass the generation of getting sunrise, sunset, and
+next sunrise into its own object so we can easily edit the logic for getting
+the rising and setting times.
+
+Furthermore, there seems to be some odd behavior with retrieving the body
+rising and setting times in the Java library for swisseph. It seems a
+little more unstable getting sunset.
+"
+"1266367a025329f7b1b8cef9d2f8bef96a1245e6","2015-09-18 14:43:23-07:00","Make sure getActivity() also isn't null since we need a non null activity to inflate from
+"
+"cc6e66d93b79a7785d698065d9c114992a00eb04","2015-09-18 14:45:30-07:00","Move force refreshing to its own function
+"
+"28230e96858ddc5b1f7f791a25be3d3085e06c8b","2015-09-18 14:46:36-07:00","Add VoC checking. Probably needs a drawer notification too.
+"
+"30bcfc0d60e478ca8cf1647adda3c94b3c615986","2015-09-18 23:16:30-07:00","Use ZoneTab database for a rough guesstimate of the appropriate timezone. This is especially crucial for manipulating the time to reliably pinpoint when the sunset, sunrise, and next sunrise will be for a specific day.
+
+Furthermore, the code for reading the ZoneTab database in is a port of:
+https://github.com/pascallemazurier/openastro-dev/blob/master/openastromod/zonetab.py
+"
+"89312ac93bf9e24770ce4949f23dfab11c789417","2015-09-19 00:17:16-07:00","Do not make a new copy of activity if tapping the notification.
+"
+"b081607f116b86d23afc192f9b77d8f5c9ed8ed1","2015-09-19 15:53:56-07:00","Add an about dialog
+"
+"8903d98462b7bc010679b89be88985a760e37257","2015-09-20 17:34:04-07:00","Code style cleanup (remove snake casing wherever possible)
+Also, organize the new classes better
+"
+"27b4a13c68d60011f84746874551a1998dee9c85","2015-09-21 11:59:40-07:00","Transform zonetab into a singleton. This'll be more useful in possible cases of multiple ephemeris and when adding in the birthtime information.
+"
+"12defb7612510bc59dc0d99eae5b942259a8d452","2015-09-21 13:45:36-07:00","Also set the theme on the application level. The reason for this is that the planet icon hour style indicators break when this isn't done.
+"
+"03df3fece468de766da4edeaab99659a0e8f4a76","2015-09-21 17:28:33-07:00","Draft up an AspectFragment for showing the aspect table between the
+user's birth data and the current data. Also, create CREDITS file
+citing all the libraries and snippets that I've used so far.
+"
+"fdb923859d7d0a463ec3a39a7787af40d02030e3","2015-09-21 20:13:09-07:00","Somehow forgot this earlier
+"
+"5e8e02cd150486ca05d74cd6f659d0cbdedef43b","2015-09-22 14:30:49-07:00","Update credits
+"
+"fc57f06d9001943d83422133c82959b4de50135c","2015-09-22 14:55:08-07:00","Update zonetab test to get the zonetab singleton
+"
+"4ee6f85f6ae91de12f558fe7e4d5ad0eb8a90af1","2015-09-22 14:57:44-07:00","Prototype of the Datetime Preference that will be used to set the birthtime of the user. This will be used for the aspect charts.
+"
+"587f04eb2836ef06777329e74eaa8f7a7619eab2","2015-09-22 16:45:20-07:00","Change the thrown exception to a more fitting one in ZoneTab's coordToStrVal
+"
+"288c6fa5ced6a8118b4dbf40e2c3e1b49ee9c99f","2015-09-22 19:34:50-07:00","Clean up imports in EphmerisUtils
+"
+"15cc14552bdb0fab60d8552cd02f1321fb4cbbd8","2015-09-22 19:35:54-07:00","Start working on the functionality needed for the aspect table.
+"
+"0a4e3b5aa1116ef8df17209d3db7599ba584e676","2015-09-22 22:22:55-07:00","Move rechecking the GPS to its own AsyncTask for reusability and to present a progress dialog until the service is done rechecking the location settings. Also, remove the last sendBroadcastSync call in AeonDroidService.
+"
+"3fe636c0d3158679ce2f956743f77d3d808ab8c0","2015-09-22 23:01:30-07:00","Remove the name column from the orbs table. Why? That's something is already the code. Not in the database. Not to mention it's not okay to store resource ids which may change.
+"
+"3742086df81378b10d1af1af0acdae7d99a7d9d0","2015-09-23 09:38:58-07:00","Add test to zonetab to make sure the retrieved timezone can and does exist, just to make sure that people can catch cases where zonetab has a timezone that the android version might not have? I don't think this'd happen, but it doesn't hurt to check.
+"
+"be5d38643d8c80061f835675ec642f3a2676e958","2015-09-23 11:58:59-07:00","Remove unnecessary import
+"
+"6891cf921c16aba8251f0a3552e4379a216df59d","2015-09-23 12:00:21-07:00","Move the threads out into their own package along with AeonDroid service
+"
+"d5391559a1993ea56ca1450c41b67ea9dbb49658","2015-09-23 13:42:09-07:00","Finish implementing the aspect chart, the UI for the editing the aspect table orbs will be implemented soon.
+"
+"79005ab8d211eea58b0dd987b0a180dc4e9a7e58","2015-09-23 18:03:01-07:00","Move adapters into their own package. Also, finish implementing the editing orbs GUI.
+"
+"03e5a04b6234ca22e6489caf07e542a41139a0a1","2015-09-25 10:35:06-07:00","Fix accidental rename of the id for settings menu entry in the main activity
+"

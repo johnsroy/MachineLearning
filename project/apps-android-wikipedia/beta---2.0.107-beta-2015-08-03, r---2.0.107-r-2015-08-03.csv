@@ -1,0 +1,527 @@
+"commit id","commit date","commit message"
+"4db1d360bbf47471555d70725daaf987eea4827d","2015-07-17 23:01:21-04:00","Use WikiErrorView for displaying page load errors.
+
+- Greatly simplified error logic in PageViewFragmentInternal, since a lot
+of it is now handled in java-mwapi.
+- Removed SectionsFetchException.
+- Removed duplicate exception parsing function from Utils.
+
+Change-Id: If104cc5f3675b6bdb2a755d49b7cef057d3a0e2e
+"
+"e48ade9061033fe65295ec8586b3189c14b68418","2015-07-20 17:17:38-04:00","Remove experimental page load checkbox from theme chooser.
+
+...since it's now part of Developer Settings.
+
+Change-Id: I94d5117c6bd7451ae37246c854a7001a44119dce
+"
+"5de219893c25d63bcaa81948b95682416214c06e","2015-07-21 17:23:36-04:00","Use TextInputLayout in History and Saved Pages.
+
+They fixed the bug in the Design Support library that was incorrectly
+hiding the hint text.
+
+Change-Id: I17b1e7e1ba690dceb4a2138475c34ae47079373a
+"
+"f81ed92d591cf9ad62e1e564b7a7fd8c88031db9","2015-07-21 23:18:48-04:00","Tweak the behavior of floating ToC button.
+
+So now, the button works like this:
+
+- When displaying the page for the first time (or whenever you're at the
+top of the page), the ToC button is always shown.
+- When scrolling away from the top, any time the scrolling ends, the button
+disappears after a 2s delay.
+- The button reappears only when you continually scroll with a certain
+velocity. (If you scroll at a normal reading speed, the button should
+not appear)
+
+Change-Id: Iba055476a3f8b49683a6e1d80bc630906b023282
+"
+"892017e03eab71f13906636dede29af23221c605","2015-07-23 19:06:05+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I23e2650a19a3cd98831beab5a243e63e7ea6ff1b
+"
+"516fcf415bcc6a507b3c6b4d890d40fe42c5cee8","2015-07-23 19:45:47+00:00","Merge 'Tweak the behavior of floating ToC button.'
+"
+"cb56d27556959ec32e63eadc7d77aeae760ca1a9","2015-07-22 13:55:00-06:00","Add neutral background splash screen
+
+Dark mode users do not want to be blinded during app launch by a light
+themed Activity. Unfortunately, Activity.setTheme() and
+getWindow().setBackgroundDrawable() don't take effect soon enough. I can
+find no other mechanism for changing the Activity theme dynamically.
+This is a workaround patch that changes the launch screen theme to be a
+neutral grey with a big W in it. The W keeps things interesting and
+makes a promise to the user that good things come to those who wait.
+
+Bug: T106392
+Change-Id: I1539405fcf2ab097516e13ef38a6301bec58b77e
+"
+"4857ae381570a30358cf1d2cfc94d035e19a8536","2015-07-23 15:40:09-04:00","Make new tabs appear behind the current tab.
+
+Bug: T106707
+Change-Id: I35ffd6647d4a2917b968ab244f28674e096a3b4b
+"
+"2e95f9671c768d17f10ac3f0a51930b965389d3e","2015-07-17 12:26:20-04:00","Replace Toast and Crouton with Snackbar.
+
+Unified the display of errors and warnings using Snackbar in place of
+Toast and/or Crouton, while utilizing the new methods for converting
+Throwables to plain strings.
+
+Turned the Wikipedia Zero banner from a Crouton into a Snackbar. Was able
+to keep the exact same formatting as the Crouton implementation, except
+the banner now pops up from the bottom, instead of the top. This is the
+only change that the Partnership team will need to approve.
+
+Note: this will need a LOT of testing.
+
+Bug: T102548
+
+Change-Id: I4314a8d219a90415636cfaca867152b9251e551d
+"
+"7d1b6d6e4c4232076dc6dd35c73c2ae042540748","2015-07-24 09:34:50-04:00","Fix possible crash involving the Share tooltip.
+
+This only seems to happen in 4.2.2, where it's possible that the system
+returns null when we request the View for an ActionMode menu item.
+
+Also removed an unnecessary parameter from showShareToolTip().
+
+Bug: T106679
+Change-Id: I8fd7cc1c0a7348b148a58cce838f207930e4da0a
+"
+"4625d2981f9d5264667ae0bb7b03395db952ac81","2015-07-24 16:03:55-04:00","Remove page section request debug logging
+
+Logging each section request is excessive.  I added it while working on
+something a while back, but it doesn't seem particularly useful.
+
+Let's remove it.
+
+Change-Id: Ie4e2ab316fbeacf6cd543b0b3a9052167835a2f1
+"
+"5834964afd03670c799d39e7fb82cc95a2fa4ad3","2015-07-24 16:27:14-04:00","Increase page refresh spinner offset by 16dp
+
+Per Google UX review recommendations.
+
+Bug: T105088
+Change-Id: Id725672613c3166c7cd0a44cbc81c794048cca22
+"
+"182b3eaa276d3c817f796c319b071656386eb472","2015-07-21 15:30:32-04:00","Add long-press menu to Search, Nearby, Disambig, and Read More.
+
+Generalized the PageLongPressHandler to be usable by a ListView in
+addition to a generic View. In the case of a ListView, we automatically
+give it an OnItemLongClickListener that handles the long-press event.
+
+Because the standard ListView doesn't provide the x-y coordinates of the
+long-press event, I created WikiListView where it records the last known
+x-y position from monitoring touch events.
+
+Made BottomDialog inherit from AppCompatDialog, and turned some of its
+initialization code into styles.
+
+Did NOT add the long-press menu to History and Saved Pages, since they
+already have a long-press action (to select multiple items for deletion).
+We'll need to think about that part a bit further (future patch).
+
+Bug: T103957
+Change-Id: Ibbf613bfb50435f643787430da590621181f1d1b
+"
+"f433f38b901edc5d47c7f6b53da88aaf30b2f886","2015-07-24 21:56:44+00:00","Merge 'Add long-press menu to Search, Nearby, Disambig, and Read More.'
+"
+"1a02767668234b5f0e6e866a13523d81233d63e2","2015-07-24 21:56:48+00:00","Merge 'Remove page section request debug logging'
+"
+"7e4ff9bfda058c160f49752576ae4f0367613356","2015-07-26 23:19:25-06:00","Hygiene: disable incremental build optimize on CI
+
+It is recommended[0] to disable pre-dexing when performing clean builds.
+This patch provides a property hook for controlling pre-dex which when
+unspecified defaults to disabled when executed from CI and true
+otherwise.
+
+An informal analysis was performed with this patch showing a nearly 2x
+performance increase for clean builds:
+
+1. <code>time for i in {1..10}; do time JENKINS_HOME=/home/stephen/tmp ./gradlew -q clean assembleDevDebug; done</code>
+4m38s total; 28s average iteration.
+2. <code>time for i in {1..10}; do time ./gradlew -q clean assembleDevDebug; done</code>
+2m23s total; 14s average iteration.
+
+Actual benefits when executed on the server may be more modest.
+
+[0] Pro tip #4 from https://plus.google.com/+AndroidDevelopers/posts/ECrb9VQW9XP
+
+Change-Id: I50f757ac2378c029fb47577b03c5dae49a0517c5
+"
+"9011539fbf9009aa8585135b16ba4ff515a42409","2015-07-27 19:13:22+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I20b51be465af87524c1a0aed2f3f3e78bf89c36a
+"
+"2e2f97b4c87673e56033b2a02b9a82f41d69ddb5","2015-07-24 11:02:45-04:00","Adjust sampling rate for new funnels, in preparation for production.
+
+Did a bit of refactoring of the sample rate logic. Funnels may now
+pass their sampling rate directly into the super constructor. The base
+Funnel class now does the job of fetching the sample rate from remote
+config parameters. The name of the parameter for each funnel is now
+derived from the actual name of the schema that the funnel uses, plus the
+string '_rate'. For example, the remote parameter for the SearchFunnel
+would be 'MobileWikiAppSearch_rate'.
+
+Since our current remote variables for the funnels either correspond
+exactly to the hard-coded value, or don't exist, it's safe to rename them
+in our code, and add them to the remote config file as needed.
+
+- Added sample rate of 100 to GalleryFunnel.
+- Added sample rate of 100 to AppLanguageSelectFunnel.
+- Since LinkPreviewFunnel is still in Beta, gave it a sample rate of 10,
+since the number of these events from the previous Beta is a bit much
+(it wasn't being sampled at all). When this is ready for production,
+will increase it to 100, or even 1000.
+- Added sample rate of 100 to SuggestedPagesFunnel.
+- Added sample rate of 100 to TabFunnel.
+- Added sample rate of 100 to DailyStatsFunnel.
+
+Change-Id: I9b20f161abad228cb551a4e6805207907fbbc06c
+"
+"de66f9edbacfd2792a2ed78ebe32ce5f0d267086","2015-07-15 23:48:27-06:00","Hygiene: Change SectionsFetchTask parameters
+
+The first step of multiple refactors to get to swappable SectionsFetchTasks.
+Pass in the app instead of a context.
+
+Renamed pageSequenceNum to currentSequenceNum.
+Renamed sequenceNum to startSequenceNum.
+
+Extract method loadPageFromCache().
+
+Change-Id: I227e6c28bcdc5572908022507e8f0a8782b331e6
+"
+"cb3723e4747d93289a970d32fdd6503ea485c147","2015-07-27 21:58:03+00:00","Merge 'Hygiene: Change SectionsFetchTask parameters'
+"
+"0c64d73a56cce5a6773fe70443a1d0782415ff1a","2015-07-27 17:08:51-06:00","Fix app picker on older devices
+
+- Specify appropriate resource package name.
+- Set intent package name.
+- Specify some function invariant annotations.
+
+This patch was derived from behavior on actual devices rather than
+documentation.
+
+Bug: T106332
+Change-Id: Ibbcc0f669f196e8e27c3e828a8305af969429596
+"
+"8cfce4586a2bf6d5a6669a01987f7e1432423107","2015-07-27 20:14:53-06:00","Fix NPE in tabbed browsing
+
+TabsProvider.enterTabMode(Runnable) was meant to handle a null parameter
+as evidenced by the no parameter version which invokes it with null.
+This patch adds null protection and specifies @Nullable on the
+parameter.
+
+No known repro steps at this time.
+
+Change-Id: Ibdc58bf49cc5551fb00a9352a11486dd5390054f
+"
+"c0030fab6b98f04a375819242365777eaae0d983","2015-07-28 14:51:03+00:00","Merge 'Fix app picker on older devices'
+"
+"44a170ef59d3ddafd16847b101b84b52b4fc4b47","2015-07-20 21:41:15-06:00","Hygiene: Extract calculating lead image width
+
+And make metadata (mobileview) JSON object key more generic
+in preparation of a simpler switch between mobileview and mobile content service.
+
+Bug: T104714
+Change-Id: I5d71dee14f1e5fa4e15b3a1c1c03c3319523d33a
+"
+"eff96a5e9b6691fcb122146a380988ece615eec2","2015-07-16 00:28:39-06:00","Hygiene: Add new preference for experimental json page load
+
+Renamed the methods for the old HTML preference.
+Hide the HTML option in the dev settings to keep it simpler.
+
+Bug: T104714
+Change-Id: Ib166e24a63d2ceb7ce064bf7d1dfc683e2f22ef7
+"
+"1fe3e21d5efaa350e38722f3db15672f56bd99d7","2015-07-23 10:12:04-06:00","Hygiene: Split off page content loading into two variants
+
+Currently they are using the same code. Will update in future patch to be different.
+
+Bug: T104714
+Change-Id: I3dfa7b0e964bf8cdd9fc93b891debd7a00c82776
+"
+"f3c2b18fb55db1d4f7339490c0f9b6374a23176f","2015-07-29 16:12:03-04:00","End the A/B test of morelike vs. full-text.
+
+Change-Id: I638f0d9b66da4845434601fe3878f1b4808658de
+"
+"056cda24e32d9647f30b3a280742555e88b6c492","2015-07-29 18:19:02-04:00","Fix possible crash in History and Saved Pages.
+
+Note: this fixes the crash, but doesn't quite answer the question of why
+onLoadFinished() is sometimes called with a null Cursor...
+
+Bug: T107355
+Change-Id: I6a47bc587a0bebd2ba217511c5bcac03ec8d7600
+"
+"1df0f1aa17a29285a64ea635123c73bbcb0e43b7","2015-07-30 15:26:26+00:00","Merge 'Fix possible crash in History and Saved Pages.'
+"
+"f4c4c73f6a15c9ef22a518d08841079a076a9ab2","2015-07-28 17:13:35-06:00","Preserve open tabs
+
+* Always preserve tabs opened by the user.
+* When changing languages, open a new main page tab in the foreground.
+* Add Gson library and update ProGuard configuration. The new library
+increases the size of the release APK by ~50KiB.
+
+Initial research in Phab T103954 suggested that the AOSP Browser
+implementation was favorable. Upon further research, converting Bundles
+to Parcels and writing them to disk is highly discouraged in the Parcel
+API documentation:
+
+> Parcel is not a general-purpose serialization mechanism. This class
+(and the corresponding Parcelable API for placing arbitrary objects
+into a Parcel) is designed as a high-performance IPC transport. As
+such, it is not appropriate to place any Parcel data in to persistent
+storage: changes in the underlying implementation of any of the data
+in the Parcel can render older data unreadable.
+
+This made the Browser approach ultimately unfavorable. Alternatives
+considered included Java serialization, databases, a custom file format,
+and SharedPreferences.
+
+It was unfortunate that Bundles could not be used as a large portion of
+app state that is desirable to preserve has mixed responsibilities with
+Bundles and Parcelable marshalling, which is encouraged in many official
+examples. This influenced the consideration of alternatives. Additional
+recording mechanisms leveraged in the app include databases and
+SharedPreferences.
+
+Java serialization is a classic choice. However, Effective Java
+dedicates a chapter to the dangers and encourages very judicial usage of
+the technique:
+
+> Allowing a class's instances to be serialized can be as simple as
+adding the words 'implements Serializable' to its declaration. Because
+this is so easy to do, there is a common misconception that
+serialization requires little effort on the part of the programmer.
+The truth is far more complex. While the immediate cost to make a
+class serializable can be negligible, the long-term costs are often
+substantial.
+
+A major cost of implementing Serializable is that it decreases the
+flexibility to change a class's implementation once it has been
+released. When a class implements Serializable, its byte-stream
+encoding (or serialized form) becomes part of its exported API. Once
+you distribute a class widely, you are generally required to support
+the serialized form forever, just as you are required to support all
+other parts of the exported API. If you do not make the effort to
+design a custom serialized form, but merely accept the default, the
+serialized form will forever be tied to the class's original internal
+representation. In other words, if you accept the default serialized
+form, the class's private and package-private instance fields become
+part of its exported API, and the practice of minimizing access to
+fields loses its effectiveness as a tool for information hiding.
+
+In the interest of avoiding such an initial investment, as well as long
+term costs, Java serialization was not chosen.
+
+Although a scalable choice, most databases on Android have uncomfortable
+lifecycles, even considering wrappers such as SQLiteOpenHelper, that
+frequently introduce bugs, especially when used in conjunction with
+Activity and Fragment lifecycles.
+
+A custom file format was briefly considered, but it was immediately more
+favorable to prefer established formats such as JSON.
+
+SharedPreferences in themselves, support (all?) Java primitives, and
+could be used. They're favorable because they supply an asynchronous
+write mechanism which may be used from the main thread, i.e., no
+worrying lifecycles, and are commonly used in general. However,
+marshallers and unmarshallers would still need to be built.
+
+Gson supports reflection based to and fro JSON serialization without the
+need to write marshallers and unmarshallers. This is two edged sword in
+that there are still the versioning concerns of Serializable, but Gson
+supplies annotations to avoid these issues.
+
+Gson used in conjunction with SharedPreferences supplies a full
+solution.
+
+Bug: T106709
+Change-Id: I5eacc8c07844253974cba6eb479bbcc8c5a2fa4f
+"
+"2178af9f273b0e71242ee0ee316f33948199bb57","2015-07-29 18:37:30-04:00","Promote Tabs to production.
+
+almost forgot!
+
+Change-Id: Id254296acfe2755c9aa59a1cb6a0069654beb0ea
+"
+"7cd7137d6254d95e59f96d7bd147b92e369733a0","2015-07-30 14:12:15-04:00","Open new tabs from '+' button in foreground.
+
+Bug: T107443
+Change-Id: I93caece4b92582dce768bf08af55aa98222810ad
+"
+"1f33fbb74bffa84c37e043639d28a3344632ea8d","2015-07-30 14:35:49-04:00","Make sure backstack is fully cleared when backing out.
+
+Bug: T107458
+Change-Id: Iab41d73b7140388d7e79ba4311298d45f217d94c
+"
+"6a0cb04262652533d8bb314045bdab55639341d5","2015-07-27 17:35:22-04:00","Add active state to search bar language select button
+
+Bug: T104855
+Change-Id: I7c7cb13e70e4a7bb6ea66b2a00c63a639aa479a6
+"
+"231f78c36b303f69889945e6ab42663a64927380","2015-07-22 18:10:13-04:00","Use NavigationView from android.support.design library for nav drawer
+
+This improves our Material design by using a specialized component for this
+function from the most recent version of the Android design library.
+
+As a bonus, it significantly simplifies our nav drawer code.
+
+Bug: T101723
+Change-Id: I4bd1b138065bfd0be7f35852881d374393013cb5
+"
+"7c2e49f8583d43f1ce4d98c3c3a4a3e3dc8cdd9e","2015-07-30 15:20:57-06:00","Show main page tapping featured page widget
+
+Fix regression wherein tapping the featured article widget would not
+spawn a new tab.
+
+Change-Id: I1b55ae269befffc84e8d15b8abc9cc1f76509091
+"
+"ee1f1325ad1866bf304b6da449f68d5f034c42bd","2015-07-31 01:11:27+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ibf0f475500ab97fe5cff965192b94a9885882e08
+"
+"2d7d128ed8078456392f9d1b1659b516181c8b59","2015-07-30 22:01:30-04:00","Improve appearance of swipe-refresh spinner.
+
+It looks like the 'LARGE' style is what's causing it to look all
+weird-like in APIs earlier than Lollipop. This makes it nice and
+consistent with other apps that use this component.
+
+Change-Id: Ib7f47afe06faff64b2720d2295c9bc0105b977d6
+"
+"1936e5bc9bb0f3af6d2d86a10920b034949349de","2015-07-31 10:04:42-04:00","Correctly show Snackbar when logging in and out.
+
+After the NavigationView patch, the app was no longer showing a Snackbar
+upon successful login, and showing a Toast (not a Snackbar) upon logging
+out.
+
+Bug: T107577
+Change-Id: I7c1685431c59fb6a85b490448a4210f108ec9874
+"
+"a81270c1a6beaf05eb011eec8a716f89fff3e131","2015-07-31 20:33:09+00:00","Merge 'Correctly show Snackbar when logging in and out.'
+"
+"941655b04d66d000c786a5a29e81e1c63d35fb1b","2015-07-31 19:43:11-04:00","Remove FAB from recent searches fragment
+
+Per Vibha, removes the floating action button from the recent searches
+fragment and reverts to the previous design.
+
+Bug: T105858
+Change-Id: Ia9bb4f64370d71938fb33f8f028bb9727e659470
+"
+"4cdedd7a3ecf8141d8d2e51ecbd761e0139010a9","2015-08-02 15:30:14-06:00","Hygiene: replace frequent casts with method
+
+Replace numerous casts of getActivity() to PageActivity with method,
+getPageActivity(), which performs the cast on behalf of the client.
+
+Change-Id: Ie049e0869298d493b6cb1edf55b4a6f4f55c66ad
+"
+"c4f2bc4d89852faa58432fa3d02be7ed385f259d","2015-08-02 22:05:32-04:00","Don't rely on column indices when fetching history from db.
+
+This fixes a nasty bug where, because we were relying on hardcoded column
+indices, we were sometimes returning a badly-formatted HistoryEntry from
+the persistence helper. To wit, the MainPageReadMoreTopicTask was
+receiving a HistoryEntry where the Namespace and Timestamp were switched
+around, producing page titles that have a namespace of a Unix timestamp!
+(e.g. '1872489743554:Irataba')
+
+This patch changes the persistence helper to no longer use hardcoded
+column indices, and instead looks up the column index by name.
+
+Bug: T107727
+Change-Id: Ifb1bd24d615c93a9b32bf85f3a5952efd40b574b
+"
+"cfc30d8cc36d69fc7c0653a4de971df93c7f23fd","2015-07-30 19:19:04-06:00","Tweak navigation drawer check behavior
+
+* Call PageViewFragmentInternal.onPageLoadComplete() even when loading
+from cache.
+* Make the Random entry uncheckable.
+* Update check state on Fragment back stack change.
+* Don't check Today if it's not a main page currently shown.
+* Add a couple missing annotations.
+
+This patch fixes a couple states where the checked state of the
+NavigationDrawer was incorrect.
+
+Change-Id: If0f7cc24bc50c2fc752a349a9b8a179d0de38231
+"
+"58b38797d7e88bb0195671706356726a6a6688a0","2015-08-03 14:41:10+00:00","Merge 'Hygiene: replace frequent casts with method'
+"
+"163aff7f29118f488481b4fe61e302c8a28e8069","2015-08-01 23:54:05-06:00","Hygiene: PageViewFragmentInternal to PageFragment
+
+Rename PageViewFragmentInternal to PageFragment. PVFI is clumsy and has
+unnecessary qualifiers as there is no public facing page Fragment and
+the Fragment is not a View.
+
+Change-Id: Ibf0d18ae0f4412c4d0a68e0411bc0ed4220369a5
+"
+"bed9e78008ba712ecdb4dd93e75d81a445fd6361","2015-07-30 18:29:19-04:00","Nail down tab behavior for pages coming from intents.
+
+Will now open pages sent from intents in a new tab.
+
+Modified Back behavior so that, when the backstack in the current tab is
+empty, the activity finishes (instead of animating into the tab list).
+This is consistent with other browser apps, and allows correct back
+behavior for links coming from an intent (i.e. a single Back press should
+take the user back to the previous activity, not the tab list).
+
+Made PageActivity be singleTask. According to the documentation, this is
+'not appropriate for most applications'... but we are not most
+applications. The rationale for this is that, since we now store our tab
+and backstack state in SharedPrefs, it no longer makes sense to allow
+multiple instances of PageActivity, since one instance that modifies the
+tab state would make it out of sync with the others. And in any case, a
+single instance of PageActivity will benefit the user by providing a
+single point of access to the user's 'state of research' in the app.
+
+Bug: T107487
+Change-Id: I242748438b73c25fccd99e5bad64db33c697d48e
+"
+"230e630cfadac76b72239261d11f547aeb579fba","2015-07-29 13:24:32-06:00","Keep Wikipedia enums and constructors
+
+The previous ProGuard configuration specified that all Wikipedia classes
+and interfaces should be kept but said nothing of enums. This patch
+includes enums and also specifies that constructors be kept for all
+three, as documentation[0] isn't clear if wildcards include constructors.
+
+[0] http://proguard.sourceforge.net/manual/usage.html#classspecification
+
+Change-Id: Ia286b74668a5d07b306772c43e34772709e5e632
+"
+"6cde7af03dda6b0019e49e51a2a94eecc55572b6","2015-08-03 19:52:17+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I471cf88f417dc71371955fb574aae1f7cc30469c
+"
+"d85eec946ac7110d171b392b79f9232a10038348","2015-07-30 17:46:50-04:00","Add event logging funnel for navigation menu interaction
+
+Adds logging per the schema at
+https://meta.wikimedia.org/wiki/Schema:MobileWikiAppNavMenu.
+
+Logs opening of the nav menu, selection of an item, and cancellation,
+i.e., the closing of the drawer without any item having been selected.
+
+Bug: T104623
+Change-Id: I9cf04cf9c2d258fc8b561d1dca99de40e22c78ab
+"
+"56932f32c44e6d1ebd651e237e745ff1189fe0be","2015-07-27 19:44:02-06:00","Add support for release tests
+
+* Flip testBuildType to debug or release depending on command line
+tasks. This change adds support for running tests against release
+builds. Previously, it was assumed that connectedAndroidTest*Release
+existed which caused certain tasks to fail to execute, namely the
+tasks task. This change fixes that too.
+* Don't suppress LoginTaskTest. @Suppress is currently ProGuarded away
+and we can fix the test by specifying a dummy account. This patch
+accomplishes the latter.
+* Publicize package protected method in ImageUrlMap to work around
+ProGuard stripping.
+
+Change-Id: I1dd6e0b01012e28a87967ba7d215114cb83d0099
+"
+"2bd35e3f1ae19743dc02b6b4e25f78646c25cc28","2015-08-03 17:58:57+00:00","Merge 'Keep Wikipedia enums and constructors'
+"
+"7aea70b53eac0b5b6e201cd492c2a0a730c23b74","2015-08-03 17:59:59+00:00","Merge 'Add support for release tests'
+"
+"99e423e5f402abad1f4d7e40260184380c9b9e73","2015-08-03 18:01:31+00:00","Merge 'Add event logging funnel for navigation menu interaction'
+"
+"3eec959922d7047f5de6e743a1021fe501c892fc","2015-08-03 12:30:02-06:00","Bump versionCode
+
+Change-Id: I25174ee43a9aaabdbaa6f24a522c88880d199ccb
+"

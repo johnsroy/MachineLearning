@@ -1,0 +1,706 @@
+"commit id","commit date","commit message"
+"e901533298766c21646620f175baeee986ff5577","2016-06-24 10:41:05+02:00","Add new clang-format config.
+"
+"2115e8a4a6814e32107b5205ff5c95bbd3c6e99c","2016-06-24 10:41:46+02:00","Add annotations for code sections that need to remain manually formatted.
+"
+"3570c7f03a2aa90aa634f96c0af1969af610f14d","2016-06-24 10:43:46+02:00","Reformat all the things. Have fun with merge conflicts.
+"
+"5fcb4bb3ab2e19d3ee95c08c6f86ba68656c6357","2016-06-24 12:16:10+02:00","Further fixes to the formatting change. WX sucks.
+"
+"43d0d692f941c6ca44f62bc17597d74e12ff97c8","2016-06-24 11:14:10+00:00","Fix D3D12 headers missing includes.
+"
+"e1c65406dcb9c9a4bae117400381da833fe1e981","2016-06-24 12:50:46+02:00","linter: Stop checking for include ordering (inconsistent with clang-format)
+"
+"3af8f7147256f8bfe1b3bffa7828e5b9ce52ce58","2016-06-24 13:23:10+02:00","linter: run clang-format and fail on diffs
+"
+"2fdfacd6d92bf9e8dc6f1b77cbac59eaf8771f28","2016-06-24 13:24:10+02:00","Add clang-format markers around fragile header inclusions.
+"
+"8a1bbaa56382b1bca3b95d79c716fc377c78e591","2016-06-24 14:27:35+02:00","lint: bash is hard, actually return errors
+"
+"d575b40c73cc2f84ddd9853e10c003605b354299","2016-06-15 17:24:25+02:00","Disconnect real Wiimotes when disconnected by games
+
+This commit makes real Wiimotes really disconnect when they are
+disconnected by the emulated software, which is more similar to how
+it works with a real Wii and allows Wiimotes to be disconnected after
+timeout for power saving.
+
+This is currently only enabled on Linux, because of limitations on
+the other platforms.
+"
+"84cd57f99b019a6ae8e514236dcca9e6e2ede03e","2016-06-24 11:46:48-05:00","Fix building with PCH disabled.
+"
+"b3302143879ea51ffe838ffc629aa88c4d9086c5","2016-06-24 19:23:03+02:00","Merge pull request #3928 from rohit-n/build-pch
+
+Fix building with PCH disabled.
+"
+"9e826940716c75cc8d9c54c695dda4cbe1b92ec0","2016-06-24 22:36:15+02:00","Fix configStrings in Android’s ButtonManager
+
+The bug was exposed by clang-format.
+"
+"cbd6fda5e33008f9889b35be6c508d3d37bc4731","2016-06-24 22:38:28+02:00","Merge pull request #3929 from spider-mario/android-button-manager
+
+Fix configStrings in Android’s ButtonManager
+"
+"ca2eaac704ba223c5d38bd0e2511e892d7db302a","2016-06-11 18:52:45-04:00","Split Audio Dumps on Sample Rate Changes
+"
+"dba9d86b55da7f67fde71450ded2ba4c86c8a5c9","2016-06-24 21:13:27-04:00","Merge pull request #3888 from RisingFog/remove_cpack_txt
+
+Remove cpack_package_description.txt from Windows builds
+"
+"92c572a83d04bc963ea7e4a9ee639854daa7d424","2015-12-09 01:04:24-08:00","Change Bluetooth device discovery on Linux to use LIAC
+
+This changes Bluetooth device discovery on Linux to use LIAC (Limited
+Dedicated Inquiry Access Code) since third-party Wiimotes (such as Rock
+Candy Wiimotes) are not discovered without it.
+
+Also added accessor function in IONix class to help with checking if
+the discovered Wiimote has already been found.
+
+[leoetlino: code review suggested changes, remove unused variable,
+commit message formatting fixes, and build fix]
+"
+"2f9a911c540473bb6cea5a9891a6a281aa2f3750","2016-06-25 23:36:01+12:00","Merge pull request #3913 from rukai/dolphinQtVSDLL
+
+VS can now run dolphinQt directly without DLL errors
+"
+"fd29e5c4cc26cd853a03ac7b0e08b367b7070c84","2016-06-12 17:08:04+02:00","ControllerInterface: Don't pass m_devices to the backends
+
+Previously, the devices vector would be passed to all backends. They
+would then manually push_back to it to add new devices. This was fine
+but caused issues when trying to add synchronisation.
+
+Instead, backends now call AddDevice() to fill m_devices so that it is
+not accessible from the outside.
+"
+"d3e2ae35ff853d115aca077eaa10b88114ef7c7c","2016-06-12 17:31:41+02:00","ControllerInterface: Add synchronisation
+
+Since we may have to add/access devices from different threads, this
+adds synchronisation to anything that touches m_devices.
+"
+"9b075556ea826699800d9478d1eed3a80368c348","2016-06-24 16:28:27+02:00","Fix a small formatting issue
+"
+"a7448271a9203aea26f05f62b75e43c5e5860e98","2016-06-26 00:17:08+12:00","Merge pull request #3892 from leoetlino/ciface-synchronisation
+
+ControllerInterface: Add synchronisation
+"
+"afa202738e54652e98e8388a5c6a1541d750e3e6","2016-06-26 00:17:57+12:00","Merge pull request #3865 from leoetlino/third-party-wiimotes
+
+Change Bluetooth device discovery on Linux to use LIAC (updated #3327)
+"
+"e82e4a62c16fd5756b28e50bbfb7f47c6a52b60c","2016-03-20 16:41:00+11:00","DQt2: Set a minimum width for toolbar buttons + fix stop button
+
+Using a minimum width is a good compromise between
+setting all buttons to the same width
+and letting them all decide their own width.
+This is because the small buttons are kept tidy and regular
+while allowing the biggest buttons to fit their contents.
+"
+"b707e199c2878d173c5d30f0a24db93d7de1d921","2016-06-25 10:58:53-03:00","constexpr added to BitSet.h. conflicts solved
+"
+"b5104a79f1d39d2d7d160f2bd984f604a5ae2797","2016-02-29 19:52:15+11:00","GCVolume: supports reading all opening.bnr information
+
+DQT2: Game properties dialog contains info tab giving information about the selected iso.
+"
+"384637bdb82ac2ce1c87984c1b19594b7f3b2ddc","2016-06-25 10:16:46-05:00","Merge pull request #3740 from rukai/dolphinQtToolbarWidth
+
+DolphinQt2: Set a minimum width for toolbar buttons + fix stop button
+"
+"64cf74abb4158ffabe8b5dce3c1a4d42a82b054f","2016-06-25 10:31:46-05:00","Merge pull request #3678 from rukai/dolphinQtPropertiesDialog
+
+DQt2: properties dialog - info tab
+"
+"88dbaf1fa50a0ac692c228861843deba826aa6f3","2016-06-24 22:41:10-04:00","Split Video Dumps on Resolution Change
+"
+"9081d029e304cfeb8650dab58efc526068a4ea03","2016-06-25 17:39:54+02:00","FixedSizeQueue: modernize (std::array, std::move)
+"
+"1878605d77d38861307027ae5bcd6ca131c8266e","2016-06-25 18:07:10+02:00","Undo some comment formatting changes from b5104a7
+"
+"10682dbf5843bcf55cda7db4bc4e5acaee556648","2016-06-25 18:45:53+02:00","Merge pull request #3934 from JosJuice/comment-formatting
+
+Undo some comment formatting changes from b5104a7
+"
+"8678133e8746fdc20f7d012005ebf2db370ddccc","2016-06-25 21:46:39+02:00","ControllerInterface: Switch to std::shared_ptr
+
+Small cleanup by using std::shared_ptr and getting rid of
+ciface.Devices() which just returned the m_devices (which defeats the
+point of making m_devices protected).
+
+Incidentally, this should make the code safer when we have
+different threads accessing devices in the future (for hotplug?).
+
+A lot of code use Device references directly so there is
+no easy way to remove FindDevice() and make those unique_ptrs.
+"
+"59e4882af3e18a4ef2c68f512ab312515ec1b466","2014-02-03 14:02:17+01:00","nullvideo: initial release of null video backend
+"
+"fdbda7b7dd47fc78edb865e0cc38028cd2e157be","2016-06-09 23:11:34+02:00","Null: Create Visual Studio project file.
+
+Why is this so stupid on linux.....
+"
+"5ba3e641ea6212a3e7d7e9f443b1dba985e5d8ca","2016-06-26 10:31:07+12:00","Merge pull request #3933 from delroth/fixed-size-queue
+
+FixedSizeQueue: modernize (std::array, std::move)
+"
+"e31a4d1f0731603d0396e592e23cf7acd0457397","2016-06-25 20:14:28-04:00","Merge pull request #3813 from degasus/null_video
+
+Null: Initial release of null video backend
+"
+"c1fa1e67497ed38623f63d1457e1992e56287833","2016-06-26 04:03:33+02:00","Merge pull request #3923 from leoetlino/ciface-small-cleanup
+
+ControllerInterface: Small cleanup
+"
+"131c65c41ea4b0cb4cddcb63b073b381e127d8b8","2016-06-26 14:30:14+12:00","NullVideo: Fix up Visual studio solution.
+
+Turns out visual studio really wants tabs in it's solutions.
+"
+"711ea973330cdbda4cca5b3835b8b8e2ef7906ad","2016-06-26 14:33:22+12:00","Merge pull request #3939 from phire/VS-is-anal-about-tabs
+
+NullVideo: Fix up Visual studio solution.
+"
+"3a2616714845781deea087c8cfdb965adc04b447","2016-06-26 14:42:46+12:00","Merge pull request #3931 from dhustkoder/master
+
+constexpr added to BitSet.h. conflicts solved
+"
+"be922730b3cc5d2d2bd8419f02ddb820113d0ee8","2016-06-26 05:34:09+02:00","ControllerInterface: Include memory to fix building without pch
+
+All affected files use shared_ptr but do not include memory which breaks
+building without precompiled headers.
+"
+"55916b963db191579f4b5ad2fc7fed4ac6fee98e","2016-06-25 22:59:07-04:00","Device: Use std::tie for DeviceQualifier's operator==
+"
+"659d079d5ca44caf210f61ac49534589b75d3f3d","2016-06-25 23:30:32-04:00","Fix in-tree build (cmake .) on OS X.
+
+OS X uses a case insensitive filesystem by default: when I try to build,
+a system header does #include <assert.h>, which picks up
+Source/Core/Common/Assert.h.  This only happens because CMakeLists adds
+'${PROJECT_BINARY_DIR}/Source/Core/Common' as an include directory: in
+an out-of-tree build, that directory contains no other source files, but
+in an in-tree build PROJECT_BINARY_DIR is just the source root.
+
+This is only used for scmrev.h.  Change the include directory to
+'${PROJECT_BINARY_DIR}/Source/Core' and the include to
+'Common/scmrev.h', which is more consistent with normal headers anyway.
+"
+"53c402dbc5cc25a62a1640ba8062fb8b2ebc1461","2016-01-14 18:51:37+13:00","Multithreadded Shadergen: First Pass over vertex/lighting Shadergens
+
+The only code which touches xfmem is code which writes directly into
+uid_data.
+
+All the rest now read their parameters out of uid_data.
+
+I also simplified the lighting code so it always generated seperate
+codepaths for alpha and color channels instead of trying to combine
+them on the off-chance that the same equation works for all 4 channels.
+
+As modern (post 2008) GPUs generally don't calcualte all 4 channels
+in a single vector, this optimisation is pointless. The shader compiler
+will undo it during the GLSL/HLSL to IR step.
+
+Bug Fix: The about optimisation was also broken, applying the color light
+equation to the alpha light channel instead of the alpha light
+euqation. But doesn't look like anything trigged this bug.
+"
+"03f2c9648dba5b7919d0c34e8381a02f84851695","2016-01-15 17:51:54+13:00","Shader UID change: Only store the two bits of components we need.
+
+This frees up 21 bits and allows us to shorten the UID struct by an entire
+32 bits.
+
+It's not strictly needed (as it's encoded into the length) but I added a
+bit for per-pixel lighiting to make my life easier in the following
+commits.
+"
+"e99364c7c928bc4bf1002d1ef2f9e06b603be1ae","2016-01-16 13:01:04+13:00","UID Change: Fix bug with indirect stage UIDs
+
+Bug Fix: The normal stage UIDs were randomly overwriting indirect
+stage texture map UID fields. It was possible for multiple
+shaders with diffrent indirect texture targets to map to
+the same UID.
+Once again, it dpesn't look like this bug was ever triggered.
+"
+"0d996f512b47baa09fa5f61759ac9d11348fccf9","2016-01-17 02:25:16+13:00","Multithreadded Shadergen: First pass over pixel Shadergen
+
+Bug Fix: It was theoretically possible for a shader with depth writes
+disabled to map to the same UID as a shader with late depth
+writes.
+No known test cases trigger this.
+"
+"4969415f38e2d29666e550aa94608559a3e001a4","2016-01-16 22:56:49+13:00","Remove global refrences from common code.
+
+Bug Fix: Previously vertex shaders and geometery shaders didn't track
+antialaising state in their UIDs, which could cause AA bugs
+on directx.
+"
+"fa02f47729b0caeec455a47dcd032d663a47a645","2016-01-16 23:20:09+13:00","Multithreadded Shadergen: First pass over geometery Shadergen.
+"
+"28c7113e41a70e278e033094d3088e58eeb00c88","2016-01-16 23:49:39+13:00","Multithreadded Shadergen: Second Pass over geometery Shadergen
+"
+"1a831cfc7d4c43f418ae4d65b579bf430aeb278d","2016-01-17 00:34:06+13:00","Multithreadded Shadergen: Second Pass over vertex/lighting Shadergens
+
+As much as possible, the asserts have been moved out of the GetUID
+function. But there are some places where asserts depend on variables
+that aren't stored in the shader UID.
+"
+"24e5d21780c6ece01ef8a2315eb9ed5300535688","2016-01-17 01:41:26+13:00","Multithreadded Shadergen: Second pass over Pixel Shadergen.
+
+Note: It's not 100% perfect, as some of the GPU capablities leak into the
+pixel shader UID.
+
+Currently our UIDs don't get exported, so there is no issue. But someone
+might want to fix this in the future.
+"
+"95469ec225f325020221c4495b94a7b7cb2475a8","2016-01-17 01:57:59+13:00","Remove UID Checker.
+
+Kind of pointless now that multiple shaders with the same UID are
+now fundementally impossible.
+"
+"ebe5fd0b36556a39ac25052966261b56d90ea1ae","2016-02-28 09:46:58+13:00","Multithreadded Shadergen: Minor fixups.
+"
+"2f134c5c36c3a9c3c7a618635d98d0bf2191b9f2","2016-02-28 10:01:25+13:00","Remove the rest of ShaderDebugging.
+
+Without UID checking, it's basically a no-op that disables shader cache
+and stores the shader source code (without ever reading it back).
+"
+"3d72fe3173d4f500d3025766c0578eb26d588c9f","2016-06-26 00:35:00-04:00","Merge pull request #3942 from comex/osx-build-fix
+
+Fix in-tree build (cmake .) on OS X.
+"
+"bc354277ca9602827ca9ce409e2b74829ec7e635","2016-06-26 06:40:14+02:00","Merge pull request #3940 from lioncash/tie
+
+Device: Use std::tie for operator==
+"
+"61813767c77eb74cb3fa58b21fe7686047ba2b43","2016-06-25 23:37:47-04:00","Get rid of #define PAGE_MASK and round_page, which conflict with OS X headers
+"
+"fe73ae85262e7e8722deaa73835f4d230f97bc29","2016-06-25 23:39:50-04:00","Add missing override
+"
+"efef07293b5978bcf9a06d8b0c4f20819ecc62cd","2016-06-25 23:52:32-04:00","Suppress deprecation warning.
+"
+"b5ed27ffa838fff1b3915d612143d60e9c68d7ee","2016-06-25 22:52:17-07:00","Misc cleanup in Interpreter.
+
+Mostly comment changes; also gets rid of an unnecessary call to
+CheckExceptions.
+"
+"1c28a27ee47a4269b7571059f153ea2c1e1f0453","2016-06-25 22:44:27-07:00","Delete dead variable named bFakeVMEM.
+
+(There's another bFakeVMEM in Memmap.h.)
+"
+"8d2137ba85e84b46bab4122d746f71156817258a","2016-06-26 02:10:13-04:00","Merge pull request #3948 from magumagu/dead-bfakemem
+
+Delete dead variable named bFakeVMEM.
+"
+"c8966453134cdf3b0f65750a1337492b90c732d4","2016-06-26 02:11:09-04:00","Merge pull request #3947 from magumagu/interpreter-cleanup
+
+Misc cleanup in Interpreter.
+"
+"cf50ed82bb20ec48bf181a65fad165d4846e1db9","2016-06-26 02:13:47-04:00","Merge pull request #3943 from ShadowsFriend/nopch-fix
+
+ControllerInterface: Include memory to fix building without pch
+"
+"8d1a70af9a712f259a8053226f809c9e70af2748","2016-06-26 02:16:35-04:00","Merge pull request #3945 from comex/warning-fixes-2016
+
+Warning fixes 2016
+"
+"2776bcbf55ccc256fd7b43008ee4349d59739cff","2016-06-26 18:33:09+12:00","Merge pull request #3903 from leoetlino/wiimote-disconnect
+
+Disconnect real Wiimotes when disconnected by games (not on all platforms)
+"
+"4c5f8f9c91944bca59db737ce7658a06f7673bd6","2016-03-01 22:43:19+01:00","CoreTiming: Drop ProcessFifoWaitEvents.
+
+globalTimer is only written in Advance, so this function has no function.
+"
+"ca96302a36665e3442a93517babc478b1e4f06b2","2016-03-04 18:44:47+01:00","PowerPC: Dedoublify CheckExternalExceptions.
+"
+"ee9e3432cb980ff75b40b40b9f5729fa25a68fc2","2016-06-26 21:55:22+12:00","Merge pull request #3513 from phire/make_hdkr_happy
+
+Get shadergen ready for Multithreadded generation of shaders.
+"
+"b16333a25cc0d8396f71fa1e410484026adea964","2016-06-26 22:13:05+12:00","Merge pull request #3716 from degasus/coretiming
+
+CoreTiming: Drop ProcessFifoWaitEvents.
+"
+"7833ff25df5cb3bf10b363d30d7af8007094454a","2016-01-13 21:14:20+01:00","VideoBackends: Merge Initialize and Shutdown functions.
+"
+"5f2f4620676198bb63eeb169358435037491d4ad","2016-01-13 21:38:11+01:00","VideoBackends: Merge ShowConfig functions.
+"
+"d79aeaa1e9b224b3bb147c605fb8ffd6e2bfc890","2016-06-26 08:06:23+02:00","VideoCommon: Drop GetConfigName.
+
+We're past 5.0 now, so there is no need to look for old inis.
+"
+"3887328bbaf43320b22ef2ca4ade325c23789d0f","2016-06-26 12:48:59+02:00","Merge pull request #3510 from degasus/master
+
+VideoBackends: Merge backend initialization and shutdown.
+"
+"d958388617fe16cc44b385658a4e44dfc9ae39e7","2016-06-26 23:01:02+12:00","VideoCommon: Fix some warnings.
+"
+"6b01eca3a07bd8f7e1a14c6c1eb10eee6ce01c4d","2016-06-26 13:37:15+02:00","Merge pull request #3950 from phire/fix-warnings
+
+VideoCommon: Fix some warnings.
+"
+"d9fc1e01b4d2c6623605f64c4d8481189f177093","2016-06-26 16:28:10+02:00","LightingShaderGen: Fix formatting
+"
+"a910a4309f7399abe567d20bd4acb26c5ec78911","2016-06-27 01:55:42+02:00","x64EmitterTest: fill cpu_info with 0x01 instead of 0xFF to make gcc happier
+"
+"6ed001ad42f0d0a680a2286c5a169ec3bad814e6","2016-06-27 02:38:10+02:00","Merge pull request #3954 from delroth/x64-emitter-test
+
+x64EmitterTest: fill cpu_info with 0x01 instead of 0xFF to make gcc happier
+"
+"4aa5291f545a44a987a931d8b09ba33497772f28","2016-02-28 14:33:53-07:00","Refactor the paired load/store code
+Simplification/reduction of duplicated code. Detect other constant GQR values and inline loads (5-10% speedup) and do direct dispatch to AOT methods for stores.
+"
+"c4838b9cbc8e64cf651914d429ecda889463901b","2016-06-27 09:59:48+02:00","Merge pull request #3951 from leoetlino/formatting-fix
+
+LightingShaderGen: Fix formatting
+"
+"1dee75a68e4819c0c8c79213181b1d142a68babb","2016-06-27 04:15:16-04:00","FifoRecorder: Use lock_guard instead of explicit lock/unlock
+"
+"cf2c5e276c80882a0dbd17c503172226547a4021","2016-06-27 10:36:43+02:00","Merge pull request #3957 from lioncash/mutex
+
+FifoRecorder: Use lock_guard instead of explicit lock/unlock
+"
+"1b71249562d001f509bf20cc831f685b7d2edf25","2016-06-27 12:45:00+02:00","D3D: Fix crash on start with BBox enabled
+
+Someone removed the BBox::Init(), causing crashes when BBox is enabled.
+
+Fixes issue #9643.
+"
+"a4f2f13c3d10e030cbd092bea97052f901e7bd70","2016-06-27 13:26:48+02:00","Merge pull request #3959 from leoetlino/d3d-bbox-fix
+
+D3D: Fix crash on start with BBox enabled
+"
+"f31adf9635283a288b4765b07b01bfa700dd50b2","2016-06-26 13:23:10-04:00","Fix D3D crashes/issues
+"
+"ddc9e414ee6fe8218d3cb2971d5fcb0f4673a5e6","2016-06-27 18:31:50+02:00","Merge pull request #3454 from mmastrac/gqr_fixes
+
+JIT perf improvements for quantized loads/stores
+"
+"3b3cbc4aab288fb0e405b8670be44c79648d33f4","2016-06-27 22:06:52+02:00","BusyLoopTest: Only run 10 times.
+
+Running this test 100 times is not worth to spend 1 second.
+"
+"ee629ec76321af888e6273cd7389b2faad833221","2016-06-27 22:25:17+02:00","Merge pull request #3960 from degasus/master
+
+BusyLoopTest: Only run 10 times.
+"
+"b1296a7825078ac8354e363117613d5e3fbb64df","2016-02-28 14:33:53-07:00","Refactor fastmem/trampoline code.
+Simplication to avoid reading back the generated instructions, allowing
+us to handle all possible cases.
+"
+"adcef046f6069fd72e1a10faff050f192e78c417","2016-06-27 23:06:22+02:00","Merge pull request #3496 from mmastrac/fastmem_refactor
+
+Refactor the fastmem/trampoline code
+"
+"1e08ad0d978683e096bc8161778b71f763cc52a6","2016-06-26 20:05:45-06:00","Add MOV optimization and MOV_sum
+Replaces incarnations of the A=B+C pattern throughout the
+code so we can apply optimizations consistently.
+"
+"93a5efa347c62ca97e375a1a226d7741d584fd2f","2016-06-27 23:53:27+02:00","Merge pull request #3956 from mmastrac/mov_sum
+
+Add MOV optimizations and MOV_sum
+"
+"28a3691e70ba2a1b37dbb58b22dfd35336c99a80","2016-06-27 22:39:19-04:00","Merge pull request #3930 from RisingFog/split_video_dump_resolution
+
+Split Video Dumps on Resolution Change
+"
+"35566316edfc3a29c49e8df88ce5aebfe1f0a0c5","2016-06-28 15:12:43+12:00","XFB: Send image to screen at start of field.
+
+This is much more accurate to the hardware, and saves around 16ms
+of latency.
+"
+"41335752e57fbf18ec2339a84ce5080b2c5fe654","2016-06-28 11:52:40-04:00","Merge pull request #3891 from RisingFog/split_audio_dump_sample_rate
+
+Split Audio Dumps on Sample Rate Changes
+"
+"8943d23a4c332408611ec412de99107c1e417bdf","2016-06-28 21:19:40-04:00","FifoDataFile: Make Load return a unique_ptr
+"
+"437b1294bbae5712108ed9913194dafbd8aa82cc","2016-06-28 21:38:33-04:00","FifoDataFile: Convert MemoryUpdate data member to std::vector
+"
+"396ae89e5c636433b2960dc421b70db5797fa4ec","2016-06-28 22:25:22-04:00","FifoDataFile: Convert FifoFrameInfo's fifoData member into a vector
+"
+"8ff9b299fb9a73ea1e44b68b8595d8059bfa0972","2016-06-29 10:02:56+02:00","Merge pull request #3965 from lioncash/fifo
+
+FifoPlayer: Cull some explicit delete and new instances
+"
+"20449ec91f8fb7f4fb7a2318539422174387c932","2016-06-30 20:25:36+12:00","Don't forget to initalize your variables.
+"
+"ed42467e87c7abb15f722228a50a28e3f184ea97","2016-06-30 10:58:50+02:00","Fall back to default theme when the configured theme doesn't exist
+"
+"61371f3a4fc7a5f10378bd9b03661c6a8447a897","2016-06-30 10:32:37+02:00","Remove Boomy
+
+Removes the Boomy theme because it doesn't fit Dolphin well.
+This doesn't affect the Boomy-based debugger icons in Resources.
+"
+"f8bf839e36ecd0addcc07b841a1dca66bf90dca9","2016-06-30 12:07:50+02:00","Merge pull request #3967 from JosJuice/remove-boomy
+
+Remove Boomy
+"
+"e57333ac5eb5771ec34d503cec82556ae6ccb9e0","2016-06-30 21:58:23+10:00","Jit: Remove unsafe MOV optimization
+
+This optimization broke arithXex in rare cases by
+emitting XOR where MOV was expected.
+"
+"488847099fb076ace9bb0f39c9c504df8e51536f","2016-06-30 18:00:42+02:00","Merge pull request #3968 from hthh/mov-bug
+
+Jit: Remove unsafe MOV optimization
+"
+"6252264c21d779468a2b6f4563cf0e87ca795929","2016-06-30 17:14:00-07:00","Remove Remaining Boomy Icons and Replace With Placeholders
+
+Replace Boomy Icons With Placeholders
+"
+"e92ff9d09f31cad57134969d99633fca52e98dac","2016-06-25 11:24:43-04:00","Add Dump Path to Configuration Menu
+"
+"eccda1dde6648351376bb36840176d040107ae1a","2016-07-01 02:44:42+02:00","Merge pull request #3971 from Pringo/master
+
+Remove Remaining Boomy Icons and Replace With Placeholders
+"
+"046c96f1b825756ce598f9c84b82f204d66b4aab","2016-06-30 20:46:52-04:00","Merge pull request #3944 from RisingFog/configurable_dump_path
+
+Add Dump Path to Configuration Menu
+"
+"76abf1f727f7b17da49e99f1ea3d40d77a2eaabf","2016-06-30 20:43:59-04:00","Remove AddStereoSample function
+"
+"fcbb39d236d26e35f8698000b041470d1d8f6dbc","2016-07-01 01:03:14-04:00","Merge pull request #3972 from RisingFog/merge_addstereosamples
+
+Remove AddStereoSamples function
+"
+"b30bf5d9598c2498434aeee4de680f225c632428","2016-07-01 08:24:02+02:00","Merge pull request #3966 from phire/ImNotTheOnlyPersonWhoMakesThisMistake
+
+Fix broken debug builds in visual studio
+"
+"06ccfef1c186a36baf48897994e10d8c941ed512","2016-07-01 04:08:04-04:00","FifoPlayer: Get rid of unnecessary includes
+"
+"9bfafed5b86887c1a8089b837b361003093d791c","2016-07-01 04:34:07-04:00","FifoPlayer: Get rid of semicolons on namespace braces
+"
+"55ec1b69fcae765dd0336245a1ff2c46133c282b","2016-07-01 05:36:42-04:00","Merge pull request #3975 from lioncash/header
+
+FifoPlayer: Remove unnecessary headers/namespace cleanup
+"
+"b210769ea0aa03b9c95f9bad20eca0321cd90cc1","2016-07-01 13:07:57+02:00","PatchEngine: Clear active codes on shutdown
+
+The active codes normally get cleared when a game boots, because
+LoadPatches gets called, replacing the codes from the previous game.
+However, there were cases where LoadPatches doesn't get called, and
+then codes from the previous game would be used for the current game.
+This commit clears the codes on shutdown so that it doesn't matter
+whether the boot process loads LoadPatches.
+"
+"b33a5e25105fa065c8cfb559fca9d12b85136d81","2016-07-02 08:48:02+00:00","Automatic translation resources update from Transifex
+"
+"f42350e719d20e9ef4fe03273f142a08f764ccbb","2016-02-10 16:42:32+11:00","portable.txt enables portable configuration on linux, README updated to
+show how to build a portable and a local dolphin on linux.
+"
+"8a2e7fddd178b7b1809878e09049818276b2151c","2016-06-02 22:56:15+02:00","Sync the 'enable cheat' setting over netplay
+"
+"d6a2fcd26c821d795209c4fefa088f2f0ff15a81","2016-07-04 17:48:04-06:00","Formatting and setting is now only temporarily changed (#1)
+
+Add the cheat setting to the bootmanager config cache, and reformat
+"
+"69bf05b302f06cb3935694e00270098c6e3b9d7a","2016-07-05 21:13:48+12:00","Merge pull request #3976 from JosJuice/shutdown-clear-codes
+
+PatchEngine: Clear active codes on shutdown
+"
+"708fb35fdb56bb2a5b05f7cc049ed8525a7265da","2016-07-05 21:36:02+12:00","Merge pull request #3878 from mathieui/enable-cheats-for-jmc-the-cheater
+
+Sync the 'enable cheat' setting over netplay
+"
+"7ad74832e693c70c6def2e658b85ecd62fa51bcb","2016-05-31 08:51:44+12:00","Revert 'Undo the addition of a translatable string during the string freeze'
+"
+"f3e459091b837612af3a58f935734e7e68fa5090","2016-07-05 12:07:53+02:00","Merge pull request #3874 from dolphin-emu/revert-3873-argh
+
+Revert 'Undo the addition of a translatable string during the string freeze'
+"
+"3b7c614124a9501a1e1ee9f081fb3f76f495a967","2016-07-06 18:31:18+02:00","DolphinWX: Fix a mix-up
+
+Caused by a commit of mine, cb3b1b6
+"
+"3f03e2d5fe27f762f362b2a5010f778b26ed0ce6","2016-07-06 18:46:05+02:00","Merge pull request #3982 from JosJuice/how-did-this-even-compile
+
+DolphinWX: Fix a mix-up
+"
+"31226b8503439641ecc1d4a2781bcc3fd08ede28","2016-07-07 11:51:58+02:00","DiscScrubber: Replace unused blocks with 0x00 instead of 0xFF
+"
+"fcf5d4f6bcb1c728567fea8d76913d2a782e7e47","2016-06-26 10:27:52+02:00","Revert pr#3802
+
+https://github.com/dolphin-emu/dolphin/pull/3802
+"
+"330289cf7111753dc999333b3f9f1d2af2186a41","2016-06-26 10:44:15+02:00","Revert pr#3691
+
+https://github.com/dolphin-emu/dolphin/pull/3691
+"
+"4f9fe41ee608c8dec3ccc8442601e46bc4e61f83","2016-06-26 10:54:49+02:00","Revert pr#3660
+
+https://github.com/dolphin-emu/dolphin/pull/3660
+"
+"bfe8b11ba8080f5330fbf6fb6e0657fd992169f5","2016-07-08 22:46:45+02:00","Merge pull request #3949 from mimimi085181/restore-wiimote-netplay
+
+Restore wiimote netplay
+"
+"0f028df6b250c91a9d345f0184c12c0865714ff6","2016-07-08 16:35:03+02:00","DolphinWX: Shut down cleanly on signal
+
+This makes DolphinWX shut down cleanly, just like it would with
+File->Exit when it receives a SIGINT, SIGTERM (Unix) or some signals
+on Windows.
+
+The default signal handler will be restored after a first shutdown
+signal so a second signal will exit Dolphin forcefully.
+"
+"b962c1f3920b92d504937e6a1f826c6750fa780c","2016-07-08 23:08:35+02:00","Fix running more than one session with Wiimotes
+
+A static var is not a good idea, when the value needs to be reset for every session. Also, the variable holds the data size, so it makes sense to set the data size, where the data is added.
+"
+"de7b2f984a924f6b8a8b7be46972a03dd30decbc","2016-07-08 23:15:38+02:00","Make tries a u32
+
+Before this variable was an u8, which could theoretically result in desyncs with a large buffer(greater than 255*120/200=153) filled with blank inputs. If this could actually happen, i don't know. But this part of the code on its own looks like it could break.
+"
+"1be5f23d9f59163b6265b94b9e29ea8450f2456c","2016-07-08 23:33:21+02:00","Merge pull request #3992 from mimimi085181/wiimote-netplay-fix-second-session
+
+Netplay: Fix 2nd session on Wiimote netplay
+"
+"59f4d445bbc3c3dbfe6420571ef43731f8af5474","2016-07-09 14:17:22+02:00","Merge pull request #3991 from leoetlino/signal
+
+DolphinWX: Shut down cleanly on shutdown signal
+"
+"90ed048532e57791ea4919509edb26bf2a51d53b","2016-07-09 17:38:27+02:00","DolphinWX: Print a message when we receive a signal
+
+This makes it clear that sending a signal a second time will force stop
+Dolphin (which is useful in case the GUI is deadlocked or otherwise
+unable to react to the signal).
+"
+"ece5de24bcfcbf03109de5d5a86b49abd03a89be","2016-07-09 20:46:54+02:00","Merge pull request #3993 from leoetlino/signal-message
+
+DolphinWX: Print a message when a signal is received
+"
+"93d83ab4d30fd6c29e39fbc5ce14fa540ed90753","2016-07-09 12:35:21-07:00","Update OS X Requirement to 10.10
+"
+"bdec0d554482f75697a7fc1b034c88b6dfd018ad","2016-07-09 22:29:21+02:00","Merge pull request #3994 from Pringo/update-osx-requirement
+
+Update OS X Requirement to 10.10
+"
+"d00c013339923bafc5caacb52eda4675e6f54bd2","2016-07-09 20:29:33-04:00","Remove VI count limit on Movie playback
+"
+"6204a813fd007e465cc154c633fda7c7607369f0","2016-07-10 02:54:31+02:00","Merge pull request #3995 from RisingFog/remove_vi_movie_playback
+
+Remove VI count limit on Movie playback
+"
+"7ee6d082131cf40b8a8471ff3ac967e30326f59e","2016-07-10 03:01:26+02:00","Merge pull request #3961 from phire/less_virtual_xfb_lag
+
+XFB: Send image to screen at start of field (Reduce VirtualXFB latency)
+"
+"cd9a58b70470e3800d818c429c3b5453834ec0c6","2016-07-10 10:13:34+02:00","Check if all players have the game before starting netplay
+
+https://bugs.dolphin-emu.org/issues/8885
+"
+"c827fdd2b576d34af43a9cb3b80ecd9616493cf6","2016-07-07 15:40:14+02:00","WiimoteReal: Don't block on refresh
+
+This changes Refresh() to use the existing scanning thread to scan for
+devices, instead of running the scan on the UI thread and blocking it.
+
+Also makes the UI thread not block when Continuous Scanning is disabled
+and removes duplicated code.
+
+Should fix issue 8992.
+
+Under the hood:
+* The scanning thread is now always active, even when continuous
+scanning is disabled.
+* The initialize code which waits for Wiimotes to be connected also
+uses the scanning thread instead of scanning on yet another thread.
+* The scanning thread now always checks for disconnected devices, to
+avoid Dolphin thinking a Wiimote is still connected when it isn't. So
+we now check if we need new Wiimotes or a Balance Board at scan time.
+"
+"08e482eae3d6729c226334c8437a215468fb50f1","2016-07-10 16:34:33+02:00","Merge pull request #3614 from rukai/LinuxLocalDev
+
+Linux support for portable.txt + documentation in readme
+"
+"80fc5e2814257676ad5551c7da4453cb51761aa6","2016-07-10 20:41:00+02:00","WiimoteReal: Don't use a recursive mutex
+
+This replaces a recursive mutex with a normal mutex.
+"
+"3a895f88bf13b7eac229f7534ea73f1bc8495986","2016-07-10 21:40:48+02:00","Merge pull request #3988 from leoetlino/scanning-block
+
+WiimoteReal: Don't block on refresh
+"
+"3f4072d5b9eb5a0c03d7af2ababeb5846e4d1fde","2016-07-10 21:22:47-04:00","Fix configuration when LLVM_PACKAGE_VERSION is unset
+"
+"f2474e0404fa7993e574eaabf375db16ddccb092","2016-07-11 03:24:00+02:00","Merge pull request #3997 from comex/cmake-fix
+
+Fix configuration when LLVM_PACKAGE_VERSION is unset
+"
+"42660292f69c2d4509017748abaf4e56de7ba5b1","2016-07-10 21:36:18-04:00","Use newer ffmpeg APIs to avoid deprecation warnings.
+"
+"8a02473237b370c4872d095663c28a0837c09932","2016-07-10 21:51:28-04:00","Fix more warnings:
+
+- Externals/soundtouch/CMakeLists.txt: add -w (since it's not our code) to
+silence an unused variable warning
+- Source/Core/Core/NetPlayClient.cpp: Work around a Clang/libc++ bug where
+initializing a std::array the way the standard says you're supposed to produces
+a warning.  (libc++'s implementation of std::array, like any sane
+implementation, has a C array as a field, so the most explicit form of
+initialization would use two braces, one for the struct and one for the array.
+Clang has a general warning for not being explicit with braces, which is
+usually sane.  But the standard only guarantees that initializing std::array
+works with a single pair of braces!)  There are other places in Dolphin that
+incorrectly use double braces, presumably to avoid the warning, so maybe the
+warning should just be turned off, but in any case here I just switch to an
+equivalent .fill().
+"
+"64a4e6b729ebedc1a60b9e1f87dfdfdc70d2aede","2016-07-10 22:02:46-04:00","Merge pull request #3946 from comex/avi-warning-fix
+
+Use newer ffmpeg APIs to avoid deprecation warnings.
+"
+"8de6800e9d9ca7d093c36d2a42279043cee7899a","2016-07-11 04:04:30+02:00","Merge pull request #3998 from comex/warning-fixes-951
+
+Fix more warnings:
+"
+"f57aec05257b23b097609263a7352aecca75b874","2016-07-11 10:06:00+02:00","Merge pull request #3858 from Aestek/feature/better-netplay-gamenotfound
+
+Netplay: check if all players have the game before starting
+"
+"53e7eed28d977feec9371c39509b908aecbf13b8","2016-07-07 16:08:35+02:00","DiscScrubber: Fix issue 9356
+"
+"6cc4591226f81ed7b27d6d4245375e18c4c40449","2016-07-11 14:00:09+02:00","evdev: Clamp axis values to the 0.0-1.0 range
+
+The values are expected to be in the 0.0-1.0 range (as indicated by the
+comment), and other parts of Dolphin also expect it to be in that range
+since the 'full' axis has a -1.0 to 1.0 range.  However, this is not
+always the case and fvalue can end up being outside of the range. This
+clamps fvalue to always be in the 0.0 and 1.0 range.
+"
+"7530a2d2069a76aa65640ac97755d75871359a46","2016-07-11 14:30:14+02:00","Merge pull request #3999 from leoetlino/evdev-clamp
+
+evdev: Clamp axis values to the 0.0-1.0 range
+"
+"8df4437b6c0696b1536b892f56ea4f0675432bcf","2016-07-11 16:49:58+02:00","Movie: Don't access g_netplay_initial_gctime directly
+
+Using the global variable directly is ugly and might not be threadsafe.
+"
+"2de6d073605566b76ad464c1bb967630cf2eeae4","2016-07-11 17:09:04+02:00","Merge pull request #4000 from JosJuice/movie-netplay-global
+
+Movie: Don't access g_netplay_initial_gctime directly
+"
+"0856e162a3b1d68fd26cc1cbcbafb4b0a4594eb8","2016-07-06 19:00:33-05:00","Prevent windows from idling while playing a game with a gamecube controller.
+"
+"ac00b249aaf223d2d16755c04e353b6f5174bfe7","2016-07-11 23:45:53+02:00","Merge pull request #3985 from thegrb93/master
+
+Prevent windows from idling while playing a game with a gc controller
+"
+"f59b8b7536131c7d7bd6375ab4090ed076b4fca2","2016-07-12 02:24:04+02:00","Merge pull request #3986 from JosJuice/scrubbing-improvements
+
+Scrubbing improvements
+"
+"e0839a94781db6d62fbe26b90243a035c376cd6e","2016-07-01 15:05:24+12:00","Strip whitespace from Evdev and OSX controller names.
+"
+"6b48b62872d32ae33bbc364fa73f205d4ed8ac86","2016-07-12 14:44:47+12:00","Merge pull request #3973 from phire/StripSpaces
+
+Strip whitespace from Evdev and OSX controller names.
+"
+"47859ad40cd32e721803230eb587d1d14ee5d0b5","2016-07-12 16:50:41+02:00","WiimoteReal: Call Update() less often
+
+This moves back the WiimoteScanner:Update() call to where it originally
+was, since according to a comment it is intended to be called only when
+'when not looking for more Wiimotes', and calling it too often causes
+the Bluetooth module to be loaded/unloaded a lot of times.
+"
+"12d650be993271dc9235cb4d4352e4100379c68c","2016-07-12 17:57:32+02:00","Merge pull request #4002 from leoetlino/wiimote-windows
+
+WiimoteReal: Call Update() less often
+"

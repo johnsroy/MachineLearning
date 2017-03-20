@@ -1,0 +1,114 @@
+"commit id","commit date","commit message"
+"9292eb2e3ea5edd11568ccdbbece35604ac73138","2011-03-17 15:39:42+01:00","Added README file with steps necessary to create Android project in Eclipse.
+"
+"29cce619fde679878c0397aa985c93b5e06b2315","2011-03-18 14:26:59+01:00","Fix for Bug - NullPointerExceptionin from PlayerActivity$6.onTrackChanged->PlayerActivity.onResume
+
+Rootcause is in public void onTrackChanged(PlaylistEntry playlistEntry)
+playlistEntry could be null, this situation is not handled by method
+
+Suggested fix:
+Add extra null checking in PlayerActivity.onResume()
+before:
+
+if(getPlayerEngine().getPlaylist() == null) {
+
+after fix:
+
+if(getPlayerEngine().getPlaylist() == null ||
+getPlayerEngine().getPlaylist().getSelectedTrack()== null){
+"
+"9b1e39f29979a4368b433096c31f8aa3fcec5bcc","2011-03-18 14:27:43+01:00","NullPointerException from PlayerEngineImpl.build() fix
+
+Because of wrong implementation of mapping tracks to albums in playlist,
+it might happen that there would be some null pointers in the playlist map.
+
+Mapping has been changed that now, if there is no album returned from the Jamendo
+service for given track, the related playlist entry has a fake empty album set
+as its album. This also assures that there will be no NullPointerException's,
+in methods that require the album in playlist entry to be set.
+"
+"98a7f57cf81eeb19f64718a0efddfdd38b49c9d5","2011-03-18 14:45:52+01:00","Merge branch 'master' of https://github.com/telecapoland/jamendo-android
+"
+"a74f5c7499b0f1771961e91b00e5a381ae40dcff","2011-03-18 20:16:21+01:00","Fixed java.lang.IllegalArgumentException in URI.create()
+
+Radio search functionality was causing a crash when search query contained a space
+or other non-ASCII character. As it is directly copied as HTTP query parameter call to Jamendo API
+it was not encoded at all. Added URL encoding.
+"
+"6858767176301be9856181abb9e1cfe6acea3928","2011-03-21 15:52:04+01:00","NullPointerException from ArrayListAdapter.setList() fix.
+
+mRecomendedRadios array was not iinitialized in case of JSONException happen
+while getting list of radios from the webservice.
+Now nRecomendedRadios is initialized as empty array in above case.
+"
+"47d2b31c034334fe55bd2d4dfeb97878d809c95c","2011-03-21 16:01:14+01:00","Merge branch 'master' of https://github.com/telecapoland/jamendo-android
+"
+"528ddb3922d3cf8feae0923d621ff5d721e2be96","2011-03-22 09:31:48+01:00","Adding extra checking in Playlist.addPlaylistEntry
+Modified method check if playlistEntry value is not null.
+"
+"97a8e3a09691ea170737bfe7e5fdb2ceb9b552f1","2011-03-22 15:01:52+01:00","ArrayIndexOutOfBoundsException in JamendoGet2ApiImpl.getArtist() fix
+
+If there was no artist data returned from webservice query,
+then artist array size was 0. Trying to access elements of such array
+resulted in above exception.
+
+Now in such case exception is thrown, which results in displaying a
+'Failed to get artist data' toast.
+"
+"298fdd04d0f97c1ead88a361a0be0ffce1a71ccc","2011-03-24 10:12:45+01:00","fix for Bug20 - IllegalArgumentException in WindowManagerImpl.findViewLocked()
+
+Rootcause was a mProgressDialog.dismiss was called after PlayerActivity was finished
+
+Fixes are:
+-Adding method LoadingDialog.doCancel()
+-calling doCancel in PlayerActivity.onResume
+"
+"246d5aad1c6bc96f717fda5255b08920ae625eb2","2011-03-24 12:49:27+01:00","Fixed java.lang.NullPointerException in RSSFunctions.getTracksIdFromRss()
+
+User reported issue: when loading top 100 the downloaded webpage was not
+RSS but network login page. The downloaded text was not checked for correctness
+and there were no NULL checks for HTML/XML parsing.
+"
+"b1387a4288dcfe8b4c9d8c54097a862b25e09a8b","2011-03-24 12:51:43+01:00","Merge branch 'master' of github.com:telecapoland/jamendo-android
+"
+"cc3f74ca374b07cb28d112cc7bd04e414e0d4d77","2011-03-24 13:32:52+01:00","IllegalArgumentException in forgetReceiverDispatcher() fix
+
+This is a known Android issue.
+http://code.google.com/p/android/issues/detail?id=6191
+
+On Android 2.1, 2.2 and 2.3 VievFlipper causes crashes while
+phone orientation is changing rapidly.
+The workaround proposed in above thread has been aplied.
+"
+"dde63d582419ef008a4a3d9b482e2d7bb0cb3e90","2011-03-24 13:36:09+01:00","Merge branch 'master' of https://github.com/telecapoland/jamendo-android
+"
+"42acee5327572712d7f996c57d8c72f930ab324e","2011-03-24 13:39:06+01:00","Fix for Bug 24 - NullPointerException in com.teleca.jamendo
+
+Rootcause this bug was NullPionterException in com.teleca.jamendo.util.download.DownloadTask.downloadFile() when InputSream from HttpConnection was NULL.
+Fixed by added condition which checking whether InputStream is not NULL after taking it form getInputSream() method.
+"
+"5e4c2091dc2827219ba601937e8686bcb90bae78","2011-03-24 16:06:09+01:00","Fix for Bug 27 - ArrayIndexOutOfBoundsException in com.teleca.jamendo
+
+Rootcause bug was wrong size album array.
+
+This fix change way to build playlists.
+Now count tracks and albums is the same even if some tracks have not a albums so ArrayIndexOutOfBoundsException never ocure.
+"
+"13fbb0c53cf5d4e72caecfe61d1b58f50342e00e","2011-03-24 16:57:07+01:00","Fixed java.lang.NullPointerException in JSONTokener.nextCleanInternal()
+
+JSONArray is not checking if constructor argument is null and executes parsing.
+However the JSONTokener also does not check for nulls and therefore is throwing
+NullPointerExceptions.
+
+In all JSON parsing functions a try/catch block has been added catching
+all NullPointerExceptions and rethrowing either JSONException or WSError.
+"
+"9b783e7659f131ea11a409954a20faaffc2d371c","2011-03-24 17:17:01+01:00","Code cleanup after adding WSError(String) constructor.
+"
+"4c1b1ee70e9050a5366aacdcff51a0ff80f016a1","2011-03-24 21:02:33+01:00","Merge branch 'master' of https://github.com/telecapoland/jamendo-android
+
+Conflicts:
+src/com/teleca/jamendo/api/impl/JamendoGet2ApiImpl.java
+"
+"25fee363ea5af5f7566357caf619adc4d1510411","2011-03-25 15:42:27+01:00","Tagging version 0.9.10.
+"

@@ -1,0 +1,288 @@
+"commit id","commit date","commit message"
+"f1be3cf02be89e140fbc1e9a4f018dd5e316c632","2011-11-06 01:24:31-07:00","Fix fast resize when screen shrinks
+
+When the line containing the cursor is blank, and the cursor is not at
+the bottom edge of the screen, fast resize will move the line containing
+the cursor off the screen.  Fix this by ensuring that fast resize never
+considers lines at or above the cursor for shrinking.
+
+This patch prevents a crash which occurs when a full resize operation is
+conducted immediately after this bug is triggered (the full resize
+attempts to fetch the character at the cursor, which is off the screen,
+causing an IllegalArgumentException).
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"3ae0bdc7349b0b7ba6ff8fa5fcdf1dc2c138217e","2011-11-06 01:24:40-07:00","Make changes to UTF-8 preference take effect immediately in running sessions
+
+Add a updatePrefs() method in TermSession and TerminalEmulator and call
+it from Term's updatePrefs(), so that changes to the UTF-8 preference
+will be picked up immediately by running terminal sessions.
+
+Note that a terminal emulator will ignore the UTF-8 preference once any
+application running in it uses one of the ESC % codes to request a
+specific character set.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"6ea8f282867f3336ec1c9ee0cc9ec7a2a32a78ca","2011-11-06 01:25:10-07:00","Color tweaks
+
+Other terminals which offer color support generally have two sets of
+colors, a 'dim' set for regular text and backgrounds and a 'bright' set
+for use with bold text.  At the moment, Android Terminal Emulator uses
+the same set of eight colors for backgrounds, normal text, and bold
+text, which causes one notable problem: applications generally expect
+bold text colored black to be displayed as 'bright black' (a dark gray),
+but this text is invisible in Android Terminal Emulator in the
+white-on-black configuration.
+
+Fix this by extending the array of foreground colors to include 'bright'
+colors (actually, the same colors we were using before, except for the
+addition of a 'bright black'), taking advantage of the fact that we're
+using the high bit of the foreground color to store bold information.
+We dim the regular set of colors slightly, to distinguish them from the
+bright colors.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"91bdf635a47f78209bbf3fbd6ef7f6b9f9031df6","2011-11-18 02:24:11-08:00","Simplify Android compatibility class
+
+* Make names less cumbersome
+* Use lazy loading instead of reflection to simplify code
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"47e5ef95b24e1eb88fbed8d3987367178fb5be2a","2011-11-18 02:24:19-08:00","Make window title string localizable
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"b9a4e3d332a99c0ade8d122873e9fad15cd9a9b5","2011-11-18 02:24:29-08:00","Slow down scrolling by vertical fling
+
+As of now, a vertical fling scrolls the screen far too quickly to be
+useful -- even a small flick of the finger scrolls the screen by
+hundreds of lines.  Reduce the coefficient converting fling velocity to
+scroll distance from 2 to 0.1, which results in much more reasonable
+scroll distances.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"73590196f54ba2defe96f9f12919dfcf3a6a2b31","2011-11-18 02:24:33-08:00","Make 'Reset terminal' do what it says instead of closing the activity
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"d702d2c7fed56bd49eb7e6ec94b08621329be911","2011-11-18 02:24:40-08:00","Add configurable back button behavior
+
+Allow the back button to (1) close all windows (the current behavior);
+(2) close the current window only; (3) close the activity, but leave the
+terminal sessions running; or (4) send ESC to the terminal.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"645d31a35edcfb1ed64c6f9aa215eba9978004c8","2011-11-18 02:24:45-08:00","Clean up setting UpdateCallback for a TermSession
+
+Remove the unused UpdateCallback argument to the TermSession
+constructor, and move the setUpdateCallback() into the EmulatorView
+constructor, eliminating the need for a getUpdateCallback() in
+EmulatorView.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"828cbcfc0e4164aa1bfa92707bf503a2831c56a7","2011-11-18 02:24:56-08:00","Deal with cases where a session ends without our intervention
+
+At the moment, the terminal activity, the window list activity, and the
+service all assume that terminal sessions only end when they're
+explicitly closed by an action from our UI (the close buttons in the
+activities) -- which is currently true, but breaks if sessions end when
+the shell running in the session exits.
+
+To account for the possibility of sessions ending on their own, add
+callback interfaces to notify when sessions have finished and when the
+list of sessions changes.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"78c3d0b5d2d1f75051d83c540320d2196b4a75b9","2011-11-18 02:25:03-08:00","Add option to close terminal windows on shell exit
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"8e6145ca110950d89a76c5c1b0a9c8e2879b293f","2011-11-18 02:25:09-08:00","Display a message in the EmulatorView when the shell exits
+
+Currently, if the shell exits and the option to close windows on shell
+exit isn't activated, the user gets no visual cue that the shell has
+exited -- only an unresponsive session.  Instead, take a page from the
+Mac OS X Terminal's book and display a message that the terminal session
+has finished.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"d6d90575bf8856194d2c0377e0288de4b9c7126f","2011-11-18 02:25:55-08:00","Fix tab behavior when cursor is on tab stop
+
+Sending a tab to the emulator when the cursor sits on a tab stop should
+move the cursor to the next tab stop, not leave the cursor in its
+current position.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"49021f06086fb16db84044973448c372492e1304","2011-11-18 02:26:00-08:00","Add a few more escapes to the terminal emulator
+
+Implement support for the following escape codes (not supported by a
+real VT100, but not conflicting with any VT100 escapes either):
+
+* Esc [ Z: backwards tab
+* Esc [ Pn X: erase Pn characters
+* SGR codes 10/11: exit/enter alternate charset (used when TERM=linux)
+[ECMA-48 uses this pair of codes for font selection]
+* SGR codes 3/23: 'standout' (reverse video for TERM=screen) [ECMA-48
+uses this pair of codes for italics, but this seems to be rarely
+implemented]
+
+With these escapes implemented, we should have the complete set of
+escapes required to keep termcap/terminfo-using applications happy when
+TERM=linux or TERM=screen.  (We may be missing a few graphic
+modes/attributes, but nothing that should cause major breakage.)
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"8f755cfdb4e5909f0be8242ebf2cc152f202c179","2011-11-18 02:26:10-08:00","Correct color rendition for color schemes other than white on black
+
+Applications expect to get black when they ask for a black background,
+independent of what the default background color actually is; similarly,
+they expect white when they ask for a white foreground, independent of
+the default foreground color.  We, however, currently substitute the
+default background color for black and the default foreground color for
+white in our palette, which leads to incorrect color when the color
+scheme is anything other than white on black.
+
+A full solution to this problem probably requires us to distinguish
+'default color' from the colors in the palette, which would require
+additional storage for color information.  As a band-aid fix, though,
+keep track of which colors in the palette are the closest match to the
+default colors, and substitute those instead of always substituting for
+black and white.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"e48fb0802d50bdeb35d158ccb8a33357fcb7d5b5","2011-11-18 02:26:15-08:00","Support the VT100 special graphics character set
+
+The VT100 special graphics character set is used as the alternate (G1)
+character set by many full-screen applications which want to draw lines
+and boxes on screen; these applications currently show lots of 'q's and
+'x's where boxes should be.
+
+To implement this character set, we provide a mapping between the ASCII
+characters sent by the application in this character set and Unicode
+codepoints for the expected display characters, and use it when the G1
+character set is selected (via the existing support for the SI and SO
+control characters).
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"cf088c494f2c5b846bb30d9b899ca698997d8a72","2011-11-18 02:26:21-08:00","Make Exec.createSubprocess() handle environment variables and unlimited args
+
+Add the ability to modify the subprocess's environment by passing in an
+array of environment variable strings suitable for passing to putenv()
+('VAR=value').  While we're at it, lift the restriction on the number of
+arguments passed to the subprocess by using an array instead of a fixed
+number of String arguments to hold command line arguments.
+
+This change breaks the ABI for the JNI library, so bump the library ABI
+version (to 3) to avoid any potential problems with external copies of
+the library.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"4d81c669a71d7a242f79349448e16fb348c4e6fb","2011-11-18 02:26:26-08:00","Set TERM in process environment and provide preference to choose value
+
+In ordinary Unix (non-Android) environments, the behavior of programs
+that use advanced terminal capabilities depends on the value of TERM in
+the environment.  Currently, we don't set TERM at all, which leads most
+of those programs to assume a dumb terminal and behave accordingly.
+
+Instead, set TERM in the started process's environment, and provide the
+user a preference to choose the value of TERM.  The current default of
+'vt100' is the safest, as it's understood on every system since near the
+beginning of time, but does not expose capabilities such as colors or
+Home/End keys.  The other options provided are 'screen', which is the
+best match for our currently implemented capabilities and reasonably
+widespread, and 'linux'.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"61252995227f89e165d1514822b91758fcf83928","2011-11-21 17:59:07+01:00","Update res/values-fr/strings.xml
+"
+"f3cb8698a1734b0c90cf91dcd522957bb1a4083f","2011-11-20 23:26:17-08:00","Preserve bold when setting default foreground color (SGR code 39)
+
+This matches the Linux console terminal emulator's behavior and
+(apparently) the expectations of full-screen programs.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"099b500e28317f39e2b5d0d03e06ef75980e327b","2011-11-20 23:58:56-08:00","Make sure onResume() is called for active EmulatorView in populateViewFlipper()
+
+Otherwise, the screen size check handler isn't installed in the
+EmulatorView, and the screen won't resize properly until something else
+causes its onResume() to be called.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"a9e5bf80a01da158e5c6a8107d89a3d3d22c903f","2011-11-21 10:44:38-08:00","Merge pull request #52 from eauland/patch-1
+
+Update res/values-fr/strings.xml
+"
+"24ae987a8aff670fc638b932d1dfd89ffceb7fc6","2011-11-21 11:57:09-08:00","Tweak default preferences
+
+Default back key preference is to send ESC
+
+Default TERM setting is screen
+
+Close Window on process exit defaults to true. Linux term users expect
+this, even though it can lead to accidental data loss.
+"
+"826f76507cfc536a7de64fb560c39224acadd656","2011-11-21 12:03:39-08:00","Allow the Back button to be configured to send 'TAB'
+"
+"a39027d7996dca02afc557ca17063f75f8354bde","2011-11-21 16:56:26-08:00","Finish changing default preferences
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"31326da6eb5751d941436c773aa1792fe68bdc72","2011-11-21 16:56:37-08:00","Refuse to draw on a finished TranscriptScreen
+
+It's not clear why we try to draw on a finished TranscriptScreen when
+exiting on Honeycomb (and not on other platforms), but this works around
+the resulting crash.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"5384887f3fbebde1ad41912d85f60d502fdeeb98","2011-11-21 20:06:46-08:00","Avoid polling for window size change on Android API level > 5
+"
+"8a57df0c98589bd6e4f8e7dc3a1977a2e77a5b7b","2011-11-21 20:18:25-08:00","Make the soft keyboard always visible when ATE starts.
+
+Not really 'always'. It won't be made visibile if there is a hardware
+keyboard on the device or if there is a bluetooth keyboard currently
+connected to the device.
+"
+"0bc64f8aa7252fec774e1ca1417e662383cd4738","2011-11-21 22:12:49-08:00","Remove drop shadow at top of text window.
+
+It makes no sense in full screen mode, and it obscures the top
+few pixels of terminal text in both full screen and non-full-screen mode.
+"
+"b724257fe33fb9637193149b7152f592ff3fcb8f","2011-11-21 22:18:03-08:00","Fix calculation of visible window size.
+
+There's a bug in pre-Android-SDK 10 when the view is full screen.
+
+See the discussion here:
+
+http://stackoverflow.com/questions/7659652
+"
+"a1088ab68d149f27e7931ae44387c87da079adac","2011-11-21 23:13:09-08:00","Fix text renderer to draw text in correct position on screen
+
+Was drawing slightly too low, which resulted in empty space on top,
+cut-off characters at the bottom.
+"
+"e59ba73ea6c8ddf413c379174e4c047a0642b541","2011-11-21 23:14:47-08:00","Poll for window size changes when SDK <= 7
+
+(Tested API levels 3 to 10 in emulator.)
+"
+"2597ae8b1caaca43095628717960a36a618aa2a4","2011-11-21 23:24:43-08:00","Update version number to 1.0.36
+
+And version code to 37
+"

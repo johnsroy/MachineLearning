@@ -1,0 +1,77 @@
+"commit id","commit date","commit message"
+"e8fd9683e663f7b610c48db04c54990dde296d97","2010-10-11 19:47:41+00:00","Optimize the new return-to-listview code. (Avoid a bug where we do far
+too much work on first open of a message list)
+"
+"9db44bf4a9895a340a6ff81553f7f4b411dae9fa","2010-10-11 20:41:59+00:00","MessageProvider: making sure exposed cursor gets dereferenced on close (and closed on finalization) to prevent memory leak
+"
+"357ff33133ffac1677b67192094f88113cb19ca8","2010-10-11 22:43:06+00:00","Update issue 1916
+Added new options localization
+Minor fixes
+"
+"4e53ee12b6424f00c7ec773250384e73c46fa08a","2010-10-13 10:52:53+00:00","For the common case of 'getMessage' where we actually have the object in
+the list, use a less painful equality check than iteration.
+
+This works because messageInfoHolders compare to each other using the
+same key as message they contain.
+"
+"28c9dfdcce166be8964435b8c26d7cbffeb94a66","2010-10-13 10:53:08+00:00","Delay formatting of dates in messagelist until we actually need them
+
+-- it turns out they're very expensive.
+"
+"4be781a7495faea69ba2ae8bcee274e0c2e0918b","2010-10-13 20:49:34+00:00","Fix NullPointerException when saving account settings for non-IMAP accounts.
+
+Fixes issue 2454
+"
+"742db2ac625a5a77fe042cebb8ea50dc3caf82ba","2010-10-13 20:56:44+00:00","Cosmetic code changes
+"
+"6ea875d80934aef3fae56d3f3ce47b4261b9069d","2010-10-13 21:29:15+00:00","Use the correct package name for AccessibleEmailContentActivity in AndroidManifest.xml
+"
+"496677dad49ca04109ed06e4764a88f0ad955a8b","2010-10-16 08:27:47+00:00","Calculate preview for html-only messages
+
+Fixes 2465
+"
+"b2a08d969b8959f25bb91a3ea506267569b3856e","2010-10-16 08:27:58+00:00","Revert 'For the common case of 'getMessage' where we actually have the object in'
+
+This doesn't work on initial sync, since the comparisons fail and you're
+left with duplicates in the displayed mailbox
+This reverts commit fa1c88bec348d0132acc60a320626bf0ca1170ec.
+"
+"e26e0973d55864b17f866fcf8d12dfc1e86bad7c","2010-10-16 21:29:00+00:00","Same as r2450
+Rename strings-sv.xml to strings.xml (Android ignores the actual file name, rename is for consistency)
+"
+"0933fad9b39bb3cb27d8a53cfd3ab5a5c6c34ae2","2010-10-18 09:53:22+00:00","Update issue 7031
+http://code.google.com/p/android/issues/detail?id=7031
+added removeDialog() for every dismissDialog()
+"
+"44e2857c3f57286f6f98bc71d0758b2c4d3b8308","2010-10-20 13:10:17+00:00","Corrected small typo
+
+Fixes issue 2482
+"
+"e05784d41d414048a0f818c32db5de0ad6d56ef8","2010-10-21 20:48:12+00:00","Running heavy operations on the UI thread makes K-9's UI slow and
+freezy.  addOrUpdateMessages is very heavy. and very common.
+"
+"d02ddda19b1efc13915dd26326618c8070214d86","2010-10-21 20:48:28+00:00","When doing a message search, break it into 'first 10' and 'more' -
+because a long SQL query takes more time before starting to return
+results, K-9 was increasingly slow on large folders.
+
+Doing two searches may take marginally more time but starts getting
+results back to the UI much faster.
+"
+"8d9c074a270b302625ffc240c5de6bfdbf907d48","2010-10-21 20:48:45+00:00","Add gmail-style 'to me' and 'cc me' indicators in messagelist
+"
+"2a4792eb6015ab4028a3b436b6cca5896a19ec89","2010-10-21 20:49:05+00:00","update a comment about an uncommon code path
+"
+"e8756af4f1a3867f76f54ba8b10de907ba553d90","2010-10-21 20:49:20+00:00","astyle
+"
+"48f2885cfc2300004cf6cca48bf328cbbae11c58","2010-10-21 20:49:36+00:00","When returning from a messageview to a messagelist do our listview
+updates on a thread rather than on the main ui thread. it results
+in the list blinking with old data, but that's still a better user
+experience than 'frozen'
+"
+"64c102dd14cd08c3e3b09b3cec5790d47923e09b","2010-10-21 20:49:48+00:00","notification that the dataset changed needs to happen on the UI thread.
+"
+"64829aea891b01fc9869000e9a6ca026b9f03547","2010-10-22 15:46:46+00:00","first pass at importing the traditional chinese translation from Issue
+2500 ( thanks to zhangyin@research.neu.edu.cn)
+"
+"e0d2c9e10d30fbf87a983f263bbbfbf2a6ee9464","2010-10-22 21:31:32+00:00","Bumped manifest to ${version.name}
+"

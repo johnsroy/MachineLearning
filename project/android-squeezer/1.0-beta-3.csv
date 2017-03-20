@@ -1,0 +1,86 @@
+"commit id","commit date","commit message"
+"2a85de0be497490468853face76287340451ed37","2013-12-08 14:39:28+01:00","Focus scrollable TextViews instead of selecting them.
+
+On (at least) devices running API 7, calling setSelected() on the TextView
+displays the text in a darker colour that's difficult to read.  Marking them
+as focused does not have this problem.
+
+The trade-off is that only one TextView can have the focus, so this disables
+scrolling for TextViews other than the track name.
+"
+"accba1a6eab4a8cf680c7fb2169fca3f83636062","2013-12-08 14:40:04+01:00","Adjust padding in now_playing_fragment_full so controls appear on Nexus 4.
+"
+"408e02431cfcdea0153ec18b493770fbf4a3bc18","2013-12-08 14:41:32+01:00","Include Windows path for Android Studio config files.
+"
+"689886fa931a3f5cfa6d8743f1249d69d88c1f19","2013-12-08 15:09:50+01:00","Fix an exception when the fragment is not attached to the activity.
+
+getString() calls require that the fragment is attached to the parent activity,
+otherwise it triggers a java.lang.IllegalStateException, complaining that
+'Fragment NowPlayingFragment{42510538} not attached to Activity'.
+"
+"28b08ba683c4ecbd67ea262be22917a9f04618ad","2013-12-08 15:43:41+01:00","Use the unqualified name for the Wrapper task.
+"
+"b0c2cde8474022941f391f5791dfe356342ad8fd","2013-12-08 15:53:46+01:00","Use the ActionBar from the Android appcompat library.
+
+build.gradle:
+- Import the appcompat-v7 library.
+
+res/menu/squeezer.xml:
+- Use a custom XML namespace prefix for the actionbar attributes.
+
+res/values*/styles.xml
+- Remove the actionbarcompat specific styles.
+
+src/*:
+- Remove the acitonbarcompat files.
+- Use the slightly different API in the official library.
+
+Much kudos to Kurt for the original work on all of this.
+"
+"2952f22c4891c6a417067588fa68decb4495942f","2013-12-08 16:27:04+01:00","Check if the fragment is still attached to the activity in setConnected.
+
+'java.lang.IllegalArgumentException: ... not attached to window manager'
+errors have occurred (in the clearConnectingDialog case) because of a race
+condition between this callback being called and the hosting activity
+being destroyed.
+"
+"ee7da050019c1d8e9687aa0a4a254263807c6daf","2013-12-08 18:00:05+01:00","Set ProgressBar default visibility to gone.
+
+Otherwise it will show if the device is re-oriented, and there is no new
+data to show (onItemsReceived, which sets the visibility, is not called).
+"
+"cad2766fcc013307e32ee25ab7893bd087b953f4","2013-12-08 18:45:24+01:00","Remove unused resource strings.
+"
+"7767628f700a8ea733944ffa80b3c16308262d0e","2013-12-08 18:49:27+01:00","Explcitly set allowBackup to true (the default value).
+
+Quiet's a warning in AndroidStudio.
+"
+"da9f9f10649bc7addfaa5a33a2d05a0e0b6420d7","2013-12-08 18:52:06+01:00","Suppose a warning in the license.
+
+The analyzer thinks that '(c)' in the list of redistribution requirements
+could be replaced by the copyright symbol.
+"
+"7f8af6e2a1987a2076a02edf157c7a3e735d3043","2013-12-08 18:56:09+01:00","Remove unnecessary 'return' statements.
+"
+"8b648cb190af02ce2b373846dbc7b98082e91abe","2013-12-08 19:02:51+01:00","Remove unused imports.
+"
+"515a80faaf0122ac1b9f9efcb13efd4ef8e51168","2013-12-08 20:40:08+01:00","Supply media button images, instead of using whatever's on the device.
+
+This ensures that the play/pause/next/previous button images are consistent
+with those for shuffle and repeat, and don't change depending on the API
+level of the device Squeezer is installed on.
+
+The images are from http://developer.android.com/design/downloads/index.html.
+"
+"a13a81bdad713aa32c5220a2d266fb6e0943a532","2013-12-08 20:41:03+01:00","Ignore the squeezer.properties file.
+
+This file contains passwords and signing keys, and should never be
+submitted to the repository.
+"
+"3ba118ae923e3de42fbe29e67d563a3e8dc5c682","2013-12-08 22:13:56+01:00","Add a changelog, using https://github.com/cketti/ckChangeLog.
+
+Show the most recent changes when Squeezer starts.  Show all changes from
+a 'Change Log' button on the 'About' dialog.
+"
+"66133eee78f80ad1a1cb51a8ab46849b9113afc6","2013-12-08 22:14:50+01:00","Bump versionCode and versionName for 1.0-beta-3.
+"

@@ -1,0 +1,13 @@
+"commit id","commit date","commit message"
+"ccc7bc6c3503fe8e9e47afe853a3012ae2749f67","2015-09-08 00:29:14+03:00","Fix maptool SIGALRM handler
+
+Use only asynchronous signal safe functions in SIGALRM handler.
+It was probably fprintf() causing random segfaults to maptool,
+which became very reproduceable after implementing progress report
+at phase 6.
+"
+"7b8158e05d05ea9cc4b03e72eee73ca5bddba763","2015-09-08 01:30:18+03:00","Fix maptool build for Win32
+
+Fallback to not Async signal safe gettimeofday on WIN32, which
+does not support neither async signals nor clock_gettime.
+"

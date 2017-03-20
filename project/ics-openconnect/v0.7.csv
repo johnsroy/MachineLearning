@@ -1,0 +1,136 @@
+"commit id","commit date","commit message"
+"36bb61b763ed8524cf78956910219db2a3d8c305","2014-02-10 15:40:41-08:00","README: Add Google Play link
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"643bd29335678938b4d8d6728132f5579c2df061","2014-02-10 15:41:01-08:00","external: Build curl and libstoken using openconnect's standalone toolchain
+
+Since openconnect now installs its own standalone toolchains and populates
+the sysroot with libraries we can use, it eliminates the need to build
+extra copies of libtomcrypt and openssl for stoken and curl.
+
+To some extent this limits parallelism in the build, but it also results
+in compiling fewer modules.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"eb2344ab0dd4c22da19624f532349a7fe7f651ab","2014-02-10 15:44:28-08:00","libs,assets: Update libstoken and curl objects
+
+These were built under the new 'standalone toolchain' scheme and are
+now stripped.  This reduces the apk size by about 1MB, to ~5.1MB.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"2816bb925ac1c8507e17fed231ed81343ae08bef","2014-02-10 15:45:58-08:00","external: Remove redundant copies of libtomcrypt + openssl
+
+Since curl has switched to GnuTLS, this also allows us to drop the OpenSSL
+advertising clause.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"71677ba6de660f8d626348518d09d28c8e0f3914","2014-02-15 16:34:19-08:00","external: Sync with openconnect rev ff2c518
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"ebc0f10d54f01d7f482c9fd91784d78224cb636f","2014-02-15 16:37:32-08:00","libs: Sync with latest openconnect sources
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"0f5d58722a5d6080629ca53e0e65f7e8902f87d2","2014-02-23 10:51:31-08:00","travis: Fix openconnect builds by installing groff
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"bc41c0fb9a5de47da4fe91cbe339241f6df21447","2014-02-22 19:40:11-08:00","external: Sync with openconnect rev 6e956a7
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"f90dc2cce876572cd57fea330c2b77f0cc0c62bc","2014-02-22 19:46:17-08:00","libs: Sync with latest openconnect sources
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"9eca14965aed46a9c4f2c67be8b70f0711729bef","2014-02-22 20:07:57-08:00","AuthFormHandler: Try to put the cursor somewhere sensible
+
+If there is an empty field, focus it.  If all fields are populated, focus
+the first one and move the cursor all the way to the right.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"2808ed99848a80cf2032ab464dc2dc53b0dd7bf6","2014-02-23 10:15:55-08:00","AuthFormHandler: Fix 'rotation accepts input' problem
+
+In BATCH_MODE_EMPTY_ONLY, the check for empty fields is performed every
+time the dialog is redrawn.  This means that if the screen is rotated
+or if the app switches between foreground->background->foreground and
+there is partial form input, the partial entry will be accepted when the
+form is redrawn.
+
+The fix is to remember the allFilled state for the lifetime of the auth
+form.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"9ffe9c0dde1952a77f001656f2516c6a2e0a79f3","2014-03-01 10:11:14-08:00","arrays: Flag non-translatable literals
+
+These are stored in the preferences but never shown to users.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"9c8059ef59f8cd1f5e0f506132df4c53dd357510","2014-03-01 10:44:45-08:00","strings: Align 'app' string on translated entries
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"e6fee07d84d3b745e1b0b8e432bb37a14c88ad44","2014-03-01 10:46:36-08:00","strings: Blind rename of OpenVPN -> OpenConnect in all translations
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"3d735c75242a4a4ec2724493464b49a2a22358a2","2014-03-01 10:48:25-08:00","strings: Delete incorrect translations
+
+Several of the English strings changed and need to be retranslated.  So
+rather than displaying a translation that is no longer accurate, delete
+them so that it is obvious that they need to be retranslated.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"55c892b4c45a02f8c19ff7d777554d88d9f01d76","2014-03-01 10:52:12-08:00","strings: Remove '%s' from all 'netstatus' translations
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"f0ea0906c93fe92c76d308b6b2404de6233c7ab1","2014-03-05 21:48:26-08:00","external: Sync with openconnect rev 45e3409
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"7da4b83d87aa8d68045db1047804e75572292bac","2014-03-05 21:54:44-08:00","libs: Sync with latest openconnect sources
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"4ae7985084b02c1e9b970c32e00b941b07823364","2014-03-05 22:48:50-08:00","OpenConnectManagementThread: Fix handling of IPv6 interface addresses
+
+Fix FC caused by incorrect IPv6 netmask parsing.  Add new 'friendlyIp'
+to display the IPv4 and/or IPv6 addresses on the status fragment.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d97cd1c7ed6b6d288339f83f4892f96a0eabad94","2014-03-05 23:16:52-08:00","OpenConnectManagementThread: Add code to handle routing and DNS on IPv6
+
+The IPv6 code should only take effect if there is an assigned IPv6
+address on the tunnel; IPv4 should behave similarly.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"4382296121a1873d873fef3c229491bf35a92a92","2014-03-05 23:22:50-08:00","Bump version to 0.7-beta1 (701) and update changelog
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"1052b475ec10b183973731bc27b2e5c3dac5c075","2014-03-07 00:05:01-08:00","external: Re-enable JNI in the scripted libstoken.so builds
+
+This has been broken for almost a month.  How embarrassing.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"be2ff0930af0d7ceb6e656445a97d2575e90d708","2014-03-07 00:06:19-08:00","libs: Update libstoken.so
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"f37851c5117d6ae611b9ba858d0f1e9950da325b","2014-03-08 09:35:26-08:00","Bump version to 0.7 (709) and update changelog
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"

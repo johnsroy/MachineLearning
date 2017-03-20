@@ -1,0 +1,81 @@
+"commit id","commit date","commit message"
+"9a7becf52e2838b5f572617b8761ea8cdf0c0b93","2015-04-24 11:05:31+08:00","Merge branch 'seafile-1.6.1'
+"
+"46f7e8acc026fa379c954a9645fcce32513b8e17","2015-04-24 11:22:50+08:00","remove unused strings
+"
+"d33c7c2a3bc2a8bcbaf785145ec81117b6143474","2015-04-30 13:40:06+08:00","append params on SSO request
+"
+"db9e846beee6071f2f0781a6fbb5930d736ce723","2015-04-30 13:45:39+08:00","Merge pull request #295 from Logan676/append_shibboleth_request_params
+
+append SSO request parameters
+"
+"b4bb1bc09774bbbdb058f3bf3ce3cea84249803a","2015-04-30 14:05:06+08:00","update version code
+"
+"1db4514c7740ad596b193c08a54a3df587055466","2015-04-30 14:19:55+08:00","update i18n
+"
+"d27bdc2b8e63bfb3f12fbfc89b379eb76e69d47e","2015-05-11 10:47:27+08:00","redesign and rewrite notification
+
+1. All downloading events will be represented by one downloading notification, the same with uploading notification.
+2. To update notification, simply call its notificationID.
+The update events will be invoked by UploadTaskManager and DownloadTaskManager
+because they implemented the UploadStateListener and DownloadStateListener respectively.
+3. It always failed to calculate total size by transferService,
+because file size of each DownloadTask instance needs to be fetched on first progress update,
+that will fail when multi tasks waiting in a queue because first progress update won\`t get called instantly.
+As a workaround, the total size was calculated by seafDirent.
+4. If the notification provider exist, update its data with the same notificationID,
+remember to update totalSize and taskIDList.
+If the notification provider doesn\`t exist, create a new one and cache it for later use.
+5. Supplying the onging notification to be shown to the user while transferring files
+in order to keep running at the foreground.
+By default services are background, meaning that if the system needs to kill them to reclaim more memory, they can be killed without too much harm.
+"
+"046debd9cc2b070685d3c27829dbc772f65d1f66","2015-05-11 11:33:48+08:00","Merge pull request #343 from Logan676/optimize_notification
+
+optimize transfer notification bar
+"
+"4d6e598be67302eab3bcd54abd1e44aaa2c9da37","2015-05-11 13:44:44+08:00","Merge pull request #350 from haiwen/seafile-1.6.2
+
+Merge branch 'seafile-1.6.2'
+"
+"a41bcd776a504e3b27dac967639c3691eb6d46a0","2015-05-11 11:34:39+08:00","fix download folder recursively error
+
+The assembled file path is incorrect,
+Wrong path: Android_dev/gesture_lock
+Correct path: Android_dev/screenshot/gesture_lock
+"
+"d41b7d72637f03e28fb194330466f111df824eda","2015-05-11 14:38:47+08:00","avoid NPEs when download folders
+"
+"d38f1b50e895bf191ee018e2ecef1c08b242d1b3","2015-05-11 14:43:37+08:00","update version code
+"
+"b20066581dcb5e251fb6d872ec0a26441792e18d","2015-05-11 15:45:39+08:00","revert incorrect modifications on addUploadTask
+"
+"bf5169395bd7836ad3aabe972808fee653d39af4","2015-05-11 17:37:02+08:00","update totalSize correctly
+"
+"49995f9e96af950354c86f2deb4b260d7e4f3462","2015-05-12 10:11:55+08:00","handle plurals correctly
+"
+"548248d4e8a13a1cb8c546aa117579c15fe375a0","2015-05-12 11:20:58+08:00","hide notification when cancel download
+
+hide notification when cancel downloading a file in FileActivity
+"
+"afcb6ba554398af22bf05f0ed693336f3ea79399","2015-05-12 14:36:01+08:00","calculate progress by transferService
+
+It is not the best way to calculate total size by transferService,
+because we can not get an accurate value in this way.
+We know file size only when the relavant download task under executing,
+that will fail when multi tasks waiting in a queue.
+
+An alternative way are expected in the future.
+"
+"34d722497c9daff176aed776f4866945fbd4b6dd","2015-05-12 15:56:50+08:00","revert commented toast
+"
+"772e062693168b7550aa63ea06f08db6b22ef3c9","2015-05-12 16:37:54+08:00","Merge pull request #351 from Logan676/review_notification
+
+Review notification
+"
+"00610d475731a1caedb93603a79830604ec1c4ad","2015-05-12 17:57:52+08:00","fix IllegalArgumentException
+"
+"a52bbe3e4df96700dab3a665e1c143a8dfe2b9d6","2015-05-12 18:30:24+08:00","Merge pull request #352 from Logan676/fix_IllegalArgumentException
+
+fix IllegalArgumentException
+"

@@ -1,0 +1,45 @@
+"commit id","commit date","commit message"
+"2c041671cbbfcb578f3a596a109d1f1d2a870e03","2013-11-03 18:56:53-06:00","build: Change version string to debug in manifest
+"
+"e73c37cebaf17843bd1f23b1ce2cec39fe92b34b","2013-11-03 21:00:02-06:00","front: Add interface for entering custom polygon offset
+"
+"73bd1a6a56d97762a5b26474c30b6e272ca8513b","2013-11-08 13:24:21+01:00","Using external coordinate for fog calculation
+
+Fix fog banding issue on some devices.
+
+TODO: Test if fog density is correct on every devices
+"
+"9c74bb758215b975ee3fd3a11e3e0f99cc78590c","2013-11-15 20:27:23-05:00","front: Remove rice mipmapping from user preferences.
+
+Satisfies TODO in commit
+33d250b926141dfd1de72d19b61c8e1b3d7ffda8
+"
+"0810a2252db5a06ecf0602dce0478add5eedd162","2013-11-15 20:44:53-05:00","bugfix: Fix filepath regression (e.g. rice hi-res textures).
+
+Bug introduced in commit
+48e94450531fe6af307737cb3606b492e188d569
+
+which broke two methods in the core API:
+
+- ConfigGetUserDataPath
+- ConfigGetUserCachePath
+
+These paths can only be resolved through the Android customizations
+that we've been using all along.  It wasn't obvious, however, because
+the only code that calls these methods are:
+- Rice uses ConfigGetUserDataPath for hi-res textures & tex dumps
+- Glide uses both, but only if TEXTURE_FILTER is defined (which it
+currently isn't)
+
+Note that ConfigGetUserConfigPath and ConfigGetSharedDataPath never
+broke because they are obtained by the core via command-line arg and
+config file, respectively.
+"
+"402ec3cfe31fe8493fcac989653c53b9de866aef","2013-11-15 20:48:53-05:00","doc: Update changelog.
+"
+"d696a5a7d68ab54c7afb8afad0f1bacdb0259d6a","2013-11-15 20:50:57-05:00","build: Bump to SDK 19 (KitKat).
+"
+"d27257e5ef3dcf59ba265d73da169f7559b8a10b","2013-11-18 17:01:48-05:00","build: More KitKat config stuff.
+"
+"d6884763cadbc93fdecc9f7eb6292664c47482e5","2013-11-19 19:46:43-06:00","build: Update manifest in preparation for 2.4.1
+"

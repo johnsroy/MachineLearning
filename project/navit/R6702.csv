@@ -1,0 +1,17 @@
+"commit id","commit date","commit message"
+"1e638f6e57a0e0d6d691b08fcd27a6b610a6b362","2016-07-10 23:26:32+03:00","Revert 'Fix:gui_internal:Hide native keyboard when displaying POI search results'
+
+This reverts commit 53b333a617146bc304063f8ddd0dfe2927bb6064.
+
+That commit made POI filtering behave unexpectedly, returning empty result
+sets sometimes. I was able to reproduce it on x64 linux in following way:
+start POI filtering, then press 'POIs' on the top to return to POI list,
+then press looking glass to start POI filter once again.
+
+I was unable to get non-empty results on my Android device.
+
+It also has introduced some valgrind warnings about accessing an already freed
+location after query text is entered and actual search is fired.
+
+Hope @mvglasow will take a closer look on this issue.
+"

@@ -1,0 +1,40 @@
+"commit id","commit date","commit message"
+"37edd3d9b23c83186f44821643075e0f3d21c5ca","2015-11-15 12:47:04+11:00","Implement import/export of settings (#222)
+"
+"3c18883df3769742cfce24540d3b2ee27673b6cd","2015-11-21 09:16:58+11:00","Fix copyright notice
+"
+"4bedafb9dc0eeb41fe30cfc9ed57ae118279f850","2015-11-21 09:17:16+11:00","Rename preferences -> settings
+"
+"f0b27bc5a54d1be40fc4cd345b68a1890981688b","2015-11-21 09:59:40+11:00","Move import/export to misc, remove database drawable
+"
+"7326f0cf6694031f31733ce60cc7f8ecfa67303b","2015-11-21 10:06:56+11:00","Add copyright to layout files
+"
+"39ac2bfcbb903d811341937b034bf2ad678e3e26","2015-11-17 12:06:20+01:00","add backup key
+"
+"c1c210d823cd3c815afc953a118477c56c72ee29","2015-12-05 12:20:18+01:00","Fix ViewPager for API Level 15 (pre JB)
+"
+"9282031115ef9dd27886110a51e032a9782a7801","2015-12-06 01:26:35+01:00","target 1.0.35
+"
+"29bc3878cce5fa947a96f711f1a297b59a91905f","2015-12-06 14:20:51+11:00","Change state prefix. Add link to github issues.
+"
+"9cac9d85f506a4eca582f736cc63d9802defb7e9","2015-12-06 14:22:41+11:00","Remove database_drawable attribute.
+
+Missed (ie should have been removed) in commit f0b27bc5a5
+"
+"afb87d0a2b8f805b2524af35996e3c74adc5ef15","2015-12-06 14:28:17+11:00","Fix out-of-date settings shown after import
+
+We use the PreferenceFragment framework provided by Android to
+display settings and allow the user to modify them. The API doesn't
+support dynamic preference changes from a non-user source, such as
+loading the preferences from a file.
+
+Previously, after importing the settings from a file the user would go
+back to the PreferenceActivity and would see the old (pre-import)
+values, even though the saved settings had been correctly loaded.
+
+This commit provides a stop-gap solution to the issue by
+finishing the PreferenceActivity when the user imports settings, the
+rationale being that forcing the user to re-navigate to the settings,
+while slightly annoying, is much better than making them think we hosed
+their data.
+"

@@ -1,0 +1,351 @@
+"commit id","commit date","commit message"
+"0bf5cf527dfdd9ae8d219d976662236166d059e8","2015-01-29 18:58:27+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I5b70a75f785d039f08c02bde75f57ced42600a9a
+"
+"f831d0f08c8e4f708c6e676238c21ad8bfcbb037","2015-01-28 00:18:27-08:00","Update Android plugin for Gradle to version 1.0.1
+
+Change-Id: Iac1cc0a087df01ce25a230b277f570db1641df3c
+"
+"102aaf567519b4d8449dd1bbf9a2e292eb0fab00","2015-01-29 11:01:56-08:00","More docs for make-templates script
+
+after chatting with Yuvi.
+
+Change-Id: I2389da2ab6a8baddac7614984216dfc149d539bc
+"
+"ab61b1653d985b409b2662493ea9a7c438f25f1f","2015-01-28 23:12:30-08:00","Enable Checkstyle via Gradle
+
+To run checkstyle from commandline:
+./gradlew checkstyle
+
+To run checkstyle from Android Studio:
+Open Gradle tab (on right hand side)
+Select the 'checkstyle' task and run it.
+
+Change-Id: I40044e1025f5d0c70cbef47199d684ddcad0560f
+"
+"ee416aeaef48f890f2bfbff589713d4a4224c5f8","2015-01-29 00:09:37-08:00","Avoid NPE crash from onPrepareOptionsMenu
+
+Maybe related to https://github.com/Prototik/HoloEverywhere/issues/577
+'In onPrepareOptionsMenu, calling menu.findItem returns null when pressing 'menu' key'
+
+Also refactored the findItem calls since they are potentially expensive
+and savePageMenu is used multiple times.
+
+I assume that if the first menu item is not null the others would not be
+null as well. If that's not the case we should get more reports like this
+with newer releases. But it think that's unlikely.
+
+Bug: T87109
+Change-Id: Ic956ce57ea8a440c7d887978b43acdd432af92f8
+"
+"268048733dd94a2a1ec9babdc26858ec2ea9e052","2015-01-30 15:24:26-08:00","Capitalise first character of descriptions returned by action=mobileview
+
+Change-Id: Ic67b787628c624dfd15547a17b0d06628e0eb9ff
+"
+"3362a682a83a8bffff5d351dcf424b797da67b45","2015-02-02 13:38:04-05:00","Ripple effect when highlighting Nav items.
+
+(only applies to 5.0+)
+
+Change-Id: Ieae712a429698757fd20694a4b693a2d5c41eaab
+"
+"f50c409c35b89efcdb9937cc674a4bf6059c4537","2015-02-02 09:43:31-05:00","Don't keep History, Saved Pages, or Nearby fragment in the backstack.
+
+Change-Id: Ib8d59d3d23e8ef3af5ca426aa0a0a10f2c17e4bc
+"
+"02fc605a731552ea08821c5b0fb134aa8264e88b","2015-01-29 12:12:32-08:00","Switch to using PreferenceFragment for settings.
+
+As of API 11, the proper way to present lists of settings is by using a
+PreferenceFragment instead of PreferenceActivity.  And because the activity
+that contains the new Fragment inherits from ActionBarActivity, it indirectly
+fixes the rendering issues that we saw with checkboxes.
+
+Unfortunately API 10 does not support PreferenceFragment, so we have to keep
+the old PreferenceActivity specifically for compatibility with API 10.
+
+Also reverted the previous fix for the checkbox rendering issue.
+
+Bug: T85809
+Change-Id: I61d93eade8d0f059411713898b816b89bb32b7a8
+"
+"918d431377a25eac0eeea7927a08f39727a37271","2015-01-30 16:19:20-08:00","Styling tweaks: toolbar/drawer shadows.
+
+Made the shadow under the toolbar more subtle.
+Added shadow to nav drawer and ToC drawer.
+
+Change-Id: Ie4d00399cc03b75a92454169903507bcaee54afa
+"
+"bd2e59a97ba4e440c94f93ee57a57fe2bd17af08","2015-01-30 16:45:51-08:00","Styling tweaks: infobox color/shadow, disambig link padding.
+
+Corresponding MobileApp patch: https://gerrit.wikimedia.org/r/187842
+
+Change-Id: I804c1b16edc6c5b54e6e541ae35c6f5a067e5154
+"
+"bb02d6451f0abff7a5cac99b5285f61b295885d0","2015-02-03 17:43:58-07:00","Use Gradle BuildConfig to replace getPackageName calls
+
+Gradle creates a few useful strings a in the BuildConfig class.
+Those constant strings are way less expensive than calls to
+getPackageName() and the like.
+
+Also got rid of app.getAppVersionString() and replaced the
+occurrences with the constant BuildConfig.VERSION_NAME.
+
+Change-Id: If8f6b991046e80e885b64b4c8f0a0895e0676628
+"
+"e3662dbc9684096c81b587a569e4b8ece2930fde","2015-01-26 13:39:47-08:00","Crop images to crop off more off the bottom of images, rather than centreing.
+
+This patch changes the fallback logic where no face is detected to crop by
+chopping more off the bottom of the image rather than cropping to centre the
+image.
+
+Bug: T87613
+Change-Id: Ie1f64089f03d41198b18f30582f063a2c522ede3
+"
+"314763260da2f22924b938d1a80177930b39d25c","2015-02-05 01:46:23+00:00","Merge 'Use Gradle BuildConfig to replace getPackageName calls'
+"
+"3941d79be0ea081b5f83269a325efbf545008d83","2015-02-09 19:37:50+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I4dff86e4fa2e3ac6c0382e90d1dd44a3ef0baf8e
+"
+"1ee01b0ca5b8f2c7542455c317f433a2e5026304","2015-01-26 23:18:19-08:00","Enable search suggestions in prefix search task
+
+Using list=search with srlimit of 1. Would have used srlimit of 0
+if the API allowed it. This makes suggestions show up some of
+the times.
+
+Originally I added it to full text search but then the suggestions
+comes too late. The first request is the prefix search. The
+full text search comes as a second request.
+
+Also refactored the SearchResult class to be used by both
+prefix and full text searches.
+
+Bug: T86982
+Change-Id: I43a53b52069378af3cb08bb564b5f99a0511e5bd
+"
+"1fafd9db098e8c84b435336159a04f467b12db10","2015-02-09 16:11:42-05:00","Fix bold-highlighting of search results.
+
+Incorrect highlighting was causing some results to look weird.
+e.g. search for 'schwarzenegger' and scroll down a bit.
+
+Bug: T89037
+Change-Id: Ifd513ab5069a78a500a69074396cd34b3e4fb492
+"
+"caba12a3593df07e8e2ce3b7ea5a31cb91e184c4","2015-02-02 15:24:55-05:00","Nearby: secondary action instead of long-click to view on a map.
+
+- Added Material icon for nearby marker pin (removed old icon).
+- Added button on the right (end) of Nearby items that launches a geo://
+uri on clicking (and removed the long-press action from the item
+itself).
+- Long-pressing the button brings up a tool-tip, a la ActionBar.
+
+Change-Id: I6f346df84fb7c59b16a796674c8f885ec54a8344
+"
+"a795066d68e7c214a55e86a02272853a3999f23e","2015-02-05 16:28:02-05:00","Translucent toolbar on top of lead image, fading with scroll.
+
+Change-Id: I59bb202cfa95c7e2d7c234d154ee99a39ec65540
+"
+"459c3b6e31702ba4d6f157831617f355840eeb45","2014-10-13 13:30:54-04:00","Widgets.
+
+- Created 'Wikipedia search' widget that launches the app and goes
+directly to the search interface.
+- Created 'Wikipedia featured page' widget that shows today's
+featured page, and simply opens the app to the Main page when clicked.
+
+Change-Id: If8c0dfbf12ffe064737c6352aef72d70faf4074b
+"
+"7ab1312896d2a7992ab41acdad8dad0e1059976b","2015-02-12 18:18:23+01:00","Make sure that saved images are successfully saved before telling the user so
+
+Bug: T89358
+Change-Id: I42195643b4594e19554acc14e0281223c4401884
+"
+"a5565c5050a136b062fece70eeabfd0484f88f78","2015-01-12 09:23:10-07:00","ShareAFact: add preview + redesign
+
+- Use standard share action of WebView instead of our own.
+- Removed old ic_message and ic_message_dark icons since we
+are now hooking into the standard share action from the WebView.
+- Show a preview dialog that comes up from the bottom with
+two buttons: 'Share as image', 'Share as text'
+- Redesigned the layout. The lead image is not on top anymore
+but becomes the background picture if we have one.
+If we don't have a lead image then use a black background.
+The text snippet goes on top, followed by title, and description.
+CC-BY-SA icons below and Wikipedia wordmark to the right,
+with the registered trademark symbol (R).
+- Added combined CC-BY-SA icon in drawable folder since
+we only need a fixed size for the generated bitmap (in pixels).
+- The registered trademark symbol (R) on the Wikipedia
+wordmark is done as a Unicode character.
+- RTL aware: the general layout is RTL based on the article language,
+the Wordmark + registered trademark is RTL aware based on the
+device language.
+
+Bug: T86843
+Change-Id: Ie6990b1ae38808574ad083e935ef75170c883af2
+"
+"eb230c59ce257ac880dc43c773bdc0c92c49687d","2015-01-30 17:08:20-08:00","Make nav drawer overlap over search bar.
+
+Added some padding around the Login menu item to make the nav list not be
+so close to the top.
+
+Change-Id: I303e40618e3c96f21273f15d92af41e26c8305e4
+"
+"b71461170a42bb3ffa04b942635b899229ec2c29","2015-02-13 10:27:13-05:00","Update launcher icons.
+
+Change-Id: Ifeba57207a31ff53df84b73c31f8e4c7a67e8b3f
+"
+"486a3b3ab5d842a2aac654d4af3f5f8c8df014b7","2015-02-16 13:40:58-07:00","ShareAFact refactoring
+
+Moving code into more logical places.
+- Create a new class, ShareHandler, in preparation for sharing without a text selection.
+- Renamed SnippetShareAdapter to SelectedTextShareAdapter
+
+Change-Id: I83edefaeeb3a58b98cc666dca6024ec28579c297
+"
+"85ca4374534adaf430f9ff94aea8ea3640a93290","2015-02-16 20:55:55-07:00","Share first paragraph when no text is selected
+
+This functionality is accessible from the Share overflow menu.
+If 'Share as text' is selected just share the URL.
+
+For when text is selected:
+If less than 2 characters are selected also just share the URL.
+
+Added TODO for NoTextSelectedShareAdapter because
+right now it's not clear if we want to have event logged
+when no text was selected.
+
+Change-Id: I7298d08904713ef0f27d042fea31e61a7672dfef
+"
+"20f5650e82aa335415b0119365e231af45a87cc9","2015-02-16 22:06:31-08:00","Force enable autocompletion in the edit summary AutoCompleteTextView
+
+AutoCompleteTextViews override and disable autocomplete. It's kind of ironic.
+The patch force enables it. Unfortunately this needs to be done in the Java
+for the fragment containing the text view, because if you set inputType to
+textAutoComplete in the XML then nothing happens.
+
+Bug: T89696
+Change-Id: Id2308c47c1c54e7d7012b1b744e089f5250395f4
+"
+"05c04c39197be6416ca46c3a831afccec116b6d5","2015-02-16 22:30:23-08:00","Hygiene: Remove unused visitSettings method from EditSectionActivity
+
+Change-Id: I41205b4a5a73ead592f67e16686ab4e0146cf76b
+"
+"d75796c85ab20db8c8cc2d427a395526132204e5","2015-02-16 22:36:24-08:00","Hygiene: Convert some fields to local variables
+
+Change-Id: I48589b7cbcc9a336b00c36e1c50b0b002ccf4445
+"
+"6de70f816173bd6191ce67aa24767d34577b05e4","2015-02-17 16:40:26+00:00","Merge 'Hygiene: Remove unused visitSettings method from EditSectionActivity'
+"
+"9442bf69b8bd158bf1a7b65b12a52c396af52c5e","2015-02-17 16:46:05+00:00","Merge 'Hygiene: Convert some fields to local variables'
+"
+"297b49c4b003540979433a22da4417770b532a72","2015-02-17 17:28:25+00:00","Merge changes I7298d089,I83edefae
+
+* changes:
+Share first paragraph when no text is selected
+ShareAFact refactoring
+"
+"7434c9a054445156d3b439171680fcd577455824","2015-02-17 12:12:05-05:00","Once and for all, spell 'persistence' correctly.
+
+Change-Id: I69a4dc261af7dbeeb73e146f2845a931f300977a
+"
+"00f259d9f1e3df49dd99434d3a0e088768140641","2015-02-16 11:33:17-05:00","Fix scrolling when tapping and dragging over lead image.
+
+Added a custom OnClickListener (with coordinates) to the actual WebView.
+Then, if we detect a click within the logical area of the lead image, then
+we can assume that the user intended to click on the lead image. Otherwise
+the touch/scroll/etc event will be passed on to the WebView.
+
+Bug: T87128
+Change-Id: Ie32524661c4d5408cc17489898074c5bceab33be
+"
+"95d7dc82ff1a5dd10b52ee8a400e81c893b9fa6c","2015-02-17 11:53:02-05:00","Fix 'other' edit summary in 2.3
+
+- Fix text color (was white on white)
+- Fix showing of persisted suggestions, and their background color
+
+Change-Id: Ie30a6be537f55e1c69a09cb2acd5540768b991fb
+"
+"58c719977cc9a08f66c0eda6b4f5edb38ec60972","2015-02-17 11:58:33-07:00","ShareAFact design changes
+
+- Replace gray CC-BY-SA icon with white one.
+- Make sure title, description, and license icons don't overlap.
+- Adjust font size, top, and height for title, description, and text snippet.
+
+Change-Id: I8ce1b3faed1e47459068d73183ea4028370baacd
+"
+"dbe749d4ec0e6e9b45099f938162d15f54633328","2015-02-17 19:10:01-08:00","Fix incorrectly closed <string> in qq/strings.xml
+
+There is a <string> tag which was closed incorrectly, encasing the
+documentation for three strings inside the documentation for another string.
+This patch fixes that by closing the <string> tags correctly.
+
+Change-Id: I6c2fcd0024983855beddec492ba5d47834f6f975
+"
+"056a041110f383c41785fee4e64ef36b765e8041","2015-02-18 18:06:13+00:00","Merge 'ShareAFact design changes'
+"
+"a8d198c27ca7a29e98c1799f25c4d52b2573cc72","2015-02-18 20:55:45-08:00","Correct misleading comment in handleIntent method in PageActivity
+
+This patch corrects a slightly misleading, but technically correct, comment in
+the handleIntent method in PageActivity. The comment implies that the else
+statement only executes when the app is handled an Intent it doesn't
+recognise, which is not actually the case. Through doing some testing using
+breakpoints, I've found out that this else statement is also triggered if the
+user taps on the app from their home screen, which is far from out of the
+ordinary!
+
+This is a pretty subjective matter, so I intentionally made this change in a
+separate commit from the other commit I just made that touches this area of
+the code. Feel free to tell me I'm silly and that I should abandon this. :-)
+
+Change-Id: If2b514d1f32a37a5baa46518251cc74c17bf726e
+"
+"5f9b5095fd45b974e76a8681e89720c37feb8257","2015-02-18 20:50:04-08:00","Add EventLogging for widget taps.
+
+This patch adds EventLogging for widget taps so that we can see how much users
+are using them and know whether to invest further resources in improving them.
+
+Change-Id: Ie71cb6726701a6a979f0267526c507d8822a1092
+"
+"dbbb85ae5e24d62032720c6f42cdaec7560aff34","2015-02-19 13:19:13+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ib8aa768824723e99e3f850c9e233c11bce5c894e
+"
+"62ebbd375c0b18e51c22f474d41f7a429882b58d","2015-02-19 15:00:36+00:00","Merge 'Correct misleading comment in handleIntent method in PageActivity'
+"
+"e261798f3cc35a8e16f11c1811de576b3ffc4b3a","2015-02-19 15:05:43+00:00","Merge 'Add EventLogging for widget taps.'
+"
+"806dd812924685a49d5366921267fb04a49b059c","2015-02-18 16:00:17-05:00","Additional tweaks/fixes for share-a-fact.
+
+- Fixed face offset.
+- Added dark gradient underneath text.
+- Tweaked some margins and offsets.
+- Put the share layout into a ScrollView, in case the display is too small
+for the generated image and buttons.
+- Hiding description when sharing from Main page.
+- Replaced registered-trademark character.
+- Fixed unrelated checkstyle.
+
+Bug: T86242
+Change-Id: Ie3a89afcdc93844d82164836aef2b8632cdc992e
+"
+"ffe02ef87a09410392568f17c9e87a9f667ee476","2015-02-19 11:24:19-05:00","In Gallery, provide a white background for images with transparency.
+
+Bug: T87250
+Change-Id: I2181088796c871e13b96a585cd3812bb65d361a6
+"
+"ce4cadb3340795d7f5fbdbf3e2543f88b0cfbec9","2015-02-19 18:58:49+00:00","Merge 'Additional tweaks/fixes for share-a-fact.'
+"
+"e74ddb005de0b5539746bd87500dfbb4b87abc27","2015-02-19 14:00:33-05:00","Give lead image a white background, in case the image has transparency.
+
+Bug: T87250
+
+Change-Id: I6cba6972f82d55fa6c8f47b8231e943a56ff6cf8
+"
+"d84e0dbcf60bed0c1e23d20734d50a221ac0d9e9","2015-02-19 22:12:30+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ia05410470a03149f0a96ef290acf3f4cceee912d
+"
+"ba835126e8e30533a3c4495a1de46671f639c8ab","2015-02-19 14:28:43-07:00","Bump versionCode
+
+Change-Id: Ie375ada75aa53b9718078c23bcab157258fa64ec
+"

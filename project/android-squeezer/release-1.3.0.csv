@@ -1,0 +1,580 @@
+"commit id","commit date","commit message"
+"182aebc1596f5a6f7fc9f3e6e43df3eddfbdb5e3","2015-01-20 07:58:22+01:00","Merge branch 'release-1.2.6' into develop
+
+* release-1.2.6:
+Prepare for release 1.2.6.
+Code for the 1.2.6-beta-3 release.
+Code for the 1.2.6-beta-3 release.
+Prepare for release 1.2.6-beta-2.
+Prepare for release 1.2.6-beta-1.
+"
+"efedd9301fc8e86e45000dfeaf9560c037e4d0b9","2015-01-20 17:57:09+01:00","Correct the mock server behaviour when printing out a login string.
+"
+"7fbd8723efcbf2a003d7696b20a9d0d4cbce6da8","2015-01-20 17:59:52+01:00","Flip order of string equals comparison.
+"
+"970cfe7607e78b1014ef7f69c1bab09eefbda96e","2015-01-20 18:00:33+01:00","Remove unnecessary initialisation.
+"
+"76546e09184c426268caabdd2f61621378555278","2015-01-20 18:33:22+01:00","Fix a typo (canRamdomPlay -> canRandomPlay) in a variable name.
+"
+"353bb264981a58fc12b9bad124ac38c253a717f6","2015-01-20 18:34:31+01:00","Replace a single character string with a character constant.
+"
+"4d4f91ef84075b223938076e0558ed759a21e7b4","2015-01-20 18:56:09+01:00","Merge branch 'develop' into connection-state
+
+* develop:
+Prepare for release 1.2.6.
+Code for the 1.2.6-beta-3 release.
+Code for the 1.2.6-beta-3 release.
+Prepare for release 1.2.6-beta-2.
+Prepare for release 1.2.6-beta-1.
+"
+"71b95a3049a1830547ecaea709a53ba3bd3d19ba","2015-01-21 07:17:25+01:00","Merge branch 'develop' into lint
+
+* develop: (73 commits)
+Prepare for release 1.2.6.
+Code for the 1.2.6-beta-3 release.
+Code for the 1.2.6-beta-3 release.
+Prepare for release 1.2.6-beta-2.
+Add missing Danish translations.
+Theme support for view dialogs.
+Call through to the superclass implementation of onEventMainThread().
+Include proguard-eventbus.cfg for release builds.
+Add android:layout_alignParentLeft attribute, required for API < 17.
+Prepare for release 1.2.6-beta-1.
+Make disconnection handling more robust.
+Refactor how server capabilities are communicated.
+Prepare for release 1.2.5.
+Add additional logging where downloadEntry.tempName is null.
+Ensure that setAdapter() calls happen on the UI thread.
+Ignore context menu selections if players change while the menu is shown.
+Ensure that a user's login credentials are not sent to Crashlytics.
+Prepare for release 1.2.4.
+Remove extraneous period in a comment.
+Fix a crash constructing Player objects on API < 9.
+...
+
+Conflicts:
+Squeezer/src/main/java/uk/org/ngo/squeezer/NowPlayingFragment.java
+Squeezer/src/main/java/uk/org/ngo/squeezer/itemlist/CurrentPlaylistActivity.java
+Squeezer/src/main/java/uk/org/ngo/squeezer/itemlist/dialog/PlaylistSaveDialog.java
+"
+"0ca148e88918e99410a1a7be53d127c6e0f2ea87","2015-01-21 07:47:32+01:00","Fix NPE in getPlayerState().
+"
+"f891c09d69bfc0b54ed76bd4c1aa15248d7e074d","2015-02-06 23:33:35+01:00","Support multiple servers part 1
+
+This is the first part of support for multiple servers.
+
+Server adress information is keyed by the BSSID of the current network in the
+preferences file.
+
+Server name, username and password is keyed by the server adress (ip:port).
+"
+"c8449fdb2d7257a7c0528805f83f9c034ba1fd3f","2015-02-08 20:21:48+01:00","Warm welcome - broadcast for local servers, and
+
+let the user choose one, and optionally set credentials.
+
+When starting Squeezer for the first time, don't dump people in the settings
+straight off.
+
+To be able to start the server address dialog, without first going to settings,
+the dialog can no longer extend DialogPreference. To still be able to set the
+prefered server via settings, and to avoid code and resource duplication, I have
+created a custom view with all the functionality, which can be used from both.
+Also the local servers are searched without waiting for the user to request it.
+"
+"d6d347153ff65401713d77448e66bfb8ef4f01dc","2015-02-09 09:11:59+01:00","Update the server name in DisconnectedActivity
+
+when the settings change
+"
+"7d58b33b455bb2f84df94c7864506517c76176d8","2015-02-09 21:46:45+01:00","Don't runOnUiThread in startVisibleConnection
+
+It isn't necesary as it is always called from the main thread.
+
+This eliminates a number of error conditions, and make the connection more
+responsive.
+"
+"173c09771e3621c725f435d2b159ad7291fe4491","2015-02-10 22:36:17+01:00","Populate username and password edit text with the
+
+username and password for the selected server
+"
+"3f260530a66b9de48d2ce28fb2bfdcb433e660e7","2015-02-10 23:42:55+01:00","Support servers on different networks with same ip
+
+Signed-off-by: Kurt Aaholst <kaaholst@gmail.com>
+"
+"5e0d35e4f9bfaf0e2889945aaf169a97ca2a5408","2015-02-11 23:10:12+01:00","Hide serverspinner if not multiple servers found
+
+and do not change selection when servers are rescanned
+"
+"a28435416ea0bfdbc7cb149495855d1f2237a814","2015-02-11 23:31:52+01:00","Try to position server spinner on the current server
+"
+"a73b016c96b52814aed9dbdaa3481c7bcef71127","2015-02-11 23:43:48+01:00","Move ScanNetworkTask to upper level
+
+so it can be used by others
+"
+"e8348cbf7fed01a6954c20e43e48a076d3cc79e6","2015-02-21 13:28:59+00:00","safer names for downloaded files
+
+Attempt to rewrite pathnames of downloaded files so that they are
+compatible with vfat filesystems, so that they can easily be
+transferred from the system partition (typically ext4) to a spare
+SD card (often vfat).
+"
+"ed5b6fb215226245b3ac00e7f05a3b331665466b","2015-02-26 08:45:19+01:00","Only change to the default port when selecting
+
+a different server.
+
+Signed-off-by: Kurt Aaholst <kaaholst@gmail.com>
+"
+"69cad1ab43819d8b9be8c2010a5e5774a3a0cc0f","2015-03-01 10:58:04+01:00","Merge commits up to 'f6ea5c695e4b1987040a0c7fb0a1df34c2850c66' into develop
+
+Does not include the changes to use util.Logger (or that class).
+"
+"fb93c90598bff4c9dd4446b0188ad8d5743d3cf5","2015-03-01 10:58:57+01:00","Add documentation comments.
+"
+"0a6fc29a59bd722e33fa94cbd589ffc20b13c521","2015-03-01 16:46:32+01:00","Merge branch 'develop' into connection-state
+"
+"69223b68a7f10599fded8133e431fa4d3657ecc3","2015-03-01 19:18:00+01:00","Fix a bug determining the correct player subscription type.
+
+The player subscription type (real_time, etc) is determined by the
+events that clients of mEventBus are registered for.
+
+However, clients that register after the last call to
+updateAllPlayerSubscriptionStates() are not considered.
+
+This manifests as starting Squeezer connected to a server with a player
+that is already playing a track.  Because NowPlayingFragment registers
+with the service after updateAllPlayerSubscriptionStates() is called,
+which means that the logic that checks for clients subscribed to the
+SongTimeChanged event fails, and the player's subscription type is
+not set to 'real_time'.
+
+The result is that the progress bar in NowPlayingFragment does not
+progress through the track, in both the mini player and the full screen
+player modes.
+
+Fix this by introducing a subclass of EventBus that calls through to
+updateAllPlayerSubscriptionStates() every time a client registers or
+unregisters on the bus.
+
+While in this code, renamed getPlayerSubscriptionType() to
+calculateSubscriptionTypeFor() to make it clearer that this method
+does not simply return a static value.
+"
+"04407ec1330e34165e593e09dc84d72e4075ac34","2015-03-01 19:40:55+01:00","Simplify some if() statements.
+"
+"4680ab9a1157775886030c9b76918cb0c2c4cf78","2015-03-01 19:44:25+01:00","Add @NonNull to overridden methods and parameters where safe.
+"
+"a03e874a50771701f818da988feca17f137fa90b","2015-03-01 21:00:52+01:00","Before connecting, check that the hosting activity is not finishing.
+
+Without this check the following sequence occurs (if Squeezer is
+configured to not automatically connect):
+
+- HomeActivity starts, and creates NowPlayingFragment
+
+- NowPlayingFragment posts the Runnable to start the connection
+process.
+
+- NowPlayingFragment determines that the state is disconnected, and
+launches DisconnectedActivity.
+
+- HomeActivity starts to shutdown.
+
+- The Runnable runs, creates connectingDialog, and calls
+mService.startConnect().
+
+- HomeActivity finishes shutting down. An exception is logged, because
+connectingDialog has been leaked.
+
+- DisconnectedActivity starts, and creates NowPlayingFragment.
+
+- The call to mService.startConnect() completes. DisconnectedActivity
+receives the ConnectionChanged event, and launches HomeActivity
+again.
+"
+"6df29fd002e83b53d8dcc58c13d172d603c93715","2015-03-01 21:01:32+01:00","Merge branch 'develop' into connection-state
+"
+"cbe613e0e550c8bde16cc1217210ec9402b82d15","2015-03-03 15:39:50-08:00","Merge remote-tracking branch 'origin/pr/22' into develop
+"
+"303c3c9c1edf87cf06d8c98ef42bed83f35d4990","2015-03-05 10:12:35+01:00","Workaround for internet radios not working on 7.8+
+
+Internet radio stations can't be parsed on recent servers. According to the CLI
+documentation the 'cmd' column is suppose to be the item delimiter for the
+'radios' command. However the columns arive in random order, so when the cmd
+column arrives, the previous record may not be complete.
+
+To workaround this, we test that all columns for a radio has arrived before we
+proceed with the next entry.
+
+Signed-off-by: Kurt Aaholst <kaaholst@gmail.com>
+"
+"a395b982617bc8d655e0bbfa9639404aa1f8c342","2015-03-05 10:55:57+01:00","Fix icon handling
+
+Some plugins return an absolute url for the icons, so we test if it's absolute
+before we add the local server to the path.
+
+Also some servers doesn't like an extra slash, e.g.: 'http://server:port//path/icon.png'
+so we only add a slash, if the releative url doesn't already start with a slash.
+
+Signed-off-by: Kurt Aaholst <kaaholst@gmail.com>
+"
+"002de8f2ac6b4f276f45565cc91d5a25d37e07a4","2015-02-17 22:52:37+01:00","Scan server on disconnect
+
+Disconnected activity show the server address view, which scans for servers on
+the local network, and allows the user to reconnect to another server without
+going through settings.
+"
+"be753a0f636241d5d5ab740d142e8ef84393af14","2015-02-17 23:14:00+01:00","Use disconnected activity on no configured server
+
+instead of showing a dialog the first time the user opens the app.
+"
+"ffb077a2dfac9c738317c56cbb9c1190eee98d0d","2015-02-21 08:36:28+01:00","Show disconnected activity on login failure
+
+with an additional informational header explaining the issue, and a link to an
+alart dialog which explains how to check the server settings.
+
+If the server disconnects before the handshake is completed, it was interpreted
+as an authentification failure. If the server connects but then disconnects for
+some other reason before authentication is done, Squeezer would wrongly ask for
+authentication. This happens e.g. if you enter the web interface port instead
+of the CLI port.
+
+The disconnected activity (via the server address view) gives the possibility
+to change all the connection parameters, and the informational tekst does not
+assume that it is an authentication failure.
+
+Signed-off-by: Kurt Aaholst <kaaholst@gmail.com>
+"
+"fc4f90ad2c8b07dc4098972531c91ea97b23c743","2015-02-28 22:22:17+01:00","Fix soft keyboard garbles the disconnected view
+
+By moving the ScrollView out of the server_address_view.
+
+Signed-off-by: Kurt Aaholst <kaaholst@gmail.com>
+"
+"429d5960db3ec3f508ad1e891daa4c9c2df9b1c6","2015-03-14 22:34:03-07:00","Merge remote-tracking branch 'kaaholst/connection-management' into develop
+
+# Conflicts:
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/dialog/AuthenticationDialog.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/dialog/ServerAddressPreference.java
+"
+"b939c8a2e9b4143872d27d89c6b0b4ee12a2748d","2015-03-14 23:08:45-07:00","Merge branch 'develop' into connection-state
+
+# Conflicts:
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/DisconnectedActivity.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/NowPlayingFragment.java
+#	Squeezer/src/main/res/values/strings.xml
+"
+"4415b9180530814421f7dfa1916da490e3d046fc","2015-03-14 23:28:36-07:00","Show/hide 'Connect' menu item based on connection state.
+"
+"fd47548af9defd4a10280e141a74de60ce180a32","2015-03-14 23:36:04-07:00","Merge branch 'develop' into lint
+
+# Conflicts:
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/NowPlayingFragment.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/dialog/AuthenticationDialog.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/dialog/ServerAddressPreference.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/itemlist/CurrentPlaylistActivity.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/service/SqueezeService.java
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/util/AsyncTask.java
+"
+"05b63b6225c5d89aa17ed0c08eacd8020e5d67d5","2015-03-14 23:38:03-07:00","Merge branch 'lint' into develop
+"
+"4e559663d2c17cb8f321597ba8e3807b432c2788","2015-03-14 23:43:45-07:00","Merge branch 'lint' of https://github.com/nikclayton/android-squeezer into lint
+
+# Conflicts:
+#	Squeezer/src/main/java/uk/org/ngo/squeezer/NowPlayingFragment.java
+"
+"322bea02c5ced76504e77aa86b4c0cd69b1c64b7","2015-03-14 23:50:34-07:00","Mark compareById as final.
+"
+"7faffb86fbb2251979b1bd05e6caa6f5e5165c21","2015-03-14 23:50:44-07:00","Mark lock object as final.
+"
+"377550208a1f294e273b47373ee44728118ca030","2015-03-15 12:43:36-07:00","Merge branch 'connection-state' into develop
+"
+"645835015c2a2ca09a32353d6998f30b2e76b87d","2015-03-15 12:59:44-07:00","Follow the field naming conventions for event fields.
+"
+"1f73317813518e31fef754b3d5194a80920c79e0","2015-03-15 16:12:04-07:00","Merge branch 'develop' into floatlabel
+
+# Conflicts:
+#	Squeezer/src/main/res/layout/server_address_dialog.xml
+"
+"c531289ddc704d07e4a2953ad77926a0952f8e20","2015-03-16 04:36:40-07:00","Save and restore hint text in hideLabel() and showLabel().
+
+The previous code saved the hint when the view was created, and ignored
+any subsequent changes to it. For example, if the hint text contained a
+'%s' and a string was subsequently interpolated in, the interpolation
+was ignored, and the floating label would contain the '%s'.
+"
+"82a76cd0e017c6d3704c95d14066c65020e18a5e","2015-03-16 05:24:07-07:00","Switch trigger type to 'text'.
+"
+"e6c4294c2a81e8fd9538b54f223f09154866823b","2015-03-16 05:57:36-07:00","Use a floating label for search text.
+
+- Wrap the EditTexts in a FloatLabel.
+
+- Make the TextViews that act as labels for the spinners have the same
+look and feel as a floating label.
+
+- Use RelativeLayouts instead of LinearLayouts so that the TextViews
+appear in the correct place relative to the spinners.
+"
+"32c9da47e0bf96d489f1f84f4c551b62cdfc4cc7","2015-03-16 16:00:26+01:00","Remove unnecessary modifiers.
+"
+"331e9f9a8c5409711123d5c6e0e739162096b5db","2015-03-16 16:01:06+01:00","Merge branch 'develop' into lint
+"
+"941c05655d8d4f4083a44ce99c04fe7f04cf8296","2015-03-18 07:10:35+01:00","Replace enums, where practical, with @IntDef or @StringDef equivalents.
+
+Per the enum recommendations at
+https://developer.android.com/training/articles/memory.html.
+
+This removes about 3MB from Squeezer's runtime footprint.
+"
+"df8a9925ef4ef0c2552fddd63b7fb7c214dc86e6","2015-03-25 17:37:11+01:00","Merge branch floatlabel in to develop.
+"
+"c4578f5f8bb0ab43ed2b8aba174f3c77a550bc8c","2015-03-25 21:19:57+01:00","Bring NEWS up to date with recent merged changes.
+"
+"d552d11d11ac40cdaada5e05f23d338025ecf9fe","2015-03-28 18:51:29-04:00","Retrieve the 'buttons' parameter from the song info and use it to determine what buttons to show when the song is remote.  Note the only documentation on the 'buttons' parameter is 'A hash with button definitions'; it isn't clear how this can be mapped to buttons.  For now we just assume that the presence of a button hash means 'next' is supported.  This allows the user to skip the current song when using the Slacker app.
+"
+"ffa60d56c77bf7b72a05ad1c0a25e3422635de26","2015-04-16 21:28:56+02:00","Use git revision information in the About dialog for debug builds.
+
+Also use this information when naming generated .apk files.
+"
+"baa332c6c32bb087ffb44ba417396d128119cd28","2015-04-17 19:06:34+02:00","Prepare for release 1.2.7-beta-1.
+"
+"1888d4cf7028c0c8b7a51cb48cae7b56bae4a5d5","2015-04-19 10:22:09+02:00","Update to Gradle 1.1.0.
+"
+"3dbfcec280775a3c2fc31c616ac6a17f422e8d29","2015-04-19 10:22:25+02:00","Fix a typo in a comment.
+"
+"700bc893a976919afd418daa9571b9f7408e53c5","2015-04-19 10:33:44+02:00","Merge branch 'refactor-enum' into develop
+
+* refactor-enum:
+Replace enums, where practical, with @IntDef or @StringDef equivalents.
+Remove unnecessary modifiers.
+Mark lock object as final.
+Mark compareById as final.
+"
+"eaa59455d1361e5cc4b4a7351425b91e5062f47a","2015-04-19 11:31:41+02:00","Merge branch 'pr/24' into develop
+
+* pr/24:
+Retrieve the 'buttons' parameter from the song info and use it to
+determine what buttons to show when the song is remote.  Note the
+only documentation on the 'buttons' parameter is 'A hash with button
+definitions'; it isn't clear how this can be mapped to buttons.
+For now we just assume that the presence of a button hash means
+'next' is supported.  This allows the user to skip the current song
+when using the Slacker app.
+"
+"3d9cb283d024c131c0ca5ecbc9132d6217cd88b6","2015-04-19 11:43:45+02:00","Update to latest Gradle version.
+"
+"45726ef0d5aefee7a6acd28dc1e8617682798d85","2015-04-19 16:24:35+02:00","Merge branch 'develop' into notification
+
+* develop: (138 commits)
+Fix a typo in a comment.
+Update to Gradle 1.1.0.
+Use git revision information in the About dialog for debug builds.
+Retrieve the 'buttons' parameter from the song info and use it to determine what buttons to show when the song is remote.  Note the only documentation on the 'buttons' parameter is 'A hash with button definitions'; it isn't clear how this can be mapped to buttons.  For now we just assume that the presence of a button hash means 'next' is supported.  This allows the user to skip the current song when using the Slacker app.
+Bring NEWS up to date with recent merged changes.
+Replace enums, where practical, with @IntDef or @StringDef equivalents.
+Remove unnecessary modifiers.
+Use a floating label for search text.
+Switch trigger type to 'text'.
+Save and restore hint text in hideLabel() and showLabel().
+Follow the field naming conventions for event fields.
+Mark lock object as final.
+Mark compareById as final.
+Show/hide 'Connect' menu item based on connection state.
+Fix soft keyboard garbles the disconnected view
+Show disconnected activity on login failure
+Use disconnected activity on no configured server
+Scan server on disconnect
+Fix icon handling
+Workaround for internet radios not working on 7.8+
+...
+
+Conflicts:
+Squeezer/src/main/java/uk/org/ngo/squeezer/service/SqueezeService.java
+"
+"c118cdbd0594e8d126b03cfbb7d64dd0799a59e7","2015-04-22 07:58:10+02:00","Refine notification code:
+
+- Fix a bug where the user's changed preferences were not being cached in
+the service.
+
+- Use a RelativeLayout for the notifications, to reduce the number of views
+and simplify the layout hierarchy.
+
+- Show the 'no artwork' icon if it could not be loaded.
+
+- Only set the bigContentView field on Jelly Bean and above.
+
+- Use platform styles for notification text appearance.
+
+- Remove the player name from the normal notification so that it doesn't
+feel cramped.
+"
+"8226265f892ef6edb6b8dbbc56b86917df3a3e0f","2015-04-22 08:07:31+02:00","Remove unused divider drawables.
+"
+"262321f516f8910536dbe885040185c07d44ab0d","2015-04-22 08:40:20+02:00","Fix a bug when subscribing to player updated.
+
+A missing space in the player subscription command meant that the command
+was not well formed, and the response from the server could not be parsed,
+resulting in an avalanche of subscription attempts.
+"
+"1180e28722f8abb9ed5add5930f3bbcde4c01e3f","2015-04-22 08:45:41+02:00","Merge branch 'develop' into notification
+
+* develop:
+Fix a bug when subscribing to player updated.
+"
+"f829d4a246beab5dc3a7f04aec078d9407e84ad1","2015-04-22 08:54:31+02:00","Add a NEWS entry for richer notification support.
+"
+"c2cd27d1e51e4c0c55d60172c18aa42785656781","2015-04-23 07:37:05+02:00","Merge branch 'develop' into release-1.2.7
+
+* develop:
+Fix a bug when subscribing to player updated.
+Fix a typo in a comment.
+Update to Gradle 1.1.0.
+Retrieve the 'buttons' parameter from the song info and use it to determine what buttons to show when the song is remote.  Note the only documentation on the 'buttons' parameter is 'A hash with button definitions'; it isn't clear how this can be mapped to buttons.  For now we just assume that the presence of a button hash means 'next' is supported.  This allows the user to skip the current song when using the Slacker app.
+Replace enums, where practical, with @IntDef or @StringDef equivalents.
+Remove unnecessary modifiers.
+Mark lock object as final.
+Mark compareById as final.
+"
+"fc288fb611a673c30acfc85024acc0645e3e7ccb","2015-04-23 08:35:15+02:00","Only show the change log when the user updates from an existing version.
+"
+"2c69e3a8d6f209d38af7a44d39c1cc55cd1c9c99","2015-04-23 08:35:50+02:00","Prepare for release 1.2.7-beta-2.
+"
+"bd96bc5df95d1aba8f970113ce31253a21d7432a","2015-04-24 08:07:11+02:00","Use MediaStyle notifications on Lollipop and above.
+
+- Update targetSdkVersion and compileSdkVersion to point at Lollipop.
+
+- Use NotificationBuilder instead of NotificationBuilderCompat on Lollipop
+and above, as the support library does not include support for
+Notification.MediaStyle().
+
+- Remove the 'previous' buttom from the normal notification on non-Lollipop
+devices, for consistency with the UI on Lollipop.
+
+- Remove layout_height on parent view that uses @dimen, it causes a crash
+on (at least) API 16 devices.
+"
+"81514d84a3df384625d9aa151857b6fb46d63323","2015-04-27 08:20:23+02:00","Prepare for release 1.2.7.
+"
+"6ec841cef3f4332daf4cc237f6e4236f50585a03","2015-04-27 08:31:50+02:00","Merge branch 'release-1.2.7'
+
+* release-1.2.7: (71 commits)
+Prepare for release 1.2.7.
+Prepare for release 1.2.7-beta-2.
+Only show the change log when the user updates from an existing version.
+Fix a bug when subscribing to player updated.
+Fix a typo in a comment.
+Update to Gradle 1.1.0.
+Prepare for release 1.2.7-beta-1.
+Use git revision information in the About dialog for debug builds.
+Retrieve the 'buttons' parameter from the song info and use it to determine what buttons to show when the song is remote.  Note the only documentation on the 'buttons' parameter is 'A hash with button definitions'; it isn't clear how this can be mapped to buttons.  For now we just assume that the presence of a button hash means 'next' is supported.  This allows the user to skip the current song when using the Slacker app.
+Bring NEWS up to date with recent merged changes.
+Replace enums, where practical, with @IntDef or @StringDef equivalents.
+Remove unnecessary modifiers.
+Use a floating label for search text.
+Switch trigger type to 'text'.
+Save and restore hint text in hideLabel() and showLabel().
+Follow the field naming conventions for event fields.
+Mark lock object as final.
+Mark compareById as final.
+Show/hide 'Connect' menu item based on connection state.
+Fix soft keyboard garbles the disconnected view
+...
+"
+"74673537f2693420784e1a894b15b022e5df666e","2015-04-27 08:33:16+02:00","Merge branch 'release-1.2.7' into develop
+
+* release-1.2.7:
+Prepare for release 1.2.7.
+Prepare for release 1.2.7-beta-2.
+Only show the change log when the user updates from an existing version.
+Prepare for release 1.2.7-beta-1.
+"
+"e4be2a959a1e8c45d81ce2a8cd95b851110f6e60","2015-04-28 23:14:45+02:00","Update to buildTools v22.0.1.
+"
+"5d91ff2c53236fe9db392cf9c7f7ef0c7e99894f","2015-04-28 23:18:00+02:00","Fix an off-by-one error when scanning for servers.
+
+- Extract the code to parse server discovery responses in to a new
+function for testing.
+
+- Add unit tests.
+
+- As the unit tests do not require anything from Android add them as
+JVM tests (src/test) instead of on-device tests (src/androidTest).
+"
+"23c0c30181efd69b2e3aa7f44f8c760a265caebd","2015-04-29 21:48:36+02:00","Make play list affecting events sticky.
+
+This affects MusicChanged, PlaylistTracksAdded, PlaylistTracksDeleted.
+
+This means that opening up a playlist, leaving Squeezer while the
+music continues to play, and coming back to the same activity through
+the 'Recents' menu restores the correct place in the playlist, instead
+of sticking to whatever the last track that was played is.
+"
+"b5c3e67a390d1abddebc1a6040f9501890cb3636","2015-04-29 21:50:29+02:00","Remove code to rename .apk files.
+
+Triggers issue where Android Studio occaisionally fails to find the
+generated .apk file.
+"
+"89daf76952a31549721c2dd923ddbc70cd973225","2015-04-29 21:58:49+02:00","Merge branch 'notification' into develop
+
+# Conflicts:
+#	NEWS
+#	Squeezer/build.gradle
+"
+"fe912524613c86ea4f1b838fbd2b8d34522eee80","2015-04-29 22:18:21+02:00","Prepare for release 1.2.8-beta-1.
+"
+"223179ddbfbc09196d6c234f4ea281b586381dc6","2015-05-07 16:41:24+02:00","Ensure ImageFetcher threads resume when the activity is paused.
+
+Without this, an ImageFetcher thread could be spawned, paused (because
+the user scrolls) and then the activity goes away because the user
+presses the 'back' button (or similar).
+
+The thread is now running waiting for a notification that will never
+come.
+
+If this happens twice then the thread pool is filled with non-responsive
+threads, and no more images can be loaded.
+
+In addition, call setExitTasksEarly in onPause (enable it) and onResume
+(disable it) so that the bitmap threads do not carry out unnecessary
+work when the activity is pausing.
+"
+"27b8f3d9e492a64159e9ff68a12c9b93b0ac894a","2015-04-20 23:25:09+02:00","Correct test display of song context menu items
+
+A regression had occured when refactoring empty Song members from null to the
+empty string.
+"
+"3c8e5222795d504de1b80c47e9d1efe90b14dfd6","2015-05-10 09:06:35+01:00","Fix inverted test in song context menu handling.
+
+Merges remote-tracking branch 'origin/pr/25' into develop
+"
+"785c717cdb6e30694dd819964354d1986b5677a7","2015-05-10 09:18:25+01:00","Add comment noting potential to remove calls to updateSongInfo().
+"
+"038bb515406c0c9ffc92686606507a3736fb9d89","2015-05-10 09:22:22+01:00","Merge branch 'release-1.2.8' into develop
+"
+"7310a84d800242cb97d0beb3372add0364e157f9","2015-05-10 20:42:18+01:00","Prepare for release 1.3.0-beta-1.
+"
+"28ff184786532715971309a392f06914c7ec1568","2015-05-11 18:11:41+01:00","Start to support notifications on wearables.
+
+Don't mark the notification as 'ongoing', otherwise the wearable
+won't display it.  This is consistent with the observed behaviour of
+the Google Music app.
+"
+"ba9be16ae1d7129e3b30da89fcff6896fdb6dab3","2015-05-12 21:19:30+01:00","Merge branch 'develop' into release-1.3.0
+"
+"db1f3de64ab601f775012dedb616c292290270cf","2015-05-12 21:42:21+01:00","Update changelog with support for notifications on wearables.
+
+Add screenshots of Squeezer on Wear for Google Play et al.
+"
+"15d65924d0c70af294eca0d1d794fbda400ad471","2015-05-16 23:14:33+01:00","Note that URLs for images for notifications may be relative.
+"
+"7891b6b61fb3a9e5a88715f921cd32c20bee3238","2015-05-16 23:26:17+01:00","Prepare for release 1.3.0.
+"
+"db21092e1dc0fbbf9aaaca908aa14c804ee08a41","2015-05-16 23:38:05+01:00","Merge branch 'master' of https://github.com/nikclayton/android-squeezer
+
+# Please enter a commit message to explain why this merge is necessary,
+# especially if it merges an updated upstream into a topic branch.
+#
+# Lines starting with '#' will be ignored, and an empty message aborts
+# the commit.
+"
+"9ee2bcb0f246ffc806d41a21d08b5f66253a1fde","2015-05-16 23:38:12+01:00","Merge branch 'master' of https://github.com/nikclayton/android-squeezer
+"
+"091b6a07466ccf094e6d81830189937a702040a6","2015-05-16 23:38:44+01:00","Merge branch 'release-1.3.0'
+"

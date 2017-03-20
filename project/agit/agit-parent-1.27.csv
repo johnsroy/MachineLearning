@@ -1,0 +1,160 @@
+"commit id","commit date","commit message"
+"061389e4b6fe405a0d0427cd9e765df937743c95","2011-09-03 21:28:33+01:00","[maven-release-plugin] prepare for next development iteration
+"
+"7df26df670b14e4b8ca0561569b9416d77dc8d00","2011-09-04 18:06:23+01:00","lastest alpha of MAP
+"
+"b2eac0a7c9b9dff332d4ffdffc2bb25a65a553d6","2011-09-04 18:07:06+01:00","Don't suggest android.kernel repos which are currently unavailable
+"
+"67661e7a9900e2efda2bec9a2646d337cc448a3a","2011-09-04 18:07:55+01:00","putting more strings into xml for translation
+"
+"261b1a6b3321529797cd356abd31d40f3a78ea7c","2011-09-04 22:09:43+01:00","Fix-up strings for fetch-op
+"
+"092f6be7c287caa738268825c8521f32dab13c1b","2011-09-05 09:45:37+01:00","If the exception has no message, show the exceptino name
+"
+"151e6c37bc15c4bb84a9d214956eb9af192206fc","2011-09-20 19:28:05+01:00","Allow Diff Slider to hold at midway point - closes #51
+
+It's possible that the text size should be greater than 50% at the halfway
+point... ie both should be at 66%, and be parabolic
+"
+"e301eaf93c36851d7467dcc5dbcdf75cf3820bef","2011-09-21 15:23:55+01:00","Support launching Clone activity from 'git://' protocol links - fixes #53
+
+Alex Austin supplied this page as an example that links directly to both
+'git://' and 'ssh://' urls:
+
+http://cgit.freedesktop.org/libreoffice/artwork/
+
+links to:
+
+git://anongit.freedesktop.org/libreoffice/artwork
+
+ssh://git.freedesktop.org/git/libreoffice/artwork
+"
+"765792312352c7e8b2a3e6b22cdaa52f94812677","2011-09-28 08:15:38+01:00","Update to latest version of MAP
+"
+"2fc2d97b465e601aaf793920e15508575d5c82d7","2011-09-30 00:01:48+01:00","Explain location of Java platform Jars to ProGuard to fix #50
+
+Solution taken from:
+
+https://github.com/jayway/maven-android-plugin-samples/blob/stable/morse
+flash/morseflash-app/pom.xml
+"
+"4baef528c4213a5865cfeb6dcd6e89010034aa93","2011-10-01 00:23:49+01:00","Update MAP to AMP
+
+http://code.google.com/p/maven-android-plugin/wiki/PluginRenamed
+"
+"5fa3653ff8775ab362e2ea5fa8b2288d9b898a25","2011-10-05 09:22:57+01:00","This hava home lib path is correct for me on my Ubuntu laptop
+"
+"98ea43c07b7625f363d742b7078b034e6363b9f9","2011-10-10 12:13:06+01:00","Took ProGuard config out to much clearer, non-entitiy-escaped file
+"
+"4cf8e5e4dd48db808e976ea329e7165a20da8198","2011-10-12 14:08:27-07:00","Update imports that were referencing non-local R strings.
+
+Also removes unused imports that were present in these class
+files.
+"
+"107e71d067eb951dafac73181ca1b1b3e6bf3a93","2011-10-13 11:51:04-07:00","Merge pull request #56 from kevinsawicki/imports
+
+Update imports that were referencing non-local R strings.
+"
+"9ef9c3d4cbcc8ef76638068fa373615761722aac","2011-11-08 17:02:35+00:00","Update CREDITS.markdown
+"
+"af93154a7916e669dc5b349ad1ad63b9dfc0f84a","2011-11-17 12:18:29+00:00","Update to AMP 3.0.0-alpha-14 to cope with DDM lib changes etc
+"
+"57b88b99e894362de90eb88c1ec1ba628b980ac7","2011-11-17 12:20:44+00:00","Merge branch 'master' of github.com:rtyley/agit
+"
+"c6e65f0e43b2768ab74c1d671d4bda57f3eb32dc","2011-12-01 16:42:46+00:00","Revert 'putting more strings into xml for translation'
+
+Doing this to make integration tests work again... the whole opspec
+refactor will be required to get these context strings working again...
+
+This reverts commit 67661e7a9900e2efda2bec9a2646d337cc448a3a.
+
+Conflicts:
+
+agit/res/values/strings.xml
+agit/src/main/java/com/madgag/agit/operations/Clone.java
+agit/src/main/java/com/madgag/agit/operations/Fetch.java
+"
+"97fa75de713e29ba1bed48c82d5598a2b013d37b","2011-12-01 16:43:02+00:00","gitignoring the apklib contents
+"
+"76f13eecc94b66e4b0f204a6ebcfca09307e993d","2011-12-01 17:35:49+00:00","testing github-push notification...
+
+https://wiki.jenkins-ci.org/display/JENKINS/Github+Plugin
+"
+"2eb2f1fcc2006f15fde4e7f1d98b4a9377e25dd4","2011-12-01 19:50:06+00:00","Revert 'testing github-push notification...' and going back to AMP-alpha-14
+
+3.0.0 final seems to crash out the build...
+
+This reverts commit 76f13eecc94b66e4b0f204a6ebcfca09307e993d.
+"
+"068a53b27b8a49b1dfe96864d8e5082c2998ca1d","2011-12-01 21:12:58+00:00","Hopefully fix Jenkins build dying with proguard...
+
+An update to my jenkins seems to have updated my JVM (named 'Auto Java 6')
+to be java *7*. Proguard is now borking (Java 7 support isn't coming until
+proguard 4.7). Attempting to guard against the maddness by specifying
+Java 6 in pom...
+
+
+
+[proguard] Reading library jar [/var/lib/jenkins/tools/Auto_Java_6/jre/lib/rt.jar]
+[proguard] java.io.IOException: Can't read [proguard.ClassPathEntry@16e14f9] (Can't process class [com/oracle/net/Sdp$1.class] (Unsupported version number [51.0] for class format))
+[proguard] 	at proguard.InputReader.readInput(InputReader.java:230)
+[proguard] 	at proguard.InputReader.readInput(InputReader.java:200)
+[proguard] 	at proguard.InputReader.readInput(InputReader.java:178)
+[proguard] 	at proguard.InputReader.execute(InputReader.java:100)
+[proguard] 	at proguard.ProGuard.readInput(ProGuard.java:195)
+[proguard] 	at proguard.ProGuard.execute(ProGuard.java:78)
+[proguard] 	at proguard.ProGuard.main(ProGuard.java:499)
+"
+"a014c970f5140daa021baa7accac6ac3506c7775","2011-12-01 21:44:19+00:00","Try AMP 3.0.0 final (now that CI system is stable again)
+"
+"4dcaeace75ac20f2e1ec73b0911cb2e9a3d884f3","2012-01-13 23:07:34+00:00","Revert 'Try AMP 3.0.0 final (now that CI system is stable again)'
+
+Sad revert - I have a seperate branch for trying to get AMP 3 final
+working - in the meantime, return to the alpha once again.
+
+This reverts commit a014c970f5140daa021baa7accac6ac3506c7775.
+"
+"8950692c6d21b285eaa4e0de8a5731d4c2f60f67","2012-01-13 23:06:26+00:00","Update to latest patched version of JGit - 1.2
+"
+"f188a4886272c93c70d939ee7bd74e3e04f68b7f","2012-01-17 12:32:15-08:00","Use released JGit with support for issue #47 inflater-decommisioning
+
+Conflicts:
+
+pom.xml
+"
+"e231fefde000592380674b7f171bfadec1071852","2012-01-17 16:21:41-08:00","whoops, yreah, that did not compile- working towards #47
+
+This doesn't fix #47, I'm just trying to get the tree compiling again.
+"
+"c907c8e8f8ac58dedec1ec073dec4d2a878ceb05","2012-01-14 15:36:29+00:00","test for issue #47 - crash doing file checkout for big blobs
+
+This was recently reported with this repo:
+
+git://github.com/rtyley/android_device_lge_startablet-1.git
+
+-but also occurs with this much simpler smaller repo:
+
+git://github.com/rtyley/five-mb-file-test-repo.git
+"
+"0953700859fec3fda9015b932a506fa4830623d5","2012-01-17 18:22:12-08:00","Fix #47 - Exception on checking out some repos due to InflaterInputStream
+
+Calling InflaterInputStream.close() on Oracle Java doesn't call end() on
+its Inflater if you supplied the Inflater in the constructor - but Android,
+incorrectly, *does*. Inflaters can't be used after end() has been called,
+which means you can't re-use Inflaters after using them with an
+InflaterInputStream on Android - which is precisely what JGit tries to do
+with InflaterCache. This results in either NullPointerException or
+IllegalStateException depending on what version of Android you're using.
+
+The fix here is to only use special HarmonyFixInflaterInflaters in
+InflaterCache - these Inflaters can be re-used after being handed to
+InflaterInputStream, because they ignore their end() method. This is ok
+because you still have to hand your Inflater back to the InflaterCache
+once you're finished with it, and InflaterCache will now 'decommision'
+it's Inflaters - which thanks to our HARMONY_FIX_FACTORY actually
+DOES end() the Inflater and release it's resources.
+
+https://github.com/rtyley/agit/issues/47
+"
+"2331a95564026dcf042240f109751d28632d8f98","2012-01-17 21:04:33-08:00","[maven-release-plugin] prepare release agit-parent-1.27
+"

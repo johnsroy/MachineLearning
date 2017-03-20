@@ -1,0 +1,273 @@
+"commit id","commit date","commit message"
+"8c1bfc6a39056be0c3780cb5190b4c4ce53ebf23","2016-03-21 16:36:43-07:00","Merge release/5.2 into develop
+"
+"d9a7d62116c527da63f12acbe905a23c52830dd1","2016-03-21 21:28:42-07:00","Code cleanup
+"
+"adf72e53fea9caf5df4fe413c4484d8145bd4ef0","2016-03-21 22:17:08-07:00","Switching to FrameLayout so blinking animation works on API 16
+"
+"f380ada457e68e007a67b112b07909263aeb5d78","2016-03-22 08:12:33+01:00","Merge pull request #3878 from mzorz/issue/3877-comment-type-hard-to-translate
+
+changed empty comments strings to be absolute per CommentStatus type
+"
+"f5df30a735d21359622576a57531a757edb96a9f","2016-03-22 11:22:02+02:00","Instruction to squash when pulling subtrees in
+"
+"3fe7d01e96a981f8159ff12de439742c8e24b4dd","2016-03-22 11:32:11+02:00","Add cli info for pushing to subtree'd repo
+"
+"8537b34c707d96cbae9fb61e81c6a8191f33f50a","2016-03-22 12:12:47+01:00","Fix editor scenario
+"
+"dabd197974741086beb3b6c0388bb000133ff552","2016-03-22 12:12:58+01:00","Add a Stats scenario
+"
+"de8af69a185db1dd558d7db24154dd8c3c49ca78","2016-03-22 12:17:40+01:00","Merge pull request #3893 from wordpress-mobile/issue/3892-subtree-pulling-info
+
+Add basic info about pulling a subtree library
+"
+"7955068690d1e18a092f945538e510ea39d07ee3","2016-03-22 14:38:06+01:00","Use remoteurl in the link wrapper
+"
+"68a7ca7dc5a5db4f12de02bebcb7e73d1c986838","2016-03-22 14:43:27+01:00","remove debug logs
+"
+"bcead28a8fa22876cabefaac9fb35047183132a4","2016-03-22 14:27:09-04:00","Merge pull request #3896 from wordpress-mobile/issue/300editor-broken-images-after-upload-2
+
+Retry to download an image if a download error occured after an upload
+"
+"f20a7c1f268c970fedd2a2bb9c9cfc35a36e7b74","2016-03-22 20:47:49-07:00","Merge pull request #3895 from wordpress-mobile/issue/3816-update-screenshot-tool
+
+Update screenshot tool to take editor + stats screenshots
+"
+"9f11fa7af29b756701f57e473fb39067c7e25ed0","2016-03-23 07:40:41+01:00","New JS function ZSSEditor.removeAllFailedMediaUploads
+"
+"4460835bcbf306d24f75c007323f3edfd3566de9","2016-03-23 07:45:58+01:00","New EditorFragment method to removeAllFailedMediaUploads()
+"
+"fe15c290c22f91bb142425566f2dd31fbfcf8a84","2016-03-23 07:57:48+01:00","Replace the Toast by an AlertDialog asking to remove all medias
+"
+"edc1b48b23966fc0d20ade5fba7bb2ae1eb35dcf","2016-03-23 07:59:55+01:00","Only show the dialog when the user try to Save or Publish
+"
+"dc81969869665169bf4e765ffe3a7650220f7bb0","2016-03-23 13:06:14+02:00","Wait for nested AsyncTask before ending the test
+
+So, there's a nested AsyncTask in RefreshBlogContentTask that typically executes after RefreshBlogContentTask itself finishes. But, the test tears down at that time causing a race condition, ending up with the nested GetPostFormatsTask picking up the cleared Factories instead of the test ones.
+
+As a fix, the tests now use a trick to wait for the nested AsyncTask to finish: post a new Runnable to the SERIAL_EXECUTOR that handles the AsyncTasks in question. The Runnable triggers the CountDownLatch thus letting the tests finish gracefully.
+"
+"299bf41f6326fa73ef5950641e3a230958b99e67","2016-03-23 13:57:15+02:00","Explicitily test RefreshBlogContentTask on SERIAL_EXECUTOR
+"
+"9e3c2eb2a1de7224604792aa4c9a463e87b225ae","2016-03-23 08:01:45-04:00","Focus on the title field when opening posts
+
+- One exception: for posts resulting from share actions, focus on the content field instead (previously implemented)
+"
+"8c93f7fef636bf9bc8d2ff0780b34de9ef894762","2016-03-23 08:02:22-04:00","Show the software keyboard once the DOM has loaded
+"
+"78382f2e630c4b6510b43b3ef88ca6955db27181","2016-03-23 14:31:42+01:00","Null check getParentRangeOfFocusedNode/setRange in onMutationObserved - in case editor is not in focus
+"
+"64ffbc0a82828b6bac68c4309c00f777c7798391","2016-03-23 15:11:50+01:00","Merge pull request #3891 from wordpress-mobile/issue/3890-clear-factories-on-teardown
+
+Clear the Factories between tests Fixes #3890
+"
+"dd192fe43c01898589b8b842d85dc56323344498","2016-03-23 15:15:04+01:00","Merge pull request #3853 from wordpress-mobile/feature/health-check-mvp
+
+New .ORG login 'internals' & Health-Check MVP
+"
+"a2f53529e9dbddc72531f33b8b3ec0462880a007","2016-03-23 10:18:46-04:00","Merge pull request #3897 from wordpress-mobile/issue/260editor-clear-failed-images-on-upload
+
+Visual Editor: ask the user to clear failed images on publish
+"
+"9b0b5fab24db9f435b278ad0b9e77d5895135700","2016-03-23 10:28:33-04:00","Squashed 'libs/editor/' changes from eb8d070..bed2a4e
+
+bed2a4e Merge pull request #326 from wordpress-mobile/issue/314-html-mode-toggle-cursor
+7b5bdb4 Force cursor to move to start of content field when switching back from HTML mode
+dca8254 Merge pull request #3896 from wordpress-mobile/issue/300editor-broken-images-after-upload-2
+ffeec5f remove debug logs
+d695c87 Use remoteurl in the link wrapper
+373467f Merge branch 'develop' into issue/300editor-broken-images-after-upload-2
+1dd8be0 Merge branch 'develop' into issue/297editor-backspace-media
+bf525c8 update to com.android.tools.build:gradle:2.0.0-beta7
+196f82c Merge branch 'develop' into issue/297editor-backspace-media
+c576833 Merge commit '8db246f15ce6f4d2c7f7f7ec51c68b87e9a66c2f' into develop
+ddcb207 Changed MutationObserver handling to check if the WebView supports it, rather than rely on API levels
+d79bc00 Refactor: grouped mutation observation methods together
+eeb6373 Refactored DOM element mutation listening, delegating everything to one trackNodeForMutation method
+7b54573 Changed MutationObserver behavior to track individual media nodes instead of each contenteditable div
+a933e5b Moved failed media methods to the generic media method group
+cfb836b Parse for failed media when returning from HTML to visual mode
+c0df468 Track DOMNodeRemoved events when parsing for failed media
+839b3e5 Fixed a variable name error in ZSSEditor.removeImage
+392e1d7 On API<19, use DOMNodeRemoved events to track media deletions (instead of the unsupported MutationObserver used for newer APIs)
+5c3bb59 Merge branch 'develop' into issue/297editor-backspace-media
+4c7ca43 Merge pull request #3804 from wordpress-mobile/issue/enable-editor-debug-mode
+cc332a9 Consume KEYCODE_VOLUME_UP event when debug print is called
+cf492d0 broken retries
+449abbd Merge branch 'issue/enable-editor-debug-mode' into issue/300editor-broken-images-after-upload-2
+63bb901 use a remoteUrl attribute to avoid seeing broken image if download failed
+55677b6 remove debug action bar button and log raw html when volume up button is pressed
+7ba5069 fix function call errors
+886e274 Add back image swapping onError
+920c8d3 fix wordpress-mobile/WordPress-Editor-Android#300: Retry download onError after an upload
+7fa191f add missing comment
+01fbeed Fixes an issue where manually deleting uploading/failed media will cause the caret to disappear
+5904f03 Notify native through a callback whenever uploading/failed media are manually deleted
+
+git-subtree-dir: libs/editor
+git-subtree-split: bed2a4ef1ea0a86e4237791da8e867f17590c5b3
+"
+"c3c79ae8b62136e04678fd3e777d1b86a6198584","2016-03-23 10:32:32-04:00","Merge commit '9b0b5fab24db9f435b278ad0b9e77d5895135700' into develop
+
+Conflicts:
+libs/editor/WordPressEditor/src/main/java/org/wordpress/android/editor/EditorFragment.java
+libs/editor/libs/editor-common/assets/ZSSRichTextEditor.js
+"
+"968e6a4bf56f2ac9f453ae9ecceedd8f5241a59b","2016-03-23 10:34:59-04:00","Merge branch 'develop' into issue/120editor-initial-focus
+"
+"c30645791a6c414d677a22b8c43b5373e3dcb437","2016-03-24 13:34:19+01:00","Merge pull request #3898 from wordpress-mobile/issue/120editor-initial-focus
+
+Editor - Focus on title field and show the keyboard when opening
+"
+"417d350de0d5e2ce0ee82c48c9246a25b8cac743","2016-03-24 09:08:24-04:00","Merge commit 'c6efe0a9190244d40e64300efc9cca56ae5acd5c' into develop
+"
+"c6efe0a9190244d40e64300efc9cca56ae5acd5c","2016-03-24 09:08:24-04:00","Squashed 'libs/editor/' changes from bed2a4e..f1f6d10
+
+f1f6d10 Merge pull request #325 from wordpress-mobile/issue/fix-rare-crash-when-editorfragment-is-not-attached
+fd11532 Merge pull request #327 from wordpress-mobile/sync-wpandroid
+c1991d7 Adjusted expected callbacks in ZssEditorTest to account for different null handling between the two callback methods
+2e3b075 Fixed integration tests to listen for the iframe callback method for API<17
+8caccda Make placeholder replacements for android-editor.html in integration tests
+f2bb3f0 Fix unit tests broken by unimplemented EditorFragmentAbstract method
+c5dbd53 Merge commit '9b0b5fab24db9f435b278ad0b9e77d5895135700' into develop
+512d940 Merge pull request #3897 from wordpress-mobile/issue/260editor-clear-failed-images-on-upload
+ed89332 Null check getParentRangeOfFocusedNode/setRange in onMutationObserved - in case editor is not in focus
+414e55f Make sure fragment is added
+33215ad New EditorFragment method to removeAllFailedMediaUploads()
+6564195 New JS function ZSSEditor.removeAllFailedMediaUploads
+
+git-subtree-dir: libs/editor
+git-subtree-split: f1f6d10e2381ccd4b4d7aabe277ec4b3f41fad9b
+"
+"e29a302ad152c048cf97a0fedbf6c3d1b936745d","2016-03-24 14:40:17-07:00","Changing repo to public as it looks like repo has been locked down
+"
+"808a5c3c0c9986bc330bb12cc177ef07e8ec4433","2016-03-24 14:44:50-07:00","Also updating to latest crashlytics SDK
+"
+"d2702c13e6ae6366f8708065d383ab04efef4723","2016-03-24 16:52:17-07:00","Updating fabric directory from repo to public
+"
+"1f84d78dff887c2ea7f41bde3569a01c74b1fa6d","2016-03-24 17:14:17-07:00","Merge pull request #3900 from wordpress-mobile/issue/fix_fabric_maven
+
+Fixing fabric.io maven dependency
+"
+"2ff46bf9de7797da2cefa491892cac5202dbad9a","2016-03-25 08:22:29-04:00","Merge pull request #3894 from wordpress-mobile/issue/3662-draft-blinking-anim
+
+Fixes Blog Posts row blinking animation for API 16
+"
+"48681109bccaadff31268e38e78b571cfc6d10b4","2016-03-25 08:33:07-04:00","Merge branch 'develop' of https://github.com/wordpress-mobile/WordPress-Android into feature/plans-post-purchase
+"
+"a392e4ba31659d000e97704a9cd8d523f570004f","2016-03-25 09:14:41-04:00","Added post-purchase vector drawables
+"
+"1560b5af9e48626bc2075506f9a2c904738f087a","2016-03-25 09:26:30-04:00","Added placeholder for first page
+"
+"3f3611cd87d73e78b532d9e11a143d81b8dad591","2016-03-25 10:03:31-04:00","Use PercentRelativeLayout
+"
+"bbc863fd4b3b32a97da9a4d86be116d5f497b7d3","2016-03-25 10:07:54-04:00","Added missing drawable for first page
+"
+"d52dec0e21dc6999b028cc135e87717ad88c8062","2016-03-28 18:23:21-04:00","Add top margin to image
+"
+"2d9859f136a6f31611a9d35965eec4920f30f894","2016-03-28 18:53:02-04:00","Add ScrollView for landscape
+"
+"2b12358f51e938e8b8090722bd5bea0ff06fe963","2016-03-28 20:31:22-07:00","Emitting event when admin status changes on a blog
+"
+"2b721ae21f8b098779f734a445c3dab9f99ce9de","2016-02-01 11:28:23+02:00","Set layout element targetApi if newer attribute
+"
+"de11d59f7e33b26b3455142ba09144b1ef6623e0","2016-02-01 11:38:21+02:00","Use uppercase L for longs
+"
+"8dd00cb44609df7afbefa33a815e3c448fecaaa6","2016-02-01 11:45:18+02:00","Fix xml error in 1b2f5dd
+"
+"92fc6cdd9ad8b21a44f434df939a5614456c961c","2016-03-29 12:10:34+03:00","Remove unused imports
+"
+"10c18e6967e96dc30f8ef5ba9204d79f06724505","2016-03-29 12:00:56-04:00","Merge pull request #3902 from wordpress-mobile/issue/3883-missing-settings-option
+
+Emitting event when admin status changes on a blog
+"
+"75b821041399eef84c0f5cbd70b51cfdd102e4fc","2016-03-29 14:30:03-04:00","Remove hard-coded NUM_PAGES to support different page count between premium & business
+"
+"07b90b5aee77abac4792dc5657317e4383d2dfd7","2016-03-29 14:42:55-04:00","Pass business argument to PlanPostPurchaseActivity
+"
+"20da388b7e2c085f1392808e0d43d6ceb9333ae4","2016-03-29 15:11:44-04:00","Merge branch 'develop' of https://github.com/wordpress-mobile/WordPress-Android into feature/plans-post-purchase
+"
+"ae6c65b7155add40cfc6d89d8980895e2f4105e6","2016-03-29 16:21:58-04:00","Revert accidental gradle changes
+"
+"95ce340eac447aeb5b32f3ad554cf1e9ca2963cd","2016-03-30 10:28:58+03:00","Same icon file so just use one of them
+"
+"6a8d51164285f3b299fcaf63911cef310c07be16","2016-03-30 10:29:27+03:00","Make duplicate icon lint warning an error
+"
+"a6e263bd327ed4f24a840cccce12916ecc799e26","2016-03-30 11:09:42+03:00","Normalise related post previews to 192x63dp
+"
+"0970c80e26c13d8ca48dd66ca027b68cceba8f2b","2016-03-30 11:11:00+03:00","Make inconsistent icon dip lint warning an error
+"
+"6ba110d926a53ec4770d237faa33054adb8c6f4e","2016-03-30 11:29:02+02:00","Reuse visual editor css to display the post local preview
+"
+"ffe3c9f90543efd051ae71279103648dbc0ff9f0","2016-03-30 07:13:31-04:00","Reduce image size in landscape
+"
+"fcd2fd36f2ff04c122713b4970158edf5f0095f0","2016-03-30 12:35:06-04:00","Move code to open the current blog's theme to `ThemeWebActivity`
+"
+"4d3639155a816cc0ec23f78da1e5fa3cf2a5d1b3","2016-03-30 13:50:06-04:00","Handle null current theme
+"
+"a8e7af8b2b651df2aae09a05f13ac3502033b280","2016-03-30 21:14:50+02:00","Merge pull request #3904 from wordpress-mobile/feature/plans-post-purchase
+
+Feature/plans post purchase
+"
+"b8fc359e3056ad2dc7efe1175b27840875ee9f8b","2016-03-31 10:19:18+02:00","Merge pull request #3906 from wordpress-mobile/feature/lint-love
+
+Small fixes based on lint analysis
+"
+"50b2d5faea7586078283fd8d38d6942590df9597","2016-03-31 10:33:05+02:00","Merge branch 'enhancement/3608-profile-unsaved-changes-on-rotate' of https://github.com/rishabh7m/WordPress-Android into issue/3608-profile-unsaved-changes-on-rotate
+"
+"912cda875f5166b03c5485adbd08b66137066597","2016-03-31 10:43:45+02:00","minor fixes
+"
+"f48bc899751c18098ad4bd6f746cb144862be077","2016-03-31 10:44:59+02:00","update to android-gradle-2.0.0-rc1
+"
+"8a14d6543df6ca519b2b919926f41a5b63c2056e","2016-03-31 12:31:19+03:00","Merge pull request #3912 from wordpress-mobile/issue/3608-profile-unsaved-changes-on-rotate
+
+Fix #3608 profile unsaved changes on rotate
+"
+"fa507e1cfb8fcdf7c1aa5e90d5d1a336dac8f756","2016-03-31 05:32:34-04:00","Merge pull request #3911 from wordpress-mobile/issue/update-to-gradle-android-2.0.0-rc1
+
+Update to android-gradle-2.0.0-rc1
+"
+"14a199bf09de84fcd1b356f218715636bed68506","2016-03-31 10:05:48-04:00","Merge pull request #3907 from wordpress-mobile/issue/224editor-fix-preview-styling
+
+Reuse visual editor css to display the post local preview
+"
+"85fcf8c5af0336e4b18d67384ae4bea4c9fd2ce8","2016-03-31 13:06:27-07:00","Initial pass at customizing site
+"
+"f2e9852ab78757a31e6871c75ed9b8baa94ff497","2016-03-31 15:04:28-07:00","Clarifying method
+"
+"2b4104c0edbf34cdf3339dba34edd6fa104fbc60","2016-03-31 20:53:47-04:00","Merge pull request #3914 from wordpress-mobile/issue/3909-load-current-theme
+
+Load current theme if unavailable
+"
+"b65bef5780dace3822f4b5eb29b34d4123fe3900","2016-04-01 12:18:40+02:00","Add missing attributes for uploaded images
+"
+"8b9ace97637598f0369366e39182241707013a6e","2016-04-01 12:28:18+02:00","Add missing classes for images inserted from media library - also fix a bug with undefined alt text
+"
+"28187b079aced150c3941f7a9528645587f4617a","2016-04-01 13:17:40-04:00","Merge pull request #3915 from wordpress-mobile/issue/322editor-add-missing-attributes-to-images
+
+fix #322editor add missing attributes to uploaded/inserted images
+"
+"4c9324cf1eee00b66c76e0d5a917c86e1293a845","2016-04-01 14:06:54-04:00","Squashed 'libs/editor/' changes from f1f6d10..a35d654
+
+a35d654 0.8 version bump
+7c242ad Merge pull request #330 from wordpress-mobile/issue/299-exit-blockquote
+c0a8f79 Merge branch 'develop' into issue/299-exit-blockquote
+dd267de Merge pull request #329 from wordpress-mobile/issue/302-fix-dom-errors
+dc084a2 Don't process the second Enter when exiting a blockquote, to avoid adding an extra new line
+8a2f91e Allow double Enter press to exit a blockquote
+400a5f7 Sanitize all calls to window.getSelection() that are followed by getRangeAt(), which can cause a DOM error
+607c010 Fix typo in node traversal method
+f2d468f If getFocusedField can't select the current contenteditable div, force focus on the content field
+d2e8a78 Avoid DOM error console logs by adding some null checks
+cf01d93 Merge commit 'c6efe0a9190244d40e64300efc9cca56ae5acd5c' into develop
+ab52e25 Merge branch 'develop' into issue/120editor-initial-focus
+6301484 Show the software keyboard once the DOM has loaded
+359edf6 Focus on the title field when opening posts
+
+git-subtree-dir: libs/editor
+git-subtree-split: a35d654234ed2691a62289d9f554333446f1fa0d
+"
+"13f9dc624f5c777707bd1ce7519d45c5124f2ef6","2016-04-01 14:06:55-04:00","Merge commit '4c9324cf1eee00b66c76e0d5a917c86e1293a845' into develop
+"
+"246a517d70c9ae5ccfd449a49e70aefd32fa8f04","2016-04-04 10:32:13+02:00","bump to version alpha-5
+"

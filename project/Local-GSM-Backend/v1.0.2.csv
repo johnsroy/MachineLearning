@@ -1,0 +1,88 @@
+"commit id","commit date","commit message"
+"c994c59cf937515282aeeb4e5e8f1c9733dd40bd","2015-10-25 10:44:56+01:00","Introduce LogUtils class with makeLogTag function
+"
+"9ed5a84c97890c0fc5d006b898941c1ac8d775aa","2015-10-25 10:55:51+01:00","Give every class a proper UpperCamelCase name
+"
+"e02499b88f00bb1d61ff4985ac17e966ba828227","2015-10-25 11:00:55+01:00","Give more appropriate names to resources
+"
+"668c20ade5e2cfce26419674ace3750e94f28ba3","2015-10-25 11:10:55+01:00","Replace Yes, No, etc. string resources with system ones
+"
+"791dfc2970ac272436da077eb93a591720623b25","2015-10-25 11:24:38+01:00","Tidy up URL strings usage
+"
+"0ce87950a9942c610c08a68deffa62ff8513b2a7","2015-10-25 12:43:51+01:00","Various corrections
+
+- convert some fields to local variables
+- remove redundant code
+- optimize imports
+- get rid of raw List and Vector types in favor of generics
+- remove unnecessary code doing nothing except sending log output from
+lifecycle methods
+- remove invalid layout params from ProgressBar widget, unneeded
+hardcoded text attribute from TextView, replace left with start and
+right with end in layout_gravity attributes
+"
+"ec9a72751f157d89afcb712c692521c0734e9071","2015-10-25 15:37:31+01:00","Bump build tools version, remove unused support lib dependency
+"
+"43dd732863131147db05b62371b0db44b272e4cb","2015-10-25 09:13:44-07:00","Merge pull request #36 from hogbush/code-cleanup
+
+Code cleanup
+"
+"57d6d0853f4ff2de83d25f4371cf45d2a87ad294","2015-11-18 17:33:43+01:00","Tidy up AndroidManifest.xml, bump targetSdkVersion
+
+- assign BuildConfig.DEBUG to Config.DEBUG, so logging and other
+debug code will be automatically excluded from release build
+- move versionName and versionCode from manifest to build.gradle
+- change compileSdkVersion and targetSdkVersion from 17 to 23
+- change buildToolsVersion from 23.0.1 to 23.0.2
+"
+"c47d4b6411af3122170311e00ee17834b674f445","2015-11-18 18:11:18+01:00","Redo AsyncTask for requesting new OpenCellID API keys
+
+- use HttpURLConnection instead of (now removed) Apache HTTP Client
+- more precise validation of the API keys
+"
+"00f794be1d936000f9044761a1e72cf93fd26015","2015-11-18 20:21:14+01:00","Make DownloadDataTask access shared prefs directly
+
+- make the task access SharedPreferences directly instead of
+getting everything from the Intent
+- create a separate function for turning strings with MCC/MNC codes
+into boolean arrays for filtering
+- add isTaskRunning() method to DownloadTaskFragment
+"
+"96d4b59aa8d0bc2f63eb5197161ed93fecda0295","2015-11-18 20:29:54+01:00","Remove redundant widget state saving
+
+Activity's default onSaveInstanceState() implementation will take care
+of saving the ProgressBar's state. For the TextView, setting
+freezesText attribute to true is sufficient to make it retain the text
+with no extra work.
+Also, use DownloadTaskFragment's new isTaskRunning() method instead of
+maintaining the mRunning field in DownloadActivity.
+"
+"786f935ba7bc77d2bdc99ee38925a96f26c1816e","2015-11-19 14:11:32+01:00","Remove noHistory attr from DownloadActivity
+
+The user will now be able to press the home button while in
+DownloadActivity and the download will still be running in the
+background. User can then return to DownloadActivity from the recent
+apps menu.
+
+Also, set both activities' launch modes to singleTask to ensure that
+there's only ever one instance of either running.
+"
+"3d49948a049570063f09023aa50be9bcb89be950","2015-11-19 16:03:04+01:00","Refactor prefs, move all logic to SettingsFragment
+
+- get rid of multiple anonymous listeners, make SettingsFragment
+implement all necessary listeners
+- remove lots of pointless null checks
+- merge the preference displaying current database status with
+'Generate Database' button, removing the latter
+- add OpenCellID API key validation on user input
+- move mcc_default string resource from values/ to values-en-rUS/ so
+non-American users won't have American MCCs in the default filter
+"
+"b9a22ad13d7da3eab75378eedda8c839157564e1","2015-11-22 06:47:43-07:00","Merge pull request #37 from hogbush/master
+
+Bump target SDK version to 23, refactor SettingsFragment
+"
+"d0ae82ff7237915d6f72a9fdd8f1e9aa5f50c4b6","2015-11-22 09:50:04-07:00","Bump version number, add different MCC code defaults for various English speaking countries
+
+Signed-off-by: Tod Fitch <Tod@FitchDesign.com>
+"

@@ -1,0 +1,128 @@
+"commit id","commit date","commit message"
+"68e3886dcbbde14b9f0c9100e6452c90b98f9e72","2014-10-27 22:33:51-04:00","Validate timestamp format on change
+
+Fixes #155
+"
+"a1a777a42e4776ab1dc17f70b331e338d8eea6f0","2014-10-28 19:25:00-04:00","Add links to amazon/fdroid
+
+Plus a few other tweaks.
+"
+"083daa73a3e8bf497cc8f2798c144c3ea1ec765e","2014-11-28 00:51:26+02:00","respect the keyboard's auto-capitalization preference. fixes #174
+"
+"a5fba32e61e9be7649b2a2a60c07610b3c67ecb7","2014-12-07 21:20:36+02:00","fix silly crash when reconnecting for a long time
+"
+"e6bdd1e6c7f7c3d4a85099256c3347fd78775bcf","2014-12-03 21:35:00-05:00","Gradle fixes for Android Studio 1.0
+"
+"a5217c76619d6ceb948483e4243b0fcd1be1b812","2014-11-23 21:11:53+02:00","synchronize buffer list changes (add/close/merge) if only syncing open buffers.
+requires weechat 1.1, but will not crash anything if weechat < 1.1 is used. fixes #150  #159 #167
+"
+"5154d6c2ece4d227ef0b5c8f7ff9b503f546666e","2014-11-24 21:19:12+02:00","make sure we process buffers which don't have last read line or highlight data just like the others
+"
+"5c75376c2989bf5719770f4e7ccf1f0d00c6d585","2014-11-24 22:14:24+02:00","synchronize hotlist every 5 minutes in both modes
+adjusting the hot messages that are displayed in the notification as needed
+"
+"217cb8aca0e531f71299fe65064d44de0b2f5cac","2014-11-24 23:35:33+02:00","change bell icon accordingly to only sync open buffers setting
+"
+"41cfb312264d814987e9b71c31701b97b9caf279","2014-11-25 16:49:16+02:00","synchronize hotlist every 5 minutes. somewhat fixes #167 #166
+"
+"f8523ad953d8693e9af5176c61f9a3fae88de9bc","2014-11-26 18:04:35+02:00","minor improvements as suggested by @mhoran
+renamed the receiver class and adjusted preference text
+"
+"dfafc75e2c9ead77ae9756d3c6675c3b51204e2b","2014-12-10 17:52:22+02:00","don't use peekService() as it doesn't work reliably
+the docs don't mention it but peekService returns null if the service has no binder
+that can happen when the service is restarted by the system after OOM kill
+"
+"a49c6e88b0b3ce24559636bf25c9bee70cd77da3","2014-12-12 03:21:50+02:00","Merge pull request #177 from oakkitten/sync
+
+synchronize hot list periodically, also synchronize buffer list changes in partial sync mode
+"
+"d72500ea2b63a7e20a37cb35b8069427eab3da07","2014-12-14 19:15:53+02:00","a dirty fix for a crash when a buffer loses short_name
+noone in a million years would manage to trigger this crash
+"
+"b760b99f9f169c82070516ddb58d60b80da27da8","2015-01-14 22:11:54+02:00","Notify user if relay password is wrong
+"
+"a05382603d9ede009e99f47b5b9bc5103f2546c6","2015-01-15 17:18:11+02:00","Add wrong password text to strings.xml
+"
+"63b642df22c6916342014ba01cc065f1ef2fcf8f","2015-01-15 17:27:33+02:00","Use version info received message to detect successful login.
+
+Also made the Boolean variable volatile due to being used on multiple threads.
+"
+"a3dc0a2d618eed7e911ef971fea260fff1130f1d","2015-02-04 23:18:55-05:00","Configure keyboard to enable actionSend
+
+The EditText must be configured programmatically for
+setHorizontallyScrolling(false) to work.
+"
+"957c1a70aeb1faebf5efb1d59d438ef33cf7e516","2015-02-05 23:24:16-05:00","Extend EditText to allow actionDone
+
+Multi-line paste now shows as multi-line.
+"
+"00576d5680e202b2668465668edb844cf090af9a","2015-02-05 23:25:27-05:00","Prevent keyboard navigation to chat lines
+"
+"3486813dd358ccf091132db99176af15d1516cd5","2015-02-15 14:45:16-05:00","Don't call onBuffersListed until BufferList loaded
+
+onBuffersLoaded would get called before BufferList finished loading open
+buffers. This would result in open buffers being closed on
+re-connection, if the BufferList had not finished loading.
+"
+"989043826ba4194ddba34b7974420a0e0be7e93e","2014-12-22 15:08:48-05:00","Don't killProcess when RelayService is destroyed
+
+Android will cache the process to speed up subsequent launches. It will
+automatically be killed when the memory is needed.
+"
+"ad9dd3ae15026cd60a2dd51b9c569804da4774f4","2014-12-23 01:26:32-05:00","Reset synced buffers on quit
+
+BufferList is static, so the list of synced buffers persists so long as
+our process exists. Now that we don't kill our process on quit, the
+buffer list must be explicitly reset.
+"
+"5638dbdbc6325810b3ae5543ce699b4b446caeea","2015-02-15 14:53:01-05:00","Merge branch 'feature/warn-about-wrong-pass' of git://github.com/lamperi/weechat-android
+"
+"5fed3056b50e551eab70daa9e8a7b935086a458f","2015-02-15 19:48:18-05:00","Respect font scaling when calculating text size
+"
+"d02931ee4ec86ae22163c4e73e5be8b50271f3e8","2015-02-15 23:21:20-05:00","Validate maximum prefix width on change
+
+Maximum prefix width is required, and cannot be empty.
+
+Fixes #139.
+"
+"4828a16e671f7a6e08ec51bebe7ac1a582235657","2014-12-22 15:15:39-05:00","Unregister connectivityActionReceiver onDestroy
+
+killProcess was masking IntentReceiverLeaked.
+"
+"5061e7135bc2b20b2aa5dec3f2d84cccfd53fb15","2014-12-22 15:37:31-05:00","Ignore vim swap files
+"
+"d869e4140a525ff6e3bdc307ff0fe977d3462f7c","2014-12-22 18:07:54-05:00","Ping relay when no data received in five minutes
+
+If no data is received after an additional 30 seconds, disconnect.
+"
+"f2205f00531553c7454e74d62413527c53f8b75a","2015-02-21 14:00:32-05:00","Expose ping preferences
+
+Expose preferences for idle time and timeout. Pings may also be
+disabled.
+"
+"6f07106a4a922319b7ac12e6cf7a9edd422e200a","2015-02-25 17:29:24-05:00","Tag versioncode 13
+"
+"91a3802b9d143067cfe0d2d9a50655ad99bac40b","2015-02-26 08:20:59-05:00","Add information about google play beta
+"
+"901bf687edcc40b0dda726eee4f80d6a6d577b34","2015-02-26 10:20:57-05:00","Make PING_ACTION permission unique across builds
+
+In Android 5, a signature permission cannot be declared by multiple
+apps.
+
+Also ensure that the action itself is unique, in case multiple builds
+are installed and running on a single device.
+"
+"684ce6529fcb05bc6cf7a45cf709b6b8109b92b8","2015-02-26 12:00:41-05:00","Correctly configure ping receiver permission
+"
+"65f6cda213d1fcd7eda53973c87c4552cf7f6d4a","2015-04-03 13:58:56-04:00","Add a preference to enable/disable vibration based on hot message
+"
+"bfb081c1d065053655bb017ce9387d34f4a52544","2015-04-03 15:04:52-04:00","Enable support for not showing hot message notifications at all
+"
+"59cca9e65436e5773a102c78f0867cee4b5eeab7","2015-04-03 16:03:06-04:00","Fix some logic
+"
+"0f81dca7cf3e389e0376c95fff8911e871444282","2015-04-03 16:09:19-04:00","Merge pull request #198 from jdhore/master
+
+Add support for disabling hot message notifications and disabling hot message notification vibration
+"
+"8b346cbc07211af7c8f6d07eb32ee208515a07b7","2015-04-03 17:41:22-04:00","Bump to version 0.10
+"

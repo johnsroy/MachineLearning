@@ -1,0 +1,123 @@
+"commit id","commit date","commit message"
+"c165694210ef3f9d4368fc2a8912237e54dc627b","2014-03-01 11:03:12-05:00","Switch code from execution-side to .xml file.
+
+As requested by @cpeterso, background will be set in the ```dialog_upload_observations.xml``` stage.
+
+The progress bar doesn't seem to disappear in Android 2.3 - another bug. Not sure  how to make it work.
+"
+"5aa6a1ae602a1b190b82faa8763ca2d31c5e380e","2014-03-01 10:08:33-08:00","Merge pull request #465 from tamcap/bugfix_upload_observations_dialog
+
+Set upload dialog background to 'light' (@tamcap)
+"
+"d0b291958651178f37c998b7dd7cb3b32f568e3c","2014-03-01 15:52:13-05:00","Fixes bug introduced in #400, adds button to notification.
+
+PR #400 introduced a sneaky race-condition bug. It would try to destroy scanner service BEFORE all the resources from the 'downstream' scanners could be turned off by the Looper. Memory leaks and fatal errors ensure. It would only trigger on a low battery intent when there was no client bound...
+
+* new button to turn off scanning with main activity not-running
+* fix to the aforementioned bug
+
+One broadcast receiver can handle both intents.
+"
+"e5544f066e3f8c86582edee2cdfb6aefd3834625","2014-03-01 17:27:11-05:00","Update SSIDBlockList.java
+
+Added Triangle Transit on-bus public Wi-Fi.
+"
+"7b5ece5b5ef34796c4050cbc78d878938893711e","2014-03-02 00:08:42-08:00","Merge pull request #468 from tamcap/triangle_transit
+
+Block Triangle Transit on-bus public Wi-Fi (@tamcap)
+"
+"f5307ef27f33d90820a1caaea37213b85b9590d0","2014-03-02 00:11:49-08:00","Merge pull request #467 from tamcap/bugfix+notification_button
+
+Fix scanner service race condition; Add stop scanning button to notification (@tamcap)
+"
+"b85539bad2da3ee0b26f1ccb33492519e7a1d0db","2014-03-04 11:37:07-06:00","Only show dialog to enable GPS on program launch
+
+Show the dialog prompting to enable GPS when the program is launched. Do
+not show it when returning back to the main screen.
+
+This is a fix for issue #280.
+"
+"14b519e29c3a57f096652b1d8d4501d124fb0fed","2014-03-04 16:25:10-08:00","Merge pull request #470 from aaronaxvig/master
+
+Only show dialog to enable GPS on program launch (@aaronaxvig)
+"
+"196887025a27e23cc016aeb66d06cc040d9226e3","2014-03-03 20:11:38-05:00","Refactored network communication code into a separate package.
+
+* Minimizes code redundancies
+* Detaches communication side from the app display side
+"
+"4efd2179bb503cbcaf1a888478cc178a400bc398","2014-03-06 11:13:26-05:00","New communicator package.
+
+Fixes to address @hannosch's comments.
+"
+"7e93b47ef621a44532b209668d99fd6cecabdb7b","2014-03-07 00:32:55-05:00","New communicator package.
+
+Fixes to address @cpeterso's comments.
+One more override added.
+"
+"c4e46abb9f93804d7410bca18f61f133580cbed8","2014-03-07 10:08:18-08:00","Merge pull request #472 from tamcap/network
+
+Refactored network communication code into a separate package (@tamcap)
+"
+"488d2bc8ca0a05e0fb80bb509da20064b872cdc9","2014-03-07 15:17:41-05:00","Fixes to communicator package as suggested by @illarionov
+
+* Changing context scope.
+* Moving closing cursor and submitter command into finally{}
+* Deciding that all IOException` can be temporary (reduces data discarding).
+* Cleanup if gzip fails: if gzipping fails, the AbstractCommunicator has to clean up first.
+"
+"ec97d051e944d2875664ba9bab8b921f103f28cd","2014-03-09 18:26:26-04:00","New position of Start Scanning button in landscape mode
+
+Closes #479.
+"
+"fcf98c37ab7ced26a98f788a0acc3d17d1e002d6","2014-03-09 22:30:40-04:00","SyncAdapter will not delete records on error.
+
+* Assume all errors from cleanSend() are potentially temporary.
+* Do not delete anything while sending.
+* cleanSend() will Log.e errors.
+"
+"b7faf07928123d2238208eb433b4eddae07c6689","2014-03-09 23:09:09-07:00","Merge pull request #480 from tamcap/landscape_button
+
+New position of Start Scanning button in landscape mode (@tamcap)
+"
+"16d23cf3ea878a51ecdc664b5c48b0df1b5f82c2","2014-03-09 23:25:19-07:00","Merge pull request #474 from tamcap/network
+
+Fixes to communicator package (@tamcap, @illarionov)
+"
+"39534583dac6a543c11f7ec4a1c49a685bec89f3","2014-03-10 12:52:02+04:00","Display the number of unique cells [#320]
+"
+"8c80635f38efd69f3aee82cb09ecc529be53b50a","2014-03-10 04:55:58+04:00","Execute all reporter code in LooperThread
+"
+"8a97bb5b5b909ac20d905282086d9b6ba21dcc77","2014-03-10 11:14:58+01:00","Add Madrid transportation bus network
+"
+"2f3d1ec9b248d503cfc4fd7c18f3c30689bb7f0d","2014-03-10 17:55:38-07:00","Merge pull request #481 from illarionov/reportUniqueCells
+
+Display the number of unique cells [fix #320] (@illarionov)
+"
+"46ba9e9f7f3c603a8afa7532d8908a86fea4ef26","2014-03-10 17:56:43-07:00","Merge pull request #482 from illarionov/synchronizeReporter
+
+Execute all reporter code in LooperThread (@illarionov)
+"
+"08f911b7bc6f233dcfdf637c8ca198e9ba236c73","2014-03-10 17:57:31-07:00","Merge pull request #483 from stripTM/patch-3
+
+Block Madrid transportation bus SSID (@stripTM)
+"
+"abfcca3c09ff47cfd1746bd8e460db8082736cc0","2014-03-11 12:00:36+01:00","Add location_lookup_error translation
+"
+"c842db6db7b0c77515bd26f4ea1f2b08c9240efa","2014-03-11 22:03:12+04:00","Fix whitespace/indentation (no functional changes)
+"
+"6cd1093f90de87753eea29e6f059e835ea0a79bd","2014-03-11 23:03:52+04:00","Resume wi-fi scan after Wi-fi is turned on [#477]
+"
+"4557d1788b95b7533359766c58c7b806e42bc89c","2014-03-11 12:20:20-07:00","Merge pull request #486 from stripTM/patch-4
+
+Update Spanish translations (@stripTM)
+"
+"4ff6c583ba9f0f2c7fa1d0cb900b7dda72a9726d","2014-03-11 23:54:34+04:00","Synchronize access to WifiScanner members
+
+start()/stop()/getAPCount() and onReceive() are executed in different threads
+and race conditions occurs.
+"
+"9f56abc266555c1f5d0a5f2ceae31217f33ad234","2014-03-13 00:12:45-07:00","Merge pull request #489 from illarionov/fixWifi
+
+Resume wi-fi scan after Wi-fi is turned on [#477] (@illarionov)
+"

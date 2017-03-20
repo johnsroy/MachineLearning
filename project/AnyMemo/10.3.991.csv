@@ -1,0 +1,234 @@
+"commit id","commit date","commit message"
+"2ab851bac4c0683440b9c48a1e3d922ca358d701","2013-10-12 17:22:21-04:00","Modify the function getCardForReview,add a test in CardDaoTest
+"
+"f15ec0aaef8caf220b2af608e1d1d9e3b741bd4e","2013-10-19 15:12:38-04:00","Add the test for getCardForReview in the CardDaoTest
+"
+"732333e92e65fa98c06b1534ff1a6fcbe2986b17","2013-10-19 15:14:39-04:00","Merge branch 'master' into yijing-branch
+"
+"adc0686bd8a42f9019144f05c08faed548eaf511","2013-10-19 15:44:07-04:00","Change the function of getCardForReview and modify related test
+"
+"98b6e289757fc14903a7ea6289cccee924ab11e0","2013-10-19 16:07:11-04:00","Add category to getCardForReview's test
+"
+"caaf2b0b17ce76cc3cad5f6d51b96486bae8c947","2013-10-19 13:18:07-07:00","Bump version to 10.3.991
+"
+"a95be1b21f7877851b59c3d45a3447ce0f970953","2013-10-19 13:18:37-07:00","Merge branch 'yijing-branch'
+"
+"00ddd39168fc36ae4c06e93b9cfb2a47317bd2f2","2013-10-22 18:22:16-07:00","Use exclusion list for getCardsForReview and getNewCards.
+
+AnyMemo was using largest ordinal to keep track of cached cards in the
+queue so the query won't get it.
+But now AnyMemo will sort the review cards by its easiness. There could be
+a bug that will skip some cards for review if there is a card with large
+ordinal and low easiness. The cards in between this card and old highest
+ordinal will be skipped. This change will fix the problem by using
+eclusion list to exclude cards in the queue. All cards in the queue will
+be excluded and the query only returns cards that is not being learned.
+
+The logic for getNewCards and getCardsForReview are similar so both are
+changed for the new logic.
+
+Add tests for the new logic.
+"
+"03753e8c717f77512cb3a7681dedd8757a361f86","2013-10-23 22:07:19-07:00","Add initial landscape view for Study mode with AnyMemo button layout.
+"
+"b0a578b35efebb90c90b5fc26f8c20d6eb517f6e","2013-10-24 17:29:50-07:00","Add landscape layout for all button styles for Study mode.
+"
+"be6d86b416f3e81b4832a97f50fdb7384250252c","2013-10-24 17:36:45-07:00","Prevent clipboard crash for buggy samsung devices.
+"
+"f1c3f93802dbc53668004271967932efb8861d11","2013-11-02 18:16:16+01:00","Italian translation sync. String name 'start_ordianl_text' has a typo:
+left to upstream to correct
+"
+"1ab583c5cdaebbc07298e4b84787622a0b895aa6","2013-11-02 18:31:53+01:00","Typo in Italian translation
+"
+"e517c4246f039bf54e62e2a085cbbfbd2e14b57d","2013-11-09 10:31:42-08:00","New build.gradle. Still WIP.
+"
+"b5cc8fdb307507b13cb9b8e4f508903ae60a8b39","2013-11-14 16:48:06-08:00","Fix a race condition that cause dirtyCache flush failure.
+
+The race condition is caused by dirtyCache not remove immediately after
+updated. It is cleared after everything in the cache is updated. This
+would cause issue if other thread is updating it.
+"
+"45846ae077b6d69402492c766a947b33f0f6b601","2013-11-14 16:49:41-08:00","Merge branch 'master' of https://code.google.com/p/anymemo
+"
+"9517fabbfe92f942fefc381bb79b386f195b539d","2013-11-14 17:05:11-08:00","Update robotium 4.3.1 for Android 4.4 support.
+"
+"8300d375b290740b17fecbfb0c80b48c75f5f19c","2013-11-14 17:32:20-08:00","Fix undo card issue.
+
+The problem is the optimistic locking on the Card object and the
+prevCard to undo will fail the locking thus not updated.
+"
+"24161fb8980f18e0e3ddf80631472fa4466097f9","2013-11-14 17:43:11-08:00","Fix the typo in the start_ordinal_text.
+"
+"9e093990a3d1f676ed6f1e55b050ebedbbd06f1a","2013-11-14 19:38:05-08:00","Bump version.
+"
+"1095ef2865653f9f392622b580e35c96e86c1e61","2013-11-15 17:18:41-08:00","Fix the typo in the code.
+"
+"9734b92a56dd94b6e956953b2d6f20b9617ca410","2013-11-18 16:28:27-08:00","Fix grade button issue in quiz mode in landscape orientation.
+"
+"75733ddb05315261484d0cfe75b6073bdc03d2df","2013-11-22 14:16:11-08:00","Update to the latest android support library.
+"
+"cc3923804c1b973679002813cdaf830674ba4fb6","2013-11-22 14:53:29-08:00","Refactory QACardActivity loading process.
+"
+"5208fc04af8375ff6c43a51d4fa8f6f90e93b882","2013-11-25 16:43:42-08:00","Fix DAO reference issue in onActivityResult.
+
+If the Activity needs to be recreated in when the activity returns some
+results to the parent activity. All the local variables will lost and
+needs to be re-created asynchronized. But onActivityResult is called
+right after onCreate and these variable will not be created immediately.
+This change modify that getDbOpenHelper will be available immediately
+after onCreate so onActivityResult can use it.
+
+This change also all DAO to use getDbOpenHelper to get the instance
+instead of using Activity cached one.
+"
+"2a13a33cbf6e94d581716a6cdbed7d5d06f67fef","2013-11-25 16:52:18-08:00","Restart activity when returned from CardPlayer.
+
+When orientation change the parent activity will be destroied. So the
+gotoCard will have null reference. The activity needs to be restarted in
+order to jump that the specific card.
+"
+"0d680c524e53c58ab7217f9d4672130d47e00853","2013-11-26 15:29:44-08:00","Bump version
+"
+"2970dcc517bff6030be0edf25c9ec9cd2d73f3cc","2013-11-26 18:10:13-08:00","Fix the loader that does not disappear sometime after screen rotation.
+
+Do not use the fragment for the dialog, use the good old progress dialog
+instead to fix this bug.
+"
+"eb220f2bca83992cd1ee7baebc839916d62d9db5","2013-11-27 15:21:39-08:00","Initial work for gradle build (plugin ver 0.5+).
+"
+"3cabb80603fc8aecf3bdef2e90e96f59f8834e8e","2013-11-27 15:50:51-08:00","Tests are using gradle now. Updated to use 0.6+ plugin.
+"
+"0a59695e77cf345e0abfec1250f9f6385f93c12b","2013-11-27 15:52:55-08:00","Update compile script to use gradle
+"
+"bfc0278b34cae0d8f48645e0ae8812a5956d0b94","2013-11-27 16:05:10-08:00","Change singing for gradle build
+"
+"9d434d81ccf4efd370b2288666d48375ca340b74","2013-11-27 16:08:31-08:00","Remove useless scripts, rename scripts.
+"
+"cc2aaba4be4ec4b158dea8f90f098f2e71cca8bf","2013-11-27 16:09:58-08:00","Remove remaining ant related files.
+"
+"786aaf708175aed5570a354f3ff03fdcfeaaeaf2","2013-11-27 16:16:32-08:00","Clean up build.gradle. Update install instruction.
+"
+"de0949cad02c8f3ca95115cde228fc4d161aac3a","2013-11-27 16:46:19-08:00","Change compile sdk to 16.
+"
+"303a5b2db1f88d80ff533f6e412ad542c2344500","2013-11-27 16:58:43-08:00","Update to use build tool 19.0.0
+"
+"ae71094656bf7aa30eb708ffd0d7c84d816dfe7b","2013-11-27 20:52:38-08:00","Reformat documents.
+"
+"5f438519f933ad1b441bc07101cbb505d609ad1a","2013-11-27 20:56:02-08:00","Remove useless aspectjtools.
+"
+"cdfd7f972b53b5680289a08fad4dc88103817ccb","2013-11-27 22:21:19-08:00","Use appcompat version 19.0.0.
+"
+"3cb1fbb40357726b1d0f8bba9c44b628070316f4","2013-11-30 11:12:38-08:00","Ignore all android studio files.
+"
+"62ee8e99e2c41f3c8df2843cae5ead741a5f4d24","2013-12-02 14:45:06-08:00","Fix filter by category in Quiz mode.
+"
+"bfd751bda4474a9cb5c29f3613b2d3d6062446dd","2013-12-02 15:20:59-08:00","Bump version.
+"
+"5d76a9f536c84cbd71666043407aceac3d4651e2","2013-12-02 17:41:51-08:00","Add DoubleClickButton for category deletion.
+
+The double click button only takes effect after the second click. This
+will prevent the accident click on the dangerous buttons without making
+the UI ugly.
+"
+"1192a5e9df572f3aca87d916582b1dff068b1d96","2013-12-02 18:03:08-08:00","Add Arabic to the locale list.  Do not display warning for the TTS extended
+or ESpeak since they are deprecated.
+"
+"fb089d717c04ebe75ba6bd09fc3cfaca9c7869e3","2013-12-02 18:18:17-08:00","Display warning if the locale is not available for the current TTS engine.
+"
+"01bc47c9399e8c74927c510c7cfb6b167a0c1d3b","2013-12-03 12:25:46+00:00","Rus translation update
+"
+"8aeb069a17dd7cbaa98123a513a7655d48820e34","2013-12-03 10:10:19-08:00","Use SA for Arabic TTS country code.
+"
+"3d3a14b0de57d24437e268a7c5430067976fb82c","2013-12-03 15:21:21-08:00","Only display TTS language not available warning once.
+"
+"98a5eb685b82797402c8a8fcdbb730b7a3617efa","2013-12-08 08:08:31+01:00","Sync Italian translation
+"
+"857b5ba13dca377289c315e659693674e42fa9b9","2013-12-09 15:14:35-08:00","Limit the landscape buttons layout to tablet devices only.
+"
+"20a78aa9ebf7af06836a36cbe6797657f1b53d62","2013-12-09 17:43:03-08:00","Use gradle to manage dependencies from maven repo.
+"
+"db033b41381825d49790d5ad485789308352ba25","2013-12-10 17:00:45-08:00","Add DBOpenHelper with application context.
+"
+"c6b4179c0387d331a4e076e4b00d9bd083460eb7","2013-12-10 17:49:27-08:00","Use better way to handle db file name in AnyMemoDBOpenHelperManager.
+"
+"9cf6727a72603202cc58c9463ee861656bb8d6df","2013-12-10 18:33:40-08:00","Add SynchronizedLinkedHashQueue and use it in LearnQueueManager.
+"
+"0059d8fbc824bf8da74333d326daacffff8e407b","2013-12-11 13:41:37-08:00","Use BlockingQueue for dirtyCache to prevent possible concurrency issues.
+"
+"8639d42f713dc635dee48867fcf754a44a38b024","2013-12-13 15:05:18-08:00","Use w590dp to determine if to use the landscape button grade layout.
+"
+"6a89583c7330221a5e027ca2570b49d4ef3c37b6","2013-12-16 14:01:00-08:00","Use background service to import and export card sets.
+"
+"4688ca8e5a5ee8df49e1ccd3749967517da442db","2013-12-16 15:14:59-08:00","Fix the injection bug in CSV import / export.
+"
+"9b0712d7da6c9ceb1bfcf48ad990e2ea7875b8ab","2013-12-16 18:02:57-08:00","Add new notification icon. Fix 2.3 notification compatibility.
+"
+"5a352a9a369c692d1d804e9ce733acf6e96eeef3","2013-12-17 15:26:58-08:00","Fix the test compilation failure for converters.
+"
+"0d9b8a41f0347162a7ab0e4777b6c4a981f33ce4","2013-12-17 19:10:44-08:00","Refactory CardListActivity to show card learning status.
+
+Major refactory CardListActivity with class name change and
+menu system to use new recommended PopupMenu.
+Color code cards for learning status.
+Add menu for quick learning action (Not implemented yet).
+"
+"c1c98f0d39df1e382f4d2aecac8f574e4da1dcac","2013-12-18 11:46:19-08:00","Add mark as learned/forgotten function to card list activity.
+Refactory 'skip' to 'Mark as learned forever'.
+"
+"68ba889c84a4fec964eb706d49d9edd789b5f33e","2013-12-18 12:13:47-08:00","Fix a few warnings. Add Search view in CardListActivity (Not implemented
+yet)
+"
+"fc864918d8d9fd860ab0f1e508715a3b44255460","2013-12-18 14:57:14-08:00","Implement the search function in CardListActivity.
+"
+"c8883da389d8940bf6f273c7fb50697ce3209ec9","2013-12-18 17:20:52-08:00","Add ability to show/hide answer in CardListActivity.
+"
+"a5fd7ad0b2ba34ba77a32956082df23700a0e81c","2013-12-18 18:03:55-08:00","Use loader instead of AsyncTask to load Card list in CardListActivity.
+"
+"12b9faf4174e923a3b4feec17be612fae538c8ab","2013-12-18 18:09:41-08:00","Fix the learning data reset does not initialize the date objects.
+"
+"b010b769e78a52781dba840df64fb22801aff848","2013-12-19 07:49:22+00:00","Rus translation update
+"
+"8caec25603a0fd640156d04a8c5e231ddb48c191","2013-12-19 11:01:41-08:00","Do not use AsyncTask to grade card to prevent state loss.
+"
+"4bd0cf1ee9e110ca87d3888a15edc43fbaf9e5bf","2013-12-19 12:07:27-08:00","Fix the schedule not calculated correctly when learning before scheduled
+date.
+"
+"ff48ae9eb6defa57aa32d31c84bc3edbcb7151b8","2013-12-19 12:15:55-08:00","Use 146140482-04-24 as the end of the world date so mark a card as
+learned if it has already been marked as learned forever will not crash.
+"
+"4b095a67913ef67127b53b07e92ef3374e780e83","2013-12-19 14:49:35-08:00","CLean up ListEditActionsFragment. Fix mark as learned forever issue.
+
+Now 2099-12-31 is the end of the world.
+"
+"e0f182fd7543c2d76cec61d42946e0a5d342323d","2013-12-19 15:05:03-08:00","Fix all current CardListActivity tests.
+"
+"8f96b5e2fac1d7799a919e4da79de712329b60da","2013-12-19 16:02:01-08:00","Add tests for mark as learned / forgotten and show/hide function in CardListActivity.
+"
+"5d6d38ede84a24686ac2d5d1f8acf61e89b803a2","2013-12-19 16:03:47-08:00","Format some comments.
+"
+"8a3b7852314014001bbdab73db5fa50b56353e26","2013-12-19 16:43:27-08:00","Add file for DefaultSchedulerTest.
+"
+"61bb28ab31e15cc8215c9cfb3adb41ef56c2820b","2013-12-19 17:42:06-08:00","Update to gradle 1.9 and 0.7.x gradle plugin
+"
+"cc94750dd2abb9966b0836dc1f182411dca6c694","2013-12-19 17:43:20-08:00","Add some scheduler tests. (WIP)
+"
+"ae4b6fbbd2fad93ce2e47ac75d7a08549c305682","2013-12-20 14:08:13-08:00","Add more scheduler tests.
+"
+"eeeb4d0e4419cbf9b463e630f72005041fbcd297","2013-12-20 16:37:09-08:00","Use action bar search view to search card in Preview/edit mode.
+"
+"3a247409b0e0ad7fd53e68d7ecf8044c8c484382","2013-12-20 16:51:43-08:00","PreviewEditActivity code clean up.
+"
+"8b6055280f25ef7b0af064f5860eccedfdbb23e3","2013-12-20 17:06:11-08:00","Update to ormlite 4.48
+"
+"bd7b4473e804f00ace9846494348016317e4f62e","2013-12-20 17:28:13-08:00","Fix crash when searching  in PreviewEditAcitvity using card id like #id.
+"
+"ae9eba1cb4553d6b681ed597d714683110655d22","2013-12-20 17:58:32-08:00","Refactory test to use Robotium way to invoke menu (action).
+"
+"d7548886751866cdda1fe9ec9f38a9e5df2057d6","2013-12-20 18:22:49-08:00","Add PreviewEditActivityFunction with search function tests.
+"
+"1122d89c3561584ff0d255292dbf8066821c371b","2013-12-21 10:51:17-08:00","When card is hidden in card list, first click will reveal it.
+"
+"b912c97f458af135b6bcfa6a10f8a403d263355f","2013-12-22 17:32:39+01:00","Italian translation updated
+"
+"2f4f2d762c7f9a68f8511c102a542a7a493a6223","2013-12-24 10:33:30-08:00","Refactory var names. Typo in strings.
+"

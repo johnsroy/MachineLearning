@@ -1,0 +1,479 @@
+"commit id","commit date","commit message"
+"2dbacbf49cd03ba0745bf69b356daf78575c431b","2015-06-02 17:23:43-07:00","dmix: Update for AS 1.3
+"
+"e2ad08eb00708f6f5746a175683825bfe8b5f8bb","2015-07-06 11:16:49-07:00","MPDroid: Migrate from Crashlytics to Fabric.io.
+"
+"f569011b6898af481aea2f1bffdc64f40f29c3fa","2015-07-06 11:17:35-07:00","JMPDComm: Push host resolution into MPDConnection, and off thread.
+
+This fixes an exception in Android caused by resolving a hostname on the main
+thread. Fixes #722.
+"
+"916df293044b314a36e38cd8c5b49e1e8b5d9f77","2015-07-06 11:27:33-07:00","MPDroid: Code style.
+"
+"38ed496068d29122b41c57e287a306e31221ee7a","2015-07-06 11:50:48-07:00","CachedMPD: Fix exception caused by not refreshing cache.
+
+This was caused by confusion over a query named method which actually
+accomplishes work. Fixes #724.
+"
+"1a6f3dfc1cd1f4b75f3fd5449908863739e20a63","2015-07-06 12:07:00-07:00","[Multi|Mono]IOMPDConnection: Validate the socket address on disconnection.
+
+This fixes an exception caused by disconnection being called prior to connection.
+"
+"907167117dd3570be5b87a1cefb2435d566ca220","2015-07-06 12:13:06-07:00","SettingsHelper: Fix a NumberFormatException caused by a bad integer.
+"
+"885771d57c97bd2dd48951e8aeaaa87ceb87532b","2015-07-06 12:57:33-07:00","WidgetHelperService: Fix for connection delay.
+"
+"e4c315ce8e2c137a9c895bdaeb16d54b2ae3c50b","2015-07-06 14:14:41-07:00","SongsFragment: Don't try to get display header info without activity.
+"
+"7bc601fe845f8189da1ab7ef24c77b1bd423f5d5","2015-07-06 14:17:46-07:00","NowPlayingFragment: Avoid activity NPE when setting button attributes.
+"
+"520643d9025c26c432c84b20395ff44e60d5b221","2015-07-06 17:47:32-07:00","SongsFragment: Correctly consume the long click album art.
+"
+"e9662401ed654e324a89d7b9211d2446a008b443","2015-07-08 05:55:36-07:00","Playback: When stopped, and playpause is called, play.
+
+This fixes issue #727.
+"
+"50f1e10576bede2a520248717b04e7d48b390128","2015-07-08 05:59:04-07:00","NowPlaying*Fragment: Fix for when the connection timeout in SimpleLibrary.
+"
+"41da0a71b0fbb232c5d5fdc09fe5ffc592937dad","2015-07-13 21:08:53-07:00","gradle: Upgrade Gradle Wrapper to Gradle 2.5.
+"
+"61516336c8eb6aada3c5abab5ee338b5e4a8c41f","2015-07-15 17:24:45-07:00","MPDConnection: Use a semaphore to lock the connect() method.
+
+The semaphore will be acquired during connect(), and released either after
+successful connection or disconnection.
+"
+"13935eb9a5e5f7e4032a057c1ae12288e4aae689","2015-07-17 16:11:26-07:00","MPDroid/build.gradle: Update Android support library.
+"
+"834b6e32fc7494fb4875fc02d11ad5866721b819","2015-07-17 16:23:30-07:00","travis: Migrate to container based build.
+"
+"11c23d7514599551f2ccd5f69d1c3a2967db2389","2015-07-24 20:45:55-07:00","SearchActivity: Fix song add, broken by 1c05055b5.
+
+The view focus can be null, if so, ignore it for this case. This might not be a
+completely correct fix, but, hopefully, we'll avoid most races fixed by that
+commit.
+"
+"95d707e8d4c18640e48a1ceb34d09c6550f537bf","2015-07-26 15:20:08-07:00","ResponseMap: Fix a map invalidation bug.
+"
+"87ab84a2fb3a016c820a3e52460b37f6642694c3","2015-07-26 17:42:55-07:00","PhoneStateReceiver: Fix the failure on call resume.
+
+This also adds a tool to connect as required prior to attempting to send a
+command.
+"
+"3677dedf292195f42f9d5b4f3065c0a1d09bf2f3","2015-07-26 18:10:27-07:00","BrowseFragment: Grab the stored playlists in a thread.
+
+We don't really know how long it will take to retrieve the stored playlists and
+it would be a shame to hang the UI for that.
+"
+"a259523ff5e8eb270b9ea202cff958690dfd8459","2015-07-26 18:11:16-07:00","BrowseFragment: If we're already connected onStart(), retrieve playlists.
+"
+"5272ec992bd3be5bb80ede6cd2002656caed82b5","2015-07-26 18:23:48-07:00","NotificationHandler: Make notification visibility public.
+"
+"4d8eb8c5b19631902fb70de65ee9e72cc7a75885","2015-07-30 20:48:52-07:00","connection: Implement a stream read blocking timeout.
+
+This commit implements a timeout for stream read blocking which will close the
+stream after 5 seconds of read or write blocking. This could be used anywhere,
+but this commit only enables it for the initial connection. If the initial
+connection succeeds, then we're, usually, in the clear.
+"
+"681b80c18ae2f8e0f68498b01375fd47979eabcd","2015-07-30 21:05:42-07:00","MPDConnection: Set the status to connecting before submitting to the executor.
+"
+"dd860aada7e3bb3b8859424dfd6d668eabb65160","2015-08-01 19:06:10-07:00","IdleSubsystemMonitor: Implement a IdleSystemMonitor error handler callback.
+"
+"716800acadb3147ed2a746c1986b62a2300dac50","2015-08-01 19:32:42-07:00","ErrorHandler: Listen to IdleSubsystemMonitor errors, act on core issues.
+
+This adds a rudimentary UI for core problems, such as password and permissions
+issues with regard to the IdleSubsystemMonitor. Hopefully, someone improves the
+UI for this at some point, though, this is better than before where we silently
+fail.
+"
+"c07f6ca847ab4a95ae45413a9b98644bb2186614","2015-08-01 20:00:13-07:00","SettingsHelper: If integer is empty, don't parse, use passed default integer.
+"
+"0dfbd9564962ec890b95236bd481e9cedcf4653f","2015-08-02 06:22:05-07:00","StreamsFragment: Lock the connection when saving a stream.
+
+Saving a stream requires a connection lock, as one might not have already been
+acquired due to an activity not being required to run for it.
+"
+"2f12c0d390b70ff8104a9c7b177ce25fd2723930","2015-07-26 14:35:42-07:00","MPDPlaylist: Add validity checking to the playlist cache.
+
+This commit also changes refresh() to update(), which is more accurate and more
+closely aligned with ResponseMap.
+"
+"2d89cf43812869e5a16ca42f5e515d1045793411","2015-07-20 16:39:01-07:00","MPD: Create a proper current track retrieval method.
+"
+"4ad298e00df32a6912f2c19515233c4615a563ab","2015-07-26 14:18:00-07:00","MPDroidService: Retrieve the current track from the cached playlist/status.
+"
+"472c7f154ed976c066d25786afcb25bdb0af320e","2015-07-26 14:43:25-07:00","UpdateTrackInfo: Retrieve the current track from the cached playlist/status.
+"
+"524725ee4c287e2031115ddef55da9bb956efad1","2015-08-02 12:20:59-07:00","MPDroid: Retrieve the remainder current track from the cached playlist/status.
+"
+"1fc1e7ef86e3c4ecb3de340c49ffd9f67ab4f1f2","2015-08-03 18:38:57-07:00","SongsFragment: Suppress a crash caused by palette building during recycling.
+"
+"157aa25d3894994454e5f44f5ae5af89a66a00b4","2015-08-04 16:03:57-07:00","gradle: Update Android test support libraries.
+"
+"ee0ea9ecdb7dec7a228c9ed5331914bd987f735a","2015-08-04 17:57:24-07:00","AbstractResultIterator: Throw an exception if the position is a negative number.
+"
+"b280c67582ca9414dc2e50c59ac25c16d2fb7a60","2015-08-04 17:58:32-07:00","SplitReverseIterator: If no previous index is found, construct with 0 position.
+"
+"fba1458f25559045de99aec4273de8cc6d6f1db4","2015-08-04 18:42:49-07:00","MPDConnection: If status changed from connected during runnable, don't finish.
+
+During the IOCommandProcessor exection, the status change to connected upon
+the established connection. Next, the initializing connected callback is
+called and will wait on the IOCommandProcessor task completion. If the
+IOCommandProcessor results are retrieved (with get() and there is an
+IOException, there should only be an RuntimeException generated in the case
+that we are still in a 'Connected' connection status state. The Callable should
+have called another connection status state prior to this.
+"
+"a4cec3836a2e76a52edf573d4f5e28bba319e133","2015-08-04 20:19:14-07:00","build.gradle: Revert to com.android.support:design-22.2.0.
+
+This worksaround a bug somewhere where the action bar is cleared onResume().
+"
+"afb6cfee658beae5b2a7e65054a2d95f3e81079a","2015-08-04 20:48:04-07:00","StreamHandler: Do not delay the buffer on SDK 22 and later.
+
+On Lollipop MR1 and later, the MediaPlayer bug, detailed in the commit log for
+d333d0f, appears to have been fixed.
+"
+"722497c16fb7c2f515d231023aaddd0791d1d518","2015-08-05 04:17:52-07:00","StreamHandler: Disable ANR MP reset/release workaround for SDK 22 and later.
+
+The ANR, detailed in commit log 603ef358, appears not to affect LOLLIPOP_MR1,
+remove it for these versions and higher.
+"
+"b72dbc97f70454c80d574a12ba1a4d86dc693699","2015-08-05 11:01:47-07:00","MPD: Invalidate the playlist on disconnection.
+
+This caused a bug where the status and playlist could be out of sync.
+"
+"6b97c745d5a814ab898729247471469a069eb6c9","2015-08-06 16:29:18-07:00","MPDroidService: Wait for MPDStutus/MPDPlaylist validity prior to current track.
+"
+"844a5c4ab19052f9a72588254e7d4c5ea5210480","2015-08-09 18:42:55-07:00","CoverManager: Fix resource leak.
+
+This leak regards us opening up a FileInputStream then not using it, not closing
+it, and instantianting a new one. This was found by Coverity Scan (CID: 130374).
+"
+"7e615713bab5a8b82b08d196ebcb05bfc5ef76da","2015-08-09 18:54:54-07:00","PlaylistEditActivity: Remove useless item.get() call.
+
+Found by Coverity Scan (CID: 130381).
+"
+"f9fe66fdfd6e7f03091356fbc02a48d9ccbb12e1","2015-08-09 19:03:39-07:00","StreamsFragment: Fix wrong order for Stream instantiation.
+
+Found via Coverity Scan (CID: 130380).
+"
+"086921916af22447c332d3892a2eb9f098f8aa7f","2015-08-09 19:06:15-07:00","AlbumInfo: Fix AlbumInfo instantiation during normalization.
+
+Found via Coverity Scan (CID: 130379).
+"
+"8ad7b4077ba3f141ae213151980072430b71a1fd","2015-08-10 16:37:44-07:00","SongsFragment: Call super method for onCreateView().
+"
+"c982b24c3288852b4a2d85d69cb6d8ade9ca3328","2015-08-10 17:13:04-07:00","CoverManager: whichCoverRetrievers cannot be null.
+
+Found via Coverity Scan (CID: 130328).
+"
+"22bbea54f7efb9ae0a919fdd81c0a3300c88b457","2015-08-10 17:23:55-07:00","build.gradle: Update Gradle plugin to 1.3.0.
+"
+"6b6916afb998cac9fa61f7887e2628762af64206","2015-08-11 15:57:30-07:00","LibraryTabsUtil: Prevent a null variable dereference.
+
+Found via Coverity Scan (CID: 130337).
+"
+"0b53d48d1201ac67c427de2e206a337f96225ba2","2015-08-11 16:06:06-07:00","QueueFragment: Check song item for null prior to processing.
+
+Found via Coverity Scan (CID: 130348).
+"
+"edc665544d5ec18a1c08f29f0f7a707520506cfe","2015-08-11 16:11:39-07:00","ErrorHandler: Prevent null list dereference from getRunningAppProcesses().
+
+Found via Coverity Scan (CID: 130350).
+"
+"296410addfca506aefc55001400e299a7d4477fc","2015-08-11 16:14:48-07:00","MPDroid: Check for null PackageManager
+
+PackageManager might not be available on all platforms.
+
+Found via Coverity Scan (CID: 130351, 130352).
+"
+"0dfae6f17b5a406c4a118759738e0c3d3b3169a1","2015-08-11 16:36:09-07:00","MPDroidService: Obtain a new message for each send.
+
+The message can be freed during send, making it useless for sending to multiple
+clients.
+
+Found via Coverity Scan (CID: 130382).
+"
+"453efcea1dbb4050d1b29ead5ef6f02316b2ae98","2015-08-11 16:42:33-07:00","AlbumsFragment: Don't call getTag twice for clarity.
+
+This should also fix a Coverity false positive (CID: 130346).
+"
+"8458f5ca8e64f18de775881ed757cbfaf1ce68ed","2015-08-11 16:46:38-07:00","CoverManager: Avoid a null dereference of the ConnectionManager.
+
+Found via Coverity Scan (CID: 130348).
+"
+"89745ee9dde9efc87ab640379c368e63bd17c766","2015-08-11 16:50:15-07:00","CoverManager: Use the previously geenerated (and null checked) CachedCover obj.
+
+Found via Coverity Scan (CID: 130349).
+"
+"da5257fed5c892054d313a3a38d793a131f4874c","2015-08-11 16:55:13-07:00","Tools: When debugging Intent, check the KeyEvent for null after retrieval.
+
+This /shouldn't/ be null, but there are cases where it could be.
+
+Found via Coverity Scan (CID: 130353).
+"
+"87c17231941f787d33dc7b0aa10922e53a2211c9","2015-08-11 16:59:38-07:00","SimpleLibraryFragment: Avoid a null dereference when set title from Fragment.
+
+Found via Coverity Scan (CID: 130355).
+"
+"d617101a98a551860cb99fae26219596f9d4ec1c","2015-08-11 17:15:19-07:00","CachedCover: Prevent null dereference when calling File on a url.
+
+This fixes a couple of other warnings related to this bug.
+
+Found via Coverity Scan (CID: 130358).
+"
+"52639a9f8ac288b2406933b6211a9d1e6eb00c04","2015-08-11 17:22:28-07:00","CachedCover: Avoid null dereference when creating File from absolute cover folder.
+
+Found via Coverity Scan (CID: 130359).
+"
+"15da4215d716f2715f518e2eb98f01e93dd674d5","2015-08-11 17:30:20-07:00","MPDroidService: Prevent null track dereference.
+
+Found via Coverity Scan (CID: 130362).
+"
+"9f8e4be64e831ab6e956a6b2008d108284fb43e4","2015-08-11 17:32:27-07:00","AboutActivity: Prevent PackageManager null dereference.
+
+Found via Coverity Scan (CID: 130363).
+"
+"641527c4c569a198d0b7619c282076b19e710211","2015-08-11 17:38:26-07:00","SettingsHelper: Prevent null Wifi[Info|Manager] dereference.
+
+Found via Coverity Scan (CID: 130364).
+"
+"63ba5770d1edfb776401c51b5235b3a209f3458b","2015-08-11 17:47:32-07:00","MPDAsyncWorker: Prevent null connectionInfo dereference.
+
+Found via Coverity Scan (CID: 130366).
+"
+"7341f6a62df268090f4c28f37c68a5b2bf4c788b","2015-08-11 17:51:17-07:00","MusicBrainzCover: Prevent null dereference from get request response.
+
+Found via Coverity Scan (CID: 130367, 130368).
+"
+"eb1af6c70946b723792dfd28d851b7afc1b05011","2015-08-11 17:58:02-07:00","WifiConnectionSettings: Prevent null PreferenceCategory dereference.
+
+Found via Coverity Scan (CID: 130369).
+"
+"49bb8309caee49fce0636aed316ce1422ea0bb02","2015-08-11 17:59:52-07:00","ConnectionSettings: Prevent null PreferenceCategory dereference.
+
+Found via Coverity Scan (CID: 130370).
+"
+"67b5a3a14b9430d640af00a22d7fca83fc296d80","2015-08-11 18:16:58-07:00","AlbumCache: Prevent null Artist dereference from MPD.listAlbums() or otherwise.
+
+Found via Coverity Scan (CID: 130331).
+"
+"b54f04c645da6b5dadceed8cf572fb8278f68277","2015-08-11 18:20:17-07:00","CoverManager: More comprehensive fix with regard to resource closing.
+
+This fix contains a one liner that should have been part of 844a5c4.
+
+Found via Coverity Scan (CID: 130374).
+"
+"e6617ebe241b60411e41999756475ea9a04931d4","2015-08-11 18:27:47-07:00","AlbumCache: Prevent resource leak of cache files on exception.
+
+Found via Coverity Scan (CID: 130376, 130377).
+"
+"6e1bf20820fa94dc9e97e86b794f8085b1ae4c42","2015-08-11 18:39:08-07:00","CoverManager: Avoid leaking the resource on cover save if flush() fails.
+
+Found via Coverity Scan (CID: 130377).
+"
+"c36702e0e8a40c74ac33e7f4d663b45537d3c6d1","2015-08-11 18:41:12-07:00","MusicList: Synchronize on mList when getById is called.
+
+Found via Coverity Scan (CID: 130343).
+"
+"fea3b9e2d2564e57aca97a0218c10b508b237f2d","2015-08-11 19:03:29-07:00","MusicBrainzCover: Avoid null coverArtResponse dereference.
+
+Found via Coverity Scan (CID: 130368).
+"
+"fb7c48b58d70c2a9fea27586a00d515d73287857","2015-08-11 19:08:05-07:00","GraceNote: Avoid null extractCoverUrl dereference.
+
+Found via Coverity Scan (CID: 130360).
+"
+"fe8cc846d7aa417b39d659979eac0fb816744087","2015-08-11 19:33:55-07:00","StoredPlaylistFragment: Call super if the extras are null.
+
+Found via Coverity Scan (CID: 130327).
+"
+"6ebff9433d21de5875c77e7906772c132498b5a1","2015-08-13 19:51:01-07:00","CachedCover: Fix the cover cache mkdirs.
+
+This wasn't so well thought out when creating 52639a9.
+"
+"d26206697cba0d20853b6e2cdd75e4074e721f21","2015-08-13 20:04:44-07:00","AlbumInfo: Replace our custom regular expressions for URL cleanup with URLEncode.
+
+My testing shows this to be, at least, as good as our regular expressions.
+"
+"8d2cd51dfac898ac443a5f0a8707c3c1bf874cbb","2015-08-17 17:10:49-07:00","dmix: Updates for Android Marshmellow and Gradle 2.6.
+
+This updates all applicable plugins, with exception of MPDroid which cannot
+target API 23 until we remove our org.apache dependency and the support
+libraries are updated.
+"
+"c289d535d1fc81f433ad60a56d4b4e9b72a4a7ce","2015-08-18 18:54:56-07:00","MPDroid: Use FloatingActionButton from the Android Support Library.
+"
+"248bf1d07f2b926cafbac320e0bd5f43a8044a99","2015-08-19 17:08:40-07:00","OutputsFragment: Add toString() detailing the name.
+
+SimpleLibraryActivity depends on toString() to give the fragment name on refresh.
+"
+"3b9d98f27b39199766d7e961070dcdc1aa3fd720","2015-09-06 15:27:23+02:00","Remove artist under cover from artist library view
+To fix #715
+"
+"485e4a9c92e9bbd501e0ba73a3ba8c8c55ffbbcc","2015-09-08 09:52:22-07:00","main_fragment_land: One line reversion of d3b1852.
+
+This fixes year disappearing on rotation. Fixes #750.
+"
+"95efd386ed29d0e402e767b32bc40dba75d1685f","2015-09-08 10:04:32-07:00","layout: Replace depreciated value fill_parent with match_parent.
+"
+"67f559031c18f643d07eb2a8a90d4e13e399d9ea","2015-08-22 07:17:36-07:00","DiscogsCover: Remove due to new API restrictions.
+
+New API restrictions require auth and load restrictions. We have plenty of
+great cover providers and don't need the headache.
+"
+"063b50155257380abd35f0d6ac79665cfed32193","2015-09-08 11:52:30-07:00","SongViewHolder: Make immutable.
+"
+"d9f152602beb811f1f22776a659fc387f002f851","2015-08-31 15:04:48-07:00","dmix: Code style.
+"
+"588f11b21eb74b17aa60187e416a0ad688ff2b1d","2015-08-27 15:52:21-07:00","AlbumInfo: Remove disc removal from album name.
+
+LastFM and other providers actually provide with disc names, this prevented
+a few covers from being downloaded.
+"
+"3a4b1340dcc0a5e84d8d37a25604450c5ed96717","2015-08-20 20:00:10-07:00","cover: Correctly encode all URLs for HTTP GET.
+
+This patch reimplements our URI encoding for HTTP GET URLs. This comes after
+continuing to get cover URL errors, even after a recent attempt to fix it with
+commit d262066. After doing some research[1] I learned that it has, in fact,
+been wrong for some time. This commit removes one of the queries for the send
+which should make cover retrieval quicker.
+
+This commit also changes to the preferred HTTPS scheme, when possible.
+
+This commit also fixes the completely busted MusicBrainzCover fetching.
+
+1. http://stackoverflow.com/a/4571518
+"
+"7a5d991ab764399bcaaca2f66325e81e22d3422d","2015-08-22 06:52:27-07:00","CoverManager: Move methods used in inner classes to those classes.
+"
+"e37f12bfaf97bb3ecea85d7dfa91f6015837881f","2015-08-24 18:16:15-07:00","gitignore: Add captures directory.
+"
+"01c6654670cdf121d657e09068c9f36007795c64","2015-08-24 20:44:39-07:00","SpotifyCover: Migrate to new Spotify cover art API.
+"
+"684a7ab1840d3e9a8d4fde6ee0bb0a5017313511","2015-08-25 06:10:00-07:00","ITunesCover: Replace dynamically generated regular expression.
+"
+"0dcbb9faab602b50838415cef9d2037501328807","2015-08-25 15:08:43-07:00","JamendoCover: Add a Jamendo cover API class.
+"
+"852709c90ecacdb3c54499db3254126cf7310c69","2015-08-26 06:29:20-07:00","cover: Move all cover classes to the cover module.
+"
+"7d625980e4e24c1a4ada065a4ba885673a8d998b","2015-08-26 16:59:19-07:00","LastFMCover: Cleanup, convert to JSON, prefer rather than require large image.
+"
+"10c26f56f03b419e4278f5003d49821865df3a9e","2015-08-27 19:43:47-07:00","AbstractWebCover: Migrate off the depreciated Apache request libraries.
+
+These are required to be removed to migrate to SDK 23.
+"
+"9d4f739aa11be3a5538bc82d9b2dbb959fe9a9f5","2015-08-27 20:55:22-07:00","dmix: Change to SDK 23.
+"
+"5f1ad1e1516ae1eb519bde3f5f510ef1703f7afa","2015-08-28 04:24:35-07:00","CoverManager: Refactor WIFI detection.
+
+This fixes a Coverity bug and updates for Lollipop and beyond WIFI support.
+"
+"a48840181a2dd79f18c3869b79f5bbd103ac66cd","2015-09-01 18:53:18-07:00","AbstractWebCover: Convert to URL use over raw string urls.
+"
+"ec8bf570334ee7d8eeb6b3647171155335a556cd","2015-08-28 05:11:19-07:00","CoverManager: Use URI.toUrl() to generate clean URLs.
+"
+"0e63a813fd7616c165925c47d08c15ee8d068471","2015-08-28 06:03:47-07:00","MPDConnectionHandler: Check NetworkInfo for nullity prior to use.
+
+Found via Coverity Scan (CID: 130372).
+"
+"e39587c7d1f936fec5039f05770cd1420cb33a0f","2015-08-31 22:20:33-07:00","CoverInfo: Make package-private.
+
+CoverInfo is very specialized for cover handling and shouldn't be exposed to other users.
+"
+"688e23c960e16a61de5b8d924ded54f3da2815de","2015-09-01 16:33:53-07:00","AlbumCoverHandler: Use full CoverManager instance rather than the cover cache stub.
+
+This makes this class much simpler and should actually run better.
+"
+"c41304f416619295469a0d296adbdbabdc10d40a","2015-09-01 19:56:21-07:00","retriever: Convert from string arrays to collection of strings.
+
+This makes things much cleaner, easier to work with and the cost is an
+absolute minimum. Finally, this removes most of the catch blocks,
+this cleans things up quite a bit, and it's all caught by the upstream
+anyhow.
+"
+"5dd68aa7905513096f3505a429d76f1468cc75dd","2015-09-01 20:51:41-07:00","CoverManager: Cleanup most multiple method returns.
+"
+"85ce4ca766eaf9c6cd344ccea6f0c51b7a69cd48","2015-09-02 06:14:08-07:00","CoverManager: Use a collection to store retrievers.
+"
+"9e415fb2650dc347880bd2e6ac5d1dcc1d89f4ff","2015-09-09 17:09:52-07:00","gradle: Update to Android Build Tools 23.0.1.
+"
+"4b42f0e77bd53c7a1072471b3b246042c075b9a8","2015-09-02 20:51:50-07:00","CoverManager: Init CoverFetchExecutor with Executors equalivent.
+"
+"b3f231136ee3360c1c16a6bddf7cea9ca2a401a4","2015-09-02 21:00:21-07:00","CoverManager: Replace MultiMap with a simple generic map list value store.
+
+This will cause a failure when trying to store old MultiMaps the first time,
+which will succeed next time.
+"
+"5263d06ea4a5fc58f271d6490358500e93f3bf18","2015-09-03 14:32:24-07:00","WeakLinkedList: Remove.
+
+This class honestly causes more maintenance than it's worth, and it's hardly
+used. I'm not opposed to it's return, but it should be from a library which
+is maintained so we don't need to do it.
+"
+"e09ba79610291c9a06a166972a005c9882a63f29","2015-09-08 18:20:03-07:00","CoverManager: Unify load*Covers() into a more generic method.
+"
+"ae76767d08ebc71feb55e158446ee1c92baa55f6","2015-09-09 19:31:54-07:00","AbstractWebCover: Cleanup and disconnect after connection.
+"
+"3b96dc5e0a48095b5636f25355079db03c517563","2015-09-09 20:34:00-07:00","MusicBrainzCover: Convert to JSON parsing, rename to CoverArtArchive.
+
+This class uses MusicBrainz IDs to fetch covers from CoverArtArchive, so it
+makes more sense that it's a CoverArtArchive class. Also, this commit cleans up
+the class.
+"
+"b492c960a9da6cad3370c07a518bf7523220e73e","2015-09-10 11:07:28-07:00","retriever: All web retrievers now use the HTTPS scheme.
+"
+"b4fe76a04327b8decdd88b419a57ad1349427c96","2015-09-10 11:28:45-07:00","Retriever: Use TAG for naming.
+"
+"04e605f6dac8ff54a05f4619f83280391bf15769","2015-09-10 11:39:58-07:00","LocalCover: Add the Android standard AlbumArt to the list of filenames to check.
+"
+"3ee003df51962ea43fca604ccb5a746792e5cb93","2015-09-06 13:27:09+02:00","Toggle display comments in the album view
+- Click on the album header to toggle song comment display
+- Add the album year in to the header
+"
+"df58933f82a3a736c776b82905805c8fdea8de55","2015-09-12 17:17:49+02:00","Merge pull request #748 from jcnoir/album-display-comments
+
+Toggle Comment Display in the Album View
+"
+"6647669a10a6f584c92f3889a09a89403ae75de8","2015-09-12 17:42:25+02:00","Weord
+"
+"dd45f1bc16b9517fdd56880f742411f7d59b3987","2015-09-12 17:48:29+02:00","Revert 'Weord'
+
+This reverts commit 6647669a10a6f584c92f3889a09a89403ae75de8.
+"
+"62c0923cc0c1eafb97fcf1f4f79945aed2b7801a","2015-09-12 17:56:45+02:00","Partially Revert 'Toggle display comments in the album view'
+
+This reverts commit 3ee003df51962ea43fca604ccb5a746792e5cb93.
+"
+"1f929c9be8bc61dfc01a2fe14b5c5c2e4b8d9e9a","2015-09-12 18:27:19+02:00","Add comment icons
+"
+"918c3f30f1e1a1f3e1b6d0e109bd4e808680735d","2015-09-12 18:35:08+02:00","Add a comment button in the layout
+"
+"046f798e94628a0a1295795904ed1f4351e8a10f","2015-09-12 18:57:44+02:00","Don't crash if the cast assumption fails
+"
+"7a456be5c0e3a9215ecb4986ce724da47a59ec70","2015-09-12 19:00:58+02:00","Add a 'show comment' button
+"
+"347683d7bb22d7d3dcde6c34f151a3ddfafa8695","2015-09-12 19:17:59+02:00","Add comment activity
+"
+"448bef33c6bf72052ba7dc41d75c7f887e93eaab","2015-09-12 19:18:59+02:00","Remove test code
+"
+"7dd668aae7bc527d7b4a198e540a85752c3e4546","2015-09-12 19:37:39+02:00","Fix FAB tint
+"
+"cbfc179dfc6a3127534f0c8e9f18ca9febf6f9b1","2015-09-12 19:39:12+02:00","Fix fucking support bug not fixed after 4 months
+
+No shadow pre L. fixed.
+"
+"55923e1f2a6dc13e7b5e09db397c6a855aac5dac","2015-09-12 19:41:46+02:00","Revert 'SongsFragment: Call super method for onCreateView().'
+
+This reverts commit 8ad7b4077ba3f141ae213151980072430b71a1fd.
+"
+"a35373c5cd6e5353cc21879efe1d92d8b1e3c584","2015-09-12 19:49:34+02:00","Invert menu visibility logic in NowPlayingActivity Fixed #746
+"
+"57c9841995058530c359c2aa26e4875804a2cd47","2015-09-12 19:58:18+02:00","Reimplement PLM_Save in the meantime
+"
+"676bcc9eb9830d0377125a4990742c3c67fb5b72","2015-09-12 20:06:17+02:00","Fix crashlytics
+"
+"095ab6b661c9bfbb10380670b4ab5fb75057086a","2015-09-12 20:11:00+02:00","Fix regression that made songs unclickable when a comment is here
+"
+"d635a23730e44722d323a1552386dd23cacad435","2015-09-12 20:13:16+02:00","1.08 beta 4
+"

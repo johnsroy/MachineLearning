@@ -1,0 +1,429 @@
+"commit id","commit date","commit message"
+"b4070375e7e003dcdffd0ac8ee80355a23780a20","2015-04-29 07:44:31-07:00","glsl.heroku.com has moved
+
+It's GLSL Sandbox now
+"
+"cb9d0a2b812af9934fd9e97ff4bbbd36c8a82b5e","2015-04-29 17:33:53+02:00","Merge pull request #8 from stuartpb/patch-1
+
+glsl.heroku.com has moved
+"
+"2db933ad60b8d7cce12da444317dba664568550a","2015-04-29 22:18:50+02:00","Converted to gradle
+
+Because gradle has become the de facto standard for Android.
+
+Personally I think gradle is unnecessarily complex and far too slow
+but there's not really a choice anymore.
+
+Also refactored classes into a more mature structure.
+"
+"55f093da6af8b8e45f283e644f4b141033599a9f","2015-04-29 23:37:15+02:00","Update wallpaper shader from menu
+
+Quickly update the shader running in the live wallpaper from
+the current source.
+"
+"5682df9c16a6a34472f53e211d5a2189f28a38bf","2015-04-29 23:49:45+02:00","Removed dependency for appcompat
+
+appcompat was added in preparation for the upcomming UI rework.
+Will be added again as soon as there are classes that use it.
+"
+"bb324bab706b3bd03359b882bd48d392c18acdec","2015-08-16 00:20:45+02:00","Material Design refactoring
+
+New design, new layout, and a lot of improvements:
+
+* use a drawer layout instead of a spinner
+* editor is now in a fragment
+* use icons from the Material Design icon library
+* better database management
+* close all cursors
+* fewer allocations
+* better preference management
+* improved sensor listeners
+* improved adapters
+* removed broken zoom/pinch to adjust font size
+* new material launcher icon
+* minify release builds
+"
+"082461d119317f72085d3e762b079bd27c3634f6","2015-08-16 00:47:35+02:00","F-Droid badge, CONTRIBUTING and LICENSE file
+"
+"d57a809f35f72030a20c435dfadc1881e6bc156c","2015-08-16 12:59:57+02:00","Rephrased to be more inviting
+"
+"d257fb6c0b3a707a455bbbe5914039670038711a","2015-08-16 22:09:11+02:00","Use a dedicated wallpaper thumbnail icon
+
+One size fits all (nodpi) because there's no size specification.
+It really depends on the launcher. So one image of reasonable
+size will do.
+"
+"0056b931636b8d061c751bc49bd0bc0ab4391118","2015-08-16 22:22:47+02:00","Wrap time variable
+
+Time holds the number of milliseconds since the creation of the
+OpenGL surface. This number can get quickly very big what pretty
+soon will result in rounding errors because a mediump float is
+not very long.
+
+When that happens, results from calculations that rest on the
+uniformity of the time variable will jump. The animation stutters.
+
+To avoid this, the time variable wraps early now.
+"
+"a798321d3c973a402a550d5868e5099a3edfc603","2015-08-16 22:41:48+02:00","Run shader in extra activity
+
+Some people don't like having the shader running behind
+the code so there's a setting to run the shader in an
+extra activity now.
+"
+"649a6bb03b736fe529163f401a3be581a6904c04","2015-08-17 22:55:37+02:00","Fixed duplicating shader & generating thumbnails
+
+Generate a thumbnail when running in another activity too.
+"
+"0989ec3b742e78352f5bafcfbe215c824a24bebc","2015-08-17 23:25:48+02:00","Support multiple touches
+
+There are two new uniforms that hold the available pointers:
+
+uniform int pointerCount;
+uniform mat3 pointers;
+
+The third member contains the touch major.
+
+Also, finally proper handling of ACTION_UP and ACTION_CANCEL.
+"
+"75bd43c62c7e97871a3682a743e100c8e081585f","2015-08-18 18:19:23+02:00","Better keep old behaviour of touch/mouse uniforms
+
+Don't reset touch/mouse coordinates when there's no touch.
+The coordinates need to be somewhere and resetting them
+would be just wrong.
+
+If you want to recognize ACTION_UPs, use the pointer* uniforms.
+"
+"4b7106b157ed082038d8f2cfe587ec898dac6f3f","2015-08-18 18:22:51+02:00","Use postfix for asynchronous methods
+
+Makes asynchronous methods stand out.
+"
+"aeab1e9a4d4a1114baf4affb4b649e7705a182a9","2015-08-18 18:25:12+02:00","Updated to API 23
+
+Android Marshmallow!
+"
+"27628f615cf97688f40f601c0ea315bb60f0db91","2015-08-18 21:24:22+02:00","Turn wallpaper black when battery is low
+"
+"fa466ce76b71218e684953d1a35b48c0c62fc8a8","2015-08-19 19:14:47+02:00","Moved handling of menu items into MainActivity
+
+Less complex and gives better control.
+
+For example, when the users prefers to run the shader in an
+extra activity but toggled off the sources, it's now possible
+to make the code visible after changing the preference.
+"
+"35e5203891c65bfd095677c683168862b252339d","2015-08-19 19:18:26+02:00","Better use ContextCompat.getColor()
+
+Resources.getColor( int ) is deprecated from API 23 on.
+"
+"ac14af1fb63da111ca705b82a95e6b97636d214d","2015-08-19 19:19:32+02:00","Wrap time value at exactly 60 seconds
+
+Makes possibly more sense.
+"
+"056511f8b6799d1e6c8600f11aea657434d7e0e9","2015-08-19 22:45:41+02:00","Fixed manifest receiver constant
+
+While the docs say, you should use ACTION_BATTERY_LOW when
+registering the broadcast receiver in the manifest, what you
+really should do is use the value of the constant which is
+BATTERY_LOW.
+"
+"c178383d71e011ab06fa337fb0e32b2ee4178976","2015-08-20 20:13:26+02:00","Intercept all events when touch should go through
+
+Otherwise pointer move events can cause a crash.
+"
+"d9a829e401b6f7ad715bf39932eb87663092da91","2015-08-20 20:16:21+02:00","Use highp where available
+
+According to the spec, GL_FRAGMENT_PRECISION_HIGH is only
+defined if highp is available. highp is optional, default
+is mediump.
+"
+"877c9c8cc1f05b8688637820e083befe0f5f1f3a","2015-08-20 20:18:20+02:00","Destroy shader program for empty shaders
+"
+"5de472fc5e15e38debf00884cd2b7670e0911c28","2015-08-20 20:19:16+02:00","Fixed loading of shaders after removal
+
+Don't use obsolete adapter after a shader was removed from
+the database.
+"
+"086677b8bba217f74639a31a70d5333f18d50262","2015-08-20 21:21:08+02:00","Fixed preparing options menu
+"
+"f39869bdd2d864b613013dc95aef0173b404686c","2015-08-26 20:51:31+02:00","Better names for Shader and ShaderError
+
+What was a Shader object is really a shader Program object.
+
+And error messages are not just errors, but info logs as
+they are called by the OpenGL doc.
+"
+"827929be819afea783c38e7f464cf993b204affa","2015-08-27 20:43:03+02:00","Highlight preprocessor directives
+"
+"8c0201b1a8695757b83c89e6f75239b4ccd08212","2015-09-09 15:02:19+02:00","Updated outdated links
+"
+"fa131fac19383230d8fe5f339667196b7bb35871","2015-09-15 18:54:24+02:00","Cleaned up and fixed a typo
+"
+"4cc3071573b6eea3462a47d3d04f8b9ef6e20cf9","2015-09-15 21:52:20+02:00","Lowered visibility of some Activity methods
+
+Doesn't make much difference but it's always better
+to keep the visibility as low as possible.
+"
+"c85cee36e55f50a05c595496a687f5b13cd1db91","2015-09-15 21:55:10+02:00","Updated to latest appcompat version
+"
+"1b13fd48ebcc967196992c62b32432f14cbfdc06","2015-09-15 22:04:36+02:00","Use v7 preference support library
+
+Unfortunately, PreferenceFragmentCompat doesn't look like
+PreferenceFragment yet.
+"
+"e26d5b13c4aa5a10f33cab9b7aa08bb9f052b5d9","2015-09-15 22:16:43+02:00","Use TARGET in all rules running adb
+"
+"c58d750a235c8c5220f50ffbde4585d8156a4ae4","2015-09-17 20:11:32+02:00","Fixed passing array of pointers
+
+Of course, the array of pointers should be passed as an array
+of vec3's and not as a matrix. What fool wrote this code? :)
+"
+"6f278fb920072f85c6fc23a30724127b99333a7f","2015-09-17 20:43:45+02:00","Restart rendering when the device is plugged in
+
+The docs are a bit unclear what BATTERY_OKAY really means.
+According to my tests, BATTERY_OKAY is not sent when the
+device is plugged in. Not even when the power level raised
+above BATTERY_LOW.
+
+So it's probably a good idea to listen for
+ACTION_POWER_CONNECTED too.
+"
+"e4d26122b3f2fb51e5ecb6a2675b214b3c5b54aa","2015-10-01 19:05:08+02:00","Updated to use latest build tools
+"
+"31d258686fc7a419ee050d66f4d8209c5fdec062","2015-10-01 19:05:38+02:00","Fixed typo
+"
+"59c85a9966e2e0dde65246d82c904bcce71b0926","2015-10-01 19:07:18+02:00","Close activity on navigate up (top left arrow)
+"
+"b4db7d7c9e252a452404d86e33574fe3596b8719","2015-10-01 19:10:20+02:00","Use default shared preferences
+"
+"3ef28aa3c85b018b410c8ab8808f96cd23cc51b8","2015-10-18 16:11:43+02:00","Use full name for fragment shader symbol
+
+In case I find enough time to support models and editing
+the vertex shader.
+"
+"05e342603c36fc7ffd7fc1117af2738c0c16638f","2015-10-18 17:00:27+02:00","Use latest appcompat libraries
+"
+"637fbbc36353e02a1a69475ec680c56b530c62d5","2015-11-29 20:00:55+01:00","Import and use textures from images on the device
+
+There's a basic texture manager you can use to add new
+textures from local image files. Every texture needs
+to have a unique name.
+
+Use that name in a sampler2D input to use the texture
+from a shader.
+"
+"63534312ad9acf0aaa6bdd2e2b48ec173a00c18f","2015-11-29 21:06:08+01:00","Nudged the cursor a tiny bit to the right
+"
+"8af297f797a8a7e7d82800d949b01e7db9460cd3","2015-11-29 21:19:58+01:00","Try to get the highest available precision
+"
+"74c7d1baa8bf9ad807a74c92446322a200367a5e","2015-11-29 21:26:36+01:00","Added a CONTRIBUTORS file
+"
+"d62796879dc6eb2719d43a8339f5eba770d95cf2","2015-11-29 21:34:22+01:00","Show a screenshot
+"
+"81c8f9cea2282537b4fdee12dcd6a0794e6464c3","2015-11-29 21:37:33+01:00","Better use a JPG screenshot
+
+Size matters.
+"
+"4452f07831155a6e0fdd2e04bc35fe5c8d0c6459","2015-11-29 22:01:40+01:00","Removed debug logging
+"
+"5ec93e234cb67bcfff3a3bc7ce93f4b0fb529353","2015-12-01 23:26:07+01:00","Don't reset editor content on orientation change
+
+selectedShaderId should correspond to the instance
+state and can therefore not be static.
+
+This solves the problem of the editor loosing cursor
+position and any unsaved text on orientation changes
+because the content was always set anew for every
+new activity instance.
+"
+"282eace878150b107f8d95673b39f8447326cb6f","2015-12-02 22:06:40+01:00","Updated build tools and app compat
+"
+"c0830fcb44fd3d41e2b5d2e4f0934909a47bedca","2015-12-02 22:13:57+01:00","Use a Toast to display GLSL error message
+
+Probably far better than using a hidden layout because
+it won't trigger a re-layout. What makes the cursor in
+the editor jump.
+
+The pre Material Design version used a pop up window
+because I thought it would be bad if the error message
+vanishes by itself. On the other hand, the user can
+recompile at any time so that's probably not a big
+problem.
+"
+"e99e4e32acf5a8cac4ef1e7b1aa5881309da5441","2015-12-02 22:22:16+01:00","Generic error messages if creating a shader fails
+
+Shouldn't ever happen but you never know.
+"
+"ba2987ab893ff03d8118af22ccc6d45a8d9604a9","2015-12-02 22:23:39+01:00","Translucent navigation bar on Lollipop and higher
+
+Having a translucent status bar is only half of the story.
+"
+"7df883f7725fe0293c44948191acfe1f058785cd","2015-12-04 21:35:49+01:00","Inspect already imported textures
+
+Tapping on a texture from the list will open a texture
+viewer now.
+
+Removing a texture also went into this activity.
+"
+"89c46bab28dd67068f72f739efdab9a1fbb41e99","2015-12-04 21:41:44+01:00","Changed expression to match with other occurences
+"
+"3565ecfbcff0b8331c37400c7885c82968aca64f","2015-12-04 21:44:02+01:00","Use fully qualified symbol name
+
+Since we're calling ScalingImageView::getRectInBounds(),
+it's better to use a fully qualified symbol name.
+"
+"0b2e8977edfae2a1f3ef06476ca0f449818c6aaf","2015-12-04 21:49:31+01:00","Save texture in a background task
+
+And show a progress bar while doing so.
+"
+"63c78f0957699e398aede2aa2bd016485b331b0b","2015-12-04 21:50:49+01:00","Use Android naming convention
+"
+"dea9dc6e013559d7265dc5486d24b620ff8f2ee3","2015-12-04 21:52:23+01:00","Use wrap_content instead of a fixed height
+"
+"01437a8b39f3a7076257d45b6161e969f9d9fbf9","2015-12-04 22:34:32+01:00","Fixed indent
+"
+"1310661f19a4f133aa24766791355a17cd843082","2015-12-05 14:10:55+01:00","Show errors and fps when running in extra activity
+
+Show error messages (if any) and frames per second in
+MainActivity when the shader is running in PreviewActivity.
+
+Also fixed order of some public methods.
+"
+"033c413019249e982c6cbd795034fba4c4a73aec","2015-12-05 14:13:31+01:00","Use a dark gray for transparent drawer background
+
+Looks better when the shader is running in an extra
+activity.
+"
+"0e563594714f0023786563226d6158edea245cb5","2015-12-05 15:19:39+01:00","Show toast just below toolbar
+
+Because the default position at the bottom of the display
+interferes with the keyboard while editing.
+"
+"2cd396b6599aa8f2c6e067ba873d5b08bf945851","2015-12-05 15:52:32+01:00","Moved settings from drawer into menu
+
+It's probably a bit confusing having settings in the
+drawer at the left (start) and the rest of the options
+in the overflow menu at the right (end).
+
+Then, when the keyboard is visible, the list of shaders
+becomes quite small on small screens or landscape with
+additional menu items in the drawer.
+
+After trying the textures menu item in the drawer, it
+became quite clear, that the drawer should only contain
+the list of shaders and nothing else.
+"
+"241ad324475b92856757a41f86306a7f87a8a1e4","2015-12-05 16:17:21+01:00","Menu item to insert tab character
+
+Brought back the menu item to insert a tab character.
+Works better for me.
+"
+"518c4cec312d2c693ce8ef8772f7c14f4ff7acd4","2015-12-05 17:24:52+01:00","Uniform status and navigation bar color
+
+All activities, except the extra preview activity, do now
+share the same status and navigation bar color.
+"
+"7bf2728fd009722bc0a7969063532571b6b8d991","2015-12-05 17:51:47+01:00","Moved toggle code before save in menu
+
+I *think* toggle code is required more often than save.
+May be wrong. We'll see.
+"
+"7e1247ff76dd0cf3fda44d28253f32ddf6ecde6e","2015-12-05 17:54:44+01:00","Updated features and description
+
+Also removed screen shot. I need a better one.
+"
+"91b244190ba82de6be77edd19b2587a9d3e3a935","2015-12-05 18:04:25+01:00","Fixed version code
+
+Advanced too far. There never was a version 13 so far.
+"
+"5432599cb5b4c39da61b5e567a38d95b9b5d8ea2","2015-12-05 19:02:43+01:00","Refuse textures named backbuffer
+
+To avoid collision with the built-in back buffer texture.
+"
+"8438584373af3a76842c1d451df0ceb5b6881151","2015-12-05 19:03:50+01:00","Updated documentation in new shader source
+"
+"f1b2774fd00da9a5b1a699979e5387c9795ca318","2015-12-05 19:06:45+01:00","Refactored (texture) details to properties
+"
+"ddc6a12a521b074be0ab639378d51cacbe888c21","2015-12-05 19:10:51+01:00","Better texture name hint
+"
+"6e74c466714adc94e52578f7a116a1b17cdb4d68","2015-12-05 19:20:37+01:00","Removed unused texture file path option
+
+Originally I played with the idea of using a texture
+from a file path. But since textures need to have
+dimensions of the power of two, that's probably too
+hard to handle.
+"
+"3cfa2d38e81391f907e7dbd698b8d09c368ef358","2015-12-05 21:49:39+01:00","Catch security exception when choosing an image
+
+Content providers that do no grant permission for the transferred
+image URI will cause a security exception. Samsung's image gallery
+on the Galaxy Note 2 is such a bad example.
+
+Since all other gallery apps I've tried so far (not too many) do
+grant the permission, I chose to add a toast informing the user
+to use another gallery app to pick the image.
+
+If this problem has a broader scope, there's no way around
+READ_EXTERNAL_STORAGE what I would like to avoid because it's
+a 'dangerous permission' on Marshmallow and it's simply not
+really required.
+"
+"89717fd49d257a1754539dd0b343c9efee21c108","2015-12-06 14:10:48+01:00","Fixed ScaleType.CENTER_INSIDE for smaller images
+
+CENTER_INSIDE means the image is (proportionally) scaled
+to the shorter dimension of the view. Before that change,
+that was only true for images that have a larger length
+than one dimension of the view.
+"
+"9a8988ad1afe59124c3d808cff07690c3c78561b","2015-12-06 14:13:50+01:00","Setting to hide insert tab button
+
+I've got a hunch some people don't like tabs.
+Those guys probably prefer to hide that button and
+use the space for other menu icons.
+"
+"39e4ede5b823c0454978da4f1dc6170bf1b994b7","2015-12-06 14:16:04+01:00","Decreased margin of floating action bar
+
+Looks better.
+"
+"235dbb52dea2f003f446aac061f82e99f2d16da8","2015-12-06 15:24:04+01:00","Option to insert uniform sampler2D statement
+
+When importing a new texture, there's now a checkbox to
+have the 'uniform sampler2D name;' statement inserted for
+you.
+
+When viewing a texture, there's now a menu item to do
+the same for the currently displayed texture.
+"
+"ef6c0533476fc7cdab947974be21c05c30aa3a22","2015-12-06 15:44:34+01:00","Set toolbar title if there is a selected shader
+
+After rotating the device, when the stored instance state
+contains a selected shader ID, it's required to set the toolbar
+title to the name of the shader.
+"
+"2211d5a1b85ed71295508148e43d9b314a0cb2c6","2015-12-06 16:09:06+01:00","Setting to save on run
+
+Automatically save the source when running a shader manually.
+This explicitly excludes auto running on change.
+"
+"72f3644448629e1a2596ef27cc5eed878a049296","2015-12-06 16:25:33+01:00","Show message when no textures are available
+"
+"b00cd8bcba8f3440521cafdbb47ee85c03eb5be9","2015-12-06 16:57:11+01:00","Fixed a crash when removing last shader
+
+Check source for null before use. It may very well be null
+if there is no source availabe.
+"
+"6713387cace20d67cec9525da3d93234dc0f3a2b","2015-12-06 20:02:47+01:00","Save thumbnail after preview activity did run
+
+Makes sure the thumbnail is from the most recent run.
+"
+"33a9b5f67dc8598d3c1fd186f942e95de99c7fb9","2015-12-06 20:17:27+01:00","Remove color from drawer background
+
+A simple, translucent black probably works better on
+colorful backgrounds.
+"
+"696892905f3ebd7db723c643e0c2e2efc5d15ad2","2015-12-06 21:09:42+01:00","Simplified showing toasts
+
+No need to add a tool method in just one fragment.
+"
+"f8b83781673873c25bef24deb8b581ecf3557c36","2015-12-06 21:57:41+01:00","Added a release target to build and sign
+"

@@ -1,0 +1,136 @@
+"commit id","commit date","commit message"
+"6aaa11be141b1e2eb9803f4d7713461dca9f342c","2013-03-03 16:12:01+01:00","Added tag v0.5.35 for changeset 373008714685
+"
+"f75143f11bc8fce95baa659f5a87179611e74e65","2013-03-05 21:29:06+01:00","Add copyright for bouncy castles
+
+--HG--
+extra : rebase_source : b8f7314dccb41686ec58a189e111935fdc8d4619
+"
+"0afde06c3702f36f42068b41424f308ca60f41ac","2013-03-06 13:07:24+01:00","ignore ip-win32 too (closes issue #147)
+
+--HG--
+extra : rebase_source : f8ea6ef1f5bdb83d64e48fbb852873a7c94dcef2
+extra : amend_source : 784540d31bb2f05cfab996f41236982b6525cd01
+"
+"6b9066c712690471727a86bbd56c969c57bf3b0a","2013-03-04 23:20:41+01:00","Make break pad build option easier to use, add synchronized network listener
+
+--HG--
+extra : rebase_source : 3f8f7937917b03ca5c43ac6c78efad2f7b333289
+"
+"8e6775102cae857726601cc4f32dcb774cd4e50b","2013-03-07 22:22:42+01:00","Add x509-verify-name support to ics-openvpn GUI
+
+--HG--
+extra : rebase_source : 58613dd0fdf7a9ea75d59b1ea16c68fb6524138b
+"
+"e76e04c3f05538de220b6f5669002edabc0e865b","2013-03-07 22:28:38+01:00","Update openvpn src to git version 839a41ac3d4253ad048e93c84f2291fc684c44d4 (include x509-verify-name) (closes issue #144)
+
+--HG--
+extra : rebase_source : d93dcf4130eccf3a136850495e382942eb675a8e
+"
+"00cdc87d34a817de8a7473f3e41871621705d417","2013-03-07 23:29:12+01:00","increase version of openvpn
+"
+"b38cae44de5aed8d436c19301c4fb4a390128569","2013-03-07 23:40:30+01:00","verify-x509-name not x509-verify-name
+"
+"2dc46e64c7ce808e2d052a4f78cc724cfb54535a","2013-03-08 14:12:04+01:00","Enhance/fix --verify-x509-name support
+"
+"41ca602552f74314eb99b89ed4c4c0c6a5e150e8","2013-03-09 16:02:40+01:00","note ndk problems
+
+--HG--
+extra : rebase_source : 0345905847c6aeeb1f29839e0a6ce0585acc2467
+"
+"5b21477afa29b82ccbd98ae2bbb46053a12a703f","2013-03-11 10:23:56+01:00","Fix remote tis string
+
+--HG--
+extra : rebase_source : 08e314cc931226a4d8211591b89eada0ca20327e
+"
+"787c024cb5b1401e20fb11e876a74973208c2c55","2013-03-11 23:12:58+01:00","Add broadcast sent when VPN Status changes, still needs to tested (closes issue #150)
+"
+"446641c63494b62fd590986f61b6d1aec85098dc","2013-03-12 10:37:43+01:00","Add padding to FAQ and TLS Remote Screen
+
+--HG--
+extra : rebase_source : fdba73716b9003900d767ef2c8cbb01b6583a580
+"
+"94e4d391a1f2731a132ccc70dbe98a7cbb458274","2013-03-12 14:03:44+01:00","Annote FAQ item to ignore lint checks
+"
+"ef4438a0ede0394736f8abdbcf4fa24b712ec7eb","2013-03-12 14:18:53+01:00","Break the classes into core classes that deal with handling the backend logic, the fragment and rest.
+
+LaunchVPN, MainActivity, ConfigConvert are public API that is recorded in shortcuts, launchers etc. Moving them would break public API. Also VPNProfile belongs into core but since the reading VPN Profiles depends on the class name keep it in the main package.
+
+--HG--
+rename : src/de/blinkt/openvpn/CIDRIP.java => src/de/blinkt/openvpn/core/CIDRIP.java
+rename : src/de/blinkt/openvpn/ConfigParser.java => src/de/blinkt/openvpn/core/ConfigParser.java
+rename : src/de/blinkt/openvpn/NetworkSateReceiver.java => src/de/blinkt/openvpn/core/NetworkSateReceiver.java
+rename : src/de/blinkt/openvpn/OpenVPN.java => src/de/blinkt/openvpn/core/OpenVPN.java
+rename : src/de/blinkt/openvpn/OpenVPNMangement.java => src/de/blinkt/openvpn/core/OpenVPNMangement.java
+rename : src/de/blinkt/openvpn/OpenVPNThread.java => src/de/blinkt/openvpn/core/OpenVPNThread.java
+rename : src/de/blinkt/openvpn/OpenVpnManagementThread.java => src/de/blinkt/openvpn/core/OpenVpnManagementThread.java
+rename : src/de/blinkt/openvpn/OpenVpnService.java => src/de/blinkt/openvpn/core/OpenVpnService.java
+rename : src/de/blinkt/openvpn/ProfileManager.java => src/de/blinkt/openvpn/core/ProfileManager.java
+rename : src/de/blinkt/openvpn/ProxyDetection.java => src/de/blinkt/openvpn/core/ProxyDetection.java
+rename : src/de/blinkt/openvpn/VPNLaunchHelper.java => src/de/blinkt/openvpn/core/VPNLaunchHelper.java
+rename : src/de/blinkt/openvpn/AboutFragment.java => src/de/blinkt/openvpn/fragments/AboutFragment.java
+rename : src/de/blinkt/openvpn/FaqFragment.java => src/de/blinkt/openvpn/fragments/FaqFragment.java
+rename : src/de/blinkt/openvpn/FileSelectionFragment.java => src/de/blinkt/openvpn/fragments/FileSelectionFragment.java
+rename : src/de/blinkt/openvpn/GeneralSettings.java => src/de/blinkt/openvpn/fragments/GeneralSettings.java
+rename : src/de/blinkt/openvpn/InlineFileTab.java => src/de/blinkt/openvpn/fragments/InlineFileTab.java
+rename : src/de/blinkt/openvpn/OpenVpnPreferencesFragment.java => src/de/blinkt/openvpn/fragments/OpenVpnPreferencesFragment.java
+rename : src/de/blinkt/openvpn/SendDumpFragment.java => src/de/blinkt/openvpn/fragments/SendDumpFragment.java
+rename : src/de/blinkt/openvpn/Settings_Authentication.java => src/de/blinkt/openvpn/fragments/Settings_Authentication.java
+rename : src/de/blinkt/openvpn/Settings_Basic.java => src/de/blinkt/openvpn/fragments/Settings_Basic.java
+rename : src/de/blinkt/openvpn/Settings_IP.java => src/de/blinkt/openvpn/fragments/Settings_IP.java
+rename : src/de/blinkt/openvpn/Settings_Obscure.java => src/de/blinkt/openvpn/fragments/Settings_Obscure.java
+rename : src/de/blinkt/openvpn/Settings_Routing.java => src/de/blinkt/openvpn/fragments/Settings_Routing.java
+rename : src/de/blinkt/openvpn/ShowConfigFragment.java => src/de/blinkt/openvpn/fragments/ShowConfigFragment.java
+rename : src/de/blinkt/openvpn/VPNProfileList.java => src/de/blinkt/openvpn/fragments/VPNProfileList.java
+"
+"9a512ba885419d934a631dcb56bdb11d29dd8705","2013-03-12 14:53:44+01:00","Note stupid mistake
+"
+"96ccb0151c46c87b29127dde0afe6edbf048bdf3","2013-03-14 10:16:02+01:00","Add padding to a few fragments
+"
+"0bd37447329c4c1e40e46d111ea94a8adeac00f0","2013-03-14 14:24:57+01:00","When adding a profile show edit activity
+"
+"cfb57240a604319c6934681e638c3bdac4619693","2013-03-16 17:41:57+01:00","Reflect changes in vpn headers file
+
+--HG--
+extra : amend_source : cac129da95c812fcd2b61156e35168d53945ad1b
+"
+"978d2e56bd24707ae4d45514215846031773cf7a","2013-03-18 16:52:05+01:00","Catch broken ifconfig lines
+
+--HG--
+extra : rebase_source : b48fec6d90c7df2cb3dbdcff66e6403eeb134667
+"
+"098204e653c958da12ae864d3b6c183e716c2a9b","2013-03-18 17:19:06+01:00","Encourage users to translate in about screen
+"
+"6ba818e5c9e1d7d50478cf161fe819597499477d","2013-03-18 17:20:30+01:00","Move native functions into own class.
+
+This way the Gui will not always load the native libraries when showing profiles and allows some GUI modifications without compiling ndk code
+"
+"e792f2d04614dbcbd27076a042c28f6fb20d7abd","2013-03-23 22:42:46+01:00","Allow building with polarssl
+
+Not very useful at the moment since pkcs12 and external key management are not supported but might be useful one day
+"
+"79fc2dd6cee6f2dcc21080cded2dc320cb891505","2013-03-24 21:16:15+01:00","Remove obsolete minivpn part
+"
+"d56fb2371e6499b06e5c0f4e2dff105a6e5c7a4a","2013-03-19 16:58:03+01:00","add paragraph about disabling google breakcode
+
+--HG--
+extra : rebase_source : 6f58bf8db2ac1f2b92ae9ce5f19849377360ed6c
+"
+"6c47bd48c05b2cfa59162ddbf13963d9be07b802","2013-03-28 16:00:19+01:00","Add license file and remove copyright header from files that were adapted from examples
+
+--HG--
+extra : rebase_source : 83fb3ba247a9f7c3e5bcfe27464c5b1866c67827
+"
+"3939f72be47015b617c0a6a8f4a45a9e91db3fc3","2013-03-29 15:55:03+01:00","Sigh .... why are people who cannot found out these simple issues keeping on building the program?
+
+--HG--
+extra : rebase_source : 4d0fed9857f924ba8c9c5a317436c0c8deae48ce
+"
+"d081ec36043019d152eab4970bf3f22b923e8b55","2013-03-30 12:36:06+01:00","the array should be flagged translatable
+"
+"27ab1f2c4615cb395d6870cff21288e9e0e5a2c2","2013-04-01 01:30:35+02:00","Update OpenVPN to 2.3.1
+"
+"b993030dbe9b82f27dfce9d812f45c93fbe3c996","2013-04-01 16:37:24+02:00","Ignore error when unregistering network state listener
+"
+"4d89f667cb2468926bad98e786d4211089a17d92","2013-04-01 16:37:34+02:00","Update translations
+"

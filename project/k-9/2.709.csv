@@ -1,0 +1,69 @@
+"commit id","commit date","commit message"
+"291f6d18a2e4d4c7cf23c9f38ae4786136811aeb","2010-05-26 03:24:33+00:00","Fixes Issue 1643
+Fixes Issue 1664
+
+Issue 1643: Some servers respond with an untagged EXISTS to every
+NOOP.  This change parses through all untagged responses in a loop
+until no more are being generated, avoiding calling internalOpen each
+time.
+
+Issue 1664: I have never personally seen this error, and the log looks
+like a thread safety problem.  mMessageCount is being set in one
+thread (the IDLE thread) but not properly visible in another thread
+(the check mail thread).  mMessageCount and other ImapFolder private
+variables are now volatile in hopes of correcting this problem.
+"
+"cce6a95c2c8635303fdb1074dab6baeef94231ad","2010-05-29 21:56:09+00:00","start using the android API for '/sdcard'
+"
+"49c4a4f97c0afc941753faf99606dc6851939bc3","2010-05-29 21:56:17+00:00","refactor search code to allow us to search on specific fields.
+"
+"6b5bcd2c4d0175554a6adf09c4bffce3b6319e8d","2010-05-30 04:16:44+00:00","Make the back button behaviour configurable. The default should remain
+identical to the most recent behaviour. As an option, the user can force
+back to always go 'up' a level like Jesse likes
+"
+"1a6607291054157c13f6e7fee81c45658e665a28","2010-05-30 04:17:00+00:00","find src/com/fsck/ -name \*.java|xargs astyle --style=ansi --mode=java --indent-switches --indent=spaces=4 --convert-tabs --unpad=paren
+"
+"dedfd026bef1bf225d80a68bee5d2c3e8731e467","2010-05-30 16:56:50+00:00","Fixes Issue 254
+
+Provide for only showing folders that are subscribed on the server
+(IMAP only)
+
+Also:
+Change default for Notification behavior to the old way.  Make going
+to the search for unread messages off by default.
+
+Fix up some hiding of labels, etc. on the incoming server settings.
+
+Check for message suppression in search results.
+"
+"b35f807820a2de39377d250bedd7a1dc89ec7372","2010-05-30 21:20:47+00:00","Fixes Issue 227
+
+Provide for controlling the maximum age of syncrhonized messages.
+Efficient with IMAP, much less efficient with other Stores.
+"
+"a308ce8a2d829f86fc2fed531975c420b9fea741","2010-05-31 15:21:51+00:00","Eliminate expensive and unused expungedUid map.
+"
+"34a95ba006116680b54e5ee8811861d9d54e7f48","2010-05-31 21:49:59+00:00","Allowing entering alphabetic characters for the Outbox folder name.
+"
+"64c7df60ab7378ebf03bb63f2d616e4e765b9cb1","2010-06-02 13:14:30+00:00","Don't log sensitive information in SMTP commands when 'Log sensitive
+information' is unchecked. Applied patch by fiouzy with some small modifications.
+
+Fixes issue 1387
+"
+"6d6a9d0ffd6e7bec82f30324a19cac77794dddb5","2010-06-02 14:25:04+00:00","Fixes Issue 1707
+
+Eliminate extraneous spaces
+
+Also, abort IMAP IDLE connection attempt if mConnection is null before
+IDLEing.  Otherwise, we cannot set the idle timeout.
+"
+"3812c75f661e6382ea794592f1619c8e6de868fb","2010-06-02 16:29:59+00:00","Applied patch by fiouzy to read In-Reply-To and References header from saved draft.
+
+Fixes issue 1686
+"
+"576078e7782b25576829327ae83f50f5be690eb7","2010-06-03 01:00:24+00:00","Prefix IPv6-addresses with 'IPV6:' in EHLO command.
+
+Fixes issue 1708
+"
+"b43126c69f90fdf445b85365e1399fb46ab21804","2010-06-03 20:06:18+00:00","2.709
+"

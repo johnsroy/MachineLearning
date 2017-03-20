@@ -1,0 +1,40 @@
+"commit id","commit date","commit message"
+"6bb7bec991184a569d3258f3b2935cb1d5cbafd1","2016-04-28 11:09:45-04:00","[facepalm] Enable Wiktionary popups in production.
+
+http://i.imgur.com/iWKad22.jpg?fb
+
+Change-Id: I5c7556fb504ba991ff8c3aae6ba4764282c1a86a
+"
+"cd781b76f7b69dd18a53d962f9f5abe9a6314ea1","2016-04-28 11:11:36-04:00","[facepalm] Update useRestBase upon refreshing RemoteConfig.
+
+http://i.imgur.com/Uybx5G4.png?1
+
+Here's what currently happens:
+- The app launches for the first time, and the RbSwitch singleton is
+statically initialized.
+- Inside its private constructor is the only place where it updates the
+state of the 'useRestBase' preference.
+- The RemoteConfig task, which fetches the remote variable that determines
+RestBase enrollment, completes *after* RbSwitch is initialized, meaning
+that the 'useRestBase' preference doesn't get updated until the current
+instance of the app is terminated and restarted. This may help account
+for the relatively slow uptake of RB usage.
+
+Change-Id: I0af126e381c07c23c5f4f419604c9290d56f81dc
+"
+"79fb80c67faa3e228685f6d3a8d2982f274af760","2016-05-09 14:46:59-04:00","Workaround: Prevent OkHttpClient from opening an HTTP/2 connection
+
+OkHttp does not play nicely with nginx over HTTP/2 and this is causing
+our connection to fail when trying to log in or make an edit.
+
+This workaround will fix our issue while Square works on resolving
+https://github.com/square/okhttp/issues/2543 .
+
+Bug: T134758
+Bug: T134759
+Change-Id: Ifc2ec3eb75e2e54b4789914f43ff9104f1ca11f9
+"
+"bf1e773fb8311bea62ba63b8169df3e55a3eccb7","2016-05-09 13:07:53-06:00","Bump versionCode
+
+Change-Id: If1353b1b8d4f483ce4dcf5fdc5b17b34dbc7c7b5
+"

@@ -1,0 +1,3557 @@
+"commit id","commit date","commit message"
+"908e4929e229d5e9bfcad2e062af7cc801abebfc","2013-09-06 23:06:20-04:00","front: Remove unnecessary Java loading of native libraries.
+
+The core loads and unloads the plugins automatically from the native
+side, so there's no reason to load them here.  Loading from Java is
+actually contributing to the lifecycle issues, because it prevents the
+core from actually fully unloading them when the emulator shuts down.
+
+For now, we still load the android-input plugin from Java, since we
+initialize it using Java methods.  We can change this later if we want,
+but for now it doesn't cause any problems.
+
+A goal in future commits will be to eliminate the Java loading of the
+front-end, core, and SDL libraries as well, so that their static vari-
+able initializers will be invoked when relaunching the emulator.
+
+Also removed the CoreInterfaceNative library loading wrappers.  If
+exceptions are thrown, we have bigger problems to deal with and we
+shouldn't just brush them under the rug.
+"
+"3cc146ef37cc26a3f6298ea094a79d3f6c667274","2013-09-06 23:06:38-04:00","build: Remove unnecessary linkages to shared libraries.
+
+The core does not need to be linked with the ae-bridge because it does
+not invoke any ae-bridge methods.
+
+None of the plugins needed to be linked with the core because they do
+not invoke core methods; they merely handle callbacks.
+
+The front-end does not need to be linked with the core because it dyn-
+amically loads the core library at run-time.
+"
+"f65585de2b27c545412a81b7436960000596ab44","2013-09-06 23:06:55-04:00","ae-bridge: Remove ae_bridge_main from front-end.
+
+I had tried putting this into ae_exports before and failed.  Didn't
+realize it was just a function visibility issue.  Helps to consoli-
+date the bridge and keep the build simple.
+"
+"d01ca2c4d34774ea061e0f57431e5604afe4fca4","2013-09-06 23:07:08-04:00","ae-bridge: Remove sdlQuit function (use emuStop instead).
+
+Calling the core command (emuStop) is the most direct way to exit the
+core's main loop and is the approach used by the upstream ui-console
+(what we call 'front-end') library. Calling sdlQuit is just a round-
+about way of achieving the same thing and is not used anywhere else.
+"
+"9555babfe819ac606ef044d218950a0970f8519a","2013-09-06 23:07:17-04:00","doc: Added NVIDIA notes on lifecycle management (really good read).
+
+From Tegra developer website.
+"
+"bad21b1815b3aaf647335a9598bcb54673d572d8","2013-09-06 23:08:31-04:00","front: Completely rewrite GL context management in GameSurface.
+
+Contexts and surfaces can be re-used and re-bound if possible.  These
+capabilities aren't being fully exercised... yet.
+"
+"7f907c58d2ba516e9cda7bba6d2da24d47bb66bf","2013-09-06 23:08:47-04:00","front: Wire up new SDL2 destroy gl context method.
+"
+"12606ccc5a18f4c2cd19148099a59224378de6b2","2013-09-06 23:08:57-04:00","front: Added more lifecycle callbacks and logcats for GameActivity.
+"
+"9fe844f8d10603f8bb58094de1427581bdebfcac","2013-09-06 23:10:06-04:00","front: Make game lifecycle handling more robust.
+
+The emulator should only be started when the activity is resumed, the
+surface exists, and the window has focus.  These states aren't
+guaranteed to change in any particular order, so we simply track each
+one and try to change the emulator state whenever one changes.  To
+keep this stuff clean, we modularize it into a separate class.
+
+The new implementation makes a few lines in CoreInterface superfluous,
+so we remove them.
+
+Note: There's still some weirdness when you hit the home button or
+receive a call, and then resume the app.  The next commit will change a
+whole lot of stuff related to the issue, so there's no point fixing it
+yet.
+"
+"49acad8648ed78258caa5f2db2af8ce6f0935df2","2013-09-06 23:10:19-04:00","front/ae-bridge: Remove system.exit calls, use normal activity cycle.
+
+NOTE: On some versions of Android, if you quit the game activity (to
+the play menu) and then resume/restart the game activity, you will get
+a segfault (hard crash) as the game activity starts up.
+
+I am intentionally committing this to demonstrate the need for native-
+side library loading and unloading.  If you load a native library
+through Java's System.loadLibrary function, there is no way to unload
+it later.  This causes problems if the native code contains static
+variables with static initializers (which is the case for us).  On
+subsequent launches of the activity, the old library instance is re-
+used rather than reloaded, and the static variables are thus not re-
+initialized.  Thus you cannot reliably restart the activity in a fresh
+state.
+
+To get around the problem, we must load and unload the libraries on the
+native side using dlopen, dlsym, and dlclose.  For a great discussion,
+see http://stackoverflow.com/q/10649119/254218
+
+Upcoming commits will address this problem, but I wanted to commit this
+version as a frame of reference for subsequent discussion.
+"
+"dcdb3cf65f337e88aeb202247e1761e02e94ca27","2013-09-06 23:13:00-04:00","ae-bridge: Load SDL/core/front-end on native side rather than JNI.
+
+This allows us to unload the libraries when we're done with them. Which
+allows us to properly re-initialize all native static variables through
+their static initializers the next time the GameActivity starts up.
+
+Some important notes I learned the hard way:
+
+- If we load ae-imports/SDL2/core/front-end from Java in addition to
+loading them on the native side, they won't actually be unloaded
+when the native side unloads them.
+
+- Moreover, if any libraries we load in Java have build/link dependen-
+cies on ae-imports/SDL2/core/front-end, then they will still not be
+unloaded properly in some Android versions.
+
+So, we must never System.load the ae-imports/SDL2/core/front-end libra-
+ries on the Java side, and the libraries we do load from Java must not
+contain build linkages to ae-imports/SDL2/core/front-end.
+
+A side effect of not loading the libraries from Java is that their
+JNI_OnLoad functions are never invoked.  So we must manually do that
+from the native side after dlopen'ing them.
+
+Note: Depending on Android version, there may still be some issues
+after waking from sleep and/or resuming after call/home button.  Unlike
+the issues a few commits back, this is actually related to gl context/
+surface reuse/binding, and slight lifecycle differences between Android
+versions.
+"
+"f21543de0335ea2869175608da44c92ac0a0cfc2","2013-09-06 23:13:12-04:00","ae-bridge: Rename/rearrange some things for clarity.
+
+May require you to clean-build.
+
+No functional changes.  Just renaming and grouping some things for
+consistency and parallelism.
+"
+"7d2f9fd376b1e279bc4f206e3bd309eca86da6ff","2013-09-06 23:13:28-04:00","ae-bridge: Rename header and clean up some includes.
+"
+"3ad0e28c337790b43837ed9d944ebbb979fc928e","2013-09-07 00:18:30-04:00","ae-bridge: Remove obsolete do_Start hack.
+
+This flag no longer does anything.  Because the ae-imports library is
+dynamically loaded and unloaded, do_Start will always have a value of 1
+when it is first tested in the while loop in the front-end main func.
+
+Also, we removed the reset function from the mapping screen way back at
+commit 0b5083a5c3effa5a82762c3d778b926339dbf543, so no one has been
+using this function anyhow.
+"
+"b45f6151391ac8174f44b9601dffc4e33c277810","2013-09-07 00:48:08-04:00","ae-bridge: Remove some more dead code.
+
+Forgot clean this up in commit
+316954b07b56eb2a55d5fed31bc856ee325446aa
+"
+"fcfc8d8e9182497d05c97009246bd596c99df84c","2013-09-07 22:53:36-04:00","front: Always load input-android, and load it Java-side exactly once.
+
+Doesn't hurt anything to load this library, even if the core ends up
+using the dummy input plugin.
+"
+"b36a456ec1e07dc4c540b6f576a0fa2c6080025d","2013-09-12 20:48:23-04:00","ae-bridge: Remove unneeded declaration and cleanup comments.
+"
+"59ba2bc8f425a2a5c3b9d34e2bfbfa47b83ba870","2013-09-12 20:53:54-04:00","ae-bridge: Remove onResize callback, move to native code.
+
+For us, this callback has no effect on screen sizing, because it's
+coordinated elsewhere between the core and SDL, and is specified dir-
+ectly in the mupen config file.  The only reason we need this callback
+is to initialize SDL's internal pixelformat state.  It's much cleaner
+to just do this directly from the native side during the startup
+sequence.  No need to involve the Java side or the activity/surface
+lifecycle stuff.
+
+Note that before this commit, the RGB565 SDL pixel format was always
+being called, regardless of the user RGBA8888 setting.  I'm not sure if
+the value matters much here; it just can't be the initial value
+SDL_PIXELFORMAT_UNKNOWN.
+"
+"6d0973941f22c498042782f94934cdb9b661a352","2013-09-12 20:55:42-04:00","ae-bridge: Check function pointers before invoking them.
+
+During startup, it's possible for one thread to invoke a core method
+before the library has loaded and found the function pointer.
+"
+"2ff6c50bb26737fd62f9af9d812bbfd03b21edaf","2013-09-12 20:56:32-04:00","front: Fix state machine for game lifecycle tracker.
+
+A bunch of fixes rolled into one.  I had to be hit over the head to
+realize there are only three states (not four) in the state machine:
+running, paused, stopped.  No such thing as 'started' without running.
+
+So the fixes:
+- Transition to stopped ONLY when the surface is destroyed.  Android
+4.3 (and probably others) does not destroy the surface when the user
+presses the power button; it merely stops the activity.  If we stop
+the emulator onStop, then we have broken GL context stuff when the
+emulator starts running again.  That results in lock-ups, etc.
+- When starting to run, we either startupEmulator or resumeEmulator,
+but never both.  Before, we would resumeEmulator immediately after
+startupEmulator, which wasn't necessary and introduces a potential
+race condition later.  Though the race condition is currently miti-
+gated with the function pointer checks in the ae-bridge, it's
+better to just have the correct design to start with.
+- Clean up some internal variables, improve readability (e.g. the
+isSafeToRender function).
+"
+"2e4f3c70c477a1ac96745d061f141af2066d8a97","2013-09-12 20:57:52-04:00","ae-bridge: Internalize lib loading and delay unloading.
+
+No need for the Java client to load and unload the libraries.  We can
+keep this all internal to the ae-bridge.  Reduces the number of JNI
+functions and minimizes complexity.
+
+Also, we don't unload the libraries after the core thread exits.
+Instead, we just unload stale library instances during the startup
+sequence.  This avoids any potential race conditions between unloading
+and the core commands during the shutdown sequence.
+"
+"5d92fd7668611380f7f83e288039992c8796cfed","2013-09-12 21:00:05-04:00","ae-bridge: Remove hard-coded library path.
+"
+"77f7e53074393c75d8d1e9e9d049fccf33cbf1f3","2013-09-12 21:05:20-04:00","bugfix: Always auto-load state when OS restarts GameActivity.
+
+If the user pressed 'Restart' from the Play menu, made progress, and
+then was interrupted (home button, phone call, etc.), then when the OS
+restarted the activity, all the user's progress would be lost.
+"
+"3b3661d91168402630ebb3579fab8e0032ad1f86","2013-09-13 19:07:06-04:00","ui-console/ae-bridge: Reduce upstream diff by moving code to bridge.
+
+Also, invoke the Java callback for any state change, not just run/save/
+load.  This will enable us to simplify a bunch of code in Peripheral-
+Controller and GameMenuHandler.
+"
+"602321f77a14ca02e0af4cd3a9ff5d60ee5faf12","2013-09-13 19:16:01-04:00","core: Remove android hack, revert to upstream.
+"
+"683f2c6328c1b98653b9389e1a91cf45772c958d","2013-09-13 19:24:09-04:00","front: Allow more than one state callback to be registered at a time.
+
+The startup-autoload sequence listens to the run state change, but the
+GameMenuHandler should also be listening for slot and speed changes so
+that it can update the UI.  The listening windows overlap, so we need
+to permit multiple listeners.
+"
+"92eb21fc8752a34285a7b646960dbc1ed7a1e6f6","2013-09-13 22:16:58-04:00","front: Use asynchronous callbacks to keep UI in sync with core.
+
+This fixes up a few long-standing hacks and puts all the Java-side core
+interface stuff where it belongs -- in CoreInterface.java.  GameMenu-
+Handler and PeripheralController are now decoupled from each other, and
+the GameMenuHandler singleton hack can be removed.  Java-side state
+variables are minimized in favor of just reading state from the native
+side directly.
+"
+"0bf202d5f31043c7ce83d88c0c338aca25048799","2013-09-13 22:33:46-04:00","front: Perform auto-loading asynchronously during emu startup.
+
+No need to block the whole app as the emulator starts up.  Eliminates
+potential source of ANRs and simplifies the code at the same time.
+"
+"a50216ebdf6911f78eb820f2d82741e8b68a522b","2013-09-14 09:36:07-04:00","front: Initialize some UI text to something sane.
+
+The core doesn't change the game speed on startup, so we need to
+initialize it to something sane.  We do the same for the slot number,
+just for good practice (we don't strictly need to do it since the
+callback will be called during startup).
+"
+"051cc06cd2312265d26249103ceb13c6a8abdb63","2013-09-15 13:36:19-04:00","ae-bridge: Added getSlot and getSpeed JNI functions.
+"
+"bdfb01b9171d4c670d1223bca360dd98b4c32408","2013-09-15 13:41:32-04:00","front: Get slot number directly from core, remove Java state.
+"
+"ad8c42c5d0912fbff8dbec02fcad98d459d8983b","2013-09-15 13:45:05-04:00","front: Get run state directly from core, remove Java state.
+"
+"1c4ce2bf4f2f18f415ca5f1fb648bb93ac4ecd97","2013-09-15 15:28:13-04:00","core: Bugfix, use correct config parameter string.
+
+I submitted a pull request to Richard as well:
+https://bitbucket.org/richard42/mupen64plus-core/pull-request/61/bugfix-use-correct-config-parameter-string/diff
+"
+"172583335008a0bc43355e71c75e7c7b474adacc","2013-09-15 15:30:25-04:00","front: Remove unneeded persistence of slot number.
+
+The core writes this directly to the native config file, so we don't
+need to bother setting, tracking, or persisting it.
+"
+"ba93e0766d571d618637e47ba653ffad6c9db14e","2013-09-15 21:00:58-04:00","bugfix: Use correct jni method to advance frame.
+"
+"4e3b77121f0d037a98ce30197086252f8a2ba510","2013-09-16 21:57:39-04:00","front: Fix 'singleTask' activity behavior.
+
+This mainly addresses this scenario:
+- User playing game or navigating the main menus
+- User presses home or gets interrupted by another app/phone call
+- User returns to home screen and launches a file manager app
+- User navigates to a different ROM and launches it from the manager
+
+The desired behavior would be for the old GameActivity and PlayMenuAc-
+tivity to be destroyed, and return the user to the main menu with the
+new game selected.  This wasn't happening, because the 'singleTask'
+attribute was attached to the wrong xml element.  Must be attached to
+an activity rather than the application.
+"
+"5a378e665c4444628eeff05359a9a5f0ac1696ba","2013-09-16 22:04:17-04:00","ui-console: Move another android customization to ae-bridge.
+
+Also, use mupen64plus's EXPORT macro rather than SDL's DECLSPEC macro.
+They do the same thing, but since the front-end is most tightly coupled
+to the mupen API, it makes more sense to use its macros.
+
+Also moved the ae-bridge include down to keep the few remaining custom-
+izations consolidated.
+"
+"d4d86c294666d16a949ccfe84d349a9c3563c202","2013-09-16 22:12:13-04:00","core: Remove last remaining android customization of mupen64plus-core.
+
+We are now using a completely stock mupen64plus core.  Once Richard
+approves the pull request below, then we can safely use the head revi-
+sion of mupen64plus-core without any modification.
+
+https://bitbucket.org/richard42/mupen64plus-core/pull-request/62/remove-unneeded-include-in-screenshotcpp/diff
+"
+"f63536e8251b90d6cfd7781ca4e4e329e51e7dd3","2013-09-16 22:22:46-04:00","ae-bridge: Add screenshot command to JNI.
+
+I wasn't actually able to capture any screenshots with this (just black
+images)... but I'll commit it anyhow in case another dev wants to make
+it work.  Would definitely be useful, so that we can attach screenshots
+to state-saves in version 3.  Also could make bug reporting a little
+easier for the masses.
+
+If you do want to try to get this working, be sure to specify a valid
+target directory in CoreInterface.syncConfigFiles().
+"
+"8cffc442675ad59c60fbb8bc4d373227d687d705","2013-09-18 23:02:01-04:00","jni: Reorganize Java classes, rename a few functions, add javadoc.
+
+This splits the monolithic CoreInterface and CoreInterfaceNative Java
+classes into several smaller classes that correspond to the C files
+they interact with. It also groups these classes into a sub-package to
+minimize clutter in the root package.
+"
+"662da8cb16e2a3e94119cc26ea28b13e2b0f4fe0","2013-09-20 08:16:11-04:00","front: Add null check to GameMenuHandler.
+"
+"27b0f8901513195cf5670c0361f649c4f983345d","2013-09-20 08:18:12-04:00","bugfix: Fix initial game menu state for some Android versions.
+
+On my gingerbread device, the state callback was occurring before the
+options menu was created, so the UI wasn't initialized with the proper
+slot and speed.  Might be a version thing, or more likely just a race
+condition.  In any case, this commit ensures that the UI initializes to
+the correct info regardless of event order.
+
+Also fixed the fallback speed value to 100 when ae-exports hasn't been
+initialized yet.
+"
+"aec2ff7e30ece66c18d856ecbb689bf2ee843d99","2013-09-20 08:19:52-04:00","front: Merge GameLifecycleTracker back into GameLifecycleHandler.
+
+Now that this stuff is debugged and cleaned up, there's no benefit in
+separating the implementation anymore.  GameLifecycleTracker is small
+enough to be subsumed by GameLifecycleHandler.
+"
+"09c0d21408aa0cad9ca91ff0ff6767dea5ffa5ec","2013-09-20 08:34:09-04:00","front: Moved syncConfigFiles to a new class, NativeConfigFiles.
+"
+"a935ac5e934287ac4753532c54d8a0b88ad07565","2013-09-20 08:47:10-04:00","xperia-touchpad: Move java class to jni package for consistency.
+"
+"bd4c257e89077df7b02165b6ff636b4440b8cc89","2013-09-20 17:27:10-04:00","front: Pass emu start options via intent rather than static method.
+
+This is the preferred way of passing information from one activity to
+another in Android.  The 'setStartupMode' method was an unorthodox back
+door that clouded the CoreInterface.java API.
+"
+"1e977d11944598a63dc7245124f4578ff06cb494","2013-09-20 17:31:40-04:00","front: Cleanup, no functional changes.
+"
+"243ab316b7f32afb3229c8d964b4beca5192f89b","2013-09-23 21:52:58-04:00","front: Fix cross-threading exception in GameMenuHandler.
+
+Bug introduced in commit:
+12269f9d4a502f285db4c7237abd0ba66b0e24d8
+
+This bug occurs only after user manually loads state, then presses
+home, then returns to game.  If user doesn't load state, the home se-
+quence is fine, which is why I didn't uncover it until now.  When the
+user loads state, the audio thread is shutdown and restarted, which
+seems to change some aspect of the other threads, so that GameMenu-
+Handler's state callback no longer gets called from the right thread.
+
+The solution is to simply call invalidateOptionsMenu() from the call-
+back, and then use onPrepareOptionsMenu to do the actual manipulation
+of the action bar / menu.  For pre-honeycomb devices, we don't even
+need to invalidate the menu, since it will be refreshed next time the
+user presses the menu button.  Icing on the cake is that we can move
+some member variables to local scope.
+"
+"26a9f800f1d33c026c2b08783cd80936586dbe1e","2013-09-23 22:00:45-04:00","xperia-touchpad: Fix hang on destroy.
+
+Now that the lifecycle is fixed, we're finally exercising the shutdown
+machinery in the xperia-touchpad library.  It seems the wrong pthread
+function was being called.  app_thread_entry needs to raise the
+destroyed flag and *wait* for OnDestroy to complete before it can con-
+tinue and destroy the mutex and other objects.
+"
+"a8765b9612a8b460c61b0b56a6b55bb93ce51e63","2013-09-23 22:37:40-04:00","xperia-touchpad: Remove a lot of unneeded code.
+"
+"e613f8858d210543c1c82e6e3d9cfa5f2a20b889","2013-09-23 22:45:27-04:00","front: Allow cheats to be used even if resuming.
+
+I don't know all the ramifications of using cheats, then loading an
+auto-save... but the main issue I'm concerned with is when the user
+started a game with cheats, then presses home, then resumes the game.
+Before this commit, the emulator would shutdown, then startup *without*
+cheats, then load the auto-save.  After this commit, the emulator will
+shutdown, then startup *with* cheats, then load the auto-save.  I'm not
+sure if this will cause problems.
+"
+"3eba17a9f37c61c2dd9989c1811bd13b722e4d96","2013-09-24 21:00:45-04:00","xperia-touchpad: Re-implement using android_native_app_glue.
+
+Major simplification of the native xperia-touchpad implementation.
+
+Not just a cosmetic/maintenance fix. This also fixes a thread orphaning
+bug.  Before, every time the user quit to the main menu from the game,
+one of the threads was not destroyed properly and was left dangling.
+So every time the user started and finished the game activity, another
+dead thread would be added to the process. We never noticed the problem
+before, since System.exit() force-killed these orphaned threads.  But
+with the new lifecycle fixes, this bug became evident.
+
+One note: If you build with NDK r9, the xperia touchpad and touchscreen
+will spam the logcat with spurious errors.  They're not really errors,
+but a new bug in the NDK.  If you build with NDK r8, you won't get the
+spam.  See here for details:
+http://stackoverflow.com/q/18316046/254218
+"
+"1404a5d1621c8f9bb1cdc6bdc0d94c9a11006b63","2013-11-20 08:38:21-05:00","front: Hide system buttons again when window focus returns.
+
+Fixes a minor UI nit.  Before, if the window focus was lost (e.g. call
+received, pressed home button, etc.), then when the user returned to
+mupen, the navigation buttons at the bottom of the screen were no
+longer in 'lights out' mode.  This just ensures that the lights-out
+mode is restored when focus returns to the app.
+
+This fix becomes more important once immersive mode is implemented,
+because then it is much more noticeable to the user when mupen regains
+focus.
+"
+"e28e2af2ab02e827551564b75c769965f9f6f76a","2013-11-20 08:54:09-05:00","front: Add immersive mode option for KitKat devices.
+
+TODO: Return to immersive mode after user adjusts volume.
+"
+"23c31ad710f3ac8510a4611d4acb7012bc3df7ed","2013-11-20 09:40:21-05:00","doc: Update changelog.
+"
+"72147c6bdc046731e15a93a4156f75e7319fbf4e","2013-11-20 10:26:16-05:00","res: Fix transifex language mapping for en_GB.
+"
+"47f7100844cd57224c2e2e1f5195ee9cecb989b2","2013-11-20 15:26:57+00:00","res: Updated translations.
+"
+"d827c245db604c0873db2ef3e7acfe4ec351932c","2013-11-20 10:35:14-05:00","front: Add english-UK variant to languages.
+"
+"cb54c608e6deaee5dfefb3b92c75e4a9b30a1711","2013-11-20 10:46:21-05:00","front: Fix zipfile resource leak.
+"
+"cdd53fbb708c1fbe56fd2a09a99b4ccf0ba92831","2013-11-20 12:30:49-05:00","ae-bridge: Eliminate some env var assignments.
+
+This goes hand-in-hand with commit
+0810a2252db5a06ecf0602dce0478add5eedd162
+"
+"f40c792a03f305a430699d35460697e40e5ee26b","2013-11-20 14:05:10-05:00","tools: Add script for summarizing upstream diff.
+"
+"8141e82a86ea99f1c7982e98debf142fa2feb4d1","2013-11-21 22:04:38-05:00","front: Remove RSP plugin setting (always use mupen64plus-rsp-hle).
+
+We are now using a completely unmodified version of mupen64plus-rsp-hle
+that's identical to upstream.
+"
+"6dd0f907510e072e8967be3d80d9977538aae917","2013-11-21 22:14:10-05:00","front: Remove core plugin setting (no plans to have multiple cores).
+"
+"b7046b9168ede6dcd31ae9857dde8fe5cedd4395","2013-11-21 22:27:02-05:00","front: Remove input plugin setting (always use input-android).
+"
+"da0e33f20ca82a0fdd35cd68a8fe4ac901dea07a","2013-11-21 22:56:35-05:00","front: Remove octagonal joystick constraint setting (always true).
+"
+"595cdbca00b17e038a0589a1c134c80b6c4a687a","2013-11-22 08:33:38-05:00","front: Remove audio resampling preference (always trivial).
+
+Developers and experts can still set this by editing mupen64plus.cfg if
+they really have to.
+"
+"532cc2fe8bd33eaaf08fecdbd65341c478441363","2013-11-22 09:11:19-05:00","front: Allow experts to override some settings in config file.
+
+Anything we explicitly specify in NativeConfigFiles.java cannot be
+overridden by manually editing the mupen64plus.cfg file.  So generally
+the only things we should ever explicitly write to file are
+
+- settings that are exposed via the main menu interface (i.e. anything
+in UserPrefs.java)
+- settings that should never be changed manually (i.e. anything in
+AppData.java, hard-coded file paths, settings required for Android
+that differ from upstream defaults)
+
+Otherwise, we should just allow the native core/plugin code to write
+the default values specified by upstream.
+
+TODO:
+- AutoStateSlotIncrement: Either expose this in the main menu, or
+remove the forced setting in NativeConfigFiles.java
+- Figure out the dependencies between Rice's TextureEnhancement and
+TextureEnhancementControl settings
+- Identify any other Rice settings that should be forced explicitly in
+NativeConfigFiles.java (OpenGLRenderSetting, AnisotropicFiltering,
+etc.)
+- Consider removing more Rice settings from the front menu
+"
+"a29e012b279738aa36bebaabd865b6393418ed18","2013-11-22 09:45:45-05:00","front: Delete mupen config file when resetting preferences.
+
+Should safeguard against noobs accidentally borking the config file.
+"
+"5d65f9e79cb3979e135b47147a78aec679403e55","2013-11-22 10:20:49-05:00","front: Split-off Display settings from Video settings.
+
+Separates the Android/Java UI settings from the native core/plugin
+settings.  Another way to think about it: Display settings could in
+principle be changed in-game, whereas Video settings can only be
+changed when the emulator isn't running.
+"
+"b2300add40b93971c5f6a83e39dd16c007d33205","2013-11-22 18:25:25-05:00","cleanup: Auto-format some xml files (no functional changes).
+"
+"96ddea6f7d6e09c17a1c4189e67963a634a8bc6b","2013-11-22 18:25:46-05:00","front: Move Audio settings to Advanced menu.
+"
+"d536ed8c97331dfa42138b9659398c591e309b3f","2013-11-22 18:26:01-05:00","front: Remove Plug-ins menu, move items to other menus.
+
+Video plug-in -> Video menu
+R4300 emulator -> Advanced menu
+"
+"d96d8633066d98d009117d8d6fe4c33cf00a546c","2013-11-22 18:26:24-05:00","front: Stay in video menu when video plugin changes.
+"
+"8c68c6e5682855987995aa7a4be0d5b1e3b4b699","2013-11-22 18:26:44-05:00","front: Assume we always have vibrate permission.
+
+We added these tests in case we needed to yank vibrate permission from
+the OUYA build.  Since we learned we don't, then it's fine to remove
+these checks.
+"
+"46593b138298ddd1b45fab533bec760fba2f55e4","2013-11-22 18:27:23-05:00","jni/front: Remove isRGBA8888 method/option.
+"
+"a6271c7c1cc0a761f6844d7d497317b199328277","2013-11-22 18:27:36-05:00","front: Re-order video menu.
+"
+"10b8b7460dc7dedbedc4172da2eda8055c7940ae","2013-11-22 18:27:52-05:00","front: Disable audio prefs if audio disabled.
+"
+"408d82d21a5cd2b46fc88e721e7b617eae7e66c3","2013-11-22 18:28:11-05:00","input: Multi-mapping only allowed if all inputs are digital.
+
+Note that this doesn't alter anyone's existing settings or custom pro-
+files.  It only addresses new users and new custom mappings by exist-
+ing users.
+
+Addresses problem described here:
+http://www.paulscode.com/forum/index.php?topic=1181.msg11095#msg11095
+http://www.paulscode.com/forum/index.php?topic=1272.msg11462#msg11462
+"
+"cdf1cf6fe7d81c3a4ceadaa9cff71508d01dfcf7","2013-11-22 21:22:23-05:00","front: Fix typo in preference key.
+
+Immersive mode and action bar preferences weren't being hidden.
+"
+"8ee12707155ec5d03db9651f6fb407e5b8678d98","2013-11-23 12:06:42-05:00","front: Reorganize advanced menu, move framelimiter to advanced menu.
+
+Since framelimiter is generally only useful when you disable audio.
+"
+"428ed2d943f6fc6d4cdcfd5b6fe5b55352c5b519","2013-11-23 19:06:49+00:00","res: Updated translations.
+"
+"cb2a99e7f93196f8d7cec6f2f799aab227f7c2bd","2013-11-23 14:36:47-05:00","cleanup: Change key names for consistency.
+"
+"73a3f6070acfa36f9b1f93d1e4e75ea7e28f0525","2013-11-23 14:56:30-05:00","res: Remove unused icons.
+"
+"922f3f113a0d856e42a29311b8a1b2bfa8c612c4","2013-11-23 15:11:28-05:00","res: Cleanup a few more strings.
+"
+"0a3e786bc0093ca7d002119b93b822e230dcd301","2013-11-23 15:11:48-05:00","res: Updated translations.
+"
+"3f72e89aca21507892319f55dfeb5e45d794b493","2013-11-24 20:20:08-05:00","front: Remove superfluous call to audioQuit.
+
+SDL is solely responsible for cleaning itself up. We shouldn't do it
+ourselves.
+"
+"16fef035e659e032685ccdc2fca2ea2a87a54681","2013-11-24 20:21:14-05:00","ae-bridge: Fix regression where launch crashed after settings changed.
+
+This commit effectively reverts a regression tracked down to commit
+2e4f3c70c477a1ac96745d061f141af2066d8a97
+
+Somehow the order of loading (input-android vs other libraries) and/or
+the thread from which they are loaded makes a difference.
+
+The bug can be reproduced by launching emulator, quitting, changing a
+user setting (e.g. audio plugin), then relaunching the emulator.  The
+app would crash hard due to a segfault.  The crash only occurred when
+a user setting was changed; never occurred if the settings didn't
+change.
+"
+"19a61e0658a253c26cfc995f86032f6cb10d55c8","2013-11-24 20:26:12-05:00","front: Always use framelimiter when not using dummy audio.
+
+Enabling framelimiter (the upstream default) minimizes latency with the
+audio-sdl plugin. Disabling the framelimiter is only useful for bench-
+marking framerate with dummy audio.
+
+In my testing with older devices, I see no benefit to disabling frame-
+limiter as a means of increasing framerate.  My guess is that this
+commit won't negatively affect older devices, though it would be nice
+to know for sure.
+"
+"930271f555c3f5f9aed8670d9a623f2fe4791400","2013-11-24 20:40:04-05:00","front: Synchronize some calls to core to prevent interleaving.
+
+Not sure if this is ever a problem in real life, but it seems these
+should be synchronized just to be safe.
+"
+"4e09158f4e6bdfbf80c94c795c24e2bfa2577add","2013-11-25 09:02:30-05:00","front: Rearrange some Advanced menu items.
+"
+"60861a0aef8d226f6af1f06e53c6cc076d800698","2013-11-25 09:06:12-05:00","front: Add experimental option for reducing SDL audio buffer.
+
+See Advanced menu.  Setting to a much smaller number seems to reduce
+latency just a bit... or maybe it's just a placebo.  Labeling it
+'experimental' so users are warned.
+"
+"f5134b245fb5773ae003cba1b5cf129cf241b0d1","2013-11-25 09:25:42-05:00","front: Fix some screen titles.
+"
+"5a2aeac39a53d1746974624bcba8ccdd0cb025e9","2013-11-26 08:24:44-05:00","front: Disable video menu transition animation.
+"
+"acde0c8275eb4bf9fb4104e3f162436c5f503b07","2013-11-28 20:20:36-05:00","input-android: Bugfix, discard stale pointer on reset.
+
+This pointer will refer to a block of memory that no longer exists if
+the core was reloaded.  Was causing segfaults on some devices due to
+variations in multi-thread behavior.
+"
+"159f93ce997aca6cd0e458dc8b12c4663516c687","2013-11-29 09:01:48-05:00","core: Bugfix (band-aid?) for PD/Goldeneye crashes when reloading.
+
+Thanks xperia64 for tracking this down :D
+
+Full discussion here:
+http://www.paulscode.com/forum/index.php?topic=1199.msg11751#msg11751
+
+Will submit a pull request upstream to see if this is an acceptable
+fix.
+"
+"a4b3bbf9a816fc8d83e3963a642d2ba551be77a5","2013-11-29 09:25:06-05:00","R4300: Remove obsolete variable; caused crashes in PD/Goldeneye in Android Ed.
+
+Issue pinpointed by xperia64 and discussed in greater length here:
+http://www.paulscode.com/forum/index.php?topic=1199.msg11751#msg11751
+
+This may be just a band-aid to a deeper issue.  Was discovered in Android while
+trying to reload save states for Perfect Dark and Goldeneye from the latest
+master revision of mupen64plus-ae.  Recent changes to mupen64plus-ae have elim-
+inated the blanket call to System.exit() it was using previously, which may have
+been masking this issue before now.  AE is also different from the upstream PC
+version because it loads ui-console dynamically and calls main as a subroutine
+of a larger multi-threaded android process (rather than ui-console being an
+entry point to a new process). Not sure of all the ramifications, or if this is
+even the correct fix, but it does fix the problem in AE.
+"
+"040b15fe91e7d4d351eba4768bcdb79ba8eeb371","2013-11-20 15:32:59-05:00","dynarec: Fix DIV 64bits, remove assert so SUB 64bit with carry don't crash (still wrong maybe)
+
+Manually cherry-picked from
+https://github.com/ptitSeb/mupen64plus-pandora/commit/ce68e3b9f89132315d1bd69800e364da96340eb8
+"
+"5a48bd932743df465cc46dffa1d77607ec1e813d","2013-11-30 15:24:49-05:00","front: Fix order of thread startup/callback registration.
+
+Should register the callback before starting the thread, not after.
+Hadn't noticed any problems yet, but that may have just been luck. This
+is the right way to do it now.
+"
+"67ba2f05972f30c47dbc6674e7817741e2c66243","2013-11-30 17:32:19-05:00","front: Add utility for looking up ROM meta-info from MD5 and ini file.
+"
+"60ecc0ddfcb0da8ca734ac39647565c9d8692139","2013-12-01 15:58:25+01:00","Fix: macroblock memory allocation was bigger than needed.
+"
+"7f34cc810191b05ceff7a48171cf882e8550248b","2013-12-01 16:02:28+01:00","Avoid dynamic memory allocation for macroblocks.
+"
+"8979df77740ba8c845a6ff3b3cc452ae7c5ba927","2013-12-01 16:26:38+01:00","Refactor standard macroblock decoder.
+"
+"6e2d80e4135e1b7d801d660d572ab20608c94706","2013-12-01 16:30:28+01:00","Fix: Bottom of the 9th jpeg task dispatching.
+"
+"8ce4d9206c60e18381a5b815f08ce1c69dbc70e3","2013-12-01 10:42:58-05:00","front: Rename MainActivity.java -> SplashActivity.java.
+
+Reduce confusion, especially with version 3 concepts coming.
+"
+"17b88dfa4772c3cca1636ac21c69c705492bf7be","2013-12-02 21:20:18-05:00","front: Fix regression in rom header calcs (fix cheats regression).
+
+Regression introduced in commit
+316954b07b56eb2a55d5fed31bc856ee325446aa
+
+Forgot to port the swap_rom(.) and trim(.) functions from C to Java.
+Headers for some roms are saved in a different byte order, which wasn't
+being accounted for.
+
+Also, an assortment of small fixes
+- better use of try/catch/finally
+- change unknown fields from ints to bytes
+- name is empty rather than null on read error
+"
+"667920079cccd3769359d490d8e5cd3ccfbb80ca","2013-12-02 23:21:10-05:00","front: Change default audio buffer to ultra-low latency.
+"
+"31262748e43cc267b2767c6930d51f1cdf9b3c80","2013-10-31 16:10:04+01:00","gles2rice: Zelda missing heart fix
+"
+"5c7cc11cc7f4082b131bfaf0d10e719e152f5212","2013-12-04 07:05:02-05:00","build: Sync version and changelog with tag 2.4.2.
+"
+"50474f569e969270a31bb9529bc0759f251cc5e1","2013-12-04 10:01:46-05:00","input: Fix ignored d-pad for IPEGA-9025 controller.
+
+Resolves Issue #339.
+"
+"53e939e5969d3fccdb940736e29f5ef9b655bec8","2013-12-04 20:08:26-05:00","doc: Updated some javadoc, made AppData.storageDir private.
+
+storageDir should not be used outside of AppData. Any new directories
+that need to be exposed should just be created explicitly in AppData's
+public interface.
+"
+"37e32b21c2c12e13345e1f16e412c17a72f66cd6","2013-12-04 22:37:05-05:00","front/core: Unzip textures to user dir, remove AE core customization.
+
+Hi-res textures are now unpacked to the persistent user directory where
+gamesaves/slotsaves/sramdata are saved. That way it doesn't get deleted
+whenever the assets are updated. Also allows unpacked hi-res data to be
+shared between several mupen-ae builds on the same device.
+
+In the process I was able to remove another AE-specific customization
+of the upstream core.
+
+Feature requested:
+http://www.paulscode.com/forum/index.php?topic=1324.0
+
+Related commits:
+0810a2252db5a06ecf0602dce0478add5eedd162
+48e94450531fe6af307737cb3606b492e188d569
+"
+"8d6ab3ef4217d31f70dc555e80081c6baed1cdef","2013-12-04 23:44:26-05:00","cleanup: Rename some path variables for consistency and clarity.
+
+No functional changes.
+"
+"11a3c803757a79eb3835ff93ede2444fa2ddfe89","2013-12-05 00:35:35-05:00","assets: Reorganize assets and relocate mupen cfg file to user dir.
+
+This way mupen64plus.cfg is not deleted when the assets are reloaded.
+This better mirrors the upstream behavior on other platforms:
+
+ConfigGetSharedDataPath
+Device-wide data files, typically read-only (e.g. cheat/hack lists)
+Files that are considered integral to (owned by) the app itself
+Linux: /usr/local/share/mupen64plus/
+Windows: C:\Program Files (x86)\Mupen64Plus\
+Android: Context.getExternalFilesDir(null)
+
+ConfigGetUserDataPath
+User-specific data files (e.g. unzipped hi-res texture files)
+Files that are considered owned by a particular user
+Linux: ~/.local/share/mupen64plus/
+Windows: C:\Users\johndoe\AppData\Roaming\Mupen64Plus\
+Android: Environment.getExternalStorageDirectory() + /mupen64plus/
+
+ConfigGetUserConfigPath
+User-specific configuration files (mupen64plus.cfg)
+Files that are considered owned by a particular user
+Linux: ~/.config/mupen64plus/
+Windows: C:\Users\johndoe\AppData\Roaming\Mupen64Plus\
+Android: Environment.getExternalStorageDirectory() + /mupen64plus/
+
+ConfigGetUserCachePath
+User-specific temporary files (currently unused)
+Files that are considered owned by a particular user
+Linux: ~/.cache/mupen64plus/
+Windows: C:\Users\johndoe\AppData\Roaming\Mupen64Plus\
+Android: Environment.getExternalStorageDirectory() + /mupen64plus/
+"
+"c17d0011f604174966b5ed712f60295e981ab0c5","2013-12-05 08:42:59-05:00","cleanup: Move Demultiplexer.java to different package.
+"
+"38b2bc9d88029982ab03c2a774b14715f8228b4e","2013-12-05 08:59:27-05:00","front: Remove zipped-rom feature for now.
+
+We'll probably do it differently once the carousel is finished. e.g.
+user touches 'refresh' and then the app scans for .z64, .v64, .n64, and
+(optionally) .zip files. If it finds zips with roms in them, it unpacks
+them once to a stable (non-tempor​ary) location.  No repeated unpacking
+all the time.
+"
+"9450974bf0c4b27ebd9cce5874f829dae256f773","2013-12-05 09:19:06-05:00","front: Add ROM header data to UserPrefs as a convenience.
+"
+"d9a442195fac1bf7281ef43c0270798a4be4483a","2013-12-05 09:22:59-05:00","front: Vastly simplify the crc lookup for building the cheats menu.
+
+At least on my Nexus 7, the expensive part is parsing the cheats data
+and building the cheats menu, not computing the crc.
+"
+"9fb3654f56041c770dfdbf6ed3e99da9e78b187b","2013-12-05 10:00:12-05:00","front: Remove ErrorLogger class.
+
+This was only used to log unzipping exceptions. Remove it and just use
+the standard Android error logging and ACRA.  If ACRA is insufficient,
+then let's just revise how we use ACRA.
+"
+"c8e1f770f24dce3c2558793faf36598ae475de34","2013-12-05 10:05:05-05:00","front: Fix zipfile resource leak.
+"
+"036b4a30158dd87f6bc14e7064f73160557fc3ce","2013-12-05 22:07:51-05:00","front: Replace zipfile parsing with simple regex pattern.
+
+Can encapsulate this in a class later if we want.
+"
+"c1103536f4757e2caa1502e4c4d8ee0798aa0cdf","2013-12-05 22:08:30-05:00","front: Wrap hi-res texture info with TextureInfo class.
+
+Keeps things easy and clean.
+"
+"a75de058748ce4d2d3430699e72793a29bf03603","2013-12-05 22:17:54-05:00","cleanup: Remove unused SensorProvider.java.
+
+No interest in implementing this right now.
+"
+"06aa925cc2752801d1b4ac1320d4394d7380dbe4","2013-12-05 22:22:33-05:00","front: Substitute symbols for magic numbers in TextureInfo.java.
+"
+"3e96b7139fa408defbc4b35be380ecd60cc99bcb","2013-12-06 08:44:14-05:00","tools: Move bash scripts to new subdirectory.
+"
+"beea8bba6e9f37591a6a67d136aab4a5bacd6f25","2013-12-06 08:44:42-05:00","tools: Add ndk-stack convenience script.
+"
+"d58ab6bb3337eca3acc2c8e269091481423ca6a0","2013-12-07 15:39:31-05:00","res: Changed settings icon, added some others.
+
+KitKat and Gingerbread use the gear, and the sliders somehow seem more
+fitting for config profiles.  Circuit icon can be used for the dynarec
+or something...
+"
+"0443bfd7e6e35c22533984753cbb9091c2185a84","2013-12-08 14:35:54-05:00","front: Peel settings submenu off as a separate activity for version 3.
+
+In version 3 the front menu will be replaced, and it will be easier to
+work with global vs. game-specific settings if they are separate activ-
+ities.
+"
+"dee1eadc1443126cebf6b300199eb21efa09241a","2013-12-08 14:39:30-05:00","cleanup: Rename video settings activity class (no functional changes).
+
+For consistency with other settings activities.
+"
+"917360dcd26fd84cf6c611df76b3508333f18a15","2013-12-08 15:22:30-05:00","front: Fix reference to video default settings.
+"
+"766fe15f802673541cda089585495451b65fd316","2013-12-08 15:27:51-05:00","front: Give the SharedPreference object member scope.
+
+This will be more important later when we're not using the default
+shared preferences (i.e. game-specific preference file).
+"
+"13737bd9877a9fa2ec7ab064c25e0af952ccd32a","2013-12-08 15:33:55-05:00","front: Reset video preferences when other prefs are reset.
+"
+"71a8fcce845c0f9eb9e18c3065c9ae370efbc1cb","2013-12-08 15:51:38-05:00","front: Fill in missing defaults in 'main' activity, not sub-activity.
+
+Guarantees the defaults are written to the preferences file before the
+game is started the first time.
+"
+"911b5e619dc725d9f2a481e55abf0e7514300b66","2013-12-08 15:55:56-05:00","front: Remove some logcat spam.
+
+These exceptions aren't that exceptional and nothing to be alarmed
+about in most cases.  So down it down a bit.
+"
+"83ceef0534903cc93a40d1410ee768af2f08fd1c","2013-12-08 16:27:57-05:00","front: Move front menu items up to the action bar.
+
+Should make it a little easier to start working on the version 3 front
+screen (carousel/gallery).
+"
+"d73e090517ffc4e857cd88bfca64570880069553","2013-12-08 17:47:01-05:00","front: Show analog info menu item only for Honeycomb+.
+"
+"78b5fdb242ad7440f339f11730585b8f29f39b0e","2013-12-08 17:50:00-05:00","front: Remove info-type menus from other activities.
+"
+"25d2669979df75dc8b2825286927e6780d42196d","2013-12-08 19:10:07-05:00","front: Fix broken string reference for system info popup.
+"
+"58a878be80ae6a8ccd1d7c0a031aa49a42d19110","2013-12-08 20:40:42-05:00","front: Move the play menu item up to the action bar.
+
+This is a little annoying for Gingerbread users but it's just temporary
+until the new front screen starts to get implemented.  Just gets it up
+and out of the way.
+"
+"dda81fae5647c5f266c53568ee02b36c38f2d598","2013-12-09 08:38:30-05:00","front: Delete some leftover stuff from SettingsGlobalActivity.
+"
+"05fc11fe9cca7e22ecfa3881bdf531df0317944b","2013-12-09 18:32:08-05:00","front: Remove some more leftover stuff.
+"
+"f3341f868126c097c253d3d19e06aaa911ca77da","2013-12-09 18:34:42-05:00","front: Properly refresh action bar on front screen.
+"
+"70b54f2811a683c271d113bba3880a6f76a0f4a2","2013-12-09 18:38:06-05:00","front: Differentiate homebrew rom headers from null rom headers.
+"
+"81630dca017c3173589499d9c74d2d1dfcf70c02","2013-12-09 18:55:37-05:00","front: Add a class for faster lookup of rom goodname by crc.
+
+For the complete goodname, e.g.
+Legend of Zelda, The - Majora's Mask (E) (M4 (V1.0)[!]
+you need the MD5 checksum, which takes a few seconds to compute.
+
+If you don't need or want all the extra tags, e.g.
+Legend of Zelda, The - Majora's Mask
+you only need the ROM crc, which is much cheaper to compute and makes
+the UI more responsive.
+
+This class allows you to lookup by crc, and will later house other
+lookups, like cover art, rumble capability, number of players, etc.
+
+The MD5-based lookup may still be necessary in certain places where the
+version info is important.  Perhaps save/slot/sram data.
+"
+"1b1c103f3b0b8d78102a4abec5e6c93cf64922fa","2013-12-09 18:56:12-05:00","front: Use the good name rather than header name in front screen.
+"
+"5261435ceeb4e92fd171b344265b27b6ed1fbb69","2013-12-09 19:42:21-05:00","front: Added cover art lookup and download.
+
+From the main screen, tap game-specific settings to test the download.
+"
+"421b6e031f47e7aea75b447e4270de763f5ee75f","2013-12-10 08:47:19-05:00","front: Consolidate RomInfo/RomLookup into single RomDetail class.
+
+Much cleaner and easier to use.
+"
+"10c1f271bf711e6a0c12d72f96b27d28a24a7056","2013-12-10 09:11:07-05:00","front: Small fix to cover art URL generator.
+
+Banjo-Tooie, Banjo-Kazooie, etc.
+"
+"17539be993ccbd44d3ff60b0e3423a3b287e96f6","2013-12-10 19:52:18-05:00","front: Move some app-wide initialization stuff to SplashActivity.
+
+SplashActivity is the first activity launched, so do all one-time-only/
+constant data initializations there.
+
+Basically trying to thin down MenuActivity as much as possible so that
+it's easier to implement the new front screen for version 3.
+"
+"8ccc99b35128b1d663dfcbb04e6a81585b973bf8","2013-12-10 19:53:11-05:00","front: Move language selection to action bar.
+
+Get it out of the way for now.
+"
+"786c45f3febae94a2e36410939d37062434fc37e","2013-12-10 19:53:21-05:00","front: Move language popup implementation to UserPrefs.java.
+
+More compartmentalization of functionality.  The sharedprefs key is no
+longer in any preferences.xml file. So we define the key in one place
+only, as a private constant in UserPrefs, and shield the outside world
+from the implementation.
+
+Moving it here is also more parallel with the enforceLocale() method.
+"
+"edc2fdee5ab208c634b802f25886c11ae4c88d87","2013-12-10 19:53:30-05:00","front: Completely encapsulate locale stuff inside UserPrefs.java.
+"
+"ec76eafd2b606f6d4a6015e541c77e5aef6ed79b","2013-12-10 19:53:38-05:00","res: Updated translations.
+"
+"c641d9a573d55f002ca7be541ec893c7cdc03525","2013-12-10 19:53:48-05:00","res: Fix string reference key in manifest.
+"
+"b40c945d5bdcdac32b5827060a964f6f85ed5c7b","2013-12-10 19:53:57-05:00","res: Use consistent naming pattern for activity titles/preference keys.
+"
+"a4584684c83abd52fc2151506c7804fed0beb69b","2013-12-10 19:54:05-05:00","res: Fix string key names in all translations.
+"
+"787baeb9ba64340f74863b8b292c34bb374e85be","2013-12-10 19:54:15-05:00","res: Change a few key names.
+"
+"0b794c2bc41d074aac83051cad0a85b28e42ec4d","2013-12-10 19:54:27-05:00","res: Updated translations.
+"
+"cc80d99f2c3aabb0113a75441ef9fe687703c44f","2013-12-10 19:54:34-05:00","res: Remove unused strings.
+"
+"1c26f13e1d24c6b1387cfb4302c73f177e9daae9","2013-12-10 19:54:41-05:00","front: Little fix to the language popup.
+
+After install/reset, the popup would not have any language selected.
+Could be a little confusing in some cases.
+
+Also since locale is no longer tied to a preferenceActivity, we need to
+define its default value elsewhere.
+"
+"5cdfc3cd8e0066b04013c9b6ed087200191cc48e","2013-12-10 19:54:49-05:00","front: Refactor constant string.
+"
+"546926729086b532413936e601fbc1cac98e5df9","2013-12-10 19:55:07-05:00","front: Completely replace MenuActivity with GalleryActivity.java
+
+Just a simple stub at this point.  Tap the button to select the ROM
+file.  Should provide a good bare-bones starting point for implementing
+the version 3 front screen.
+"
+"88da776abd736ea13e3e017821344c8625273e01","2013-12-10 19:56:52-05:00","res: Rename some resources for consistency.
+"
+"520e36ba2918d8745e261056f42372baad477552","2013-12-10 19:58:24-05:00","front: Allow folder navigation in simple game selector.
+"
+"29fa30a5ee8d01bb0088408cdeee3abb624d2a9c","2013-12-11 20:08:26-05:00","front: Fix possible null pointer exception.
+
+Seems to vary by device.
+"
+"020ae86b8116ce3fdeeedbf834816bcd07b9ae5c","2013-12-13 16:49:26+01:00","Fix multiple definitions of main in same namespace
+"
+"8e14cc9ba55560492ad2d0e3a077769032c58d8f","2013-12-13 16:49:26+01:00","Add Missing Subscreen Delay Fix for Ocarina of Time
+Mupen64plus contains built-in cheats for Ocarina of Time, which activates the
+essential subscreen delay fix.  However, the built-in code for Master Quest
+only works for the (E) version of Master Quest, and not the (U) version. The
+file also does not include the (U) (GC) version of Ocarina of Time. Master
+Quest and the GC versions of Ocarina of Time also need the End Credits Fix,
+otherwise these games will crash when the credits are displayed.
+"
+"5d5ff6af92d035eb66ee281239b9f10c9ce0e866","2013-12-13 16:49:26+01:00","Allow to overwrite the cycles per instruction
+Some ROMs require a different average cycles per instruction count than the
+default one (2 per emulated instruction). This setting is necessary because
+mupen64plus is not cycle accurate. A complete simulation of pipeline, cache,
+bus and so on is necessary to get it perfectly without this workaround.
+
+Known titles which require a CounterPerOp of 1 are
+
+* 64 de Hakken!! Tamagotchi - Minna de Tamagotchi World
+* 64 Oozumou
+* A Bug's Life
+* Airboarder 64
+* Bass Hunter 64
+* Bass Rush - ECOGEAR PowerWorm Championship
+* Bassmasters 2000
+* Biohazard 2
+* Body Harvest
+* California Speed
+* Carmageddon 64
+* Charlie Blast's Territory
+* City Tour Grandprix - Zennihon GT Senshuken
+* Destruction Derby 64
+* Disney's Tarzan
+* Donkey Kong 64
+* Duck Dodgers Starring Daffy Duck
+* Duke Nukem - ZER0 H0UR
+* Excitebike 64
+* Fighting Force 64
+* Flying Dragon
+* Fushigi no Dungeon - Fuurai no Shiren 2 - Oni Shuurai! Shiren Jou!
+* GT 64 - Championship Edition
+* Hamster Monogatari 64
+* Harvest Moon 64
+* Hercules - The Legendary Journeys
+* Hexen
+* Hiryuu no Ken Twin
+* In-Fisherman Bass Hunter 64
+* International Superstar Soccer 64
+* Itoi Shigesato no Bass Tsuri No. 1 Kettei Ban!
+* Jikkyou G1 Stable
+* Jikkyou World Soccer 3
+* Madden NFL 2000
+* Madden NFL 2001
+* Madden NFL 2002
+* Madden NFL 99
+* Mario Party
+* Mario Party 2
+* Mario Party 3
+* Mario Story
+* Monopoly
+* Mystical Ninja 2 Starring Goemon
+* NBA In the Zone '99
+* NBA Showtime - NBA on NBC
+* Nightmare Creatures
+* Nintama Rantarou 64 Game Gallery
+* Nuclear Strike 64
+* Nushi Duri 64
+* Nushi Duri 64 - Shiokaze ni Notte
+* Paper Mario
+* Pro Mahjong Kiwame 64
+* Pro Mahjong Tsuwamono 64 - Jansou Battle ni Chousen
+* Quake II
+* Razor Freestyle Scooter
+* Ready 2 Rumble Boxing Round 2
+* Resident Evil 2
+* Roadsters Trophy
+* Rush 2 - Extreme Racing USA
+* San Francisco Rush 2049
+* Shadow Man
+* Tigger's Honey Hunt
+* Toy Story 2
+* Triple Play 2000
+* Ucchan Nanchan no Hono no Challenger - Denryuu Ira Ira Bou
+* Vigilante 8
+* Vigilante 8 - 2nd Offence
+* Virtual Pool 64
+* War Gods
+* WCW-nWo Revenge
+* Wipeout 64
+* HardCoded by Iceage
+* Spacer by Memir (POM '99)
+
+Known titles which require a CounterPerOp of 3 are
+
+* BattleTanx
+* BattleTanx - Global Assault
+* Beetle Adventure Racing!
+* Disney's Donald Duck - Goin' Quackers
+* Donald Duck - Quack Attack
+* HSV Adventure Racing
+* Jikkyou Powerful Pro Yakyuu Basic Ban 2001
+* LEGO Racers
+* Monster Truck Madness 64
+* Pilotwings 64
+* Road Rash 64
+* Wave Race 64 - Shindou Edition
+* WCW Nitro
+* Wetrix
+"
+"a19fac3325b0b53c5ce527a9d7551bdbbbd162d1","2013-12-13 16:49:26+01:00","Allow to disable interrupt delay after DMA SI read/write
+Titles like Banjo Tooie are known to hang because the interrupt after the SI
+read/write is delayed. But there are also titles which are known to have
+problems when delay is enabled. Examples are
+
+* Body Harvest
+* City Tour Grandprix - Zennihon GT Senshuken
+* Cruis'n USA
+* GT 64 - Championship Edition
+* Nightmare Creatures
+* Ucchan Nanchan no Hono no Challenger - Denryuu Ira Ira Bou
+"
+"85d5bf00661215c4d4b03150fcd86591398fef54","2013-12-14 16:56:04+01:00","Remove debug artifacts from CountPerOp commit
+"
+"83edfef8c7e4b31e2eeb45f726731fb56c945d8a","2013-12-14 17:27:19+01:00","Enable CountPerOp for the new_dynarec
+"
+"7758fb3cc00be4730ac2591ce26e57e92fcb703d","2013-12-14 17:46:35+01:00","audio-sdl: Merge 'upstream/audio-sdl' hg:35724c90fc26da1ea285b0f29b42a66760cc9235
+"
+"c90b238353759c014143d792c8404935d31fdba2","2013-12-14 17:50:05+01:00","core: Merge 'upstream/core' hg:4372d4949097d95387b6ee80ce51d8079823618b
+"
+"8b881ed94ef5827b2b992583ab67a0d495065e6e","2013-12-14 17:52:05+01:00","rsp-hle: Merge 'upstream/rsp-hle' hg:c7a2b14b7a4ca60264a08e2f89952cdbb0e2ed7c
+"
+"6fc6f87f2cc83bce6ecbdbcc2461cddeb7d0008a","2013-12-14 17:53:10+01:00","front-end: Merge 'upstream/ui-console' hg:1f9abb76310b205ae18375cef424dd2b924285e5
+"
+"01e6fa654dee07c585ee8edd0e10703d90533ff4","2013-12-14 17:55:29+01:00","gles2glide64: Merge 'upstream/video-glide64mk2' hg:6ed733f8c5c6bff375214c3e71f099236ead3e17
+
+Conflicts:
+jni/gles2glide64/src/Glitch64/main.h
+"
+"4d8b60adf452b0a846dd78ee52170e4452b25cf1","2013-12-14 17:57:25+01:00","tools: Add an example how the upstream source can be pulled
+"
+"67f8d10ac3bda975cbec2f52f18ff59c693ff0a9","2013-12-15 11:37:09+01:00","A cleared EEPROM block has all bits to 1 and not 0
+"
+"1cfe47f625c4af32cfbf0271ca3501f5ed277907","2013-12-15 11:37:09+01:00","Revert 'Merge 16kb eeprom savetype with Wii64'
+This should fix some ingame save problems.
+"
+"1e1d1f91e4268c5e60ed1f62ca899dcabe26a7d5","2013-12-15 12:19:28+01:00","Set shader again after displaying OSD
+Some titles like Resident Evil 2/Biohazard 2 display a cutscene and the shader
+is only set for the first frame. The next frames just expect that the old
+shader is still set.
+
+The OSD workaround only disabled the shader program before and expected that
+the next frame automatically sets it again. This assumption was wrong and
+instead the program has to be reassigned again to the current rendering
+context when the renderCallback for the OSD was called.
+"
+"f2c9c3bc579ffbda9afcc870dc88483951e1443d","2013-12-14 14:47:39-05:00","tools: Update diff-upstream script.
+"
+"034ebc22ccf47917527c7ceacba9f57bc411a78f","2013-12-14 15:16:09-05:00","tools: Tweak pull-upstream script.
+"
+"0dcd6abcf9ddfdec6bfeb79aa720a7e6906d8780","2013-12-15 18:34:31-05:00","[gles2rice] Remove a redundant call to RSPSegmentAddr() in function RSP_GBI1_BranchZ()
+"
+"60abc567aa676515b9ba698defaba06b59a4c0a8","2013-12-13 15:44:03-05:00","front: Remove obsolete error log path from UserPrefs.
+"
+"29f1df62be733b553a2ac54445e569659bf78358","2013-12-13 14:41:09-05:00","front: Make ConfigFile collections final to eliminate null check.
+"
+"85a452e978868926ced0374cc7749f6421cccddc","2013-12-13 14:49:13-05:00","front: Only allow reloading of same ConfigFile.
+
+Allowing a ConfigFile to change its backing file after construction is
+not a needed feature and adds complexity to the mental model.  Its main
+use is for reloading the file from disk to revert unsaved changes,
+which shouldn't require the user to know the original filename anyhow.
+"
+"d18af396aea72e1417beef5d3cc9fd14f45ef9c5","2013-12-13 14:58:29-05:00","front: Replace 'sectionless' name with constant in ConfigFile.
+"
+"48c4714bfa75fdb38db5df6ef2040693ee3e4892","2013-12-13 15:41:46-05:00","front: Add method to ConfigFile for removing sections.
+
+Custom input profiles will be persisted in a single ConfigFile.  Users
+need a way to delete their custom profiles (i.e. ConfigSections).
+
+We also make ConfigSection#nextName private because it may be invalid
+once a section has been removed.  It's an implementation detail anyhow,
+only used internally to identify end of file when reading.
+"
+"62d6d16520c1b472f5cbe8731605473691de93d8","2013-12-15 20:18:37-05:00","front: Fix broken path for default selected game.
+
+Switching over from PathPreference, I forgot there was some special
+sauce in the interpretation of certain characters (~, !).  Kind of ugly
+but this is only temporary anyhow.
+"
+"f07420404eda50d2c2fa6d661532589489c4dd51","2013-12-15 20:46:08-05:00","front: Fix minor misuse of getString() in PrefUtil.
+
+The second parameter in the Android API is a formatting argument. I was
+incorrectly using it as though it were a fallback value.  No real harm
+done in this instance, but still should be fixed.
+"
+"d8f40db72740162c324a523a5988d622364191d4","2013-12-17 21:08:07-05:00","front: Implement generalized profile framework.
+
+Will be used for the controller profile system, and could be used for
+touchscreen and per-rom profiles as well.  Just subclass Profile and
+ProfileActivity, and implement a persistence mechanism (e.g. using
+ConfigFile).
+"
+"90f2d5b70e22a6c9717ccfcc0abe32fb9d202178","2013-12-17 22:43:20-05:00","front: Replace controller mapping with controller profiles system.
+
+This is necessarily a big commit because it's a paradigm shift in the
+way controllers are configured.  Instead of visiting the mapping screen
+every time the user wants to change controller setup, they simply
+change the controller profile.  There are a large number of built-in
+profiles for ease of use, and the user can still define custom mappings
+however they want.  It's easier at a glance to see how each controller
+is configured, and fewer clicks through the configuration.
+
+This also eliminates the controller toggle switch in the input screen,
+which was not good for big-screen (controller-only) navigation.
+
+This is also much more amenable to per-rom configuration.  The per-rom
+override will only need to override a single profile name, not a whole
+assortment of button mappings, deadzone, sensitivity, etc.
+"
+"1ec1da06ac4566b51b70773dfd0f4abe4a525b13","2013-12-17 23:24:08-05:00","front: Remove a bunch of obsolete stuff left behind from last commit.
+
+The previous commit made all this stuff obsolete.  Just breaking it out
+as a separate commit, so that it's a little easier to see the important
+stuff in the last commit.
+"
+"b732cc7822245fdaf459ab4eee019141cbbbfb14","2013-12-17 23:45:39-05:00","cleanup: Rename InputMapActivity -> ControllerProfileEditActivity.
+
+More accurately reflect the relationship between the ControllerProfile*
+classes, and keep to a consistent lingo.
+"
+"9901bf0c009fa456c55d73f00f30460278e65159","2013-12-18 08:18:01-05:00","assets: Fix typo in xperia play default controller profile.
+
+Sensitivity doesn't actually matter in this case.  Use the standard
+value to avoid red herrings.
+"
+"fc5d2c1185ca9132549e552120b7423240dfd151","2013-12-18 08:58:19-05:00","front: Replace hard-coded strings with translatable resources.
+"
+"3343b5db4a376f8c1f2d935b3a8e988d3618f5f4","2013-12-18 11:11:29+01:00","Convert .hgignore to .gitignore
+"
+"fe9c08ba83ff2ea319b7a6ee62c7a8d40d22f480","2013-12-18 11:28:54+01:00","Force line ending type for specific files
+
+Different operation systems (Unix vs. Windows) use different line ending types.
+It can easily happen that users from different systems edit files and replace
+all line endings of a file with the system specific version. This screws up
+diffs and makes merges harder.
+
+Git can normalize line endings for specific files and avoid this problem.
+Binary files should be marked to avoid accidentally normalization.
+"
+"d145680b257703bcb696d166f27a0b7afa1ba54a","2013-12-18 14:43:07+01:00","Change regression video test to github repositories
+"
+"ac7d87fc3d8ea40db529fa344d744beda05f51e8","2013-12-18 15:20:52+01:00","Change m64p_helper_scripts to github
+"
+"6bec8ef7d93326c4fbf030fc58e2f5f8dfc5572d","2013-12-18 15:50:06+01:00","Change build_bundle/_modules to github repositories
+"
+"4a19480020e579bce74d89a5144059f7027c7685","2013-12-19 14:13:38+01:00","Convert .hgignore to .gitignore
+"
+"4999d06015f362e1e82f1d269a713c24cdeb7a9a","2013-12-19 14:13:38+01:00","Convert .hgignore to .gitignore
+"
+"44170e4fdb212daf3346c7f14e3be428a82096ce","2013-12-19 14:13:38+01:00","Convert .hgignore to .gitignore
+"
+"811a1f0ce1079dc4e343c7c8d1c4939e5f02ae1b","2013-12-19 14:13:38+01:00","Convert .hgignore to .gitignore
+"
+"3df8090f8c2cecbc40b4e99920c7ec29b98b0ce0","2013-12-19 14:13:38+01:00","Convert .hgignore to .gitignore
+"
+"1837f961732b4b0fa01a4708e8484f9471c5424c","2013-12-19 14:17:26+01:00","Force line ending type for specific files
+
+Different operation systems (Unix vs. Windows) use different line ending types.
+It can easily happen that users from different systems edit files and replace
+all line endings of a file with the system specific version. This screws up
+diffs and makes merges harder.
+
+Git can normalize line endings for specific files and avoid this problem.
+Binary files should be marked to avoid accidentally normalization.
+"
+"da9e9b4d3b33969b2f82c5eda79877ad0300ea63","2013-12-19 14:17:34+01:00","Force line ending type for specific files
+
+Different operation systems (Unix vs. Windows) use different line ending types.
+It can easily happen that users from different systems edit files and replace
+all line endings of a file with the system specific version. This screws up
+diffs and makes merges harder.
+
+Git can normalize line endings for specific files and avoid this problem.
+Binary files should be marked to avoid accidentally normalization.
+"
+"203287099521705d486d132224bd4ca423c09dd4","2013-12-19 14:17:31+01:00","Force line ending type for specific files
+
+Different operation systems (Unix vs. Windows) use different line ending types.
+It can easily happen that users from different systems edit files and replace
+all line endings of a file with the system specific version. This screws up
+diffs and makes merges harder.
+
+Git can normalize line endings for specific files and avoid this problem.
+Binary files should be marked to avoid accidentally normalization.
+"
+"6bf363d38b79a68a020331446641c02d1696b0ea","2013-12-19 14:17:36+01:00","Force line ending type for specific files
+
+Different operation systems (Unix vs. Windows) use different line ending types.
+It can easily happen that users from different systems edit files and replace
+all line endings of a file with the system specific version. This screws up
+diffs and makes merges harder.
+
+Git can normalize line endings for specific files and avoid this problem.
+Binary files should be marked to avoid accidentally normalization.
+"
+"cb6db1a90e9c996972cf4bb0f30c2ca87c8e9f42","2013-12-19 14:17:38+01:00","Force line ending type for specific files
+
+Different operation systems (Unix vs. Windows) use different line ending types.
+It can easily happen that users from different systems edit files and replace
+all line endings of a file with the system specific version. This screws up
+diffs and makes merges harder.
+
+Git can normalize line endings for specific files and avoid this problem.
+Binary files should be marked to avoid accidentally normalization.
+"
+"d1bbbcca5f2a2997fbf12d2b133361561a1d5da4","2013-12-19 14:35:03+01:00","Replace references to bitbucket with github
+"
+"e3a3660e3a498da67007a6f31dd0dd43dd3a74d6","2013-12-19 14:43:36+01:00","tools: Use new github mupen64plus upstream repositories
+"
+"4a4a3d0bd19d02086eab9c6ad40d946e3c8e1f37","2013-12-19 15:04:56+01:00","tools: Use git remotes to generate diffs
+
+The mupen64plus-ae repository already contains many objects from the
+mupen64plus upstream repositories. Thus using these objects by using multiple
+git remotes avoids downloading them again. Also using git to do the diff avoids
+creating extra repositories with work-tree and makes the script path
+independent inside the mupen64plus-ae repo.
+"
+"1d948742b7a91e9de27bf610d82ffd93c5e89ca0","2013-12-19 15:12:05+01:00","tools: Use the mapping from diff-upstream in pull-upstream
+"
+"c85bf51252a80d9f94a6b6bd2fd3f470f7a986b9","2013-12-19 23:59:23+01:00","Synchronize .gitattributes with mupen64plus
+"
+"52dca1a01099d72c9e8a31f32ad714a04da14be3","2013-12-20 00:01:40+01:00","gles2rice: Remove whitespace difference to upstream
+"
+"3876f82ed2b19c29ecd11b581878b73ccb2c454e","2013-12-20 00:28:01+01:00","gles2glide64: Remove the whitespace differences between upstream
+"
+"6683bfe35f9effd6be49823cd3df76174fdd935f","2013-12-20 00:35:14+01:00","Merge commit '1cfe47f625c4af32cfbf0271ca3501f5ed277907'
+"
+"34b8988ecb6adc58f21c49bde6b1a1de609cbc4b","2013-12-20 00:35:17+01:00","Merge commit 'd1bbbcca5f2a2997fbf12d2b133361561a1d5da4'
+"
+"5aa0eff3339c9469a230551787b988138f4b0504","2013-12-20 00:35:18+01:00","Merge commit '203287099521705d486d132224bd4ca423c09dd4'
+"
+"c319cca584ef9fcf461bae8ad5fb2ede9c3c52a0","2013-12-20 00:35:20+01:00","Merge commit '1837f961732b4b0fa01a4708e8484f9471c5424c'
+"
+"cccf8acf44efd1105c4e261c2701f1753034d072","2013-12-20 00:35:22+01:00","Merge commit 'cb6db1a90e9c996972cf4bb0f30c2ca87c8e9f42'
+"
+"408b26bb8e069a12225d408a455c6fad8aee1ef4","2013-12-20 00:38:19+01:00","Merge commit '6bf363d38b79a68a020331446641c02d1696b0ea'
+
+Conflicts:
+jni/gles2glide64/src/Glitch64/glitchmain.cpp
+"
+"9e7799f6af43073f1c07ecf5cd0ecc34fc98a14f","2013-12-20 01:26:30+01:00","tools: Add a whitespace only pull script
+
+It seems that some whitespace differences are popping up from time to time and
+get never forwarded to upstream. This makes it unnecessary hard to merge
+changes from upstream back to mupen64plus. The tool pull-upstream-whitespace.sh
+can be used to get only the whitespace differences from upstream and not the
+actual changes/commits.
+
+This script can fail and the caller has to find the '*.rej' files and manually
+merge the differences. It is also important to check for unadded/not removed
+files. Also a diff should be made before committing in such a state:
+
+git diff --ignore-all-space HEAD
+"
+"9d821ce213501ac3ef7294349313d03a411e918f","2013-12-20 12:10:18+01:00","Reduce optimization to avoid problems with old C++ compilers
+"
+"c17b4065e7abc887bf17f51189743bf5d40ead03","2013-12-20 11:23:06-05:00","doc: Add some info about Mad Catz M.O.J.O system.
+"
+"827e78eb9226b5335012946be94c65e78b8c5bfa","2013-12-20 11:35:58-05:00","build: Make app visible to non-touchscreen devices (e.g. M.O.J.O).
+
+Technically a pointing device is still needed in a few parts, but those
+will be disappearing soon in version 3.  Want mupen to be visible for
+the holidays :)
+
+The elements that still require pointing device as of version 2.4.2:
+- enable/disable controllers (toggle switch)
+- map multiple players (popup with buttons)
+- cheats menus (possibly, can't remember)
+"
+"5d0ffe2226d9ef5ee3c90855d034c0d9c82af5d8","2013-12-20 17:40:26+01:00","Avoid constant address resolution via a pointer in memory.c without -flto
+
+GCC cannot identify the rdramb pointer as const and therefore not remove any
+indirection when using it without link-time optimization. The missing const
+reduces the performance slightly in (read|write)_rdram[bhd]? because extra
+instructions have to be generated to get the value of rdramb from memory.
+
+Reported-by: Nebuleon Fumika
+"
+"cdd32138ef3ebf7293e410547aa6f43fb9b5dea0","2013-12-20 12:19:36-05:00","front: Remove workaround for defective Nyko PlayPad firmware.
+
+This hack fix is starting to interfere with too many other controller
+models that actually implement HID properly.  M.O.J.O is the latest
+victim of Nyko's blunder.
+
+The UI is mature enough now that removing the hack shouldn't cause too
+much pain.  The Nyko PlayPad left stick is mapped to N64 analog stick
+by default, and the default can be recovered easily in the mapping
+screen's menus.  The only pain this could cause is if a Nyko owner
+wants to re-map the left stick.  In really desperate circumstances, the
+profile can be edited manually with a text editor.  I can live with
+that for now.
+"
+"7a59bee230de6ad82653fffe27255924f88fbfc3","2013-12-20 11:00:59-08:00","Merge pull request #1 from ecsv/github
+
+Change from Bitbucket Hg to Github repositories
+"
+"83e85d4839d00266b7e67ebb7bb5a8724b9bb131","2013-12-20 11:03:07-08:00","Merge pull request #2 from ecsv/const_rdramb
+
+Avoid constant address resolution via a pointer in memory.c without -flto
+"
+"c102810e1003362d07d788494baddaf2218ed0b6","2013-12-24 09:55:54-05:00","build: Sync changelog/version with 2.4-bugfixes branch.
+"
+"7486f74d9ae414a33b029f25c051b3f441e96e9e","2013-12-02 18:09:43-06:00","front: Add interface class for mupencheat.txt.
+"
+"b974c9b66677a31d7ddfd8cdc3bac18e49c477bc","2013-12-26 08:53:11-05:00","res: Add pencil icon.
+"
+"03461f46e0eff4c18565e408bfb7307ed8548677","2013-12-26 09:08:27-05:00","front: Add AppData field for mupencheat.txt file.
+"
+"2e606fb8087022db04825fc715e7071bee798655","2013-12-26 16:02:01+00:00","Merge commit '83e85d4839d00266b7e67ebb7bb5a8724b9bb131'
+"
+"befd6a49b0aa6d4ebc0a050b3e6e9fae37d70bfc","2013-12-26 16:02:13+00:00","Merge commit '9d821ce213501ac3ef7294349313d03a411e918f'
+"
+"924533b1e28bb55f3640bb7d291cdfdbbc9e35ab","2013-12-27 22:49:22-05:00","Readded CheatEditor components and edited PlayMenuActivity to use mupencheat_txt
+"
+"ee59b5f23541c5593342c77b24c1651df9ddd9e0","2013-12-28 17:23:10-06:00","Cheats: Fix, always add newline between sections
+
+Note that this also adds an extra newline at the
+end of the file.  Make sure that doesn't cause
+problems during load, expecially with the last
+cheat, or any issues in the core.
+"
+"933ab25cde475c53e7926e637067680f970a59fa","2013-12-28 18:37:38-05:00","More cheat editor updates
+"
+"8cadd4d8c420c36072960817aeafdac5118e8a16","2013-12-28 18:37:47-05:00","Merge branch 'master' of https://github.com/paulscode/mupen64plus-ae
+"
+"9b70396196d0a7ea74c13f9373634ed1776c6fa2","2013-12-28 19:01:32-06:00","Cheats: Add methods to clear all cheats or codes
+"
+"67fbea15f50568968ee8e99415b523b509cd7aec","2013-12-28 20:08:33-05:00","Merge branch 'master' of https://github.com/paulscode/mupen64plus-ae
+"
+"80ae063715c8bf0b64212f3045986f0794bdffa4","2013-12-29 16:25:21-05:00","Finished cheat editor class
+"
+"64ebdcaf958112316431e2e6f47a4d76bd941ba6","2013-12-29 18:27:20-05:00","Fixed CheatEditorActivity as video settings
+"
+"2af0917440a574d69eede1e77ca685b738c8753f","2013-12-30 13:59:47+01:00","Try to unify formatting of the source code
+"
+"a2a06db57be96fa5949b48590147c13c3bc95241","2013-12-30 14:00:07+01:00","Remove executable bit from C source files
+"
+"d31b8ea3ff5b5769a8be82fdc5910917b7042d55","2013-12-30 13:06:01+01:00","Add initial support for MusyX
+"
+"0434aeb741a40834fd4064f8e257754dbc495280","2013-12-30 06:52:59-08:00","Merge pull request #1 from ecsv/musyx
+
+Add initial support for MusyX
+"
+"646ec921ec90189920f587cef406c07fdceaa0fe","2013-12-30 17:33:34+01:00","Compile ucode*.cpp as C source code
+
+The ucodes are basically only C code and don't use C++ features. It is
+therefore not necessary to build it with a C++ compiler.
+"
+"6e12c395f30a829274a1c8de0cc62e32540a0e4b","2013-12-30 17:47:55+01:00","Don't mix declaration and code
+
+C90 only supports variable declaration at the beginning of a scope. Not doing
+so will break builds in MSVC.
+"
+"3930a8462503c8ee121a7619e946e9523cb8b484","2013-12-30 18:21:16+01:00","Fix function declaration for functions without parameter
+"
+"a9cdda0ae30167d84b87c2ea6a06d830dec8b288","2013-12-30 18:27:48+01:00","Add missing includes for global declaration
+"
+"0437601e5f29dca60b9522ed4f907d6223c94bd2","2013-12-30 18:37:10+01:00","Mark only locally used symbols as static
+"
+"1d4cd7db1de4ff53d6d8653c0abd1a511467d1c6","2013-12-30 19:00:03+01:00","Move all extern definitions to the header files
+"
+"ce771d102652c6fa81bf77edd9c3bff8ffb95e4f","2013-12-30 19:02:57+01:00","Move shared MP3 symbol definition to header
+"
+"d7cf796208740238c600e6323d98696cb1aadc61","2013-12-30 19:26:50+01:00","Always use standard ISO C99 datatypes for sized variables
+"
+"8c7c5562482aab22f4d3d611124704a0dafa1810","2013-12-30 19:47:59+01:00","Only include what each source file needs
+"
+"2eb0061541121afa357de6c48b10491c5108ee61","2013-12-30 19:59:26+01:00","Remove dead assignments
+"
+"27e1db369128a16ceefad455a5defb1fb55e49f3","2013-12-30 20:36:21+01:00","Remove unused extern declarations
+"
+"c1519b84d9b31e27b2477f6f603ebc34cb8a0896","2013-12-30 20:56:50+01:00","Remove code which only exist as comment
+"
+"c43d08aed92fc1dafcd11dcd1f991e901d1e97de","2013-12-30 21:25:13+01:00","Replace C++ comments with C comments
+"
+"53c9d39c7d763d164d625c23c722e365d8ff7d2f","2013-12-30 21:33:35+01:00","Fix wrong code alignment on linestart
+"
+"1646550dba1afc6ce90b5cdfb535761be1e0fb83","2013-12-30 22:05:45+01:00","Move longer comments to separate line before the code
+"
+"026a2089c0ead72acf3a854bfff8d2b6a9292f1d","2013-12-30 22:24:16+01:00","Cleanup oneline if statements
+"
+"ac31fae122c3cb52cd5d8a0510fdafe76f5bfc80","2013-12-30 18:28:52-05:00","cleanup: Minor simplifications in SettingsGlobalActivity.
+
+And restart no longer needed on touchpad pref change.
+"
+"c00526d0f4119eee24a9d9cc60f9343529f3cddc","2013-12-30 18:31:56-05:00","front: Use Eclair-compatible method for testing empty string.
+"
+"2bebe9f664d62a8e209b6358f5692a19b09d513d","2013-12-30 18:50:32-05:00","front: Specify locale when changing string case.
+"
+"b4f471793f6efc2ce5e81edcd42b1a638eef4b94","2013-12-30 18:50:56-05:00","cleanup: Format whitespace/comments in PlayMenuActivity.java.
+"
+"59cd0bcab457e915c8538738e6bec57a25f535ff","2013-12-30 18:57:48-05:00","cleanup: Format whitespace.
+
+Using eclipse formatting config located at doc/config_files
+
+(set line wrapping at 200 to preserve some aspects of the original)
+"
+"1a45b2011362eabbf3a120a05e85fb77a9eb2b6d","2013-12-30 23:37:41-05:00","front: Allow initial text in Prompt.promptText().
+"
+"b905f83895a089195cd6ed1866993d8ddf05353a","2013-12-30 23:57:42-05:00","front: Add standard header comment to CheatEditorActivity.java.
+"
+"32b02f132b3d35902eeaf5169d8efd06e615a477","2013-12-30 19:06:40-05:00","cleanup: Reduce column width in a few places.
+"
+"6fb56b80e8c9212ab730a29791986a815d16d9ef","2013-12-30 19:20:40-05:00","front: Simplify click handling in cheat editor.
+
+Easier to read, much less boilerplate code.
+"
+"30079cc7737fe32ccb9a66fd56dee28e8e0fc320","2013-12-30 22:24:12-05:00","front: Split long-click handler into functions.
+
+Easier to read, more encapsulated, easier to modularize later.
+"
+"4cf9356ad59203d9edb22a520a17e47cc1e93e8e","2013-12-30 22:48:38-05:00","front: Define cheat edit long click dialog in xml, simplify handling.
+
+Separate the layout from the logic, per Android convention.  Reduce the
+amount of boilerplate code and anonymous classes.  Consolidate button
+handling to a single anonymous class.  Use AlertDialog.Builder for
+slightly cleaner dialog creation syntax.
+"
+"7b193acfe3e73fe6317e62cb46e635f68af7f210","2013-12-30 23:42:35-05:00","front: Use Prompt class to implement text dialogs in cheats editor.
+
+Easier to maintain, ensures consistency.  Also use built-in Android
+string resources (yes/no) on confirmation dialogs. Use AlertDialog
+Builder for slightly cleaner dialog creation syntax.
+"
+"22e8f666d95ef806f0f6be904604e332064aa4fe","2013-12-30 23:54:23-05:00","front: Minor readability enhancement to cheat editor code.
+"
+"34a2dd0af21eaea9f8027b71f8b0f7c44230d335","2013-12-31 00:58:57-05:00","front: Add utility struct to simplify cheat field access.
+"
+"1cf82906c123d3382d0ddf9308f917f8dfe7d176","2013-12-31 22:30:21-05:00","cleanup: Remove some leftover code, forgot to delete.
+"
+"ded2923c1e526bc95e9935a3ef3d100b6f26d243","2013-12-31 22:31:39-05:00","cleanup: Remove some dead code in PlayMenuActivity.
+
+Should have been removed in commit
+d9a442195fac1bf7281ef43c0270798a4be4483a
+"
+"1a574bbacf9588cc08fc040787964c0f03963b5e","2013-12-31 22:32:42-05:00","front: Remove some option menu items from GalleryActivity.
+
+Remove game settings and cheats editor menu items since these will soon
+be located in PlayMenuActivity.
+
+Remove menu groups as they aren't necessary (cut/paste cruft).
+"
+"ff8a666090fe97fe10b3c45b98d95a477c825ac0","2013-12-31 22:34:55-05:00","front: Pass MD5 to PlayMenuActivity via the extras bundle.
+
+This puts the onus of computing MD5 on the calling activity, rather
+than the play menu activity.  Separation of concerns, since the gallery
+activity is likely to have its own system for computing/caching the
+MD5, rom path, and cover art.
+"
+"0b952adb7c3859b3516f6e71eb71f259ce723686","2013-12-31 22:48:48-05:00","front: Remove controller profiles from global settings.
+
+These will soon be located in the game-specific settings area.
+"
+"7d4db7e1ede957eedc652685eb5b87a3836ba268","2013-12-31 22:50:49-05:00","front: Add global and game-specific settings areas to PlayMenuActivity.
+
+More to come in the game-specific area.
+"
+"f2486e1ab9854d2c857b009e8b007d7586b41c11","2013-12-31 22:52:33-05:00","front: Make all controllers disabled by default.
+
+There really is no good 'default' control mapping.  Since we have so
+many built-in profiles now, and they are easier to access than before,
+it's better to just force the user to pick one rather than silently
+choosing an imperfect default.
+"
+"6033a608d66ebefbf311667f6cf51c6b64e51ea3","2013-12-31 22:58:05-05:00","front: Retain SharedPreferences object as member variable.
+
+This will become more important later when we persist to game-specific
+(i.e. non-default) preference files.
+"
+"c4c9ad94bdb7a7a509580f9aab10eafe334fd652","2013-12-31 22:59:17-05:00","front: Add controller profiles and some stubs to PlayMenuActivity.
+
+Right now the selected values are being stored globally, but that will
+change very soon.
+
+Emulation and touchscreen profiles have been stubbed out.
+"
+"36777c347f012fb6752b1d6d915bded310c1b3a7","2013-12-31 23:03:39-05:00","front: Move cheats to subscreen, add cheat editor menu item.
+
+TODO: Refresh cheats list if cheats were edited.
+"
+"1efc990814197849d0fb4b24eb6d60c3a25decae","2013-12-31 23:04:32-05:00","front: Set some context-sensitive strings in PlayMenuActivity.
+"
+"fe7c5dec1c98ab9db3e92ced946e9baad569b506","2013-12-31 23:06:09-05:00","assets: Remove old cheats file and edit some controller profiles.
+"
+"e75576ea3fc6ac2322a4a5d3fbb0b123bbaa3c22","2014-01-01 00:37:29-05:00","cleanup: Eliminate local variable.
+"
+"4060b88db3d0e3b834e94d43fd30f4f76312743c","2014-01-01 01:02:15-05:00","front: Fix bug where touchpad could be unintentionally enabled.
+
+Bug introduced in commit
+17539be993ccbd44d3ff60b0e3423a3b287e96f6
+and exacerbated when global prefs menu added to PlayMenuActivity.
+
+Bug occurs when user resets global preferences.  If they launch a game
+before restarting the app, the touchpad would always be enabled, since
+the hardware test to disable it for non-Xperia-PLAY devices only hap-
+pens in SplashActivity.
+
+The bug breaks analog controls when using a peripheral controller,
+because GameActivityXperiaPlay ignores joystick events. (It only
+listens to touch and button events.)  There might be a performance
+difference between the GameActivity* variants as well.
+"
+"27cc993f46bde6c85f4f99992ab4fbb62fa0cb19","2014-01-01 01:19:41-05:00","front: Do not auto-set some preferences for big-screen mode.
+
+No need to be heavy handed.  Better safe than sorry.  The visibility of
+touchscreen-related elements will probably be controlled differently
+anyhow in version 3... so just stay out of the way for now.
+
+As a general rule, don't rely on SplashActivity to initialize anything
+that is user-settable.  Use it only to initialize non-user-configurable
+stuff like static databases.
+"
+"f5a87a4ff210fd2583ad2db187775d94e91b096c","2014-01-01 01:26:17-05:00","front: Rename gameProfiles -> emulationProfiles.
+
+A game can be associated with many of these profiles and a profile can
+be associated with many games.  There is no one-to-one mapping between
+the profile and the game.
+"
+"8e48f645331fbe70f783e25427d0d1860fdb2e36","2014-01-01 01:44:59-05:00","front: Put profile activity items back in GalleryActivity options menu.
+
+Global settings menu will be changing soon, so get these out of the
+way for now.  This is also a more convenient location for now as we
+develop and debug the touchscreen and emulation profile editors.
+"
+"7efe25cdf98d03e2d531a4e6685ebdaeaeaa00f6","2014-01-01 01:52:40-05:00","front: Remove controller profiles management from global settings menu.
+
+For the time being at least, while the menu evolves.
+"
+"c8555f6e9a1de01572e82e0d883b2a178bc169ff","2014-01-01 02:14:05-05:00","res: Flatten global settings menu for now.
+
+Settings are evolving and it's getting hard to find stuff.  For now
+let's just flatten the global settings menu until we get it all sorted
+out.  After the dust settles, I'll update the key names to match our
+naming conventions.
+
+Actually, once the touchscreen/video/dynarec settings go away, a flat
+menu might be better anyhow.
+"
+"8edcf654de9e5d241054a63b465fba1b8113db2f","2014-01-01 17:22:45-05:00","res: Move flicker reduction setting from video to global menu.
+
+This is device-specific, not game-specific, so it belongs in global
+settings, not the (soon to be) emulation profiles.
+"
+"921baccc45882be9093d014e6b7760acd865bfb5","2014-01-01 17:36:51-05:00","ae-bridge: Change default polygon offset from -0.2 to -1.5.
+
+From forum chat, Paul said :
+
+(-3.0, -3.0) should work with devices that require the O-2 profile
+(tested just now) and probably with Tegra 2 profile as well, which
+are close. That may be good enough [if we are] targeting mainly
+newer Android devices (most seem to be falling into the O-2 profile
+I've noticed)
+
+Which reminds me-- at some point we probably should make the O-2
+values (-1.5, -1.5) default when hardware is unknown. Majority of
+older devices were (-.2, -.2) but not sure if that still holds true.
+"
+"073d24a2f51432e1400902062baa199d3597cf61","2014-01-01 22:50:19-05:00","res: Fix lint warning about ellipses (…).
+"
+"00493089a5a4c98068e53742f793ca3fa8045166","2014-01-01 23:06:34-05:00","front: Move play button from options menu to main layout in GalleryActivity.
+
+The real GalleryActivity will launch the play menu when the user clicks
+a carousel item in the main layout pane.  This temporary stand-in for
+the carousel design just parallels that a bit more and brings the menu
+one step closer to its ultimate design.
+"
+"71e037229110b160896c4370677e392aa68861ff","2014-01-01 23:44:46-05:00","front: Start a Keys class to consolidate string keys used everywhere.
+"
+"1ba69ef4f4895f2fc7b233fc7470c05e9bd603c0","2014-01-02 00:13:00-05:00","front: Pass ROM path using intent extras rather than shared preferences.
+
+This is much more natural, now that game selection is no longer done
+from a PreferenceActivity.
+
+Also use the new Keys class for the extras key strings.
+"
+"870bb6e7db447bbe2904e147b1a2c48af484849c","2014-01-02 00:46:46-05:00","front: Pass ROM path to GalleryActivity if passed from external app.
+"
+"31a402d94a35658f335ac2cfb1f220dba268256c","2014-01-02 00:48:01-05:00","front: Do not change selected game when resetting user prefs.
+"
+"f0343b289a8971c8b4d31ee0153e1fe731b7f52c","2014-01-02 01:03:36-05:00","front: Pass ROM info to CheatEditor via extras rather than prefs.
+"
+"8312758fdb1d09bf61d3b9a0a0265caed2105d56","2014-01-02 01:06:43-05:00","front: Remove selectedGameHeader from UserPrefs.
+"
+"39720d3cc9bc38efc36aafdc44e927fc884b66c7","2014-01-02 01:15:02-05:00","front: Remove selectedGameAutoSavefile from UserPrefs.
+"
+"983427205882908c47f6b4f6d1a70719a924c161","2014-01-02 01:20:27-05:00","front: Move directory creation from PlayMenuActivity to CoreInterface.
+"
+"5e589f91a1fc801553ce2bac20f1406ea4f9cd80","2014-01-02 01:23:55-05:00","front: Remove manualSaveDir from UserPrefs.
+"
+"193bafae22136534e542e566a862f7eaf8cb49b4","2014-01-02 01:34:30-05:00","front: Remove selectedGame from UserPrefs.
+
+Makes GalleryActivity a bit clunkier, but it's only a stand-in anyhow.
+"
+"3e928e28d6e5d44e96c364a2eba70d8d52a0430e","2014-01-02 09:00:29-05:00","front: Launch profile editor after adding/copying a profile.
+"
+"17c6b67d19c2955f7071735cb63d0a24af9727a9","2014-01-02 18:20:37-05:00","front: Prevent brackets in profile names and warn user about bad names.
+"
+"5704194b8a6b659fe753da3facfbd7b5331e90a4","2014-01-02 18:20:51-05:00","front: Remove GalleryActivity dependence on RomHeader.
+"
+"a9c6cd5cc01686d7042e42c3b4e76203e599d409","2014-01-02 18:21:10-05:00","res: Move language to a submenu in GalleryActivity.
+"
+"ca23b0f41f80e426485af1ae54470c2cf6a92028","2014-01-02 18:21:44-05:00","cleanup: Move cheat-related classes to new subpackage.
+"
+"0b091c44d71b46a5b4afd32a352aea7a16f777a1","2014-01-02 18:22:29-05:00","cheats: Style cheat editor rows to match rest of app (re-use layout).
+"
+"d1bd682a195a01db59a7780efb4c0c7d2114ed6c","2014-01-03 18:07:36-02:00","Update F3DCBFD.cpp
+
+Fixed errors in Vtx, MoveWord (segfault) and Tri4 functions
+"
+"1ec31feb5d21c1a47108edff84f0fd77f84ee500","2014-01-03 18:08:55-02:00","Enabled Conker's Bad fur Day ucode (fix)
+"
+"fac0a2185510655795e94abd42842336d80f7f48","2014-01-03 18:56:23-05:00","front: Add support for PS4 controllers.
+
+Resolves Issue #369
+"
+"9d3582cd81bce181c6f5e931e8caa6cef7de40ae","2014-01-03 19:01:39-05:00","cleanup: Make ProfileListAdapter an internal class.
+"
+"1e5f7385853eaae8fffca696c6d2581a0d38614a","2014-01-03 19:02:07-05:00","front: Use the Keys class to pass profile names.
+"
+"e81fdcfe3f7ef4b87bdb402b4b90800aabbf55e1","2014-01-03 19:04:50-05:00","front: Consolidate controller/analog/device info into single popup.
+"
+"e2a28a3b5d6fbbadb6baa7a8c89fde9e6e8d9ba9","2014-01-03 19:06:17-05:00","front: Filter out non-BUTTON, non-JOYSTICK devices in hardware info.
+
+The other devices are irrelevant for our purposes and just add clutter.
+"
+"60f4031b2a82e85f550084c7ee835dd67793328e","2014-01-03 23:55:55-05:00","front: Add a 'share' button to simplify sending hardware info to devs.
+"
+"5913eb4fd5000d1340561a51fd329ab17a4ac697","2014-01-04 01:22:51-05:00","front: Fix broken wiring for gles2n64 '2xSAI' setting.
+"
+"c49f3c9f4a81e264bfe23b69aa547420a77c5b65","2014-01-04 14:58:08-02:00","gles2n64: Fixed NORMALS on CBFD
+"
+"4a870778391881fe4d1e70e9b90ee2fb486bce57","2014-01-04 22:22:30-02:00","Update F3DCBFD.cpp
+"
+"468dabdda2f526dea10ed75e0854c50bff62d650","2014-01-04 22:24:49-02:00","Disabled lighting and enabled framebuffer on CBFD
+"
+"ef3151dfd7a3abaac1805b2b8f106b8464783ad6","2014-01-04 22:32:46-02:00","Update gles2n64rom.conf
+"
+"a9f4c3ce3d026f6ff5e4aa8201f9d6726c8a49ba","2014-01-05 00:00:07-02:00","gles2n64: CleanUp on CBFD code
+"
+"41a7be37eac2b56b08d1ae67c933c1f42cafebfc","2014-01-05 00:02:40-02:00","Removed lights from CBFD
+"
+"f70a041c4a3a9d3ba26df22e51e4df1ff9c7844a","2014-01-05 00:13:10-02:00","Update F3DCBFD.cpp
+"
+"8b50f920164a1e73966b29414013a60326f531ed","2013-12-30 22:37:02+01:00","Use clamp_s16 to clamp values to int16_t range
+"
+"6862648c990ff30b83f5e6ad39b6cd34e2a8d9ab","2014-01-05 15:55:13-02:00","gles2n64: More fixes to lighting (not usable yet)
+"
+"c7bec870966bec767eab56f2d2d57dc02bc724a5","2014-01-05 22:20:35+01:00","Implement SFX stage for musyx ucode.
+
+With this patch, delay-based effects should work.
+Basically, the SFX stage mixes up to 8 delayed subframes together and add the
+resulting subframe to left and right subframes. Furthermore, a filtered version
+of this subframe is used to update the sample history.
+
+Games that use the SFX stage include:
+The World is not Enough, Tarzan, Resident Evil 2, Polaris SnowCross
+
+Musyx ucode implementation should now be complete !
+"
+"7c28bc8467e2ebaba36903e5bad085d6477bc429","2014-01-05 16:38:06-08:00","Merge pull request #3 from ecsv/nocpp
+
+Add additional cleanup changes
+"
+"109ce2817f62edd57187562f46f0ec82bf8b2552","2014-01-05 16:38:48-08:00","Merge pull request #4 from ecsv/musyx
+
+Implement SFX stage for musyx ucode (on nocpp branch)
+"
+"cb07ed9b917851b57367b110fb48b8fc3b875470","2014-01-07 19:49:17+01:00","Handle empty display list as found in Resident Evil II
+
+The case when display list pointer is null wasn't handled previously
+and could cause infinite loops. This patch addresses this case.
+Now Resident Evil II boots even with the HLE rsp plugin.
+"
+"b4a834d6afc21cabb02ac2d3e7d96a1993dbe9de","2014-01-08 18:54:15-02:00","gles2n64: Workaround to lighting on CBFD
+
+This is a workaround to make lighting on CBFD usable
+"
+"772a20e8eb46a24022d00e9c1ec2b9fa6a5c4b0c","2014-01-08 18:57:15-02:00","gles2n64 config: Enabled lighting on CBFD again
+
+Lighting on CBFD is usable now, no need to disable lighting anymore...
+"
+"9f18a24517eadf0d1657b32785719371ebda6400","2014-01-08 21:41:55-08:00","Merge pull request #1 from ecsv/re2
+
+Handle empty display list as found in Resident Evil II
+"
+"b9ccfe4f51bce95114468ee5e67984a0098bcd27","2014-01-11 00:52:58+01:00","Fix subscreen credits Zelda workaround
+
+The second part of the credit cheat were executed independenly of the first
+part. This was caused but the wrong syntax used for the if statement in commit
+8e14cc9ba55560492ad2d0e3a077769032c58d8f ('Add Missing Subscreen Delay Fix for
+Ocarina of Time')
+"
+"2d9c882275d00314541e709b09ff5f198df2d3bd","2014-01-11 00:59:52+01:00","Fix interpreter marks for unused JR_IDLE and JALR_IDLE
+
+The JR_IDLE and JALR_IDLE functions are unused in the pure interpreter and
+cached interpreter. Thus these functions are marked with the attribute
+'unused'. Unfortunatelly, the declaration did not precede the definition. Also
+the definition conflicted with the declaration.
+"
+"d54b026d6dd85d87711de6478622f87b64f5615c","2014-01-11 01:05:23+01:00","Provide definition of __GNUC_PREREQ for OpenBSD
+
+OpenBSD doesn't seem to have the definition for __GNUC_PREREQ and thus fails to
+i386 with PIC enabled (which is the default now).
+"
+"a24adfc3c61ede063c448d7bb3e979741dfa1d0f","2014-01-12 10:53:10-02:00","gles2n64: Initialize nonblack variable
+"
+"f154acbdb6ea73a6692d0251163a8e4976cf7cd6","2014-01-12 18:42:25-05:00","cheats: Fix string formatting bug in cheat section.
+
+Certain demo ROMs had unusual country codes, which weren't being
+formatted properly in the cheat section header.  This would cause a
+cascade of exceptions that would crash the app.  The bug can be repro-
+duced using the CHROME.v64 demo rom available here:
+http://mupen64.emulation64.com/down.htm
+"
+"394aad2995791cf7343fb9240a5d299587ed3054","2014-01-12 18:43:06-05:00","front: Change default gles2n64 frameskip to 'no more than 5'.
+"
+"f2247c5a29b223b200749c26391b4b48ebc7f53c","2014-01-13 21:47:18-08:00","Merge pull request #3 from ecsv/llvm
+
+Fix LLVM warnings and OpenBSD build failures
+"
+"6ee1e4aee392df2efe6b37a4daf8b90af50a74ce","2014-01-14 13:57:45+00:00","Merge commit 'f2247c5a29b223b200749c26391b4b48ebc7f53c'
+"
+"437a55beed79dbf8dd38a6fc4769494dd01980b3","2014-01-14 13:57:48+00:00","Merge commit '109ce2817f62edd57187562f46f0ec82bf8b2552'
+"
+"97bafae92e75b1bc54d74bb52b1e0155739608d2","2014-01-14 16:21:45+00:00","Merge commit '9f18a24517eadf0d1657b32785719371ebda6400'
+"
+"757a12729f2322a4ef189fab6df76f592a610dbc","2014-01-14 21:53:54+01:00","Remove duplication of memory access functions between jpeg and musyx modules.
+"
+"bdb4733f335fe93ca7baeefcd082d4daa1ca6c43","2014-01-14 22:05:41+01:00","Rewrite audio ucode identification using the new RDRAM access primitives.
+"
+"488e73cf0bebf7b814557b9293d8b4ff752f9302","2014-01-14 22:14:59+01:00","Use dram access primitives for remaining cases in main.c
+"
+"abad8fca0c30e084ddf4ab6d29030d5de18db72b","2014-01-14 22:18:40+01:00","Use dram access primitives in alist.c
+"
+"99c46ef83f18122fa542f73a9f2e553482a1b19d","2014-01-14 22:47:15+01:00","Prefer memory access primitives over struct OSTask_t.
+
+Structure fields alignment is compiler dependent and therefore can be fragile.
+We replace all occurences of OSTask_t structure by memory access primitives.
+"
+"6162c8645124455d53cd1d635a2ad8c8274dba44","2014-01-14 21:35:51-05:00","front: Remove a few big-screen-mode customizations.
+
+The volume button mappability should still be selectable since the
+M.O.J.O controller has volume buttons on it.  Plus there's no need to
+be so heavy handed.  The touchscreen stuff can also stay since we'll
+be moving it out of the global settings soon anyhow.
+"
+"d9174c2848e7c487d711ade345108cc1a0a69190","2014-01-14 21:36:00-05:00","front: Pull profile implementation up to base classes, reduce generics.
+
+Other profile types will be sharing most of the same code.
+"
+"021aacd44bc6a3adc9cd06fdac283492729e45ef","2014-01-14 21:36:09-05:00","cleanup: Rename *ProfileActivity -> Manage*ProfilesActivity.
+
+Reserve the name *ProfileActivity for future classes that will parallel
+PreferenceActivity.
+"
+"eb8282cb16269277fad15979f36bcc06ca567dfb","2014-01-14 21:36:18-05:00","cleanup: Rename *ProfileEditActivity -> *ProfileActivity.
+
+These classes will parallel the PreferenceActivity class in purpose and
+implementation.
+"
+"f36ba78bd7fdc86746ec673a26499c7b325c1029","2014-01-14 21:36:26-05:00","front: Make controller profile fields on-demand rather than cached.
+
+This is more flexible and doesn't require us to refresh (replace)
+profile instances every time we change a field value.  Also keeps the
+constructors maintainable.
+
+Also eliminate the read and write methods, using the base class methods
+and constructors instead.
+"
+"60eb3611221b411be888f04ac05a71450f29634d","2014-01-14 21:36:35-05:00","front: Modularize some code in PlayMenuActivity.
+"
+"9787a56d85fbaa0eae1570e9b2dd2a96cca96e55","2014-01-14 21:36:42-05:00","front: Extend CheckBoxPreference to persist to string (not boolean).
+
+Needed for compatibility with future ProfileActivity class.
+"
+"2e2ccc0c17ae2a50365a38b595b78ec0b5dcb10c","2014-01-14 21:36:51-05:00","front: Extend SeekBarPreference to persist to string (not int).
+
+Needed for compatibility with future ProfileActivity class.
+"
+"e549d3580096952709d9b392516e001d134b1868","2014-01-14 21:37:04-05:00","front: Add base class for PreferenceActivity-like profile editors.
+
+Add an abstract base class for implementing simple list-based profile
+editor activities. This class is meant to be subclassed the same way
+that a PreferenceActivity would be, and the process for defining the
+structure and behavior is virtually identical. That is, the hierarch-
+ical menu structure and default values are defined using an xml re-
+source, using identical syntax to that used for a PreferenceActivity.
+Similarly, the behavior of the activity (lifecycle, inflation, menu
+visibility, change notifications, etc.) is implemented just as it would
+be for a PreferenceActivity. It is thus trivial to migrate implementa-
+tion between a PreferenceActivity (backed by a SharedPreferences
+object) and a ProfileActivity (backed by a ConfigSection object).
+
+The one important caveat is that this class persists all settings as
+Strings. This means that some of the standard Preference classes must
+be extended a bit. For example, the CheckBoxPreference class persists
+to boolean. Therefore, to make a checkbox-style preference that works
+with ProfileActivity, extend CheckBoxPreference and override the
+persistBoolean and getPersistedBoolean methods.
+"
+"766258b2ce6df5c8304f7ee52254c1d5add289a6","2014-01-14 21:37:11-05:00","front: Add emulation profiles implementation.
+"
+"ee951efdd0fe44cbbbc8cf0d0744254ce1403cae","2014-01-14 21:37:20-05:00","front: Add touchscreen profiles implementation.
+"
+"c7ad5c242a0d59541925a5dd7316503ffe3eaf3f","2014-01-14 21:37:30-05:00","cleanup: Make UserPrefs.Plugin a top-level class.
+"
+"7c04483a3b37187d58c82ad76dcb546b4cd18729","2014-01-14 21:37:39-05:00","front: Expose controller share mode in UserPrefs.java.
+"
+"e8fb7a79e4bd9af97da9933d2d6785041c9d6364","2014-01-14 21:37:48-05:00","front: Pass MD5 to game activities and read extras bundle sooner.
+"
+"87b07aa8e6795a5b223b0a3e03f79cf36dcd70b7","2014-01-14 21:37:58-05:00","front: Split GamePrefs out of UserPrefs (global prefs).
+"
+"d78ce3fd45e3155ef78de3ba6592160ac5f0db84","2014-01-14 21:38:06-05:00","front: Remove global video/touchscreen settings (per-game now).
+"
+"321afc4c6008e1a8c1fe2dd0ae01b2512b664966","2014-01-14 21:52:01-05:00","front: Do not display null emulation profile in list preference.
+"
+"0d224d528f8f1a8743cea2f94f0a21ac4538f4fb","2014-01-14 21:55:51-05:00","res: Rename prefs/profile xml files.
+"
+"541fdbf6db127ee9956eab8b565612defc5f7042","2014-01-14 22:05:12-05:00","front: Do not put default game prefs into global prefs.
+"
+"4027ba31467056e13d5222c07d262ebfee016755","2014-01-14 22:38:36-05:00","front: Fix missing RomDetail on first launch after clean install.
+
+The RomDetail database must be initialized *after* the assets have been
+extracted (duh).
+"
+"5277f7fd7f1a05e4c144b40844b382762767ec6c","2014-01-14 22:47:52-05:00","front: Move cheats-enabled flag from UserPrefs -> GamePrefs.
+"
+"c4411c9380debc0a028092efc0c2c83a11c92c8a","2014-01-14 22:48:13-05:00","front: Store each game's prefs to separate location on disk.
+
+Now game preferences are finally truly game-specific.
+"
+"f756ad757552b9dfc378e28ae09d505d5a887780","2014-01-14 23:01:24-05:00","front: Revert activity transitions back to defaults.
+
+We used to restart PreferenceActivities to refresh their menus in some
+cases.  At that time, it was preferable to disable animations so that
+the effect wasn't so jarring and so that several activities looked like
+a single one when traversing menus.  But now, we no longer restart
+activities for this purpose, and the transition animations actually
+make sense now, to match standard Android patterns.
+"
+"cfd5b3f4536c935671c3cce522ed07590cccd950","2014-01-14 23:02:50-05:00","cleanup: Auto-format whitespace in manifest.
+"
+"565cf35f5aee9e702e4475cf92fd000d977e5fcf","2014-01-14 23:26:01-05:00","front: Remove some obsolete initialization stuff from SplashActivity.
+"
+"02fce6e213c26a8a26db01ffed025b5cfc84bdfc","2014-01-15 20:55:55-05:00","front: Bugfix, SeekBarPreference now refreshes in menu after changing.
+"
+"7c16847f6de9f5b52fe6ca52274b6629872b5cdb","2014-01-15 20:56:12-05:00","front: Show profile comment in game menu dialogs.
+"
+"533dd1bb24012c20cd77e49d2b6d2cfde21493d3","2014-01-15 20:56:23-05:00","front: Create ProfilePreference and migrate some code out of play menu.
+"
+"0f091fc5b9ba0ff81b130b8b7e9911dc6b1d7893","2014-01-15 20:56:35-05:00","front: Allow profiles to be managed from ProfilePreference dialog.
+
+Convenient shortcut to the Manage*ProfilesActivity from within the play
+menu activity, without cluttering the menu.
+"
+"e7f9ad4183d4c2608eabb2ff4032ff2b6f4c2d62","2014-01-15 21:02:23-05:00","res: Tweak strings in profiles manager.
+"
+"4a00ea8fb2042d1dd0410b5714a954b395b99ff6","2014-01-16 16:52:35-08:00","Merge pull request #5 from bsmiles32/master
+
+Consolidate memory accesses
+"
+"2b4d2f3a33e7922b83f70b17d841257e8b89ae17","2014-01-17 08:29:42-05:00","res: Add refresh icons.
+"
+"53d7121d2636c3e449c9ef442a7787a4eb7ff73c","2014-01-17 08:31:05-05:00","front: Fix file prompt to permit selection of directories.
+"
+"f910e3b4ee0d57ff7475796ce8af583b1ca0e01c","2014-01-17 19:18:55+01:00","Fix regression introduced by commit 488e73c
+"
+"c02c0b7af54c8a38120621491da1aec0a3edb3f1","2014-01-17 19:51:53+01:00","Improve audio ucode identification.
+
+Previously, alist based ucodes were classified as either ABI1, ABI2 or ABI3.
+This classification is too simple to take into account all versions/revisions
+that really exist in the wild. Furthermore, it prevents from implementing some
+version/revision specific behaviors.
+
+There are indeed 3 big 'families' of alist based ucodes:
+-ABI1 (or audio) which seems to be the very first version developed.
+It was distributed to 3rd party devs and is the most common.
+2 minor revisions were made by Rare for GoldenEye, BlastCorp and DiddyKongRacing.
+
+-ABI3 (or naudio) which is the later revision.
+It was as distributed to 3rd party devs as well and is the second most common.
+4 revisions were made by Rare for BanjoKazooie, DonkeyKong, BanjoTooie, JetForceGemini,
+MickeySpeedway, PerfectDark and ConkerBadFurDay.
+
+-ABI2 (or what I'd call NEAD) which was Nintendo Entertainment Analysis & Development exclusive.
+There are many versions/revisions in this category (almost one for each game they developed).
+
+This commit try to better identify audio ucodes.
+"
+"2f7e18403894b6dd80eb9961f4c89cde87b1489c","2014-01-17 21:08:47+01:00","Move BufferSpace to alist.c and alist_internal.h
+"
+"51d2dd95e6698db30c978edb3a99ceebedd09efc","2014-01-17 21:14:24+01:00","hleMixerWorkArea doesn't need to be global.
+"
+"e54e1cbeaadc1bc50f44eb0e8a8fc9cb201b088e","2014-01-17 21:47:35+01:00","Pack each ucode state into a local structure.
+"
+"788f21043aca7cde0270974a1ea4ee157df30471","2014-01-17 22:04:33+01:00","Move each alist_process_* to their respective file.
+"
+"d7cd56382d5908a2c522acd804f7820243fa0ca3","2014-01-17 22:09:03+01:00","Move MP3 declaration to ucode3.
+"
+"8cc0ddd027e101be7b00e6b94261957ede51ad73","2014-01-17 22:23:57+01:00","Remove uneeded headers.
+"
+"03a5dbce468f1aa4bf6e35db186b3a9f39357f9a","2014-01-17 22:27:52+01:00","Rename inst{1,2} to w{1,2}.
+"
+"6b54565ddeed9cf2e123397e58d2255394b4ce23","2014-01-18 01:02:27+01:00","Refactor alist interleave commands.
+"
+"09e166e4f9b706889d496620e712c3a56643e985","2014-01-18 01:19:44+01:00","Refactor alist mix commands.
+"
+"95ca916c491d67bf690bb4291c14d43b162f35a4","2014-01-18 01:33:40+01:00","Refactor alist move commands.
+"
+"39f854b3e11fe3038cc921f399cfdff221b08470","2014-01-18 01:51:07+01:00","Refactor alist load/save commands.
+"
+"3584be1d1c71bec0637d75c0eb65f464334441e1","2014-01-18 03:29:02+01:00","Refactor alist clear commands.
+"
+"6f2fd295ccf210f5bc6a209b92640cae53e9d7b5","2014-01-18 03:31:08+01:00","Refactor alist resample commands.
+"
+"1f51fb8d35dba609eca6d06a7cd026181844b711","2014-01-17 22:25:12-05:00","front: Fix cover art URL generator.
+"
+"70b49b0ac7b4647174ef07a02c1611de181377b5","2014-01-17 22:49:13-05:00","res: Organize global settings back to subscreens.
+"
+"cb8de2180308d9c299bafa5ce4650ef7b4353f12","2014-01-17 22:36:49-08:00","Merge pull request #6 from bsmiles32/fix_normal_task_dispatching
+
+Fix regression introduced by commit 488e73c
+"
+"c61eb6feef26478292cea559473643c97f54b88f","2014-01-18 07:09:52+00:00","Do not set the rounding mode before exact floating-point operations.
+
+Setting the rounding mode on some host architectures (including x86, according to <http://www.mega-nerd.com/FPcast/>) empties the floating-point unit's pipeline, resulting in poorer performance. Omitting the rounding mode before exact operations restores some performance.
+
+Affected opcodes are CVT.W.S, CVT.W.D, CVT.L.S, CVT.L.D, ABS.S, MOV.S, NEG.S, ABS.D, MOV.D and NEG.D.
+"
+"636ef6b14be645da5ccedba7aa56dc41feb481a4","2014-01-18 10:28:42+00:00","Do not set the rounding mode before floating-point widening conversions.
+
+The rounding mode is completely unneeded when converting from W (32-bit integer) or S (32-bit floating-point) to D (64-bit floating-point), and is actually unused on MIPS processors.
+
+Quoting from the MIPS Programmer's Manual, volume 2, for CVT.D.fmt:
+The value in FPR fs, in format fmt, is converted to a value in double floating point format and rounded according to the current rounding mode in FCSR. The result is placed in FPR fd. If fmt is S or W, then the operation is always exact.
+"
+"df518b631715c455144765a50c113a97df71f33c","2014-01-18 14:20:49+01:00","Refactor alist adpcm commands.
+"
+"9e00afd7e251375d082390039588d1b68c733f5e","2014-01-18 14:26:46+01:00","Remove uneeded macro.
+"
+"7fdab9701cc3e15768dea000ee43c47554aaf531","2014-01-18 14:35:24+01:00","Refactor alist loadadpcm commands.
+"
+"f1707b5d45a3b0d837db13f8ccf64757cfba93b8","2014-01-18 14:43:34+01:00","Refactor alist setvol commands.
+"
+"3bd4166cae9288ccabcfa0677a272694d5402c9d","2014-01-18 14:47:05+01:00","Refactor alist setbuff commands.
+"
+"350360de462cec192dde2f550368b63d0a96ff78","2014-01-18 14:50:22+01:00","Remove some comments.
+"
+"1b713d92a1149eccc02f3ca73f6b907b0c3ba8c4","2014-01-18 15:04:00+01:00","Share RESAMPLE_LUT between alist based ucodes and musyx ucodes.
+
+I also corrected the size of RESAMPLE_LUT which was bigger than needed.
+"
+"3921889f3be47edb56b8ebc4691edbbd31d6b273","2014-01-18 15:14:46+01:00","Share some ADPCM bits as well.
+"
+"68dfb41b80fffad31ee0c6d59483cb0c4bd8722c","2014-01-18 15:17:08+01:00","Move align function to hle.h
+"
+"85a994cdc16e5917d5afe28695a17e2fa8484c9d","2014-01-18 15:21:24+01:00","Update copyrights.
+"
+"f695303e23e0547d75a6ed1bcabe1d1446e262fc","2014-01-18 15:27:03+01:00","Fix: forgot a header for size_t.
+"
+"433a570c05347fdbb411453e3aa3d1470dd771e8","2014-01-18 18:32:12+01:00","Refactor alist hilogain.
+"
+"0f24d6dd6f733ee7276b26526c45af1aabb3a5eb","2014-01-18 18:42:58+01:00","Refactor alist addmixer.
+"
+"84d69b9adad338fe4c6e5442ef6278e3d01822ad","2014-01-18 18:54:35+01:00","Refactor alist interl2.
+"
+"f519a35e12a4c558fcca15804b90d9ee9c650421","2014-01-18 19:07:11+01:00","Refactor alist duplicate2.
+"
+"1db9c220d137e9ac85d9d3139a345b4db719548a","2014-01-18 15:11:56-05:00","front: Change URL for cover art.
+"
+"1ef073e49e62cfe890a9e4a5169b9b0a42791020","2014-01-19 05:12:19+00:00","Remove a native test and branch from inter-block jumps.
+"
+"19a277ecfb82bd31886b1b1d515b83d40972f7b5","2014-01-19 12:02:41+01:00","Remove ported and unused settings from Glide64mk2.ini
+
+All used non-special are currently exported by the config API. The only missing
+ones for the special configuration options which would be be overwritten by
+special game settings and thus need a special config rewrite
+
+* alt_tex_size
+* use_sts1_only
+* force_calc_sphere
+* correct_viewport
+* increase_texrect_edge
+* decrease_fillrect_edge
+* texture_correction
+* pal230
+* stipple_mode
+* stipple_pattern
+* force_microcheck
+* force_quad3d
+* clip_zmin
+* clip_zmax
+* fast_crc
+* adjust_aspect
+* zmode_compare_less
+* old_style_adither
+* n64_z_scale
+* optimize_texrect
+* ignore_aux_copy
+* hires_buf_clear
+* fb_read_alpha
+* useless_is_useless
+* fb_crc_mode
+* filtering
+* fog
+* buff_clear
+* swapmode
+* aspect
+* lodmode
+* fb_smart
+* fb_hires
+* read_back_to_screen
+* detect_cpu_write
+* fb_get_info
+* fb_render
+"
+"49995db545e7bb5df87edc182f07dbe157b42792","2014-01-16 23:47:49+01:00","Add additional options aspectmode and read_always to exported options
+
+Those two options are now editable by the user and frontends.
+
+aspectmode values:
+
+0 = Force 4:3 (default)
+1 = Force 16:9
+2 = Stretch
+3 = Original
+
+Signed-off-by: David Roth <davidroth9@gmail.com>
+"
+"5f03867bd3600eebe68056493a02a2dc53a5c305","2014-01-19 13:55:54+01:00","Allow to overwrite special game-specific settings
+
+The user may need to change the settings which are usually set per game. This
+is done by exposing the default settings with value -1 to the mupen64plus
+config api and only use them when the value was changed to >= 0.
+"
+"4315152eb9b007996b022e31e3e5be80d7106e00","2014-01-19 10:37:53-06:00","Build: Fix build errors since ndk version r8e
+"
+"af3ce5ac49c264d1e1fda805595a16e82214ac19","2014-01-19 09:11:55-08:00","Merge pull request #2 from ecsv/config_api
+
+Export special settings to overwrite game-specific settings
+"
+"9315b9f34de586ce9af3e7d0ba7b1f449bc8cedb","2014-01-19 09:14:49-08:00","Merge pull request #7 from bsmiles32/ucode_separation
+
+First pass of audio ucodes refactoring.
+"
+"cef58183faf82f07c365ba97bb667f5127139f93","2014-01-19 17:49:14-05:00","build: Synchronize manifest version with 2.4.4.
+"
+"99cd0875793d35b7a72b2d06aec7f73b4e0570bd","2014-01-20 19:56:09+01:00","Fix regression introduced by commit f1707b5
+"
+"7a9d702eaf5536020887044335670de7b000daaf","2014-01-20 22:12:31-08:00","Merge pull request #8 from bsmiles32/fix_setvol
+
+Fix regression introduced by commit f1707b5
+"
+"86fe11d2f7b97e0479ba847f7e95964c2f1dfaff","2014-01-22 22:11:55+01:00","Allow to load CountPerOp info from mupen64plus.ini
+
+The CountPerOp settings has to be adjusted for each ROM. It is easier for the
+enduser when the default value is not hardcoded in mupen64plus and instead
+this dynamic information is retreived from the mupen64plus.ini.
+"
+"5aef58cc182254bee0c03cd6213ba9a1303b4cd4","2014-01-22 22:11:55+01:00","Add CountPerOp info to mupen64plus.ini
+
+The CountPerOp settings has to be adjusted for each ROM. It is easier for the
+enduser when the default value is not hardcoded in mupen64plus and instead
+this dynamic information is retreived from the mupen64plus.ini.
+"
+"380bd31348fe0148384cb2c68e4096075ff8d169","2014-01-22 22:43:20+01:00","Avoid level restart through lianes swinging in Donkey Kong 64 (U/J)
+"
+"304bf8c4de6824ed09b71622a23662f9111a660b","2014-01-22 17:52:09-05:00","Fix self-references in mupen64plus.ini.
+"
+"8060e3e8dda9b2c5ff87f58575d14b90bb451065","2014-01-22 18:57:52-05:00","Fix incorrect md5 references in mupen64plus.ini.
+"
+"0356e78d234b4fd89165a62ea77d65ef92539594","2014-01-22 21:52:49-08:00","Merge pull request #4 from Nebuleon/master
+
+Optimisations.
+"
+"39ac14aaa76b1f4e8f8d45bca0de509b32c6aad0","2014-01-22 22:04:25-08:00","Merge pull request #5 from ecsv/countperop_db
+
+Load CountPerOp info from mupen64plus.ini
+"
+"e119553374001b12acf60219cd99225ccfe4f0be","2014-01-22 22:05:39-08:00","Merge pull request #6 from littleguy77/master
+
+Fix some RefMD5 values in mupen64plus.ini
+"
+"7ed91e5fba83042ccabe45383a332b05a02565b0","2014-01-20 21:08:52+01:00","Refactor alist_envmix_exp.
+"
+"4b0378f642904aa888cf494a17e0f2db2c804c71","2014-01-21 23:59:20+01:00","Refactor alist_envmix_nead.
+"
+"032b726efb2451bf8e5a7581990d97f717348aeb","2014-01-22 03:33:45+01:00","Refactor alist_envmix_lin.
+"
+"dc65825033c78d195b7c29828e16a06750853fa3","2014-01-22 04:16:38+01:00","Extract alist_filter logic.
+"
+"378f1b49808fa35f8c957a719928ca02cf007816","2014-01-22 04:18:45+01:00","BufferSpace doesn't need to be global anymore.
+"
+"3f7ff35aad5261896b330ad218c11707e0092869","2014-01-22 04:22:59+01:00","Remove dummy assignment.
+"
+"fb55d79041f496cd751e7098719e99d1e7146a8e","2014-01-23 21:56:00-08:00","Merge pull request #9 from bsmiles32/alist_refactoring
+
+Alist refactoring
+"
+"8e23cd4ace08c0683453a137adc8342fb3da28b4","2014-01-23 22:33:59+01:00","Split ucode1 into 3 different versions.
+"
+"bdd2059ad88077b108022562d5665308315b485f","2014-01-24 19:27:38+01:00","Split ucode3 into 5 different versions.
+"
+"3837e75ad7d732574bc98b8fefdca24a27e34758","2014-01-24 20:49:17+01:00","Split ucode2 into 11 different versions.
+"
+"d85e978bb8cf6693a4cf460880c1404fc1168b95","2014-01-24 21:20:27+01:00","Implement audio command #16 for NEAD ucodes.
+
+It fixes some garbled sound at the start of a race in Wave Race for instance.
+"
+"41f50000bbbbced2f1442cc5bfe14d3284b7b2cc","2014-01-24 22:01:00+01:00","Implement POLEF audio command.
+
+It fixes the ramping sound during PilotWings intro.
+"
+"db692a30c0198b24fafab39e426dbb3096188f4f","2014-01-24 22:19:51+01:00","Implement RESAMPLE_ZOH audio command.
+
+It fixes the garbled sound when switching from/to headset mode in 1080 Snowboarding.
+"
+"75478e6d36f769dc0853316bea7ef2608939f680","2014-01-24 22:24:37+01:00","Replace C++ comments with C comments
+"
+"0004268525aed19c1cb39423ab804e3371aa5670","2014-01-24 22:37:39+01:00","Dehardcode various magic numbers.
+"
+"e4e6b68c80db74efd5701397555abc62222dbe04","2014-01-24 17:36:40-05:00","front: Fix in-game load-state regression.
+
+Bug introduced in commit
+53d7121d2636c3e449c9ef442a7787a4eb7ff73c
+"
+"f4e723d20326f71d7756901ee04156a7a059001e","2014-01-24 22:19:08-08:00","Merge pull request #10 from bsmiles32/audio_improvements
+
+Audio improvements
+"
+"38233c42236f6730917d98884ccee323884eb1bb","2014-01-25 11:14:06+01:00","Remove unused SDL2 surface in compat code
+
+mupen64plus doesn't support 2D video output because it forces OPENGL mode.
+Unfortunately, the rest of the compat code still assumes that surfaces for 2D
+data are used and overwrites the data when the window is changed.
+
+The surface code can be removed to avoid these problems.
+"
+"7a5acb183967fe24a91b8f1876495e1bfc8b3f2d","2014-01-25 09:51:40+01:00","Close SDL2 window when quitting Video subsystem
+
+SDL2 doesn't close windows anymore when the video subsystem is closed.
+Therefore, the window created by the SDL2 compat layer has to be closed
+manually to avoid orphan windows in frontends like m64py in non-VidExt mode.
+"
+"90f58f380830428a6fb8841f9ea85b0bbd3c97b1","2014-01-25 09:20:24-08:00","Merge pull request #7 from ecsv/sdl2_compat
+
+Cleanup SDL2 compat code to avoid problems in non-VidExt m64py
+"
+"b3b7ad5b53b13e1e43fe6e8433fab5db6aca9041","2014-01-25 16:47:42-05:00","tools: Temporarily remove pull-upstream scripts.
+
+The tools removed here will be coming back soon in a slightly altered
+form.  I'm removing them now for safety as we administer to the git
+repos.
+
+We are migrating over to new upstream repositories.  We have created
+official forks of the upstream repositories, and will be pushing our
+android customizations to them from now on.  That will make it very
+easy for other devs to see the changes we made to the upstream plugins
+for the android edition.  Also makes it easy for other embedded system
+ports (libretro, pandora) to pull just the plugins of interest out of
+mupen64plus-ae.
+"
+"0eb61aa86f7f87bcf253d79cd53a02361f790c9f","2014-01-26 11:28:07-05:00","cleanup: Rename native source directories to match upstream names.
+
+audio-sdl     --> mupen64plus-audio-sdl
+core          --> mupen64plus-core
+front-end     --> mupen64plus-ui-console
+gles2glide64  --> mupen64plus-video-glide64mk2
+gles2n64      --> mupen64plus-video-gln64 *
+gles2rice     --> mupen64plus-video-rice
+input-android --> mupen64plus-input-android *
+rsp-hle       --> mupen64plus-rsp-hle
+
+* Note that gles2n64 and input-android don't exist in the mupen64plus
+organization. We will be adding them to the mupen64plus-ae organization
+later.  In principle, we could one day transfer ownership to upstream,
+but they're pretty rough or only apply to android, so we'll take care
+of them for now.
+
+This commit only changes the directory names, not the names of the
+compiled libraries.  That will be a separate commit.
+"
+"54e3582309a3365b00f688ecc33e56cb6fefcb6d","2014-01-26 11:28:26-05:00","libs: Rename all native modules to match upstream names.
+"
+"56e8242b4f3d64a97313adde3cf8db86b11734e1","2014-01-26 11:28:39-05:00","audio-sdl: Rename macro PAULSCODE -> ANDROID_EDITION.
+"
+"eb03e6f4c8d079bcb48fdc7fadcb3be84f786f3f","2014-01-26 11:28:53-05:00","ui-console: Rename macro PAULSCODE -> ANDROID_EDITION.
+"
+"a632cac1e7df3f44d3547fb61cd10f776746c2ca","2014-01-26 11:29:04-05:00","glide: Rename macro PAULSCODE -> ANDROID_EDITION.
+"
+"dd959b924fd5024a934d406170901386bf9dd82d","2014-01-26 11:29:20-05:00","rice: Rename macro PAULSCODE -> ANDROID_EDITION.
+"
+"dda97df5cfc2e1e816db14f6651ee4623e51bbde","2014-01-26 11:29:41-05:00","core/r4300: Surround Perfect Dark hack with ANDROID_EDITION guard.
+"
+"2efb00d4f05dc15522c704df646c156cf2cc8c62","2014-01-26 11:49:21-05:00","doc: Fix URLs in javadoc.
+
+URLs in the translated resources will be done later.
+"
+"94d76772a9936466d3cf04cddf90a7710c114e47","2014-01-26 09:29:36-08:00","Zuzma says that Hydro Thunder plays without freezing if the CountPerOp is set to 1
+"
+"1cc1ceb74aca872677672f76307693fa7230e0f8","2014-01-26 09:55:51-08:00","fix windows build problem
+"
+"8cd91835b18467c7bcbdf3c5190a9c2bc7719ef7","2014-01-26 12:06:12-05:00","cleanup: Rename gles2n64 --> gln64 in comments and variables.
+
+Changes to the resources (translations, keys) will be done later.
+"
+"79d7b050919561e26e2f7fc341a1b4d7c8fbf191","2014-01-26 12:36:18-05:00","cleanup: Rename gles2glide64 --> glide64 in comments and variables.
+
+Changes to the resources (translations, keys) will be done later.
+"
+"c2dadb5d804a0ff09ec9255f75ce84bfeb342fcc","2014-01-26 12:46:16-05:00","cleanup: Rename gles2rice --> rice in comments and variables.
+
+Changes to the resources (translations, keys) will be done later.
+"
+"6d23a62b5f81115e4b98af1bcea0d8b593488b95","2014-01-26 17:53:04+00:00","res: Updated translations.
+"
+"3ae2b9251668f2323d7b69519606a98f59a416f0","2014-01-26 13:30:29-05:00","res/assets: Change keynames gles2n64 --> gln64.
+"
+"d80ba59b1910f460bd5b6550f42332406026bf2c","2014-01-26 13:36:42-05:00","res/assets: Change keynames gles2glide64 --> glide64.
+"
+"ade1882299f17a56b1d64dd87efffccad968c83a","2014-01-26 13:41:58-05:00","res/assets: Change keynames gles2rice --> rice.
+"
+"a1da3a34bdae9a71aedea5eccddf62a834c8509b","2014-01-27 21:09:00+01:00","Avoid SDL_GetWindowSurface to fix crashes on wayland
+
+Instead of trying to access the wayland window through SDL_GetWindowSurface,
+it seems to be easier to just use a pseudo surface which is not really used by
+anyone (except the size information).
+"
+"80cc1e4427d8daf4991a04ccd236366ab32b5e59","2014-01-27 18:39:36-05:00","GLES2: Fix (re-implement) multi-texture in OpenGLES2 codepath.
+
+With this implementation, mipmapping must be disabled in the OpenGLES2
+codepath to avoid black textures.
+
+Texture mirror flag is enabled in the in OpenGLES2 codepath to fix
+messed up textures like the horse's cheeks in both Zelda games.
+
+extracted from
+https://github.com/mupen64plus-ae/mupen64plus-ae/commit/33d250b926141dfd1de72d19b61c8e1b3d7ffda8
+"
+"d9c1b73d7492e0dc32657a080ad8937fb9c618d9","2014-01-27 18:39:48-05:00","GLES2: Use config file to disable mipmapping rather than hard code.
+"
+"396b9df025fef708bbfb1d358cacd69de89100d8","2014-01-27 18:40:20-05:00","GLES2: Fix (re-implement) fog/alpha shaders in OpenGLES2 codepath.
+
+extracted from
+https://github.com/mupen64plus-ae/mupen64plus-ae/commit/33d250b926141dfd1de72d19b61c8e1b3d7ffda8
+"
+"aeb3cc31c66f538312468cc1478de0925a187a47","2014-01-27 18:40:30-05:00","Remove unneeded macro in osal_opengl.
+"
+"6a3d0aac2f36fda0b41ed92f11f63eaa596dcc97","2014-01-27 18:41:35-05:00","Add hack-fix to show last heart and map arrows in Zelda OoT & MM.
+
+This affects both OpenGL and OpenGLES2 codepaths.
+"
+"e23900ca377d6a26893e617389a54b456aeb8228","2014-01-27 21:53:22-05:00","res: Remove two unused strings.
+"
+"cc01b1686dbb58513c1b5e1d8f9a92dd35d8b63b","2014-01-27 21:54:32-05:00","doc: Fix github URLs.
+"
+"3fc57636091bbff4cc63211d3279ab11f775c0fa","2014-01-27 21:54:46-05:00","doc: Remove linefeeds in two translations of the google play listing.
+
+The number of linefeeds need to match in plaintext files, otherwise the
+transifex tool barfs.
+"
+"0e3510d387a4257f20fe29b12678223a4d870a0b","2014-01-28 03:03:23+00:00","res: Updated translations.
+"
+"d19a6cfb3ef1e25013761cf19b7337ab861ad80a","2014-01-27 22:13:39-05:00","rice: Fix preprocessor ifdefs.
+
+This code would have failed if it were compiled for OpenGL and the
+DEBUGGER symbol were defined.  This fixes the conditional logic.  It
+also puts the OPENGL_CHECK_ERRORS back into the gles2 codepath, which
+was removed in commit
+https://github.com/mupen64plus-ae/mupen64plus-ae/commit/33d250b926141dfd1de72d19b61c8e1b3d7ffda8
+"
+"99147f0afdf3ae82928163f0fdbfe158beee9f29","2014-01-27 22:21:29-05:00","rice: Use config file to disable mipmapping rather than hard code.
+"
+"5acc75e4f847c110664ed67c345074ebec123b5a","2014-01-27 22:30:03-05:00","rice: Narrow the scope of gl/gles2 ifdefs.
+
+It was unclear what the value of several of the boolean options were.
+This makes it clearer, and reverts them to what they were before commit
+https://github.com/mupen64plus-ae/mupen64plus-ae/commit/33d250b926141dfd1de72d19b61c8e1b3d7ffda8
+"
+"d02eb817db3bf282f1a61a782134e049d5de94e0","2014-01-27 22:31:45-05:00","rice: Remove unneeded macro in osal_opengl.
+"
+"aafe6e20ed0c72a25d676e6b929f0516c4a5ddaa","2014-01-27 22:36:25-05:00","rice: Revert BOOL-->bool.
+
+See
+https://github.com/mupen64plus-ae/mupen64plus-ae/commit/33d250b926141dfd1de72d19b61c8e1b3d7ffda8
+"
+"ad2d2e42d101bde01370bdeeb074d08665a4fb19","2014-01-27 22:40:15-05:00","rice: Various whitespace & comment touchups.
+"
+"1340eee554b95bf18dcce452be52c3ae3bf9ab0d","2014-01-28 17:31:48-05:00","build: Add header comments to makefiles.
+"
+"55f05e223126729f42b4f36ca7f7d76f6f5e0648","2014-01-28 17:32:01-05:00","tools: Add pull-upstream script.
+"
+"1996f0b82d157b10181cfc696b766b401693a4af","2014-01-28 17:33:18-05:00","build: Add android makefile.
+"
+"21e7339243d22241ca92a14fc7140330b0d077ca","2014-01-28 17:33:29-05:00","android: Add android edition customizations.
+"
+"1d565fd967b9b242d78bdff67ef603fa73cf8031","2014-01-28 22:33:50+00:00","audio-sdl: Sync with upstream.
+"
+"ac8a254ac73b1156dc76305eceddc4509807c91f","2014-01-28 17:35:45-05:00","build: Add android makefile.
+"
+"8622e12da3b04fd803cf1dadd76d6f16d39bfeeb","2014-01-28 17:35:58-05:00","android: Add android edition customizations.
+"
+"ef65758c11c85a6f6ee02f0f74edff8fd04af683","2014-01-28 22:36:39+00:00","ui-console: Sync with upstream.
+"
+"552bab6f81c4fd6f13875b3017ea796303d4b278","2014-01-28 17:38:54-05:00","build: Add android makefile.
+"
+"285e39296906dab77fcca4f309a69879d13ff0f8","2014-01-28 17:41:18-05:00","rsp-hle: Sync with upstream.
+"
+"0f9fea14ce8ab18883b4d07361a7d35e01ba114b","2014-01-28 17:42:24-05:00","build: Add android makefile.
+"
+"2d8f392fb9756725154a19f0bba0f63e6c1ab002","2014-01-28 17:42:41-05:00","r4300: Add hack-fix for Perfect Dark freezes.
+
+See
+http://code.google.com/p/mupen64plus/issues/detail?id=553
+https://github.com/mupen64plus-ae/mupen64plus-ae/commit/802d8f81d46705d64694d7a34010dc5f35787c7d
+"
+"29c224f012ab6dd8e623d5a0e9fd779ea8cd93e0","2014-01-28 17:43:13-05:00","new_dynarec: Fix MULT 64bits (still wrong maybe).
+
+This fixes Doom 64 in mupen64plus-ae.  It also fixes some (but not all)
+collision detection bugs in Donkey Kong 64.
+
+See
+https://github.com/ptitSeb/mupen64plus-pandora/commit/ce68e3b9f89132315d1bd69800e364da96340eb8
+https://github.com/mupen64plus-ae/mupen64plus-ae/commit/040b15fe91e7d4d351eba4768bcdb79ba8eeb371
+"
+"05f503255f9a0738917c22f30c08552aedb76e44","2014-01-28 22:50:05+00:00","core: Sync with upstream.
+"
+"cb891a0e768f6a1792928fbb3e53c92066c1e4c7","2014-01-28 23:32:04+01:00","Save link information in *AL(L) instructions unconditionally
+
+All 'Jump and link' and 'Branch and link' like instructions save the PC in the
+target register unconditionally and not only when the branch/jump is taken.
+The specification is not clear whether the store is actually made before or
+after the delay slot and therefore the behavior of the dynarecs ('link' before
+delay slot) is used.
+
+Reported-by: Nebuleon <nebuleon.fumika@gmail.com>
+"
+"c757653137d4a7efc764b0ea770957804e49a49c","2014-01-28 17:35:01-08:00","Merge pull request #8 from ecsv/sdl2_compat
+
+Avoid SDL_GetWindowSurface to fix crashes on wayland
+"
+"8b346d7f718cbd1d5c0199303d42638da95e6f22","2014-01-28 17:41:01-08:00","Merge pull request #1 from littleguy77/gles2-shader-texture-fixes
+
+Gles2 shader texture fixes
+"
+"63f200b3c6c606b8ac4c600b1dc3b084faefe440","2014-01-28 17:42:44-08:00","Merge pull request #2 from littleguy77/zelda-missing-heart-fix
+
+Add hack-fix to show last heart and map arrows in Zelda OoT & MM.
+"
+"b0720b5b920572f8067d47676bd92f47be2fc623","2014-01-28 17:44:58-08:00","Merge pull request #9 from ecsv/interpreter_link
+
+Save link information in *AL(L) instructions unconditionally
+"
+"45166895100e1a57e8635cd70a9deb4f724af191","2014-01-28 21:04:25-05:00","rice: Minor formatting nits.
+"
+"22e914ae1d9198301748501b13fda071ac2b3687","2014-01-28 21:07:26-05:00","Minor formatting nits in OpenGL ES2 shader program.
+"
+"ddd7480a5581187b6789b6613b4c755c556431e5","2014-01-28 21:09:39-05:00","Remove duplicate function call.
+"
+"9ea32653b0824db3ef2bd8001b85e9beb78196c7","2014-01-29 08:08:38-05:00","Merge remote-tracking branch 'upstream/master'
+"
+"c52078f2b453a7023c3e453710302e1a593721fc","2014-01-29 13:09:48+00:00","core: Sync with upstream.
+"
+"c1636fdc755754ab01feda617f7a331995411e3d","2014-01-29 21:00:08+01:00","Allow multiple preconditions per cheat
+
+Each cheat code can have multiple preconditions which all have to be fulfilled
+before it can be executed. The default implementation in mupen64plus could not
+handle these extra test codes because a failed test only caused a jump over the
+next cheatcode (ignoring whether is also a test or a non-test cheatcode).
+
+Therefore, all (negative) results before a non-test cheat code have to be
+aggregated. The first non-test cheatcode evaluates the result of the
+preconditions and only executes the non-test cheatcode when no precondition
+test failed. The earlier results are always dropped after a non-test cheatcode
+to allow a fresh start.
+"
+"fa280a6b4e630407dd3831cec8e0a901a43e55e5","2014-01-29 22:07:35+01:00","Use same precondition for all parts of the Mario64 Leviate cheat
+
+The cheat code consists of three pairs of precondition and actual write. The
+original code used two different preconditions (one for the first write and two
+for the second/third write). This caused problems like the inability to finish
+a level. Using the same precondition everywhere seems to fix this problem.
+"
+"82384d004d089f348318ad338af3ec03f5b4960b","2014-01-29 21:10:24-05:00","assets: Update rom database to match latest upstream.
+"
+"bb02b78b20709677632ad4bc1aac82188f5f82b4","2014-01-29 21:17:27-05:00","libs: Add dummy moga/ouya JAR files for F-Droid.
+
+Resolves Issue #381
+
+Add non-proprietary dummy libraries that adhere to GPLv3.
+Source code available:
+https://github.com/mupen64plus-ae/dependencies-dummy
+"
+"6f69a38c5cd81d789e668a162970dd5e03865e0c","2014-01-29 21:35:15-08:00","Merge pull request #3 from littleguy77/cleanup
+
+Minor nits
+"
+"7638597691d46e90955aa963a2769a9dd51d331a","2014-01-29 21:47:22-08:00","Merge pull request #10 from ecsv/cheats
+
+Levitate cheat fixes
+"
+"2e9d1ccb257fb697bea5bd680e3d0f93279940b3","2014-01-30 08:26:41-05:00","Merge remote-tracking branch 'upstream/master'
+"
+"af947386d1f0ca7b2d60368a443a1d0862e155dd","2014-01-30 13:27:55+00:00","core: Sync with upstream.
+"
+"a74f203f4f074b00ebddfdc86178c67b1f3997fd","2014-01-30 08:55:17-05:00","rice: Remove hard-coding on anisotropic-filter flag.
+
+Anisotropic filtering only applies if mipmapping is enabled. But we
+already disable mipmapping via the config file, since it's currently
+broken.  If we fix mipmapping then we can return to the topic of aniso
+filtering.
+
+See also
+99147f0afdf3ae82928163f0fdbfe158beee9f29
+"
+"a3a364df328c6f3402fb358259dc17371548a014","2014-01-30 09:08:23-05:00","build: Add android makefile.
+"
+"c7e10c487470bee0de32588366e4a375477529e4","2014-01-30 09:08:43-05:00","android: Add android edition customizations.
+"
+"4c0f3b51b15b3bdbc71469b73b1be5d3df419fa4","2014-01-30 14:09:15+00:00","video-rice: Sync with upstream.
+"
+"269591c3ffc9a1ddbe61a9e6d64ebeb922e718d2","2014-01-30 09:35:29-05:00","assets: Update cheats database to match latest upstream.
+
+See also
+fa280a6b4e630407dd3831cec8e0a901a43e55e5
+"
+"7ddb2323fcd5433f3ed17a30f87ec6b19ed1a25c","2014-02-01 13:16:20-05:00","video-glide64mk2: Sync with upstream.
+"
+"17bc971abddd09cd838f6b50bd24e691304cd2d2","2014-02-01 13:18:18-05:00","assets: Sync glide ini file with upstream.
+"
+"09fa250b82eda1b2e3a4ceb23a94b01172e2722b","2014-02-02 10:44:09-05:00","cheats: New method for cheat merging.
+"
+"2258d06779f60fc9299c4b55af4c148a802db028","2014-02-05 08:45:41-05:00","front: Add nospeedlimit option to audio menu.
+"
+"09c11e0b655515796f9b73aa34d4dd02931cb90a","2014-02-05 09:18:06-05:00","front: Remove unused method in GalleryActivity.
+"
+"aca7d21cb6aabc1f43099fc2fd430449ff09351e","2014-02-05 22:29:02-05:00","front: Change emulation profile names.
+
+Using more descriptive names for profiles (Accuracy, Balanced, Speed).
+"
+"c71f138bf4f72f23e3af71bd4d13b85fa9eec617","2014-02-05 22:29:39-05:00","front: Sort profiles by name only, remove (built-in) tag in most places.
+"
+"b2fd5d237947b516df865592c32176176381d77f","2014-02-05 22:29:56-05:00","front: Minor tweak to profile manager popup.
+"
+"202639df03eac83247ca975fa699612b75408d5b","2014-02-06 22:23:58-05:00","front: Implement persistence of default profiles.
+"
+"c71301ecf4c8b2b766a16bddeb6c70ffed30505f","2014-02-06 22:24:08-05:00","front: Use user-selected defaults in ProfilePreferences.
+
+This allows the user to change the default profiles, rather than being
+statically defined by us.
+"
+"331b2f0d76d9a512d86842cea08b7e464381e34d","2014-02-06 22:24:17-05:00","front: Add UI to allow user to change default profiles.
+"
+"e4c06388254d5c550d814521011f7468b985d1bb","2014-02-06 22:24:26-05:00","front: Highlight default profile in profile manager screen.
+"
+"0fcc790135b687e0830649cbf0a764d79c47d194","2014-02-06 22:25:00-05:00","front: Disable audio sync menu item when audio plugin disabled.
+"
+"e15dc0b2f909825a62aaeda0df694e2400e2afe7","2014-02-06 22:26:55-05:00","ae-bridge: Add method for toggling framelimiter in-game.
+"
+"5449d6f1689953ab1aab1dfdb6f0805db7c34857","2014-02-06 22:27:39-05:00","front: Add in-game menu item to toggle framelimiter.
+"
+"9357126843e54088fa4aa9b0ad92b58e0c5728cd","2014-02-06 22:32:53-05:00","front: Fix possible null pointer exception.
+"
+"26b157e8fb5dcf289d15ce27b499a26548735c82","2014-02-06 22:36:21-05:00","front: Add RomCache class for caching info about user's ROMs.
+"
+"7c11fa86f0e1174a6b66ee633c09b990c0637c33","2014-02-06 22:46:08-05:00","front: Change default emulation/touchscreen profiles.
+
+Change to 'Balanced-glide64' and 'Analog'.
+"
+"4d5e33cc741100d60b3cd2c706773ce04973daf9","2014-02-06 22:49:33-05:00","front: Change default touchscreen/controller if OUYA.
+
+Default touchscreen profile is 'Disabled' and default controller profile
+is 'OUYA'.
+"
+"1d2da7b3216be7f5a68b2145cbf30b253857295b","2014-02-06 23:11:56-05:00","front: Remove OUYAInterface.java.
+
+Now that we have dummy replacements for the OUYA JAR file for F-Droid,
+we no longer need this abstraction/reflection layer.  We can just use
+the OUYA SDK directly.
+"
+"8545651d7556f846083d9543ce6a6527204b2cdc","2014-02-07 19:12:21-05:00","front: Rename gln64 option 'disable depth test' to 'enable depth hack'.
+
+This is a long-standing wording mistake that I made.  This is more
+accurate.  The boolean meaning is inverted, thus the default value is
+inverted.
+"
+"3eb10ce034c38dd4a498911c2cc3a0b756f891e6","2014-02-07 19:12:36-05:00","front: Add wiki url to RomDetail class.
+"
+"758596c2d370d5d8ae503deade0b90898505a3ae","2014-02-07 19:12:45-05:00","front: Add utility method to launch URI by string.
+"
+"fb39685adc4f454944cdb304591d5a12176d58df","2014-02-07 19:12:58-05:00","front: Add item in PlayMenuActivity to launch game wiki page.
+"
+"27bd0aeba2af25075263171e89779026a88333be","2014-02-07 19:13:11-05:00","front: Allow touchscreen/controller profiles to have no default.
+
+In case the user wants the default touchscreen/controller to be
+'disabled'.  Emulation profiles cannot be disabled, and therefore
+unsetting the default emulation profile will always revert the default
+to what it was right after installation.
+"
+"a4975d3b481a1a3ee1d9d426b14231ae230edf93","2014-02-07 19:13:24-05:00","front: Move some touchscreen options to global settings.
+
+The following are now specified globally:
+- haptic feedback
+- joystick refresh rate
+- button transparency
+- button scale
+- button style (skin)
+
+Touchscreen profiles now specify only
+- button layout
+- button auto-holdability
+"
+"11348a8855433884d0ad9ea7db9cf8edb0be8e1d","2014-02-12 20:10:10-05:00","front: Add get/put convenience functions to Profile class.
+"
+"ed0ad194a5e1b1aa8b59b202fad9094062319e5b","2014-02-12 20:10:49-05:00","front: Use convenience functions in ControllerProfile.
+"
+"8941c693c0d13b2ec3acf94d282602407d898345","2014-02-12 20:13:44-05:00","res: Change the name of a few resources to match associated class.
+"
+"f99a8b9a98aef094bbc89fd05d5fa3a5ab3bad3a","2014-02-12 20:23:32-05:00","front: Test mask colors in RGB 3-space.
+
+The previous algorithm would enormously penalize errors in the red and
+green channels:
+- red channel errors were magnified by 2^16 in the distance metric
+- green channels errors were magnified by 2^8 in the distance metric
+
+This algorithm gets the independent RGB components and computes the
+distance metric as the square of the pythagorean distance in cartesian
+3-space.
+"
+"5a215feda3c207f802209057db2dcb3af707fc2a","2014-02-12 21:12:34-05:00","front: Simplify Image class a bit.
+
+Use final keyword to eliminate null check.  Call member function to
+eliminate code duplication.
+"
+"c5ec401c368b319fff83546d4193fb9a799ad098","2014-02-12 21:13:47-05:00","front: Fix possible NPE's from null ConfigSections.
+"
+"8debbd9f657da1bf87429bad1b0044dfd38e37d2","2014-02-12 22:30:10-05:00","front: Move touchscreen scale field to VisibleTouchMap class.
+
+This is a more natural location and separates concerns better.  The
+overlay need not know anything about the scaling of the touchmap; its
+only job is to coordinate resizing and drawing events.
+"
+"a38e914724df95555d10c84d79a20325f2005922","2014-02-13 18:51:48-05:00","Change when usrcheat.txt is merged
+"
+"9615255f9bda813e4cbbcb71af24d3d80ba4931e","2014-02-14 20:37:16-05:00","cleanup: Remove RomHeader field and unused imports.
+
+Header object is no longer used anywhere.
+"
+"f9a6879ebf919a8f8a51656ab987a8f22ca916e1","2014-02-14 23:15:59-05:00","cleanup: Auto-format whitespace and other cosmetic nits.
+"
+"55f298759765f49510c02b346a2ff46467e52a9c","2014-02-14 23:41:09-05:00","front: Move cheatfile merge implementation to CheatUtils.
+"
+"fa6f8dd725277d22a2e4b4d9cc6328c4009731a3","2014-02-14 23:48:37-05:00","front: Tweak condition for merging cheatfiles in SplashActivity.
+
+Before, the merge could happen any time mupencheat.txt was missing.
+Now, the merge can only happen right after the assets are re-extracted.
+Keep the extraction/merge condition simple.  If people need to re-merge
+the cheatfiles, they can just 'reload app resources' from the settings.
+"
+"cc4f600eeabdd9e7b3575783d61029239c972532","2014-02-14 23:56:26-05:00","front: Make CheatFile 'sectionless' string a named constant.
+"
+"76fb4cea29f3f2382752b95fa40093bcf18c8289","2014-02-15 09:27:30-05:00","front: Match touch mask colors only if they fall within a tolerance.
+
+Along with commit f99a8b9a98aef094bbc89fd05d5fa3a5ab3bad3a, this
+resolves Issue #385.
+"
+"829f51cee68e806045e5c4276685501205df3e17","2014-02-15 11:48:06-05:00","front: Make CheatFile fields final to eliminate null check.
+"
+"7cf4d5fccd360e7f2388fb5ddaf3fe236b3e33c5","2014-02-15 14:54:09-05:00","front: Simplify CheatFile interface, only permit reload.
+
+Allowing the user to reload a different cheat file with the same objects
+seems unnecessary and a potential source of bugs.  Just permit reloading
+the original file to revert any unsaved changes.
+"
+"9f9cfaf7c4eeb1cdd4741b1f444d56b26da15ebc","2014-02-15 14:59:15-05:00","front: Simplify cheat merge algorithm a bit.
+
+- Use iterator rather than array conversion
+- Use get() rather than match()
+- No need to clear the volatile section and refill it with the default
+section since we already copied the default file at the beginning
+- cheat_section_d will always be null where it was referenced, so just
+remove it
+- Only need to save once, at the end
+"
+"27ca068661fa0dc28e3db4ebe2b3ffb2b7803c0c","2014-02-15 15:12:12-05:00","front: Fix potential memory leak in ConfigFile/CheatFile.
+
+Use finally clause to ensure file writer is closed properly.
+"
+"170426a3067cd28021bc42fe22858498f83907fe","2014-02-15 15:25:43-05:00","cleanup: Move things around for readability in ConfigFile/CheatFile.
+"
+"37028ad22ddcc0f1ae1774c98bf365a534e66cd2","2014-02-15 15:40:30-05:00","cleanup: Remove unused method and touch-up whitespace.
+"
+"986480c6c3fdc3e280c0e24b8b3e5eb6831c5b77","2014-02-15 15:43:30-05:00","cleanup: Make CheatSection.nextCrc private.
+
+It's an implementation detail that does not need to be exposed.
+"
+"b3de1098431caee8c2656a01138bc66bf5b63c85","2014-02-15 22:39:18-05:00","front: Use LinkedHashMap to eliminate lists in ConfigFile/CheatFile.
+
+A LinkedHashMap retains the insertion order, no need for the list.
+
+I see no performance penalty when inserting sections or writing to disk.
+"
+"e45ae9dc1d1b37474d041538a68034cb12438871","2014-02-15 22:41:05-05:00","assets: Fix duplicate entries and broken formatting in mupencheat.txt.
+
+Also whitespace nits.  Already submitted a pull request to upstream.
+"
+"dfc5147c0b18de2fa8c290fc01d0f03751ce5e34","2014-02-16 00:28:57-05:00","front: Dramatically speed up cheat file saving.
+
+- Use BufferedWriter rather than FileWriter
+- Use Writer.append(...) rather than string concatenation
+- Use Writer.append(...) rather than Writer.write(...)
+
+This sped up saves by an order of magnitude on my 2012 Nexus 7.
+Went from 3 or 4 seconds down to 300-400 milliseconds.
+"
+"398bbdb1c92e60d1ba7f5dbfc2a1ec582345dd5d","2014-02-16 01:06:14-05:00","front: Reduce MD5 calculation time a bit.
+
+Shaved about 30% off the time.  On a 2012 Nexus 7 this amounted to
+roughly 100ms of savings.
+"
+"87993986d1f5ae65d363d90b67c5b0d45ec7fe85","2014-02-18 22:23:03-05:00","debug: Add some logging, to profile cheat load/merge/save time.
+"
+"0d3297e1519352a4cb8ed62979c363aa0184ea0f","2014-02-18 22:23:14-05:00","assets: Remove duplicate cheatfile entries.
+"
+"1685484d256542846d3e67374120cfe8736185fd","2014-02-18 22:23:25-05:00","front: Simplify cheat file opening syntax a bit.
+
+Mirror try/catch/finally pattern used for writing the file.
+"
+"d8bfeff15b801fd42825b8e20f57a913c48d7697","2014-02-18 22:27:26-05:00","cleanup: Change var names/scope, and polish doc in CheatFile classes.
+
+No functional changes expected in this commit.
+
+Numerous fields and a few methods have been made private.  Many fields
+have also been made final.  Other than that, the only changes have been
+to the javadoc/comments and to variable names to enhance readability.
+"
+"da76b93f0731a511f4805f91817fd4a5667232bd","2014-02-18 22:30:22-05:00","cleanup: Rearrange methods in CheatFile classes for consistency.
+
+No functional changes.
+"
+"62775183fe82917da20b30f1839c5e7516d3b012","2014-02-18 22:30:38-05:00","front: Use two constructors for CheatLine.
+
+Ensures that the field interdependencies are correct.
+"
+"5f2bf966e3cf8bc9650de809e26c7156bf481f28","2014-02-18 22:30:46-05:00","front: Append newline to CheatLine at save, not construction.
+"
+"a501b30494829ecdac3d276869178eca7b1e7d26","2014-02-18 22:30:57-05:00","front: Restructure CheatBlock/CheatLine hierarchy.
+
+Before, CheatLine had two personalities.  It either represented a line
+of text in the CheatFile, or it wrapped a CheatBlock object.  A flag was
+used to discern the personality of an instance.
+
+Now, CheatLine is a sibling to CheatBlock, and both descend from an
+abstract base class, CheatElement.  CheatLines now only represent CRC
+lines, goodname lines, and comment lines.
+"
+"7ccfa0d76cc266ebec2a44de9473255e5667a44f","2014-02-18 22:31:06-05:00","front: Add more methods to CheatCode to match patterns used elsewhere.
+"
+"e4b7f0f85e6fa31e5f1b3e0cd9bf6c0ac7b058c0","2014-02-18 22:31:16-05:00","front: Throw IOExceptions from CheatSection/CheatBlock constructors.
+
+Let the top-level ConfigFile class deal with the exceptions, the way it
+does in the save() method.
+"
+"071cf886b33e23f1473ab14f7cbd4998f0134678","2014-02-18 22:31:24-05:00","front: Inline CheatCode.save.
+
+Keep the loading and saving in the same class for parallelism.  i.e.
+CheatCode doesn't have a method to load, so it shouldn't have a method
+to save.
+"
+"8a545a4a5227db1a7847bd78dc2667593f5e41c5","2014-02-18 22:31:41-05:00","front: Test for null in add rather than save, in CheatFile classes.
+
+Far fewer null tests required.  Save is an expensive operation.
+"
+"d8a0b50bd216aefa08fcec7621f8db52d80251c7","2014-02-18 22:31:50-05:00","front: Remove unnecessary null check in CheatSection constructor.
+
+Reader will always be non-null, since this constructor is private and we
+control all calls to it.
+"
+"81c787f231a87b7360765cc26f7079ffd6022c9c","2014-02-18 22:32:00-05:00","cleanup: Clarify between CRC and key in CheatFile class.
+
+The key is a formatted string containing both the CRC and the country
+code of the ROM it pertains to.
+"
+"582e9fc1655257f9658811b514aa046d38f05e8b","2014-02-18 22:32:10-05:00","front: Fix key generation bug in CheatSection constructor.
+
+The key is more than just the CRC.  This bug was always present, but the
+variable renaming made it easier to spot.
+"
+"3c92a2b8a35df2b5573f6f3032e5fe4ac4275f7f","2014-02-19 08:27:08-05:00","front: Simplify cheat file parsing, improve readability.
+
+No performance penalty observed. If anything, there seems to be a very
+slight boost.
+
+Note that the field strings are no longer trimmed in this new implement-
+ation.  However, that shouldn't be an issue since the whitespace would
+have been in the original file too (and never gave us problems there).
+"
+"30903283c8e4afe409774387fa1e0938834f8a59","2014-02-19 08:53:25-05:00","front: Simplify cheat block parsing, precompile regex matchers.
+
+Again, no performance penalty observed. If anything, there seems to be a
+very slight boost, perhaps due to the regex precompilation.
+"
+"d68dcca01035637b6af9baaef77ed7691811ed7b","2014-02-19 09:22:43-05:00","front: Retain space after `????` when saving cheatfile.
+
+Minimize diff between mupencheat.default and mupencheat.txt.
+"
+"53c3fbea7a3af3197a1b9d7df65cba4c950da141","2014-02-19 20:10:41-05:00","front: Lazy-load cheat files for performance.
+
+This dramatically cuts down on both load and save times.  On my 2012
+nexus 7, the load time has gone from roughly 1.5 seconds down to about
+400 ms. Save time has gone from roughly 300 ms to about 150 ms.  The
+entire merge process (copy, load, insert, save) has gone from about
+2 seconds down to about 700 ms.
+
+Note that the implementation is entirely transparent to external code
+since the interface has not changed.
+
+Lazy loading makes particular sense here, since the vast majority of
+cheat section data will never be used by the user, particularly in a
+single play session.  Parsing all this data and organizing it into
+objects is a waste of memory and time.
+
+This implementation isn't completely lazy; it does read the full cheat
+file once, at the beginning, just as it had before.  Therefore any IO
+exceptions will be thrown in the same place they had before.  What's new
+here is that the lines of the file are read and stored in raw form only.
+The parsing and object population only occurs when a CheatSection object
+is first accessed, and the work is only done for that single section.
+Thus the parsing effort is amortized.
+
+This benefits the save (write to disk) process as well, because if a
+cheat section has never been accessed, then the save method can simply
+write back the original raw lines of text.
+
+One other small benefit: Unless the user has loaded and saved the very
+last cheat section in the file, we no longer have to worry about the
+extra blank line at the end of the file.  I don't think it made a
+difference anyhow, but it's one less TODO.
+"
+"e8892975721d808f96de21bca1bb47dc7c2d58b0","2014-02-21 09:31:58-05:00","front: Tweak cheat options regex a bit.
+
+Eliminate 'catastrophic backtracking' using possessive quantifiers (+).
+Also, this version is a bit more efficient in that it takes fewer steps
+to find a match, though the difference is hardly noticeable in practice.
+
+Catastrophic backtracking can occur with malformed cheat lines, such as
+- omitting the final quotation mark on a cheat line containing options
+- adding a backslash before the final quotation mark on such a line
+
+In practice, this adds a few hundred milliseconds to the parse time for
+each malformed line.  Not much, but still good to avoid it.
+"
+"b8b380843283942974762ec7c737ed64c5029d8e","2014-04-09 11:43:32+02:00","Fix polygon offset for Note3
+"
+"71ff3eb45b5334d7a77c85e5628d30b720430695","2014-11-16 21:31:05-05:00","Front: Fix long UI freeze when loading game info for the first time.
+"
+"fabcb7595995ce86f0c988bf37de622db252b6a7","2014-11-22 01:18:19-05:00","front: Pass CRC to Play menu (part of fix for unknown game crashes).
+
+littleguy77 adaptation from commit
+cfc3af9c2c82d610ba4119f971aa91177c9354bc
+"
+"71501a6f1eb3d536ff9c7ee3377ce4691c8324e2","2014-11-22 01:18:37-05:00","front: Pass the responsibility back to the caller if the ROM is unknown.
+"
+"bf9538ac8d0d64fc54765ca66899d2451d66f7f5","2014-11-22 01:18:47-05:00","front: Pass all CRC matches back to caller; let caller handle ambiguity.
+"
+"47ecc7abc3e4610301a96fcba9cd0a558c672ecf","2014-11-22 01:18:57-05:00","front: Always populate MD5 field in RomDetail.
+
+Now possible because null sections are no longer allowed, and we leave
+it to the caller to resolve ambiguous CRC matches.
+"
+"73fb0f950e6e3bfaad76a8726f328e70857255cc","2014-11-22 01:19:08-05:00","front: Simplify RomDetail constructor (no functional changes).
+"
+"a3bcdffa16cee5a1c830e6da4f3635a1b8fddf39","2014-11-22 01:19:36-05:00","front: Assume the best in certain corner cases.
+
+littleguy77 note:
+These two fields only control the behavior of the front menu.  Better to
+be permissive than restrictive in this case.
+"
+"3c6c6cecc564f5b7663e917c539980d2a4b2bba6","2014-11-22 01:19:45-05:00","front: Construct meta-info from assumptions if no other alternative.
+
+This allows unknown games to be launched.
+"
+"45b0399132cb1c02a08b154d4a00fd767ca489ee","2014-11-22 01:20:28-05:00","Merge branch 'fix-unknown-rom-crash'
+"
+"c78525d77ecbc74633a4397522cf8b1d3a711cd7","2014-11-22 10:22:02-05:00","front: Fix autohold slide-off method.
+"
+"0eebe6101de9d213b2a10176034bc86d8f65a3b6","2014-11-22 13:55:27-05:00","front: Eliminate superfluous conditional.
+
+if( index != prevIndex ) is already tested in an outer loop.
+"
+"c0ed117b2468e997325c83202b9fbe92cf14d5b0","2014-09-14 03:24:49+10:00","Fix issue where controller/touchscreen profiles were created as
+directories instead of files.
+(cherry picked from commit e7396893ac02fa8b59e29cfc25a902d8453a3588)
+"
+"1cf44af6e2535f694c2180a0c1617c33beb14ba6","2014-11-22 14:51:53-05:00","Fix incorrect native library path being used on some platforms.
+"
+"c7b8ff7487b5874cc7841bb649a46f5648daf7be","2014-11-22 22:06:49-05:00","front: Validate all list preferences in SplashActivity.
+"
+"1ea915083308ca4956b9efe44bd1c44b36f94693","2014-11-22 23:12:38-05:00","front: Move auto-hold mode from game to global preferences.
+"
+"a46b29dae4cec440525e713578bc2bc027804bec","2014-11-22 23:12:47-05:00","front: Completely re-implement TouchscreenProfileActivity for wysiwyg.
+"
+"2aa5af472cccf2b62a6efce52f69eb7f3aa6a06a","2014-11-22 23:13:23-05:00","front: Completely restructure touchmap skins/assets.
+"
+"7f8b1bdba8372ea6f51d1dc28f7c6540f85e75b4","2014-11-22 23:13:33-05:00","front: Implement popup for tweaking buttons in touch profile editor.
+"
+"fb96f708185275735a80ae33e6ac5049b5d0c23f","2014-11-22 23:14:00-05:00","front: Implement shortcut to global prefs from TouchscreenProfileActiv.
+"
+"e09405ebe0dd9b76ae5310f3aba72b9419c4568e","2014-11-22 23:14:29-05:00","Merge branch 'feature/touchscreen-profile-editor'
+"
+"65ec283df8bd936ad81af9f3a25bd578f04380cd","2014-11-23 12:10:56-05:00","front: Create parent dirs in ConfigFile rather than assuming caller did.
+
+This also fixes the incorrect mkdirs calls in RomCache.
+"
+"2457cc5bea9b0691e3f50ecd48fd822e9ddfab2e","2014-11-23 12:15:25-05:00","front: Fix RomCache crash on unknown ROMs.
+"
+"e903167784a7a541892ddbf66e8817b23deeb1ad","2014-11-23 15:31:19-05:00","front: Search ROMs, download art in same task for simplicity.
+
+Also add a few sanity checks before downloading.
+
+We can always separate the tasks later if necessary.  For now KISS.
+"
+"ec761a3faf77bc0e09041c6b3f09faa8c5e98644","2014-11-23 15:43:17-05:00","front: Move download function to utility class for reuse.
+"
+"19f23e59f0753e1b74f10b9f1f0a342ac383c1c4","2014-11-24 12:10:40-05:00","front: De-anonymize the AsyncTask for computing file hashes.
+
+Re-usable and arguably easier to read.  Also enforces input contract.
+"
+"19b36261a31b731cc9d5a35dc5adf6d3056883e6","2014-11-24 12:10:53-05:00","front: De-anonymize the AsyncTasks for refreshing ROM cache.
+
+Re-usable and arguably easier to read.  Also enforces input contract
+and follows same idiom used elsewhere regarding async tasks.
+
+Obsoletes the RomCache class.
+"
+"4297c995c70f56e865477500ee997bb721023ff6","2014-11-24 12:11:03-05:00","front: Follow same AsyncTask idiom for extracting hi-res textures.
+
+For consistency and to enforce input contracts.
+"
+"1d789533672d8ace85234e0d4ca16c42c55d1c49","2014-11-24 12:11:12-05:00","front: Implement asset extraction as an AsyncTask.
+
+Easier to read and follows same AsyncTask idiom used elsewhere.
+Enforces input contract and doesn't require programmer to understand
+UI/non-UI thread relationships.
+"
+"043e086d92d585599360a49a4e52b09cb9390633","2014-11-24 12:11:22-05:00","front: Do some ops only if assets were actually extracted.
+
+Mostly just logical hygiene.  Also eliminates message when assets don't
+need to be extracted.
+"
+"5fea8beb17f176f78b8a3c002c24d5d898b47b69","2014-11-24 12:11:54-05:00","Merge branch 'refactor/async-tasks'
+"
+"65563d37abfe56be17d0688b98cfa6e89002eb71","2014-12-04 22:12:10-05:00","tools: Add one-time maintenance script.
+
+This script only needs to be used this one time to transition from no-
+squashing to squashing.  The only reason I'm committing it is to provide
+crystal clear documentation of the steps I took to make the transition.
+
+This script should never need to be unearthed again.
+"
+"fdf9446c5b1d862b5e0a0923793143c352a5ef38","2014-12-04 22:12:26-05:00","git: Remove core in prep for subtree add --squash.
+"
+"658da3b0e596985619cc1e9c4cf42248560cbdc8","2014-12-04 22:12:28-05:00","Squashed 'jni/mupen64plus-core/' content from commit 73d693c
+
+git-subtree-dir: jni/mupen64plus-core
+git-subtree-split: 73d693c2d1119c261645a58b179b43c8f49d5f3f
+"
+"742115a47f8abcb4870bfe84410a5a46a72b7774","2014-12-04 22:12:28-05:00","core: Sync with upstream.
+"
+"17031e70044338c0c50a172adf6665092487428a","2014-12-04 22:12:28-05:00","git: Remove ui-console in prep for subtree add --squash.
+"
+"6ace2588edaf6640e21a156da30f3e24e314cf67","2014-12-04 22:12:29-05:00","Squashed 'jni/mupen64plus-ui-console/' content from commit a04f4f2
+
+git-subtree-dir: jni/mupen64plus-ui-console
+git-subtree-split: a04f4f2b538ee1b39bf67553bff13703585cd1ea
+"
+"f06f5b6b8d1c9d957f80d643aa1cb9a2b06c37cd","2014-12-04 22:12:29-05:00","ui-console: Sync with upstream.
+"
+"2821838ad886e36ec768adbb610795566bd517c2","2014-12-04 22:12:30-05:00","git: Remove rsp-hle in prep for subtree add --squash.
+"
+"cecd266e976f9bb6b00a8bda44c58fcbce62197e","2014-12-04 22:12:31-05:00","Squashed 'jni/mupen64plus-rsp-hle/' content from commit 2022639
+
+git-subtree-dir: jni/mupen64plus-rsp-hle
+git-subtree-split: 202263954b0cf8870be469adc1f95c25f714bb58
+"
+"b39a1a3f254219c2f7d13f0e286857429269a450","2014-12-04 22:12:31-05:00","rsp-hle: Sync with upstream.
+"
+"8ab3e4f239beb7b050cde0360b3efd05777f746b","2014-12-04 22:12:31-05:00","git: Remove audio-sdl in prep for subtree add --squash.
+"
+"426f6936b78cea5c0028460c3f46de49bf9a15a7","2014-12-04 22:12:32-05:00","Squashed 'jni/mupen64plus-audio-sdl/' content from commit 1fdacac
+
+git-subtree-dir: jni/mupen64plus-audio-sdl
+git-subtree-split: 1fdacac18e619e5b5adeacaec77df71790a292c7
+"
+"77869c99e25af8b87105e0dc01aae48c522728ca","2014-12-04 22:12:32-05:00","audio-sdl: Sync with upstream.
+"
+"9b004b5a4fc8e0ededc49cafea06403927248db6","2014-12-04 22:12:33-05:00","git: Remove video-rice in prep for subtree add --squash.
+"
+"9d0e56d9c6677106438c5b1ddfb7189aadd905c1","2014-12-04 22:12:34-05:00","Squashed 'jni/mupen64plus-video-rice/' content from commit e48c505
+
+git-subtree-dir: jni/mupen64plus-video-rice
+git-subtree-split: e48c50542b8388df361811ff41a4d17bed8c03db
+"
+"fba6b5df57979911368e66323b076185f498268a","2014-12-04 22:12:34-05:00","video-rice: Sync with upstream.
+"
+"4d205666161ef401cfdced20d71c86dcc8eaab9a","2014-12-04 22:12:55-05:00","tools: Remove one-time maintenance script.
+
+This script only needs to be used this one time to transition from no-
+squashing to squashing.  The only reason I'm committing it is to provide
+crystal clear documentation of the steps I took to make the transition.
+
+This script should never need to be unearthed again.
+"
+"7feac6ac03564261905b5a8995ea0ccaacc4b209","2014-12-04 22:13:17-05:00","tools: Update pull-upstream script to squash from now on.
+"
+"7a85215ad5d9b662de6b8c2987eb358f578bbd78","2014-12-04 22:13:48-05:00","Merge branch 'squash-upstream-merges'
+"
+"7ebf84512527db3564f1363f46cc2a7f1d900f3c","2014-12-05 22:45:52-05:00","build: Update target API to Lollipop.
+"
+"b712c53cc0d41a7188e2d3d9a405cbe83f885141","2014-12-05 22:46:08-05:00","hack: Temp fix for crash in MOGA lib on Lollipop.
+"
+"fe5873db4eaee770f20595a1c0ed7c0667c09a1f","2014-12-05 22:46:49-05:00","gln64: Implement screenshot support.
+"
+"5d0e457f0aedd0c53cc7f5f66a962c347619977a","2014-12-05 22:47:02-05:00","glide64: Implement screenshot support.
+"
+"08246b62e25df428ae2d45ce010f57e83f93d56f","2014-12-05 22:59:02-05:00","front: Add interface for screenshots.
+
+littleguy77 note:
+Saving to disk will be implemented after the user directories are
+reorganized.
+"
+"5e4321ac15d3d9b0d7877afbd9020d869185787f","2014-12-06 00:05:45-05:00","build: Change package/version/datadir/app name for V3 Alpha testing.
+"
+"fd6d992545b0c50b4e8181825c8527d88f00031f","2014-12-06 00:05:57-05:00","res: Modify app icons to differentiate alpha version.
+"
+"3d0942612c4b79d4042dad444801634eafb19363","2014-12-06 00:06:05-05:00","front: Reorganize userdata directories, add screenshots dir.
+"
+"276f3417a4f70e433a180f2e7707888726a5d266","2014-12-06 01:00:33-05:00","front: Tweak a few more paths.
+"
+"4024341bf5ea52b10922082528933a7eda06f205","2014-12-06 21:26:19-06:00","Merge pull request #398 from littleguy77/master
+
+Change package name for version3-alpha, and reorganize user data directories
+"
+"54dc7499ff3a261e2767e24c930c08743c729029","2014-12-06 22:27:33-05:00","front: Implement basic gridview gallery for initial alpha testing.
+
+This is just a stand-in until the fancy gallery is implemented, so it
+doesn't need to be perfect.  I started with multiple columns but then it
+looked weird on smaller devices.  Rather than port to a LinearLayout, I
+just kept the GridView and made it a single column.
+"
+"4f373fa529fdf4f9538010c585bbf05d9b8ba423","2014-12-07 00:30:35-05:00","front: Sort gallery items by the same name used for display.
+
+This also fixes the badly-implemented comparator that sometimes throws
+java.lang.IllegalArgumentException:
+Comparison method violates its general contract!
+"
+"d26ab43f6d23adf5324901b46a1a424f5fe0ce5a","2014-12-07 11:11:36-05:00","front: Modularize Rom lookup and apply to GalleryItem.
+"
+"02c3da365760ef2c1d9c73721e7b5e00d757b61a","2014-12-07 12:23:49-05:00","front: Change field name in rom info cache to avoid confusion.
+"
+"ba55a8d78f2355952de07a1d0e7976f1e1db753d","2014-12-07 20:33:41-05:00","cleanup: Auto-format imports (ctrl-shift-o).
+"
+"4a5171b24b05ff3b58e879121426f82070dd8687","2014-12-07 20:34:54-05:00","glide: Add USE_GLES to the Android makefile.
+"
+"13129f83a393807f26833e5458dd99d6b7b6cf9f","2014-12-07 20:35:05-05:00","glide: Remove unused glState.cpp.
+
+The declaration of vbo_draw() is still needed, so we declare it where
+upstream declares it, as of commit:
+https://github.com/mupen64plus/mupen64plus-video-glide64mk2/commit/21c67846981626ae099a3dc06cadc2ceeb8f56af
+"
+"b2ccb5226d4dde24e0f610b6175cabba7c84bedf","2014-12-07 20:35:38-05:00","glide: Remove dead code that no longer exists upstream.
+
+https://github.com/mupen64plus/mupen64plus-video-glide64mk2/commit/21c67846981626ae099a3dc06cadc2ceeb8f56af
+"
+"ccf5baac2d857f9f0b35b9c81c05bc50ace0c35f","2014-12-07 20:35:49-05:00","glide: Rename glitch files to match upstream convention.
+
+https://github.com/mupen64plus/mupen64plus-video-glide64mk2/commit/21c67846981626ae099a3dc06cadc2ceeb8f56af
+"
+"4463961c5c1e9f464912bdfea2bc1ea6f2bb8fb8","2014-12-07 20:36:00-05:00","glide: Add unused files from upstream.
+
+https://github.com/mupen64plus/mupen64plus-video-glide64mk2/commit/21c67846981626ae099a3dc06cadc2ceeb8f56af
+"
+"6f66b694aa610b2d7cf569e2fbdcc7f979cc7bd9","2014-12-07 20:36:16-05:00","assets: Sync glide ini file from upstream.
+
+https://github.com/mupen64plus/mupen64plus-video-glide64mk2/commit/21c67846981626ae099a3dc06cadc2ceeb8f56af
+"
+"dd17a2c65969b9cd06ebe8e31572dcee0460bf6f","2014-12-07 20:36:48-05:00","glide: Sync most stuff from upstream.
+
+https://github.com/mupen64plus/mupen64plus-video-glide64mk2/commit/21c67846981626ae099a3dc06cadc2ceeb8f56af
+"
+"e409888233cf9aba387c1f9329400323603b7cf3","2014-12-07 20:38:57-05:00","Merge branch 'align-glide-upstream'
+"
+"62af0e0faf6f3cf2462d2b404327ca0a44962631","2014-12-08 21:55:54-05:00","front: Add logcat, date, shell utility functions.
+"
+"faaed5d0151b3bfccb9b826fa2cca3f623f9b09b","2014-12-08 21:56:04-05:00","front: Implement crash handler to save crash reports to disk.
+"
+"65bbf50fab5a162150f2af27fa7c309b29e8a2c8","2014-12-08 21:56:17-05:00","libs: Update to ACRA dev build 4d15be3253c4e900abe320737790d78981e21ecf.
+
+https://github.com/ACRA/acra/commit/4d15be3253c4e900abe320737790d78981e21ecf
+
+This fixes an issue that became apparent after adding our extra crash
+handler.  Two crash logs were being created, where the second was caused
+by a bug in ACRA.
+
+The bug is described here:
+https://github.com/ACRA/acra/issues/136
+
+and resolved here:
+https://github.com/ACRA/acra/pull/165
+"
+"3e8dc4ce5f3269503efc5d757c18c5a1587e0708","2014-12-08 22:29:41-05:00","front: Add menu item in gallery for peeking at logcat.
+
+Shows logcat since app was launched.
+"
+"78f20fb4ed74736a8778aa5148054a89a208ad0b","2014-12-09 08:23:23-05:00","front: Show toast when saving screenshot.
+"
+"00839b3622a0cd3066da294dae0d515ba9c8204c","2014-12-09 08:24:37-05:00","front: Add in-game menu item to save screenshots.
+
+In case you don't have a controller or don't want to map it to a button
+or don't even know the new feature exists.
+"
+"ef91d304cad12b86dc96d27cfaf0a76aea216447","2014-12-09 19:19:25-05:00","front: Add isValid field to RomHeader class.
+
+Can be queried to be sure that the file is an N64 ROM.
+"
+"492dc457fc6c659477f1cad4a508aeeb1b40add6","2014-12-09 20:49:33-05:00","front: Pre-empt misuse by throwing informative exceptions.
+
+I wish the database could just be loaded on demand, but alas, it needs
+to know where the datafile is, which requires knowing some things that
+require a context.
+"
+"2bfec12bb01abcf422ea1b02203041f30b9780dc","2014-12-10 18:22:26-06:00","Update README.md
+"
+"83cb112905b95fb252d864e6a937488b42d176d7","2014-12-10 22:32:42-05:00","front: Bump asset version.
+
+This should have been done in commit
+6f66b694aa610b2d7cf569e2fbdcc7f979cc7bd9
+"
+"10988f56e0e55f11c84c763f96177eddf9d5cb25","2014-12-10 22:37:16-05:00","front: Override new glide defaults.
+
+This effectively reverts the config to what it was before
+e409888233cf9aba387c1f9329400323603b7cf3
+"
+"620b02e47e6e67c37940cf14f73de367c52469f8","2014-12-11 08:14:02-05:00","ae-bridge: Return result from main() back to java.
+"
+"543a79864efe30e8b3a24417d8758831bf5af953","2014-12-11 08:14:24-05:00","front: Toast notification if native main() fails.
+"
+"7155b6bd52d95d8197f20f555cd7f6413d43ee91","2014-12-11 08:14:43-05:00","Merge branch 'return-native-main-result'
+"
+"459f59bb79ef8bddd96b957594e392f50878929b","2014-12-11 18:15:34-05:00","cleanup: Whitespace nits.
+"
+"e4947bde6a2bab2c8566f1bf1b095319bb331d44","2014-12-11 20:06:29-05:00","front: Read only first byte into RomHeader.countryCode.
+"
+"c7d0b7468cba4b4bb5bbc40b16c6982e4c44d793","2014-12-11 20:06:40-05:00","front: Add countrySymbol field to RomHeader.
+"
+"45c5014e6cf4d2979cc470d2708deaed874b0805","2014-12-11 20:06:50-05:00","front: Add convenience constructor to RomHeader.
+"
+"58a2c960a914c81f6735e719386c132388733b2a","2014-12-11 20:07:17-05:00","Merge branch 'read-rom-header-mods'
+"
+"7ebb5650f7498314fe6435ea4a50141a4f2b4972","2014-12-11 20:07:58-05:00","front: No longer need to pass CRC to PlayMenuActivity.
+"
+"0fd3847883d0ea6c46c71c806132d4faa73f2358","2014-12-11 22:57:28-05:00","Revert 'front: Override new glide defaults.'
+
+This reverts commit 10988f56e0e55f11c84c763f96177eddf9d5cb25.
+"
+"e91465af6cf479ba68e983e70ddb218afd139b98","2014-12-11 22:57:52-05:00","Revert 'front: Bump asset version.'
+
+This reverts commit 83cb112905b95fb252d864e6a937488b42d176d7.
+"
+"9ecabcde7fd07f371b69f1232687ec18ab5d851f","2014-12-11 22:58:04-05:00","Revert 'Merge branch 'align-glide-upstream''
+
+This reverts commit e409888233cf9aba387c1f9329400323603b7cf3, reversing
+changes made to ba55a8d78f2355952de07a1d0e7976f1e1db753d.
+"
+"a7a3985e4025c89ea1412962bfd6f1e44f4e851b","2014-12-11 22:59:16-05:00","front: Bump asset revision to be safe.
+"
+"3e817b90edf9165cf767a95c97d75a34a977b258","2014-12-07 20:34:54-05:00","glide: Add USE_GLES to the Android makefile.
+"
+"7dff042d6bbf145d9656ff378ccf3e07c3a105ef","2014-12-07 20:35:38-05:00","glide: Remove dead code that no longer exists upstream.
+
+https://github.com/mupen64plus/mupen64plus-video-glide64mk2/commit/21c67846981626ae099a3dc06cadc2ceeb8f56af
+"
+"4d67aa889477a956623955c31785161b4f69b6c4","2014-12-07 20:35:49-05:00","glide: Rename glitch files to match upstream convention.
+
+https://github.com/mupen64plus/mupen64plus-video-glide64mk2/commit/21c67846981626ae099a3dc06cadc2ceeb8f56af
+"
+"f28abf25a737b8274810a16910f632616a8c0982","2014-12-07 20:36:00-05:00","glide: Add unused files from upstream.
+
+https://github.com/mupen64plus/mupen64plus-video-glide64mk2/commit/21c67846981626ae099a3dc06cadc2ceeb8f56af
+"
+"04176b82c371cd8732275dc15f9c60f0c0ac9da0","2014-12-11 23:19:05-05:00","glide: Sync benign changes from upstream.
+
+https://github.com/mupen64plus/mupen64plus-video-glide64mk2/commit/21c67846981626ae099a3dc06cadc2ceeb8f56af
+
+Just code that is ifdef'd out, whitespace, upcasts, unused declarations.
+"
+"bec943466e576b070d8069145dfa54c2983421d5","2014-12-11 23:45:32-05:00","glide: Add rotation option from upstream.
+
+https://github.com/mupen64plus/mupen64plus-video-glide64mk2/commit/21c67846981626ae099a3dc06cadc2ceeb8f56af
+"
+"fa36871a83b953b1956eb9aa303faa4047bb44f3","2014-12-11 23:47:19-05:00","Merge branch 'realign-glide-upstream'
+"
+"e3905ed0119e749d9944be2c3f7ecb9896d80c6e","2014-12-12 19:09:43-05:00","front: Allow user to reset per-game settings to their defaults.
+"
+"552d3abbfab50606352716b5df378894f77a4501","2014-12-12 19:13:19-05:00","front: Pass RomHeader to GamePrefs constructor.
+
+The header contains immutable information that we can use when naming
+game-specific data directories.
+"
+"ee516171f822e7a0ffaa6711e5aa0a7c8702f7f2","2014-12-12 19:13:31-05:00","front: Name game-specific data directory using immutable header info.
+
+Header name is not always as user friendly as GoodName, but the header
+name is immutable for a given MD5, which is probably more important in
+the long run for not borking user data.
+
+Using the header also eliminates the dependency on the RomDetails class,
+which is sometimes costly to use.
+"
+"34125ca756a64e10959f9892cfa7f3d036be12b2","2014-12-12 19:18:17-05:00","front: Use a separate mupen64plus.cfg file for each game.
+
+Power users have always been able to manually edit the core config file
+to access advanced settings not exposed via the UI.  Before, this config
+file was shared across all games, which meant that the manual edits had
+to be reapplied every time the power user switched games.  This commit
+changes that by assigning a separate config file to each game.  Thus the
+power user need only edit the config file once.
+"
+"2ffaf00398a6ad4c03f18a678034da3af3091f48","2014-12-12 19:18:30-05:00","Merge branch 'reorganize-game-directories'
+"
+"596362e658dd630dcaf06b3b5ba7d0e594dfc285","2014-12-13 22:07:14-05:00","front: Only compute MD5 asynchronously.
+"
+"11550cc42b2abeaad3505e1da98a1a58355c694c","2014-12-13 22:07:30-05:00","front: Remove MD5 from RomDetail (avoid all ambiguity).
+"
+"c888964aec4cbc5a163f7797e7e9e431fa4f76eb","2014-12-13 22:07:39-05:00","front: Eliminate GalleryItem dependency on ROM database.
+"
+"785f1095a3e95bb5d141c1fb6d2c4409dada1a45","2014-12-13 22:07:48-05:00","front: Move MD5 calculation to ComputeMd5Task class.
+"
+"e614b7ae509c22889eba50521c7a687a3ce78c38","2014-12-13 22:07:58-05:00","front: Create RomDatabase class to eliminate sloppy singleton impl.
+
+Previously, RomDetails required you to call a static initializer before
+calling any of it other (static) methods.  This creates a problem when
+the app crashes, because the O/S (or ACRA?) tries to restart it.  On
+restart, it jumps straight to the GalleryActivity, skipping the Splash-
+Activity that calls the initializer.  So every activity that used Rom-
+Details had to be sure to call the initializer first.
+
+Moving to a non-static implementation of the database ensures that the
+initialization stuff is always called before any of the methods.  It
+just fits the model much better.
+"
+"bb9b48680b2eceddc7a8593cc195228e998a2c7f","2014-12-13 22:15:14-05:00","front: Create DownloadFileTask class for future use.
+"
+"449a1781a677c4dce1289b8d1c9580bcddf40012","2014-12-16 23:28:36-05:00","Added support for android tv launcher
+"
+"d7e8dda581fe1c3622cb041d14cf97988502e272","2014-12-17 08:56:41-05:00","Merge pull request #403 from securingsincity/master
+
+Added support for android tv launcher
+"
+"470afd45037fe701d2b400a4f48f48b9702e3dd9","2014-12-17 08:58:12-05:00","front: Change default vertical position from center to top.
+
+This setting generally only matters when playing the game in portrait
+orientation.  Making the default be 'top' gives plenty of space for the
+touchscreen controls in the lower portion of the screen, yielding a lay-
+out like the original Gameboy.  My guess is that most people who use the
+game in portrait orientation would prefer it this way.  I certainly do.
+"
+"a3ef88dcc268f900bcba4fb950ca2bde1f6f8f70","2014-12-18 21:36:43-05:00","build: Remove android makefiles from upstream modules.
+
+These makefiles don't really belong upstream since they contain specific
+references to things in the mupen64plus-ae project (e.g. ae-bridge).
+
+One less diff with upstream, one less need to fork.
+"
+"87dce8723fa6cf4d13902044b8d37a92a34f7007","2014-12-21 00:00:15-05:00","glide: Use config file rather than jni functions for polygon offset.
+"
+"3c0fe45f91a64f3446ef3a7bb583e739c596b5c9","2014-12-21 00:00:24-05:00","rice: Use config file rather than jni functions for polygon offset.
+"
+"993c9451c6a6d2518761c3c1c83022364c4eeb2a","2014-12-21 00:00:36-05:00","gln64: Use config file rather than jni functions for polygon offset.
+"
+"673d162d113be3fdcc837156816be3e23887a4f9","2014-12-21 00:00:47-05:00","assets: Add polygon offset settings to gln64.conf.
+"
+"e31de98ee9131ab03c3df4cdafb6ca567b2268f7","2014-12-21 00:01:30-05:00","ae-bridge: Use config file rather than jni functions for polygon offset.
+"
+"fa3c306b2ba46f5eddeeb8bfaa21e780319ab971","2014-12-21 00:01:43-05:00","build: Remove obsolete flags from makefile.
+"
+"44cd5a24562590b7a6910fabf38756a930b5da0f","2014-12-21 00:02:11-05:00","Merge branch 'refactor-polygon-offset'
+"
+"f012c42bc0b79c19dad0c59b3dbc5df8ba5506a0","2014-12-21 00:02:25-05:00","front: Tweak game data folder name for readability.
+"
+"b5d506bfe8d3d560a185500df8686d5dfffab67a","2014-12-21 00:03:29-05:00","tools: Update pull-upstream script.
+
+We are now employing a git-submodule-like policy for synchronizing the
+upstream components.  That is, all changes to the upstream modules in
+the mupen64plus-ae repository must be made on the upstream side first,
+then pulled downstream using this script.  Any manual modifications made
+from the downstream side will be overwritten the next time this script
+is run.  That is very much intentional, as it enforces the top-down
+philosophy we are now adopting.
+
+Developers may still manually modify the upstream modules from the down-
+stream side, as long as they do it in a branch that never gets merged
+back to master.  That is also very much intentional; it should still be
+easy for devs to experiment with upstream code while working in the
+downstream project.
+
+Note that we are not actually using git-submodule, due to its infamous
+fragility.  We do not want to require our contributors to be git super-
+users.
+
+The approach used here is much more robust than git-submodule, since the
+upstream code is always retained in the downstream repository's history.
+The approach used here simply emulates what a git superuser would do
+using only basic git and shell operations.  That means that any mistakes
+created by this commit can be fixed using basic git and shell commands.
+No black magic or human sacrifices are needed in a worst-case scenario.
+"
+"3bc8da9ca6d963764c9865673298c81471066144","2014-12-21 00:03:42-05:00","core: Update to commit 0af2469.
+
+https://github.com/mupen64plus-ae/mupen64plus-core/commit/0af2469
+
+* 0af2469 build: Remove Android makefile.
+* cd9ab6c Merge remote-tracking branch 'upstream/master'
+*   ec59c18 Merge pull request #52 from Gillou68310/sub64_32
+|\
+| * 5c1c8cc new_dynarec: Implemented emit_sub64_32 on x86
+* |   c2320e7 Merge pull request #51 from Gillou68310/master
+|\ \
+| |/
+| * 77b0327 new_dynarec: Fix crashes after calling jump_syscall on x86
+|/
+*   e58b813 Merge pull request #50 from Gillou68310/master
+|\
+| * 9e229f7 Fix build under VS2010
+|/
+* 777890a add prototype PAL rom hash for Indiana Jones and the Infernal Machine
+* cd8df80 Merge pull request #49 from zephyr1988/master
+* ca66058 [NEW DYNAREC ARM] Use ARM mode explicitly - some systems use -mthumb by default
+"
+"98cb4cac03c12bc1ac36ae4439130a1e9e4b6ec5","2014-12-21 00:03:54-05:00","ui-console: Update to commit 7c140db.
+
+https://github.com/mupen64plus-ae/mupen64plus-ui-console/commit/7c140db
+
+* 7c140db build: Remove Android makefile.
+* 5dcf54f Merge remote-tracking branch 'upstream/master'
+*   90fefca Merge pull request #7 from mupen64plus/invert_callbacks
+|\
+| * c495ff8 fix bad logic to set frame callback
+| * 7d5247b fix: can't load saved state and do screenshot because only one callback function is allowed. Now everything is done inside one single callback function
+|/
+* 36c51b5 Merge pull request #6 from mupen64plus/savestate_loading
+*   0bc3036 Merge branch 'savestate_loading' of https://github.com/mupen64plus/mupen64plus-ui-console into savestate_loading
+|\
+| * 91f0a28 add savestate loading at rom startup support
+* 566c9f9 add savestate loading at rom startup support
+"
+"78d35f8752ecac0b3591af334fb239abdd60ca0d","2014-12-21 00:04:07-05:00","audio-sdl: Update to commit 24f7993.
+
+https://github.com/mupen64plus-ae/mupen64plus-audio-sdl/commit/24f7993
+
+* 24f7993 build: Remove Android makefile.
+* 2cb09e9 Merge remote-tracking branch 'upstream/master'
+* 8cf8f17 Merge pull request #5 from krnlyng/nemo_audioresource
+* 126b8b3 implement audioresource support. required on nemo to enable audio output
+"
+"3d7fe938014fd2c85dfecc15735bfbc4cda4c3cc","2014-12-21 00:04:37-05:00","rsp-hle: Update to commit 8fc144d.
+
+https://github.com/mupen64plus-ae/mupen64plus-rsp-hle/commit/8fc144d
+
+* 8fc144d build: Remove Android makefile.
+"
+"895fc13e98246ab58a310b35c917edafad9231ae","2014-12-21 00:04:50-05:00","video-rice: Update to commit e8c4647.
+
+https://github.com/mupen64plus-ae/mupen64plus-video-rice/commit/e8c4647
+
+* e8c4647 build: Remove Android makefile.
+* 9f0f892 Merge remote-tracking branch 'upstream/master'
+* a066f9e Merge pull request #33 from littleguy77/master
+* 8e4b55a Add config option to force polygon offset values.
+"
+"4ebfd15ac6f24ecedc62e0f6edbed2f7ed86bd6d","2014-12-21 00:05:03-05:00","tools: Switch to vanilla upstream for rsp-hle and video-rice.
+"
+"eb40b43d788fb0a75bdd29bd35e972cae15f557a","2014-12-21 00:05:16-05:00","rsp-hle: Update to commit 5c86640.
+
+https://github.com/mupen64plus/mupen64plus-rsp-hle/commit/5c86640
+"
+"5f83ec4a5a68c7fa5945d581c7075616f655da58","2014-12-21 00:05:27-05:00","video-rice: Update to commit a066f9e.
+
+https://github.com/mupen64plus/mupen64plus-video-rice/commit/a066f9e
+"
+"15f12520cb75ef6236779f756dddd30945307d85","2014-12-21 00:05:44-05:00","Merge branch 'sync-upstream-new-strategy'
+"
+"0f33180273f6366db906ebf232cd31155b2f8392","2014-12-21 19:43:56-05:00","glide: Remove unneeded ae-bridge include.
+"
+"fa0be2e5d0be7862f551d0a955d230ece724b3ab","2014-12-21 19:45:05-05:00","build: Remove video plugin dependency on ae-imports.
+"
+"6aa8b18be5207990aaf767745c303546c7979cf3","2014-12-21 19:45:16-05:00","ae-bridge: Remove obsolete functions.
+"
+"145de79af1301d7f834a1ac08b244ae5c81fad7d","2014-12-21 19:46:58-05:00","ae-bridge: Fix inclusion guard name.
+"
+"225d958ff4ac8dc4fb6bfddb227c8ee05861f4c9","2014-12-21 19:47:47-05:00","glide: Synchronize unused files with upstream.
+"
+"7a4095248a306ba453ba2d3a0eb552b4bffa5047","2014-12-21 23:17:13-05:00","glide: Consolidate frameskipper source files.
+"
+"cc14942525fce7ed9313ca48c8de49a6c0901b00","2014-12-21 23:17:31-05:00","glide: Simplify frameskipper implementation a bit.
+
+ticksInitialize() was never being called, hence startTicks was always
+zero.  Therefore both can be removed.
+
+Rename ticksGetTicks() -> getCurrentTicks() and make it a private
+method rather than static.
+"
+"b3ac36e2a869001977c1e36d8979b8a18b6fe8ce","2014-12-21 23:17:47-05:00","glide: Initialize all frameskipper fields in constructor.
+"
+"36d9e852715c918d1aa54b9968fc97c4ea4c8081","2014-12-21 23:18:21-05:00","glide: Document and rename frameskipper variables for clarity.
+"
+"feb0ccc31614aaee1834e80d7dd9773a1f9b9311","2014-12-21 23:21:43-05:00","glide: Simplify frameskipper conditionals for better readability.
+
+And eliminate computations that aren't needed in manual frameskip.
+"
+"4f64e8ccdcb9ac8eb9e563713428c2ba06d0f1ed","2014-12-21 23:23:18-05:00","glide: Remove unneeded frameskipper method.
+"
+"ed1733f4cb58ce2d38d6b901a244796928fff5be","2014-12-21 23:24:35-05:00","glide: Change build flag ANDROID_EDITION -> USE_FRAMESKIPPER.
+
+More general, and clearer meaning.
+"
+"e6bf1ce605de0a5759a5129cd3374fdaf871fee5","2014-12-21 23:25:07-05:00","glide: Load frameskip settings using proper mupen64plus config API.
+"
+"4f946dd52416b0809f12e311c89f64fd218bb6c7","2014-12-21 23:25:39-05:00","Merge branch 'refactor-glide-frameskipper'
+"
+"e20677e511c6b51bb48cf15b94205e1e967d51cf","2014-12-22 08:17:07-05:00","glide: Add antialiasing from upstream (not implemented for GLES).
+"
+"996cc0e9955ee4ece9fe878a726195fa4489d888","2014-12-22 08:33:07-05:00","glide: Look up chroma_color uniform.
+
+Fixes fullscreen swap bug. No more GL_INVALID_OPERATION spamming.
+
+Cherry picked from
+
+https://github.com/libretro/mupen64plus-libretro/commit/0769f3c1dfe62ecac8571d5208e121470824ba89
+
+https://github.com/mupen64plus/mupen64plus-video-glide64mk2/commit/e78a43b2ba249b5db88e660307b5bc2a9a944131
+"
+"11aac810f69cfee33f0fd454fcb46ce2d6fbb37c","2014-12-22 08:37:41-05:00","glide: Get rid of glEnable/glDisable(GL_TEXTURE_2D) from OGLES combiner.
+
+Is fixed-function
+
+Cherry picked from
+https://github.com/mupen64plus/mupen64plus-video-glide64mk2/commit/d7afc9c79d68782d78e2ee6d6ee56bc55d86651d
+
+See also:
+http://stackoverflow.com/questions/11489238/opengl-es-2-0-texture-showing-up-black
+
+'You don't use glEnable for textures when you're using shaders.
+glEnable(GL_TEXTURE_2D) is only for fixed function pipeline, and thus
+it is not a valid operation in opengles2.0. Just remove the line
+completely.'
+
+Fixes several errors reported on Adreno devices when doing an OpenGL
+trace.
+"
+"cdbc104f8a0f2c640508ce0cc5653bfdadea1f14","2014-12-22 09:04:50-05:00","glide: Use upstream screen resolution vars for screenshot.
+"
+"f280781cfdd004e82fed341fdc335436be4fe0f0","2014-12-22 09:05:09-05:00","glide: Update config defaults to match upstream.
+
+See
+https://github.com/mupen64plus/mupen64plus-video-glide64mk2/commit/b2a78163914a54d8ed1c1e2641cbf47f6896e250
+"
+"fffcf61f34e08bbc99a36f1b157ac5b9993686c3","2014-12-22 09:05:19-05:00","front: Override new glide defaults.
+
+This effectively reverts the config to what it was before the last
+commit.
+"
+"652dd31d79fb31743e1060c0dca4171b3fd2b7a9","2014-12-22 09:05:45-05:00","Merge branch 'align-glide-upstream'
+"
+"29512209bc261172bc9bc20ecf904c2a75161506","2014-12-25 21:43:48-05:00","res: Remove unused strings/arrays.
+"
+"a84303a367bbf087f3ed587121f4cfe19ac7f8b3","2014-12-26 02:46:12+00:00","res: Updated translations.
+"
+"5591a41ce551f3fd5ec5cf344d82755134f01c67","2014-12-25 21:54:22-05:00","res: Added Finnish (Suomi) to languages menu.
+"
+"0f83883ed8237dc21a7f6605838b485d05a04e0b","2014-12-25 22:52:05-05:00","front: Rename emulation profiles and make Glide-Fast the default.
+
+Remove interpreter-based profiles since dynarec is working so well now.
+"
+"858029181f05799e5b05d7e19d6bd7885bfddba1","2014-12-28 10:22:13-05:00","front: Fix touchscreen not being disabled.
+"
+"7d6f0f9e4f31002bc8c1f977a05610033214414b","2014-12-28 10:40:41-05:00","tools: Tweak pull-upstream script.
+"
+"7dfec799f4fd070beb2a9c54e39998490dc5dd73","2014-12-28 10:42:30-05:00","video-rice: Update to commit cf62497.
+
+https://github.com/mupen64plus/mupen64plus-video-rice/commit/cf62497
+
+* cf62497 Merge pull request #35 from littleguy77/master
+* dc6cc61 Add documentation comments for polygon offset settings.
+"
+"a38051db65b16cdb4dddb21412e801aa0d6627a2","2014-12-28 10:43:09-05:00","Merge branch 'sync-upstream'
+"
+"f6314cdd2b16b32fc18d77dac03baaf15b2152fa","2014-12-31 11:35:04-05:00","front: Consolidate FindRomsTask and CacheRomInfoTask into one class.
+"
+"7da16aa6d8a55414b41d362b3d7588e63bf1a5d8","2014-12-31 11:35:28-05:00","front: Consolidate DownloadFileTask and CacheRomInfoTask into one class.
+
+If we ever need a dedicated download task, we can just resurrect the
+DownloadFileTask implementation from the repository.
+"
+"b004e2b7322934b50326088522d46ae0f88b0bd0","2014-12-31 11:35:45-05:00","front: Allow CacheRomInfoTask to be quickly canceled.
+"
+"ca66c2b758fea1a05b97c4c105e0f28d0b56cf53","2014-12-31 11:35:55-05:00","front: Cancel CacheRomInfoTask when GalleryActivity stops.
+"
+"a03ad22fdc93cfd38e4b6ab871fd51d57506b6a4","2014-12-31 11:43:35-05:00","front: Refresh GalleryActivity even if CacheRomInfoTask is canceled.
+"
+"5fdb319687d3d1d70152e0b1db75e34b83dd2004","2014-12-31 11:48:26-05:00","Merge branch 'tweak-async-tasks'
+"
+"42c0d5674d9762467c482bc172822638b0933d6e","2014-12-31 17:50:16-05:00","core: Update to commit bdeb371.
+
+https://github.com/mupen64plus-ae/mupen64plus-core/commit/bdeb371
+
+* bdeb371 Revert to upstream's method signature.
+* d7ea52c Merge remote-tracking branch 'upstream/master'
+* addef5f add new m64p_GLattr enumerated types to control the OpenGL context version and type when mupen64plus is built against SDL2
+* 9e5e1da update makefile, bundle build script, and instructions for OSX builds
+*   b635486 Merge pull request #55 from littleguy77/master
+|\
+| * f0bea96 Add wiki documentation for polygon offset settings (video-rice).
+* d2728bb Merge pull request #54 from Gillou68310/assem_arm
+* e95f807 new_dynarec: Removed assert(0) in emit_rscimm
+* 751848a new_dynarec: Fix DMULT instruction on ARM
+"
+"f3abd1f057ebfc2c7833589e3606978f556e93d0","2014-12-31 17:51:39-05:00","tools: Switch to vanilla upstream for core.
+"
+"1222288ffcb2bb8e8d88930dacd9956c191f542f","2014-12-31 17:53:03-05:00","core: Update to commit addef5f.
+
+https://github.com/mupen64plus/mupen64plus-core/commit/addef5f
+"
+"3999a5941b5d14c0a57da845c400ebe33a7722d5","2014-12-31 17:56:27-05:00","assets: Sync mupen64plus.ini with upstream (long overdue).
+"
+"e66efb39e76320f5c6f9579e7c6cef0607006d28","2014-12-31 17:56:50-05:00","Merge branch 'sync-core-upstream'
+"
+"80438bcba13e3e1a78999208d01b58a729703949","2014-12-31 23:48:50-05:00","glide: Remove most cached versions of GL functions.
+
+Trying to determine what, if anything, is needed in glState.cpp.  Seems
+like it shouldn't be needed for efficiency, as I would expect GLES
+drivers to already ignore redundant calls (and do it very efficiently).
+
+The other thing glState.cpp adds is extra calls to vbo_draw.  In some
+cursory experimentation, I've only seen two things that this implemen-
+tation fixes.  I added comments to describe what is fixed, and commented
+out the rest.
+"
+"42b1e73ea5c312210947479e5661c5a6ced0990e","2015-01-01 09:59:02-05:00","audio-sdl: Update to commit 863fb3c.
+
+https://github.com/mupen64plus-ae/mupen64plus-audio-sdl/commit/863fb3c
+
+* 863fb3c Remove Android Edition customizations.
+"
+"5b3d2acde758ba5be899cd20cf35a8137a05bc19","2015-01-01 10:00:29-05:00","tools: Switch to vanilla upstream for audio-sdl.
+"
+"577cabb59fd7623639b4d599c17fb42926f7972e","2015-01-01 10:00:50-05:00","audio-sdl: Update to commit 8cf8f17.
+
+https://github.com/mupen64plus/mupen64plus-audio-sdl/commit/8cf8f17
+"
+"6fc1a2651c32b0dffd69258a74ac30390f9615ce","2015-01-01 10:02:07-05:00","build: Remove obsolete build flags from audio-sdl.
+"
+"762b18e2b1d77ee2536537c85ba64064e92c0318","2015-01-01 10:02:18-05:00","Merge branch 'sync-audio-upstream'
+"
+"669f6fefa526f143410f2dd1d590f1afe8eb9358","2015-01-01 11:35:01-06:00","front: Add Fuhu Nabi 2 to hardware profiler
+"
+"861ae7d531c3dd0e55a7e0341e7a9220aea59593","2015-01-01 17:43:47-06:00","build: update command-line properties to target api 21
+"
+"981a47a39ba6998115d0f0a98af2038b63881d52","2015-01-01 13:31:45-05:00","glide: Cleanup whitespace, use naming conventions in FrameSkipper.
+"
+"d7c6c55b4ed85af7cf6efcdef085a37de7534609","2015-01-01 19:39:04-05:00","glide: Use platform-agnostic SDL timer in frameskipper.
+"
+"dac2b07eb6ad94f7f20c34e1b9068a98d767b5e4","2015-01-01 13:31:54-05:00","glide: Add FrameSkipper flags to makefile for upstream pull request.
+"
+"0a0020f246e704fe7efddba380fb22cd8794b7a0","2015-01-01 20:45:46-05:00","glide: Partial update to commit 3e58eb7.
+
+https://github.com/mupen64plus/mupen64plus-video-glide64mk2/commit/3e58eb7
+
+* 3e58eb7 fix texture pack read failure on some 64-bit platforms, found by EndoplasmaticReticulum on github, due to png_uint_32 type being unfortunately defined as 'unsigned long int'
+*   a18ee5b Merge pull request #29 from littleguy77/master
+|\
+| * 717b587 Implement optional frameskip feature.
+|/
+*   4727785 Merge branch 'master' of https://github.com/mupen64plus/mupen64plus-video-glide64mk2
+|\
+| *   8b0e9b5 Merge pull request #37 from twinaphex/master
+| |\
+* | \   c5998a5 Merge pull request #37 from twinaphex/master
+|\ \ \
+| |/ /
+|/| /
+| |/
+| * 154d818 Fix broken C version of MulMatricesC
+* |   c435f2a Merge pull request #38 from fayvel/build
+|\ \
+| * | 3493bd6 add extra includes and preprocessor checks for _WIN32
+| * | 4d8c50a use more widely used preprocessor defines for MinGW
+| * | fd37e9e use different swprintf call for _GLIBCXX_HAVE_BROKEN_VSWPRINTF
+| * | a8ca725 use travis ci with clang
+| * | 378c250 use newer boost for C++-11 compatibility
+| * | 9593518 use Unix-compatible SDL include for SDL_thread
+| * | d610bff use non-strict-ansi mode to build sources
+|/ /
+* |   2e66b4a Merge pull request #36 from krnlyng/gles
+|\ \
+| |/
+|/|
+| * a4f33ad include SDL_opengles2.h instead of SDL_opengles.h
+|/
+* 9a3f9ff more makefile fixes for OSX with xcode 6.1.1
+* 4bbe95d use SDL threads instead of C++11 threads, which are not supported on clang
+* 6a46ad1 update makefile for build with clang on XCode 6.1.1
+* 339ca50 clang doesnt have the to_wstring method
+* 7200662 Merge pull request #28 from littleguy77/master
+* 3a44862 Add documentation comments for polygon offset settings.
+"
+"da90f007b1a00ffc314037cc3e963fcd57b5e3e8","2015-01-01 20:47:31-05:00","Merge branch 'align-glide-upstream'
+"
+"d02e8472fdc73fc9b65606de429c0df1d8ab0020","2015-01-01 20:58:35-06:00","tools: Add script for auto-building
+"
+"8abc47786b02cb0e583b0627997aae573e141e02","2015-01-02 10:14:21-06:00","Merge remote-tracking branch 'upstream/master'
+"

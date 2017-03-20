@@ -1,0 +1,297 @@
+"commit id","commit date","commit message"
+"5be76d9765aa322797ce002489e8e0b7a883bf56","2012-09-22 12:03:16-07:00","Login Form Updates
+
+Cleaned up the login form layout a bit.
+"
+"723ddd95cdec0dee59755e845981a9d1d82ae95b","2012-10-04 20:09:11-04:00","ABS Related Changes
+
+The project now uses ActionBarSherlock classes in order to support all
+the way back to Android 2.2. This commit sees the beginning of the
+conversion with First Run, Home, and ItemGridFragment converted.
+There's also a nasty bug where you can't log in yet because of some
+crazy error.
+
+Also, because ABS is a separate Android project acting a library, to use
+this repo now you have to get it working in your local IDE (or compiler)
+manually.
+"
+"5669b80ea98b1dc72db76e0cc0e1ecb565a117a6","2012-10-04 20:10:25-04:00","Updating .gitignore to ignore lint.xml
+"
+"27b6d286b6d31d3652a8f7f8c88ac9d2b78234ba","2012-10-04 20:43:04-04:00","Removed NetworkOnMainThreadException Import
+
+It was causing a horribly VerifyError since NOMTExc didn't exist back in
+API level 8 (2.2). We shouldn't need it anyways, since our net code is
+always called from a separate thread.
+"
+"91c642b099506057fc1e51b555841d25e43cdd28","2012-10-04 21:12:05-04:00","Added supportAddAll method to CoverAdapter
+
+Since .addall() wasn't introduced until API 11, I added a simple
+supportAddAll method that simply runs a foreach loop and hands each
+record to .add(), which is available. Works, solves that crash.
+"
+"06a3d3534a1a2ce58581cf4801e1d21f6eeb5da7","2012-10-04 21:21:01-04:00","Another Crash Fix
+
+Added alternative way of getting byte size since older platforms didn't
+support the all-in-one getByteCount.
+
+Also with this commit the home screen should work, though it's wonky and
+the screen size isn't calculated right atm
+"
+"6d5b941aed4c4a5feaf553788010a6ff48a15164","2012-10-04 21:35:14-04:00","Fixed squished covers
+
+Added code to get the dp width (which is important) for older devices.
+Now the covers display correctly instead of being horribly squished.
+"
+"7e9246da270d8fa09ff95b161e24690d7c6ddbc7","2012-10-04 21:41:39-04:00","Stylistic Fix
+
+Android pre-ICS by default has fading edges enabled. Added the attribute
+to disable that, as we don't want those.
+"
+"b297289cd1d5d16baa3830a5da695448873ba9e3","2012-10-04 22:36:51-04:00","DetailView Conversion
+
+Converted DetailView to ABS. Also made sure to disable fading edges in
+DetailView.
+"
+"8dfe71549508e942ac7bddab6a566efc235cfb84","2012-10-04 23:07:35-04:00","Sherlock-themed Dialogs
+
+Changed the dialogs to use Sherlock themes, Holo on Android 2.2 because
+we can. As of now it crashes because NumberPicker doesn't exist, must
+add the backport.
+"
+"2e90fe2d5316dbe973a89016b2b1f6382cb213f8","2012-10-30 01:26:26-04:00","Settings work on 2.2
+
+Changed the Settings to use SherlockPreferenceActivity since
+PreferenceFragment isn't actually part of the compatibility library.
+Might revisit this later for a more elegant solution.
+"
+"5bfb399a18aa7c3559ae36e8e37c4a19250deb5c","2012-10-30 03:57:18-04:00","EpisodePickerDialogFragment Works
+
+Plenty of changes to make this happen. Most noteworthy, the project now
+requires SimonVT's NumberPicker backport in order to compile. It's to be
+linked in the same way as ActionBarSherlock, so unfortunately it can't
+be included in the repo and has to be setup manually.
+"
+"c9ee5e4234de115a857b1ffaf1d87800b42c8508","2012-10-30 03:59:10-04:00",".gitignore updates
+"
+"d97ede46048f545701719f110b9f8d2489491cdf","2012-10-30 17:49:51-04:00","MangaProgressDialog Works; Layout issue
+
+Made it work, though the layout refuses to cooperate on Android 2.2, and
+insists on pushing the ':' in 'Chapters:' to a second line, mucking up
+the alignment. I've tried everything and absolutely can't get this to
+work, so it'll just have to be left as is for now.
+"
+"a0557eb7e0f10e6d8616f069bb263f943d9b02f3","2012-10-30 18:02:19-04:00","Disable Quick Actions if unsupported
+
+Quick check to disable the quick action button if the device (below 3.0)
+doesn't support it. This should be the last change needed for the app to
+run on 2.2+, so merging it back mainline now.
+"
+"eeccf8d8fb4e9cd5f0af58ee1209d058ff9c1552","2012-10-30 22:50:12-04:00","Readme updated
+
+Mentioned and links to dependencies
+"
+"fc45faca4ff9ca96b14d9c1cf676bb75bc01b32e","2012-11-03 02:45:02-04:00","Card UI Framework
+
+Implemented the beginnings of the card UI framework. So far, I've
+converted the synopsis to using it. It's not complete yet, still needs
+to have the actionable argument and callback listeners implemented, but
+it's a fine start.
+"
+"9af6b98a5b6dda17880c7bfe8f37d8e5338fd769","2012-11-03 16:23:23-04:00","Actionable Argument Works
+
+If set to true, it displays a right facing caret (>) on the card,
+indicating it is touchable. Cards that have this set should also have a
+clicklistener set on them, so it does actually do something. Also added
+image resources for the caret.
+"
+"d6f57df6826746b73d77fa37d3ba69f4ff9aed70","2012-11-03 17:20:06-04:00","Progress Card Added
+
+Added another card, the Progress Card. It's also actionable, and brings
+up the progress dialog, same as clicking Update Progress.
+"
+"ee21cc404f1b9f22037ac38eee8f77454c47c59d","2012-11-05 00:17:29-05:00","Layout Updates
+
+Updated the portrait layout to have the cards sliding over a fixed
+image. Also added landscape resources for a horizontally scrolling
+landscape layout.
+"
+"4d0f59a7cfa3a3034b71f7ac2532d24bb1feb87f","2012-11-10 23:37:46-05:00","Added Info Card
+
+The last of the basic information we had before, the new UI now has
+informational parity as of this commit. The Info Card includes the
+status, type and personal status.
+"
+"60b5551aeddabcb5f2750cfd231514c81b55fce7","2012-11-11 01:42:49-05:00","Added Scores to the Info Card
+
+'My Score' and 'MAL Score' and now part of the info card. As part of
+this, since the MAL Score was never downloaded before I updated the
+relevant methods to fetch the information if it doesn't exist on the
+device. I also slightly modified the getMyScore() method in
+GenericMALRecord to return 'Not Rated Yet' if the entry is 0 - not
+rated.
+"
+"c9a2e460b11bad5435b226a4e6975e31a44ada69","2012-11-11 02:58:04-05:00","Changed Home Background Colour
+
+Literally all I did was change the background colour in the home
+activity to a darker one, specifically #333333. Looks sharp.
+"
+"fc4e6efdb8be753ae29dcfbcada54f4cb5a1fc73","2012-11-18 22:28:00-05:00","Added Share Action
+
+Cleaned up the detail view action bar, and added the share action.
+Atarashii! can now share, through Android's AMAZING sharing intents, to
+any available app on the device. Also caught a NPE caused in
+DetailView's onPause when rotating while the share interface is up. Oh
+and the share icon resources.
+"
+"c9f411426d0c4578c9509a8539c293ca4befad42","2012-09-23 12:53:15-07:00","Login Screen Cleanup
+
+More cleanup to the 'firstrun' login screen. Cleaned up strings on the
+screen, updated wording. Added landscape-optimized login screen layout.
+"
+"9dfeabe7d92caec05aeff2fae368486356f7c068","2012-11-20 12:48:21-08:00","Auto-adjust grid height
+
+Now, we calculate and auto-adjust the height of the grid cells to match
+our desired 0.7 aspect ratio. This should allow most cover images to
+properly scale without much cropping being done. Some longer or wider
+images will still be cropped, but there isn't much that can be done
+about that.
+
+Note that this is fairly rough. It can probably be refined a bit more.
+"
+"769df3e13730096f981bf4903b253b936a26b531","2012-11-20 17:33:50-05:00","Custom Share Text Support
+
+Customize in Settings, just works.
+"
+"ab9785eeb7e66145f1b6894294ea5d0ca7e975ba","2012-11-20 17:34:44-05:00","Merge branch 'working' of https://github.com/AnimaSA/DreadfulMALX.git into working
+"
+"81b84c54a982805e397d919a021ab86917687de8","2012-11-20 18:41:58-05:00","Fixed aspect ratio for manga
+
+Just a fix for 9dfeabe7d92caec05aeff2fae368486356f7c068, which did all
+the work but forgot the set the size for the manga list. Fix'd.
+"
+"840c7bdea3a9d03c9b6ef932fe41500c2323a5f8","2012-11-20 19:08:08-08:00","Local Settings File Removal
+
+Removed machine-dependent project files. These are different on each
+machine and platform and shouldn't be in the repo. Also updated the
+gitignore file to account for more possibilities of files not needed to
+be tracked.
+"
+"e2bd0d0497bc878bcce0c34ad4be5b87f19ed8aa","2012-11-20 19:27:36-08:00","Add Submodules
+
+Set up ActionBarSherlock and Android NumberPicker as submodules.
+"
+"3ec9719231ac46fa1fe249b2c3ca52ce2c6eed29","2012-11-20 21:05:11-08:00","Cleaned up for Libraries and Linked Code
+
+Removed the android-support jar as it should be imported by the builder,
+not stored with the project. Also cleaned the project properties to point
+to the new third-party dependencies.
+"
+"cd7e517fe0c8f689e3182c7ac43e9ea989ab0b48","2012-11-24 12:58:04-08:00","Building Instructions
+
+Added instructions for using the submodule system and building Atarashii
+with Eclipse ADT.
+"
+"6fc20c78b234b6954e98a388d6a9abae9681a271","2012-11-25 15:46:05-08:00","Cleaned Sync Item
+
+Added nice refresh icon for the sync action and moved it out of the
+overflow. Also added language string instead of hard-coding.
+"
+"6e7ee546876b8e7fbe3bbcc179a8028a9d638bc5","2012-11-25 22:46:52-08:00","Grid View Alpha Compatibility
+
+Use setAlpha(int) to give the overlay panel an alpha transparency for
+pre-API 11 devices.
+"
+"aa2fb4e5ed0f20b047785b1c28936ca5c75f6845","2012-11-25 23:24:15-08:00","Adjust pxToDp function
+
+Fix the pxToDp function to return the right calculation. fixes #23
+"
+"4aace2abb8caf3116f8e560355c80ccf009df1f9","2012-11-30 15:23:08-08:00","Added Ongoing Notification for Sync
+
+Set up an ongoing notification for sync, which will stay until the sync
+has finished. This allows users to see if the sync is still running, as
+the toast popup can be easy to miss.
+"
+"cf563eab2a24eb655799edcb93046d3171b4fd8e","2012-11-30 22:40:24-05:00","Ignore project.properties
+
+Needs to be ignored, wasn't in the .gitignore.
+"
+"4e6c0dc4c32da2b5f90d32f037d8332d1870b354","2012-11-30 22:46:52-05:00","Revert 'Ignore project.properties'
+
+This reverts commit cf563eab2a24eb655799edcb93046d3171b4fd8e.
+"
+"4c21b3fba70f587a077e202941dc23790caf48c6","2012-11-30 22:58:11-05:00","Merge remote-tracking branch 'AtarashiiOnGH/working' into working
+"
+"1b4bc7716e8437832d55136ce8263a1c2211122a","2012-12-01 00:49:13-05:00","Card Desgin Tweaks (and a bugfix)
+
+The 'Info' and 'Progress' cards are now 'MAL Stats' and 'Personal
+Stats'. Watch Status and My Score have also moved from MAL Stats to
+Personal Stats.
+
+Bugfix: By displaying 'Not Yet Available' through the getMyScore()
+method, I unintentionally was storing that in the database
+because of how we save items. Reverted getMyScore() to just returning
+the score and created a getFormattedScore() method for handling what it
+was previously.
+"
+"417448123aed613340156fcef60d8253c19d91c0","2012-12-02 10:48:27-05:00","Added Switch List Icon
+
+Since sync is using an icon, having 'Switch List' as text next to it
+looks a bit off. So I made an art asset for switch list and added it.
+"
+"26c3a7ce82605756fc5807579227d486518a0d4f","2012-12-03 15:01:21-08:00","Settings Menu Icon
+
+Added an icon for the settings menu item. This works best on Android 2.3
+devices where the menu actually shows icons.
+"
+"f38363f70190714ecaabe2d0049171988842de50","2012-12-11 15:36:16-08:00","Cleaned Output Info
+
+The application shouldn't be using System.out.println calls for
+displaying logging information. Removed unneeded calls and replaced other
+informative portions with verbose logging calls.
+"
+"64b129b68ef009e63cbfc67cd8adc64d2360d688","2012-12-23 02:51:01-05:00","Proper Cancel/Update Buttons (1/2)
+
+Changed EpisodesPickerDialogFragment to use an AlertDialog, creating the
+Cancel/Update buttons. Now, only if the user touches 'Update' will it
+actually update, and pressing 'Cancel' or tapping away will cancel it.
+Only 1/2 done because MangaProgressDialogFragment still needs
+conversion.
+"
+"66a6d88f2fadcfcb65920b81d3022bff64f08658","2012-12-23 14:40:00-05:00","Proper Cancel/Update Buttons (2/2)
+
+This commit completes the previous commit, adding the Cancel/Update
+buttons to the manga progress picker thing.
+"
+"dafc1f469a809dbb97c4e5f668100b21e9d32bf7","2012-12-23 22:03:31-05:00","Score Card (Read-Only)
+
+Added a score card, with a rating bar for both MAL and My Score. Since
+we have five stars and MAL uses a system of 1-10, the stars use
+half-steps, so each star is worth 2 on MAL. Currently read-only, will
+save my score changes in probably the next commit.
+"
+"16b3d6e6aaf62b89d5016061f1b55c5a4d8d0ebe","2012-12-09 13:27:43-08:00","Initial About Activity
+
+The beginnings of an 'About' page for the application. Provides basic
+'card-style' layout for credits section.
+"
+"7e6b697239618c3e0bfd0eea6db85655008d6f11","2012-12-24 12:53:39-08:00","About Activity Cleanup and Linking
+
+Cleaned up the horizontal layout for the about display. Also linked up
+contributor usernames to MAL profiles and linked to Unofficial API
+website.
+"
+"224a52f2e6bb3ef2805074f268f3807f1ddfe20a","2012-12-24 14:11:34-08:00","Fix NPE Error in Score
+
+In some cases, the application won't have the item score. Passing a null
+to the view results in a NullPointerException. This little kludge causes
+a zero to be returned if we don't have the score, preventing the
+exception and avoiding an application crash.
+
+This should probably be handled better later, perhaps by fetching the
+score if we don't have it.
+"
+"5e4a2fad0250d73bbd09858990dc87b599b965e5","2012-12-25 17:23:45-05:00","Add Open Source Licenses
+
+Added the open source licenses to the acknowledgements, with links to
+the projects used and the licenses they use.
+"

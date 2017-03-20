@@ -1,0 +1,302 @@
+"commit id","commit date","commit message"
+"b0182ed60486083de9fe7d2befee588f723ae736","2015-11-14 11:47:21+00:00","halfway through implementing timestamps:
+* still need to use the start position value stored in the PlayVideoActivity's Intent bundle, to set the VideoView using seekTo()
+* need to test timestamp extraction regex, and possibly move it somewhere else
+*need to find a better way to get the startPosition value to ActionBarHandler, which I thought used VideoInfo objects, but apparently doesn't
+* currently there is a small setStartPosition() method
+"
+"36697825cf0306b318055625e2d1dd94208452b4","2015-11-14 19:08:13+03:00","update fragment_videoitem_detail layout
+"
+"0aac4b1347d267357feafa2659cf5d76c8240765","2015-11-14 19:11:08+03:00","update fragment_videoitem_detail layout
+"
+"a421645ea5ff523b411171287c0e4ea60066de96","2015-11-14 19:14:51+03:00","update fragment_videoitem_detail layout
+"
+"522febef93f5d2a92c6fd832275f411cbc9cbad9","2015-11-14 19:17:54+03:00","update .gitignore
+"
+"5eebfa132f05423d70af8daf50ff66ac4cd36b9a","2015-11-14 19:19:45+03:00","update .gitignore
+"
+"2d31ae0baa58b9918a16037706ed3eb958f923a8","2015-11-14 19:20:31+03:00","Delete NewPipe.iml
+"
+"fa4b9712542d57658b06e3abd1974e56647220f4","2015-11-14 20:11:41+03:00","update .gitignore
+"
+"dac74dc30d3319610f376b6a58477d3b11dc2087","2015-11-14 20:12:11+03:00","Merge github.com:chschtsch/NewPipe
+"
+"21100201653b9094a47e4a756b074279044b4b9a","2015-11-14 20:48:42+03:00","update design
+"
+"e440d1d1bd9b0f26aaa1eb38bb7d6b88141589f3","2015-11-14 20:55:28+03:00","update design
+"
+"bd1e531d7bee793aa21aa011568423190f889cfa","2015-11-14 21:04:14+03:00","update design
+"
+"658ef2ef2691f74785e9c41f7dbaf84ea83771bc","2015-11-15 11:49:49+01:00","Merge pull request #97 from chschtsch/master
+
+Update design
+"
+"975a3e81033e07074178dd4b7fb24f148c52accf","2015-11-16 14:18:12+00:00","Merge branch 'master' of github.com:theScrabi/NewPipe
+"
+"97ec50c202fd180e7f9865f24aed41ec7d1bccea","2015-11-16 17:35:58+01:00","Translated using Weblate (Serbian)
+
+Currently translated at 100.0% (46 of 46 strings)
+"
+"0829ce51fc0fe908e1ac43b181e42ec17549f563","2015-11-16 17:36:14+01:00","Merge remote-tracking branch 'origin/master'
+"
+"320a4e2351674fa6b19aaa9b8322c0df4469b9c3","2015-11-16 23:32:00+00:00","Refactoring:
+* renamed VideoInfoItem to VideoPreviewInfo
+* moved streaming service-related classes into their own, new package services
+* added javadoc to some classes and methods (where functionality is known well enough to explain)
+* De-duplicated common fields between VideoInfo and VideoPreviewInfo by moving them into a common superclass: AbstractVideoInfo
+* Removed 2 methods which only call super(), and therefore are unnecessary: PlayVideoActivity.onResume() and PlayVideoActivity.onPostCreate(Bundle)
+"
+"7f01e9a4d97089e7f45c7c919e45553a7ab84a7b","2015-11-16 23:45:42+00:00","Merge branch 'master' of github.com:theScrabi/NewPipe
+translations
+"
+"91f98c125e59de5f36b8d3dfec0fe102501e4a68","2015-11-17 22:51:27+00:00","finished implementing timestamp, along with refactoring services
+* added VideoInfo(AbstractVideoInfo) constructor, to support later implementation for reusing info scraped into VideoPreviewInfo, into VideoInfo
+* Made the Extractor class behave as a per-video object;
+- most method return values are video-specific, so it makes sense (to me) to have Extractor be stateful.
+- The only stateless methods are getVideoUrl(), getVideoId() and loadDecryptionCode(String)
+* Implemented a constructor for YoutubeExtractor, which performs all initialisation work
+"
+"23e0196fcc987a0188149ce0123f5b82699a2477","2015-11-19 00:08:51+00:00","* fixed counterintuitive back button behaviour in PlayVideoActivity; see https://github.com/theScrabi/NewPipe/issues/99
+* fixed a rarely-caused NullPointerException caused by a related video's view-count field being missing
+"
+"2c11bd188998715aefa6f56bcc5c4c190f19ffaa","2015-11-19 14:40:35+00:00","fixed Bundle casting bug incurred during related videosdisplay
+"
+"6adcc72a8acca521c20e24646cdce88d6929f729","2015-11-19 16:17:28+01:00","Translated using Weblate (Japanese)
+
+Currently translated at 100% (0 of 0 strings)
+
+Created new translation.
+"
+"97f771ff50394c360ada8adfdcdbd2961ccde355","2015-11-19 16:20:13+01:00","Translated using Weblate (Japanese)
+
+Currently translated at 100.0% (46 of 46 strings)
+"
+"0392bf6a0278b679fdd4d0d493e6689702c71fb9","2015-11-20 00:49:52+03:00","fix bug with upload date + better way to parse it
+"
+"fa1d386fccec4491006bb1faf62ba9ce13b82810","2015-11-20 00:52:43+03:00","cleanup
+"
+"812dd9282dc350e93d3e60f1b7001cbaaa5f5f19","2015-11-20 01:44:32+00:00","Merge pull request #102 from chschtsch/refactor
+
+fix bug with upload date + better way to parse it
+"
+"b9cd9f8d35f47e33976a8398edf66753e23d16ba","2015-11-16 17:36:48+01:00","Translated using Weblate (Serbian)
+
+Currently translated at 100.0% (46 of 46 strings)
+"
+"94293ca9d984195a91a2546f037cc3bc60a806d4","2015-11-21 11:11:17+00:00","Merge pull request #100 from theScrabi/refactor
+
++ Implemented timestamps
+* renamed `VideoInfoItem` to `VideoPreviewInfo`
+* Moved streaming service-related classes into their own, new package: 'services'
++ Added javadoc to some classes and methods (where functionality is known well enough to explain)
+- De-duplicated common fields between `VideoInfo` and `VideoPreviewInfo` by moving them into a common superclass: `AbstractVideoInfo`
+- Removed 2 methods in `PlayVideoActivity` which only call `super()`, and therefore are unnecessary: `onResume()` and `onPostCreate(Bundle)`
++ Added `VideoInfo(AbstractVideoInfo)` constructor
+- to support converting `VideoPreviewInfo`s into `VideoInfo`s, to reuse scraped info (yet to be implemented)
+* Made the Extractor class behave as a per-video object;
+- most method return values are video-specific, so it makes sense (to me) to have Extractor be stateful.
+- The only stateless methods are getVideoUrl(), getVideoId() and loadDecryptionCode(String)
+* Implemented a constructor for YoutubeExtractor, which performs all initialisation work, such as fetching `Jsoup.Document`, and `playerArgs:JSONObject`
+"
+"4ee9e2684753d1d1e6f8179beb6963f05a2be736","2015-11-13 10:08:10+01:00","Translated using Weblate (Dutch)
+
+Currently translated at 100.0% (46 of 46 strings)
+"
+"c834405a92c49baad21b37f3b3dab7ed22840181","2015-11-22 10:33:10+01:00","Translated using Weblate (French)
+
+Currently translated at 97.8% (45 of 46 strings)
+"
+"3c340e714486075b233c72d3d173125b4b94ad83","2015-11-18 21:09:49+01:00","Translated using Weblate (German)
+
+Currently translated at 97.8% (45 of 46 strings)
+"
+"67324bfc80a9fe0b6e7cd0e547c374330cca237c","2015-11-22 13:24:52+01:00","Merge remote-tracking branch 'origin/master'
+"
+"5d28b2400fd54d36735ea9abb206fdf4b1cd0deb","2015-11-23 23:02:30+03:00","Merge pull request #1 from theScrabi/master
+
+merge from theScrabi/NewPipe
+"
+"7f86872139ae3ff35813e1c5b843188c83636b0c","2015-11-25 21:08:19+01:00","Categorized settings & moved AbstractVideoInfo into service folder
+"
+"d6d144c927a1dda25a3a9a0d4e8a55aa5752454e","2015-11-26 17:29:26+01:00","renamed Extractor into VideoExtractor
+"
+"f6ff41cfb4c4d048abc50317f849f0dfdbac20c0","2015-11-26 18:26:28+01:00","removed obsolete translations
+"
+"451e2b2182ff269509dd1628da63ad827e42d0a0","2015-11-26 18:29:00+01:00","removed hardcoded strings
+"
+"6b9a4d5e0a06af2a10595898635344baa40d39d0","2015-11-26 18:32:06+01:00","add ellipsis character to spanish translation
+"
+"189bee3e4464c5cbb7b4b0c53c1b8281279393f6","2015-11-26 18:37:40+01:00","named drawable folder drawable-nodpi and moved orig. gema image to assets
+"
+"2afee89de374717f50ef930635c67092ea348fdf","2015-11-26 18:47:36+01:00","added contentDescription for better accesebility
+"
+"6ca9e52f2f3f1d75bb6c8e10fa654a68a4cbf66a","2015-11-26 19:11:31+01:00","made lint ignore some code and layout warnings
+"
+"e41c46c075f85f1a05e76e8497f7f1cad8d35bf5","2015-11-26 19:28:50+01:00","made lint ignore that parentActivityName is not compatible to sdk 15
+"
+"71bb59dbb85da6331165d4b9ce9a954394691251","2015-11-26 19:36:14+01:00","update gradle/libs and use Perference.Editor.apply() instead of commit()
+"
+"237282db287249ed6fb04bf45034195884b600eb","2015-11-26 19:54:13+01:00","refactored VideoPlayer theme
+"
+"15b58128f4be45080caef832543eb04d999d50e9","2015-11-26 20:16:23+01:00","fiexed lint layout suggestions
+"
+"b8a27adb9366a5cfe873a5b95b8ace1aeb32a18b","2015-11-26 20:22:06+01:00","removed unused resources
+"
+"cb4b20af45fd409c63b695df225b95427b5bbe6b","2015-11-26 20:43:16+01:00","use format strings now
+"
+"4261ff32c765851e42b332394d059b9a71cae453","2015-11-27 20:10:57+01:00","Translated using Weblate (Polish)
+
+Currently translated at 100% (0 of 0 strings)
+
+Created new translation.
+"
+"c9ea451c53e84f034868533f27cc7c14d7d45618","2015-11-27 20:51:56+01:00","Make some strings non-translatable
+
+Apart from app name, which at the moment is the same no matter what language, there are URLs here. They shouldn't reside here but make them (and the app name) at least 'translatable=false'.
+"
+"ba7bed9c2c8aae8dd8d86df796905074749fe1be","2015-11-27 23:46:56+01:00","Translated using Weblate (Serbian)
+
+Currently translated at 100.0% (49 of 49 strings)
+"
+"e98a113a591a7a47086ac4e319faa96935e0740c","2015-11-28 15:16:06+01:00","Translated using Weblate (Japanese)
+
+Currently translated at 100.0% (49 of 49 strings)
+"
+"2ce6313ac1451b1e1773e25efacc6bc325272cfe","2015-11-29 11:49:47+01:00","Forgot about quotes...
+"
+"f6974e831539a16a2390e89f8ac6e6bedb7d3837","2015-11-29 13:06:27+01:00","code lint
+"
+"1e5f6fd2b816cdc1e942bab87d1a2db3b8e51860","2015-11-30 19:47:21+01:00","merge code_lint
+"
+"457b08d3cc73199c2ffcc1adbf4ab4448fb73a5f","2015-11-30 20:00:28+01:00","merge strings.xml collision
+"
+"92aed0cc3ab1783eead9c7f3b2bd10a785798752","2015-11-30 20:48:59+01:00","add link to slack group
+"
+"7c66d07779703be13657e4bb3f5d9ade36f4697f","2015-11-30 22:51:20+03:00","Merge pull request #2 from theScrabi/master
+
+pull from theScrabi/NewPipe
+"
+"6b4ef8f3977fd5ca78170f8d751b31cffaf6abbc","2015-11-18 21:09:49+01:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (49 of 49 strings)
+"
+"401e606fbc61fd5fec18fa4ba8df619e7a52293e","2015-11-27 20:45:06+01:00","Translated using Weblate (Polish)
+
+Currently translated at 95.9% (47 of 49 strings)
+"
+"4780e10ade30cdacedd6c6e86c66bcd7a4d0e591","2015-11-30 20:51:43+01:00","Merge remote-tracking branch 'origin/master'
+"
+"b8cf67cba97882d8ab154c3f7474784dab7f0482","2015-11-30 22:53:01+03:00","Merge pull request #3 from theScrabi/master
+
+.
+"
+"b1ef3fa4df3f23ebe2ba00c47b993ef983558ebe","2015-11-30 20:54:42+01:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (47 of 47 strings)
+"
+"a90c49d030c213d5140ab888c710c71edef98958","2015-11-30 20:55:56+01:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (47 of 47 strings)
+"
+"63faefe9c37222702463c3b2290316a0aa974137","2015-11-30 23:01:55+03:00","Update README.md
+"
+"32d5a18198ce67a38594770f9664f089a1e7af2b","2015-11-30 23:07:07+03:00","Update README.md
+"
+"aa42b1d95afb133ca58cd48c781ec5dcf9e79d8d","2015-11-30 23:08:28+03:00","Update README.md
+"
+"bb65e2b84df2b1abcec9a746ef7ececfc560ce2c","2015-11-30 23:32:10+03:00","add screenshots and new icon
+"
+"23ce5a6b1e092968713beffcd9336b46abbfcea3","2015-11-30 23:36:29+03:00","Merge pull request #4 from chschtsch/refactor
+
+add screenshots and new icon
+"
+"75fadf79da866deb29953a5ad90b308c3af167eb","2015-11-30 23:38:30+03:00","Delete gruese_die_gema_original.png
+"
+"d1694d563b7df94981782e58f74782a6d62285d9","2015-11-30 23:40:29+03:00","Update README.md
+"
+"ae191aaafec53ccbb3c375aa3d3584cd9de3bd0d","2015-11-30 23:40:44+03:00","edit screenshots
+"
+"53f8d09d3156f28fb3159ad17d8271a086232a3d","2015-11-30 23:42:54+03:00","Merge pull request #6 from chschtsch/master
+
+.
+"
+"6c01a30af5b7ca65ab1176f0e9268251832168dc","2015-11-30 23:43:09+03:00","Merge pull request #5 from chschtsch/refactor
+
+edit screenshots
+"
+"ff826a9eeb8e1214dd77f8638ed4b64fc849894f","2015-11-30 23:49:13+03:00","Update README.md
+"
+"eba6afc12bf7d1fbc36c1a5a299ab256c2cd4c12","2015-11-30 23:52:52+03:00","Merge pull request #7 from chschtsch/master
+
+.
+"
+"91921ae6727a0536189b7581744395615c44e431","2015-11-30 23:55:24+03:00","Update README.md
+"
+"f43d7837f8ebe790a390b9b32b923f6112fd968d","2015-11-30 23:56:14+03:00","Merge pull request #8 from chschtsch/refactor
+
+Refactor
+"
+"47cc493ab54f586da4339db74643cd1af6e37fcc","2015-11-30 22:07:59+01:00","Translated using Weblate (Polish)
+
+Currently translated at 100.0% (47 of 47 strings)
+"
+"9069ef1325d750e28cb218a1830b7c1e2c7a9681","2015-11-30 22:24:12+01:00","Translated using Weblate (Serbian)
+
+Currently translated at 100.0% (47 of 47 strings)
+"
+"892b082b9e16f7ceb1463e6f91641b73b21222c7","2015-12-01 12:58:47+03:00","Update README.md
+"
+"0d65cc09f6b3fba9bc1f0a249f1249488f0cecb1","2015-12-01 12:59:16+03:00","Merge pull request #9 from chschtsch/master
+
+.
+"
+"df1acd5413fc90036202997c3e425f6db024a3c4","2015-12-01 14:38:22+01:00","Translated using Weblate (Japanese)
+
+Currently translated at 100.0% (47 of 47 strings)
+"
+"d3daea63836faf9f7425f4f4704358634d508dbf","2015-12-01 17:52:57+01:00","Merge pull request #107 from chschtsch/refactor
+
+Slightly update readme file + add screenshots
+"
+"bd76a12b90850a09bd465fbccc7e289645b23a02","2015-12-01 18:23:06+01:00","update README.md and readded (still) nececeary assets
+"
+"0800bc179014359aa88e88226d547d3676bd1ac7","2015-12-01 18:36:39+01:00","post edit README.md
+"
+"1c42735e3afea46c741a7e0f16d13e858306b186","2015-12-01 18:37:50+01:00","fixed screenshot error -.-
+"
+"296640930ebf459e4f067c0548256ec732b148c8","2015-12-01 18:50:57+01:00","fixed some spelling errors
+"
+"7d3e992b3f349277b7e3aa51bd46f2f53efd1172","2015-12-01 21:31:10+01:00","init CI
+"
+"5c73b2f32444e53354c8abe8fc58e175bd5425e6","2015-12-01 21:35:18+01:00","trigger first CI pull
+"
+"d1b465d8be43f720cf86fbad5404461f248cb391","2015-11-30 22:09:53+01:00","Translated using Weblate (Polish)
+
+Currently translated at 100.0% (47 of 47 strings)
+"
+"e5f47a456392afcda1cb322a9b28cfadfb9a6b70","2015-12-01 21:56:17+01:00","Merge remote-tracking branch 'origin/master'
+"
+"deb7e38fcf2933f24dd05ac944b43edcca6fb750","2015-12-01 22:32:44+01:00","fixed travis.yml error
+"
+"856bdac84b8976e7f6deafeb3dd8014798035974","2015-12-01 22:32:55+01:00","Merge branch 'master' of github.com:theScrabi/NewPipe
+"
+"520f40d862aeec65c2f07d1b5f00af6c02f9f582","2015-12-01 23:16:58+01:00","fiexed travis build error
+"
+"cf2ef0f2a89c923678b448469d4822896eea0f80","2015-12-01 23:48:41+01:00","try to get emulator running
+"
+"2e123aa61758ba301df933ca7f115f3955a461a2","2015-12-01 23:55:07+01:00","try to get emulator running part 2
+"
+"ef1bfe98f7c12b3486113e0758c90ad654955b26","2015-12-02 00:11:39+01:00","try to fix timeout error
+"
+"2e4e9939677d7ca447edd63e7170398d74d9968a","2015-12-02 00:19:47+01:00","removed unececeary commends
+"
+"78b95f67eb38eff9a60ab53ca0b0b222f74784d4","2015-12-02 21:20:52+01:00","made content scroll over thumbnail
+"
+"37d9be90958a9e37f51a6c304c2951d0cd8e3eba","2015-12-08 21:29:29+01:00","put fab button on top of video thumbnail
+"
+"074963aee0e4d43f392822bbdd3237def2702cc2","2015-12-09 22:14:22+01:00","put progressbar on top of thumbnail and made it red
+"
+"0e892ff60e83f330ad1d9f5bce9894c1fb73a4da","2015-12-09 22:31:24+01:00","code_lint
+"
+"af1b21db23db24953ec5c75c2592ebaca2c7e351","2015-12-09 23:17:29+01:00","code_lint and moved on to v0.6.1
+"

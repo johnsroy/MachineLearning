@@ -1,0 +1,304 @@
+"commit id","commit date","commit message"
+"efa5a86032ea5a76932c9c8bd309ae08524d9f87","2014-08-30 00:04:05+02:00","List: Add a margin below the 'Done' marker too.
+"
+"32852601c232e1fa22e1a28b05411cf38871b86f","2014-08-30 00:09:37+02:00","Enable ProGuard for the release build.
+
+This apparently optimizes for speed (inlining getters and setters,
+for instance) and for size (removes dead code).
+"
+"e63bcd6848d32b36527798bec1554381f0eaa495","2014-09-17 10:45:40+02:00","Example Viewer: Add a contentDescription.
+
+Noticed by android-lint.
+"
+"a4da845875525d763bda19b06e47b10804a72e3e","2014-09-17 10:47:52+02:00","Remove an unnecessary import.
+"
+"459e02efc487c3f4e7c91b8d0e21ca2a836bcca8","2014-09-17 10:53:22+02:00","ResponseHandlers: Specify the specialization, to avoid unchecked assignment warnings.
+"
+"cd51cfbb6581521ac102290698781393c31690c4","2014-09-17 10:55:18+02:00","Use local package access rather than public and protected, where possible.
+
+Suggestions and quick-fixes from Android Studio's Inspection.
+"
+"aa94377755143710b2f53f5bc889be2f22765b4b","2014-09-17 11:01:06+02:00","QuestinFragment: Use of final keyword.
+"
+"e46824bb6469355adf076cc93ef3dc32aa5dbb18","2014-09-17 11:04:07+02:00","Remove some unused methods.
+"
+"ee2a9d791af6e7afee0896e41f0e4e71d96082f1","2014-09-17 11:23:52+02:00","Login activity: The password is not optional.
+"
+"e2c5e6a4f62733fb48e9fbf133b2b7a45ac00292","2014-09-17 11:25:58+02:00","Move all strings to strings.xml.
+
+The Android Studio translation tool seems to expect this.
+At least, the translations all end up in a strings.xml, so the originals
+might as well be there too.
+"
+"b286090f26bcdf9dd1572d79f85d9fbd3a8db65a","2014-09-17 11:53:51+02:00","Add a german transation of the main UI strings.
+
+Improvements would be welcome in the form of a pull request or patch.
+Translations for other languages would also be very welcome.
+"
+"c2826fe35e4e4bf9dbca926841d64dd1bfb1d69f","2014-09-17 12:12:38+02:00","List: Translate the 'Done' marker.
+
+Though we should replace it with a checkbox icon anyway.
+"
+"8110b5c22bbdd6e843bf6f7a6850f98fe95412b9","2014-09-17 21:07:18+02:00","ItemsContentProvider: requestMoreItemsSync(): Use HTTPURLConnection instead of HttpClient.
+
+Because it is what we should use now:
+http://android-developers.blogspot.co.nz/2011/09/androids-http-clients.html
+"
+"8c75ccc0261844886f73c50f7f25d3bdc6925eb3","2014-09-17 22:04:41+02:00","ItemsContentProvider: loginSync(): Use HttpURLConnection instead of HttpClient.
+
+Because it is what we should use now:
+http://android-developers.blogspot.co.nz/2011/09/androids-http-clients.html
+"
+"b4ac321957de5422211a77da75982ee88f665b4a","2014-09-18 09:48:24+02:00","Add some null checks.
+"
+"e86bfccc3f03c0d027c975672c9647f7b5a16921","2014-09-18 09:49:04+02:00","Correct a log message.
+"
+"7a5ef8dec998cd71cef3df2c68ac7259c1bcf785","2014-09-18 09:49:46+02:00","ItemsContentProvider: Extract a method for writing params to a HTTP post.
+"
+"972c61bf8aa3a338664bbcc145815bb1f0084c01","2014-09-18 09:50:29+02:00","ItemsContentProvider: UploadAsyncTask: Use HttpURLConnection.
+
+Instead of HttpClient, because that is what we should use now:
+http://android-developers.blogspot.co.nz/2011/09/androids-http-clients.html
+
+This seems to work now. We get the HTTP_CREATED success code back,
+instead of the circular redirection. I guess there really is a bug
+in HttpClient:
+http://stackoverflow.com/a/19313384/1123654
+"
+"50c1fbf2d1fa28dcc9c052d2fa3e4fb2dffcb891","2014-09-18 09:58:02+02:00","ItemsContentProvider: Remove now-useless ResponseHandler classes.
+"
+"d414d224218922f53ff332809f5d462bc67a990b","2014-09-18 10:09:09+02:00","Improve some log messages.
+"
+"df2a18ab90ef94760036aff8e896da2a53e5a4c6","2014-09-18 10:09:35+02:00","ItemsContentProvider: Extract a general httpGetRequest method.
+"
+"0573785ef14626d20140afbc20ecdfc26d4f41f1","2014-09-18 10:21:12+02:00","ItemsContentProvider: Moved httpGetRequest() to HttpUtils.
+"
+"66f04a396118620fbb17150dec20f1b213fe42ee","2014-09-18 11:11:14+02:00","ItemsContentProvider: Use HttpURLConnection for caching files too.
+
+This removes the last use of HttpClient.
+"
+"ddf9bb1dc8947d5910236c2c501e1b07ac8c34ee","2014-09-18 11:11:59+02:00","Remove some unused imports.
+"
+"9ecdf19b4faab725b5e45c3474b1f5c025e59df5","2014-09-18 11:36:55+02:00","ItemsContentProvider: Make sure that we close some streams.
+
+However, I wonder if Java 7's try-with-resources can be used to
+close streams even if no exceptions are expected, for instance if
+we just get the wrong response code after calling getInputStream().
+"
+"8a458f19b9a400d53400e91e0e32736039bbef9a","2014-09-18 12:43:33+02:00","IconsCache: getFileContents: Use try-with-resources to close streams.
+"
+"493e75bc66808e026f3df4782f60589117329704","2014-09-18 12:45:25+02:00","Singleton: Constructor: Use try-with-resources.
+"
+"a8e5c10ece12717eca975a00dc04e26692c67b03","2014-09-18 12:50:44+02:00","More use of try-with-resources to close streams.
+"
+"fdad94e015ba16aed32c13d4a6ba86b1f941ade7","2014-09-18 12:50:58+02:00","DecisionTreeTest.setup(): Close the stream.
+"
+"c98f71aa71d2943d84b6e47ce8e900c8fa2e0e69","2014-09-18 12:58:57+02:00","Use try-with-resources with OutputStreams too.
+"
+"43a459029d7065e10acecc453aeebf1bb96d0bc3","2014-09-18 13:05:44+02:00","IconsCache: More use of try-with-resources.
+"
+"00cb881f4e5868b068a8f940ef424977869c302e","2014-09-18 13:16:26+02:00","German translation: Do not use CDATA for HTML.
+"
+"7dee42fd50cd0d43ed6b5227032a69083f92cc93","2014-09-18 13:26:49+02:00","Remove the Upload menu item.
+
+Now uploading always works automatically in the background, when
+there is a network connection. The menu item was just helpful for
+debugging.
+"
+"0d422e9ebea325dcc6594e349e20cd6ff78572eb","2014-09-18 13:57:58+02:00","List: Show a check mark instead of 'Done' for classfied items.
+
+However, we need a simpler prettier check mark icon.
+"
+"c1a423688c3c90987ccef87a12f5846fd9111178","2014-09-18 13:58:49+02:00","Fix a typo.
+"
+"ca57eeb896202760825f19ae1f9e3e0d9c60a4b6","2014-09-18 14:18:27+02:00","List: Show an up arrow icon to show that items have been uploaded.
+
+However, the actual icon is rather awful.
+"
+"e41cc7b114db0fb3ed5b480f13679efa021dfc8d","2014-09-18 19:48:34+02:00","Complete the German translation, hopefully acceptably.
+"
+"dceca892bb34e3ae1415f7576c6964aae006a9f1","2014-09-18 21:09:06+02:00","ItemsContentProvider: Add a favorite field to the Items and mention it when uploading.
+"
+"4c20c617e95e04dbb8097759f613e8a05915295d","2014-09-18 21:11:45+02:00","QuestionFragment: Add a checkable Favorite option menu item.
+"
+"db5190aebb1506500b78b6461277799a717e2be9","2014-09-18 21:22:49+02:00","List: Show a star on favorites.
+"
+"aa41b0282724e52bad42771a8ee5e50e430b8236","2014-09-19 08:45:17+02:00","Add some null checks.
+"
+"b34b39e2431460822b3f1d1d96ed80800c3f44a2","2014-09-19 13:21:52+02:00","Add a new fragment for opening finished classifications.
+
+This reuses the SubjectFragment child fragment but does not have the
+QuestionFragment (or its option menu items).
+"
+"acbfd4fcf310af0042dd1d6d6ec424540653bfeb","2014-09-19 13:57:28+02:00","SubjectViewer: Add a SubjectViewerExtras with links to examine and discuss.
+"
+"fda13b951db99765351456439dfda9dca3d9b537","2014-09-19 13:59:09+02:00","Add a simple test for SubjectViewerActivity.
+"
+"e17843a8328aeba3d48a2b5e609b9dc54ccf9f90","2014-09-19 14:01:56+02:00","List: Rename the Next menu item to Classify, as in the web UI.
+"
+"c9a5ab55b6f916c850221da2d68e98f951730e2c","2014-09-19 19:39:39+02:00","SubjectExtrasFragment: Remove unnecessary menu items.
+
+These were copy/pasted from another fragment.
+"
+"d9c6773bc90d709f209b1fb90bd7e773f25f7c23","2014-09-19 19:40:25+02:00","List: Move Login into the option menu.
+"
+"90718ee9b28ceb8c82122f3d362187ad6f5dfce7","2014-09-19 19:41:53+02:00","Renamed a menu layout XML file.
+"
+"05d6ba89d56abbccbc1c16f8b6ca4d8ea113e8f9","2014-09-19 19:53:03+02:00","ClassifyFragment, SubjectViewerFragment: Avoid some copy/pasting of menu code.
+"
+"c32337a0bd80d2e1e40ba97c04b7c1d43d0cd310","2014-09-19 19:56:11+02:00","ZooFragment: Handle the login menu item here.
+"
+"c7c9244e1a195aac1d96a50a786e3e2eb03d6440","2014-09-19 20:18:24+02:00","Remove unnecessary imports.
+"
+"6699e328c11e514e7cd3066dc8da1a408773a593","2014-09-19 20:28:15+02:00","Replace hard-coded strings with values in strings.xml.
+"
+"52c8e1f2d0a6ecf4b40d8d2484b97b8fd1dd26ba","2014-09-19 20:31:27+02:00","Remove unused Done string.
+"
+"e820fc619c3ff797499428db8a46c2b1a35ae020","2014-09-19 20:46:08+02:00","SubjectExtrasFragment: Use borderless buttons.
+
+As suggested by android-lint.
+This is what the Android UI guidelines recommend, though I am not
+convinced that it looks quite right, because I don't see any
+separating lines.
+http://developer.android.com/design/building-blocks/buttons.html
+http://developer.android.com/guide/topics/ui/controls/button.html#Borderless
+"
+"42e4e80b5bab77258074c7c8c1b3867243f13739","2014-09-19 20:49:43+02:00","Turn a field into a local variable.
+"
+"3e92cfd80d7909ac1f9fdb574d725852c6a40dc0","2014-09-19 20:50:11+02:00","Remove some unnecessary semicolons.
+"
+"daf8a91f0ccfaa30202ba392d4fe65c7cd216578","2014-09-19 22:18:08+02:00","API level 15 support: Use the Fragment classes from the support library.
+
+Now that I have played with the latest API I am supporting approx 75% of devices
+again. API level 15 is Ice Cream Sandwich:
+See https://developer.android.com/about/dashboards/index.html
+"
+"a1d77d04eaeb642fbbd82ff3a3a93852648e8081","2014-09-20 20:36:05+02:00","Remove an unnecessary semi-colon.
+"
+"340d3031c13bd550e0292dfdf001f086c8c72c11","2014-09-20 20:36:18+02:00","QuestionHelpFragment: Use MarginLayoutParamsCompat.
+
+So we can set the margin on API level 16 too.
+"
+"0f1b4318b7fbf6b957a5077702401d12bd639a61","2014-09-20 20:46:22+02:00","Make some methods private.
+"
+"225bb44822332d228048673493696cb63d4e4aac","2014-09-20 21:02:27+02:00","ItemActivity: Implement ItemFragment.Callbacks so that derived classes don't need to.
+"
+"8da77c07d3735af40e59be4fe290ce388fe0fdd6","2014-09-20 21:10:48+02:00","QuestionHelpActivity: Implement Callbacks.
+
+Just to avoid the runtime check. QuestionHelpFragment derives
+indirectly from ItemFragment but we don't really use it.
+"
+"aca37619a9b9e67683dbf7b5c7a44c346a80b167","2014-09-21 15:38:17+02:00","Remove use of try-with-resources so we support API level 16.
+
+try-with-resources needs API level 19. Actually, it seems to work
+on API level 16, but it is still not officially supported,
+so android-lint complains about it.
+
+The code is very ugly without try-with-resources, but is fairly correct.
+It's still not quite as good as the code that try-with-resources
+generates.
+"
+"1fcd5fe3cde63c9d81c011426b94218a1f4f5bcd","2014-09-21 16:05:56+02:00","Remove an unused field.
+"
+"f3c5e99c60353ee5d259b681af3e31a7f08fb607","2014-09-21 19:07:21+02:00","Layouts: Add left/right duplicates for start/end properties.
+
+This is necessary for API level 16, as suggested by android-lint.
+"
+"eac97c1d94437020d11afa7b7c292b38e18d17e7","2014-09-21 19:23:13+02:00","Remove some unused variables and initializations.
+
+As suggested by the Android Studio inspection tool.
+"
+"d42d437266bfd17d8086fab8b14eafe39c2cc461","2014-09-21 19:23:57+02:00","build.gradle: Remove the packagingOptions hack for jOOQ.
+
+Because this project doesn't use jOOQ.
+"
+"11ee174f1c6acbd914cce56b611a6a2866c8e46f","2014-09-21 19:24:42+02:00","Remove unnecessary imports.
+"
+"824862732b500435f4a2ff9347edaa8ce3b06887","2014-09-21 19:40:42+02:00","IconsCache: Speed up the reload by avoiding duplicates.
+"
+"d74171ec9055f5aa5fafb05dc6d644ee7554c75c","2014-09-21 19:48:45+02:00","DecisionTree: Disable XML validation to maybe speed up parsing.
+"
+"23302ea99fa1202245b4e9d3843f57134c3e0bf6","2014-09-21 19:54:35+02:00","Remove some unused code.
+"
+"abc3efbd336c8e6ebefb9195d5b9b13645ad8005","2014-09-22 08:33:10+02:00","Reformat code using Android Studio.
+"
+"2867f6974be06e3b9850aa322b03de02baffe36a","2014-09-22 09:23:45+02:00","ItemsContentProvider: Move getLoggedIn to Utils.
+
+And check for the auth key, not the username.
+"
+"4ee09231fb85824ce8f0c54d90a9b60b9b3a5362","2014-09-22 09:24:17+02:00","ClassifyActvity: Offer login/register after 3 anonymous classifications.
+
+The web UI does this too.
+"
+"d31b6ee4972f9856403b5891f2b7a0f73b34c004","2014-09-22 09:37:55+02:00","ClassifyActivity: Show a toast hint when we are logged in.
+
+To provide reassurance. Otherwise there is no clue that the uploads will
+end up in your profile.
+"
+"5c98a47cb94159b2b7b7428f991b643ceeda247e","2014-09-22 09:43:15+02:00","Make some text not hard-coded.
+"
+"caae76b9170d68f914cd4101f89592b910c3fbee","2014-09-22 09:43:43+02:00","Delete an unnecessary import.
+"
+"fa1fe6a0a4192f301ca995cfe812fa93cec00d95","2014-09-22 10:10:33+02:00","List: Use a (very slightly)  semi-transparent panel for the indicators.
+
+This is as recommended by the Android Design guidelines:
+http://developer.android.com/design/building-blocks/grid-lists.html
+but I don't much like the effect, partly because the pictures always
+have a black backgronud and partly because the pictures don't always
+fill the width, but the panel does.
+"
+"b5dbfdc727719348575754a10b114ff5fe297f58","2014-09-22 10:27:01+02:00","List: Use ic_action_favorite instead of btn_star.
+
+The icon is from the Action Bar Icon Pack:
+https://developer.android.com/design/downloads/index.html
+Action Bar Icons are probably too big for use in the grid items,
+but it's a start.
+"
+"22e90b9fc3ef37c2d7fab0136e62d3ef0b060c81","2014-09-22 10:30:59+02:00","Use ic_action_accept for the check mark.
+
+This is from the Action Bar Icon Pack:
+https://developer.android.com/design/downloads/index.html
+"
+"06d40ada5b9f4f365192a81fc9b78466fe7d6fa3","2014-09-22 10:35:19+02:00","List: Use ic_action_upload to indicate that items are uploaded.
+
+This is from the Action Bar Icon Pack:
+https://developer.android.com/design/downloads/index.html
+This really looks more like an action than a state, but it's a start.
+"
+"0b7ae4b5a321087ffdaef4df8233285377bdf75c","2014-09-22 10:41:15+02:00","List: Move the favorite marker to the right because it is not common.
+
+And remove incorrect parameters.
+"
+"1c1100d78f0521f49a24ff7f5fa43db778d7d1ec","2014-09-22 10:46:05+02:00","QuestionFragment: Use the Favorite action icon.
+
+Though the menu doesn't show it anyway. Still, maybe some UI shows it some time.
+"
+"4a1914ffa92fe4a6e0fd499133dc2ef3d9dcb625","2014-09-22 11:00:46+02:00","Rename the app to Galaxy Zoo intead of Android Galaxy Zoo.
+
+The Android part is superfulous on Android. It should probably still
+have some suffix showing that it's not official.
+"
+"49c57f23954deb9a0bd7e205c736673e83137418","2014-09-22 11:01:33+02:00","Update README.md
+"
+"75faa0a455b2c080c4d841222a16b8d37e8d554e","2014-09-22 11:24:33+02:00","Replace the launcher Icon with a squarer galaxy that doesn't need cropping.
+
+This is a crop of the image of the NGC 4030 galaxy from:
+http://www.eso.org/public/images/eso1042e/
+This is under a CC license.
+"
+"ef1f51dc935aa659285fbf1dad88eb499041ebe8","2014-09-22 12:10:07+02:00","Add an About dialog.
+
+This is particularly necessary for the ESO image credit for the
+launcher icon.
+"
+"8ef20e1446844b4a89ef53fc97b77f7ef7b029dc","2014-09-22 12:28:05+02:00","German translation: Add all strings.
+
+Not all string are really translated but this lets the APK build succeed.
+"
+"2ff8c63b5c7dbbc3a1c9b8beea2ce194781df2e2","2014-09-22 12:28:30+02:00","IconsCache: Remove an unnecessary catch.
+"
+"1417a11f16ea5f46b92d4f2e4e675fd540ca8a78","2014-09-22 13:30:18+02:00","Update the web launcher icon and add a feature graphic.
+
+These are mostly just placeholders. At least they have the correct
+dimensions.
+"

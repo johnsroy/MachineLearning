@@ -1,0 +1,51 @@
+"commit id","commit date","commit message"
+"55592bfc5e05475658e640133c411a61e20921cb","2013-01-11 14:15:39+01:00","xperia-touchpad: Remove -fvisibility=hidden again
+
+It is impossible for me to test and the actually exported functions are not all
+marked correctly. Therefore, it is better to leave the linker without knowledge
+about the actually exported functions until anyone with the required hardware
+were able to mark the required functions.
+"
+"8d5fcaeba068bc817ec331ff033173e33809290e","2013-01-11 14:26:39+01:00","xperia-touchpad: Mark unexported functions as static
+"
+"821a46aa03fa462fa5be9245e94338ab53db2ccf","2013-01-11 14:27:07+01:00","xperia-touchpad: Export the main entry point ANativeActivity_onCreate
+"
+"4e338367dd2ccb6f3ddb468efb6b2a0dc2bda0d0","2013-01-11 14:28:50+01:00","xperia-touchpad: Set visibility back to hidden
+
+All non-static functions are now exported. So it should be save to switch the
+default visibility back to hidden.
+"
+"b268b39a7205d188c21da561395062c7d0d606a1","2013-01-11 16:45:55-05:00","bugfix: Player map preference retains dirty state on rotation.
+
+I left the debug logging in, just as a guide for creating other custom
+preferences in the future, since the lifecycle of a Preference is so
+piss-poorly documented.  I'll remove it all on the next commit.
+
+Dirty state is retained 'the Android way' using Parcelable objects.
+This is explained here:
+http://developer.android.com/guide/topics/ui/settings.html#CustomSaveState
+and can be seen in Android's implementation of EditTextPreference:
+http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/4.1.1_r1/android/preference/EditTextPreference.java/
+
+Basically it's a giant PITA and turns an otherwise tidy piece of code
+into a bloated, steamy pile of dog doo. So I stuffed as much as I could
+into a separate class, SavedStringState.  While I was at it I made one
+for integers as well.  Others can be parceled using the same pattern.
+"
+"610a69b22dc05ca2ec2431e63d69ecb70e7d8a1e","2013-01-11 16:49:09-05:00","cleanup: Removed logging in PlayerMapPreference.java.
+
+See last commit message for why the logging was there.
+"
+"9f0008387690eee43d53ecf185c72950fb366add","2013-01-11 17:25:10-05:00","bugfix: Fixed theoretically-possible null pointer exception.
+
+Don't know the preference lifecycle well enough myself, but it is
+possible.
+"
+"821ee9129e7983dde25738e90cf696bc9033186e","2013-01-11 17:31:34-05:00","front: Updated SeekBarPreference to use Parcels to retain dirty state.
+
+For some reason, it didn't seem necessary in my testing, but maybe
+there's a corner case where it's critical.  Anyhow, it's the official
+Android approach, so that's what I guess we should do.
+"
+"928a750bb53945772ed867441cb1360858d13052","2013-01-12 00:02:43-05:00","bugfix: Fixed NPE and 0% display bug in SeekBarPreference.
+"

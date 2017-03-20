@@ -1,0 +1,165 @@
+"commit id","commit date","commit message"
+"39bbbaa8e4a5b96f34e56bf23cb74dcb1d718691","2014-10-24 15:21:25-04:00","The cell scanning code was split to remove wcdma scanning on Fennec due
+to an older API level on Fennec. This is no longer the case.
+"
+"b8b8462083a30d240382a8cd7b711d22803a2565","2014-10-24 16:57:56-04:00","For screens less than 500px wide, allow higher zooming on the map. On the
+320px screen I tested, full zoom out was 20x20km, previously it was
+5x5km
+"
+"1d181decc8a4fdabd7757dbeaed2b9f45ae74a70","2014-10-24 17:38:08-04:00","On 400 error, print the stumble to the log without truncating it
+"
+"1741628ebf181d8619bc12a95e90474f4d2ee659","2014-10-24 17:46:30-04:00","Reducing log spam, need to review with @crankcoder to see if any of
+these need keeping
+"
+"b04b0b72c1d00804c523e8b9580fe7ad93ad4407","2014-10-24 17:50:10-04:00","Merge branch 'dev' of https://github.com/mozilla/MozStumbler into less-log-spam
+
+Conflicts:
+android/src/main/java/org/mozilla/osmdroid/tileprovider/modules/TileDownloaderDelegate.java
+"
+"a625957989db1367ef8ce36f01778285bd9349ac","2014-10-24 19:42:48-04:00","Coverage url was accidentally made non static in a previous change. The
+means it gets re-inited more often, and more logging errors if there is
+no network. Also wrapped the logging for this in debug-only.
+"
+"b8cdb12c8bed89a7a10e7a8416e040b70c3bb805","2014-10-24 19:57:16-04:00","Log Activity truncation: only count longer lines towards the 30 lines
+before truncation.
+"
+"a146a0ed10334403de1242a98936136b2e243c00","2014-10-24 20:57:14-04:00","Merge pull request #1114 from garvankeeley/reduce-log-size
+
+Reduce log size to 200, on old devices a full log can take 5 seconds for screen to load
+"
+"7e77d5e2fa2f81f14d6b379eb4fe35b3dc413597","2014-10-24 17:54:52-04:00","init checkin of a tile file which also contains header data
+"
+"eedcc59ea61520d047612ff84a6775c947022c5f","2014-10-24 18:16:15-04:00","Added test and code for new SerializableTile fileformat to hold tile
+data as well as an arbitrary number of headers
+"
+"e194f0a5aaca148a75e63998bdb3ee99c16c661a","2014-10-26 20:28:23-04:00","Added code back to get a full stack trace on Error instances, but not Exception instances.
+"
+"e51eb9bb868e0e9b77e60ef8b5a0413bb7f95b32","2014-10-26 20:29:05-04:00","Dropped the unused getDrawable(InputStream) method and added a System.gc() prior to decoding bitmaps in BitmapTileSourceBase
+"
+"6e6cc7254b40fadfd24338937fe32edb32bf171b","2014-10-25 20:03:11-04:00","dirty commit
+"
+"9621f1a050a3d22cfc48592d9c1fe287477fa487","2014-10-26 21:38:38-04:00","comments on bugginess.
+"
+"db29ac57baab47e84e99ea90eb9687743da0ee72","2014-10-26 23:11:08-04:00","This reworks the LRUMapTileCache to use a proper LRU.
+
+The capacity of the underlying LinkedHashMap has been modified to be 2x the requested capacity as there's a mismatch in meanings.
+
+The callers is asking for capacity in terms of tiles, the capacity for a linked hash map is the # of hash buckets available which is a smaller number.
+
+The final effect of this patch is that memory usage is pretty constant @ ~37MB on a Moto G with a 5x5 tile screen, but this adds significant flicker.
+
+The upside is that this finally seems to fix the memory consumption error and no more OOM death.
+"
+"174e109f2d77a877a424d2b5ef2a427c5bf0512a","2014-10-27 00:51:19-04:00","More GC cleanups when swapping low/high res maps.
+
+This prevents the swapping over hig/low res maps from consuming
+~5MB per switch and fixes the flickering issue with tiles being evicted from LRU.
+
+This should mitigate the memory leak mentioned at the end of
+https://github.com/mozilla/MozStumbler/issues/1120
+"
+"818f32096ded8f83c5d6661b996593bb07c0ae9e","2014-10-27 09:37:33-04:00","Comment updates to LRUMapTileCache and ExpirableBitmapDrawable
+"
+"fd23b003b33c273bd2151bbc1dd3a99a5f146240","2014-10-27 10:35:59-04:00","1121 - NPE due to calling newMLSPoint with a null point
+This happens due to 400 errors in requesting MLS point. Which leads to the next question as to *why* we are getting 400 errors here. These should be logged already, so we should investigate.
+"
+"b8c68bf62a2be26c8fc3489810eedff13615a531","2014-10-27 11:39:46-04:00","Added tests and code to serialize tile to File objects.
+"
+"bb86facd15ab5624a4469ca3f51ff885b0ccbb9b","2014-10-27 11:40:03-04:00","Added code to write SerializableTile objects to disk in parallel with
+standard Tile, etag and cache-control objects.
+"
+"649e3b43d71f636396bc337fa7404df83b14f959","2014-10-27 11:57:42-04:00","* Renamed OpenStreetMapTileProviderConstants to OSMConstants
+* Removed OSMConstants and IFileSystemProvider as interfaces that TileWriter implements
+* Deleted IFileSystemProvider as it's only implementation is TileWriter and the interface type is never actually used.
+"
+"f5f903abf213865f34fe231e140a05254304c4d1","2014-10-27 12:03:38-04:00","Renamed the TileWriter to TileIOFacade.
+"
+"40e0c51fd5a2af0d7a4a300465850b4aa04b1737","2014-10-27 11:52:35-04:00","Bump android tools gradle plugin to 0.12.+, and use the robolectric-gradle-plugin 0.12.+
+
+There was an issue with packaging MozStumbler in fdroid due to build.gradle using 0.12.2
+and android/build.gradle using 0.10.
+"
+"8eee4ac804dacff477d39508160a792af5ab3de3","2014-10-27 12:23:55-04:00","Spamming log with 'tileURLString is empty or null' when the tile source
+is set to blank, which is a required state for low res tiles.
+"
+"9ed2c843a118903b0e280d58bbbbcb4561434129","2014-10-27 13:41:29-04:00","Full stack traces only show up in logs if we're in a debug build now.
+"
+"5e71426544ac91298ab95f2d68095764a9ff17e7","2014-10-27 13:48:07-04:00","* ITileSource::getDrawable() now expects byte[] instead of a File object
+* added a MERGED_FILE_EXT constant to OSMConstants for the etag/cache-control/bitmap merged tile fileformat
+* SerializableTile no longer tries to use UTF-8 encoding for headers and just writes out raw bytes.
+* A cache-control header is always saved with current time + 300 seconds on saveFile() invocation.
+* SmartFSProvider now uses the merged tile format exclusively and does not use .etag, .cache_control or .tile files
+* A successful HTTP 304 conditional GET will update the cache-control header inside the SerializableTile on disk
+* BitmapTileSourceBase has been adjusted to load from byteArrays, but will still honour bitmap options
+"
+"ad51279fe38b33e39dd8a11dfa2c019c886684cc","2014-10-27 13:56:26-04:00","Merge pull request #1123 from keverets/robolectric-gradle-plugin-update
+
+Bump android tools gradle plugin to 0.12.+, and use the robolectric-gradle-plugin 0.12.+
+"
+"c18836d9873fa84e1f80f3e5149ea842b1f5e750","2014-10-27 14:15:13-04:00","Merge pull request #1117 from garvankeeley/1103-400-log-stumble
+
+1103: On 400 error, print the stumble to the log without truncating it
+"
+"6cec4fe94f52f50309fed9f14abdc92dfa239c88","2014-10-27 14:17:43-04:00","changed to log.w as per review
+"
+"40490fe87963663bcd9b1ed54352118974491694","2014-10-27 14:25:16-04:00","Remove magic numbers as per review
+"
+"760cfdc4b438ff021ef7cf082cde1492a7da41c1","2014-10-27 14:27:30-04:00","Merge pull request #1115 from garvankeeley/remove-cell-scanner-api-split
+
+Remove separate class for WCDMA scanning (was prev. required for Fennec)
+"
+"63ef7169c623ca6597ac1e3bac9b59a0c06f67d1","2014-10-27 14:32:07-04:00","Merge branch 'dev' of https://github.com/mozilla/MozStumbler into truncation-counter
+
+Conflicts:
+android/src/main/java/org/mozilla/mozstumbler/client/subactivities/LogActivity.java
+"
+"07a81a062ea28ef23b24d4f70dd5fb6e1ca6c2a2","2014-10-27 14:33:12-04:00","Merge pull request #1122 from garvankeeley/1121-NPE-mlspoint
+
+1121 - NPE due to calling newMLSPoint with a null point
+"
+"cd70c688a99162ef5ffa896fb565bc51527206df","2014-10-27 14:35:03-04:00","Only force GC if we are logging an OOM
+"
+"1bf81e0ec40c3f9ebd5d1bd62c9bdbd21ade39a2","2014-10-27 14:46:15-04:00","force close FileInputStream when loading from disk.
+"
+"727a4d1c57450e29531121f4a4e550ec79fd5f8c","2014-10-27 14:48:26-04:00","Merge pull request #1116 from garvankeeley/1089-more-zoom-for-small-screen
+
+1089: For screens less than 500px wide, allow higher zooming on the map.
+"
+"539adf7b760050802ef877cda9ff7de4a2a64efe","2014-10-27 14:51:10-04:00","Merge pull request #1119 from garvankeeley/truncation-counter
+
+Log Activity truncation: only count longer lines towards the 30 lines before truncation.
+"
+"f5c818de20d18e117ad6e30e0f1b7b499e3a9c7a","2014-10-27 14:55:08-04:00","Merge pull request #1125 from crankycoder/features/1077-merge-header-files
+
+Features/1077 merge header files
+"
+"720b835e07e6b94f5f600aa92cf956be2a82dde9","2014-10-27 15:01:29-04:00","Merge branch 'less-log-spam' of github.com:garvankeeley/MozStumbler into less-log-spam
+"
+"a056a4d7d75c60f09bad1bfae8dcf9f737b47b2c","2014-10-27 15:02:22-04:00","Merge pull request #1126 from crankycoder/less-log-spam
+
+Supercedes #1118
+"
+"ade7e18c75da0b9876fcdbadd1b7d450a528480b","2014-10-27 15:11:16-04:00","972 - default to off
+Perhaps we can change this to 'if github build, then default to on'
+"
+"5df207996dd2e2680acd31316664f7eacff0bee3","2014-10-27 15:12:12-04:00","Merge pull request #1127 from garvankeeley/972-crashreport-default-off
+
+972 - default to off
+"
+"f6d4836fa9458b2243ea6026db1766d924fec707","2014-10-27 15:49:15-04:00","dropped android/libs as we have osmdroid in our own source tree.
+"
+"8f9d27ae06e2e6198b2bdebdf61dcbbcce3bd1ba","2014-10-27 15:57:30-04:00","Only enable the Updater code on github releases to close #933
+"
+"d079ad78e07f64ccfe31e6e31304ab5c945adcc8","2014-10-27 16:21:16-04:00","Merge pull request #1128 from crankycoder/features/933-github-only-updater
+
+Features/933 github only updater
+"
+"ec28dcff5159b9b08fcea1321ffbf2add22d34da","2014-10-27 18:21:58-04:00","Keystore has changed, so auto-update won't work
+Added message to let user know to uninstall the app to upgrade
+"
+"855f7081bbbae8ec994abeaaeec3587a4d9bbbc1","2014-10-27 18:56:42-04:00","Merge pull request #1130 from garvankeeley/manual-update-notification
+
+Keystore has changed, so auto-update won't work
+"
+"8b877fc3cefc33397ad2b8b1ba1121437f4b4296","2014-10-27 23:09:01+00:00","0.99 version, last build using cpeterson keystore
+"

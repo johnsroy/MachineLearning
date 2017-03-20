@@ -1,0 +1,371 @@
+"commit id","commit date","commit message"
+"6fab01a3c2c4ca934a4ae87d6d747efd94cc0643","2015-05-11 23:30:38+02:00","Pebble: experimenting with more generic application message encoding
+"
+"9a26769c3e8b10ca11423a804d3637f0b89f2a71","2015-05-12 06:28:11+02:00","Search & replace: use slf4j for logging instead of Logcat directly
+
+For a start, use android-logger as backend. Needs a better configuration
+but no time right now.
+
+For file-logging we will use logback as slf4j-implementation.
+"
+"68383b6c05894cfce18336b0b8cfd9a6639729aa","2015-05-12 06:34:44+02:00","Updated translations from transifex (thanks!)
+"
+"7540a3955bd1a8f2f7da2c3166239f9bafde70aa","2015-05-12 11:06:22+02:00","Pebble: experiment with launching watchapps from Gadgetbridge
+"
+"f8341918ee55718cff564002e387576f53b12d78","2015-05-12 11:12:53+02:00","compile fix
+"
+"1b2f20160a3628e4b3fa115434ccd774b2ce016a","2015-05-12 20:09:35+02:00","fix some lint warnings, mostly simplifications
+"
+"c81e28c030d5709142f7b2f95f0a3e0bdcd98ba7","2015-05-12 20:32:34+02:00","simplify code
+"
+"27d725853ff1c5045b29262a27028e033a54f812","2015-05-13 21:55:22+02:00","Add extra handler for generic notifications
+
+(instead of misusing onSMS handler). Pebble still does that,
+but not everybody has to.
+
+Small step for #53
+"
+"d2bcccaeef45b48f2772fd00d8b7c8acf46d9816","2015-05-13 23:15:20+02:00","Use logback-android for logging to external storage
+
+(no WRITE_EXTERNAL_STORAGE permission necessary!)
+"
+"80eb386dd8696fddb18fbf959301c71c26c1c97b","2015-05-13 23:18:54+02:00","fix DebugActivity, was broken since we translated it :/
+"
+"562840a7c510267f5a53b9c0cd3deae9f6f03062","2015-05-14 00:04:54+02:00","Actually call the new generic notification handler
+"
+"2b98620ee04f7ceba2d076f9d1f41d99a9336b14","2015-05-14 13:04:21+02:00","Mi Band: Prepare preferences for vibration count, use number as input type for numeric field
+"
+"55400817b4c1b95980c963bfacea0ba7e81ebbb1","2015-05-15 21:34:38+02:00","Pebble: experiment with extensible notifications
+
+This allows lot more flexible notifications including custom actions (replys, etc)
+
+When used without actions it could serve as a simple replacement for the current notifications.
+The main showstopper is that I do not know how to assign icons (mail, chat) to these.
+Unfortunately I ended up in recovery when playing around with unknown parameters trial&error style.
+"
+"9819819b9218304bb20a8dcebc67842dc311e80a","2015-05-17 21:55:02+02:00","Create the wait-latch before running the action, and only if neeeded
+
+Otherwise the result handler might be called before the wait-latch
+has been created, leading to a deadlock of the thread.
+
+Also: only wait for read- and write actions, but not for wait-actions.
+"
+"14a05c33834716282de954ec1db7f3aab5e4bdd4","2015-05-17 21:58:08+02:00","Initial support for rebooting the device
+
+(via the Debug activity)
+Attention: no safety-confirmation dialog yet!
+"
+"301c7622efee0cbe0b351bf33124fd3b90cf6416","2015-05-17 21:59:13+02:00","Is in assets/ now, was not supposed to be committed here
+"
+"4be50b3a822af5a2fe2774d99ca8c14f29344a67","2015-05-17 22:57:26+02:00","Fix typo
+"
+"d1d3e758d9534bc24c0770452a2b914fd29cc538","2015-05-17 22:57:37+02:00","Support configurable notifications. Closes #53
+
+To close #29, we need to have a bit more configuration options than
+just the number of vibrations. E.g.
+- duration
+- pause
+- LED flashing (again, number of flashes, duration and pause, but also
+the colour and maybe which LEDs)
+
+Also implements reboot-functionality for Mi Band.
+"
+"e3c42ace2d9b33e7f3ded391ab56f17b44d11083","2015-05-17 23:01:47+02:00","Updated translations from transifex (thanks!)
+"
+"6fa2017ddadb09b8cea0cd73f0ba684626cfcae0","2015-05-17 23:37:28+02:00","Logging: Compress package names and rotate log files
+"
+"c37cacf43dce979832f1735d34fd9b0d843a7afb","2015-05-18 20:56:19+02:00","Remove id and index from GBDeviceApp in favor of UUIDs
+"
+"c4f7fc1531e0a4386b7956f72d76073b03c1a04c","2015-05-18 22:20:01+02:00","Start App on Pebble when tapping it AppManager
+"
+"50c7206cf68c0238f528350ce2bbccbc06ce426f","2015-05-18 22:40:39+02:00","Pebble: implement reboot
+"
+"1c5d6de3ad3788456dc07ceff1b3e13cf0b2747c","2015-05-18 23:14:32+02:00","Pebble: fix App installation
+"
+"cb2a95398bc68dba5ad84995aa05b85827caf15b","2015-05-18 23:22:21+02:00","update CHANGELOG
+"
+"68b76aa5c521d411a5ab5703838c61fab8532da2","2015-05-21 18:17:39+02:00","Pebble: Get Morpheuz sleep data visualize through SleepMonitorActivity
+
+This very very experimental, and needs a complete overhaul.
+But it is a start ;)
+"
+"7e2545f9b4e8a5e3f735a293bc3270748926edd4","2015-05-21 18:19:07+02:00","Use constants instead of hardcoded values
+"
+"8309234784f56694fab5e96d514838215f1547cd","2015-05-21 18:57:34+02:00","Pebble: fix wrong calculation of timestamp.
+"
+"f54927624b063bb0664ba5b28e7f817c6487a585","2015-05-22 20:20:33+02:00","Move non Pebble specific code from PebbleIoThread to AbstractBTDeviceSupport
+"
+"880dc7b3a41b7db783c42fced04e61483a8f77c2","2015-05-22 23:15:45+02:00","Improve BLE gatt handling
+
+- close() the gatt instance when explicitly disconnecting
+- create a new gatt instance when explicitly connecting
+
+Unfortunately I still appear to get spontaneous disconnects after some
+notifications.
+"
+"c469248de1db0318487f45562fb0b49f687088ae","2015-05-22 23:21:37+02:00","Updated from transifex (thanks!)
+"
+"4518e8819d13280b98995a39eedc152ff76bad47","2015-05-23 00:45:12+02:00","Make file-logging configurable
+"
+"8a26ce9d67a6b73fa6adb829c5c4a3f7a1feb932","2015-05-23 00:54:14+02:00","Pull evaluateGBDeviceCommand() and handle* methods up
+
+Otherwise, MiSupport can't use 'em
+"
+"6fb6b5c164497d43376d512940c1155063276c56","2015-05-24 23:16:52+02:00","Merge pull request #55 from danielegobbetti/master
+
+Use constants instead of hardcoded values
+"
+"8366af736c43a00e9fab9d5131f08981e3e48e7e","2015-05-25 01:26:27+02:00","Pebble: Fix firmware installation when all 8 app slots are in use
+
+We were trying to get a free slot when installing a firmware which is not neccessary.
+This should also fix firmware installation in recovery (#54)
+"
+"06ee7efe7945a68f9232600cdd77b2d748eea902","2015-05-25 01:32:16+02:00","update CHANGELOG.md
+"
+"08fbbb915216bf2c55a1bdbfdc8cb28f22e48a89","2015-05-27 00:59:05+02:00","SleepMonitor: draw colored bars instead of a graph
+
+red = awake
+yellow = light sleep
+greep = deep sleep
+"
+"e79f4523c332f1624fc3579294c5fcf30ecb27db","2015-05-30 17:28:03+02:00","Add SQLite database support for activity data
+
+This is now used for morpheuz data and the SleepMonitorActivity
+"
+"900b3f3833ecfc5f62b4487021f3a115e84e5c79","2015-05-30 17:40:23+02:00","use ORDER BY timestamp in SQL statement
+
+Also optimize imports...
+"
+"41207516b17866d545cf9d687e2a4f5c8245275a","2015-05-30 21:40:42+02:00","Move BluetoothChangeReceiver to externalevents
+"
+"603d31a59e7418bc668bb64609b5db378faf4cab","2015-05-30 21:52:29+02:00","add some constants to GBActivitySample
+"
+"81b1d1d28df1bf6fd81e7891b8e761254e029b06","2015-05-30 22:24:53+02:00","Pebble: Put WeatherNeat test in separate file
+"
+"6ea9537d38e66f9c7173ae3f664774859502e0ea","2015-06-01 16:57:45+02:00","Start sleep activity with context menu (long press on a device)
+
+This allows to see sleep data even if devices are not connected.
+"
+"f004b7b11ca7ef72aed365df46a00bf5027b5cf9","2015-05-24 00:11:14+02:00","WIP for fetching activity data
+
+This probably affects #44 and #45
+
+Thanks go to Daniele Gobbetti <daniele@gobbetti.name>!
+"
+"637b43e892fe8e664d7e16b50e4ae7ec6eeb44dd","2015-05-24 14:39:36+02:00","Also wait for descriptor reads and writes
+
+(not just characteristic reads/writes)
+
+This fixes initialization of notification characteristics
+(activity, sensor data, battery, ...)
+"
+"a7792f6b7257b5afb329f7797d9299be9ea7b182","2015-05-24 15:00:45+02:00","improve some log statements
+"
+"92caed5af4d743750cee895c7d22d7d7d786628d","2015-05-24 15:04:48+02:00","Some cleanup
+"
+"e4076dc725855257e771667e5c67f76a60e469c3","2015-05-24 19:09:14+02:00","Ingesting the activity data the right way, but they are still being thrown away afterwards.
+"
+"228e922ce7f85997f700a7ce996200b382867fd2","2015-05-24 20:25:34+02:00","forgotten refactor of a variable
+"
+"75b9fe4c4d2c53e0b40c8b01b15c786e3b6c0ea9","2015-05-24 23:12:54+02:00","ignore connection state changes with status != GATT_SUCCESS
+
+And add logging. Maybe this helps with #57
+"
+"11884d8073f93a2c2800f265aab9cd169450e0d1","2015-05-25 23:14:02+02:00","Improve logging
+"
+"f60903699e06eeaf254d6db7135d3d1b570bf62d","2015-05-27 11:05:53+02:00","Delete MiBandSupport.java.orig
+
+I believe it was committed by mistake (perhaps a merge conflict?) It's out of date in any case.
+"
+"7f89f4bb57ae9e786b1f3dd5b57aa4792739d476","2015-05-28 00:26:41+02:00","Some fixes regarding device initialization, should avoid disconnects
+
+Avoid repeated initializations and device info requests. Fix unsetting
+of dynamic state (e.g. battery info) when initialized.
+"
+"5d950dc407edf9544a781db53a2c8715da8f2e90","2015-05-28 23:26:17+02:00","Fix reconnection after connection loss
+
+Well, obviously we must not ignore connection state changes even if they
+come with an error code.
+
+Unfortunately the API docs are a bit terse in that respect.
+"
+"8b268a676cea3e520abeb1a8bc8aaa46329b58dd","2015-06-01 09:42:44+02:00","Refactoring of the data ingestion method.
+
+* no more ByteBuffer, but a fixed size byte array that gets flushed everytime it's needed
+* log of activity data to a separate file (no DB integration yet)
+* the size of the buffer must be a multiple of 3 (1 minute of data = 3 bytes) and 20 (the normal size of the chunks we get from the device)
+* better logging and more comments in code
+"
+"ea97a902d16154cc0a6360cc1971cc02b57c7f5a","2015-06-01 10:15:19+02:00","*unchecked* Storing activity values in the DB.
+"
+"9e2d32c33f2c22ed091501e01abb0d54a4b2e230","2015-06-01 14:17:35+02:00","Fixed timestamp conversion for DB, added local variables to make the code clearer
+"
+"406f9ab90ddd32d6162cda5dae4e8f19a545bddf","2015-06-02 17:29:02+02:00","Do not allocate the buffer if there's no data available.
+
+Perhaps could fix the 'data in the future' issue
+"
+"32b2500d6be24318b0c8ca6a1a8dc52261b303aa","2015-06-02 21:43:32+02:00","Merge pull request #60 from danielegobbetti/fix_data_in_the_future
+
+Do not allocate the buffer if there's no data available.
+"
+"7d86396e3020a7cbea0ca6f169afd0139ca2fdf3","2015-06-02 21:47:51+02:00","Support CM 12.1 Music App
+"
+"a1ff9aab215b810dbcf3770762048f635939642f","2015-06-04 18:56:35+02:00","Do not iterate over the whole buffer, but only on the effectively used part.
+
+This should fix the 'data in the future' issue
+"
+"7ad38c5e1a16b07acf36f031918a17088bf362a6","2015-06-04 21:15:52+02:00","Merge pull request #61 from danielegobbetti/fix_data_in_the_future
+
+Do not iterate over the whole buffer, but only on the effectively use…
+"
+"fc374881c52ee3e01cdd474ff78724b47f125cb7","2015-06-04 21:37:48+02:00","Get rid of the unused ID in the DB, this could help in:
+
+* reducing the used space
+* reducing the time needed for inserts
+"
+"2f1908e480cfa3ae8b09d7f161a77292ce996f6b","2015-06-04 23:45:46+02:00","Make sure to always close the database
+"
+"813a02d5c7f1275d619afd618beab39cfbef286b","2015-06-05 19:32:09+02:00","Unify SleepMonitor with code from PR #59. Thanks Daniele!
+"
+"baecc20742e207b9f377f457da567a1fcca15652","2015-06-05 19:59:58+02:00","SleepMonitorActivity: Rotate annotation text for better readability
+"
+"b12a3e74cd13a147bb1ff48b6a41f9b2df499e7b","2015-06-05 20:26:11+02:00","MorpheuzSupport: remove limit of 54 samples. Morpheuz 3.1 supports 60
+"
+"c4096e6d3c1b79dab403d3621591831727703d4b","2015-06-05 21:46:56+02:00","Add daniele's db optimization the WITHOUT ROWID
+
+closes #62
+"
+"dea4ee82a1919142d2cbed28ef21a191b0c1350d","2015-06-05 21:57:55+02:00","Merge branch 'db_refactoring_proposal'
+"
+"1e89b12b154a7f639d2ccc0430f70c079bacd000","2015-06-05 23:09:28+02:00","Avoid creating lots of SimpleDateFormat instances
+"
+"2f0d00d645ef2b14a508e9a87728ef6d4d4bb5cc","2015-06-06 00:10:38+02:00","avoid WITHOUT ROWID when not running at least lollipop #62
+"
+"9e4e50be4736046b4be23f399d53c10f31f7b581","2015-06-06 00:40:16+02:00","Initial work on synchronizing activity data with feedback.
+
+A device now has a busy flag (set during synchronization). While busy,
+no other communication with the device shall occur (TODO)
+
+Refactors the non-bluetooth actions a bit  #45
+
+Next step: make use of the busy state in ControlCenter (show
+a busy cursor) and in BluetoothCommunicationService (to not call other
+operations while busy)
+"
+"020d8d74d6f48077dac6b9d526c8e6b03f4995eb","2015-06-06 19:39:04+02:00","Added 'Fetch Activity Data' to the context menu.
+
+With some kind of progress reporting during the fetching #45
+"
+"3fe9195d0d41352b2eb6c4522218694d155510b3","2015-06-06 23:13:26+02:00","Avoid warning in unsetDynamicState()
+"
+"f6d576727673eaac02da01a2aaadfc0dbd5ad23d","2015-06-06 23:24:00+02:00","Remove reference to PebbleIOThread from BluetoothCommunicationService
+
+Let PebbleSupport do this instead.
+"
+"f5a569610fabe3fcaa0e039e2d073d04ca6d484c","2015-06-06 23:54:34+02:00","Wrap DeviceSupport instances.
+
+The wrapper provides support for busy-checking and throttling
+(sometimes I get multiple events of the same kind within milli seconds
+and the Mi Band vibrates 20 times)
+"
+"ab97b544f0e01f3796e37b974fa31928f837eb54","2015-06-06 23:59:53+02:00","Some cleanup + actually remember event time and kind for throttling
+"
+"dc8d1e961dffdac56def367d127d0a849891d497","2015-06-07 00:05:36+02:00","Fix position of progress bar
+"
+"ba76f64bf609e17ba63a30b84f4ec95718ab6c9b","2015-06-07 15:31:42+02:00","Disable context menu while busy and add 'Disconnect' to context menu
+"
+"56a0935d6258ccb2888f464b1cc288e1babc8c1c","2015-06-07 17:32:47+03:00","Add Turkish translation
+"
+"3d49426a4c84f7b39a5460e274daa23f01533583","2015-06-07 20:58:04+02:00","updated translations from transifex
+"
+"1c8173c218f73dfa7872dcc10cb9f3bf9d9e18c6","2015-06-07 20:59:00+02:00","Merge pull request #64 from mtsekm/master
+
+Add Turkish translation
+"
+"042963f2e2ae65f14029f439fdb7e495cf9d0f30","2015-06-07 21:31:47+02:00","Escape ' in Turkish translation to fix build
+"
+"c98716d469f20314e591f99102d1f74f99929a5e","2015-06-07 21:49:05+02:00","Morpheuz support: Fix 3.1 compatibility
+"
+"4f8a7ea64df6ae19c9163bf21356c1017a70a797","2015-06-07 22:02:40+02:00","Misuse device_candidate_item insead of device_item for AppManager
+"
+"efac9129290f3f1364eedfd738447c86ac0b0336","2015-06-08 22:38:16+02:00","Pebble: Fix error when reinstalling apps, useful for upgrading/downgrading
+
+Fixes #65
+"
+"e78e79a9a9bbc731f1a829d782828980e80241bd","2015-06-08 23:30:51+02:00","Added missing returns..
+"
+"d0b9914770877f1869e29858680b385f59012e56","2015-06-09 21:05:44+02:00","Keep the db open while adding samples
+"
+"824a88c55f5f2a60c3637bb845af9063a485484c","2015-06-09 21:47:03+02:00","Remove notice from CHANGELOG about installation from recovery being probably fixed.
+"
+"dfcad94c2ccac5b3688454a40f6404002cca994d","2015-06-11 20:40:31+02:00","Pebble: Make firmware installation possible from recovery (Closes #54)
+
+Also make HW revision displayable for Pebble Time.
+"
+"0fa87b9eeda214e52b5d8d18c39ceca7d02c6813","2015-06-11 21:12:25+02:00","update CHANGELOG.md and bump version to 0.4.0
+
+Planned release is Sunday 14. June
+"
+"9051e10aadc7ee9b2e2368d371e48cb8bf568d4c","2015-06-11 23:00:59+02:00","switch constants for deep sleep and light sleep to match native miband data
+"
+"7e70341b2696ac4fb75b7fd575b73d0f51b83ddc","2015-06-11 23:30:04+02:00","minor corrections to CHANGELOG.md
+"
+"8aef92026c73593d515616770b3e43389515c5c7","2015-06-11 23:34:16+02:00","A new sleep chart based on MPAndroidChart 45
+
+- supports zooming an panning
+- displays labels for all x-values (= time of day)
+- fix deep vs. light sleep constants
+- increase activity data buffer size for Mi Band
+"
+"75de3b21e1a3f5ec156d4f4ef9e41b5c7ee88a90","2015-06-12 11:17:44+02:00","Use colors that are easier on the eyes
+
+Changed the colors of the Deep-/Light Sleep and Activity datasets.
+* Deep sleep has been used as basic color,
+* Light sleep is a color that is monochromatically analogous
+* Activity is a color triadic to the basic one
+"
+"e37491ab560fce992bf05763c20792da8ba59b35","2015-06-12 13:10:40+02:00","Merge pull request #69 from Freeyourgadget/danielegobbetti-sleepactivity-colors
+
+Use colors that are easier on the eyes
+"
+"376f9c53a07578b5aab745341fb6d66531176637","2015-06-12 21:26:11+02:00","Fix crash on startup
+
+Fixed a typo that was causing a force close on database creation.
+"
+"17c514a860d2d880aaf55435469b8ea0de4ecfbb","2015-06-12 21:29:01+02:00","Merge pull request #72 from Freeyourgadget/danielegobbetti-db-fix
+
+Fix crash on startup
+"
+"ac7e21be48c21fa5aec64dfc0ead8ae095b4b3d7","2015-06-12 22:30:14+02:00","Remove the activity log debug file.
+
+This partially reverts commit 8b268a676cea3e520abeb1a8bc8aaa46329b58dd
+"
+"818399b1571b0a57bbd67a626cd17c0b913601c6","2015-06-13 00:11:40+02:00","Merge pull request #73 from danielegobbetti/remove_activity_logfile
+
+Remove the activity log debug file.
+"
+"ad4f7081402ac364c43fe9e7f6b411cc429b1fab","2015-06-13 00:26:55+02:00","Send 2.x style notifications when on FW 3.x (on FW 2.x else use 1.x style notifications)
+
+This could improve #24. Unfortunally I cannot test it since I have no Pebble Time.
+"
+"56d314d054aadde95fd0c4a06afc6048bf4f17cd","2015-06-13 00:32:48+02:00","Reformat code and optimize imports
+"
+"3a6e8789c15b12d76a62dd3d92d760918ff3a118","2015-06-13 00:54:43+02:00","Update German translation
+
+Also remove a string that was not supposed to be translated.
+It is a preference key. Maybe it should not be in strings.xml but in its own file.
+"
+"cfedf4acdec159f3d5c4f66e9beeb4a2f7b13401","2015-06-13 00:58:23+02:00","Put log file option in a development option category, change order in Mi Band preference screen.
+"
+"d2f7169de4b153afad3692caa15cf1ef57253004","2015-06-13 01:12:08+02:00","Really, I see no reason to look up a string for a preference key in an xml file
+
+If we have to use a key to lookup the string for the key, we can just use that key as the preference key.
+"
+"73187431b20e2e92af3a9f65f230b3c73a785ebc","2015-06-13 20:37:53+02:00","Use old Sleep Monitor Activity for Pebble/Morpheuz
+
+The new one does not look good with Morpheuz data yet (samples every 10 minutes)
+"
+"70c021e92cb028b8553e571cc546700a08cc6fd3","2015-06-13 20:47:36+02:00","SleepChartActivity: Make light sleep color brighter
+"
+"90302c83efb85052f5166fff2e8369c6a98c4b43","2015-06-13 21:42:38+02:00","update CHANGELOG.md
+"

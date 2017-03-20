@@ -1,0 +1,112 @@
+"commit id","commit date","commit message"
+"d5bb4629177fe7e6ed22fdf6515424b1f7ad1640","2012-12-06 05:25:41+01:00","Don't create Message objects when changing flags of selected messages
+
+This changes the interface to MessagingController and the way flags are
+updated in the database. Now messages aren't changed one by one but in
+batches of 500. This should give better performance, but breaks the
+unread and flagged count. I'm not very sad about this, because now we
+can move towards only displaying the number of unread/flagged messages
+in the local database.
+"
+"b04f1b4319a76d8b2018143a8a5a7afc235b1b8f","2012-12-06 06:11:49+01:00","Add an 'empty view' to the message list
+
+This will display a spinning progress indicator while the message list
+is loaded from the database.
+"
+"26b462a90e8975d945233352335820e196321429","2012-12-06 06:13:20+01:00","Refresh the list when returning to the message list activity
+"
+"b4bd80baa21b59643effb9b330e3176fa6f9716c","2012-12-06 06:20:28+01:00","Fix 'up' logic in MessageList
+
+Fixes issue 4727
+"
+"9a16ecce3de9333e17d844869ed7864f23ef8ad5","2012-12-06 13:13:02-08:00","Merge pull request #214 from jacky672/patch-1
+
+Update res/values-fr/strings.xml
+"
+"c81f68af33458c3351234ce47d90eeeb9213b1f3","2012-12-06 17:25:06-08:00","Remove the progress spinner when not in use so that the 'Load more...' text is centered.
+"
+"9a380c69ad4a56702fe2f428da1154bd1367eb1d","2012-12-06 17:41:09-08:00","Strip RE/FW from the MessageList subject line for thread subjects.
+
+'Be like Outlook.'
+"
+"73757af6800b0a3b31e2da1393fb5cc07cd59578","2012-12-07 05:29:05+01:00","Only count local messages for unread/flagged count
+
+Currently only the Accounts activity uses the new count.
+
+While working on this I realized that the unread/flagged search for
+accounts currently looks for unread/flagged messages in all folders, not
+all displayable folders without special folders (Trash, Spam, Outbox,
+Sent, Drafts) like we used to.
+Also, the 'All messages' search currently doesn't limit the search to
+searchable folders like it is supposed to.
+"
+"251428e963aef6c2db5055ba54308caea73a580c","2012-12-07 12:03:04+01:00","Restore behavior of unread/flagged filtered message list
+
+The unread/flagged count/view for accounts now excludes special folders
+and only includes displayable folders as specified by the display class.
+"
+"d3e840a9eea84c2bb00f85187c8a40fee9e88d06","2012-12-07 12:55:32+01:00","Only list messages in searchable folders under 'All messages'
+"
+"8100e0052322c668da196ea1fdb4933bc49457bb","2012-12-07 13:08:01+01:00","Remove leading space in action bar title of Accounts activity
+"
+"144884080dbdd3f4d4c8cb660f9f6394cd23a24e","2012-12-07 13:35:49+01:00","Retain unread count in Accounts activity during configuration changes
+"
+"4ccb1c952a9dba975b5cbcd3f93988de9e99a881","2012-12-07 13:43:42+01:00","Set action bar title for Accounts activity in onCreate()
+"
+"5ac8d4e5dbf8a2aec19d32d3ecec11fbf2e2a7fc","2012-12-07 14:48:15+02:00","Update res/values-el/strings.xml
+
+Translation of 4 new strings
+"
+"cf390861d6181922ef9b71f6f869d361adf87a92","2012-12-07 14:06:03+01:00","Use constant 'UUID' for search accounts
+
+This way we can match the account stats to the search accounts when the
+Accounts activity is restarted.
+"
+"41d608f3be40ff7e29c03e428d02b11245250d31","2012-12-07 14:25:30+01:00","Refresh action bar title in FolderList when unread count was calculated
+"
+"04ec2abd2c96470b170540200c1ddd161cca210d","2012-12-07 15:04:53+01:00","Use local unread/flagged count in folder list and message list
+"
+"bc4fb530d03a206c224e4fe9c9f94fca949479b0","2012-12-07 15:45:36+01:00","Remove all code using the old unread/flagged count database columns
+"
+"7b49f67c5125828a76a6d87b9737298555712aa0","2012-12-07 15:47:15+01:00","Remove unused methods
+"
+"8d652b2f616e3a6b6d4e1641a4acc7e247e090f4","2012-12-07 15:50:55+01:00","Fix some compiler warnings
+"
+"d121a68baa27f7eeced4bff2159c48638297f9f9","2012-12-07 16:47:57-08:00","Merge pull request #215 from igavio/patch-8
+
+Update res/values-el/strings.xml
+"
+"99ae73ebb951f6c6cd8ebe77a9791e3009726227","2012-12-08 11:23:42+01:00","Remove the setting to hide the refile buttons
+
+With the introduction of the action bar there is no longer a separate
+button bar for refile actions. So it's no longer necessary to hide the
+buttons to save screen space.
+"
+"36a17eae91f8d13d88d5cc6d0391e969d8773959","2012-12-08 17:06:15+01:00","Retain selected messages when restarting MessageListFragment
+"
+"19a1549d5291594175a69d81075ed55097610a20","2012-12-08 17:11:17+01:00","Remove unused code
+"
+"e5d8e1965ec87ea78403c7e2bda1f52f65f14bba","2012-12-08 17:25:48+01:00","Restore call to remoteSearchFinished() when stopping MessageListFragment
+"
+"cc3580c675aac16825d0dcaa24e08756f94bf086","2012-12-08 17:29:05+01:00","Remember across activity restarts whether remote search was performed
+"
+"ba691612dd2ff6a3e00e520eed27bf67ec840c66","2012-12-08 18:15:34+01:00","Add support for 'Unified Inbox' and 'All messages' to unread widget
+"
+"7db33ce8c6398e0f3634786c83e86949bf2aa3c6","2012-12-10 17:34:48+01:00","Ignore null-rows in results of SQL queries
+"
+"edd2a4420178fdcb36734122937db3fb832f11d5","2012-12-10 20:06:18+01:00","Don't display negative unread count in message list
+"
+"44348e08a4d0a9203244135edf8357801735c545","2012-12-10 21:42:57+01:00","Create non-existent IMAP folders when copying/moving messages
+"
+"bc2f099c3c8c86fe806916c985dbc656810e0a93","2012-12-10 23:21:00+01:00","Fix pull-to-refresh
+
+- disable pull-to-refresh while showing the 'Loading...' view
+- move initialization code from onResume() to initializePullToRefresh()
+and call it from onCreateView()
+"
+"c78ec01962456aa1d54662b5856a4c0d036add95","2012-12-10 23:36:11+01:00","Allow removing the empty view of the pull-to-refresh container
+"
+"c1efeb135c35dd883e2a77911ccc54848d9ea532","2012-12-05 20:10:08+00:00","Ignore IntelliJ IDEA .iws files (they are user-specific)
+"
+"2fd047a406a07189671dc8186bee1dc3c93827c5","2012-12-11 20:46:24-05:00","Bumped manifest to 4.317
+"

@@ -1,0 +1,115 @@
+"commit id","commit date","commit message"
+"8894986b7f16035e5365678370ae1e90f1e5d9f3","2013-11-20 00:42:16-06:00","build: Add debug to version string
+"
+"38c8bccd96b5f435c623763083407e7122b8f313","2013-11-20 00:56:53-06:00","changelog: Fix minor typo
+"
+"3611315c30cb08a35ac101b96ba259f2517db62a","2013-12-02 22:47:01-05:00","front: Fix zipfile resource leak.
+
+(cherry picked from commit cb54c608e6deaee5dfefb3b92c75e4a9b30a1711)
+"
+"8e128b446b0f9dafabf8aa75cce6938163ba2a09","2013-12-02 22:47:34-05:00","front: Allow experts to override some settings in config file.
+
+Anything we explicitly specify in NativeConfigFiles.java cannot be
+overridden by manually editing the mupen64plus.cfg file.  So generally
+the only things we should ever explicitly write to file are
+
+- settings that are exposed via the main menu interface (i.e. anything
+in UserPrefs.java)
+- settings that should never be changed manually (i.e. anything in
+AppData.java, hard-coded file paths, settings required for Android
+that differ from upstream defaults)
+
+Otherwise, we should just allow the native core/plugin code to write
+the default values specified by upstream.
+
+TODO:
+- AutoStateSlotIncrement: Either expose this in the main menu, or
+remove the forced setting in NativeConfigFiles.java
+- Figure out the dependencies between Rice's TextureEnhancement and
+TextureEnhancementControl settings
+- Identify any other Rice settings that should be forced explicitly in
+NativeConfigFiles.java (OpenGLRenderSetting, AnisotropicFiltering,
+etc.)
+- Consider removing more Rice settings from the front menu
+(cherry picked from commit 532cc2fe8bd33eaaf08fecdbd65341c478441363)
+"
+"ab6981bd289418b6c7f30fff5e70bcb0b9680c98","2013-12-02 22:47:54-05:00","front: Delete mupen config file when resetting preferences.
+
+Should safeguard against noobs accidentally borking the config file.
+(cherry picked from commit a29e012b279738aa36bebaabd865b6393418ed18)
+"
+"b66d5599bac37ff7bfa1bda01735bbe33ee41ae5","2013-12-02 22:48:16-05:00","input: Multi-mapping only allowed if all inputs are digital.
+
+Note that this doesn't alter anyone's existing settings or custom pro-
+files.  It only addresses new users and new custom mappings by exist-
+ing users.
+
+Addresses problem described here:
+http://www.paulscode.com/forum/index.php?topic=1181.msg11095#msg11095
+http://www.paulscode.com/forum/index.php?topic=1272.msg11462#msg11462
+(cherry picked from commit 408d82d21a5cd2b46fc88e721e7b617eae7e66c3)
+"
+"62b755c699875674ba4eb46f08856e81c3e1eca1","2013-12-02 22:48:34-05:00","front: Always use framelimiter when not using dummy audio.
+
+Enabling framelimiter (the upstream default) minimizes latency with the
+audio-sdl plugin. Disabling the framelimiter is only useful for bench-
+marking framerate with dummy audio.
+
+In my testing with older devices, I see no benefit to disabling frame-
+limiter as a means of increasing framerate.  My guess is that this
+commit won't negatively affect older devices, though it would be nice
+to know for sure.
+(cherry picked from commit 19a61e0658a253c26cfc995f86032f6cb10d55c8)
+"
+"ec98d0e3b16e9daf35197a607e003f9584b71e5f","2013-12-02 22:48:51-05:00","front: Add experimental option for reducing SDL audio buffer.
+
+See Advanced menu.  Setting to a much smaller number seems to reduce
+latency just a bit... or maybe it's just a placebo.  Labeling it
+'experimental' so users are warned.
+(cherry picked from commit 60861a0aef8d226f6af1f06e53c6cc076d800698)
+"
+"3375863e0f623620f7710f6bb23348e58ccb558e","2013-12-02 22:49:06-05:00","core: Bugfix (band-aid?) for PD/Goldeneye crashes when reloading.
+
+Thanks xperia64 for tracking this down :D
+
+Full discussion here:
+http://www.paulscode.com/forum/index.php?topic=1199.msg11751#msg11751
+
+Will submit a pull request upstream to see if this is an acceptable
+fix.
+(cherry picked from commit 159f93ce997aca6cd0e458dc8b12c4663516c687)
+"
+"f64c5e4620f86dd6f03fb8bc38eb8911427f2227","2013-12-02 22:49:29-05:00","dynarec: Fix DIV 64bits, remove assert so SUB 64bit with carry don't crash (still wrong maybe)
+
+Manually cherry-picked from
+https://github.com/ptitSeb/mupen64plus-pandora/commit/ce68e3b9f89132315d1bd69800e364da96340eb8
+(cherry picked from commit 040b15fe91e7d4d351eba4768bcdb79ba8eeb371)
+"
+"f98431e9df48a2e068fa535c14338609dfa2128a","2013-12-02 22:49:49-05:00","front: Fix regression in rom header calcs (fix cheats regression).
+
+Regression introduced in commit
+316954b07b56eb2a55d5fed31bc856ee325446aa
+
+Forgot to port the swap_rom(.) and trim(.) functions from C to Java.
+Headers for some roms are saved in a different byte order, which wasn't
+being accounted for.
+
+Also, an assortment of small fixes
+- better use of try/catch/finally
+- change unknown fields from ints to bytes
+- name is empty rather than null on read error
+(cherry picked from commit 17b88dfa4772c3cca1636ac21c69c705492bf7be)
+"
+"29a2760d269eeec12e0d3e090dbf77bb4d881789","2013-12-02 23:10:52-05:00","doc: Updated changelog.
+"
+"affe68ddb693b64b93e91a6cc82512e044751706","2013-12-02 23:21:10-05:00","front: Change default audio buffer to ultra-low latency.
+"
+"208cd9477f9359cb4d6d40f29b190e3d215e583b","2013-12-02 23:23:10-05:00","doc: Update changelog.
+"
+"ff73256d79cfbb457b565f87f07b9f0c4da9cc95","2013-10-31 16:10:04+01:00","gles2rice: Zelda missing heart fix
+(cherry picked from commit 31262748e43cc267b2767c6930d51f1cdf9b3c80)
+"
+"b549554174d00cd14b0bb9345a7933092af40e86","2013-12-03 19:19:58-05:00","doc: Update changelog.
+"
+"ac7a788d17e83bbb1e11d5365309688ab7829edb","2013-12-03 18:26:48-06:00","build: Update version in preparation for 2.4.2
+"

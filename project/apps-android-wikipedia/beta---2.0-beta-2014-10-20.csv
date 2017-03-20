@@ -1,0 +1,239 @@
+"commit id","commit date","commit message"
+"13586b4d4bbf8b87199fe188784c732a7196f9e6","2014-10-15 01:53:22+05:30","Nearby: Open an intent with geo:// URL if item is long pressed
+
+Change-Id: I7f6a2362c8cc10f9cceab72ef84c64c7887bd872
+"
+"d956cd6a43593dc69ac1673b7ee8d19fc9a501dc","2014-10-15 04:02:24+05:30","Nearby: Don't crash on long press if no maps application is present
+
+Change-Id: Iff5166b5ce4751a11b277e94ec6986bafcafda2d
+"
+"840bfafeb37b26c0b7b462dd426f233805d9d38e","2014-10-14 23:09:39-06:00","Fix crash in sorting of nearby pages
+
+IllegalArgumentException: Comparison method violates its general contract
+
+bug: 72066
+Change-Id: Ife50b225797cf0a471ac29a6db1d676316a7a860
+"
+"f5934fb0de19e026417908b99e4864e267c2a52c","2014-09-19 13:36:05-04:00","Make page browsing into a Fragment.
+
+- The PageViewFragment now sits in a simple container in PageActivity, and
+can be replaced with other Fragments (will lead to Fragment-izing the
+rest of our Activities)
+- The PageViewFragment is now a light container for the heavier
+PageViewFragmentInternal object. When a PageViewFragment goes in the
+backstack of the FragmentManager, the 'internal' object can be fully
+disposed, thus allowing a large number of fragments in the backstack.
+- Added a PageCache class, where Page objects are cached upon visiting new
+pages (Page objects are no longer written to savedInstanceState). In the
+future, the PageCache may be written/read from storage across app
+restarts.
+- Improved pre-scrolling to a specific offset when going 'back', by
+scrolling as soon as the section with that offset is loaded.
+
+Change-Id: Icfc7b9a9c7f2cf7fc6f743d419646acb0b8a1a50
+"
+"aef83e94c47a96b347d9d315440aac39607ebd35","2014-09-22 08:53:04-04:00","Turn other Activities into Fragments
+
+- Things launched from the Nav menu are now Fragments that replace each
+other in the PageActivity container, and create a backstack in the
+FragmentManager.
+- Made full-text search into a Fragment
+- Made the PageActivity have a real ActionBar (to be built out in the next
+patch), into which the actions of the fragments are added.
+- Made sure that savedInstanceState preserves the order of the fragment
+backstack.
+- Login activity to be dealt with in another patch...
+
+Change-Id: If9c2c11014745e75f3dbde86a724d555470c8f61
+"
+"c3afb82ac2fe2b25369c2655cbe82a70a7c851a1","2014-09-25 09:55:23-06:00","Use real Action Bar for search bar
+
+Switched to Android standard SearchView.
+Fixed a crash on GingerBread when onPrepareOptionsMenu was called too early.
+Also set the app icon dynamically to avoid a jarring transition between
+PageViewFragment and SearchArticlesFragment. Also fixes the ActionBar logo
+for GB.
+
+Remaining ToDos in code are marked in code with 'TODO SEARCH'.
+
+Change-Id: I1b69f344da6f851ac5a1ce27ca4c7809350c5c4c
+"
+"c0ed6f3472038b3ded95c376648df3014fdf298a","2014-10-10 12:18:24-04:00","Real ActionBar part II
+
+- Implement an ActionBarDrawerToggle, and wire it to the ActionBar and nav
+drawer.
+- Make the ActionBar hide/show upon scrolling far enough in the WebView.
+- Update the hamburger drawable, and also use an xml drawable for the
+ActionBar background, so that we don't need a 9-patch png.
+
+Change-Id: I6060e6acbdbbe6e7f88e1ce247cfb9c964be322e
+"
+"045fc1a0b110d739b88043d6fb90698bdc958bd4","2014-10-14 16:14:39-06:00","Use constant apk file name in Gradle build
+
+We used to have the Gradle build use time stamps in the name.
+Having changing apk names causes weird issues in the IDE.
+Multiple people have seen cases where Android Studio complained
+about the apk file path not being present.
+('Local path doesn't exist.')
+
+Also:
+* The push option was printing: pushing branch 2.0-beta-2014-10-14
+even though we're not creating any branches anymore.
+* Also updated the release script to do the renaming of the apk file name
+and to update the docs
+
+Change-Id: Ib4395e52760c5a5b8f79ffe24edd662572d02efe
+"
+"38821560ba94fd8dbdf77cfff067093e1d14ca3c","2014-10-15 16:39:20-04:00","Highlight the Nav list item that is currently shown.
+
+Change-Id: I9fd16c5bd3d5c16afeff4b69ff51a892788220bb
+"
+"cad2c5e557ee27117c16a8758444ba91f00dba35","2014-10-10 14:46:46-04:00","Fix for infobox relocation leaving parent table with empty space.
+
+Thanks, Monte!
+
+Change-Id: I342157475233bfb0e42585bba553b640d86284d4
+"
+"84f8dfaff23f1670bf83d330c02781ee1e1339a0","2014-10-15 16:01:23-04:00","Force overflow menu icon to be shown.
+
+...even on devices that have a physical menu button.
+Note: does not work on 2.3 devices.
+
+Also removed key handler for the Menu button to bring up the Nav menu, so
+that users with 2.3 may access overflow items (or indeed users who are
+used to pressing the Menu button to access overflow items).
+
+Change-Id: I2bf46f4ff3e8e952e193addceec4998a95aeefd9
+"
+"4e0f05688adc75da45f0a767e45b2b11ac0c71c4","2014-10-15 18:34:36-06:00","Hygiene: Back to PageActivity using ThemedActionBarActivity
+
+To avoid code duplication.
+Also moved setting of the icon into ThemedActionBarActivity,
+so the icon is set on GB devices for other activities as well.
+
+Change-Id: I248439595b1ada4d71fc8a3849515125103a08ae
+"
+"ec26d4dce0d5f340664d15015d51367b84fccba2","2014-10-15 23:35:56-04:00","Update WP Zero hint in SearchView, and a bit of cleanup.
+
+Change-Id: I64fa6b72269ca05a1524072b6ea9b4210acd9ad1
+"
+"b7b0c0e80c7f905cb7388279b5a940c3c6fdaeeb","2014-10-15 22:38:13-04:00","Fix top margin in fragments to account for ActionBar overlay.
+
+Change-Id: I3195aab57502a120f1fea4f8ad5a8db91465e666
+"
+"178149b3f5079e261be8d5b895cdadf6dd021e15","2014-10-16 11:44:05+00:00","Merge 'Update to new saved pages icon.'
+"
+"1ddbfe7075d0e931f4bff51ab0c2f0f5b9d899a5","2014-10-16 08:13:11-04:00","Fix Bus register/unregister balance.
+
+Change-Id: Ifbf29ed08d577ebfa34e655bb6ba62017ed46c9a
+"
+"ea9cf1289433b37387aa06f5e02c87cdd849b469","2014-10-16 08:20:00-04:00","Catch more general ApiException in Nearby task.
+
+Change-Id: Ic23e46ee0f5ddd1a33cc3bb1f333cd5ee68bfe2a
+"
+"e9521cc32c5313f2d576af306c55f86bd9b58b5b","2014-10-16 16:31:32+01:00","Catch MissingResourceException because of [Developer] Accented English locale in Nearby
+
+Can't get this language on my device, but should be safe to ignore...
+
+Change-Id: I30076659409aeb44a72718cf08614bbe3c40ca35
+OTRS: 7881035
+"
+"d7e73df60dc753f6964127cdf6de7472f863263c","2014-10-16 15:59:50+00:00","Merge 'Catch MissingResourceException because of [Developer] Accented English locale in Nearby'
+"
+"d8507540c7bccd354037552b26f0c22ffe273ae0","2014-10-15 22:00:13-04:00","Fix and update ActionBar icons for Night mode.
+
+Also:
+- Modified the convert script to pass each png through pngcrush, saving
+about 130KB from the total APK size.
+- Modified the color and opacity of ActionBar SVGs to comply with Android
+design guidelines, and have consistent colors in History, Saved Pages,
+Main activity, etc.
+- Removed SVG for the hamburger icon.
+- Committing all updated PNGs that were affected by this.
+
+Change-Id: I1b22a11ee57b489d013c75a7eee0b2b76d7eb98b
+"
+"ad583a22c399a19c15fc298ee39c60fe2d567f7d","2014-10-16 08:57:17-04:00","Show home-as-up icon instead of hamburger when searching.
+
+Also added one more case for ensuring visibility of the ActionBar.
+
+Change-Id: I3aeeb68b57d5624d22a9aa460bd1f7670da75a48
+"
+"9c334dcd016b8620b50a8ab8133eceda750d3f69","2014-10-16 22:41:57-06:00","Find in Page as CAB and ActionProvider
+
+Now that we moved to using real action bars we don't want an
+extra fragment hanging below the action bar for 'Find in Page'.
+
+I would have preferred to just call webView.showFindDialog()
+but unfortunately this is deprecated and not available on GB.
+
+Change-Id: Ib502ed5fefe2c27cd878d4b1d09efe607cdbacc1
+"
+"386f47da21ded548645bf141aaf592d70291ec36","2014-10-16 12:59:24-04:00","Use built-in ProgressBar inside the ActionBar when loading page.
+
+Replaces the old progress bar centered in the screen.
+
+Change-Id: I72ddca148950c3301c2f4a30ffcf7abee3eddab7
+"
+"3d774fd70f8f15c5c9fa65d5209064a834b82311","2014-10-17 09:44:14-04:00","Update prefix search query to be consistent with Mobile Web.
+
+Ensures that the prefix results appear in the correct order.
+New query used by MobileFrontend:
+https://gerrit.wikimedia.org/r/#/c/158011/2/javascripts/modules/search/SearchApi.js
+
+Change-Id: I448fa0991edd1dab40942a8cbba8b3af1340615c
+"
+"614b6c1f522476e6700fe80db6193882a22e211c","2014-10-17 10:38:12-04:00","Fix/improve Bridge uninitialization.
+
+It looks like removeJavascriptInterface and setWebChromeClient(null) were
+not necessary, and were actually causing some strange behavior.
+
+Change-Id: I5d0e14eb2bf552bfdc306c04985a9d6dc8740912
+"
+"e2b7561b98778f867043f97532f9cfa8296580be","2014-10-17 12:48:42-06:00","Alpha updater update
+
+;) Update the URLs for alpha builds.
+
+Change-Id: I8303a446229d464a4c79f63143bec4761c72e9bd
+"
+"4a048b98559a5a4f209ec1cd4f5561c9bb337b70","2014-10-17 13:44:41-06:00","Avoid meltdown in setupGeomagneticField
+
+Initialize warp stabilizers! ;)
+
+bug: 72091
+Change-Id: I73813e41bd4c74e7664c2524dd546a2cdb8797e6
+"
+"9c2c26784a6923b03c0b22851e65e0e5960d1926","2014-10-17 14:02:19-06:00","Back to using https for alpha updater
+
+Change-Id: I84f9ebc22edd07d34f174163694eae197beab1db
+"
+"43e397c1826b3368c2e0feb90a210c05e35e20cb","2014-10-17 18:11:58-06:00","Anchor crouton position in Nearby
+
+We're using Crouton library to display toasts when
+the Nearby feature encounters errors.
+Since we moved to an action bar that can be overlaid
+those croutons were a bit too low, showing a gap
+between the action bar and the top of the crouton.
+
+Also added missing contentDescription in layout file.
+
+Change-Id: I15b825f4933e425d7a0b5992fa1a1d270b2b6475
+"
+"3f241d7c1dd29dbc38ec72efe54ef9c457500080","2014-10-20 14:43:51+00:00","Merge 'Avoid meltdown in setupGeomagneticField'
+"
+"0b6be07694599ea65bfcc1bf0855b782b05e5457","2014-10-20 14:45:09+00:00","Merge 'Anchor crouton position in Nearby'
+"
+"f4b19d640ef7b4fc5900a135e28d2a5ec8d1a6ee","2014-10-20 19:07:52+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I05f00f369dc2beddda2f766c6197404975ec1641
+"
+"4afd806c60fcebab7a206876a311850d426a2170","2014-10-20 11:31:13-06:00","Minor translation fix
+
+Fix parameter syntax in pa string resource.
+
+Change-Id: I614a2b30942553f2e1b7c3b5a9c684a25f6bd455
+"
+"81fa290916f948ab1206574588c7447076f7fe65","2014-10-20 11:51:29-06:00","Bump versionCode
+
+Change-Id: I09606c5a62925212e77a3dc515a8093ae59ed3d5
+"

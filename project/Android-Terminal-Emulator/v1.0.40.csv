@@ -1,0 +1,226 @@
+"commit id","commit date","commit message"
+"290a023167ceddbc9966a75d5f383f58f5f86c9a","2011-11-23 11:00:56+01:00","Update res/values-fr/strings.xml
+"
+"203c4f591452e7191ff92174a8e5a692477d62f9","2011-11-22 20:17:58-08:00","Use Android 2.0 or later back key event tracking where possible
+
+Our key event tracking probably won't ever work as well as the system
+built into Android, so use Android's whenever possible (e.g. on API >= 5
+devices).
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"b8df6d759f8f8962083c88e5a77f0be419c5f93d","2011-11-22 20:18:04-08:00","Reset back key pressed state in onPause()
+
+This prevents us from incorrectly consuming a back key up event in the
+following scenario on Android < 2.0:
+
+(1) User presses back key down in the terminal activity
+(2) While the back key is down, another activity moves to the top of our
+task's back stack
+(3) User releases the back key
+(4) User presses the back key down again, returning focus to us
+(5) User releases the back key
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"9e5a4b871b393e09c6736882265e3468f8212b39","2011-11-22 20:18:10-08:00","Keep all default preferences in one place
+
+We keep forgetting to change bits and pieces which contain default
+preferences when we update them.  That's nuts, so let's keep all the
+default preferences in one file (res/value/defaults.xml) in the
+resources, and fetch those preferences from the resources whenever we
+need them.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"28837a06ffa92c6b6bd9c2cea98536c0ae1b7f9c","2011-11-22 20:18:22-08:00","Tidy up after the default preferences patch
+
+* Keep variables and functions in TermSettings.java in the order
+corresponding to their appearance in preferences.xml
+* Remove old and unnecessary default_value_*_preference strings from
+translations (silences warnings)
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"aa98cffdb05161bcaa160161a506b716e19b0437","2011-11-23 10:33:18-08:00","Fix indentation on manifest file.
+"
+"8709863c4503e59bce13d70cc4abf7ca46678c60","2011-11-23 10:35:27-08:00","Merge pull request #59 from eauland/patch-5
+
+Little update
+"
+"40029043f05b2eb38b137d4a611f40c1d57a6d3f","2011-11-25 23:58:05+01:00","Updated german translation
+"
+"3b5370baa687af6caba3768bbb700def58e228b4","2011-11-27 16:02:48-08:00","Merge pull request #63 from damor/master
+
+German Translation Update
+"
+"0c10386ba62645252ebf862ac1a8efc4bd399f33","2011-11-28 12:24:33+01:00","Update res/values-fr/strings.xml
+"
+"e6e37e95256249cc0b602303368aaf880dc61c14","2011-11-28 19:26:36+01:00","Added portuguese (pt) localization
+"
+"3ab1c4eac8c826fdff14cf855cb3f66aec1950cc","2011-11-29 11:47:59+01:00","Display toast after terminal reset, fixes #55
+"
+"e8af39bc519c83e95e7c266902843eca4372c98e","2011-12-01 17:23:03-05:00","Add context menus for sending control/fn keys, for the sake of Kindle Fire.
+"
+"2a17953138cf75a6462cd4bed9fe894ea51189ff","2012-01-14 04:22:46-08:00","Set activity labels for WindowList and TermPreferences
+
+For TermPreferences, this prevents the title/action bar from reading
+'Terminal Emulator', which will be confusing on Honeycomb and ICS once
+(where the title will be much more prominent once we enable the action
+bar).  This also allows us to remove the setTitle() call in WindowList's
+onCreate() method.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"c40111ffeb3523cede1d76731901b7cb73c7dca0","2012-01-14 04:22:53-08:00","Take a high-performance WifiLock on platforms where it's available
+
+A WIFI_MODE_FULL WifiLock does not prevent Android from enabling
+power-saving measures which increase latency, decrease throughput, and
+break multicast, all of which are frequently important to programs
+running in the terminal which need the WifiLock.  Instead, on API 12 or
+later, take a WIFI_MODE_FULL_HIGH_PERF WifiLock, which keeps the wifi
+radio in the same state as when the system is awake (if the driver
+supports it).
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"b98cf9f0780da1c8d94753e67831e56fae3de596","2012-01-14 04:23:00-08:00","Let external GestureListener intercept GestureDetector events in EmulatorView
+
+For Honeycomb and ICS, we want to be able to make a screen tap bring up
+the Action Bar in fullscreen mode.  We could in principle do this by
+letting EmulatorView hold an ActionBar object, but it seems more
+sensible to add hooks into EmulatorView to allow an external
+GestureListener, and have the activity use those to bring up the Action
+Bar instead.  This also allows us to move the existing
+swipe-to-change-window code into the activity, eliminating the need to
+hold a TermViewFlipper in the EmulatorView.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"b713bf5fb880d31a4dc0c34f7a88fa0a935be223","2012-01-14 04:23:22-08:00","Make swipe-to-switch-windows less sensitive
+
+At the moment, it's too easy to accidentally trigger a window switch
+while swiping to scroll through a terminal's transcript; fix this by
+triggering a window switch only when the gesture is clearly intended to
+be horizontal (V_y > 2V_x).
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"bcc49083b4de73c86e632d141a40920978c7a9b1","2012-01-14 04:23:30-08:00","Bring up IME on single tap if we have no full hardware keyboard
+
+Before Honeycomb, it used to be possible to do this by holding down the
+Menu key, but later devices don't necessarily have menu keys, and ICS
+doesn't implement this functionality even on devices that do.  Instead,
+give everyone an easier method of bringing up the software keyboard.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"5b212b577576bf2e3898434cd3f68c7fd57a00e9","2012-01-14 04:23:53-08:00","Split AndroidCompat class and move all compatibility code to a package
+
+When introducing Honeycomb/ICS support code, we're going to want to
+create new classes that can be instantiated (e.g. an ActionBarCompat
+class which wraps android.app.ActionBar).  Splitting the AndroidCompat
+class allows us to instantiate these classes without first creating an
+AndroidCompat instance.  While we're at it, move all the compat code to
+a separate package, for organizational reasons.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"4a48d6a8e7796bfc43baf9fd00da1028e294fb56","2012-01-14 04:23:58-08:00","Make the project build with and target API 11
+
+* Update project.properties to build with API 11
+* Update AndroidManifest.xml to indicate that we target API 11
+* Uncomment API 11+ specific material in EmulatorView
+* Add compatibility class for Activity methods new in API 11
+* Call invalidateOptionsMenu() where necessary
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"30df452167e75c285925461672da6e91a2955101","2012-01-14 04:24:02-08:00","Add support for the Action Bar on Honeycomb and later
+
+In this incarnation, the action bar is always visible, and no navigation
+(window title or window switching) is yet provided.  We continue to
+offer the traditional menu on older platforms (no action bar
+implementation for API < 11 is provided).
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"9e55696c5b2fd6154e1f0b620ba7155c068a02dd","2012-01-14 04:24:08-08:00","Split WindowListAdapter from WindowList
+
+We want to reuse this in the action bar.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"7531b0189b133f0ccae647115e76210cf312b58e","2012-01-14 04:24:13-08:00","Add drop-down navigation between sessions to action bar
+
+Replace the static window title with the name of the current terminal
+session, which reveals a list of sessions (with each list item
+containing a close button) when tapped.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"cc537b83853f2e124240e308eef6889f9b02c98c","2012-01-14 04:24:18-08:00","Add support for autohiding action bar
+
+Offer a preference on Honeycomb and later to allow the action bar to be
+hidden.  When hidden, the action bar can be displayed by tapping on the
+upper half of the EmulatorView or by pressing the Menu key (if
+available).  Tapping on the bottom half of the EmulatorView brings up
+the soft keyboard (unless a hardware keyboard is attached, in which case
+it also brings up the action bar).
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"e76e984ab466f5365303aa3da1db424b0f793b12","2012-01-14 04:24:22-08:00","Make Home button in TermPreferences/WindowList action bars serve as Up button
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"767a72471b471623cb7dac18327fe5d6976faf78","2012-01-14 04:24:43-08:00","Move SessionFinishCallback into TermSession
+
+The interface isn't useful except to users of TermSession, so just move
+it into there.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"504b0defccd0721b50db75d536a4522076d742a3","2012-01-14 04:24:48-08:00","Update comment for UpdateCallback
+
+Use of UpdateCallback has expanded well beyond its original purpose --
+update the comment to match.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"88a9437fdc298bc016496f96ba3a1ddc3891491b","2012-01-14 04:24:52-08:00","Indentation fix
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"233ca9ef19cb6f3ba38ebbe18dafca77bd1a6441","2012-01-16 10:40:27-08:00","Update icons for v11 and newer devices.
+"
+"b8fd6a905c751fa9487d5c14e39419917f92c331","2012-01-16 12:50:54-08:00","Remove a few compiler warnings.
+
+Should not affect running program at all.
+"
+"0922e433295eb00e4aa12e4771881848fcf9d344","2012-01-16 12:53:24-08:00","Merge pull request #64 from eauland/patch-6
+
+Update res/values-fr/strings.xml
+"
+"c027a361469d510555e159df6982788c95b83286","2012-01-16 12:55:04-08:00","Merge pull request #65 from damor/master
+
+Portuguese Localization & Toast notification
+"
+"0d3cec6b7e3f3bf784338b19f0ed43036635f012","2012-01-16 13:06:01-08:00","Make toasts legible.
+
+Center them, rather than the default, which is to show them near the bottom
+of the screen. The old position would show the toasts on top of the
+soft keyboard, where they were hard to see.
+
+Also make the reset message stay up longer since it's more text to read.
+"
+"ff0a2345d7031af0381f0b420accc2962b7f8463","2012-01-16 13:08:29-08:00","Merge pull request #67 from ytang/kindlefire
+
+Add context menus for sending control/fn keys, for the sake of Kindle Fire.
+"
+"b5147ed81b83587e1f3abf93dc664b7ba4afc7f0","2012-01-16 13:35:51-08:00","Add confirmation dialog for closing window from action bar.
+
+It's safer than just deleting the session.
+"
+"0685f1894bc19e592ba2a07e9e92e22723ccc150","2012-01-16 13:40:01-08:00","Version 1.0.40 version code 41
+"

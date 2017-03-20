@@ -1,0 +1,17 @@
+"commit id","commit date","commit message"
+"15882c84ee5c61028229b169f95265e11b38e412","2016-07-09 22:51:48+03:00","Fix:port_android:Do not tint on pre-API-17
+Tinting the navigation and status bars (introduced in a3e9e7) makes
+the whole screen tinted on my Gingerbread (API level 9) device.
+As the actual tint code in handleResize is anyway activated on API>=17,
+there's no reason to create navigationTintView and statusTintView on API<17.
+"
+"725ef073a0587c6ee22088b3c1ab8bdda54775cc","2016-07-10 00:10:56+03:00","Refactor:port_android:Move system bars tinting code to a separate function
+"
+"810748762a446cfa7355036c66c4b85fca06b4db","2016-07-10 01:11:31+03:00","Fix:port_android:No system bars tinting before KITKAT
+There's no way to make navigation and status bar translucent nor
+transparent before KITKAT, see https://developer.android.com/about/versions/android-4.4.html#UI
+So corresponding code realted to SystemBarTintView should be enabled since
+API 19, KITKAT.
+It actually was breaking navit on my API 17 device, drawing unrelated
+semitransparent bars on the top and right sides of the screen.
+"

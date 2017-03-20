@@ -1,0 +1,179 @@
+"commit id","commit date","commit message"
+"f15101420e0cbe21737407957c484c5757331652","2010-08-02 22:34:21+00:00","Revert 'I like this idea, but it's not ready for 3.000'
+
+This reverts commit f812a3485445c7db4024f84865aaa5d8e6b7b3a0.
+
+(Now that 3.0 is branched, this can be on trunk again for further work)
+"
+"2a476dc92c4c414af53c7562468336620186aa25","2010-08-03 05:46:35+00:00","Additional @Override compile check
+"
+"ad9c315cf4c2d1828def443156a6f21cb0a0aa20","2010-08-03 06:09:39+00:00","No longer need to extend Handler since r1126: we're using Activity.runOnUiThread()
+"
+"380452355ce02b7bc263237280ee30323742ac9a","2010-08-03 07:46:31+00:00","MessageListAdapter:
+- Use of a single View.OnClickListener for all messages.
+- Extracted method to bind message item views (from MessageInfoHolder to MessageViewHolder).
+"
+"11e28698e17d50474f56b874398da24d222f4ae7","2010-08-05 10:45:58+00:00","hide the decrypt signature layout in MessageView if no signature exists, fixes the wrong display of signatures from another message
+"
+"54e0ad5ce053132b8ca741d7450f76777603a2d5","2010-08-05 10:55:59+00:00","added some comments to explain some cryptography-related classes and to-dos
+"
+"7d6798cc6724c288049b11005f1c5b8c954d7b7d","2010-08-05 10:58:13+00:00","removed string constant 'find_action', as it isn't used anywhere anymore
+"
+"bd563291c15c13ec86e4357cfe501e15d2c303be","2010-08-05 12:02:47+00:00","Set text color for text on sign and encrypt checkboxes in the message compose layout so it will also work in dark theme.
+
+Fixes issue 2100
+"
+"5cb1c16003fa886c6b6aeb5990f33ff8e635edf9","2010-08-05 12:08:13+00:00","Small layout change for sign/encrypt button in message compose activity. Shifts the encrypt checkbox to the right to make room for longer key descriptions/email addresses.
+"
+"b4566ef640915d8a03c73970357d8fa6e27716e0","2010-08-07 12:36:42+00:00","Updates issue 1916
+
+French translation updated by p.lucauclair
+"
+"dfb8f9e0f2c7e50450bdfc9c49fb7f36f5ec62bc","2010-08-07 15:10:07+00:00","Memory management optimisation: help garbage collection by avoiding repeated instantiations of immutable arrays (empty arrays of String, Message, Flag, Address)
+"
+"5c588992a0e99f22a10c66d0f53367e1327302bf","2010-08-07 19:25:47+00:00","Fixes Issue 2076
+
+Remove german version of the 'Re:' prefix when replying to messages. So instead of 'Re: AW: subject' we get 'Re: subject'.
+"
+"9d45470b40e979ef5d97c1514c9e8a7d214adb3d","2010-08-07 21:37:57+00:00","Fixes issue 1076
+
+Remember 'Show pictures' button state when changing orientation.
+"
+"43fb202d431e3b98a78d53237e03ab362ea4c67f","2010-08-07 22:38:08+00:00","Fixes issue 1522
+
+Added option to automatically show images in message view (always, if sender is in contacts, never).
+Patch by paulkilroy (thanks!)
+
+Includes bugfix for the 'Show pictures' on orientation change code introduced earlier.
+"
+"f5a399f6c6142c1e67d130aa69251025a06f11f1","2010-08-08 18:50:31+00:00","extract out 'should we notify' from 'notify';
+
+rather than calculating the number of pre-existing new messages for this
+sync twice, do it once, a bit earlier.
+"
+"06a3d5985b899238a1dfc241356a5264915d2904","2010-08-08 19:14:47+00:00","Avoid allocating two temp variables on sync
+"
+"d2e3061f20595378ee7b9a128ae528fe3b6d298e","2010-08-08 19:14:52+00:00","Lift our initial unread counter up higher so that it happens before
+called code starts resetting the unread count again.
+"
+"ce9a84e8fdb99470757ee500f2bbb609ff93ccfb","2010-08-08 19:35:18+00:00","Quick updates from a code review pass by cketti
+"
+"1f725a2d5c93f0b0a4487c015fd479def7dbf287","2010-08-08 19:43:01+00:00","increment the new message count if the message is in a notifiable folder
+and the account wants notifications. (even if we don't
+notify for a message from ourselves, we DO increase the notification
+count.)
+"
+"2e6a67c2a713b8187eb8aef2a7c33df258c60836","2010-08-08 20:27:39+00:00","Better text filter for ChooseFolder (folder is displayed if search term is found anywhere in the folder name, not just at the beginning)
+
+Heavily based on a patch provided by Marcus.Wolschon
+
+Fixes issue 2098
+"
+"a724df79d4afb5f3c85b311f63a2635f5550ce17","2010-08-08 23:49:27+00:00","To date, 'loadMessageForView' competed for threads in a thread pool with
+all of our mail syncing code. This led to very choppy UI experience.
+
+This change doesn't entirely fix message load lag, but the _worst case_
+I see is now better than the best case I saw last week.
+"
+"490ab6b8c0e6163f4dc8c62da10a1b3df7c18c10","2010-08-09 03:16:40+00:00","Try harder to make message loading feel responsive and scroll correctly.
+We're still not there.
+"
+"9ebf16e3d9a43dbd6d0aa795383938b7b28695a3","2010-08-10 04:29:18+00:00","Finish removing the ThreadPool / ExecutorService Left over from when the
+code was actually in the view class
+"
+"0229d8a1fec24f3dd0535ebaa7ac8a045477bb8a","2010-08-11 03:36:40+00:00","Implement windowing for IMAP UID FETCH
+
+Our previous implementation of UID FETCH didn't ever take into account
+maximum command line lengths. When fetching, say 800 messages from a
+GMail IMAP server, we could easily overflow the max line length leading
+to a fetch that didn't get all the messages we wanted to and was
+truncated before the description of which fields we want. That caused
+K-9 to fetch complete messages, exhaust memory and ultimately fail,
+even when we were just trying to get message lengths.
+
+An equivalent fix needs to be made to seach by UID.
+"
+"de16b21124d9c1a1b7722e14ccb2ad69ff77ce41","2010-08-11 03:36:49+00:00","Add debug logging when K-9 doesn't enable push because the user has
+configured push to be off.
+"
+"e43297cd8be9e78ae2e3718ce7d32834008b29bd","2010-08-11 15:45:23+00:00","Updated japanese translation.
+"
+"ece68bae5d2fe30100b73395fa86242a99d7eebc","2010-08-12 02:21:56+00:00","Off-by-one error in the recent IMAP fetch work :/
+"
+"54633a4e1626cb7bfb884a2ccb678b7cfec177d3","2010-08-12 02:22:08+00:00","Improvements to 'more from this sender' - hopefully this should search
+only on actual addresses, not their local parts.
+"
+"9871f1be530caa35437f3919f58d156f44ec68b2","2010-08-12 02:22:15+00:00","First pass at a tool to build our emoji mapping tables from code
+"
+"d123aa2a39d4c84bd3c016ad361e62c8e9eafd80","2010-08-12 02:22:25+00:00","Add a hook for hinting charset conversions to Java, since Android's java
+doesn't know about all conversions.
+"
+"a0238904b67e6d8e899c4fe60a0b25d3ac9bda91","2010-08-12 02:22:35+00:00","Update our emoji implementation to support docomo, softbank and kddi
+(with the exception of 3 kddi glyphs that overlap with softbank).
+
+As of this commit, emoji sent by iPhone users are visible in K-9
+"
+"1e67fc4cde01adfc01aa7033cacfdc04933d93ce","2010-08-12 11:03:19+00:00","Update issue 1290
+Update issue 1916
+Added support for country/region specific locales
+"
+"5ffde12932bcc425c3c7c5ae0ef079a32a747200","2010-08-12 14:26:47+00:00","Updated French localization with regular French strings.xml and added Canadian French localization file.
+
+Update issue 1916
+Status: started
+
+I updated the existing strings.xml with many of your fixes and added a Canadian French specific strings.xml: it only contains terms that differ.
+
+Identified terms (fr / fr_CA) :
+e-mail / courriel
+spam / pourriel
+
+You can now choose 'Français (Canada)' language from the configuration screen.
+
+I tried to match the Gmail application running on a system configured with French locale: it mainly use the 'message' term and sometime 'e-mail' like in notifications as well as 'spam'.
+Some other modifications are spelling fixes.
+"
+"e7567f661fd27b10c71a3c100038efb36a93c667","2010-08-12 14:30:57+00:00","Updated SVN properties: eol-style=LF / mime-type=text/xml
+"
+"b839866e176f61ecde17d1c0376cd15a303fb457","2010-08-12 17:39:50+00:00","removed some unused APG constants, added an APG Intent API version to be sent along with all Intents
+"
+"08b806644134ad25806a5c38c826b4b87843f841","2010-08-13 06:36:42+00:00","added some missing translations
+"
+"97001b6edb2cf110dd53fe9c4cb145c91ee35c1b","2010-08-13 06:37:00+00:00","filter on folder-selection
+"
+"a35ab06ccc6e063807d9442c29d1757a8974a981","2010-08-13 06:38:20+00:00","allow install on SD-card (is ignored for Android <2.2)
+"
+"0eb342ef5a6a4c0eb5621c2e849fcdb3a3a56158","2010-08-13 14:06:13+00:00","Code cleanup (Removed unused imports, added @Override annotations)
+"
+"0e4c1dfacb7b86d2fc9734e6d688b1ba0f608585","2010-08-14 13:59:33+00:00","Added helper class to access contacts. Uses the old contacts API for SDK/API 3+4 devices and the new API for SDK/API 5+ devices.
+All places that accessed the contacts have been updated to use this helper class.
+"
+"95fd605b0e983aceb90b8f103b85752b259ef895","2010-08-14 19:30:37+00:00","default account setting cryptoApp to APG
+"
+"73c3872dd0ae2f28321c339e3c40fe16caf9aa88","2010-08-15 02:37:06+00:00","Improve our display of inline images in HTML mail to not also offer
+themselves up for download.
+
+To do so, we need to start storing the original content-id and
+content-disposition for attachments - this includes a database upgrade.
+
+Based on a patch from @achen.code
+"
+"da90792fa7fb42a82bcb6983c4606f2a0e9196c7","2010-08-15 04:05:39+00:00","Don't call MimeUtility.unfoldAndDecode() on the message body when scanning for external image references. Also cleaned up the code a bit.
+"
+"7964c34dbda10a5490f2b62159351f6199a079e6","2010-08-15 14:52:59+00:00","Fixes issue 2145
+
+Cannot show the emoji icon on Android 1.6 at least. Replaced all '< img' to '<img'.
+"
+"ba95150a3179f88be64a06883807356f18bb5337","2010-08-15 19:26:44+00:00","Use IP address for SMTP EHLO if hostname contains invalid characters, e.g. underscore.
+
+Fixes issue 2143
+"
+"02aad5945a699c6af5d964336365ec2a5365404a","2010-08-16 19:34:48+00:00","Added null pointer check.
+
+See issue 2154
+"
+"8832933a60679ca3ba5003d3fa8e6f3269e03e2d","2010-08-17 04:21:22+00:00","It turns out that if you're only fetching the bodystructure, the mime4j
+parser can't parse the message.
+"
+"1252ffb61044000ad249354d3d737ee87fe059a3","2010-08-17 04:22:27+00:00","3.101
+"

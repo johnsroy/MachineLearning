@@ -1,0 +1,101 @@
+"commit id","commit date","commit message"
+"d318af098d28b6685219f852558087eee5c8c3ae","2015-03-01 12:05:54+01:00","merge messages with related status (unsend, send, send_received)
+"
+"ff86fa604903cd77fe26860be0cc256b5d1e04eb","2015-03-01 14:15:40+01:00","mark all sent messages up to a marker as displayed
+"
+"ac577fe4fd36e56ff492d588af5bb427b98d915e","2015-03-02 11:53:15+01:00","added methods to count number of unread messages
+"
+"fb3740f07bc75a9b22ef767d995490941a083895","2015-03-04 00:57:34+01:00","Green led color is better with 'full-green'
+"
+"e10c4e78f17dd7f428c139f1f4c29feb97b64099","2015-03-04 19:56:24+01:00","experimantal in memory jid caching
+"
+"c5230e081cd2c9a1c5b5bd0459e339668ff4cb6d","2015-03-05 10:15:04+01:00","added config option to disable string prep in jids
+"
+"f25a82461007f43c23960720d6d94d2db5c8c7f7","2015-03-05 15:46:33+01:00","avoid unnecessary thread creation
+"
+"a385b6ce0b534bb45a355af514c06153f96e7be0","2015-03-06 14:25:17+01:00","added short todo list
+"
+"ce9aede11c4deee28df5e5419bef646967f111f4","2015-03-06 14:27:09+01:00","fixed markdown syntax in todo list
+"
+"16c6f8d2fff851f389c03eab2d3afb8e82547aab","2015-03-06 14:39:05+01:00","another teaser task for gsoc
+"
+"44028a547f23306cb8e88b0cb5b950e3c543fd34","2015-03-06 21:14:55+01:00","fixed npe in message parser
+"
+"cbca92d2099a9b3096b7ed6fbe0e5e8758f746fc","2015-03-06 22:22:50+01:00","fixed enter is send option
+"
+"87a048fe6f88739a381cecab973e1af12325ce16","2015-03-07 14:15:38+01:00","display geo uris as location. show 'send loction' in share menu if request location intent can be resolved
+"
+"67f8ed44bd7241556a7cb1eb2aee2dda4cbbbf4e","2015-03-07 15:36:31+01:00","disable all really weak cipher suites
+
+With #959 all ciphers of the platform were enabled, but this also
+includes several suites that are considered as very weak, even down to
+NULL- and anon-ciphers which disable completely disable encryption
+and/or authentication. Especially the anon-ciphers could be easily used
+for a mitm-attack.
+
+To remove all weak ciphers a blacklist with patterns of cipher-names was
+added to Config.java. The blacklist is based on the 'mandatory discards'
+that Mozilla suggests to not use for TLS-servers because they are weak
+or known to be broken.
+https://wiki.mozilla.org/Security/Server_Side_TLS#Mandatory_discards
+"
+"1a5321e41f8ff18356d27a54078a6d742826473f","2015-03-08 11:28:39+01:00","Merge pull request #1022 from Boris-de/cipher_blacklist
+
+disable all really weak cipher suites
+"
+"5132cd723476b6f612cf103b927e1fcf869cb039","2015-03-10 17:20:50+01:00","show geo uris as 'location' in overview
+"
+"db6a63bcf6c100f24b90778c3d69e8b6cec31b16","2015-03-10 21:46:13+01:00","open location directly from notification
+"
+"4ee4eeb5e7d87001f1da83951f67609384bca853","2015-03-11 15:48:43+01:00","add context menu entries for geo uris
+"
+"74e5317095f19b16f99251ba25177d84aaf21a8a","2015-03-05 22:11:59+01:00","Do not Strigprep JIDs from database
+"
+"3d570f4a08ea417f6119d7c0e9a8e5e12287ae29","2015-03-11 18:18:07+01:00","updated changelong
+"
+"4aab45533ac8a32be2fe66b266b845aed02acf1b","2015-03-16 11:52:42+01:00","pulled new translations from transifex
+"
+"52af62d298da5780fc1f4a931b3007124b4760eb","2015-03-17 17:36:17+01:00","Set file size also for cached avatars
+"
+"ae274ac728bfb247e5a2b3249b7d2369909ae6f6","2015-03-17 21:10:02+01:00","Merge pull request #1041 from weiss/fix-cached-avatar-size
+
+Set file size also for cached avatars
+"
+"7ae357f863732451ee65c566687f7440b3c1c74a","2015-03-18 17:11:43+01:00","Merge pull request #1036 from QuentinC/development
+
+Green led color is better with 'full-green'
+"
+"f76baa5658df9b08c7cdc7b3b85560842cb4d7f9","2015-03-17 15:00:50+01:00","Added multiple select to Choose Contact Activity
+
+When passing the Choose Contact Activity a boolean called 'multiple'
+set to true, it now allows the user to select multiple contacts. Long
+pressing a contact enters multiple selection mode and the selection is
+confirmed using a button in the CAB. The Activity returns whether or not
+multiple contacts were selected using the same boolean. If multiple
+contacts were selected, an array of JID strings called 'contacts' is
+returned. The Choose Contact Activity now also honors 'filter_contacts',
+an array of strings containing JIDs that should not be displayed in
+the picker.
+
+The invite to conference dialog now uses this feature to enable inviting
+multiple contacts at once. Additionally, Invite Contact uses
+'filter_contacts' to only display contacts that are not yet
+participating in the conversation
+"
+"a13c59fa1b3a05b72b0c98147d251d2003b099a8","2015-03-18 17:36:23+01:00","Merge pull request #1043 from strb/choose_contact_multiple_squashed
+
+Added multiple select to Choose Contact Activity (squashed)
+"
+"1c600fefcf9cba751bc8bc0f151cc03e28d9c4b9","2015-03-16 23:23:51+01:00","# add delivery receipts for private muc msgs
+# enable update last-seen for muc-msgs
+"
+"382bcc4cb54e30023a04411754fa5c7f3a559e8a","2015-03-19 18:47:33+01:00","Merge pull request #1042 from BrianBlade/FIXES_muc-dlrs_muc-lastseen
+
+add delivery receipts for private muc msgs & enable update last-seen for muc-msgs
+"
+"0d6475d0d930b637ccdabac78fc9acd159d6ef5c","2015-03-19 19:32:24+01:00","pulled more translations
+"
+"442ae12ee5f979043e9ad248cdca0f2890b39654","2015-03-19 19:40:24+01:00","don't update presence for muc messages
+"
+"5793fb680f1d318b6f5fdb3962ab1c884a9259ce","2015-03-19 19:40:42+01:00","version bump to 1.2.0-beta
+"

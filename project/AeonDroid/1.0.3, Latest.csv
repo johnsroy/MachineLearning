@@ -1,0 +1,37 @@
+"commit id","commit date","commit message"
+"77a469f95b74bd48cd54f601bf73963543292e7f","2015-10-01 19:10:27-07:00","Have the arrays with planet names reference the string values
+"
+"47833f5b9eb67b814f51b798838e95f84c04b700","2015-10-02 12:53:04-07:00","Add pure date and pure time formats. Also, continue filling out the contents of the cursor adapter and change the type of the arg1 and specificity parameters since those are always non-decimal numbers.
+"
+"3250d8400a59ccac7cb43ada339b06c3f836507a","2015-10-02 16:58:09-07:00","CRUD for editing and adding alert triggers complete. Next up will be the actual code to check for when the triggers should activate.
+"
+"6598a8f876759589520fe264528cc129cb1f42a3","2015-10-03 13:39:14-07:00","Extend SunsetSunrise info to have the information necessary to directly calculate the hour number for a given datestamp. This will be useful when writing the code to check the alerts and to optimize the checking of the planetary hours.
+"
+"cf8c543cc297671052a511f7219971f3618af2d3","2015-10-03 13:43:16-07:00","Store the context used in the constructor. Also make it possible for getPlanetaryHours to take a SunsetSunriseInfo object as its parameter.
+"
+"7f9e4c7a9ce1cb4ee1f0dda7c0856f59f4ef08c6","2015-10-03 14:24:38-07:00","Include a test case for midnight and hardcode the timezones for the test to make sure the unit test avoids calling ZoneTab as much as possible. Also, allow the timezone to be manually specified when setting the observer.
+"
+"19a08acef2257152bd8be3e5698fffd3ba4dceb6","2015-10-03 15:54:57-07:00","QoL update: Only call ZoneTab when GPS location, manual location, and birth location change. The former was already done. The latter two was done every time the application started up instead of if and only if when the location changed in the settings. This fixes that. Also, this update makes the datetime widget for the EditTriggerActivity reference the current location or the GPS detected location instead of the birth location.
+"
+"1bfbe4dceca0e14df80e3c69e8c20d1fa9012a33","2015-10-03 16:23:37-07:00","Allow entering - in the case of beginning a negative number. Add safety try/catch's to reflect the case someone might put... a negative number. Or absolutely nothing. Either way.
+"
+"fd136adc88c1c11d32bbeada8c751873e62a963b","2015-10-03 17:55:42-07:00","Provide a default instance of the Ephemeris that represents the ephemeris based on the urrent location. Also, update the function that makes moon phase objects to be independent of the full moon for reliability and decoupling purposes.
+"
+"ef7efa66b65a406d997032ee4394e1cd4f54b716","2015-10-05 11:34:48-07:00","Quick bugfixes on the edit trigger activity and planet position edit widget. The sloppy checkbox and the enabled checkbox weren't being toggled.
+"
+"00cb04dd2591f774c525c27412ec7d4f0ecd3ed1","2015-10-05 16:10:20-07:00","Change the constructor for DBHelper to be package-local. This will allow us to write future unit tests against the database using clean configurations all the time.
+"
+"8e217bd6a066af59b04fe5c8f90cf5ec8ec9a54c","2015-10-05 16:15:46-07:00","Move the try/catch blocks for getting ZoneTab into guessTimezone, since it's only needed for the case where we need zonetab to guesstimate the timezone
+"
+"d2ef36ecc46173e6b57ccf328b817870c902f7f2","2015-10-05 16:45:19-07:00","Have the widgets try as much as possible to use the default ephemeris.
+
+Also move the current chart variable onto the service, since we will need that once the trigger checking is integrated into the UI.
+
+Finally, also make use of SunsetSunriseInfo's quick hour number calculation since that's faster than traversing through a list to check for the hours. As a consequence, the planetary hours widget should reconstruct the planetary hours from the ssi info if it's reading it off the service.
+"
+"7e15f4ad04f5f110fabdb03a826b1bb74ab75b5b","2015-10-05 22:59:04-07:00","Use the timezone when constructing the SunsetSunriseInfo. That's because planetary hours are dependent on when the sunrise starts and what timezone that was generated for.
+"
+"d796fa2a2b89485a8f94cd291dda4657fd500dda","2015-10-05 23:03:08-07:00","Bump the version code for a bugfix release and hide the triggers menu item again for release.
+
+That's because the triggers are still WIP, mostly due to working on the trigger testing.
+"

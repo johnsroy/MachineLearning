@@ -1,0 +1,112 @@
+"commit id","commit date","commit message"
+"2f8207abf98361578f418124098b965ab87968d4","2016-02-07 09:27:51+01:00","Initial support for reading pebble health steps/activity data.
+"
+"10b5c571bb220e7fff96e7605261698a6d004cd7","2016-02-07 16:44:16+01:00","Use Kilometers as distance unit
+"
+"0c4e606e74ee6b77961063199a9b91506c295a62","2016-02-07 21:59:14+01:00","Pebble: rename BLOBDB_HEALTH to BLOBDB_PREFERENCES and encodeSaneDistanceUnit to encodeSetSaneDistanceUnit
+
+Also allow to set insane units in the method
+"
+"dd9864015dbf7b2a9cc207e11471f77d7e66036e","2016-02-08 06:32:36+01:00","Fix #221 - Cast pair.first as integer
+
+This commit fixes the following compilation error:
+
+```
+:app:compileDebugJavaWithJavac
+/home/bob/dev/Gadgetbridge/app/src/main/java/nodomain/freeyourgadget/gadgetbridge/util/LimitedQueue.java:26:
+error: incomparable types: Object and int
+if (pair.first == id) {
+^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 error
+:app:compileDebugJavaWithJavac FAILED
+
+FAILURE: Build failed with an exception.
+```
+"
+"cdb25f318342c9176ed57460b14c366e09e99de2","2016-02-08 21:32:05+01:00","Merge pull request #222 from roidelapluie/fix221
+
+Fix #221 - Cast pair.first as integer
+"
+"5b539d52526e5741fdffde1f7fa2e8f3e800a491","2016-02-08 22:32:16+01:00","[travis] Test against JDK 7 and JDK 8
+
+Bug #221 was due to a different behaviour of JDK8 and JDK7. To prevent
+this in the future, travis should test with both.
+"
+"b01a5178139f2d9f26e74e716692971b9b5749ab","2016-02-08 23:33:05+01:00","Pebble: fix hexdump for health datalog
+"
+"12a5b53f006e85cbf15f19549086247357028c01","2016-02-09 00:49:42+01:00","Pebble: Merge DatalogHandler and DataLog session
+
+Also:
+- pass the length of the payload and not of the whole datalog buffer to handleMessage(), simplifying DatalogSessionHealth::handleMessage()
+"
+"93db073538c85a022cc70b446e895d4642621508","2016-02-09 00:56:16+01:00","Pebble: try to fix health code, might be broken, cant test
+"
+"d62946df63f98cfe22fa2a35081fa08440ec883e","2016-02-09 01:24:22+01:00","Pebble: some minor code cleanups regarding health
+"
+"20c4e49fe14ca729cd7729537553a9f20584a69c","2016-02-09 17:52:21+01:00","Refactoring of the Pebble Health steps data receiver.
+Added logic to deal with pebble health sleep data.
+Added database helper to change the type of a range of samples (needed for sleep data).
+Fixes to the Pebble Health sample provider.
+"
+"823cb12035921cd9a181939b2813483d1e38dc05","2016-02-09 19:39:44+01:00","Merge pull request #225 from roidelapluie/travis-jdk7-jdk8
+
+Test against JDK 7 and JDK 8
+"
+"743677870042ee5edd4ee769e6758451e649c0db","2016-02-11 12:49:01+01:00","Pebble: fix for recent morpheuz versions (maybe breaks old versions)
+"
+"8294921de746d9ea0e23afd7b509c52d4a51d05a","2016-02-11 19:14:40+01:00","Do not ack the sleep data until we can actually store them
+Added helper method to fetch the latest timestamp stored in the DB, needed for the aforementioned feature.
+Update changelog
+
+This closes #188 \o/
+"
+"c86365ee2eff03e0f30c180b34896fe2f77c69b6","2016-02-13 00:09:35+01:00","Some more Mi Band pairing improvements #180
+
+- listen to notifications early -- the band then actually tells us that
+authentication is required
+- check for this after sending user info
+- add authentication states to GBDevice
+- workaround for event problems in pairing activity (delivered although
+already unregistered)
+- BtLEQueue now deals with gatt events coming *before* connectGatt()
+actually returned (namely the connection event)
+"
+"cc425838859d6b9ee3bed9dcda4c396bd327be80","2016-02-17 15:19:05+01:00","add missing newline
+"
+"70ae5a2a3a3efc9d7d1f0dc3e7f088938f11a303","2016-02-18 20:41:22+01:00","Pebble: Allow to select the preferred activity tracker via settings activity (Health, Misfit, Morpheuz)
+"
+"109146c8c1f6ee3e54173d3290948e5d07861c39","2016-02-18 23:35:55+01:00","Attempt at fixing a (re-) connection issue
+
+Sometimes reconnection lead only to 'Connected' state, but not 'Initialized'.
+This probably happened when the device got disconnected earlier and then was
+automatically reconnected. The reconnection closed the previous connection,
+which caused the dispatch-thread to wake up and think the connection is
+actually establish. Then, when the first action is invoked, it would fail
+with an NPE because mBluetoothGatt passed to the action is actually null.
+"
+"7626667a0a4dbfd30b6446d09ff33c01a5a89f6e","2016-02-19 23:48:08+01:00","try to blindly fix user preferences screen
+"
+"c436c4c055d32125dd1f2b25fede5c2f4a5f3170","2016-02-20 22:20:02+01:00","Pebble: Fix wrong(previous) contact being displayed on the pebble. Fixes #228
+"
+"b858e50804b724218d03887a7a061515d650d0de","2016-02-21 13:04:32+01:00","Use strings to store activity shared preferences.
+
+System has trouble with accessing integer in the preferences, so let's not use them.
+"
+"1a96bd31e527577f5364150105996014573f611a","2016-02-21 15:26:24+01:00","Request permissions at runtime on Android 6. Closes #219
+
+TODO: Tell the user why we request that and if he really needs it (if he does not have both a Mi Band and a Pebble she does not need all)
+"
+"db6f26fcd5f20b474f47f898d80a6d241f920032","2016-02-21 15:46:53+01:00","bump version, update CHANGELOG.md and README.md
+"
+"6eb35b955ed70428a59fa700335c359300ff5fd5","2016-02-21 16:46:48+01:00","Prevent race condition on android 6 (?) at the cost of losing the gender data (we cannot display a toast at this point unfortunately).
+"
+"b5a726b777d785226a2257b6cf8d0e28d5886291","2016-02-21 17:21:04+01:00","Change layout of the alarms activity, fixes #216.
+"
+"fee04a05ae0ca8701b57af90bad91f67b14c08af","2016-02-21 21:23:22+01:00","Updated for Mi Band connection fixes
+"
+"8de836efb82240f206f4f83daca9effd8de75ddd","2016-02-21 22:09:02+01:00","Version 0.8.0
+"

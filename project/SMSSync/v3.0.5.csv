@@ -1,0 +1,52 @@
+"commit id","commit date","commit message"
+"d53a0be6660874f39924cfff40941320b578a833","2015-12-14 15:03:52+09:00","A lot of bug fixes to previous release
+
+- Remove the use of robolectric for unit testing. Now android ships
+native unit testing support.
+
+- Refactor entities to use getters and setters so they can be mocked.
+
+- Add test for post message.
+
+- Add test for single and multiple messages synchronization.
+
+- Fix #362 - Use the device's phone number for the `sent_to`
+field instead of the `from` number.
+
+- Fix #369 - Set imported messages from the phone's inbox `type`
+to `pending` and `status` to failure. This prevents the app
+from crashing when an attempt is made to fetch messages from the app's
+inbox.
+
+- Swipe to manually sync individual messages in the pending list is
+is broken because there was no method call to cause the sync.
+Made a call to `publishItem(int position)` when a swipe occurs.
+
+- Add test for IP based Integration.
+
+- When Test Ingeration button is hit, the app makes a request using
+configured request method to the server. The test request doesn't
+send the `message` and `from` variables to the server. This sometimes
+causes validation error when the server is strict about those two
+parameters. This sometimes leads to testing of the integration to
+report invalid endpoint has been entered. To fix this, added a
+hardcoded message and from values so those are sent along with the
+secret values. This actually makes the test report that the
+configured integration can actually receive messages from the app.
+
+- Upgrade android gradle plugin
+"
+"1022d73c624d9300b29af8241527f8a340743c27","2016-02-12 18:58:34+00:00","Update changelog
+"
+"e494dd9af10f27d37466d5cd70adfd1e799c28a1","2016-02-12 19:10:59+00:00","Merge pull request #370 from ushahidi/364-secret-key-getting-duplicated
+
+A lot of bug fixes to previous release
+"
+"61c35e5be8e20e0fe2583c9d8073dff0d2fd7327","2016-02-12 19:26:57+00:00","Bump version number
+"
+"a1f2224bbb4488a9772eb35a1d8648e0dc350a59","2016-02-13 06:59:37+00:00","Fix NPE when app has low battery
+
+Check for null object from http client getReponse method call.
+This is a quick way to fix the NPE. In the future investigate
+why the getReponse call returns null.
+"

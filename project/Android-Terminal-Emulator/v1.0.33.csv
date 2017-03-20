@@ -1,0 +1,251 @@
+"commit id","commit date","commit message"
+"3a738cdb919f96110bfacacc44be8d9d11741ac7","2011-09-18 10:09:24-07:00","Update private build tool to support NDK r6b
+"
+"7165bc829b573cfd383693fbcfbe0fa85b228b72","2011-09-18 10:11:20-07:00","Update config file for latest Android SDK
+"
+"e543ef97835fe089f9f25e6cb4b0ad61d68982c9","2011-09-18 10:13:05-07:00","Generate native code for x86 as well as armeabi.
+
+In theory this will allow Android Terminal Emulator to run on an
+x86 version of Android.
+"
+"a2148fc60d979cd0607150a2e0c7bc93ca685816","2011-09-28 21:42:00-07:00","Update Italian translations
+
+Courtesy fireb33@gmail.com
+"
+"f520f558a49a0c17e2304b2681772bc49daf6851","2011-09-28 21:56:45-07:00","Basque localization.
+
+Courtesy asier.iturralde@gmail.com
+"
+"b87fd19e39bffbc834ab2f7608d8e450473220ea","2011-09-30 22:48:08-07:00","Optimize getTranscriptText()
+
+The current implementation is going through each line character by
+character, even for lines that are known to be unwanted in the final
+output; this is silly and easy to fix.
+
+Signed-off-by: Jack Palevich <jack.palevich@gmail.com>
+"
+"7117c41e8bfc2165009b8a3688fecbaaac036f6e","2011-09-30 22:48:23-07:00","Add a transcript backing store suitable for Unicode text
+
+Storing Unicode text in a form suitable for a terminal emulator poses
+several challenges:
+
+* In Java's native UTF-16 encoding, some Unicode code points (those
+outside the Basic Multilingual Plane) require two chars to express.
+* The use of combining characters means that it's possible for the
+character displayed in one column/screen position to require several
+Unicode code points to express.
+* Some Unicode code points (particularly East Asian wide characters,
+which include all of the CJK ideographs) take up two columns/screen
+positions.
+
+The UnicodeTranscript class is designed to make the operations we need
+most frequently -- storing a character to a particular screen position,
+and getting all or part of a line -- as fast as possible.  The design
+uses an array of two types of lines: 'basic', which is just an array of
+char[], and is used to store a line as long as it has no combining
+characters, wide characters, or non-BMP characters; and 'full', which is
+an array of char[] together with an array of offsets allowing us to
+easily find a particular column in the line.  Basic lines in the
+transcript are automatically converted to full lines as needed.
+Color/formatting information and line wrapping information are stored in
+separate arrays.
+
+We also expose a static method, charWidth(), which returns the number of
+columns/screen positions that a particular Unicode code point will use.
+This information is needed by other parts of the emulator to correctly
+handle Unicode.
+
+Correct support for East Asian wide characters requires Android 2.2 or
+later -- 2.2 introduced a getEastAsianWidth() method, which we use to
+determine the width of a character.  On older platforms, we just pretend
+all characters which aren't combining or control characters have width
+1.
+
+Signed-off-by: Jack Palevich <jack.palevich@gmail.com>
+"
+"e91bb8924d7d5711251b6e02bf9010f33622d56e","2011-09-30 22:48:35-07:00","Support displaying Unicode text
+
+The current scheme, whereby we store the contents of our screen in an
+array of char (two bytes in Java) with the upper byte used to encode
+color and formatting information, is fundamentally incompatible with
+Unicode, where the available encodings all either need more than one
+byte per character or are variable-length encodings.
+
+Instead, we use a new UnicodeTranscript class, which stores the
+transcript row by row and includes facilities to handle combining
+characters and East Asian wide characters.
+
+We also need to make some minor changes to the code which displays text
+on screen to support Unicode output.
+
+Signed-off-by: Jack Palevich <jack.palevich@gmail.com>
+"
+"30e3995cd6ccc966b3784e29da534346e4d11cbe","2011-09-30 22:48:47-07:00","Support for Unicode text input and UTF-8 I/O to process
+
+* Ensure all output paths produce UTF-8
+* Decode UTF-8 sequences in the input
+* Support switching to/from UTF-8 mode using ESC % escape codes
+* Add a preference to control whether the emulator is in UTF-8 mode by
+default
+
+Signed-off-by: Jack Palevich <jack.palevich@gmail.com>
+"
+"e09e02a704e5b2e447cc4d3543871894e503fe27","2011-10-09 15:15:34-07:00","Restore SCREEN_CHECK_PERIOD constant.
+
+(I think Steven has a patch in his source tree that removes the need to
+use SCREEN_CHECK_PERIOD, but that patch wasn't accepted for the main
+branch, so SCREEN_CHECK_PERIOD is unused in Steven's tree, but is still
+required for the main branch.)
+"
+"a347478487a6e1ca094b7070506bb0947a20f30a","2011-10-09 17:08:44-07:00","Shorten UI message for 'Default to UTF-8 mode'.
+
+The original message text, while more accurate, did not fit in the UI.
+"
+"86b70e1a9ae87db2b483e1461d48407e96aebf35","2011-10-09 17:09:57-07:00","Micro optimization: avoid unnescessary shifts.
+"
+"22ad15a2e72778cfa3fdf94a3b0c3ec0b5da16f9","2011-10-09 17:14:21-07:00","Enable code to run pre-SDK-level 8.
+
+Introduce a utility class to deal with post-SDK-level-3 APIs.
+
+Cache the SDK level as an integer at start-up.
+
+Use reflection to access post-SDK-level-3 APIs.
+
+Add early out for space character, which shows up frequently.
+"
+"dbf4f4ca02d6ac3dc86b79600bcaca9ecd9adf3f","2011-10-21 19:37:20-07:00","Update project organization for SDK version 14
+"
+"ba857043b110bb76d2cf37855b939ce9603796ec","2011-10-21 19:39:41-07:00","getEastAsianWidth: Actually invoke method after initializing when first called
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"5dc7ae591c876bcbd8454a3280b0f5a3d054691b","2011-10-11 03:04:06-07:00","Avoid going off end of offset array when going from width 2 to 1 at end of line
+
+Why this is happening is somewhat puzzling in the first place (since a
+width 2 character doesn't fit at the end of the line), but this prevents
+a crash.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"8c71cf58c020ed304c4d726e3c1d805411145833","2011-10-11 03:04:10-07:00","Fix getTranscriptText() behavior with autowrapped lines
+
+Since the Unicode patches, internalGetTranscriptText() has been
+ignoring trailing whitespace for lines that were autowrapped, which
+causes the content which was wrapped to the next line to be appended
+immediately after the last printing character -- not its original
+location.  This patch fixes that regression.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"d313f242ffa5d1ca083a7f36a3ce8c0f14a2c9f3","2011-10-11 03:04:15-07:00","Fix off-by-one error in getting selected text
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"acdf3ac2aa4c979889e4bb296144838fe0f830ee","2011-10-11 03:04:33-07:00","Return early from charWidth() for all ASCII printable chars, not just space
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"fcf0e2a0a1066b2ee4b5088064634d1455c728c8","2011-10-11 03:04:48-07:00","Hide the soft keyboard when pausing the activity
+
+Otherwise, the keyboard will remain open after the user leaves the
+activity, possibly covering up part of whatever the user is now doing.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"2d640ff2381925d9784248712671b7c47f2b7f56","2011-10-11 03:05:11-07:00","Return empty ExtractedText instead of null from getExtractedText()
+
+This silences the following error message in logs:
+
+E/InputMethodService(29043): Unexpected null in startExtractingText : mExtractedText = null, input connection = com.android.internal.view.InputConnectionWrapper@405ef968
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"15a835f3449b80560be87c2f8c3637ef874dce1e","2011-10-11 03:05:20-07:00","Add a hack to remember the cursor position across screen size changes
+
+As it stands, the cursor ends up immediately after the last
+non-whitespace character in the transcript after a screen resize, which
+is very frequently incorrect (the last character in the output is
+often a space or newline, and it's possible the cursor has been moved,
+as during command line editing).
+
+Since lines could be re-wrapped during the screen size update, there's
+no easy way to calculate where the cursor should end up.  Therefore, we
+use a hack: since ASCII ESC (\033) is non-printable and should never be
+part of the transcript, we mark the cursor location with an ESC before
+resizing, and restore the cursor to the location where the ESC ends up
+afterwards (taking care to save and restore the real character at the
+cursor position correctly).
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"61e0e8b09aa6e8118bed630d2eb94f1b67affca5","2011-10-11 03:05:26-07:00","Preserve colors and formatting across screen size changes
+
+Currently, getTranscriptText() has no option for preserving
+color/formatting information, so this information is lost when resizing
+the screen.  Fix this by adding a variant of getTranscriptText() which
+accepts a StringBuilder in which color information will be stored, and
+using it during resize operations.
+
+To save memory, this implementation only preserves color information for
+regions of the screen which contain text, so blank areas of the screen
+with colored backgrounds will still revert to the default background
+color.
+
+(Why StringBuilder?  Post-Unicode, we cannot store information in the
+upper bits of a char, as we would have before.  An ArrayList<Byte> would
+be the most natural fit, but the need to box the values creates serious
+memory overhead.  StringBuilder handles dynamic sizing of the array for
+us and uses less memory per cell than an ArrayList.)
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"6f3f98aaea5aa714f88080a27483d9f62b8a57c2","2011-10-11 03:20:08-07:00","Make the screen a movable window in the transcript buffer
+
+Instead of the current scheme of having 0..mScreenRows-1 be the screen,
+and everything else be the transcript, let the screen be a movable
+window into the circular buffer.  This allows scrolling the whole screen
+to be much faster (just move the window), and should make fast resize
+easier.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"06013b2021be9a69e204d7444d1f639b395d4395","2011-10-11 03:20:14-07:00","Implement fast resize for cases where width remains constant
+
+A resize operation currently requires getting the entire transcript
+text, throwing away the backing store, constructing a new one, and then
+writing the transcript to the new store.  Particularly when the
+transcript is large, this is a slow and inefficient operation.
+
+As it turns out, it's really quite easy to change the number of screen
+rows for a particular backing store, which allows much faster resize
+operations in the case where the number of columns does not change.
+This is particularly useful when using soft keyboards, where the number
+of rows will change depending on whether the keyboard is displayed, but
+the number of columns doesn't.
+
+Signed-off-by: Jack Palevich <jackpal@google.com>
+"
+"99908d5c8de5372b7b7db0e520f54980abc00f37","2011-10-21 20:01:22-07:00","Increment version number.
+"
+"36ba6921517a192dc539471d7337e2df0849339c","2011-10-21 20:06:41-07:00","Move atari font notice out of res directory.
+"
+"49537fc4b194951f8d69c2c3b2e46327501afc00","2011-10-21 20:21:57-07:00","Remove executable bit.
+
+These files are not executable, and should not have executable bits
+set.
+
+These bits sometimes gets set when importing files from Windows.
+"
+"2496296e471d4f58fd51525f57cb75b92ff32ea7","2011-10-21 20:58:24-07:00","Create a status bar notification icon.
+
+See http://developer.android.com/guide/practices/ui_guidelines/icon_design_status_bar.html
+"
+"f60cb8398812842b4fbbc961630330d702066965","2011-10-22 05:24:24-07:00","A UTF-8 encoded text file
+
+From http://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt
+
+This test file shows that we don't currently handle many obscure parts
+of unicode rendering, including combining diacritics, brail, etc.
+"
+"e12cd186e41d0b32ea4783de3e249a18a57cbca0","2011-10-22 05:57:23-07:00","Add link to Android Market.
+"

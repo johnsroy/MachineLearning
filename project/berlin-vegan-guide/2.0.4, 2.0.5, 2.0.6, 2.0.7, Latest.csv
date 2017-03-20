@@ -1,0 +1,250 @@
+"commit id","commit date","commit message"
+"d9e6a1a2f90f42ee63ea905fb2703662ff8c44e6","2016-02-06 21:39:07+01:00","version code increase
+"
+"17c787cbe1e8e9802490aef00255ef4ce4e80131","2016-02-28 12:53:50+01:00","Use hard-coded ACRA secret again
+
+At out last meeting we decided to use the hard-coded ACRA secret again,
+because we did not see an easy way to get the secret into a F-Droid
+build from the outside.
+
+This commit just reverts several commits:
+
+Revert 'Don't check for shared secret in the FOSS builds'
+
+This reverts commit 23bac7e2b851a67a2632ec4816346d175c6f6782.
+
+Revert 'complain if parameter is missing in release build'
+
+This reverts commit 00a226946ebdf79dd4d52684eb9a71e0dc00bfd0.
+
+Revert 'remove hard coded acra shared secret'
+
+This reverts commit 8337c5d6487e8859231292965568f8a66c224c30.
+
+Conflicts:
+README.md
+
+Closes #69
+"
+"859b3ff2e0b49e5300815780fd642960c2d5f359","2016-02-28 12:58:05+01:00","Remove 'alpha' string from README
+
+We are not in alpha state anymore, so we do not need that string.
+"
+"341da14b6ec513623349333ed6d9fa1c4cd05ac4","2016-02-17 02:36:38+01:00","Move SearchState and dataType to Locations
+
+from LocationRecycleView.java (to untie GUI and DATA layer just a little
+bit more)
+"
+"b6c3ba5f458611bc54d08061f62280cb43cbc1be","2016-02-18 00:08:07+01:00","Decouple setupRecyclerView a little more from LocationListActivity
+"
+"7aba855d9e9bbff3066859be3949f39aa354ce6a","2016-02-03 23:04:50+01:00","Issue #6: Add 1st version of a map view 2 side bar
+
+This just adds a new activity, which can be started
+from the side bar and which just shows the OSM world
+map ;).
+
+// Map view
+"
+"f0e0445dbd105ac79482a3bc1f64601a6f16ef50","2016-02-04 00:22:01+01:00","Issue #6: Make map view show a set of locations
+
+* Currently, just the locations are shown as single
+spots, nothing more.
+
+* Still includes a lot of hacks
+
+// Map view
+"
+"e2f296497c0d6a7c8b9df4fad714e74f6be8e369","2016-02-04 00:49:30+01:00","Issue #6: Add a first version that reacts to taps
+
+This still includes a lot of hacks and
+seems to be somewhat flaky.
+
+And, of course, there is still a kindof
+large room for improvement ;).
+
+// Map view
+"
+"28a5689820e72ecd1b3b447f65c080f2aa3dc97e","2016-02-27 22:45:32+01:00","Move existing fragments in preparation for the new
+
+map overview and  map list fragment to come in.
+"
+"71bb65829a5a2290e5682d7304e50b69902522bc","2016-03-18 00:29:01+01:00","Move heart of LocationListActivity to a fragment
+
+called LocationsOverview/LocationListFragment.java
+The aim is to have the map overview as another fragment
+which you can switch to.
+"
+"cd7e1db66c0bbe424c5098811b563f86a531d527","2016-03-18 19:53:00+01:00","Move icon to the menu bar (from the nav drawer)
+"
+"64c638fafc8b911f689b1a285720f192746fbebf","2016-04-09 14:51:55+02:00","Move map overview activity to a frament
+
+The problem of this commit: It is not working at the moment :(.
+
+The fragments on their own are working (more or less perfectly)
+if you add them right in the beginning (at line 135 of
+LocationListActivity.java), but the swap is not working.
+
+Perhaps it is not possible to do a fragment replace within a SwipeRefreshLayout?
+
+FYI: The map fragment doesn't show any entries if you
+add it at the beginning, but it does show the entries
+if you add *no* fragment at the beginning and add
+the map fragment on icon press in the menu bar.
+
+Just uncomment
+
+>         getSupportFragmentManager().beginTransaction().add(mSwipeRefreshLayout.getId(),
+>         mLocationListFragment).commit();
+
+in line 135 of LocationListActivity.java, compile&run, hit the
+map button (the earth in the top bar), and the map works.
+"
+"43519d1596be36148f2d59542acd74a11e812b2c","2016-04-12 20:22:55+02:00","Rename LocationListActivity to LocationsOverview*
+
+Now that the LocationListActivity also is a container for the
+LocationsMapOverviewFragment and not just the LocationsListFragment,
+it is renamed to something more general: LocationsOverviewActivity.
+"
+"e1e822cac7aedf7006dcd1af813f54ce36d9c099","2016-04-12 20:31:52+02:00","Remove static hack
+
+Now that we have the map overview in its own fragment
+(and not in its own activity any longer), we can remove the
+static hack for  getLocations()/mLocations again.
+"
+"f91c3a4e4a873b7d0480646e6cd6653196f6360e","2016-04-17 13:01:12+02:00","Rename variable to satisfy guidelines
+"
+"dff43a3a85ac12a70e2e8a7cb0f1e80592d22632","2016-04-17 13:15:11+02:00","Reformat code, no content-based changes
+
+* Auto format with Android Studio 'CRTL+ALT+L'
+* Rearranged comments manually to be in the right place again
+* Deleted empty lines manually
+"
+"26788a4870c58c24ea98c49c1612c0d000f9ab12","2016-04-17 13:32:35+02:00","We decided to stay with the default markers for now
+
+If we change our opinion, we just have to search out git history for the
+code.
+"
+"5870e65248c62a93d816face854fa2cd36aa244d","2016-04-17 13:31:44+02:00","Do not overwrite, what we have set in onCreateOptionsMenu
+"
+"2ecba40008e9e931d59878c6bd0faf5e73238157","2016-04-17 13:33:38+02:00","Fix fragments of list view/map overview
+
+Before this patch, we were able to switch between list view and map
+overview, but the map view was empty, because of the swipe refresh
+layout. This layout is not good to use with a map view anyways, because
+scrolling down triggers the refresh.
+
+We therefore use just a frame layout around the swipe layout like
+Android suggests in the documentation.
+
+Further changes:
+* use correct map icon from http://github.com/google/material-design-icons/
+* add list icon from http://github.com/google/material-design-icons/
+* make the menu bar consistent: in the map overview just display an
+entry to switch back. Also if the user searched in the list view,
+dismiss the search (mSearchItem.collapseActionView()). We do not
+support a dynamic map overview currently
+"
+"b1cf072d2f7e360eee0d4286a0172a918af25e37","2016-04-17 16:19:29+02:00","Fix logging tag
+
+Android Studio complains about:
+
+* 'The logging tag can be at most 23 characters, was 25
+(LocationsOverviewActivity)'
+
+So we just shorten it.
+"
+"50197d8e749ba4131c5739140db5bb4c07ca7edc","2016-04-17 16:32:01+02:00","Change marker item in map fragment
+
+We use the standard marker in the map overview fragment, so for
+consistency reasons use it here as well.
+
+However, I would like to see a better looking marker in the future.
+"
+"6913006608a35b25a974ea43cb85dd66c5eb5c7c","2016-04-17 16:35:50+02:00","Improve location map fragment's source code
+
+* Remove unused variable 'mLocation'
+* Fix 'Unchecked call to 'ItemizedIconOverlay(Context, List<Item>,
+OnItemGestureListener<Item>)' as a member of raw type
+'org.osmdroid.views.overlay.ItemizedIconOverlay''
+"
+"e7337b9a936646a2f31fd10aa757dc84f439b6a5","2016-04-17 23:22:46+02:00","Merge pull request #71 from Berlin-Vegan/micu/framentation
+
+framentation
+"
+"2a17f2dda34c180207ae03a617ce4732626809ee","2016-04-06 00:34:15+02:00","Update README.md
+"
+"23f2ad27d47945eb71e1ade55dc1079c14bca2b0","2016-04-18 21:33:43+02:00","Warn us about unchecked methods and deprecation
+"
+"ff5cb24aa73bb859bdb12908fee3acb0aa9a229f","2016-04-18 18:29:46+02:00","Improve map overview fragment's source code
+
+* Explicit type argument LocationOverlayItem can be replaced with <>
+* Unchecked call to 'ItemizedIconOverlay(Context, List<Item>,
+OnItemGestureListener<Item>)' as a member of raw type
+'org.osmdroid.views.overlay.ItemizedIconOverlay'
+"
+"4ee0e5aa2b9075df3002c668414f5e14aef97172","2016-04-18 18:08:53+02:00","Remove product flavors
+
+We decided to ditch the PlayStore build variant and only support FOSS,
+because the maintenance got too high.
+
+Maybe we need the product flavors for distinguishing between FOSS and
+PlayStore app rating. This needs further investigation first. One of the
+F-Droid guys mentioned, it would be no problem to have the PlayStore app
+rating in the FOSS variant, so we are good for now.
+"
+"7b0cba3adfbf2110b26a6d64b8f19e42600a4faf","2016-04-19 09:11:16+02:00","Fix navigation drawer behavior in map overview
+
+We want to disable the navigation drawer for now, because we are not
+able to react to it dynamically at the moment. Without this patch a user
+is able to drag the drawer from the left into the screen, which leads to
+inconsistency.
+"
+"d5c60ec6e4af84c3a0f8cf29b2754c807a824f9b","2016-04-18 21:45:56+02:00","Use Google as online tile provider
+
+We ditched the PlayStore variant, but we can still have the Google
+experience without the play services.
+"
+"1ac8c63bc281a294435c126750ff840ca909b38d","2016-04-18 21:50:13+02:00","Use a red pin as marker
+
+This looks a little bit more like Google's design.
+
+Marker source:
+* http://maplacejs.com/website/images/red-dot.png
+"
+"0c6165592508d36fc262ccc983937bd4df3afb4a","2016-04-21 00:17:04+02:00","Merge pull request #72 from Berlin-Vegan/julian/remove_product_flavors_for_now
+
+Remove product flavors (at least for now).
+"
+"e11f18e1f2be4935b37c259c69a11c60dea7f441","2016-05-02 10:43:26+02:00","Merge pull request #73 from Berlin-Vegan/julian/use_google_as_online_tile_source_with_red_marker
+
+use google as online tile source with red marker
+"
+"21dae7b7caeceb5459cb3b167314b4fdf95837e2","2016-06-15 20:57:10+02:00","Add back stack for fragments
+
+Otherwise the back button exits the application.
+"
+"c1f2285b6fff835e5bf0561dfbf11324ea556cd6","2016-06-15 20:58:32+02:00","Remove menu list item
+
+Now that the back button is working correctly, we do not need the view
+anymore. It just leads to inconsistent behavior: The back stack gets
+mixed up...
+"
+"3643fa638333025096b0b3cae902f167c6ae3e91","2016-06-15 21:10:00+02:00","Fix background when zooming maps overview
+
+Without the patch the list overview is displayed in the background while
+zooming out. This is because the LocationListFragment is not put in the
+FrameLayout, but in the SwipeRefreshLayout currently.
+
+The SwipeRefreshLayout wraps around FrameLayout and is disabled in the
+map overview, so that scrolling works correctly.
+"
+"f7f5c024aad1db22a06451470e24445b2dcbef70","2016-06-18 18:10:36+02:00","Merge pull request #74 from Berlin-Vegan/jmastr/fix_background_when_zooming_maps_overview
+
+fix background when zooming maps overview
+"
+"4e8ea5c3580d0bce630a0432fb714e149852857e","2016-06-19 17:22:21+02:00","Closes #78: Add GPL license header
+"
+"07b41c69a52c2f96949c4fbafc8496c47b3d6482","2016-06-20 15:16:55+02:00","Merge pull request #79 from Berlin-Vegan/micu/Issue78_Append_license_header
+
+Issue #78: Add GPL license header
+"

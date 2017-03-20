@@ -1,0 +1,824 @@
+"commit id","commit date","commit message"
+"1a4cbb9f9434d9481c43feeecf9b385589ee8390","2016-02-26 21:17:31-06:00","MAEMO: Update debian/changelog
+"
+"c6d0084ecfca992999de1b21936f0e56d5f503cf","2016-02-27 08:33:39+01:00","SAMYGO: Update url
+"
+"49f8f483483002af19a0b1a0002196181df72d1e","2016-02-27 17:27:26+01:00","KYRA: Remove ADGF_TESTING from EoB 1+2.
+
+(cherry picked from commit e8847195b91c7ac85c306eca2cfaaff30acf14a1)
+"
+"c3aaeb18947a57df2d181f09e2da19ccdc19758a","2016-02-27 17:27:45+01:00","KYRA: Formatting fixes.
+
+(cherry picked from commit 9059189e35b37f7c4bec2714cf866e67d80c140d)
+"
+"9eadea442aa7287ed74c8e0e7bf8b41551d010a6","2016-02-28 11:20:09+11:00","BBVS: Remove ADGF_TESTING from Beavis and Butt-head in Virtual Stupidity.
+"
+"b5214c18293532b93daf8a4734af4e519b196e58","2016-02-28 11:20:20+11:00","LAB: Remove ADGF_TESTING from DOS version of Labyrinth of Time.
+"
+"f8bbe48cc6d889538c255189b85d4e0243f6b414","2016-02-28 11:20:26+11:00","SWORD25: Remove ADGF_TESTING from Broken Sword 2.5
+"
+"2da08636576f31a34e7d610d26618c5840e42930","2016-02-28 11:20:31+11:00","TSAGE: Remove ADGF_TESTING from Return to Ringworld.
+"
+"3b220429d1423ff5d5ca2b64262323d5f5fd239a","2016-02-28 12:10:28+01:00","CINE: Fix SPL resource loading (thus SFX).
+
+Confirmed against DOS disasm. There is no header for SPL data.
+"
+"df6f6abcf5185748644ad538fe4ad6999031125a","2016-02-28 21:04:23+01:00","GOB: Don't completely reset the OPL in AdLib::initOPL()
+
+It shouldn't be necessary anymore, since initOPL() cleans everything.
+If, however, suddenly a piece of music sounds weird in a Gob game,
+this is the place to look for.
+
+This fixes a race condition between OPL::reset() and the callback
+timer.
+"
+"af6bf26732745d358dfcdc61d2b913e15a28d180","2016-02-29 18:45:40+01:00","OPENPANDORA: Don't output colors in pnd_make.sh when redirecting output to file.
+
+(cherry picked from commit 01a76df6e3b1ffd95b6a0febfb77bd6003f9441a)
+"
+"88447f870a39a838515da023afca9175fe553288","2016-02-29 19:18:18+01:00","OPENPANDORA: Handle non-exported or not-set $TERM in pnd_make.sh.
+
+(cherry picked from commit 824cb7bc8976a284b63c528c6f3938fe1d5089b9)
+"
+"c3697b9da7547bd629f038d9cf122ad95860e097","2016-03-02 19:19:20+11:00","CINE: Fix restoring background music when loading saved game in DOS CD version of Future Wars.
+"
+"181a3ad20fc9973302376d2d504259bd46b8568f","2016-03-02 19:21:08+11:00","CINE: Fix sound effects stopping the music in the DOS CD version of Future Wars.
+"
+"9c8b2938cb7801d90953c5ac64ec7482e4d59901","2016-03-01 01:13:55+01:00","WIN32: Fix invalid array accesses when MIDI device listing fails.
+"
+"bb9e7d0e142ade99316506cec49fe88be5538287","2016-03-04 22:21:11+06:00","SWORD25: Fixed 'Resource not released' warnings [GSoC]
+
+(Look https://sourceforge.net/p/scummvm/bugs/6980/)
+
+The warning messages were appearing because when PRECACHE_RESOURCES is
+not defined, ResourceManager's `requestResource()` was used to manually
+'cache' them. When you do that, ResourceManager 'locks' the resource
+once, so you must `release()` it later.
+
+Resources were not released, and warnings appeared. When you
+`release()` resource, it still is loaded ('cached'). Resource's
+`getLockCount()` is 0, though, so it might be unloaded by
+ResourceManager if there is a lot of resources.
+"
+"fbcff87f13655dc4cd7ca385878d44ae3e41821c","2016-03-05 13:05:21+01:00","GCW0: Disabled more 640x480-only engines
+"
+"00f1ec7fd90de369272a7b1cb8f7932498b6cd45","2016-03-05 14:25:56+01:00","CONFIGURE: Introduced new engine dependency: highres
+
+Some backends like GCW0 do no support graphics >320x240 due to
+the hardware limitation (downscaling is possible but it will ruin
+the pixel hunting which is often part of the gameplay).
+
+Instead of manually updating the list of engines, we now introduce
+a new dependency.
+
+I marked all relevant engines, but some, like tinsel, require more
+work with putting their relevant high-res games under USE_HIGHRES
+define.
+"
+"2cef763544888ddff3e0327e598f5de9273fd65c","2016-03-05 14:59:15+01:00","CONFIGURE: Error out when host-os is msys.
+
+The msys shell can be run in both msys and in mingw mode. We don't
+support it when in msys mode, as this mode seems to be intended as a
+cygwin-like compatibility layer, instead of for native Windows
+applications.
+"
+"9dbde8376426c7f0cbf4613981480bba6c77102f","2016-03-04 21:25:17+01:00","LAB: Process events during ending sequence
+
+LAB: Fix bug #7022 - Events not processed during ending sequence
+"
+"70c42a797c01f720a82e18a338e49e7c27c8dd63","2016-03-08 19:07:48+01:00","LAB: Remove gap handling from removeSaveState.
+
+This removes the annoying behavior that removing a save state causes your
+physical files to be renamed.
+"
+"1b089f8492f27ed88aef0bb57f088338de1133b0","2016-03-09 00:02:45+00:00","SWORD25: Add engine option to use English speech instead of German
+
+When selecting non-English language, the scripts default to using
+German voices. This commit edits the file path on the fly to use instead
+English voices for all languages other than German. This implements bug
+#6804 - SWORD25: add option to choose language speech.
+
+If the English voice pack is not present it falls back to using German voices.
+
+The way this is implemented here however does not allow to use German
+voices with English text or English voices with German text. This could be
+achieved with a slightly different implementation of the same idea.
+"
+"7d1d1dac06d1cd467a06b63a19ca2af8623f32a1","2016-03-09 01:22:12+01:00","SCUMM: Fix bugs #7070, #7071.
+
+When adding support for Russian fan translations the font source data was
+accidentally switched to the Russian font data for all game versions, not just
+the Russian one. Now we only use the Russian font data only for the Russian
+versions.
+
+Bug #7071 'MM V2: Umlauts disappeared in German versions' is a regression from
+556d65713b8ed50c734b2466529cb1c4ac44cf36.
+
+Bug #7070 'ZAK V2: Umlauts disappeared in German versions' is a regression from
+c809a65b93d23aa30296f7f22ef4b160f628b9aa.
+"
+"9474459224f9adebd2d261606b040aa14b11108c","2016-03-09 00:37:39+00:00","SWORD25: Fix error after changing language in-game with the data file distributed by ScummVM
+
+Changing the language in-game causes the language to be set for the target in the
+scummvm.ini file. Then the next time we try to start the engine, if was causing an error
+(Sword25 failed to instantiate engine: Game data not found) because there was no match
+for the path and language in the detection table. Setting the language to Unknown in
+the detection table for this multilingual data file fixes the issue.
+"
+"2cb1a23628a5aecd53715f7bede5297d39e7639b","2016-03-09 21:27:44+01:00","SCUMM: Fix detection of Maniac Mansion from within DoTT
+
+It turns out that in some versions of ScummVM, paths end with a
+directory separator, while in others they don't. This should handle
+both cases, I hope. (It's a bit tricky for me to test.)
+"
+"2f65273b84ff8ed41c0824596374dc83c6cd6c10","2016-03-09 23:49:30+01:00","Revert 'SCUMM: Fix detection of Maniac Mansion from within DoTT'
+
+This reverts commit 2cb1a23628a5aecd53715f7bede5297d39e7639b.
+"
+"9ddd3ab067cd5bbb1b678de4896657cc49e12515","2016-03-09 23:37:47+01:00","SCUMM: Make DOTT/MM patch check less strict
+
+The original check broke if either DOTT or MM had a trailing path
+separator in the game path. The new check is too broad, but the risk of
+false positives should be minimal.
+
+The one in e11a370fe45aa96d240ff5f10e7263fdfc02bb01 would break if one
+of the two had a separator, but not both.
+"
+"2b575c1e8e3249f1a95eb860b7789161950eefc0","2016-03-11 06:56:09+01:00","NEWS: Put back 1.8.1 NEWS section that was accidentally reverted
+"
+"ce30b66d20f2ba80c575764a893f10411e15efc5","2016-03-13 21:58:28+00:00","NEWS: Add mention of the new option to use English speech in SWORD25
+"
+"98505789f4bf4714af91a4ebcb810d788f1c8964","2016-03-14 06:49:26+01:00","BBVS: Move much of engine initialization to newGame()
+
+This should fix bug #7057 ('BBVS: No clean-up when restarting').
+"
+"b7854c3f9f352d7e2c14fb762e3662197acb5aac","2016-03-14 02:35:41+03:00","SWORD25: Fix frozen/flickering title menu movie
+Fixes bug #6978: Unload old movie before loading a new one
+"
+"69d644c79a4b07403f97a11f57a4009b154c515d","2016-03-15 11:40:36+01:00","NEWS: Mention all fixes to 1.8.1 so far
+"
+"9281d6531b731b86a064339ccd0f593ddf7cf939","2016-03-05 21:28:09+01:00","SCI: Make cursor workaround work properly on OpenPandora
+
+Other platforms, that support analog stick + touch screen at the
+same time, are possibly also affected.
+
+Cursor workarounds exist for qfg1vga, qfg3, lsl5 and Island of
+Dr. Brain. Those sometimes worked and sometimes didn't on
+at least OpenPandora and should be fixed now.
+"
+"ee2199f7f28b1ee899298fc5d28f02ab07d777a0","2016-03-08 01:29:46+01:00","SCI: Script patch for ending glitch in multilingual kq5
+
+Game hangs during the magic battle during the ending.
+Happened in all multilingual versions because of a script bug
+(scripts were waiting for a signal, music didn't set one)
+Fixes French, German and Spanish versions of KQ5
+Also happened, when using the original interpreter
+"
+"17377c1bf922b7e9dcdf3e7b1f2cf6d10e10f140","2016-03-08 03:36:02+01:00","SCI: Truncate channel data in case it goes beyond resource size
+
+Fixes invalid memory access during kq5 floppy ending
+"
+"9031e26741d98891d6a539addd797c431c46f94d","2016-03-15 12:36:57+01:00","NEWS: Mention SCI fixes in 1.8.1
+"
+"a6c51681e219f3c6b15f551573a50a333b7b644a","2016-03-15 13:41:22+01:00","NEWS: Consistency fixes.
+
+(cherry picked parts from commit 3b2b7bc45f6e279e9bfaeeefd73e7dc8faaeb74d)
+"
+"f893f2f24fd475b312443605d3c9366c100daf63","2016-03-15 13:45:10+01:00","NEWS: Improve wording slightly.
+
+(cherry picked parts from commit 04f761afa79a81e6f61cff7782d7da3e3c94d9c7)
+"
+"9109fc3a3897dbaffbdb2d72ae7af24258bcf921","2016-03-15 13:47:11+01:00","NEWS: Engine name consistency fixes.
+
+(cherry picked from commit 620e8a049edcffd0ac4d2ea50e02838dfaebace3)
+"
+"9ab1f9a474fd21bbfcd8755052102d46828c334f","2016-03-15 13:52:38+01:00","NEWS: Reword Windows MIDI bug fix description.
+
+(cherry picked from commit d61dd0f52601ba296678493f46b3cf5a6437190b)
+"
+"ed418d1e48b21208c64551b7cb4cc774986de698","2016-03-16 06:09:12+01:00","SAGA: Fix interface colors in French and German versions of IHNM
+
+The same fix that had already been applied to the Spanish version
+also applies to the French and German versions. (Judging by the
+detection entries, there aren't any alternative versions so the
+ones I got from GOG should be representative.)
+
+The palettes aren't quite identical to the Spanish one, but I
+think the remaining difference is for the spiritual barometer, so
+the special case for that remains Spanish-only.
+"
+"bbc0699eb07940e6e6a52833f693ad94e24db4d2","2016-03-16 14:49:21+01:00","SCI: Add workaround for restoring kq6 saved games (lowres/hires)
+
+KQ6 CD sets a global depending on lowres/hires state right at the
+start and some scripts are using it instead of calling kPlatform.
+This causes some graphics to be incorrect (well lowres)
+in case the user saves in lowres mode, then switches to hires
+mode and restores the previously saved game.
+We now set that global directly after restoring saved games,
+so that this issue does not happen anymore.
+KQ6 CD demo did the same.
+"
+"36285cb3ef09e0093d4c121dfc0bc8aeb7fd6fa4","2016-03-16 14:58:24+01:00","NEWS: Added fix for kq6 lowres/hires saved game issue (1.8.1)
+"
+"ffd993457d30be1194f113d97d17c0d3ae4cb117","2016-03-16 15:24:59+01:00","SCUMM: Check whether sound effects are active in Player_AD::getSoundStatus.
+
+This fixes bug #7076 'LOOM: AdLib sound effect not stopped at Cygna's grave.'.
+
+Original SCUMM (I checked Monkey Island EGA) implemented Sound::isSoundRunning
+by checking whether the sound resource of the requested sound id is locked. We
+use actual sound state inside the player.
+
+(cherry picked from commit 70ca4218dfdc1a21682b98fd1ef540f965785c0b)
+"
+"06ed857e4eedfe929be4c4167aed993d20cd9458","2016-03-16 19:56:18-07:00","I18N: Chinese Pinyin GUI Translation added, support ISO-8859-1
+"
+"449a267ff8f596a761975a8f05694783d337f000","2016-03-19 15:47:53+00:00","I18N: Regenerate translations data file
+"
+"a08438cb8deb1dfdb9d56008c6c18bb1add4d9a4","2016-03-19 15:49:33+00:00","NEWS: Mention new Chinese Pinyin translation
+"
+"694508768cbe2c7aa27df66e7fa363502d425b2f","2016-03-23 23:49:01+01:00","AGI: Fix inaccurate predictive dialog trigger rect
+
+Trigger rect is the rect, that the user needs to click to
+trigger the predictive dialog.
+
+Previously cursor char got drawn, rect started right afterwards
+In case cursor char is enabled, the rect will get adjusted
+accordingly now.
+"
+"2786673a8e8bbc4dcea6bd7029705fff5b632040","2016-03-25 15:38:37+01:00","NEWS: Update German NEWS file
+"
+"f7a9c82e0f1d5e97a04a96ca67d1579429bb639e","2016-03-25 16:30:12+01:00","EVENTRECORDER: Fix incorrect check which prevented records from replay
+"
+"07dc5bdad0b1fd1c2146299f916a4bb263b69706","2016-03-19 15:18:23+00:00","OS X: Implement saving recent games list to user preferences
+"
+"eae40af3c38028de7e9a8d155cacec308f8aecc7","2016-03-20 21:27:47+00:00","OS X: Implement a Dock Tile Plugin to display recent games menu in dock
+
+This allows to start a recently played game directly from the dock. The
+ScummVM.app application should have been permanently added to the
+dock and the menu is only present when ScummVM is not running. The
+list of recently played game is written by the taskbar code in ScummVM.
+The Dock Tile Plugin only reads that list to populate the menu.
+"
+"b7237df39215f38aafd07865f0c5b7841f0f1e63","2016-03-25 18:05:42+00:00","OS X: Add missing includes for recently introduced taskbar code
+"
+"56245e7e8f8d5e2a69ea015d0ebdcd32d3009162","2016-03-25 18:30:48+00:00","OS X: Fix access to NSArray items with older SDKs
+"
+"7531013858ce05ec07a6d02247c29e3969056a2b","2016-03-25 20:26:01+00:00","OS X: Clean taskbar code
+
+This involves moving the NSDockTilePlugIn code to backend/taskbar
+and fixing style to follow our coding conventions. One make target
+was also renamed. All in all there is no change in functionality with this
+commit.
+"
+"dab828a818a7e6ace3c878a5fdc928a0e80813dd","2016-03-25 20:28:41+00:00","CONFIGURE: Only check Sparkle and NSDockTilePlugIn availability on OS X
+"
+"9010587f121a19078ed308d1d2301a88ee9e4e2a","2016-03-27 12:30:26+02:00","SAGA: Added German fan-translated IHNM detection. Bug #7091
+"
+"199d2d25ec43160037f16fa9c3233d8664304300","2016-03-27 22:36:11+02:00","UPDATES: Added our public Sparkle key
+"
+"8449c447b1ec18a49b1b66edd26f98d587e33064","2016-03-27 23:32:29+02:00","UPDATES: Update Sparkle appcast with 1.8.0.
+
+It will not work, of course since we were not distributing files
+with our public key yet.
+"
+"2cfd432c3f7bf03d9ee7efb358374e86e38851c0","2016-03-27 23:36:22+02:00","UPDATES: Rename Sparkle appcast to common name
+"
+"e29c2575653f779f74fdb6b305cb71b3ea07d4e7","2016-03-27 23:39:21+02:00","UPDATES: Update Sparkle Appcast URL in the bundle plist
+"
+"821c29c7b663c179963eca1e36b1723a4da95850","2016-03-27 23:40:58+02:00","BUILD: Add target for uploading Sparkle appcast
+"
+"5239e3522b04cb350352e4927ec8a6790c86d42a","2016-03-27 23:46:30+02:00","I18N: Fix wording in Russian localization
+"
+"49246c4414bf34e0146de33fa90f7a846b73aca6","2016-03-27 23:46:49+02:00","I18N: Fix wording in Ukrainian localization
+"
+"c5e391f1e665c5bd1dd1f338f118356eb3bba586","2016-03-27 23:59:41+02:00","I18N: Regenerated translations.dat
+"
+"1bd48c55f3a8c77b3c975dcc06a95f994ffe0918","2016-03-28 00:02:36+02:00","NEWS: List recent games in dock menu on OS X.
+"
+"61cd09f49086daf6ed91f4a7232ddd5737139ba2","2016-03-28 00:02:44+02:00","NEWS/DE: List recent games in dock menu on OS X.
+"
+"aa0aca217a85e656cb5cc48980703263a50a61f7","2016-03-28 00:08:03+02:00","NEWS: Mentioned Sparkle
+"
+"f53b025442eceeaddad1d206ad95c8c4d55e7401","2016-03-28 01:08:14+02:00","GOB: Fix Fascination entry, it is DOS, not Amiga version
+"
+"175b690d84df7a9f9249984f86e95c85e399792d","2016-03-28 18:45:34+02:00","COMMON: Use better reallocation strategy in MemoryWriteStreamDynamic.
+
+Fixes bug #6983: 'SWORD25: long saving time'
+"
+"f80f729ecea1a567da21130f88c29c049fc0760a","2016-03-28 20:47:31+02:00","NEWS: Mention bs2.5 fix
+"
+"bb39439527ea6b61df09905a751a8c5f1e3aadb4","2016-03-28 21:13:42+02:00","NEWS/DE: Mention SWORD25 save time fix
+"
+"1c8897f7eab223fd2179b62206c561dde5132448","2016-03-29 10:44:46+02:00","GUI: Added stub for Update frequency check widgets.
+"
+"1d1fedece7a8abe2ec898f9c02cfd25adc6b0c2c","2016-03-29 10:53:50+02:00","GUI: Store secelcted update frequency in config
+"
+"fa6e465ceab1876a3a33442cf88a8d78aea2f792","2016-03-29 20:22:45+02:00","GUI: Added initial implementation for Updates opt-in wizard
+"
+"f0ff2dbada7e137f0d9621d502e3fc8913d16aff","2016-03-30 10:58:57+02:00","UPDATES: Plug updates dialog in.
+
+Launched when ScummVM is run first time with updates feature.
+"
+"d9dbd299104971c674595bd57ca4fe5ff4b31afc","2016-03-30 11:09:32+02:00","GUI: Enhanced StaticTextWidget with font style
+"
+"79a729f69878f706b7448f1b09a50c59a9abda40","2016-03-30 11:15:57+02:00","UPDATES: Improve update dialog message
+"
+"240a6262b4ec9a36fe8e4af217fbafd7213b7efb","2016-03-30 14:28:25+02:00","UPDATES: Beginnings of the update frequency control
+"
+"b6051faf3b5895c49ee10b307ed43f3c802ae473","2016-03-30 19:02:02+02:00","GUI: Implement immediate coordinate mode for PopUp widget
+"
+"fb773d919feca7c73a128a28647602222afceb5a","2016-03-30 19:02:23+02:00","UPDATES: Made dialog functional
+"
+"9837db4caf8659864ad43ae18219174c2a3cef00","2016-03-30 19:27:59+02:00","UPDATES: Made interval set/get functions accept normal integers
+"
+"d1f34c2ef63010c187422a026f2d3452a6a08c3e","2016-03-30 19:28:24+02:00","UPDATES: Hook dialogs to UpdateManager
+"
+"0df4c565d0a3b6a1c5c26599588b5d0b653bca30","2016-03-31 09:09:23+02:00","UPDATES: Merge two steps into one
+"
+"b44a98c76bbbecaed4e033fcbd16faf06eda830a","2016-03-31 09:31:57+02:00","UPDATES: Got rid of hardcoded update intervals list
+"
+"004f8b3183fbee46273e2d807030d2d704e75205","2016-03-31 09:38:28+02:00","UPDATES: Read values from config file in MacOS X update manager
+"
+"f5853fe6bd248ba144502b43c0c6cefb281a9e7c","2016-03-31 13:59:01+02:00","UPDATES: Implement Check now button in Options
+"
+"330de5ce71d95423b4ef246f79815c15a9fbecad","2016-03-31 15:34:50+02:00","UPDATES: Normalize update intervals at setting
+"
+"801a97c178dbf60cb9a77fb0fed3a93460e0307b","2016-03-31 15:38:00+02:00","UPDATES: Normalize updates_check value
+"
+"4fd039b7428bf8db2ddfe0bc7e3da51f3460b5da","2016-04-01 21:10:28+02:00","I18N: Add update files to POTFILES
+"
+"30f665e8544a950c11f4efc1e7d8122d5fc37cd2","2016-04-01 21:19:15+02:00","UPDATES: Added documentation to new methods
+"
+"4bc5484e06d6bd5cbc39d1549c8391eb9c5aa55e","2016-04-01 21:29:29+02:00","UPDATES: Implement and use method for normalizing interval value to accepted values
+"
+"9681452bd8ddfb7cfbb0cb8accea63c4e2869039","2016-04-01 21:32:16+02:00","UPDATES: Remove an unneeded check
+"
+"84268387d3ad39a47f205ae7901a816bd96ed7fb","2016-04-03 12:58:18+02:00","GUI: Sync built-in theme
+"
+"0a0b0bfa7df23e03d6245b160d83e05bd294036c","2016-04-03 23:09:31+02:00","UPDATES: Fix endless loop
+"
+"50c49a040cd80626dafdd5bdb0e89f8d9328ca05","2016-04-03 23:09:59+02:00","UPDATES: Use www.scummvm.org to avoid redirects
+"
+"fdf80bf9b9536c89440b9adb5ba5feffcf56fe3d","2016-04-07 01:35:50+01:00","DRASCULA: Improve text centering and spacing between lines
+
+This in particular fixes bug #7111: Incorrect position in texts, not as the
+original. However this codes centers the text better than what we see in
+DosBox, so the result is not identical.
+
+This change is based on the code before the commit 7cf7f4b
+'Rewrote the very confusing centerText() function into something that
+makes more sense'. The changes in that commit do not all make
+sense to me so I reverted the line spacing (to add back 2 pixels between
+text lines) and part of the logic to center text. The result looks a lot
+closer to the original engine in DosBox, but not identical.
+"
+"98b0e5f09d34dad0a530d1cd6d255f1f5e969dcf","2016-04-08 02:04:13+01:00","DRASCULA: Fix text alignment to be faithful to the original
+
+The changes in this commit should provide an identical text
+placement to the original. In addition to using the original source
+code as reference I have checked that is the case by comparing
+with DosBox for the intro of the Spanish and English versions as
+well as  for parts of the game with the English version. I added
+comments for the obscure parts (such as the original adding a
+space at the end of the last line of text when splitting a string
+into several lines, thus impacting how that last line is aligned).
+"
+"27c65ed2f89239114f00aea7af59cd450d9548da","2016-04-08 02:13:10+01:00","NEWS: Add Drascula text alignment fix
+"
+"72415d7884563ea94ac8bd23d6d43ad7f0ffb757","2016-04-09 15:39:34+01:00","DRASCULA: Fix character walking off screen
+
+There was an unhandled case in chapter 2 when the character is at
+the exact Y location and close to the X location to where we asked
+him to walk. The code started the walk but without properly setting
+the curDirection and trackProtagonist variables. This resulted in the
+walk never stopping.
+
+I checked what the original source code is doing for this case and
+implemented it in the same way: the character does not start walking.
+
+This fixes bug #7112: DRASCULA: protagonist walking off the screen
+"
+"8a69e0ed3b790afd1bf14e547fe9219db7820f55","2016-04-09 15:54:03+01:00","NEWS: Add fix in drascula for character walking off screen
+"
+"2e65878f9127502b6dac37823ccc8adf51e91925","2016-04-09 15:17:17-04:00","SHERLOCK: RT: Fix crasah showing items to Rose Hanchem
+"
+"d5668663aff927229022e6f76fcee8ec64c6d5ce","2016-04-09 20:35:54+01:00","I18N: Update translation template from source code
+
+I also used the current translations from master to incorporate
+recent updates provided by translators.
+"
+"f98e53698bdb59e34ef4c8bd918667f0ac86d1ca","2016-04-09 20:36:08+01:00","I18N: update translations data file
+"
+"f765ae01577d79540a24ab08fe2814f75c9c9a75","2016-03-05 23:07:21+00:00","BUILD: Use xcode-select to determine the path to the Xcode tools on OS X
+
+We hardcoded the path as /Developer/Tools, but that path changed
+with more recent versions of Xcode. There is actually a command line
+tool to get this path, so use that. But also add an undocumented
+configure option to allow specifying the path manually.
+"
+"72ca519097d0d3789bd6f77f73773a231cefd81e","2016-03-05 23:16:55+00:00","BUILD: Fix comment for how we get the path to the Xcode Tools
+"
+"e97f183990052c7d0ffd1f6ab4614a3a92600875","2016-03-27 13:04:42+01:00","BUILD: Fix creating OS X application bundle when Sparkle is enabled
+"
+"08254293b7ab3b991dd32d6492d1ca07990ba727","2016-04-09 21:46:51+01:00","UPDATES: Fix interval normalization
+
+When given a valid value the normalization was returning the next
+valid value instead of returning the given one. This caused for
+example the interval to be changed each time we opened the
+options (and thus check to be automatically activated the first
+time the options were accessed).
+"
+"538b1db132469083da4bf37e2311053f21d80167","2016-04-09 15:54:41+02:00","UPDATES: Specify version for manual Sparkle download
+"
+"9d6e6405524b8e333e94434e90d0c228b374a849","2016-04-09 15:59:58+02:00","UPDATES: Fix appcast URL
+"
+"c8719ce5d35ab2daaef456357b8cf1cc89ba87a1","2016-04-09 17:00:09+02:00","UPDATES: Implemented method getLastUpdateCheckTimeAndDate()
+
+Currently it uses methods and constants deprecated in 10.10.
+10.10+ -specific code will follow
+"
+"cf3b112c64921c5a3a9daf8a0659de3898781acc","2016-04-10 01:38:48+02:00","UPDATES: Plug memory leak
+"
+"7743050964b00f730d5441a0cd79fbe042142223","2016-04-10 10:47:55+02:00","I18N: Update German translation file
+
+* Update my e-Mail address
+* Bump up version number to 1.8.1git
+* remove reference to PoEdit as X-Generator
+* remove fuzzy tags in the Myst dialogs
+"
+"ef5e63ae936063bde28987153167fdf0485f2e82","2016-04-10 10:50:59+02:00","UPDATES: Use new constants for MacOS X 10.10
+"
+"6b2eab61642fb48068aa49feb48be3dded965c7b","2016-04-10 11:02:54+02:00","UPDATES: Check that we're running in a bundle, and skip Sparkle initialization otherwise
+
+This was leading to an unhandled exception within Sparkle code
+which was hanging the application. This feature is good only for development
+purposes, as convenient users are supposed to run ScummVM from the
+supplied bundle.
+"
+"d595d309f5c9da0b1d6b35d1cfc583c22bc80c75","2016-04-10 11:14:24+02:00","I18N: Update Ukrainian translation
+"
+"529a619f78b65daf30fd6048ac952bbcce553abd","2016-04-10 11:18:53+02:00","I18N: Update Russian translation
+"
+"36d41ff77c7aea258aba7b1f13d3d46d5492273a","2016-04-10 11:19:23+02:00","I18N: Regenerate translations.dat
+"
+"0af4c9ffd3d35b237400f7aec321d3cec406e1b8","2016-04-10 21:11:06+01:00","DRASCULA: Fix loading games in room 102 when still chained
+
+Room 102 has two states. The first one has an animation of a
+pendulum while the protagonist is chained to a table beneath it.
+The second state is after the protagonist free himself. In the second
+state the pendulum has stopped. When saving in the first state,
+loading the save game did not properly setup the pendulum
+animation causing graphic glitches.
+
+This fixes bug #7113 DRASCULA: Serious sprite glitches
+"
+"4955b0b4dfdcd3d1b89608530b2e54ca74f9f7ff","2016-04-10 21:21:50+01:00","NEWS: Add fix for loading savegame in Drascula pendulum scene
+"
+"24d3e46d394c1f63715967481c5253e9d997ab4e","2016-04-10 23:00:58+02:00","SHERLOCK: Backported some drawing fixes
+
+This fixes some very minor graphical glitches in the Rose Tatto
+inventory and journal dialogs, and removes a few unnecessary lines
+of code from the Serrated Scalpel journal search dialog.
+"
+"57a0b08ce8ff2adebc48acfa051ae260f257ce16","2016-04-11 00:09:35+01:00","DRASCULA: Improve loading savegames in Pendulum scene
+
+The previous fix only fixed the incomplete state when loading from
+the launcher. Now this is fixed when loading from the game as well.
+It also fixes loading a savegame from the first stage of the pendulum
+scene (when the protagonist is not visible) to any other scene in
+chapter 6. The protagonist was not made visible again when loading
+the savegame.
+"
+"98ca5d1e03a857c3abf256eed7aee72e08882e35","2016-04-11 01:15:41+01:00","DRASCULA: Fix color for Drascula at the end of chapter 5
+
+I checked the original and the code in ScummVM and there is no
+call to talk_solo in chapter 4, while we indeed need to use the red
+color for all calls to talk_solo in chapter 5.
+"
+"4fdd3321a320f94d542527b984db8045652f3926","2016-04-11 01:22:31+01:00","DRASCULA: Rename variable to clarify its meaning
+"
+"c1e5764b961cb1cce3be4455c96b409b59efccf3","2016-04-11 03:40:17+01:00","DRASCULA: Fix random crash when loading pendulum scene savegame
+
+When saving from the pendulum scene the curX and curY values are
+negative while the curWidth and curHeight values are unset. This
+causes random crashes as we may do an array out of bound access
+when enterRoom() is called at the end of the load.
+"
+"79751b9617307469e4f01e938b354d8198964060","2016-04-11 09:20:24+02:00","NEWS/DE: Mention a few SCI fixes
+"
+"c2bf89207c07e9b8088548eab383a1e97bcc5030","2016-04-11 10:29:57+02:00","I18N/DE: Reduce length of update check setting
+"
+"fa228ea1ac204d0982424daac06e3fa76d2b6398","2016-04-11 09:10:44+01:00","DRASCULA: Fix typo in variable name
+"
+"a9f86859b89ce43d6eedc1ef4bdd5c086f22707d","2016-04-12 21:51:36+01:00","DRASCULA: Fix wrong background for inventory in chapter 6
+
+This was a regression from commit fa3d3e3 and this fixes part of
+bug #7113 DRASCULA: Serious sprite glitches.
+
+The original uses extraSurface to draw text in draw_abc() in the
+Spanish version while other languages use tableSurface. But in
+ScummVM this was changed to use tableSurface for all languages.
+However this caused an issue in chapter 6 when displaying the
+inventory has it is also using tableSurface, as it was for all languages
+in the original. While using the same surface works for other
+languages, in the Spanish version we get the wrong background in
+the inventory.
+
+Rather than revert to using extraSurface for drawing text which is
+a big change and impact all the chapters, I have opted to simply
+swap the usage of the tableSurface and extraSurface in chapter 6
+for the Spanish version compared to the original engine. The
+changes therefore only impact chapter 6 and only the Spanish
+version. I played the chapter in full to check that it indeed works
+without causing adverse effects.
+"
+"e713da20c5bf4a1b9f3cef0ae185dade1a799e43","2016-04-12 21:53:23+01:00","NEWS: Add fix for inventory background in Drascula
+"
+"8dae7bffb5dd33ca5d30fe226d42746ff8ce6108","2016-04-12 22:19:18+01:00","DRASCULA: Fix cursor visibility during animation at start of chapter 6
+
+Here we transition from an animation at end of chapter 5 to another
+animation at start of chapter 6. Usually the cursor is hidden when
+performing the action that triggers the animation. But here there is
+no action to trigger it and the cursor is made visible when starting
+a new chapter or entering a room (so between the two animations).
+So explicitly hide it at the start of this specific animation (and it gets
+shown again when we enter room 102 at the end of the animation).
+"
+"b94e7face405498107e003287bdeba45022cd6d7","2016-04-13 21:31:20+02:00","NEWS/DE: Add fix for inventory background in Drascula
+"
+"63b5ce9cc0f5d298e326559d314d110de28feb4c","2016-04-13 21:32:38+02:00","I18N: Improve GUI translation of the 'Object Line' setting in COMI
+
+The new translation is taken directly from the German manual
+of Monkey Island 3.
+"
+"74df677ee135e1591b29b3c3016ef28860ca5961","2016-04-13 21:08:17+01:00","DRASCULA: Improve text centering
+
+When splitting strings into several lines to fit on the screen the
+original engine could result in lines with one character beyond
+the right edge of the screen, which in practice would be drawn
+on the next line on its own, aligned to the left (and not centered).
+This commits adds a check to avoid this situation. So although
+it now behaves slightly differently than the original engine this
+is for the better.
+"
+"85965a4f24a77d21aac8dafbe22487b521db2135","2016-04-15 07:10:13+02:00","NEVERHOOD: Fix bug #7116 ('Crash upon clicking ...')
+
+Don't crash when clicking a read-only text widget. In the original,
+the load game dialog's text widget isn't read-only, but since we
+allow multiple games to have the same name it's probably for the
+best that we don't quite match the original behavior here.
+"
+"243214627bf8a14b6770c8c400acad1618ed5847","2016-04-15 07:28:21+02:00","NEVERHOOD: Avoid crash in original load/delete game dialogs
+
+The original game would display a message if you tried to load or
+delete a game without actually selecting one. At least for now,
+let's just avoid crashing.
+"
+"d4c3a1cf8915d3b0ef280160615705b601aafaf1","2016-04-15 20:20:11+02:00","I18N: Improve translation for COMI object line setting
+
+The tooltip translation for the object line setting in COMI
+is now taken directly from the LANGUAGE.TAB file of the original
+German Monkey Island 3 release which makes this translation the
+most accurate possible for this string.
+"
+"94d3757ef9748617a2142cdd052717d079b5fa3a","2016-04-16 18:58:06+01:00","DRASCULA: Fix animations speed
+
+To time animations the original engine uses interrupt to get the
+Real Time Clock and divides the number of clock ticks by 0.182.
+Since there is approximately 18.2 ticks per second, this means
+it uses values in 1/100th of a second. In ScummVM we were using
+getMillis() / 20, so the animations was two times slower than in
+the original.
+
+This might fix bug #7115 Drascula: FPS are incorrect or some
+frames are dropped.
+
+Note that for the walk animation we are still not exactly using the
+timing of the original. The original engines keeps each walk frames
+for 5.7 times 1/100th of a second (i.e. 17.54 FPS). In ScummVM
+getTime returns an integer value and as a result each walk frame is
+now kept for 6 times 1/100th of a second (i.e. 16.67 FPS, which i
+better than the 8.33 FPS we were getting before this commit).
+
+as our getTime returns integer values and thus we use
+frames for 6 of 1/100th of a second while the original is slightly
+faster as it kept frames for 5.7 times 1/100th of a second.
+"
+"64e363d37e6fd703800ed42e4076ec94e394475f","2016-04-16 19:03:32+01:00","NEWS: Add fix for Drascula animations speed
+"
+"79d36b3b1a602c98d8b3965e66328c3a850bbba2","2016-04-17 08:18:31+02:00","NEWS/DE: Mention Drascula animation speed fix
+"
+"6390b41ebf428305ae7830e68e92742c4779b754","2016-04-17 22:14:20+01:00","DRASCULA: Fix axe visibility flag when entering room 31
+
+The visible[1] flag in room 31 (i.e. for the axe) is now reset according
+to flags[13] (which indicate if we picked up the axe already or not).
+
+This fixes bug #7118 Drascula: Axe item can be picked up infinite
+times
+"
+"bc2f133abe33f6d3aca7e88eda870e98797eb5c6","2016-04-17 22:16:00+01:00","DRASCULA: Fix noise when playing sound.
+
+The original engine skipped the first 32 and last 32 bytes of the
+data when playing a sound. We did not do it in ScummVM which
+resulted in noise at the start and/or end of some speech. This
+was most noticeable with Spanish speech but also occurred
+occasionally with English speech.
+
+This fixes bug #7120 Drascula: Audio noise before every voice in
+the game
+"
+"e289b6f287c32a1d545da9197df680a6de621b4a","2016-04-17 23:23:23+01:00","DRASCULA: Remove delay for select verb
+
+The delay, since it updates the mouse position, resulted in a
+different verb being selected than the one we clicked on when
+moving the mouse quickly after the clic. This was quite confusing
+and frustrating. I can't see any reason for this delay and it seems
+to work well without it. The initial commit adding it indicates this
+was 'for better mouse response', but it added a lot of other delays
+at the same time, and removing this one doesn't see to impact the
+mouse response (on the contrary, we get the new cursor quicker).
+"
+"44bcaa8d075eed0e47fa5c4401d95127f5c08914","2016-04-17 23:41:32+01:00","DRASCULA: Remove delays when showing and hiding the inventory
+
+I don't see any purpose to this delays and they were not present in
+the original engine. It works fine without those and the interface
+seems more responsive.
+
+This fixes bug #7121 DRASCULA: Delay and freeze when pressing
+right mouse click on game
+
+Also move a delay when left clicking to after performing the action.
+With the delay between the left click and the action, the mouse
+position could have moved when performing the action, resulting
+in the wrong action being performed (e.g. activating the wrong verb
+or picking the wrong object in the inventory). But removing the
+delay altogether causes flickering when picking objects from the
+inventory.
+"
+"4d33f06095801496bf00fa31d2da75fdcab9864c","2016-04-17 23:47:52+01:00","NEWS: Add multiple bug fix in drascula for 1.8.1
+"
+"f3a6cd9b7ef6745b9d2f7c10277f122465020915","2016-03-09 16:33:27+01:00","CONFIGURE: Fix options for GCW0
+"
+"3f1c709ed1bdb1b90a97cf8f424fac93c5e459f3","2016-03-09 16:33:52+01:00","GCW0: Remove hardcoded list of skipped engines.
+
+Now we rely on highres feature of the backends
+"
+"917e6e04703cfbf30935f94e9575a0f607e7820f","2016-04-10 12:52:53+02:00","ALL: Split SMALL_SCREEN_DEVICE into GUI_ENABLE_KEYSDIALOG and GUI_ONLY_FULLSCREEN
+"
+"0317ab63b832efe3f75d809c1a94c284a9102dfe","2016-04-10 13:05:39+02:00","GCW0: GCW0 is fullscreen-only device
+"
+"fdc3db693cda0a0552aa454cd659754bd65305f8","2016-04-10 13:56:44+02:00","GCW0: Disable Timidity by default
+"
+"a46303973eb4147d9807b00e3114dbfc5be39d57","2016-04-10 13:57:02+02:00","GCW0: Clean up build script
+"
+"bdc3fce2dba3aa9f85bf3b84156de5175fd28033","2016-04-10 14:06:34+02:00","GCW0: Enable building with all scalers disabled
+"
+"68a09fcc998e9b44194b81a6625858639be31e29","2016-04-13 22:48:48+02:00","GCW0: Better bracket replacements in README
+"
+"c3427023683c12c5d043290e0939db721fae9096","2016-04-10 16:42:14+02:00","GCW0: Redirect debug output to log
+"
+"ff92bc8ddfd9714464eea2867b716bdd25e83ec8","2016-04-13 23:26:38+02:00","GCW0: Split README by chapters
+"
+"9106fb56fed9b54fea41cb4d12fbbade1e7cb50c","2016-04-16 23:17:53+02:00","AGOS: Added Russian Simon2 Talkie. Submitted by Dimouse
+"
+"8609e53e23c235a1e28b1eb0d9038bfa4cffd343","2016-04-16 23:29:16+02:00","SKY: Added localized quit message for Russian translation
+"
+"ffb6659928d74d20581c837ac7596e8efb011e95","2016-04-17 12:43:53+02:00","SKY: Proper support for Russian BASS
+"
+"2551818573fc8fbe5a02393482482a3f0801edb7","2016-04-18 08:16:26+02:00","SKY: Two more adjustments to Russian BASS
+"
+"a97a35c629d63cbdcfc79e8e0d1a3a946dd6b6ee","2016-04-18 08:45:41+02:00","NEWS: Mention GCW0 port improvements
+"
+"ab91d179637808cbe9e4b1828c51d5bbcd207dd1","2016-04-18 08:47:32+02:00","GCW0: Mention location of scummvm.log file in README
+"
+"1b16fa3319641246d92cdf2ec772ec3d76e78400","2016-04-18 10:40:02+02:00","NEWS/DE: Update German NEWS file
+"
+"55c349fed3fb4b6f3e86d6b688b69b519b5c4fd6","2016-04-18 10:40:58+02:00","NEWS: Add missing whitespace in GCW0 paragraph
+"
+"746cf51905093bcc2e8b31bc6a8a412e02cf5ae1","2016-04-18 10:42:39+02:00","NEWS/DE: Add missing whitespace in new ports list
+"
+"de073e5c300c3e09a0d01c5d461d389e93a16e6b","2016-04-05 10:06:41+02:00","GUI: Update _lastRedraw before calling updateScreen
+
+This reduces the cursor lags on some systems.
+"
+"d6772d507805d7d54779a9ec6e7f315338868884","2016-04-05 10:29:14+02:00","GUI: Increase update screen rate to 60Hz
+"
+"ef99a9e8f8f5c3322495e01064e6f406d25516d9","2016-04-22 17:17:44+02:00","NEWS: Add fix for cursor stuttering in the launcher
+"
+"6470c925a103c839c4c5307b62c363d0c1425bbb","2016-04-22 17:18:36+02:00","NEWS/DE: Add fix for cursor stuttering in the launcher
+"
+"aefaf011e60b8599762e604f8abd138209ab77f9","2016-04-03 13:02:02+02:00","KYRA: (LOL) fix bug #7104 (LOL-CD: mixing sfx and voice mode does not work)
+
+(cherry picked from commit 97a69022fd2cb7314d1ecc9e86b1a7dbc29dca67)
+"
+"4b514ceee5ddea6a84c42f539eb269e2cf9b2eec","2016-04-15 00:25:35+02:00","KYRA: Initialize variable before usage.
+
+Thanks to salty-horse for reporting.
+
+(cherry picked from commit 30cae4d12d31f5ca86638e9eaf15d93e3375120c)
+"
+"1513c56ccbafa5ba4ebed20d4ade332a025e4df4","2016-04-24 19:23:48+02:00","README: Fix copy&paste mistake.
+
+(cherry picked from commit 811b300ff613a7b967a296d9dab75739f8a86f6f)
+"
+"8399dce4edfcc21c1c4bfdf792ca6d9fac061b67","2016-05-02 14:19:17+02:00","NEWS: Add Kyra bugfixes for 1.8.1.
+
+(cherry picked from commit 84d2cf6cbf4515f9ce96576df6c9a18586a23cec)
+"
+"6fc4bfc1542e724c362d0398ce8a1dbcfd6c9ec3","2016-04-24 05:02:22+02:00","GCW0: Attempt to fix out-of-tree packaging.
+
+(cherry picked from commit bb6bf4b1cb8ce256c6cb16603a9c2a2c892088e2)
+"
+"c2efd457c6ba59676775e9ec0f675f5455d4ede6","2016-05-02 18:14:52+02:00","NEWS/DE: Add Kyra bugfixes for 1.8.1
+"
+"9876932ceb14c550c9f3d81ce57bd14cc8d4ae55","2016-05-02 18:18:12+02:00","NEWS/DE: Fix superfluous whitespace in LAB paragraph
+"
+"e15be4d934782deee079243cc87ca115dead672c","2016-05-02 22:47:46+02:00","TSAGE: R2R - Fix bug in scene 2425
+"
+"d99135005c9290382aadec36d121453d72554d98","2016-05-03 17:47:35+02:00","I18N/DE: Improve translation for the Mute All setting
+
+The current string 'Alles aus' is too long for the game specific
+option and gets trunkated.
+"
+"833fab0d657c6de7553c5803d87fb0400d407736","2016-05-09 00:07:23+02:00","SHERLOCK RT: Actually clear screen instead of a useless call.
+"
+"5325ae353c70b056506b0f806095acaa57273439","2016-05-08 23:17:28+02:00","SCUMM HE: Safeguard division by zero
+"
+"b3f30784ce0f39045aa712ff72efa2a6e22cc3a5","2016-05-08 23:21:11+02:00","AUDIO FM-TOWNS: Fix copy/paste error
+"
+"85b5e413cc7c1499e2ad17980a501e6f8c672916","2016-05-08 23:25:16+02:00","WINTERMUTE: Add missing parameter
+"
+"df7b9164252f4ddec2f78d997cdfda7cb34b66b4","2016-05-13 11:41:58-05:00","MAEMO: Update debian/changelog
+"
+"d83fed456e2a14beb8ba01e4aa6aad4a885b5e4f","2016-05-13 22:19:03-04:00","ACCESS: Fix crash at end of AGOE floppy chapter 6
+"
+"89ca6fd04b52c5745e9909b43f3465f3f648ae08","2016-05-16 12:11:52+02:00","NEWS: Add release date for 1.8.1
+"
+"7be865881eb98db02d65278c50046479faffcea8","2016-05-17 11:21:33+03:00","LAB: Fix waiting for sounds embedded in animations
+
+A regression of 75d1385c8d1ba61b5740a0b43966d3c2f111440d
+"
+"68d8d7cbf3568dd646f4efc0e57b734dbc385c02","2016-05-17 11:25:16+03:00","NEWS: Mention the lock-up fix for in-game animations in lab
+"
+"28730476f6922c49d4c631e38bf2037974006466","2016-05-17 10:40:10+02:00","NEWS/DE: Mention the lock-up fix for in-game animations in lab
+"
+"cd1e129fabab2e5f9007a4cb13d6e4297071a32a","2016-04-06 02:12:02-04:00","3DS: Initial commit
+"
+"4cc051d90a5e10558f6632098edbba03f4b57306","2016-04-06 12:12:46-04:00","3DS: Add to backend configuration list
+"
+"7b8db0b84839108b75a33af8a062302252cb0b7a","2016-04-11 15:15:42-04:00","3DS: Add CIA format build, add timer handler thread, fix APT service suspending/sleeping/exiting
+"
+"68a15b95945983e8a6440e2ece8b798a137af751","2016-04-11 15:21:58-04:00","3DS: Use linear GPU texture downscaling for better legibility in hi-res games
+"
+"e35d05ca9d7e45ad2b4580ce64d6c239e09d500a","2016-04-14 00:38:46-04:00","3DS: Add backend author to credits
+"
+"e53e63df77d1993b0a0ce31e904fc57f9f5165ef","2016-04-14 00:39:27-04:00","3DS: Maintain alphabetical order in configure file
+"
+"182d59b6a75fd09042f5ab5adbf23ee02452e3a8","2016-04-19 03:22:32-04:00","3DS: Fix code styling, add license header, remove unused portdefs.h
+"
+"8d37ac81b0bf76ad7912cf4f08dcf153dd587011","2016-04-19 14:52:58-04:00","3DS: Add README
+"
+"4eb7fc13144b2e63fe15663ef23060807ae59e22","2016-04-22 16:43:59-04:00","3DS: Add config class/dialog, c-pad cursor control, and option to disable screens
+"
+"5f95868576d36bfca321e4ce00934095e7657c5d","2016-05-17 19:30:07+02:00","CREDITS: Add Lubomyr to Android porters
+"
+"64fd77d91a5abfefafb88a7d99a463bf8d8af271","2016-05-17 19:37:17+02:00","NEWS: Mention 3DS port
+"
+"58f4ff38c1c9898d41c5ae6f09ac1f1b8c8b9dce","2016-05-18 08:57:27+02:00","NEWS/DE: Mention 3DS port
+"
+"9b002140b66be401c484355d32d1d6805d085b7a","2016-05-19 19:54:18+02:00","ANDROIDSDL: add androidsdl backend
+"
+"f3fd7cb1dd12afd65d088450659b617e2fc21a88","2016-05-19 20:00:32+02:00","ANDROIDSDL: add image banner.png for androidTV
+"
+"16b3ee68d4b526bd90a863d729228e537419b15c","2016-05-20 12:51:37+02:00","ANDROIDSDL: updated banner.png image
+"
+"715f2512c205c46ee99493d0c3e045a7f9030c4a","2016-05-20 12:52:54+02:00","ANDROIDSDL: add startup logo
+"
+"99497fb680bc42069e7ebda7c993f93c1b54614f","2016-05-20 16:11:59+02:00","NEWS: Mention Android SDL port
+"
+"a5aecfeb49bda9e5e36c56a74c3888c06dbc64b4","2016-03-09 22:20:21+01:00","SHERLOCK: Add format to fix compile error
+
+This patch fixes the compile error:
+format not a string literal and no
+format arguments [-Werror=format-security]
+
+Just suply '%s' as the standard format.
+This way the string is not interpreted as format
+which may lead to security issues.
+"
+"59d970961e4d9036f10615ea11de40a4ab3f82bc","2016-05-20 20:21:25+02:00","AUTHORS: Sync with master
+"
+"7526d03996325f4bb1ec76e5ebb0679bdda857e3","2016-05-20 22:40:10+02:00","CREDITS - Mark Clone2727 as Retired
+"
+"97c5fe49f92071ab42419deecf465929b932915e","2016-05-21 00:05:05+02:00","RELEASE: This is 1.8.1
+"
+"4aa474729b495942b5ab5126b4cb81e33f32647c","2016-05-20 20:08:30-05:00","MAEMO: Update debian/changelog
+"
+"699856f2ec8ed74910615c2aff122c061e8f63ac","2016-05-26 13:36:55+02:00","WIN32: Update years
+"
+"e643a22e056ffecca05ed9b04030e84647217d7e","2016-05-26 13:37:45+02:00","ANDROID: Bump Google Play release version
+"
+"34343d064e7efd1da95064de283ba3ee945fc414","2016-05-26 13:38:24+02:00","DISTS: Generated Code::Blocks and MSVC project files
+"
+"6f721aa79ed00906d719c352c958548501d74780","2016-05-26 13:52:11+02:00","ANDROIDSDL: Update build configs
+"

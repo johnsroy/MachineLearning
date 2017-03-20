@@ -1,0 +1,76 @@
+"commit id","commit date","commit message"
+"d6db39f84c7ebccac43d00e66bb46c6bbd493f27","2015-08-03 19:56:53-04:00","Update gitignore to accommodate memory profiling dumps.
+
+The updated Android Studio saves HPROF dumps and allocation traces to a
+directory called /captures, which should not be relevant for git.
+
+Change-Id: Id752da849bda223ef6de535d2fd393d41fdbf59c
+"
+"5a56101cc0eaf810e69e4cb786d243fe2ef26fb2","2015-08-03 21:13:42-07:00","Show 'Display password' check box on login screen
+
+If you make a mistake when typing in your password, it's nice to have a 'Show
+password' check box so you don't have to retype your entire password (which
+would be quite the inconvenience on a mobile device if you have a long
+password). This patch implements that, and it was super simple to do due to a
+provided convenience method in Utils! :-)
+
+Bug: T99680
+Change-Id: I40d1e7e91a641308f2066408742288373c5f194e
+"
+"a9ac4d73623cd54fcb55824b3c6dad9dd2f256dc","2015-08-04 09:44:49-04:00","Don't open interlanguage pages in new tab.
+
+In my previous patch, I incorrectly made PageActivity open pages in a new
+tab that came from the ACTION_PAGE_FOR_TITLE intent. This includes
+interlanguage links, file page links invoked from GalleryActivity, and
+EditActivity results.
+
+This patch reverts that change, and corrects the behavior.
+
+Bug: T107841
+Change-Id: Ic93dd78f2f21d4a9d2d3c1e27667dc02528e1cf0
+"
+"b8e562a51e6dd876a90c4bac7787f2a79ad9bab9","2015-08-03 15:10:31-06:00","Catch Gson unmarshalling errors and report them
+
+- Catch errors during tab unmarshalling and report them. For non-prod
+builds, the user is prompted via ACRA. For prod builds, exceptions are
+printed to logcat.
+- Light clean up of Gson classes.
+
+Gson can throw more than JsonSyntaxException. This patch adds a safety
+mechanism for catching any Exception produce during unmarshalling of
+tabs and reports it.
+
+Change-Id: I06bf864e8e4dbd9d9c4ff4bc725edd81274ec120
+"
+"8e9fc1f2b501ef07c79024965201479d449ebbf9","2015-08-04 16:51:53+00:00","Merge 'Catch Gson unmarshalling errors and report them'
+"
+"1ef959975c252704b572ff5908c192aea746cbec","2015-08-04 16:55:29+00:00","Merge 'Show 'Display password' check box on login screen'
+"
+"9e97fe2ce4e022f6ee2b1e768b7f22f17f07fee0","2015-08-04 09:28:50-04:00","Use standard ContextMenu for long-press actions.
+
+This patch standardizes the long-press action for our WebView and
+ListViews to use a standard ContextMenu (which pops up in the center of
+the screen), instead of a custom PopupMenu. This makes it consistent with
+other apps that implement long-pressing within a WebView, as well as
+significantly simplifies the overall logic. As a bonus, this also makes
+long-pressing on links work correctly in ICS.
+
+Bug: T107839
+Change-Id: I7a86dd6d1fc934cd4d9f88dede5bfd83d9b1bb5e
+"
+"49c12af214509b40d7726d009f9c3d87e5c8bf17","2015-08-04 10:59:08-06:00","Hygiene: remove unused method
+
+Change-Id: I21074be272e5378e6a507a736d021ec3d6a72f1a
+"
+"ede29b433bbf204dd3537f537f4c77838c07b0bd","2015-08-04 10:56:16-06:00","Hygiene: Remove unused member var and resource ID
+
+Remove unused class member variable and layout resource identifier.
+
+Change-Id: Ia4a67da3675194d01b5bffac958f533724fcbef1
+"
+"4768892ac29166b20d3e711f19711f3c444487c7","2015-08-04 17:45:22+00:00","Merge 'Hygiene: remove unused method'
+"
+"1a2fc0f329e379f1f388707207dc3aed173783d1","2015-08-04 11:46:09-06:00","Bump versionCode
+
+Change-Id: I800b97fb10e67d93ebae761b091a8f2aa2a53199
+"

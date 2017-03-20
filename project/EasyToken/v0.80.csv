@@ -1,0 +1,550 @@
+"commit id","commit date","commit message"
+"68591cc4d78b8b40aa95e4a8bfc7f8e47d7f13cb","2014-06-22 10:54:48-07:00","Initial commit of project skeleton
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"eed67ef3391180a8f9cc433e491dabd71cb5607b","2014-06-22 12:59:38-07:00","libs: Add .jar and .so files built from stoken 0.6 release
+
+At some point we'll probably add 'external/stoken' as a git submodule,
+but for now, raw binaries will suffice.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"b2fca42ad8755700a86c975639c3748fc3db0cf7","2014-06-22 16:41:56-07:00","Add COPYING file
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d40ae6c65724120c0f760a8c48b4d8073c77c6ad","2014-06-22 16:42:24-07:00","Add stoken-wrapper.jar to classpath
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"f1a37b58f42468f8e0133d0bf8e4bc228a6c2dae","2014-06-22 16:43:45-07:00","Initial commit - basic UI
+
+This has empty Help/Import screens, a basic About screen, and a Tokencode
+screen largely copied from OpenConnect.  MainActivity has a menu and
+buttons to help the user navigate.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"fc74659063354df44a0c2ac0d57773760f3ccc7b","2014-06-22 16:53:40-07:00","MainActivity: Don't crash on screen rotation
+
+This should just nuke the fragment so that it can be recreated with
+correct arguments during onResume().
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"9d16e3bc82af69d26783b149dbd642317b288726","2014-06-22 19:24:12-07:00","TokenInfo: Store deviceId persistently
+
+Modified ROMs might give us a random ANDROID_ID, so just cache the first
+one we ever get.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d6326b773c0b4ce8a17a7f26f784bc164b9be17a","2014-06-22 19:54:07-07:00","TokenInfo: Set default_id back to -1 if the last token was deleted
+
+This eliminates unwanted logcat errors:
+
+E/EasyToken(18926): tried to access nonexistent token string #0
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"4722bef56f500b303861d33612f726ebfb0e6708","2014-06-22 19:54:50-07:00","MainActivity: Remove debug print
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d6532cf9f60b28bfffd3e71834a2e8e0dd33b6ae","2014-06-28 12:30:04-07:00","res: Import R.animator.* from OpenConnect
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"2ba15c53a7098a9bdd56372db30a88d412e0c700","2014-06-28 14:39:53-07:00","Import zxing Android integration library, for scanning QR codes
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"eb65f68d1ac70ab952cd4eb31b66015d0a12c648","2014-06-22 22:57:45-07:00","ImportActivity: Add token source selection, QR import, and instructions
+
+This currently displays an ImportMethodFragment.  For URI import it
+redirects to an ImportInstructionsFragment; for QR import it invokes
+Barcode Scanner to capture the URI string.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"8f49349c69ecf1c1d2a82dfb54c5ef2756154b0c","2014-06-28 14:43:22-07:00","gitignore: Ignore vim swap files
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"f1445b55a456e196a4640a034d48842b0575eab5","2014-06-28 15:00:39-07:00","Import FileSelect activity from ics-openvpn project
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"e15311236c38ca184ff62d3f605f5a2255d30628","2014-06-28 15:23:14-07:00","ImportActivity: Integrate file selection option
+
+This now populates mUri with a valid file:// URI (nominally pointing to
+external storage).
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"6581fdb7bafb6a28c0cb1234e9f7fc091e076958","2014-06-28 16:25:42-07:00","ImportManualEntryFragment: Initial commit
+
+This lets the user enter a token string by hand.  If the string is OK,
+the 'Next' button will become active and it will be possible to proceed
+with the import.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"486b5735114c38f44a79ceec11f60c9569cc53f4","2014-06-28 16:27:22-07:00","ImportInstructionsFragment: Add missing copyright header
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"e6f03481563181f626f888a937f93753ae9e8d8e","2014-06-28 17:11:28-07:00","ImportActivity: Use LibStoken to validate supplied URIs/files
+
+This sends the user to an error page if the token is invalid.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"ffec44a18ff8e0e929fb8cf2aed4a7720ccc1e0b","2014-06-28 19:34:59-07:00","layout: Fix indentation
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"f8d0209ebdc5020dfac63509702c00f7be003d29","2014-06-28 20:38:27-07:00","ImportUnlockFragment: Initial commit
+
+Prompt for password/devid (but not PIN) on initial import.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"956d43a45454e14d6335d4ffc03e51b8e42f7ffe","2014-06-28 22:09:16-07:00","ImportConfirmFragment: Initial commit
+
+This lets the user decide whether or not to overwrite his current token.
+Right now it works with tokens that do not have a pass/devid.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"0860a854eed6aa9965f102df43b1596cb0ac7abb","2014-06-28 22:31:44-07:00","ImportActivity: Simplify handling of pass/devid
+
+Don't copy these strings all over the place.  Instead, once we have valid
+decryption info, store a decrypted copy of the token in mUri so that
+nobody ever has to worry about them again.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"db43f2d8cc5ac61ccbefe47a10c85880e90583bc","2014-06-28 22:45:55-07:00","ImportActivity: Clean up state transitions
+
+Always exit the activity via STEP_DONE -> finish().  Always re-encode
+the token in unlockDone() so that file:/// sdtid URIs don't accidentally
+get passed into ImportConfirmFragment.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"c8857145f26074ceea21338d88ee2cfbb87e8d50","2014-06-29 10:14:27-07:00","libs: Sync with stoken.git rev 675406cab
+
+This fixes the overflow on re-encoding v3 tokens.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"660e9a2377702d834242bc402f27957c3801be6d","2014-06-29 10:45:19-07:00","TokencodeFragment: Clean up EXTRA_* constants
+
+Delete the unused strings, and rename with our correct package name.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"675c837437c842cddd73c525e7b0a1d3cb98057f","2014-06-29 10:54:39-07:00","MainActivity: Clean up fragment lifecycle
+
+Re-create fragments only when necessary.  For pause/resume, screen
+rotation, etc. let the OS manage the fragment lifecycle.
+
+This has a side effect that TokencodeFragment will FC on redraw.  I will
+fix this next.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a583799fedd2dbe6e79cfd6236cfc04db5c6af1c","2014-06-29 13:01:07-07:00","TokencodeFragment: Restructure to use common backend class
+
+TokencodeBackend uses Android alarms to wake up anybody waiting for a
+tokencode update.  This allows it to be reused for both TokencodeFragment
+and for widgets.
+
+This currently does not handle setting up the PIN (it will be forced to
+0000 unconditionally).
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"8f4b042ced6d0d53372c7ae1d8ce5431e5dedc28","2014-06-29 15:15:41-07:00","TokencodeFragment: Refactor PIN handling
+
+Split the PIN change event into 'Enter PIN' (token requires a PIN, user
+must deliberately enter one or say 'No PIN') and 'Change PIN' (default
+to cancel, but also allow PIN change or 'No PIN').
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"1e2403a3ebb843a5cafd29596b3cbf65fb063647","2014-06-29 15:24:26-07:00","layout: Swap GMT and expiration date
+
+The device ID field is fairly long (24 hex digits) and there might not
+always be enough room for both device ID + GMT on the same line.  So let's
+see if token S/N + device ID can peacefully coexist.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"f17c805ac0c1f428e17d12862ace912af6364752","2014-06-29 15:27:44-07:00","strings: Add 'to paste...' hint on manual entry fragment
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"292872f7e661940fd4e9336b8529f4f5018e3351","2014-06-29 23:09:12-07:00","TokencodeWidget: Initial commit of non-scalable widget
+
+This provides a fixed-size widget on the home screen and/or lock screen.
+It displays the current tokencode and a progress bar.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"07d4738dcb37598e8b1ecef732dae297397c9d56","2014-06-30 23:05:03-07:00","TokencodeWidgetService: Scale font according to each widget's dimensions
+
+Dimensions are in res/values/dimens.xml; subject to further tweaking.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"3135f30196d5f2de5e0e2ff04ef288ba58bb7166","2014-06-30 23:47:10-07:00","widget: Change to 1x1; tweak progress bar
+
+Allow the widget to be placed in a 1x1 spot.  Change the progress bar to
+'always on' in NO TOKEN (error) mode.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"8be5dc2b54d999bad4a607dbd43c86d34928739f","2014-06-30 23:47:10-07:00","widget: Enclose tokencode/progressbar in a shape
+
+Add a snazzy translucent rounded rectangle around the tokencode.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"5cc088051ba092c4d88d9c4b340e4032899ba456","2014-07-01 18:56:59-07:00","TokencodeBackend: Revert back to Handler in favor of AlarmService
+
+AlarmService wound up holding wakelocks and draining the battery.  Use
+Handler instead, and add checks to make sure we don't try to update the
+UI when the display is off.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"2dcc890fd5b17e2a9d6a98694e52140df252f5b2","2014-07-01 19:11:16-07:00","TokencodeFragment: Clean up handling of 'missing PIN' cases and dialog
+
+Hide the tokencode if we're prompting the user for a missing PIN, but
+don't hide it on the user-initiated 'change PIN' dialog.  Make sure the
+UI gets promptly updated after a PIN is entered.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"96312dc01d8390fea09ecef095d53816717a330b","2014-07-01 19:16:37-07:00","TokencodeWidgetService: Fix bogus ProgressBar update
+
+If mInterval == 0, setProgressBar() can be set with max == -1.  Fix this.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"5cc6523a93711e4cddd2a05d7f56d8cfe1772261","2014-07-01 20:23:41-07:00","Switch to Holo.Light theme
+
+Let's give this a try for a while and see how it looks.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"58c6764d1236f123df66f61d974dc5ccc9547129","2014-07-01 20:32:37-07:00","ImportMethodFragment: Gray out the Next button until an item is selected
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a84cfc6b1a33d809ab6e2b24c48f8f452a053384","2014-07-01 20:38:11-07:00","FileSelect: Move Select button to right side
+
+This makes 'Select' consistent with 'Next' on the other import screens.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"ab22ffce0a3c1bdd5051c3ff7a12450bd81cb47f","2014-07-01 21:30:16-07:00","TokenInfo: Cache isPINRequired() status
+
+This value changes if a PIN is set through computeTokencode(), so remember
+the initial response.  Also, add a convenience method to tell us if we're
+missing a PIN.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"cb3391bd0da23b0838a10b33934b12901cf21c19","2014-07-01 21:44:02-07:00","TokencodeWidgetService: Show 'NO PIN' if the PIN is missing
+
+This prevents the widget from displaying an invalid tokencode.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"5b2aff4ba10662a0002c8e7163f63624172289e9","2014-07-01 22:23:46-07:00","TokencodeWidgetService: Use REORDER_TO_FRONT to fix activity stack
+
+Repeatedly clicking <widget> <home> would create multiple copies of
+MainActivity on the stack, and not all of them would necessarily be in
+sync (e.g. with the current PIN).  Use FLAG_ACTIVITY_REORDER_TO_FRONT
+to ensure that there is only one copy of MainActivity when started from
+the PendingIntent.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"276037c5acacb86ea929ca753361f7e78bc5e8f2","2014-07-02 21:29:18-07:00","drawable: Change 'rect' to match Holo.Light theme
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"6aedfb19f25dedc492c1c47ecdca70a1f446739c","2014-07-02 21:29:58-07:00","drawable: Move res/drawable-mdpi/rect to res/drawable/
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"ab5c533c07500a3fc2eba72e2351e5e5e8a674c3","2014-07-02 22:04:08-07:00","Split GettingStartedFragment and DevidFragment into separate pieces
+
+This will allow DevidFragment to be reused in the About page.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"2972ee3e7a921484f0dc3ea33fe197ef9421cdec","2014-07-03 13:12:11-07:00","res: Move token source strings from arrays.xml to strings.xml
+
+Putting the strings directly inside arrays.xml makes it harder to add or
+remove entries[1], because if an out-of-date localized version of
+arrays.xml is used, any missing entries will not appear at all.
+
+[1] http://globalizer.wordpress.com/2010/01/18/android-string-arrays-and-localization/
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"f78b95e88646605988caedd1194e9907100b0f7b","2014-07-03 21:00:05-07:00","Refactor 'About' page
+
+Use string arrays instead of HTML, so it is easily translatable.  Create
+new MarkupFragment to construct new views from the string array.  Create
+new BareActivity to easily instantiate one or more fragments via XML.
+Add DevidFragment to About page, so the user still has a way to copy/email
+his device ID outside of the GettingStarted screen.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"2c5d32cf6880cf601a531f681f4cdb6b713cdb53","2014-07-03 21:06:56-07:00","Replace FragActivity/HelpFragment with BareActivity/MarkupFragment
+
+This eliminates some redundant code.  The Help screen is still blank
+(for now).
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"e6b1b45e7996309fb0377805eb73186d518278aa","2014-07-03 21:22:18-07:00","Initial commit of Help text
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"7648782fe68c9483595f6818f6de59898a56c059","2014-07-03 21:39:25-07:00","Move Help/About info out of arrays.xml
+
+Make it easier to maintain the help/about text, by doing the following:
+
+- Eliminate the list of strings in arrays.xml.  Instead, use reflection
+to make a list of help/about strings from strings.xml, then sort the
+list and display every string present.
+
+- Change to 'about_text_000' format.  This makes it easier to insert new
+lines in the middle without renumbering everything (and breaking every
+translation).
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"4824339539e406499823fd5238c072a64a5fdaba","2014-07-03 22:24:19-07:00","ImportActivity: Add support for content:// URIs from email
+
+SDTID email attachments might show up as content:// instead of file://.
+Use the same code to handle both.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"ad0e9586132fd843858cb28e64584b5f4b5fb4f4","2014-07-03 23:09:47-07:00","Initial commit of SettingsFragment
+
+The save_pin and fg_service settings are both present, but are currently
+no-ops.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"bfe78a2898e3249653d08cd9a072a89600da7587","2014-07-03 23:20:46-07:00","Implement save_pin preference
+
+Forget all existing PINs if unchecked.  If checked, the PIN will be saved
+the NEXT time it is entered by the user (i.e. PINs cached in memory will
+not be immediately saved).
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"0964000aa599b75a2f80b9c7046d23f0a988847a","2014-07-03 23:38:05-07:00","Implement fg_service preference
+
+Start/stop the foreground service in accordance with the preference
+setting.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"14e694d54815aa715af61afcef50069a06ff6281","2014-07-04 11:49:14-07:00","TokencodeWidgetService: Make our PendingIntent work like a launcher click
+
+When the user clicks on the tokencode widget, it (re)starts MainActivity.
+Under some circumstances this can result in a task history that involves
+duplicate copies of the activity, e.g.
+
+Stack #1:
+Task id #1088
+TaskRecord{426608e8 #1088 A=app.easytoken U=0 sz=2}
+Intent { flg=0x10000000 cmp=app.easytoken/.MainActivity }
+Hist #1: ActivityRecord{419e21d0 u0 app.easytoken/.MainActivity t1088}
+Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10600000 cmp=app.easytoken/.MainActivity bnds=[540,853][804,1152] }
+ProcessRecord{4290c760 10102:app.easytoken/u0a86}
+Hist #0: ActivityRecord{42660700 u0 app.easytoken/.MainActivity t1088}
+Intent { flg=0x10000000 cmp=app.easytoken/.MainActivity bnds=[86,919][465,1085] }
+
+If we start MainActivity with the same intent settings as the Launcher,
+it will operate as though the user clicked the Launcher icon.  This is
+exactly what we want.
+
+Reference:
+
+http://stackoverflow.com/questions/5502427/resume-application-and-stack-from-notification
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"2057b6069d9f4fdc3bee80561b1abb634e717740","2014-07-04 12:11:33-07:00","TokenInfo: Track 'last_modified' time
+
+Keep track of the last time of any token/settings changes (including
+changes resulting from ImportActivity getting involved by another app).
+This allows activities and widgets to reload the configuration when
+appropriate.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"6a70eb0ccec2c8c4f20f76a490aa33f85d753edc","2014-07-04 12:19:07-07:00","MainActivity: Refresh fragments on resume if lastModified time changed
+
+This mostly reflects changes caused by importing a new token (whether
+initiated from MainActivity/GettingStartedFragment/actionbar or from an
+external app).
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"0cf365bad12c95f59416ec3688e14afa2a1f159c","2014-07-04 12:40:40-07:00","TokenInfo: Trigger widget restart on any preference update
+
+This triggers the event from a central location, instead of having to find
+every place in the app that might change a setting that is relevant to
+the widget.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"e65226a7ec09a1f01b19a0eed73d8b2be2b8368d","2014-07-04 13:29:22-07:00","TokencodeFragment: Clean up setPin() logic
+
+Split the UI PIN setup apart from the code that saves a newly-set PIN to
+disk.  This prevents issues with restored fragments inadvertently saving
+a cached PIN after importing a new token.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a0d11d4ae0ba18bbb222c560faa5087cf65510b2","2014-07-04 14:33:41-07:00","TokencodeWidgetService: Allow toggling between tokencode/clock on lock screen
+
+The default Android lock screen clock widget typically shows time+date,
+which is lost if we replace it with a tokencode.  So let the user toggle
+between tokencode or clock by clicking the widget.
+
+This applies to the lock screen only; home screen widgets will still open
+the app.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"cf2c1c33960ab5eb099337e2191d44139e2cd8dd","2014-07-04 15:15:24-07:00","MainActivity: Don't draw divider if only frag_0 is present
+
+It was observed that on screen rotation, the frag_0/frag_1 divider
+suddenly reappeared - even if we were using TokencodeFragment.  So we
+will need to cache the visibility status and set it up if the activity
+is ever re-created.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"283c0729b794f4aa5c32f2d4ea57a0dd1b539f73","2014-07-04 17:05:48-07:00","external: Add scripted libstoken.so build
+
+This builds for all three architectures plus Java, and drops the results
+under libs/.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"dac09214cf90c42debe689c4323f5a3b866547b8","2014-07-04 17:25:14-07:00","libs: Nuke binaries
+
+We will always build from source from here on out.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a7883583dc01281c58a9ba90976136acccaa6f78","2014-07-04 17:58:47-07:00","Initial commit of build.xml
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"f26135594103deebed29593481679933c2fc8c26","2014-07-04 18:17:38-07:00","Initial commit of README/CHANGES/travis files
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"ce7bc38b88b6675c8f5c0d580f93cc5b99d23152","2014-07-04 18:41:42-07:00","README: Add download links
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"f431a25aefe2ed178f71303a46f6e0b1d185e739","2014-07-05 07:50:09-07:00","TokencodeBackend: Don't guess at initial screen-on state
+
+Set mScreenOn from PowerManager instead of assuming 'true' until we get
+our first ACTION_SCREEN_OFF/ACTION_SCREEN_ON broadcast.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"e6dcc8838bc6dcd0977ab300472705f5acd2e502","2014-07-05 08:16:52-07:00","MainActivity: Unbreak DevidFragment for the 'token not present' case
+
+Commit cf2c1c3396 (Don't draw divider if only frag_0 is present)
+introduced a regression that caused mTokenPresent to be set to true
+for both present and not-present cases.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"015b38ae8f5b9a829ce1a0cee86f06516dbe082f","2014-07-05 08:47:34-07:00","TokenInfo: Don't forget to update max_id on save
+
+The max_id preference is only updated on deletion, so it winds up stuck
+at -1 after import overwrites an existing token.  To prevent this, update
+the value on save too.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a86bd23f9d8bc0036b1fdd98831c29b6e8eb4717","2014-07-05 09:21:58-07:00","AndroidManifest: Add INTERNET permission
+
+This isn't currently used, but it will be needed in the future to support
+ACRA crash reporting and/or CTKIP tokens.  Add it now so that users don't
+get prompted later.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"b717075e2f16af6281b7893f9140badd46937736","2014-07-05 09:23:50-07:00","AndroidManifest: Demote version number to v0.80
+
+Still finding too many easy bugs - v1.00 is excessively optimistic.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"c1c8bef9b7b7220d913fb0dea69a3d1adc63fcd7","2014-07-05 09:39:09-07:00","Import ACRA 4.5.0 jar
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"bcc1333525072971d62c62295d2ef624ea7ce3b2","2014-07-05 09:54:33-07:00","Enable ACRA for interactive crash reporting
+
+This displays a dialog and prompts the user for comments.  Currently
+using the email sender, but this may change if more data is needed to
+diagnose a problem.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"4503c16e481ce6601bbde743e51360fbd779a84e","2014-07-05 10:07:40-07:00","MainActivity: Add 'Report a problem' menu item
+
+This will trigger a phony crash, which will be handled through ACRA.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"5514661f38281659f6128e34a6e0430adbcf2ce6","2014-07-05 10:52:36-07:00","help: Clarify availability of lock screen widgets on Android 'L'
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"2505cf3eec8ecf0d9cd5523a9361825b0be7444e","2014-07-05 11:35:41-07:00","README: Add screenshots
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"630ef78a2915547bc15c8fdec2e74d154456c6d6","2014-07-05 12:15:59-07:00","external: Add fallback logic from OpenConnect android/Makefile
+
+I hoped this was not needed anymore, but the same bug has popped up again
+on my build machine.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d8aae5d0e496450002f9462c6dfbfb2476099de9","2014-07-05 12:38:59-07:00","external: Add 'make sources' target
+
+This lets F-Droid download and archive all prerequisities before starting
+the build.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"6e5ea47afb45cde1c4df0bbc83ac26cd616608c3","2014-07-05 12:39:55-07:00","Update changelog and bump version to 0.80 (809)
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"

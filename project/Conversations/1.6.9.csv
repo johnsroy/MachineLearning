@@ -1,0 +1,83 @@
+"commit id","commit date","commit message"
+"3db70876588ca43687b69a3305a2547270aa0850","2015-08-28 12:16:28+02:00","use build in method on >= lolipop devices to discover dns servers
+"
+"8f4b7686c94c52563c29f100cd25599ac08a7bb2","2015-08-30 11:11:54+02:00","catch invalid base64 on omemo key decoding
+"
+"b0c19d6bac396b5f30432a8ea5e1ef5e89a89048","2015-08-30 11:24:37+02:00","fixed bug that prevented newly opened conversations to load the entire history via mam. fixes #1328
+"
+"ca262d352374622145056b3d3dea99484e035594","2015-08-30 11:37:52+02:00","single task mode for start conversations activity
+"
+"aaf3ecaf4146e35ee4b7f3d2c04c6b83a781fc93","2015-08-31 20:19:26+02:00","made useImageAsIs determination a bit more foolproof (samsung)
+"
+"74cf8320bcf918bf8b3511e752850e921a2f4df3","2015-09-01 00:13:19+02:00","tag axolotl messages with pretty-please-store
+"
+"91b0605bc29cbba55abbb32293c4b632608a00bf","2015-09-01 22:36:56+02:00","use same method to add message hints to otr message everywhere it is needed
+"
+"fc594e249a89d0bd333bca1a9958a53b7640e659","2015-09-01 22:37:52+02:00","added special error state for dns timeout
+"
+"b265341848863c864a63a079032cbe3fbd89dfd5","2015-09-02 21:57:52+02:00","Ensure uris is empty before onStart adds to it
+
+Fixes #1382
+"
+"204cee4a17cf97aaf393700782bd0bcd65e12341","2015-09-04 14:48:00+02:00","show an send button instead of the enter key in softkeyboards when enterIsSend and showEnterKey are both set
+"
+"9baa87e5c924991ff34b74fdbbc21c07c6b22036","2015-09-04 18:02:53+02:00","minimize softkeyboard only if it has been in fullscreen mode
+"
+"1848b46195a90487a8b1d9f13b99a790ed68ac48","2015-09-04 19:33:31+02:00","invoke onEnterPressed callback only if shift is not pressed
+"
+"7eb228d1a598258fe915c6ca722b7fa1a7c49ddf","2015-09-04 19:58:53+02:00","Issues with URLs with multiple dots in file. fixes #1373
+"
+"a32a577e3691e20366c89e2c5eec5156d8ae2af9","2015-09-05 14:26:31+02:00","ignore timeout exceptions on secondary dns requests
+"
+"e2d506c96a0a72b7a903d28d9b3a858430700266","2015-09-05 17:25:46+02:00","Never build a session with oneself
+
+If we detect our own ID is not in our own devicelist on receiving an
+update, we reannounce ourselves. This used to have the side effect of
+modifying the list of devices we thought were in the update set, causing
+us to accidentally build a session with ourselves.
+
+This lead to our own key being set to TRUSTED_INACTIVE, resulting in red
+lock icons on messages sent by the own device.
+
+We fix this by having publishOwnDeviceId() operate on a copy of the
+original set. This commit also includes a db migration which deletes
+sessions with oneself and sets own keys back to TRUSTED.
+"
+"2c4a6b09127c8e6776020cd90c782ab950a70324","2015-09-05 18:47:37+02:00","add null pointer check to db migration
+"
+"2bb033267b80f8ee030a20e5c447df6a22226f61","2015-09-06 15:12:33+02:00","Don't manually add keys to the store
+
+There is no need to preemptively add the keys to the store oneself.
+SessionBuilder will take care of this for us. What's more, this will
+prevent IdentityKeys from otherwise invalid bundles to show up in our
+UI.
+"
+"a95c451f1e6ee69fbf3b0072d672c3609a4b1e7d","2015-09-06 15:08:42+02:00","Only show that have sessions in fingerprint list
+
+Doesn't access database directly anymore but goes through AxolotlService
+now to obtain list of fingerprints associated with an Account/Contact.
+This should prevent orphaned keys littering the UI which previously
+couldn't be removed through the Clear Devices function.
+
+Together with 1c79982da84964c1d81179a0927d9cd1eadf53de this fixes #1393
+"
+"eff173ebc21fd77918dfcdf5d62de938152d0895","2015-09-06 19:40:28+02:00","indicate broken pep in server info
+"
+"bf64276fa7af1ee6f80e9e4eb6e77eff2fe5db6d","2015-09-06 19:46:26+02:00","version bump to 1.6.8 and changelog
+"
+"88cdd03f0f56dc6ed51e18b9d66cdf22e4603dd8","2015-09-07 13:31:24+02:00","catch npe in setupIme method
+"
+"6308dcfdd42adabbe1f4e3ec28ec8e2b4f766f8c","2015-09-07 15:46:22+02:00","added some key binding
+* ctrl + tab will open the conversations overview (when available)
+* ctrl + up / down will navigate between conversations
+"
+"6bb9983d58538e632b5170a788fd77a957365bf7","2015-09-07 20:45:21+02:00","added rotation detection to up/down navigation
+"
+"650abf1c52f815747dae5a2e3c4fb4fbb0cf01c1","2015-09-09 23:28:37+02:00","added alt as possible modifier key. use mod+(0..9) to jump to a conversation
+"
+"cf62fb5605183f9d26cebd2843280d428b29caa2","2015-09-09 23:34:42+02:00","version bump to 1.6.9 + changelog
+"
+"811e2eaeecf868b5d58a5d759d01ed264f5cd0bc","2015-09-10 10:54:15+02:00","increased dns timeout
+"
+"15d1623ec6f1fbf6af939a5d2403e3dcc7e6839f","2015-09-10 11:16:53+02:00","increment version code
+"

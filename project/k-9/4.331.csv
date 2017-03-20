@@ -1,0 +1,148 @@
+"commit id","commit date","commit message"
+"9ea46cf03b32d188d73cc74c14dd504da210bc42","2013-03-19 21:09:23+01:00","Merge branch 'Issue_4019_pinch_zoom'
+
+Conflicts:
+src/com/fsck/k9/view/MessageWebView.java
+"
+"597e95479820fe94b23972f69c5ed4d1ebdb4b73","2013-03-21 23:19:11+01:00","Avoid NullPointerException (reported via Play Store)
+"
+"2fc3909ec3b669395c872e609ddf6a54ff8d5cb4","2013-03-22 19:48:30+01:00","Fix NullPointerException
+"
+"d85af1bfe089daa4575d1cd51007681ae6ad186c","2013-03-27 12:28:44+01:00","reenable sorting by sender in messagelist
+
+This was disabled in faa666394ce0bf9e4239869ee194991d2f3308f1
+because it isn't possible to extract the name of the android
+contact in the 'ORDER BY...' clause when querying the database.
+Instead it simply sorts by the email address.
+
+This may cause the same contact to appear multiple times in
+the list, if they have multiple email addresses assigned.
+
+But in most cases this is good enough and surely better than
+not having the option to sort by sender at all.
+
+Desktop mail clients such as Thunderbird also simply use the
+sender email information when sorting the column.
+
+This also adds a SenderComparator for usage in the MergeCursor.
+"
+"340d6e0522b7cb03349e6f60ee169e8b7452fbcb","2013-03-28 19:36:41+01:00","Use themed context when creating EmailAddressAdapter
+
+Previously the activity theme was used to display the auto-complete
+suggestions. This lead to unreadable text when the activity theme was
+different from the 'composer theme'.
+"
+"c4799d20f0f3344efa4aab9eac6cfbabffff8ffc","2013-03-31 00:24:28+01:00","Fix condition on when to show 'check mail' in POP3 accounts
+"
+"ce0308f528256f1311d04e9b17e0d92d506fa40c","2013-03-31 00:48:01+01:00","Avoid NullPointerException in SubjectComparator
+"
+"f95e64f7664260b819048226a9a1f770c27838c6","2013-03-31 01:02:31+01:00","Don't create folder -NONE- when excluding special folders from a search
+"
+"33a2b05701436613b4dc305c7b7554db4f756dcc","2013-03-31 01:13:09+01:00","Get rid of accidentally created '-NONE-' folder
+"
+"48c3fbd2ba84da5ee7760ce6055ea07173f9b49a","2013-03-31 01:35:38+01:00","Don't crash when being started by an old unread widget intent
+"
+"bc665bffe16a4a594259ee09b5f5767f488f3b90","2013-03-31 16:53:27+02:00","Fix NPE introduced in 340d6e0522b7cb03349e6f60ee169e8b7452fbcb
+"
+"0ba4bf6973ec4ecaf72b82323a34061982f41f55","2013-04-02 02:17:28+02:00","Fix NPE when fragment detached from activity
+"
+"9d7eae252e937cb6b2b59f9275c7951c7a8c731f","2013-04-02 02:26:01+02:00","Avoid NullPointerException
+"
+"002e3dd5383e0281f5a6e5949e461ac577f147fb","2013-04-02 02:30:07+02:00","Avoid IllegalStateException
+
+Reported for Kaiten:
+java.lang.IllegalStateException: Can not perform this action after
+onSaveInstanceState
+...
+at android.support.v4.app.DialogFragment.dismiss
+"
+"0c5bdf2c970c28b5e301f4d79a0cdf91d6d26ef9","2013-04-02 19:17:58+02:00","Add 'Mark all as read' action to message list
+"
+"c5dc626bbcc36c36a1d6db6c8efa68c15905c838","2013-04-02 19:30:41+02:00","Show 'check mail' action when displaying Unified Inbox etc.
+"
+"b096c2bf19203e69dfe9c7d54123a3bc8725679a","2013-04-02 21:47:37+02:00","Fix unread count in notifications (again)
+"
+"41af7c0f342f06c24a404711bab988e49b0121b1","2013-04-03 02:12:01+02:00","Update German translation
+"
+"175e29b71dbb69ec3ce38143bd7564491c112336","2013-04-03 03:08:06+02:00","Make status display less awkward when checking mail from Unified Inbox
+
+We really need to fix the ActivityListener madness :(
+"
+"f363333c87ebd24d91a7e497171532f3598e8389","2013-04-02 23:48:32-04:00","simplify the messagelist chips based on lots of user screaming. default checkboxes to being on.
+"
+"b5f68d4c2cf70504c4926ca95ae41eeca60ab647","2013-04-04 07:43:28+03:00","Update strings.xml
+"
+"d969cf493c8b14aaab16ae8c761915a138199781","2013-04-05 14:21:22+02:00","Update German translation.
+"
+"e63afa55d396bff22b39ed55df390c5fe043b404","2013-04-06 13:29:39-04:00","Make the label on the 'mark read' action on Jelly Bean notifications less confusing
+"
+"e801f2d2467b8347ba3685cd4187d7128d87f28f","2013-04-07 17:42:22-07:00","Merge pull request #290 from rk4an/master
+
+Update French translation
+"
+"e325883add5f288d947a460ac586451ab72f4b10","2013-04-10 14:07:23+02:00","Fix typo in German translation.
+"
+"7d36d3da1f5a2b8cecd137f33acc3c22dff9451e","2013-04-12 20:22:43-07:00","Merge pull request #293 from justdave/notification_mark_read
+
+Make the label on the 'mark read' action on Jelly Bean notifications less confusing
+"
+"3d884a8f1cfc3140749d70e772a95d1796d6e536","2013-04-13 20:21:56+02:00","Remove explicit left-alignment so EditText works with RTL languages
+"
+"33cf1bc22225b0a8bc9a4b880e61af2bc3aa1530","2013-04-14 14:47:45+02:00","If messagelist started from Unified localsearch, verify if we are really dealing with multiple accounts. If not then set SingleAccountMode anyway.
+"
+"9da0d4416fd18eacf61bcdbb7429593c5fc7a842","2013-04-14 20:06:00-07:00","Update message_compose_reply_header_fmt to have only one newline
+
+The PREFIX quote style was using an empty line between the header and
+the quote. But mail apps using this way of quoting style do not have an
+empty line between the quote header and the quote.
+"
+"d29825fe573aca908ae9c25f66a1e0ba27ad2c41","2013-04-16 01:21:26+02:00","Fix settings file versioning
+"
+"4890cd9ea0f5ddf2756b6fe01ceb1d61f09bc387","2013-04-17 02:09:43+02:00","Better cope with messages having identical message IDs
+"
+"51ad31a5137c6cf745c90c4354fb7f48548093f1","2013-04-18 05:43:11+02:00","Avoid NullPointerException
+"
+"0d80dd8fe1db197b5c39e4a4bd40c1b943eb0dc5","2013-04-18 05:48:48+02:00","Avoid another NPE
+"
+"e15409bafa7bd0735b763d4d814338e8c8416329","2013-04-18 22:06:33+02:00","Don't show ALL unread messages for 'notification opens unread messages'
+"
+"5f49195a0a39f573e6728277ddf711fdcb26de87","2013-04-19 02:24:41+02:00","Hide 'condensed layout' setting instead of disabling it
+"
+"6c1b3cbc68a6043f657418136eb7bda9f075647a","2013-04-20 18:02:30+02:00","Change smtp+tls default port to 587.
+"
+"8f9dd78012b8fe373a8fb704a60244d50a39ad0b","2013-04-23 18:55:24+02:00","Always enable 'pull to refresh' when 'check mail' action is shown
+"
+"8c8e0d299d149afd7bc648fe50f50d1db493a0df","2013-04-23 19:25:05+02:00","Fix copyOrMove() so it works for single messages in Unified Inbox
+"
+"d14bdc0b79fd775efb57e74efcdb2d208ab7618c","2013-04-23 20:14:29+02:00","Exclude folders Trash, Spam, and Outbox from 'All messages'
+"
+"1c722876f1657e5a622c551513a6f62a6a9fa5fe","2013-04-24 01:05:11+02:00","Use very light grey instead of white for message text in dark theme
+"
+"620f56ceff9d488858557e0e4a744d7d24fc5b25","2013-04-16 18:48:23+02:00","Use a dark startup animation
+"
+"b91b86c657e7de25be26e2b62741668ad82e4fb6","2013-04-26 02:29:36+02:00","Change SMTP default port to 587
+"
+"46ed21d9f56eb051447e50bf2f595300f73338e4","2013-04-26 02:30:27+02:00","Merge branch 'smtp_port_fix'
+"
+"a92faee80858e1567e1b52ee59dfe9db2635c249","2013-04-26 02:35:19+02:00","Merge branch 'message_compose_reply_header_fmt-update'
+"
+"99daa4068f30e9bbd0af976ee6cac40038364cdf","2013-04-26 02:37:19+02:00","Merge branch 'better_singleaccount_check'
+"
+"c7024af9a1a563c539dcb23b504c39d6b088f58f","2013-04-26 02:39:48+02:00","Merge branch 'message-list-sender-sorting'
+"
+"56aad98d8571bc1ec2e9b38860feccc66a93376e","2013-05-04 08:23:54+02:00","Fix crash on Android 2.x caused by the 'flicker' fix
+"
+"edf75ec05a2294e60acd39ca5150a7284205dbe5","2013-05-05 03:03:40+02:00","Fix crash on search with multiple accounts set up
+"
+"232c88f33a3ae751f79d1e478b6b33d968b060c5","2013-05-05 06:02:39+02:00","The theme changes also crashed Honeycomb devices; more fixing
+"
+"2d6173ded9719dba0efbaa09525873a291b1a21e","2013-05-05 06:12:35+02:00","When creating accounts only use 'modern' buttons starting with ICS
+"
+"989afcd42bb6559fef96835bb19ecb7cffab647f","2013-05-06 13:09:45+02:00","Update .gitignore
+"
+"dba43cf91fcd768b6b57d1cb400483537d8d41d6","2013-05-06 21:32:01+02:00","Update German translation
+"
+"466a28f5cab4b16ccff74edf7abae2ce87519d38","2013-05-06 23:41:11+02:00","Update changelog
+"
+"1014f0de1a5fbcc0cc3fb396d5e59d91c2b99666","2013-05-06 23:56:26-04:00","Bumped manifest to 4.331
+"

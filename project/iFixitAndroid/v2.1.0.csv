@@ -1,0 +1,214 @@
+"commit id","commit date","commit message"
+"df03facdb12eace3837bfbd258c894cab67754f2","2013-09-23 13:11:28-07:00","Add feature and promo graphics and remove bad screenshot
+"
+"ab31c8b3f75979104cdddba35fc9d8b261011f86","2013-09-23 13:12:00-07:00","Add graphic resources for amazon app store release
+"
+"1b6274d048c06cdf180a11527fe0d5ccbd42e305","2013-09-23 13:15:14-07:00","String's isEmpty method is API 9 and up, use length == 0 check instead
+"
+"a96a3f671709d23a2bbf3aabb726f3ed9f967295","2013-09-23 15:35:30-07:00","Code cleanup in various places
+
+Removes old code that isn't used anymore, useless methods, comments, etc.
+"
+"a01abaec05dccab96a1ba063489d25287fcc45a5","2013-09-23 15:46:20-07:00","Fix #150 Gallery closing on orientation changes
+
+The base class's onLogin method was never called in GalleryActivity
+because GalleryActivity defined a method of the same signature that
+overrides the base class's. That method was being called twice -- once
+for the @Subscribe and once for the @Subscribe in the object listener in
+BaseActivity.
+
+Overriding BaseActivity's onLogin method and calling super fixes it.
+"
+"4dcd85068f649e2b91af241439d341d8040cb4f8","2013-09-23 16:12:19-07:00","Clean up Activity permissions
+
+Assigning values to variables makes it much easier to read and reason
+about.
+"
+"f8de3ffe7c0c67f5c67bbb913a83c023e4d53fa3","2013-09-23 16:44:36-07:00","GuideViewActivity: call super.onSaveInstanceState
+
+You should _always_ call super.onSaveInstanceState. Otherwise Fragmetns
+don't maintain state so you end up rebuilding a lot of UI elements.
+GuideStepViewFragment was broken for savedInstanceState so that had to
+be fixed for it to work.
+"
+"c1a71e7526f7ac677f32b715d6d7f32e1e26e058","2013-09-23 18:03:52-07:00","Guide view: Fix restoring guide (tools|parts)
+"
+"ab6e30dcaa11476a6343442a40821a5f39185106","2013-09-18 14:23:24-07:00","Fix Guide URL parsing error handling
+"
+"d911d5c53a2b4110a2a50e47ac9da77abf6734f0","2013-09-18 14:50:05-07:00","Move ACTION_VIEW handling to separate function
+
+This checks the current site and loads the guide if it is the same as
+the requested URL. Still need to handle the other case.
+"
+"303938c9f61a461c6df5887b9c19f4edc215815d","2013-09-23 17:06:34-07:00","Fix logout finishing Activities
+
+The order needs to be changed so we can compare the previous userid to
+the current one. Otherwise it will always be fine.
+"
+"378e1d7da640c2e7bc11914489832d8e3afe1f2e","2013-09-23 17:10:23-07:00","Guide view intent: Switch sites and load guide
+"
+"81e1aeefdfc9190b1a16c44be127ae65d336f401","2013-09-23 17:43:09-07:00","BaseActivity: Save and restore current Site
+
+This is crucial for Intent ACTION guide view because the current site
+gets changed without removing all other Activities.
+"
+"0afdc5b71463779bce5a0e5fa00bfb02bb253656","2013-09-24 14:03:43-07:00","Guide view: Allow lowercase URLs to match filter
+"
+"8735e4da4aff5618e1b394d03af09848547c801d","2013-09-25 19:10:08-07:00","BaseActivity.onLogout: Comment permissions check
+"
+"558f0d7497634031edf981b3aebb7ff459802eca","2013-09-27 18:33:30-07:00","Search: Initial working commit
+
+Search is working for both categories and guides, now on to cleanup.
+"
+"20ef80b47f4b614ac4741f641ad9190142bb7fea","2013-09-30 13:18:08-07:00","Search: Add infinite scrolling to search list view
+"
+"4b97b25c02054ddcf1d0b54159edc356dd7faf15","2013-09-30 14:07:06-07:00","Search: Convert search fragment to extend from BaseListFragment and add touch state
+"
+"628b519f460268071d044ef0ecd3c90b7e79a5f4","2013-09-30 14:33:07-07:00","Search: add recent searches suggestions
+"
+"28a825e5d4f1427f1a29bee6cc5456c748166a19","2013-09-30 15:00:49-07:00","Search: add right spacing on search result count
+"
+"95e1417f2a910581626cb107395933cdc03c06ae","2013-09-30 18:15:30-07:00","Revert 'Clean up Activity permissions'
+
+This reverts commit 4dcd85068f649e2b91af241439d341d8040cb4f8.
+
+Turns out it broke some stuff and didn't improve readability at all.
+"
+"7a389a74340a2dcaf6c3aafb6c938075850709e2","2013-09-30 18:25:52-07:00","Merge branch 'master' into action-guide-view-fixes
+"
+"ec46ad27ccb74ae4cd36d454ec7ed7ee472c585e","2013-09-30 18:45:08-07:00","Merge pull request #120 from iFixit/action-guide-view-fixes
+
+Refactor Guide view intent filtering for Dozuki
+"
+"1b985d67728f14aaa7fd742ecb8b74e2a9c34fbd","2013-10-01 14:16:39-07:00","Search: set up dozuki searchable config
+"
+"e972ab25ff8fbdb43b7b8e21eb17f6324e28c929","2013-10-01 14:31:30-07:00","Search: Use full package name default_searchable
+
+The android:value value needs to have full package name otherwise for the
+dozuki app, it would look in com.dozuki.dozuki.ui.search which doesn't exist,
+it's still com.dozuki.ifixit.
+"
+"788436df9fdf0735ba3c3fae055edcfc63805486","2013-10-01 15:32:39-07:00","Search: Remove unused xml
+"
+"e01ee2fd918701450f9ba41f8ba5bed9fd26fea1","2013-10-01 16:24:40-07:00","Search: Abstract out search menu to general parent class
+"
+"f2564fc5f28f24dfd36cea92a8bd74c22a199dfe","2013-10-01 17:05:43-07:00","Search: Tweak base list view style to include left and right margin
+"
+"d929d37109ac7a6d7590847cdc3f5d9f0a7e5e16","2013-10-01 17:06:18-07:00","Search: Launch search activity from search menu drawer item
+"
+"98c2c4590c51e6cf1ed6ec394a627b6febffdb33","2013-10-01 17:13:09-07:00","Use default app icon for actionbar logo
+
+Just testing this out for now - it gives us a lot more room in the action bar
+so titles aren't always cut off.
+"
+"01cead74bc28945351024943f220da489238f492","2013-10-01 17:19:09-07:00","Set AB title to site name on topic list root
+"
+"f33aa8ea7eec1dcf2735f21e57342aaaf5adf67c","2013-10-01 17:19:30-07:00","Search: Show error dialog on search result failure
+"
+"69e9397a40a928970bdc31df5796ca2df6803332","2013-10-01 17:22:47-07:00","Search: remove unused topic_menu
+"
+"be3fbca7b1c98e909185e39773a27283f0cc7648","2013-10-01 17:39:19-07:00","Search: various code cleanup
+"
+"74d41d1924e620243c801ea81b0945429ec21936","2013-10-01 17:54:16-07:00","Bump version numbers for release
+"
+"f44ab02d1f9d81b79f74a00939c3ce393240adc3","2013-10-02 10:48:19-07:00","Search: Remove unused interface
+"
+"b534ac75e4264acd9f62c26fa1762c99a6d7acfa","2013-10-02 10:53:01-07:00","Search: set logo as the icon drawable
+
+Otherwise older phones (API < 11) won't have a action bar logo.
+"
+"6d1be4002b841ded552fa4b20f190ae9f6fb3cd8","2013-10-03 14:14:33-07:00","Convert zealoptics to accustream
+
+Since the zealoptics app was just a test for creating a new site, we can
+just convert it to be accustream instead.
+
+Still TODO:
+1) Make a custom theme
+a) Include site logo in repo
+2) Update icon.png resources for accustream
+"
+"6b5ff9eac6c93c64d30f69d156f3f49da95aaa0f","2013-10-04 16:12:55-07:00","Merge branch 'add-accustream'
+"
+"136f661dc37debac8d204f882b8e0856e2602503","2013-10-04 14:36:39-07:00","Move site specific gradle code into functions
+
+Reduces amount of DSL to include when adding a new site.
+"
+"835dae1d6f39d01682a47a2011f189a81e032c54","2013-10-04 15:39:14-07:00","Make signingConfigs and sourceSets from site list
+"
+"ee4acc0aea6ff39f88bfe046a863e387dae5358b","2013-10-04 16:18:59-07:00","Merge branch 'gradle-site-cleanup'
+"
+"e19399c9cc8fc2814945a31e10e562b0525cffa8","2013-10-07 11:06:20-07:00","Search: Set query text to suggestion after click
+
+Once the user selects a recent query suggestion, fill the suggestion field with
+it and clear focus away from the field.
+"
+"3f722adcb6bb233e83e18f233633ad25b4ce8ea8","2013-10-07 14:31:22-07:00","Search: Include teardowns in guide search results
+"
+"939ec5203da0f60103527fb71effad93404369cc","2013-10-07 14:55:23-07:00","Search: Make base search class name more consistent with other base activities
+"
+"cc4e911e04f0667227ed47de5a1303a76e056eb9","2013-10-07 14:57:17-07:00","Search: Remove unused strings
+"
+"e57c3747d6ffe410489a9cb9c3a1e071f3d68e75","2013-10-07 15:03:17-07:00","Search: Various class renaming
+"
+"836b2c6539b2d5d5d1f83bac28245a08bc57c5b2","2013-10-07 15:06:45-07:00","Search: Fix constant misspelling
+"
+"de6c3f7b1cd445255c87f4a1e84d857ae9f7b0e9","2013-10-07 15:20:29-07:00","Search: Remove text attribute from author field
+"
+"888e24fdb8c9aa01d2681390d9dc186264407e26","2013-10-07 15:39:02-07:00","Search: Finish the search activity on home up instead of starting new one
+"
+"db8326aafefbc2c43e64d4636e4941cfec5d1808","2013-10-07 15:58:08-07:00","Search: Remove unnecessary screenSize configChange manifest value
+"
+"2afb521a7c0ba26a37f8f327faa3d03de1d308da","2013-10-07 15:58:31-07:00","Search: Remove unecessary final
+"
+"af0c90180a4357b165fb5f7259bddb5c6dcbfc03","2013-10-07 17:32:56-07:00","Search: Prevent empty query searches on searchactivity creation
+"
+"5164edb64d9555587344eff12936058587f353f8","2013-10-07 17:33:54-07:00","Search: Fix bug where new search queries wouldn't page
+"
+"41fca43e9de1003a13fe823855032d3586f619a8","2013-10-08 10:32:32-07:00","Search: No need to pass along APIEndpoint
+"
+"56c648de7d4f6c235f273bf814175fb1cb39b17c","2013-10-08 11:19:27-07:00","Search: Expand and focus search widget on SearchActivity launch if no query
+"
+"202f8974786981737a849617027664b9e254db63","2013-10-08 12:19:54-07:00","Search: Search spinner spcing tweaks
+"
+"223e38a93dcb5b3fefb05df77b136be6a2853cad","2013-10-08 12:20:27-07:00","Search: Use GuideInfo model to back GuideSearchResult
+"
+"091d543f82f3febfd6991bbcf2abbc83dceb4f1a","2013-10-08 12:22:52-07:00","Search: revert removing screensize config change, caused infinite loading issues
+"
+"a8b3793c91d0056b0737b656b3f0e81296392b9a","2013-10-08 12:27:55-07:00","Merge branch 'search'
+
+Conflicts:
+App/build.gradle
+App/src/com/dozuki/ifixit/ui/guide/view/GuideViewActivity.java
+"
+"6c7edf8633e5bacc4175046554a1b94f32a37b98","2013-10-08 12:38:35-07:00","Fix build config merge conflict bug
+"
+"955a53f3e00f05284dc13650fb91b654e465a80d","2013-10-08 12:39:12-07:00","Search: Fix bug where infinite scroll queries were not escaped
+"
+"97bc353076e00b6d224c2a30308b906f6ac61020","2013-10-08 12:39:28-07:00","Search: teardown filter for search is not plural
+"
+"fc8cf6a22d95cf1f491e2682a370e61365ff7142","2013-10-08 17:08:14-07:00","Change modified dates to doubles
+
+Modified dates in the API are changing to doubles so they have more precision.
+Unfortunately, GSON fails trying to parse a double into an int so we
+must change the type to be compatible.
+"
+"0d6dea58130f95a78ce6f7e3be32ef1452d6461f","2013-10-08 17:45:32-07:00","Fix NPE on embed steps
+"
+"74a0ddcf17f915321387fef92c27d82fbe070bda","2013-10-08 17:50:21-07:00","Merge pull request #157 from iFixit/make-modified-dates-doubles
+
+Change modified dates to doubles
+"
+"01744fb25140680ba4e9a491f595a8ce6ddcf5b2","2013-10-08 17:57:57-07:00","Fix the build
+"
+"e9a52ebb3c40ffe02a2eea96d4ace3aec2ed7f9d","2013-10-08 17:55:20-07:00","Ensure proper UNIX file format
+
+This ensures that all files have newlines at the end.
+"
+"65ba92b1bf55247f3d834ae45207906b3bfa0ae6","2013-10-08 18:30:03-07:00","Add analytics property id for dozuki
+"
+"e48226151f7ec9b55f807fb032fde02192106909","2013-10-08 18:38:05-07:00","Add search menu item click event tracking
+"
+"84ce74fd7d7bf1449dddc6b7b9b9973dca43fe5d","2013-10-08 18:40:05-07:00","Bump version numbers for release and remove unneeded value overrides in gradle config
+"
+"c0464a0f2c7df689bb8f108625311d49de63072e","2013-10-08 18:54:58-07:00","Fix null pointer on search result without image
+"

@@ -1,0 +1,61 @@
+"commit id","commit date","commit message"
+"057136af587495abce1fc235cc50a5bdf9250b45","2013-11-18 19:04:47-05:00","Fix crash when rotating while connecting.
+When being created, the MainActivity restores its references to the fragments using the FragmentManager, which looks up the fragments currently being displayed in the three positions.  However, the fragments are not actually set into these positions until the connection is complete.  Because of this, if the user rotates the device and causes the MainActivity to be destroyed and recreated, the references to the old fragments are lost.  This causes a crash when later attempting to display the fragments.  The solution is to initialize the fragments immediately before displaying them.  Additionally, a check needs to be added before hiding the keyboard using a reference to the chatFragment.  This won't cause a change in functionality because the keyboard can only be displayed once the chat fragment is actually populated with a chat, and the chat fragment cannot become populated with a chat until after the connection is already complete.
+"
+"5bb952729559d6db68d4a44c96d6fcfcfa38cd82","2013-11-19 11:06:03-05:00","Fix math issue in netsplit formatting code.
+"
+"fbd8e2f8d9179639c01af5cfb84254df1f10f011","2013-11-19 21:25:03-05:00","Stack chat ListView from bottom.
+Displaying chat lists that don't fill the whole screen starting at the bottom more accurately reflects how regular Quassel does it.
+"
+"89adc447fc2ad4257605c7f0b00132d298379c65","2013-11-20 00:19:22-05:00","Fix backlog request with size greater than remaining backlog.
+Before, backlog would only be added to the buffer after receiving the full amount requested.  However, this would not work properly if the buffer didn't have the requested amount of backlog.  In that case, none of the requested backlog would ever be displayed.  This fixes the issue by adding all the received backlog to a single list at the CoreConnection level so that it is not necessary to keep a backlog stash in the buffer itself.
+"
+"f7df945e9ba89cd3ced973e03f544f6818315e07","2013-11-21 09:47:55-05:00","Depend on android-support instead of shipping the JAR.
+"
+"f4ac5e5498a62c9e6ad677baa5ebb4f067dd3eb8","2013-11-21 09:52:50-05:00","Update ActionBarSherlock to 4.4.0.
+"
+"93dfe750af8a28b9c7a2f46a2c7f909661686def","2013-11-21 09:56:29-05:00","Update Otto to 1.3.4.
+"
+"bb6a87cf02fc4818fd9308dfb9d745570e2b0570","2013-11-21 13:08:42-08:00","Merge pull request #143 from mamarley/netsplitformatfix
+
+Fix math issue in netsplit formatting code.
+"
+"689c6afcdff498c66733c7051394b98277f984a9","2013-11-19 22:32:14-05:00","Hack to fix scrolling on GB.
+Switching to the drawer system apparently broke the ListView transcriptMode in Gingerbread.  There is probably some bug upstream (in Android Support perhaps?) to fix, but for now, apply this hack that makes the scrolling work properly.
+"
+"bc2c9275c9221653cf3611d0005e09ba9d3d1525","2013-11-21 13:27:20-08:00","Merge pull request #147 from mamarley/backlogrequestsizefix
+
+Fix backlog request with size greater than remaining backlog.
+"
+"e646df9a93e1ce46cb4c1281db2725833be4e0fe","2013-11-21 13:27:32-08:00","Merge pull request #150 from mamarley/ottoupdate
+
+Update Otto to 1.3.4.
+"
+"cdd47bbdeeb3f626eb78cc7a82df52d436fdc901","2013-11-21 13:27:57-08:00","Merge pull request #149 from mamarley/androidsupportupdate
+
+Depend on android-support instead of shipping the JAR.
+"
+"78e340a7970dde56c4e9a19a3c263401b6c841ca","2013-11-21 13:28:49-08:00","Merge pull request #148 from mamarley/absupdate
+
+Update ActionBarSherlock to 4.4.0.
+"
+"60b6a48cfc19b5cd1b20059b10220b6f9f407aa1","2013-11-21 22:31:53+01:00","updated readme for build changes
+"
+"c7d62a694f90f904e6b859a41da5f08d5faa72ea","2013-11-21 13:32:41-08:00","Merge pull request #145 from mamarley/gbscrollfix
+
+Hack to fix scrolling on GB.
+"
+"e8043321b85fc6d51debdb09ae2103f0ab96b199","2013-11-21 13:37:47-08:00","Merge pull request #144 from mamarley/stackchatfrombottom
+
+Stack chat ListView from bottom.
+"
+"cfa30d92cc8e8d0fe2826834586d700bbc98f436","2013-11-23 00:19:32+01:00","Changed targetSdkVersion to 19
+"
+"cf4b8d420808343ef704c49e033569b565162239","2013-11-23 02:41:12+01:00","Fix for crash when reconnecting after a disconnect while the app was in the background and user pressed the disconnect icon in the navigation area. Previous MainActivity was stick on the stack, and was restored causing a crash because it wasn't cleared of data. Solution is still messy, but untill we go to API 11 there are no good ways to clear the stack.
+"
+"8d4e0eb42c2782eea3257189844e9c0a42b5068b","2013-11-22 17:56:28-08:00","Merge pull request #142 from mamarley/connectrotatefix
+
+Fix crash when rotating while connecting.
+"
+"1915583bb28d2542e7e0d1ecf2d970bc21c9cde4","2013-11-23 03:17:41+01:00","Bumped version
+"

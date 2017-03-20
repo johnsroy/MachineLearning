@@ -1,0 +1,108 @@
+"commit id","commit date","commit message"
+"1ba47e7de4d478ee8bca6435ef1a2cb06b0068ee","2016-02-05 10:51:55-05:00","Prevent crash in Wiktionary dialog.
+
+https://rink.hockeyapp.net/manage/apps/226650/app_versions/11/crash_reasons/110284431
+
+Change-Id: I005f8d52517787d4155188aeef01ec3b026dddcb
+"
+"816d381b44383f409c4c80ecfa4ae8208be3b962","2016-02-05 16:06:55+00:00","Merge 'Prevent crash in Wiktionary dialog.'
+"
+"31dabbdd627e61786d711ad26b637230b4ab0d89","2016-02-04 22:20:47-05:00","Prevent possible crash when getting image via pipeline.
+
+The exception will be fed to HockeyApp, but the user will just see a
+toast.
+
+T114658
+
+Change-Id: Idc289beca38b61731e15cfff18995749a508b6de
+"
+"86bd6f2ec35f57dffafd18f15cac4f4d8db34b63","2016-02-05 16:38:29+00:00","Merge 'Prevent possible crash when getting image via pipeline.'
+"
+"1957aa1a10f7a3f03f134519bd676bd00550bc69","2016-02-04 17:17:38-05:00","Fix behavior of article toolbar in landscape mode.
+
+This is now done the following way:
+
+- When the lead image is shown, we constrain the height of the TextView
+that holds the title+description, to fill the space between the top
+toolbar and the bottom menu bar.
+
+- When the lead image is not shown, we *unconstrain* the TextView height,
+so that it's allowed to overflow the limit of some predefined fraction
+of the screen height. The menu bar then naturally follows after the end
+of the TextView. This is now also independent of landscape vs. portrait,
+so I removed the landscape-specific dimen.
+
+- Previously, we had some rather complicated code that automatically
+resized the page title to fit within the lead image container. The thing
+is, in all my time of using the app, I've never stumbled on an article
+whose title needed to be resized this way (except deliberately). It
+would make the code much less fragile to remove this part entirely, and
+simply put a 'maxLines' limit on the page title.
+
+Bug: T125881
+Change-Id: I021814582a8e4c3a1bbfdeebf2a3776c0aeed689
+"
+"90b935b656ac54df7224db6cdacdcf31da4b76c7","2016-02-05 18:18:56+00:00","Merge 'Fix behavior of article toolbar in landscape mode.'
+"
+"c1d1a118f7cbd551411dc737dd3b863dde13dc68","2016-02-05 14:33:45-05:00","Fix possible NPE when showing retryable error.
+
+https://rink.hockeyapp.net/manage/apps/226650/app_versions/11/crash_reasons/110303802
+
+Change-Id: I28a8cc7ae0ac510a0175f18848e8bc30b0f760bd
+"
+"00a1c690c715516b251bc04f11c9e364fc5289be","2016-02-08 06:36:16+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I9e882214d624dc3bc5d9cf550f93b5e57995bf52
+"
+"e517dad676cbd11c8a9e7fdbb6c6285e8cb34775","2016-02-08 10:56:32-05:00","Fix possible crash when laying out tab list.
+
+Whenever we add or remove items in the list of tabs, we're required to
+notify the tab list adapter, otherwise it can misbehave.
+
+Bug: T126224
+Change-Id: Iebb2b28b6e35f4ab56b267f1ca8b2cb62bd5b3eb
+"
+"32dd5b437b9542fbabadb4a649f8436e45574fa9","2016-02-08 16:23:55+00:00","Merge 'Fix possible crash when laying out tab list.'
+"
+"d8cc8ac5e6ca322177aed2e5375ff11672acfdfb","2016-02-08 16:31:21+00:00","Merge 'Fix possible NPE when showing retryable error.'
+"
+"9eeedcf4fa4ea5e37586012f0855c2f53422fa8b","2016-02-08 11:54:23-05:00","Prevent possible NPE when preparing options menu.
+
+https://rink.hockeyapp.net/manage/apps/226650/app_versions/11/crash_reasons/110289892
+
+Change-Id: Ib5c88595bd8c2d9a6a38ad909ed438f3aa47bb23
+"
+"0a0dc05efce875da35a75e7bdc3c8cd530ff3311","2016-02-09 09:50:21-05:00","Remove MCC-MNC header enrichment
+
+Since 2014, we've been logging a sample of IP addresses and MCC-MNC
+codes on the server side in order to remediate the drift of operator
+exit IP addresses.[0]
+
+Per Adam B. (with Dan Foy's blessing), nobody looks at this anymore, so
+let's take it out.
+
+[0] https://lists.wikimedia.org/pipermail/mobile-l/2014-April/006884.html
+
+Change-Id: I16292968666bb61c4112909d218eba754f1fa085
+"
+"0d8eeb6f85017e338cefd85f08dbaf78b7e9efd0","2016-02-09 11:03:43-05:00","Return to using mobile domain for zeroconfig requests
+
+Needed for correct server-side behavior.
+
+Change-Id: Ia5c01b62e7076e781a260835a67190e80ccc1586
+"
+"9762ccfb4f969835292ae57088ee998de842ef5f","2016-02-05 14:45:10-05:00","Add support for custom carrier exit interstitial messages
+
+Needed for Wikipedia Zero program compliance.  Further implementation
+of exit interstitial messages needed after design consult with Kaity.
+
+With this patch, Zero behavior prior to the change to desktop domains
+is restored.
+
+Bug: T119126
+Change-Id: Ie616be2c87f2e70fd27248e0bbfc82bfffc51527
+"
+"441a8eac4b876a504a00fc614612be47b9da368e","2016-02-10 14:35:51-07:00","Bump versionCode
+
+Change-Id: I33518596ec3bc1334d265ff07764b29e126b0da1
+"

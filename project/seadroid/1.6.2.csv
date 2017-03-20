@@ -1,0 +1,327 @@
+"commit id","commit date","commit message"
+"c92174d702597861cc1bab16cfd517f3eda4f228","2015-03-13 22:49:09+01:00","partial fix of issue #297
+
+this fixes file upload from all sources (local or remote).
+
+Remaining issues:
+
+- temp file/dir aren't deleted after upload
+- makes use of API level 16 call
+"
+"55434ab267ffd764bdf13c5ac6f4dc229f2583b2","2015-03-14 07:30:52+01:00","fix: fix compatibility with older Android versions
+
+turns out just using another query() variant was enough. :)
+"
+"ac9c19acae934bdbadb984439b796f405220e060","2015-03-14 07:46:10+01:00","go directly into document chooser in newer Android versions
+
+It has integrated file and image chooser support
+"
+"78dac779d29bd51856d133268aa9f07e26f5791e","2015-03-16 13:36:21+08:00","review
+"
+"7e4a5a15841c4275cf56c47db32dee4f3c65910b","2015-03-17 20:14:11+01:00","upload file with custom file name
+
+previously when uploading a file, the file will have the same filename
+on the server as locally. Now the internal API allows to give a custom
+filename.
+"
+"874c684354ca1504cb87c075d2d1906d05f42923","2015-03-18 07:02:36+01:00","refactoring: Pair<...>
+"
+"cc541b20152f19aff95ac2f80ba8c873c2de024c","2015-03-18 07:19:17+01:00","always close the streams
+
+(and never cross them)
+"
+"e5efcb48a5f652cf87354b91ae7f49a8c96e71dd","2015-03-18 18:00:49+01:00","Revert 'always close the streams'
+
+This reverts commit cb7dab1899d77eb371a4a2ab9ef36307f004aa3f.
+"
+"b832da3898ed8d6fdf93246f88816350dc646452","2015-03-18 18:00:56+01:00","Revert 'refactoring: Pair<...>'
+
+This reverts commit 5c2f7f3bb6b672c8fd66362af3b9ffaea41afe0d.
+"
+"ba3ceaf19ee45b373aaa00a4f4999d7d6a97f76d","2015-03-18 18:01:02+01:00","Revert 'upload file with custom file name'
+
+This reverts commit c2ae1919557afc491ca95fc580b70546be545531.
+"
+"f6f258796134efc5ab13e0b5ceaf07afc29043e0","2015-03-18 07:19:17+01:00","always close the streams (re-apply)
+
+(and never cross them)
+"
+"8a5824890840e4871dbdd14c4e4884da6b38f24d","2015-03-17 13:41:10+08:00","use ArrayList instead of CopyOnWriteArrayList
+
+Element-changing operations on iterators of CopyOnWriteArrayList
+(remove, set, and add) are not supported.
+These methods throw UnsupportedOperationException.
+"
+"3dca6045dc0247dc37d08197509732cfa9f86eeb","2015-03-17 13:57:14+08:00","avoid concurrent exceptions
+"
+"3ff313c13716700214a55f73a3a9e235ff1df75b","2015-03-18 10:30:16+08:00","fix review ticket
+"
+"36cc0ba28dbaafc3be9fc5feb1c42ea821f90b06","2015-03-13 16:21:38+08:00","hide Activities-tab on non-pro edition server
+
+fix hide Activities-tab #280
+"
+"29d4e0908cdf8507d7591474d88a34cd9bbbdade","2015-03-18 10:26:00+08:00","fix review ticket
+"
+"a79960afbf955fe4085571c4a8332238bfc96454","2015-03-20 17:35:51+01:00","File upload: allow to select multiple files
+"
+"dfd94c32b160a6335f6de6dba8b0fc3d3665dde4","2015-03-20 18:03:32+01:00","only show local file sources
+
+(to better match the user interface of pre-KitKat versions)
+"
+"224afbd1bb7f9ca77103d813aae4cbc97bc4e7dc","2015-03-21 09:24:04+01:00","refactor SAFLoadRemoteFileTask
+
+I used classic arrays as AsyncTask encourages one to use them.
+"
+"b3acfa1d0c30f4c4119d4fb822ff65d93dd9f4a1","2015-03-21 09:44:22+01:00","fix NPE when selecting a single file
+"
+"18a20c8310ea12d1bed1289fa99e944a33479280","2015-03-23 13:57:20+08:00","fix crashes if server unreachable #309
+"
+"976a40f8b493f259f53262978d69c3d85d59e2a9","2015-03-21 11:50:27+01:00","fix: error when uploading same file again
+
+Reasoning: Temp files aren't deleted after upload.
+If the user tries to upload the same file twice,
+the temp file cannot be created again, causing an
+
+throw new RuntimeException('could not create temporary file');
+
+We can't delete or overwrite the existing temp file, as the upload
+might still be in progress.
+
+There are other ways to fix this issue, but this is the simplest solution,
+as far as I can see.
+"
+"99fa9b1dffdb8770e1edafcb683c7cac38b658c7","2015-03-22 08:42:58+01:00","remove unnecessary if
+"
+"5dd518b1a91e620c40a50953cc2cbb14e4e9b7a8","2015-03-22 09:17:34+01:00","notify Android Gallery if media files are added/removed
+"
+"21d54727b0a6ec6d97fd0347c7f4e5582b02c832","2015-03-26 14:26:35+08:00","check network connection before uploading
+"
+"f0a8785f5fcdfb5348970b631da541a15b518694","2015-03-26 08:54:48+00:00","Added Gitter badge
+"
+"f26db6e63f16e3c11297fccc716b350713ba10fe","2015-03-27 10:15:09+08:00","remove gitter-badge
+"
+"97db72a04f3ae054c76a3cc71d6513aad636602b","2015-02-21 23:27:33+01:00","SeafileProvider: support API 21 features of DocumentProvider
+"
+"9402290ef89202f34f15c2ca7fc9d62225d4f7aa","2015-03-07 13:51:47+01:00","SeafConnection: don't hide exception in the logs
+"
+"559d076b2d0a0ae878399bff812015d60a20cbf6","2015-03-07 14:53:33+01:00","SeafileProvider: update roots more often
+
+especially important during package updates or in other strange situations
+"
+"2f03bd29fc8c95ce389a75b3a7f54e5315b7250a","2015-03-07 14:00:32+01:00","SeafileProvider: don't put strings into FileNotFoundExceptions
+
+they aren't displayed to the user anyway.
+"
+"1ea862bf299a466ca72faefaacdcfedb161e7f4e","2015-03-07 14:02:17+01:00","SeafileProvider: change document_id to use full signature for accounts
+
+just using the server name might be not enough if there are
+multiple accounts with the same host and varying emails.
+"
+"3439b576e0e89615931f59069d00c599528fd037","2015-03-07 14:05:04+01:00","SeafileProvider: fix path handing in helper functions
+"
+"320e263ea8b7e64da4f48456fdd56c1955b488b3","2015-03-07 14:09:51+01:00","SeafileProvider: improve queryRoots()
+
+* remove duplicate code
+* fix improper use of API (root id/document id)
+* support file creation
+* show username of account properly
+"
+"01f97fb11db9c04c2e86357ea3e0dec112abf088","2015-03-07 14:17:52+01:00","SeafileProvider: fix includeRepo/Dirent
+
+repos:
+
+* show repo thumbnail based on readonly/encrypted/normal
+* show repo description
+* make encrypted repos 'unclickable'
+* add WRITE/CREATE flag for writable repos/directories/files
+* small style fixes
+"
+"c495be765c4eda6d80370b2ebfaba0768843f663","2015-03-07 15:41:08+01:00","SeafileProvider: use threadpool
+"
+"970ec15be7f8b701f84b3d63b1322b9b76f15e3e","2015-03-07 15:41:42+01:00","SeafileProvider: support starred files
+
+they are are shown along the repos in a folder called 'Starred'.
+(un)starring files is not supported.
+"
+"5255c52ca7acea3c4a9f0b04872b6f4e9effb9b4","2015-03-07 14:28:56+01:00","SeafileProvider: don't open encrypted repos
+
+it can't support them, as asking the user for a password
+is impossible
+"
+"6790f5aba93670a39701bca4c48dd854a9fb6df0","2015-03-07 14:32:56+01:00","SeafileProvider: support writing files
+
+the files are updated on the server when the client closes its file
+descriptor on the file.
+"
+"180eb3c28fe038063bc30a86b342bd994a367e68","2015-03-07 14:35:33+01:00","SeafileProvider: refactor openDocumentThumbnail
+
+* use threadpool
+* refactoring
+"
+"ab9a710d748c9e8f869f23f88d71861bd6ca0afd","2015-03-07 14:36:24+01:00","SeafileProvider: support document creation
+"
+"29ef5eb6ccb96e6f2a0da5d735285c5d83d29c0d","2015-03-07 14:38:55+01:00","SeafileProvider: style and comment fixes
+"
+"431227e83550c4e185ed90fb1f9b99c0424bd292","2015-03-08 18:16:28+01:00","SeafileProvider: do file download in threadpool
+
+This is a workaround. Many users of GET_DOCUMENT/OPEN_DOCUMENT
+don't realize that opening a file might cause network access and thus do
+them in the ui thread. This results in a NetworkOnMainThreadException.
+
+Therefore do the download in another thread and block until the download
+is complete. This is also the behaviour of Google Drive's DocumentProvider
+implementation.
+
+This fixes NetworkOnMainThreadExceptions in
+
+* Android: Settings->Security->Credential storage->Install from storage
+* OpenKeychain: import certificate
+* OpenVPN for Android: import settings file
+"
+"e054dba7b680196ee4dcf23affbd30887abbe0fd","2015-03-08 18:38:00+01:00","update API to level 21 & fix travis CI errors
+"
+"2fe9a694c61210ba046c4bd9a0725c31837099b7","2015-03-10 14:10:42+08:00","improve code style
+"
+"6c2c03acc7a7fdc573bc42efcb38934c01be6f2d","2015-03-13 20:07:36+01:00","fix: SAF hangs if thumbnail download failed
+
+previously if a thumbnail couldn't be downloaded, we would return a file descriptor that
+was not closed, but couldn't be read() on either. Understandably this confused the SAF causing
+it to hang.
+
+Now we only a filedescriptor if the thumbnail download was successful.
+"
+"2560088e1e30fa6a84522e2c4a5a0a7711514d40","2015-03-13 20:16:47+01:00","style fixes
+"
+"e2b380645f29421d595d6337eb8c1ac64238ef96","2015-03-13 21:00:10+01:00","SeafileProvider: stop openDocument future more aggressively
+"
+"24a7a8e6a0650e0f64f992b42990238b4b3982ce","2015-03-13 21:06:31+01:00","Cancellation signal may be null
+"
+"21e6ad414f0e86f4c759a044ee4cf6746f4991e2","2015-03-17 21:14:30+01:00","SeafileProvier: use TransferService
+"
+"5b01c826d0885ae2f1c96f61311fdd2972e9b9fe","2015-03-19 20:31:59+01:00","catch harmless exceptions
+"
+"ee0329d93b9946f5c1765e9199c29473a074ed52","2015-03-19 20:56:01+01:00","Revert 'SeafileProvier: use TransferService'
+
+Causes SAF gui to hang sometimes. Not sure what's going on yet,
+so revert it for now..
+
+This reverts commit 89c7216196d6c0416c379dd9edd6f1fb87cf728b.
+"
+"6a22d8eaaaa186d1a9ea82ff0f7b01a826b1e9e2","2015-03-20 15:19:43+08:00","review
+"
+"af9d285ead228981b2e4a6bd915224ff9e12ce86","2015-03-27 20:42:43+01:00","SeafileProvider: fix: check for null
+"
+"c493fb8443037ea7cac5e556e67f589b9dbc2601","2015-03-27 23:32:31+01:00","SeafileProvider: fix: hang during thumbnail download
+
+sometimes the SAF file chooser can choke up when displaying high resolution
+thumbnails (like on a tabled in grid view). The reason was that we tried
+to write into a pipe with an unconected end. the pipe buffer would run fill
+and then block.
+
+Fix this by returning the file descriptor early, and then agressively close
+the pipe if we get a cancellation signal.
+"
+"2f8ea2c3786212331671c763becee80d93018ae6","2015-03-28 11:06:34+01:00","SeafileProvider: don't allow file upload / creation without network access
+"
+"2804c1486916d87d20b87ce024aa1ec695af7116","2015-03-28 13:45:50+01:00","SeafileProvider: fix: rootID and the documentID of the root are seperate things
+
+Previously I treated them as the same. After re-reading the API of DocumentContract,
+I've become convinced that this way it adheres more to what the API designers
+had in mind.
+
+(The old way did not cause any bugs, as far as I'm aware)
+"
+"0771aed350ee57b4a2fed4c849f810e2cb2fbc37","2015-03-28 13:50:44+01:00","SeafileProvider: fix: delay DocumentProvider notification
+
+The purpose of notify() is to make SAF do a new queryChildDocuments().
+
+But if the notify() is done too soon, then the first queryChildDocuments()
+is still running. This results in the notify() being ignored.
+
+This fixes the bug that sometimes the 'reload ring' would never go away.
+"
+"d476a53d9f94e3b89fa9256d7c6d8f6f29416851","2015-03-28 13:53:54+01:00","SeafileProvider: disable access if server is unreachable
+
+If the server is unreachable, we don't allow download of any files.
+To make this fact more clear to the user, grey out all entries in an
+Seafile account.
+
+The reachability test is done for every server individually.
+
+This should mostly avoid issues of users trying to download files from unavailable
+servers.
+"
+"cd029f7e8f0d28e45b40aa34f7c914f824d7f256","2015-03-28 16:45:53+01:00","SeafileProvier: fix: refresh directory
+
+change the way we avoid infinite refresh loops.
+previously the user had to change the directory to trigger
+a refresh. this is problematic if there is only one directory
+(the list of repos). the user will never be able to trigger a refresh.
+
+this fixes the following issue: There is only one server, and that
+server is greyed out due to unreachability. Then the user won't be
+able to get SeafileProvider to retest if the server has become available
+again.
+"
+"89386e5c11a49f42339ee3fc795c36e960bcce9b","2015-03-31 17:53:55+08:00","improve code style
+"
+"44ebbd39df6294283be3af402ada47579414c9cc","2015-04-01 11:35:51+08:00","show loading when resume the App
+"
+"72d08709709769f36b63c88700c32cff879a1834","2015-04-01 14:09:19+08:00","catch parse repo exceptions
+"
+"2ee81bd797a38944a64de6af93fb415c78d44888","2015-04-03 15:53:04+08:00","fix NPE
+"
+"6346337188c2d7e02b80c8aeffd5ec0f1cbc0dd3","2015-04-03 15:22:07+08:00","fix NPE
+"
+"16e93c4687974ad06576a9d8b82290994e8b8ab7","2015-04-07 11:32:50+08:00","revert loading
+"
+"067ce9f293e469536a3542520c9b89e68076aec0","2015-04-07 14:53:17+08:00","support camera upload configuration helper
+"
+"fbe1d907473f70be2752867b072ecac9c71607e8","2015-04-07 15:06:48+08:00","fix review tickets
+"
+"3369479d57c3e4eb0678aeb129c743413b57bae7","2015-04-08 15:02:33+08:00","update i18n
+"
+"5ece2ba252cd6ad855a8eed072dd5b0a37b08820","2015-04-08 15:12:18+08:00","update version code
+"
+"985707cc3873388d930d1c8b120d2bac6c65adea","2015-04-10 20:53:05+02:00","Allow downloading folders recursively
+"
+"3085d1447097bef11cd7276943120160ea6e7b2e","2015-04-10 20:56:14+02:00","Fix crashes when downloading empty files
+"
+"5e9e7210c7ee5a5ad1a40f468361b60654349066","2015-04-10 21:01:11+02:00","Fix SecurityException crashes when opening files
+"
+"9d84e7061c64b8039a53ac8bc00aa6aed3d431a1","2015-04-11 09:36:02+08:00","review #322
+
+popup a window to ask if download folder recursively
+"
+"e54c6fb73eba2bf7f484a912353add7135849eb4","2015-04-09 13:27:25+08:00","drop thumbnails within encrypted repos
+
+Inside of encrypted repos, thumbnails processed differently,
+1. forbid downloading thumbnails from server
+2. forbid calculate thumbnails locally after the file was downloaded
+"
+"ab176b8b2ee8fb6335c40f5bc0cdc1752256f206","2015-04-16 13:21:45+08:00","support hostname validation
+
+fix #325
+if the URL's hostname does not match the peer's identification hostname
+during a handshake, popup a window to ask user if trust the connections.
+If user choose to trust, persist the info and don`t borther to ask again.
+"
+"49ca491ac4cfdb4ad08fc662d513b2a707ff8a18","2015-04-22 13:42:56+08:00","fix BrowserActivity.onFileUploaded NPE
+"
+"ba66a62e89dcbb3e1f84b6a4b2d35288e653c9c3","2015-04-22 13:52:03+08:00","fix getActionBar NoSuchMethodError
+
+getActionBar is a method of api 11, so change to call getSupportActionBar instead
+Also make the class extends SherlockFragmentActivity
+"
+"8e6e00c41be6534a399c88ac47ea42b870ff9f58","2015-04-23 11:02:34+08:00","update version code
+"
+"fa5349db2583d2be75b60cffd01bd19a72fcc3ab","2015-04-24 10:47:27+08:00","correct hostname validation method
+"
+"102e1a10ce4e62507da312ae3e9fc42b4227767a","2015-04-30 13:40:06+08:00","append params on SSO request
+"
+"cc1b27292dcb0a15595d2e203676b6473d250a24","2015-04-30 14:04:23+08:00","remove ununsed code
+"
+"c1015a8cac75d58f4b900dc4b51e293b1923f9e5","2015-04-30 14:05:06+08:00","update version code
+"
+"f0f41107cfacdc16c45431d40e7d553d68ebc89f","2015-04-30 14:19:55+08:00","update i18n
+"

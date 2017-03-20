@@ -1,0 +1,153 @@
+"commit id","commit date","commit message"
+"b8f192868801ce81fefcd657e7f1b5b70c415f76","2014-03-15 00:01:05+00:00","website: update for new release
+"
+"cb8dc7bd41b19d7ba99fefae1b06771427d69260","2014-03-15 00:02:17+00:00","oops - some debug code was accidentally committed - portals should be brought to front
+"
+"0a96440f77f5498a1e1861df919d7e987755f2be","2014-03-15 00:03:12+00:00","bump version numbers
+"
+"05db7c6ca13105467d827678dbd15861783ee917","2014-03-15 16:10:20+00:00","website: update news entry with change details
+"
+"3232aa5c10c356be4b962cdc008f867876d5c41f","2014-03-15 17:21:12+00:00","fix @player level tooltip - was looking for player with the '@' - which failed
+"
+"246fa1a7d7879cbb1818686bedcc6f7c4ae53bdd","2014-03-17 07:07:02+00:00","double-timeout on debug tile fading - helps when rendering goes slow
+"
+"16cabd89bc1b1f4aadf9cfda25a3e4a31603c00e","2014-03-17 23:28:51+00:00","remove some events/timers left over from the stock intel site code
+"
+"e1752954a1136241b385eff145063647ff20396c","2014-03-18 22:14:10+00:00","and Niantic revert the changes to tile sizes a few days later...
+"
+"df4bf0bbc076b481eaf9d047dd6958d9eb8f4dee","2014-03-18 22:14:55+00:00","remove experimental exception catching code in boot func - was never that helpful
+"
+"584b8bcd72b3a19bfba358b08fd821c581626af1","2014-03-18 22:16:20+00:00","changes to queue processing timeouts after errors - should be friendlier to the servers when things fail
+"
+"4dd944a642e51c86bf6fc3da6574dcf6ac44b305","2014-03-19 04:44:20+00:00","move portal level layer enable/disable out of status bar code into a map.on(zoomend) event instead
+"
+"d019ebd15b25b2a76b60b8faadea8648e0ffcba6","2014-03-19 05:25:50+00:00","possible performance improvement - status bar display updated moved to a timer.
+so 1. it happens after any delays rendering in the browser
+and 2. performance (no repeated updates one after another - possible browser style recalculations)
+
+could move more of the code into the timer event?
+"
+"9c2720621854a5dfe4ab0353d493eff5ba8db184","2014-03-19 05:59:36+00:00","comment out L_PREFER_CANVAS setting - just in case forcing it affects leaflet's default choice
+(pretty sure it doesn't, but...)
+"
+"a03014a988b85632c3fbb0d461ec18cb4f545fcc","2014-03-20 20:33:14+00:00","tiles per edge: fallback values changed to match stock site, after they undid their revert
+"
+"0a9cc966cd98641a21f17d9384fcfe37933d9a3d","2014-03-21 04:42:48+00:00","slow animated fade speed, and add new tile status for render queue code
+"
+"8eeec788df4a424553ee264e33086a9958b64cfc","2014-03-21 04:43:33+00:00","experimental: render queue. rather than dumping all retrieved data into the render code immediately, queue it up and feed it in a bit at a time
+also, we pause a very short time between processing sections of the queue - should help ensure things are responsive if user interacts while rendering
+todo: better status bar updates while queue is being processed
+"
+"828e7b7d3d69b207f1a169c6bcbf9d8e13b4d028","2014-03-21 05:10:10+00:00","restore the code that prevents rendering short links. seems like the backend isn't removing enough (any?) links again, so they were having a big impact on performance
+"
+"6b139844681dc1c5797aed841ae99f584ea20db4","2014-03-21 05:16:07+00:00","adjust the timers used at the start of a refresh, so IITC does it's work later. should give users a chance to interact a 2nd time
+move the render queue batch size to the class - and use smaller values on mobile
+"
+"1d55d68278677999306295f8f38dcc950e2905c4","2014-03-21 12:35:30+01:00","tweaked portal levels plugin. reduced level markers and prefer high level portals.
+"
+"5cb01b5afee1fe3fa069a93f928882f1f6a0ac5e","2014-03-21 16:22:57+00:00","experimental code: alternative marker rendering system, using canvas to create icon marker bitmaps, displaying as an L.Icon
+"
+"01990b8e730cd69784b3a7f5595e844cfa309f6c","2014-03-21 16:26:19+00:00","Merge branch 'master' of https://github.com/jonatkins/ingress-intel-total-conversion
+"
+"61ed2307e4b346c80e9fc19b8fc46e4273058d50","2014-03-21 16:47:24+00:00","turn off markers during zoom animations - let's see how that works...
+"
+"ed185c39ec4009a266a9b603f8b2d6b022f93171","2014-03-21 17:11:28+00:00","add some (very) basic checks for 'error: 'missing version'' from the server
+only done in the game score update code - but this is run early, and just once, when loading IITC. it also refreshes at intervals
+"
+"2334166e69c9fa3654c4d9aef0242c29a0206648","2014-03-21 17:48:24+00:00","moved experimental alternative marker plugin - it performs very poorly on mobile compared to the regular SVG circle markers
+"
+"c6e557a5578cb559f73648ece710d383e35e8969","2014-03-21 17:49:13+00:00","another piece of experimental marker drawing code - not 100% working. committing for future reference if needed
+"
+"eeed5e01cdf9dba5eb0b0b4508d26eab6013d31e","2014-03-21 20:17:27+00:00","remove marker icon shadow
+it's pretty subtle, and was preventing clicks through it. also, some icons (e.g. the dynamic svg DivIcon from draw-tools) didn't use one, so it seems odd to have a mixture of some with, some without shadows
+"
+"2e5da846a0f3931f108dc2144432672400afd7c9","2014-03-21 22:30:32+01:00","Remove CHAT_MIN_RANGE
+"
+"aaaf2f0b460130ad153e9e8ee5a8c68cce0671e8","2014-03-22 01:00:50+00:00","Merge pull request #785 from fkloft/chat
+
+Remove CHAT_MIN_RANGE
+"
+"a341aeb8f840bb5f2fa4ad8b190210bf09153543","2014-03-22 01:02:39+00:00","player tracker: multiPolyLine removed in leaflet 0.8-dev - so let's work without it
+"
+"42ed6566e49dcfa81ae3be0b3bdee9ebd586e53f","2014-03-22 01:04:00+00:00","DEG_TO_RAD and RAD_TO_DEG removed from L.LatLng in 0.8-dev builds
+"
+"a275ea1673bacca6b48e7660854005b404e512f4","2014-03-22 01:46:51+00:00","geodesic: remove dependancy on L.LatLng.DEG_TO_RAD/RAD_TO_DEG, in preperation for leaflet 0.8
+"
+"c0d0d87946d1474aff81410dc874defebdb1e54d","2014-03-22 02:53:28+00:00","bookmarks plugin: clicking a bookmark icon selects the portal
+"
+"480381d5e970452a275aa44a0d3d168b0fd9cc2b","2014-03-22 03:03:51+00:00","leaflet: modify to handle canvas-based path redrawing better. the correct fix is only in the 0.8-dev at this time, but that's not stable enough to use
+NOTE: only leaflet-src.js updated, and NOT the minified leaflet.js
+"
+"ffc056505fd8a4b0ff3f62568f0cf9e242e484e0","2014-03-22 03:05:27+00:00","switch to non-minified leaflet-src.js (see 480381d5e970452a275aa44a0d3d168b0fd9cc2b) and enabled L_PREFER_CANVAS
+"
+"427614ccca8665a762f9e9e7185f25e517c6946a","2014-03-22 03:34:46+00:00","mobile - show-user-location
+1. if canvas-based layers are in use, don't draw the hack range marker (as any leaflet path-based drawing is slow, and they don't support SVG styles)
+2. only add/remove the circle marker layer when needed - as the leaflet library doesn't document what will happen if a removed layer is removed again, or an added layer is added again
+"
+"4d72137e123f13d7ad3c2c32396d9c7a3d9fc657","2014-03-22 03:42:59+00:00","render queue: when using canvas-based L.Path-s, it's most efficient to draw as much as possible every time - so quick-n-dirty change to the batch limits
+"
+"2084117bd8ef70346c58a00a5ee8cb56da4d1a1b","2014-03-22 03:43:52+00:00","with canvas based L.Paths, it's inefficient to draw too frequently, so reduce the debug tile refresh rate even further
+"
+"fb7eae8473f9acda40f3112add390030f02ac8bf","2014-03-22 19:07:57+00:00","don't enable canvas rendering by default. add a plugin to change the setting instead
+"
+"f47b1211d286e1ea5b050a3df459aa4e9d711789","2014-03-22 20:06:45+00:00","canvas render plugin: add setting to window object outside of wrapper - this makes it work on mobile despite order potentially being wrong
+note: also unsafeWindow version attempted, for tampermonkey/greasemonkey - but this doesn't work for some reason
+"
+"95ed0ddd7b93a7a530bf53d86037343e5fc410eb","2014-03-23 01:23:36+00:00","some refactoring and improvements in rendering
+- don't render portals or links outside the bounds. the backend returns lots of link, and some portals, outside of the data tiles
+- moved more of the render pass start process inside startRenderPass function, rather than having to call separate functions in the data request code
+"
+"6408a1151c714c31a285e726a2a020b186ab89cf","2014-03-23 21:23:06+01:00","[plugins/bookmarks-by-zaso] audo draw: show distance between selected portals
+
+/cc @ZasoGD
+"
+"4a4346a4199687ac90078c3120127551de1af23a","2014-03-23 20:55:32+00:00","max-links: only count portals visible on screen against the portal limit. the recent larger data tiles for map data pull in more off-screen data, making the old test unreliable in some cases
+"
+"5a033a971af9e84f15bbfc96246782f922fdc974","2014-03-23 20:57:04+00:00","Merge branch 'master' of https://github.com/jonatkins/ingress-intel-total-conversion
+"
+"64bd129c025e5100f9dde237fc71f57c15baba60","2014-03-25 00:24:12+01:00","bugfix: update portal level layer if it already exists instead of ignoring the addLabel call
+"
+"e6c7858ecafbee0a929f01925a955b5f1c73067e","2014-03-25 00:24:52+01:00","bumped version number of portal lvl plugin
+"
+"16212b2032b3436db93bbc3d6d6a9bf04f7272d6","2014-03-25 01:09:10+01:00","remove redundant layer check...it's done in removeLabel function too
+"
+"6bc18d6c86a0955edb7f73770c53ad462b6548c1","2014-03-27 00:33:01+00:00","make all region lines non-clickable
+"
+"a9d58bc646c9edc188541ca5694ef2b34f260f34","2014-03-27 21:02:12+00:00","website: re-order the test builds page so mobile is first
+"
+"c2823c7dab0bd74eb764e4822247265d0bb697ac","2014-03-31 14:57:33+02:00","updated mobile README
+"
+"f045cd5714d862639219ba4929b9e6975a8bfeda","2014-03-31 18:11:26+01:00","fix portals-list for portals with no title
+fix #789
+"
+"22299adcef346a121634050c9152379c9975f1ae","2014-03-31 18:15:46+01:00","update portals-list to use current permalink format (ll & pll) rather than the ancient latE6/lngE6/pguid format
+fix #788
+"
+"c8a004e1e17241ae24220774e510d5230b26e3f6","2014-04-01 14:30:13+02:00","Merge branch 'master' of github.com:jonatkins/ingress-intel-total-conversion
+"
+"0bbd1987d6b8fe9fca947cc04887c1e61716eed8","2014-04-01 14:33:37+02:00","reverted portal-lvl-numbers plugin changes commited by accident
+"
+"4a040e2db2718e393d7da397ccb91ab4e68e0c10","2014-04-14 23:00:09+01:00","simplify display of incoming/outgoing links
+- use words rather than symbols
+- place outgoing first - it's more important
+- tooltip gives a few more details, including outgoing limit and total link count
+"
+"0ad03742d1b7b13ba3e40fc69631d0451862e066","2014-04-21 15:25:48+02:00","Merge branch 'master' of github.com:jonatkins/ingress-intel-total-conversion
+"
+"41e60d5adc99020ec94ca126ce48ec3fef2157f8","2014-04-21 15:31:57+02:00","load plugins in alphabetical order, load main script last
+"
+"e090bdefae71a03d2edfd8188e3725c490dd0077","2014-04-22 10:22:22+01:00","remove some unused constants
+"
+"86dab0384c1330909265e9ff6f74595ca8777d90","2014-04-22 10:22:46+01:00","Merge branch 'master' of https://github.com/jonatkins/ingress-intel-total-conversion
+"
+"80348dd0747b2b874e1cc1e0da60e082b624fd12","2014-04-23 00:18:39+01:00","quick fix for importing draw tools, etc files - text/* works so much better than file/*
+it should probably be passed through from the javascript side though...
+"
+"f0134d45f1e4fcaee346ae6a65c0b8e73fdf26af","2014-04-29 00:28:36+01:00","update munge code for 2014-04-29 site update
+"
+"395502dcef7fed9b9b04fe2d4b212c0b2e67ccec","2014-04-29 01:09:30+01:00","update code to support extra level-related parameters supplied in the PLAYER object, negating the need for lists of XM and AP values per level
+"
+"1e58fbbd4455948c66706d2d941b73dba14dde26","2014-04-29 04:33:45+01:00","missed a level-related change from previous commit
+"
+"13da501548ed2e474932a58631b993808fa52701","2014-04-29 04:37:15+01:00","Merge branch 'master' into release
+"

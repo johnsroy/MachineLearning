@@ -1,0 +1,613 @@
+"commit id","commit date","commit message"
+"8639dae9b69d3103e6a608a31e7a8946d7309ef3","2013-01-26 15:35:20+01:00","Warn the user about the failed load of the texture cache
+"
+"5968dd77d8444f7d068435e80e163629372b3e12","2013-01-26 12:20:54-05:00","More documentation in Utility.java
+
+Also added comments to some private methods in there as well.
+
+Changed some try-catch blocks to catch the specific exceptions they are capable of throwing. (Using Exception is bad because its too general).
+"
+"370a9f6c8337fa870f4454f253201d33d5b827ff","2013-01-26 12:46:47-05:00","Add javadoc to FileUtil.java and SubscriptionManager.java
+"
+"d80099cb88200d72527e4ec992bbbedfa7d981d9","2013-01-27 02:02:54-05:00","Add a TODO.
+"
+"87dfe91ac2e33118740b185631daeaae264d0808","2013-01-27 11:41:51+01:00","Fix loading of non-png hires textures
+"
+"fee00e194ade957398b4e0ff5a2f227c1a01c18c","2013-01-27 11:56:57+01:00","Warn the user about the failed load of the memory texture cache
+"
+"7ef526534d32978b5e958fa85cf030825a5a6bbf","2013-02-02 22:23:17-08:00","OSX build fix
+"
+"027c4cc2d889b2ed0a277f689a80b9438da8bbdd","2013-01-27 17:19:58+01:00","Refactor jpeg module.
+"
+"7ff1b0620d70092bfda4bbfddee5e9ac6e1c3a92","2013-01-27 17:22:56+01:00","Add support for Pokemon Stadium (Japan) jpeg decoding task.
+"
+"4e2847318b7c24eb2caa82cdcdcbea547f11b395","2013-01-27 14:12:51-05:00","front: Modularize a bit of code, some cleanup.
+"
+"8f86c1612ca7c5f4488ce4c72e5de008b9724940","2013-01-27 15:18:44-05:00","front: Automatic, robust, deterministic controller bias compensation.
+
+System starts with an auto-classification of the axes based on their
+max and min values as reported by Android.  We override certain special
+cases (xbox 360, nyko playpad) where the auto-classifier gets it wrong.
+The lookup table for handling special cases is keyed on a signature, a
+concatenation of the axis codes supported by the controller.  This way
+we don't need to identify each and every xbox clone controller; they
+will all produce the same signature hash since they all support exactly
+the same axis codes. Seems so obvious now in hindsight...
+"
+"11a5cb09ea4ec5f5d487ff84138f4c1e8ce6040a","2013-01-27 15:40:04-05:00","front: Added PS3 AXIS_GENERIC_n to the ignore list.
+
+These are the pressure-sensitive face buttons of the PS3 controller.
+They are rather buggy on both my official and my knock-off PS3
+controllers, only giving readings for three of the four d-pad buttons
+and nothing for the ABXY buttons.  So we'll just ignore them so they
+don't get mapped accidentally.
+"
+"303a897b58d0d20445eab27301eefaa5995500b3","2013-01-27 15:40:52-05:00","front: Removed LazyProvider and all its non-determinism (yay!)
+
+So nice to get rid of this pile of hacks.
+"
+"9374deac3a44796eb5ed8f682fb9b2283834bca8","2013-01-27 16:05:37-05:00","front: Tweaked input mapping menus and removed obsolete resources.
+"
+"4db0c0676e30d0119109b2a98a3b348f830560d5","2013-01-27 16:24:06-06:00","front: Add preference for selecting R4300 Emulator
+This is not yet complete.  Something is wrong in the native code, as pure interpreter and cached interpreter modes are freezing.  I suspect the problem is with some of the #ifdef NEW_DYNAREC blocks (seems to be an assumption that a core library built with the new dynarec compiler flags will not be used in pure interpreter or cached interpreter modes)
+"
+"c1f816030a7b33199ff30c79960f555669165116","2013-01-27 18:11:59-05:00","Remove unused javadoc.
+
+Make an exception specific in SerializableMap.java
+"
+"dbdd2b865e04434be8d8710bf9ac47533970db89","2013-01-27 19:53:11-05:00","front: Missed a couple minor things in my last commit.
+"
+"9dc9be1ff8f5f67ab25d23d8983dfe58596536eb","2013-01-27 20:50:24-05:00","front: Added missing implementation for popup listening to axes.
+"
+"f9541c5037395067891319a6e9e798073adb2f57","2013-01-27 23:02:15-05:00","front: Added an info dialog for analog axes, cleaned up some resources.
+
+Should simplify things in the future if a user has difficulty with the
+auto-detected biases.  Devs just ask the user to report what they see
+in the 'Analog info' window.
+"
+"d4672b130ffbbceb2e96f433162682764471fea2","2013-01-27 23:10:42-05:00","front: Added input map profile for Xperia PLAY.
+
+A complete example of how to hard-code new profiles.
+"
+"16ef97232d5233b6bf130ba3d4ee958472a57246","2013-01-28 10:33:04-05:00","front: Updated string resources; added Dutch.
+"
+"096d833d80e62ff9c59aa0dbaf4ad9135037186a","2013-01-28 13:09:01-05:00","cleanup: Renamed some string keys and pushed to Transifex.
+"
+"5be1f9be9d88e5e59b5d7d59fa429eb32af9ba58","2013-01-28 13:16:46-05:00","cleanup: Pulled strings back down from Transifex.
+
+This just refreshes the xml and ensures we don't have any orphaned
+resources.  Makes diffs more informative later when we pull again.
+"
+"c678e7c4b97272448949f2d088373bdf39e8d2a7","2013-01-28 22:01:09-06:00","front: Made 'Menu' and 'Back' keys mappable
+I couldn't find an interface for doing KEY_UP and KEY_DOWN events separately.  The native command 'input keyevent' simulates a KEY_DOWN immediately followed by a KEY_UP.  This may be sufficient for these two particular functions, but would prefer a better solution (should see if there is an open-source IME to borrow ideas from).
+"
+"6d62e35b802a00262201eb2aee4aec03de2400a0","2013-01-28 21:34:14-05:00","cleanup: Renamed a couple resources for consistency.
+"
+"4e806684d57ae9f7f9b0a87308fbc0b767ba48b0","2013-01-29 18:42:40+01:00","Speed up texture loading by reducing status updates
+The status updates are limited by the amount of frames which can be rendered.
+Showing a status update for each hires texture limits also the loading of them.
+This gets even more problematic when vsync is enabled.
+
+Now only every 0.25 seconds a status update is made. This is enough to keep the
+user a feeling what is happening and still utilize the CPU and the I/O enough.
+"
+"47b3c9fc24a9c6b43d851f534c3e8d61bf8df0c4","2013-01-29 18:42:44+01:00","Enable link time garbage collection when link time optimization is enabled
+"
+"015ad9e70d8b70e18567cf29bc44c0914e248d0a","2013-01-29 21:27:36-06:00","front: Added OUYA-specific resources, settings
+For now, I am just using the hardware string from proc/cpuinfo to identify the device as an OUYA.  I'll replace this with logic that checks for the presence of the OUYA framework, once I figure out a simple method for doing that.
+"
+"ea1114ac5ced64750c40d03885d285b9a6bc0331","2013-01-29 22:07:56-06:00","front: Disabled action bar when running on OUYA
+"
+"e8a07b1204397438ae9df378ff4f60c93aef519f","2013-01-29 23:48:42-06:00","front: Disable touchscreen section when running on OUYA
+"
+"f02918a3cf01df6688c6d0e4939c33f15eb8d89a","2013-01-30 10:27:33+01:00","Use SDL for time keeping to allow compilation under windows
+"
+"1c1d3c89b708f80a5e1fc1ac764e060f1b33c38b","2013-01-30 12:37:51+01:00","Reenable link time optimization for the m64p related c files
+"
+"2bdbc34e3c6d0eb5b6277da90b59fe428e1f74e9","2013-01-30 09:19:53-05:00","bugfix: Fix NPEs from BugSense
+
+https://www.bugsense.com/dashboard/project/ad73db70#error/101833340
+https://www.bugsense.com/dashboard/project/ad73db70#error/101132438
+https://www.bugsense.com/dashboard/project/ad73db70#error/100675473
+https://www.bugsense.com/dashboard/project/ad73db70#error/102012673
+https://www.bugsense.com/dashboard/project/ad73db70#error/102126205
+"
+"c9a27ade8e30146229a2d43b50aefe7eff8991c0","2013-01-30 09:24:40-05:00","front: Added partial Turkish translation.
+"
+"f2c1e5dfa189b15d699f594847c9a5dda1f1b44a","2013-01-30 20:13:31+01:00","Implement Autohold button via custom skin
+
+Allow auto holding buttons when pressing more then 1sec. Autohold is
+applied when releasing the button and notified by a vibration and a mask
+drawn over the autohold button.
+
+Here's a custom skin exemple for mario kart implementing autohold on Z
+and A buttons (small screens only):
+
+http://dl.dropbox.com/u/27654797/Skin_Mario_kart.zip
+"
+"4447a578b8a8df950fab49541ca1bc74cfc0f3fc","2013-01-30 20:35:48+01:00","Don't crash when invalid hires image was tried to load
+"
+"64e3dfc016f15ad418b0019df3de9dfc69ce481f","2013-01-30 20:35:48+01:00","Crop overlarge hires texture like Glide64
+Texture packs developed with the focus on Glide64 seem to use too large texture
+from time to time. Glide64 crops these textures correctly before they get
+replaced.
+
+Rice tend to just drop these textures. Cropping them in this context seems to
+be more appropriate.
+"
+"25aae0f1c6ac478229b403ba9a2b6e2fd49af22e","2013-01-30 20:35:48+01:00","Use libpng to do load images as full (A)RGB images
+The pngrw functionality for loading PNG files failed to load many texture
+images because it didn't expect the bit depth and similar parameters. Rice only
+needs 24/32 bit png files and therefore it is good enough to use the libpng
+functionality to load all files as (A)RGB images.
+"
+"93ef3da9a8e43274ff4dc0f0dfa5ca6492125c9b","2013-01-30 20:35:48+01:00","Ignore size and fmt in CRC to be able to load textures for Glide64
+Glide64 ignores the fmt and size information stored in the name of the hires
+texture when searching in its index of textures. Rice instead replaces the two
+lower nibbles of the crc32 with the size and fmt information. This causes
+problems when Rice tries to load texture from texture packs made especially for
+Glide64.
+
+The behavior of Rice is changed to find texture like Glide64. The option
+LoadHiResCRCOnly can be set to False to restore the old behavior
+"
+"f6a255bf25aefcca2721bb3911359f2592bd5a1f","2013-01-30 20:35:48+01:00","Speed up initial png info loading by not loading the entire content
+The loading of PNG files is usually CPU bound. This is caused by the filters
+and compression used to reduce the size of the file. This operations aren't
+necessary when the content is dropped directly after reading the image.
+
+Only loading the PNG headers makes the loading of a complete hires texture
+set nearly instant when the I/O is not limited.
+"
+"970f207a8d6164450f34fa79f82032069c6551a6","2013-01-30 20:35:48+01:00","Enable link time garbage collection when link time optimization is enabled
+"
+"7019a53cc17b031906d6b4285183dc9247f43d27","2013-01-30 20:35:48+01:00","Use the found hires filename instead of regenerating it on load time
+Hires textures in Glide64 can have fmt and size set to a wrong value and still
+get loaded. Rice has to store the name of the filename when it got found to
+allow it to load such wrong named textures. Otherwise it is part of the index
+and on load it will fail to find the file again.
+"
+"db91e6d6477e33c02eef4512cc1f03df72c6b29c","2013-01-30 14:36:24-05:00","front: Added in-app change log with popup dialog on update.
+
+The change log itself is a text file in the assets folder. This file is
+only extracted to memory, which is why it's not in the mupen64plus_data
+folder.
+
+The last run version is persisted and compared against the current app
+version. If they differ, it pops up a changelog with just the new
+changes since last run (can span multiple versions, e.g. a user going
+from 2.0.2 to 2.0.4 would see the changes made in 2.0.3 and 2.0.4). The
+persisted code is updated to the current code, so this is only shown
+the very first run after an update.
+
+I feel this is an important feature, as it may not be obvious to a user
+when a certain game has been fixed, a certain controller has been
+supported, new video settings are available, etc.  It also shows that
+the project is alive and continually being improved, and that it is
+always a work in progress.
+"
+"9e88bf92f4509e21af3d250d83d2d63441b7163f","2013-01-30 15:10:50-05:00","cleanup: Added missing Javadoc.
+"
+"9e46662cb7ebb728bf03a30368f02807ae13a7a9","2013-01-30 15:26:03-05:00","cleanup: Updated changelog.
+
+I recommend that we update the changelog as soon as features are pushed
+so that Paul doesn't have to (remember to) do it when he publishes.
+"
+"e6659350a8d6bcf829ab2a7edf12dd5fb6bbf09b","2013-01-30 15:32:25-05:00","git: Fixed mis-classified auto-crlf settings for assets, drawable.
+
+Not all files in these directories are binary.
+"
+"c737ab39ea16cb47f66af9e6edcebe1e63a79d63","2013-01-31 08:48:37-05:00","- Added missing explicit Overrides.
+- General cleanup
+- Clean up some javadoc.
+- Change a for loop into a foreach loop.
+"
+"d8a727995ef416ed85ac9c38df06172bf5f6537c","2013-01-31 09:00:55-05:00","Rename autoHoldImage array to autoHoldImages. This makes more sense.
+"
+"393e6a7bd19ebb9549a96c0b6fd9ea4428206a7f","2013-01-31 20:27:21-05:00","front: Minimalist implementation of joystick-navigable mapping menu.
+
+There are two ways I envision modifying the input mapping screen for
+the OUYA version.
+- Tweak the existing design so that pressing the d-pad simply moves
+the focus to various buttons (rather than highlighting the buttons
+it is mapped to).  The user just focuses on the button they want to
+map and presses the select key.  Requires minimal changes to the
+code.
+- Provide an alternative layout for the mapping screen, e.g. a list
+of mappable commands rather than a bunch of buttons.  This requires
+more modification to the source but would probably provide the best
+user experience.
+
+The second option is mostly implemented on a local git branch, but is a
+little cludgy and could really use some polishing/refactoring. Since
+it's so easy to do, I implemented the first solution as well, which is
+represented by this commit.
+"
+"98ff348073fb6403b751db4da5755fd45e523938","2013-01-31 20:27:56-05:00","cleanup: Eliminated some constants.
+"
+"0754b8c9e84e29f45005d34a1357d992b286e05f","2013-01-31 22:37:05-05:00","Fix screenshot and OSD, attempt vsync
+Some copyright blocks added
+"
+"dcea75e4d003522f7060b6eb940f46ba6bfe2acf","2013-01-31 22:48:19-05:00","merge from fixes branch
+"
+"575f69417a642f3bf3e93404a4bebb1522d08f82","2013-02-01 09:11:30+01:00","bugfix: Fix autohold button not releasing
+"
+"a27c5858eacc27b3f8dd48ee8cfd810cf8cab15d","2013-02-01 10:01:53+01:00","Enable link time garbage collection when link time optimization is enabled
+"
+"fb766061869c6c84679864e1dac3231ce92217c0","2013-02-01 09:50:27-05:00","front: Added folder icons to all file/folder selection dialogs.
+
+This infrastructure will also be used to create the enhanced joystick-
+navigable input mapping screen.
+"
+"9328752b15dd90e149facdb11e174d8a90a6a13f","2013-02-01 09:59:52-05:00","cleanup: Changed some variable names for readability.
+"
+"e9bc88f81981d8413e867bbfef420cf8d77ea2d5","2013-02-01 22:13:07+01:00","bugfix: another fix for autohold
+"
+"0619195d25ed635b03bdcf27af89ee680a38cc2a","2013-02-01 17:52:18-05:00","front: Implemented list-based input mapping screen for OUYA.
+
+Supersedes the functionality provided in commit
+393e6a7bd19ebb9549a96c0b6fd9ea4428206a7f
+"
+"963056b023d8eeb36e006a79e13fabd7dae477b4","2013-02-01 17:52:54-05:00","front: Added a preference to manually override OUYA mode.
+
+Preference located in the Advanced menu.
+
+Default value is 'auto', which just determines OUYA mode based on
+hardware configuration.  OUYA users can use the standard interface if
+they wish, and non-OUYA users can use the OUYA interface if they wish.
+The latter case is an important one, not just for debugging the OUYA
+version, but also for users who want to plug their phone/tablet into a
+television and use only a gamepad for interaction.
+"
+"25e8bede19cad5daa16cfc83940a6e4bbd358e20","2013-02-01 17:53:19-05:00","bugfix: Fixed ListPreference summaries for pre-ICS devices.
+
+Bug introduced in commit
+59ca551bd27f1db09dca295c2e9f2c28b1da85bd
+
+Android's documentation for ListPreference.getSummary is misleading, as
+the string substitution feature was not introduced until API 14.
+http://developer.android.com/reference/android/preference/ListPreference.html
+"
+"19d36dd151323bc3b854f954b047489346a3a01f","2013-02-01 17:53:39-05:00","cleanup: Fixed variable name for consistency.
+"
+"1d91ba6353ea861883261223351e7701cee4a1db","2013-02-01 18:43:12-05:00","front: Updated change log.
+"
+"4dbcb883ccdac7a1c80501b353ae2d2c0ae34508","2013-02-01 19:10:19-05:00","bugfix: Fixed file dialogs for pre-Honeycomb devices.
+"
+"0f9ef2ec183e9b17f6e4571e57f1e0da8f6c531f","2013-02-01 20:56:57-05:00","bugfix: Reverted to bold text folder names for pre-Honeycomb devices.
+"
+"6b45e5a351fc207ec6f644389f3f3445a1ee709f","2013-02-01 23:28:39-05:00","cleanup: Fix capitalization for consistency.
+"
+"8dfeffc63b4a6115e456e54029170325ef2613e4","2013-02-01 23:57:24-05:00","cleanup: Reduced font size for plugin credits.
+"
+"b072bf2b49b4e5a7beb3b1c6a03d2aa0dd10b32f","2013-02-02 23:58:57-05:00","front: Added custom input mapping profiles.
+
+User can save and load their own customized input maps. The maps are
+persisted to files, located in a subdirectory of the user's game save
+directory. Thus they persist through uninstalls and preference resets,
+and being text files they are easy to manually edit and share.
+"
+"955ede1bdc8fb998f93c75ca692e6f5fd3eab8fd","2013-02-03 00:03:14-05:00","front: String tweaks.
+
+After playing for awhile, I think seeing 'Save' and 'Load' as the first
+word improves recognition.
+"
+"9533e63a9cf8e3d88512ec68dfe70bd3cdd7891c","2013-02-03 00:18:19-05:00","front: Tweak input mapping profile menu.
+
+Even though 'Default' and 'PS3' are the same thing (for now), I think
+having a default option is helpful to users with other controllers not
+on the list. It's more clear which profile is the most 'generic'.
+"
+"e10b6033a2454178c0a2e2cd124e0c5223541839","2013-02-03 00:31:30-05:00","front: Default input map captures Nyko Playpad triggers.
+
+Default map is the PS3 map plus mappings for the gas/brake triggers.
+"
+"639943150dc73bcf0b92b91b7a61a159a48fdbbe","2013-02-03 00:41:45-05:00","bugfix: Fixed FC on load profile.
+
+No idea how this slipped through all the tests. Must have accidentally
+reverted a file before committing...
+"
+"9f1df227da869910d2f074c290a400edd7267e10","2013-02-02 21:58:07-08:00","merge patches from npepinpe: new-dynarec-u_int-fix branch and osx-use-system-zlib branch
+"
+"f7532d62cd809ec471fa6b26bcd7846a8149b56b","2013-02-02 22:16:48-08:00","OSX build fix
+"
+"5dfde8da4c41dcbe5426eb32a27ce346bcbe2934","2013-02-02 22:18:12-08:00","OSX build fix
+"
+"33235df9d668f4d58c00024c56ee7868ce440d4a","2013-02-02 22:19:06-08:00","merged heads
+"
+"e1701fc6c583349f076eb6318fc59bdf4115eb3d","2013-02-02 22:21:33-08:00","OSX build fix
+"
+"47c9b2dd4cffdd70ecc41e5edc106f0bdd3c70d8","2013-02-02 22:22:22-08:00","OSX build fix
+"
+"e3116b7d2f2be5af25d4a741191338ba551ea4f7","2013-02-02 22:24:04-08:00","OSX build fix
+"
+"4d70a77201c40dbe06500f5e9e104c4f29e54a17","2013-02-02 22:28:06-08:00","merged heads
+"
+"a951f84ad91bfc1fe4fa3bd7652255bfb248763d","2013-02-03 10:30:04-05:00","bugfix: Revert file chooser styling for pre-honeycomb devices.
+
+Same fix that was done for PathPreference in commit
+0f9ef2ec183e9b17f6e4571e57f1e0da8f6c531f
+"
+"12553c673200d447e03fef26534edda91531d565","2013-02-03 10:34:51-05:00","front: Update changelog.
+"
+"c0626a9032ece29469d000a388776d21ca16c1a4","2013-02-03 09:42:14-08:00","merged heads
+"
+"fc4b00185a4fe7d23ef97c7a5a65332eb3067093","2013-02-03 09:59:10-08:00","merged heads, fixing conflicts in src/TextureFilters.cpp
+"
+"e48c7fe205ac344ac287fe580c95b66c3b0b07ef","2013-02-03 10:07:24-08:00","update wiki doc for new rice video plugin config parameter
+"
+"da94f86d77a30e09b07b7017b81625e671de7479","2013-02-04 08:33:45-05:00","cleanup: Fixed some javadoc.
+"
+"f3917053fda5c9307ef025ebc4caa551d4e42414","2013-02-04 08:56:21-05:00","cleanup: Removed now-superfluous code.
+"
+"9f262528a9f5d6f9d1e933042a62fd1e1b290b1c","2013-02-04 10:29:39-05:00","doc: Updated input architecture UML.
+"
+"a580c7807a5cca3c571b09e6cfd8612aca4f3d49","2013-02-05 08:43:17-05:00","front: Unavailable controllers removed from PlayerMap on refresh.
+"
+"1f2782ede1d2f4c1788efd6b101633edbebf3888","2013-02-05 22:31:45-05:00","bugfix: ListPreference summaries refresh; backported ICS functionality.
+
+A ridiculous workaround for an Android bug and poor API documentation.
+"
+"c2685fe1dd424a45621da023f02380432ad67c3b","2013-02-05 22:33:35-05:00","doc: Update changelog.
+"
+"bc9e0b9a158c701aba6444e8cfbe454915df7024","2013-02-06 20:38:57+01:00","Added sliding out method for autoholding buttons
+
+Users can now choose between long pressing and sliding out method for
+autoholding buttons.
+"
+"a812a5226cf2d03f110b73c22d59aea424322c82","2013-02-06 15:56:55-05:00","cleanup: Add constants, tweak comments, improve readability
+"
+"96e0d4bcc9013553a3fc17b466d105061997016e","2013-02-06 16:01:56-05:00","bugfix: Fixed force-close on Xperia PLAY due to NPE.
+
+OnStateChangedListener object is null for touchpads.
+"
+"c93fdb641041440d647eca7fdba790d1a5f352aa","2013-02-06 16:12:28-05:00","cleanup: Adjust string keys to match naming convention, tweak strings.
+"
+"395ecfa11529c6a84b9a8b3050d6c124fcb809db","2013-02-06 16:18:52-05:00","front: Added option to disable touchscreen auto-hold.
+"
+"1f7d206e4558052ec7696f77961d3a1d2edceb6b","2013-02-06 16:25:12-05:00","front: Disabled auto-hold for xperia Play touchpad.
+
+If auto-hold is a desired feature for the touchpad, then it should have
+its own preference (it shouldn't use the touchscreen's preference).
+Since it doesn't have its own preference right now, we simply disable
+the feature on touchpads to avoid user confusion. My guess is that such
+a feature would be less desirable on a touchpad since there is no
+visual feedback to the user. Also, in the current implementation the
+feature would only affect the C-pad.
+"
+"9ac95ebabb16f3124e7191df8556d1e5082f0522","2013-02-06 16:55:43-05:00","bugfix: Disabling auto-hold now works properly.
+"
+"2324ba13d9e765d58a4f4c86a1f86bc8c3f3f5f2","2013-02-08 00:30:27+01:00","Remove always true comparison
+"
+"485a064c5ef278ba27b293740f55b497c3202e46","2013-02-08 00:31:52+01:00","Enable link time garbage collection when link time optimization is enabled
+"
+"2584214868e7a867c1c957ce9caa0b8de7a1d54b","2013-02-08 19:02:25+01:00","Added vibrate on key press option
+
+I also split the touchscreen menu in two category 'configuration' and
+'appearance' tell me if this ok for you guys?
+"
+"26c716f485f6d9b1889f501ff12b7862336b1034","2013-02-08 13:49:01-05:00","OptiPNG some UI images. Also some general slight tweaks. Nothing really to elaborate on. Mostly to do with styling.
+"
+"ce30c4b0dec8f78063fc06cb530d418e32583b8c","2013-02-08 16:37:34-05:00","front: Tweak menu strings and order
+
+Moved multi-player setting to top of play menu so it's more obvious.
+"
+"5a722764a7fdaf4f7ec4dd516fcbbe26b73bd083","2013-02-08 18:53:29-05:00","cleanup: Add documentation to auto-hold handling.
+
+My head hurts :P.  That's some gnarly logic.
+"
+"2708f69d1a4ee786f24fcedfe198556fe242f424","2013-02-08 18:55:09-05:00","bugfix: Release auto-hold on slide-off when using long-press method.
+"
+"90cea5f84c4fdd74096667d312de6d8a777ebc0d","2013-02-09 01:22:34+01:00","Remove switchable asm implementations used during the port to C
+"
+"5b6e3a06ae3ee37825a3002d3426fd9287338160","2013-02-09 01:22:34+01:00","Rename all visible Glide64 strings to Glide64mk2
+The glide64 plugin for mupen64plus is available at the same time as the
+glide64mk2 video plugin. Both support different features and use different
+configuration options. A clear distinction is necessary to avoid confusion by
+the users.
+"
+"f5b51d2b1d6fd77b0d85e62b1d487ba331985086","2013-02-09 01:22:34+01:00","Move license files to doc
+"
+"091e6733674dcac6b4ba38c8b2b66a83bdb88e5c","2013-02-09 01:22:35+01:00","Remove unsupported internationalization files
+"
+"a1b0c70492c5664ee5208f429bf79a4b296f9936","2013-02-09 01:22:35+01:00","Remove space from filename to avoid confusion of build tools
+"
+"be0a0272732a49ebc853dbc3d245642738e85ec1","2013-02-09 01:22:35+01:00","Use generic _mm_loadu_ps instead of GCC specific __builtin_ia32_loadups
+"
+"f77b3d2cbb026d4ee060ebf2f321fcdc9ec9b892","2013-02-09 01:22:35+01:00","Don't crash when calculating CRC for small images
+The original Rice CRC algorithm always assumes an image size of at least 4
+bytes per image. This is not a valid assumption and causes invalid memory
+access when the byte width of an image is smaller. Avoiding the calculation of
+the CRC in this situation seems to be a better choice.
+"
+"9b8efcd05e82fc0a8b25f47cc6e1500061b9ed7c","2013-02-09 01:22:35+01:00","Define cache path as $UserCachePath/glidehq/
+The user cache path for mupen64plus is something different compared to the user
+data path. On Unix systems it is stored in $HOME/.cache/mupen64plus/ and all
+non-cache/non-config data is stored in $HOME/.local/share/mupen64plus.
+
+The Windows+single user centric view of the original GlideHQ made it store its
+cache in the local plugins directory in a special folder called 'cache'. This
+is not available anymore and therefore the user cache directory is used
+instead. A subfolder called 'glidehq' is used to avoid collisions with non
+GlideHQ compatible data.
+"
+"5ab15bde934f4ea383588715fc7716a8c6739167","2013-02-08 19:29:11-05:00","front: Generalized auto-hold determination, migrated code to subclass.
+
+Whether a button is auto-holdable is now determined from a method,
+rather than testing an array for null (separate interface from implem-
+entation). This will simplify wiring up a preference for selecting auto
+holdable buttons.
+
+Also, moved the auto-hold image overlays and loading from TouchMap to
+VisibleTouchMap. Since the images now are merely indicators, they
+belong there along with the FPS indicator and the joystick animation
+code.
+"
+"9558e67e5ceae017084f0ed66ec58d1b222a6056","2013-02-08 20:00:20-05:00","front: Implemented multi-select list preference class.
+
+Honeycomb+ provides this natively, but I wanted backwards-compatibility
+and some custom features. This gets the job done without a lot of fuss.
+The dialog checkboxes revert state on rotation but properly fixing that
+requires many lines of code, probably not worth the effort right now.
+
+This class will be used to define auto-holdable touchscreen buttons.
+"
+"833053b721c49b96636400249655a8d13cb8f734","2013-02-08 22:50:26-05:00","front: Enabled auto-hold feature on stock touchscreen skins.
+
+TODO: Implement a default visual indicator for skins that don't have
+the auto-hold overlay assets.
+"
+"ed094a93573e46fcfaf8b7925227eedd07e102af","2013-02-09 11:37:55+01:00","Allow to use interpreter cores with new dynarec
+"
+"92b4dfe45bd15c306db012de4c786909ab231ded","2013-02-09 13:17:21+01:00","Replace game speed text dialog by seekbar dialog
+"
+"b755ccd2caf010d3fb8e1ebafd27447e0c1e13c7","2013-02-09 17:42:49+01:00","bugfix: autohold mask being drawn when emu start
+"
+"42563e6d30d2837c9bf5b03e5baa99579c617aab","2013-02-09 13:37:40-05:00","front: Minor simplification and some auto-formatting.
+"
+"865e476c1868d35eb4699b1a1492c2de00f08c39","2013-02-09 14:27:03-05:00","front: Simplify some code.
+
+I found the OnCustomLayout name confusing, since it wasn't called on
+layout but rather when the dialog closed.  You get pretty much the same
+calling simplicity by making Prompt.prefillBuilder public, so
+Prompt.promptCustomLayout seems kind of overkill.
+
+Feel free to debate...
+"
+"3fa86c91536232e4eda60fb3a43fa9e6c38db234","2013-02-09 14:42:55-05:00","doc: Add some header comments to provide design rationale.
+
+I forgot why this was there until I looked back at the commit logs.
+Thanks for providing a good log message :)
+"
+"362ec109aff0078258445cfdd5398882ada7d62b","2013-02-09 16:08:08-05:00","front: Added haptic feedback option to Xperia Play touchpad.
+
+Touchscreen and touchpad have independent settings.
+"
+"c9b30521e1108ae8cda3111e845bca914fe61b2e","2013-02-10 00:09:19-05:00","Some maintenance changes.
+
+- Fix a copy/paste error in the comments for a version boolean in AppData.java
+- Some instance variables can be final in MultiSelectListPreference.java
+- Some instance variables can be final in PathPreference.java. This also allows for removal of a null check, as the variable being tested cannot be null (as it was made final).
+- Replaced a .equals test for emptiness of a string with !TextUtils.isEmpty()
+"
+"d5c2b574794325bb165724d55d449b1fa2fd84f8","2013-02-10 00:28:14-05:00","Add javadoc to @param tags missing a description in ConfigFile.java
+"
+"ea7e4345d33d10026ddd9e0c2c065e80f7ad59e2","2013-02-10 15:38:17-05:00","bugfix: Fixed auto-hold skin not appearing, and optimized some code.
+
+Alpha is no longer being set every time the button images are redrawn.
+"
+"a0176d041c3ef9deb71e9fdec2dec71e42dbc6cf","2013-02-10 20:35:09-05:00","bugfix: Fixed broken commit.
+"
+"f966f7ee5a5f1c3ccbddb8bd083af6b35d38e1bb","2013-02-10 20:50:12-05:00","doc: Updated changelog.
+"
+"f34f491110ef32fe8a714b72a6eb5134fbbac3cd","2013-02-11 09:05:01-08:00","changes to fix compile errors in OSX 10.7.5
+"
+"e7d1692e4453c778f323c9b16780c009db0f1077","2013-02-11 09:05:27-08:00","merge heads
+"
+"86c56d167f23138423530daade2bc090c1f787f9","2013-02-11 14:46:04-05:00","front: Player map dialog pops up on play if players aren't mapped.
+"
+"99f6db1c3891879b81b9dec9c74733c014d0e3de","2013-02-12 08:33:11-05:00","front: Tweak some styling for player map preference.
+"
+"bdd66fd619c8631ffd1e76c33c8bed44032b0118","2013-02-12 08:47:15-05:00","cleanup: Remove some log spam that slipped in.
+"
+"358ffae6b230d9d597db9a9ae837644abe30394d","2013-02-12 09:35:49-05:00","front: Added checkbox to enable/disable player map reminder popups.
+"
+"cbb008076d6284eedea7c795abc7b58255e767b0","2013-02-13 11:18:51+01:00","Added an option screen position in portrait mode
+
+When in portrait mode users can now choose the screen position (top,
+middle, bottom)
+"
+"78dfc0f22658f23a9880e67e2be15c9888981721","2013-02-13 11:21:13+01:00","accidently forget a file in previous commit
+"
+"fe2a6d90a46d06f080feb3a9cf03d9a55cd681ae","2013-02-13 11:31:51+01:00","Also forget the changelog
+"
+"87e69dce6b6ba0682c269d495c7d874b6cc40f39","2013-02-13 13:32:03+01:00","bugfix: wrong screen position in landscape
+"
+"23d1c2f91f10fcea84a3c5cbe8a72712e00124c0","2013-02-13 08:04:41-05:00","cleanup: Substituted a few named constants for clarity.
+"
+"69ab34a9fb1da1d6aa31921ca6dd103589698bc7","2013-02-13 08:19:55-05:00","bugfix: Fix copy/paste bug.
+"
+"8451fd51a9e8705b84365820128a3c4d7130ccdd","2013-02-13 20:17:47-05:00","res: Updated translations.
+"
+"69ca160d4462b6ec4aa6c196eda361ac59986774","2013-02-13 20:26:35-05:00","res: Added transifex automation scripts/configs.
+
+pull-translations.sh is just a bash script to pull translations (and a
+pretty clunky one at that).  It works with cygwin though.  Feel free to
+improve it.
+
+If you're running linux you can also use the Transifex command-line
+tool. The config file is already set up, at least for the menu strings.
+More about the tool can be found here:
+http://help.transifex.com/features/client/index.html#user-client
+"
+"d6a35b0fb1ec4933c788f948c71cc3f3dcfc9fb5","2013-02-14 13:46:18+01:00","gles2rice: fix bugs introduced in commit cd6281f
+
+This is fixing all known bugs (mario kart in multiplayer, zelda blue
+action icon and surely others) introduced in this commit:
+https://github.com/paulscode/mupen64plus-ae/commit/cd6281f
+"
+"48b35b1a86ef8404ace0eabb62236ee996f8858e","2013-02-14 15:13:12+01:00","front-end: Merge 'upstream/ui-console' hg:b28286dd2fdf4d71f276b2a298c2f3e7cfbfc6b0
+"
+"f3fb28669b2864cf446ce053fd3fb5beaec430ce","2013-02-14 15:15:13+01:00","core: Merge 'upstream/core' hg:a170e121bbecafa65a603fb03dc4b35d71c8d110
+"
+"5d2d3f34cf116efd82c33ab57ab69ddf0d42b4f0","2013-02-14 15:16:44+01:00","audio-sdl: Merge 'upstream/audio-sdl' hg:6913198704673d6912006a04693af9ba19a52328
+"
+"c0247174c88f5556fdfabbfc1464bc0000c53977","2013-02-14 15:18:36+01:00","input-sdl: Merge 'upstream/input-sdl' hg:a5814ef06e8f23433168c38010299711cbe1b658
+"
+"3feeec7d987745e24c3184a71441bbac158ebc3d","2013-02-14 15:25:04+01:00","gles2rice: Merge 'upstream/video-rice' hg:ea7ca05dfce863a0801d05e811b34c3722d96adb
+"
+"d622dad713b150adb173fbf3e813e5c0646cef6e","2013-02-14 15:28:54+01:00","gles2glide64: Merge 'upstream/video-glide64mk2' hg:f67c78d62dced48541cd0c0e96254f4ea8a8314a
+
+Merging the PC glide64mk2 version which can be used for a GLES2 port.
+"
+"84ea28404a7a44c00c3682a5c6c163c1f8617e52","2013-02-14 15:36:58+01:00","rsp-hle: Merge 'upstream/rsp-hle' hg:a77acef394fdc331160e0e583b4f45f557b1b97c
+"
+"811bed01e38a7e34ee42444db34fab4734ed971b","2013-02-14 09:46:49-05:00","doc: Reorganized docs folder a bit.
+"
+"6f138e3860dda79ea28f6206f4e681ca2e9863ed","2013-02-14 10:36:14-05:00","res: Updated translations.
+"
+"ebe456166d6e4c8de865a13c1d05c29b71a67e45","2013-02-14 11:12:49-05:00","res: Updated translations.
+"
+"a87a93886efd9c2148f83a3a55466066153c0827","2013-02-14 11:17:33-05:00","res: Updated translation pull scripts.
+"
+"2c115978799c59ff0d1edaaf16b2008b3d0f8aa7","2013-02-14 12:35:01-05:00","res: Removed curl-based translation pull script.
+
+Found out you can use the transifex client from cygwin. Here's how:
+
+1. Install cygwin
+
+2. Install package 'python-setuptools' using the cygwin setup tool
+
+3. Open cygwin terminal and stay in the home directory
+
+4. Install transifex client by typing
+easy_install --upgrade transifex-client
+
+5. Initialize transifex client configuration by typing
+tx init
+
+To pull the latest translations, navigate to your mupen64plus-ae
+working directory and type
+./pull-translations.sh
+"
+"dc8808075fe0c8205f2cc42cb8dc66350270da07","2013-02-14 13:36:17-05:00","res: Updated transifex script.
+"
+"67fd60e9a36d169be269762cf3b4b68b1aaba671","2013-02-14 13:38:41-05:00","doc: Added market listing text files.
+"
+"ff19b95107a9d2a179003226315d6e0a3affebc4","2013-02-14 12:49:44-06:00","Update README.md
+
+Some of the information was outdated.  In particular, the ADT plug-in has supported NDK integration for some time now, making Sequoyah optional (it does still have some nice features).
+"
+"d70c50f0a28eea0a1639b69189b64032692f1af5","2013-02-14 14:24:28-05:00","res: Fix transifex config typo.
+"
+"6f9fec67f37aa3976a81d007f2f74fe69664e810","2013-02-14 20:30:57-05:00","front: Commented out R4300 emulation preference until it's ready.
+"
+"50f6da1e80f1944b98881a1eabcd695adab2129b","2013-02-14 20:50:46-05:00","res: Updated translations.
+"
+"0f767eecf1aac1bde33685f22051f846c9cf3cb2","2013-02-14 20:53:13-05:00","doc: Updated changelog.
+
+Reminder, you do *not* need to bump the asset version in MainActivity
+for this change to take affect.
+"
+"d250962eb03ece3ce1c311d5e1b77110a57a06e8","2013-02-14 22:19:39-05:00","Updated version string in preparation of 2.1.0 update
+"

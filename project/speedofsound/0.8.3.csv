@@ -1,0 +1,113 @@
+"commit id","commit date","commit message"
+"65421ae14dc6e8f6c340bbeef6b6ad1bd7317726","2013-01-14 21:24:29-05:00","Migrate to Maven.
+
+This will make the build a lot cleaner in the long run.
+
+Still TODO:
+* Sign/proguard/zipalign the release APK
+* Sign the debug APK (?)
+* Sync POM with AndroidManifest
+* Update README with new build instructions.
+"
+"abe41c763d7a104785e45be63a013fb5668fc868","2013-05-30 18:58:26-04:00","Revert 'Migrate to Maven.'
+
+This was never well thought out. I'm going to give Gradle a go
+next, since it's officially supported by the upcoming Android Studio.
+
+Still stripping out ABS; going to just use native components instead.
+
+This reverts commit 65421ae14dc6e8f6c340bbeef6b6ad1bd7317726.
+"
+"dcdcd87a027897ea5cbaef6cb5b21436e5e47e93","2013-05-30 21:05:18-04:00","Remove ActionBarSherlock and bring up to API 17.
+
+Haven't tested on API 10 or others yet, as Eclipse is being stubborn.
+Pretty sure the action bar stuff will crash, which I'll address after
+getting this all set up with Gradle.
+"
+"e77c91265b4c6c63b918988fd71ebcbf611d5841","2013-05-30 23:43:26-04:00","Gradle conversion.
+
+It builds & runs successfully.
+Disabled the map view for now until I port it to Maps v2.
+Also excluding the Android Studio project from this commit as
+it seems to be a little out-of-sync with Gradle. This might
+be fixed when I reorganize project build files.
+"
+"89cdbf5ff2ba9c989f55f3395e41c3423c508667","2013-05-31 15:45:31-04:00","Implemented proguard optimization and signing.
+"
+"12a04ded312433b4a77f8c060b26d15b53a3ae3b","2013-05-31 16:19:02-04:00","Remove *.iml; only keeping code style for IDEA.
+"
+"da8f43c8130c1b9d8d6c8cfcd97ca14442bb7c53","2013-05-31 16:28:28-04:00","Moved project contents back to toplevel.
+"
+"cf09b3131703696e13c2cab13fec3629922788f8","2013-05-31 16:53:37-04:00","XML source reformat.
+
+These were all over the place, but the biggest format was
+to convert spaces to tabs.
+"
+"fad4185602e84c91750eed5b92752c5ee21a9bf9","2013-05-31 17:29:02-04:00","Fixed Gingerbread compatibility.
+"
+"decb72c3be59abcaf877a955032c179cf5b4345a","2013-05-31 17:41:30-04:00","Fix some lint issues.
+"
+"98068c892de1d762e659748081468c1903d8e0a2","2013-05-31 19:49:30-04:00","Rebase proguard from SDK.
+
+APK size down to 460k!
+"
+"501dbe0c9676d695fe70819163e7e43fdc2cf5e2","2013-05-31 19:49:39-04:00","Reformat manifest.
+"
+"63fb8bdf3fa0978579b0e808376c64af30780592","2013-05-31 20:55:05-04:00","Added a Stop action to the notification.
+
+4.1+.
+"
+"32692442b925ab48d11414387092616f5a105bcb","2013-05-31 21:09:32-04:00","Swap out a deprecated method.
+"
+"097a53345a6c798bf99059a0ffdf08dff4ad3003","2013-05-31 21:24:10-04:00","Check for Play Services on map launch.
+
+A nicer solution than crashing on devices that don't have it.
+Contrary to what the dialog says, the app itself will work just fine,
+but you won't be able to use the mapping feature.
+"
+"e9403623018150e09a51c16f2d38d8f63aeeace5","2013-06-04 11:05:31-04:00","Add two new languages; de & el.
+
+Thanks wasilis.mandratzis on Transifex.
+"
+"a6c5ff313c7ab14fdb36003ce568762dea273185","2013-06-04 11:35:21-04:00","Fix accidental text wrapping in strings.
+
+Turns out these become significant on Transifex.
+Updated translations as well to strip these out.
+"
+"3781dd957a7487eecc21ddf1e02b768a5ab095c4","2013-06-04 12:00:50-04:00","Added AUTHORS file.
+"
+"71a5fc78c85fc264d19a642aa899cf173e9760df","2013-06-04 12:03:31-04:00","Fix some translation links in authors.
+"
+"07f47c9973e2a2ead83d358de4fbc6df07912ce8","2013-06-04 12:07:53-04:00","Updated README.
+"
+"03853d66bb4556df1c0c3f3ed780a72fb8a5f8ea","2013-06-04 18:17:19-04:00","VolumeThread: don't wake unless the target changes.
+"
+"c0ad1737409c18af8f3d0876fb7f4e0329bae7ec","2013-06-04 18:18:29-04:00","Maps v2 (partial)
+
+This is going to require some Gingerbread testing.
+I was messing around with the emulator when my power supply began to make
+some weird noises, so I'm committing before I lose it all. :)
+"
+"fe2fe9c77cb81a2c96ec64f9d1a63e08768a5cff","2013-06-04 20:26:01-04:00","Maps v2 cleanup.
+
+Tested on Gingerbread; appears to work.
+"
+"ea099cabbbd8b27b1648551339c80d1eb471b165","2013-06-04 20:56:13-04:00","Another source formatting.
+
+This time, not over XML, so I won't break translations. :)
+"
+"de4ee0e425a1237c5eaaf9aefbf7c0aa806f8c2b","2013-06-04 21:51:35-04:00","Set app_version_code even if it was already set.
+"
+"6b239d065e3a1f768d1b34fc50946b0cf795204a","2013-06-04 22:33:10-04:00","Fix default preferences & add units.
+
+Now there is no need to have the defaults in two places.
+Not sure how I didn't find this solution before.
+
+Units are now present as well; these will be customized for
+speed sliders later on.
+"
+"09f708d820eb84986cc3ce4770d812f283356075","2013-06-05 12:20:36-04:00","Show units and adjust for localized speeds in preferences.
+
+Min/max values are now based on m/s and are converted at
+runtime for different units. Closes #11.
+"

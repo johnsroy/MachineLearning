@@ -1,0 +1,163 @@
+"commit id","commit date","commit message"
+"0693d0857dc2fc1ae8d199b1ff6833bad96fcc91","2013-07-27 14:59:32-04:00","split up scripted tests by those that need a PIN so some can run in Jenkins
+
+Until we can figure out how to make a script to enter stuff into the GUI,
+only run tests that don't need a password.
+"
+"0878e4c69c1f79bc084f90695689742b26fdaced","2013-07-29 11:41:06-04:00","add script to run the test suite on the device/emulator via 'adb shell'
+"
+"1b40e6c8f16f22ee2fd85fbedef78b55db33f114","2013-07-29 11:47:11-04:00","ran code Eclipse formatter in Android style on all XML files
+
+refs #1629
+"
+"85573b6388d8449dffeb9014fa31e714b8eb94fd","2013-07-29 11:52:33-04:00","gnupg-for-java: purge emacs code format comment, use the emacs 'java' mode
+
+Emacs now has a built-in Java mode for its code formatter, use that instead
+of the comment to describe the code format.  Also, Eclipse's code formatter
+messes up the emacs code format comment block anyway.
+
+refs #1629
+"
+"4d9e2e9c023f91e52a9351fcc3867d6a66a19d13","2013-07-29 12:14:58-04:00","gnupg-for-java: ran Eclipse code formatter in Android mode on *.java
+
+refs #1629
+"
+"2468b2b65badac00d25389cfa0e4adcf2fa13afe","2013-07-29 12:16:42-04:00","ran Eclipse code formatter in Android mode on all .java files
+
+This includes running 'Organize Imports', which the Android mode makes
+the imports get sorted in a specific style.
+
+refs #1629
+"
+"0030a0fdd6da963f04a102cc69dc36a3728b5129","2013-07-29 12:20:44-04:00","standardize on camelCase spelling of Gpg in class names
+
+refs #1629
+"
+"1fb7fd416749d99c449bdaace438d7ab73ec7a80","2013-07-29 12:34:00-04:00","move hard-coded strings to strings.xml resource
+"
+"7f294f37071dc5329d03a1638554497d9500707d","2013-07-29 12:37:19-04:00","mark strings formatted as titles with a 'title_' prefix to the string name
+"
+"e533e7797f1904d7ed60aa5d9df78ad30d71b9ad","2013-07-29 12:52:10-04:00","suppress annoying, unneeded warning about default Locale
+"
+"9b541a8cd97301df431a7019c3f41ffdc2baad52","2013-07-29 12:52:35-04:00","add baselineAligned='false' to key_list_item.xml to make warning go away
+
+refs #1597
+"
+"133775eb2220982dd2cf37bd7b163f432fa74077","2013-07-29 13:06:54-04:00","remove unused variable
+"
+"09a9aaa8a1b92e5673500dc8a374aea19d53e558","2013-07-29 13:07:35-04:00","if decrypting fails, show a Toast and return RESULT_CANCELED
+"
+"325afaaaef0833d7ef09d514514db8d19cc13b5c","2013-07-29 14:19:50-04:00","update to latest curl release: 7.31.0
+
+refs #1644
+"
+"7fbf57cd047edb52b62a7e67e47b8d7f53ba94a4","2013-07-29 14:23:49-04:00","update libassuan to latest release 2.1.1
+
+refs #1644
+"
+"795adfc14be294d51c95cd41e17cc4304934606b","2013-07-29 14:25:01-04:00","update libgcrypt to latest release 1.5.3
+
+refs #1644
+"
+"e124c66c83e67dc295e720a724ee057e7c449670","2013-07-29 14:25:56-04:00","update libgpg-error to latest release 1.12
+
+refs #1644
+"
+"7728d5afabcb098e569bf5ae0718d4d4a89c3292","2013-07-29 14:28:18-04:00","update gpgme to latest release 1.4.2
+
+refs #1644
+"
+"acc8099309f2dff82b02e2de1fb6085e41ba99a0","2013-07-29 14:28:40-04:00","update openldap to latest release 2.4.35
+
+refs #1644
+"
+"7106bd4af40b3f426ee61c05ebb0caed7e82e539","2013-07-29 19:52:56-04:00","Google Play Store Description for release 0.0
+"
+"9aa1cd3655ad79a6a6bd6f3bf80feaf709d391a6","2013-07-29 19:53:16-04:00","add Google Play Store Recent changes from release 0.2
+"
+"a561789469923fdb3398073f114311ea556a892f","2013-07-29 20:48:02-04:00","Google Play Store Description update for release 0.2
+"
+"522fd65c95edcb35d25e09637563b8b3c8962bf5","2013-08-09 22:53:30-04:00","added Spanish translation (thanks entactogenic!)
+"
+"c4198305f6cea087167e210a35f36bd51e527f18","2013-08-11 22:51:01-04:00","fix environment.conf permissions issue on Android 4.3
+
+It seems that Android 4.3 has different default permissions than the rest,
+so we explicitly set the permissions of environment.conf so anything can
+read it.  That's what it is for anyway: to config gpg for any app/user.
+
+fixes #1701
+"
+"e511316a4138a6e9cebc33ab523e8e9c20f289ec","2013-08-11 23:41:47-04:00","force world permissions when needed, they're deprecated in 4.3/android-18
+
+We need to have world read perms so any app can use the command line tools,
+and the default built-in GNUPGHOME dir needs to be world-writeable so any
+app can have its own GNUPGHOME created for it automatically.
+
+closes #1701
+"
+"c3d14d52c88d38493a3763e9cc55be885646e46c","2013-08-12 20:42:42-04:00","set NDK_TOOLCHAIN_VERSION and NDK_PLATFORM_LEVEL from the Android files
+
+make external/Makefile get NDK_TOOLCHAIN_VERSION and NDK_PLATFORM_LEVEL
+from the official Android files for setting those build vars.
+"
+"0adfbe80c95afc3d2ee3a301f1deac1ab5b47ee9","2013-08-13 12:44:03-04:00","gnupg-for-java: fix crash when get sigs on a key when none are returned
+
+If a key has no signature data, or the key list most does not include
+signature data (i.e. GPGME_KEYLIST_MODE_SIGS), then siglist will be null.
+The methods that call getSignatures() should handle a null return value.
+
+closes #1698
+"
+"16b6eb136a7548a87cd4326f8177e1d8dbdbfec3","2013-08-13 12:58:45-04:00","single-quote all filenames passed to CLI gpg2 to handle special chars
+
+This is a quick workaround for now, since ultimately we'll be using gpgme
+calls instead of gpg2 command lines.  gpgme will handle the more elaborate
+escaping for us. This should handle spaces, and all characters except the
+single-quote itself (').
+
+fixes #1709
+"
+"d03ac14343a8f41fee559c701acd50a1f8caa713","2013-08-13 14:14:29-04:00","fix file extension parsing when working with filenames rather than URIs
+
+MimeTypeMap.getFileExtensionFromUrl() expects a String that is a URI.
+URIs cannot have spaces or special characters in them, so that method can't
+be used with straight filenames. I replaced it with Apache Commons IO
+FilenameUtils.getExtension().
+
+fixes #1709
+"
+"3cd2f9673862581c21d0a9c7128994b343dd535a","2013-08-13 14:28:58-04:00","EncryptFileActivity: fix crash when trying to find default key
+
+There might be no keys at all, so it shouldn't just crash then.
+"
+"d50e8aa0a9dfd2f659995d86c2f65407a9a7cdf2","2013-08-19 22:22:38-04:00","bump version to code 3 name 0.2.1
+"
+"5efd5fa03e1172ae278b25ca3ce6a621571e0f9e","2013-08-22 17:05:29-04:00","switching Contacts syncing to a timer set to 2 hours (closes #1763)
+
+This should ultimately be replaced by a logic that only triggers the sync
+when the GnuPG key list has changed.
+
+https://developer.android.com/training/sync-adapters/running-sync-adapter.html
+
+refs #1483
+"
+"7728eb178a679650fa70405b5890823d2dda9aed","2013-08-28 13:08:10-04:00","change URL in shared debug log to https://guardianproject.info/code/gnupg
+"
+"ed8ec54eef3ba57820c0490c16495f0d284925f4","2013-09-09 13:05:11-04:00","added Polish translation (thanks SeniorEuhenio!)
+"
+"7ec2ad46655c1a9e850d456cb93f497391aae66d","2013-09-10 15:01:47-04:00","remove 1024-bit keys as an option to create, they are deprecated
+
+http://csrc.nist.gov/publications/nistpubs/800-131A/sp800-131A.pdf
+http://www.cyberspaced.info/2012/08/nist-cryptographic-strength-requirements.html
+"
+"38141e2f9b0ef5b566a88c18b5cf40585de889cb","2013-09-11 16:00:45-04:00","update transifex config to point to new name: 'gpg' rather than 'gpgcli'
+
+In an effort to simplify all the names that are used for this app, I've
+been standardizing on GPG and GnuPrivacyGuard for now.
+"
+"029c72068aeacc2b9669e173ad0d3f6d6863f332","2013-09-11 16:01:06-04:00","update Spanish translation after 100% verification status
+"
+"0c8ce1ef312b9df52f41cd64650fbc632df4af6c","2013-09-11 16:01:48-04:00","add German translation (thanks Chartman123!)
+"
+"f22bbb98f18eacf0946a9ffe0c4656b1cd3ae85b","2013-09-14 13:29:28-04:00","added Czech translation (thanks fuzzycz!)
+"

@@ -1,0 +1,625 @@
+"commit id","commit date","commit message"
+"f9f704311423ee124dcde6b37714717a0661ced2","2014-09-11 23:32:03-04:00","Adding 2.1.0-beta-5 apk
+"
+"99af377e4bc9e91966b8fe73cea1fff8ce27e2c9","2014-09-14 22:20:53-04:00","Added EventManager to handle getting best ringer for a given event
+-renamed SimpleCalendarEvent to EventInstance
+-renamed SimpleCalendar to Calendar
+
+EventSilencerService:
+-replaced call to getHighestPriorityRingerForEvent() with instance of EventManager
+
+EventCursorAdapter:
+-getRingerIcon() updated to use EventManager
+"
+"03d09fb8c3f71d2be1c8e0b88120cbaaee1021f9","2014-09-18 10:36:29-04:00","Changed ringer definitions to an enum
+-added RingerType to hold enumerated ringer values
+-multiple updates across the board to use RingerType during runtime, int values when writing to database or shared preferences
+"
+"048810b1694be0c6ad7ae72834bae7e2dbe074e6","2014-09-25 20:14:00-04:00","Bugfixes, finishing transition to enumerated ringer types
+-changed colors used to indicate ringer source (using some temporary colors from the material design color pallet)
+
+EventManager:
+-added getRingerSource() to simplify finding where an events best ringer came from
+
+EventDetailsFragment:
+-uses EventManager now
+
+MainActivity:
+-uses event manager to get events ringer source
+-fixed bug where ringer icon color was not being applied correctly
+
+SelectCalendarsActivity:
+-selecting a ringer type while configuring a calendar now immediately applies the change (OK and Cancel buttons only close dialog now)
+
+RingerSource:
+-added enum types to represent where an events ringer was set
+
+RingerType:
+-added getIntForStringValue() to get the integer value of a ringer type to match the given string
+
+Prefs:
+-fixed bug in getRingerType() that would result in an exception being thrown if an unknown integer value had been stored.  Now uses DefaultPrefs' RINGER_TYPE
+"
+"564101f9347f068d469c22136d65212a8d267472","2014-09-25 23:08:07-04:00","Bump up version beta release number
+"
+"f160fc6503660acf32c80457e15ecc16fcfec161","2014-09-25 23:22:55-04:00","Fixed bug where all day and available events would have wrong ringer or ringer color set
+-changed default preferences so that available events are ignored
+
+EventManager:
+-added shouldEventBeIgnoredByDefault() to reduce code duplication.
+-fixed bug where getBestRinger() would return a ringer from one source while getRingerSource() would return a different source
+-getBestRinger() and getRingerSource() now caches results
+"
+"0c32bb24f51b3cdbcbba46f0bb1b47f4cffd6312","2014-09-25 23:23:18-04:00","Added updated jUnit library
+"
+"95b77b092997d1c109cd46fab0cf5fb0db37af83","2014-09-26 16:45:48-04:00","Moving all tooltips to FirstRunWizard
+"
+"e789b35d414e4c505fe7e33a5f07e5e4c21373b1","2014-09-27 15:25:19-04:00","Change sidebar to xml drawable
+"
+"d30c2aeab7ab21b010525d3b48bba53e221b1e34","2014-09-27 16:01:16-04:00","Adding first run tutorial skeleton
+"
+"574234e921c53342abb426ca207430b25a8df463","2014-09-27 19:07:42-04:00","Fleshing out tutorial activity
+-added three frames that show in succession.  One for welcome message, one for event list description, and one to describe the ringers
+-main activity shows the tutorial every time it is started (for testing)
+"
+"8831675e16d4e0831e1b4136ff969b1afe78f31d","2014-09-27 23:16:39-04:00","Added screen slide pager as possible replacement for tutorial
+"
+"7281586b1118576b91a2ad04898f24fe72bf40c7","2014-09-28 23:10:57-04:00","Changing tutorial to use ViewPager
+-added viewPagerIndicator as module dependency
+-broke tutorial up into a Tutorial activity and separate fragments for the pages
+-moved all fragments into .activity.fragment package
+"
+"8ec167d8f3ff6203413d6aa7b07a14eeb12e6890","2014-09-30 19:21:41-04:00","New floating action buttons, more work on tutorial
+
+MainActivity:
+-removed old action buttons, now using pre-built library com.melnykov:floatingactionbutton:1.0.3
+-only using one action button now, colors and drawable change based on state
+
+TutorialEventListFragment:
+-now fleshed out, still requires some cleanup
+
+TutorialActivity:
+-layout tweaked so that the buttons, page indicator and page view align properly
+
+TutorialWelcomeFragment:
+-added filler text to test scrolling
+"
+"502ee1919604c271c2bd39e0e8239b01c0c5725f","2014-10-01 14:56:31-04:00","Changing settings to use fragment for main settings
+
+SettingsActivity:
+-moved all layout controls other than the service toggle switch to MainSettingsFragment
+-Added two FrameLayouts to hold the main settings fragment and (later) the advanced settings fragment
+
+Prefs:
+-changed setRingerType() argument from int to RingerType.  This should help avoid bugs where a single-choice dialog selection index is being passed in instead of a RingerType
+
+MainSettingsFragment:
+-moved all controls from SettingsActivity here.
+-explicit onClick methods have been changed to inline OnClickListeners since the click was being passed back to the SettingsActivity (which should not have to implement methods for the fragments)
+-Additional settings not reachable for now.  This needs to be stripped out and placed in a separate fragment, so that SettingsActivity shows both the main settings fragment, and either a link to the AdvancedSettingsActivity, or embeds the advanced settings fragment
+"
+"751780ff1597b92aaffc28f49c963dab90fc6d2f","2014-10-02 22:44:14-04:00","Adding calendar icon resources
+"
+"c7505bac519a70b84b5627734d7e69468b913978","2014-10-02 22:46:28-04:00","Adding floating action button library xml
+"
+"e48ef04bc71fb461f474583f94c4438aadc79a0c","2014-10-02 22:56:00-04:00","Adding icons working directory
+"
+"48cd38605d963e25d6905b80f51578865926b9c7","2014-10-03 10:19:41-04:00","Breaking activities into fragments
+-added icons to represent calendar, repeating event, and event instance
+
+AdvancedSettingsActivity:
+-changed to be a container for AdvancedSettingsFragment
+
+AdvancedSettingsFragment:
+-moved layout and code from activity to fragment
+
+SettingsActivity:
+-changed to be a container for MainSettingsFragment and AdvancedSettingsFragment (if displayed on tablet)
+
+MainSettingsFragment:
+-moved layout and code from activity to fragment
+-optionally displays the header and link to advanced settings
+
+SelectCalendarsActivity:
+-changed to be a container for SelectCalendarsFragment
+-displays as a dialog on large display devices
+
+SelectCalendarsFragment:
+-moved layout and code from activity to fragment
+-made settings icon larger so its an easier target
+-fixed bug where checkbox in listview could be toggled instead of passing the click to the layout below (fixes #16)
+-adjusted layout so that the checkbox and icons are fixed in place, and the middle textview is clipped (fixes #19)
+
+AboutActivity:
+-added menu item to redisplay the first-run tutorial
+
+MainActivity:
+-adjusted showFirstRunWizardIfNeeded() to only display the tutorial once (instead of every time the activity is started)
+-added a warning to the top of the listview to indicate that the service has been disabled in settings
+-events that should be ignored (all day and/or available events) display as ignored (fixes #15)
+-action button no longer uses fade animation (fixes #4)
+
+TutorialRingerSourceFragment:
+-adjusted to use new layout
+
+TutorialEndFragment:
+-new fragment to display close button (static one in TutorialActivity needs to be removed)
+"
+"8cfff54e0dafa05e086e48e022eec50b9e7fd257","2014-10-03 11:06:24-04:00","Fixed styles
+
+values-21/styles.xml:
+-forced black text color
+-use material design style dialog
+
+build.gradle:
+-added suffix to version code for debug builds
+"
+"9f0829c0197626c8bccdd5d01667a54945085527","2014-10-03 15:21:37-04:00","More tablet optimizations
+
+MainActivity:
+-added separate layout for tablet, includes margin at top
+-listview uses cardview for event items
+-listview items use animation when appearing
+-changed calendar and series ringer colors to be the same as the instance ringer
+"
+"f5218f12823fcadbef003b8008892f645363fb90","2014-10-03 15:21:48-04:00","More tablet optimizations
+
+MainActivity:
+-added separate layout for tablet, includes margin at top
+-listview uses cardview for event items
+-listview items use animation when appearing
+-changed calendar and series ringer colors to be the same as the instance ringer
+"
+"4d138ac7511ec2bb9be01c38935f04c37d2e0e19","2014-10-03 18:39:15-04:00","UI tweaking
+
+list_item_event:
+-event title is bold text
+-increased margin for cardview on tablet
+-tablet view now uses a square sidebar image with overlayed text showing the first letter of the calendar
+
+down_on_touch:
+-added animation to translate elevation down and back up on touch
+
+MainActivity:
+-floating action button uses down_on_touch animation (does not seem to be working)
+
+colors:
+-custom ringers now use primary instead of accent
+-ringer source icon now uses a slightly lighter color than primary (darker than before)
+"
+"b81fdaf72844abbf57af4db0a06b06729f996ef2","2014-10-06 09:31:44-04:00","More work on tablet interface
+-added icon for clock (fixes #27)
+-added icon for location
+
+MainActivity:
+-listview shows different icon for regular events (clock.png) and repeating events (history.png)
+-added row to show location info (hidden by default, not used yet)
+
+DatabaseInterface:
+-fixed multiple bugs where a cursor was not properly closed
+-added methods to get the number of repetions for a given eventId (still buggy, possibly a problem with the system content provider)
+-beginning work transitioning local database to a skeletion so that syncing is faster
+
+EventInstance:
+-added hashmap with getter and setter to store extra info (will be replaced later with specific methods)
+
+NoSuchEventInstanceException:
+-renamed from NoSuchEventException
+"
+"742bb4d63fc7eb812c6fc8dcb6b35b36dd33f094","2014-10-06 15:39:00-04:00","Stripping local database to minimum values
+
+Columns:
+-local database now only stores the:
+-instance id
+-event id
+-calendar id
+-ringer type
+
+EventDatabaseOpenHelper:
+-bumped up version number to 7
+-changed database creation to only use the minimum values from Columns
+"
+"5e3a2f46d5f787a77181ef62bfc54feb6b305167","2014-10-06 15:40:31-04:00","Fixed possible bug in EventInstance
+-changed all ids to longs to avoid any potential loss of precision errors
+"
+"4284d2057c50590f723be265e3a2bba8db74a904","2014-10-06 23:48:09-04:00","NOT WORKING reducing resource useage in database interface
+"
+"ab407304bc24a4c55170cf50c69b87b1a7149442","2014-10-06 23:50:20-04:00","Refactoring
+
+Prefs:
+-renamed getSelectedCalendars() to getSelectedCalendarIds()
+
+EventDetailsFragment:
+-changed constructor to take long value for instanceId
+"
+"7d93b9eea5f338798ee32b1c0b8dcb8fe637a6a9","2014-10-07 20:13:57-04:00","Adding icons
+-added icon for tutorial (question.png) (fixes #29)
+-replaced history_icon.png with a higher quality version, renamed to history.png, will be used for repeating events (fixes #26)
+-replaced clock.png with a higher quality version
+-added code.png to replace the use of history_icon.png as the changelog icon
+"
+"5f5f362731c08ada58cf6fa6c0a8060f3356844e","2014-10-10 11:15:57-04:00","Theme change
+-changed theme to blue/orange for testing
+"
+"21ea0da1496ecccbd03ac1e58e442b2d69aa8419","2014-10-10 11:28:37-04:00","Reverting to earlier database design
+-database reverted to include all previous event information
+-added column for event location
+
+DatabaseInterface:
+-promoted projection indices to final members
+-removed methods for getting EventInstance from system calendar
+-reverted to ordering cursor by BEGIN instead of _ID
+-backported fix to close cursors
+"
+"345b5f5e6d04051ac220d17857b0e2544bb0bfad","2014-10-10 11:36:53-04:00","Moved event list adapter to separate class
+
+MainActivity:
+-extracted EventCursorAdapter to database package
+-reverted to be listview listener
+
+EventCursorAdapter:
+-moved view inflation code to EventListItemInflator
+
+EventListItemInflator:
+-moved all view creation here to keep Adapter simple
+-broke the bindView inflation code from EventCursorAdapter into multiple smaller methods
+-added method to desaturate icon color
+"
+"c9239f3b29dc4ee724c250a07c50bc96f3c4ab67","2014-10-10 11:39:42-04:00","Event details fragment highlights icon as well as indicator
+"
+"0c713429101bb71d6068bde0540e5ff497c08c3b","2014-10-10 11:46:22-04:00","Small bugfixes, cleanup
+
+NotificationManagerWrapper:
+-now uses the ignore icon instead of the normal ringer icon
+
+SkipEventService:
+-fixed bug where clicking on 'ignore this event' in the notification would not make the event ignored
+
+strings:
+-added space after notification ticker prefix
+
+activity_main:
+-removed unused ViewFlipper
+-forced textviews to use defined text color so it does not have to be set programmatically
+
+Prefs:
+-removed error logging from getSelectedCalendarsIds() for when the list is terminated with ','
+
+TutorialEventListFragment:
+-updated to use disabled text color
+"
+"3bc573207437ca308005c0aee41ba88d113720bc","2014-10-10 11:47:43-04:00","Removed extra info from EventInstance
+-replaced with get/setLocation()
+"
+"a6bbef4fa5f8900aef151a74b6926e1d7e2c2228","2014-10-10 11:48:48-04:00","Tablet view changes
+-small tweaks to the event list item layout
+"
+"273d567b510dfc1e06e2767fbd39f9ab41c4d92d","2014-10-10 22:02:56-04:00","Reduce number of database synchonizations
+-replaced all useage of intents to start EventSilencerService with calls to AlarmManagerWrapper
+
+AdvancedSettingsFragment:
+-removed restartEventSilencerService() and all calls to explicitly restart the service.  Service is now restarted whenever shared preferences is updated
+
+MainSettingsFragment:
+-removed all calls to explicitly restart the service.  Service is now restarted whenever shared preferences is updated
+
+MainActivity:
+-broadcast receiver now rebuilds the event list and error so that the appropriate one can be shown if the database goes from empty<->not empty (this is probably the cause of the additonal flickering)
+-replaced calls to restartEventSilencerService() to useage of AlarmManager
+-service is now started during onCreate() instead of onStart() so that the event database will be filled in before the tutorial can be skipped
+
+SelectCalendarsActivity:
+-removed restartService() and call to it.  Service is restarted when shared preferences are updated
+
+SettingsActivity:
+-removed restartEventSilencerService() and calls to it.  Service is restarted when shared preferences are updated
+-cleaned up commented out code
+
+ShowUpdatesActivity:
+-added prefix to the version keys used to disable the changelog being shown.  This makes it easier to filter them out in the shared preferences onChange listener
+
+DatabaseInterface:
+-renamed syncAndGetAllActiveEvents() to getAllActiveEvents(), sync operation must be performed manually when desired
+
+AlarmManagerWrapper:
+-added static String WAKE_REASON to use as the key in the intents extra bundle
+-changed scheduleAlarmAt() to use RequestTypes enum instead of String values
+-added scheduleImmediateAlarm()
+
+Prefs:
+-added onSharedPreferenceChanged listener to the shared preferences
+-listener will restart the EventSilencerService when select preference keys are altered (right now everything except IS_FIRSTRUN and the 'version-' keys
+
+BootCompletedReceiver:
+-adapted to use AlarmManagerWrapper instead of custom intent
+
+ProviderChangedReciever:
+-adapted to use AlarmManagerWrapper instead of custom intent
+
+EventSilencerService:
+-reduced the number of times the database is rebuilt
+-onHandleIntent() now uses switch to walk through the RequestTypes
+-database will now only be rebuilt if it is a first wake (device finished boot), normal wake and database is empty, settings changed wake, or provider changed wake
+-cursor adapter will only be notified of data change when the database is sychronized, or when an event starts or stops silencing
+
+RequestTypes:
+-changed from public static final Strings to an enum
+
+SkipEventService:
+-updated to use AlarmManagerWrapper
+"
+"e3caf614865130c0ce683d7cff6461f467a0e9b3","2014-10-10 22:04:43-04:00","Cosmetic change in EventListItemInflator
+-background of active event is now a desaturated version of the accent color
+"
+"5179a0bf34c1eded3303ea62a69fbcfdba72dc48","2014-10-10 22:06:32-04:00","Fixed bug where EventInstance could have null location
+-setLocation() now sets the location to empty string if null is given
+"
+"f73c67f3ffd518d36b1910f8247d3e0f31539133","2014-10-10 22:19:26-04:00","Cosmetic changes
+-changed color scheme again, to grey with orange accent
+-tutorial background now uses primary color
+"
+"34404a32ff20338091d1194f5f9f8dea9af806bd","2014-10-11 09:42:15-04:00","Small changes in EventDetailsFragment:
+-icon source and tint colors now defined in the layout instead of done in code
+-added additional row to show the number of repetitions an event has, will be hidden if the event has no repetitions
+"
+"61b3204f3892213e8683ef13f5bea794a07a3a77","2014-10-11 09:46:13-04:00","Visual changes to tutorial
+-removed next button
+-moved page indicators to bottom bar
+-shortened skip tutorial button text
+-removed dark highlight behind bottom bar
+"
+"de3c072c4d9549af4aaff1c68d456df655a8d84a","2014-10-11 09:47:15-04:00","Updated cardview support library definition
+"
+"a9c041a13f5e12b4553228ccef367916055bec2f","2014-10-11 13:06:58-04:00","Removed checkbox from EventDetailsFragment
+-check for repeating events is done when the user clicks ok or reset, opens another alert dialog to apply settings to instance or event series (fixes #28)
+"
+"cca0223860162687a08f99c27e2ac5730a932163","2014-10-11 13:36:16-04:00","Fixed force close when using quicksilence button
+
+MainActivity:
+-quicksilence button onclick now uses alarm manager to start the silencer service
+
+AlarmManagerWrapper:
+-added scheduleImmediateQuicksilenceForDuration()
+-changed scheduleAlarmAt() to take optional Bundle argument, which is added to the intents extras
+
+EventSilencerService:
+-created final string QUICKSILENCE_DURATION  to hold key to retreive the desired duration from the incoming intent
+"
+"19be7905019f14f0d6f65188a75c7a8f61f8001d","2014-10-12 00:36:05-04:00","Better date/time formatting in event list
+-EventListItemInflator will now generate date time formats differently for events that span multiple days and/or are all day events:
+-single day, all day
+field1: <begin date>
+field2: 'All Day'
+-single day, not all day
+field1: <begin date>
+field2: <begin time> - <end time>
+-multiple days, all day
+field1: <begin date> - <end date>
+field2: 'All Day'
+-multiple days, not all day
+field1: <begin date> <begin time>
+field2: <end date> <end time>
+"
+"bd1181d6282b0f2077a16bc0d49b5590b3ae1e23","2014-10-12 00:39:10-04:00","Visual changes
+-color scheme reverted back to grey/dark grey, accent changed from blue to orange
+-fixed bug where dialogs did not use the correct color scheme
+-added specific style for in app purchase activity
+"
+"90ed8c619c95a5a63de3da73bc48bf761e8219b9","2014-10-12 00:44:19-04:00","MainSettingsFragment constructor removed, arguments moved to newInstance();
+"
+"678818e3bdd0f60ffc10f7476f2564e2eac0417b","2014-10-12 00:46:45-04:00","Added skeleton framework for in-app purchaces
+"
+"758a7d598edf93e2b23870e812975ed4f40d085e","2014-10-12 00:47:12-04:00","Removing unused frame shapes
+"
+"c1a65713b83ba62cee1e94b18d611959323fa375","2014-10-15 20:29:02-04:00","Adding new icon resources, updating some existing ones
+-updated existing:
+-calendar_instance.png
+-code.png renamed to code_history.png
+
+-added new icons:
+-copyright.png
+-volume_alarm.png
+-volume_media.png
+-new code.png
+"
+"66089e088cc798b7d89a15e196f0b8e1c47149b6","2014-10-15 20:31:46-04:00","Add new icons to main settings, updating padding to be consistent
+"
+"0ee62df76dce610620b87081b114fea9364b5a02","2014-10-15 20:37:36-04:00","Renaming text fields in event list item layout to make more generic
+"
+"2880acbce6f34819c0485fdbc0465f78a7a8df99","2014-10-15 20:38:51-04:00","Event list item event title bold text
+"
+"d0717bfe78349f853553e1e4ce831c3126dc595c","2014-10-15 20:40:05-04:00","About activity use new icons in actionbar
+"
+"b3d3cefcbfd49c43c272f55b9768f4ff82a61b3d","2014-10-15 20:54:16-04:00","Speed improvements to EventSilencerService
+
+EventSilencerService:
+-removed unnecessary data set changed notifications
+-removed ACTIVITY_RESTART from switch, NORMAL should be used
+-firstWake() now clears the stored ringer state
+
+ServiceStateManager:
+-added method resetServiceState() - must be called before switching service states between quicksilence <-> event active
+-added setQuickSilenceActive() && isQuickSilenceNotActive()
+-added isEventNotActive()
+-added isServiceActive() && isServiceNotActive()
+-added getActiveEvent() && getActiveEventId()
+-added setEventActive(), this duplicates functionality from ActiveEventManager, which should be removed later
+
+RequestTypes:
+-removed ACTIVITY_RESTART, NORMAL should be used instead
+
+AlarmManagerWrapper:
+-check for null context in constructor
+-scheduleAlarmAt() removed check for time < 0, negative values work as an immediate alarm
+"
+"4f09d24f5e98308e8f2454fa83a9c5aadf6479b9","2014-10-15 20:57:30-04:00","Removed cyclic loop in Prefs -> EventSilencerService
+-onSharedPreferencesChanged() now only listens for changes to specific preference keys
+"
+"68f75916fc176a47b430d8c8a7e27c49c01a4b10","2014-10-15 20:59:29-04:00","Better checking for bad values in EventInstance constructor
+-begin and end times must be positive
+-end time must be >= begin
+-null title and descriptions will set empty string value
+"
+"75cd107c7f1f0a4a2e53d4d302a033cf93dcb1bf","2014-10-15 21:03:24-04:00","DatabaseInterface uses DataSetManager
+-includes AlarmManagerWrapper changes that should have been in the last commit
+
+-setRingerForInstance() issues data set changed notification if ringer was saved
+-update() now private
+-pruneEventsBefore() now private
+"
+"9146f6c8acc1d0759b59942000fd6e3c5cb7e237","2014-10-16 20:44:17-04:00","Removed number picker from lookahead interval selector
+-switched to using enumerated types: one week, two weeks, one month, three months
+
+Intervals:
+-enumerated list of intervals
+
+DefaultPrefs:
+-LOOKAHEAD_DAYS now an Interval instead of int
+
+Prefs:
+-updated to use Intervals, adding some extra error checking
+
+AdvancedSettingsFragment:
+-removed number picker
+-uses single choice items, settings are saved immediately
+-'Lookahead interval' now 'Date range'
+"
+"b05ba81c07845b0a4f6f88ed29037299236472a6","2014-10-17 11:22:11-04:00","Sidebar image updated
+-tablet uses circular drawable
+-phone uses same image, but changed to be imageview source instead of background
+
+EventListItemInflator:
+-updated to use generic drawable already attached to the ImageView, instead of hardcoded drawable reference
+"
+"eb013e113904de140a3476ed9929a228adc1f7f9","2014-10-17 11:23:52-04:00","More icons added
+"
+"7b6af6db2e1b7b7af7f410fe3a5679a66f20c442","2014-10-17 11:25:09-04:00","Made selection circle in calendar_instance.png larger
+"
+"c95088620b21480e8627e59343e20cbbb001b6c9","2014-10-17 11:39:05-04:00","Small updates
+
+DatabaseInterface:
+-uses value attached to lookahead enum during update()
+
+AlarmManagerWrapper:
+-added null check for context in constructor
+-removed check for time < 0 in scheduleAlarmAt(), the alarm manager takes negative values fine
+
+ShowUpdatesActivity:
+-added null context check to showUpdatesDialogIfNeeded()
+-showUpdatesDialogIfNeeded() will hide the updates dialog for the current version if this was the first run
+
+MainActivity:
+-refactored datasetChangedReceiver:
+-no longer uses Parcelable (was generating a large number of errors about enums not being serializable)
+-fixed possible bug where database could be emptied while the main view was still visible, which would result in an empty list being shown, instead of an error message
+-notifiyDataSetChanged() is only called if the datasetChangedReceiver does not know the specific row that was updated
+-if intent has row Id attached, then only that row will be updated
+-showFirstRunWizardIfNeeded() moved from onStart() to onCreate()
+-removed DateConverter from setupErrorMessage() since the Intervals enum has strings already attached
+
+EventDetailsFragment:
+-uses datasetManager to send notifications
+-colored positive button text to accent color
+
+AdvancedSettingsFragment:
+-colored positive button text to accent color
+"
+"01eeb2bd5a8f204ed249037c1629dcea6d918e52","2014-10-17 11:39:36-04:00","Added basic unit tests
+"
+"a84a432c338c8e6b4fcaae6f3c155dd5af14a966","2014-10-18 14:17:44-04:00","Event list items now a custom view
+
+EventListItem:
+-extends LinearLayout
+-fills in view with default event provided by EventInstance.getBlankEvent();
+-can be passed specific EventInstance to display
+-event can optionally be specified as active or future, if neither specified, will use event date and ActiveEventManager to guess
+
+EventInstance:
+-added getBlankEvent() to return a generic event
+
+EventCursorAdapter:
+-removed use of EventListItemInflator, now passes event to EventListItem for view creation
+-list_item_event.xml now just has a single EventListItem view
+
+TutorialEventListFragment:
+-removed hardcoded event list items from view, now uses EventListItem to generate view dynamically
+"
+"923808f3dd0b0b9f713481aacedb7e4c1c351b7e","2014-10-18 14:19:37-04:00","Removed use of DataSetManager from DatabaseInterface
+-data set changed notifications happening too fast, should be called from higher up the stack
+"
+"33687dad5f7d5abc8688150ad12f7e403b1e1d94","2014-10-18 14:20:06-04:00","Removed EventListItemInflator
+-replaced with use of EventListItem custom view
+"
+"399a58a42ce6611392ed348e88483f9e08f8ea53","2014-10-18 14:21:05-04:00","Updated support library definitions
+-added groovy support for unit tests
+"
+"dcc11941dccb03d2951abf34fb94db62705ea28c","2014-10-18 14:24:07-04:00","Added extra attributes to EventListItem, commiting missing files
+-xml can now specify the instance id and whether or not the event should be an active event or a future event
+-added event_list_item and updating list_item_event
+-tutorial event list fragment layout updated to use EventListItem
+"
+"b0fa3a7664dd308b8a94f4cf8226c445d9052676","2014-10-18 14:38:11-04:00","Fixed bug where resetting or saving a new ringer for an event instance would not trigger a data set notification change
+"
+"d2d2a1b28ba660c8a853119c2963fcd4a24e307a","2014-10-20 21:51:17-04:00","New launcher icon added
+-fixes #17
+"
+"d6366d8aadd48eca4777b952f582d628b2a5eef9","2014-11-08 13:27:51-05:00","Adding new vibration icon (fixes #3)
+"
+"cf3760c30c345acb5fe7dae47ea47fd1c97b03c8","2014-11-20 12:41:17-05:00","Drawables added/updated
+-added specific sized versions of app icon for use in about activity
+-added new icons:
+-bug, shopping_cart, frown, send, thumbs_up
+-added fab_normal and fab_silent so the floating action button drawable is sized correctly
+-updated ic_launcher to use fading shadow
+-updated volume_alarm and volume_media to have less padding
+"
+"dd92f06e57fd79343771d62c3024f92f07ae87cf","2014-11-20 12:44:36-05:00","Updated about activity
+-removed WebView, replaced with layout
+-added beta settings switch behind version header (revealed with longpress)
+"
+"95b7cbf0ecb1f1fd3b4845844a69cc12deee89f0","2014-11-20 12:45:32-05:00","Updating library definitions
+"
+"a4043916ece36cc878d4d215f19eac9cdee262b8","2014-11-20 12:54:48-05:00","Updated event list item
+-added symlink  layout/event_list_item_large to layout-large/event_list_item so the large view can be accessed on smaller devices (toggled in beta settings)
+
+EventListItem:
+-higher desaturation ratio for events that start later than midnight today
+-added basic support for adding a header to each event list item (unused for now)
+-added findChildren() to generate references to all views in a single place
+-draws spinner until given a specific event, view has to be manually updated with refresh()
+-on small devices will use either the small layout by default, but will use large layout if betting setting useLargeDisplay is set
+-onclick listeners moved from MainActivity to within the view
+-small speed improvements
+"
+"c8e29bce103d28b34f46e79c5b952bdadb38c214","2014-11-20 12:55:53-05:00","SkipEventService use hardcoded string for event id tag
+"
+"ed931fb18372971dcf117663e157158ac051f64e","2014-11-20 13:02:47-05:00","EventSilencerService
+-moved WAKE_REASON tag from AlarmManagerWrapper
+-fixed bug where PROVIDER_CHANGED would not trigger listview to update
+-fixed bug where SETTINGS_CHANGED would not trigger listview to update
+-fixed bug where database would not be updated during NORMAL wake, (now syncs if database is empty and at least one calendar has been selected)
+-fixed bug where VolumesManager stored volumes would not be cleared after device boot
+-fixed bug where starting or stopping quicksilence event would not trigger the main view to update its floating action buttons
+"
+"76076f525895cad1dc15b98b632b3dee33f6bb59","2014-11-20 13:07:37-05:00","Added beta settings
+-used for settings that may be removed later
+-embedded within advanced settings fragment for now (BetaSettingsFragment and BetaSettingsActivity empty for now)
+"
+"86b2dd6c19bd7524bc1b9cf2a70f5950f30d87b2","2014-11-20 13:12:32-05:00","Bugfixes in MainActivity:
+-fixed bug where listview would not save/restore its position correctly
+-added BroadcastReceiver to update floating action button when quicksilence duration begins/ends
+-removed donation dialog
+"
+"f2fa4faa264744c859906d94462591a2674d267c","2014-11-20 13:14:39-05:00","AboutLicenseActivity colorizes links to link_color
+"
+"7d80383e583f6692c8799a7c8c4869efcd579767","2014-11-20 13:17:39-05:00","Finalize first-run tutorial
+"
+"0bed160b751efef8e2c9427c98b73894ffc013e0","2014-11-20 13:21:47-05:00","Speed improvments in database
+"
+"7116df2fcd1a2d1185b5b7d3d12a6c144a9e6c9b","2014-11-20 19:26:21-05:00","Large update for 2.1.0 pre-release
+-some basic unit tests added
+-license updated to reflect changes in libraries used
+-event details dialog updated to use better colors
+-main settings fragment updated to use SwitchCompat instead of checkbox
+-many more changes
+"

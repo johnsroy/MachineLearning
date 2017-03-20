@@ -1,0 +1,79 @@
+"commit id","commit date","commit message"
+"f51f675021865e19389d994a5b24119e508f4ddc","2013-02-04 13:23:44+01:00","Simplify and improve message view header layout.
+
+The star was displayed partially off-screen before.
+"
+"7b48df7dce4fac32175fa96612278db84381b5ba","2013-02-05 09:51:04+01:00","Simplify message list item layout.
+"
+"6e9a6089994f8f89b3874a689745376f479a108f","2013-02-05 13:40:07+01:00","Fix typo in changelog
+"
+"1dda0cfdbdf5f04db863059979d373b93f179f82","2013-02-05 13:58:42+01:00","Another unused import.
+"
+"5c779f05abe761ff2c1205c68e6e81b26f929500","2013-02-05 15:25:52+01:00","Swap previous and next buttons in MessageViewFragment.
+
+Makes sure to keep behaviour consistent with previous versions.
+"
+"499e20ef7660b74ba41f78f8b724b6ab165b1999","2013-02-05 16:06:36+01:00","Make next/prev buttons track their state again.
+"
+"3b8421a9a85ec108be80d9ef9bc14e77ff42947d","2013-02-05 12:01:44-05:00","Tweak animations to use the (Slightly slower) android default animation speed.
+Remove the fadeout to make things look a little less weird
+Make the animations slide in from the edge. (See the aforementioned comment about jankyness)
+
+TODO: don't remove the message view until _after_ the animation runs. Before HC, that requires rather a lot more code (writing a whole animationadapter) than it should.
+
+TODO: get the messageview to stop jumping to hide the header area as it's displayed.
+"
+"69da9bdd7a90ae48faab73675b966e858f21e397","2013-02-05 12:18:56-05:00","Only animate the firt view transition if it's from the message list to the message view
+"
+"0b04e526b4a33a460c145727cb737b4dafdd9f96","2013-02-05 12:26:16-05:00","Because we're not reusing the message view, we don't need to force scrolling. This has the side effect of cutting down on a momentary flash of message header area on display.
+"
+"7f39b3c6d8d6e745fa78f231cb55bc33177abed5","2013-02-05 16:01:07+01:00","Fix a potential NullPointerException when rotating the device twice
+
+When MessageListFragment is on the back stack and the device is rotated
+the instance state will be restored but no new view will be created. If
+the device is rotated again onSaveInstanceState() is called and we have
+to take care not to assume that the views have been created.
+"
+"4b920e19b0bc68e9102c6b9fdac4a7f35cb6b21b","2013-02-05 19:56:12+01:00","Simplify Handler code to restore message list state
+"
+"cb51da5ea868bf459e05550c5202c7cb11d2c85a","2013-02-05 19:57:36+01:00","Fix restoring instance state of fragment on back stack
+"
+"f5ec5cd3fbb1f893355f5625ab33fa84900b4a04","2013-02-05 19:59:37+01:00","Avoid saved state being discarded when message list is modified
+"
+"5fa7e658166e13e96f8a734ae77ba93814873570","2013-02-05 18:35:43+01:00","MessageView: another theme fix
+
+- The attachments view still had the wrong background color in case
+of different global and message themes.
+
+- The attachments view used the activity LayoutInflater, but it needs
+to use the one of the fragment.
+
+- The background drawable for the attachments used transparency, and
+thus was completely invisible in the black theme. Fix it by adding
+another one for the black theme.
+"
+"1dd697f091dfcf9ae225e921323b045ec6de0b0e","2013-02-05 20:46:56+01:00","MessageView: fix crash when clicking on URLs in WebView
+
+The ContextThemeWrapper added in a74d57cb71d67e42e1db709e00d5fd514b1ecd0c
+used getActivity().getApplicationContext() to get the base context.
+This is wrong, because an Application context won't work for starting
+activities from the WebView.
+
+Instead, use the context that is given to us in the constructor as base
+context. This is the one that would also  be used if no ContextThemeWrapper
+was present at all.
+"
+"08198d87671df2edfa640e29f15758121e982507","2013-02-05 23:49:53+01:00","Remove old subject from action bar when loading new message
+"
+"ac9259a0e3cd9635473ff8e6b5ff377b7c986f24","2013-02-05 23:55:21+01:00","Restructure MessageHeader to avoid NPE when used by MessageTitleView
+"
+"e59d23ca0e63a54cd54fe5ebcbd7a8f6fe46863f","2013-02-06 00:39:45+01:00","Fix NullPointerException
+"
+"473aebefdb463c633724c3413fae0704a108ae54","2013-02-06 00:41:33+01:00","Don't show animation when directly opening message view
+"
+"3286cea1486f948cda227a5fb83e670f800f8ab5","2013-02-06 00:56:33+01:00","Only remove message view fragment after animation is complete
+"
+"eb43d54e6bad8ad315419d19715d9a01b1b41b94","2013-02-05 21:18:41-05:00","update to changelog
+"
+"2a411e780cde494663d3afcf644937c0680d154f","2013-02-05 21:18:50-05:00","Bumped manifest to 4.324
+"

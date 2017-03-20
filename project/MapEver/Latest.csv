@@ -1,0 +1,207 @@
+"commit id","commit date","commit message"
+"25346910ce23fa31cb5926ddad1e08f8eeb2cb8b","2015-07-05 13:12:12+02:00","Do not abort if OpenCV is missing.
+
+This allows builds without OpenCV or allowing ARM builds
+to run on other architectures with only deskewing missing.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"aaf24e93d0f156ce08fcd8bd550b3fdb73cf8e79","2015-07-05 16:31:43+02:00","Merge pull request #2 from rdoeffinger/NoOpenCV
+
+Do not abort if OpenCV is missing.
+"
+"9f364c6dc15c0cfa1e66d5cc2721bd931c8ba967","2015-07-05 20:58:23+02:00","Use ApplicationInfo.dataDir
+
+I am not completely sure how this differs from
+getAbsoluteFilePath('') but that one results in
+an error that the path does not exist for me when
+running in the emulator.
+It also seems more like the way it is supposed to be done.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"c50c28e64c6c8726b55159763e1d6785fab464c5","2015-07-06 19:31:04+02:00","Merge pull request #3 from rdoeffinger/DataDirFix
+
+Use ApplicationInfo.dataDir
+"
+"b07a121c6754238ba8898eabe1deaaf3d0b27799","2015-07-06 20:58:34+02:00","exclude ipl to submodule
+"
+"4a4dedbccc8647933e6edb4dd0f1bececd4e37a4","2015-07-06 21:33:04+02:00","Add minimal gradle build system.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"0a163e3e49219242ed45a948bdb1f7b40828dc64","2015-07-07 02:10:19+02:00","Further package renaming
+"
+"353f79506ddfd3eeae831eb1aa0b47d6eb2ab81c","2015-07-07 20:35:21+02:00","Merge pull request #5 from rdoeffinger/gradle
+
+add Gradle support
+"
+"9c8f67e314bf38aa67c648db887c9729dd4a3eeb","2015-07-09 21:55:01+02:00","Revert c50c28e64c6c8726b55159763e1d6785fab464c5
+
+Switching to datadir, and only for .track files was a stupid idea
+by me...
+The 'directory not found' issue I had seems to have been a temporary
+glitch.
+But even if it wasn't, the getAbsoluteFilePath implementation could
+be changed to use it.
+For e.g. backup and also due to the potentially small size of the
+app partition, using the sdcard location that getAbsoluteFilePath
+uses is probably indeed the better choice.
+The standard 'data dir' might be better for privacy reason though
+(and would allow different app variants to have different data),
+so making it an option at some point might make sense.
+That should still be done via changing getAbsoluteFilePath so that
+all data files end up in the same place.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"7ede18d22954a6c38206ab22c663060d00c49554","2015-07-09 22:08:13+02:00","Allow zooming map with keyboard dot and comma.
+
+Dot and comma chosen because they were easiest to
+get working.
+It is mostly a feature for testing for me.
+Though admittedly adding zoom-in/zoom-out buttons
+might have been a better solution.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"bca73f2b16bf0ebb380e3fc89b3741559d84d5ff","2015-07-09 23:06:06+02:00","Losslessly compress PNGs using pngcrush.
+
+About 2kB smaller, which is not much but no
+reason to waste unnecessarily.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"87f223074ffb9ad60db1aa6b960d9efbf3b48860","2015-07-09 23:28:01+02:00","Remove some things from gradle.build.
+
+We have no resources or renderscript in src/.
+Removing these stops LICENSE, .rej, .orig and
+similar files from pointlessly being included
+in the APK.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"2fd2949298e47e77f636216c14bb891f9cf21ea6","2015-07-10 13:07:25+02:00","Merge pull request #11 from rdoeffinger/pngcrush
+
+Cleanup: Losslessly compress PNGs and avoid including unrelated files in APKs
+"
+"d0ea6b8b31cfa73ebb669286e8dc16b45a03ac10","2015-07-10 13:08:40+02:00","Merge pull request #9 from rdoeffinger/datadirrevert
+
+Revert c50c28e64c6c8726b55159763e1d6785fab464c5
+"
+"81746ae3f658efab536e53127c66b7e1bd44e7b6","2015-07-09 00:13:53+02:00","Do not use full image as thumbnail.
+
+Instead use the thumbnail we already loaded and decoded.
+This should reduce the number of OOM crashes a lot.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"50c49a0942f5de3aa00cf93ff3014f5dd6e52c7b","2015-07-10 20:37:58+02:00","Merge pull request #7 from rdoeffinger/thumbfix
+
+Load thumbnail instead of full image.
+"
+"71c959516dfd8e391dca341699f2d393d668279e","2015-07-10 20:38:33+02:00","Add option to switch between locator implementations.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"d8230838aeea9ff526da092331ca134598e4dfab","2015-07-10 20:41:18+02:00","Merge pull request #10 from rdoeffinger/kbdzoom
+
+Allow zooming map with keyboard dot and comma.
+"
+"1955be0eb794c5f1a749048da1526ca4b0b41d08","2015-07-10 20:49:15+02:00","Merge pull request #12 from rdoeffinger/locatoropt
+
+Add option to switch between locator implementations.
+"
+"f9137e556284708998a9a5fd1882d5c950abd4f9","2015-07-11 23:12:44+02:00","Add support for geo-intents.
+
+Allows both setting markers for that position as well
+as translating the given position.
+Very useful both for testing as well as populating
+initial markers without having to walk around a lot,
+e.g. if Osmand contains only a select few of the features
+in the map image you have.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"dd20f8f8d5a022045fc8cad4b1607ec03583000e","2015-07-18 00:40:31+02:00","Deskewing actually works without OpenCV.
+
+Re-enable it even when OpenCV cannot be loaded.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"dd3b56cd564d1d252d9e1b98f8f5d56dee6be4c2","2015-07-18 10:05:53+02:00","Fix 'gallery' spelling.
+
+Using upper-case is also potentially questionable,
+but that might be intentional.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"1acae7c8568815d916d34d658476693d6b2dd340","2015-07-18 11:01:48+02:00","More spelling fixes of help texts.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"d7f013937644b37fbf3ec33d5584cd53f82abbfe","2015-07-18 11:05:00+02:00","'automatical' is not a word, replace with 'automatic'.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"e64caed911a9e10a6daaab53888785b37e1b6fd8","2015-07-18 11:10:55+02:00","Add basic Swedish translation.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"ff579c6d553a048085100d9c6f0631a47a73f4ee","2015-07-19 01:57:34+02:00","Merge pull request #18 from rdoeffinger/translation
+
+Add basic Swedish translation.
+"
+"0cf8f6d3e0c222486a7bf0e625e2097939037c7c","2015-07-19 01:58:11+02:00","Merge pull request #17 from rdoeffinger/spelling
+
+Fix 'gallery' spelling.
+"
+"01883fdf628e803dedd6c29bd21215b4bf6555d7","2015-07-19 02:05:53+02:00","Merge pull request #16 from rdoeffinger/deskewing
+
+Deskewing actually works without OpenCV.
+"
+"a4fa2215db8dde5cd2b11ac45c9edb1626e75dff","2015-07-19 22:13:44+02:00","Support zooming with scroll-wheel.
+
+Does unfortunately not work in emulator.
+Still, it is useful in case someone ever has a mouse
+connected.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"d87450e92df75f0f6498a2d9dd681213db7fca05","2015-07-20 09:54:33+02:00","Merge pull request #19 from rdoeffinger/scrollwheel
+
+Support zooming with scroll-wheel.
+"
+"a6bb808cd9590afc211087f29c5b9c45fcab83d7","2015-08-02 19:32:46+02:00","Merge pull request #13 from rdoeffinger/geointent
+
+Add support for geo-intents.
+"
+"4bafd6e840e1c47ceb1a38a17597844c8dc20c11","2015-08-02 21:30:39+02:00","fix mistake in f9137e556284708998a9a5fd1882d5c950abd4f9
+"
+"958b822fcddbf1bd134da5895fdca55ebf227c31","2015-07-11 21:04:52+02:00","Fix thumbnail size.
+
+Currently they are just one big blurry mess,
+due to them being 1/10th the size of full resolution
+it seems.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"117af67fbcea7d2519c344e021ff1b68ef746c26","2015-07-20 21:15:32+02:00","Use simpler and more sane way to figure out tile size.
+
+In particular the size should not change when switching
+the phone between landscape and portrait!
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"c8fbf2b794c9183e5300caa0eca7391d29a95c7b","2015-07-11 22:13:21+02:00","Fix swapped latitude/longitude.
+
+Signed-off-by: Reimar Döffinger <Reimar.Doeffinger@gmx.de>
+"
+"cbfe9db69f33497262bfc3f530d51131f4c97449","2015-08-02 22:16:36+02:00","Merge pull request #14 from rdoeffinger/thumbsize
+
+Fix thumbnail size.
+"
+"03ff89b0671c8ab0a81d9a5972539ad3bb99105a","2015-08-02 22:16:40+02:00","Merge pull request #20 from rdoeffinger/latlonswap
+
+Fix swapped latitude/longitude.
+"

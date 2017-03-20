@@ -1,0 +1,594 @@
+"commit id","commit date","commit message"
+"4ee179d6deecb592e0bcc8c98c7058b6bd927ed4","2015-10-27 15:03:30+00:00","Merge 'Upgrade to Gradle v2.8'
+"
+"a3a19022345e86831a84d888dfca36c67419a7df","2015-10-27 15:12:07+00:00","Merge 'Hygiene: replace Views with custom View'
+"
+"b4d8ab9e3e8341ad84561da2f83cabdfdb0b3836","2015-10-27 15:19:43+00:00","Merge 'Suppress delete button (icon) if history is empty'
+"
+"e302d877011e4af55fbdf91bf5637d8143524fb8","2015-10-27 15:29:41+00:00","Merge 'Add Butter Knife and upgrade Checkstyle'
+"
+"cbae7061d315dd3df7937ddc0d859ea60cd8857b","2015-10-22 11:05:49-06:00","Use Testing Support Library test runner
+
+* Use AndroidJUnitRunner for all Android instrumentation tests and add
+androidTestCompile dependency[0]. This dependency includes JUnit 4,
+among many other nice things.
+* Remove dummy test calls to startActivity(). I believe these were added
+as a workaround for using Activity test cases to exercise non-Activity
+functionality. They are no longer needed with the new test runner and
+actually cause it to fail assertions in
+android.test.ActivityUnitTestCase.startActivity.
+
+[0] https://developer.android.com/tools/testing-support-library/index.html
+[1] https://integration.wikimedia.org/ci/job/apps-android-wikipedia-test/20/artifact/logcat.txt/*view*/
+
+Change-Id: I6e0d99fb7da075135b7a9ce248b959825bf4d00c
+"
+"011a540356f72a573ef733451ff9fff158987d7c","2015-10-27 19:27:22+01:00","introducing DeleteAllHistoryTask
+
+broken out from Change I92ec34150a37e37de18770c52abf8fd266512ab8
+
+Change-Id: I0a96dde1ec8fc5f2aa1558ec2489854e14402ada
+"
+"285e4bfc2ca2b61bb758a60e35039450658fed32","2015-10-22 10:11:23-06:00","Hygiene: move View concerns to ArticleHeaderView
+
+Continue to prune the LeadImagesHandler class by moving some View
+concerns to ArticleHeaderView and encapsulating some of the presentation
+logic in ArticleHeaderView by hiding internal View implementation
+details.
+
+Change-Id: I12341a8fa7b6fd75c5c443dd609d4a11f755209f
+"
+"6c45d3abd84f4debcad130bebd3a548b03c065a3","2015-10-24 01:02:19+02:00","Suppress delete button icon on empty search history page
+
+Bug: T116449
+Change-Id: I2aff03ccb90dba61202aece6fad49ad320f23874
+"
+"348d40492483512cd9132c448876e54272306743","2015-10-29 14:15:26+00:00","Merge 'Hygiene: move View concerns to ArticleHeaderView'
+"
+"d2b653bccfb3c12f81b9fd6a0ff847fb381d2a8a","2015-10-29 12:56:58-04:00","Make status bar color consistent across activities.
+
+Currently, our PageActivity uses a translucent status bar, which appears
+slightly darker than the toolbar color (which is correct). However, in our
+other activities (Login, Edit, etc), the status bar color looks much
+lighter than the toolbar, and is inconsistent.
+
+This patch provides a color for the status bar that is set via styles.
+Note: only relevant for Lollipop+.
+
+Change-Id: Ia5da4de8a42dbcf8810eb47f836471fc8dff73e9
+"
+"669df98e7a01c9c334b8e40d57044e4cb8ac6721","2015-10-30 00:01:27-06:00","Restrict WebView debug enabled call to debug APKs only
+
+Only call WebView.setWebContentsDebuggingEnabled
+if app is built in debug mode. No need to call this for release
+builds since the default is false.
+
+This patch may or may not fix T113052 but it will change the kind
+of outer stack traces we get for this issue (the inner most part, though,
+should stay the same). It will postpone the missing WebView issue
+until later. The call happens very early when the Application object is created.
+
+Bug: T113052
+Change-Id: Ia9bd9869f7f5fc8004782d996cb4d379e69d8b24
+"
+"eb5ccae545e80b456cb73346979607a537a23dcf","2015-10-30 10:33:53-04:00","Fix possible unnecessary tab creation.
+
+When the app is launched via a VIEW intent (e.g. from an external
+Browser), and it didn't have any tabs open from previous sessions, the app
+unconditionally creates a new tab for the Main Page *and* a new tab for
+the page requested in the VIEW intent, resulting in a puzzling appearance
+of a new tab on top of a 'blank' tab.
+
+This patch makes it so that the app creates a new tab only if the topmost
+tab's backstack is nonempty. This successfully handles the case described
+above.
+
+Bug: T116502
+Change-Id: I6557678d11e965fd28f63c76e835aa85317c5075
+"
+"6d9e523f35c801a369cc29bbdf35e7b002451ebf","2015-10-30 16:34:32+00:00","Merge 'Restrict WebView debug enabled call to debug APKs only'
+"
+"df10afd5efb0c794fde8dd70b9979a683f49d853","2015-10-20 16:30:48-06:00","6.0 runtime permission for location
+
+Added runtime permission checks for location in both NearbyFragments
+(old and new one).
+
+The runtime check are used once target SDK level is set to 23.
+I'll let a later patch change this value, once we're done with all the
+permission checks and the backup check.
+
+Added @StringRes annotation in certain FeedbackUtil methods.
+
+Bug: T113749
+Change-Id: I8569f19dbcb98c2fe09c2b093c17130a47c4ab29
+"
+"f4b04e656b8c7deff123fa021de47448aee22fdf","2015-10-20 18:44:49-06:00","6.0 runtime permission for save image from gallery
+
+Added runtime permission checks before trying to write to
+external storage in gallery.
+
+Note this patch does not address the share a fact functionality since
+it doesn't currently work, see T116120.
+
+The runtime checks are used once target SDK level is set to 23.
+I'll let a later patch change this value, once we're done with all the
+permission checks and the backup check.
+
+Bug: T113750
+Change-Id: I356a736a0d84c99e05e0a6ae1784f99c1c59779e
+"
+"a71b91f6f55a1818cd8c77f65e715b14c59d529d","2015-10-22 21:53:27-06:00","6.0 disable backup + bump target SDK to 23
+
+Had issues testing the backup and restore of app data.
+So, I'm disabling it for now. (See earlier PatchSet for details.)
+
+Also bumping target SDK level to 23 since this should be the
+last step to get ready for Marshmallow. (The runtime permission
+code for share-a-fact should come when that gets re-enabled
+for 6.0 devices).
+
+Bug: T116232
+Change-Id: I12bbf6dea7b366b3da7a6d3707d642e241812169
+"
+"eff10814a5609e1efd5ea095638e80640a6db419","2015-10-30 18:58:26+00:00","Merge 'Fix possible unnecessary tab creation.'
+"
+"a0ae3699adefad71c463c5e4a2173007f37d98fc","2015-10-30 19:03:29+00:00","Merge '6.0 runtime permission for location'
+"
+"9c582e27ea8382b62c4f4d6d15913c4f4d88919b","2015-10-30 19:08:26+00:00","Merge '6.0 runtime permission for save image from gallery'
+"
+"3ebb814f93542e4ceaaf6852c893f9c8deb2a8ac","2015-10-30 19:13:28+00:00","Merge '6.0 disable backup + bump target SDK to 23'
+"
+"9a174e69eac295df79327b86ebf4b0e23100a728","2015-10-22 18:57:41-04:00","Save images to Wikipedia Images folder
+
+Previously, images saved from the gallery appeared in the Camera folder
+in the Gallery app (on older Androids) or under a generic Pictures heading
+in the new photos app.  This puts them in a dedicated Wikipedia Images
+folder.
+
+Also created a new FileUtil class and did some minor refactoring.
+
+Bug: T115875
+Change-Id: I9881453e16b3a1535d16cdbb3080f54a05bd9288
+"
+"234a0f5497b654002599402c07271f5f192b8f8c","2015-10-30 19:30:15+00:00","Merge 'Make status bar color consistent across activities.'
+"
+"fe34db29dab904a80e99f4b46717c5691de78e38","2015-10-23 19:34:58-04:00","Hygiene: refactor utilities
+
+-Delete generic Utils.java and move functions to specific utility classes
+-Standardize class names to singular *Util.java
+
+No functional changes intended.
+
+Change-Id: I5a52125c30486cc58fdb959c0b0c2414f2d1d8b0
+"
+"e989b3e66feb0b289a3041323f0377aafd548ed8","2015-10-30 21:20:40+00:00","Merge 'Save images to Wikipedia Images folder'
+"
+"43d9b78c73abc6e4d4e39c669220463691eb500e","2015-11-02 18:18:09+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I0c249aedd3e39a477648315f6b53df024995af54
+"
+"3d5b4416f708f5e95a7c36a01f6bbd529deb0a68","2015-11-01 18:49:20-07:00","Disable WebView hardware acceleration
+
+Enabling hardware acceleration is causing a variety of Exceptions across
+API levels, mostly KitKat, v4.4.4, API 19. Since enabling acceleration
+was originally intended to fix T109983 but didn't, this removes the
+setting, restoring the default behavior of software rendering. An
+alternative solution might be to catch any Throwable emitted when
+enabling acceleration but this might put the object in a bad state:
+
+@Override
+public void setLayerType(int layerType, Paint paint) {
+if (ApiUtil.hasLollipop()) {
+try {
+super.setLayerType(layerType, paint);
+} catch (Throwable e) {
+L.w(e);
+}
+}
+}
+
+Change-Id: Ib5f812ed847e7dcf1905a95133db42d4de2a448f
+"
+"6a99b3ea38cd4c9269c9b640da702c900efecd4f","2015-10-29 10:59:45-04:00","Update edit icon with Material style.
+
+Pulled changes from corresponding MobileApp patch:
+https://gerrit.wikimedia.org/r/249750
+
+This specifically targets only the edit pencil change. No other CSS
+changes were pulled in (i.e. from MFE).
+
+Also removed unused edit icon in assets.
+
+Bug: T114582
+Change-Id: I0ef9a83f79b5aff968058db993930f2b8a221efa
+"
+"1f7f3d02e0f91fe4558bf1498fd7300aca03b8e4","2015-11-04 14:29:11-07:00","Hygiene: update Checkstyle ignored annotations
+
+Checkstyle enforces private member variables. This patch makes
+exceptions to the rule for specific annotations requiring non-public
+access.
+
+* Update Butter Knife annotations to be complete.
+* Add JUnit @Rule for ActivityTestRule.
+
+Change-Id: I10579f5ee41f12a303c8da6524dcae100729db09
+"
+"53dc8f5073bdf2722b1fa372d8e837400dbaf9c6","2015-11-05 09:28:24-07:00","Hygiene: increase test timeout
+
+After disabling hardware acceleration on the app's WebView[0], test
+execution time increased by about a minute. This patch increases the
+timeout duration from one to five minutes and updates PageLoadTests to
+use TestLatch which has the appropriate constant built in.
+
+[0] https://gerrit.wikimedia.org/r/#/c/250366/
+[1] https://integration.wikimedia.org/ci/job/apps-android-wikipedia-test/buildTimeTrend
+
+Change-Id: I62923003ed12a6972567290809ec088d093f76dc
+"
+"09a90be7cc9ec8db1e852beae2f7dcdbe9f9cf7a","2015-11-05 09:47:44-07:00","Hygiene: rename SyntaxHighlightTests
+
+* Rename SyntaxHighlightTests to SyntaxHighlighterTest because it tests
+SyntaxHighlighter.
+* Repackage SyntaxHighlighterTest to match SyntaxHighlighter.
+
+Change-Id: I07c812f771493981ee91e2d913aacf7ebf8f72eb
+"
+"5b0ec04c6f86b64bc78db382b04ee975f5105c15","2015-11-05 17:17:25+00:00","Merge 'Update edit icon with Material style.'
+"
+"5738b79e36c41851409ae257356f249131f173a5","2015-11-05 17:23:07+00:00","Merge 'Hygiene: refactor utilities'
+"
+"2e0f6e9cc1a8d0f3d673e48041a99eea80fbca10","2015-11-03 14:58:31-05:00","Add 'Support Wikipedia' option to Nav menu.
+
+This adds a simple item in the Nav list to take the user to an external
+web page where they may make a donation. The app version and system
+language are encoded into the URL.
+
+This uses the 'ic_favorite' icon from the Material set.
+
+Bug: T116591
+Change-Id: I817db20687d0538c3eeada04de17154f29a9c8d3
+"
+"40d8eb8d93d431f1085655bf5a23b9282ad46d50","2015-11-05 17:41:37+00:00","Merge 'Hygiene: update Checkstyle ignored annotations'
+"
+"86058e8c0e165b33e8bdf4537f1d0766b35b851b","2015-11-05 17:47:14+00:00","Merge 'Add 'Support Wikipedia' option to Nav menu.'
+"
+"613df9e8e731dd143ed7b12e07b520dc341de0bc","2015-11-05 17:53:46+00:00","Merge 'Hygiene: rename SyntaxHighlightTests'
+"
+"424e6eb2b8c6f6ac5a0b843a3be1f22edca349cb","2015-11-05 11:11:14-07:00","Hygiene: upgrade SDK Builds Tools to v23.0.2
+
+Change-Id: I39fb2db48ea592f2087551adff437a6ddbf2d8a9
+"
+"778540a5bedf62df353787d3d80d327bd3a84254","2015-11-05 11:19:14-07:00","Hygiene: upgrade Gson to v2.4
+
+https://github.com/google/gson/blob/gson-2.4/CHANGELOG.md
+
+Change-Id: I32f8f13984347b8e086cfe28a18912646257d86d
+"
+"b2f951b8ab0344e6fde40e7c3b4c44e743f84cc5","2015-11-05 09:56:42-07:00","Hygiene: upgrade testing libraries
+
+* Add Espresso and recommended Android instrumentation test
+dependencies[0]:
+* Upgrade Android JUnit Runner to v0.4.1.
+* Add JUnit Rules v0.4.1.
+* Add Espresso-core, Espresso-contrib[1], Espresso-idling-resource,
+and Espresso-web v2.2.1.
+* Upgrade Robolectric to v3.0.
+[0] https://google.github.io/android-testing-support-library/downloads/
+[1] The Google testing libraries often have dependency issues. I used
+the workarounds mentioned here:
+http://stackoverflow.com/questions/30578243/why-would-adding-espresso-contrib-cause-an-inflateexception
+
+Change-Id: I282162bb9872b9b06afcaf784e163c6a8633538b
+"
+"ff957b478ca10259718b2a99bf2b142cf72fc990","2015-11-05 19:20:35+00:00","Merge 'Hygiene: upgrade testing libraries'
+"
+"5c59bcbf4885d90e654b7384702badc91bf54553","2015-11-05 19:30:38+00:00","Merge 'Hygiene: upgrade Gson to v2.4'
+"
+"ecf5f59aff06aed5354e6faf98b2b25ea4dc77d6","2015-11-05 12:37:29-07:00","Hygiene: upgrade OkHttp and MockWebServer to 2.5.0
+
+https://github.com/square/okhttp/blob/master/CHANGELOG.md#version-250
+
+Change-Id: I9f2e354f555916a5676e3c96528dd37892080724
+"
+"c81e2d5a31855a525c5712140fb7ea3d274f957e","2015-11-05 10:10:22-07:00","Hygiene: update SyntaxHighlighterTest to JUnit 4
+
+* Replace ActivityInstrumentationTestCase2 with @ActivityTestRule and
+JUnit 4.
+* Replace assertEquals calls with assertThat.
+
+Change-Id: I64d73bbd9baa5e2cc5f717493a8136e8a2630117
+"
+"191dc40af4d414a9446e603eef89049455023d5d","2015-11-05 10:18:53-07:00","Hygiene: move PageLoadPerformanceTests to JUnit 4
+
+* Replace ActivityInstrumentationTestCase2 with @ActivityTestRule and
+JUnit 4.
+* Replace assertEquals calls with assertThat.
+
+Change-Id: Ice8ffa34a9e37dd80094ca0aa47522fda5adc27a
+"
+"75155b506995b5acf283fce6e4cd17bd18d51afd","2015-11-05 20:10:48+00:00","Merge 'Hygiene: update SyntaxHighlighterTest to JUnit 4'
+"
+"433ff1a6dd6d9fbca6dcb1fc0155b38f8a2a0def","2015-10-27 17:36:19-06:00","Add pronunciation icon lead image logic
+
+Add logic for showing the pronunciation icon. The audio player portion
+will come in a later patch so showing pronunciations is always disabled
+in this patch.
+
+Bug: T114524
+Change-Id: I5390238adb1edc1521889e14c81285b1a5b04fe2
+"
+"ebe4c187699649a2228b13766b40faf321dfb94b","2015-11-05 20:19:18+00:00","Merge 'Hygiene: move PageLoadPerformanceTests to JUnit 4'
+"
+"ae64f5a2630572612a89ed5e9efc030a61f46405","2015-11-05 15:39:39-05:00","Use edit pencil icon from local assets.
+
+This brings in a change from MobileApp where we introduce some
+Android-specific CSS for using the edit pencil icon from local Android
+assets, instead of the icon that is embedded in the CSS.
+
+This effectively splits off the appearance of the pencil from the Android
+and iOS apps.
+
+Bug: T114582
+Change-Id: I163d62fff2d22e8ea9d095754767bae123a4b80e
+"
+"3c51884c63d3f8c67492a606faf63809a69315a8","2015-11-03 13:55:54-05:00","A/B test of two link preview designs.
+
+This implements an a/b test of two designs for the link preview dialog:
+A) The current design.
+B) The original 'prototype 1' design, which includes an excerpt of text
+with the lead image side by side, and no overflow menu (and no thumbnail
+gallery).
+
+The hope is to gauge user response to a trimmed-down, back-to-basics
+design, and see how it affects engagement.
+
+Bug: T117065
+Change-Id: Ic65ac96106b3949ce121ba7c86d4dda68bf2ea8f
+"
+"161619c4402f06eddd8f43dcfbdc81920e6a3135","2015-11-05 14:07:22-07:00","Hygiene: remove HtmlPageLoadStrategy
+
+Remove HtmlPageLoadStrategy since it's no longer supported by Content
+Service.
+
+Change-Id: I58b1fa0a87747c029cba2ecd0ac1f73de31517c5
+"
+"598ad13fd2c2ae7ffa49836fb2472beb0f989126","2015-11-05 14:10:15-07:00","Hygiene: remove unused string resource
+
+Remove unused string resource, gallery_save_error_mediastore, as
+reported by Android Lint.
+
+Change-Id: I448a06c4bfef805844af4c38da762ff8387b3ab1
+"
+"7944fabffea918aac69fbb532e7fd8cf102125c4","2015-11-02 09:49:45-07:00","Reduce ProGuard-ing of testing apk
+
+Disable ProGuard as much as possible on the testing apk.
+
+Change-Id: I30d44b9b91f6dc820a2787f80466261f910f8719
+"
+"40c0195586ed45907b2cef51930de0edca97592d","2015-11-06 15:24:13+00:00","Merge 'Hygiene: remove unused string resource'
+"
+"4c0933c98d09bc1306c6f148407924beaa26a0b1","2015-11-06 15:44:37+00:00","Merge 'Reduce ProGuard-ing of testing apk'
+"
+"fb2bbe5883798a02953cc05ef06b922bd9f1ecde","2015-11-06 15:56:02+00:00","Merge 'Hygiene: remove HtmlPageLoadStrategy'
+"
+"a445af5a8d3031b00131bfb63a2ec04d807bf59d","2015-10-26 17:08:50-04:00","Add share-a-fact support on 6.0 Marshmallow
+
+-Adds support for injecting our custom CAB menu via onActionModeStarted/
+Finished on 6.0+, since onSupportActionModeStarted/Finished are no longer
+called.
+
+-This required finding a way to prevent the custom CAB menu from
+being injected during a long press in the search bar.  It turns out this
+can happen because of new custom insertion action mode functionality
+introduced in Marshmallow.  Unfortunately, the insertion/selection logic
+is hidden entirely in private fields in the TextView class, and the
+ActionMode API does not provide a way of finding the source view or action
+triggering the action mode, nor whether the action mode is a selection
+action mode or an insertion action mode.  So, (h/t @dbrant) I added a
+getOriginatingView utility method to obtain the originating view of the
+action mode by reflection.
+
+-Additionally, updated the share-a-fact functionality to go through the
+content provider framework on Marshmallow and above to prevent
+permissions-related errors when sharing a fact as an image.[0]
+
+[0] See https://stackoverflow.com/questions/32981194/android-6-cannot-share-files-anymore
+
+Bug: T116120
+Change-Id: I48f5a99d5c14a4a53d7f12abec01abb291268fee
+"
+"522eb473bac091c33518b43003793e644d7dcea2","2015-11-06 17:53:26+00:00","Merge 'Add share-a-fact support on 6.0 Marshmallow'
+"
+"a89f6b7d86ec2e0689b7d9caafd8c925e1935d13","2015-11-04 16:33:45-07:00","More Parsoid styles
+
+Thumbnail captions did not look right before this patch.
+See also I9549e611ec88299f30c73f7dd668ebb5e93705cd
+
+Change-Id: I627d1e207ac32bea62f78847ba39fe5e6723b0e6
+"
+"48d08f951ad44bdd1dab559e21f7f63cfd5e6955","2015-11-06 17:32:31-05:00","Put 'Support Wikipedia' in the same Nav group as 'Settings'
+
+Per Design request, there should only be a single divider above Settings,
+not below.
+
+Bug: T116591
+Change-Id: Iccbef6c3c699eb78e137a1e596f0da17932e5cfc
+"
+"297ef0b59997df21fee13c04f10656c4ec7d8e1c","2015-11-08 22:12:09-07:00","Drop description from preview request
+
+We're not using the Wikidata description field in link previews anymore.
+Also reduced the amount of requested sentences to 5, as mentioned in T117082.
+
+Change-Id: I458e6afb175ba36864de7e8c6edddd2f529e2d4c
+"
+"9e91af8f6b72a408bd2de019b503b3d4ecc5f140","2015-11-09 11:07:04-05:00","Make CAB share icon fully opaque.
+
+Bug: T117377
+Change-Id: I2f380fe0ce3e611687ec8121feeeb0266153c32e
+"
+"908e9be624acab1641c063a57a00c601d8f00cf0","2015-11-09 11:10:58-05:00","Update verbiage of message when no nearby pages are found.
+
+Bug: T114217
+Change-Id: Iaf98ccd64408df1aeb67fed13c76070910079a0b
+"
+"6d11acdf3b97373fdbf46b8ef2bf2714d40025b7","2015-11-09 17:35:53+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Iffc3226f2bd8c6b048298bce16bb2376b8051090
+"
+"81cdd3f2a8d16474eac5502e0d6d3976931c5f14","2015-11-09 16:48:52+00:00","Merge 'Localisation updates from https://translatewiki.net.'
+"
+"3faf2552a26c82aea17db96c1cc69fe54e2922e0","2015-11-09 11:48:59-05:00","Fix possible crash when using link preview with RESTBase.
+
+The RESTBase callback functions don't check whether the link preview
+fragment is still attached to the activity, which might cause undesirable
+behavior if the functions take a long time to call back.
+
+Change-Id: Ib1faa549f927638c2e029669535e249b0c3f1611
+"
+"4c71e4449baddadf98faf212f5b4a336d6dfb998","2015-11-09 17:08:32+00:00","Merge 'Update verbiage of message when no nearby pages are found.'
+"
+"4602af8185abd8238ba08b7f2d590a4c486b57f6","2015-11-09 11:12:00-07:00","Make share icon background transparent
+
+The change in 9e91af8 appeared correct initially on my device. However,
+after uninstalling and reinstalling the app, the share icons had an
+opaque black background, probably due to an old PNGCRUSH version. This
+patch simply recuts the assets.
+
+Change-Id: Ibf44910645e8cef189404ce4a5e7a01c98ab00c4
+"
+"00cdd26cf4f75cd338c1260375b560dcc9101167","2015-11-09 18:26:12+00:00","Merge 'Fix possible crash when using link preview with RESTBase.'
+"
+"cb71076b73069502a9277056e1d0e165f02d4a06","2015-11-09 18:31:59+00:00","Merge 'Make share icon background transparent'
+"
+"9f7c1d996b697ca3f20cef4208b834936e054a3a","2015-11-09 10:55:31-05:00","Fix OEM-specific crash involving MenuBuilder and NavigationMenu.
+
+This patch brings back obfuscation into our ProGuard configuration, since
+this appears to be the only way to ensure that the offending class, namely
+MenuBuilder, is renamed in the support.v7 library.
+
+The library will soon be updated with MenuBuilder renamed internally, as
+mentioned in the original Android bug:
+
+https://code.google.com/p/android/issues/detail?id=78377
+
+...and we can investigate disabling obfuscation again at that juncture.
+
+Bug: T117049
+Change-Id: I3cb4b31ee3c12bc4ab646fb834a7547791346af2
+"
+"fb8e38787963acca1260f58fab6617c1fa77347f","2015-11-09 19:03:58+00:00","Merge 'Fix OEM-specific crash involving MenuBuilder and NavigationMenu.'
+"
+"14f4a7b9c728412e43c6a74ce9e3e6bfe36e914e","2015-11-09 11:59:40-07:00","Revert 'Remove ProGuard map archival from release script'
+
+This reverts commit 34493076bb18a403a46ffe4e4c3637ec24d709a4.
+
+We've reenabled ProGuard obfuscation and need to preserve mappings.
+
+Change-Id: I1661058a9f6dd4e0b6753c7ab02fd91b09c797ba
+"
+"5cfcc2e5ae09a003fc1b33ef5174c6cef0bb05d6","2015-10-21 21:07:04+02:00","Fix various bugs to improve the offline browsing experience
+
+Fix the logic so the app always tries to load the requested page
+by all means possible, so if the network connection is not
+available it will try to fetch it from the cache or from the saved
+pages storage. This patch changes a lot of code from the
+JsonPageLoadStrategy, including the 'reload' logic.
+The Link Previews are also modified so that if the preview
+couldn't be retrieved from the network but there is a
+cached version of the page in the device, the link preview
+will be constructed from the page contents.
+
+Bug: T85065
+Change-Id: Ie335dc94b3d0ee3f94d190900d885746aa118465
+"
+"9a41871e548628e62ba380ddc382dad658503601","2015-11-10 20:45:10+00:00","Merge 'Fix various bugs to improve the offline browsing experience'
+"
+"2ea3d99060892c5edbb10b84aaef3db02d9694c2","2015-11-10 20:51:13+00:00","Merge 'Add pronunciation icon lead image logic'
+"
+"95806979cbc76eee0f534c39e663bb54c8f8a5f1","2015-11-02 17:44:34-07:00","Add pronunciation span click listener logic
+
+Add logic for responding to click events in spans without obscuring
+events out of span bounds. The audio player portion will come in a later
+patch so showing pronunciations is always disabled in this patch.
+
+Bug: T114524
+Change-Id: Icfb00a4f0453a10fc3b492f777f5d9e52404f0dd
+"
+"b6457c036398cba3264e5fd48f18ea2273505491","2015-11-03 20:13:58-07:00","Add pronounciation media player logic
+
+Add logic for playing media. The initial network request will come in a
+later patch.
+
+Bug: T114524
+Change-Id: I4cf7b0be940085aad1a6931d5eee3215de80488c
+"
+"448de18e6bb9e3217f392fbf05a960389202fcda","2015-11-10 22:35:21+00:00","Merge 'Drop description from preview request'
+"
+"ea214ab468a2568e4012db0fe245c8cb69ce1f05","2015-11-10 23:11:08+00:00","Merge 'More Parsoid styles'
+"
+"f03ffb45abdda3ba05740a740d7c78b228ba5b91","2015-11-11 13:30:54-05:00","Add event logging to Find-in-page.
+
+This adds basic eventlogging to the find-in-page context. Only a single
+event is actually sent (when the context is closed) that contains a record
+of the actions performed during the context.
+
+Bug: T116412
+Change-Id: I31f5f5b1c26a54b71df46ced982c3d338355880a
+"
+"677bd77281d789775a059977ed6bd1f937b0c37c","2015-11-11 14:07:08-05:00","Navigate to target URL specified in Install Referrer.
+
+This allows the app to automatically open the referring URL specified in
+the INSTALL_REFERRER intent. This makes it possible to show a banner in
+mobile web that takes the user to the Play Store to install the app, and
+then for the app to automatically go to the page that the user was
+browsing in mobile web.
+
+Bug: T117219
+Change-Id: I5fdf38ee6f0c3ea4cf787a38ec9bfa981fed88cf
+"
+"81195752d15c51569e1763375fb076e2a47585a2","2015-11-11 15:13:30-07:00","Hygiene: refactor lead image parallax scrolling
+
+The parallax effect used in the lead image requires the coordination of
+views internal to ArticleHeaderView. Move this logic from
+LeadImagesHandler into ArticleHeaderView and replace MarginLayoutParams
+offsetting with translations which are simpler and available in all
+ViewGroups.
+
+Possible tangential fix for T116006.
+
+Bug: T116122
+Bug: T116006
+Change-Id: I4dead75193f80d1355848aba15e187f73cd301bc
+"
+"c1a87b341c0a26e70507a8605d4e379e183a4fd9","2015-11-12 15:38:57+00:00","Merge 'Hygiene: refactor lead image parallax scrolling'
+"
+"2368df7a6a367f8e89bc5c269d2ab01ac389510a","2015-11-05 15:08:27-05:00","Implement event logging for page scrolling.
+
+This implements a new funnel to log how far the user scrolls through any
+given article. It logs the total 'flux' of scrolling done by the user in
+the up or down direction, as well as the total depth that the user reached
+into the article.
+
+This also updates the ToC funnel to include additional data for free, such
+as the page ID, and the index and title of the selected section.
+
+Bug: T116352
+Change-Id: Id8f6246b9c063af3cd7e32e0a0f9d79eb9878577
+"
+"f1918ec1ba7ac5c2c5f7742ca479fa87f2f134a0","2015-11-12 17:33:18+00:00","Merge 'Add event logging to Find-in-page.'
+"
+"3442049996233cea4a324b0a9be62d8fcebbff0a","2015-11-10 17:30:19-07:00","Add article title pronunciations
+
+* Unpack the article title pronunciation URL from the lead Content
+Service response and allow it to be played.
+* Fix a bug where the lead subtitle was not cleared when transitioning
+from an article with a displayable subtitle to one without.
+
+Depends: Ie8bcd2fbd1d649d5f2c402662398244b42dde061
+Bug: T114524
+Change-Id: Icf96e6f0d92f55f28dca8793aa6d17cdf3bc851a
+"
+"c2bf18e05d48551bf381d3ee35add93b057e4489","2015-11-12 14:46:50-07:00","Bump versionCode
+
+Change-Id: I263abd1fbcf75dbe8ffb8c5217135cb1db414ccb
+"

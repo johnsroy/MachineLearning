@@ -1,0 +1,196 @@
+"commit id","commit date","commit message"
+"4cd0c8c6f029df7bef2dcc5e59592ea014e41786","2012-02-28 19:54:45+01:00","remove deprecated status icons
+"
+"ab99521c6015f3901caeb59040bb71ea21ba8de0","2012-02-28 20:01:35+01:00","rename asset directory
+"
+"fed859af89f2a84bd237ac0128085944747a410a","2012-02-28 19:42:45+01:00","export-icon.sh fixes
+"
+"92c4a39c1323283f04bf218405a3d5a8bc4aaf45","2012-02-28 20:37:42+01:00","make group 9-patches transparent
+"
+"d0ecba188c3247690990b45ddb326f75f5245bbd","2012-02-28 20:37:32+01:00","Improving vibration settings.
+
+Fixing issue https://github.com/pfleidi/yaxim/issues/68: Vibration settings.
+Implements a three-state option for the vibration setting to allow disabling
+the vibration entirely, using the system default or enabling forced vibration.
+"
+"a91350ec83984f7ddcd211ea1e9942777d2ef754","2012-02-28 23:15:19+01:00","Instead of creating new Activities on top when touching a notification, replace the current one.
+
+Scenario: open ChatWindow, but moved to the background, by launcher or
+other app. Incoming msg creates notification. Opening notification
+creates a new ChatWindow on top of the existing one, creating a stack
+of multiple ChatWindow activities.
+
+The included patch removes the old ChatWindow activity in favor for the
+one opened by the notification.
+"
+"ce3e7390d4ac3c339338d197b48494670189453f","2012-03-02 19:36:34+01:00","Fix: strictMode violation for SDK Target >= Honeycomb
+
+createAdapter() leads to a DNS SRV lockup which, since a network action,
+does violate the rule to not do network activity on a UI thread.
+At least on ICS, this leads to an exception.
+"
+"7bad817189fda87a82e1e44dfc3eb60b9996c1d5","2012-03-02 19:39:37+01:00","Missing whereArgs in ChatProvider.update()
+"
+"b25e854586e509ab80c0ed09d3c187bbd59bcccd","2012-03-03 15:38:29+01:00","asmack lib with PacketSendFailedLister, ref. github.com/tuxmobil/asmack
+"
+"d2346f380df9b11e8325e8af818dea0c5605ee87","2012-03-03 15:34:55+01:00","Recover from send failures in smack's PacketWriter
+
+To recover from send failures in smack's PacketWriter which would
+normally cause the send message to be silently lossed, we now get noticed
+and can queue the message for resending later.
+
+For this, we need a special PacketListener in smack that notifies yaxim
+that a message could not be sent. This is introduced in
+https://github.com/tuxmobil/asmack/commit/5498d4b9a701219d095f27b4f79c17d9ac8c94b6.
+
+For yaxim, the chat message DB was extended to store smack's packet ID for
+each message so that messages can be identified when they could not be
+sent. The already available mechanism for offline sending is then used to mark
+them for later resending.
+"
+"05ce39530138356bfec8712c0e31eb842e7d24a8","2012-03-04 10:17:36+01:00","play notification sound even when chat is open
+
+GenericService.notifyClient() can now either show the full notification
+or only play back the notification sound. The latter is used if the chat
+view is open.
+"
+"a4a404e8139793687695422c2e9e0995e5d6a556","2012-03-07 09:27:47+01:00","Remove user ID from message notification title
+
+The user ID rarely contains important information and usually causes
+line breaks of the title. Remove it, we still have it in the notifcation
+body.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"4b116f83c6eecdc30aa13498f2e70ef087d6e2a1","2012-03-08 08:43:32+01:00","Print message number in chat notification only of there are 2 or more
+
+Leaving out the number implies that there is only a single message
+pending and uncovers the notification icon.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"7515badb35eb53f200c692afd9446a63f2cb530e","2012-03-09 02:33:47+01:00","Use chat window focus instead of pause/resume to bind/unbind XMPP
+
+Using the window focus ensures that we do not prematurely bind to XMPP
+including clearing pending message notifications. This happened so far
+when the device lock window hid the chat window.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"18df77a2706c1be08613625bb573b7ece999249c","2012-03-09 18:53:53+01:00","updated svg exporter
+"
+"b96ec6a43183a15cda30e7ae1bcf1fc4b589136d","2012-03-04 23:17:55+01:00","Remove 'cancel' from roster context menu
+
+The common design pattern for android apps is to leave a context menu
+by pressing the back button.
+"
+"95553874fcf98409e07dffaa1d6e462f2ff9c694","2012-03-05 00:36:24+01:00","Fix FC for roster context menu actions that require online connection
+
+Show toast with notification of online connection instead.
+"
+"06c9fe9edcffb58350345aa9a8095a569909cf2a","2012-03-06 19:39:43+01:00","Chat window: Adjust alignment to have OK button stay at bottom
+
+Keep the OK button at the bottom when the input field grows.
+"
+"f481caac7d2326e53312fa8ab7e4a63c5f18885d","2012-03-10 19:41:50+01:00","chat: fix background for recycled views
+"
+"f3605850ec7ba2e6c17b9cfafd64fb65e5f228dd","2012-03-10 21:33:46+01:00","first start: save entered data on going advanced
+"
+"829250932112b778e394532d5cb931945595c0d0","2012-03-11 00:44:16+01:00","asmack with XEP-0184
+"
+"5d70eddf232379e10f2a22028420fb4b6d04f1d5","2012-03-11 00:44:47+01:00","implement backend for XEP-0184
+"
+"e6af4a05cd74b1a81734e759e11bebdc5abc9527","2012-03-10 00:02:58+01:00","Add SVGs for chat message icons
+"
+"047697fd7a33d2d8149fa98ca7042f1b2b9f0f2b","2012-03-11 10:38:35+01:00","rename db constants for XEP-0184, store ACKs in db
+"
+"ef7265d916e621b4d78a8e898e33f94507f44b3f","2012-03-11 11:16:19+01:00","fixup delivery of incoming
+"
+"a7fdd9ee9c9aad8eb9cbd89ea6d8d2844348fb11","2012-03-10 00:02:36+01:00","Add icon to chat message to show read/unread/queued status
+
+Reworked to support XEP-0184 -- Georg
+"
+"8af21d4e50c99bce617e604a89bfd8a70ac4566d","2012-03-11 11:08:25+01:00","move msg letter icon to the right
+"
+"ba5b62bcce5b91def7a1290def13f8a05724ef23","2012-03-11 11:16:05+01:00","fix padding for unread messages
+"
+"f3498a791a05290911832011ecc84edbba8b683f","2012-03-11 01:46:56+01:00","Remove eclipse project file from version control
+
+These are local and should not be tracked.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"f26f0b95411dc6887bf3e0657cb175283310b4da","2012-03-11 01:52:07+01:00","Move export-icons.sh into toplevel folder
+
+The Eclipse Android plugin stumbles over this file in asset-graphics,
+gets grumpy and silently refuses to process any aidl file in revenge.
+Resolve this by moving the script out of the way.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"9e1f4986a3a40bff9312573a9762de673c79ef07","2012-03-11 02:23:29+01:00","Remove unused imports
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"8a0c73e2cf4c38086af7dd9979c2fd8feaee812a","2012-03-11 02:24:04+01:00","Fix getPackedPositionForChild/Group invocation
+
+These are a static methods.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"b21b448234a3ce492044cfdd029cf44a32a6be7b","2012-03-11 02:26:11+01:00","Remove unused local variables
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"2ecfc9d56096b9726d5a28aff94aff29f98fcca9","2012-03-11 02:26:56+01:00","Remove unused constants
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"fedfd297453f5fee80b60fd3b42d36bd700ae4ca","2012-03-11 02:27:56+01:00","Remove unused newPrioValue from AccountPrefs
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"85c8f00c0a70032a80565759983adbef4e4b856c","2012-03-11 11:42:46+01:00","Update link to MemorizingTrustManager
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"8f5c1b634c38a08a633baafede008c8b75fbbb87","2012-03-11 13:50:27+01:00","split doDisconnect into separate functions
+
+performDisconnect() does the connection shutdown and can be called
+manually or by Android when the service is OOM-killed.
+
+manualDisconnect() is called when the user does not want yaxim to be
+connected any more.
+"
+"fe3fd16cedf9e7d6e0a48b234f16c1a5ed4e5045","2012-03-11 17:54:49+01:00","fix IQ responding
+"
+"9cfee7f0d60e352a12d9b3ea1cebba67d6a87903","2012-03-11 18:54:59+01:00","XEP-0184: send receipt to right resource
+"
+"a4183241c457de828c52497c9061da74173ae381","2012-03-11 18:56:35+01:00","translation import
+"
+"b6a1cd7223eb4bcbf790a34d1ead0b4559daad72","2012-03-12 19:58:28+01:00","Avoid leaking a service reference on orientation change
+
+There is no onWindowFocusChange(false) on orientation change when the activity
+is restarted. Therefore, make sure to unbind in onDestroy().
+"
+"7a973baa749aac1343bf31f70cb32dfdbbf2c6f8","2012-03-04 23:02:42+01:00","Add hint to chat window EditText widget
+"
+"51d15f51fa3b8d5191d44e20e63fb52a5699ccb2","2012-03-08 22:52:45+01:00","Action.SEND listener re-added
+"
+"10b467b2896d3f6c7bcaf09ee0043c2e9d738465","2012-03-22 19:27:27+01:00","move accout settings into preferences
+"
+"436c6bb318702b1b5078ad0399f19280408d3d90","2012-03-22 20:50:48+01:00","implement priority in status dialog
+"
+"2b9602b882376d2d04d84a3e15d2814c7eb50997","2012-03-22 21:34:00+01:00","implement imto://jabber/ intent filter and handler
+"
+"fb41168411c8c866ace5e5a26e0918dbf4fafb05","2012-03-24 17:36:38+01:00","Initiate reconnect on XMPPConnection drops
+
+If Smackable reports a disconnectOnError, forward this to the registered
+XMPPServiceCallback and a postConnectionFailed from callback that our
+XMPPService provides. This ensures that we do not end up stuck in
+offline state even if the user wishes to reconnect.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"941973bf0ab35998d8dc6913b9f959a8bc463d49","2012-03-26 10:26:27+02:00","fix build.xml for SDK r17
+"

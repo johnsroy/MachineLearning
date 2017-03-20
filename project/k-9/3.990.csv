@@ -1,0 +1,28 @@
+"commit id","commit date","commit message"
+"efe591c34d872a244fff16c9b25afc1f9897bbbe","2011-11-07 01:59:03-06:00","added 'mQuotedHtmlContent.setFooterInsertionPoint(bodyOffset);' because bodyOffset could refer to header or footer
+"
+"4a7a8cc21314e6bdfc3787b290e68c9845a8a4ed","2011-11-09 03:18:42+01:00","Merge branch 'reply-after-quote' of git://github.com/ashleywillis/k-9 into 4.0-MAINT
+"
+"652f2c35e1777c9c0f618a31c550e601891b2f3c","2011-11-09 04:25:30+01:00","Added placeholders for untranslated strings
+"
+"65420ca15cc1e728dc00b709323141b6f1679137","2011-11-09 06:33:35+01:00","Added draft for the release notes
+"
+"54ec1413cc1a7fc1a319f85b5df30118f5b576a1","2011-11-09 05:43:17-08:00","Consolidate translation updates.
+"
+"d0bc28bff73fec8c2bd3c75ae881b0c708ac7783","2011-11-09 18:20:08+01:00","Turn off developer mode for 4.0
+"
+"a69f05c5f40745ccc2c370a5f766eed95e823cfe","2011-11-09 22:35:22+01:00","Don't call super.onBackPressed()
+
+MessageView contained code that would call super.onBackPressed() if the
+parent class had such a method (checked using reflection). But the
+bytecode verifier prevented loading of MessageView because it contained
+a (static) call to super.onBackPressed(). For this to work the method
+had to be called using reflection.
+I removed this code entirely since we don't do it in MessageList and
+FolderList either. And all the time it worked just fine.
+With that change we can re-enable support for Android 1.5-2.0.1 devices.
+"
+"e1233257ad1849d963bfdd70e9b935ed5a4f57f3","2011-11-10 00:31:33+01:00","Wikified release notes
+"
+"ff352343c2e30c4afc5e60d573448ca6fed0de46","2011-11-10 21:38:30-05:00","Bumped manifest to 3.990
+"

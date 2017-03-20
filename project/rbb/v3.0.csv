@@ -1,0 +1,1277 @@
+"commit id","commit date","commit message"
+"57d88d5c32987374c03ab22176c41ed91979b64c","2013-03-24 10:12:19-07:00","Issue #204: add rudimentary code block formatting
+
+Recognize indented lines and make them code blocks. This creates a new
+TypefaceSpan for each line, so it could be improved to apply only a
+single span for multiple lines to avoid allocating unnecessary memory.
+
+Furthermore, the Formatter will still apply formatting to the content
+that was placed in a code block.
+
+These two issues need to be fixed before marking this issue as fixed.
+"
+"cd0eb5ac4e7942e6fb9cb96cdf8c74bb014b0f31","2013-03-24 11:13:58-07:00","Issue #204: don't apply formatting in code blocks
+
+Don't apply formatting in code blocks except for non-destructive edits
+like raw or relative links.
+"
+"f43a74aa5a0c9b38e41fb1f485983809f1e1ddd0","2013-03-24 11:17:02-07:00","Fix #204: add todo to reduce spans for code
+
+This isn't a solution, but I'm going to leave a TODO for now.
+"
+"d3e186c8b99178b3aa8e2bf2d5b19bf44b37ec2d","2013-03-24 19:15:34-07:00","Fix #204: don't be lazy and collapse the spans
+
+Before this change each line of a code block would have a separate
+TypefaceSpan object. Add code to detect when the current indented line
+is a continuation of the code block so we can have one span per code
+block instead.
+"
+"8f919c0f8f919b4279560df852dcf1d65457d6da","2013-03-28 11:08:56-07:00","Issue #200: change from temp to permanent tables
+
+The temporary tables used in database version 2 would disappear when the
+database was sometimes closed when the app was put in the background.
+Switch to permanent tables to avoid this issue. Now we need a way to
+occasionally clean up though to avoid endless expansion.
+"
+"2a0db1981cb819e52e2145d9dd30a3e4dc6ed030","2013-03-28 18:20:16-07:00","Issue #200: delete session after resetting loaders
+
+Hook into onLoaderReset to delete session data once the fragments are
+destroyed, so that our database doesn't keep growing without bound.
+"
+"b1ec3a588951441cd8f4ca86bf682f68fb6c02fe","2013-03-28 18:42:36-07:00","Issue #200: add one time clean of the database
+
+Add a hook to remove residue in the database if the application was
+terminated abruptly.
+"
+"49fd0cdf20b41845eca0bd5a65bed652f01c2490","2013-03-28 19:15:02-07:00","Fix #200: move SessionProvider into ThingProvider
+
+The code in SessionProvider is getting specific to ThingProvider with
+the one time cleaning code calling out specific tables. So move the
+SessionProvider code into ThingProvider. SubredditProvider didn't need
+to extend SessionProvider so make it just extend BaseProvider.
+"
+"83a853e0b8641f1cd9b955c3372c1108fefd4962","2013-03-28 23:11:06-07:00","Issue #207: enable split action bar when narrow
+
+We need to fix some jank caused by menu items shifting around.
+"
+"a0db35092954eef064d246a51c1526004484a388","2013-03-28 23:44:46-07:00","Issue #207: improve menu jank in ThingListActivity
+
+Commit the fragment when the list of accounts is loaded to avoid some
+menu jank that occurs if we wait for onNavigationItemSelected to be
+called later.
+"
+"c5ef9434392bfe26d5067f2b0e7546368b51eb83","2013-03-29 09:27:54-07:00","Remove one-time database cleaning code
+
+Killed processes can still be restored, so this cleaning code could
+delete the content we need to view. We'll have to come up with other
+way to keep the database clean.
+"
+"53efbe9af250af3860ab78886cb1775bbb915c2f","2013-03-29 10:23:13-07:00","Issue #207: include add subreddit icon if room
+
+Remove the new post icon on the small screen browser activity to make
+room for the add subreddit icon which is more relevant to the listview
+of subreddits. Add a flag to disable the debug menu so we can see how
+the menus will look like on non-debug builds.
+"
+"ab7144920324d302e354545f4751fead104120fa","2013-03-30 12:13:34-07:00","Issue #205: add ability to horizontally drag views
+
+Add the ability to touch and drag views sideways. This code merges some
+fixes gleamed from Roman Nurik's swipable views gist. Specically, I
+couldn't figure out to send the cancel event to disable items from
+highlighting and long press from activating. I also added some code to
+use the Y movement to decide whether or not to activate swiping. Anyhow,
+this code doesn't dismiss anything yet. That will be addressed in a bevy
+of other changes...
+
+Also set the chosen state on views when clicking on them. Somehow
+calling the ListView#onTouchEvent in the touch listener causes the views
+to refresh too early and miss the drawable state change.
+"
+"1b4aecd4172ff322a682524dcf8e02c554755415","2013-03-30 16:02:45-07:00","Issue #205: detect flings on swipable views
+
+Use velocity tracker to compute the swipe velocity for flings.
+There seems to be an issue where swiping from left to right is too
+sensitive but not sensitive enough when going right to left.
+"
+"4d12ffa83d18cf999e9d7d6eb841d0615234499d","2013-03-30 17:10:59-07:00","Issue #205: add OnSwipeDismissListener
+
+Add OnSwipeDismissListener callback that is executed when an item has
+been dismissed by swiping. There is no animation to shrink the view, so
+it looks abrupt at the moment.
+"
+"de40acb532101c4702e3b115ca928938fdb7acdf","2013-03-30 17:40:17-07:00","Issue #205: add height shrinking code
+
+Add nasty code to animate layout height to 1. There is a problem in that
+our database changes are done asynchronously, so you can see a flash of
+the prior item returning to its original state.
+"
+"f1b7881d41fb2e03637901977fc7ebccd8f2f098","2013-03-30 20:54:51-07:00","Issue #205: remove shrinking and other fixes
+
+Remove the shrinking animation, because our db operations are
+asynchronous and could finish well after the view is snapped back to its
+original height. Since we're asynchronous just reset the view to its
+original state when binding new data.
+
+Remove the newVelocityTracker method in favor of just obtaining and
+recycling. It seems like clearing the data doesn't work for some reason,
+so this seems to fix the oversensitive dismissing. Change the condition
+to match Roman's code sample.
+"
+"334dd4637b8b1fb76e0cdc6e9092196c4fd4502e","2013-03-31 09:34:27-07:00","Issue #205: add RedditApi method for hiding
+"
+"574156ec18e82ed5c74a4201acd4007316e4f453","2013-03-31 09:39:52-07:00","Issue #205: add a table to track hide actions
+"
+"1a84cef8e2cde772c08ac4752bff441827f8b651","2013-03-31 09:56:39-07:00","Issue #205: add syncing and join code for hides
+"
+"1002ee64d9816b3d156a12b76af5e0f6a96a6fce","2013-03-31 10:55:47-07:00","Issue #205: add rudimentary hide context menu impl
+
+Add a context menu item that can hide posts. The syncer deletes all rows
+with a matching thing id, so the app will crash if you are viewing
+something that you have decided to hide. Ouch.
+"
+"073df7496a945ebcd92781599cec383e555931d9","2013-03-31 20:11:30-07:00","Issue #205: eliminate thumb flicker and more
+
+Eliminate the thumbnail flicker by only animating the thumbnail alpha
+when a thumbnail is set by the AsyncTask. If we already have a thumbnail
+sitting in the cache, then don't animate it to avoid flicker when items
+are shifted in response to dismissing something.
+
+Hook up the listener in ThingListFragment to hide things.
+"
+"68174144810e40a0f1321ea646df78868e78e6e2","2013-04-02 20:23:04-07:00","Issue #205: reset animate listener to fix flings
+
+After the first fling, any movement on a view would get dismissed.
+Apparently, the dismiss listener would remain on the view even if a new
+animation was scheduled. So set the listener to null to get rid of the
+prior listener to fix the issue. Tricky.
+"
+"258b3845fed03ba47d7259ed8a3fb071fc2778ea","2013-04-02 22:43:24-07:00","Issue #207: some more menu rearrangement
+
+- Add subreddit info cab menu item.
+- Use edit icon instead of plus sign when posting and commenting.
+- Remove the queue icon for add subreddit with old plus icon.
+- Remove add subreddit icon when viewing things.
+- Make search icon priority again
+"
+"c5a5c21029f2314310fadbf680c17cb9d7662290","2013-04-03 00:03:05-07:00","Issue #207: the menu fixes never end
+
+- Resurrect add subreddit item since it's convenient
+- Hide new post icon when searching a subreddit
+"
+"93ab300ef7483f974c88f6289d8da89e5097e2a6","2013-04-03 20:21:42-07:00","Issue #207: remove unused strings and icons
+
+The queue icon wasn't good for the add subreddit action, and we never
+added a 'Help' function anyway.
+"
+"0035dd525fb1a0560518719f8fed9393ab73b861","2013-04-03 23:35:29-07:00","Issue #205: remove ViewPager on single pane search
+
+Posts are already swipable so being able to swipe between tabs makes it
+more confusing and glitchy. It's also more consistent, because the large
+screen search doesn't allow you to swipe between tabs.
+"
+"164e19dcea804e56dc06969e5312063ea20dcae6","2013-04-04 20:09:21-07:00","Issue #205: rename SwipeTouchListener class
+
+Rename it to SwipeDismissTouchListener, since that name indicates more
+of what animations it will perform. Also rename undoAnimation back to
+resetAnimation, because it is easier to say.
+"
+"e85bcf86a8a28d5494e80b56fee00b16c7a5d68a","2013-04-04 20:50:23-07:00","Issue #205: allow swiping only in some situations
+
+Add a isSwipeDismissable method to the OnSwipeDismissListener for
+checking whether or not the swiped view is dismissable. Don't allow
+swiping when the user doesn't have an accounts. Furthermore, don't
+permit it on subreddits that don't have sidebars like front, all,
+and random and those that are search results.
+"
+"1299d014b626ae6d005671520d378ae85e1df345","2013-04-05 19:24:59-07:00","Issue #205: set layer to hardware during animation
+"
+"98c255208d1c28bcec67fc7c01b560fbe1cfa5dd","2013-04-05 21:54:04-07:00","Issue #207: upgrade to support library v12
+
+This has some ViewPager fixes. However, I'm now going to try using a
+ViewPager inside of a fragment which supposedly worked in V11 to
+address some janky menu item issues due to using the split action bar.
+"
+"b2e6d78b3e09234c4ca5502a1d0744a6956ed633","2013-04-05 22:10:05-07:00","Issue #207: replace ThingPager with ThingFragment
+
+This is the beginning of a long attempt to put a ViewPager inside of a
+Fragment and eventually use a single Loader to get at a thing's metadata
+conveniently.
+"
+"abb0bc85763142e7096491992e12c4cc65c7d89d","2013-04-05 23:16:51-07:00","Issue #207: transition to support v4 classes
+
+getChildFragmentManager is only available in recent releases, so there
+is no choice but to migrate to the v4 support library which has it.
+So convert everything possible to use v4 Fragments and Loaders.
+Since you have to extend FragmentActivity, AccountAuthenticatorActivity
+no longer works at the moment. I'm sure there were other things I broke
+too...
+"
+"b5b847c611041c2c7669bffb716035ab76cb157a","2013-04-06 09:31:44-07:00","Issue #207: add a menu resource for ThingFragment
+
+The plan is to convert all the menu items from ThingMenuFragment.
+"
+"30f9bd93389bc0baab9056ad7517612c84030084","2013-04-06 09:44:39-07:00","Issue #207: make AccountAuthenticatorActivity work
+
+Copy AccountAuthenticatorActivity and make it extends the support
+library's FragmentActivity to make it work with support fragments.
+"
+"db0c1e9e042b91f9bfcd79f55d99ab78f026d799","2013-04-06 10:19:50-07:00","Issue #207: implement open and copy url menu items
+"
+"5a8e3ea859fb8aa5837e6a0b24a2a9320d94c120","2013-04-06 10:41:49-07:00","Issue #207: add back link and comment menu items
+"
+"322797d82a7687120e240ca3d5171bca047d3249","2013-04-06 11:01:03-07:00","Issue #207: add user and subreddit items
+"
+"0d15dab89294e0a25e8056857d17c04d8768eb7b","2013-04-06 11:14:53-07:00","Issue #207: add share menu item
+"
+"3eba92f5e5d829d16181afd7f93d42463e9d8f69","2013-04-06 11:31:46-07:00","Issue #207: readd add subreddit menu item
+"
+"4df845372436da9fb10c8c98cf98629e0ea33ff2","2013-04-06 11:42:12-07:00","Issue #207: keep removing ThingMenuFragment refs
+
+This makes the menus hide the account menu items properly.
+"
+"f7386ee3f4acfea521bb3c37228260f3332c0fd8","2013-04-06 12:06:43-07:00","Issue #207: use ThingFragment in ThingActivity
+
+...and get rid of ThingMenuFragment and the crud needed in LinkFragment
+and CommentListFragment that was needed to support it. I still left
+behind some code in CommentListFragment that I will need to refer to
+when adding back the new comment and save menu items.
+
+Going to comments first is broken by this change.
+"
+"7e3f35d29aa27641aa94ccec59dd28de5764642f","2013-04-06 12:18:18-07:00","Issue #207: replace ViewPager with FrameLayouts
+
+Our fragment holds the ViewPager now, so we can just use a FrameLayout
+in all these layouts.
+"
+"cba17ba4a1ac8ad99567cca5d79c2c4dd1c8bc02","2013-04-07 22:42:18-07:00","Issue #207: some minor refactoring
+
+I want to rename some classes, so I'm just checking in some small
+changes here. Nothing noteworthy...
+"
+"93ccb8719fe7e2f666d1cec756977a69e244dd56","2013-04-07 22:47:46-07:00","Issue #207: rename some adapter classes
+
+Rename ThingAdapter to ThingListAdapter, because we want to create a
+class called ThingAdapter for ThingFragment. Rename
+SubredditListingAdapter to SubredditListAdapter to follow the convention
+too.
+"
+"a2cb8093353fbeff15c779aea4d7e99b34da4feb","2013-04-23 20:32:37-07:00","Issue #205: allow subreddits to be dismissable
+
+Even if you don't have an account, you should be able to delete
+locally stored subreddits.
+"
+"a9521fadf23cdf6a4d109cf92945200f9bb4b756","2013-04-23 22:18:37-07:00","Issue #205: define separate table for comments
+
+Use a separate table to scope deletions when hiding easier.
+"
+"91649170302281ee7ef12f74e0487ddcbfeba434","2013-04-23 22:27:01-07:00","Issue #205: create the comments table
+"
+"9a310bdd9e7d5b530d28f0c483deb86b5a7b24d8","2013-04-25 22:16:55-07:00","Issue #205: add base thing columns to some tables
+
+The comments table has to implement BaseThingColumns, because we want
+the user to be able to save or hide via the header comment.
+"
+"a3a1a3204709fe10b05b9e0e86414bf2fdc92590","2013-04-26 18:47:16-07:00","Issue #205: use comments table in CommentListing
+
+Also add saved column to BaseThingColumns to track the remote saved
+state of a thing when either hiding or saving it.
+"
+"e93e8e7ecd985b482f829295506d74f95e621340","2013-04-26 20:27:58-07:00","Issue #205: use comments table in CommentAdapter
+
+Also deprecate some columns in the things table that we no longer need
+after splitting them into the comments table. Leave them there for
+documenting history.
+"
+"9dad0b6ed5d5dff86428268050ded42ffb860697","2013-04-26 20:56:19-07:00","Issue #205: make basic comment viewing work again
+"
+"4bba82b79fcebe6df3f08c8f7dd8580a7351058b","2013-04-26 21:11:30-07:00","Issue #205: update syncer code
+"
+"7d89a0f5b116fb5672ecbb648a2095605819c171","2013-04-26 22:29:24-07:00","Issue #205: more fixes to content providers
+"
+"a38b6ba79cb73e2abc68c68cf4ddd1aac55f255e","2013-04-27 09:31:35-07:00","Issue #205: fix edit provider method
+"
+"0c58db69fbffccd180398c04e4bb258aba9c5f9c","2013-04-27 09:46:50-07:00","Deprecate some more thing columns and clean up
+"
+"a11fff4258ae6fc131f6458aa225c210105a9c8a","2013-04-27 10:06:23-07:00","Issue #205: add hidden tab to user profile
+"
+"d424fdf3a38ecaf051691629930154a107099244","2013-04-27 11:03:48-07:00","Issue #205: store thing attributes when hiding
+
+This is the first step in showing pending hidden items in the hidden
+tab. It doesn't quite work, because the query to show the hidden items
+hides the new pending hidden ones due to joining with the action table.
+"
+"c3ce7b595d71255ba13100f913ab305f27db6a1c","2013-04-27 20:03:04-07:00","Alphabetize JsonParser class
+"
+"2006448c2a933accf8d7a49adb2e74e01eb1fff6","2013-04-27 22:12:01-07:00","Issue #205: fix loader queries for hidden things
+"
+"0fe6f7c9d87aa272a42a916a09a7ee34e071f36c","2013-04-27 22:56:04-07:00","Issue #205: add hidden column to sync updates
+"
+"141ef3fdf6f1cb8abeef121ce954390eab8a4f06","2013-04-28 09:36:02-07:00","Remove incorrect comments
+"
+"7a9665d274f27aa09e6fb47a42d20e8b563b41e8","2013-04-28 10:38:00-07:00","Issue #205: add unhide menu item
+"
+"f59cfd70c37182371f9d51c6608203de55bfd644","2013-04-28 11:39:23-07:00","Issue #205: fix hide menu item visibility
+"
+"8967be51f236699438330252d54a5f87f7fcba74","2013-05-07 20:14:40-07:00","Remove thing_menu_menu which is not needed anymore
+
+Copy the remaining items that need to be dealt with to thing_frag_menu.
+"
+"82479b38337bb2a6a56fc586b307403cd922b993","2013-05-07 20:34:31-07:00","Issue #207: change saved icon visibility condition
+"
+"52589c7ce7e1db52bb0fdad0f26aec406229b58c","2013-05-07 22:31:16-07:00","Rename joined saved and vote columns
+"
+"ff3c06527651daaa22a5ddadd415e3f95433708e","2013-05-09 21:13:20-07:00","Create new loader for ThingFragment
+
+Extract BaseAsyncTaskLoader from AccountLoader and use that base class
+for loading the ThingBundle for ThingFragment. The loader will be used
+to fetch info about a thing when it is missing like when just a raw
+url is provided.
+"
+"ae608ccf18faea720d147ed6b472ad864efcc9ee","2013-05-09 22:29:42-07:00","Add a count parameter to CommentListing
+"
+"f98b4138058ec42e81c65515a1de1a067ef01dc8","2013-05-19 18:14:09-07:00","Huge initial refactoring attempt
+
+- Move Loader logic out of adapters and most fragment logic into a
+separate controller class to keep adapters and fragments cleaner.
+
+- Move out fetching of content out of the provider and into the loaders.
+The ContentProvider can only do its CRUD operations.
+
+There is probably some unnecessary code that was added due to the huge
+undertaking. It's going to take a while to clean this all up.
+"
+"dd420e225c963f047fb4947e58b5aeab610c91f0","2013-05-19 18:20:44-07:00","Remove unused title and url arguments
+"
+"34bbb24843b04abd18d33f250414f12de9da67b7","2013-05-19 18:23:33-07:00","Shorten name of CommentListFragmentController
+"
+"0a8e3230e19b09fc6d4199045f3e0f131b4b4a69","2013-05-27 21:55:45-07:00","More refactoring madness...
+
+...it compiles. I think everything is broken though. The idea here is
+to move the network logic out of the providers into the loaders and to
+move the loader and fragment logic out of the adapters and into
+controller classes. Things will be broken for a while, but at least, we
+can sort of iterate now.
+"
+"1115fea51e24a595cd9111f052671d5842748cff","2013-05-29 21:49:17-07:00","Fix no such column error when viewing a subreddit
+"
+"9477007baff846913fb7ad9a104100a1cd1c0ef9","2013-05-29 21:54:57-07:00","Fix no such column error when loading comments
+"
+"bee2db1e27d1b23d90f53b5acfe1bc077f148d6f","2013-05-29 22:01:49-07:00","Fix session creation in ThingProvider
+"
+"a211d86c83af604f24f8a2df7068821052a558b0","2013-05-29 22:05:57-07:00","Use static Uri instances instead of methods
+"
+"b3a9e73a042020a8090a21e049dd0529b537006e","2013-05-29 22:19:20-07:00","Fix expanding and collapsing comments
+"
+"41de9fc78aa347512ed9b9197735c526905381cc","2013-05-29 22:29:52-07:00","Use 0 for no session id
+
+SQLite will start with row ids from 1.
+"
+"ac5e654ff8ee7642c235de2a8a730a9f237122f5","2013-05-29 22:35:09-07:00","Remove some unused constants
+"
+"8c73647dadeba338e94171674c260c27d01391ea","2013-05-29 22:40:38-07:00","Rename local hidden column and reorder projection
+"
+"fec9c32de3a966df8aa578bf3402b11e1e1b90af","2013-05-29 22:52:54-07:00","Some more clean up of constants
+"
+"4bd2492bfc2ef152d94def0931f9b5f182ea481e","2013-05-29 23:02:31-07:00","Hide insertComment call method behind method
+"
+"d66674f83073427068025eb867ca0cb568435488","2013-05-29 23:06:12-07:00","Wrap session creation in database transaction
+"
+"df415d0ce60c49a9cb403792b973fb76a2b7c039","2013-05-31 21:40:35-07:00","Get endless scrolling working somewhat again
+"
+"43e1f7d163fac734c139484ae3ada1201c87fbac","2013-05-31 22:31:42-07:00","Add save and restore state methods to controllers
+"
+"8fcfe96b9390d23262bdf28428c945a720ae181f","2013-06-02 16:53:26-07:00","Shove all adapter code into the controller
+"
+"bdd8d59fdadf0a1b778d448e9751e2b7b206c5b2","2013-06-02 16:57:53-07:00","Strip out unnecessary fields from ThingListAdapter
+"
+"5a1ef46d865fe0d912af6712382acf19e4628371","2013-06-02 17:02:21-07:00","Fix redundant subreddit label
+"
+"8df366a4ffbd4c67f876b72902311dc95e156e97","2013-06-02 17:15:29-07:00","Fix database exception when loading profiles
+"
+"b4741bb5daefdf751498f14a8c82b249b3510a1a","2013-06-02 17:27:41-07:00","Fix profile loading and scrolling
+"
+"68996f6797760573371601b86253dd14f0117630","2013-06-02 18:13:50-07:00","Fix searching for things
+"
+"6986cacdc0e5646ded326373e7fe1b92eb445d9e","2013-06-08 10:07:41-07:00","Add type argument to create ThingListFragments
+"
+"d56820a91206fbde4d1a9a1ef1f59d95e7699ce9","2013-06-08 15:34:57-07:00","Make some constants private
+"
+"1731b644557832a347c9a20423fb8168e0f1f0e3","2013-06-08 15:56:26-07:00","Add factory methods for SubredditListFragment
+"
+"912d4acf7dd4bf86655395aa734cb72f46461e84","2013-06-08 15:58:31-07:00","Rename search fragment factory methods
+"
+"e90c050980fed0044d41ed6f3b7a612f116adf79","2013-06-08 15:59:31-07:00","Rename flags argument getter
+"
+"d6027aa2baeea5afe1ae000f38394c457d1f2153","2013-06-08 16:10:42-07:00","Add factory method for SubredditListController
+"
+"884ea2063040a83d4822db60df2ef241db697af7","2013-06-09 11:04:06-07:00","Start adding controllers to SubredditListFragment
+"
+"5175b40136fce8037b460aa82cda352fd764d5bc","2013-06-10 21:02:38-07:00","Show subreddits again
+"
+"488b15738012f0bb8605d87936fa750275713349","2013-06-11 21:39:15-07:00","Make subreddit search results appear again
+"
+"5df33d272f8b432d5782ffadb376c4a097ded1ca","2013-06-11 21:40:52-07:00","Rename SearchSubredditListController
+"
+"d7f4c59710f467ff098e9dc7ce08798b56a0d3e3","2013-06-11 21:46:05-07:00","Remove loader methods from subreddit adapters
+"
+"08b4614a3b180b2280b082114678426fcb66d5f1","2013-06-11 21:50:07-07:00","Fix selected subreddit highlighting
+"
+"aeb13338dad2deb90a0ad928c031e215cdecf4dd","2013-06-11 21:53:23-07:00","Remove unneeded methods on SubredditAdapter
+"
+"05b1d117d32a7c7df9628f8e41ba625483e252f6","2013-06-11 21:59:42-07:00","Rename some classes
+"
+"927329836a2e963292d9d6b09bc6cc94f6bcc1f1","2013-06-13 22:20:09-07:00","Move index constants to Loader
+"
+"84100abd1f886f3ae43c4e904a48b86a9c1cd35b","2013-06-13 22:31:31-07:00","Add AccountSubredditListLoader
+"
+"69d95f9d8dfdd7c4a18e0430448b5311af5e4b0f","2013-06-13 22:37:17-07:00","Fix AndroidRuntimeException when viewing profiles
+"
+"0b7e37b457b3ea1b481f409d099ebab556658591","2013-06-14 21:44:13-07:00","Clean up SubredditListFragment arguments
+"
+"bad149568752e75e35f3e10666ee99d47ddb9654","2013-06-14 22:08:41-07:00","Change single choice flag into explicit boolean
+"
+"924bb20c05a7f954484ccf856ee2a560336aec1a","2013-06-14 22:20:28-07:00","Rename Message constants
+"
+"0d575b9baa5d65ef15e7615342baccd9bc4eb3c9","2013-06-15 10:16:43-07:00","Make messages list appear again
+"
+"e654c51aea921b6060e0d5f27a27b67d661e99a6","2013-06-15 10:59:48-07:00","Fix messages endless scrolling and more clean up
+"
+"1f2e9ba394663a6bd838a63917111c9f174fbc0e","2013-06-15 19:47:30-07:00","Don't save state in Loaders
+
+Also refactor CommentListController to match the other controllers to
+have the session id explicitly.
+"
+"051eb82332e82d365850de401e18660b2302b4a3","2013-06-15 21:43:28-07:00","Properly restore pager state on config changes
+"
+"59886da133e23ae145ea8d8f87919d916cba3d99","2013-06-15 22:05:12-07:00","Fix more onLoadFinished called twice issues
+"
+"ee0d1cb57df0cbbc7351eff0cf4fc4ed9efe9ddf","2013-06-16 09:10:59-07:00","Update swapCursor to return boolean like others
+"
+"520e99adcf2b84ac54300f9dbb0516fbe358efaa","2013-06-16 09:56:59-07:00","Move expand and collapse into ThingProvider
+"
+"99069120a11db72a284ba27268f4f79dce9475d8","2013-06-16 11:17:56-07:00","Fix for expanding and collapsing
+
+...and a lot of extra refactoring that came with it.
+"
+"baad4214f73debc17a47998747ebfb109fa8c219","2013-06-16 11:37:43-07:00","Fix endless scrolling once again
+"
+"526f647146374316b9af7b9333b15e572f2cb4bc","2013-06-16 12:10:01-07:00","Fix empty list after orientation change
+"
+"316ea8cb2990e0cba455d2945ca993de4f0284e2","2013-06-16 12:25:27-07:00","Rename some constants
+"
+"eb3219bd0a47800a7967f3aa4ae4ecd331482f45","2013-06-16 12:27:13-07:00","Reset more id after loading it once
+"
+"311a87fb5a468ee132012dbd12842aed1143b179","2013-06-21 22:10:22-07:00","Create separate classes of SubredditListFragment
+
+Move getQuery to the search specific fragment.
+"
+"125ab06e9ac5167e6143df4e99c683ad91c8a1c3","2013-06-30 10:43:24-07:00","Move menu preparation code to controller class
+"
+"0ef8723fb1f6264a8bcf64d00ef011d99d8d1a0c","2013-06-30 16:56:58-07:00","Move action mode handling to separate controllers
+"
+"ec467e22c2813be0e4c2a7d62ccbea90dfb4836b","2013-06-30 17:02:16-07:00","Renaming classes to be consistent
+"
+"6e10b256a95bed56a716f77e4317e98f1c37f31d","2013-06-30 18:33:32-07:00","Create separate classes for ThingListFragments
+"
+"28e228e6ddd044038a2a4dc09b4322bb7023dcca","2013-06-30 18:55:43-07:00","Move controller creation to sub classes
+"
+"5fe204ab93c4f9f10732d7fbe627950c613805e0","2013-07-01 11:06:20-07:00","Move creation of adapter into controllers
+"
+"8faabfdb29c97073ddd4e3f5b940644f17df5e7d","2013-07-01 11:09:55-07:00","Fix raw type warnings
+"
+"0404da0e16dcbbafedb4003c0816122fd78a7b71","2013-07-01 11:21:55-07:00","Remove unused protected inner* methods
+"
+"0986ae56bff78f6a86badd88b636eee86477ce9c","2013-07-01 11:32:12-07:00","Fix broken voting
+"
+"579f0b95b10f3ef541b42ba5d3b708aad9c1e95d","2013-07-01 11:40:13-07:00","Remove one dependency on ThingListProviderFragment
+"
+"b43fecc90ee34ba29d583244f4c0964ca4400b15","2013-07-01 11:55:25-07:00","Extract ThingProjection class to hold constants
+"
+"d683a2adad53c1b58e5a704eb8d0070e332659c6","2013-07-01 16:00:14-07:00","Set all activities to use split action bar
+"
+"dd2b7239f49cb2b8355345489c6ba6f47214ccdd","2013-07-01 16:37:52-07:00","Code conistency clean up between controllers
+"
+"85f76ae8c47d693839d9a89a535791848588f8a4","2013-07-01 16:41:20-07:00","Remove clearTaskOnLaunch flag
+"
+"b947cad0e90e3eb03d2c5885a7488e89fdff171f","2013-07-01 17:03:31-07:00","Add share option for sidebars
+"
+"8861de3003b4f975ce60bf431a09599220ccd143","2013-07-01 17:14:49-07:00","Make SidebarActivity full screen
+"
+"f09530c8e2ff91955e3f04349f3928e7202128a8","2013-07-01 17:34:41-07:00","Don't show view menu item
+
+Allow users to click the header row to view the subreddit though.
+"
+"805b7dc208538e99106f94cbba4b859164b8909c","2013-07-01 17:39:06-07:00","Fix lint warnings and remove unused resources
+"
+"b4de8f7ed86a12cba852b1755a31a1bae323c472","2013-07-01 19:00:31-07:00","Don't show description row if not available
+"
+"1eac43c7240668418a645c858e0cf67b66b78848","2013-07-01 20:00:59-07:00","Display sidebar header image if available
+"
+"dcd669ff022e124d27e62c7263e90897784e335a","2013-07-01 23:30:43-07:00","Put header image to the left
+"
+"451ec19c0bb12c20a026dba5e3631665b8831f70","2013-07-02 11:18:43-07:00","More sidebar header image fixes
+"
+"a2cff10daa097255aaa4c4c29dab09a2c87b7be4","2013-07-02 16:13:03-07:00","Rearrange thing menu items
+"
+"4d0ea4981bc0fd7d9813108bff85d6b1a7cf4d6a","2013-07-02 22:24:59-07:00","Preliminary save implementation for ThingFragment
+"
+"ba4bece2622c8d8d27e2d3ace75bb9b87ba2e131","2013-07-02 22:36:19-07:00","Fix bug where items remain selected
+"
+"a2e6a519453c4a1c0983f55c9ecb544295f886e5","2013-07-03 12:01:28-07:00","Fix #75: add embedded YouTube player
+"
+"b38f5634d3bc45187d5aec5676ff41e1d987fca5","2013-07-03 17:14:51-07:00","Make links to comments from profiles work
+"
+"153aaeb9c0aef1bbe30044e808fbc0908cd71e86","2013-07-03 19:19:22-07:00","Fix exception when clicking on links
+"
+"8e2248d97c209f09cb53c6a118293dbf4204fdad","2013-07-03 19:31:35-07:00","Fix strict mode warning about unclosed InputStream
+"
+"eec79e31e06ef05766e9993a49c7513ca2f68be0","2013-07-03 19:35:07-07:00","Don't wrap null cursors
+"
+"67fd11034086c3b9386d0a01671f69ad0c866f8d","2013-07-03 19:59:28-07:00","Fix NPEs from strict mode fix
+"
+"64b25ef21579819965bee2de39a499eb272cea35","2013-07-03 20:04:07-07:00","Fix random subreddit name resolution
+"
+"eef64e1cb4a872e331ae0b1f9f4ad52cabccd88b","2013-07-03 21:13:14-07:00","Make links work again
+"
+"f11033cc4d02eee140a230d0a1f398b1165acf23","2013-07-03 23:51:25-07:00","Show title after discovering it
+"
+"d2262f834b8359f20bfa306265d6197bae9c5c67","2013-07-03 23:54:02-07:00","Move ThingBundle to app package
+"
+"9cd6543972f68099ac8c020a7323ea32c4f402d8","2013-07-04 00:22:20-07:00","Fix view comments option by removing it
+"
+"63cd3ebb4f515456398d1993a91b80fc285d89a4","2013-07-04 00:24:53-07:00","Reinstate the select method that was being used
+"
+"57f3492ccdd05adf96a896ece09f9d4c272e6f28","2013-07-04 11:48:55-07:00","Fix new comment item on action bar
+"
+"768cd945dd3cc12c6403ae4e0b32049b43989b15","2013-07-04 20:08:55-07:00","Only use split action bar for some activities
+"
+"20b48bc4a322dd072ea67d3e8659980ebeb9e08f","2013-07-04 20:17:52-07:00","Fix strict mode error about cursor
+"
+"63bc778302053b4c3bde3307e39e343912fcd3af","2013-07-04 22:26:54-07:00","Improve YouTube url detection
+"
+"3cde40c30dc8f949b7b545edc31bc04f230332bf","2013-07-04 23:01:11-07:00","Fix endless loading after exceptions
+"
+"7b0bd1bb877cb2a7f6490dc79c350df7a64ba04e","2013-07-04 23:25:50-07:00","Show domain in thing context menu
+"
+"47ad25ca604626d756a6694db09853d994ae40bd","2013-07-05 01:13:42-07:00","Show comment karma in dropdown
+"
+"003dc0db16d982f6fdb217593a6c8cdf4ac99512","2013-07-05 10:22:24-07:00","Fix padding around filter category row
+"
+"8128b8935a3c51547841461db22f0d5981ebc1a2","2013-07-05 10:39:27-07:00","Properly align karma counts and format the counts
+"
+"22d9fad87a7dda0d30403565dfdccf3501867129","2013-07-05 11:26:57-07:00","Make comment replies work again for messages
+"
+"65eafe42448a6944863284b7cffdc255f1cc134b","2013-07-05 17:28:12-07:00","Use edit icon everywhere for composing
+"
+"09fb0d3392359b42cdbbd27f4f47989de260bea3","2013-07-05 20:31:51-07:00","Get messages to appear again
+"
+"5765233d8e905e0e1dca67141dc2f94085ccc864","2013-07-05 20:40:14-07:00","Don't show link and comments icons for messages
+"
+"6a7b11903d905941490685ab15b287340552554a","2013-07-05 20:57:36-07:00","Fix author and subreddit menu items for messages
+"
+"1337cff67f289c914ca7654b879e3343a94bae7f","2013-07-05 23:26:22-07:00","Fix some menu jank by hiding initially
+"
+"ee90b9c810a3572e22e94efe97f8c9a563185211","2013-07-05 23:26:39-07:00","Get messaging from the action bar working again
+"
+"6ba8eaa520c1ff921ee6fb1ac285fdc6bc7880aa","2013-07-05 23:29:56-07:00","Use edit icon for reply message action
+"
+"2318f9530241b3054173b9f8517155f63824f066","2013-07-05 23:35:11-07:00","Remove unused reply icon resources
+"
+"afcf84fd56dd4cce461ddde3adbf14d0dfe45240","2013-07-05 23:58:17-07:00","Fix broken karma loading code
+"
+"67fdc1043fabdb9f08a4d9d2ab223b80277a5175","2013-07-06 00:15:04-07:00","Fix some more menu items
+"
+"03d3e99340fd6092a8d7ab94941afed3af8e51e9","2013-07-06 12:04:26-07:00","Fix more message menu items
+"
+"8fc4a9ecbc24cd58c65a3c50a3f18e239d43a657","2013-07-06 22:41:06-07:00","Extract a common ListFragment base class
+"
+"9508dffdceffe52a3a3dfcba990d12e94d9e5324","2013-07-06 23:13:41-07:00","Use AbstractListFragment for SubredditListFragment
+"
+"c014da38730722ef2612a4948ba1b055b62c43b9","2013-07-06 23:21:49-07:00","Make existing controllers implement interface
+"
+"caf8ef50ecb237a7256a8cc5656fdffaee3a74b2","2013-07-07 11:24:02-07:00","Change bitmap cache size criteria to count
+"
+"2ab8bde43edd20fd6f160ef9f98444ec1ffe94b1","2013-07-07 12:00:12-07:00","Move message reply to provider call method
+"
+"79bb8591dc8b49cc8da915a2cd6ebda2d572a9dc","2013-07-07 13:10:36-07:00","Show placeholder messages when action bar is used
+
+Writing a new message in a thread would not appear if you created it via
+the action bar menu item. Now it does by searching for matching sessions
+and updating them all.
+"
+"6959896f8b7a7bf405910b51d5b055a796e67797","2013-07-07 15:23:04-07:00","Move action bar comment reply code to call method
+"
+"61fee4eef4c90b2662005ea966b696b03ca8899d","2013-07-07 16:15:26-07:00","Show placeholder comment when action bar is used
+"
+"6b3f1a19789c2fccef18dfbdfe142d2cddeb2912","2013-07-07 17:24:06-07:00","New untested comment reply implementation
+"
+"e490b28f4564c4803b211fc25e707cacd7bd6d8f","2013-07-07 17:36:45-07:00","Fix empty karma counts from appearing
+"
+"e9a77aa4451c10acf13c6c862f346b7fab9ce5d1","2013-07-07 19:36:55-07:00","Add some helper array functions to clean code
+"
+"27a408b51ee90b245166bbc5a0514f0669f111fe","2013-07-07 19:52:45-07:00","Make compose activity full screen
+"
+"aad04c8960cbcec7a07720e4c0ee2b21d4b4859f","2013-07-07 20:48:42-07:00","Add landscape layout for composing form
+"
+"d7dfc966f9998c5a201a17565557027fc1eb372d","2013-07-07 22:33:22-07:00","Fix a couple bugs in insertComment
+"
+"d38b1623c06930b146227c68f0dba1ff133bdabe","2013-07-07 22:35:15-07:00","Remove updating comment count on thing list
+"
+"d43860803789873991ea7aed00f19a0f694d9305","2013-07-07 22:52:13-07:00","Don't allow collapsing the header comment
+"
+"d365fbf437af99a46360f75c1e166e1ed8214929","2013-07-08 19:57:20-07:00","Fixes to mark new messages again
+"
+"ed5e17c5b9a6267252d75d4f4770e9b1da43f210","2013-07-08 20:20:18-07:00","Fix exceptions when loading messages
+"
+"060c855ec59dba7b0ff03773030b5b2c93e2cbf5","2013-07-08 20:31:42-07:00","Remove a TODO and fix potential shadowing issue
+"
+"f6fed3c9f48058b31cee280451be3e1716d24ed2","2013-07-08 20:43:22-07:00","Some clean up in the listing classes
+"
+"cb73527113a5386316c90fa3f2f53372858f844d","2013-07-08 23:13:06-07:00","Upgrade to support library v13
+"
+"5243c9f8d4bfa07ae3b7b49b318e00ed135e477d","2013-07-08 23:20:37-07:00","Allow negative scores for things
+"
+"6cbd3da52bfe99181a13c3b359a8a9d5b5510859","2013-07-09 22:23:38-07:00","Issue #210: add an empty navigation drawer
+
+It doesn't do anything yet.
+"
+"d8b569ae4326af02cdb560ed3e164dd54e193ec1","2013-07-09 22:32:29-07:00","Fix #213: don't show toast when favoriting
+
+The star is enough to reflect something happened.
+"
+"b278ca28d743e13e84a518f0bd2f951a5b2194c5","2013-07-09 23:04:20-07:00","Fix #206: show current search when being edited
+"
+"1e1fae7f8e67a5a3ddd7383e2868d5a8e4ada464","2013-07-09 23:23:25-07:00","Issue #210: add shadow like NavigationDrawer demo
+"
+"bd45d81d4b0fad16fae13874c66f7b8e19965c0b","2013-07-10 20:03:00-07:00","Change ellipsis to show more of the uris
+"
+"ad0f4f2639934753a5318b898205cbd40725f5da","2013-07-10 20:57:23-07:00","Issue #210: add accounts and places to nav drawer
+"
+"72bfb807bd598d06653c93c0598cadab259bcfd8","2013-07-10 21:14:07-07:00","Issue #210: add background and some dividers
+"
+"bb7889175570c90a5752d6d47bdedd801734669b","2013-07-11 20:41:52-07:00","Issue #210: use a fragment for the drawer
+
+The drawer is going to get complicated so create a fragment for it.
+"
+"ee28f3088b67114819660a18b6ef31f82b771706","2013-07-11 21:01:06-07:00","Issue #210: some drawer appearance tweaks
+"
+"d441acb72911e709a1fde856dcd9e9a85165a169","2013-07-11 21:27:32-07:00","Issue #210: show account places for only accounts
+"
+"c9420a607f76313404d44616cd1fba29f3bd7286","2013-07-11 22:48:31-07:00","Issue #210: temporary hack to set a background
+"
+"63b25ca0b0bc69035e999ba766ddce0a8fcd01a5","2013-07-11 22:53:53-07:00","Issue #210: remove account items from menu
+"
+"7f0604bd995a9364b25af9009bbed3923284512c","2013-07-11 23:54:15-07:00","Issue #210: make account places selectable
+"
+"ff037be3db5acce3e614af672504b9eba8c86e44","2013-07-12 00:02:54-07:00","Issue #210: hack to allow initial account select
+"
+"458174ce24bb79037565bf0e82ead47737cc26a1","2013-07-12 20:22:08-07:00","Issue #210: cram SubredditListFragment into drawer
+
+This is going to get very messy...
+"
+"6dbc6f464a760ca2e1813eaa6879196800e7abfc","2013-07-12 21:57:17-07:00","Issue #210: show subreddit things on first screen
+"
+"d5cf306dd099d3a52532d2d8f070aac0477c64eb","2013-07-12 22:21:41-07:00","Issue #210: replace fragment on subreddit select
+"
+"fb7006a453da4a2ddb4a709e0986ccae6312016b","2013-07-12 23:20:07-07:00","Issue #210: sort of make the title bar work
+"
+"a016295dc0e6173b0848f0fd44d6485f0b59cf49","2013-07-13 15:59:17-07:00","Issue #210: add equality check to swap fragments
+
+Fragment overrides the equals method so we have to define our own
+interface.
+"
+"c86e612b948ebbad099e296426a60fa964841e92","2013-07-13 16:29:29-07:00","Issue #210: make filters take affect
+"
+"66177d98733be0ef117697fb6759da045311b271","2013-07-13 17:21:37-07:00","Issue #210: fix navigation bar race condition
+"
+"9e5c9eec33b4d80bae07e56c5c69564e344b2b3d","2013-07-13 18:08:55-07:00","Issue #210: push filter code to abstract class
+"
+"67857b2077abd93cf44e44a9c17367c022c44514","2013-07-13 18:20:10-07:00","Issue #210: fix drawer account selection
+"
+"224fcc3cb2b21f5861f9fb53099d8f630e120dae","2013-07-13 19:02:36-07:00","Issue #210: fix front page display in filter
+"
+"b93342b9fb10c3805b95cb8c7b8b028a125e0478","2013-07-13 22:29:13-07:00","Issue #210: remove DrawerFragment
+"
+"6b25bac630c3472402675f6ab13a53159eecb28e","2013-07-13 23:05:27-07:00","Issue #210: show accounts in subreddit fragment
+"
+"d86ce7afaf4cb07475dc448e2590e213314b4d19","2013-07-13 23:40:57-07:00","Issue #210: show app storage account name properly
+"
+"2e61e544f477d75b88dc3274d5817b2423da33c9","2013-07-14 11:54:52-07:00","Issue #210: use single fragment with many adapters
+"
+"36f1f8551463259119d267ed73a3e98e3da722a0","2013-07-14 14:27:43-07:00","Issue #210: make account items clickable
+"
+"123d625f8a7909adee5d454788d70d96ee6ee9e2","2013-07-14 15:01:22-07:00","Issue #210: make selecting subreddits work again
+"
+"f0d61cc3423e8c4b581546caaba91be391afe3c7","2013-07-14 15:59:02-07:00","Issue #210: make filters work again
+"
+"d64c7776e9b989c1769612ac010e60ec577d5709","2013-07-14 16:31:10-07:00","Issue #210: add subreddit category divider
+"
+"5a88d9e096c89ffb11a294a99128dbf1cc86d263","2013-07-14 17:04:09-07:00","Issue #210: add account places again
+"
+"39854e7785a10961f20e141e1c5c0034b045de55","2013-07-14 17:06:00-07:00","Issue #210: highlight selected subreddit
+"
+"762cfed3df33f089004dc6b659f81dbb94043652","2013-07-14 18:13:53-07:00","Issue #210: make account places somewhat work
+"
+"d187d80fd32b8c8cf291cb945c15664337651716","2013-07-14 18:22:42-07:00","Issue #210: fix title for profiles and messages
+"
+"44e2eee9ffcf447f1fb2d4b7bf9c43b0e4b43cb1","2013-07-14 18:31:05-07:00","Issue #210: remember the last place
+"
+"1d2b1c21dc3e71fe65e516c827c1e4edebd207e5","2013-07-14 19:27:26-07:00","Issue #210: more clean up
+"
+"0452cf44259c663fc52c2e447ac66338eefada98","2013-07-14 19:45:51-07:00","Issue #210: various clean up and fixes
+"
+"6cb9771eae28316df3ec0d2816f70623ee27b531","2013-07-14 20:03:47-07:00","Issue #210: some fixes to get large screen up
+"
+"cf8d461348ce3c9837c768266b6948cf34e1d4d8","2013-07-14 22:13:32-07:00","Issue #210: fix home up for tablets
+"
+"82c0b89c2e188ac48821bfd2b646db3ba3a6ea69","2013-07-14 23:53:50-07:00","Issue #210: show account name in action bar
+"
+"e44846ad65ff614fa09e091122ec71e5a3193408","2013-07-15 21:08:53-07:00","Issue #210: combine places into one row
+"
+"a7f24a42e41c25bad890ebe00c349e6d19dd965b","2013-07-15 22:45:37-07:00","Issue #210: fix navigation fragment background
+"
+"5157ec0f7b12a6541dd2aeb9f2b5227bca6960a6","2013-07-15 23:02:19-07:00","Issue #218: show YT player at top for portrait
+"
+"d5f0ba824bb47a4cbaf19b5527875aea4ae07b71","2013-07-15 23:10:13-07:00","Issue #210: rename NavigationAdapter
+"
+"07b5dc1783f68db9236a9360f120de545bc8ed80","2013-07-16 19:48:18-07:00","Issue #210: highlight selected account
+"
+"45e50b10d6687540de89aff7d0d0b43a4edc6013","2013-07-16 20:34:51-07:00","Issue #210: add subreddit places button
+"
+"bf43e8194674ddb03a189f952c5d949801cbb584","2013-07-16 21:12:11-07:00","Issue #210: change place button background
+"
+"23588c3bf87f6d0e5b8f2a333afa86c10b746321","2013-07-16 21:26:09-07:00","Issue #210: tweak place button background
+"
+"825fb85f99629025985b2974f9376116dc131f41","2013-07-16 21:32:00-07:00","Issue #210: fix subreddits not updating
+"
+"bb9b5a347bbce7fdff1f669eceb816ab17b7a708","2013-07-16 23:04:43-07:00","Rename AccountAdapter to AccountMailAdapter
+"
+"9af93f0e59ae951fb2e506af5896cd214e233d36","2013-07-16 23:25:12-07:00","Remove unread messages icon code
+"
+"35badfb1fb23f0a4fda1ab36ee77a221738ad342","2013-07-16 23:34:25-07:00","Delete unused BaseLoaderAdapter
+"
+"d3584f1d305a0eeadc4dc5c6e2f7a9bebdec85e1","2013-07-16 23:49:26-07:00","Fix and suppress various lint warnings
+"
+"ce8993abada75eb91131c8bda73262e43cfcced4","2013-07-17 19:51:42-07:00","Issue #214: remove some more toasts
+"
+"5db0909a847f9a8776b82cc19a58514319731a4a","2013-07-18 00:03:06-07:00","Issue #210: add back sbureddit cab items
+"
+"f9fbe1c9f58c673f8a226227ccd6a0c5c2a466a5","2013-07-18 22:24:08-07:00","Remove ThingProviderListFragment
+"
+"e28c4d52bb9aeca2e61320c7f8610cb7952f3629","2013-07-18 23:24:11-07:00","Don't let an error clear all the existing items
+"
+"1a881f1920761760a9fdca71b93acaabc5eecd8b","2013-07-19 20:14:00-07:00","Some SidebarActivity refactoring
+
+Add search and copy url items. Move the menu code into the fragment.
+"
+"ba61cb6d1f32aae81340f42b5c568267967b4787","2013-07-19 21:05:39-07:00","Fix #216: add copy subreddit action
+"
+"c0623701facb10e3b40f93a1b1d9af55d567600e","2013-07-19 22:24:15-07:00","Fix NPE when selecting home menu item
+"
+"77d644d88f22d485f64a38fce325f7a05ed57c46","2013-07-19 23:50:52-07:00","Fix #215: add share to search sub action bar
+"
+"30e013a0a106ba2cd1a0873d85c3530f37d9d946","2013-07-20 14:34:57-07:00","Issue #216: use dialog rather than custom view
+"
+"c7acf0305f7a0524f3894b2bc1f777d3258b40c6","2013-07-20 14:47:45-07:00","Issue #216: don't show add if not enough accounts
+"
+"6a99508e83032b1f8d195a712e990e7acdc97b82","2013-07-21 11:22:59-07:00","Remove ThingListActivity
+"
+"a72fbffcb88cb02cdc9d5c49243d246d771f2dcd","2013-07-21 20:48:15-07:00","Remove some dead code
+"
+"6e7b5c1ac7b0e0b281df21e3dc38c5068a032ebf","2013-07-27 23:58:22-07:00","Issue #210: refactoring fragment control
+"
+"867891f6fa8f01a53e2c1f2c881d56a1937d6425","2013-07-28 11:01:28-07:00","Issue #210: fix up search for small screens
+"
+"096f7182b1927adbb0b53cd36aa97441739447b7","2013-07-28 12:01:43-07:00","Issue #210: fix subreddit search config change bug
+"
+"14702676eaad4fbf3ea799f168ef7a9d8489eb6c","2013-07-28 13:46:51-07:00","Issue #210: fix up UserProfileActivity
+"
+"12b3f332b4a4515b903ca9fd88083534e90ca2a0","2013-07-28 15:50:04-07:00","Fix #210: make selecting subreddits in search work
+"
+"2f8ce33b753185c9bb6e39ef8898b7b3c5eec59d","2013-07-28 22:27:53-07:00","Remove unused swipe code
+"
+"32c086becbd10dd8324969a4c88c101568669fce","2013-07-28 22:40:52-07:00","Fix blank screen when no subreddit results
+"
+"72dd6de442bf8c528cacf10361bae80cd45bffda","2013-07-28 22:46:08-07:00","Remove some unused methods
+"
+"8d0a5c049fb2c3978e709835d273de28abc19d4c","2013-07-28 22:51:33-07:00","Remove more unused code
+"
+"8310d530f4ad300cf65c78e6dac7058663aa7d37","2013-07-28 22:54:12-07:00","Remove even more unused code
+"
+"6ca1b9085a85475c374c2d3a909310b8525cc931","2013-07-28 23:34:27-07:00","Remove more dead code
+"
+"e3b9e5f492c4ed4e430de8eb92ec9ce1d8de84b5","2013-07-29 20:23:23-07:00","Fix #220: enable paging for search results
+"
+"56f2c5b30ae80afa08f31a2233417b93a142d99e","2013-07-29 20:38:36-07:00","Remove black background for videos
+"
+"272d5067337ae3c3f404b694e009c78f35965cc3","2013-07-29 21:14:55-07:00","Fix crash when changing to subreddits tab
+"
+"bfac1373849e3dc18bb218f956f3914c29f94b7c","2013-07-29 22:36:16-07:00","Some clean up
+"
+"88460c29582d10abb0978895e3b4aed2b07b8a71","2013-07-29 23:50:52-07:00","Remove popup progress when adding account
+"
+"7ae5673652b159f35a12c2ebf003aaafb072a8b2","2013-07-29 23:55:18-07:00","Add vertical divider to button bar
+
+I swear this was there...
+"
+"7c0087a5f08e457929c994f36bdabb0ec189b77a","2013-07-30 21:06:47-07:00","Issue #219: make subreddit links work again
+
+Links to specific things don't work yet still.
+"
+"766b53e51c1fc07bd2fb7d6e55cb73a6dc6b8c2a","2013-07-30 22:20:13-07:00","Issue #134: clean up ThingActivity a bit
+"
+"960c0a8289752497f29c8b01edfae4b63ef20950","2013-07-30 22:35:12-07:00","Issue #219: disable drawer when previewing
+"
+"8bf2f555bfb73cc6465a530222867dcaff7b0046","2013-07-30 23:02:33-07:00","Fix #134: finish single pane up button work
+"
+"07693d29ec1d8eeed0d3aebb00cb2ebb86378709","2013-07-31 23:54:58-07:00","Fix #219: fix opening links for large screens
+"
+"7ec8ded5ee2a8e7abcbb38047123222c9a77a47e","2013-08-01 21:30:29-07:00","Remove unused layout
+"
+"4dfc582451e9af7d49589a13a80c1aee7ce80731","2013-08-01 22:12:55-07:00","Issue #225: use drawer layout for smaller tablets
+"
+"2bf25f745045c6fab890ddbbed6f95394cab6606","2013-08-01 22:28:27-07:00","Ignore lint warning about icon
+"
+"e69e44c33f945bafa2bdcbf056ce0ce942c6cf93","2013-08-01 22:31:02-07:00","Remove unused strings and layouts
+"
+"23f6dffb2eb894b3496be8397a60b324eee04192","2013-08-01 22:54:57-07:00","Issue #225: make drawer wider and optimize layout
+"
+"50939c682ab71e1c2f2239b7ab86af5496c68e47","2013-08-03 00:43:01-07:00","Issue #225: rewrite refresh view animation code
+"
+"c8f554c1a98c8b1d605e1da601f1afd560854a0c","2013-08-03 09:55:47-07:00","Fix #225: fix a deadly typo
+"
+"0ea00a6e9160b4c8fbf062fb9f3ea4a8dc730ffe","2013-08-04 10:28:18-07:00","Use different container id for drawer
+"
+"d35d27fc7e049114fba40face1439d470e8cbcd1","2013-08-04 10:39:25-07:00","Rename container identifiers
+"
+"2d6ed46d12208603c3c93ef0ae667feea83dcae4","2013-08-04 10:51:25-07:00","Rename container member names
+"
+"9c80dd386c3317d4171e734c888f0210a12838fc","2013-08-04 11:08:32-07:00","Fix subreddit results not showing loading symbol
+"
+"95b043b949e1b970ae8f2a4f5c33c96cc9b49e09","2013-08-04 11:16:17-07:00","Fix not able to select saved profile things
+"
+"cf2fe5de3fc96d51cdb4f32d1b5b4ec21a1901ac","2013-08-04 11:35:04-07:00","Fix NPE when searching from profile or messages
+"
+"e1f95f3cc8754517b26cf36d0025d6b217b82461","2013-08-04 11:47:01-07:00","Fit more details on 7 inch tablets
+"
+"57a08e91f884a1d7078b00bc519b5a6ec7664ead","2013-08-04 11:56:29-07:00","Increase left width for larger tablets
+"
+"ade4be90b9bab4218f4f44f3c6fa0b95787c3558","2013-08-04 15:12:20-07:00","Remove unused loafIfPossible methods
+"
+"35c38096cf85b1269ccd6cbd9b74907606259dc6","2013-08-04 16:12:46-07:00","Issue #221: change SidebarActivity to use tabs
+"
+"bdcbe1bef04fb5ee0e0c037317cc43258993467d","2013-08-04 19:16:45-07:00","Issue #221: add related subreddits fragment
+"
+"1ce75ec1c5e034a794dd1e719d81c74031d1fde8","2013-08-04 20:43:46-07:00","Issue #221: implement subreddit scraper
+"
+"ddeedf0331defff0d1c52c952bb21f92c762690c","2013-08-04 20:58:18-07:00","Fix SearchActivity crash on configuration change
+"
+"93584e2c3807a2f2cd142eb5110c1ba20cdee695","2013-08-04 21:01:56-07:00","Fix #221: rename sidebar tabs
+"
+"2052888b5b095e1a3214fbfbf046e8ff0be1c0c0","2013-08-04 21:07:10-07:00","Make sure to set fragment visibility
+"
+"da837666005a75824a04be2fd8ca26eb2531f77e","2013-08-04 21:21:56-07:00","Fix some obvious NPEs when rotating
+"
+"98b9bdf3d8644417623b8c3c4e27cc59efede2b6","2013-08-11 11:03:16-07:00","Fix #230: fix related subreddits selection typo
+"
+"4bc521ac4b01cedd646c2b05fde14682aff812cc","2013-08-11 11:11:01-07:00","Incremental clean up in ThingListFragment
+
+- Add some missing Override annotations
+- Make some public methods private to setup future clean up
+"
+"b8d1fca266afe2fdc42937006702dc55dcc9160f","2013-08-11 11:29:28-07:00","Move sidebar item handling to ThingListFragment
+
+This fixes getting the right sidebar when selecting subreddits in the
+related subreddits activity.
+"
+"b9c3eb158c99cabfeadf4edfeb4257e3bee022c4","2013-08-16 21:55:51-07:00","Fix #232: fix seek bar for JB-MR1+
+"
+"03683eca9fab3c8b621ac50bd7a6fa2a28a01ae9","2013-08-16 22:11:09-07:00","Fix #226: fix drawer resetting position
+"
+"3e19180f94e5b45d4a2ad88ee4c53b176b9756f5","2013-08-16 22:18:15-07:00","Rename NavigationFragment callback methods
+"
+"0ffb036b9693721d9f97a4683f3b29da350fd9ee","2013-08-16 22:54:18-07:00","Fix #229: force load subreddit on clicks
+"
+"f5f1a045f0a3023c5ec0dced75c91a9d7a4a6b37","2013-08-16 23:13:49-07:00","Fix #223: don't allow swiping in action mode
+"
+"e3673e4c31a7c5caa1ad6a0cc40699aa51d04d8d","2013-08-17 22:17:41-07:00","Fix #233: handle add subreddit dialog
+"
+"e5f992e0d7932144be5216a7997df1508625dacb","2013-08-17 22:20:18-07:00","Rename some menu handling methods
+"
+"d9217e8a878e9fb0b250eb62e2bede6122042e6e","2013-08-17 22:57:19-07:00","Fix #231: fix crashing when selecting things
+"
+"583e1918211ddc6bbc7827bb4a3c539dac2fa114","2013-08-18 12:01:33-07:00","Refactor action mode handling in ThingListFragment
+"
+"79aff06ea3b564dd3617924c7d9780eae7df0932","2013-08-18 16:49:35-07:00","More menu controller refactoring
+"
+"4e3cbf8bf71d8a2ca4d5d6b90c8f0f1449049e66","2013-08-18 16:55:46-07:00","Use separate menus for messages
+"
+"94c10e271ee06eca6ff07fe2b2e58aeb4c8b267c","2013-08-18 17:03:35-07:00","Remove protected member access
+"
+"ab308b59cd3f46ca784e073856dc9c81f2d2c669","2013-08-18 17:40:07-07:00","Split menu and action mode handling
+"
+"a1958f0c62ba42be7e86f75b9daa8c20ac5acf7b","2013-08-18 17:56:56-07:00","Remove more code duplication
+"
+"544c070e3fef1c8db65e01f0deb8f35de8e68129","2013-08-18 20:00:05-07:00","Issue #234: add theme refresh icon
+"
+"0bc67b3aa0bf0732c8d5a2d98a3f1c9066b0aa65","2013-08-18 20:11:13-07:00","Fix missing menu items
+"
+"8b57bd898221337213191d3c1ff5afc261192064","2013-08-18 20:16:14-07:00","Issue #234: fix refresh item visibility
+"
+"1333905a542f2252b1ebe19a67bd4dd6dc9cfb78","2013-08-18 21:20:48-07:00","Remove special empty text handling
+"
+"f553a3ef8ba5f3443e281c076a6f69ef7fd9a3a7","2013-08-18 23:02:14-07:00","Fix #234: hook up refresh button
+"
+"38e1051b8a155a8a6b5aeb3793043ba8ae194121","2013-08-18 23:15:46-07:00","Remove unused methods
+"
+"efc768b1379bce12f966e6508f2e6d6d8d7d2319","2013-08-19 12:01:37-07:00","Fix #211: add initial database cleaner
+"
+"dd63f4e3de0536ef225c14960d9bfcb0235eb41a","2013-08-19 17:00:32-07:00","Fix #235: use inline progress bar for composing
+"
+"b41e8e7bca5c1abfc35d082051817773f1d2ca2a","2013-08-19 17:33:43-07:00","Move progress bar to top of add account frag
+"
+"b795aa3ad2c1ce3584baa366f54943fdf68e2808","2013-08-19 18:11:42-07:00","Move progress bars to the bottom
+"
+"0b2cd261f66e58b5bfec82eecaa6ce3d12e848e7","2013-08-19 18:53:32-07:00","Change ComposeActivity to tabbed activity
+"
+"15dfb76edbddc81f9c9a562c8536c7139f2abb45","2013-08-23 21:04:23-07:00","Fix #236: use collator to sort subreddits
+"
+"78e84e036b5bfc1486b85560eebb9d1bf825e615","2013-08-23 21:09:47-07:00","Fix #241: align YT video to top in landscape mode
+"
+"25febea1fbc9c0041f5b67fbf32b2d344fad3e4a","2013-08-23 21:18:39-07:00","Fix add subreddit item in sidebar
+"
+"7f2f00a12cfb7af7bea6179fd2152ecb6686deb2","2013-08-23 21:23:03-07:00","Fix #244: move add subreddit item down
+"
+"0df2046c4f110b36e609e7ea191ded7d825ba52e","2013-08-23 21:57:53-07:00","Fix #242: make messages icon clickable
+"
+"93702b13fc35da04dd8a6f54e725032a471fef49","2013-08-23 22:30:59-07:00","Clean up AccountResultAdapter code
+"
+"e09f82a06fc46b7f7541ca4619d548a85d5483b6","2013-08-23 22:37:39-07:00","Fix #240: don't update header comment count
+"
+"169a038e7b2ad7d72021b4c37959112ef18a3b45","2013-08-23 22:49:44-07:00","Fix #243: run cleaning in separate thread
+"
+"1a2b39a8af340b8ed9ad286b4ba6f9d887ab110e","2013-08-23 22:53:24-07:00","Fix targetSdkVersion lint warning
+"
+"58fba6deddbafe4112c2d56e3a7ed11810bb9331","2013-08-23 22:57:16-07:00","Fix duplicate resource warning
+"
+"adb00464cf3b67284a43dc4e5e47882d281a765d","2013-08-23 23:00:50-07:00","Suppress inconsistent layout lint warnings
+"
+"87ba62b7316b45f7c04fee314dd6efcc9a40d3b2","2013-08-23 23:07:55-07:00","Make drawer wider for most screens
+"
+"eac15c5eb3f4211fce9fd9135fe1f4d4d93a4866","2013-08-23 23:20:54-07:00","Fix #246: add arrow indicator to sidebar header
+"
+"3fa88e1db931a8fa8b7e98080141b3846752b7f2","2013-08-23 23:59:20-07:00","Fix rotation bug due to typo
+
+Overriding methods can be so dangerous.
+"
+"496a3b6751095858b7e269e443eabdbe834f263a","2013-08-24 17:05:40-07:00","Fix #239: delete using offset + limit
+"
+"a3cf1d5321a87cab668cf8ba46ff4d71f08b7737","2013-08-24 22:05:37-07:00","Fix not popping back stack when selecting things
+"
+"34f269abdd94ae2df952ff68b0d565e116654f1c","2013-08-24 22:21:57-07:00","Start cleaning service before issuing network call
+"
+"08b1cc616130f8d77e14d0ea7ceeaeec13694ea0","2013-08-24 23:19:17-07:00","Fix #212: swipe to unhide on hidden page
+"
+"372b7b6b7a9e5c9725bcd73f8397490aa331aca0","2013-08-24 23:55:48-07:00","Fix #247: require distance for fling to register
+
+This is different from what the bug requests, but this should achieve
+the desired effect of being too sensitive to flings I think.
+"
+"9c7d796c3036eaa3460c0b7dfa3db1ac2254ae28","2013-08-25 12:26:08-07:00","Use desktop agent for LinkFragment
+
+There seems to be an issue with 4.3 not handling redirects.
+"
+"778d854fdaca83184bb58203081f55304590c961","2013-08-25 12:58:32-07:00","Revert 'Use desktop agent for LinkFragment'
+
+This reverts commit 9c7d796c3036eaa3460c0b7dfa3db1ac2254ae28.
+"
+"71f15cc6e271e9a430ffd1c92f9529523bf6b0ed","2013-08-25 12:59:01-07:00","Revert 'Fix targetSdkVersion lint warning'
+
+This reverts commit 1a2b39a8af340b8ed9ad286b4ba6f9d887ab110e.
+
+Changing the targetSdkVersion to 18 causes the WebView client to show a
+blank page when the browser is being redirected like on imgur.com.
+"
+"957491b7509835634e33e0ececf4f656b9631c76","2013-08-25 19:31:19-07:00","Revert 'Revert 'Fix targetSdkVersion lint warning''
+
+This reverts commit 71f15cc6e271e9a430ffd1c92f9529523bf6b0ed.
+
+The imgur redirects stopped working an hour later, so it wasn't this
+after all. Maybe it's just a problem with their site at the moment.
+"
+"16bde5bbf9f4fd3a5097ac2474bf90c4a4bde51e","2013-08-25 19:59:52-07:00","Fix #249: limit sidebar header image width
+"
+"88f5742dbeb670cb1510a537fb537fd2d79b0807","2013-08-25 23:11:38-07:00","Fix #250: fix missing menu items on ICS
+
+The cause was a fragment saying it had a menu but didn't really have
+one. Also update the menu items when setting the current page. It worked
+fine in JB though.
+"
+"15a8317d67cba46c89a2d430207c04494aa2d65f","2013-08-30 14:12:57-07:00","Fix #256: hide some menu items when previewing
+"
+"9d6c11d068af10a0ceb5e4eefe7a5ba37cf343dc","2013-08-30 14:25:37-07:00","Fix #253: update menu items on swipe
+"
+"3c3f078f276b84bf76ec2f7e84e728bdaca0d328","2013-08-30 14:50:00-07:00","Fix #252: periodically clean up sessions
+"
+"26729991aa0ec8a707210d6957bbf2d1ce838a26","2013-08-30 14:57:59-07:00","Add comments table to content URI list
+"
+"2ad98f1f4e08b67111fa06b0ffcfc0b7827ed6d1","2013-08-30 15:49:12-07:00","Fix #254: fix up button for search activity
+"
+"a820b232313c1aab24f25a56e628992b130dfc40","2013-08-30 17:54:23-07:00","Fix view restoration problem
+"
+"98c5cdd6057dba349f872ddc5a23ea148b7ca3e2","2013-08-30 18:31:22-07:00","Extract common tab setup code
+"
+"8c677547e13051ccffb6a9b2b84496e53ed88cf1","2013-08-30 18:37:45-07:00","Remove unnecessary setupViews method
+"
+"ddc508e56c0ac3c35a840a1444612e1fb6dee0ea","2013-08-30 18:44:17-07:00","Fix #248: rearrange menu items
+"
+"c0769f1c5c07123392e8e1335c8760dc569fc56f","2013-08-30 20:29:32-07:00","Fix #245: remove generic session tag column
+"
+"f7af88e8cd12096f573e4a9651df32f8289d6175","2013-08-30 20:40:03-07:00","Rename some utility classes
+"
+"619857ac4e7b1a501d6f2333ef809ada94d07e27","2013-08-30 23:27:01-07:00","Fix #251: truncate long titles
+"
+"57081d48789f39c07fb3b07467b739db28180e1f","2013-08-31 00:09:49-07:00","Fix disapproval face by properly implementing CRs
+"
+"043dfaa3a4d4e1fca22dbcb6744349643ef697d3","2013-08-31 11:16:25-07:00","Add support for hexadecimal character refs
+"
+"dd45a7f5a1efe435438037134fbd7c397c23a5ac","2013-08-31 11:40:10-07:00","Fix #15: remove special handling of images
+
+Also try using WebView#saveState + restoreState.
+"
+"fe90aefea232791b498ef0cb249df9226d1d0b32","2013-08-31 16:27:43-07:00","Fix #258: clean sessions by type
+"
+"49cd9596a24be51cfbdea3c746d5a790a63cdf0e","2013-08-31 18:41:36-07:00","Remove unused class
+"
+"1bd24faf04e8b27dd58decd74b3cdacdc9d51b82","2013-08-31 20:01:22-07:00","Implement ComponentCallbacks2
+"
+"cbfd6f6e21262062c6a6f2ecaff0357eb5a16ae3","2013-08-31 22:06:23-07:00","Fix #257: improve ellipsize function
+"
+"ee5e474db901ef0b89eeeb443f5263369661e1b6","2013-08-31 22:11:01-07:00","Remove unused pool classes
+"
+"09674286d3cfdff7817594f83aa7005fbc52ef98","2013-08-31 22:20:55-07:00","Move progress bar to top of layouts
+"
+"b292098ac01671e6b812274c2ceeba91be66c2ee","2013-09-01 00:46:55-07:00","Fix random subreddit loss on filter change
+"
+"5b5ebbb4d3bb10d0ca061a78d4b226e08497bb04","2013-09-01 11:04:05-07:00","Add account column to sessions table
+"
+"d5fda19a65c16c08c8a5c91363d21bb03293f1de","2013-09-01 11:09:39-07:00","Make shouldParseReplies protected
+"
+"9ffee2db68f8b2703592b91238506b5b7026d70e","2013-09-01 20:13:39-07:00","Fix bug where messages would always goto inbox
+"
+"344f9f85ebe934e6b25a25cd7c9b78101d5a5a71","2013-09-01 20:23:45-07:00","Fix menu after resolving random subreddits
+"
+"c629f4d656a30b7751d659b3a19379ad3ea45b99","2013-09-01 20:27:27-07:00","Rename SubredditNameHolder interface and methods
+"
+"d97643bae50281c37a8ea7662e9d08fac5b26fab","2013-09-01 20:49:23-07:00","Fix rotation issue when adding account
+"
+"e0c04725e7779188c07644f58aeb8ff8a6464421","2013-09-01 22:47:42-07:00","Revert 'Fix bug where messages would always goto inbox'
+
+This reverts commit 9ffee2db68f8b2703592b91238506b5b7026d70e.
+"
+"b305742eb478a4522a72bdf124d491582548dc23","2013-09-01 23:43:23-07:00","Various fixes: random handling and account reloads
+"
+"81c5262f41e4d82a900db4741f305147f9dfd17d","2013-09-02 11:03:45-07:00","Remove explicit syncing as an experiment
+"
+"23f087c7c7783b0f9fe0898c687fb938bb2eefb9","2013-09-02 11:29:35-07:00","Move text truncation back to the view
+"
+"aecd668fea9c81e9018fba98a99ccdff0b864dc1","2013-09-02 12:20:22-07:00","Resolve subreddits in loader instead
+
+This is an experimental attempt at resolving the random subreddit before
+setting any fragments. The downside is that there isn't any loading
+indicator or message when an error occurs. However, the code is a lot
+simpler and more efficient.
+"
+"0cbb93f933d4494e20459bf6d2410518db61f79a","2013-09-02 15:34:57-07:00","Restore pending random resolution on config change
+"
+"1660b77d86adde6674cac149d8c0e5175294a0a8","2013-09-02 17:29:47-07:00","Always use NavigationFragment in browser
+"
+"cc1024ea9f818bff598445e3c205c0a56b5c38f4","2013-09-07 12:21:55-07:00","Fix #248: rearrange subreddit action items
+"
+"dae20cb4a3f185fa90a0a006e422fbd70dd19e1a","2013-09-07 12:35:28-07:00","Fix #265: show edit item if possible
+"
+"0a8874c6fddc34cf01b8b7a566ab7d67e0bb390b","2013-09-07 12:49:14-07:00","Fix send button not reacting for edits
+"
+"ec5f3ab6e54e0c0a15ae77a8bd112c7e03515371","2013-09-07 13:34:14-07:00","Fix send button without invalidating menu item
+"
+"c2b4e07a97b3dfd8fd0ebf47bb442d760c9e5afa","2013-09-07 14:16:47-07:00","Fix #264: fix message menu reply action item
+"
+"b43c552533a5cb371c951bd9c514a3aa2e7ad9fc","2013-09-07 14:19:10-07:00","Remove some duplicated code
+"
+"16934b4afcf9dc1922b34ef19908ef0052ca500e","2013-09-07 14:24:08-07:00","Fix code formatting in ComposeFormFragment
+"
+"0cc31672d9fe1d8c22d95de9456e03275ff31ebd","2013-09-07 14:31:18-07:00","Some code formatting cleanup
+"
+"6c20d4f619afeb1a1c6f20424208ed92a7d3a179","2013-09-07 15:45:45-07:00","Issue #262: improve accuracy of save menu item
+"
+"e56484233427efe52acde8e5306890ae889dde5b","2013-09-07 17:40:54-07:00","Fix #262: fix starring state not sticking
+"
+"1d99ece00dd6a908d9ed34e41ff06f9c9c449d43","2013-09-07 17:51:30-07:00","Add some missing override annotations
+"
+"003f0b0f7d08a1de7757440a21d3f5fbe10bfa16","2013-09-07 17:59:32-07:00","Show reload button for profiles
+"
+"50c74dccc0e6cae092f8fb77975459a08c80d425","2013-09-07 18:03:02-07:00","Fix tally in SaveSyncer
+"
+"0cf7872588142b556cf903a3d82383cdf245f318","2013-09-07 19:04:58-07:00","Some ThingDataLoader clean up
+"
+"a213a1da29418a4281e1eb72af0234cd9fa18241","2013-09-07 19:11:10-07:00","Some code formatting in Loaders
+"
+"97bd084cb0ddc04320e656e9ca85fffb74df96ee","2013-09-07 19:26:04-07:00","Fix #267: fix title when viewing messages on phone
+"
+"31c57c020261c12d42cd3e55a2eda1dd4ce64ddf","2013-09-07 22:35:03-07:00","Fix #259, #260: fix padding in account name row
+"
+"9c4583d1bdac05dd40e204aff143f013e60609d3","2013-09-07 22:42:40-07:00","Rename menu resource
+"
+"8f42925eb58d883542c2397ccdc9212c73b7f386","2013-09-07 22:50:33-07:00","Remove unused methods in NavigationFragment
+"
+"9ece3ff3113ece76025c46a04d5a0d3f355fcedf","2013-09-07 22:55:26-07:00","Issue #266: add refresh icon to inbox
+"
+"1e2cb94853baabdca1ca1ed3e11235aa473da3a5","2013-09-07 23:17:07-07:00","Refactor ThingBundleHolder interface
+"
+"9abc8dcba964ecdb4cc677266c16372db7e38f7d","2013-09-07 23:27:47-07:00","Fix #266: use updated ThingHolder interface
+"
+"7dcc8858719a2915c6be610bfb9cde9fdc773667","2013-09-08 00:23:25-07:00","Fix #268: hide account selector for message replies
+"
+"0074a226168db0ca16c0615f0bde2aa91162f759","2013-09-08 00:30:33-07:00","Fold ListViews into new Views utility class
+"
+"590bddefdc0202b91d27de1307cdc2757434af7c","2013-09-08 10:38:34-07:00","Use TabController to remove more duplicate code
+"
+"fae2090cc07c1f620e7977c8d88610ee2f65657e","2013-09-08 10:53:07-07:00","Fix #269: remove GridLayout constant
+"
+"c84367b025d77d4006f6e8080937fdf37ecb48cd","2013-09-08 10:54:47-07:00","Fix #263: revert 'Implement ComponentCallbacks2'
+
+This reverts commit 1bd24faf04e8b27dd58decd74b3cdacdc9d51b82.
+
+Conflicts:
+src/com/btmura/android/reddit/app/ThingListController.java
+"
+"37c78015d2f25ff0d715fc7e24ede4daf47e1942","2013-09-08 11:56:23-07:00","Fix #261: stick to the automatic sync instead
+"
+"b2d36dfb2ad7cf70589a420907dae5590359f466","2013-09-08 15:40:55-07:00","Move edit operation to ThingProvider
+"
+"5e89f8d297ce577b5ef73bb30df352ce8be6c8a8","2013-09-08 15:47:02-07:00","Reorder some methods
+"
+"704856614c3d58f9bd2c5c4f226a1b7257943891","2013-09-08 18:05:11-07:00","Move delete comment operation to ThingProvider
+"
+"c2c48495597c2f249071049df5319f62484e3bcd","2013-09-08 18:08:48-07:00","Clean up list of extra constants
+"
+"0434c3b3d55993f2d169dc204a617029ea4fae8d","2013-09-08 18:11:31-07:00","Some renaming and reordering in Provider
+"
+"15e469f7a20944d0a82986bad80bed679a6b1135","2013-09-08 18:14:06-07:00","Reorder methods in ThingProvider
+"
+"23fbdcb81c81496ba00efd975759bd19b3e21b9e","2013-09-08 20:09:55-07:00","Provider clean up and refactoring
+"
+"0ba34ea803e97ea7b0f71096b9795b89d78b7c98","2013-09-08 22:45:38-07:00","Don't load thumbnails while scrolling
+
+The HTTP connections and bitmap processing can allocate a lot of junk.
+"
+"3e8d3d859177db87864b16d382e370132598da30","2013-09-08 22:58:34-07:00","Unlock thumbnail loader on frag creation
+"
+"4d0259f04abd7d08a23f89d5d3c9621ae7d8ebc3","2013-09-08 23:02:52-07:00","Increment version number
+"
+"c43edf3732af6ff5f6128ac2c899a3a08b2884d7","2013-09-13 22:18:48-07:00","Fix #271: fix messages icon click
+
+Also fixes #273.
+"
+"6eb93de2e7301445aad3585ccb70719d9d55d036","2013-09-13 22:28:18-07:00","Fix #278: don't save prefs when previewing
+"
+"cabea428e9a3f36bafffeb4d34c51bb2b0e370bc","2013-09-13 22:51:33-07:00","Fix #275: fix body not being drawn correctly
+"
+"c34994a53e2f078437a9ab51193f44319f8c411d","2013-09-13 22:57:26-07:00","Use split action bar for UserProfileActivity
+"
+"f652edb05cb1c7c17b170ec764fb9da27a50050f","2013-09-13 23:03:40-07:00","Fix #274: hide account selector when editing
+"
+"c6680253da3231efdce734236cea29e29dfa54e4","2013-09-14 00:11:19-07:00","Fix NPE when collapsing comments
+"
+"02e26336a9c03df1744b0afc6087059dfd834364","2013-09-14 11:12:12-07:00","Remove unused accountName parameter
+"
+"ce0355525778659611bc8d408b15aae2846ca58d","2013-09-14 11:47:04-07:00","Some clean up in ThingView
+"
+"7b771952bb777d8d46d00892bd44b007a4ddcd16","2013-09-14 12:39:44-07:00","Clean up unnecessary allocations in ThumbnailLoader
+"
+"52450e8b99b5483b7bc844ff861eecdae4396cc1","2013-09-15 09:05:05-07:00","Reduce nesting to better align voting arrows
+"
+"f0f24229d409a3609c7b64017f10b42b94b8c823","2013-09-15 09:10:29-07:00","Clean up code duplication in Subreddits
+"
+"356e103295c8e0bd89cfe325e916d0a9b253a129","2013-09-15 09:13:03-07:00","Remove unused styles
+"
+"ff611a9491954bbfca062f794d267dfdd9db0945","2013-09-15 09:20:34-07:00","Organize styles a bit more
+"
+"1125a496dea11b36234467ba572cb8fe3032f8f9","2013-09-15 10:30:32-07:00","Refactor helper functions for composer
+"
+"20fa090aa7b56b69ed8c13b38ac8aba41f66be3f","2013-09-15 11:16:37-07:00","Close composer if required account is not available
+"
+"47481b97a43017d54ea03819556cca71b89cddb5","2013-09-15 11:56:46-07:00","React to account changes in ThingActivity
+"
+"b8c878a4b412562dcd546171343bfe61d500f002","2013-09-15 15:31:22-07:00","Fix #227: handle ACTION_CANCEL in touch listener
+"
+"698c70ab7fb9a67a9466f06dd0e48323b4f3b175","2013-09-21 12:21:13-07:00","Fix #281: use prefs if no account argument given
+"
+"0ac325a9ef5b1412be70369cfd8fe30c98a2a79f","2013-09-21 12:27:42-07:00","Remove unused methods for resolved subreddits
+"
+"f4f3c0c84ca32347662f10f7d6e17af1744651d0","2013-09-21 14:28:20-07:00","Some ThingListAdapter clean up
+"
+"2b915d3b072109e80497aea2983b513c08faec29","2013-09-21 14:57:00-07:00","Move one vote action to ThingProvider
+"
+"1211bd059b6a7ad44b54c7277bb589ed0706854b","2013-09-21 16:26:46-07:00","Move other vote action to ThingProvider
+"
+"65825f254723e557da1622e8dc003cb84a0c6747","2013-09-21 16:44:46-07:00","Remove concept of local vote operation
+"
+"687d179476d735af16ad71f09fd57968199e7eba","2013-09-21 18:27:04-07:00","Merge votes into initial CommentListing
+"
+"72941e3fd3ae375174a3f2a90097644d3406daef","2013-09-21 18:43:25-07:00","Merge votes into initial CommentListing
+"
+"3aad8d9db6b1a64413d5a147a6de693cf2ef637a","2013-09-21 18:48:40-07:00","Some clean up of Listing methods
+"
+"bf6c5681862d225350cf85e72c700143d9917e0f","2013-09-21 22:04:31-07:00","Increment version number for user agent
+"
+"a52ae2b451dce36f0de97f13588a4525eb6f498b","2013-09-21 23:54:32-07:00","Add SQL statements to update votes
+"
+"dcb56e7134e9eda8faebc89289afc6687da80c8b","2013-09-22 10:04:13-07:00","Merge getVoteActionMap into VoteStatements
+"
+"cdd65ed318645ff290885dca6a8d72e9504bc616","2013-09-22 10:07:54-07:00","Rename VoteStatements to VoteMerger
+"
+"de4888f0a352308c70bf3c9af304700e84254eac","2013-09-22 10:11:16-07:00","Use some static imports to clean up VoteMerger
+"
+"0f8cc4889b2db52763fba602275142e84c633e63","2013-09-22 10:16:26-07:00","Rename execute to updateDatabase
+"
+"36a037610379aaaf5a011782601d1982052c2977","2013-09-22 11:46:03-07:00","Fix #279: finish vote syncing implementation
+"
+"fe3583b2c7272a4258f15dab569d9c5dbb06b3df","2013-09-22 11:55:17-07:00","Remove local read action join column
+"
+"7adeba98cf5775e7e498863c379467842b684d03","2013-09-22 13:12:55-07:00","Finish removal of joining with read action table
+"
+"a9a65be69159dc01a9b644ac859c5af319635b4a","2013-09-22 13:27:48-07:00","Move clearing of messages to AccountProvider
+"
+"9ae2a3f0f637678c1db92458538cca0585aaee18","2013-09-22 13:30:12-07:00","Remove boolean arg to readMessageAsync
+"
+"42c251ac10ab18cd60f29cfb70ba0399c524b335","2013-09-22 13:41:20-07:00","Remove joining with hide actions table
+"
+"813e5f29bdfdc923859b461307c99702d758cf1f","2013-09-22 14:12:46-07:00","Finish removal of joining with hide actions table
+"
+"c33be849831130ecc6600979b32e7414ce6928be","2013-09-22 14:36:33-07:00","Remove joined columns for save actions
+"
+"46634bc54c3285a64198617b4669246d911dc3d3","2013-09-22 15:06:26-07:00","Finish save merging implementation
+"
+"1f45cac7573266320d26ff62b416f44e8d1cd7f1","2013-09-22 15:12:03-07:00","More clean up in ThingProvider
+"
+"816e84a8f65010db051218e304b17202577eb598","2013-09-22 20:01:54-07:00","Fix #280: recover when session is missing
+"
+"8d893033b0624f17376a15a22e3ba2cb2d1e4a06","2013-09-22 23:09:17-07:00","Don't show upvoted comments in liked section
+"
+"3ae16292cd2ce1241c2dcf336a28ef6eef598bed","2013-09-26 22:53:53-07:00","Don't clear list on failure to append data
+"
+"5d7fcd0d6995f157b0aa8939f080e065570e95df","2013-09-28 10:00:24-07:00","Add NavigationFragment debug message
+"
+"c484c763acd150b6b7157af421954af6c17643e5","2013-09-28 11:42:44-07:00","Fix #282: fix typo
+"
+"1836e1bb1d0e82027e7da92a5a0b2060f781a7c1","2013-09-28 18:20:38-07:00","Remove ThingActivity account name extra
+"
+"5e85aa9cf252299a0ce9150466469ce08bb3f266","2013-09-29 12:00:11-07:00","Fire listeners in separate threads
+
+This fixes a crash when a new account is added via the share dialog.
+"
+"efcf20e838f3663d2e4bc32941ec8cc6a7b0e74d","2013-09-29 12:16:41-07:00","Center text
+"
+"cfb1e9596696f33b1886711e3db68dee142ceb8d","2013-09-29 21:11:02-07:00","Remove singleTop for some activities
+"

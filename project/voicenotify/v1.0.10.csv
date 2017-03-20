@@ -1,0 +1,116 @@
+"commit id","commit date","commit message"
+"2d7c2d101a26e030faef5a72852464cd56e9e99b","2013-04-14 02:28:23-04:00","API11+: Make speaking of toasts optional.
+
+Some code style changes in modified classes.
+"
+"e436e1061a50fddbfecb202235212c6fd3f9a14c","2013-04-21 00:16:45-04:00","Externalize shared preference keys.
+
+More code formatting.
+"
+"c8af470174cb243c95e4fd55dfeb04ce0e0d7385","2013-04-28 03:29:35-04:00","Add un/ignore in NotifyList via long-press & confirm.
+
+Move App to superclass.
+Use App in NotifyList for app title and enabled.
+Code tweaks and improvements, mostly in AppList.
+"
+"65b3f196b9b0e3400851fd21e92d14e212509e9e","2013-05-01 21:57:04-04:00","Use string argument variables.
+
+Use custom string for 'Yes' since Android's version is actually 'OK'.
+"
+"d21aa355a5b7b0acf9f3c8e5bf3f52a4f6203246","2013-05-10 22:54:09-04:00","Increase Notification Log history limit from 10 to 20.
+"
+"27392d6d388b776fd4d2c82f83d4a5d82a4522d3","2013-05-12 13:21:58-04:00","Instead of 'Enable/Disable', indicate whether VN service is running.
+"
+"fea699db85bbd44b7c86664879c57a038a2866ba","2013-05-12 14:06:07-04:00","Add menu option in App List to show soft keyboard for filtering.
+
+(This solves devices without hardware keyboard unable to filter.)
+"
+"46cd6e14db0ca9991b22dddd601c4371b0c3ffd0","2013-05-18 03:48:28-04:00","Add widget.
+
+-Color indicates service status.
+-Toggles service suspend or opens Accessibility if disabled.
+
+Refactor preference: accessibility > status.
+Include suspend status in MainActivity and activate service if clicked.
+Code optimizations and tweaks mostly related to widget.
+Use preference key resource strings in MainActivity.
+"
+"48b6d963b540bcb09e0bec58604459837023a691","2013-05-19 15:09:32-04:00","Only run TTS service while speaking.
+
+Stop (interrupt) TTS when VN is suspended.
+Refactor HeadsetReceiver > DeviceStateReceiver.
+"
+"b259740941e1fedcda3c9aa961ed879ef8a8fe24","2013-05-22 20:43:36-04:00","Add GetLocalization and GitHub to Support menu.
+"
+"4baa2f60f2fa21a2fc89da34519f44c0dbbf9e91","2013-05-25 18:13:51-04:00","Tweak strings.
+
+-Move preference keys and stream values to donottranslate.xml.
+-Remove '(pref.)' and capitalize first letter of ignore reasons.
+-Capitalize first letter of all words in device_states.
+-Rephrase ignore_strings_summary.
+"
+"3c0ceaf8f961b268401ac9e2b0a3ad45c2953d68","2013-05-26 03:07:30-04:00","Add basic info to support email body.
+
+-VN version
+-Android version
+-Android build number
+-Device
+"
+"a6ba9207b96a62b753e27b55e5228e11de7b1565","2013-05-27 12:19:33-04:00","Fix crash when viewing log with app not yet in app list.
+
+Change AppList.findApp to create App from system if not found in list.
+Refactor Database.updateApp > addOrUpdateApp.
+
+Visibility reduction.
+"
+"a279e3bf797bbbc1538b2b7fc4e306a6347da577","2013-05-27 13:43:34-04:00","Fix wrong thread crash when viewing log during TTS Delay & ignore.
+"
+"ef91548681e834f36dd27ea1afaca5776b806e92","2013-05-27 16:31:31-04:00","Fix prefs NPE when resuming AppList after process death.
+
+Change Common to be used statically without instantiation.
+Set volume control stream in AppList.
+Handle Database instantiation through Database.init.
+Remove AppList.getIsEnabled, go through findOrAddApp instead.
+Use TAG the way it's meant to be used, per class rather than whole app.
+Remove unnecessary AppList intent filter.
+Some other code tweaks.
+"
+"b27206f7f5663d2b59e2b89966cf1a68b66e56bb","2013-05-27 19:40:33-04:00","Fix crash when notification received with really high TTS Delay.
+
+-Crashed with TTS Delay set between 2147484 and 2147483647 seconds.
+-Only crashed when notification not ignored.
+"
+"907e1019596f171d0a23928a42f0f5f7906c3ccb","2013-06-01 17:34:42-04:00","Fix crashes when opening App List multiple times while loading.
+
+Should fix all of these crashes:
+-ConcurrentModificationException in apps for-each
+-TransactionTooLargeException in packMan.getInstalledApplications
+-ArrayIndexOutOfBoundsException in Collections.sort
+Also fixes duplicates in App List if opened multiple times without crash.
+
+In findOrAddApp, also add new app to apps list, not just database.
+ADT/SDK r22 update in .classpath.
+"
+"a52ed0ef6b7c4bbaa0b4e82abb260669ecbfac8c","2013-06-01 23:01:01-04:00","Major performance boost on first load of app list.
+
+-Save new list to DB after fully loaded in memory and UI, not during.
+-Subsequent updates still save on individual basis while adding/removing.
+
+Listener tweaks.
+"
+"6609f3441e502bace37c931ea8fa2571b6d02d7c","2013-06-02 01:21:18-04:00","Fix regression in title of test notification.
+
+-Regression at commit ef91548681...
+"
+"86a3ba60c55c8fdde0cbe1e09df6cd4d1bd1078f","2013-06-02 14:28:25-04:00","Improve repeater.
+
+-Fixes IAE crash with TTS Repeat set between 35792 and 2147483647 minutes.
+-Hopefully fixes Bug 29 (TTS Repeat works unreliable).
+"
+"fede9db7ad0e7a479f519020d39a1c3aafe1908e","2013-06-02 20:18:57-04:00","Update translations and bump version.
+
+New translations:
+French by caliann and Souln77
+German by massimo2001
+Hungarian by njozsef
+"

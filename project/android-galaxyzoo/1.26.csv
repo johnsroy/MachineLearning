@@ -1,0 +1,62 @@
+"commit id","commit date","commit message"
+"4897e002d92331903af4939b38243fbf8777da4b","2014-11-24 09:14:08+01:00","build.gradle: Use the latest version.
+"
+"1aec4d603812489379a684459f2d73a7ae022a72","2014-11-24 09:20:25+01:00","Volley requests: Override getHeaders() to specify our User-Agent.
+
+Otherwise it generates a user agent based on the Java package name.
+This way it is consistent with the upload which doesn't use volley
+and which explicitly set the User-Agent already.
+Having to do this in a method override is rather tedious.
+"
+"fdbbb2cb83bedc34b2724b2fbfe9fda7dcaf87b3","2014-11-24 09:43:42+01:00","ZooniverseClient: Avoid an UnsupportedOperationException from volley.
+
+Don't call Volley.newRequestQueue() if it would cause
+an UnsupportedOperationException from the MockContext.getPackageName()
+as used by ProviderTestCase2. Luckily our content provider test case
+doesn't actually need to do any network IO.
+"
+"ce1aa1e7f9bbb296f1b10de5fec8c3a775b7770f","2014-11-24 09:51:46+01:00","ItemsContentProvider: Handle Context.getExternalCacheDir() failure in tests.
+
+Now all the tests complete.
+"
+"e25cf3cdfaa335094aae6c5259bc39c2896d16cc","2014-11-24 10:00:28+01:00","Activity: Add (useless) for now testStateDestroy() tests.
+
+These use finish(), which apparently causes the activity to actually
+terminate:
+http://developer.android.com/tools/testing/activity_test.html
+"
+"997ec6e5a9f92a62344d2908d995dff867440a4d","2014-11-24 10:11:55+01:00","test: Add QuestionHelpActivityTest.
+"
+"d8fc51d784dc18a87f29bfb234d1735e813cdbfa","2014-11-24 10:24:33+01:00","tests: Make constants all uppercase.
+"
+"4f02cd67591ea8be342b6bae5626915624ceea9b","2014-11-24 10:40:23+01:00","tests: Correct the expected/actual order with assertEquals().
+"
+"4165ed629c3eb0fe761da1ca580940d8ef154083","2014-11-24 12:25:41+01:00","Add a test of the parcelling of ClassificationInProgress.
+
+And added equals() for use by the test.
+"
+"ab1cb1c87698b76e7a9d091f404fa99f9651963d","2014-11-24 13:07:30+01:00","ClassificationInProgress: equals(), hashCode(): Don't assume non-null.
+"
+"8e9cf3f43b1715c7b328e2e005bfd1959c0dedb7","2014-11-24 13:19:09+01:00","ClassificationInProgressTest: Add some actual test data.
+"
+"8db9e5055f76baab9213838a2e0ac42b4a9e5151","2014-11-24 13:19:33+01:00","ClassificationInProgress: Parcelling: Simplify and correct.
+
+The null check meant that we interpreted the next string in the next item
+as a part of the array.
+"
+"dd09d989988e5f916d4a76730eadf6dd28e21064","2014-11-24 13:51:58+01:00","QuestionHelpFragment: Import the Support Fragment, not the regular one.
+
+Though it is only used in a comment.
+"
+"7dd2af782464760c6541f694e1ba123180784459","2014-11-24 13:59:12+01:00","Always use FragmentTransaction.replace() instead of add().
+
+This removes any existing fragments with the same ID.
+At least on Andoid Lollipop, I have sometimes seen two set of fragments,
+doubling the actoin icons and menu items.
+This was maybe happening when we checked for the existing fragment too
+soon after adding it, then adding another one when we didn't find it.
+This suggests an inefficiency, but until I find that, this is safer
+anyway.
+"
+"9b20218576d4b36a49933177a3bb27f79f4699f5","2014-11-24 20:01:49+01:00","1.26
+"

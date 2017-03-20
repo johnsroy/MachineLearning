@@ -1,0 +1,399 @@
+"commit id","commit date","commit message"
+"1c74324793296395ce5561425ca518131832385f","2011-01-08 15:53:25+00:00","Add the ability to reorder the rows and columns in Group. It becomes
+much easier to keep track of things if, once you've identified a
+cyclic subgroup, you can move it into a contiguous correctly ordered
+block.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9075 cda61777-01e9-0310-a592-d414129be87e
+"
+"68c8250e3d4aae488880cc5da4e633a0ba3c8edc","2011-01-09 11:30:09+00:00","Fix error highlighting after table rearrangement.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9076 cda61777-01e9-0310-a592-d414129be87e
+"
+"f40bf005b6ac360fc1ee618a138392772fa4a700","2011-02-03 19:49:19+00:00","The printing function in Bridges was unable to cope with more than two
+bridges between a pair of islands! Good grief. How did we never spot
+that before?
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9083 cda61777-01e9-0310-a592-d414129be87e
+"
+"8ffd6a096545ec1dac185f94463ea42b6e198c8d","2011-02-08 22:13:18+00:00","Another UI feature for Group: now you can click between two legend
+elements to toggle thick lines in the grid. Helps to delineate
+subgroups and cosets, so it's easier to remember what you can
+legitimately fill in by associativity.
+
+(I should really stop fiddling with this game's UI; it's far too silly.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9084 cda61777-01e9-0310-a592-d414129be87e
+"
+"da92f7adba0ec99ff15107736591b8f83eac159b","2011-02-23 20:05:40+00:00","Patch from Chris Moore to improve the generality of
+grid_nearest_edge(), by having it search harder for a better dot to
+move to in the first loop.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9106 cda61777-01e9-0310-a592-d414129be87e
+"
+"4623d0a54ac7299c2abc4d8ab1612a7c9db8d428","2011-02-23 20:05:42+00:00","Patch from Chris Moore to implement an extra grid type, the 'floret'
+pentagonal tiling.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9107 cda61777-01e9-0310-a592-d414129be87e
+"
+"016fd94d8eb216cc818935476ddafe643253c1d1","2011-02-24 19:06:48+00:00","Retire the 'middle_face' field in 'struct grid', together with the
+overly complicated algorithm that uses it to home in on the grid edge
+closest to a mouse click. That algorithm is being stressed beyond its
+limit by the new grid type, and it's unnecessary anyway given that no
+sensibly sized puzzle grid is going to be big enough to make it
+prohibitively expensive just to do the trivial approach of iterating
+over all edges and finding the closest of the eligible ones.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9108 cda61777-01e9-0310-a592-d414129be87e
+"
+"48a054eda39f1e6dd41ca1a909a98c7ad28b543b","2011-02-24 19:06:49+00:00","Another patch from Chris Moore implementing two more grid types, both
+involving dodecagons.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9109 cda61777-01e9-0310-a592-d414129be87e
+"
+"fbd88fd2330ca54675856fe04fb70d08d6ade067","2011-04-02 13:15:56+00:00","When a lot of edges meet the same point - and, in particular, when
+they meet at sharp enough angles that the thick lines overlap
+noticeably outside the circle of the point - redrawing the edges in a
+different order each time looks ugly. Arrange to always redraw edges
+in order of colour, so that empty lines are drawn before indeterminate
+lines which in turn come before filled-in lines.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9136 cda61777-01e9-0310-a592-d414129be87e
+"
+"dcb9fd6acc3f305f455d1b705c0a4c6188f23119","2011-04-02 15:19:29+00:00","Improve the algorithm for figuring out where the number should be
+drawn in a face: averaging the vertex positions works fine for regular
+or roughly regular convex polygons, but it'll start being a pain for
+odder or concave ones.
+
+This is a kludgey brute-force algorithm; I have ideas about more
+elegant ways of doing this job, but they're more fiddly, so I thought
+I'd start with something that basically worked.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9137 cda61777-01e9-0310-a592-d414129be87e
+"
+"c238145217f51e28ccd44d98d75e7e4e79c35e10","2011-04-02 15:19:29+00:00","Rework the Loopy grid drawing algorithm so that it doesn't assume when
+it clears a clipping region that it knows what features will need
+redrawing in that region. Instead, I've moved all the clip/unclip/draw
+functionality out into a game_redraw_in_rect() function which checks
+_everything_ on the grid to see if it lies in the region.
+
+As far as I can tell the effect only shows up in grid types that
+aren't checked in, but it makes the code look nicer too.
+
+(It would be nicer still to avoid the brute-force loop over the whole
+grid checking it against the bounding box, particularly when we're
+drawing in multiple bounding boxes. But this will do for the moment.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9138 cda61777-01e9-0310-a592-d414129be87e
+"
+"ebb66222054c1fc015a390256aa773b5ab3cb19d","2011-04-02 15:36:30+00:00","Add functions provided by the midend to tell a front end whether GUI
+buttons for undo and redo should currently be greyed out.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9139 cda61777-01e9-0310-a592-d414129be87e
+"
+"8ca1414e26eee4fc93e118e246231b306390b20a","2011-04-02 16:19:12+00:00","Add a function to every game backend which indicates whether a game
+state is in a solved position, and a midend function wrapping it.
+
+(Or, at least, a situation in which further play is pointless. The
+point is, given that game state, would it be a good idea for a front
+end that does that sort of thing to proactively provide the option to
+start a fresh game?)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9140 cda61777-01e9-0310-a592-d414129be87e
+"
+"f4e2a3f7a1c49a35c3769a00ffc4c44b26f16246","2011-04-03 07:55:18+00:00","Move up midend_is_solved() in the developer docs from subheading to
+heading level. It's _almost_ apt to have it as a subheading of
+midend_solve(), but not quite, and it certainly wasn't intentional - I
+must have absentmindedly typed the wrong Halibut command letter.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9142 cda61777-01e9-0310-a592-d414129be87e
+"
+"b04819cfb08159486f08b969f3964c56ea1577a5","2011-04-03 07:59:35+00:00","Add a new deduction to Easy level, which is as small as I can make it
+to have the effect of enabling large Easy-level grids to be
+constructed in all grid types. Without this, some generations at Easy
+level (e.g. 'loopy --generate 1 7x7t9de') can spin forever because
+_even with all clues filled in_ the generated grids can't be solved at
+that level.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9143 cda61777-01e9-0310-a592-d414129be87e
+"
+"3ca142703548a9826f132267fbad5f0734b94263","2011-04-03 09:16:08+00:00","Trivial markup fix.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9144 cda61777-01e9-0310-a592-d414129be87e
+"
+"f3b36de076065c775841adcfd25e6ad0ba5c0cf8","2011-04-05 17:45:48+00:00","Adjust the yellow used for LINE_UNKNOWN so that it's always a bit
+darker than the background, because the Java front end demonstrates
+that it's a bit eyewatering when it _matches_ the background.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9145 cda61777-01e9-0310-a592-d414129be87e
+"
+"59b8a8a0793302592935f5c848f351fd221ebd8f","2011-04-05 18:05:57+00:00","Fix an amusing cut-and-paste error in the Java drawing code which was
+causing complete mis-draws - but only when the window was exactly the
+right size!
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9146 cda61777-01e9-0310-a592-d414129be87e
+"
+"0ea787421f11e2a8aba1f120d4b06cb6a58e7c7e","2011-04-05 18:05:57+00:00","Remove a stray diagnostic.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9147 cda61777-01e9-0310-a592-d414129be87e
+"
+"602878a15b0a888e27e1aa59885320da5499fc54","2011-04-11 17:32:44+00:00","Fix mismatch between printf format strings and arguments in some
+solosolver verbose diagnostics in X mode. Also added gcc-specific
+prototypes with __attribute__((format)) to ensure they all get checked
+in future.
+
+Spotted by Arun Giridhar; segfault without this fix is reproducible by
+'solosolver -v 3x3x:7_9e4_1c7d3e3d1b2_4e2c6e5_6b1d8e5d9c8_2e9_5'.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9151 cda61777-01e9-0310-a592-d414129be87e
+"
+"bcd1b273cccd7ddc374fa94b765d3ca457953ff5","2011-04-23 11:37:46+00:00","Support user-specified extra link flags (XLFLAGS) in the Unix
+makefile. Makes it easy to recompile for things like profiling.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9154 cda61777-01e9-0310-a592-d414129be87e
+"
+"50e2fdd917da977daf0144befb2c8f1c6080105a","2011-04-23 11:44:41+00:00","Stop calling face_text_pos() for faces that don't need to have text in
+them anyway. It's slow and pointless.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9155 cda61777-01e9-0310-a592-d414129be87e
+"
+"3295e1e2b1a45c2c512b57115ce49fba0b53adf4","2011-04-23 11:44:41+00:00","Replace my brute-force algorithm in face_text_pos with a more complex
+but faster and more mathematically sensible one.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9156 cda61777-01e9-0310-a592-d414129be87e
+"
+"33ed96f0da2a8d67b16cc17545df67b3b7b6f1b6","2011-04-23 11:44:43+00:00","Move most of face_text_pos() into grid.c, leaving in loopy.c only the
+part that converts from abstract grid coordinates into screen
+coordinates. This should speed up window-resizing by eliminating
+pointless reiteration of the complicated part of the algorithm: now
+when a game_drawstate is renewed, only the conversion into screen
+coordinates has to be redone.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9157 cda61777-01e9-0310-a592-d414129be87e
+"
+"12901e329306e45af58deefc6883b11f54906eb1","2011-04-23 13:03:38+00:00","Oops: initialise that new 'has_incentre' flag to false, otherwise the
+game will sometimes pick random incentres in place of the carefully
+computed ones. Ahem.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9158 cda61777-01e9-0310-a592-d414129be87e
+"
+"4b722dfd22d1b3efd8edd91a0016256deca6b5f7","2011-04-24 09:10:52+00:00","From James Harvey (via a period of collaborative polishing), a patch
+to add two kinds of Penrose tiling to the grid types supported by
+Loopy.
+
+This has involved a certain amount of infrastructure work, because of
+course the whole point of Penrose tilings is that they don't have to
+be the same every time: so now grid.c has grown the capacity to
+describe its grids as strings, and reconstitute them from those string
+descriptions. Hence a Penrose Loopy game description consists of a
+string identifying a particular piece of Penrose tiling, followed by
+the normal Loopy clue encoding.
+
+All the existing grid types decline to provide a grid description
+string, so their Loopy game descriptions have not changed encoding.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9159 cda61777-01e9-0310-a592-d414129be87e
+"
+"b75de11748aa7e9b97ffbcfcc607405f004bd71c","2011-04-25 22:41:54+00:00","Forgot to set 'has_incentre' on triangular grids, which don't use
+grid_face_add_new(). Oops.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9161 cda61777-01e9-0310-a592-d414129be87e
+"
+"ba1e5a9e4df5a37eb8997603081a64e99ca139ad","2011-04-26 13:44:27+00:00","Fix two memory leaks reported by Tiago Dionizio in recent Loopy
+development.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9163 cda61777-01e9-0310-a592-d414129be87e
+"
+"a246260555fc59c88b66125646e4cd2d9be07f70","2011-05-04 18:22:14+00:00","Fix warnings generated by gcc 4.6.0 about variables set but not
+thereafter read. Most of these changes are just removal of pointless
+stuff or trivial reorganisations; one change is actually substantive,
+and fixes a bug in Keen's clue selection (the variable 'bad' was
+unreferenced not because I shouldn't have set it, but because I
+_should_ have referenced it!).
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9164 cda61777-01e9-0310-a592-d414129be87e
+"
+"0fdda51521c28f28a6c6dd82f1e2c29d24472aa7","2011-05-04 18:22:15+00:00","Having looked at Keen's clue selection code, I also notice that the
+intended behaviour of classifying multiplication clues as low-quality
+if they only left one possible pair of multiplicands has never
+actually worked, because I should have compared the possible clue
+count against 2 rather than 1 since the multiplicands can occur either
+way round.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9165 cda61777-01e9-0310-a592-d414129be87e
+"
+"45eec5a9d7ccbd6d38c959e67d4367945bf50541","2011-05-04 18:41:21+00:00","Portability fixes, mostly from James for Palm purposes. Mostly
+additions of missing 'static' and explicit 'void' in parameter lists,
+plus one or two other things like explicitly casting chars in variadic
+argument lists to int and using DBL_MAX if HUGE_VAL isn't available.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9166 cda61777-01e9-0310-a592-d414129be87e
+"
+"1990579020d7c9a01390e3c8770cd8ff7faf247b","2011-05-05 17:13:16+00:00","Apply a missing bit of r9164, which only broke the build with
+-DDEBUGGING so I didn't notice it at the time.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9167 cda61777-01e9-0310-a592-d414129be87e
+"
+"202ba93a7b1c4cc697cd5ed310927e631fc70f6a","2011-05-06 17:09:03+00:00","Apply the rotation in Penrose grid descriptions by rotating in the
+4-vector representation, rather than mucking about with sines and
+cosines after grid generation. _Should_ make no difference in the
+generated grids (there's a theoretical risk of an unlucky rounding
+error just about managing to push some point in or out of bounds, but
+I think it's vanishingly small), but simplifies the coordinate-
+flattening procedure, and in particular increases its chance of
+getting vertical lines actually vertical.
+
+(Prior to this change, the game ID
+10x10t12:G2554,-31,108_a3b12h0a212a3d102b2a23a2e3b01b0a2c2a0c0 was
+generating a not-quite-vertical edge at top left, in the Java port but
+not on Linux; I suspect differences in sin and cos as the cause of the
+discrepancy. With the rotation done like this, the points'
+x-coordinates are now computed without reference to their
+y-coordinates.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9168 cda61777-01e9-0310-a592-d414129be87e
+"
+"91decd9e98205fab2a736a45aa5dd036838c6af8","2011-05-07 13:22:17+00:00","Having played Keen a bit following the clue-generation fix in r9165,
+I've decided that the extremely low density of one-option
+multiplication clues is not a universally good idea after all: it
+seems to me to make puzzles _quantitatively_ harder, even if Keen's
+difficulty-level system can't see any difference in the set of modes
+of reasoning required at least once to solve the grid.
+
+So I've readjusted the clue selection, so that multiplicative clues
+with only one workable pair of factors are restored to 'good' status
+at Normal difficulty level and below, and only considered less-than-
+fully-desirable at Hard and above. I think that's a reasonable
+compromise.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9170 cda61777-01e9-0310-a592-d414129be87e
+"
+"f840fe5c14fba09534de7d82ecc8ad822e99cc9f","2011-05-11 18:11:28+00:00","Fix segfault in Loopy printing, introduced when I added the dynamic
+arrays 'textx' and 'texty' to the game_drawstate but failed to
+initialise them in the temporary drawstate used by game_print().
+Thanks to Arun Giridhar for spotting this.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9173 cda61777-01e9-0310-a592-d414129be87e
+"
+"2e119c492316eab1be7f5150c2450e6e45dfbc4b","2011-05-22 07:07:47+00:00","Pass background colour as a parameter to draw_gts and draw_adjs, so
+that we can pass -1 in calls from game_print(). Fixes a printing bug
+in which all the adjs and gts were overlaid with giant black
+rectangles! (Because COL_BACKGROUND doesn't mean the same thing in
+that context.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9175 cda61777-01e9-0310-a592-d414129be87e
+"
+"485ebfcac33cc857073878fe196e025baeb907ea","2011-06-19 13:43:35+00:00","Changed my mind about midend_is_solved: I've now reprototyped it as
+midend_status(), and given it three return codes for win, (permanent)
+loss and game-still-in-play. Depending on what the front end wants to
+use it for, it may find any or all of these three states worth
+distinguishing from each other.
+
+(I suppose a further enhancement might be to add _non_-permanent loss
+as a fourth distinct status, to describe situations in which you can't
+play further without pressing Undo but doing so is not completely
+pointless. That might reasonably include dead-end situations in Same
+Game and Pegs, and blown-self-up situations in Mines and Inertia.
+However, I haven't done this at present.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9179 cda61777-01e9-0310-a592-d414129be87e
+"
+"9d06db84b094a45f6ebf078e3d26ae33d067b1fb","2011-08-21 19:25:42+01:00","Merge branch 'upstream'
+
+Conflicts:
+blackbox.c
+bridges.c
+cube.c
+dominosa.c
+fifteen.c
+filling.c
+flip.c
+guess.c
+inertia.c
+keen.c
+lightup.c
+loopy.c
+magnets.c
+map.c
+mines.c
+net.c
+netslide.c
+nullgame.c
+pattern.c
+pegs.c
+puzzles.h
+range.c
+rect.c
+samegame.c
+signpost.c
+singles.c
+sixteen.c
+slant.c
+solo.c
+tents.c
+towers.c
+twiddle.c
+unequal.c
+untangle.c
+"
+"5c7108ed6f533401317b780b9c555a0f99d1623c","2011-08-22 07:52:32+01:00","Fix build (new strings, removed vars etc), build with NDK r6.
+"
+"4efa808546ae9d68101e0245a496f8789330b807","2011-08-22 08:54:55+01:00","Remove accidental range binary.
+"
+"22f3c048e35c757993519ac8fa52a4b2d351db56","2011-08-24 01:12:37+01:00","Build with ant: allow use of ndk-build (don't need to include location/args of NDK compiler etc) and ndk-gdb (easy native debugging).
+"
+"44d599732e3ba1242748f6b8b29c6e2124bd0a65","2011-08-29 18:46:07+01:00","Allow building in Eclipse - requires a less compartmentalised file layout.
+"
+"5f0c7fa648c5d761d67671648fc1fd85d8d6a7bd","2011-08-29 19:24:25+01:00","Bump version.
+"
+"110bc4cd9b9a7652b66ea553cf1ef67b31b306b9","2011-08-29 19:25:14+01:00","About box was already quite Android-specific, so just do it in Java, to avoid hacks to get the version number from AndroidManifest.xml into C.
+"
+"98bed8a48206862e26b5ceea421dc4b2e36feab6","2011-08-29 22:46:02+01:00","Build fixes: run mkfiles.pl and add arrays, manually for now.
+"
+"487fd7db617cb6052948fedbcf0f8cca3f665c54","2011-08-30 00:07:13+01:00","Try to make builds less loopy.
+"
+"cb01c245bb333a6eb650eb42e8c502bb646c433b","2011-08-30 00:31:30+01:00","Link Eclipse to github.
+"
+"e87b81b8bdd6d3121808fb0b171624dbce21d7af","2011-08-30 08:06:39+01:00","Revert previous Android build system, which will no longer work.
+"
+"7f75f29a99cbd5f6ca4ba2aaf6122d78cd308d43","2011-08-30 08:18:41+01:00","Reinstate i18ncheck.pl. Also fix ant icons build.
+"
+"de898d07bffbc873cce85b320375f50fb92a4b16","2011-08-30 23:21:43+01:00","Try to make life even easier in Eclipse - add the icons, so no need to build the GTK versions, also turn off mkfiles and i18ncheck. Add a README for Android development.
+"

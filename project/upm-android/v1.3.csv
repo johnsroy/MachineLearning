@@ -1,0 +1,28 @@
+"commit id","commit date","commit message"
+"3a5a791dd20610d37c2ed6fc7ea190cf7c96bf1f","2010-10-10 21:10:32+00:00","Fixed a bug that was caused an NPE in DownloadRemoteDatabase.java.
+
+I think the problem was that the temp file being written to (with File.createTempFile()) was being deleted by the system before I had a chance to operate on it. The temp file idea is unnecessary anyway since the bytes are already i memory. The fix involves using the in memory bytes rather than going though a temp file.
+"
+"bf79dd646ed4bb20c651dd3d8c1fd35ee86092f5","2010-10-12 20:04:12+00:00","Fixed a bug that was causing the application to crash.
+
+The cause was as follows...
+1. UPM is started
+2. Password is entered and FullAccountList is displayed
+3. Application is sent to the background
+4. Android kills the UPM process due to lack of resources
+5. UPM is started again
+6. Android knowing that it was on FullAccountList last time it was running starts that activity
+7. FullAccountList sees that the database is null so returns to EnterMasterPassword
+8. User enters password
+9. The static variable EnterMasterPassword.databaseFileToDecrypt is referenced but this variable is null since it's set from within AppEntryActivity and won't have been set since the process was restarted
+"
+"b3cb5be86085360c3054470dbb6e3000fa3c592b","2010-10-12 20:11:47+00:00","Fixed a bug that was causing the application to crash when returning to the ViewAccountDetails activity.
+
+The problem was that if the activity had being recreated the account instance variable was null.
+"
+"a91e67d261abfffd15f25f5a88dad8027fd8c063","2010-10-14 17:41:51+00:00","Updated the manifest and release notes for 1.3
+"
+"d41eca909f19a235ad8b8e9413368a7268112be7","2010-10-14 18:31:55+00:00","Delete the temp db file created during a sync operation.
+"
+"a8dda156a53890e27ac5469988fca4d5390f2bc7","2010-10-14 18:54:47+00:00","Added 'Donate' menu item.
+"

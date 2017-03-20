@@ -1,0 +1,67 @@
+"commit id","commit date","commit message"
+"4d4c10b02173382a02b8925dae41b897aaf60246","2014-08-16 11:10:40-07:00","OpenConnectManagementThread: Fix regression on CSD fixup
+
+Commit a543c06cf428 (Allow use of x86 Linux CSD wrapper scripts) added
+logic to check for e.g. '#!/bin/sh' at the start of the script, and
+prepend '#!/system/bin/sh' if the interpreter was missing.  In a
+subsequent commit, d08793cfcb (Copy certs into individual files), this
+logic was inadvertently bypassed; stored CSD scripts would be used as-is
+instead of rewritten to add the corrected interpreter line.
+
+So, for any stored file for which isExecutable == true, we will copy
+the contents to a temporary file and change the interpreter if necessary.
+Handling of actual certs (not CSD scripts) should be unaffected.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"1ba5d936e47a2ac39d9657023b7e1b06b5361529","2014-08-28 11:40:43-07:00","CommonMenu: Add 'cause' data
+
+This helps distinguish from other direct calls to
+ErrorReporter.handleException() that may be added in the future.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"624090e64a300e39d27cd549c0e569b33e2a46ff","2014-08-28 12:38:27-07:00","acra: Add CUSTOM_DATA fields for hacker packages
+
+In the crash reports, document the existence of any root/Xposed/...
+packages that may affect the OS behavior or unexpectedly block operations.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"e5d0b01e0abd5d9ed9fe5b15b69e12c1770c7331","2014-08-28 12:40:40-07:00","GrantPermissionsActivity: Catch exceptions caused by ROM bugs
+
+Several ACRA crash reports have shown failures calling APIs that should
+never fail: VpnService.prepare() or starting the intent returned by
+prepare().  Display a more informative message to the user so they do not
+think the application is buggy.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"905c9af858d96c7e5c0f26b0919073d64ecc2646","2014-08-28 16:50:44-07:00","MainActivity: Don't call remove() on fragments that haven't been added
+
+ICS may throw an NPE in this case.  Numerous crash reports from
+4.0.1 - 4.0.4 devices have been seen.  The exact condition that triggers
+removal of the non-added fragment is unclear; the most likely culprit
+is a race between onTabSelected(), onTabUnselected(), and replace().
+
+JB+ appears to be unaffected; $AOSP/frameworks/base commit acdfbcca6f91
+added null checks that turn remove() into a no-op when appropriate.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"0cef3d9ceca4749e7073671914d037df1c7ed68a","2014-08-28 22:16:58-07:00","Update changelog and bump version to 1.01-final (1019)
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"0334524e5c8410bf0202a9527cc4f0a48c6474bd","2014-08-29 13:21:27-07:00","res: Update translations
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"584912721dc1ef2abe8b10e60971b0951455cc0d","2014-08-29 13:24:28-07:00","about: Add translation credits
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"8b9b56b8f8078f2b03bc5083f284fffa00dd213b","2014-08-29 13:24:40-07:00","Update changelog
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"

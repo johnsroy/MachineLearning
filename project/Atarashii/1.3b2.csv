@@ -1,0 +1,145 @@
+"commit id","commit date","commit message"
+"3ef53827b2718a0505330743f687932777818aed","2013-02-15 23:59:37+04:00","Add first simply test and some refactoring MALManager.writeDetailsToMal
+"
+"c681ca72ce22139cdcfad3ff90cbf13df976cb8c","2013-02-17 01:02:32+04:00","Start create new Activity; start implements api and more testing
+"
+"86b1578b67c18601e33d6f99dbdfb0774cda11f4","2013-02-17 20:19:29+04:00","Process write tests and MALApi implementation
+"
+"12f96ca748378df3f0d7225445ea2d911eb43870","2013-02-17 21:39:01+04:00","Simple search activity realzate
+"
+"a12520d0a812dfa1dd76aafc89dc0ca4a66bcaa0","2013-02-18 00:07:18+04:00","Begin testing activity with use robotium
+"
+"0f668b78d288b95816be416760a7bf20b01bf6dc","2013-03-04 01:16:35+04:00","Process SearchAcrivity and refactoring records.
+"
+"b5106a1e4202c09b2a8b0357950ed5ed7132b7ae","2013-03-05 00:53:11+04:00","Complete refactoring *Record. Rename About to AboutActivity
+"
+"023ad3061d565c94888cfa12f5ba3e937dc55a99","2013-03-16 19:58:26+04:00","Process add to list
+"
+"7f4a9f54704debab4def5b72a36edd351f20075b","2013-03-17 01:46:36+04:00","Complete search and add genre to user list. Remove old http api and move to api.MALApi. Some tests.
+"
+"6b473b25c64b59d51c0c089997da53a60a80e49e","2013-03-17 14:44:13+04:00","Complete search and add genre to user list. Remove old http api and move to api.MALApi. Some tests.
+"
+"72c9b2d20a71a4b362105f2f001042be74749256","2013-03-17 17:23:42+04:00","Fixed some bugs
+"
+"c5db7352b2a2f771890773efa9df2fd825fb3580","2013-03-17 20:30:50+04:00","Fixed tests and fixed escape problem in detail view.
+"
+"0579e0ccbd585187f09a9fe1408a617c286b2f8d","2013-03-19 16:05:48+04:00","Start implement collapsed search bar
+"
+"b583ea4026f5e78a9daea152cbbf00f734f8e08c","2013-03-19 23:34:34+04:00","Complete optimise search widgets
+"
+"36876000fb43b463bb038c4fdbdd1536f59bf405","2013-03-20 18:51:11+04:00","Write some tests for search feature
+"
+"c99d6ce5f158b9d9d298d753e59626a971fb1923","2013-03-20 19:18:16-04:00","Restore compatibility with JRE1.6 (Java 6)
+
+The commits that added search used methods only available
+in JRE1.7 (Java 7), this commit fixes them to be JRE1.6 compliant.
+
+In fact, I'm not even sure how Apkawa got it to compile, as
+it refused to compile on my end, and Android shouldn't even be
+able to run JRE1.7 code, as Dalvik is based on JRE1.6.
+
+TODO is a fix a method introduces in MALManager that uses an API only
+available at level 11 or higher. I've added a version check for the
+call, and currently returning null on version prior to 11. While this
+is breaking functionality for pre-3.0 devices, it does allow the
+code to compile. A suitable replacement should be added in the method
+to ensure Froyo and Gingerbread users can use the app.
+"
+"a5aae612bf6ae4d7f315dfdbe22660a2528954a9","2013-03-21 11:43:07+04:00","Completed fix issue #44; repair tests for JDK==1.6
+"
+"8c9b7dd2335b21a23d2520eff573444617637c14","2013-03-21 05:17:45-07:00","Merge pull request #45 from Apkawa/working
+
+Completed fix issue #44; repair tests for JDK==1.6
+"
+"5b4edf4275bd9b430ff49ee58ea350e003e34f14","2013-04-01 17:14:59-04:00","Add to list UI
+
+Added the UI flow for adding an item to list. Basically,
+we check if the record's watch status is null, which is
+only a possibility if it isn't on a list, then set the
+action bar to contain an add button, and hide extraneous
+elements (like score, progress) as they don't matter
+when it isn't on a list.
+
+I've also added a method in this commit to revert the UI
+changes after a record is added, but this is obviously not
+functioning at the moment due to the add button not doing
+anything :)
+"
+"e65e5ad949c0916d2d2e69ed076ecc8d03439c90","2013-04-04 20:00:18-04:00","Add to list!
+
+This was a long time coming, but as of this commit, after
+searching for an anime or manga, you can simply hit the +
+to add it to your list. The current behaviour defaults
+to 'watching' or 'reading', though I may make this
+customizable. Or if we can learn start date, have it
+'planned' before the start date and 'watching' after.
+I dunno, just pitching ideas.
+"
+"63d22cad83b84fe44f58477ab6550cf6d089429d","2013-04-04 20:20:10-04:00","'Everything' sort fix
+
+As records that were searched for and loading in a
+detail view are stored in the database, the everything list
+includes these entries that were not added. As a fix, I've
+updated the database searching to search for any of
+the statuses that something on a list can be, therefore
+they no longer appear.
+"
+"ed31159ee8ad57d71da44c804cc5344504fc5b94","2013-04-08 22:18:54-05:00","converting over to HttpURLConnection
+"
+"b86d07113130ce62eab344771085a469e63841ab","2013-05-18 12:03:45-07:00","Merge pull request #50 from riotopsys/HttpURLConnection
+
+converting over to HttpURLConnection
+"
+"bf05cc6141e0904dac8388da262f7180d7b0383e","2013-05-18 19:41:16-07:00","Add Authors List
+
+To help keep track of contributors to the project, started an author
+list. Any contributor with enough code to have a legitimate copyright
+interest should be added to this file.
+"
+"f0fb3502e7a2a74180c53170a917c1ab35a34eb9","2013-05-20 07:39:46-07:00","Updated Readme
+
+Cleaned up the readme to reflect that application isn't only for ICS+
+now. Additionally, tidied the formatting of the document and cleaned
+the wording.
+"
+"9ad637dc7e487c0f958f6f64a1a14ce33d9d4cec","2013-05-20 10:40:51-07:00","Updated License File
+
+Updated the copyright date in the LICENSE file to reflect changes made
+so far in 2013. Additionally, adjusted notice to reflect contributions
+by others. This ties into the AUTHORS file.
+"
+"92b018cbfbe5d29f8e32520f6fbba65f80c268e8","2013-05-22 21:17:31-07:00","Update Authors File
+
+Added real name for riotopsys.
+"
+"83ec749e59af20217cb385912f8fccf6ea2d2ab0","2013-05-24 00:42:52-07:00","Fix NPE in Old Android
+
+As best as I can figure out, there is some kind of threading issue in
+Android 3.0 and below where the typeMap somehow gets used for both
+manga and anime records, making values not match properly. This leads
+to null values in areas that shouldn't have them. This is fixed by
+always building the typeMap when getTypeMap is called.
+
+Fixes #51
+"
+"473a6da296332969e69e4eb9119e12c77893a404","2013-05-22 22:22:52-07:00","Update Third Party Libraries
+
+Updating ABS to 4.3.1 and android-numberpicker to newest build. Also
+updated code to use the updated names for some portions and updated
+library path for ABS.
+
+Fixes #52
+"
+"21f286dcee25f0842f82f19c93a3fd3016b9dbba","2013-05-29 23:45:43-04:00","Beautiful App Launching + Optimizations
+
+This commit serves to make the app launch as seamless
+as possible. Previously, the background that was drawn
+when the app launched wasn't drawn immediately because it
+was part of the layout, not the window. This commit moves
+the background to be part of the app's style, thus no more
+jarring white -> gray transition.
+
+As a result, I've also eliminated an entire layer of
+overdraw throughout the app, so devices with lower-end
+GPUs should have an easier time rendering the layouts.
+"

@@ -1,0 +1,368 @@
+"commit id","commit date","commit message"
+"70ea35317c1c59f4c00b0228ad19603d5b2a71f7","2014-08-24 20:56:23+02:00","Log: Correct the tag.
+"
+"7ac53becc0879b283fa396ef3c2853d1d4199659","2014-08-25 17:14:35+02:00","FileResponseHandler: handleResponse(): Simplify the code.
+
+Use HttpEntity.writeTo() instead of looping ourselves.
+"
+"8c4c33fadfa40a4d455d920d9909d0b4bde5446a","2014-08-25 17:16:04+02:00","ItemsContentProvider: Move simple HTTP downloading into HttpUtils.
+"
+"6eca2eeb3fad7672278432bd820a342b8263f067","2014-08-25 17:53:21+02:00","FileResponseHandler: Optionally decompress gzipped content.
+
+Unfortunately we cannot now use writeTo() to simplify the code.
+"
+"13d3982d2a0841e0e1f008b0714fa16908b54a92","2014-08-25 21:04:44+02:00","Child-fragments layout: Remove extra padding.
+
+The parent fragment already has padding around its edges.
+"
+"70dec75d1dfd21e6ebbb8587a9a659ec24408d79","2014-08-25 21:16:48+02:00","Classify fragment layout: Use just one top-level ScrollView.
+
+Instead of a separate ScrollView in each child fragment.
+"
+"b01d80cbce72a076724d9baa21c63a3edcd96a53","2014-08-25 21:28:35+02:00","DecisionTree: Avoid some duplication of code.
+"
+"1aed6975120b44937cbe05adf995d67c6c1705da","2014-08-26 10:31:36+02:00","Remove a now-unnecessary comment.
+"
+"f7cb91ca0bc03843153892a7b002f3aab6a64524","2014-08-26 13:13:38+02:00","Singleton: Add, and use, an init() method with a callback.
+
+We can then do the initialization in an AsyncTask.
+"
+"f78ff7ce2f4d8b115d03ede5ced8fe1c8499b0d4","2014-08-26 13:29:31+02:00","ClassifyFragment: Add and use showLoadingView helper method.
+"
+"e730e03e2120a94f611347a6d5294915b52041a1","2014-08-26 13:30:11+02:00","Fix some comments.
+"
+"6754018c35dc31f011da393521ff63b130b05187","2014-08-26 13:54:09+02:00","Singleton.init(): Do the initialization in an AsyncTask.
+"
+"0f9e66e1e6a6609430bffb9437659793b8a874e9","2014-08-26 13:54:53+02:00","Get, and show, the icons for the answers and checkboxes.
+
+This get the single .png file containing all the icons,
+and then parses (hackily, not robustly) the CSS (without a stable URI)
+to get the positions of each icon in the file, then splits it up.
+
+The cache is not yet preserved across sessions.
+"
+"ca6743b7f89886252ef91a657476793fe220b98d","2014-08-26 14:25:25+02:00","Use the (dark) Holo theme instead of Holo.Light.
+
+This works better with our mostly-black images and our white icons.
+"
+"66e876421141527e8e3ba8ffe595f26f3e2f44a6","2014-08-26 14:44:21+02:00","Layout improvements.
+"
+"b82c8c2065fbc882b5c44f760442171e13f89bdd","2014-08-26 16:51:52+02:00","SubjectFragment: Added an Invert toggle button to show the inverted image.
+"
+"ca5518f8648f47bba0bcaff2be48d497d7386761","2014-08-26 17:03:12+02:00","DecisionTree: Make some fields private.
+"
+"63cab3e5cecd688ee26bb65be52b0175484c4821","2014-08-26 18:17:29+02:00","QuestionFragment: Add a Help button to show the Help text in a dialog.
+
+This doesn't yet show the examples.
+"
+"3323e07a4eeb72a234fde3cd89fa18f55013b6e6","2014-08-26 19:58:21+02:00","sloan_tree.xml: Regenerate with HTML entities unescaped.
+"
+"a02efdaf3f64f682f54c0391852bdec07c435312","2014-08-26 20:27:59+02:00","sloan_tree.xml: Regenerated with the examples count for each answer.
+"
+"3f1305e2b22d7b95aea4ee8da17ca1c8d8ef1fcd","2014-08-26 20:28:23+02:00","DecisionTree: Parse the examplesCount for each answer.
+"
+"405f3c16350d81e95a17ff8fed9c3dde4d05c0dc","2014-08-27 00:46:27+02:00","QuestionFragment: Use a custom Help dialog, showing the example images too.
+"
+"efbde7ea315194bf2883dc3d98bd56eb5bf1ffae","2014-08-27 08:56:15+02:00","Make some buttons have smaller text.
+"
+"d60d276ab67d6c4e082cf41fcc246a8b522fc50d","2014-08-27 09:16:53+02:00","QuestionHelpDialogFragment: Show examples for the checkboxes too.
+"
+"691eed5518681192a8b984bbcb4ccb427719cfc7","2014-08-27 09:42:31+02:00","QuestionHelpDialogFragment: Improve some spacing.
+"
+"664abb840b008d6fe74483c2b0894ea08ada2574","2014-08-27 09:46:01+02:00","QuestionHelpDialogFragment: Fix a typo to show answer examples again.
+"
+"b11954c231a7d1f7c4ec8941c3ec91aed1cbbd86","2014-08-27 10:00:27+02:00","fragment_subject.xml: Use adjustViewBounds so we show the image full size.
+"
+"a3b7c14f503524d1c348eb2bb50d7517c8d0269e","2014-08-27 13:38:54+02:00","IconsCache: Save the icons in the local cache so we can just reload them.
+"
+"834cb831fa0d5e6845af3df31c2bcb397a131609","2014-08-27 13:52:33+02:00","IconsCache: Use an LruCache instead of a HashMap.
+
+This avoids us filling up the memory with icons that we rarely view.
+They will be loaded from the cache in the filesystem (in getIcon()),
+again if necessary.
+"
+"0f4f559f58271f7b005d2c4a42d319d3d877566b","2014-08-27 14:10:56+02:00","Improve a log message.
+"
+"bd5ce076fe8a3c03650e6dc78cd19d1cfb5f3a50","2014-08-27 14:48:02+02:00","IconsCache: Check for network connectivity.
+"
+"71149cf79a1a40afd7761b4e2ff773ec3a492549","2014-08-27 15:51:46+02:00","ItemsContentProvider: Improve some log messages.
+"
+"809cdd909d78eb8879ff4f335cbf2066f9d32c3c","2014-08-27 18:04:36+02:00","Fail, with a warning message, when we would need a network connection.
+
+ItemsContentProvider: Throw a custom exception when an network connection is
+needed.
+We catch this directly when using call(), but we cannot catch the exception
+from a CursorLoader, so we have to guess at the cause of an empty cursor.
+"
+"a7f9a8048cb416119c208f4f7bfa20e218b69ae1","2014-08-27 18:19:50+02:00","ItemsContentProvider: query(): Do not throw our NoNetworkException exception.
+
+Because this unavoidably crashes the app. Just return an empty Cursor instead and
+let the caller guess at the cause.
+"
+"e0ce6ef84b2eccd78a18226ad22acf6ef90a84ca","2014-08-27 20:35:41+02:00","ItemFragment: Override onSaveInstanceState() to save the actual ID.
+
+Otherwise we can get the original virtual 'next' ID when the fragment is
+recreated after rotation.
+"
+"68d28b62e32e681347ad7436b3a24bbbcfd8468f","2014-08-27 20:41:05+02:00","QuestionFragment: Override onSaveInstanceState() to save the current question ID.
+"
+"6c205aa8dc701ce5e6629cac84cd48bd61a73ca1","2014-08-27 20:49:48+02:00","SubjectFragment: Override onSaveInstanceState() to keep the image inverted after rotation.
+"
+"4bf8e1c47f2a732ec91e07f0e047967cb83161dd","2014-08-27 21:29:19+02:00","QuestionFragment: Override onSaveInstanceState() to keep the classification in progress.
+"
+"5a46296c3bb791fd06dcc35000e65665a196fd6f","2014-08-27 22:37:00+02:00","BaseActivity/ListActivity: Remove the remains of the two-pane structure.
+
+We will just use a different layout for the Classify fragment/activity on bigger screens,
+instead of having both the list and the detail (classify) in one activty.
+"
+"8bca6305d454f6796f38165442705ce5e6193afe","2014-08-27 22:56:08+02:00","Classify: Add a layout for wider screens/orientations, such as tablets.
+"
+"0b7398a1468c9b583e00379d1327fcf30866b812","2014-08-27 23:00:14+02:00","Use SharedPreferences.Editor.apply() instead of commit().
+
+Suggested by android-lint.
+"
+"527f9bf8de835569100296134287f49096024afa","2014-08-27 23:10:28+02:00","QuestionFragment.ClassificationInProgress: Add the CREATOR object.
+
+Noticed by android-lint. Strangely, it doesn't seem to be used by the current
+code, which recreates (or maybe just reuses) the ClassificationInProgress
+fine already.
+"
+"8a6ce6e3c6c0268623dfba72449e67112f722076","2014-08-27 23:12:59+02:00","Remove incorrect/obsolete layout parameters.
+
+Suggested by android-lint.
+"
+"3bac242f09c3ac48848d618a3e39aab2a2b34007","2014-08-27 23:14:08+02:00","Correct layout params of ScrollViews.
+
+Suggested by android-lint.
+"
+"d191447f30ca3304d0e99087f6c16e98c551c9cf","2014-08-27 23:17:08+02:00","Remove unused resources and layouts.
+
+Suggested by android-lint.
+"
+"0604abe879f1cc8d81ac8dc7df077931b17e49ad","2014-08-27 23:19:37+02:00","Layouts: Use *Start/End instead of *Left/Right.
+
+Suggested by android-lint.
+"
+"7c4878310b1623d453dd26a81540a9c9f36fc415","2014-08-27 23:21:12+02:00","Minor code style fixes.
+
+Suggested by android-lint.
+"
+"6220dfe9ae2657b603d13e68a58b2cb2cc5425f5","2014-08-27 23:21:41+02:00","Remove unnecessary imports.
+
+Suggested by android-lint.
+"
+"2378f1fdff5ccb39685d37a380403f6eb1074057","2014-08-27 23:22:35+02:00","Use some more Java 7 syntax.
+
+Suggested by android-lint.
+"
+"f8cb21c797d6e99084668018281639c5cd6d7c48","2014-08-27 23:28:49+02:00","Add a TODO comment.
+"
+"3d07fb5a25cd6fc300f747187067fa60123115e7","2014-08-27 23:30:49+02:00","LoginActivity: Remove some dead code.
+"
+"0dfe1d482792ec644af48e7bc10536cdec0ad6b3","2014-08-27 23:33:46+02:00","*ResponseHandler: Remove unused ContentProvider field.
+"
+"c33b2157f790692f594ac8c149a719a70e50a497","2014-08-27 23:35:55+02:00","HttpUtils: Remove unused callback.
+"
+"fc5157205f6da6f48ce3d6b09c5691d5ebcb5076","2014-08-27 23:43:32+02:00","Help dialog: Avoid a nested ScrollView.
+
+Suggested by android-lint.
+"
+"30a463ddb5d01390c5d3b6a2defbefe74831beb5","2014-08-27 23:46:18+02:00","build.gradle: Use specific gradle version.
+
+Suggested by android-lint.
+"
+"14dda5c67dcec4daac97b71dd9a04d4215d6a1f0","2014-08-27 23:52:35+02:00","Layouts: Extract some text to (translatable) string values.
+"
+"72b33c9d429d18caa7b1980dbfdcc6221421630c","2014-08-28 02:57:55+02:00","Turn the Help dialog into a normal Activity.
+
+The dialog had too much stuff in it and looked out of place.
+"
+"8f6fe4d592f97de7d8a9bdad54fcab2869b3e598","2014-08-28 10:55:44+02:00","QuestionHelpFragment: Open example in their own activity, not the browser.
+"
+"2ecf1c31e97c0c91cbb9fa11e8e55fd9dcb11d41","2014-08-28 11:25:05+02:00","Classify: Correct the margins/padding.
+
+Now the Classify activity has no padding or margins.
+The Classify Fragment's ScrollView has no margin or padding at
+its sides, so the scrollbar shows up at the far edge, but it has
+a margin at the top to separate it from the ActionBar.
+This seems to achieve this layout:
+https://developer.android.com/design/style/metrics-grids.html
+The ScrollView's LinearLayout has a margin at the sides to separate
+the content from the sides (and from the scrollbar).
+"
+"b81aa29bf2f7c6a92d84e5293d6a08af39914bbe","2014-08-28 11:33:27+02:00","Classify: Put the top margin in the activity, not the fragment.
+
+This makes it a bit easier to reuse the fragment in a different
+arrangement.
+"
+"d2fe8b7dedb19edcfb29bf0d2a1ca7365330ff5d","2014-08-28 11:45:56+02:00","Layout: Rename some IDs.
+"
+"773c628bb714dd9320a447decce4d8ab1a859220","2014-08-28 11:48:56+02:00","ExampleViewer layout: Use same margins as Classify activity/fragment.
+"
+"bc988f7007864fc8be5cfa3ca20b5a219a2f8515","2014-08-28 12:32:19+02:00","Classify: Use clipToPadding to scroll into the top gap.
+
+Change the activity's top margin to top padding in the fragment's
+ScrollView, so we can use clipToPadding='false' to make it scroll
+its content into the gap between the content and the ActionBar.
+This only works if the padding is on the ScrollView (or ListView
+or GridView, I think) itself.
+See https://plus.google.com/+AndroidDevelopers/posts/LpAA7q4jw9M
+"
+"e3fd362ea112e35b648fae8a1f6970a1da95b20a","2014-08-28 12:50:37+02:00","List: Use clipToPadding='false' here too.
+"
+"6a60a64b4168327cf6f1f873f1f091d632d08c91","2014-08-28 12:53:51+02:00","Example Viewer: Put the content in a ScrollView.
+
+The pictures are not big enough to need it but it seems wise to
+support bigger images in theory.
+"
+"2173e44ba4b815cd00825a1f661b5029bb9203ff","2014-08-28 15:11:11+02:00","QuestionHelpFragment: Check for a connection when showing full example images.
+"
+"b9120d69faf12651f7780ac3a80fc1366f13736d","2014-08-28 15:16:47+02:00","Remove the More menu item.
+
+It is only useful for debugging. The ContentProvider gets more items
+automatically in advance.
+"
+"07115d4114baa5e6289ab4b223f59203490f0f17","2014-08-28 15:51:36+02:00","Classify: Move the Invert button into the ActionBar.
+
+This saves a little vertical space.
+"
+"3d57947ed3b56ff5ccdd5b6169df3d6a7f0f2e14","2014-08-28 15:57:07+02:00","Move the Help button into the ActionBar and rename it to Examples.
+
+This saves more space.
+"
+"fa9e252e4da60f77443d93f5b7006ec259dc76f7","2014-08-28 16:04:37+02:00","Classify: Reduce some spacing.
+"
+"06acb048a951f22ccc3667fdabc7d039485b5d4f","2014-08-28 16:19:36+02:00","LoginActivity: Start with the last-successful username.
+"
+"7f78647c237b11bc1c02bfc793794331318f74a3","2014-08-28 17:21:15+02:00","LoginActivity: Add Forgot password and Register links.
+"
+"4ed427fb31467d4886070683518a42e3fe1a1ca1","2014-08-28 19:01:33+02:00","ItemsContentProvider: call(): Do the login immediately and return the result.
+
+Instead of using an AsyncTask, because there does not seem to be an async
+way to return a call() result.
+"
+"556e546e669b93a286b885de6ed80179cb6eccee","2014-08-28 19:02:55+02:00","LoginActivity: Return a result and use it in ZooFragment.requestLogin().
+"
+"d0c6632bba644db35a6f66020d75554ed17258f5","2014-08-28 19:06:37+02:00","Fix the build after breaking it in the previous commit.
+"
+"e19bd78ebcf869cbafab62e36c72ec7ef4a6758f","2014-08-28 19:17:48+02:00","LoginActivity: Show a Toast message when login was successful.
+
+Just to give some clue that things are OK.
+"
+"aa4295fa5bb2f7f681ded3be02798463a36b243e","2014-08-28 21:00:45+02:00","ItemsContentProvider: Add (disabled for now) code to regular upload classifications.
+"
+"82a2c46024b7be748e16487abf6a29974ec4b718","2014-08-28 21:27:52+02:00","Example Viewer: Expand the image to the full width, as when Classifying.
+"
+"17633b5d97a14bcf72b34ed5fbc1066e861751bf","2014-08-29 00:27:32+02:00","QuestionFragment: Use a GridLayout for answers and checkboxes.
+
+Now it looks neater, like in the web UI.
+Unfortunately I had to hard-code the number of columns.
+"
+"e8ce3e475506633b1acdce94e6b3346974798aae","2014-08-29 09:15:56+02:00","ExampleViewerFragment: Slight code improvement.
+
+Suggested by android-lint.
+"
+"19a7d07b8e76e1157537eb6eb4d456cff0b3f9b4","2014-08-29 09:16:15+02:00","Remove unused UserId code.
+"
+"e9cd6c4478e6b56c90b9f84b8e323c743b2593ba","2014-08-29 09:27:36+02:00","fragment_question.xml: Simplify the layout XML.
+
+Suggested by android-lint.
+"
+"3c199948726ae112a6df5473b5c439724b837517","2014-08-29 09:28:05+02:00","activity_login.xml: Use end gravity instead of right gravity.
+
+Suggested by android-lint.
+"
+"52f1b4db2eccadf2ae6cff100626beaf279065f5","2014-08-29 09:32:41+02:00","Fragments: Avoid passing null as view root to inflate().
+
+Suggested by android-lint.
+"
+"05aa05c5ac1bbafc9e81b69aa6d6a3597936aa8b","2014-08-29 09:33:37+02:00","Remove unnecessary imports.
+
+Suggested by android-lint.
+"
+"219f17c184a42246d4217266c05ed77cb849b683","2014-08-29 09:34:07+02:00","ExampleViewerFragment: Use some Java 7 syntax.
+
+Suggested by android-lint.
+"
+"aa7ce96ad321c6ed24e218c921751c3dc418673e","2014-08-29 09:34:53+02:00","activity_login: Use gravity end instead of gravity right.
+
+Suggested by android-lint.
+"
+"df963225f23611e0a3b5f6881daf9a5542809d0c","2014-08-29 09:37:23+02:00","Add some final keywords to class fields.
+
+Suggested by android-lint.
+"
+"ac2d6efbdb48487c27883e06f13ef058a0ea69d6","2014-08-29 09:47:01+02:00","Remove some unused code.
+"
+"e14b60d6cb7867ddc12b335462b52504f0ab9c38","2014-08-29 09:51:30+02:00","SubjectFragment: Make the image invert when clicked, like in the web UI.
+"
+"552eb4e90c181809007a7e12d23c22cba630ef7a","2014-08-29 09:55:29+02:00","List: Make the images as big as possible.
+"
+"e338dc3e1690d129a0d7c15ccdb80bf0289b6824","2014-08-29 10:03:07+02:00","gridview_cell_fragment_list.xml: Remove unnecessary intermediate parent layout.
+
+This now lets the icons be as big as possible.
+"
+"941cc95821a691e612282d95e6011aa532eba08a","2014-08-29 10:09:00+02:00","List: Improve padding.
+"
+"1d1f44ee66f06c6cb0ec0323933bede4fc830a37","2014-08-29 10:14:23+02:00","List: Add a margin at the right of the text.
+
+This stops the text from being right up against the edge of the screen,
+while allowing the GridView's icons to be up against the edge of the screen.
+"
+"b793c9bc5df76fdbd2fedce5b0577ff37724d5bb","2014-08-29 13:18:55+02:00","Use a more appropriate launcher icon.
+
+This is based on public-domain NASA Hubble image of Messier 81 from here
+http://commons.wikimedia.org/wiki/Commons:Featured_pictures/Astronomy#mediaviewer/File:Messier_81_HST.jpg
+The .png files were created with this tool:
+http://romannurik.github.io/AndroidAssetStudio/icons-launcher.html
+
+It would be better to use some image that fits better into a square.
+"
+"685d3de5c4dd2adb2092ae2ffefbdf8cd480273d","2014-08-29 14:22:46+02:00","fragment_subject: Replace the RelativeLayout with a LinearLayout.
+
+It only has one child anyway.
+"
+"49fb0f729246c64b9646b5dd1f52b89998c5961e","2014-08-29 14:46:55+02:00","Tablet layout: Classify: Split the screen equally horizontally.
+
+With the image (SubjectFragment) on the left and the rest
+(ClassifyFragment) on the right. To get this effect I specified
+equal weights for each child view, but I also had to specify
+width='match_parent' to make it actually work, which is odd.
+"
+"3ff9490c3a155f3d640d738cfe30ca9f39ffbb22","2014-08-29 15:23:53+02:00","Classify: Add a margin between the fragments.
+"
+"7a7ff40dd54156689fa159834642fa849d945ced","2014-08-29 15:25:07+02:00","Remove unnecessary imports.
+"
+"e11d68a1c71a4abfe36b15617499e74fdb853592","2014-08-29 15:25:55+02:00","Layout: Remove obsolete parameters.
+"
+"d3ef07c4c635a3e0d112652b48c303dd33d5fa2d","2014-08-29 15:26:31+02:00","Remove an unused resource.
+"
+"80e3ead82d31b94f830c481eeb0072370dad7c42","2014-08-29 15:51:35+02:00","Tablet layout: use layout-w850dp instead of layout-sw-600dp.
+
+sw means the smallest of width or height.
+w means the width in the current orientation.
+This then means Use this layout if the current width is more than
+850dp.
+This makes it use the standard vertical layout on my Nexus 10 when
+in portrait mode, so we can see a large picture because the picture
+has enough width to expand.
+The 850 is odd, but seems to be what works.
+"
+"fcd28fa42fcaf6f20f5bb36be9c0b0efab791ab5","2014-08-29 16:34:58+02:00","fragment_question_help.xml: Fix indenting.
+"
+"f6348b1288279da0173746187ad9af39d61f0ea7","2014-08-29 16:55:00+02:00","Layout: Fix some tools:context lines.
+"
+"84770037238153c2bf4812a7efb173eaf3ce1fec","2014-08-29 16:56:59+02:00","Layout XML: Make sure they all have the <?xml delaration.
+"
+"7e0d4ab10491a982a9fc71f04400b870a69c15f5","2014-08-29 16:59:40+02:00","Examples: Do not show the onscreen dialog.
+
+* app/src/main/AndroidManifest.xml: Remove windowSoftInputMode from
+the .QuestionHelpActivity declaration. This was copy/pasted from the
+.LoginActivity declaration, which actually uses the keyboard.
+"
+"44214804fef7f889f262f5ee3b525617189aa4fe","2014-08-29 17:17:17+02:00","Specify an identifiable User Agent for GET and POST HTTP requests.
+
+This makes the app more visible in server logs and could be used to
+filter out classifications if something went very wrong.
+The User Agent is murrayc.com-android-galaxyzoo
+"

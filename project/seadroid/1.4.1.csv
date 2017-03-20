@@ -1,0 +1,92 @@
+"commit id","commit date","commit message"
+"a6c6923ddbb69f43380190f88d5a36c13e1f8f40","2015-01-03 00:18:48+01:00","Enable TLSv1.1+, disable SSLv3
+
+This patch forces Seadroid to use a specific list of TLS protocols.
+Specifically, SSLv3 is disabled, as it is considered insecure by now.
+Also TLSv1.1+ are enabled (they are available with API 16+ but disabled
+up to API 19).
+
+To do so, we have to inherit from SSLSocketFactory, which makes the codes
+somewhat verbose. The upside is that this class can later be used to further
+modify the Android defaults concerning SSL (e.g. cyphersuites used).
+
+This patch also fixes a NPE when connecting to a server that only supports
+TLSv1.2.
+
+References:
+* https://developer.android.com/reference/javax/net/ssl/SSLSocket.html#getSupportedCipherSuites%28%29
+"
+"7eb70ba0398c79791e0bd98e3270030992d94908","2015-01-03 01:24:11+01:00","Specifiy TLS cipher list
+
+By default Android will offer the HTTPS server ciphers which are today
+considered to be insecure (e.g. SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA).
+A properly configured server should reject those ciphers, but better be
+on the safe side on not offer those ciphers by the client at all.
+
+Additionally the order of the cipher matters as well, as more secure/fast
+ciphers should be at the top of the list.
+
+This patch adds a cipher list based on
+https://briansmith.org/browser-ciphersuites-01.html
+
+The list has to be revised from time to time as the security of TLS
+is re-evaluated by security research.
+
+References:
+* https://briansmith.org/browser-ciphersuites-01.html
+* https://developer.android.com/reference/javax/net/ssl/SSLSocket.html
+"
+"ccc76025acf5f706d79e32acb439d5e066ab6901","2015-01-03 11:14:48+01:00","style fixes
+"
+"74cb6220dfdd82e97a8cfa229cccbf9f7d4a38a7","2015-01-06 17:36:10+08:00","save and restore text on screen rotate
+
+fix Content of the password and mail field are switched after rotating in the 'add account' view #218
+"
+"3fd3c1a343195b567d277cf729d411cb3f91e218","2015-01-06 21:19:16+08:00","fix SeafRepo cast SeafDirent exception
+
+exception occurs when
+1. network connetion slow
+2. navigate among repos very fast
+"
+"2ba6f2d92b2061766248a124358bd22704a806c3","2015-01-07 11:39:12+08:00","Merge pull request #225 from Logan676/repo_cast_dirent_exception
+
+SeafRepo cast SeafDirent exception
+"
+"c7f19ab03640047773223efec675e81cb2a183bb","2015-01-07 18:54:54+08:00","load animation null pointer
+
+fix the loadAnimation null pointer exception
+"
+"6e01cfb01326f0b747cb4c3c02d6061f9d31d19e","2015-01-08 13:27:11+08:00","fix monitor file download null pointer exception
+"
+"148cd7b91c53fbb56ad93c918b7d331754dd3883","2015-01-08 14:16:05+08:00","Merge pull request #220 from forouher/fix/tls
+
+TLS protocol and cipher list improvements
+"
+"27eac59450ed24f9711bd65dbdc099e709ff8a0d","2015-01-08 14:30:16+08:00","Merge pull request #223 from Logan676/fix_pwd_email_field_switched_on_rotate_bug
+
+save and restore text on screen rotate
+"
+"2c4ccdae673c9a220751a38083f6642705c7025d","2015-01-08 14:37:15+08:00","Merge pull request #227 from Logan676/fix_load_anim_null_pointer
+
+load animation null pointer
+"
+"a588917f36fe77834c0d257a07ce2d8c4d3170eb","2015-01-08 14:50:40+08:00","Merge pull request #228 from Logan676/fix_file_download_monitor_null_pointer
+
+fix monitor file download null pointer exception
+"
+"0c6944812f1453623bf02fe709ce45cd63802dbd","2015-01-08 14:29:52+08:00","fix certificate null pointer exception
+"
+"3da2d039317dc0097f52b2a49caf49ecf2940066","2015-01-09 10:17:30+08:00","Merge pull request #229 from Logan676/fix_certificate_get_subject_name_null_pointer_exception
+
+fix certificate null pointer exception
+"
+"1c07e4f7de9c50754d73762548b2fed11791b80f","2015-01-07 11:47:16+08:00","ovrride onBackPressed
+
+fix Gesture lock is trivial to bypass by pressing the 'back' button twice quickly #219
+"
+"ffe91ce4874735bc9c4b36d3c92689767561b47c","2015-01-09 10:48:18+08:00","Merge pull request #222 from Logan676/fix_gesture_lock_bug
+
+override back button default behavior
+"
+"304d6c8b4fba500730b0fdc43672fea67bcd7a3e","2015-01-09 17:15:14+08:00","update version code
+"

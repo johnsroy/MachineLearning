@@ -1,0 +1,59 @@
+"commit id","commit date","commit message"
+"e44b39b68f92bc4b4e6a353ceb89fc23f18682e9","2014-04-11 20:23:20+02:00","Update CHANGELOG.md
+"
+"36daba83566a4b950947461b41c140719c730676","2014-04-13 20:44:11+10:00","Femtocell Detection Enabled, MapView updates, Preferences Listener and Missing Resources
+
+Added missing resources for Actionbar icons which I had initially only added for HDPI devices,
+all other defined display types have been added.
+
+MapView updated to check for Google Play Services so no FC's are experienced by people who do not
+use these services, added option to select map type and extended the details the system will apply
+to the map including markers for unique CellID's found and signal overlays.
+
+MapView will now default to last known location (if one is available) or will zoom to the last
+loaded location found in the tracking database, other map controls enabled to allow gesture
+control.
+
+GeoLocation class added from paper written by Jan Philip Matuschek found here -
+http://janmatuschek.de/LatitudeLongitudeBoundingCoordinates
+This provides an equation to determine a bounding radius of a given point, for example
+a cirle 50 miles/kilometres around a given location.
+
+The reasoning behind this is to allow these calcuations to be performed so external API's
+such as the one offered by OpenCellID.org can be utilised to provide known CellID and tower
+locations which could be enabled within MapView.
+
+Preference change is now detected correctly by the application showing immediate changes to
+through the persistant notification for system status (Idle, Good & Alarm).
+
+FEMTOCELL DETECTION ACTIVATED (Requires testing on CDMA devices)
+Femtocell detection has been enabled for initial testing (CDMA devices ONLY) this must be enabled
+through the menu and I will extend the preferences to enable the auto start option for detection
+and also implement the evasive action preference to enable Airplane mode if detected with a
+customisible automatic reset time period or manual control.
+"
+"6a8ed99f6457b79b16cc54e4f5664658b7008a76","2014-04-18 17:30:32+10:00","Kill Service Preference, CDMA update and Main Display tweaks
+
+Preference added to kill the background service when quitting the application.
+
+CDMA specific updates to include further details such as System ID, Base Station ID, Network ID and Longitude/Latitude.
+
+Main layout updated to display device specific information.
+"
+"b3a9758775446297d011ad326237033d215cea80","2014-04-21 00:40:57+10:00","OpenCellID enabled
+
+Downloading of OpenCellID data will display markers for identified cell towers and their CellID
+within 100km of the current location, this is basically to test functionality of this API full
+data provided by OpenCellID is: lat,lon,mcc,mnc,lac,cellid,averageSignalStrength,samples,changeable
+
+This functionality could be easily applied to different APIs offered by other organisations,
+this could be helpful when comparing existing cell data to confirmed information (how accurate??)
+to assist in making a decision regarding IMSI Catcher detection.
+
+CSV file of details is stored on external storage along with the database table export files,
+further options can be included to load any found details when the MapViewer is loaded.
+"
+"46b57f43be561c113faf08d46a504d5491cfe40c","2014-04-21 00:48:16+10:00","Merge pull request #36 from xLaMbChOpSx/master
+
+Multiple updates see commit comments
+"

@@ -1,0 +1,139 @@
+"commit id","commit date","commit message"
+"081ba616a089b14d9af48e4d09403abf03c458e5","2013-08-15 15:20:03+05:30","rewritten logic to check the LOG target and removed blocking UI code
+"
+"de9e6e59e2c42dab9ec8fb5c465854af598cae06","2013-08-23 10:34:47-07:00","Merge pull request #187 from ukanth/master
+
+Merge master to beta
+"
+"353d93176f239c7b9262afef0bcca0416f510b6e","2013-08-24 14:31:48-07:00","InterfaceDetails: Add indication of whether the OS provided tethering status
+
+Also, check the tether status even if the system claims that 3G isn't
+the active connection.
+"
+"8ae241c34cecb054ede2d511c85703c728221088","2013-08-24 15:37:43-07:00","RulesActivity: Add more diagnostic information
+
+Add active interface info, system info, preferences to Rules page.
+"
+"e5e90b6e8d0ec68c765ee012074a974a8124f839","2013-08-24 15:41:42-07:00","MainActivity: Clean up calls to Log()
+"
+"4f048ab6c9e34a4066df4480fdff39c4d127d4e4","2013-08-24 16:03:21-07:00","Create new 'Log' class to capture logcat output
+
+Add a 'Logcat' section to the Rules activity, showing the last 32
+events.
+"
+"5abc32e2c332f3fd6037d8ae36a4bedd8a0cf2c5","2013-08-24 16:15:58-07:00","Switch over to the new internal Log class
+"
+"18191dfeab31298350befe5a1d38e0e24049755e","2013-08-24 16:20:01-07:00","RootShell: Fix watchdog timeout
+
+If the watchdog timeout is set to 0, the application will hang forever
+if the shell terminates.  The shell could terminate if a bad command
+(e.g. 'exit') is present in the custom script, or for other reasons
+beyond the application's control.
+"
+"07dc411be3f698985d361d2a6968649d5664dd33","2013-08-24 17:21:32-07:00","Move log enable/disable logic into Api.java
+
+Also, cover cases like: user asked to view the logs while logging is
+disabled, or user asked to enable/disable logs while firewall is
+disabled.
+"
+"40319dc1d7233e310207b3dd82de64394887413b","2013-08-24 17:41:49-07:00","Api: Add afwall-{3g,wifi}-postcustom chains
+
+These prevent the main afwall-{3g,wifi} chains from being purged on
+connectivity change, allowing custom rules to safely alter them again.
+"
+"077cda6a1e108da202e94fe9b76fb3f4fff748d3","2013-08-24 17:46:44-07:00","strings: Spelling/grammar tweaks
+"
+"9fdaaf2ab52ab6f22df9ca7511c7d09e9685d1d5","2013-08-24 17:56:56-07:00","Api: Make kernel and tethering strings translatable
+"
+"832788bb398b9234e5374596e4f451674ba9469c","2013-08-24 18:15:47-07:00","Api: Add 'special UID' entries for DNS proxy and NTP
+"
+"b5e900aff8788c99fe814d0beb026fdc3d967491","2013-08-24 18:51:34-07:00","RulesActivity: First attempt at 'send error report' option
+"
+"2b91e9202cbe1374f5a1dac28cd8b1a509d32743","2013-08-24 20:11:40-07:00","Merge pull request #188 from cernekee/debug-1.2.6.1
+
+Debug 1.2.6.1 build
+"
+"a0272f13f71e5da728897aa00debebce49679511","2013-08-27 19:51:54+05:30","removed alternate startup service, which is no longer required
+"
+"3f3e99c537e65940d83b1d769f36d08466beee18","2013-08-27 22:26:21+05:30","Improved caching logic, uninstall will remove package cache from afwall and another method to cleanup the exising cache
+"
+"82a5bb122b3d340be4a778b7c1ea3eec99c8db05","2013-08-28 08:02:15+05:30","remove unused package cache when reload applications
+"
+"525cc4ad8b41e04237859eafbec90e99e5c4dcee","2013-08-28 09:19:41+05:30","new help page from assets and moved from strings
+"
+"708127aa7e0874e84ad5c1c359baa8e173b4f89e","2013-08-28 09:20:53+05:30","cleanup commented lines
+"
+"1f95894e115305e6cf15c129b52e6b08fd9bd80c","2013-08-28 09:36:57+05:30","fixes format in help page
+"
+"7c96416467baff5352092307217b70c786df456e","2013-08-28 09:46:00+05:30","help page - added licences, will add format/styling later
+"
+"a6302c9981f8b208c83b344bf3458dd78002176c","2013-08-29 22:33:53+05:30","fixed too many password prompts when setpassword enabled
+"
+"d09422c3ec2c253de7d2bb766865e82c3448d8f6","2013-08-29 22:43:04+05:30","updated changelog
+"
+"f0efff25655b29d4a2740a3f747526a2e7091c50","2013-08-30 12:23:12-07:00","RootShell: Add setRetryExitCode() feature
+
+Add RootShell support for retrying commands that can experience transient
+failures.
+"
+"fe6653a44d151a9617986e4212c9edd1f3f211a4","2013-08-30 12:24:18-07:00","Api: Retry 'iptables' commands on exit status 4
+
+Various users have reported intermittent problems in which iptables
+returns exit status 4 (iptables: Try again).  This can happen if the
+Android system is updating the 'filter' table (any chain) at the same time
+we are.  These updates generally aren't modifying the same chain or rules,
+so they shouldn't conflict with each other in any other way.
+
+The problem can be reproduced by applying the AFWall rules while running
+this loop in another root shell:
+
+iptables -N foobar
+while :; do iptables -A foobar -d 1.2.3.4 -j ACCEPT ; \
+iptables -D foobar -d 1.2.3.4 -j ACCEPT ; done
+
+We will retry these transactions up to 10 times.
+"
+"6ab0b4eec79b88039c474ef5c0886f3ddc932acc","2013-08-30 12:32:14-07:00","Remove a couple of unused imports
+"
+"6c6c9985232530b95e9828c0478172545db0dbc7","2013-08-30 17:22:34-07:00","Merge pull request #192 from cernekee/exit4-v1
+
+Work around intermittent iptables exit status 4 errors
+"
+"b342ebd46780b81e30f1a600fd04621bb20a2967","2013-08-31 05:56:00+05:30","code refactor on preferences
+"
+"4b2a3c87ae57c8576b77a14343696bbdda723d37","2013-08-31 05:56:28+05:30","Merge branch 'beta' of https://github.com/ukanth/afwall into beta
+"
+"0513e6b61fc996adf23f8332f6d6c507c5a5899a","2013-09-02 21:27:43-07:00","RootShell: Register as a Service after starting the shell
+
+This is an experiment to see if it makes the OS less likely to kill off
+the AFWall background process.  Ideally we'd like the process to stick
+around forever, both to reduce the overhead of Active Rules and so that
+we don't miss NFLOG events.
+"
+"11ead2942cbf388c1b64fb5542c0e45371beaac8","2013-09-02 22:59:15-07:00","First attempt at fixing NFLOG log output
+
+When using the LOG target, the kernel collects the logs in the background
+and dumps them out when we run 'dmesg'.
+
+But when using the NFLOG target, the 'nflog' utility needs to be running
+to collect the data in real time.  This isn't currently happening.
+
+This patch starts up a new background shell + service in order to collect
+the NFLOG data.  Since the usage of nflog is quite different from dmesg,
+Api and LogActivity were modified accordingly.
+
+Note that nflog does NOT currently terminate when AFWall exits.  And only
+one instance of nflog can be active at a time.  In a future commit we
+should make nflog more sensitive to kills (e.g. terminate when stdin gets
+closed).
+"
+"8317e02e5bfbae640f4c6408d859d6f7e6833676","2013-09-04 19:15:59-07:00","Merge pull request #195 from cernekee/nflog-v1
+
+Services to capture NFLOG packets and keep the RootShell alive.
+"
+"a71a4c8bfc9e1d28afc588bafa7b3ab596efea76","2013-09-06 03:33:37-07:00","Merge pull request #196 from ukanth/beta
+
+Merge beta to master branch
+"
+"2c918390827800d7ef0f7b34111a4f7b8481c0f7","2013-09-06 17:38:57+05:30","prepare for 1.2.6.1 release
+"

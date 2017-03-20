@@ -1,0 +1,155 @@
+"commit id","commit date","commit message"
+"5697406f5946ae2827c7f9f69113a6c069577689","2013-06-03 16:18:04-04:00","Bump maximum manga chapter up
+
+Someone left a review on Play stating that he hit
+the previous limit of 999 chapters in a manga. Truthfully,
+I had no idea there was manga that ran longer than a
+thousand chapters and still didn't have a defined end.
+
+Limit bumped up to 9999. Considering the longest running
+manga is now at about 1700 chapters, I think this should
+be fine.
+"
+"dc2a983cfa39eed54b8fb48cdd8da39f37755676","2013-06-03 16:12:08-07:00","Revert 'Bring our own Support Library'
+
+This reverts commit d0f4a5e6ada1699536b1db7d55eda23d6ed35ec2.
+"
+"557a2109fb16d99c7d167db4cfae4be40bf60593","2013-06-03 16:13:08-07:00","Update gitignore
+
+Make git ignore jar files by default.
+"
+"f860037b82159196d4daae7cfb8e8f7df8a6d92a","2013-06-03 20:15:52-04:00","Adjust maximum value for manga chapters
+
+After discussing it with Motoko, it occurs to me that
+9999 was just too high. Adjusted to a nicer value. Also
+an easter egg.
+
+I also fixed an apparantly long-withstanding bug in that
+the volume counter would not update visually when it was
+changed. Neat.
+"
+"fa060a31902291e6e391df9c8046838407f62d20","2013-06-03 19:30:34-07:00","Update Building Documentation
+
+Add section on the Android Support Library, update import instructions
+with how to import all libraries at once, fix import order to reduce
+build issues, and clean up submodule command to be only one line.
+"
+"04aa92b030d754ac168510bb3be5097eb2bb72a6","2013-06-12 19:04:56-04:00","Add ScrollView to Watch Status Dialog
+
+On smaller screen devices in landscape, this was
+an issue. Added ScrollView, problem no more.
+"
+"c9cea558884b10cb15c292e664464fe5dd05db1f","2013-06-12 19:05:38-04:00","Merge branch 'working' of https://github.com/AnimaSA/DreadfulMALX.git into working
+"
+"b6f2f85fd272115539c997054b641779cd7f5558","2013-06-03 19:37:07-07:00","Cleanup Strings
+
+Moved all strings to be on one line as multiple lines introduced some
+spacing errors in the application.
+"
+"5d353b3d72615fb8b9a148fe7a2d6ddd37968405","2013-06-16 22:49:17-07:00","Updated Connection State Strings
+
+The initial messages used to indicate connection state via crouton were
+too verbose and sometimes went to three lines. Made them a bit more
+terse.
+"
+"a14a15bf6feee5dd4e7d48e3bf06f943ad97681d","2013-07-01 10:51:54-07:00","Add Missing Linking for About
+
+The link for Apkawa wasn't working because it wasn't configured to be
+a link. Fixed this.
+"
+"f026954ecc2f3779f7ac23a63f26400f2b87e44c","2013-07-01 10:52:56-07:00","Cleanup Unused Imports and Variables
+"
+"1a9a96d17ba660cb83ac5875de40368eb990c70b","2013-07-11 01:10:00-07:00","Build against API 17
+
+Updated to build against API 17 instead of 15. As a nice
+coincidence, I can't seem to reproduce #54, the SDK update
+may have fixed what was crashing the Asyntask in versions
+below 4.0.
+"
+"753348be178be48a5a8e8207afe533dfef2c348c","2013-07-11 01:10:40-07:00","Merge branch 'master' of https://github.com/AnimaSA/Atarashii.git
+"
+"cf71c513210dce660c2c9604f0ddc3e905ecf1d5","2013-07-11 01:31:38-07:00","Hide Remove from List if network not available
+
+Removing from our database (and our list) would require
+much more work than any other action would in regards to
+offline sync and can't be handled by our current implemention.
+
+So for now, I'm simply disabling the option if network isn't
+available. Quick fix, but it shouldn't really be an issue.
+"
+"39ec325b991ef8d051a09aab0eec869f180b15f3","2013-07-11 12:59:02-07:00","Fix NPE on add to list
+
+The previous commit caused a NPE when adding to lists
+because I didn't properly consider the states the screen
+could be in. Fixed.
+"
+"e653834538de87453a86d84c67a08b0c5d31b210","2013-07-11 15:20:06-07:00","Search Tweaks and Fixes
+
+Prevented crashes if the API has issues on searching.
+
+Also changed search to now search both anime AND manga at the
+same time. In addition, if there is no results for either a
+crouton is displayed. If there is only results for one, the
+pager autoselects the one with results and slides to it.
+
+Also, keyboard is hidden after subsequent searches within the
+SearchActivity, and the SearchView is collapsed upon returning
+to the main activity. This is optimal behaviour and will make
+people (me) happy.
+"
+"0e62312e785f45fbbb26f70e630e46f057c107a3","2013-07-16 16:00:01-07:00","Always Pass Context to getRecords
+
+Context isn't passed to our background tasks in Android versions below 4. Change the calls to getRecords to explicitly always pass context to the method and then pass context to the methods it calls. We can then safely create MALManager if it's null (Android below 4) without an NPE when on our first login.
+
+Fixes #54
+"
+"21edeb2c9b442070ef05085647418a272479b749","2013-07-17 12:58:55-07:00","Fixed visual bug on touch instead of slide
+
+Previously the rating text would not update if you were
+to simply touch instead of slide. Fixed it.
+"
+"dd0f3e7a8e6814a5b83f4847fa0b8582e60bbc1a","2013-07-17 21:13:14-07:00","Login Screen Tweaks
+
+Improve keyboard things on the login screen. Have the keyboard not
+default to initial caps on the username field. Replace the 'enter'
+softkey with 'next' to jump to the password field if the keyboard
+supports this option.
+"
+"0f955fc61126ad92ab22a7830a4989c081149122","2013-07-22 10:27:40+02:00","Fixed typos in the About screen.
+"
+"4121a39f6f0c373a249e7762db4f22b582f8be85","2013-07-22 20:59:46-07:00","Merge pull request #59 from KlemenKosir/working
+
+Fixed typos in the About screen.
+
+Fixes #58
+"
+"151cd5ecbce3081146e6f950017ad1cefd3dfb0f","2013-07-24 20:06:08-07:00","Consistent Icons Prep
+
+We can use Android's resource system to handle #57, so I created
+some -v11 folders and moved the only resource (Refresh) that I know
+could be in either the action bar or the 2.3 menu depending on
+available space to it. Should just need to add 2.3 style resources
+and we'll be set.
+"
+"98d5ce799c83039ab414e1ea8c8a347a837f6fc2","2013-07-24 20:13:10-07:00","Add 2.3 Style Refresh Resources
+
+What the title says. Fixes #57, unless I'm forgetting any
+other icons that could be both in the 2.3 overflow or action bar.
+"
+"052a6bf886d2198bb2876ca390e822346db20631","2013-07-31 15:06:39-07:00","Fix Search Icon
+
+Changed the reference to the search icon from the OS built-in to the
+bundled resource. This fixes the icon styles.
+
+Fixes #57
+"
+"59c086b3ade774157352c1d242118a6f8f19d218","2013-07-31 15:34:50-07:00","Clean Up Icons
+
+Fix icon renaming to match recommended naming conventions. This also
+fixes the file naming problem that caused some application crashes
+and fixes #61.
+"
+"94430c48ed9b467ae77da8eb63a5a388b2898546","2013-08-06 11:23:52-07:00","Bump Application Version to 1.3
+
+Updated versionCode and versionName for release of 1.3.
+"

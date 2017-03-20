@@ -1,0 +1,33 @@
+"commit id","commit date","commit message"
+"cfe5a9a082cb7eb3ccdbdc52d768a83be6bc0813","2012-01-02 20:17:22-08:00","Added tag 1.28rc15 for changeset 0f33f204bc77
+"
+"309b355ba76b9675cac83aa42a261660f352c42a","2012-01-03 18:45:23-08:00","Add Italian (it) 5-row layout
+"
+"ecade99c4a978462deafc2222118fc4b6b518e28","2012-01-03 18:45:34-08:00","Workaround for the 'already has a parent' crash when reconfiguring keyboards
+"
+"2f58d9eab7ba9f62398105ccda4460d3b257bb15","2012-01-03 18:45:42-08:00","Make swipes easier to trigger, and ignore them if no action configured
+
+The code required horizontal swipes of at least half the keyboard width which is excessive on tablets. Use the same minimum in both directions, taking the smaller of the two directions.
+
+Also ignore swipe events and pass the movement through for other processing when there is no swipe action configured for that direction. This way, people who trigger actions accidentally can get the old behavior back by just disabling the action.
+"
+"b5c4e7309a3b7b6ae7298711a21465a218e80fe7","2012-01-03 18:45:52-08:00","Support a caps character distinct from the shifted character
+
+This is helpful for the French keyboard and others which have lowercase accented characters on the number row. Now, AutoCaps/CapsLock will produce the uppercase accented char, and Shift produces the digit.
+"
+"bdc353c8766bb3fc5d12794f656a25b81035e3ee","2012-01-03 18:45:57-08:00","New multitouch shift handling, support transient shift in caps/capslock mode.
+
+If the cursor is in CapsLock mode, multitouch shift lets you enter shifted characters without leaving CapsLock mode, for example when typing underscores in CAPITAL_NAMES.
+
+In AutoCaps mode, multitouch shift allows entering a shifted character, then transitions to unshifted mode.
+
+Also remove mCapsLock variable in LatinIME, and other leftovers of the old system. There's a bit of state in mSavedShiftState, used for multitouch shift when released without using it for transient shifting, and for switching keyboard modes.
+"
+"4abc279340c74d8642fdf4409f0841aa8b3d8ff2","2012-01-03 18:46:20-08:00","Make sure the popup mini keyboards have uppercase characters as appropriate.
+"
+"efe7b82f7ad92d7ab77cccc01452e5e7d62faf99","2012-01-03 18:46:22-08:00","Add Turkish (tr) 5-row layout, 'Q' variant
+"
+"92b4951796f886150e9b373700a496a6487617cd","2012-01-03 18:46:25-08:00","Keep non-digit alternates in popups
+
+The alternates deduplication logic is a bit overaggressive, just remove extra digits and keep the rest alone.
+"

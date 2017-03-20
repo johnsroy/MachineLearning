@@ -1,0 +1,72 @@
+"commit id","commit date","commit message"
+"fb218be3e4633dd26fb1270593525a5618400e05","2013-10-08 05:55:56-05:00","Build: Changed version string to debug
+"
+"8a68dd75d9e017e07144ac47a5bb3caefd38e623","2013-10-10 08:52:00-04:00","ouya: Update to ODK 1.0.9.
+"
+"9120025bf0c10b176dd70361aa2a0e28fee04a84","2013-10-11 21:07:10-04:00","gles2n64: Fix big regression - should not clear color buffer.
+
+in OGL_ClearDepthBuffer function - fixes Turok 1 (graphics were
+just black before), fixes Banjo Kazooie (whenever HUD appeared,
+screen turned black - fixed now), fixes Waverace 64 (intermission
+screens had a black background), and more
+
+[cherry-pick from https://github.com/libretro/mupen64plus-libretro/commit/2b57b5183941762e12fffcd840ef47680eb5592b]
+"
+"adc81a7a13b521447f71ad43fc6a3465cd317e06","2013-10-12 16:09:47-04:00","gles2n64: Fix early return out of gSPBgRectCopy N64 SDK function.
+
+This fixes the topdown prerendered background in Link's hut (Zelda
+OOT). Previously this background would be a bunch of polygons on a
+green screen.
+
+Also helps get Biohazard 2 ingame with glN64. It would previously crash
+hard.
+"
+"89a38c79d8c333bd8158d80a35cb0bee512b9748","2013-10-15 09:44:09-04:00","doc: Updated changelog.
+
+Confirmed OoT and all 3 Turok series on 2012 Nexus 7.  Didn't confirm
+Banjo Kazooie or Waverace.
+"
+"e582951d8e98eb699d2da29fa621811df03ca994","2013-10-15 20:12:23-04:00","Add credits to the recent changelog additions.
+
+Considering we didn't directly fix it, it's only fair that the original person that uncovered/fixed the bug get his name credited.
+"
+"c57c6d0f0e54c3040fc1cd43f5d90511c77a0e03","2013-10-17 16:42:59-04:00","doc: Update changelog.
+"
+"802d8f81d46705d64694d7a34010dc5f35787c7d","2013-10-18 10:05:50-04:00","r4300: Fix Perfect Dark crashes/freezes.
+
+Had a look at this issue -
+http://code.google.com/p/mupen64plus/issues/detail?id=553
+
+Implemented the proposed fix on my own and that got rid of the spurious
+crashes for me.  BTW - Misschief Makers is another game that reports
+this warning 'two events of same type interrupt queue'. Anyway,
+returning when that happens gets rid of the crashes in PD.
+
+[cherry pick from
+https://github.com/libretro/mupen64plus-libretro/commit/12133422f75aa3f88ef5decc820402e894371adc]
+
+littleguy note: You might need to delete any pre-existing .eep and .mpk
+files from the SlotSaves directory and reset the game the first time
+you run with this fix.  More discussion here:
+http://www.paulscode.com/forum/index.php?topic=1042
+"
+"6cbe0018b7c8c22e8dfb45cd6f9cb12dfe23dfd6","2013-10-18 10:16:23-04:00","doc: Update changelog.
+"
+"33d250b926141dfd1de72d19b61c8e1b3d7ffda8","2013-10-31 16:04:13+01:00","Major fixes to gles2rice plugin
+
+Fix the following features in gles2rice plugin:
+-Multitexturing
+-Alpha test
+-Fog
+
+TODO on the java side:
+- Remove the mipmapping option in 'gles2rice settings' has the value is
+now hardcoded in the native code.
+- Add an option to enable/disable Fog
+"
+"e9218a744cbe5645d6ed79fddc23cd62ff2e7682","2013-11-02 10:07:51-05:00","front: Add option for gles2rice fog effect
+
+Also updated manifest and changelog in preparation for 2.4.0
+"
+"c295fbe850546873f752b9f7149469a590ae2751","2013-11-02 10:15:09-05:00","front: Disable fog effect by default
+"

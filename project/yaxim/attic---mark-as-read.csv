@@ -1,0 +1,214 @@
+"commit id","commit date","commit message"
+"519398d2db2b96f3ceac4a0c0ae4a84fdaa3bbae","2012-04-01 15:54:41+02:00","ABS4 requires minSdk 7
+"
+"56f6d5207239a1b96b070b3b0d4e0cf669cf0d0e","2012-04-01 16:01:26+02:00","fix cursor leak introduced in 7e680508
+"
+"3121f74a8c303f7e988a88e5b6c4781c1dc6b849","2012-04-01 22:10:28+02:00","Fix text color in AlertDialogs for Android 2.x devices
+
+Always use white text for the dialogs in 2.x, but on >= 3.0 let Android
+pick the color on its own.
+"
+"584d0d460d4184f53703e246c5810a7e66520353","2012-04-02 16:32:25+02:00","fix text color in status dialog as well
+"
+"f43956adc168bdf36c1831377ae4ce0194565c14","2012-04-09 23:09:46+02:00","Perform string content comparison in SmackableImp::getName
+
+This may have worked by accident if the invoked methods returned the
+same static string objects, but better replace this with a proper check.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"092b46a065f5d5359f1b3ec1c66bf640b6ac9869","2012-04-14 11:55:51+02:00","Drop stray android:enabled from chat action bar layout
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"c39b9c42ef62a7e4ee8b7dc5a65d96ac0a7f46ca","2012-04-09 12:29:55+02:00","Avoid deprecation warning for text.ClipboardManager
+
+The more modern content.ClipboardManager requires API level 11.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"1259c30330de5ffe02f9bb092e95984d0c4757c2","2012-04-15 09:44:28+02:00","Log presence in presenceChanged
+
+Helps debugging.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"9d3121b07cfdc83fd940dc63effb48f1770a52aa","2012-04-09 10:53:13+02:00","Use PreferenceConstants consistently
+
+No functional changes.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"eb0f28b21e7246ceb53492481f555de4643ba62e","2012-04-09 10:57:24+02:00","Refactor boolean ChatConstants.FROM_ME to integer DIRECTION
+
+The name reflects the meaning better, and the type maps cleaner on the
+database representation. No functional changes.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"488339d6e0fb8b5a2dba612572ffe0d85b5ad483","2012-04-09 11:02:51+02:00","Refactor RosterConstants and GroupsConstants usage
+
+Import RosterConstants and GroupsConstants directly and use them
+consistently. No functional changes.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"4a5f8adda646de93f856cc9a4811017798e733aa","2012-04-09 11:12:32+02:00","Let database count unread messages
+
+Instead of generating a list of unread messages, let the database count
+them and return this number. Slightly more efficient.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"308452df8d8d68b3fefa43888924453ae0599387","2012-04-10 10:27:20+02:00","Replace updateOrInsertRosterEntryToDB on status updates with updateRosterEntryInDB
+
+There is no obvious reason that we need special DB updates to store a
+new presence code. The DB must already contain the corresponding roster
+entry, so just call updateRosterEntryInDB and drop the now unused
+updateOrInsertRosterEntryToDB.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"fc8bf534b3757f0bdfeba8fd3283f88bd4095eb2","2012-04-10 10:31:53+02:00","Move addRosterEntryToDB
+
+Just to have {add,delete,update}RosterEntryToDB close to each other. No
+functional changes.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"d42f6719d03f80a200bcfcfd36aebd4883f476a0","2012-04-11 10:12:32+02:00","Enhance updateRosterEntryInDB to add new entries on demand
+
+Call addRosterEntryToDB from updateRosterEntryInDB if the entry does not
+exist yet. This allows to start using it from setRosterEntries, in
+preparation of preserving the roster table across connections.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"a4476743704769037724b9ea738de75127d7fe5f","2012-04-11 22:10:37+02:00","Preserve roster table across connections
+
+Instead of dropping all entries from the roster table on reconnect,
+update existing ones or add new entries based on the server DB, and drop
+those entries that were removed from the server. This will allow to
+maintain additional data in the roster entries.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"4ebb833b935901633c82518eba36959a57afe098","2012-04-15 18:01:42+02:00","Drop groups table
+
+These days we only use the groups table to identify is some group was
+added or removed. But this approach is not perfect either as it doesn't
+allow us to find out if a group became virtually empty (no more online
+members).
+
+This commit just raises a change notification for the group URI along
+with any content change. No relevant impact on the visualization of the
+roster could be found so far. Instead, the code becomes much simpler.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"968cfaeaf7d02b4c2ea075836a8c5aa06a0ecca8","2012-04-17 01:05:00+02:00","Hide groups without available members
+
+Reactivate the disabled code in RosterExpListAdapter.requery. It works
+now as we report any content change also as group URI change.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"5834e14cfd18df815cc39c7cdada300647da00ce","2012-04-16 23:51:25+02:00","Show number of members in group title
+
+Add '<#available>/<#total>' to the end of the group name row in the
+roster to provide a better overview on the status of groups. This
+addresses issue #41.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"aa35a5acc21c56e4ac906a4ddfc10ac3db69d7c2","2012-04-18 01:59:01+02:00","Drop redundant null setting
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"76f6ca05ab4a444fae6f32f268302598f0e7778c","2012-04-16 19:07:43+02:00","remove BOOT_COMPLETED listener superseded by CONNECTIVITY_CHANGE
+"
+"186186647cd53cd105c4669082cad46614ca0267","2012-04-22 13:49:59+02:00","update proguard to 4.8b1
+"
+"6c067c97a6dfa6c56254a71d428d35d40ade9b53","2012-04-18 01:59:47+02:00","Do not try to reconnect while network is disconnected
+
+This avoids error messages and periodic reconnect attempts while we lack
+a network link. Once we gain a network again, we will be called anyway,
+allowing to reestablish the link.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"ae55395ed7a6eb217ae7361e91e4bebe4c20e09a","2012-04-22 14:52:48+02:00","Drop dead code from YaximBroadcastReceiver
+
+Left over from 76f6ca05ab.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"ad803b79632f142fd0e007a427d8495e887e7484","2012-04-13 00:14:17+02:00","Align roster entry icon with action bar
+
+Move the roster entry icon a little bit left to have it vertically
+aligned with the action bar icon.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"be5be862b3270e5d0620073e7280c050cffacd56","2012-04-13 00:26:27+02:00","Increase minimum height of roster entries
+
+This avoids layout changes for entries that gain/lose a status text. It
+will also make the visualization of entries with vs. without avatars
+cleaner.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@web.de>
+"
+"24c321a0ea231dc266d775f357937a565efb5273","2012-04-22 15:44:17+02:00","move functional proguard settings to .cfg; fix #72
+"
+"a5c40676521ae6b3b05cfd283cbfd8c10adaab09","2012-04-22 15:44:27+02:00","set default theme to YaximDark
+
+This is technically not required, but it removes the old title bar
+in the main window while yaxim is loading.
+"
+"695da32364d0bb74db83d75c8b3dd1ba99075b0a","2012-04-22 15:57:52+02:00","Merge remote-tracking branch 'jki/for-upstream'
+"
+"1cadf633cf68ffbc285567e54196248736b30412","2012-04-22 16:17:34+02:00","reorder menu items to better reflect 0.8.4
+"
+"04cc79719fe2f968e05f4b0f7d729e55df7a7007","2012-04-22 16:21:44+02:00","translation import
+"
+"a730bddb7b897bb06f33e8d22d861cbc47203f7f","2012-04-25 23:58:52+02:00","about dialog: implement build version
+"
+"5e180f975daaf5a67dec096c191495ce1bccc07d","2012-04-26 00:04:32+02:00","move developers to own untranslated xml file
+"
+"2a35cb4bc27f26c2b543d4947cac66917533fd1f","2012-04-26 13:18:50+02:00","use ABS' default proguard config; fixes ICS crash
+"
+"7563c3f25e298bcd886eed97a08bea3a33eae603","2012-05-13 19:10:45+02:00","about dialog: add feedback button
+"
+"71ce115a96756d2d0a461fe79368267dea4ec2df","2012-05-13 19:43:19+02:00","remove DOS new-lines; no functional changes
+"
+"41e47d16949570ea2861355d388c8fe7e424fc05","2012-05-13 19:44:34+02:00","support account creation in backend
+"
+"d92335ca33a5a7bd4db295437e69b9662cbe2cd2","2012-05-13 20:02:27+02:00","support account creation in frontend. fixes part of #62
+"
+"914d1eaf2f2e840125b7a46f56eea3e711ce91f4","2012-05-13 20:55:54+02:00","make default group name translatable
+"
+"4804a7c41b2bd541232e0ca3675660e3a7d795b3","2012-05-13 21:07:07+02:00","strings update
+"
+"470ada4d32bfba57905d9d44f98e17db0e1c5414","2012-04-25 22:29:28+02:00","Additional smack classes for XEP-0199 implementation
+"
+"b01d16528937f07be2459c701bdfbaff25786873","2012-04-25 22:35:01+02:00","Initial XEP-0199 implemenation
+
+Respond to peer pings
+"
+"343dc5115c66d6646a339966df09866a7998c26b","2012-04-25 22:36:53+02:00","Implement client-to-server pings and timeouts
+"
+"5544bed1ad30ab489d5854eeb380a6718132826e","2012-05-07 19:03:12+02:00","Change keepalive timeout to 15mins, remove unnecessary thread
+
+Change to 15min to benefit from android coalescing it with other
+timers and thus saving power.
+"
+"d8babb72e9119a11ed876d5f845fabd6bbdb5682","2012-05-07 19:07:19+02:00","Fix for yaxim not reconnecting after intermittent network loss
+
+For intermittent network loss where android is able to reconnect to
+the same network, the broadcast receiver will not get a 'DISCONNECT'
+notification.
+To reconnect when the receiver gets the new 'CONNECT', the networkType
+needs to be reset, otherwise the receiver will not reconnect.
+"
+"2b36425508d8bb424687273479443f8bcad276be","2012-10-15 09:24:02+02:00","mark read when chat view is closed
+"

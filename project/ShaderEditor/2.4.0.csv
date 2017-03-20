@@ -1,0 +1,142 @@
+"commit id","commit date","commit message"
+"7680f87eb68fc89f358521b73eabf42e90e4d913","2016-02-24 22:25:33+01:00","Mark switch/case fall through as intentional
+"
+"c15171f6c419ff7a0d6563b833d53fd3437fa203","2016-02-24 22:25:58+01:00","Removed double null check
+
+The first check doesn't make much sense now.
+"
+"db3d918dbc03a97d8bae511511c8f2ee3c60b5ad","2016-02-27 11:58:55+01:00","Removed unused imports
+"
+"31e1e0f70372a90d52144e9fc9fe34fc12a602cb","2016-02-27 13:55:26+01:00","Open database in DataSource
+
+Originally put in Application because of error handling.
+But since there's nothing that can be done if the database
+would not open, it's probably better to put that where it
+belongs.
+"
+"0edd4b01a7768076094a0e19f5d3457ec254e006","2016-02-27 13:55:50+01:00","Updated android gradle plugin to 1.5
+
+Fixes a false positive lint warning claiming use of
+a private resource.
+"
+"7fa077f42ba56b96fa60fcadeafaffc0d43c9263","2016-02-27 14:51:46+01:00","Run lint before release
+
+Just a precaution so I cannot forget that.
+"
+"349140b274d56d1689909da04914ad92f550d2dd","2016-02-29 22:53:03+01:00","Make static members of application context final
+
+Declaring the static members of the application context as
+final is syntactically better because those members will
+never change. The only reason they weren't final was, that
+I preferred to make the objects only constructable with a
+context object. Switched to late initialization because
+it's probably more important to have the static members
+to be final.
+"
+"d4664f8059dc65fb0bcda70e4717036897293ad0","2016-02-29 23:02:10+01:00","Made inner class static
+"
+"909edc53639cdf555f37199cd8ebd854feaec565","2016-02-29 23:14:50+01:00","Removed unused/unread fields
+"
+"5843fab8513a888251da333e513f7249beef8f63","2016-02-29 23:15:37+01:00","Removed manual invocation of garbage collector
+
+Probably unnecessary.
+"
+"3c85afde6adfc58e6c64615977cd8762e9148b19","2016-02-29 23:17:22+01:00","Use parseInt() instead of valueOf()
+
+It's more efficient to just use parseInt() instead of
+box then unbox the value.
+"
+"a2981a2ef56f503bfe030c224314373e78773459","2016-02-29 23:27:22+01:00","Improved loading raw text resource
+
+Doesn't require a ByteArrayOutputStream.
+"
+"1d60727d6136517d1b18720341bfbccc2c617d58","2016-03-03 22:25:10+01:00","Added a Deep Link for App Indexing
+
+To make lint happy. Frankly speaking, there's nothing the
+internet may link to in this app yet.
+"
+"eac10b14ae377a8ab001eb5988c0e0aa1e87d7d8","2016-03-03 22:28:33+01:00","Use a final object to transfer render status
+
+Better style because there are no mutable public static
+members anymore.
+"
+"cfb35cbe32142018d3d3a39ace8b5ffa554d1b0c","2016-03-03 22:30:23+01:00","Explicitly specify charset
+"
+"c7f6d27d5d916b10b98d77962c1f0246bb2252c9","2016-03-03 22:36:12+01:00","Update render mode with startService()
+
+Avoids the mutable static member. More complex and probably
+more fragile but considered to be better style.
+"
+"9dccc72157ebaf77a1b4a8ddc3b710efea665104","2016-03-03 22:47:16+01:00","Added note about returning a mutable reference
+
+The thumbnail is generated on the fly on the drawing thread.
+The data doesn't need to be protected from modification and
+doing so (by copying) would only mean to use more memory
+than necessary.
+"
+"14b9227244258cd5a2e8197cd3265652a759814e","2016-03-03 22:50:29+01:00","Use FindBugs for static analysis
+"
+"00b6137a3c9ac5e7f160c62ed70cf49aad4461b0","2016-03-03 22:56:03+01:00","Renamed project directory to app
+
+To be more standard compliant.
+
+Normally, with gradle, the name of the directory is the
+name of the build. But it's probably better to have a
+standard app directory.
+"
+"8378f1f35ff76d7d26de68e24a1b7396fa2a5171","2016-03-05 17:45:07+01:00","Run lint and FindBugs when building for release
+
+Can't forget and can't overlook something stupid.
+"
+"f415f061fcba81bfbdbbdcfa4a17a80796af8a27","2016-03-06 13:53:07+01:00","Simplified opening database
+"
+"2cf6439f3445b7808af35541c282d9338f463b36","2016-03-06 21:43:22+01:00","Configurable tab width
+
+Style tabs to be multiple 'm' characters wide.
+"
+"9b588b00cf19a74495ed465418bef93d400e858b","2016-03-12 12:57:32+01:00","Updated support libs to 23.2.1
+"
+"78d59e243aee83d0fd0bed4c4944ac4a257cee15","2016-03-25 17:55:10+01:00","Use strict mode in debug build
+
+Try to find possible issues early.
+"
+"8c22661fb8ccea6def31fba4e72938eb552aafbb","2016-03-25 21:35:25+01:00","Replaced deprecated method and fixed lint issue
+
+Use DrawerLayout.addDrawerListener() instead of setDrawerListener().
+
+StrictMode.VmPolicy.Builder().detectLeakedClosableObjects() requires
+API 11+.
+"
+"053bdee0eee0bfa9eb6278dd1d16388a8505f07c","2016-04-08 18:53:56+02:00","Use latest support libraries
+"
+"e635f5301424933647b33b9168cb35985e210c5e","2016-04-08 18:54:39+02:00","Use latest build tools
+"
+"83d8e0dc09f3663a7ff092c7ef63d459184ddc0e","2016-04-08 18:54:56+02:00","Updated android gradle plugin and gradle wrapper
+"
+"2f5b051b4bca792dc307ab2b64e39b778440175a","2016-04-08 18:59:06+02:00","Explicitly use a Locale for String.format()
+
+Or lint will cry.
+"
+"002784a464927b03bbf8e5f4f6c8fe5dbc26889c","2016-05-19 23:52:20+02:00","Updated gradle build tool and support libs
+"
+"23565ad8b627346e30685eb9f34c1b939d6ecd6f","2016-05-19 23:53:31+02:00","Make preview activity a separate task
+
+Should make it possible to have both activities side-by-side
+if the system supports multi-window.
+"
+"285b1a7cb19ad355736939f36d53f94d8d365950","2016-05-28 22:22:00+02:00","Support for samplerCube
+
+Now you can add textures as sampler2D or samplerCube.
+There's an editor to compose a cube map from six images.
+
+All uniforms, presets, textures, cube maps, are in one
+ViewPager now.
+"
+"b167f926116678e270f9e19b8f834ebd8498c1c3","2016-05-28 22:31:42+02:00","Access smallestScreenWidthDp from HONEYCOMB_MR2+
+"
+"2b8dee4dfb34195b3ff7fd5503ce35375e657862","2016-05-29 14:02:13+02:00","Fixed lay out of faces in cube map
+
+And use 3 by 2 layout for landscape views.
+"
+"eded2e2ac9bf74d159e0bf5874363f5eb0ad1be9","2016-05-29 15:10:00+02:00","Advanced version number to 2.4.0
+"

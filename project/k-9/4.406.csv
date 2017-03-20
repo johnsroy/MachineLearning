@@ -1,0 +1,43 @@
+"commit id","commit date","commit message"
+"3b09b83f20969e45358dea2e214c29d7fb5f81c1","2013-07-04 02:49:09+02:00","Fix actions started from the message list context menu
+
+This patch makes sure actions started via the context menu operate on
+the correct message even when the message list changes and the 'adapter
+position' accessible via the menu object points to another message.
+When the message the menu was opened for is deleted the context menu
+will be closed.
+"
+"caa41300e1a2b97b69fff19193c238503a1fb4d5","2013-07-14 17:29:34-07:00","Update providers.xml with Russian ISPs
+"
+"e8ddf3dbc5fc1af3044196fc0aef480a1aa7134c","2013-07-14 17:30:33-07:00","Add Russian ISPs -> changelog
+"
+"9698fa7e32b741d4dfe8353ab4dbb27fbf8a8716","2013-07-18 20:09:39-04:00","Add an index for a heavy query
+"
+"6d86fb3b16f9911d7bb7d17a1655059a2d30d2c7","2013-07-17 19:52:18-04:00","Don't invalidate the options menu from the message list as we open a
+message. We also invalidate it (twice) as we show the message. It turns
+out to have measurable performance impact on 2.3 thanks to ABS
+"
+"84f0faf055b9961e3e1e9abb1a8e485d479b78cf","2013-07-17 18:35:20-04:00","upgrade our android-support library in the hopes that the newer version
+might fix some perf issues with the older one
+"
+"a40e7d80c130165d87760ef5d4d34272b3c62966","2013-07-17 18:33:19-04:00","Cache our compat lookups for our message webview - (They're expensive on
+older devices - and pointless not to reuse)
+"
+"c1ab586eccce16d3461ad0241596dd405e0bf19b","2013-07-16 16:24:51+02:00","Stop using the old Android Market URL
+"
+"04ad291ba25e55cdd51f938586bdf9ee5516a399","2013-07-11 16:11:36-04:00","Opening a folder (especially in threaded mode) does a very heavy SQL query. This method doesn't use or modify the folder object.  Don't cargo-cult the Open here.
+
+(cketti may well tell me I'm wrong about this. Happy to listen & fix)
+"
+"01438d62c95b7e631a05d96eec20c4357fbc4673","2013-07-16 16:54:26+02:00","Make sure we always have the ID of a folder when fetching the unread/flagged count
+"
+"b27ffcf502afa2d97753bf8f38df6798eb64471f","2013-07-11 16:09:52-04:00","Marking a message as read in the database is currently very expensive, especially if you have threading enabled.
+
+Defer that until _after_ telling listeners that they're cool to show the message
+"
+"5cec9e175b85cde50ad3a3415ff42dd0499e8f6d","2013-07-11 16:08:22-04:00","Replace synchronous setting of a flag with async setting of the flag. This helps speed up message display time (anecdotally)
+"
+"8dd94ccf8dd4f2bd11080a9fc8e1a34868d79f0f","2013-07-18 20:33:07-04:00","4.406 changelog
+"
+"661d9c5545c2421eb92b8be79c759b20d015a175","2013-07-18 20:34:46-04:00","Bumped manifest to 4.406
+"

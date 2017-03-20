@@ -1,0 +1,1389 @@
+"commit id","commit date","commit message"
+"c9233e5c40bc429c1dee168bd7ed85b6a871f4c1","2012-01-27 17:45:47+09:00","Milestone : draft prototype...
+"
+"1106c06b9e4edbb8a85c199363c4b167cb52173b","2012-01-31 10:10:44+09:00","Before huge changes...
+
+Next step : Retrieving user-defined tags from RSS xmls.
+"
+"9f211ed0d94d8748f6bc01a99b269785972dea50","2012-02-02 08:11:30+09:00","Backup progess for customizable-channel implementation...(Fail to compile..)
+
+This is just for backup state of souce code....
+"
+"746aec66e2012f7f68b4d25a48bdedeffe03f98c","2012-02-07 14:18:58+09:00","Milestone : Under implementation.
+"
+"9df4d3c9585e4fbad76e8dc91e837c2efd701e04","2012-02-09 18:15:40+09:00","Milestone : Under implementation.... (con't)..
+"
+"62cd04bc6a6aba179adda04ac30f4944ca0b4fe6","2012-02-10 17:32:24+09:00","Milestone : Pre-Alpha?? Working Sample.
+
+Basic operation works.
+"
+"f222b167cfd0d379e2116ff19bac176327b92227","2012-02-10 18:12:09+09:00","Improve responsibility when canceling downloading file.
+
+If downloading speed is very very slow, user should wait quite long time
+until finishing one-read-operation (until download buffer is filled)
+becase of 'synchonzied' lock.
+This may takes longer than expected depending on network state.
+So, in spite of risk of stability, 'lock' for downloading file is removed,
+and just 'boolean flag' is used for it.
+I'm not sure about stability due to race-condition but it seems ok for me.
+I need to keep eyes on stablity in this case...
+"
+"fa83f318f481753d982c12dd0babab011287f981","2012-02-10 20:02:29+09:00","Bug fix : Changing orientation during downloading.
+
+Item list mistakes that download file is exists event if the file is under downloading.
+So, use temp-file during downloading and rename it after download is done.
+"
+"7090b608a34ed4c36ba63999f3097baa8d49d6bd","2012-02-13 13:41:39+09:00","UI Changes + DB bug fix.
+
+DB bug fix
+Title including special characters (ex - ') that is handled specially in sqlite, leads to crash in DB operation.
+UI Changes.
+Update button is on title bar (Not at top position of list) in item list.
+"
+"6e82f4e3d7e3a554262e00281c8f31f2d968238d","2012-02-16 09:14:51+09:00","Milestone : This can be called as 'Alpha Version'!
+"
+"61bb7644d119bedd94e71c488ff63eae41f40dd5","2012-02-16 17:58:07+09:00","Bug fix and html-like-cdata-beautify.
+"
+"a36b65cb1cf68e37ec2982f65e66ad30e3fa1093","2012-02-17 09:54:54+09:00","Re-factoring and Bug fix
+
+Re-factoring
+------------
+Instead of self-implementation, Android-predefined-classes are used.
+- To covert html to string.
+- To guess mimetype from url.
+
+Bug Fix
+-------
+- Html text in RSS is shown ugly.
+- Audio file is play as video in case of RSS 'etulnam'.
+In case of 'etulnam', even if enclosure is mp3, it's type is described
+as 'video/mpeg'.
+"
+"40605077b1d649d1dd7ceba5969696f49d55c2ea","2012-02-17 18:23:03+09:00","Improve UI....
+"
+"e71ae18964bb86ff8f249b6b6befb8969765eea8","2012-02-17 18:23:03+09:00","[Stable v1.0] Can be released.
+
+Improve UI....
+"
+"ebd502f0b54355daa66d0d19175e53a614febdfa","2012-02-20 08:33:03+09:00","Merge branch 'master' of file:///home/hbg683/dev/.prjrepo/feeder
+"
+"bf3eb2f0db6c4b9c187bcf089b1738708428695c","2012-02-20 13:55:07+09:00","Bug Fix : item 'onClick' is issued even if 'gesture' is triggerred.
+"
+"04a2e931f0f4e157b71d72dee53b62434ac934e1","2012-02-20 19:11:39+09:00","Fix-on-fix for previous commit
+
+Bug:
+fast vertical scroll doens't have velocity (stop when touch up!)
+"
+"477746ceee4e4ca357da5b180ba4626b3fc8b476","2012-02-21 09:27:39+09:00","'Previewing item description' is newly introduced. + minor drawable
+
+If description of item is long enough, 'Preview Dialog' is shown instead of
+open 'link' directly to fast look up item content.
+Some drawable name / image is changed.
+"
+"643732f8ff9999b430c5d5787a973611ae83a1a6","2012-02-22 08:46:16+09:00","Retry count is introduced when load from network. + some source code cleanup.
+
+'5' retry count is used for 'update' and 'download'
+"
+"48ea0d17ae039a653b975317d014b0101b4efb4a","2012-02-28 17:46:45+09:00","Milestone : background update
+
+Basic functionality works.
+Not stress tested.
+Still 'Big DB Lock' is used - not per-table-lock
+"
+"4668ad35eb98060bd9de372fc0060e17047834ab","2012-02-29 11:29:52+09:00","Progress : background-update (stability improvement)
+
+UI functions to change 'view' is done at the next loop of thread-message-loop
+if possible to reduce depth of function call - complexity.
+"
+"042cf7accdcc253dc9fbe3f0f2bc126dc58b09b4","2012-02-29 17:35:34+09:00","Initial Milestone for background-download.
+
+Not well-tested. Basic functions work.
+"
+"960541d4ad78681bb793f1cc072467b94f8d131f","2012-02-29 23:44:28+09:00","Previous commit was too untested. Bug fix...
+"
+"281bd8008bc7a692336152aff527b41380d9f5ed","2012-03-01 22:15:56+09:00","Bind/Unbind mechanism between ChannelListActivity and ItemListActivity are changed.
+
+'bind' replace previous binding information without notice.
+So, if new activity binds tasks, existing activity lost all bindings with those tasks without any notification.
+This mechanism is well suitable for current alorithm and UI cases.
+"
+"4b634172fecdfc0f63add0446a471443ff90567d","2012-03-05 11:52:29+09:00","Refactoring + bugfix
+
+Refactoring
+* DB.java has gives API only to use database.
+All other codes are moved to DBPolicy
+Bugfix
+* read item during updating channel gives 'assert'.
+: try to change 'state' value during updating table.
+"
+"2ab5c37e3b0deafdab7d9d361a070c7844aff102","2012-03-07 13:03:01+09:00","DB Lock is NOT USED ANYMORE
+
+DB lock was used for fast-interrupt,  safe DB, avoiding race-condition etc.
+There are two properties (I believe it's true) used instead of DB lock.
+- one SQLite operation is thread-safe and atomic
+- Java thread doesn't stop forcely even if it is interrupted by calling 'interrupt()'.
+Java thread always can be stopped by explicity code.
+By using those property, I removed all DB lock.
+Most benefit is Performance.
+Stress test is essential.(Actually, it's not fully verified yet.)
+But, it seems working...
+"
+"87d5a37ecc1c4df4a268f670233dbb4e267a5dce","2012-03-07 23:58:26+09:00","UI Changes : Channel Icon works as update button too.
+"
+"28e3e92bbf2196155d31087bdff126641e969d6f","2012-03-08 13:46:43+09:00","Fix bug - Race condition
+
+Sometimes, SQLite issues exception something like this, 'There is no such table ...'.
+Because, at the end of update process, current item table is dropped and new item table is renamed.
+But, db request to this table between drop and rename, is fails because there is not table!
+So, DB operations related with this issue are synchronized.
+"
+"a02b8bd8742bc6dc0b5488192e4f2ae60d8724ca","2012-03-11 02:45:13+09:00","Last updated and Age is shown at channel list
+"
+"6444a4a0304bad185a9bd8b1e522d5ff26327d4f","2012-03-11 06:13:50+09:00","DB POLICY - especially updating policy and algorithm is changed!!
+
+Temp table during update is not used anymore.
+Pros
+----
+* DB structure is simpler.
+* Updating algorithm is simpler.
+* old items can be stored easily.
+
+Cons
+----
+* Rollback cannot be supported during update.
+(Rollback isn't supported anymore. So, canceling during updating
+leads to partially updated status.
+But this is not leads to DB-corruption.
+So, it's ok.)
+"
+"3e89b07aba1d6c6b23552e48f33403e3e00b7a0a","2012-03-11 13:34:53+09:00","[ Intermediate ] Change design for event listening from BG task.
+
+This is one of preparation for implementing scheduled update.
+"
+"0a849666ae97da8cee68d2cf8baba3aeb396af83","2012-03-12 10:32:59+09:00","Download progress(percent) is shown with rotating animation(Not verified enough!)
+
+Some other intermediate jobs for channel setting (scheduledUpdater) are also mixed
+in this commit.
+"
+"a8a932a89210b47185af0dab2d5d4917094d4ead","2012-03-12 22:56:22+09:00","Bug fix :
+
+- after updating channel, channel info in channel list doens't updated.
+- item order of channel is reversed after channel is newly inserted.
+"
+"0d545226cc16013323daa7c3ac24f8fbe03cc446","2012-03-13 21:53:40+09:00","Bug fix (+ some jobs for scheduled update)
+
+When user open item, even if item is already 'opened' state, request for update item state is passed to DB!
+"
+"398f5237f25b03b00d1938c59de32a1cef5aa8d6","2012-03-13 22:00:45+09:00","Oops.. Missing change of previous commit....
+"
+"64e953186d8d2b9b55417e20b1146837906aa120","2012-03-18 04:17:25+09:00","Schedule Update is implemented (functionality + UI + TaskSynchronization).
+
+Simple function test is doen.
+But, stability on stress-test is not verified.
+"
+"0887a7ba11df5018b8d8ccc26babf5876842d0c2","2012-03-19 12:36:07+09:00","Main : 'Adding channel' becomes BG task.
+
+Code for initial loading is removed to simplify code.
+Now, initial loading is 'insert channel with minimal info' -> 'update'.
+So, codes for loading from network are only in 'update' code.
+
+Bug fix:
+fix bugs from several improvements of last commits.
+"
+"2173723841f0f08a9d098b3855ee3b342b4fd0fa","2012-03-21 12:59:57+09:00","Implement: Predefined Channel / Debugging...
+
+Debugging :
+Several issues are mixed.
+Implementation :
+Predefined Channel : read from XML and user can customize it.
+"
+"b381cdb40ee3be116a1ea0d07b51ac3eb7f2e5c5","2012-03-22 08:33:53+09:00","*** This is baseline for stablization. From now one, no new feature for a while. ***
+
+Implement 'Modifying category name', Animation/Icon changes.
+"
+"922116d063abb09c277770f236f668a5b833220a","2012-03-22 12:04:21+09:00","Tuning User Experience.
+
+Tuning animation time/duration etc.
+"
+"ce3bd4a416ed99e0a14f298e86dea62b35feec3d","2012-03-22 12:08:46+09:00","Change minSDK version into 15 (ICS 4.0.3)
+
+Code for handling HC bug is not included.(I don't want to!)
+"
+"da5c8a1aba677df8202f259764494fe8f350fd35","2012-03-23 11:30:05+09:00","Now user can adjust order of channel in the list.
+"
+"fa1f225d859c568c82a49e972a445a2dc24c29af","2012-03-25 12:44:55+09:00","Link can be saved to DB / Race-condition on BGTask is fixed.
+
+Implementation
+--------------
+User can read saved link on offline.
+
+Bug fix
+-------
+'onPost() onCancel()' function may be called before BG task is really ended - during alive.
+To avoid this race-condition, BG task keep post runnable to it's owner task until BG task really is finished.
+That guarentee that 'onPost()' and 'onCancel()' are called after BG task is finished.
+"
+"444fddb1eb4743f84ecc48db314bcafd01010c99","2012-03-25 13:56:57+09:00","Under implmentation : Channel Setting
+
+Just commit in the middle of implmentation.
+"
+"020ce4399ee1072b7992351c86d9c0da9170d0ce","2012-03-30 14:23:15+09:00","DB Policy Changed. => All items are in one Table!! (Not tested enough yet!!)
+
+Some other modification too...
+"
+"8bb2d189dabf7c7f8c720aa1edb2b91eacb7c3a7","2012-04-02 12:05:05+09:00","Refactoring DB API + etc...
+"
+"39a08af8cafa5a2d6c9c08585cc6b2862c3e4ff5","2012-04-03 19:44:46+09:00","Refactoring + Stablization etc... (under implementation...)
+"
+"1b23a19fdf113d16b90d4fc27c4291a35b6d55e9","2012-04-04 08:48:06+09:00","Bug Fix (comes after refactoring)
+
+* After updating channel, op mode changes to default(open) - issue on podcast channels
+* During update, failing to get channel icon image or to download item data, doens't stop updating.
+* Policy changes : recommendded image always has priority.
+"
+"60ce63906913342d2eb8c7a85b9bfd2f672e1824","2012-04-05 09:30:03+09:00","Channel Setting is implemented. Feed data structure changed. Bug fix..
+
+First priority to do!!
+BGTask debugging.
+=> onCancel is called even if task is still alived.
+=> Sometimes 'onCancel' is NOT called even if task is binded!
+"
+"d4286e2d29574a8cd5a2fe5f433773fa4d9937bb","2012-04-05 11:07:44+09:00","Bug fix : 'onCancel' is not called.
+
+'gbtm.clear()' should not be called at the moment of unregister.
+Why?
+result of BGTask is posted. So, we can't sure the moment of 'onCancel' or 'onPost' is executed.
+So, clear may prevent that these callbacks are called.
+"
+"c2e205e9f9c813b69f5f1e4fa77026e9b200bac7","2012-04-05 12:18:15+09:00","Bug fix: Default cateogry name is back to default name.
+"
+"00b805e336a7774139028d4d08606b2862929d5e","2012-04-06 10:11:12+09:00","Item update policy in download mode / channel info update policy / channel context menu
+
+Item update policy in download mode
+-----------------------------------
+To minimize race-condition, download first -> insert item to DB -> rename file based on item id.
+
+Channel info update policy
+--------------------------
+- Action is invalid, channel update will update action flag too.
+- Icon image is invalid, channel update will try to update icon based on feed info.
+- So, full update becomes useless. It is removed.
+
+Channel context menu
+--------------------
+'Delete downloaded file' context menu is only shown when action target of channel is enclosure.
+"
+"20e86b689771031676e7f3e59bed152f28ac1f9d","2012-04-06 14:10:12+09:00","Improvement : predefined channel
+
+- predefined channel is added to current category (Not default one)
+- Enriching predefined channels.
+"
+"63c5c30d6db66ce7d7116ec78f65e4587b24d9de","2012-04-06 20:15:09+09:00","Item link data is saved as 'file' (Not in DB)
+
+This is better for avoiding increasing DB size and keep consistency with enclosure case.
+"
+"a60cf3a62e9d0654a8ebf82a77a3c4e9fc18d548","2012-04-09 09:26:56+09:00","Max number of concurrent bgtask is defined.
+
+* Running to many BGTask concurrently may cause unexpected problem.
+So, max number is defined.
+* other misc.
+- temp files are cleaned at the begining of app.
+- interface for RTTask is simplified.
+"
+"a2776451e625581a3b922cedf68bf5c7dc529ab0","2012-04-09 16:23:31+09:00","Preference is added / 'delete all downloaded files' menu is added.
+
+preference is for set 'max number of concurrent bg task.'
+'delete all downloaded files' menu is for delete all downloaded file.
+"
+"2cf11ae879aee0f6926b960fe0519c9988ebfeee","2012-04-09 19:55:45+09:00","Bug fix : 'delete all download files' menu is enabled even if some items are under donwloading.
+"
+"2c10b952b6c35f7c7eb51594b25b838a4717bd61","2012-04-09 20:08:33+09:00","Expand 'up/down' arrow image for easy touching in channel list.
+"
+"7aa8b42e6bfa40e93c015af983cd60c198958271","2012-04-10 08:24:40+09:00","Bug fix : FC when 'add channel' is selected + mics-refining.
+"
+"1ab94a0dd9a4b76f14e1291476d4c8d3a6d202b6","2012-04-10 08:40:38+09:00","Improve : keyboard is prepared when editbox dialog is show up.
+"
+"da34c06b9006aae8f2ece387c7b366a3a45f668b","2012-04-10 18:02:30+09:00","Bug reporting system is implemented.
+
+UncaughtException is issued, debugging information is collected and stored as file. Then at next start up, file contents are sent via email.
+TODO : This should be able to configured at application preference.
+"
+"c1552dfb51b8118cc9441bb288139a6b8a67717b","2012-04-13 19:45:05+09:00","Unexpected exception report / pubData is pared and used as item order.
+
+- Unexpected exception report is structured and implmeneted.
+- pubDate information is not parsed and saved as pubtime.
+"
+"4703fe4df8991042e8c41fce49bac445c8e5ea9e","2012-04-14 15:37:14+09:00","App init bug fix / channel list opt menu -> bottom tool btn / misc
+
+Bug fix
+- When starting service, application init function doesn't executed.
+- if network is unavailable, error report doens't try to send.
+UI Change
+- In some devices (ex. Nexsus), action bar for option menu occupies one line in portrait mode.
+So, instead of using option menu, bottom tool bar is added.
+"
+"c0d118895ffd3c57041ce648d93dcb53188468d7","2012-04-16 09:22:15+09:00","Button for 'ok'/'cancel' is added to edit dialog to support non-qwerty key pad.
+
+mics : ??% is shown instead of percent if progress is unknown.
+"
+"bc66e84d36058097725c9c805f9457b6a3ab43b9","2012-04-16 19:57:08+09:00","WebView : enable 'java script' and 'save password' / default bgtask : 3 -> 2
+"
+"a595705539ba114278ff15de19e8264461edfcca","2012-04-17 08:42:54+09:00","Oops... bug fix for crash on scheduled update (starting update service).
+"
+"9d64e9748c74320414b1c56f6f2a141b94f3e19f","2012-04-17 09:45:09+09:00","Enrich 'about' description.
+"
+"47fa48f7d7f04dbece46be3c1201807cdff96f93","2012-04-17 19:38:37+09:00","Enable cache of WebView.
+"
+"9ab67e7eeb3029954c5c281cad9cc03ba7442b78","2012-04-17 19:59:06+09:00","Enrich predefined channels
+"
+"965968f90ae3effde316c546c68eb10d0110a864","2012-04-17 20:13:04+09:00","Add characters that are not allowed as file name.
+
+I'm not sure this enough or I missed something...
+"
+"b8f9238db240ff9d9530dfc89c1fa7350f595094","2012-04-19 08:30:44+09:00","Initialize routine move to FeederApp.java / License term is added.
+
+Why initialization routine is moved to FeederApp again?
+May error reports says about app is not initialized.
+So, in some use cases, I think Android FW start's specific activity
+directly even if process is finished.
+(Saving app state and restore it something like this.)
+So, let's move it to App. And I need to monitor it.
+"
+"c002fc3dbf446fe9262aac176e63086d536092f7","2012-04-19 08:39:10+09:00","Oops fix mistake. XML comments should be below '<?xml..'
+"
+"ba42dfd717460c02474431ebeef4cefd05412f0a","2012-04-19 08:47:48+09:00","Oops fix mistakes...
+
+- xml comment position
+- moving initializ() back to FeederApp.
+"
+"1ceaec54f6790f771c801e8840cdc37d8389192b","2012-04-19 08:48:39+09:00","Merge branch 'master' of file:///home/hbg683/dev/.prjrepo/feeder
+"
+"80433915c39a1994f7dea438308f0e03658dd5db","2012-04-19 19:37:43+09:00","Refactoring : initialization / preference.
+"
+"d8b5f6667c0ce7c741c3b4847c03a1c5bcb97182","2012-04-23 12:16:07+09:00","Cache for MaxItemId at DBPolicy is implemented.
+
+Getting 'MaxItemId' from DB takes much longer time than expected.
+So, caching is implemented.
+"
+"9f39b9085660b8743568c4dfe1c1bffd129fe86e","2012-04-23 12:34:20+09:00","Fix bug related with RTTask binding
+
+- 'new feed' icon is not shown after channel update at channel list.
+(after enter 'item list view' and then update at channel list view)
+- download anmiation is not shown at 'item view' when service starts to download current viewing page.
+"
+"1005b15f2301e4f13699448326287fd5efa61687","2012-04-24 10:01:10+09:00","Performance : Channel list while multiple update.
+
++ In case of only one list itme should be updated, others don't need to rebind view.
+To do this, 'unchangedMap' is introduced at channel list adapter.
++ BGTask priority can be set at preference.
++ Max size of channel icon is reduced to save image decoding time.
+"
+"a9b38783214fa92091ff92e9294a400228e30ec0","2012-04-24 15:18:37+09:00","Fix 'newstapa' rss address.
+
+Offical RSS of newstapa is changed.
+"
+"25cfa5c2c991cec7df6073a7ce26f6d76549f1f5","2012-04-25 08:59:49+09:00","Optionally, user can use external browser program to view linked page.
+
+Channel setting has 'browser setting'.
+By selecting this setting, use can use internal or external browser program to view linked web page.
+This setting is valid only for selected channel.
+"
+"8513b17c5fd7e700c887315264891a330bc58497","2012-04-25 17:11:37+09:00","Beautify xml : Untabify + Indentation uses 4 spaces.
+"
+"9a733d6f78436193daa3599a663cd4c3131cb376","2012-04-26 09:06:29+09:00","Bug fix : when re-insert deleted channel
+
+some unexpected old information is reused.
+So, it is initialized at the moment of re-insert.
+"
+"0c445108da4c70a03ad0cae0323289c4b19dd4a6","2012-04-26 20:16:35+09:00","Bug fix : onProgress of BGTask is run on it's BGThread context.
+
+All kinds of callback function should be called in it's owner's context.
+So, onProgress of BGTask should be also run in it's owner's context.
+"
+"aed4fd6e1744a5b0ae8bc837b46ccb5009f44e7b","2012-04-27 08:34:08+09:00","For consistency of listener at BGTask, context of onPreRun() is changed.
+
+All other listener is run in it's owner's context.
+In case of BGTask, it's owner is thread that creates this Thread object.
+So, onPreRun also should be run in the owner context for consistency.
+(previously, onPreRun was run in thread context that calls 'start')
+"
+"9a800426e83886fa561a8793a5aa0c476197192e","2012-04-27 09:00:40+09:00","Refreshing item list performance improvement.
+
+Same algorithm of channel list is adapted to item list, too.
+"
+"02fa0a79e0cd93b300cd4076c4afc169597bc199","2012-04-27 09:51:53+09:00","Bug fix : cancelling effect doens't show even if cancel is issued.
+
+state of BGTask was based on Thread.isInterrupted() function.
+But, with some sensitive timing - Thread object get cancel event, but real BGThread doens't interrupted yet - it doens't work as expected.
+So, BGTask.isCancelled() is newly introduced.
+"
+"a878ef62b0b93c045d42ec389a7387c640a53aa2","2012-04-27 12:20:13+09:00","Main icon is changed.
+"
+"b9bd7dba57c7271bd76f41c38e8a7e6b715e968e","2012-04-27 12:40:09+09:00","Version number is increased.
+"
+"9150497455b5cf0585cf7918f3ea90eada4406eb","2012-04-30 10:27:20+09:00","Comments are enriched especially for functions in 'model' package.
+
+No changes in software sementices.
+"
+"a6c07ea528c892b397cdab2cdd2a547e1ec4aa75","2012-04-30 11:09:40+09:00","Different predefined channel based on Locale is supported.
+
+Feeder gives different - more attractive - predefined channel lists based on devices Locale.
+For example, for device that uses Korean as it's locale, Feeder gives channels lists that is attractive to Korean (usually Korean channels).
+"
+"d434fb65e8e596e88442975b6c6084aa0da27f76","2012-04-30 16:02:15+09:00","Utils.bitIsSet() is newly introduced.
+
+bit operation is changed into the way of using 'bitIsSet()' to increase readability.
+"
+"2230528e4a1287bc69fb4a26d17fce963257ca9c","2012-05-03 17:37:40+09:00","Item list for category is implemented. / maxItemId DB operation is optimized.
+
+TODO : performance optimization or user feedback is required when listing large-size category
+(it takes too much time - use may think program is stuck.)
+"
+"8d58b8736a48ffa1de8d5f23b7872659f03226ea","2012-05-04 09:17:30+09:00","Improvement : When starting item list, spin-progress is shown at action bar.
+
+For fast user-response, spin-progress is shown and time-consuming jobs are
+done at background.
+"
+"cf5e3fa2e8213efbd78283cdbc5d3c458db8f15e","2012-05-07 17:14:14+09:00","Bug fix : rows of list are changed and updated simultaneously.
+
+This issue is shown only once to me when download two mp3s.
+Followings are my guess of this scenario.
+- downloads are finished simultaneously.
+- 'dataSetChanged' are called twice before adapter starts to bindView-process.
+- So, previous 'unchanged' state setting is overwritten by next 'dataSetChanged' call.
+- At this case, some of them doens't updated - returns at earily changed-state-checking of bindView.
+"
+"16e9e369f159324b13ba26551cbc0a4d09f6188b","2012-05-07 17:21:46+09:00","View for guiding user when channel list is empty, is newly introduced.
+"
+"9e29b31ec88f9afd97a514380e204b4dca0b7a47","2012-05-07 18:00:46+09:00","Modification for uploading to market (publish) v1.1.0
+"
+"1964c0422d15e07f00912755c1ad21190e00765d","2012-05-08 10:28:07+09:00","Enrich user-guide view shown when channel list is empty.
+"
+"77671b444cd0088e3f2fb85b545f92fc92439686","2012-05-08 10:30:50+09:00","head comment for license is added.
+"
+"1e6fc5eace26bd6d638ea5a2e262b98a0330ecb7","2012-05-08 10:34:37+09:00","Bug fix : minSdkVersin should be ICS.
+
+I don't follow up HC bug even if it's known.
+"
+"57ef03952f4ebad4a33c97ad5b63e92f0d4cb6cc","2012-05-08 10:37:22+09:00","eAssert is enabled always (regardless of Utils.DBG value.)
+"
+"b639087d904989d6f04518d7c94f76df98f7a825","2012-05-08 10:41:58+09:00","Upgrade version number (v1.1.1)
+"
+"e632659be1a1dbb3766a279aa80352f1fa41e73c","2012-05-09 11:03:44+09:00","Workaround wierd ICS bug custome-view of actionbar with indeterminate-progress
+"
+"2ed76bfcaebbff429ed3316197039552f754afe8","2012-05-09 14:57:09+09:00","'delete channel' that deletes all belonging items too, is implemented.
+
+previous 'delete channel' is renamed to 'unlist channel' that doesn't delete items - only mark channel as 'Unused'.
+"
+"36e0c7e10c7732490f784de084b5f27a6c8d212f","2012-05-10 14:32:44+09:00","Enrich predefined channels.
+"
+"b278883a248145c05a18ad7dd42461790f150ede","2012-05-10 14:38:36+09:00","Fix bug : deleting channel doesn't delete channel directory.
+"
+"bf0f8d933deddf32cefaf8f56fdf65761ec78f09","2012-05-11 09:14:32+09:00","Misc re-structuring of code.
+"
+"d7f24e9c53a35d7f07898fef49d5f3246e8422ee","2012-05-11 09:24:41+09:00","Policy Changed! : Customized predefined channel isn't supported anymore!
+
+User can use only built-in predefined channel.
+Why?
+Most users are passive.
+And this is more convenient.
+If Feeder should support customization, merging updated information to existing one, is required and this is not easy job.
+"
+"4310225dd95fcd6bb95a4232d06b1d50de6cd535","2012-05-11 18:51:59+09:00","Fix Critical Bug : when add category, user guide shows on top of list.
+"
+"47c4e6d53ceb27cb392afc8c85d5aa74b862c787","2012-05-11 19:32:33+09:00","Potential Stability : when download data to file, all parent directory is created.
+"
+"fb2fb52e3d85ed84d4ef7cb993120e611c6cbde2","2012-05-14 09:08:51+09:00","Enclosure file extention is shown with 'length' at item list.
+"
+"05f3055924b02ed80550e4f002a7d4bc2b66ffbf","2012-05-14 09:23:03+09:00","Code re-fining - item/channel adapter
+"
+"33eae5688b8de3be9a853add0dfaee3a95aae0c6","2012-05-14 17:32:11+09:00","Favorite item list is newly implemented (DB upgrade to V2 is required.)
+
+New DB column for favorite is added (DB upgrade is required V1->V2)
+Start-shape-image button for marking 'favorite item' is newly added to item list.
+User guide in empty list is now vertical scrollable.
+"
+"7b10fc8ded86b137024388e49bf9cb8cd4fc3415","2012-05-15 09:17:48+09:00","Refactoring 'Favorite' algorithm (DB doens't need to be upgraded).
+
+SQLite understands AND binary operator.
+So, DB doens't need to have another column to represent 'favorite'.
+Now, bit[1] of 'state' represents 'favorite'.
+"
+"74332c9b753206d60fe798fce9573c522e91b1ff","2012-05-15 09:21:25+09:00","Oops... DB version should be back to V1 again.
+"
+"2b20892fc02b9502d1db1475ff1ffae56182620e","2012-05-15 09:30:14+09:00","Code cleanup.
+"
+"d2175d1c656dd9a0b62ceb6128a5fb553e2f3e69","2012-05-15 11:35:47+09:00","Update version to publish (market-v1.2.0)
+"
+"d11c0bdbfd22d525d636e5e7994f1f3cf60a25cc","2012-05-15 12:47:11+09:00","Workaround ICS bug : tab title is gone when orientation is changed.
+"
+"a61a3ca908d94e1f1c3819fd33b8f2e92e0e2bf9","2012-05-15 12:50:03+09:00","Version increased for urgent fix for known issue.
+"
+"06924a324062dda7521bbbd55e2689a501ec4444","2012-05-16 08:47:27+09:00","Revert false-fix : previous fix for orientation-issue was useless.
+
+That was not fix of this issue.
+That fix doesn't make any difference.
+So, reduce complexity, changes are removed.
+"
+"28a19c4a7cb6295a3ad09b19f1f898c06346a590","2012-05-16 12:26:07+09:00","Tab text scheme is changed from custom view to just tab text.
+
+Reason : custom view of actionbar tab in ICS has bug in case orientation is changed. And it seems not to be fixed even at 4.1
+So, as workaround, using custom view is avoided and just tab-text + custom style is used.
+"
+"4049af06063146cd7e6c02ef4589ee3eba941119","2012-05-16 12:28:54+09:00","Version is tagged as market-v1.2.2
+"
+"a71e95a7d1210ba98cf3cf70cecd71c8d32887c0","2012-05-17 18:08:41+09:00","Before starting channel/item list, early-sign-of-life is shown (plz wait).
+
+Stress test is needed because state machine for ui lifecycle is not verified yet.
+"
+"d8385ad8f7b1542a282fa4ededdbaa8c01a01c4c","2012-05-17 18:11:08+09:00","Minor code refining.
+"
+"6ee5abaf20960287c5e6be3e7428b16bc75989cf","2012-05-18 15:36:43+09:00","class MCache is removed and HashMap is used as cache for max item id of channel.
+"
+"386fe87d67f2ca05df317a7d20a254329a3d1100","2012-05-18 15:53:14+09:00","Oops... MCache is delete here...(missed at previous commmit..)
+"
+"090e4ab9ee24e71d4a443b6eb2a63d03d4a24c50","2012-05-18 16:40:38+09:00","Revert 'Oops... MCache is delete here...(missed at previous commmit..)'
+
+This reverts commit 386fe87d67f2ca05df317a7d20a254329a3d1100.
+"
+"8e89bb3b885989bf2e2837ca0fa675d79a6fce34","2012-05-18 16:42:31+09:00","MCache is removed here~~
+"
+"ea20e001c720152abd2f0d4d34e6e1aea4e148aa","2012-05-18 17:22:41+09:00","Increase responsibility : posting runnable at BG task has some delay.
+"
+"0c4333da45d3bc81bc10409ebf4fd2e37600df28","2012-05-18 17:53:40+09:00","remove useless log print.
+"
+"7a0f3ee13174e9492df3045ed107157c970c6db7","2012-05-18 18:09:00+09:00","Set version to 1.2.3
+"
+"b7d088a761823511df1cdf89335b1215ed793781","2012-05-21 10:59:37+09:00","UILifecycle is re-structured!!! 'Please wait' policy is changed.
+
+'please wait' is shown in both cases between channel list <-> item list.
+This is useful when moving activity with background update / download.
+"
+"08ba556667077741d041b4a4c90677ecc0ac993f","2012-05-24 17:39:42+09:00","Basic Atom format is supported.
+
+Atom feed also supported.(Tested and implemented based on Youtube feed.)
+Only basic functionality is tested and implemented (Not well-tested!)
+(Youtube feed xml is well-parsed. But, I'm not sure for other complex atom feed.)
+So, long-term-maintenance is required for atom parser.
+"
+"81fe578e41bd31865c2dc1c3cb440c86563bb457","2012-05-25 08:31:42+09:00","UI for adding youbute channel easily, is implemented.
+
+Bottom button for youtube channel is added and etc.
+"
+"31de7fb285a08155a44ee377f0bce3d8134a1773","2012-05-25 10:21:34+09:00","DB Verion is upgraded to 2 (Channel url ends with '/' is not allowed!).
+
+'http://xxx' is same with 'http://xxx/'.
+So, to reduce complexity, channel URL doesn't allow '/' at the end of string.
+To change existing channel url, DB is upgraded to verion 2.
+"
+"ada950947e307606b6db4c0b4aef6245976f9f85","2012-05-25 11:09:57+09:00","Correct error message for registering duplicated channel
+"
+"70ee3655545d72f47f97768cea0aaef054ecccd9","2012-05-25 11:29:43+09:00","Adjust layout of channel list row to allow 2-line-title.
+"
+"835e307e60958943a063bc52dd5f30f4b2252aa6","2012-05-25 12:31:17+09:00","Fix incorrect UILifecycle state machine process.
+
+[case]
++ onCreate -> onStart -> onResume -> onPostResume
++ postDelayed
++ before triggering, activity enters onPause
++ posted message doesn't handled by activity.
++ activity recovers to onResume.
+=> at this case, next state is set to UIRESUME.
+So, UICREATE, UISTART is skipped. And this is unexpected.
+"
+"6e6de5a74795716d7403caa6ba9af6f7e0209111","2012-05-25 12:35:11+09:00","Fix missing implementation for functions that builds youtube feed url.
+"
+"e548ab5ab696e0da8fbcc704530fdc2f160c21e7","2012-05-25 12:35:55+09:00","Atom parser : 'Published' should have priority than 'Updated'.
+
+Sorting by 'Published' time is more familiar to user.
+"
+"bf9346586446292367631fc4d6895ebdc9d0114b","2012-05-25 20:27:52+09:00","Fix bug : checking duplicated item / channel icon
+
+* when checking duplicated item, it should be done inside channel.
+That is, there can be more than two items that are same if those belongs to different channel.
+* Fix bug... trivial..
+"
+"61f910fbb90b8c9c93f20af708bb65373eca264a","2012-05-25 20:38:49+09:00","Fix, customize re-arrangement about Youtube channel implementation.
+
+Previous commit is more likely rough-intermediate one.
+This one is to make up for remedy.
+"
+"0dbea18c3db3249239dbb68fdae5680ef3979500","2012-05-25 20:53:07+09:00","update version to '1.3.0'
+"
+"b1b8455299a604466b1ba187687e869316b15772","2012-05-29 08:20:59+09:00","Mobile projection is used at Youtube channel. / enrich predefined.
+"
+"5923153f44b945546ee99b437da07775ef7577cc","2012-05-29 08:41:17+09:00","WifiLock is held too when Wakelock is held in case of update/download
+
+Sometimes, update/download that takes long-time fails.
+I'm not sure this is due to wifi disconnection.
+But, just in case, wifi lock need to be acquired.
+"
+"d9117f4c82b9d131a298f14c8a5f1f663fb71eef","2012-05-29 08:45:44+09:00","Version updated to 1.3.1
+"
+"f3e019dcc18f89d24f86a576f7ea68a79688c50b","2012-05-29 13:50:25+09:00","MISC update + update version : 'media:description' is supported at atom.
+
+- media:description is parsed as item description.
+- predefined youtube channel also uses mobile projection.
+- db script for predefined channel is added for future use.
+- Max lines are changed for items : title->2, description->5
+"
+"b8ef2b43e5cc6727c4ad1086faf5786426607442","2012-05-29 14:02:46+09:00","DB script SHOULD NOT in 'assets' directory. It is removed from package.
+"
+"2e32c9933b5cbd45c6bbd9203a0973c92d3c2641","2012-05-30 08:48:16+09:00","Workaround Android ICS BUG issued when UILifecycle.
+
+CASE
+- Starting download in ItemListActivity
+- Back to channel list by pressing back key.
+- Enter previous item list again before download is complete.
+- Download animation doesn't start even if progress number is increasing.
+
+It's ICS's platform BUG. Workaround is added.
+"
+"dbdd10e58d3f5d93d0c8f930b58d0cff191c0fff","2012-05-30 16:16:17+09:00","SW Design/UI for predefined channel is re-established.
+
+* Instead of xml, sqlite DB is used for predefined channels.
+(DB can be re-created by dbscript)
+* Channel can be searched by 'category' and 'search word'.
+"
+"ac321aa303b51600ba73706ea20cfedcb81034ac","2012-06-01 19:35:26+09:00","Bug fix : Scheduled Update is stopped in the middle of execution.
+
+I think this is fixed with this patch.
+Two main points are
+- 'selfStop(id)' in ScheduledUpdater is misused.
+- There is a moment that there is no wakelock aquired.
+(Let's assume only 1 BGTask is allowed. Then, between 'Task finished' and 'new queued task starts', there is no wakelock acquired.)
+"
+"446b906e339c492814e14f3b66bb9e703df23efa","2012-06-01 19:48:35+09:00","File logging is introduced + Beautifying some logs.
+
+Selective logging - one of logcat or 'writing to file' - is available.
+This is useful to debugging scheduled update (background service).
+"
+"4db1171f524526d9ddba11e743111b96b46ddc14","2012-06-01 20:21:32+09:00","Mark version to 1.3.3
+"
+"ee111b765325305fa17976874207d54d144f0d53","2012-06-04 09:15:32+09:00","Predefined Channels DB update / misc UI changes for select predefined channel.
+
+* Enrich predefined channels DB!
+* Predefined channels now can have maximum 5 categories.
+* When selecting from predefined channels, predefined activity is finished automatically and list of channel move to bottom to show newly added predefined channel.
+"
+"45ba5d5aa5de1be61217d39ac82a1a8ba57cd2a4","2012-06-04 09:28:02+09:00","Fix bug : service never stop in some cases.
+
+First scheduled update is running.
+And second schleduled update is started and it is finished eariler than first shceduled update.
+Then, even if first scheduled update is done, it's start id is NOT latest.
+So, stopSelf(startid) doesn't really stop service.
+In consequence, service never stops.
+"
+"b81dec8253120f85f3d65ec3dd72a29ba8f1d51c","2012-06-04 10:36:57+09:00","fix bug : service is started but never stop when adding new channel.
+"
+"a11e60b472f88300540d2fc82ff877e56c5ebdd5","2012-06-04 12:16:24+09:00","Remove animation at channel list / use notification icon.
+
+Channel list has very complex UI.
+So, to reduce UI thread's burden, updating animation is removed.
+Instead of it, notification icon for update/download state of each channel is shown on the channel icon
+"
+"1786a6c85d0f7e2777133135c7e5fc697418ee9f","2012-06-04 15:11:16+09:00","Code refining - Use HashSet if possible instead of HashMap.
+"
+"91cd60455eaae9838286f389156e9a9125223759","2012-06-04 15:13:37+09:00","Update version to 1.3.4
+"
+"83c449be9bf38990b18e48958ca8abe4b957333f","2012-06-04 17:05:59+09:00","Update predefined DB version and update apk version to 1.3.5
+"
+"12ddce6de701d4ef1c3eea7c78199eb7edbc7f68","2012-06-04 17:24:28+09:00","bug fix : Force close when predefined DB is updated.
+"
+"f0a3ef2dc735de150736e708483bd03c35a9be43","2012-06-05 08:10:10+09:00","bug fix : when downloading items, icon is not changed from 'ready' to 'run'.
+"
+"46ea5e925939d4086dabc4ecd6e68eacdeae3823","2012-06-05 08:11:31+09:00","update version to 1.3.6
+"
+"8e6aee7bef6caf66c3d4f23a37b1c8f030982cfd","2012-06-05 08:19:52+09:00","fix bug : some of categories of predefined channel is not shown at spinner.
+
+only category0 is shown.
+"
+"2679208089ecad72c884b720650f0b05cf393a55","2012-06-07 08:44:42+09:00","Code refining : move alpha value from source code to layout xml.
+"
+"be5a7d02f803e0ce23ea1d349bf04b6745018fc8","2012-06-11 08:36:07+09:00","Fix bug : force close when notification is cancelled from statusbar.
+
+Due to unbalanced 'getWakeLock / putWakeLock' pair.
+For the safety, application context is used for getWakeLock even in case of date-change.
+"
+"045a3f44610cc2824546f70603b07de1f2b61b2c","2012-06-11 09:22:30+09:00","bug fix : Operation of touching 'done' on key pad when adding new channel.
+
+When 'done' is touching, channel is newly added and dialog should be dismissed.
+"
+"af5fcdab0c8fff96b8793b90e9df6193700da457","2012-06-11 10:02:53+09:00","update verison to 1.3.7
+"
+"0bbda86fe7e7c1eebc7894dafb86931a3bfd72c0","2012-06-13 08:42:22+09:00","Policy changed : checking duplicated item (title + pubdate has priority)
+
+Before changes, item that has different 'link'
+or 'enclosure url' regarded as new item.
+But, at some channel, items are sometimes updated with new 'link'
+or 'enclosure url' (ex. hosting server is changed.)
+At this case, even if there is already duplicated item,
+it is regarded as new one, and it messes up channel item list.
+So, if pubdate is available and pubdate and title are same,
+it is regarded as duplicated item.
+And existing item information is updated with new one.
+"
+"42366d3e2f958f7f99e6b8e87fa251791a832b23","2012-06-13 08:54:32+09:00","Partial workaround : move list to the end when new channel is inserted.
+
+New channel is inserted by 'adding channel', channel list should move to the
+last to show newly inserted channel.
+But, I think this is Android Platform bug, even though I set it, list doesn't
+move to.
+So, to workaround, add delay.
+Known issue : at keypad, even if 'done' is touched and new channel is inserted
+channel list doesn't move to the last.
+"
+"4521533539996ab2beb9ddc9c983a8dd4fad6044","2012-06-13 09:16:05+09:00","Predefined channel is enriched(to ver 3) and verion is updated to 1.3.8.
+"
+"68f5837d64c0be14ecbb370861cb28c3006489be","2012-06-13 10:15:51+09:00","Previous log is preserved when file logging is on.
+"
+"8fcd5f76a4c6220d5266e51d35b71acfab61ca05","2012-06-13 10:17:02+09:00","Bug fix : scheduled update : race-condition / duplicated update
+
+* update task that are already active should not started.
+That is, I should avoid duplicated update.
+
+* potential race-condition issue for 'taskset' is fixed.
+"
+"c5b7d4e2dcb2699b61d30cf726ea15777112de69","2012-06-13 10:32:46+09:00","Enrich comments.
+"
+"4d9e6a6538c9162519c82860bbc28fa5e2920f4e","2012-06-14 11:49:48+09:00","'Search' feature is newly introduced.(NOT TESTED ENOUGH)
+
+This is just intermeidate commit.
+Feature implementation is still under progress.
+"
+"e3e1c408d2ab48b4ebb0698498951a53ee4b7845","2012-06-15 09:36:51+09:00","Tring to improve youtube feature but... not successful yet.. intermediate commit
+"
+"a348a70e6f60129b2aedbbbd923829637612d8c7","2012-06-22 14:45:38+09:00","Under progress(implementation) : intermediate milestone
+"
+"0427d13522e3a1e15b3261bbedf3e86d0642186b","2012-06-22 18:35:47+09:00","Async DB update milesone the 2nd.
+"
+"f407cda03475f80e79c6bcce2939b492aa7db0c1","2012-06-22 20:16:34+09:00","Refactoring dirty algorithm using 'firstTime' flag at AsyncAdapter.
+"
+"407b81988dd1bbba60648f7b48f404ee6a972fa6","2012-06-25 09:33:39+09:00","Fix async adapter's bug
+- Force close
+- restore to wrong list position.
+"
+"b4390f53f7d4f35066903052a47de1daa80a59c1","2012-06-25 16:17:47+09:00","Performance improvement during updating channel.
+
+new DBPolicy APIs are introduced to delay updating DB.
+Fix mistake of previous commit.
+"
+"8015f2ea3aa49ba30b97bdee694799011430f2db","2012-06-25 17:11:50+09:00","Fix bug : channel title is not shown
+"
+"9f257594e01cd83bcdbead64f1e884995bcce359","2012-06-25 17:17:58+09:00","Preference for BG Task priority, back to enable state again.
+"
+"6883a41b37f1522b43818bfbe551b3b357612d5b","2012-06-25 17:39:04+09:00","Move 'add youtube' from bottom button to menu of 'add channel'
+"
+"3ef08b59438327231ebae906024272c54d920d54","2012-06-25 19:56:32+09:00","Improve UI responsibility(performance)
+"
+"e8b5017ae4c3f27f0a0501a0d273a37f1151cda8","2012-06-25 20:04:48+09:00","Misc refining...
+"
+"acec718fb97bf445625d6c1ac1cd0b15edfea14e","2012-06-25 20:12:47+09:00","Delayed update is effective in both case 'check new items' and 'update'.
+"
+"03da9c464b1376447218d095e2806f27777097dc","2012-06-26 10:45:32+09:00","Fix bug : checking duplicated item when update channel.
+
+duplicated items in parsed feed itself - not in DB, are filtered out, too.
+"
+"b2ad02714370877789ed7785ff225d3cc216e25d","2012-06-26 15:11:24+09:00","Stability : fix potential issue.
+"
+"ed72740536f5a11f02b1a977bce27ff422bd13d3","2012-06-26 19:46:08+09:00","Enrich comments.
+"
+"ba597ee2972c835153594a10b974fe91f3ba6ae7","2012-06-26 20:21:45+09:00","UI resource changes / version 2.0.0
+
+Main : max lines of description back to 3 because, drawing lots of text
+drops scroll performance severely (more than expected).
+"
+"be01e778c7dcf74f4276be7cd1e1bffd77908455","2012-06-27 08:23:29+09:00","Revert : commenting out 'Reschedule BG update whenever time is changed.'
+
+I found that BG update isn't run in some cases.
+I don't have any idea about this.
+So, even if too-often-rescheduling, it's not harmful and it can workaround
+for this case.
+"
+"b57d4ba4effd22b44e359ddc26cd8064cf919488","2012-06-27 08:36:22+09:00","Tag 2.0.1
+"
+"27713a3ab4834265c1b45e131454411f61691436","2012-06-27 14:35:51+09:00","Small re-factoring Utils.log
+"
+"003a9ead9b95cb8ad8c81d2d970853e6add8467a","2012-06-27 15:51:28+09:00","To reduce memory usage, destroy channel icon manually.
+
+Sometimes OOM is issued. And I think these are mainly due to channel icons.
+To reduced memory used by channel icon, new mechanism for destroying items those are not used by adapter anymore, is newly introduced.
+"
+"5ea4de04848e8024fe79409cd2c6f135aa5b53c0","2012-06-27 17:31:07+09:00","Application name is changed at Korean-version.
+"
+"0885f64524a07d233317e51ce883f5b56e56fb9b","2012-06-27 17:56:07+09:00","Code refining and improve soundness of code.
+"
+"0ddb0fd47b2f4f31ec09c8ff97474efb57f46574","2012-06-27 18:06:20+09:00","Mark v2.0.2 / Comment out annoying logI's
+"
+"578c0e3a90ca808d347184a23dcdf704eaba9b0c","2012-06-27 18:18:37+09:00","Revert 'Application name is changed at Korean-version.'
+
+This reverts commit 5ea4de04848e8024fe79409cd2c6f135aa5b53c0.
+Changing to Korean app name leads to some unexpected error or annoying result.
+Need to deep analysis about this. And let's think about changing app name.
+"
+"4f7c40b00135e3522552a881b4a9e121d66c07a7","2012-06-27 18:29:35+09:00","In some strange cases, getting logfiles fails.
+"
+"a87fb73b6abbd3c1a699add61571f7a4db53633d","2012-06-27 18:29:49+09:00","Mark v2.0.2 / Comment out annoying logI's
+"
+"be9537328b0c68177b2bea75457ec36bda35cf4d","2012-06-29 10:56:01+09:00","Code-refining... Nothing changed in terms of code semantics.
+"
+"260aae3dc49a0f7621b165547dce02bc907f4820","2012-06-29 16:21:34+09:00","Code/UI re-factoring/improvement + 'List all items' are newly implemented
+
+- All menus for adding channel moves to sub menu of 'add channel'
+- All menus for managing category moves to sub menu of 'category'
+- New bottom icon - list all items - are newly introduced.
+"
+"98cd4d99d9258997d0680220e063d15f33076350","2012-06-29 16:27:15+09:00","Merge commit 'be95373'
+"
+"63017d8f110f9fa3c9d4fb5d9e4ec9e4cdede43f","2012-06-29 16:27:22+09:00","Merge commit '260aae3'
+"
+"ba0ddec0ed1c3b64514601facac0c56b6c513d12","2012-06-29 16:36:19+09:00","Commit eclipse project files too.
+"
+"ecec2ba0c2388fc709f71a8e03faf70c3514da84","2012-06-29 17:51:08+09:00","Fix bug : search with empty word in the list-all-item
+"
+"c50f9ade2a61a0373e32ad95024e545cdefbd2fc","2012-06-29 17:52:22+09:00","Enlarge download button of item view / V2.1.0
+"
+"bd03b98afbacf3c3e47a02f27f036789d68ed31c","2012-07-02 08:45:08+09:00","Bug fix : updateButton doens't have 'pause' state.
+"
+"75552099762f5c0a79a3c968245916f7bedf71f2","2012-07-02 11:58:59+09:00","Enrich predefined channels.
+"
+"77fd98bd89ece02c1002d612d370eef55770240e","2012-07-02 15:10:14+09:00","Very simple script language/interpreter is implemented to create predefined DB.
+
+pp-dbscript.pl : preprocessing db script and generate sql file
+To create predefined DB, run generated sql file.
+"
+"ee747776d36658bd5350bccecf6a3f53258caac7","2012-07-02 17:00:52+09:00","when opening enclosure url, external browser is used as default(ex. youtube).
+
+In case of internal browser, it's too simple to show complex pages.
+Opening enclosure url means 'Opening complex multi media pages' - ex youtube.
+So, in this case, external browser would better to be used as default.
+"
+"47c1843f989a31557b76f5b83d5a4d77b555ded6","2012-07-02 17:11:31+09:00","Mark v2.1.1
+"
+"ce58940673a7adaac631359525492d6bd1d4210a","2012-07-03 08:43:49+09:00","code beautifying
+"
+"7f588357f83278e638b6ddaf5c2821d8d06d594c","2012-07-03 17:03:48+09:00","Fix potential issue : duplicated refresh / unexpected full refresh(item list)
+"
+"96eae0913ae7f3109a8e2fe79321f5b5850f94b0","2012-07-03 17:39:52+09:00","Fix bug : pick channel icon changes icon of incorrect channel.
+"
+"1bef6035df542492b7106aec7557f54ea4698b81","2012-07-03 17:41:29+09:00","Mark v2.1.2
+"
+"e3a716c08e3080952a7a91c81e071877abe37570","2012-07-04 15:28:53+09:00","Fix bug : search in item list
+
+- After search, item list doens' show from the first item.
+- If searching continuously, visible position of list is against common sense.
+"
+"0d53c81e482c9cd0a3ce11f5219a8446674de4b2","2012-07-05 09:10:08+09:00","App name is changed to FeedHive
+"
+"0bbf2df3ada42574ccbe243c6b7554b91aea8460","2012-07-05 10:43:08+09:00","'Application Root directory' is newly added to App. preference.
+
+Now, it can be changed from fixed directory.
+"
+"423653eb852b499651206903c8fe5bd521a248d6","2012-07-05 10:52:07+09:00","V2.1.3
+"
+"82aae3fe6847b255737e4ca418d1242776542d31","2012-07-05 17:14:33+09:00","fix bug : Force Close at 'setting downloading directory'./ v2.1.3-1
+
+Oops...!!
+"
+"ab3bd534c77271a3e4f5ec176d9c039f6cdc2eb7","2012-07-06 08:23:33+09:00","Max Id cache should be synchronized / update cached instead of remove.
+
+Bug fix : race-condition to maxIdCache.
+Improvement : instead of first time, cache is keep updated. So, performance improvement can be expected.
+"
+"02eb73d4da5f743161ef1519583f0cdda5f1f45c","2012-07-06 09:27:05+09:00","To improve UX during updating channel, updating item state uses async thread.
+
+Pros. UX improvement while DB is extreamly busy
+Cons. Sometimes, old-item-state may be shown if user request item state before async task runs real-update-command. => But, this is very rare and worth to be ignored
+"
+"939ace506eb0b5f13ba346060462a8011d8f08b5","2012-07-06 13:33:15+09:00","Improve channel update time (trade off - memory usage)
+
+Instead of using whole DB to check duplication, sampling some of recent items and checking dup. in it is used.
+Cons:
+- Accuracy may drop (But, very very rare I think).
+- Memory usage increased
+Pros:
+- Faster
+- Less access to DB.
+"
+"b0bf60251c56625e1093ff0aa5d6909b12a4b008","2012-07-06 14:41:29+09:00","Improve parsing date format string.
+
+Instead of using android's DateUtils, apache's DateUtils is used due to performance.
+"
+"a80975f27d0b51265425ec1a1b7a0d912993c695","2012-07-06 15:37:30+09:00","Fix potential bug caused by 'setItem'.
+
+destroying item in 'setItem' may lead to unexpected destruction of item.
+For example, existing item of position x may be reused after 'setItem(x, ...)'.
+"
+"a2d77afba97dde862792fad9ee8a46ffa9cb1409","2012-07-06 15:53:22+09:00","Checking downloaded file existence is out from bindView() for performance.
+
+Checking file existence requires disk access and this is expensive.
+So, checking downloaded file existence is minmized but more complex...(case by case checking.)
+"
+"150224d14dee783250c30e8703684655507382c2","2012-07-06 16:46:40+09:00","V2.1.4
+"
+"0f2228a2b279922c855bf3b03cc35cc4d4662d4d","2012-07-09 12:19:19+09:00","Refactoring : mechanism for adding channel from predefined list.
+"
+"60e0c21c1251d29d22fedc03f80e1e89c3d01b7f","2012-07-09 15:59:28+09:00","Refactoing: if-else => switch / RequestDataAsync api.
+"
+"49643ca1088c5c9529f064d0890529265c00983f","2012-07-09 20:00:58+09:00","Fix bug : appRootDir doens't end with '/'.. / usage report implemented.
+
+By mistake appRootDir doens't ends with '/'.
+Because of this, Feeder makes garbage directories at /sdcard/
+And usage report is implemented.
+"
+"ad1ea573e02f228347d4e5d322eb49168c5af360","2012-07-09 20:04:37+09:00","v2.1.5
+"
+"5e494eacb4985273b2c6ba66c4de1c5a76c5ca40","2012-07-10 08:40:56+09:00","Bug fix : downloaded icon isn't shown at item list after downloading at itemView
+"
+"51cc23aa32e12fe1d7c578c9f0ee13fde9d34c87","2012-07-10 08:52:11+09:00","Fix ciritical bug : delayedChannelUpdate pair is not balanced!!(BIG MISTAKE!)
+"
+"9e554b95d27eb2fafa48e377d29cb318c9c1915a","2012-07-10 08:53:02+09:00","v2.1.6
+"
+"1c843899b87773759178c94c4e106496d22bce21","2012-07-10 17:37:41+09:00","Code refining : apply strict variable naming convention.
+
+See change of README for details.
+"
+"bcbf5915ddfc690652e288f1f052cb315bb4ac42","2012-07-11 11:38:19+09:00","Channel list UI is changed.
+
+Option menu shown by touch bottom button is changed to popup menu from dialog.
+Button for listing items of current category, is available again.
+Button for managing application is newly introduced.
+Button for 'delete all download files' are moved into 'managememt' button.
+"
+"e7de3acb96ea66267cc6257c87d6100bbb3b7b0a","2012-07-11 18:30:10+09:00","DB export/import is implemented + some minor code-refining.
+"
+"a98060f065715717687ca2639f2960c6f4229bc1","2012-07-11 20:03:05+09:00","when DB is imported, all DB watchers should be marked as changed.
+"
+"3c43e1cdea4eb049d6188383ffe697e1d962f850","2012-07-12 09:58:35+09:00","FSTAT_USED/UNUSED flag is NOT used anymore for channel.
+
+USED/UNUSED doens't have any valuable meaning.
+So, it is removed from FSTAT and now FSTAT is just reserved for future use.
+According to this removal, 'unlist channel' is removed from channel context menu
+"
+"782cc7b030086a7bde05ef65cfeefe88731863b1","2012-07-13 08:24:44+09:00","DB Manager under implementation
+"
+"59f592a61865e2ae6c0807263799f0ce4d577e67","2012-07-13 08:58:50+09:00","Fix BIG MISTAKE of algorithm to decide action type by analyze parsed feed item.
+
+There was BIG MISTAKE when adding special action for Youtube.
+After the Youtube action change, every newly added podCast channel uses 'OPEN' action (NOT 'DOWNLOAD')!!
+So, this mistake is fixed and additionaly, now action is decided whenever channel update is executed.
+Why?
+Even if it's very rare, whole item type of channel may be changed later.
+Or in case of some channels, there may be NO items at first and then item is added later.
+I'm not sure that this - updating action at every channel update - is better than before or not, and it doens't have any side-effect or not... but let's try.
+"
+"7f0b00f4b773bafca0f5c173c813efaa712e55bc","2012-07-13 09:05:32+09:00","Mark v2.2.0
+"
+"a36472fc0e32be2249b0267592d5664801977768","2012-07-16 08:47:05+09:00","Fix FC : enter 'DB management' when DB is empty.
+"
+"3893327970157cc05d0a6359709cf30e96a5b9fa","2012-07-16 09:25:46+09:00","Clean up codes : remove meaningless files/strings/codes.
+"
+"0a2f6cbeb22048d0da39e2770305e2064379365b","2012-07-16 09:35:29+09:00","DBManagerActivity would better to be closed after 'importing DB'.
+"
+"0cae68dd3bc5f82fd3694ba1c71786e34c94c97f","2012-07-16 18:00:42+09:00","FATAL : Fix potential DB crash bug (Still premature - not stress tested!!).
+
+Running scheduled update during export/import DB file, may corrupt DB, because accessing DB file in OS and SQLite are in race-condition.
+To avoid this, scheduled update SHOULD NOT run during export/import DB file.
+And also, export/import DB file SHOULD NOT run during scheduled update is running or channel update is running in background.
+Implementation is still premature and well-designed at this moment.
+Continuous re-factoring and debugging is stronly required because DB is most important asset of this Application.
+"
+"74fa12b5cc44da72f0c7eba4dd3eca604404d455","2012-07-17 10:50:57+09:00","Feature implementation : DBManagerActivity.
+
+- To support DBManagerActivity, some DB functions are added.
+- 'queryItem' back to original style that doens't have arguement 'ordered'.
+- To detect BACK key, onBackPressed() is used instead of onKeyDown()
+"
+"8b7a65b6dd58c00d2b7ceb3db09bfbb1acdd709e","2012-07-17 14:36:20+09:00","Code refactoring : applicaton context is stored at 'Utils' and etc.
+"
+"245b183bc745490add27d957713f969eec07f498","2012-07-17 14:45:11+09:00","v2.2.1
+"
+"5ec0fe03b13dad0b565358ece37cee3497f25899","2012-07-18 09:10:23+09:00","Refactoring : UIPolicy / LookAndFeel is changed to singleton from static
+
+Mainly code refacotring/refining.
+"
+"0fa7ffae7e9be668d1543954155a5b85132bb2ae","2012-07-18 11:49:31+09:00","Code refactoring/refining.
+
+Using if-else/instanceof combination is reduced and so on...
+"
+"660a816a7321a0ff896db1100c5fb383dd3355f6","2012-07-18 12:21:24+09:00","Rename Scheduledupdater to ScheduledUpdateService.
+"
+"7e75b2a2cae73c31ecee75af90655ad5238f7af6","2012-07-18 12:34:37+09:00","Small & Continuous code refining
+"
+"f483506ba3a98dfea5c7e102f08728ea83ca0561","2012-07-18 14:21:21+09:00","Oops missing changes of renaming to ScheduledUpdateService.
+"
+"dc54b17c493ade78d1bca8d03b4168886559c60c","2012-07-19 19:07:52+09:00","Major refactoring to design notification and NotiManager is implemented
+
+Issues
+------
+Too many changed in one commit.
+Why?
+Trying to coding -> Some improvement points are found -> Improving those before
+forgetting about those -> continuing coding -> ... repeatedly...
+I think this is big disadvantage point of one-man-project... T.T
+
+Big refactoring
+---------------
+Several classes and variable names are changed.
+- Name like 'OnEvent' is not used anymore.
+- Name 'Listener', 'Worker' and so on is used
+- DBPolicy and RTTask have more listeners to notify it's internal events.
+(This is to support notification manager.)
+
+Feature Implementation
+----------------------
+Notifications for 'update', 'download' and 'new feed' are implemented.
+(NotiManager is newly introduced to support this feature.)
+"
+"14519fbb10495fdfb7eae650e0df4af69004a6cb","2012-07-19 19:25:57+09:00","v2.3.0
+"
+"6736f7f5115866e342ee7cece1188e28ffe533df","2012-07-20 11:01:41+09:00","BGTask bug fix : onPostExecute has 'USER_CANCELLED' result.
+
+This comes from race-condition of 'bCancelled' and 'result'.
+Canceling thread while 'onPostExeucute' is delayed - continously posting until bg thread is really finished, may lead to this error.
+Thread state is newly introduced and lock is used to handle state.
+"
+"7a2588df4a9c0daad3b5c5a584ac0c11af8bbc86","2012-07-20 11:49:55+09:00","Notification algorithm - checking & intent - is changed
+
+enQ/deQ based notification has bug when task is cancelled before it really starting.
+If it cancelled before starting, notification misunderstanding that one running task is cancelled even if it isn't even started.
+This leads to unexpected state of NotiManager.
+So, now NotiManager check bg task when it is started - before entering readyQ/runQ -  and it is endded.
+
+And, There is some serious issues regaring CONTENT_ACTION.
+I can't find a way to tell wether Feeder is top application or not.
+So, CONTENT_ACTION is disable - commented out
+"
+"4ed564de0dcf96b4bd349aab652ad1d4be697bb6","2012-07-20 15:06:39+09:00","Debugging notification : new feed is not shown again after it is deleted.
+"
+"cee9866ae631c0fa054c44da71a7f4954dcf0e5f","2012-07-20 15:53:34+09:00","Beautify preference screen - categorized setting menus.
+"
+"921a3cee9fa7ed3915c81e8605db5afca68b4ee5","2012-07-20 16:17:41+09:00","AsyncAdapter bug fix: after loading item visible items are changed from before loading.
+
+There was bug on saving - backing up - posTop when building new items array.
+So, issue is shown in following cases.
+- After reloading item, move previous items and then, when loading previous items.
+- Moving to next items continuously - many enough.
+"
+"29f7647d12f5807a7188d676b6164a80f52391c9","2012-07-20 16:26:44+09:00","File header comments for license are added to recently created files.
+"
+"0ea3c7016d16580400380a4787ed732d861b68e3","2012-07-20 16:53:10+09:00","Bug fix : even if item downloading fails, success icon - disk icon - is showing.
+"
+"68544ff76e46f734c3f0798cd2deb7eb4ada6b8d","2012-07-20 16:58:17+09:00","Korean App. Name is changed to Korean name. / comment out some logs.
+"
+"bd24f6760d82a7ec4edd39e151892efb66909ea1","2012-07-20 17:00:01+09:00","v2.3.1
+"
+"3607bbd5cf793d1d0475f50e2c348d7f5017cbe8","2012-07-23 08:29:22+09:00","Rescheduling scheduled update whenever starting application.
+
+See comments in the code by using 'diff' of this change for detail reason.
+Here is copy of comments
+-------------------------------------------------------------------------------
+Sometimes released version may have some issues regarding scheduled update.
+Once scheduled update is executed for some reasons, next scheduled update is
+not set either.
+That leads to scheduled update never happens until there are some changes at
+channel (adding new one or deleting existing one) even if issues are already
+fixed.
+To avoid this case, reschedule whenever starting application.
+This may lead to some delay for starting application(but not much) and no
+harmful.
+"
+"a400a65cfc597140b2f4d59f7973f4d1f15afb1f","2012-07-23 08:41:45+09:00","Fix mistake introduced at last re-factoring regarding download progress.
+
+Changing paramter of registerEventListener removes overriding feature of
+BGTaskDownloadToFile class.
+And that leads to progress text is not shown for a while when enter the item
+download load list if download speed is slow because download progress is not
+published when task and progress listener is binding.
+"
+"3697ff00d64692bab17433e1ed433fd154244f62","2012-07-23 09:01:50+09:00","Remove meaningless confusing code from RTTask unregister.
+"
+"731c3288bdf200a58914c8a615fb313dd38177ce","2012-07-23 09:02:59+09:00","v2.3.2
+"
+"b84249007950861c45355c1282a769c288d197e4","2012-07-24 09:00:07+09:00","TimeOut is re-introduced to AsyncAdapter. (3 minutes)
+"
+"d5f1516a4e38c746163c721fad5decab198f2429","2012-07-24 09:00:50+09:00","After importing DB, channel list should be re-started to applying categories.
+
+If category table is changed outside ChannelListActivity, activity itself should be restarted to apply changed categories.
+"
+"7123a3bd0e857234fd6e39f287e7cf6bffd7c35c","2012-07-24 09:16:45+09:00","Fix potential race-condition.
+"
+"b87b26120d0b86558f785513ec409706a9027680","2012-07-24 09:17:42+09:00","v2.3.3
+"
+"90389b35dd60e7dd62018ba520775ae1304e9ed3","2012-07-24 10:08:58+09:00","DEBUG : enrich debugging for wired channel
+"
+"54b6462a8288a6772b2b3256e39c03a54b64247b","2012-07-24 10:09:27+09:00","Fix to handle channels that have both valid and empty enclosure url.
+
+Simplify action policy for channel.
+Having itunes name space -> download enclosure
+Youtube -> open enclosure with external
+others -> open link
+"
+"2384e2c20dbdd0c7f4e2a8c22dee20cd2352f226","2012-07-24 10:11:39+09:00","v2.3.4
+"
+"67f586bc23f591f0f869895ad71957a3b7829e88","2012-07-24 12:38:53+09:00","Make action-decision-algorithm be more endurable / fix bug for uncaughted exception.
+"
+"3a8894e54d045f38d12118ee7e3762aa2a136349","2012-07-24 12:39:52+09:00","v2.3.5
+"
+"92308222c390346415e200f4304b28046a107c9e","2012-07-24 14:11:47+09:00","Add missing 'onCongurationChanged' at ItemViewActivity.
+"
+"e2908896b80e0b6ad53139fa504c2301cf2a627d","2012-07-25 11:33:55+09:00","Big change of algorithm to determine action for feed-item.
+
+FACT_TGT_XXX flag and FACT_OP_XXX flag are removed,
+and FACT_TYPE_XXX(FACT_TYPE_DYNAMIC, FACT_TYPE_EMBEDDED_MEDIA) flag is newly introduced.
+"
+"757a8b7ad157f0b69d7c668c4c31853a76436b83","2012-07-25 20:01:00+09:00","Instead of ImageViewEx of ChannelListAdapter, View.set/getTag() is used.
+"
+"d72c3a0865801ff65f6b61c7e25f2f5a94e8a7fa","2012-07-26 08:07:30+09:00","Fix minSDK version and v2.3.6
+"
+"0e0f88b8bb08e36ae1aafb725a8b1e24f9a4347c","2012-08-30 14:03:19+09:00","Set to network connection timeout from 1000 to 5000.
+
+Connecting network fails too often in unstable network condition with 1000 timeout.
+"
+"b24b8df697fd22e1d00a6be9d14d228324171b1a","2012-08-30 18:15:12+09:00","Back to using Android's DateUtils to parse date string.
+
+Using 'org.apache.commons.lang.time.Dateutils.parseDateStrictly' doens't parse some easy date string...
+"
+"794d1235b456aacbe26ca29e43c0520cdef141fa","2012-10-23 17:34:45+09:00","New preference is added : New message notification.
+
+Some users may feel annoying for almost-always-showing new message notification.
+"
+"a0ea614c7950fa9f533482e9619f7d09623696e1","2012-10-24 09:26:58+09:00","commons-lang is not needed to be imported...
+"
+"3b76a09000f9f2cdc63c9f5edd21014b1473cbae","2012-10-26 17:49:39+09:00","Clicking notification resumes FeedHive applciation.
+"
+"05785b660fce0d151d9942f05cce3968ac637182","2012-10-30 09:52:47+09:00","assertion that causes most error-reports is removed.
+
+But, still I'm not sure that is root cause... because of lack of information...
+"
+"aad989ccbe7c78f4af27311f3cead9f08e975f1f","2012-10-30 12:10:28+09:00","Bug fix : even if file is downloaded, item list doens't reflect the result.
+
+reproducing step:
+- start downloading media files by touching podcast item.
+- make active enter paused state by pressing 'power key'
+- after enough time to wait completing downloading, resume activity by pressing 'power key' again.
+=> Icon is not updated even if download is completed and available.
+"
+"6d69022f015d33622bf4867f5645a5af0e3d398f","2012-10-30 13:45:49+09:00","Misc code refining...
+"
+"661e0bfc55dc7de3267c75515bb105528f83ad9e","2012-10-30 13:49:21+09:00","Predefined channed DB is updated.
+
+- some channels are newly added
+"
+"0c5e72e9fa9c2e7375d5d2fedaac25983b6393f6","2012-10-30 13:51:54+09:00","prepare for release...
+"
+"eff52c9885471720fb3514c0d4939ada48f5300d","2012-10-30 14:10:24+09:00","To debug futher assertion is added instead of return invalid value..
+"
+"94f608ea31f0d831f56b10f5a7cf88ae564331ed","2012-11-29 14:19:52+09:00","Refactoring : change member variable names according to convention - mXxxx
+"
+"9bef3223dc549e518d541de773f3b24abe15d078","2012-11-29 15:08:06+09:00","Refactoring : DiagAsyncTask(from NetMBuddy) is used instead of SpinAsyncTask.
+"
+"6520a044337d78113e311ba911114d1e5c5b87d3","2012-11-30 14:35:38+09:00","Big Refactoring : Complex BGTask by using ThreadEx.
+"
+"032c7a4935eb1948d0d3e128d241e9ee946bd376","2012-12-03 16:30:47+09:00","VERY BIG Refactoring to use ViewPager instead of ViewFlipper...
+
+Functionality looks fine but, there are still lots of things to improve for better UI - especially, spin-dialog when loading next page for caching.
+"
+"f03ad2bde2798004ef58aabff9909c4d64ba29ee","2012-12-04 14:15:11+09:00","instead of loading dialog, on-view-spin for loading is used at channel list and item list.
+
+NOT HEAVILY TESTED YET.
+"
+"f03615785259ee184cc5e3860d8bde3b97fd34ee","2012-12-07 08:30:31+09:00","Refactoring logging design.
+"
+"5f64ee5a41e8e0f3d0280f294ee30c699c3c50e9","2012-12-07 08:33:47+09:00","TEST/DBG : commit to monitor bug (rarely, category tab / playlist mismatches).
+"
+"72cc235ef4f7b4c51fa4913399b842b9cc686fb1","2012-12-07 16:50:41+09:00","Improve method using view pager... (stablize...)
+"
+"27fbfa1b7068929dc9723d83943e837893a16abd","2012-12-08 16:00:00+09:00","Fix BUG :  when process is restarted, fragment is NOT in valid state.
+"
+"ddb5b5ff798c8217277a64bf8ac9630fa9630682","2012-12-08 16:20:19+09:00","improve PagerAdapterEx for save/restore instance state.
+"
+"857973f15caa317d69582ff5f05be646e260cc4c","2012-12-08 16:25:27+09:00","Simple refactoring for logging - changed to 'file based logging'.
+"
+"327ddc499047d31b0762a82a5ac779177f1b44a9","2012-12-08 16:28:00+09:00","Codes are added for future use and to increase readability.
+"
+"df89f4c0b154486ac435d9ddf84e7d957608f3c8","2012-12-08 17:43:56+09:00","Missing header comments are added.
+"
+"526f6a139e7c0e9fa9c147a905222402521d0290","2012-12-10 10:00:11+09:00","Update some predefined channels and prepare for release...
+"
+"0c39084054ce9b63d1445f252f3d3fee4793e5f0","2012-12-10 11:27:05+09:00","Fix : sometimes onPost/onCancel is not called... at ThreadEx....
+"
+"8998f883365e6d1141ee8295cd51bfc8ecb9faf2","2012-12-18 10:15:07+09:00","code refining..
+"
+"096b47683e159f0a2d0fee9768b13d80ad0ae184","2012-12-20 12:19:35+09:00","Fix : sometimes recycled bitmap is used and exception is issued.
+
+Solution is not tested because it is very rarely reproduced.
+"
+"93aaa05d5f60ae7297f7f56f7a6b152b2a3ed0c0","2012-12-26 08:19:24+09:00","Intermediate commit for app widget...
+"
+"316d1ed4207596d9f0593ef86cf3402539b3b97c","2012-12-26 08:20:21+09:00","Prepare for release..
+"
+"0c65abbf703b427bd47bfcd108eba4d4e04c57bf","2012-12-26 08:25:23+09:00","Temporal change for app widget is removed for next release.
+"
+"96b57389d01f60481fa57e5e4d089061fda30f39","2012-12-26 16:20:40+09:00","Intermediate commit (under implementation - even failed to compile...)
+"
+"f9c590bc9305d43d31bd851490d0f9532d9960ed","2012-12-26 16:23:45+09:00","Fix force close error : reproducing very rarely...
+
+The reason looks that posted runnable is executed at bad timing (ex. task is cancelled or done or something else...)
+To avoid this, start animation without 'posting'.
+This doesn't make any problem at ICS or later. But due to Android's bug, this doesn't work at HC or below.
+But, it's ok.
+Target platform of FeedHive is ICS or later.
+
+[ Function stack ]
+java.lang.ClassCastException: android.graphics.drawable.BitmapDrawable cannot be cast to android.graphics.drawable.AnimationDrawable
+at free.yhc.feeder.ItemListAdapter$2.run(ItemListAdapter.java:396)
+at android.os.Handler.handleCallback(Handler.java:605)
+at android.os.Handler.dispatchMessage(Handler.java:92)
+at android.os.Looper.loop(Looper.java:137)
+at android.app.ActivityThread.main(ActivityThread.java:4451)
+at java.lang.reflect.Method.invokeNative(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:511)
+at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:787)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:554)
+at dalvik.system.NativeStart.main(Native Method)
+"
+"511ce0e5e15ca7cd787574fd2e310b7d7253670e","2013-01-10 16:18:36+09:00","Under implementation... creating widget and remoteviews with listview...
+"
+"1797e806b17223258f60f017922c70d1094e500c","2013-01-10 16:55:51+09:00","Supporting multiple app widgets...
+"
+"2c7492e66120543e277d6f72a525072d890d1a05","2013-01-10 16:57:26+09:00","Merge branch 'appwidget'
+
+Conflicts:
+AndroidManifest.xml
+"
+"6d6c6227ce6c801edabfe92082b6118644bc950a","2013-01-11 16:27:06+09:00","AppWidget improved - still under implementation.
+"
+"6a4544821d4c25b0c1080cc5e236626086fe7409","2013-01-18 14:59:30+09:00","App widget implementation - beta...
+
+It looks like 'working well'.
+Hard/Stress test + improving 'look and feel' are required.
+"
+"1f59a67cb793bab9d839f2ea1ddae7f9c8781099","2013-01-18 15:01:31+09:00","Oops... reverting temporal change for testing....
+"
+"c8723a3a1c5cdc2a550464b86798b5bac18fd69e","2013-01-18 22:44:07+09:00","Fix Bug : Deleting category tab in the middle leads to unexpected result!!
+
+PagerAdapter's mechanism doens't work as expected...
+See changes of this commit for details...
+"
+"973c8005e67075ca3aab4a65c6549f11c659a26f","2013-01-19 12:43:01+09:00","Fix BUG : Deleting channel and some of DB operations.
+"
+"3b7b6c8080c8b9a6bf5fc3b7e9e97f11cb1eec70","2013-01-19 13:00:56+09:00","Fix CRITICAL mistake from refactoring..
+
+Importing DB and some DB operation doesn't work!!!
+"
+"706d308545d61512a6f823f48fabe903fd01d6a6","2013-01-21 13:24:49+09:00","Fix bug : FC - clicking app widget item when App. isn't running.
+"
+"67485a74ba7806790f252f81f3c456789194f471","2013-01-21 16:06:17+09:00","Prepare for release...
+"
+"7cbd7a723a935ac93036b66d933839aba57dd0b8","2013-01-21 16:24:51+09:00","Fix bug : Adding more than app widgets of same category doesn't work!
+"
+"1580e3a2c65847aca1fac00f8787d259383db755","2013-01-22 17:12:23+09:00","Fix Bug : App Widgets doesn't update after scheduled update is done.
+
+Cause: There were no connection between app widgets and App.
+Usually, scheduled update is run when App is killed.
+So, even if update is run, there is no connection to app widget.
+Therefore, app widgets doens't update.
+Solution: Whenever App. is started, make connection between App. widgets and ViewsFactories to listen DB state.
+"
+"488a7d0d27b54a6590325e16a50098f7e570c0ef","2013-01-22 17:17:57+09:00","Prepare for release...
+"
+"a37ab9eb3a35e8983633e6cdb0426648f5a966a4","2013-01-29 11:58:53+09:00","Update license comments : from '2012' to '2012, 2013'
+"
+"319ea5980b6d2ff6dd261dfca433e65e42a01833","2013-01-31 14:39:49+09:00","Predefined channels are updated.
+"
+"2643c903654cd2ddc8505dd6667ea05e79873153","2013-01-31 14:41:04+09:00","Prepare for release.
+"
+"90affbd817a900ddd91d58c1cf3035f555de872c","2013-01-31 16:09:04+09:00","License menu is newly added.
+"
+"572f20d37a969519632071414089931c8fcaabb5","2013-02-06 17:07:07+09:00","Fix(Not verified) : Race condition error on App widget cursor
+
+Error messages
+--------------
+[ ScheduledUpdateService ]
+
+java.lang.IllegalStateException: attempt to re-open an already-closed object: android.database.CursorWindow (mStartPos = 0)
+at android.database.sqlite.SQLiteClosable.acquireReference(SQLiteClosable.java:33)
+at android.database.CursorWindow.getLong(CursorWindow.java:557)
+at android.database.AbstractWindowedCursor.getLong(AbstractWindowedCursor.java:75)
+at free.yhc.feeder.appwidget.ViewsFactory.getItemId(ViewsFactory.java:301)
+at android.widget.RemoteViewsService$RemoteViewsFactoryAdapter.getItemId(RemoteViewsService.java:197)
+at com.android.internal.widget.IRemoteViewsFactory$Stub.onTransact(IRemoteViewsFactory.java:123)
+at android.os.Binder.execTransact(Binder.java:354)
+at dalvik.system.NativeStart.run(Native Method)
+"
+"b9d9d6c23f47b779bb61b7d753b98ceeec232911","2013-02-06 19:00:36+09:00","Workaournd FC when add non-English URL as feed channel.
+
+Workaround NullPointerException thrown by URLConnection.getInputStream().
+"
+"2304485820e6dbdb3d480c6d7a01e2e8175765b8","2013-02-06 19:02:25+09:00","Fix bug : Even if updating is fails, there is no user feedback
+
+Root-cause of this bug is careless refactoring.
+When refactoring BGTask things, codes for storing error of background job, are missing...
+"
+"edaed6f32d49e664a26d57770c89cdcf5ad33bc0","2013-02-06 21:08:24+09:00","Fix bug : Sometimes App widget shows 'donwloaded file' icons...
+
+Oops... integration fix mistake....
+"
+"f484f59b2dfee0281a5bb7205a195748072fe3f6","2013-02-07 13:30:30+09:00","Fix bug : Some modules doesn't removed from 'TracedModule' list.
+
+UnexpectedExceptionHandler keeps reference of TrackedModules.
+So, unregistering module at 'finalize' is never executed!!
+"
+"d3e2b7e8b080522d6d84c1b5076b0a38163e0b98","2013-02-14 10:01:06+09:00","Fix FC : race condition issue...
+
+Symbol name is changed accordingly. ('Post' menas 'called AFTER update')
+
+Call stack
+----------
+java.util.ConcurrentModificationException
+at java.util.LinkedList$LinkIterator.next(LinkedList.java:124)
+at free.yhc.feeder.db.DB.notifyUpdate(DB.java:439)
+at free.yhc.feeder.db.DB.notifyUpdate(DB.java:447)
+at free.yhc.feeder.db.DB.updateChannel(DB.java:656)
+at free.yhc.feeder.db.DB.updateChannel(DB.java:677)
+at free.yhc.feeder.db.DBPolicy.updateChannel(DBPolicy.java:894)
+at free.yhc.feeder.model.NetLoader.update(NetLoader.java:406)
+at free.yhc.feeder.model.NetLoader.updateLoad(NetLoader.java:419)
+at free.yhc.feeder.model.BGTaskUpdateChannel.doBgTask(BGTaskUpdateChannel.java:55)
+at free.yhc.feeder.model.BGTaskUpdateChannel.doBgTask(BGTaskUpdateChannel.java:1)
+at free.yhc.feeder.model.BGTask.doAsyncTask(BGTask.java:124)
+at free.yhc.feeder.model.BGTask.doAsyncTask(BGTask.java:1)
+at free.yhc.feeder.model.ThreadEx.bgRun(ThreadEx.java:114)
+at free.yhc.feeder.model.ThreadEx.access$1(ThreadEx.java:107)
+at free.yhc.feeder.model.ThreadEx$3.run(ThreadEx.java:167)
+"
+"c7dca4def25220ba3e5197b1d61ae0bfcfa48c7e","2013-02-14 11:10:15+09:00","Fix potential bug : To handle exiting in the middle of function unexpectedly.
+
+Especially for runtime exception or other throwables of background task.
+"
+"e378f05c55f384b3ebb852b7c013c259e1401167","2013-02-22 15:29:39+09:00","Not tested enough : fix downloading notification is NOT disappeared when canceling downloading..
+
+ThreadEx is re-factored but not tested enough!!
+Test and check this commit enough before release!!!!
+"
+"dfc252974425cbd25e687fa89f05b01911251a1e","2013-02-22 15:45:25+09:00","Fix bug : even if max nr bgtask is set to 2, only 1 concurrent bg task is running.
+"
+"f3f0ef132f74d2c92b255ddf618210206188e993","2013-02-24 08:03:37+09:00","Fix FC : sometimes eAssert issued when deleting app widget.
+"
+"f8801b5fee9b352547c82be4e2bab7f62655ab60","2013-02-24 09:48:55+09:00","Some predefined channels are newly added.
+"
+"d125c68798cbbbc57f19cb1ca30f4cd3a6e23d30","2013-02-24 11:14:04+09:00","Fix DB watcher algorithm and related codes...
+
+Deleting channel doesn't mean 'channel is updated.' because channel id is already gone(deleted).
+Therefore this SHOULD be just 'channel table is changed!'.
+"
+"7c1941e734d6f792eb798a9a12df78b716de89e7","2013-02-24 11:34:21+09:00","Fix FC : try to action to already-deleted-item, at app widget.
+
+See diff of code for details and reproducing step.
+"
+"947b9e337b382aea3540e87e5b36def8cb061089","2013-02-25 09:55:32+09:00","Limitation(100) of App widget's list size, is removed.
+"
+"4eb926d3a2de0493705d6609c43daa5c40d2241f","2013-02-25 09:57:52+09:00","Prepare for release.
+"
+"961fa7c62748ee475d9e9df1a45626443c500b47","2013-05-20 21:45:39+09:00","Fix assert : harmful clean-up codes in finalize are removed.
+"
+"127e55db2c91a0e33ba1cc45a36042e069d62e35","2013-05-21 20:32:30+09:00","Predefined database is updated
+"
+"0a9f2a7684e6e81ecc10c00acfc15faf243a4486","2013-05-21 20:32:49+09:00","Prepare for release..
+"

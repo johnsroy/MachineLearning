@@ -1,0 +1,63 @@
+"commit id","commit date","commit message"
+"9f695eb4edc0e43693ad216707cff2344633d193","2010-11-12 23:41:33+00:00","extract the per-account 'reset visible limits' method
+"
+"a130f56bf4b937d46dce8e6320f2f0f9cd4bfdc1","2010-11-12 23:41:38+00:00","when changing an account's visible limits, try to reset folder visible
+limits as soon as we save the setting
+"
+"af5f78928c42dd897c8e566dbcdcd502514f922f","2010-11-12 23:41:43+00:00","Add a 'fetch all messages' visible limit
+"
+"0f4366aa77b5a6a8f783e90660f82298a37f468f","2010-11-13 01:46:31+00:00","in the account list, when trying to check mail, also try to send mail
+"
+"f874f0f9d38f9dff1d349ff9dec943a5a04d944c","2010-11-13 01:46:36+00:00","replace a single-use single-line private method with its body in the one place it was used
+"
+"24b018a8126a3350bb4b514a208109d10d15dba7","2010-11-13 01:46:41+00:00","replace a trivial one-line method that was called twice with its body
+"
+"ecf793ea26fdefb583d5b3cd3b7df01a5b3540b6","2010-11-13 01:46:46+00:00","remove an unused constant
+"
+"4fb338d8a96ae7921a98033d705547c985bcddc9","2010-11-13 01:46:55+00:00","Disable 'don't send messages in the outbox if they're flagged' - users
+really don't like their mail just getting stuck
+"
+"e964c7ba849f1824428ab42ef9b93a7aa9d8cc90","2010-11-13 01:46:59+00:00","Tell the user about a failed delivery the first (any) time it fails
+"
+"a551dc8dffcd8cb9ae1deeec6a3255c345954d45","2010-11-13 01:47:02+00:00","Replace the old 'record a message in K9 Errors and give up'
+failed-message scheme with an actual android notification that opens the
+outbox
+"
+"a8de2d000078c9ee7219c5a17c36a77707f6e95f","2010-11-13 01:47:08+00:00","astyle
+"
+"27d3e6312bb4a176542aa06816e848af7cef823e","2010-11-13 03:09:23+00:00","Refactor FolderInfoHolder to remove copy-paste code
+"
+"3779237eb8daed11be4d4562c6847014c8812bef","2010-11-13 03:09:27+00:00","remove a special flag in FolderInfoHolder that we only use twice and
+appear to initialize unreliably in favor of some simple checks.
+"
+"76e26607b878d75a9c3c402d0737b19f14635671","2010-11-13 03:09:32+00:00","Added a first pass implementation of being able to resend a message.
+"
+"4449642410082d08373db93c6e0c840a8d35ea12","2010-11-13 16:11:02+00:00","Added current version of the main icon to the repository (K-9_Mail.svg is broken?)
+"
+"14055691a3d59a95eac01d22aa57e4cb640e60bd","2010-11-13 21:40:56+00:00","Merge branch 'mail-on-sd'
+
+* mail-on-sd: (40 commits)
+Added more comments to explain how the locking mecanism works for LocalStore
+Fixed wrong method being called during experimental provider initialization (since provider isn't enabled, that didn't harm)
+Add more comments about how the various StorageProviders work and how they're enabled
+find src/com/fsck/ -name \*.java|xargs astyle --style=ansi --mode=java --indent-switches --indent=spaces=4 --convert-tabs
+French localization for storage related settings
+Remove unused SD card strings (replaced with storage indirection)
+Merge mail-on-sd branch from trunk
+Reset mail service on storage mount (even if no account uses the storage, to be improved)
+find src/com/fsck/ -name \*.java|xargs astyle --style=ansi --mode=java --indent-switches --indent=spaces=4 --convert-tabs
+Migraion -> Migration
+move the Storage location preference into preferences rather than the wizard.
+Made LocalStore log less verbose Added @Override compile checks
+Added ACTION_SHUTDOWN broadcast receiver to properly initiate shutdown sequence (not yet implemented) and cancel any scheduled Intent
+Be more consistent about which SQLiteDatabase variable is used (from instance variable to argument variable) to make code more refactoring-friendly (class is already big, code extraction should be easier if not referencing the instance variable).
+Added transaction timing logging
+Factorised storage lock/transaction handling code for regular operations.
+Use DB transactions to batch modifications (makes code more robust / could improve performances)
+Merge mail-on-sd branch from trunk
+Update issue 888 Added DB close on unmount / DB open on mount
+Update issue 888 Back to account list when underlying storage not available/unmounting in MessageView / MessageList
+...
+"
+"f56afdbf93257342be261dc70885806b5a1decfc","2010-11-13 21:42:55+00:00","Bumped manifest to ${version.name}
+"

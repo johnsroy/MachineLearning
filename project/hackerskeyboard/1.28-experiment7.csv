@@ -1,0 +1,263 @@
+"commit id","commit date","commit message"
+"dcfedce3110cee8b55818bef8cad5c7b8c8ea5e0","2011-12-21 10:05:39-08:00","Show additional hint for first alternate char on keys
+
+This should help people find characters such as '|' or '@' on keymaps where
+they are only accessible via long-press. It'll also be useful for the planned
+AltGr key feature where this would be the character it generates.
+"
+"af6a30d2e65fe7f410f2f1887cbf3d91004ddc20","2011-12-21 10:12:27-08:00","Disable swipe disambiguation setting
+
+I'm unsure what this is supposed to do, but it appears that swipe gestures
+aren't really in use in the keyboard. May reactivate it later if adding gesture
+support.
+"
+"a39dfde5a6edeceaf6061a56a77caf1d069fbf99","2011-12-21 10:14:45-08:00","Reactivate the hidden theme support, add transparent layout
+
+The AOSP version contains theming support, but this wasn't accessible due to
+not having a user-settable preference. Reactivate it.
+"
+"412718173588d2bc4dba83321207c44ea606e795","2011-12-21 10:25:18-08:00","Revive the slide-up extension keyboard from AOSP
+
+The AOSP release contained support for showing additional key rows when sliding
+up on the keyboard, providing digits and punctuation in the 4-row portrait
+mode. This was apparently disabled and replaced with long-press alternates, but
+I think it's useful and quicker than long-pressing. Re-enabling the code. At
+this point it interferes with long-press popups to some extent, working on
+fixing that separately.
+
+This also adds a layout for a single extension row in 5-row mode.
+
+I reverted the following git changelist as the starting point:
+
+http://code.google.com/p/hackerskeyboard/source/detail?r=91606433019c0b0b2a49a4a7c85379a235d685ad#
+
+commit d2a431efa726771dee5c7b90004a0ed670d9a129
+Author: Tadashi G. Takaoka <takaoka@google.com>
+Date:   Mon Aug 30 21:09:44 2010 +0900
+
+Remove extension keyboard
+
+Bug: 2959287
+Change-Id: I344ac58b4119e96daf5928c784275ee0b7095958
+"
+"64ab0a2b61bd23d14c5f31d2992b384d05c12c2b","2011-12-21 10:27:45-08:00","Fix 'pointerIndex out of range' for extension keyboard
+
+Touching the main keyboard with a second finger while the extension keyboard is
+visible crashed the keyboard due to pointer index confusion.
+
+Thanks to my 5-month-old daughter for finding this bug for me :-)
+"
+"31938c8f0ba6f26998ebef3b765d09e9d8227e64","2011-12-21 10:32:19-08:00","Introduce global shared variables for current keyboard settings.
+
+Yes, globals are evil. But the persisted shared preferences are global data
+by definition, and trying to hide this by propagating the current manually
+just adds a lot of complication. This is especially annoying due to Views
+getting constructed in a way that doesn't support adding additional
+constructor arguments, requiring post-construction method calls, which is
+error-prone and fragile.
+
+This CL adds a GlobalKeyboardSettings class with public member fields,
+accessible as LatinIME.sKeyboardSettings from other classes. Comments in the
+file explain who is responsible for writing them, and who is reading them.
+"
+"92ac50da6b67cdd6b9cc7ea6ef893a2f162e461b","2011-12-21 10:35:41-08:00","Remove unused code for conditional settings key support
+
+The AOSP code contains logic to conditionally hide the settings key when
+LatinIME is the only enabled input method. This was reasonable for its use as
+the default system IME, but the condition is always false for Hacker's Keyboard
+since it's an add-on IME, and the system one can't be disabled.
+
+In addition to simplifying things, this also avoids the extremely frequent
+re-reading of the preferences XML file and system service lookups it was doing
+while checking if the number of IMEs has changed.
+"
+"70b7ae15dcf2d5c5471ccb2782d2cf9d0d9056b7","2011-12-21 10:38:14-08:00","Memoize the key hint strings
+
+Add a 'hint' field to the Keyboard.Key object which stores the hint label once
+it's been calculated. This avoids redundant recalculation and string garbage
+whenever redrawing the keys.
+"
+"0b3fc1d9167bf856c8bfdb71cc5c5c690ebac442","2011-12-21 10:39:46-08:00","Fix dictionary related log messages
+
+The messages logged by the dictionary handler were a bit confusing, clarify if
+it's only scanning for dictionaries, or if it's actually loading the dictionary
+data in memory.
+"
+"bcabf931f7f89e5a527c7266fa0acbdb9d02c465","2011-12-21 10:41:49-08:00","Memoize the alt hint label too, and refactor
+
+Use the same memoizing logic for the alt hint labels as used for the main hint
+labels.
+"
+"6120a4700adffa00e61aac6c9bfcb0ca944bd73c","2011-12-21 10:47:27-08:00","Stop using backing bitmaps for the keyboards
+
+I'm not convinced that using backing bitmaps is much of a performance gain for
+redraws, since normally there shouldn't be things drawn on top of the keyboard.
+Most of the changes to the keyboard view are actually done by modifying the
+bitmap and repainting it.
+
+This changes the onDraw logic to re-draw the keys directly on the supplied
+Canvas. Hopefully this will help reduce the keyboard's rather excessive memory
+consumption (cf. issue 64), the bitmaps are >1MB on a tablet or high-res phone
+and get reallocated fairly frequently.
+
+Need to watch out for performance regressions on odd platforms, though apparently the
+Canvas supplied by the default View onDraw logic internally uses yet another backing
+bitmap so this should not make a big difference. TODO: add option to get rid of that
+bitmap as well.
+"
+"ff9c776b711866375798304a634e83ca1ad06d81","2011-12-21 10:52:23-08:00","Avoid creating unused layouts for preview and popup
+
+The keyboard view was a bit overenthusiastic in creating layouts for keys that
+didn't actually need them. Add a special @layout/null_layout resource which
+isn't actually instantiated, it's used as a hint for the code that no layout is
+needed.
+"
+"2f7ec0da7dea14bd2ac515b6c55202c0b1cd9b66","2011-12-21 10:58:25-08:00","Add option to treat swipes as individual keys, plus touch position debug option
+
+See issue 53 'Keyboard drops characters if I type too fast' for more details.
+Apparently some devices treat rapid touches of adjacent keys as a sliding
+movement, and report them as a single move event instead of as distinct
+touches.
+
+Enabling the new 'Sliding key events' option activates a mode where sliding
+across multiple keys will generate key up/down events for each key touched.
+
+Also adds a debug option to draw touch positions and drags onscreen to help
+understand if reported misbehavior is due to the keyboard logic or due to the
+received touch events being unexpected. This uses existing AOSP debug code that
+was compile-time conditional.
+
+TODO: add option to send key events for the first and last key touched only,
+not intermediate ones?
+"
+"84dea9b2c6a41d787a87e841fbb5551e2a31cef0","2011-12-21 11:01:25-08:00","Add a config option to select long-press duration
+
+Some people are annoyed by long-press popups appearing unexpectedly and would
+like to make them not appear as easily, while others use them frequently and
+would prefer them to be accessible more quickly. Ad a 'Long-press duration'
+setting to let people pick their poison.
+
+(This change was what had motivated me to add the global settings object, since
+the effort needed to track the stored preference was totally out of whack
+compared to the trivial change needed for the configurability itself.)
+"
+"dbce08b7d3c956a1f765a65781ace5139a7d7d15","2011-12-21 11:07:47-08:00","Refactor the theming system
+
+The theming support was a huge headache for maintenance even while I wasn't
+having it active. Themes with light-colored keys don't work well with the
+light-colored symbol icons (such as shift, tab, enter, backspace). The
+unfortunate solution chosen had been to duplicate all the keyboard XML
+definitions with separate '_black' versions that had the exact same layout and
+mapping, and only differed by selecting an alternate dark-colored icon.
+
+Adding insult to injury, the dark icon set isn't very usable since the icons
+are rather blurry, presumably these weren't updated since the theming support
+wasn't active in the released Gingerbread keyboard.
+
+This change removes color awareness from KeyboardSwitcher, and mostly from
+LatinKeyboard, as preparation for getting rid of the duplicated XML files and
+icons entirely.
+"
+"3dbcf72438745c753c0a7d8557c96976736b555b","2011-12-21 11:09:17-08:00","Remove the now-unneeded _black keyboard XML files
+"
+"cd075b0382a7016360d4fa36449ac37587b76e48","2011-12-21 11:10:05-08:00","Add an experimental transparent theme to help test the theming system
+"
+"dd069dc34a65cfb13eee68c64c6c82fa0e067b55","2011-12-21 11:13:23-08:00","New theming logic for recoloring symbols
+
+Add a 'recolorSymbols' flag for themes. If it's active, use runtime filtering
+to re-draw the existing white icons in a different color on the fly.
+
+Also adds a 'backgroundAlpha' property for use with the experimental transparent keyboard.
+
+In both cases, make sure that the new (and slower) rendering path is only used
+for themes that need it, to help avoid performance regressions on slower
+hardware.
+"
+"84b1429b2684501d1eadf1acb0dd971d6784f1d4","2011-12-21 11:15:45-08:00","Disable hardware acceleration
+
+It's unclear if this is a net win for the keyboard, since hardware acceleration
+apparently adds additional memory overhead and the keyboard doesn't really need
+the extra speed (if any). It's doubtful if this provided much benefit in the
+earlier version anyway, since apparently drawing to in-memory bitmaps isn't
+accelerated, and modifying the bitmap requires re-uploading it to the GPU.
+
+TODO: add an option to let the user select a rendering method at runtime.
+"
+"e6d64f451c6abadc97671b01aa15cd013284919f","2011-12-21 11:17:20-08:00","Remove unused graphics resources
+
+Finally delete the now-unneeded dark-colored versions of symbols now that the
+on-the-fly recoloring logic works.
+"
+"d16db232a899722c460665f732a40c25fb726cd4","2011-12-21 11:19:32-08:00","Import key images from Ice Cream Sandwich AOSP LatinIME
+
+Source data: packages/inputmethods/LatinIME/res/drawables*
+
+Also add a new 'ICS' theme that uses these icons. This is a bit half-baked
+since it doesn't include other aspects of the original ICS theme, but I think
+it's still an improvement.
+"
+"f4a28db27bb00f59f7c398c04535bf6b14538f37","2011-12-21 11:21:20-08:00","Remove the 'basic' themes and resources
+
+The 'basic' themes IMHO don't look as nice as the newer themes, save some space
+by deleting them and their image resources.
+"
+"4cee7f809597729428b961408fe6ec058434d163","2011-12-21 11:27:05-08:00","Add support for padding space around keys
+
+The themes didn't look very nice on tablets since the keys had a very narrow
+gutter between them. In theory it would be possible to work around this by
+using the existing key gap attributes, but this is a pain since these gaps are
+added to the key size, requiring all the key dimensions to be adjusted in the
+XML file to make the keys fit.
+
+Instead, add new horizontalPad and verticalPad attributes to keys, these shrink
+the key image without changing the overall key geometry as far as the layout
+grid is concerned.
+
+This is configured with new key_horizontal_pad and key_vertical_pad dimensions,
+replacing the existing key_bottom_gap which is now set to zero.
+
+Note that this changes the sizing of portrait mode keyboards a bit, these used
+to be bigger than the configured screen height percentage since the bottom_gap
+size was added on top of the expected size. Users may need to tweak the
+keyboard height percentage setting if they feel it's now too small.
+"
+"ba35a7909f0b70420b5fa2b4806f54e48fca8d38","2011-12-21 11:29:02-08:00","Rename LatinIME.KEYCODE_* to LatinIME.ASCII_*
+
+The LatinIME.KEYCODE_* constants generally used negative ASCII values, and are
+unrelated to the confusingly similarly named KeyEvent.KEYCODE_ constants that
+are also used in the same source files.  Rename them to help keep them
+distinct.
+"
+"a0fabf36cd10f2b716e4e85463d70aa999d5ac68","2011-12-21 11:36:39-08:00","Refactor modifier key handling
+
+The modifier key handling was fairly broken and only really worked right with
+ConnectBot. Other Android applications got key events without the appropriate
+SHIFT, CTRL and META modifiers, I had originally removed those due to issue 24
+(Shift causes next number to be entered as shift+number).
+
+Now that Honeycomb and ICS actually make use of the Ctrl key, for example for
+Ctrl-X/C/V/A shortcuts, need to make sure that the key modifiers get reported
+properly in the generated key events.
+
+The new system now generates appropriate low-level key events when modifier
+keys are active instead of relying on the input method libraries to do so. This
+is based on an ascii-to-keycode map to determine the appropriate base
+character. Don't use the odd special handling for digits that had caused the
+breakage in issue 24.
+
+TODO: watch out for regressions, key event handling is a bit confusing in
+Android, especially in older versions that had odd dependencies on built-in
+hardcoded base keymaps.
+"
+"83e87cbdfb6ef97a2ea4168757609b78bf75c40b","2011-12-21 11:42:19-08:00","Reorganize preferences, add input connection info
+
+The settings menu was a bit of a mess. Originally I had just added my new
+options on the top and left the Gingerbread options in their original order
+below, but this didn't scale well with the rapidly increasing number of new
+options.
+
+Recategorize the options into (hopefully) logical categories, including a new
+'Debugging' section at the bottom. Add a new item there that shows information
+about the current input connection, including the type and flags of the current
+input field.
+"

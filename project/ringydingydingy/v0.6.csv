@@ -1,0 +1,95 @@
+"commit id","commit date","commit message"
+"892e9427f10e26ea8c1910b8da025c7e16d865ff","2012-01-30 15:49:12-05:00","Preparing for version 0.6
+"
+"5b014470eb2c1b02dde892e48a3c734a46814b56","2012-07-25 23:42:17-04:00","Set targetSdkVersion to 16
+"
+"ad28f119b6f234874940278ac7ea0613eac8fbed","2012-07-26 01:16:24-04:00","Added a notification that can be tapped to toggle RDD off and on
+
+Also, some small formatting cleanups landed in this revision as well, though
+they didn't have any functional change.
+"
+"e06dc00ccf58d8278be1206e89b9452e1a9e8f59","2012-07-26 02:13:24-04:00","Added the ability to enable/disable RDD from PreferencesActivity
+"
+"4f7c53bfe7edd01d54139d82b24d93d28f0860ad","2012-07-26 02:28:02-04:00","Tweaked MessageHandler to accept commands without the 'RDD'/'RingyDingyDingy' prefix
+"
+"4ff58c4d2275225e6b36c6f64b92dd840de37b85","2012-07-26 02:40:34-04:00","Cleaned up the manifest and prevented some receivers from being exported
+
+The two receivers that are still exported, GoogleVoiceReceiver and SmsReceiver,
+must be exported, as otherwise the broadcasts are not received by them.
+"
+"bbe8aefba695c4d48fac57a022bca8319a4094bb","2012-07-26 02:52:02-04:00","Changed the title of the notification shown when it is first displayed
+"
+"a0dd1e5f0fb971ee17d710ac8e344c3747414240","2012-07-26 02:58:22-04:00","Suppressed warnings about deprecation where the replacement is not available
+
+Because the target SDK version is Jelly Bean but the minimum SDK version is
+Donut, all APIs deprecated in JB throw warnings, but some of them have no
+alternatives that are available in Donut.
+
+The Notification API used in NotificationHandler is replaced by
+Notification.Builder in Honeycomb, and the Preference API used in
+PreferencesActivity is replaced by PreferenceFragment, also in Honeycomb.
+"
+"7d5bc856a6734d7c17b672973cbd82b2bfb07ea2","2012-07-29 22:29:47-04:00","Added the ability to disable the toggle notification
+"
+"79c16198161ad6b4ca49501bee792cc3516300d3","2012-07-30 01:39:48-04:00","Tweaked SmsReceiver to include the activation code in replies where relevant
+"
+"cc77f41b1a7dbadbcf5731c0c25312725da21f1f","2012-07-30 16:45:01-04:00","Added pager functionality
+
+This also required some tweaks to make RemoteRingActivity more generic, so it
+can support both the page and ring functions so there's no code duplication.
+At some point, RemoteRingActivity should probably be refactored to another name.
+"
+"72e262f3c237909153140b3cb72fe972e2aa719b","2012-07-30 16:55:09-04:00","Renamed emergencyPageIntent to pageIntent
+
+Part way through the pager functionality development, I decided against
+labeling it as an emergency pager, just in case it failed to activate in
+response to a message, the message never got to the device, or something else.
+The pager functionality is a 'best effort' mechanism, and should be treated as
+such.
+"
+"e4b3befeb54adae2086286d505cdfba1215753e3","2012-07-30 16:57:48-04:00","Added spaces after casts to make the code easier to read
+"
+"f4c7e0aca1d792f26e36a95d94bfc2b5e7f08281","2012-07-30 18:07:50-04:00","Added information about the pager to MainActivity
+"
+"c2d81ff80d54f2d70783be0382dce4a422d6a8aa","2012-07-30 18:09:30-04:00","Disabled the pager by default
+"
+"f15c1abb1531e1336c4171d499d0d0374e78f93f","2012-07-30 18:09:43-04:00","Changed the 'Remote control' preference header to 'Remote commands'
+"
+"ddebe24a1c6f8283477aeb05e9f516100cd9a99f","2012-07-30 18:27:22-04:00","Tweaked the toggle notification to keep PreferencesActivity in sync
+"
+"46ad6e1bec6c4ba911b99fd4f8722e5e58b125b0","2012-07-30 18:35:01-04:00","Made PreferencesManager a singleton to conserve memory
+"
+"05498de9ce6aa7972e20fc37c3c3e32b62e2b7d0","2012-07-30 23:03:32-04:00","Added a What's New dialog that will be shown on updates and new installs
+"
+"d3f4a66068410c26e98554a5a9fc38a96202971b","2012-07-30 23:04:26-04:00","Added permissions for an external API and applied them where needed
+"
+"8f8ab85ebd937505b28a325228bb31130918b136","2012-07-31 15:29:28-04:00","Added an error handler for sending SMS messages
+
+This will be used in the future to resend 'urgent' replies that failed to send,
+such as GPS location, etc.
+"
+"f8b673b8875f04c7ddc850714f2c3f890c2269f9","2012-07-31 22:21:35-04:00","Fixed RemoteRingActivity showing an empty dialog
+"
+"b67dad6414e556bee0a0fba1be77df73444bd2ef","2012-07-31 22:24:14-04:00","Added an API for the lock and stop commands as well as reworked return codes
+
+The new API return code bits are not yet finished, and will be added in the next
+revision.
+"
+"32f60c56ea60f98244c85e33ce6735a83c0a2fc1","2012-07-31 22:53:01-04:00","Ported all remaining commands (except help) to ApiHandler
+"
+"6271743b0a2bd55a6f4f6208db441b23b11a2fae","2012-07-31 22:59:54-04:00","Refactored the page command to use the same action as ring
+
+The difference between the page and ring commands now is the presence of the
+message String extra. If it is present, it is treated as a page. If it is not,
+it is treated as a ring.
+"
+"a435d9d406ae02a5a642435d9edd996ad71ab311","2012-07-31 23:02:57-04:00","Fixed SmsReceiver dropping messages when it should not and vice versa
+"
+"46f9a6c9ed5d5f5c5bb45345ac1bcfb0f70ad828","2012-07-31 23:09:54-04:00","Added messages for the integrated page command
+"
+"c75129d0f730780f12c6433cbc886fe268ea1661","2012-07-31 23:30:33-04:00","Changed the versionCode to something that correlates with versionName
+"
+"51a7622561e04b7f5abacdbdd497ea533a3f882a","2012-07-31 23:34:31-04:00","Made both activation codes case insensitive
+"
+"6807961ce260dd7433e94247100e7bbb3eea0efa","2012-07-31 23:39:56-04:00","Version 0.6
+"

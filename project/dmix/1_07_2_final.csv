@@ -1,0 +1,101 @@
+"commit id","commit date","commit message"
+"35c63c62f0fda5bfb9396700a59ed7e8859d79c8","2014-12-05 00:28:35+01:00","We can now log exceptions with crashlytics
+"
+"21f14b92f8a042f48431758cf525dad0b07895f5","2014-12-01 18:54:05-08:00","NowPlayingFragment: When showing kHz, show a slight more accurate.
+"
+"9b8cc0d75fad1aee3818f86bf2d3902aa42fd60a","2014-12-01 18:52:45-08:00","NowPlayingFragment: Update AudioNameText only after status & track changes.
+"
+"a08273ec579e0a23baaa95ea41caadb446051221","2014-12-03 17:13:10-08:00","dmix: Update AS gradle plugin.
+"
+"cc2d0e8698b9449b1cadd76542e9499995cbaebd","2014-12-06 00:40:33+01:00","Remove the google play death warning, but keep the variable
+"
+"6093d78621691401ca2b4bfe85b09843c265db61","2014-12-05 17:43:11-08:00","MPDApplication: Use a synchronized collection for connection locks.
+"
+"5492bbc8427f131095ed4595cdbc8942a6a850a4","2014-12-06 06:57:23-08:00","CachedMPD: Don't try to get details for an empty album list.
+"
+"d4816d772b99b6b933c98616b8e2fed6cc78a742","2014-12-06 08:01:16-08:00","MPD: Fix album list with either empty list or invalid list response.
+
+We've been getting automated crash reports where the album key is not included
+in a list response line, this is probably due to an empty list or possibly an
+invalid server response line. During repair, I noticed we're doing a lot of
+unnecessary work with regard to album listing, so this patch fixes that at the
+same time.
+"
+"534801eb1dbf13ab5899fbacb833ba3a885422bc","2014-12-06 08:26:08-08:00","MusicList: If songPos was not included in the plchanges, reload the playlist.
+
+We've received a crash report showing that upon playlist changes response that
+a songPos was not received with an entry. This is a protocol error. This patch
+works around that behaviour for if it ever happens we'll simply reload the
+entire playlist.
+"
+"5f7150989c2edd9ab45b094e923abb400fe1db2a","2014-12-07 14:36:36+01:00","Remove the useless bonjour activity
+"
+"f1edbe487e78216b2c7bbcdaa3fedd3569967518","2014-12-07 14:54:16+01:00","Remove ListActivity. Not supported by support v7
+"
+"4804acb05a82d0d5fa40ba6950e42cbd4f158686","2014-12-07 14:56:36+01:00","Useless unboxing.
+"
+"961a57f7ef29b5bc0d5d3131a7523de22b93e3d0","2014-12-07 15:23:38+01:00","Support actionbar
+"
+"4b291be4082e25e3c7b7bbddefdfaaafafb1055b","2014-12-07 15:51:08+01:00","Theme fixes
+"
+"5d6ca2b009c8129378691953d579ec1cc4861b23","2014-12-07 15:55:32+01:00","Design fixes. Need to do that for lollipop
+"
+"6e5866e652436701ec5dbb06d8197e0368e39bbf","2014-12-07 16:02:14+01:00","Kind of fix settings. Will do for now.
+"
+"f6c7b75bc50e5084388ae36ab519fa9dfa23d312","2014-12-07 16:05:25+01:00","Fix lollipop builds
+"
+"a08ebc75a24414dd26221120d96629053b67bf5e","2014-12-07 18:27:05+01:00","Variosu theme fixes
+"
+"a7fb9227109459e0fc674b86a4cc5a509b9c3bcf","2014-12-07 18:44:39+01:00","Other theme fixes
+"
+"4bef7a3954f0956c34c75ac0a2fab19f0cd36b0e","2014-12-07 18:51:08+01:00","Fix playlist edition
+"
+"10a6576ade454e5bd4c00ceb058b4bc20f5105de","2014-12-03 17:12:03-08:00","SimpleLibraryActivity: Refactor initialization and better debugging.
+
+This changes the startActivityForResult to return a result so that
+getCallingActivity() will work.
+
+This fixes a bug where if a user had the popup open then another client cleared
+the playlist (or the playlist cleared due to consume), THEN the button was hit
+with a null current song, a crash would occur.
+"
+"38dddff129cc2930e916a3a4ca939eb349752e72","2014-12-07 06:01:53-08:00","Tools: Add debug code for server response crashes.
+"
+"16e5fbab4308f8ee235920dd66edd543d47142de","2014-12-08 17:00:43-08:00","gradle: Update for AS gradle plugin to 1.0.0.
+"
+"74ac43d22d1ddea16dbdf4a383d36d24945a97cd","2014-12-08 07:29:09-08:00","dmix: Code style.
+"
+"cc9bfa39a0c5b8cfdff3aea1347a9d3fbd3e1b81","2014-12-07 14:07:32-08:00","RemoteControlClientHandler: Test patch to attempt to avoid RCC recycle bug.
+
+Yet another attempt to fix the RCC recycle bug. This patch changes the
+behaviour to always completely reset the remote control client when adding
+artwork. This patch might not work, but it certainly couldn't make things
+worse. This will either get improved upon later or reverted.
+"
+"eacfe207d769fd7b596fbcec50e9a6955a4b8765","2014-11-13 18:08:28-08:00","NetworkActivityHandler: Remove.
+
+Remove the NetworkActivityHandler. It was an idea whose time was not ready for
+MPDroid. Some of this code might be resurrected once the core connection code
+is repaired, but for the most part I expect this code to be radically
+different.
+"
+"9233f36e9e9b68633723ae10f2233a3d2e57165e","2014-11-22 14:11:51-08:00","CommandQueue: Make class and more public.
+"
+"e8bf1b6d3684e0d0e9a525f159a2a3bb012107ad","2014-11-04 18:53:42-08:00","CommandQueue: Implement Iterable.
+"
+"c96700562c08784024e5b8b99dd4a3b148bd9185","2014-11-05 10:49:31-08:00","Reflection: Implement reflection subsystem.
+"
+"3e6479f003a5dd6e00b5cc2369779e28ff06e4fd","2014-11-22 13:43:17-08:00","subsystem: Move Sticker class into the subsystem package.
+"
+"c994df4c6588f0b0660d82c9dfa48f2bfb625cee","2014-12-04 20:09:05-08:00","SimpleLibraryActivity: Remove some unnecessary nesting.
+"
+"7f427cb9d37e00fa644f8d67ad3b80dcf380c59f","2014-12-09 22:38:11+01:00","Try to keep people from building closedbits. Ugh
+"
+"00d6bd25e4009ff7bbaa4b26c410a1b9714da86b","2014-12-09 22:46:36+01:00","Get your own key guys.
+"
+"1629e858b61b000f7dd1a571cfaa27123abb59ba","2014-12-09 23:15:45+01:00","Add a new dialog to thank users that saw the google play
+"
+"ba27d2a03ed71587cb0e939397b52e33ae0cbb09","2014-12-09 23:16:12+01:00","1.07.2 Final
+"
+"b3b4182a2248ce063890cfbe8573348c094c8a7e","2014-12-09 23:18:54+01:00","Merge branch 'release/1_07_2_final'
+"

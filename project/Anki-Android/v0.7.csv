@@ -1,0 +1,852 @@
+"commit id","commit date","commit message"
+"39b7a6fb4c457e4488073db0f6073309ffbbe5bb","2011-04-22 10:16:10+09:00","Uncommented logs using uncomment-logs.sh script
+"
+"c5c41dff8fb3927d97666bea01802706dee46ddc","2011-04-22 11:35:07+09:00","Bumped versionCode so that testers can flawlessly install the upcoming alphas
+"
+"72409c7ca6a00a42fe1053880e2851bc47e366e2","2011-04-22 13:50:17+09:00","Added more screen supports, as tipped by Mike Morrison
+"
+"504f9b7b711b7b8a8a2d2a955f133a35677b8a0a","2011-04-22 08:57:14+01:00","Fix computation of speed.
+"
+"404935a34e6f4a6de9abb48bd816e71a2dae8e08","2011-04-22 09:45:36+01:00","Open the right deck when clicking on the widget.
+
+Add the URI of the deck when invoking the StudyOptions activity.
+This means that the right deck will be opens.
+
+This currently only works if the application is not already open.
+We might want to consider changing the logic of the StudyOptions
+activity to always open deck if receiving the VIEW action.
+
+Fixes issue 578: Touching the deck name in the widget should open the
+corresponding deck.
+"
+"5a984b0dc0b7c2504ab8c0a9444ddb28fce29508","2011-04-22 11:30:04+02:00","Merge branch 'dev0.7'
+
+Conflicts:
+res/values-fr/strings.xml
+"
+"2fe261fb3fb37e840f85106f23e1b38c06852e5d","2011-04-22 11:32:57+02:00","Merge branch 'master' of https://github.com/nicolas-raoul/Anki-Android
+
+Conflicts:
+AndroidManifest.xml
+"
+"5e3bc8236b93e22963ad867c1e699312ff75df94","2011-04-22 11:33:26+02:00","Merge branch 'widget' of https://github.com/flerda/Anki-Android
+"
+"ba50a0a0ffbd1d59449b5c19123ee8bd59099db5","2011-04-22 11:44:39+02:00","update localisations after merge of dev0.7
+"
+"a635eeee84bd47686be027e95d1ae2ccc65e3fa2","2011-04-22 12:11:30+02:00","delete empty string
+"
+"e27f01928d8a6c1d2cfc20541c221fdafff7828f","2011-04-22 12:14:57+02:00","remove xlarge-line since eclipse complains about no resource identifier found
+"
+"6f1c6f156c8c17651e8239f909cf4314d494c1c2","2011-04-22 12:19:23+02:00","german localisation
+"
+"d0816289b87efa3eb7c154ce459532dfc8301992","2011-04-22 13:22:10+02:00","remove unnecessary congrats message
+"
+"c2b4479f1555f929716a1a0b0978af2e6e9b2713","2011-04-22 14:35:08+01:00","Make DeckInformation a dumb-data-object.
+
+This is in preparation to persisting this information in the MetaDB.
+"
+"98a8860fc92be8d7e85c072dce8d1e6dd0715267","2011-04-22 14:39:10+01:00","Rename DeckInformation to DeckStatus.
+"
+"5e272240f1aa7a773ac8d3a6dd2790b6294ae721","2011-04-22 14:39:56+01:00","Convert DeckStatus into a top level type.
+"
+"0bd35a1481c745464c08b738a280adba484f2d3b","2011-04-22 14:48:21+01:00","Extract fetching status of the decks.
+
+Creates a new WidgetStatus class and delegate fetching the status of the
+decks to it. For now this is accomplished via static methods, but that
+can be changed later.
+"
+"b19cb0b1c352ca3adeced1caea53b3e97f37cd65","2011-04-22 15:02:12+01:00","Add a method to update the widget to WidgetState.
+
+Also add an action that explicitly represents the intention to update
+the widget.
+
+This will be used to let other points in the app update the widget after
+making changes to the decks.
+"
+"16af4ec36c84ca4655a13a0868ababbd82ef32bb","2011-04-23 00:08:21+09:00","bumped version 0.7alpha1
+"
+"51674e3857592f60e67d8c4bbb0d60a99bbda6e8","2011-04-23 00:08:43+09:00","Merge branch 'master' of git://github.com/nobnago/Anki-Android
+"
+"a919e8402a7e90595f89d2bc87b689ced845bf71","2011-04-23 00:10:10+09:00","Merge branch 'dev0.7' of git://github.com/flerda/Anki-Android
+"
+"c8eb45b0dc8226ed96bdd62ad08470d9846d4248","2011-04-23 00:13:51+09:00","bumped version 0.7alpha2
+"
+"2772fd221ffab0da14bf3c082753c1bc2a727ba1","2011-04-22 17:15:57+01:00","Clean-up of MetaDB.
+"
+"c0f1db66c4352f9bb8f70646ce8880fc274bb20b","2011-04-22 17:18:01+01:00","Fix to closing of MetaDB.
+
+The DB was being closed only if it were not open.
+"
+"41788fbf7bcb23fadf8b6ac5906641d00f73af33","2011-04-22 17:20:14+01:00","Extract a method to open the db if closed.
+"
+"8496136cc107959ab60cb4f39f5c4a118ed5c8f7","2011-04-22 17:23:34+01:00","Use an array of DeckStatus instead of a list.
+"
+"1a50205f2ed57798c5dbfbef4ee57fa0d25677ac","2011-04-22 18:28:03+01:00","Add table for storing the widget status.
+"
+"a6fd7ed63ae85f8ceb7f9bb937b9d57564074aa3","2011-04-22 18:37:32+01:00","Fetch deck status asynchronously.
+
+The deck status is now stored in the MetaDB and computed using an
+AsyncTask (therefore not in the main thread as it used to be).
+
+This AsyncTask is started when an update is necessary and it triggers
+the AnkiDroidWidget.UpdateService when it is done.
+
+The deck status is stored in the MetaDB.
+"
+"29619c467e20b11a387748b6bed9a59835ec2f5c","2011-04-22 18:50:04+01:00","Update the widget when pausing the study options.
+"
+"233d979a3ee6742bbee2105052baefd3bee8b791","2011-04-23 14:33:10+01:00","Add an extra to the MAIN action to specify a deck.
+
+This is to avoid opening the study options activity more than once. For
+it not to open the same activity again but bring the existing one to the
+front, the intents have to match (excluding extras).
+
+This change allows one to specify an extra with the deck filename and
+use it to start the activity with the given deck opened. Currently this
+only works if the activity is not already opened.
+
+In all other cases, the existing study option is brought to the
+foreground instead. This is needed by the widget to prevent it from
+opening a different copy of the study options and then making the
+behavior of the back button inconsistent, i.e., it should not go back to
+a previously opened deck but instead always close the app.
+"
+"f14feb66fe1f1994b330121a44e7c79561318c37","2011-04-23 14:40:42+01:00","Extract the code to create the standard intent.
+
+Since multiple places need to create the intent to start the application
+with a given deck open (the widget and the download manager), extract
+this into a helper method that can be reused.
+"
+"f1b1a49a9073795754c3d14c500849876fe0f542","2011-04-23 14:44:16+01:00","DownloadManagerService intent for opening a deck.
+
+Use the helper method introduced on StudyOptions so that a new copy of
+the study options activity is not opened on top of an existing one.
+"
+"3be71bbdd9fcb544925da77a14f80f3305651c9a","2011-04-23 15:24:07+01:00","Makes StudyOptions a singleTask activity.
+
+This has a number of consequences:
+- Avoids multiple instances of the activity to stack on top of each
+other, possibly with some other activities in between, making the back
+button not work as expected.
+- Allows the activity to handle onNewIntent requests, e.g., from the
+widget or the download manager when requesting a specific deck to be
+opened.
+- Clears any activity on top of the study options when resuming the
+activity: this is good and bad; it is good because it gives a
+consistent behavior (which can be customized in the preferences) when
+opening the application; however, it means that the app is not resumed
+to its current state and any activity on top of the existing study
+options will be closed.
+"
+"ae12846621faa93b4169ff2271e3d905b45fe1c4","2011-04-23 15:36:07+01:00","Merge remote branch 'nicolas/master' into widget-state-db
+
+Conflicts:
+src/com/ichi2/anki/AnkiDroidWidget.java
+src/com/ichi2/anki/MetaDB.java
+"
+"750517534da92ab5f62318102922d6c082df6a32","2011-04-23 16:22:48+01:00","Add deckPath parameter introduced by merge.
+"
+"d5a592cca3c498714885ae4c8be4230f61c6937f","2011-04-23 17:50:33+01:00","Avoid failure when closing the currently open deck.
+
+Currently all decks on the same file share the same database. This
+assumes that there is only one deck for each file. However, the async
+task that handles fetching the details of a deck for the widget
+introduces a second deck open on the same database. Closing the database
+that is used by someone else causes an issue.
+
+The previous solution was to close the database and re-open it after
+scanning all the decks, however, this is no longer sufficient because
+the scan now happens in a background thread and therefore possibly
+concurrently with other operations on the database.
+
+Instead, close the database only if it is not the current deck in the
+application. This is not (yet) 100% bullet proof because it is still
+possible for someone to open the database between the time it is
+compared with the current deck and the time it is actually closed.
+"
+"5eadbcbe446187956c9d8849733d91b5402a4896","2011-04-23 17:57:21+01:00","Fixes some issue with MetaDB.
+
+In merge master I missed changes to these tables to include the
+deckPath.
+"
+"c3cbd9bc322d38064ca351cc4bd74f03420ff68c","2011-04-23 18:54:52+01:00","Add the list of custom fonts to the preferences.
+
+This adds a way to see a list of custom fonts in the preferences. The
+list right now does not do anything, but the idea is that it can be used
+to choose the default font.
+"
+"6af93f76003ef6adcbcc0bbc6f3d45af29e4c05a","2011-04-23 19:11:02+01:00","Add support for setting the default font.
+"
+"7a2bbd81352d03ba9dd5e44394dee684618f1113","2011-04-23 19:17:38+01:00","Do not set default font if empty.
+"
+"8b52446b7de6e29ffc8a726abbeacc8e41a176a2","2011-04-23 19:25:13+01:00","Allow choosing the system default font.
+
+Provide the option to choose the system default as the default font to
+be used to render text.
+
+Also, change the description to match the new meaning of the setting.
+"
+"8c54f62648052c2d7e5a3307f2fc25f86ec26a81","2011-04-23 19:30:37+01:00","Add method to reset language settings only.
+
+Fix issue 587: Resetting language settings resets also whiteboard state
+"
+"ae944bc735c1ee5993c0c63fce8054a129cc641e","2011-04-23 11:30:51-07:00","First working version.  Buttons A, B, D are Good, Fail, Easy.
+"
+"7f7c220bb5fe587b2f18bb7868b021697ba46824","2011-04-23 19:43:28+01:00","Merge branch 'master' of git://github.com/nicolas-raoul/Anki-Android into reset
+"
+"6eb1a81d79dd8469a6daf491be3912d044111d5f","2011-04-23 19:44:07+01:00","Merge branch 'master' of git://github.com/nicolas-raoul/Anki-Android into settings
+"
+"99e40d550180a1380436a6910a3d77f7d0f54190","2011-04-23 19:45:38+01:00","Merge branch 'master' of git://github.com/nicolas-raoul/Anki-Android into widget-state-db
+"
+"f2ccad4614010c583704bd673a463c9c127ee401","2011-04-24 11:30:37+02:00","localisation. again 100%: german, spanish, catalan, russian
+"
+"168a2d0543f9e819a40b1e519aba9ce188bf3b25","2011-04-24 11:34:19+02:00","Merge branch 'widget-state-db' of https://github.com/flerda/Anki-Android
+"
+"97a31fb710a75db46ea5a2cb338c89cd1cb9874c","2011-04-24 11:34:32+02:00","Merge branch 'settings' of https://github.com/flerda/Anki-Android
+"
+"197eefad0b2edb9256ef9683545140cbe3caee46","2011-04-24 11:34:43+02:00","Merge branch 'reset' of https://github.com/flerda/Anki-Android
+"
+"df907cb0e4722e67316d5eb48ec2f7551660d0e2","2011-04-24 11:45:05+02:00","shorten font selection summary in order to let it fit into the field
+"
+"dcaaaddabcfa415d5f3f4d28a31d2e788f1ec38c","2011-04-24 19:57:56+01:00","Merge branch 'master' of https://github.com/nicolas-raoul/Anki-Android into widget-intent
+"
+"f55e065b087010b73dc806b8a026019a5f43e464","2011-04-25 10:24:34+01:00","Add debugging for issues 591 and 592.
+"
+"8e5d5ccbbe12d5f4d608254a8a9ff7bebd61e2a9","2011-04-29 19:09:12+02:00","Replace Kanji with furigana in question (bug #423)
+"
+"dbe0ab83326d97f6a111733df716dc783eb4108c","2011-04-25 09:59:42+01:00","Correctly show the number of cards to review.
+
+We store the due cards, which include both failed cards and those to be
+reviewed. Since the widget shows the number of failed cards as well, it
+should only show the number of cards to be reviewed along side it, not
+the total due cards.
+
+Issue 590: Due cards count includes failed cards count.
+"
+"e9527c53ec9a95c2f87add0ab9bf3ac868294b11","2011-04-25 16:56:37+01:00","Strip invalid characters from deck names.
+
+We currently sanitize the title of the deck to determine the file name
+of a downloaded deck. However, this causes issues because the deck file
+name must match the deck title for synchronization purposes.
+
+The current list, based on the Anki desktop latest code, contains \, /,
+and : as invalid. All the rest should just work.
+
+Moreover, this is based on the content of a deck updated to the server
+already, so it should be fine anyway (none of these characters should be
+in the deck name in the first place).
+
+Issue 586: Synchronization and handling of underscores in filenames
+
+Issue 589: Deck with non-ASCII characters don't show up properly, and
+don't sync
+
+Issue 607: syncing problem when the deck name contains an apostrophe
+"
+"55b83c997225f21dd3646d876124f06ce7a8c455","2011-05-01 12:10:28+01:00","Fixes color of buttons text on Xoom.
+
+The Xoom uses a different theme, where the buttons are semi-transparent
+and the text color is white. This works well on the activities with a
+dark background (like the study options activity) but not in others
+(like the flashcard review activity) it is not readable.
+
+This commit introduces a style to be applied to the buttons that is
+empty by default but that defines the text color to be black for the SDK
+version 11 (Honeycomb). This is achived by creating a values-v11
+directory and redefining the style in a file named styles.xml in that
+directory.
+
+For the deck picker activity instead, remove the gray bar under the
+button at the screen: it does not seem necessary and it does not match
+the content of the list above it. This prevents the problem with the
+background and the text color being too close (light gray and white).
+
+Issue 609: Buttons at the bottom of the card are hard to read on Xoom
+"
+"cce00e942d0c1954445f0e0f22fc525d47f4b7cb","2011-04-26 20:46:46+01:00","Check for null deck while updating widget.
+
+I am not yet sure when this happens, but it seems that sometimes
+Deck.openDeck returns null, and currently we crash. Log this as an error
+and and use the previous values we had for that deck.
+
+This is workaround for:
+Issue 599: Crash when updating widget in the background.
+"
+"3b026eac2b2aba64d74fcaf4bb5bda12216edbab","2011-05-01 22:40:11+01:00","Remove notification when cards are no longer due.
+
+Currently a notification is added if there are more than a certain
+number of cards due. However, the notification is never removed (must be
+removed manually by the user).
+
+This commit removes the notification if it is no longer needed.
+
+Issue 600: Notification of due cards not removed
+"
+"e60eb6d59b7d49ee9d841c56f3a09b54418d21c8","2011-05-02 11:36:55+02:00","swedish localisation
+"
+"c90dae927dc8cb7fa5b147ef217f1508eff443e2","2011-05-03 09:00:01+01:00","Fix regular expression.
+
+'\' must be quoted twice: once in the string and once in the regular
+expression.
+"
+"bb7e243f6c072b907272dc39696b6ca3b89d1cb7","2011-05-03 21:48:36+01:00","Handle 'Server too busy' status code.
+
+Moreover, always handle an unknown status code as an error, since we
+cannot assume the connection was successful.
+
+Add a new error message for the 'Server too busy' case.
+
+Also, add the assumption on AnkiDroidProxy.hasDeck(String) that
+connect(boolean) has been called before hand, and throw an exception if
+this assumption is violated. It is not possible for the method
+AnkiDroidProxy.hasDeck(String) to return a reasonable value if the call
+to connect(boolean) fails, therefore, it is easier to let the caller
+deal with it instead by requiring it call connect(boolean) beforehand.
+
+Issue 598: Properly handle 'AnkiWeb is too busy right now' response from
+server
+"
+"e095e9e0edb79a823d910441c08c8bc8b63e9e76","2011-05-04 16:08:41+01:00","Do not request the indeterminate progress feature.
+
+The study options activity does not use the indeterminate progress
+feature any longer, so there is no need to request it. This is problem
+on Honeycomb, where the state defaults to the indeterminate progress
+spinner being visible.
+
+Issue 619: StudyOptions has spinner that never stops spinning
+"
+"4eac28abc17b66e1508c517ae2bd337eed28e04d","2011-05-08 13:47:32+02:00","localisation (fr, ja, sv, zh)
+"
+"783f37d16c2b9940c260236ee4a2b4cad71756e0","2011-05-12 01:16:19-07:00","create dialog for max fail card
+"
+"4fbf7ba8106a25e1033fe39086f77479d8141d09","2011-05-12 01:30:02-07:00","allow user to set max fail card
+"
+"a064a32871a0f19467e1b4e03510a747b63530ef","2011-05-12 02:05:47-07:00","stop the review when max failed card is reached
+"
+"e359433a1c78fc0df65550216d6ff9187700ddde","2011-05-16 23:36:38+02:00","fix issue 606 (crashes where caused because decks where opened at the time time by widget and deckpicker), enable sync and statistic buttons on deckpicker even if some decks are unreadable
+"
+"6ffb538f8c3b2e6744b18f7cb15f078aefd66667","2011-05-17 19:00:40+02:00","fix all decks statistics crash
+"
+"959f5163f26d1c7f5b3ab0271aa900e31c3149da","2011-05-17 23:17:35+01:00","Close the cursor in a finally block.
+
+The code was incorrectly only closing the cursor in case of error.
+Instead, log the error and close the cursor in a finally block.
+"
+"1cd465032f683cfa1244dcb847854e805e5c24e8","2011-05-18 16:43:48+09:00","Reverted 9619c467e20b11a387748b6bed9a59835ec2f5c while waiting for a solution that does not break review on Android 1.5. Fixes issue 592
+"
+"7ed2381d760f51e234f926e0b0b77d943868c332","2011-05-18 17:00:43+09:00","Solved conflict
+"
+"2ce906611bc16c844bebd59c458193b1b8f4b8eb","2011-05-18 17:09:16+09:00","Merge branch 'master' of git://github.com/flerda/Anki-Android
+"
+"cbfdd681819a1c32494ddbb375444993935c6016","2011-05-18 17:20:03+09:00","Merge branch 'master' of git://github.com/greencrab/Anki-Android
+"
+"5d7aa9cf55036818850edb63e28ec5720babc187","2011-05-18 17:24:03+09:00","Merge branch 'master' of git://github.com/msylw/Anki-Android
+"
+"cf09dafcc7560b31699bb1e9a2ea3ff8ef6d619c","2011-05-18 17:33:25+09:00","Solved conflicts
+"
+"10d095bb82b723c794da11005cff04d59e552588","2011-05-18 17:33:43+09:00","Made executable
+"
+"550337d1045ffd31ff3235217425e3c195736a23","2011-05-18 17:38:37+09:00","Removed unneeded file
+"
+"00d9d92419e122e8a7fb41d0c544f26d2d9b831a","2011-05-18 15:54:16+02:00","localisation, change crowdin-identifier
+"
+"16b3fa394addb34633edf90c836a4fb04489b8a7","2011-05-18 11:57:34-07:00","revert back so that max failed card will not stop the review
+"
+"58fcb8bd1f048d377f02433fc86579a926c219c7","2011-05-18 21:41:45+02:00","fix error on fact adder which prevents the progress dialog from being closed
+"
+"0293559e480206613498b811922bcb129c64649d","2011-05-18 21:43:17+02:00","Merge branch 'master' of https://github.com/nobnago/Anki-Android
+"
+"8544c0ee4c6df4e68f1400abd4ea591e61d04b30","2011-05-19 11:56:15+09:00","bumped AnkiDroid 0.7alpha3
+"
+"11644b54d0ecad7e543a3bfb32c73af00d238b43","2011-05-19 11:58:06+09:00","Put all libraries in the same directory, fixed Ant compilation
+"
+"2dfd413c7e034ec74b409b1cc83e6cf42e987e40","2011-05-19 17:44:38+09:00","this jar has been moved to libs
+"
+"981195adb5690bd1adb2c62334cd86004101ea17","2011-05-19 17:45:17+09:00","Made it easier to find broken strings variables
+"
+"4a762f9ea1377eebfc632566e7995c23310697fb","2011-05-19 22:49:55+02:00","show chosen answer in (coloured) points instead of text
+"
+"9559a1fe466b081e80b45fcb6aeead6d9bd0ee2c","2011-05-20 09:54:23+09:00","Merge branch 'master' of git://github.com/nobnago/Anki-Android
+"
+"ce9e2c9a3d4c2f51ceb10426afe8a0792558a115","2011-05-20 20:55:33+01:00","Only update the widget if enabled.
+
+There is no point in checking the status of all the decks if the widget
+is not actually enabled. Moreover, this operation is quite expensive and
+may slow down other operations on the database.
+
+Keep track in a preference whether the widget is enabled and only
+refresh the list of decks if the widget is actually in use.
+"
+"23471050f21d6cb24c12d7ce2a6acfec92109812","2011-05-20 21:58:40+01:00","Change-Id: I78da1798f7b1dd7d51faa5b2ef8c6c7488c72662
+"
+"55c77d4713f3680ff2aab4001705b722e551459b","2011-05-20 22:14:57+01:00","Change-Id: I9a2ef236de482618cf474643716e5b1201e5b316
+"
+"9e570897090b793638c036c7d3f08b986b7fab56","2011-05-20 22:30:50+01:00","Change-Id: Id63c97b615621d44570a4279de7c90fa0f73c420
+"
+"633498d219ec3d0220346af0d1be8c0b92d98dd7","2011-05-21 11:26:06+02:00","reset color for next time due on review early
+"
+"714294afb6c9710db7a77578f26d2b20aa60359f","2011-05-21 14:36:12+01:00","Change-Id: If78df30e0c9bf0185a55bd4d8caa251de76b2601
+"
+"eb920dbe0128feb1d20d0ec8aa93330ff7f77627","2011-05-21 14:36:24+01:00","Change-Id: I46896d5bfbba087659a3bf048443bb959095f82c
+"
+"2bafd673b2055e764ef870a5671f6842888d5796","2011-05-22 20:59:02+09:00","Merge branch 'master' of git://github.com/antoineschweitzer/Anki-Android
+"
+"a4187186d22f8fcedc595a60cd1a77972878f1c2","2011-05-22 17:56:39+01:00","Reshaper integration in the Reviewer.
+Add some logic in the reshaper to handle RTL deficiencies in WebView
+(to be completed).
+
+Change-Id: I9760d0a8ee8a7d2f69332fa4f119e9280aaa9945
+"
+"ee67dcd5ecb4e616212cfc47aa1419d8e87c91bf","2011-05-22 21:28:53+01:00","Change-Id: I9f11932eae13e9af034b52a2c67f553c179b33c8
+"
+"da8cf145db025a553f5b714085b1fbdc2b1004d6","2011-05-23 10:29:41+09:00","Merged conflict
+"
+"b5ca96201b80af0872d7d8a1851f49687bfaf8df","2011-05-03 22:03:32+01:00","Add CSS classes for desktop and AnkiDroid.
+
+This commit adds two new classes: AnkiDroid and AnkiDesktop.
+
+The AnkiDroid is always visible in AnkiDroid and AnkiDesktop is always
+invisible. This allows building a card layout which is different between
+the AnkiDroid and Anki on the desktop.
+
+Simply add:
+
+<style>.AnkiDroid { display: none }</style>
+
+to the card template of your deck.
+
+Then, wrap anything that should be displayed only on the desktop with:
+
+<div class='AnkiDesktop'>
+...
+</div>
+
+Last, wrap anything that should be displayed only on AnkiDroid with:
+
+<div class='AnkiDroid'>
+...
+</div>
+
+The former will only be displayed when reviewing on the desktop client.
+The former will only be displayed when reviewing on AnkiDroid.
+"
+"802af7272942acb7af0539050de66dedd63f7160","2011-05-25 14:12:02+09:00","Bumped version 0.7alpha4, I had forgotten to do it
+"
+"df9e2342d1cdcd4131a2ab2735f2e070d449b49a","2011-05-26 23:12:52-07:00","Add preference for setting timeout auto-answer
+"
+"5ccdc0edfd9102a821aa4fef4adcf8b324be03b9","2011-05-27 00:04:24-07:00","Implement timer to auto-show answer after a certain time
+"
+"3eaef8ffb0d555728d7dc1ef132102ce2e53f4aa","2011-06-02 12:16:04+09:00","Merge branch 'css' of git://github.com/flerda/Anki-Android
+"
+"a2eeea99902e03c8041fdf694539b0d5d3408b8d","2011-06-02 16:29:27+09:00","Reverted CSS change, not ready for 0.7
+"
+"77c1e1f3c77908fcc60878846684251096d1ff45","2011-06-02 16:30:27+09:00","Freeze. Bumped 0.7beta1
+"
+"2a961ede0f4774959addbb62e754336ace7b1eb7","2011-06-02 16:36:00+09:00","I managed to conflict with myself...
+"
+"a8cc9c056f310580e16d3fddeb3e79eaeadbf680","2011-06-02 16:43:50+09:00","Nevermind, freeze will be on the 6th, my bad
+"
+"952bef91746ff156eda81fee4540a5cd93e44f99","2011-06-04 17:04:12+01:00","Change-Id: I265e43da5fc2c4a1822d746d92cb18d9469520f2
+"
+"1b50285ede7aab5c1f5ff792c4bb74b91b5d08e0","2011-06-04 17:04:46+01:00","Change-Id: I9670d4518600cb95d79fd42992e12cdf4c63889c
+"
+"58a75ecdf76f7ce6b851e109878653ce91259930","2011-06-05 14:14:42+01:00","Revert 'Add debugging for issues 591 and 592.'
+
+This reverts commit f55e065b087010b73dc806b8a026019a5f43e464.
+"
+"20e79e1eb6ad755776d7d7967f0728c2916bf671","2011-06-05 14:30:45+01:00","Fixes displaying of default font.
+
+The font was overridden by the style defined for the question and answer
+classes in the generated card. By adding an additional element to the
+CSS selector, the style defined here will override the one defined for
+the question and answer classes.
+"
+"3009ff77ebbbd4116d554486d6b4b8407cf60e7c","2011-06-05 21:35:40+01:00","Use volume keys to control playback volume.
+
+Currently, during review the hardward volume keys will control the
+ringer volume, unless a clip is currently playing.
+
+It makes sense for the volume keys to always control the same stream,
+e.g., if one wants to make sure the volume is at an appropriate level
+before playing a clip.
+
+Fixes issue 227: Control media volume with volume keys
+"
+"82ccfb61867a97287d34b60d095b3ab55f6c8bc5","2011-06-06 14:35:17+09:00","Merge branch 'master' of git://github.com/antoineschweitzer/Anki-Android
+"
+"d75d7780c3265bc8b4f9d683291c44906836371a","2011-06-06 14:44:56+09:00","Small tool for quickly getting changes from other people
+"
+"47b07779142956e33a7548c4790003533a89328e","2011-06-06 15:44:48+09:00","Freeze. Bumped 0.7beta1
+"
+"227effd88b933aead19dfa9927514b36b2b06886","2011-06-06 14:01:25+02:00","localisation
+"
+"5866a9399ced80847e24e36be80068db0e349b39","2011-06-07 20:47:46+02:00","localisation
+"
+"70982904f0cbf4bf09fc3ae48ff64cf69f022a82","2011-06-09 17:11:19+09:00","Modified utility tool so that it can be executed from any directory or shortcut
+"
+"33555f9828a5e07277cbc7cfc4c739303df2f8a0","2011-06-09 17:12:17+09:00","Warn that password is sent in clear text, fixes issue 602
+"
+"fdba941775fe63dbcb64092493732e1b24b032ea","2011-06-10 15:43:02+09:00","Fixed bug 440: black text on black background
+"
+"07da6c74b24f65a92aa0daeb994e38881bb7b2a9","2011-06-11 01:21:18+09:00","bumped AnkiDroid 0.7beta2
+"
+"f0bafeedccfe168ac8706982c8b98b0d4c1197f5","2011-06-12 23:07:19+02:00","Fixes issue 647 by using proper html tag SPAN instead of P
+"
+"d980e2ebbc503d41aa0e76ad4d8670712f70941c","2011-06-13 10:10:25+02:00","Changed span tag with div tag to be closer to libanki and in order to make a clearer distinction to fields, which are enclosed in span tags.
+"
+"16011759134702ff0bb04dd5cd65d579ef36f064","2011-06-13 17:16:07+02:00","higher zoom max
+"
+"1ab02e6dfd9924642f3c7c28968a3e2a403c6977","2011-06-13 19:30:10+02:00","Fix to issue 286 'applying related font size to fonts in card templates'
+"
+"79f0d5db34ca09f0a72207aac5c3b87594e643b6","2011-06-13 22:09:52+02:00","Relative font size also for em and pt (not only px as in issue 687). Most probably fixes issue 339.
+"
+"d9831c61e6515a5b8a8e2b3d6c0f43b1e0ff792d","2011-06-14 11:22:26+09:00","Merge branch 'master' of git://github.com/nobnago/Anki-Android
+"
+"7cca2792efb048d613b8356d8d2698b09748b2e2","2011-06-14 19:46:43+02:00","Small code improvement to increase readability/logic and speed.
+Speed is improved by starting indexOf for posPx at posFontSize and only if posFontSize > -1.
+"
+"8b1e8fa56c4041e591018984d068455c7a5a2585","2011-06-15 17:22:04+09:00","Marked most permissions as not strictly required, to avoid possibly being invisible from market, http://stackoverflow.com/questions/5116768
+"
+"f4d1fda92e7afcd3664df700c64d52772fb85a72","2011-06-15 20:47:12+02:00","Fix to issue 635: alingment of text not equal to CardModel in Anki (in answer).
+"
+"e4e1f00330c1b8edf96cdea4122f7082ab6220e3","2011-06-18 13:12:57+02:00","Fix to issue #339. If a font-size in the CardLayout uses relative css units for measurement, then the value only gets changed with relative font size percentage preference, if it is not embedded in an outer relative css unit measure.
+
+The fix takes only SPAN tags into account.
+"
+"b48348fdc1933b63855c72a10bd44a59453c022c","2011-06-19 14:10:50+02:00","Solves issue 431 and corrects incorrect behavior regarding checking whole answer instead of specified field to compare to in CardLayout.
+"
+"1783e497622fa1047f6fdb90ddb55b74156fcaca","2011-06-21 09:56:10+09:00","bump 0.7beta4
+"
+"4588f59d016b95cd0bd813f68b91355f87bb38f2","2011-06-23 11:15:30+09:00","comment
+"
+"48f0cd53552fe9100ad1fa998a3537e6cdbebe2f","2011-06-23 11:20:51+09:00","bump 0.7beta5, because I most probably had forgotten to refresh Eclipse before publishing beta4
+"
+"6b431e1102808c0f84b33b9e222535d3b75e0a83","2011-06-24 16:59:59+09:00","Checkstyle configuration updated for Checkstyle 5.3 by Robert Siemer
+"
+"b8b32dc5248904d4f6cf4eef44e08e077627b4a8","2011-06-26 14:22:19+02:00","don't delete error list before having read the send results (issue 597)
+"
+"20f0938e43c2ab0db3e209a421e4e384e1ba214c","2011-06-26 14:53:42+02:00","Merge branch 'master' of https://github.com/nicolas-raoul/Anki-Android
+"
+"949358486534c34681f52d0150a85393eee02ac2","2011-06-27 17:41:49+09:00","Fixed crowdin URL
+"
+"2fa6f9b8754f3b0170a007ed671288641fb0fb00","2011-06-27 13:50:08+02:00","greek localisation
+"
+"8accce1a9b43b456b1c1639edcf2c5a42eef714d","2011-06-28 15:28:53+09:00","Merge branch 'master' of git://github.com/nobnago/Anki-Android
+"
+"72417b699c5bdb67a444c291cfd78eb7f13cd01c","2011-06-28 15:09:03+02:00","localisation
+"
+"385bf16407aae5278fc82c3f2207a512ed06777c","2011-06-29 11:33:05+09:00","Merge branch 'master' of git://github.com/nobnago/Anki-Android
+"
+"4d0cf08d6f03504241039005f7f11af67aa67348","2011-06-30 15:37:08+09:00","Bump 0.7beta6
+"
+"4c016193c670584480885208abc19506dd508763","2011-06-30 15:38:05+09:00","Fixed rare ArithmeticException: divide by zero, http://ankidroid-triage.appspot.com/view_bug?bug_id=1951067
+"
+"b3dad76b6a37df5dfdd65b8e77e10ce587eeb94f","2011-07-01 12:05:10+02:00","portugese localisation
+"
+"86b9ead0fdc25273f35a74778d4fb7816e7b7144","2011-07-04 13:20:49+09:00","Merge branch 'master' of git://github.com/nobnago/Anki-Android
+"
+"b6546962fa8241f8d17d61f6d7627d02b9a8ae1b","2011-07-04 09:54:46+02:00","portuguese and japanese localisation
+"
+"875a29eb8ed8629b1bff6b68c7be2276236f4687","2011-07-04 19:42:21+09:00","Merge branch 'master' of git://github.com/nobnago/Anki-Android
+"
+"8c07f502ecc215c28f6512ec32cddaf85fd12b87","2011-06-13 17:16:07+02:00","higher zoom max
+"
+"94835dc9ed32d207cf34a8a8a4f2104e5aee914a","2011-06-14 19:46:43+02:00","Small code improvement to increase readability/logic and speed.
+Speed is improved by starting indexOf for posPx at posFontSize and only if posFontSize > -1.
+"
+"dcd6d69496c1619c92b8456256f457909bea4d13","2011-06-15 17:22:04+09:00","Marked most permissions as not strictly required, to avoid possibly being invisible from market, http://stackoverflow.com/questions/5116768
+"
+"fec94fb794da5ee2db7272efe3734178a0c57ece","2011-06-15 20:47:12+02:00","Fix to issue 635: alingment of text not equal to CardModel in Anki (in answer).
+"
+"1203b5ac25db28f72b88abfe6c269e4915717213","2011-06-18 13:12:57+02:00","Fix to issue #339. If a font-size in the CardLayout uses relative css units for measurement, then the value only gets changed with relative font size percentage preference, if it is not embedded in an outer relative css unit measure.
+
+The fix takes only SPAN tags into account.
+"
+"ca1ef88ff1ac4d8905c8f95ba736d7df149afa48","2011-06-19 14:10:50+02:00","Solves issue 431 and corrects incorrect behavior regarding checking whole answer instead of specified field to compare to in CardLayout.
+"
+"b59180c8aeeaa3f96405630ef1acbd832fb9760b","2011-06-21 09:56:10+09:00","bump 0.7beta4
+"
+"48cb1f01a3d533635079653d9688b25bbea28bb1","2011-06-23 11:15:30+09:00","comment
+"
+"4d515d5edd485821a29765f216991109be7c67e1","2011-06-23 11:20:51+09:00","bump 0.7beta5, because I most probably had forgotten to refresh Eclipse before publishing beta4
+"
+"b82dc8c7441d46489732c7c1b5a1b4e3b8b27e47","2011-06-24 16:59:59+09:00","Checkstyle configuration updated for Checkstyle 5.3 by Robert Siemer
+"
+"065564831e7ed18763bbc63d7b654c0d33a7276e","2011-06-27 17:41:49+09:00","Fixed crowdin URL
+"
+"ab5c75ae81685bdcc3fc1b8b46587b2bedc5ea78","2011-06-26 14:22:19+02:00","don't delete error list before having read the send results (issue 597)
+"
+"7d060683b15e20ac2a03936a98713c0a4de686c4","2011-06-27 13:50:08+02:00","greek localisation
+"
+"377f93e39e588279e2e29b38affa500c32679f08","2011-06-28 15:09:03+02:00","localisation
+"
+"8f85176be27867a85319deace710271254054f7d","2011-06-30 15:37:08+09:00","Bump 0.7beta6
+"
+"34aa5156b39e389528794f3b964599fc4043ead9","2011-06-30 15:38:05+09:00","Fixed rare ArithmeticException: divide by zero, http://ankidroid-triage.appspot.com/view_bug?bug_id=1951067
+"
+"c77cd1ed215d618d747de95481fa6452d292d23d","2011-07-01 12:05:10+02:00","portugese localisation
+"
+"7684fa359c5f51d96156c97c186c4d110d562e75","2011-07-04 09:54:46+02:00","portuguese and japanese localisation
+"
+"bdca6eee2c4781a6f0431ef5048289aedc976c2a","2011-07-09 17:54:57+02:00","Refactor local variable names in the updateCardTags method to make the
+code easier to read.
+"
+"6cc4f97c8e972a0f9e42d5887245b5f1dddf6c1a","2011-07-09 18:39:35+02:00","Update Utils' parseTags method to be more compliant with libanki.
+
+Given a string like ' tag1, tag2', this implementation would return 3
+tags (' ', 'tag1' and 'tag2') whereas libanki's implementation only
+returns ('tag1' and 'tag2).
+
+This breaks syncing in AnkiDroid if you happen to have a row in the
+Models table that has a tag field entry that starts with whitespace.
+"
+"a9fee2c6e752b39b02de4e5378c72982f8459dbd","2011-07-09 17:54:57+02:00","Refactor local variable names in the updateCardTags method to make the
+code easier to read.
+"
+"bf0b0581db41c7c0567f58a6840e986b56f18325","2011-07-09 18:39:35+02:00","Update Utils' parseTags method to be more compliant with libanki.
+
+Given a string like ' tag1, tag2', this implementation would return 3
+tags (' ', 'tag1' and 'tag2') whereas libanki's implementation only
+returns ('tag1' and 'tag2).
+
+This breaks syncing in AnkiDroid if you happen to have a row in the
+Models table that has a tag field entry that starts with whitespace.
+"
+"836b8839698f0d5ef69a5b28d90831b2b1bf4a4f","2011-07-11 10:46:04+09:00","Merge branch 'master' of git://github.com/zakvdm/Anki-Android
+"
+"0caa0bfc72f4cd59030dd60b5b7641151fa16d02","2011-07-11 10:55:08+09:00","bump 0.7beta7
+"
+"f91b6c9c9293c0bc6e6fd5fc99dee0e29e4af031","2011-07-11 14:20:56+09:00","Files and screenshots necessary for Lenovo app store http://www.lenovomm.com/appstore/ http://developer.lenovomm.com/developeren/index.jsp
+"
+"8892fcb8256a095dd77996c0cb6b8c4288193cd9","2011-07-11 20:37:40+01:00","Add support for Persian letters indicated by Matthew Thomas Miller.
+
+Change-Id: I09f230edf6bd415b77fb92ef2802ab41e4bdfc4e
+"
+"959e6092b9300d6dd980b63a9361622870c82c14","2011-07-12 12:43:22+02:00","localisation
+"
+"b278c43996ca3c167182a07d9c06524681511c77","2011-07-13 10:27:58+09:00","Merge branch 'master' of git://github.com/antoineschweitzer/Anki-Android
+"
+"2a9ea6a6863fb515689b96050a54d765d8876be1","2011-07-13 10:30:47+09:00","Merge branch 'updateTagsBug' of git://github.com/zakvdm/Anki-Android
+"
+"fd624740154242edf442d6c7c54b0072570ba19a","2011-07-13 10:35:33+09:00","Added Arabic localization, thanks to Wisam!
+"
+"08e2b2cb9546d8386e7e67be5d41bb4802815934","2011-07-13 10:49:34+09:00","bump 0.7beta8
+"
+"13b96461ef29921f8cfe123ede18f89a8ea24007","2011-07-13 16:39:45+09:00","Added Arabic to preferences menu
+"
+"677e62abb8154b1f156296f50d017535bceb404b","2011-07-13 16:47:06+09:00","bump 0.7beta9
+"
+"e9b4b488bff7f391dd35efb590fd786154f5f4ea","2011-07-13 20:18:06+01:00","Support for Persian kaf and ye
+
+Change-Id: I846f298f1f36881622383f7ee9a7bcabb66d64bf
+"
+"6c33e61f1c69494ea63fdabe30a5c5f7c2cfb594","2011-07-19 11:26:21+09:00","Merge branch 'master' of git://github.com/antoineschweitzer/Anki-Android
+"
+"1f3770777327f22a45e18410cb166708db867ef2","2011-07-22 01:44:00+09:00","More files needed for Lenovo appstore
+"
+"8f167b6a04dea93e0b086b2683a59e957fff6b27","2011-07-24 09:20:12+02:00","fix issue 636
+"
+"1165df7300fad2f9341dbb3089c058191e81a88f","2011-07-24 09:53:55+02:00","strip deckpaths from quotes
+"
+"37c3691ea0a1496f5679421f21fee3893f1494a4","2011-07-24 09:56:18+02:00","Merge branch 'master' of https://github.com/nicolas-raoul/Anki-Android
+"
+"e1ffc7dff6ae723594daed92481ccfb81e6e2c52","2011-07-24 16:12:25+01:00","Several bugfixes:
+- incorrect display with cheddah
+- isolated letters not displayed correctly
+- improve Bidi algorithm to better deal with WebView
+
+Change-Id: Id021e0f956196d61408482894d284a3079563703
+"
+"52fdd91cca7045762058f2ba5bc557f1ef5f9cc0","2011-07-25 00:19:55+09:00","Merge branch 'master' of git://github.com/antoineschweitzer/Anki-Android
+"
+"ab83b4d7a3252cdc33df79e1ae7980c543d79ad7","2011-07-25 00:46:15+09:00","Bump 0.7beta12 - forgot to commit beta11 before pulling from antoine
+"
+"4770e15807365643a36b10664bdb26333091ece0","2011-07-24 17:19:56+01:00","Fixes issue 690: Custom fonts broken in 0.7beta7
+
+It appears that:
+
+https://github.com/nicolas-raoul/Anki-Android/commit/7684fa359c5f51d96156c97c186c4d110d562e75
+
+accidentally removed the font name from the generated CSS.
+As a consequence custom fonts (or any fonts) are no longer working since
+0.7beta6.
+
+This commit reinstates the font-family in the CSS and therefore fixes
+the custom fonts.
+"
+"4d9310c13c7700cfb29ef8957a080dadc8bba428","2011-07-24 17:41:32+01:00","Fixes issue 677: Crash when 'Write answers' is on
+
+A missing return meant that if there was no field set up to be the
+writting answer, the code would try to query for a non-existing field
+model, returning an empty cursor.
+"
+"06d6c5ad7af95083052dbcc304c3a86965e8ebeb","2011-07-25 09:33:32+09:00","Merge branch 'master' of git://github.com/flerda/Anki-Android
+"
+"af946682b9424e8d56134a9d9a314191d9a69367","2011-07-25 09:38:36+09:00","Merge branch 'issue677' of git://github.com/flerda/Anki-Android
+"
+"ef5b39912f88b2090b8a1d6b4b95d94f5586b39a","2011-07-25 10:06:48+09:00","Allow to specify a particular branch
+"
+"a3dc5e7a80cb4aa960d13e4e9cbea7df9a1b6046","2011-07-25 10:07:06+09:00","bumped 0.7beta13
+"
+"d0c145421c6c200540dc9ab85e70146006539337","2011-07-25 14:36:17+09:00","Applied patch by Mike Morrison, see issue 693
+"
+"cc4d53144016187d76db7a73a8ae8d8776a271aa","2011-07-25 09:38:55+02:00","localisation (ar, fr, ja, ru)
+"
+"f513dc0dc07cfaa54e24e8cb55c3cab6e1758cda","2011-07-25 16:58:44+02:00","add more items to the 'new feature dialog'. Feel free to add missing ones
+"
+"65bd985847a3d5989868603426b07e5b05306944","2011-07-26 12:31:48+09:00","Added Vietnamese localization. It has reached 52% on Crowdin even though the archive might not be up-to-date yet
+"
+"902bdd86a6d38d6fcc44631fe302e5b3312782c8","2011-07-26 09:55:19+02:00","add vietnamese to preferences dialog, some localisation strings
+"
+"e977977f51da00a8ab87f78b4c08c5a498a54bd3","2011-07-26 20:45:14+09:00","Apparently translation files have been updated... Could someone write the procedure to do this on the wiki, by the way?
+"
+"d858ab063a6b79bcfb1bdbae23b2d9e9feda4d70","2011-07-26 21:21:25+09:00","Files for Docomo market
+"
+"5481b914145eb0fb9f10ca40cf350ff7550394a0","2011-07-26 21:23:19+09:00","Removed files added by mistake
+"
+"334d7b4d6417f1a0b822e7e7908fa30e45fefb64","2011-07-26 21:24:29+09:00","Merge branch 'master' of git://github.com/nobnago/Anki-Android
+"
+"000d05c1e37f9b6c4a2e97653351d3118e16ac41","2011-07-26 21:41:32+09:00","bumped version 0.7beta14
+"
+"568265ee3801f38891b419c6920d4f5f8fb85625","2011-07-29 21:52:22+02:00","issue 545
+"
+"a754fdba7465448e8d603dd050a1e2aa2d3edb5d","2011-07-30 23:52:08+09:00","Merge branch 'master' of git://github.com/nobnago/Anki-Android
+"
+"0b9336876fb4aed36c4caac9f86f06480c23821d","2011-07-31 00:43:51+09:00","Added to whitelist
+"
+"2a4fa5ff990eee33470460ae252744c0671d3bce","2011-07-31 00:44:18+09:00","bump 0.7beta15
+"
+"92cbde1f5859a2b813e21827c6a1f4f6bbff0f1a","2011-08-01 21:17:03+02:00","more work on issue 545
+"
+"2640fcb920f7cacdd7251c3135dd3b585857d741","2011-08-01 21:29:41+02:00","issue 694, make loaddeckdialog cancellable
+"
+"6222886f4dc592d7da51f771522be2b1c37c298b","2011-08-01 23:58:48+02:00","wal information string
+"
+"2652db80f07f25956394c11ea5d4e7fcd529836b","2011-08-02 09:16:37+09:00","Merge branch 'master' of git://github.com/nobnago/Anki-Android
+"
+"7d93b6fabd529d0d14c504658465d530672231a7","2011-08-02 10:13:58+09:00","bump 0.7beta16
+"
+"f56117ca4247be4a4dfaace28b3947dff89f1448","2011-08-02 10:35:56+02:00","localisation
+"
+"0bfe1f240f27357a7a1a19db789ea3f22afb85af","2011-08-02 18:30:16+09:00","Merge branch 'master' of git://github.com/nobnago/Anki-Android
+"
+"9bf19deaac670da8f164129e5d6ab0a4e1db80ed","2011-08-02 20:24:02+09:00","Implemented the possibility to send non-stacktrace reports via the feedback mechanism. Used it to report WAL problems. User approval is still required as usual with the Feedback activity
+"
+"3b6c35b4d0a0c79b7697d3e2ba564b2ae0fbd78c","2011-08-02 13:49:25+02:00","change wal url, show create wal error report only once (after clicking on ok when the wal notification is shown the first time)
+"
+"a6c87460576a40ecb7aacbcdd2d94eabea61f690","2011-08-02 13:57:50+02:00","forgot already translated french string
+"
+"ca3f22168cdeb5bd088f55258843f49f8432efe0","2011-08-02 22:49:05+09:00","Fixed bug 699
+"
+"39a00fff7883f55b5d6a19dc79f3246736851261","2011-08-02 22:54:45+09:00","bumped version 0.7beta17
+"
+"2131c7616c503318c70e5a8a6da2c9884f7e9932","2011-08-02 23:09:35+09:00","Merge branch 'master' of git://github.com/nobnago/Anki-Android
+"
+"8408f9ab31e630be76e288634d3da43e1187ab74","2011-08-02 23:13:31+09:00","Using StudyOptions.this as a Context to solve compilation error
+"
+"9929225ce68472c821c67a829a8d4d857714ecea","2011-08-02 23:32:13+09:00","bumped version 0.7beta18
+"
+"9831fe5efd979bc1091f244628380a150c42b7bf","2011-08-03 09:18:30+02:00","localisation
+"
+"5c8ad155721b622b92f135cd475b11e0bb5294d6","2011-08-03 16:57:31+09:00","Merge branch 'master' of git://github.com/nobnago/Anki-Android
+"
+"d834ababfd0b0d73a1622d160a17ea10d83ac112","2011-08-03 17:01:19+09:00","Fixed format error in Czech translation so that it compiles. Fixed on Crowdin as well.
+"
+"4fe3408db359ef01cf9f835a492ca98b543f0bba","2011-08-05 16:08:50+09:00","bump version 0.7beta19
+"
+"3a5f087d317cd68affc94a0cc2966cd169e630f2","2011-08-06 15:01:55+02:00","fix text selecting issue
+"
+"f06f5c8dc7b4675e8773ea42fe5c0ddfaec35d6f","2011-08-08 21:51:52+02:00","fix leolookup problem
+"
+"9a4e55e38d5b3ee0c6d4a9c0b4622642091af451","2011-08-08 22:00:32+02:00","reset clipboard after lookup
+
+Conflicts:
+
+src/com/ichi2/anki/Reviewer.java
+"
+"457063578df1ea83f8292090a326de1d3cd6f990","2011-08-07 22:05:40+01:00","Use two different WebView instances to show the card.
+
+The main reason for this is that there is a leak in WebView related to
+loading fonts. When a font is loaded a large amount of native memory is
+allocated, and re-allocated each time a webpage is loaded. This quickly
+leads to the process being killed because it uses too much memory.
+
+The solution applied here is to release the WebView each time a new page
+is loaded, which releases the memory used to load the font in the first
+WebView.
+
+This addresses the following:
+http://code.google.com/p/ankidroid/issues/detail?id=687
+"
+"7c7463417f3f1da9e531b691684c515df072d038","2011-08-08 23:09:31+02:00","add hungarian localisation
+"
+"620c3fa9f5ae28af0c09407105571e336b2c3a2e","2011-08-09 10:36:49+09:00","Reordered new features list
+"
+"905082ad0c45c6be8a5ede804b6cc046b1e8c037","2011-08-09 10:38:22+09:00","Merge branch 'double-webview' of git://github.com/flerda/Anki-Android
+"
+"2287398b9390892f81f531a089367955576745f8","2011-08-09 11:00:38+09:00","Prevented NPE related to clipboard
+"
+"2016d50b20791aac5b7bdfd93f4552d4810db9d7","2011-08-09 11:26:47+09:00","bumped version 0.7beta20
+"
+"cce7fc2080d65d901d88d7e8b8121e88b1785829","2011-08-09 10:50:27+02:00","add missing feature to update message
+"
+"bd8945e313cff98679bc2278e40f7c674be54c4e","2011-08-13 21:32:40+02:00","fix of issue 716
+"
+"6e7bacfbe915715744a2dd4c7c613e69bc9e6191","2011-08-14 06:58:12+09:00","Typo fix by Mike Morrison
+"
+"cf558813eebe9a769331a05dfb6dd89e3da69ea3","2011-08-14 12:35:04+02:00","localisation
+"
+"493cb548c412b1840a0ac77f37fa8cdcc38611d1","2011-08-14 13:51:22+02:00","fix flickering webview issue
+"
+"32d80594b8910339a321f5ff987c233213d765e4","2011-08-14 13:51:35+02:00","fix night mode top/bottom bar issue
+"
+"055513eae561d3c1cce06c96c6af1cc26388dd90","2011-08-14 14:01:55+02:00","fix issue 623
+"
+"213cf3b5c910030888917c2ee7f1daa9a10e36f9","2011-08-14 16:42:49+02:00","fix issue 717
+"
+"72f5a749c07c6a2e7ddee5ec1305e26781e5b695","2011-08-15 12:14:06+02:00","fix nightmode/black/white issue
+"
+"97ea6abf34272a53a94a40861b941ce62f114205","2011-08-15 20:07:06+09:00","bumped version 0.7beta22
+"
+"e0b7742eee15e35fb50a0695a72253c07bda92b7","2011-08-16 11:35:14+09:00","Fixed bug 725
+"
+"50a3a02ad642618cca7658c0592dd7226d1c069c","2011-08-16 11:35:53+09:00","bumped version 0.7beta23
+"
+"05570f27dba6091d6abee7181b5b2008e1dc37a1","2011-08-16 22:20:03+02:00","issue 726
+"
+"86be3a3e216707affe0d98d6eb0b45ddfa804739","2011-08-18 10:19:57+09:00","Typo fix by Mike Morrison
+"
+"babdac63d6f4e53c75642a98d37d00924f14c7bd","2011-08-18 09:29:31+02:00","next shot for 726
+"
+"fc108179cfb9caea1f7dfeb1aba1f2ddcec5669a","2011-08-18 21:23:42+02:00","issue 726
+"
+"dd33af230fb29b3bf9e0091195e741c985a14b8c","2011-08-19 13:42:26+09:00","Revert my modification to feedback mechanism, because I have somehow broken it.
+
+This reverts commit 9bf19deaac670da8f164129e5d6ab0a4e1db80ed.
+"
+"cd27dcd4f61eb39af5925e42f8ba31357f7fc454","2011-08-19 14:08:52+09:00","Commented out special feedback on WAL problem
+"
+"eec029faddc8c5d6bdef8d32414501d871d78cc3","2011-08-20 18:06:20+02:00","fix issue 726 hopefully for good
+"
+"f137cb3ee4601fa053803948386a1e6d65f5319d","2011-08-20 18:13:05+02:00","Merge https://github.com/nicolas-raoul/Anki-Android
+"
+"4afdf1af6cc9a99194ddefa19b7d0b87b493aa78","2011-08-20 18:33:27+02:00","localisation
+"
+"66824af828aaf7100690a903505729a2c7841acc","2011-08-21 19:59:43+09:00","bumped 0.7beta24
+"
+"fb1fb74c86cf20ae39f824c1cfdffb9a7d9ce6e6","2011-08-22 15:50:24+09:00","Naive fix for issue 738
+"
+"145d9eed0d604d7753c6a94d0d6e7b265fb9bd5a","2011-08-22 17:39:17+09:00","Better fix by Norbert
+"
+"14bc7a999271124ae4f325340c002ceb17697be4","2011-08-22 17:39:36+09:00","Bumped 0.7beta25
+"
+"93ae07cc742fa4b5481291ea2b47bc2459e50a79","2011-08-23 11:16:01+09:00","Removed mention of long-clicking because text selection does not work with long-click anymore. Translations have to be updated too.
+"
+"58f3f1ff14a19f03cf4a3c424404fd5d81723e0c","2011-08-23 17:13:19+09:00","Better explanation for text selection option, by Norbert
+"
+"4be67effc41c0c21864c077c7f9bdeddc4df226f","2011-08-24 20:23:35+09:00","Compacted log insctructions to one-liners to allow the use of comment-logs.sh
+"
+"72794bcb7c34f803ecfc1ed8732f81f42115f23a","2011-08-24 20:41:01+09:00","Commented logs using comment-logs.sh
+"
+"625649ade2f55df70f59994f964e31a0b612c420","2011-08-24 20:54:35+09:00","Bumped version 0.7
+"

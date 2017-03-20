@@ -1,0 +1,112 @@
+"commit id","commit date","commit message"
+"b1cd3f1e80b608939a1efb3abc5f84c109b63b7a","2013-01-23 08:16:43+11:00","Merge branch 'master' of https://github.com/Grunthos/Book-Catalogue
+
+Conflicts:
+src/com/eleybourn/bookcatalogue/BookDetailsReadOnly.java
+"
+"4bc1b1fb4839186acfd93c4c83e7a298913bb0ad","2013-02-01 15:28:50+11:00","First stable checkin of 4.3
+
+- has read-only mode as default
+- started using Fragments
+- uses ActionBarSherlock to support action bar in 2.1+
+- many UI changes to better suit 2.1+ and 3+
+- book editing allowed on all tabs simultaneously, including for add
+
+NOTE: THIS IS INTERMEDIATE CODE. It has not been commented, cleaned, or
+checked. But it is a stable build.
+"
+"ba0720b4e70bc9f81106929aedb8c11cf6db1d8c","2013-02-01 15:31:05+11:00","ActionBar Sherlock 4.2.0 sources used as a library project
+"
+"90baee021e852f201721745098ed0903fb54e70e","2013-02-01 16:02:21+11:00","Changes for Alpha release 1.
+"
+"a88c27f9f9c0b00e69336336b8796d8652acc1ee","2013-02-01 16:05:01+11:00","Bare-bones build instructions
+"
+"488efa570f5ed62628cb5501cd3f58e4e4b08ea8","2013-02-02 11:13:05+11:00","Show anthology tab even for new books
+"
+"3ce50f2dccb463d48699f78530e7663413cefdfa","2013-02-02 11:13:21+11:00","Comments and minor updates
+"
+"6d4e3a768187d2a2aaea98dd7ebcc4bd21a9d9e1","2013-02-02 15:02:00+11:00","Prevent bug in cropper casued by hardware acceleration
+
+As of API 11, harware acceleration can be enabled by default. This means
+that Canvas.clipPath() is not available. So for cropping we disable
+hardware acceleration.
+"
+"3794165965594539106e776d8399f083f70135a4","2013-02-02 15:20:36+11:00","Put an object layer between BookCatalogue and Sherlock
+
+Will facilitate supporting native version for API 11+ and easy
+replacement of Sherlock should it be desirable.
+"
+"9478a2994430e5794326827749e3ede131be74b4","2013-02-02 17:52:38+11:00","'Home' button now does 'back'
+"
+"d1cb8d7f6845c53d22ae8c7e935ec70b33e12fd4","2013-02-03 01:13:22+11:00","Code cleanups
+"
+"9cb0a10517117f854023d893fc3e11feb3919184","2013-02-03 14:10:22+11:00","Fix crash on Android 2.x
+"
+"907a386ff112e6ebc766a997c7fdbd40632081fa","2013-02-04 00:38:56+11:00","Goodreads is now in the main menu if registered also fixed strict mode
+bug
+
+Targetting API level 11+ causes network accesses in the main thread to
+crash the app (this is a default StrictMode feature). It is now
+disabled, but we should move network access to threads...
+"
+"177ed77379ec4ddfbc31bd39d6d129a773bee1c7","2013-02-04 01:01:14+11:00","Fix detection of 'root task'
+
+Not a great fix, but until we have MainMenu and BooksOnBookshelf as
+fragments loaded by StartupActivity, we don't have much choice
+"
+"db1a6be924920f961fe464b03238bda8be1b4efe","2013-02-04 11:51:33+11:00","Copy TaskQueue activity so it can be a ShelockListActivity
+
+This is so that we get the correct action bar behaviour
+"
+"65c5837def4ae8846e1c4d401e8fbc5268cda72f","2013-02-04 12:41:02+11:00","Added goodreads options to BooksOnBookshelf, move to own module
+"
+"0fc95028ed563fd88898bbd95145885e4d70999a","2013-02-04 13:54:40+11:00","Made text selectable in readonly view
+"
+"4f9581171d70c9b788e9ec84e5b041a9afeb8235","2013-02-05 17:36:01+11:00","No longer does network access in UI thread
+
+Added a fragment for SimpleTaskQueue that displays a progress (this
+should probably be a model for the replacement of ActivityWithTasks and
+TaskManager)
+
+Removed the code that bypassed Strict checking.
+"
+"f97e23f082a47961f8b97ac49cbcc975060172c8","2013-02-06 00:32:23+11:00","Support for Format, Language, price from Amazon and better support for
+ASIN searches
+
+- Now uses ISBN or Author/Title from ASIN to search other sites
+
+- Language is retrieved from Amazon but not currently used
+
+- Price is retrieved
+
+- Format is retrieved
+"
+"fa0e70ccf441f21d801a823e169f15fa66706c62","2013-02-07 21:34:33+11:00","Minor comment clarification
+"
+"743b9329fedd0c1afbda99c20072d8287ba4fe2e","2013-02-07 21:35:04+11:00","Added getInsertOrReplaceValues (mainly for backup/restore)
+"
+"523d56b85d5e53639af66a997787d024fcc48fc5","2013-02-07 21:58:47+11:00","Full backup is (almost) here
+
+This version does full backup/restore, but has limitations which are
+actively being worked on:
+
+- you can not choose where to save the backup, or change the file name
+(currently it goes into the 'bookCatalogue' directory, with the name
+'BookCatalogue.bcbk'. Fixing this is MANDATORY for release.
+
+- it does not really do a proper OVERWRITE restore; when you restore the
+backup it gets added/merged with existing data (the same as importing an
+export file in another directory).  Fixing this is IMPORTANT for
+release.
+
+- You can not choose what to backup (eg. 'no covers'); this will
+probably NOT be in the first release
+"
+"7dca5e6abc94fe3bd421b1194a9a096f37b8c7ad","2013-02-07 22:03:15+11:00","Fixed cancel-on-touch-outside for progress
+"
+"89465947124af47b03962698ef47c8d5112c70ab","2013-02-11 00:13:58+11:00","Directory browsing for archives now works
+
+- added file browser
+- refined SimpleTaskqueue and fragment to facilitate error display
+- added many icons for archives and folder navigation
+"

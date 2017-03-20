@@ -1,0 +1,158 @@
+"commit id","commit date","commit message"
+"bee12206c99fde028f5ed0134b78453124b9029c","2014-12-08 10:14:41+01:00","Revert 'Temporarily remove translations.'
+
+This reverts commit 74a285322d0d1606245f7571b1d1d2c10d3ba360.
+"
+"2de9ee3c2af43ffb1c949140312ce1c041d59c58","2014-12-08 10:19:36+01:00","Update the Italian translation from Transifex.
+
+Thanks to Toky Soloniaina.
+"
+"dc7fec572fa625c4e8c7c445414f9a6c87b02ead","2014-12-08 10:22:38+01:00","Temporarily remove most translations.
+
+Because, apart from Italian, the only finished app translation
+(German) doesn't have a finished decision-tree (website) translation,
+and the only finished decision-tree (website) translations
+don't have finished app translations.
+
+Hopefully more app translations will be ready soon. Then I can
+revert this commit.
+"
+"adafadc0cdc1bce9d9442ac4c01875d1ceabb92e","2014-12-08 10:23:38+01:00","Fix tiny typo in a comment.
+"
+"7db35dd864a16e3075a5acd4afae4824baabf681","2014-12-08 11:03:33+01:00","Add some null checks.
+
+Found by Coverity Scan.
+"
+"157f31810ece8535ee271bb33a1d8ac4cf724f23","2014-12-08 22:33:01+01:00","Use the latest gradle version.
+"
+"8b836b602b91d99d38de0a01a347f7276fa3257c","2014-12-08 22:36:54+01:00","Make utility classes final.
+"
+"0e7d507cd59379c8e4e4e0d0bb240d1fb5e029e5","2014-12-15 14:21:46+01:00","Update some dependency versions.
+"
+"e4809d6c6b64cdb0662d945147797155c90fa9e5","2014-12-15 14:22:10+01:00","Log: Make this final.
+"
+"f4c128e030628bbb8782f95b2235ed25250d47e7","2014-12-16 09:07:52+01:00","Add a comment.
+"
+"da1347454e0c0f2d7e6c9dd220931e1bd8baeb53","2014-12-16 09:59:16+01:00","ClassifyActivity: Use launchMode=singleTop.
+
+So the Up button (from Help/Examples, or List, for instance) is more
+like the back button. Otherwise, Up navigation (correctly) ignores
+the back stack and just creates a new instance. But our
+ClassifyActivity has lots of state that we don't want to lose.
+Alternatively, we could have used FLAG_ACTIVITY_CLEAR_TOP when
+navigating up, but this seems simpler.
+
+I do wonder exactly how this is dealt with in standard apps,
+such as when writing an email, pressing a button to launch a photo
+chooser activity and then pressing Up to come back, without losing
+the contents of the email. However, I cannot find a real-world
+example like that that actually has an Up button in the
+helper activity.
+"
+"cadf84deb9f5b5a81c1c9306e02f40f97900922a","2014-12-16 10:12:27+01:00","Update NEWS.
+"
+"645f1098e5e9a769c6ac5dd207750ac96fb8e61d","2014-12-16 11:52:44+01:00","MoreItemsJsonParser: Move some code into the test.
+
+Because it is only used there.
+"
+"c25396a8d4798946d9004d519745bb3771c312a7","2014-12-17 12:05:16+01:00","Use of interface types instead of subtypes.
+"
+"b62187dd63b2de86ffbd5b3ae2b847cf9cbf0772","2014-12-17 12:05:41+01:00","Remove unnecessary imports.
+"
+"76b0a462d9a888ab8fa9281c5ed54f04ac1f9873","2014-12-17 12:06:27+01:00","Make a member field final.
+"
+"85874272b9b0b100e4d0abb6661a53ae36f2365c","2014-12-17 12:07:42+01:00","Make some methods private.
+"
+"dc4a8687d07cc0c2042c42c5a877a80d065995d3","2014-12-17 12:08:37+01:00","ListCursorAdaptor: Remove now-unused LruCache.
+"
+"b5a97a52a85df2a460fd9386a996a3c4717b7216","2014-12-17 12:16:30+01:00","Singleton: Specify a language (en) when using toLowerCase().
+"
+"dbfe511b9e72c51391a6186154c049a225732fec","2014-12-18 09:49:25+01:00","ListFragment: Remove an unnecessary try/catch.
+"
+"ee71847c055e454a107b18fe01ecdebf7931bd5d","2014-12-18 10:00:14+01:00","LoginUtils: Explain why we catch an unchecked exception.
+"
+"76dc04e973011389432560b61b3f1b83c0e1e13f","2014-12-18 10:04:06+01:00","Don't catch (unchecked) ActivityNotFoundException exceptions.
+
+Because those would be serious programming errors that we could not
+recover from. It would be better to let the user report the crash
+with a stacktrace, rather than just ignoring it, in the theoretical
+case that this happened.
+"
+"146e2acf97390cc9d2f0d93ca243c4f640f09d4e","2014-12-18 10:09:44+01:00","Minor comments/logging improvements to catch blocks.
+"
+"a1d908c8d3e357fd632bbc57ced4b9b52a46c95c","2014-12-18 10:10:49+01:00","Don't catch some unchecked exceptions.
+
+These would be programmer errors that the user should be able to report
+to us with a stacktrace. We could not recover at runtime.
+"
+"d3a86fb45ff68e03878346d9c1b5daa0a44902f7","2014-12-18 10:29:15+01:00","QuestionFragment: Throw a RuntimeException if we couldn't store the classification.
+
+It should never happen but ignoring it would mean a silent loss of data.
+"
+"2abdf2d6d803d02cc6be37217af427258a50360c","2014-12-18 11:29:29+01:00","Use latest Android build tools version.
+"
+"dbcdae94313e831ffd3bb1dc40c4e8d10aa85b44","2014-12-18 12:23:54+01:00","ZooniverseClient.loginSync(): Throw an exception if it fails for the caller to catch.
+
+LoginActivity.UserLoginTask().doInBackground: Catch and store the exception and handle it
+in onPostExecute() instead of checking the network status again to guess what the
+cause of failure might have been.
+"
+"aea820eac44e49b11241187475d93edde47657f9","2014-12-18 12:45:30+01:00","ZooniverseClient.uploadClassificationSync(): Throw UploadException.
+
+ZooniverseClient.loginSync(): Also translate IOException from
+writeParamsToHttpPost() to LoginException.
+"
+"8738c6c5f200ef35afcae24032d5c86c1989c329","2014-12-18 13:03:17+01:00","tests: ZooniverseClientTest: Avoid some copy/pasting of code.
+"
+"bd113fa8bf7308c3b648b4c7e9990ec3b5f4ced3","2014-12-18 13:18:16+01:00","tests: ZooniverseClientTest.testUploadWithFailure(): Fix.
+
+Handle the UploadException.
+"
+"1a920e8f82d91cfcd6c1c74b52d40bef5f9dbd7a","2014-12-18 13:23:55+01:00","HttpUtils: Move openConnection() to ZooniverseClient.
+
+Because it is only used there.
+"
+"853261f0f7dd3472d859864af6b5c21cef062f49","2014-12-18 13:28:49+01:00","ZooniverseClient.openConnection(): Translate IOExceptions from here too.
+"
+"91bbdaa2298cb9d5f3e76464a0aaeb15d408dd0b","2014-12-18 13:48:50+01:00","ZooniverseClient.requestMoreItemsSync(): Throw RequestMoreItemsSyncException.
+"
+"c1103cc02bbd2a1ac8c93b5cb923cd77feed4673","2014-12-18 13:54:20+01:00","Do not catch (unchecked) IllegalStateException.
+
+This would always be an unrecoverable programming error so it is worse
+to silently hide it.
+"
+"a075011e33fc9be01d2a549778aace01d613f5ed","2014-12-18 13:56:22+01:00","LoginUtils.parseLoginResponseContent(): throw IOException.
+
+So the caller can translate it to a LoginException.
+"
+"3b7698e449be2679fc7c9b5dc14e88d8294f4bea","2014-12-18 14:18:30+01:00","HttpUils.cacheUriToFileSync(): Throw FileCacheException.
+"
+"5c8d042275b8b62f2ea614c1904462d6519eef3f","2014-12-18 16:45:35+01:00","HttpUtils.parseGetFileResponse(): Let the caller catch the IOExceptions.
+"
+"1cb91d73011c505026772cff6f31ebde86c209e9","2014-12-18 16:49:51+01:00","ItemsContentProvider.createFile(): Let insert() catch the IOException.
+
+We cannot throw it above this.
+"
+"7bdf122c93e11529e5912f19e05aa7182253b22c","2014-12-18 17:16:54+01:00","DecisionTree, Singleton: Throw a DecisionTreeException if parsing fails.
+
+Then throw an uncaught RuntimeException if we couldn't create the singleton,
+because this would be catastrophic and should not be silently ignored.
+"
+"eb62879560eeb0b91ba87101fec00eef0acd471a","2014-12-18 17:18:21+01:00","Update a test.
+"
+"00088c020962818f6b17e24c368b85f0250bed97","2014-12-18 17:19:04+01:00","Add TODO comments about exceptions that maybe should not be caught so soon.
+
+Though these are mostly in commented-out code.
+"
+"771cd70348c3517e1c58bbbe79d8fe80c1e23b0c","2014-12-18 19:21:04+01:00","tests: DecisionTreeTest: Test an expected failure too.
+"
+"bb7c785c05cea71b113e7f51ba35a85b1a161fcc","2014-12-18 21:52:10+01:00","tests: ClassificationInProgressTest: Test equals() a bit.
+"
+"d4363744e845d6e02dc02e6b321e8a75e5816761","2014-12-18 22:10:44+01:00","SubjectAdder: cacheUriToFile(): Throw exceptions instead of returning false.
+
+And adapt the calling code. This gives more clues when something goes wrong.
+"
+"67f7a20fdb215c866161eaa2bf53eb0901b7600d","2014-12-18 22:27:51+01:00","Remove unnecessary imports.
+"
+"5a322177701a617033f87680d90018f8f7c96cc5","2014-12-18 22:41:29+01:00","1.32
+"

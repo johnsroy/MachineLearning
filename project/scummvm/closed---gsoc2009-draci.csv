@@ -1,0 +1,1308 @@
+"commit id","commit date","commit message"
+"39a8c71f776254b272e68a36fa5355293c0ae5f9","2009-06-08 22:18:52+00:00","Adding Draci Historie engine skeleton (engine stub, BAR archiver, rudimentary GPL disassembler)
+
+svn-id: r41390
+"
+"2850023cf3d7d4d342cb44d4de25acec14ed513f","2009-06-09 05:25:23+00:00","Enable Draci engine by default
+
+svn-id: r41394
+"
+"ba49e539d16cc2e48db70434ade95b9da96d0219","2009-06-10 01:35:47+00:00","Redesigned the GPL2 disassembler to improve readability. It now does a linear search in a table of commands (instead of having a giant switch) when searching for the correct bytecode command.
+
+svn-id: r41414
+"
+"10b8d82baa0137348473a846b85a20715808215f","2009-06-10 02:59:53+00:00","Made handleMathExpression() properly handle mathematical expressions inside GPL bytecode (instead of just searching for the ending byte). The actual callbacks still need to be implemented.
+
+svn-id: r41415
+"
+"13dca9a17640168be1a176609334a3e22392bca2","2009-06-10 10:28:43+00:00","Backport debugCN() as it is needed for Draci engine
+
+svn-id: r41422
+"
+"2c00d65501eb838efb72c27e021fdd5af406ff9a","2009-06-10 18:18:09+00:00","Added an additional debuglevel 'archiver' to facilitate displaying debug info from the BAR archiver. Also adjusted numeric debug levels.
+
+svn-id: r41436
+"
+"b91f93716a7da1721a552e3ccc979fe2170f9bd0","2009-06-10 21:12:38+00:00","Code formatting
+
+svn-id: r41438
+"
+"78c07b83f8452b89b199a5100910754307551459","2009-06-10 21:18:14+00:00","Shifted the palette one bit to the left aft toemake the dragon animation brighter.
+
+svn-id: r41439
+"
+"4a9ec62e04d0019161ef2b8e8be9223bb5bf6b21","2009-06-10 21:28:16+00:00","Removed special-casing for the colour black as it's no longer needed.
+
+svn-id: r41440
+"
+"293d0ca65dda94b67955f46b9c8815680769d751","2009-06-11 01:50:10+00:00","Added support for the new GUI options.
+
+svn-id: r41442
+"
+"a36a9a0398c440d5fd9583598ec7a39ea5ca0592","2009-06-11 20:31:36+00:00","Implemented font handling via the DraciFont class. Reprogrammed the test animation to use the original game fonts. Removed the old drawString() hack.
+
+svn-id: r41454
+"
+"51672df70002602eb09a6460259ac92960aeaf53","2009-06-12 09:45:12+00:00","Properly documented everything (including the new DraciFont class). Reshuffled some old comments.
+
+svn-id: r41467
+"
+"2308748f01e5ef80c22bd489a218aeee85250aa3","2009-06-12 09:52:35+00:00","Made the DraciFont::freeFont() method safe to call in any circumstance by making it check for NULL pointers itself to prevent double free / corruption. This also fixes a potential bug in the destructor.
+
+svn-id: r41469
+"
+"32d12e90e3624e57d5f0eb1176f542ec44bd9ef8","2009-06-12 10:22:43+00:00","Removed overflow/underflow checks from DraciFont::drawChar(). Instead, we now calculate the number of pixels that can be drawn without overflowing beforehand. Also added asserts to catch any negative value passed for the coordinates.
+
+svn-id: r41471
+"
+"837f76f61f9e6c7d5c2788c673e8a93fa9700482","2009-06-12 10:25:05+00:00","Made DraciFont::drawString() take a String reference instead of a copy.
+
+svn-id: r41472
+"
+"5808e4f940b6515a2cf61ba39f8b15b40a315f49","2009-06-12 10:37:46+00:00","Made DraciFont::drawString() return early if the string is too long to fit on the screen.
+
+svn-id: r41475
+"
+"fc22ab5748420f49f1c761fbc7a248ef3adce65f","2009-06-12 10:39:33+00:00","Replaced a magic number with a proper constant.
+
+svn-id: r41476
+"
+"02cd93421dcedfdb2d3fd0005707e3d351368f1d","2009-06-12 11:32:44+00:00","Fixed evaluation of GPL mathematical expressions. The evaluator now checks that, at the end of the evaluation, the stack only contains one value (i.e. the result of the expression).
+
+svn-id: r41477
+"
+"b8ec907ea0e6546da266067c5cd4b5b8143b5ed7","2009-06-14 12:44:12+00:00","Added a Sprite class for handling sprites in the Draci format transparently. Modified the test animation to use it.
+
+svn-id: r41509
+"
+"d6ddbf7062ecd1cf06ea28d194ff3becf60a2c18","2009-06-14 13:10:12+00:00","Removed superfluous checks for NULL in DraciFont::freeFont().
+
+svn-id: r41510
+"
+"92dd6d5474e4474e51434c3e024bf897cc7d4673","2009-06-14 13:32:21+00:00","Reworded DraciFont docs (with regards to mentioning ASCII).
+
+svn-id: r41511
+"
+"34d41f61aad64a67807846d832a6533efeef1d80","2009-06-14 13:41:12+00:00","Designate hack according to our conventions
+
+svn-id: r41512
+"
+"682c272e53196bbb4c59bcdc3fe8aa1380bfdea1","2009-06-14 13:49:28+00:00","Replace hackish getch() with proper event loop at end of the demo.
+
+svn-id: r41513
+"
+"f6f7a1e31a9beb8ca37097098e08c0b263ca57ec","2009-06-14 13:51:07+00:00","Whitespce fixes
+
+svn-id: r41514
+"
+"7e7e96e77d849439ceed742f56cf757d116de3f6","2009-06-14 14:12:28+00:00","Replaced a call to getEventManager() with Engine::_eventMan.
+
+svn-id: r41518
+"
+"15a35e359d6a5a973a434b03626bc0e1e5001a0f","2009-06-14 16:21:44+00:00","Changed DraciFont API to accept const Strings when loading fonts and added constants for font types.
+
+svn-id: r41522
+"
+"149b45f7a59c5319c912d13d8259b63b5fbb2a21","2009-06-14 16:33:20+00:00","Renamed DraciFont class to Font to be more consistent with the rest of the classes and other engines.
+
+svn-id: r41523
+"
+"718f84fb9703f894f11d5d6e76b34bc0e345da42","2009-06-14 18:59:31+00:00","Added a Font _font variable to the engine instance. Fixed font colour handling by replacing the appropriate colours before drawing. Added Font::setColour() method for changing the current font colour. Added include guards to draci/font.h. Moved kFontBig and kFontSmall constants to draci/font.cpp to prevent redefinition errors.
+
+svn-id: r41524
+"
+"b942082da4344a2974e77a1a6d63f6bb6c1e9e16","2009-06-14 19:06:46+00:00","Removed superfluous return from the Sprite constructor.
+
+svn-id: r41525
+"
+"910991ddde8bb9c253236807d6d840f4e2141775","2009-06-15 00:29:05+00:00","Converted default font colours from static members of Font to constants. Moved the initializer list of the Font constructor to the constructor body (for readability).
+
+svn-id: r41529
+"
+"a3a9f5c790a8b669597b087b761f887fc5a77228","2009-06-15 00:31:25+00:00","Added const to reference parameters of Font::drawString() and Font::getStringWidth().
+
+svn-id: r41530
+"
+"326cf7e735062d399f6fe5f2ae79ac8f34e8b61b","2009-06-15 03:48:16+00:00","Added support for DFW format archives. Rewrote some BArchive methods to be able to seamlessly handle both BAR and DFW archives. Modified the BAFile struct to support both types of files. Tested it by enabling the mouse in the event loop (the cursor was stored in a DFW file). Added and rewrote docs to reflect the changes.
+
+svn-id: r41533
+"
+"ea3cf319388b01659e04a563314b0de81619fb9c","2009-06-15 03:50:45+00:00","Close a file after we're done using it.
+
+svn-id: r41534
+"
+"a8c784245c1b5a277fdea098ff19c4bd53aac70c","2009-06-15 03:53:03+00:00","Fixed a memory leak in BArchive::openArchive(). A buffer wasn't being freed.
+
+svn-id: r41535
+"
+"30ef3a122369ab3002b2e718934afea676a48fe7","2009-06-15 17:08:39+00:00","Added BArchive::isOpen() method. Modified DraciEngine::go() to use it. Updated BArchive docs.
+
+svn-id: r41550
+"
+"ca7d400dc35ed69d5e6368672102822b7eab081c","2009-06-15 17:12:21+00:00","Submitting changes to DraciEngine::go() mentioned in the last commit but omitted by accident. Removed superfluous BArchive::closeArchive() calls.
+
+svn-id: r41552
+"
+"8249d24a637adefe25ef03f976acd6e7df782c00","2009-06-15 17:14:38+00:00","Changing font colour constants to an enum.
+
+svn-id: r41553
+"
+"7420c1bfb620b62ae59c1ca91df6267281a9455a","2009-06-17 03:14:22+00:00","Added include guards.
+
+svn-id: r41600
+"
+"997b37eff15485c095181b2b1c3ade24722bdb8f","2009-06-17 04:48:48+00:00","Began work on the Screen class. Modified the demo animation to use the it.
+
+svn-id: r41604
+"
+"569fe8804157c203e95cc90fed48d65e263b5bd8","2009-06-17 05:18:48+00:00","Added prefices to safeguard defines in order to minimize risk of name clash.
+
+svn-id: r41605
+"
+"17133fdfa06febf73a3bd5a3b1df92c0e358c710","2009-06-17 14:31:21+00:00","Fixed typo.
+
+svn-id: r41608
+"
+"491800c19a73dc281823635a5406ecc488ce6408","2009-06-17 21:07:59+00:00","Changed the _font DraciEngine member from a Font instance to a pointer to an instance. This way the default constructor is invoked in DraciEngine::init() and can properly initialize the fonts because the game data paths are set.
+
+svn-id: r41612
+"
+"1712db9112dbfb2948a23b2aa2a22023041b52e3","2009-06-17 21:29:05+00:00","Added default parameter to Screen::setPaletteEmpty() so it clears all colours by default.
+
+svn-id: r41614
+"
+"efef9e4eff421a150331b1af23b669ddb4cce0dd","2009-06-17 23:11:24+00:00","Added kNumColours constant and replaced magic numbers with it.
+
+svn-id: r41617
+"
+"0ff3c1945ff83938cd453f92002fbc2c688c641d","2009-06-18 00:33:16+00:00","Changed _screenWidth and _screenHeight from member variables to constants because the screen size doesn't change.
+
+svn-id: r41620
+"
+"fbec4434e5aaacee5d4a3ecf5644f3d6d5ec0b2d","2009-06-18 05:30:21+00:00","Turned constants into enum in order to remove need of prototypes.
+
+svn-id: r41623
+"
+"a6355466d0a4d860288b5bdc049e3fcb277dc06e","2009-06-18 23:55:35+00:00","Added Surface class.
+
+svn-id: r41653
+"
+"1fe88abf6b0518b1bb4cb6baf2344c84da4b6312","2009-06-19 00:00:31+00:00","Added Sprite::draw() method for drawing sprites to a Surface.
+
+svn-id: r41654
+"
+"fc461246cf58329f1de1fcbd848234a26123a668","2009-06-19 00:06:11+00:00","Made the Surface class compile.
+
+svn-id: r41655
+"
+"9d0b940af312efe50008ea2ac3f9e28bb3ea7daf","2009-06-19 00:09:36+00:00","Added support for the new Surface class to Font (transparency, marking dirty rectangles).
+
+svn-id: r41656
+"
+"adef44e4519c1f553062b1f213028e8e1afe0512","2009-06-19 00:13:05+00:00","* Made the Screen class use the new Surface class.
+* Added Screen::drawRect() method.
+* Added support for updating dirty rectangles.
+
+svn-id: r41657
+"
+"f15adff4d8d31d2cf2de149a39e228d6c2fa72bf","2009-06-19 00:15:28+00:00","Updated the demo animation to use the new Surface features (transparency, dirty rects). Changed background to light grey. A transparent string is now drawn over the dragon sprite.
+
+svn-id: r41658
+"
+"a4693b863904360348c0c3e677fbf0fbcb2280f5","2009-06-22 19:31:18+00:00","Replaced return values with Common::k*Error constants.
+
+svn-id: r41775
+"
+"8c3e1b0e8dd66e5c8eaa87f405a2d940c9e858ec","2009-06-22 19:32:47+00:00","Documentation fix for the Font class.
+
+svn-id: r41776
+"
+"f5e39fa61d9a2ca46010c37701bd11547e3aa27f","2009-06-22 20:13:25+00:00","* Expanded docs for the Sprite class
+* Added Surface and Screen docs
+* Small documentation fixes
+
+svn-id: r41779
+"
+"36fd17d499f6357a1b28d6271e87b07557685471","2009-06-22 20:18:53+00:00","Changed Font::fillScreen() to accept a uint8 instead of a uint16.
+
+svn-id: r41780
+"
+"c87f05b14cae5253ff5635e4d23638aff3a1b3b5","2009-06-24 23:58:30+00:00","Started work on the Mouse class.
+
+svn-id: r41840
+"
+"02dadc70fce56be7bfb3704de13367c3142c6ff3","2009-06-25 11:02:10+00:00","Implemented some more methods in Mouse so all mouse-related events are handled through it.
+
+svn-id: r41861
+"
+"d6729f380409096c1e4a54d0a605169506a85ff4","2009-06-25 14:03:57+00:00","Added transformToRows() static method to Sprite. Modified Sprite constructors to use it.
+
+svn-id: r41865
+"
+"566dd20e4f9ecad6d6b96bd720673f80282350ff","2009-06-25 15:08:49+00:00","Renamed *cursorNum identifiers in Mouse to *cursorType for consistency.
+
+svn-id: r41866
+"
+"a1b02870d898bc24dcd3776ecb0bee00791b4cd9","2009-06-25 16:02:00+00:00","Made the DraciEngine destructor free _font and _mouse.
+
+svn-id: r41872
+"
+"09313ccebb93ae38141cbe39d19a4556417bd9d4","2009-06-25 17:56:14+00:00","Fixed typo.
+
+svn-id: r41873
+"
+"991102681694cf5fec6b88205ca7fd5446102b51","2009-06-25 18:06:35+00:00","Oops, really fixed typo.
+
+svn-id: r41874
+"
+"c1644493b87204728f2ec9a32df28e40e9542103","2009-06-26 23:34:06+00:00","Added empty Game class.
+
+svn-id: r41906
+"
+"04309390069f8466ddeadd599c403aca9c1e3ccd","2009-06-27 01:04:24+00:00","Added Game's constructor. Added the Person struct and made Game constructor read in the list of persons from INIT.DFW. Added Game instance to DraciEngine.
+
+svn-id: r41907
+"
+"746e2214ee6f2e3eeab0afa7552aaa675ccdf40d","2009-06-27 05:10:24+00:00","Extended Game to load all info from INIT.DFW (general game info, dialog offsets, variables, item status, object status).
+
+svn-id: r41908
+"
+"2e30fae261307b47885ade487a43d418bfe15fa5","2009-06-27 15:00:14+00:00","Renamed gpldisasm.* to script.* in anticipation of using it as a script intepreter.
+
+svn-id: r41918
+"
+"97dde5e1eddcff4e038843a880343429b26a1fe9","2009-06-27 15:17:26+00:00","Put all GPL interpreter related routines inside a Script class.
+
+svn-id: r41919
+"
+"4c524f5e0a62fe34c3c3bb9978ee8cd3c0c3ccbc","2009-06-27 15:19:03+00:00","Renamed Script::gpldisasm() to Script::run().
+
+svn-id: r41920
+"
+"1e70f25fcfed439149a5fc1a87a4ce0461656127","2009-06-27 15:26:33+00:00","Added Script instance to DraciEngine. Restored disassembling of a demo script on engine startup (previously via gpldisasm(), now via _script->run()).
+
+svn-id: r41921
+"
+"d28bbe51bffe67866b3e1d53188be847c7f533e4","2009-06-28 13:10:53+00:00","Added struct GameObject (such structs are stored in OBJEKTY.DFW and used for in-game objects' info). Added Game::loadObject() for loading such objects into memory. Made Game's constructor load the object for the main hero.
+
+svn-id: r41925
+"
+"948bf2cfcc23dc95fa7b29ff2f6ae7a27af132bd","2009-06-28 15:28:20+00:00","Removed disassembling of the GPL script for the first game location from Draci::init().
+
+svn-id: r41926
+"
+"f61b2d289d0e6ec960e20ac5b59a0fe7dfe8740e","2009-06-28 16:19:10+00:00","Changed Script::run() to accept a GPL2Program struct instead of a byte pointer and a length. Also, Script::run() now executes the GPL program until a gplend instruction rather than to the end of the whole program. Modified GameObject according to the new changes.
+
+svn-id: r41927
+"
+"6a78781889a9803ae06f2818c2809f2625baefb8","2009-06-28 16:28:16+00:00","Added an offset parameter to Script::run() so we can specify where to start the GPL program execution. Also, the init script for the dragon object is now run inside Game::Game().
+
+svn-id: r41928
+"
+"63aa2b7aafefbd1611ac8f6cbf1f55339b5d9a74","2009-06-29 22:20:30+00:00","Account for endianess properly when reading in game variables.
+
+svn-id: r41965
+"
+"138d17bbabd5e5639b6aab24f1c2a0b75a9384f7","2009-06-29 22:27:38+00:00","Changed some data members in Draci::GameInfo from uint32 to uint16 (previously I thought that the 'word' type in the original engine was 32 bits). Removed a FIXME concerning struct size mismatch (matches when the previous sentence is taken into account). GameInfo::_numDialogBlocks is now calculated, not read in (it wasn't stored in the data files at all).
+
+svn-id: r41966
+"
+"85a5871873499a2965dd5badffd224a7560f9b60","2009-06-30 22:31:29+00:00","Added the Drawable abstract base class and made Sprite inherit from it.
+
+svn-id: r41979
+"
+"49e1a07f277d48b5e597730af76e9247bfff58b8","2009-07-01 01:02:48+00:00","Added Font::drawString overload that takes in a pointer to a byte buffer and a length instead of a Common::String. Changed the former drawString to be a wrapper for the new one.
+
+svn-id: r41980
+"
+"78d5b96f51fa59a7d024d3da7667c3cdcba3410c","2009-07-01 01:11:48+00:00","Added Text as a subclass of Drawable. Fixed syntax error in font.cpp
+
+svn-id: r41981
+"
+"d7f8cbf17068b4e0a8fa97cf11e72a0fc51e6908","2009-07-01 01:18:22+00:00","Added text position specification to Text constructor.
+
+svn-id: r41982
+"
+"4c86646db67d8f7d66f96e633af0bd1ca8e14f25","2009-07-01 01:25:48+00:00","Changed intro animation to render text via the new Text class.
+
+svn-id: r41983
+"
+"48959935880a991d14768dac66f41c183eb0dd44","2009-07-01 01:43:20+00:00","Added Text::setText() and Text::setColour() methods. Changed demo animation to use them.
+
+svn-id: r41984
+"
+"f0fcd7fd8ee28d525f53df364233f4e064123a28","2009-07-01 15:22:36+00:00","Modified Sprite, Text and Drawable to handle data hiding properly since they're no longer just C-like struct containers. Implemented getters/setters accordingly and changed existing code that used those classes.
+
+svn-id: r41995
+"
+"cfadb6cc3daeb70a4776d3455964c8b463dad411","2009-07-01 16:00:27+00:00","Made coordinate specification mandatory when constructing objects of type Sprite and Class. Made transforming from columnwise a default (since it was done most of the time anyway). Changed coordinates to use uint instead of uint16.
+
+svn-id: r41996
+"
+"1402a3f5fed4b3b97050924ad56bd4bfaf602a42","2009-07-01 16:01:07+00:00","Removed declaration of Screen::drawSprite() which is now obsolete.
+
+svn-id: r41997
+"
+"1373eeea126ea576d1b99d6df27238bb8d6c6b90","2009-07-01 16:14:04+00:00","Made Text objects calculate their widths and heights properly.
+
+svn-id: r41998
+"
+"58c1591ae0ba68f4d259cff86b9ec3caa1137b74","2009-07-01 16:15:06+00:00","Added Text::setSpacing() method.
+
+svn-id: r41999
+"
+"d47ab6ae987cd01d1d0b87a54e226b3eaae89b24","2009-07-01 16:20:47+00:00","Added empty animation.cpp and animation.h files.
+
+svn-id: r42000
+"
+"fed2281125f862f6f0356d8d40642a90ce772394","2009-07-02 10:31:56+00:00","Make the meta engine pass the pointer to the detected version and not the whole ADGameDescription table.
+
+svn-id: r42018
+"
+"35a677fb08402b5a9fd07366d60651bcc2f598ce","2009-07-02 10:39:51+00:00","Added BArchive::clearCache() method for clearing the data cache of opened files.
+
+svn-id: r42019
+"
+"936e5f4c5e5c70f9869ed8a986173c92b7f39d4a","2009-07-02 15:08:42+00:00","Merged the info available from _objectStatus with the GameObject struct. Made Game keep a list of all the game's objects. Added Game::getObject() method for fetching a pointer to a particular object. Changed Game::loadObject() to not accept a pointer to a GameObject struct anymore.
+
+svn-id: r42026
+"
+"be3c0461d6af8f3631da88a92e9b66524a3c0a9c","2009-07-02 16:15:32+00:00","DraciEngine now opens and stores pointers to essential archives. Changed code that used those archives to use that instead of opening them manually. Replaced BArchive::operator[] functionality with BArchive::getFile() to prevent ugliness when accessing archives via pointers.
+
+svn-id: r42031
+"
+"b0334e102fea2cc8d5b425b5a5131d3a65f18953","2009-07-02 19:47:25+00:00","Added struct Room.
+
+svn-id: r42033
+"
+"4a4aab83d0ee19040536bb8aa7e8832a715a85a3","2009-07-02 19:54:18+00:00","Fixed typo.
+
+svn-id: r42034
+"
+"cac39d8295c7be133d9d51c3e5b9dd7d8b5637cc","2009-07-02 19:57:09+00:00","Added rooms and overlays archives.
+
+svn-id: r42035
+"
+"8bba3e6f10ce68dd9615ab7340fb0c54b3f61e1a","2009-07-02 20:29:14+00:00","Added Game::changeRoom() method and Game::_currentRoom.
+
+svn-id: r42036
+"
+"b232202b3383b44407d24101cb175e4190f851b4","2009-07-03 16:29:56+00:00","Removed demo code so I can start working on the real intro.
+
+svn-id: r42063
+"
+"52642e2dc9db65b87994b56e19c14b1b039dcb08","2009-07-03 16:35:04+00:00","Added two more debug levels (logic and animation).
+
+svn-id: r42065
+"
+"8e9771d15c3e328fb5183f78f37501f9f2646c09","2009-07-03 16:41:11+00:00","Added bool parameter markDirty to Sprite::draw() and Text::draw() to specify whether to mark a dirty rect for a particular draw (also added such support to the Font class since it's needed by Text). Made spacing parameters for Text instances mandatory.
+
+svn-id: r42066
+"
+"90e6ff9d8a2dab45ddaba2713831d47264493fa0","2009-07-03 17:39:13+00:00","Added support for mirrored sprites.
+
+svn-id: r42067
+"
+"c178409b56990297e7521b072fda1d537b067b4c","2009-07-03 17:50:22+00:00","Implemented beginning of the animation engine.
+
+svn-id: r42068
+"
+"22cfdf01ee316745b4951d4ff314d18e6ca1f11b","2009-07-03 17:53:05+00:00","Made the animation engine compile.
+
+svn-id: r42069
+"
+"4ba1ea8adf75b1e665827314ae3ebc164887e450","2009-07-03 17:54:13+00:00","Added support for loading room overlays to Game::changeRoom().
+
+svn-id: r42070
+"
+"1853d594b837358bde0ec89697d74ae29e7459a0","2009-07-03 17:55:28+00:00","Enabled loading room number 1 as a test.
+
+svn-id: r42071
+"
+"c651d1c2e252995cf3c6b84fe7b0a161437f5e99","2009-07-03 18:17:05+00:00","Made Game::changeRoom() clear the overlaysArchive cache when it's done loading overlays.
+
+svn-id: r42072
+"
+"4465ecf1233726ce70a27b1d03ac49d222961ede","2009-07-03 18:19:51+00:00","Added deconstructor for Animation. Made Animation objects delete their frames when deleteAll() or deleteAnimation() are called.
+
+svn-id: r42073
+"
+"63d0fdea68f8f43a84a22d7e8a72eef5a862a20a","2009-07-03 19:02:08+00:00","Added Sprite::getRect() and Text::getRect().
+
+svn-id: r42074
+"
+"a4e6464a63fdf109df39c3c3106e1b3cd84bf5a7","2009-07-03 19:05:58+00:00","Added support for playing and stopping animations.
+
+svn-id: r42075
+"
+"885ce59ce8b02046e165598c40facccceda48927","2009-07-04 14:48:36+00:00","Restructured Script so I can start adding callbacks to GPL commands (added DraciEngine * member to Script, added Script::setupCommandList() which initialises the command list array, added Script::dummy() callback for the Load command for testing).
+
+svn-id: r42090
+"
+"b1d6377aa1c3216588600a3e51d181eb249d0a69","2009-07-04 14:54:22+00:00","Added _animationsArchive member to DraciEngine.
+
+svn-id: r42091
+"
+"0888e8a6da350c88c8e69f02963203772c7ea33b","2009-07-04 15:21:12+00:00","* Split code from Game::changeRoom() into Game::loadRoom() and game::loadOverlays(). Game::changeRoom() now calls them instead.
+* Added Game::loadAnimation()
+* The engine now stores 'real' indexes (zero-based) instead of Pascal's because the previous approach was messy.
+
+svn-id: r42092
+"
+"a06509f3c255b89c322975fcfcc620735789122b","2009-07-04 18:29:01+00:00","* Removed tracking of Z coordinates in Drawable since it's not used
+* Made columnwise parameter mandatory
+* Made Sprite coordinates signed (the engine sometimes uses negative coordinates)
+* Prevented overflow when drawing sprites in some cases
+
+svn-id: r42100
+"
+"b96b4344468f1ba4214574bc1854e47f62501e76","2009-07-04 18:35:08+00:00","* Added Game::init() and moved some functionality from Game::Game to it (loading objects, changing rooms)
+* Made Game::load*(), Game::getObject() and Game::changeRoom() methods public
+* Stopped specifying Z coordinate when creating some Sprites (which I forgot in my previous commit)
+
+svn-id: r42101
+"
+"fdf9eb84d6f9c59527a06a2571ee80b467dffdd3","2009-07-04 18:36:45+00:00","Implemented handler for the Load instruction. Removed Script::dummy().
+
+svn-id: r42102
+"
+"960740fe83ee1d1e4cea33f732df4b698d22c479","2009-07-04 23:05:13+00:00","Rewrote Sprite::draw() to draw overflowing sprites correctly. Stopped playing animations as soon as they're loaded from Game::loadAnimation().
+
+svn-id: r42111
+"
+"6c3e9f5151fac4906c2fabc2e26ee39bc7043664","2009-07-05 03:24:46+00:00","* API change for Animation and AnimObj; AnimObj is now a proper class and each instance handles its own animation. Animation handles adding, fetching and deleting of AnimObjs (probably needs a namechange).
+* Implemented actual animation (previously only the first frame was display)
+* Implemented animation starting, stoping, looping
+* Loaded looping dragon animation as a test
+
+svn-id: r42114
+"
+"8e341ee968017be7d5bf7690473c80500c6b75d9","2009-07-05 11:52:17+00:00","Renaming Animation -> AnimationManager and AnimObj -> Animation in light of the new API change.
+
+svn-id: r42133
+"
+"f4ba64d2e4783b300242fd43ab6813d6c8ca8cdb","2009-07-06 17:25:34+00:00","Implemented GPL operators.
+
+svn-id: r42183
+"
+"4e15262e7493b726fa4a6ea57089063211180d2d","2009-07-06 17:27:12+00:00","Implemented Script::play() GPL opcode.
+
+svn-id: r42184
+"
+"237707dd6e0d07db130de9cdae5f7c9f5169ff71","2009-07-06 17:29:44+00:00","Fixed bug where the GPL interpreter left parameters from previous commands on the stack.
+
+svn-id: r42185
+"
+"edaaca97f95a26b235fadaf199d291c98d88d43a","2009-07-06 18:49:51+00:00","Set up GPL functions properly (the math evaluator now calls the handler if its implemented).
+
+svn-id: r42188
+"
+"218a15d890d089e48d135533bb51f0b68043e197","2009-07-06 19:22:13+00:00","Made _rnd member of DraciEngine public.
+
+svn-id: r42190
+"
+"b2c24dd640eba57c1c2460a027f021118ca44920","2009-07-06 19:26:53+00:00","Implemented Script::funcRandom (GPL function).
+
+svn-id: r42191
+"
+"61fa4d27d5cbeb6029b07596d2db2af381567e83","2009-07-06 19:41:13+00:00","Cache the transparent colour instead of calling a function for every pixel.
+
+svn-id: r42192
+"
+"3b75b8003d74f5587d3434d642b05c61a4227fed","2009-07-06 19:43:21+00:00","Removed two variables that were committed by mistake.
+
+svn-id: r42193
+"
+"79c42abf086911537400750fc356127669bf4c23","2009-07-06 19:50:59+00:00","* Fixed extracting visibility and location of object from its status byte
+* Added Game::getRoomNum() which returns the current room number
+* Made Game::loadRoom() execute the room's startup script, load the room's objects and run their init scripts as well
+
+svn-id: r42194
+"
+"82e6bcea2f0cf3fb0d44cbdd6fc5ad9240ef20e2","2009-07-07 14:52:36+00:00","* Added AnimationManager::deleteOverlays().
+* Fixed bug in AnimationManager::deleteAnimation() that could result in accessing the Common::List::end() sentinel value.
+
+svn-id: r42223
+"
+"7f3af129f218ee47f806e7672ffe4074b86194c2","2009-07-07 15:21:41+00:00","mplemented changing rooms properly (overlays and objects' animations are deleted before a new room is loaded) and set up a quick demonstration (left click advances to the next room, right click goes back).
+
+svn-id: r42224
+"
+"2e552bf643cc5763f32a8ffa16b12af71165186f","2009-07-07 15:31:13+00:00","Stopped running the room init scripts twice.
+
+svn-id: r42225
+"
+"4cfdf8c855143d93185f2d0bc70d06976885da67","2009-07-07 15:35:35+00:00","Shortened AnimationManager::{play,stop}(). Removed some excessive newlines.
+
+svn-id: r42226
+"
+"d519626c55831653c9a595822f502f84a1e51c9c","2009-07-07 15:37:50+00:00","Added const keyword to 'transparent' local variable in Sprite::draw() and removed leading underscore.
+
+svn-id: r42227
+"
+"c258eefc82517274f2b98fd13e4959686ba9e4a5","2009-07-07 15:39:18+00:00","Made AnimationManager::getAnimation() return NULL when an animation is not found instead of Common::List<>::end().
+
+svn-id: r42228
+"
+"fd2ab9e3c09e290523d72e39c961e1043be0a7f6","2009-07-07 19:50:12+00:00","Added enum constant for the dragon object (kDragonObject) and made Script::start() a bit more readable.
+
+svn-id: r42236
+"
+"d37d49e50c9352cd1f6ef46b40cb06e5d0a5ba88","2009-07-07 19:53:40+00:00","Removed testing hack from Game::init() that displayed the dragon in the upper left corner. Replaced some more instances of magic numbers with kDragonObject. Made Game::init() a bit more readable.
+
+svn-id: r42237
+"
+"318d40624212d34df16721d8f7ac2d0fb3ee486a","2009-07-07 20:46:26+00:00","Made GPL interpreter exit on both gplend and exit instructions.
+
+svn-id: r42241
+"
+"b6b1402368b8f33c825af095bec210829ad33cd3","2009-07-07 20:57:14+00:00","* Changed Game::_variables to public since the GPL interpreter needs to use it and made it int instead of uint16
+* Implemented variable accessing by the math evaluator
+* Fixed bug from previous commit (should have used && when checking for ending instructions, not ||)
+
+svn-id: r42242
+"
+"9246e9cf4a6f6a561274274019309b16ae1b96c4","2009-07-07 21:11:36+00:00","* Added some more animation debug info
+* Reordered Animation::nextFrame() a bit to make sure the timings are correct (particularly the last frame)
+* Added checks to AnimationManager::play() and AnimationManager::stop() so it doesn't dereference a null pointer.
+
+svn-id: r42243
+"
+"586af0ab4264e022efe84fff8cdf080d580e8432","2009-07-07 21:18:28+00:00","* From Game::GameObject removed the following _idxSeq, _numSeq, _animObj, _seqTab (not used anymore), added Common::Array<int> _anims.
+* Handled cylic animations properly
+* Handled the Z coordinate properly
+
+svn-id: r42244
+"
+"bab9293f979f706f9e2334011e4a34cf249ecddb","2009-07-07 21:24:39+00:00","Implementend F_Not GPL function.
+
+svn-id: r42245
+"
+"dd955bb08e57a13476afa4f852a97764fe6ad2a6","2009-07-07 21:30:36+00:00","* Made Game::_variables private and, instead, added Game::{get,set}Variable() methods.
+* Removed obsolete comment about the cyclic field not being used in Game::loadAnimation()
+
+svn-id: r42246
+"
+"68ec1350c057c8342f6bf280f8a713922ce05a3d","2009-07-07 21:46:34+00:00","Fixed two mismatched (de)allocations in BArchive and BAFile.
+
+svn-id: r42247
+"
+"d8c33f6836c821287ecb5fd8cfee12fb4dea2ef2","2009-07-08 00:34:53+00:00","* Implemented GPL jumps
+* Implemented c_If, c_Goto and c_Let opcodes
+* Changed the interpreter to work with signed ints instead of uints (the interpreter uses negative values sometimes)
+* Fixed documentation of Script::run() which said it is a disassembler (forgot to change it earlier)
+
+svn-id: r42249
+"
+"32d692aea6f57b41360f433ba65ad1b3459a7e86","2009-07-08 00:40:22+00:00","Made the engine clear some more caches when it changes rooms (room, sprites and palette caches). Made the DraciEngine destructor delete the rooms, overlays and animations archives.
+
+svn-id: r42250
+"
+"0ec737db69cd838a9522aea7cdebe6d5bd9a1b60","2009-07-08 00:48:03+00:00","Stopped doing a screen update immediately after changing the palette. This caused a noisy effect when changing rooms because the palette was changed before the new scene was loaded.
+
+svn-id: r42251
+"
+"6b2991f488c4634f5663eb0734e543d311b82f84","2009-07-08 06:14:17+00:00","Made Script::run() seek in SEEK_CUR mode when jumping instead of the default SEEK_SET. It also now checks whether there is a non-zero jump value set before doing the jump.
+
+svn-id: r42254
+"
+"a41d36de0f2db1ef6572d0a19a1015dd9500e129","2009-07-12 18:55:44+00:00","Fixed bug in the GPL math evaluator (GPL function results were not pushed onto the evaluation stack).
+
+svn-id: r42424
+"
+"d369a257d1e9eb01b6104653ba2e0fcd6efb5980","2009-07-12 19:00:24+00:00","Enabled clearing the screen when the room changes since some rooms do not draw anything on some parts of the screen.
+
+svn-id: r42425
+"
+"eef64cc737fd9a4877822281c88395b73f0720f7","2009-07-12 19:02:08+00:00","Enabled some more rooms in the demo and disabled loading the former distributor logo.
+
+svn-id: r42426
+"
+"77a810c0c9beed930a4b0ffe8e715bd22d7be448","2009-07-12 19:32:01+00:00","Moved the delay mechanism from Animation to Drawable since each frame in an animation can have a different delay.
+
+svn-id: r42427
+"
+"224d8c087acac4e3f21913b6268f82c1ab9faca8","2009-07-13 19:08:04+00:00","Added Surface::fill() method and made Screen::fillScreen() use that instead of filling the surface manually. Changed Surface to use uint instead of uint8 throughout.
+
+svn-id: r42447
+"
+"f655999c1581f4600e0c4abca1cc67591631126c","2009-07-13 19:11:24+00:00","Fixed bug in the NoScene logo room; the screen surface is now cleared between scene redraws (filled with the colour 0) to fix artifacts when animating the logo.
+
+svn-id: r42448
+"
+"f8c20b9e9c68dc670ddb0179abed6dc12509c244","2009-07-13 19:24:22+00:00","Renamed Game::_itemStatus to _iconStatus. Added an assert to check if the number of icons is correct.
+
+svn-id: r42449
+"
+"04e4bfdbbed01d71f3d5c74d4e3a2090430a1b35","2009-07-13 19:53:53+00:00","* Implemented the following GPL functions: IsIcoOn, IcoStat, IsObjOn, IsObjOff, IsObjAway
+* Changed GameObject::_location to an int since we sometimes use location -1.
+* Some more uint <-> int changes to prevent comparisons between signed and unsigned.
+
+svn-id: r42452
+"
+"25b884512d10023fb0004337bbe4ec47f83c6650","2009-07-14 00:41:17+00:00","Made Game allocate its _info member statically instead of dinamically.
+
+svn-id: r42464
+"
+"d5e16118461290b13af19bd37b8b30bea6c15528","2009-07-14 00:51:35+00:00","Renamed GameInfo::_currentRoom to _startRoom to better reflect its purpose.
+
+svn-id: r42465
+"
+"6d51a3ead4eae4a2c8fbb8cce20b4c1e4bbd4c64","2009-07-14 18:11:33+00:00","* Fixed bug in Animation which made the first frame of an animation being drawn after it's stopped
+* Fixed debugging info when starting and stopping animations
+
+svn-id: r42485
+"
+"4ef46f4bb07f3736f7a90d70b6907bb03ff04632","2009-07-14 19:13:49+00:00","Adjusted levels for some Game debug messages and added some new ones.
+
+svn-id: r42489
+"
+"a4a3ad123cb407fc9862acb43d3ca2ea27d2da2b","2009-07-15 18:16:54+00:00","Renamed Font::setFont() to loadFont(). Removed DraciEngine::_font and added _smallFont and _bigFont so each font can be handled separately.
+
+svn-id: r42514
+"
+"ffffc1bea4056e6f00edc935371636352962790b","2009-07-15 19:06:24+00:00","* Changed Game members _numMasks, _init, _look, _use and _canUse from uint16 to int
+* Modified Game::loadRoom to load gates and execute their scripts
+* The first room loaded is now Game::_info._startRoom instead of 0
+* Fixed reading of _pers0 and _persStep from the data files (they are 6 instead of 12 bytes)
+* Added more debug info to Script and Game
+
+svn-id: r42515
+"
+"1bf574aaa9e956bf6f6bcf730382a5f7967f2aa6","2009-07-16 12:07:41+00:00","Added proper cursor state handling (when in rooms that don't use the mouse). Added a HACK note for running the gates' scripts.
+
+svn-id: r42532
+"
+"3d36ad3e677a75f48018336b04d5137b33cbcfb9","2009-07-16 15:00:46+00:00","Fixed loading the location's walking map index (needed to subtract 1).
+
+svn-id: r42534
+"
+"e0317099899a2bb88e57bd1d8a1003c1cb180ee2","2009-07-16 16:06:29+00:00","Added _iconsArchive to DraciEngine and modified the Mouse class to use it.
+
+svn-id: r42535
+"
+"652acfc4ca6e8b63fb7d02103fe5a07c2f4cd312","2009-07-16 18:31:15+00:00","* Added WalkingMaps class
+* Added DraciEngine::walkingMapsArchive
+* Made Game::loadRoom() read in the current walking map
+
+svn-id: r42541
+"
+"c420a4fba13e8f1307b2325d22d2a928d95d1cee","2009-07-16 18:39:39+00:00","Renamed GameObject::_priority to _z.
+
+svn-id: r42542
+"
+"e419110569067fe98a0b009ee5a7e90b507aea49","2009-07-17 00:20:57+00:00","* Added Game::loop()
+* Added WalkingMap::isWalkable()
+* Renamed remaining _priority identifiers to _z which were left by mistake in the previous commit
+
+svn-id: r42546
+"
+"cfa4d5eba0352128142d967434483c8c111e8160","2009-07-17 00:24:56+00:00","Added sanity checks for all archives (whether opening succeeded).
+
+svn-id: r42547
+"
+"8018216dea7ab54940ff8802685dd50a27522509","2009-07-17 00:27:21+00:00","* Renamed Room::_numMasks to _numOverlays for consistency.
+* Fixed unsigned to signed comparison.
+
+svn-id: r42549
+"
+"16530846acc8a9d0ededdf3de82f11d3260fee87","2009-07-17 01:05:13+00:00","* Renamed BAFile::closeFile() to close()
+* Fixed leak in BArchive::loadFileDFW()
+
+svn-id: r42554
+"
+"aa82c39857513525d5212b543f4438f916409250","2009-07-17 01:20:51+00:00","* Made Game::changeRoom() clear some more archives
+* Modified the engine to leverage BArchive's memory management capabilities by using its pointers to data directly instead of copying
+* Removed GameObject destructor (not needed because of the above change)
+* Changed some more data members from uint16 to uint
+
+svn-id: r42555
+"
+"8e1f29630869481f88911476d900f421fa0c2164","2009-07-18 01:11:45+00:00","Removed room switching hack from Mouse and re-added it to DraciEngine::go() (right arrow switches to the next room, left to the previous.
+
+svn-id: r42577
+"
+"adf9e91e1fd1bc9e23147ef4ce100a5343a23ffa","2009-07-18 02:53:37+00:00","* Added Animation::getFrame()
+* Added support for sorting animations when Z is changed later on (AnimationManager::sortAnimations())
+* Added support for relative coordinates (Animation::setRelative())
+* Fixed bug where AnimationManager::deleteOverlays() deleted all animations
+
+svn-id: r42579
+"
+"3cde84fec4a06c9a95d8f6e2f61a3a990c8f3bff","2009-07-18 02:58:11+00:00","Fixed bug where certain animations were played very fast when not played immediately when they are created.
+
+svn-id: r42580
+"
+"94417e77438e779ee1a03e366d96dc49bff04e03","2009-07-18 03:00:12+00:00","* Added support for 'walking' with the hero (i.e. moving the sprite to locations allowed by the walking map)
+* Enabled drawing the walking map with the 'w' hotkey for testing
+
+svn-id: r42581
+"
+"18fda1b2f374e57b10f7ed3bce7e193998cb0014","2009-07-18 03:05:20+00:00","Fixed a bug where the cursor was not shown when the first room is loaded and has mouse enabled.
+
+svn-id: r42582
+"
+"10e9a780ce870a0273c5d35cbb0ccfb45391087b","2009-07-18 03:12:12+00:00","Made the engine stop the dragon animation when the room changes.
+
+svn-id: r42583
+"
+"128fe6ea21f885c020f821f75f5a47427825eef6","2009-07-18 03:20:26+00:00","Made the engine handle the Z coordinate for the hero properly.
+
+svn-id: r42584
+"
+"a44cda552561d13a596acafa5b8d1ce918585d92","2009-07-18 05:21:01+00:00","Fixed bug which caused animations to sometimes be played too fast if the engine was busier than usual (like when redrawing the whole screen when returning from minimized state).
+
+svn-id: r42585
+"
+"cb185f18cde68c40590959a700226e24912d2688","2009-07-18 12:08:18+00:00","Fixed bug which caused the dragon to be animated with the wrong Z coordinate for short periods of time when moved to a new location.
+
+svn-id: r42586
+"
+"1ec375bbd5ee497e6ce29771fbc584a3cb6de961","2009-07-19 13:28:05+00:00","Added capability for reading in Pascal 6-byte floats and made Game::loadRoom() read in pers0 and persStep correctly.
+
+svn-id: r42612
+"
+"18301b6f78fd6d7eb77b5055129b71d2b8dce270","2009-07-19 14:54:16+00:00","* Used ldexp() in real_to_double() instead of doing the calculation manually
+* Moved static declaration of real_to_double() to game.cpp
+
+svn-id: r42616
+"
+"a2a71cb8fbdbf1426d73c6f09f315abf04cfcbb9","2009-07-20 17:25:57+00:00","* Added scaling support
+* Made the dragon scale when it is in different parts of the room
+* Added getters for relative coordinates (Animation::getRelativeX() and Animation::getRelativeY())
+* Commented Game::loop() and Sprite::draw*() methods in more detail
+
+svn-id: r42627
+"
+"6097828f546fd6f135bc907d6cd0586bb473d9b5","2009-07-20 17:34:19+00:00","Made 'show walking map overlay' setting persist when changing rooms.
+
+svn-id: r42628
+"
+"b3a2d186bbca722b0cc172f07222e782e79b96c1","2009-07-22 04:42:33+00:00","* Moved scaling support from Animation to Sprite
+* Now each Sprite (and hence frame in an animation) can have a separate zoom (which is needed for some animations in the game)
+* Scale factors are not stored any more; instead, we only store scaled dimensions (since these are stored in the data files) and calculate the factors from those.
+
+svn-id: r42647
+"
+"348cbc2b197903252202c041c96b943685dd6fb4","2009-07-22 04:47:01+00:00","* Removed some unnecessary virtual qualifiers from methods in Drawable, Sprite and Text.
+* Changed some Drawable members from uint16 to uint.
+* Added some const qualifiers to methods of Drawable.
+
+svn-id: r42648
+"
+"9b32771017de2db833c787c338b01cdcf76d27a9","2009-07-22 04:50:11+00:00","Fixed scaled mirrored sprite drawing. This change enables the NoSense logo animation to be played correctly.
+
+svn-id: r42649
+"
+"42e8e1e126ad71fd39e3afdd2031b4f7ac7f9b6a","2009-07-22 05:00:11+00:00","If a frame has scaled dimensions set to 0, the engine now does no scaling instead of scaling it to nothing. Fixes the disappearing chair bug.
+
+svn-id: r42650
+"
+"5a77f089e1c6ea851851c55084a12023380656f1","2009-07-22 05:03:34+00:00","Check whether the walking map overlay is already in the desired state so we don't start/stop it over and over.
+
+svn-id: r42651
+"
+"ef37d0a9b05607141558ba358a7dfd361aa26d9e","2009-07-22 07:18:00+00:00","* Stopped AnimationManager::drawScene() from marking its own dirtiness.
+* Instead, Animation::nextFrame() marks both the old and the new frame dirty. This makes it possible to only update the real screen when the animation changes and results in a pretty big speedup.
+* Added utility method Animation::markDirtyRect() which takes a (Surface *) and marks a dirty rect on it for the current frame.
+* Fixed artifacts when moving the dragon.
+
+svn-id: r42652
+"
+"1c86a986d971aaa7ef77e4251b7069fe3ee33b88","2009-07-22 07:22:12+00:00","Fix warnings
+
+svn-id: r42653
+"
+"1726cc8d247f2ad8ac5b4136b866055d3e30155b","2009-07-22 11:30:57+00:00","* Disabled unconditional execution of gates' scripts
+* Fixed bug in Animation::nextFrame() which caused non-looping animations to linger on forever
+* Stopped setting looping to false explicitly in AnimationManager::addAnimation() since the Animation constructor already does that
+
+svn-id: r42657
+"
+"a2bca06b3fe00379d8accf29e7f442fe0a3cd781","2009-07-24 01:54:13+00:00","Added support for per-animation scaling (via scaling factors). I have decided to go for a mixed approach (where Animation has a global scaling factor for the whole animation which is separate from Drawable's scaled width and height) so the animation can be scaled more naturally when the scale often changes (like with perspective when the dragon is walking). Previously, one had to alter the sizes of each frame of the dragon's animation whenever the dragon moved which was unclean.
+
+svn-id: r42680
+"
+"c1ad0c3926f4d53a9c5fdefefde9344d4abb6f10","2009-07-24 05:00:53+00:00","* Added tracking and deleting animations by index (which represents the order in which they were loaded). This is needed by some GPL commands.
+* Added Game::getNumObjects() which returns the number of objects in the game
+* Fixed segfault (accessing a null Animation *)
+* Added some docs to various things
+
+svn-id: r42683
+"
+"5faceb595f1cd92353876d3930dfa626d0d075a9","2009-07-24 05:07:27+00:00","Temporary mapped GPL command StartPlay to handler for Start and reenabled gates' scripts (for added effects and testing).
+
+svn-id: r42684
+"
+"b7e97efb7fbd26c91693082339466308c52e7e08","2009-07-25 02:23:00+00:00","* Added handlers for the ObjStat and ObjStat_On GPL commands
+* Removed temporary hack I accidentally committed
+
+svn-id: r42730
+"
+"d28658984dcceb7c090af9f7040d1490239a820b","2009-07-25 03:28:04+00:00","* Added DraciEngine::_initArchive and made Game use it. Fixes a memory bug because Game uses pointers from the init archive which should outlive it (but didn't previously).
+* Added support for setting loop status to Game.
+* Made some GPL commands check whether we are in the correct loop status before executing.
+
+svn-id: r42731
+"
+"ed59a12d53e9dc26c53620333b6a94a11980f3a8","2009-07-25 03:37:22+00:00","Implemented ExecUse, ExecLook and ExecInit GPL commands.
+
+svn-id: r42732
+"
+"ceb9f18132cb32df7d76a03d0371f41a29c5d120","2009-07-25 03:41:28+00:00","Made Script::run() manually mark the last animation index before it executes a program. This is done to prevent Release wreaking havoc if it is unpaired (i.e. if the script forgot to call a Mark first).
+
+svn-id: r42733
+"
+"22c372137f2649fa614966b24918064c2bb44726","2009-07-25 04:23:59+00:00","Added Movement enum that enumerates the animations for the dragon's movement.
+
+svn-id: r42734
+"
+"20baaf93f5df7871e93162db479fe1ab526fe35c","2009-07-25 04:36:43+00:00","* Moved walking code to Game::walkHero().
+* Implemented WalkOn GPL command.
+* Temporarily remaped StayOn and WalkOnPlay to WalkOn (for testing).
+
+svn-id: r42735
+"
+"6970e178dcb9c34eb5c021a27144bd64cd2534a7","2009-07-25 18:29:43+00:00","Replaced magic constant with enum kWalkingMapOverlay.
+
+svn-id: r42778
+"
+"20a744bdd2bc889fdb1a460768c13f8be2d60d09","2009-07-25 18:33:20+00:00","Simplified rectangle height and width calculation in Sprite::drawScaled() (use methods of Common::Rect instead of doing it manually).
+
+svn-id: r42779
+"
+"3f571c7eae6ebdce030bf81cb0d7667dfc076bc7","2009-07-25 23:43:21+00:00","Handled the '|' char correctly when drawing text (it serves as both a newline and end-of-string marker).
+
+svn-id: r42788
+"
+"2525ec46de6dc07cb2975d81619bafbc1c135846","2009-07-26 00:04:12+00:00","* Removed friend declarations in Drawable for Sprite and Text, and made Drawable's private members protected so they can access them
+* Added Text::drawScaled() and altered Text::getRect() so Text instances can be accessed through a Drawable pointer. Scaling text is planned for later because it's not essential.
+
+svn-id: r42789
+"
+"b14828c4ce1a12163bb898d02595ea24c3dfc50a","2009-07-27 03:08:19+00:00","* Added Font::getStringHeight()
+* Made Font::getStringWidth() calculate the width of the string properly now that handling of multi-row strings is in
+* Fixed bug which caused the last column of pixels in the last letter of a string to linger on the screen
+
+svn-id: r42832
+"
+"ddf8f1cbb539e60eada6dfeaea560498ac89e3bc","2009-07-27 03:57:43+00:00","* Removed unused variable
+* Fixed unsigned to signed comparison warning
+
+svn-id: r42834
+"
+"fa59e4b16b502716c527bf2e809f684007039dac","2009-07-27 04:14:59+00:00","* Added Sprite::getPixel() (takes into account whether a sprite is mirrored or scaled)
+* Made the Text class internally store a Common::String instead of a byte *
+
+svn-id: r42835
+"
+"673bae444379a522182b1cac47912f798ee46315","2009-07-27 04:18:44+00:00","* Added AnimationManager::addText() for adding text animations
+* Added AnimationManager::getTopAnimationID(x, y) which returns the ID of the top layer animation located on a point
+* Added Animation::getScale{X,Y}()
+* Fixed a few bugs related to animations sometimes having no frames
+
+svn-id: r42836
+"
+"aa6efa33f1b5bb7485cb60012d71fdc14f3b9e67","2009-07-27 04:20:27+00:00","Fixed segfault when the screen is deleted before animations (the Animation destructor still needs to use the screen).
+
+svn-id: r42837
+"
+"00980849699460f8e9919599a8d89dc3dd60bc2e","2009-07-27 04:47:38+00:00","Fixed one more bug related to animations having no frames.
+
+svn-id: r42838
+"
+"019b7f310b7b0443fda505341bdfcda5c0b755f8","2009-07-27 04:51:34+00:00","* Added Game::getObjectWithAnimation() which finds the object that owns an animation with a certain ID
+* Made GameObjects track their titles as Strings rather than byte *
+* Made the engine display the title of the object under the cursor (added a special animation ID for that, kTitleText)
+
+svn-id: r42839
+"
+"21a22f7f77bd876414e6155747d4a037ae0c1f23","2009-07-27 05:30:58+00:00","Added methods to Mouse for setting the state of the button.
+
+svn-id: r42840
+"
+"5a44af4433cb61607c39894d87291d33b2d4010c","2009-07-27 05:34:22+00:00","Enabled running of look/use scripts on left/right mouse button press for testing (Warning: unstable in some places).
+
+svn-id: r42841
+"
+"33af83c65070458339a04d32db3e81260491641e","2009-07-29 00:46:36+00:00","* Added method Animation::currentFrameNum()
+* Renamed Animation::getFramesNum() to Animation::getFrameCount() for clarity.
+
+svn-id: r42873
+"
+"dd9303d27e5b55175781b55c9da63468ce287a2a","2009-07-29 01:02:50+00:00","* Implemented GPL function ActPhase (as Script::funcActPhase())
+* Trivial implementation of the Play GPL command
+* Fixed Script::load() to load animation IDs to objects in increasing order (needed by funcActPhase())
+
+svn-id: r42874
+"
+"e9669b8e2bcc4a65d5cc1225e9328d9171726690","2009-07-29 01:11:53+00:00","* Moved event handling to DraciEngine::handleEvents()
+* Added Game::start() method which is called from DraciEngine::go()
+* Made Game::loop() suitable for calling from other places (like GPL scripts) by handling events, redrawing the screen, etc from inside. This way it doesn't freeze the game if it doesn't return immediately.
+* Added Game::shouldQuit() and Game::setQuit() which can be used to signal the engine to quit.
+* Fixed race condition related to mouse buttons not getting released.
+* Instead of deleting frames for the title animation and adding a new one, reset the text for its frame.
+
+svn-id: r42875
+"
+"bc89ce23d38c2d26ae5336297d628099cdbf8498","2009-07-29 16:39:12+00:00","Fixed text bugs related to the fact that some strings in the data files don't end with '|' like they should.
+
+svn-id: r42897
+"
+"07042e31bcabd4c33f38a7c3a41ca6c603525011","2009-07-29 19:38:02+00:00","* Made Game::loop() exit conditionally depending on whether the internal Game::_shouldExitLoop variable is set.
+* Added mechanisms for signalling whether the main game loop should exit or not (Game::setExitLoop() and Game::shouldExitLoop())
+
+svn-id: r42899
+"
+"f42894c33cb744759a9cfd64fcc24599a8451572","2009-07-29 19:39:10+00:00","Added support for animation callbacks and implemented a few callbacks (doNothing, exitGameLoop, stopAnimation).
+
+svn-id: r42901
+"
+"393cd99a6232112e7959aec3017e59ecabbbb8c4","2009-07-29 19:41:30+00:00","* Implemented the StartPlay and Play GPL commands properly
+* Changed Script::load() to use the new animation callbacks
+
+svn-id: r42902
+"
+"a2cc4a64793371cb6bdb027f9aa21ed06f847613","2009-07-29 20:35:41+00:00","Explicitly set the kDragonObject enum constant value for clarity.
+
+svn-id: r42906
+"
+"ad752b268b73c26b3a8a8b1f8f8ed9229a4abccc","2009-07-29 20:41:53+00:00","* Removed some code I forgot to remove in Game::startPlay() (a call to AnimationManager::play())
+* Fixed logic checking for object visibility in various GPL commands (I originally misinterpreted the original engine code).
+
+svn-id: r42908
+"
+"6ed99df75aadeb8c3844c7d4546735afbd1831de","2009-07-29 20:42:55+00:00","Removed some garbage I accidentally pasted into a comment.
+
+svn-id: r42909
+"
+"b124c8b1225627def357b284e43d9890e1fda79a","2009-07-30 01:12:07+00:00","* Added Animation::setCurrentFrame()
+* Moved rewinding the animation to the beginning from Animation::nextFrame() to AnimationManager::stop() (fixes the owl animation)
+
+svn-id: r42913
+"
+"7532845feea721b554fd38f59e5dc28321ea9bfa","2009-07-30 02:16:58+00:00","Fixed sanity check in Animation::setCurrentFrame().
+
+svn-id: r42914
+"
+"181b155a2f50a05ec2982fa581d7ad5893746a35","2009-07-30 03:37:04+00:00","* Added support for keeping track of gates (exits from rooms)
+* Added getters and setters for current room and gate numbers
+
+svn-id: r42915
+"
+"167b6da23050a60ee0d56c6b435c3c1bbb159d8a","2009-07-30 03:43:44+00:00","* Woops, Game::getRoomNum() was already implemented. Removed the superfluous implementation.
+* Set the first two game variables to the gate and room number in Game::init()
+* Fixed compilation
+
+svn-id: r42916
+"
+"18a8b5b3af96bc0d74167db27552956b646cd0d0","2009-07-31 04:32:33+00:00","* Added Game::runGateProgram()
+* Added a separate mechanism to Game to keep track both of the current room number and the next room/gate. Periodically, I check whether the new room differs from the old one and, if it does, I do the change. Doing it any other would is nearly impossible because of the way the original scripts were written.
+* Added GPL command Script::newRoom(). Rooms can now be traversed by clicking on their exits. Also, the intro animation partly works. Some parts go by far too soon. I assume this is because the engine still lacks a dialogue GPL command.
+* Fixed bug where the gates array of a room was not cleared between uses.
+* Save old jump value when we enter Script::run() and restore it in the end (mimicking the original engine).
+* Fixed small bug where the gate was supposed to be stored as the first in-game variable and not the room number.
+
+svn-id: r42957
+"
+"52a1c5df915fc5791b42c191c6d2c981d22117b5","2009-08-01 02:49:40+00:00","Added archives for item descriptions and images.
+
+svn-id: r42970
+"
+"240871aa2020c5bfc86b6d997465a12fc9a2e3b8","2009-08-01 03:07:18+00:00","* Added support for loop substatus
+* Set loop substatus to Ordinary when changing rooms
+
+svn-id: r42971
+"
+"5c6643f0f3e70c4465b5dcc8011d0fdbff0c5070","2009-08-01 03:26:39+00:00","When changing rooms, set the first two game variables to the new room and gate number. Also, if the new room is the map room, set the appropriate coordinates for the dragon in the persons array.
+
+svn-id: r42972
+"
+"e0e06fc9e065466e4092e983056d67d1469e6752","2009-08-01 17:52:16+00:00","* Made the engine set the appropriate loop status before running a gate program or entering the main loop
+* Removed hack which ran programs for all gates when the room was changed
+
+svn-id: r42977
+"
+"014c33718f0569ca6a205595751531adc97dd6d5","2009-08-02 03:02:22+00:00","Added a dedicated animation for speech text.
+
+svn-id: r42988
+"
+"2d1df86f6910efe67b8f843448fa2f7c28578a62","2009-08-02 03:16:44+00:00","Added the strings archive to DraciEngine.
+
+svn-id: r42989
+"
+"854c27ffacd40ab842a71dcbbf3fadfe007e1e1a","2009-08-02 05:09:55+00:00","Calculate the character length of Text objects (without the '|' separators) when setting a new string. Implemented Text::getLength().
+
+svn-id: r42990
+"
+"e6df651c084130baf2717a6b71aaba07502741a2","2009-08-02 05:11:15+00:00","Changed some uint16s to uints (to blend more naturally with the rest of the engine).
+
+svn-id: r42991
+"
+"6bd1cfa1bdec266574d26b3bf0c3c45fa09d760a","2009-08-02 05:12:42+00:00","Implemented the Talk GPL command.
+
+svn-id: r42992
+"
+"77033ca9a1a61e9de988849618ddd12ad28f7e7b","2009-08-02 05:16:36+00:00","* Fixed bug in Font::getStringWidth() which made it miscalculate string widths (a temporary variable used for storing the width of the current line was not being reset).
+* Temporarily disabled font transparency because the dragon's text is rendered hollow (transparency inside glyph bodies).
+
+svn-id: r42993
+"
+"f9bdd096595ceb924ffec95ea6f8225513e85670","2009-08-02 05:21:21+00:00","* Fixed bug when reading in persons data. I was reading in coordinates as bytes and font colour as int16; it should be the other way around.
+* Handled the kStatusTalk loop substatus properly inside Game::loop().
+* Made Game::walkHero() set the person coordinates for the dragon after it warps him to a new location
+* Added Game::getPerson() method (used by Script::talk())
+* Added Game::setSpeechTick() method (set by Script::talk() and used inside the loop to determine when to switch to new text).
+
+svn-id: r42994
+"
+"96744e42c77bd00f69369d9b841500448b1d1ed3","2009-08-03 01:06:13+00:00","Fixed bug in the math expression evaluator; when evaluating operators, operands were being popped from the stack in the wrong order.
+
+svn-id: r43019
+"
+"5e2eefd4feeec43b532aef9a598b41adebfbfd5e","2009-08-03 01:48:15+00:00","* Fixed bug which made characters talk with the wrong colour; the colour indexes are indexed from 1 in the data files so we need to subtract 1.
+* Turned on font transparency again.
+
+svn-id: r43022
+"
+"41d7590835cbee3c0befe41031e08f4ded969dc9","2009-08-04 15:41:27+00:00","* Reverted change that subtracts 1 from font colour indexes for various speaking characters; they are 0-based after all.
+* Fixed font blitting algorithm to allow for both white fonts and transparency.
+
+svn-id: r43044
+"
+"561d55ff4d63d207895f127a2db5afb47007299a","2009-08-04 19:07:12+00:00","Added Surface methods centerOnX() and centerOnY().
+
+svn-id: r43051
+"
+"d3412ea3a433cee5dce9d520142110eea5713ea7","2009-08-04 19:09:41+00:00","Refactored Script::talk() to use the new centering methods.
+
+svn-id: r43052
+"
+"71dbb75031622432f94c38c4024c4253033d3747","2009-08-04 19:23:59+00:00","* Added Font::getLineWidth()
+* Changed Font::getStringWidth() and Font::getStringHeight() to return uint instead of int.
+* Made the Font::drawString() overload which accepts a Common::String the 'default' one. The overload accepting a (byte *) now calls that one (it was the other way around before).
+* Added proper line centering to the Font::drawString() routine.
+
+svn-id: r43053
+"
+"88276e91d97b5c1d7c55ff440ba945db27a80980","2009-08-05 00:05:36+00:00","Fixed second call to Surface::centerOnX() (should have been centerOnY()).
+
+svn-id: r43058
+"
+"c9b24d2ff9f27a5926ea0dd992a85923dd1616f8","2009-08-05 00:11:09+00:00","* Changed title text to use the small instead of the big font
+* Handled title positioning
+* Cleaned up the main loop a bit (comments, stylistic changes, shortened some lines, etc)
+* Fixed setting the dragon's feet position (the x coordinate should be at the midpoint of the animation)
+
+svn-id: r43059
+"
+"6546c2ed8eb30201f0af68639cb5e37f65620741","2009-08-05 02:35:51+00:00","* Added kTitleColour = 255 enum constant used in the following item.
+* Added proper colouring of the title animation fonts
+* Added Game::getEscRoom().
+
+svn-id: r43063
+"
+"1363a0680a564c356f497d0e90aefeef5f426f76","2009-08-05 02:42:23+00:00","* Implemented the 'escape room' feature of the original engine which lets a user switch to another location (or skip the intro) by pressing ESC (the escRoom for every location is stored in the data files).
+* Reworked the left and right arrow key commands so they don't call changeRoom() themselves but instead schedule the room change via Game::setRoomNum(). In this way, changing rooms like that is still a hack but a bit more 'natural', since the loop doesn't get skipped, the gate scripts get run, etc.
+
+svn-id: r43065
+"
+"e63210616972e59d6e9e98989c489cbf760bcb79","2009-08-05 17:58:14+00:00","* Made some type changes to struct/class members in game.cpp (uint -> int and uint16 -> uint)
+* Added enum constant kNoEscRoom for rooms that have no escape room defined
+* Fixed crash when ESC is pressed in rooms which have no escape room defined
+* Renamed kNotFound (used as a return value for Game::getObjectWithAnimation) to kObjectNotFound for clarity.
+
+svn-id: r43072
+"
+"da8bad0ef528ecb23dc82bcd3c1e30aef0a3b6ed","2009-08-06 03:52:08+00:00","Made the game behave properly and safe when clicking on objects multiple times during talking or executing look/use scripts. Previously, the loop could be called nested arbitrarily many times.
+
+svn-id: r43081
+"
+"c2dccaafcde526875999feb7802c13c482d6ce6d","2009-08-06 04:48:43+00:00","Added method Mouse::isCursorOn().
+
+svn-id: r43082
+"
+"09e49a354fe40b500cf07e2ec97607b903aef70b","2009-08-06 04:50:37+00:00","Turn off mouse cursor and disable titles when running look / use scripts.
+
+svn-id: r43083
+"
+"5ea44b9b5e52402369ab58fb3d978d9597b7830b","2009-08-06 05:04:21+00:00","Moved walkHero() (in the main loop) to the appropriate place (in anticipation of a smart finding a walkable point) and disabled walking during script execution / inventory.
+
+svn-id: r43084
+"
+"3ce16763c7d0f5ef22385dc482cc2c2e184b8f7c","2009-08-06 05:17:18+00:00","Enabled skipping the current line of text if a mouse click occurs.
+
+svn-id: r43085
+"
+"907a35c9297044b87f4e0c5c586873f669cee7da","2009-08-06 07:40:14+00:00","Added ability to end the currently executing GPL program before it finishes via Script::endCurrentProgram().
+
+svn-id: r43086
+"
+"58c56e28b973b4068a646326a2b5563cb2d9b63e","2009-08-06 07:42:14+00:00","Fixed the 'ESC room' feature to work as intended.
+
+svn-id: r43087
+"
+"fc6ff00cbce11f4ffee62d964531f71c88590a11","2009-08-08 03:17:18+00:00","Implemented Surface::getRect().
+
+svn-id: r43109
+"
+"19d5d66fd7989f9028ee2ad54fd36d163fdb1b1c","2009-08-08 12:31:49+00:00","* Implemented WalkingMap::findNearestWalkable() which mimics a heuristic from the original game that attempts to find walkable spots near the given point
+* Implemented moving to the right place when looking / using objects.
+
+svn-id: r43125
+"
+"d2f7268171b1ef3756a5de10aafc5f93761484f1","2009-08-08 15:53:47+00:00","Removed TODO concerning the nearest walkable point feature and reworded some obsolete documentation.
+
+svn-id: r43128
+"
+"18b5d7ce33ffc3631f38b041cb3a48bcb64a3bc7","2009-08-08 15:55:19+00:00","Implemented Script::testExpression().
+
+svn-id: r43129
+"
+"c193c80e67fa9d172f9f57edae927e1c3ed11c0e","2009-08-08 16:17:21+00:00","* Test whether an object can be used by evaluating its canUse script (warning: this will break many things currently working until I implement IsIcoAct in my next few commits).
+* Removed old HACK note because look / use scripts are now more properly implemented.
+
+svn-id: r43130
+"
+"295ab7e6ff022ea1f460740dd75d107b3f2fe64c","2009-08-09 03:58:03+00:00","Added Mouse::loadItemCursor(). Removed hotspot FIXME as all cursors seem to use the same hotspot (the center of the sprite).
+
+svn-id: r43158
+"
+"e46abf16435031aaa7c717e9ca8de9cf50b141ca","2009-08-09 03:59:39+00:00","Added Text::setFont().
+
+svn-id: r43159
+"
+"eeb72e3d0db18043d6ce050ebb1103ca907d640c","2009-08-09 04:09:24+00:00","* Implemented Game::loadWalkingMap().
+* Extracted title updating from the main loop to a new method, Game::updateTitle().
+* Added Game::updateCursor().
+* Restructured the main loop to fix many subtle bugs and enable some new functionality concerning object scripts (like support for room-global use scripts).
+* Added support for tracking currently selected icons (items, probably should be renamed).
+* Changed walkDir, lookDir and useDir members of GameObject to int and adjusted them for zero-based indexing.
+* Added Game::getCurrentIcon().
+* Return from WalkingMap::findNearestWalkable immediately if the starting point is walkable.
+
+svn-id: r43160
+"
+"f68ceeb88cb839f7205a0ba401b8ee329a439122","2009-08-09 04:12:36+00:00","* Implemented GPL functions Script::funcActIco() and Script::funcIsIcoAct().
+* Implemented GPL commands Script::loadMap() and Script::roomMap().
+* Added temporary HACK to change some speech texts to use the small font because some strings overflow the screen (as stored in the data files).
+
+svn-id: r43161
+"
+"abedc7e9bb44a13ebf62e0cb37d8e317afc27e28","2009-08-09 04:24:52+00:00","Moved cursor state setting (when entering a new room) from Game::loadRoom() to Game::start() (just after running the gate program). This fixes a black cursor bug when the game starts (the cursor should not be even displayed then).
+
+svn-id: r43162
+"
+"b9a9a5ef8801f83886a6249f4ad24122cfe0569d","2009-08-09 16:58:04+00:00","Implemented GPL function Script::funcObjStat().
+
+svn-id: r43176
+"
+"d59d03e52f7a75d8af55f7e0af09c0200321e52e","2009-08-09 20:33:58+00:00","Multiply itemID by two before using it as an index into the item image archive because every item has a highlighted and a non-highlighted version.
+
+svn-id: r43185
+"
+"51cc821619bda77881f7514757aedb94bfb9070b","2009-08-11 04:03:22+00:00","Added dialogue support.
+
+svn-id: r43253
+"
+"0daad906859b29da86dfd5160a0a179da2487149","2009-08-11 04:14:38+00:00","Fix intro crash because of bug in the data files.
+
+svn-id: r43254
+"
+"ee7b9271a2ca245a8b18e44a7379fc70b2362e27","2009-08-11 04:18:14+00:00","Implemented GPL command WalkOnPlay.
+
+svn-id: r43255
+"
+"9093e179cc3eab632de003321a3d0f14b28a6cdd","2009-08-11 04:53:30+00:00","Added dialogue selection colouring.
+
+svn-id: r43256
+"
+"3b0895dd2fdfd9dcadfeac021f0b58546fc72c26","2009-08-12 00:56:44+00:00","Added some debug info for loop statuses and dialogues.
+
+svn-id: r43295
+"
+"100603e683b51cf89545756b5ef81775dc57337f","2009-08-12 01:03:54+00:00","Fixed Script::walkOnPlay() (was setting loop status whereas it was substatus that needed to be set).
+
+svn-id: r43297
+"
+"6693b22851dc7030922360e4275b73e2f9804cf0","2009-08-12 04:18:45+00:00","* Split loop status and substatus into two different enums since they are two separate concepts
+* Fixed slight glitch where object titles (which normally disappear when objects are used/looked at) reappeared for a moment after the script has finished
+
+svn-id: r43305
+"
+"303085c66b7288c9bdb375a7091de611dd1c187d","2009-08-12 04:22:47+00:00","Whenever we enter the top-level loop, disable exiting by default (fixes the high-five scene between Bert and Eveline which ended too fast).
+
+svn-id: r43306
+"
+"534158af87985a8ca74b99928a74d99681aca79d","2009-08-12 05:20:25+00:00","* When setting the first two game variables (room and gate), first convert them back to 1-based indexing so they play well with the rest of the scripts. This fixes a number of bugs, e.g. the dragon now appears automatically when the game starts and the question mark animation in the intro is played / stopped at an appropriate time.
+* Removed hack from Script::start() which loaded animation 657 before playing it to stop a crash. The fix above seems to fix this bug as well.
+
+svn-id: r43308
+"
+"e526983dbed44de0499de2bc7cc640ae8b6d43ab","2009-08-12 05:22:50+00:00","Fixed erroneous comment mentioning gates in Game::runDialogueProg().
+
+svn-id: r43309
+"
+"45e4f88e4e2928f5066a6448f4262a3062662df0","2009-08-12 05:35:08+00:00","Removed unnecessary else branch in the part of the loop handling substatus Talk.
+
+svn-id: r43310
+"
+"c57515b5f868d5c79d4ec9176c9f0c92cac9b454","2009-08-12 05:38:15+00:00","Moved setting inactive dialogue option colour to an else branch.
+
+svn-id: r43311
+"
+"8ca10ac3b0527e51a0f72a60e5249525a2746e1c","2009-08-12 07:34:31+00:00","Fixed dialogues logic (some indexes were calculated erroneously +/- 1).
+
+svn-id: r43312
+"
+"3022c623d6eebdb7827f8f60b3e05dfd3bf677be","2009-08-12 07:37:08+00:00","Stopped returning from Animation::nextFrame() early even if the animation has only one frame because such animations may need to have callbacks called too. Fixes intro freeze during mother's lecture.
+
+svn-id: r43313
+"
+"87e64d27f7f1ef3d1f5a635198f006ff89df1f26","2009-08-14 13:17:53+00:00","Fixed bug which made the dragon's spoken line in a dialogue end too quickly.
+
+svn-id: r43365
+"
+"fad77de23486d806f5cc94ae65e0df5953511a73","2009-08-14 16:12:17+00:00","Sped up the game during dialogues by not updating every drawn char separately but the whole string at once. Also removed the markDirty parameter from Font::drawChar() since it's not needed anymore.
+
+svn-id: r43368
+"
+"abf10049bb50d55020ee0f791646a6ca0c0baea8","2009-08-15 02:42:34+00:00","* Implemented LoadPalette, SetPalette and BlackPalette GPL commands.
+* Used a more natural condition (whether the scheduled room number is different from the current room number) instead of the _roomChange hack.
+
+svn-id: r43391
+"
+"1c0df34b4dd47fb686b4af67abdcc13a50d24f7e","2009-08-15 02:53:14+00:00","Removed _roomChange hack since it's no longer needed.
+
+svn-id: r43392
+"
+"74d4392a78889ee162c6626c7c5c3f331f23e5a4","2009-08-16 04:21:17+00:00","Added struct GameItem.
+
+svn-id: r43424
+"
+"680bed134bd96cb4437b8265aee1a8bcfd8bb7ad","2009-08-17 18:23:05+00:00","* Set the _x and _y position for the mouse only when an EVENT_MOUSEMOVE happens.
+* Stop calling Mouse::setPosition() on EVENT_MOUSEMOVE since it's not needed (the engine warps the mouse automatically; I still left the method for situations when we want to warp the mouse explicitly).
+
+svn-id: r43484
+"
+"e5774d2881fe769e31ead57870b1315c56a4ba21","2009-08-17 18:47:17+00:00","* Added pause support for animations.
+* Added AnimationManager::addItem() for adding inventory items animations.
+
+svn-id: r43486
+"
+"b0fea939f49c3b0c6287d5a165c5f8ad27b9d794","2009-08-17 18:50:38+00:00","Added inventory and item handling support (monster patch, sorry). Items were previously called 'icons' as in the original player. This commit also renamed every such instance to the proper 'item'.
+
+svn-id: r43487
+"
+"85bf130a50acd6445042889f5c67a9489d894d51","2009-08-17 18:51:45+00:00","Enabled hotkey 'i' for accessing or exiting the inventory.
+
+svn-id: r43488
+"
+"be0cfa50f29ae1bb5ddd2461c1e4d865d1b30899","2009-08-17 19:37:55+00:00","Removed public data variables of Game concerning dialogues and added getters/setters.
+
+svn-id: r43492
+"
+"e4fb567319c5b1d9584b36eea58ffdab33ddac0e","2009-09-25 06:06:01+00:00","Disable compilation of Draci Historie
+
+svn-id: r44325
+"

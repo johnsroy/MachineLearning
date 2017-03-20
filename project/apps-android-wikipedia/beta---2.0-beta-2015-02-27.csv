@@ -1,0 +1,252 @@
+"commit id","commit date","commit message"
+"6c80ceb91980eba78e4253d3ac86d2dbc4afe695","2015-02-19 16:21:55-05:00","Fix ability to share text selection after screen rotation.
+
+Refactored the way we initialize and clean up our ShareAdapters (both the
+TextSelected and NoTextSelected adapters).
+They were being instantiated in-place, and were creating Dialog objects
+that weren't being destroyed properly upon screen rotation (leaking the
+window).  This was also causing an imbalance in the adding and removing of
+the Clipboard Listener that receives the shared text from the WebView,
+which was preventing the text from being shared after rotation.
+
+I modified the ShareAdapters to inherit from the base ShareHandler, which
+will maintain a reference to the Dialog that it instantiates, so that it
+can be explicitly dismissed when necessary.  And the Clipboard listener
+will now persist for the lifetime of the Activity.
+
+Bug: T89979
+Change-Id: Ib081a48ef342c0844fa996c94314d41b6ff9d298
+"
+"f748affea9d14afffd3c38912798e83c4966e558","2015-02-19 10:19:18-07:00","Fix several Lint issues
+
+- xml: Unexpected namespace prefix 'xmlns' found
+- Assert: Assertions are unreliable. Use BuildConfig.DEBUG conditional checks instead.
+- Invalid package reference in library; not included in Android: java.nio.file.
+Referenced from okio.Okio.
+- IconLocation: Image defined in density-independent drawable folder
+- ContentDescription: Image without contentDescription
++ Updated README
+
+Change-Id: I0ac2c5704a4516f63ba8006be918f6bb2388e3af
+"
+"781222c20b76b0ba2e1ea44e01609d27357d2eb0","2015-02-21 13:58:32-07:00","Promote widgets from alpha to production
+
+Change-Id: Ie99156d866dfa87f4fa1bb70051c6c2b73f78d6f
+"
+"dc1a93f79659b1fc39078c91ebe7aeb93098cd19","2015-02-22 22:23:40-08:00","Fix button text incorrectly appearing in ALLCAPS.
+
+Bug: T87595
+Change-Id: Icd84c42dcbb2ae5133bf01f7c03919eb36187a5e
+"
+"447d3f9a9787590edab466f0a014e3f48b97175a","2015-02-23 16:26:05+00:00","Merge 'Fix button text incorrectly appearing in ALLCAPS.'
+"
+"e0b61afdb1af312668d413f072c82d56e7f11c0d","2015-02-20 12:29:37-05:00","Use icons in Gallery license information.
+
+Using logic loosely based on the current MultimediaViewer extension's
+handling of license information.
+
+If a media item explicitly licensed under CC (any variation), then show
+the CC icon. If an item is explicitly licensed as PD, then show the PD
+icon. In all other cases, show the 'cite' icon.
+
+Clicking on the icon will launch the associated license URL in the
+external browser.
+
+Long-pressing the icon will pop up a Toast with the UsageTerms for the
+item.
+
+Change-Id: I621b87b2ae1cc89189c7cf7d8e9d1cf030a881c2
+"
+"d44c46a231a1251e41da5c50f0d1892af520b522","2015-02-23 14:10:06-07:00","Catch exceptions in SaneAsyncTask.onFinish
+
+Call onCatch() when exception occurs in onFinish as well.
+
+Change-Id: I8c103cb3698b700307196054f89d28be69dcbdfe
+"
+"a25fef8291a178c1f31e1ecb8935f664d2647f29","2015-02-22 19:20:07-08:00","Update app store description for translation.
+
+Change-Id: I0af9c4513864065cde588daab8b7fe3ee9b20eb2
+"
+"bb10ff94f7c094541d7d273e1917c7be54371b15","2015-02-22 22:40:41-08:00","Don't display last modified message on main page
+
+The last modified time is always wrong, because the contents of the main page
+are contained inside another template. This patch simply hides the message. An
+alternative would've been to hack it to always say that it was modified today,
+but that could be wrong on wikis where the main page content isn't updated
+daily.
+
+This patch also adds isFilePage() and isMainPage() methods to the Page class
+for convenience. It was quite clunky to remember that you needed to
+getPageProperties().isMainPage() and getTitle.isFilePage(), so this alleviates
+you having to do that if you have the Page object. A subsequent patch can
+migrate places where the old way is used to the more convenient way.
+
+Bug: T78005
+Change-Id: Ib9e9ac8b99755785cd34bed535e23d5df4db69bc
+"
+"1cca8078d7524efefd204ab5e139591e0338afd2","2015-02-24 12:48:15+00:00","Merge 'Catch exceptions in SaneAsyncTask.onFinish'
+"
+"9b193de9bcb123dbe017b8a3a455b9222ee707bc","2015-02-23 23:46:43-08:00","Fix disambiguation links that point to specific sections to work properly
+
+This patch:
+* Changes the JavaScript which passes disambiguation links to the Java to pass
+the href instead of the displayed HTML of a link.
+* Changes the Java that receives disambiguation links to process the href
+instead using a method specially designed to do that.
+* Modifies DisambigListAdapter to use display titles rather than ugly ones
+* Modifies the task that fetches descriptions to also work with display titles
+
+All in all, disambiguation links that point to a specific section now work.
+
+Change-Id: Ia1aacfdac2747907c331c8b81100278a12d4c4fb
+Task: T88636
+"
+"00461caf3a0b70845c140b3d515a4a7b90d16820","2015-02-23 11:04:37-07:00","Read more suggestions for main page
+
+On the main page, display three did you mean results based
+on a single entry from the user's history.
+
+We're looking at the last history entry that is not of source
+main page or random.
+
+Change-Id: Ia4568e6a1f3e350de05629af954ad8a5649b05cd
+"
+"fb5de63b7d18b72bc10cf470177a08060c492f4e","2015-02-24 19:51:04+00:00","Merge 'Fix disambiguation links that point to specific sections to work properly'
+"
+"64d4cb658dbc448b39095178bef170885441c219","2015-02-24 19:59:25+00:00","Merge 'Read more suggestions for main page'
+"
+"025a97849d973527c400906b06a6cb094dd28f7e","2015-02-24 15:07:40-05:00","Correctly release ContentProviderClient.
+
+We also use ContentProviderClients in our Persister classes, but those
+technically don't need to be released because we maintain them for the
+lifetime of the app.
+
+Change-Id: I0df90eb7e1ad52eff43effa81f7220f43106e200
+"
+"4d7063f7c2abac275b38abd332abea867a9a88f0","2015-02-25 09:52:06-07:00","Update to Android Gradle build plugin to 1.1.0
+
+Change-Id: I841357b2e400922b439c587b3958f8f79593c6b1
+"
+"121d799484a5c9d3ab9ef378ac51f4778a32735b","2015-02-25 11:20:05-07:00","Remove unused resources
+
+and a couple of Lint errors about Log tags being too long
+
+Change-Id: Ife1f18c4c6c349f7590f35bef01f7c2abc4b707b
+"
+"b901969b80f30d7f5dcf675fc30820f0442b081a","2015-02-23 16:00:31-05:00","Improve moving of infoboxes to end of first paragraph.
+
+Reusing transform code from iOS, where we search for the first <p> tag
+that is nonempty, and move it up to the top, instead of moving tables and
+images down.
+
+Solves issues with some articles' infobox overlapping with the edit
+pencil. (Examples for testing: [[Westham]], [[Sparta]], [[Russia]])
+Mostly applies to articles with hidden geo coordinates.
+
+Also solves issue where an infobox might become embedded into another
+existing infobox. (as in [[Barack Obama]])
+
+Also solves issue where text blocks were reordered (example: [[Snark
+(graph theory)]].
+
+Factored out some commonly used utility functions into a separate 'util'
+module.
+
+Bug: T77802
+Change-Id: I39c038f09e7d807d4876cbcbb49c0fc2ea9093f2
+"
+"83efa90def3d3c1c983e73ce90a0fef4c5760e84","2015-02-25 19:18:25+00:00","Merge 'Remove unused resources'
+"
+"7c9e0dfc2837290978faf0f3776a116000783ae0","2015-02-25 19:18:51+00:00","Merge 'Update to Android Gradle build plugin to 1.1.0'
+"
+"ab8baeae71c42873b48d2e281668632b0ffa3308","2015-02-26 02:16:21+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I4a734b29fc70dc90c3dce0eafa8862d16891b68c
+"
+"00a64e93883c895aef2c165c242e6df03d6405e5","2015-02-25 22:25:49-05:00","Tweak the size of gallery license icon.
+
+Per Vibha's request.
+The click area remains the same, and also added drawable for highlight on
+press.
+
+Change-Id: I433b2fcc9b48379d2ff2a5beb6f9d533ff71fb0c
+"
+"748c38b4e57a3108a00a47fde89f60d3f1641dbb","2015-02-25 22:38:41-05:00","Unregister clipboard listener in onDestroy instead of onStop.
+
+The onStop event is too 'early' for unregistering the clipboard listener.
+It's possible to go to another activity (e.g. gallery), then come back,
+and suddenly be unable to share highlighted text. This is because the
+activity was stopped (onStop) and then resumed.
+
+The onDestroy event is called when the activity will definitely not be
+resumed. Dismissing the sharing dialogs inside this event is OK, too.
+
+Change-Id: I89d2e0ded02929434dc3d55cb34afbaccb77c901
+"
+"6adc1a7f2563dab9e76abf48d6ca6106a5ac7ede","2015-02-26 09:33:56-05:00","Fix shadow for ToC and nav drawer in RTL.
+
+Change-Id: I151739c750e401798adf7111bd921d907fe719f3
+"
+"eb637202fee38dc474c6899332c1c98964ba8cdf","2015-02-25 20:57:04-07:00","Remove obsolete language folders
+
+This is a follow-up to https://gerrit.wikimedia.org/r/#/c/191497/.
+
+Change-Id: I669384022d6db99834290c35db1effc92970f73f
+"
+"0db7a871a68f29674cbbc37838039e84151ae694","2015-02-25 21:10:54-07:00","Remove translations below the completion threshold
+
+TWN does not export translations once they drop below the threshold of 35% completion.
+Once those languages that got remove will get above that threshold they will be
+added back automatically.
+
+Change-Id: I3da915485ed9102de151ae3a643c93def9fc7b84
+"
+"b98c4078bffc0493741bd17338f08ac7f207c94b","2015-02-23 22:45:32-07:00","ShareAFact: EL update
+
+Also log share as text.
+Added 'sharemode' enum and new actions 'sharetap' and 'abandoned'.
+
+The new 'failure' action is not feasible on Android for the same reason
+as 'share' is not.
+
+Restrict the length of text to 99  (for now) to avoid events being dropped.
+Dan, feel free to change as needed.
+
+Moved setting and checking of currentActionMode around to avoid logging
+the highlight event twice.
+
+Change-Id: I5f0a88c33e3ef31f6d5e6e5e102468be5a6f72d1
+"
+"d23e04c2420ee8b3c99dd2635f2c2d29a73381b1","2015-01-12 12:22:03-05:00","Video playback in Gallery.
+
+Bug: T86558
+Change-Id: I4f670d1056ba78aa3bc08d8e0c8c166a92705dc4
+"
+"e945a49a58690691314bcc2500815442192203a0","2015-02-26 16:01:26-07:00","Hygiene: Various Lint stuff
+
+Some Android Log tags were too long (23 chars max).
+Missed a few unused resources earlier.
+Also ignoring (disabling) 'MissingTranslation' issue id.
+Made 'NewApi' a warning until the fix for
+https://code.google.com/p/android/issues/detail?id=137195 is released.
+
+Ignore a few specific spelling errors since the translator responded to my marking it as fuzzy:
+https://translatewiki.net/w/i.php?title=Wikimedia:Wikipedia-android-strings-create_account_email_hint/pt&action=history
+
+Change-Id: Iec0867d98d86e5807b24ebbc5da53a13aa0a976f
+"
+"b29f634d43feb9cd4458b3524048c276cc8ff4be","2015-02-26 16:49:01-07:00","Hygiene: Replace Ellipsis strings with Ellipsis character
+
+Yet another Lint warning.  This one has 230+ occurrences.
+Fortunately, Android Studio can replace them all in one fell swoop.
+
+Change-Id: Idd2195e6e0a6b66752bbf0da5372afd1d49e41df
+"
+"7cf4f1977e432c1d31186ce12709befb0dc4b4a8","2015-02-28 00:19:55+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ic8644dca7f24bd046317c9972a7667935127568d
+"
+"2650a58109130b3430c10dacabfcafb7c60d45f9","2015-02-27 16:34:34-07:00","Bump versionCode
+
+Change-Id: I535aae784cdbf5d4fbe1ae1136dd745b9c9437a0
+"

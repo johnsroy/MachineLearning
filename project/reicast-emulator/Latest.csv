@@ -1,0 +1,2214 @@
+"commit id","commit date","commit message"
+"2f171e35968900e7cba03fedf79b8c8079e13f5c","2014-12-11 13:48:37+01:00","Support HOST_NO_REC for windows
+"
+"c69934f839ebf012e0605fb893edb301a62703cf","2014-12-11 14:00:53+01:00","Force all allocates > 32bits on x64 debug mode to find porting issues
+"
+"acda30f034177b51005b9adf37fb5e44c2bc259f","2014-12-11 14:01:13+01:00","Emitter: use main types.h
+"
+"34bc42b7a440f96aa5f4bab8de2df14a0cec67c4","2014-12-11 14:02:10+01:00","Add x64 target, fix Sh4RCB pointer sizing, u32->unat in vmem
+"
+"b1f88f258b2b47318e56735504b1783fe9b59e6d","2014-12-11 14:02:43+01:00","Merge branch 'master' of github.com:reicast/reicast-emulator
+"
+"cbc4f8db2cee419ffe234948ce9b3a38dcf02870","2014-12-14 18:05:59+01:00","Push version to r7
+"
+"bf0490d06e384ba9959a13cec0572e794a36411d","2014-12-14 15:36:53-05:00","No debug plugin means no need for a sharedId
+
+May also resolve some issues with installing over an existing build
+without uninstalling the build first.
+"
+"279b957e944389ed60dafd6d71ba2a1a88189a9d","2014-12-15 01:14:46+01:00","Merge
+"
+"defc25e9c1e06e0caef890ed48e296d6689801ec","2014-12-15 02:18:37+01:00","Remove READ_LOGS, see issue 571
+"
+"e43271e448250a723129fb514527943644c01d3c","2014-12-17 06:48:45+01:00","fix for msvc 2013 / C++14. Rend is now used by stdlib
+"
+"819ed61ec8b413a908b6ac3e112209cbd0309ae6","2014-12-17 07:10:59+01:00","Updated for visual studio community 2013
+
+(yay, free tooling1)
+"
+"9a5c3160a363f1e8b556cb56892fb3f234fa0510","2014-12-17 07:12:08+01:00","Documentation for dsp.cpp
+"
+"29906d8416b770786c3052ddfd3fa48db29a6dda","2014-12-17 08:42:28+01:00","Texkill, palette_update on correct place.
+
+- Texkill needs to be done before texture allocation, which is now done during parsing (texture-sync update)
+- palette_update needs to be called from the emu thread, before kicking off the render
+"
+"09caf4a55e5b0775dd8c1863754094fceec5b532","2014-12-17 08:43:02+01:00","Lock the entire texture, not just the pixel array.
+
+Fixes #49
+"
+"160d6f0c4844a18179824cd1c18bd058eae8dd17","2014-12-17 10:44:11+01:00","Linux is case sensitive
+"
+"86e2408acec652e4f3e0af361974f69af30153b0","2014-12-17 03:10:18-08:00","wip to get ios compiling
+"
+"2978074fa600ea2b7f8ccf78a3c073e751cf5772","2014-12-17 03:11:14-08:00","Merge branch 'master' of https://github.com/reicast/reicast-emulator
+"
+"56ebda10a91c1f62fb59ca2242ee96268869d50a","2014-12-17 10:13:05-08:00","ios interpreter works, bios runs w/ 3d visulals
+
+THIS IS A MESS. Sorry @angelXwind :p. We'll have to clean up and merge for r8, but most of the nasty work is there.
+
+What works:
+- full init, memalloc, mprotects, etc
+- boot
+- gles2
+
+What doesn't:
+- Exceptions for page faults
+- Breaks texture cache
+- Breaks dynarec because of fastpath
+- segfaults don't work, needs special mach exc_server magic that still eludes me after 5 hours
+- Dynarecs. RWX issues, and broken buffer mappings. Also some minnor linking stuff (most of it is taken care of)
+- Audio. I just killed it off.
+- All of the ui. Was getting in the way of me not knowing how to edit story boards...
+- Input
+
+Also, merged branch 'skmp/mac86-hackport' into skmp/ios-wip
+
+Have fun~
+"
+"f4698fc3d70d016ab81a03e21759c90a7a2c7611","2014-12-14 20:49:06-05:00","Record crash output to application log
+"
+"7d3ba6f539a6aece4cdd6e2edce912c7a351445f","2014-12-14 21:13:04-05:00","Change crash dialog to crash toast message
+
+Some of the errors are easily bypassed, but a popup stops gameplay
+simply to be dismissed.
+"
+"595a79b2c35ddef49f59be75edb43a8e296f992b","2014-12-14 22:09:07-05:00","Hide the keyboard when entering file browser
+"
+"1301d24c41edcae52ad1874bc5914f28b635c87c","2014-12-17 15:07:07-05:00","Remove unused CoverFlow library due to menu update
+"
+"ab19db481ba6e28930aae6cc408c4136a0331e32","2014-12-18 13:06:31-05:00","Merge pull request #575 from reicast/loungekatt
+
+Record crash output to application log
+"
+"f6e00047177f997d7c21566b1860ebb146e02e13","2014-12-19 13:51:33-05:00","Blanket summary of test devices for the entire team
+
+It isn’t really necessary to specify who owns what device until it
+becomes relevant in a device-specific issue report.
+"
+"dde74604d3847576fe8366e50a8562d88421d040","2014-12-19 13:52:49-05:00","Merge pull request #577 from reicast/loungekatt
+
+Blanket summary of test devices for the entire team
+"
+"069e96384b36f1e4c8a23b4dc9f68805ef694249","2014-12-19 14:59:38-05:00","update build configuration for public repository
+"
+"5b9ac040a4f58ac11926a473143fbe158ae356a2","2014-12-22 16:45:32+01:00","FB_R_SIZE_type should be 32 bits, not 42
+"
+"9d7cac160ab794a8bf2d5ccdef5de1bf06e8ee8c","2014-12-22 16:46:40+01:00","PVR: Fix hscale, VO vs FB_W scissor
+
+Fixes w320 games (bangai-o, kof99, etc), and Half-x clip (Ready2Rumble,
+more)
+"
+"2f584aa68deae70b5ad6f90d736913b9cbc33314","2014-12-22 16:48:27+01:00","Merge branch 'master' of github.com:reicast/reicast-emulator
+"
+"dee65d217cb09229c13121c7633cd78d231d1214","2014-12-25 01:03:23-05:00","Simplify the network check to avoid false positive
+"
+"8e5f530f25c59dc4ad87cdaee733ca9fd48d0dd9","2014-12-25 01:19:31-05:00","Merge pull request #580 from reicast/loungekatt
+
+Simplify the network check to avoid false positive
+"
+"25eee26ce570268cf73e93327ed937b769bd0630","2014-12-29 22:05:35+01:00","First steps towards a HLE bios implementation
+
+This is very simplistic, but can already boot and run many games
+
+Known working so far
+- Dead Or Alive 2 LE
+- Head Hunter
+- Marvel VS Capcom 2
+
+Not working
+- (Almost) all others
+"
+"088bbfd5e792cbdbae333a17ca3cc11a6371c214","2014-12-30 01:57:13+01:00","More work on reios
+"
+"65d19d8b9dd39c3ea840498b51f76caa7b5013e3","2014-12-30 02:05:01+01:00","Fix reios makefile building
+"
+"28d0e0a08b6689f8e939962a2285d8ef0420ca11","2014-12-29 22:12:25-05:00","Change directions on the path to success
+"
+"83752b9761daa91bd86fdcf3e6a40864617f326b","2014-12-30 10:00:20+02:00","Fix building for linux (-DGLES && eglCreateWindowSurface)
+"
+"78e4b3c5db3e986fa9fe0483552575e688ef9a24","2014-12-30 10:29:49+02:00","Use netinet/tcp.h, not linux/tcp.h
+"
+"0bf6272b9c34e9c01b9fbc3ddf7877d1b7bc7a73","2014-12-30 10:58:13+02:00","Avoid use of C++11, still too many compilers without support for auto :<
+"
+"0783875b84c724574b5e68ba26893c07f7cddaf7","2014-12-30 13:20:51+02:00","Linux GLX/3.1 support
+
+My setup is only 2.1 right now, so this is totally untested
+"
+"c5cc2f1e50c96c9baed1f2b3e90d71e35f988449","2015-01-06 14:10:48+02:00","Document sh4_shced, fix tmu a bit
+"
+"605fa1c40a6342c9bb1ee8ef37e0e40933d31dff","2015-01-06 15:00:32+02:00","TMU: Hello interrupts
+
+Let's pretend that the TMU unit actually exists, it makes games like
+Gaunlet Legends happy ~
+"
+"118e9bb1d23db1254a6ac3d80219fd7c9619a79d","2015-01-06 15:02:16+02:00","Merge branch 'master' of github.com:reicast/reicast-emulator
+"
+"11e9ed167a7f35fefc098b7144a410bf7d5f490b","2015-01-06 16:07:18+02:00","Fix building for android
+"
+"6ad25b8f532f362c2fd4461510958345d9401f47","2015-01-06 21:50:00+02:00","TMU: Improve interrupt handling
+"
+"d055dbd7cbfb6d6c52395e382e1c37240eb62013","2015-01-07 03:12:28+02:00","TMU: Also set the underflow flag. Fixes KOS.
+"
+"2d9767b3b14f6caf3e6864dcbd77471d20a02b7d","2014-12-25 01:42:07-05:00","Avoid thread pool when executing non-parallel task
+"
+"51c82ddb182d6fa4498bd0b21615126906d9d907","2014-12-25 14:56:13-05:00","Fallback to old network methods for compatibility
+"
+"1e783165ae4faaa29db2da0a3646bd53d0e37c43","2014-12-30 15:20:40-05:00","Remove unnecessary StackTrace from error output
+"
+"f211a4fa68287869aaecc12fb00ce981632c6b39","2015-01-01 16:27:35-05:00","Connect Moga controller to new input handlers
+"
+"b3de233e55be5f7d9f42b76812367e71907f822b","2015-01-03 20:37:34-05:00","Fallback to old network methods for compatibility
+"
+"96a274caaf3b6f4a1fa91f97acb48a0a522c5f8b","2015-01-05 14:44:34-05:00","Stop relying on a bug to maintain popup view width
+
+The original view was held in place due to an Android bug that began
+around ICS, which did not stretch views beyond a set amount when
+displayed in modal dialogs.
+
+Clean up the layout to better fit the popup items
+"
+"4c96052d327b77cc9b3542955e27fc326310edcb","2015-01-05 21:24:14-05:00","Support modifying the Moga listener at runtime
+"
+"8e548811e1c139d3eb0076a776756683f2a2e3a8","2015-01-06 19:53:14-05:00","Add a thorough check for the data folder dilemma
+"
+"29496acf0740745dbbb48b8b6c48dec333c6ff47","2015-01-06 23:35:38-05:00","Merge pull request #583 from reicast/loungekatt
+
+Attempting to fix Moga and the preview loader
+"
+"3ca3b1220d379aa27792be769be6527265d1f5e4","2015-01-09 15:50:07+01:00","http support for cdi & gdi, updated based gdipsr
+
+- Fix coreio fsize
+- Fix coreio fopen to seek to 0
+- Fix coreio/http to smart-escape urls
+-  For urls that include \ or % in the filenames, you have to pass them
+escaped
+- Update gdi parser to use (mostly) streamstream. That code is horrible
+and should be rewritten
+- coreio core is hacky and horrible at places as well
+- Update imgreader to use coreio
+- Update cdi parser + driver to use coreio
+"
+"0f60e72eb095e212fe12b106e41727ea42306c75","2015-01-09 16:07:08+01:00","Add #include <cctype>, that's what isalnum is defined
+"
+"33556f386320c339b50dfd32c44ccf93415a9819","2015-01-10 21:15:15+02:00","64 bit fixes
+"
+"d9d9b76d79bc6af12cc9a90de0473ae76d170e7f","2015-01-15 14:23:56+01:00","TA/VTX: Reset current list on vdec_init
+
+Fixes some rare cases where it's invalid or left over to some list, without a CurrentList set, leading to crash.
+"
+"977dff25ab92a45402c7270c7d77e990d1f5b338","2015-01-16 21:37:30+01:00","Basic support for recording frames
+"
+"4a917a003e7f13a6a9d71eef14bd4cc2234748c5","2015-01-16 21:38:09+01:00","Merge branch 'master' of github.com:reicast/reicast-emulator
+"
+"9e2b28ae46c888969886b51c673c29ba5a9f648f","2015-01-11 17:30:39-05:00","hack: Temp fix for crash in MOGA lib on Lollipop.
+"
+"f2c07917c7f1500438529d5bee95dcbff0a58e33","2015-01-18 23:52:12-08:00","Partially working dyna for iOS. Very few games working atm.
+
+This works, but is extremelly hacky. Must be started without attached debugger, lldb doesn't want to let go of EXC_BAD_ADDRESS, but reicast really depends on it getting delivered as SIGSEGV/SIGBUS. Also xcode has a really bad day upon seeing the jit code. Oh well.
+
+There's some dynarec bug that causes color corruption on bios logo/boot triagles, TA crash on ikaruga and infinitive loop on crazy taxi. I'd guess some fp-memory-write thingy, abi, or smth. Too bad.
+
+- Force code to compile in arm mode (arm jit -> thumb mem functions is complicated)
+- SIGILL, SIGBUS. Works w/o Mach exceptions and EXC_BAD_ADDRESS
+- Code buffers move to __TEXT, munmapped && memmapped to actually work
+- Primitive input. Button + start, or left (works to get out of bios date screen)
+- Fixup emitter for thumb2/interworking (didn't work though, reverted to arm cc)
+- Block Manager: Disable mem saving / page fault alloc-on-demand logic
+- Move cycle counter to r11, r9 is not clean on iOS. Remove r11 from reg alloc list
+- Cache flushes for iOS
+- log to log.txt
+- load game.chd
+"
+"584fdae6f88dba0731d43778177026ef7f9d068c","2015-01-23 09:25:04-05:00","Add a basic backend for supporting button themes
+
+The theme path will be store as the button_theme pref and verified
+before loading. This will replace any existing buttons in the data
+folder of the emulator home_directory at runtime and load as the
+graphics for the button configuration. This requires button themes be
+standardized.
+"
+"ab0e67edc7af67b0b75918cab77370120c3e4760","2015-01-24 08:53:53-05:00","Merge pull request #585 from reicast/skmp/improve-coreio
+
+http support for cdi & gdi, updated based gdipsr
+"
+"d24e15daa67c3bb2d69fc1cc5d52b810803ef648","2015-01-24 08:54:05-05:00","Merge pull request #590 from reicast/loungekatt
+
+Borrow Moga Lollipop workaround, Add theme backend
+"
+"952b1ae6e93e36847bf82a4ad80111217e272041","2015-02-25 15:21:22+01:00","reios/hleboot: support cdroms, descramble, slightly smarter bootfile search
+"
+"7c64d57b3587deecd873c3d956970c1e6b0f9350","2015-02-25 15:21:59+01:00","Merge branch 'master' into skmp/bios-hle
+"
+"ae8ce5ad23feaaad68dd0d1a4676afe205487b95","2015-02-25 19:30:08+01:00","sh4/rdv_CompilePC: Fix boot time automatic cache flushes
+
+The bios boots from 0xA... addresses, not 0x8... so the flushes were never triggered
+"
+"9ed69458266e07aa2a76495e9177c4bd4e4b5127","2015-02-25 19:31:33+01:00","sh4/cpu_iNimp: Nicer error output
+"
+"578bb6dadc5469d28ece6ce5d4743224ba92d089","2015-02-25 19:33:36+01:00","reios/gdrom_hle: Fix TOC, better CHECK_COMMAND handling, split logspam to debugf
+"
+"13f67e2d175161af0f860f7cbc0d26412590fb11","2015-02-25 19:47:09+01:00","reios: CD/descrambling support, reduced log spam, improved boot context, hle address aliasing, bios memset to catch accesses
+"
+"cca8558d0857c29868d3c8e93dd990f87b80e02b","2015-02-25 20:56:58+01:00","Add Serial Console option (debug.SerialConsoleEnable) for KOS, etc
+"
+"0285e2c5da69fed66d774e2887a24c0c56d5e210","2015-02-26 01:41:16+02:00","reios: Fix unaligned reads (emscripten, arm), more logging, u32be for LBA/sizes
+"
+"e82d6a8c0eebadccebb2c233a196d5cdcb210796","2015-02-25 21:39:14-08:00","Merge pull request #581 from reicast/skmp/bios-hle
+
+reios: HLE 'bios'
+"
+"30cfc0b15a2b0372fb6c52dc6ce67f8b6f42bcb7","2015-01-25 15:47:18-05:00","Add a basic theme selection option to configuration
+"
+"cb555bc06f53c094faebb089f9b53da87a41ac85","2015-01-25 15:47:40-05:00","Properly flush an intent after the data is handled
+
+Add a missing bracket for the intent cancellation
+"
+"21fbad3ba50a8adc1630a70199fbf9c046b6351c","2015-01-31 01:43:40-05:00","Verify freezing is not a context / thread issue
+"
+"e15fcc38e9c120587f10e045a60db10ef138322b","2015-01-31 01:43:58-05:00","Better handling of theme items for spinner
+"
+"2fe7062249baba6ebb27b7427fb3d4c97ae9c4fb","2015-02-26 00:46:11-05:00","Add the manifest requirements for Android TV
+"
+"f440743a571a99b7d40017c1dd0445b8bf7c9e6b","2015-02-26 01:07:40-05:00","Remove unsupported flags, Add theme 'clear'
+"
+"25c40685e929c262ff2a7d5332e3e22a165576be","2015-03-02 09:11:51-03:00","update brazilian translation
+
+Revised translation and add options that were missing,
+"
+"1a79ce3d9c5ca0d8843b10591a42a8288a0e9cca","2015-03-05 05:50:45-08:00","Merge pull request #609 from williansti/master
+
+update brazilian translation
+"
+"6cf0d1acdaabf89a345b1d591ef23615b433597c","2015-03-14 11:51:30-04:00","Add a settings toggle to configure reios
+"
+"2ae8ede02560ceb06542dd6bf71fcb60bfb6c063","2015-03-14 11:53:46-04:00","Android TV config (pending travis API 21 support)
+"
+"b1108d15d04a562653a91e44b91f41f8c30a8122","2015-03-14 12:11:29-04:00","Merge pull request #596 from reicast/loungekatt
+
+Add theme selection GUI, Flush incoming intent when handled
+"
+"3b1c38ad555a8fd3d8f7c0fc0c3e08882f4f5f0f","2015-03-22 01:26:43+01:00","sh4/driver: don't log on div32 missmatch
+"
+"0c04adba6797d7fcffd19b30e2748cad801d8aa3","2015-03-22 01:16:28+01:00","reios: Add support for elf booting
+"
+"dfd37a2ec7137d968b98a795b5425b3e56289627","2015-03-23 18:48:38+01:00","Merge pull request #613 from reicast/feat/reios-elf-boot
+
+reios: Add support for elf booting
+"
+"014d739495bcba82c4f36337a4330768ad9fd7fb","2015-03-29 06:02:24+02:00","Update for ndk-10d, improved build options
+"
+"f1f46d9702aeb123fa1e16e8f13c1fe354a26013","2015-03-29 06:07:18+02:00","Extract is too verbose, how about /dev/null?
+"
+"7abd1541a0933b391f7e2612b08c99f5815e7a10","2015-03-29 06:17:53+02:00","The new ndk is a bit of a PITA
+"
+"25d27a72a029c0d0ece89afc157c6e54189330f9","2015-03-31 04:24:13+02:00","Use native travis-android support, sdk 21
+"
+"e25c429ce66dfb46509a9dd0fe8adb5e003a2a26","2015-03-31 04:27:39+02:00","Do not download adt or set ANDROID_HOME
+"
+"11286ac02db35c734915b3ef43de3ce862c73427","2015-03-31 04:34:09+02:00","Also remove unneeded mv
+"
+"8b4c0d92dbc5721154ec76e8e64cb2604be8be06","2015-03-31 04:45:26+02:00","Merge pull request #619 from reicast/feat/travis-sdk-21
+
+Feat/travis sdk 21
+"
+"3615fe0effbbbd12ee36149941aa2fe646759418","2015-03-31 04:49:05+02:00","Enable Android TV options
+
+Travis builds with sdk-21 now, so all is fine
+"
+"ebabdee8b9c6e593b7ba10c7b3884a4d0136b403","2015-03-31 05:02:20+02:00","Merge pull request #620 from reicast/feat/android-tv-xml
+
+Enable Android TV options
+"
+"0109effc6c8ed41dad29bb871c989aaa31e39b85","2015-03-28 10:38:13-04:00","Debug: Add L preview, Lollipop, and future unlisted
+"
+"5579204c10a5b78ca16da0b3ce6a1c3bf7c14a54","2015-04-01 10:13:05-04:00","Merge pull request #624 from reicast/loungekatt
+
+Debug: Add L preview, Lollipop, and future unlisted
+"
+"80af0d364e2d18295abc93c6271eb8f7f391324d","2015-04-01 10:19:46-04:00","Revert 'Verify freezing is not a context / thread issue'
+
+This reverts commit 21fbad3ba50a8adc1630a70199fbf9c046b6351c.
+"
+"b3faffacc9c2b37614d16a9ea88f3d6848f9ad81","2015-04-04 19:04:23+02:00","Remove arm_dyna typedef default args
+
+Using default arguments is only allowed in function declarations, not
+in typedefs. This fixes the invalid code that caused compilation errors
+on systems using GNU g++ 4.9.2, i.e.:
+
+> ../../core/rec-ARM/arm_dyna.cpp: At global scope:
+> ../../core/rec-ARM/arm_dyna.cpp:186:79: error: default arguments are only permitted for function parameters
+>  typedef void FPBinOP        (eFSReg Sd, eFSReg Sn, eFSReg Sm, ConditionCode CC=CC_AL);
+>                                                                                ^
+> ../../core/rec-ARM/arm_dyna.cpp:187:79: error: default arguments are only permitted for function parameters
+>  typedef void FPUnOP         (eFSReg Sd, eFSReg Sm,            ConditionCode CC=CC_AL);
+>                                                                                ^
+> ../../core/rec-ARM/arm_dyna.cpp:188:79: error: default arguments are only permitted for function parameters
+>  typedef void BinaryOP       (eReg Rd, eReg Rn, eReg Rm,       ConditionCode CC=AL);
+>                                                                                ^
+> ../../core/rec-ARM/arm_dyna.cpp:189:79: error: default arguments are only permitted for function parameters
+>  typedef void BinaryOPImm    (eReg Rd, eReg Rn, s32 sImm8,     ConditionCode CC=AL);
+>                                                                                ^
+> ../../core/rec-ARM/arm_dyna.cpp:771:10: warning: anonymous type with no linkage used to declare variable '<anonymous struct> op_table []' with linkage
+>  op_table[]=
+>           ^
+> Makefile:89: recipe for target 'obj/rec-ARM/arm_dyna.build_obj' failed
+> make: *** [obj/rec-ARM/arm_dyna.build_obj] Error 1
+"
+"c23f08f9e9dc64a8b3803907bdb29f9a230386a7","2015-04-10 00:16:31+09:00","Update strings.xml
+
+new tag update and  improve translation korean
+"
+"0cf93f79fa585c9eb761dc1fc856ab69595b89f7","2015-04-09 12:11:42-04:00","Merge pull request #632 from kitrio/patch-3
+
+Update strings.xml
+"
+"d9ea22b49d8738a735ed5434f08394abca702a03","2015-04-10 12:27:03+02:00","Fix german translations
+
+This mainly fixes typos and other mistakes in the german translations - mostly
+the so-called 'Deppenleerzeichen' (wrongfully inserted spaces in
+composed words).
+Refer to http://de.wikipedia.org/wiki/Leerzeichen_in_Komposita for details.
+"
+"5993c3bfe1276a9541287dcfbe9d3f126a79e7bd","2015-04-10 13:04:28+02:00","Add additional german translations
+
+This translates all strings that are currently in
+shell/android/res/values/strings.xml.
+"
+"265670cc6080e3daed9c41316e9ec42e212bced4","2015-04-10 13:05:40+02:00","Fix indentation in german translations
+"
+"120283fc0f9d6f99e7d024a85db0f41db629c7b9","2015-04-10 19:30:02-04:00","Merge pull request #633 from Holzhaus/fix-german-translations
+
+Fix german translations
+"
+"f74e4619e692053829af8b0709596f89d5dcf670","2015-04-11 12:47:09-04:00","Merge pull request #626 from reicast/loungekatt
+
+Revert 'Verify freezing is not a context / thread issue'
+"
+"3b3b232758b5b6ac37ca765e38cda0fa9289229c","2015-04-12 10:03:19+02:00","Update w/ master for travis changes
+"
+"6655a42d9413803ef8ea04c80a8fbc0971b55261","2015-04-12 10:31:50+02:00","Upgrade build target to 21
+"
+"6f447e7e6824d8e821fac71ceba926eefbc6be7e","2015-04-12 11:29:56+02:00","Fix 'Update strings.xml' (missing < in c23f08f9e9dc64a8b3803907bdb29f9a230386a7)
+"
+"3aa14fd630c865983a1b75ef44896d621b1e9dc3","2015-04-12 11:29:56+02:00","Fix 'Update strings.xml' (missing < in c23f08f9e9dc64a8b3803907bdb29f9a230386a7)
+"
+"fe43b05119f520932bd020bc866968e5fd1b9993","2015-04-12 11:42:09+02:00","Fix missing `ng>` in values-de/strings.xml
+"
+"dcabd5a8e7199f6033008689d58f1fb920528bd3","2015-04-12 11:56:53+02:00","Merge branch 'master' into features/use-ndk-r10d
+"
+"37960df6430296d913db8017f680f04db90b45e1","2015-04-12 12:54:22+02:00","Merge pull request #617 from reicast/features/use-ndk-r10d
+
+Update for ndk-10d, improved build options
+"
+"0f42cb0da7a79215b142c76ea12219c9658a2f53","2015-04-12 10:42:12-03:00","update brazilian translation
+"
+"e98f69ebd94e2b4d8922c9042c6949e77879a147","2015-04-12 22:35:09+02:00","Merge pull request #629 from Holzhaus/fix-typedef-default-args
+
+Remove arm_dyna typedef default args
+"
+"faedd233daa2e3a40daf8aa603931fe82cd164f8","2015-04-12 22:36:14+02:00","Merge pull request #635 from williansti/master
+
+update brazilian translation
+"
+"64b2fcbb1cc26d76d02a8178d59fbeabe1ed4be0","2015-04-12 22:48:16+02:00","Disable glCheck by default, move to validate:OpenGlChecks config
+"
+"330a60bcf4e5305b588c91e97494da1c4c8312a6","2015-04-12 22:48:31+02:00","Merge branch 'master' of github.com:reicast/reicast-emulator
+"
+"0614680f8c4f250d41ee1181c4d277a167ea616b","2015-05-07 21:32:11+02:00","WinThreading: DEBUG_THREADS for random sleep around sync primitives
+"
+"20f7a41fe900772d68ac9961cbf11cc3f1eeaa39","2015-05-07 21:33:36+02:00","sched: Do not re-fire expired callbacks, use sh4_sched_remaing on sh4_sched_tick
+"
+"4b46de89bba9b51bc9691880037a6ff46b7f0b03","2015-05-07 22:03:55+02:00","sh4_sched: Handle disabled events correctly
+"
+"c25ce04b48eb97d7c333a9769bc1c47c23dcec89","2015-05-07 22:10:00+02:00","sh4_sched: Avoid scheduling to -1, because, magic values.
+"
+"e5965e356de9793fa482e1ee028db4d12103135d","2015-05-07 23:27:22+02:00","gles: Disable glChecks by default, glGetError can be painfully slow
+"
+"7d75ee38397205ea2155c5d9fbfa90bace3b260a","2015-05-08 01:06:40+02:00","gles: revert e5965e356de9793fa482e1ee028db4d12103135d.
+
+glCheck was already an option, and gcc sanely doesn't like if (do { ... } while(0))
+"
+"3fe8f0eb94904b2b2d61f3013bd0da3e0384d715","2015-05-08 02:28:49+02:00","tmu: Correctly schedule next interrupt in underflow, correctly differentiate between large values and underflows
+
+- 32 bit code was 'fudgy' on this, so simplified via 64bit counters for edge detection
+- Maths to count cycles were wrong
+- Let's not do 32 bit wrapped maths after beers without any kind of pen-and-paper design
+
+Should fix #594, also see #645
+"
+"86004e687960e7aeac0af812d111d45f9932a4bc","2015-05-08 15:35:39+02:00","Merge pull request #646 from reicast/fix/tmu-undeflow-logic
+
+tmu: Correctly schedule next interrupt in underflow, correctly differ…
+"
+"5d3c71bee70599434a8ecb0450a553f839cb66a8","2015-05-08 17:29:06+02:00","Merge master
+"
+"5ef9d661a60ea6c8be56980519a7df9d556751a5","2015-05-08 17:29:14+02:00","Merge remote-tracking branch 'origin/master' into skmp/linux86
+"
+"d33ad6edfb42b19d6b2e85fb0854d4b6d63227f7","2015-05-08 17:44:27+02:00","Updating from linux/x64
+"
+"5b609a6be4a17b2a8835e346f3866868795d28ca","2015-05-08 18:59:20+02:00","linux: Sh4 dynarec works
+"
+"cf473a14a4835e74ba4b002fecb1f4e47a7a09ea","2015-05-15 23:33:47+02:00","x86 jit: fix android
+"
+"30709c948ef27f4e4f0fc8d6b1a01133505522d9","2015-05-15 23:35:25+02:00","Android makefile: C doesn't support -fvisibility-inlines-hidden
+"
+"a2ac4015d1194454973581e8142054a387737126","2015-05-16 00:31:25+02:00","Android/Makefile: Fix build by avoiding var-leakage
+
+Apparently include $(CLEAR_VARS) doesn't quite do what one expects
+"
+"bdece20e3a7350c89731eaee246ae3689e12b466","2015-05-16 00:37:02+02:00","VS project: Exclude rec-86 from all build configs
+"
+"341c421dd7068171f1e14fa293ad8105bcafec05","2015-05-16 00:52:42+02:00","travis: Add sudo: false to use docker stack
+
+Hopefully fixes ndk extraction issues, docker containers have more resources
+"
+"db284eb4b7b45e6e5c587df7ada788f00eb5ad94","2015-05-16 00:52:42+02:00","travis: Add sudo: false to use docker stack
+
+Hopefully fixes ndk extraction issues, docker containers have more resources
+"
+"8c469e4b5c36f06e5795a1e45cd21202a4dfd08c","2015-05-16 03:05:11+02:00","*nix: move context massaging to linux/context.cpp, ALIGN -> DECL_ALIGN
+
+Yay some warnings gone from not conflicting with ALIGN anymore
+"
+"902c5e294962b808862ac22312e0f224c42cb5c6","2015-05-16 03:10:39+02:00","linux/context.*: Add missing files
+"
+"65ca1382d81cbd8bb30c4a01a0d61664cf9642f3","2015-05-16 07:12:19+02:00","Merge remote-tracking branch 'remotes/origin/skmp/ios-wip' into feat/segfault-context-consolidation
+
+Android/windows builds fine again. Android not tested yet, iOS/OSX not compiled yet
+"
+"03914309e359d2db8bca3bd977560fc1a3c416c6","2015-05-16 07:16:46+02:00","linux/context: Add updated context files
+"
+"6547d800950df47e39e90c76e1ceb3c2386a702b","2015-05-16 08:18:46+02:00","Fixes for android, cleanup context.cpp
+"
+"9c2a4dc5a4db2d97d3d9d3c00d74a761d5cf8061","2015-05-16 01:04:30-07:00","iOS fixes
+"
+"2d842b9257ce5da3d725165d283b85b3a59c5446","2015-05-16 01:10:47-07:00","Renderer_if: fix norend
+"
+"4ea7398d8a7f038a41d5f24efdc16410283e8dd4","2015-05-16 11:23:31+03:00","Linux: fix building
+"
+"f571d6c594fc9efd11d439c3a38afd401031e9d0","2015-05-18 14:45:24+02:00","pvr/vram: Bank bit seems to be fixed on 4M, even on 16M hardware
+"
+"c3a90a63a11a834d188bc03dec1aea9721645389","2015-05-18 14:55:54+02:00","Merge pull request #658 from reicast/fix/vram-bank-handling
+
+pvr/vram: Bank bit seems to be fixed on 4M, even on 16M hardware
+"
+"a9fc0f5aa804946ec38ee98f5b6efebe016e0e6b","2015-05-18 14:56:55+02:00","Merge pull request #655 from reicast/feat/segfault-context-consolidation
+
+ios merge, segfault context consolidation, linux86, android x86 jit
+"
+"d7d0f23a294833626b4c6286cff202c89788ab74","2015-04-13 04:39:55-04:00","Add report option to error detection prompt
+"
+"604a3a0f8a8858e82d826c0132fc51f28e73a4a0","2015-04-16 17:01:01-04:00","Begin implementing a BIOS selection dialog
+
+This is a dedicated dialog for selecting the BIOS on first run
+"
+"97569a9f243536808ea2dd6c19d2a9516945d09a","2015-05-23 11:30:08-04:00","too many arguments to function 'void armv_end(void*)'
+"
+"3f2f400c59ad4032d3e9a767d4e1a917956339c3","2015-05-23 12:24:29-04:00","Fix compile on OSX by defining os_DebugBreak
+
+This is an equivalent of the same functionality as per
+http://stackoverflow.com/a/5561015
+"
+"414a7205f249d2f729fb2a55a10e71288d6726c3","2015-05-14 05:00:27-04:00","Add focus for attempting controller support
+"
+"fb50c7570cb500c268e0ca622223da483bfe4479","2015-06-13 16:55:12+02:00","sh4_opcodes: Fix printf arguments
+
+This partly resolves #660 (needs to applied to linux-64 branch, too).
+"
+"6d3269c91d8c7980dff9c3e517a85f3af477cafd","2015-06-19 18:14:32-04:00","linux: print memory map to stderr when fixed path not available
+"
+"6c1e5d250e66681a0ccf88300f700672ad0e6615","2015-06-21 19:16:31-04:00","Make menus controller-compatible (Pt. 1)
+
+This requires some form of visual highlighting, but enables selection
+of items using a controller.
+"
+"fc0a917d42b13089cd8b584cafed4ade342bf757","2015-06-21 20:02:18-04:00","Make menus controller-compatible (Pt. 2)
+
+Add a border to the selected / pressed view to notify the user when
+touch is unavailable.
+"
+"574e90d1fc3b9b559409ce3efe083f2cf63631ab","2015-06-21 20:16:47-04:00","Merge pull request #637 from reicast/loungekatt
+
+Fix build on OSX, Debug updates, Controller support
+"
+"4c5682ac89e6d5826ef8aa7d06da7102830cbfff","2015-04-14 15:31:32+02:00","Define audiostream.cpp's time_diff at global scope
+
+There's no need to do this inside the InitAudio() function.
+"
+"55c66677537fd0d5933ac8463b32cf45f48473d8","2015-04-14 15:38:52+02:00","Rename audiostream_rif.h to audiostream.h
+
+This makes the naming more consistent.
+"
+"35968c82916652944824001e24dae77835c361db","2015-04-14 15:50:08+02:00","Rename os_Push() to PushAudio() for consistency
+"
+"e3f1784a0f3c46a1e7597033e87eab5619250b45","2015-04-14 16:58:41+02:00","Implement audio backend system
+
+This makes it possible to have multiple audio backends compiled into
+reicast (e.g. ALSA & OSS on Linux). These can then selected by the user
+via a config option ('backend' iin the 'audio' section). It *should*
+also be possible to reduce the number of platform-specific ifdefs with this
+approach.
+
+Audio backends need to define a struct (audiobackend_t) that holds a
+pointer to it's init, push and term function and also a slug and a name
+as string. They then need to pass a pointer to this struct to
+RegisterAudioBackend() before InitAudio() is called.
+
+For now, I defined a function (RegisterAllAudioBackends) that get's
+called exactly once (i.e. upon first call of InitAudio()), where
+we can put ifdef'd RegisterAudioBackend() calls into for each backend
+that reicast supports.
+
+Please note that this commit just implements the basic audio backend
+system - no backends have been ported to the new API yet. For the meantime,
+reicast will run without any audio support accross all systems.
+"
+"f6d2e3fa7e7930af94fd284c30d3c4719fe249c0","2015-04-14 21:31:40+02:00","Added OSS audio backend
+
+This adds the OSS audio backend and removes OSS code from
+core/linux-dist/main.cpp and core/sdl/main.cpp.
+The OSS backend will be included during compilation if the USE_OSS
+flag is set.
+
+Although OSS code in core/linux-dist/main.cpp depended on the
+TARGET_PANDORA flag instead of USE_OSS, the latter should work too
+since it is defined in the Pandora Makefile (lines 7 & 83).
+"
+"167fba4c9fa4184b10d4445c90d212966a5a920a","2015-04-14 21:54:26+02:00","Added ALSA audio backend
+
+This adds the OSS audio backend, which is basically a slightly modified
+version of core/oslib/alsa_audiostream.cpp from the skmp/linux-x64
+branch (as of commit cdf9f3dc971506c2efd979275c2869f064e1027c).
+
+The ALSA backend will be included during compilation if HOST_OS is OS_LINUX
+and neither TARGET_NACL32 nor ANDROID are defined. This should be
+changed to a USE_ALSA flag in the future (for constistency and and
+simplicity reasons), but i didn't want to put too much stuff into this
+commit.
+"
+"a65b752592cd84940ba6736b5c0574050819fcfa","2015-04-14 22:32:15+02:00","Added DirectSound audio backend
+
+This commit adds the DirectSound audio backend, which is a modified
+version of core/oslib/ds_audiostream.cpp.
+
+Porting this was a bit tricky, since ds_audiostream.cpp defined 3
+extern functions that the other backends didn't have:
+* bool os_IsAudioBuffered();
+* bool os_IsAudioBufferedLots();
+* int os_getusedSamples();
+
+I came to the conclusion that these methods are obsolete since they are
+only used core/windows/winmain.cpp in the function void os_wait_cycl(u32
+cycl) - which is used nowhere. Thus, I removed os_wait_cycl and the
+headers of the three functions in core/oslib/oslib.h. I also removed the
+functions themselves (except for int os_getusedSamples(), which is still
+used inside the directsound backend, but can safely declared static for
+that purpose).
+
+The DirectSound backend will be included during compilation if HOST_OS
+is OS_WINDOWS.
+"
+"1c1e779500bfcb0694640288eb3a6083a7f86583","2015-04-14 23:08:32+02:00","Added Android audio backend
+
+This *should* add the Android audio backend. I do not have any idea how
+to do this properly, but I figured that this might work for the moment.
+There's probably a lot of testing required for this to work.
+"
+"c17c7502d80383f63d2fedaefce98c73b4912db5","2015-04-15 11:39:12+02:00","Added newline to end of files and removed obsolete code
+"
+"a9771c918df41e6e327a71aa2dbb538fcc0ab130","2015-04-15 17:31:46+02:00","Added PulseAudio backend
+
+This commit introduces PulseAudio support using PulseAudio's 'Simple
+API'.
+
+The PulseAudio backend will be included during compilation if
+USE_PULSEAUDIO is defined.
+"
+"6ae3c5d9072eea6fed0bacd42c63e969d3383681","2015-04-16 13:59:48+02:00","Introduce USE_ALSA and accomodate Makefiles
+
+This introduces the USE_ALSA flag (replaces the somewhat hacky
+'HOST_OS==OS_LINUX && !defined(TARGET_NACL32) && !defined(ANDROID)'
+if case).
+
+The Makefiles for beagle, gcwz, lin86 and pandora have been adapted to
+reflect this change.
+"
+"28a6d1d9b6e1faa4af32f882a2a8d5f1279f142c","2015-06-27 18:31:31-04:00","Merge pull request #642 from Holzhaus/audio-system-cleanup
+
+Audio backends cleanup
+"
+"c85a190d02833322a9a02b6187902997b4fc85c9","2015-06-23 02:48:29-04:00","Relocate os_DebugBreak definition to origin
+"
+"e3744446f5ae12f956b3c84d1321795f8b1413af","2015-06-28 11:29:04-04:00","Support return to external launcher, Prep for linux
+
+This adds the ability to simply close the emulator when launched
+externally and prevents changes designed for linux from generating
+conflicting controller configurations on Android (and may be needed for
+iOS as well).
+"
+"6a3f691c2357a7d11a7cb28e2ceadbc8a2cfef37","2015-07-05 00:04:40-04:00","Fix a typo to prevent VMU and FPS popup focus
+"
+"20193681f0379942f64f1cf1d8b24fb804fe7331","2015-07-05 00:15:11-04:00","Support all available landscape orientations
+"
+"b5108993c9cb43658e9cefd610526e4f60fb58f3","2015-07-05 14:53:43+02:00","Audio: Fix windows build
+"
+"e229b44821e0af87609b15764066a6a3c541ba07","2015-07-05 11:15:08-04:00","Merge pull request #673 from reicast/loungekatt
+
+Fixes for building iOS / Android in parallel
+"
+"852672a2dc9faea0885aa70c2b46f10c5bbf350d","2015-07-05 11:45:58-07:00","Merge pull request #667 from Holzhaus/fix-bug-660
+
+sh4_opcodes: Fix printf arguments
+"
+"7db6966ef81e2d7e58f76976aa1be4a331ed4b2e","2015-07-05 19:37:21-04:00","Merge pull request #671 from imirkin/master
+
+linux: print memory map to stderr when fixed path not available
+"
+"ea26e2784a2e3abd6d54b05669f3489c858b93be","2015-07-06 08:15:45+02:00","Merge windows and linux x86 recompiler paths
+"
+"475b6bbc385453feb34fafff38ecc895d6c9717d","2015-07-05 23:40:05-07:00","Merge pull request #686 from reicast/feat/merge-x86-recs
+
+Merge windows and linux x86 recompiler paths
+"
+"c5e5600eec170b4944b9aaa8aa73b42a86345dd3","2015-07-06 08:54:11+02:00","Update LICENSE
+
+Let's switch to 3-clause BSD, because meh
+"
+"3f36e98f90b78c3107388d19d6e86459ba323ead","2015-07-07 16:00:50+02:00","Linux: Make sure personality isn't READ_IMPLIES_EXEC
+"
+"043d9004a0cd093265eed048eb9900072b846cda","2015-07-07 16:20:14+02:00","Merge rapi2 to master
+"
+"def91fdc849508b2dde589b3691b52202041db89","2015-07-08 10:15:37+02:00","Remove personality fix for android
+"
+"115ee47efc71fecbbed0ac6cc5c17aac09169e22","2015-07-07 21:50:56-04:00","Prevent log overlap when loading button.png
+"
+"b385575d6f8f62175b0eea85229ef65f101ff769","2015-07-13 21:13:51+02:00","Get x64 building
+"
+"3852cf9ac8aa406ae2997a083f1cf5b1a231e366","2015-07-13 23:56:42+02:00","Minimal x64 jit: Desync'd, but runs
+"
+"e50cfe30101da10e5743f818e117e1573bc6cf7e","2015-07-14 03:35:34+02:00","x64 tinyjit: linux support
+"
+"8cb6d6578ce6af43386c94529f14486d50eff5a4","2015-07-14 17:23:02+02:00","Count cycles correctly
+"
+"f3c8e3623d6dd50af9a0ec3ea66c0a947422b5b8","2015-07-14 17:31:48+02:00","Fix HOST_CPU for x64 windows
+"
+"1125f25eae8e47c1764d4ab47a8458c73e3f358a","2015-07-14 17:47:54+02:00","Fix win86 build
+"
+"b056cf6cef2a893cd25776f3db3eafe3b354af44","2015-07-14 20:17:45+02:00","Implement jitcore opset for x64
+
+Now mov64, readm, writem, in addition to jittiny ifb, jdyn, mov32
+"
+"0a3fcfe4ac8d39a500b1b26c17bd28179e305d04","2015-07-21 14:48:27+02:00","jit-x64: typofix on shop_writem, WriteMem64
+"
+"82ef7d0754f211e273826ef09088567e3e5442a3","2015-07-21 15:42:10+02:00","jitx64: 16KBs of emit space are guaranteed, not 64
+"
+"1aa01dbc639db3af6710fdf0aed43a7a12bf9a21","2015-07-21 15:42:48+02:00","sigsegv: Change print handler to use %p for pointers
+"
+"e90b17c99a046190061b3f78374b6a7d90070750","2015-07-21 15:47:54+02:00","Merge pull request #693 from reicast/feat/jit-x64
+
+Basic x64 corejit for sh4
+"
+"77befe9439482b7c7ded2be2701d2573c143e171","2015-07-21 16:01:06+02:00","Linux/desktop: Cleanup makefiles
+"
+"19535cc34d7d5f27462fd7a7c73a3e129845996c","2015-07-21 16:04:22+02:00","vmem: Remove some useless/dead code
+"
+"e9d3ff8b41fc80a83ffd8876bcc57bb4d692f0c2","2015-07-21 16:05:47+02:00","Update .gitignore for lin64
+"
+"5b92793c42595c09085dcb97c4fb19f32f2879f8","2015-07-21 16:10:11+02:00","Merge branch 'feat/jit-x64'
+"
+"67a8ceabddd460fd609c2963df3d1f3d6d42aea0","2015-07-23 02:05:07+02:00","shil/param: add imm_value()
+"
+"416c4273d3d0fac78f96b64b6361500acc2376e2","2015-07-05 18:25:40-04:00","Close all open popups from hardware key press
+"
+"40e8210a7eab5e31044a02bb6794c91b576bc74d","2015-07-06 01:34:21-04:00","Set a popup background to allow onKey events
+"
+"c8600bb6cf1e947795830ab79f503d26319969f7","2015-07-08 08:31:36-04:00","Flexible name check for game identification
+"
+"19b8dbe2186a64b9e27a493a73defc87cd89ee18","2015-07-08 23:17:52-04:00","Prevent exploring root paths, Improve UI visibility
+
+Divide the heading and games listings to allow an easier identification
+of what is a menu item and what is a menu heading.
+"
+"859a706295fb1172c29c1d3fb686857ff7597db8","2015-07-09 10:00:55-04:00","Clear directory preferences when changing path
+
+Also includes transition to the static reference keys.
+"
+"70b93b4d86057c79facf22ba272e4868de452f5d","2015-07-11 11:46:25-04:00","Remove an extraneous log when loading lists
+"
+"627d5eb301ebf5e9275511f4f6dd346f61e986d8","2015-07-13 23:49:50-04:00","Permission aware file browsing, Restore menu size
+
+Since the BIOS cannot be stored on external storage, there is
+absolutely no reason to begin a search from that folder.
+
+It makes more sense to start from a user-defined folder than the
+default simply because an external card exists. A check has been added
+to see if the preference is a default.
+"
+"40c244a6eee887dddbcddbdf6a74b84683d6e76c","2015-07-16 11:00:55-04:00","Clean up game info option and move to long click
+"
+"f21e9382d288c60713be9eb4cfe1784274a99345","2015-07-17 15:24:28-04:00","Update API-related code and reduce global vars
+"
+"7fecd6ba433cb464965a500dbeeda0da30778acd","2015-07-18 02:36:20-04:00","Check for null game info and catch all exceptions
+"
+"e5c263d40aa7575910fba3a4340ef6aadeead33b","2015-07-21 17:30:26-04:00","Fix a duplicate button declaration
+"
+"0fb51735da7f1c9b0f152fc402b37651d0935c73","2015-07-23 23:30:35-04:00","Update iOS project, Add support for iOS define
+"
+"4cc561dc0c8245d74c4f334f376eb8d8dc8628a9","2015-07-23 23:32:09-04:00","Merge pull request #690 from AbandonedCart/loungekatt
+
+Improve Android UI and navigation
+"
+"2f4dd06149e5e2d7ca3e68b592787a7a69df2668","2015-07-24 11:30:19-04:00","Fix a mismatched log tag
+"
+"edcfe505ecd640fee925ddeef8962b9791895049","2015-07-24 11:31:54-04:00","Merge pull request #697 from AbandonedCart/loungekatt
+
+Fix a mismatched log tag
+"
+"a9c76351f6b5b0ca58d18997e3a9056576ec85cf","2015-07-25 08:16:53+02:00","build: Draft & cleanup, refactor rec* options
+"
+"9cf9bacd138527abb7a3f6a1336946c047961117","2015-07-25 08:39:35+02:00","build: Refactor HOST_NO_REC everywhere
+"
+"58d4a55696503d551febb7beedf1c16d4ce3798c","2015-07-25 09:08:20+02:00","build: fix makefiles
+"
+"a4a427feeaaa2fed8c6e62c67e37f2d15afdc86d","2015-07-25 08:15:45+02:00","shell/windows: Move taskip, swap to F1,2,10 from '1', '2', '0'
+"
+"6dedc01a53b9daa8431efe7e3735ad61d98ea62f","2015-07-25 13:30:01+02:00","Merge pull request #700 from reicast/feat/better-windows-keymap
+
+shell/windows: Move taskip, swap to F1,2,10 from '1', '2', '0'
+"
+"39ead6159b69244ccd1be1796418990fe640fac1","2015-07-25 14:03:35+02:00","Merge pull request #699 from reicast/feat/build-defines-cleanup
+
+(Imma merge this, as it's needed for rec-cpp work, but that doesn't mean the discussion is closed)
+"
+"cd80850acb4e743ad5047a5744a921b47f07c2c6","2015-07-22 21:28:55+02:00","First idea for a fully portable 'jit'
+"
+"bfef969626b77fdd6434a9f78807971ace67c656","2015-07-23 02:07:16+02:00","rec-cpp: Implement stuff up to the corejit layer
+"
+"fc01428c3040a78b6d83a660b3b309a642259329","2015-07-23 03:40:28+02:00","rec-cpp: Force resets when running out of blocks
+"
+"e4138f9a6083b7398c7483d8002a6ebc26e15ae6","2015-07-23 05:16:41+02:00","rec-cpp: Wastefully generate more dispatchers for better BTB cache locality
+
+The real solution is to have inlining between the (now static) dispatchers and the impls.
+It's gonna be hard to convince the compiler on that.
+"
+"39e369411c808f81e6ba174ff010c9a5b89b4868","2015-07-23 09:00:18+02:00","shil/canonical: Fix decls, comment
+"
+"7303a046be98614e66135e5cbd30ebcf4881a732","2015-07-23 09:01:54+02:00","rec-cpp: Direct calls to shil_opcl_* handlers for many opcodes
+"
+"1710f76ab1752e491a22d7827925baf630eb6bee","2015-07-23 14:42:07+02:00","unroll the execution loop
+"
+"00dbd6222f801e4d38fd64067e037675e19e22ff","2015-07-24 02:34:50+02:00","rec-cpp: Massage for gcc compatibility
+"
+"51a6ed214626bd8636d08a70ba7231c1aebcdbd4","2015-07-25 08:16:53+02:00","rec/all: optional mips counter on recs
+
+Also de-unroll rec-cpp for debug builds
+"
+"b1f7015a98f5d3299c9a6095e614d0d5c84bc239","2015-07-25 10:44:15+02:00","rec/cpp: Mostly fully direct specialized dispatchers
+
+- Nest shil implementations to shilop_##name::form::impl for easier template matching
+- Add more direct handlers
+- Add prints if a direct handler isn't found
+- Remove multiple indirect handlers, leave them for fallback
+"
+"7bd709460a43ef930b32e93a5373059a9e1c310b","2015-07-24 13:37:34-04:00","Properly test and set client version in EGL3 factory
+"
+"14d29d9670ccba72d33f40d6d597bf6ffd83f9c1","2015-07-24 16:07:54-04:00","Add caching of image files for disk info
+"
+"cbda836a96a43c2bc0fd37800e0bfb294470ba93","2015-07-25 20:33:53+02:00","she/core: Less stupid register swap functions
+"
+"fb55e7f6f8ce182641c92b77eb72ea722567c7f4","2015-07-25 20:36:06+02:00","sh4/canonical: Provide impls for sync_sr and sync_fpscr
+
+This shouldn't be a requirement as directly using shil_cf_ext should work,
+but for some reason if I don't msvc optimizes the functions out.
+"
+"4b97f468b578b07539e1589eae93b0865291ae9b","2015-07-25 20:37:47+02:00","rec-cpp: Implement block ends and a few more decoders
+
+- Full IL mode now works!
+- Dispatch up to 270 mips on 2.2ghz i7, on a complex 3d scene
+- Will run many games fullspeed on modern pc, thanks to idleskip
+"
+"fdd8e4239a96ab50a7019db05935e93a4166c604","2015-07-26 16:12:16+02:00","Harmonize Linux x86/x64 Makefiles
+"
+"57662482e0d6e1830f5570fe9687e5999308cd22","2015-07-26 16:52:59+02:00","Replace HOST_NO_AREC with TARGET_NO_AREC in Linux Makefiles
+"
+"d50620bf3fe7a26a7579dfe5e1ddc46ed733baa0","2015-07-26 17:41:27-04:00","Add support for TheGamesDB elastic search API
+"
+"824b528e4f721c54a0e88ef2c1bcf027a409f8ad","2015-07-26 22:00:24-04:00","Clear images when disabled, Clean up XMLParser
+"
+"62ea812a0855cb363dda2b6f301ba765a80c43f3","2015-07-26 22:41:45-04:00","Streamline populating the view with XML data
+"
+"7fc54fa2140187da8030f12986d20b169bc1b1b6","2015-07-26 16:58:11+02:00","Merge lin86/lin64 Makefiles to linux/Makefile
+"
+"3a12a11cfc70cc73d95e4b73eb88ed532ee9c4c1","2015-07-27 14:51:23+02:00","Makefile: dont use tab indent for non-commands
+"
+"23891b8dd7bdf68ceffc19afa83b3097de6c571d","2015-07-27 14:53:16+02:00","Makefile: Print ARCH variable
+"
+"c43333e502debd18e2662c7bae7b358b3c124027","2015-07-27 16:22:29+02:00","[Linux] Make X11 optional
+"
+"9e00305c9084793763afa04bc747cf944472e2bd","2015-04-16 14:57:08+02:00","Fix anonymous struct/union linkage errors in gdromv3.cpp
+
+Since read_params, packet_cmd, read_buff, pio_buff, ata_cmd, cdda and
+ByteCount have not been declared static, they are visible in other
+translation units. Since their structs are anonymous, their types have
+internal linkage only. Thus, accessing them in other translations units
+is impossible anyway.
+
+By declaring them static, we're giving it internal linkage so that
+neither the type nor the variable are visible in other translation
+units.
+
+Here are the errors:
+
+../../core/hw/gdrom/gdromv3.cpp:50:3: warning: anonymous type with no
+linkage used to declare variable '<anonymous struct> read_params' with
+linkage
+} read_params;
+^
+../../core/hw/gdrom/gdromv3.cpp:83:3: warning: anonymous type with no
+linkage used to declare variable '<anonymous struct> packet_cmd' with
+linkage
+} packet_cmd;
+^
+../../core/hw/gdrom/gdromv3.cpp:91:3: warning: anonymous type with no
+linkage used to declare variable '<anonymous struct> read_buff' with
+linkage
+} read_buff;
+^
+../../core/hw/gdrom/gdromv3.cpp:100:3: warning: anonymous type with no
+linkage used to declare variable '<anonymous struct> pio_buff' with
+linkage
+} pio_buff;
+^
+../../core/hw/gdrom/gdromv3.cpp:106:3: warning: anonymous type with no
+linkage used to declare variable '<anonymous struct> ata_cmd' with
+linkage
+} ata_cmd;
+^
+../../core/hw/gdrom/gdromv3.cpp:122:3: warning: anonymous type with no
+linkage used to declare variable '<anonymous struct> cdda' with linkage
+} cdda;
+^
+../../core/hw/gdrom/gdromv3.cpp:156:4: warning: anonymous type with no
+linkage used to declare variable '<anonymous union> ByteCount' with
+linkage
+} ByteCount;
+^
+"
+"3faf51c6cefefca20eecbe8ef8f6ceaaa5fb06b1","2015-04-16 16:08:25+02:00","Removed mode variable in print_mem_addr()
+
+This removes the mode variable in core/linux/common.cpp's
+print_mem_addr(). It not neccessary and produces compiler warnings.
+"
+"7d282d9861bfaec12e00b91b3b3d7205e3d4f54c","2015-07-27 20:20:55+02:00","Merge pull request #644 from Holzhaus/fix-gcc-warnings
+
+Fix gcc warnings
+"
+"d3c3feb523a66a5b961599cf27cc130a50d591fa","2015-07-27 23:56:56+02:00","Merge pull request #703 from Holzhaus/unified-makefiles
+
+Unified Linux makefiles (x86/x64)
+"
+"2fe5f8b22db121ff6ebdb11792e0310ccbcd6891","2015-07-16 22:02:56+02:00","Experimental cmake build (currently Linux only)
+"
+"f62d532b78fce6149d7686077cee7b5a09580fce","2015-07-28 16:34:26+02:00","Audiostream: Don't log on every push if audio is disabled
+
+There is an initialization warning which is enough to warn users
+"
+"83d3abf2668c287e6079b0e09161dcf2b33403f8","2015-07-28 16:27:27+02:00","maple: Gracefully fail if vmu cannot be written
+"
+"5010cf3f230782790944ae0b7be4c05e2267a8ef","2015-07-29 00:02:30+02:00","Merge pull request #709 from reicast/feat/audio-spams-nomore
+
+Audiostream: Don't log on every push if audio is disabled
+"
+"fb6d0a0166f12ddb50b680ce2c986c28a069e85c","2015-07-29 00:03:00+02:00","Merge pull request #710 from reicast/feat/vmu-safer-creation
+
+maple: Gracefully fail if vmu cannot be written
+"
+"39e1439b938691bae6a914246ebf9501228339a9","2015-02-26 01:37:37+02:00","imgread/common: On read error, print the sector that failed
+"
+"7de36d56ec3ef57b7ed659110d9973939935ea19","2015-07-29 00:49:21+02:00","Merge pull request #712 from reicast/feat/imgread-readmiss-with-sector
+
+imgread/common: On read error, print the sector that failed
+"
+"51ab5ab664df5dbf50dc29bd7f93337fef428aa5","2015-07-29 01:51:41+02:00","Merge pull request #695 from randomstuff/cmake
+
+cmake build (currently Linux only)
+"
+"a3f66be3cee426efe86e4dcd16b9075cb67c7d77","2015-07-28 20:20:53-04:00","Merge pull request #704 from AbandonedCart/loungekatt
+
+XMLParser and GLES 3 cleanup
+"
+"1e0224dd1b45cee4f544dbbe48d800f25543a9d2","2015-07-28 17:33:24+02:00","rec-cpp: Add sig aCaCcCdC for rocl, rocr
+"
+"5b67e3f090034c1b3885a4cdb65a5a1e4bfe1e10","2015-07-28 19:10:31+03:00","rec-cpp: SH4_TCB doesn't need to be in .text if not executable
+"
+"ec5bb09917ad9e272a1704c69ef0c4014a49526d","2015-07-28 18:43:38+02:00","rec-cpp: Add sig aCaCcCdC for mul_u64, mul_s64
+"
+"f1a6f04dce06aa5d11271ff50b12c6786d48558e","2015-07-28 20:15:38+03:00","rec-cpp: verify() that we have an executer w/ shop_count
+"
+"a82f9704d6abc3867d2bfe0dc5e5944acee970eb","2015-07-28 19:02:49+02:00","shrec: Limit max blocksize to 511 shops
+"
+"75fd6986953c65a2899711c9a35b11fa99a6dc8b","2015-07-29 02:43:51+02:00","Merge pull request #701 from reicast/feat/rec-cpp
+
+Initial implementation of a 'dynarec-structured' cached shop interpreter
+"
+"30229f6724522f1bc2f35bbaa837294888b4def1","2015-07-29 03:23:08+02:00","cl: Fix const warning
+"
+"6ebaa74ffe07644f00592043f0eb7ab93f5412f3","2015-07-29 03:24:51+02:00","core.mk: Only android needs deps/libzip/ right now
+"
+"a28209cae2b583f7a95d8a80b4442701cbf5ba7c","2015-07-29 03:26:08+02:00","deps/sha256: memset is in string.h, not memory.h
+"
+"2347b95bf2175f85e017df9f9f03459ad48a770f","2015-07-29 03:26:58+02:00","aica/sgc: fix update_rate warning
+"
+"4b94e2fe370fb268781d68ec60ab26f8765439e4","2015-07-29 04:07:46+02:00","Merge pull request #713 from reicast/feat/small-cleanups
+
+Feat/small cleanups
+"
+"b1a55aba3fafd6d8a6508638da4483ce273a7280","2015-02-17 00:38:33+02:00","ta_parser: use uniform function signatures for Append* callbacks
+
+- Fixes emscripten build & makes more sense overall
+"
+"518c547fb56be661857c11fef85a8acae3819999","2015-02-17 00:48:44+02:00","nixprof: move to its own module, TARGET_NO_NIXPROF, NO_NIXPROF
+"
+"c8f982b8f500aeafcc71cb2748c58ee0821de3fd","2015-07-29 00:30:24+02:00","linux-common: TARGET_NO_EXCEPTIONS, TARGET_NO_THREADS
+"
+"59c6012db21642dc03837f71bac5997eac63c705","2015-02-17 00:51:57+02:00","pvr/rend_if: TARGET_NO_THREADS support
+"
+"a2831d67a0b77953f729f208eb46379bc9fe11ba","2015-02-17 00:53:22+02:00","vmem/alloc: TARGET_NO_NVMEM to not use page tricks
+
+This combined with various other configs avoid segfault/pagefaults usage
+"
+"376a36bf5706fac8d16e3a7a022cec93f09cae4f","2015-02-17 00:55:11+02:00","Emscripten: Hacky support, can boot bios
+
+- Add TARGET_BOUNDED_EXECUTION, TARGET_EMSCRIPTEN
+- Add emscripten makefile
+
+Of course, there's no jit at this point
+"
+"718cace9a7b7c8d43c2b6522f0c67ca327dd79e5","2015-02-26 08:42:50+02:00","emscripten: Fix chrome & firefox OOM by enabling opts
+
+Looks like the JITs get kind of crazy and eat up all ram otherwise
+"
+"2eb9d7908fa7bdec9b885c4efc13adc3dce221db","2015-07-28 13:09:27+02:00","A first hackthrough to get nacl compiling working
+"
+"341475f778a73fa715ec84a6a914d525623dba0b","2015-07-28 14:40:27+02:00","nacl: Redirect printf/puts, basic html loader
+"
+"d0674b3cdd653d776c5a7ecb0808cf05036ae72d","2015-07-28 16:29:16+02:00","nacl: Use nacl_io, emulation on background thread, print speed stats
+"
+"255d1bdb42c96bdf21c615cc659d5debb20ed940","2015-07-28 16:35:06+02:00","nacl: Stub out LockRegion/UnLockRegion as no mprotect logic
+"
+"4f864967734cec1203f8fc15d355e980a2ce38a8","2015-07-29 04:21:54+02:00","linux/common: Stub out LockRegion/UnLockRegion when TARGET_NO_EXCEPTIONS
+"
+"c33773ee3797d5978569d3a994ae2305bdcc9508","2015-07-29 04:22:42+02:00","nacl: Update makefile
+"
+"b9bbb5c0c86ef698e51edc52ac2ec413c8daf774","2015-07-28 17:28:53+02:00","nacl: Work towards rec-cpp
+"
+"2d9fbdda4017337922a665bc0987001097a747f6","2015-07-28 19:12:17+03:00","nacl: Fix sqw_nommu to work w/ non-linear nvmem allocation
+"
+"0b29889b02a95e0d11506a93e82a42d75e63908f","2015-07-28 19:30:30+03:00","nacl: nacl_lin target, to simulate nacl build under linux. Debugger friendly
+"
+"057b1075b6d7e74fb8fa3bc7c5fc19d693afa66b","2015-07-28 23:43:03+02:00","ta/mt: add rend_framePending? for better mt sync from clients
+"
+"373cb6e24e62d73f78b65b23cef6c03c559b6c58","2015-07-28 23:45:16+02:00","nacl: Working towards GLES2. Will init, shaders won't compile
+"
+"b6c8a1c3ccbdd023d182311cd4dae75851f2a18c","2015-07-28 23:49:52+02:00","nacl: Log to console.log
+"
+"17a4af378cb5061c206235ea87aec793efb64719","2015-07-29 04:58:41+02:00","nacl: Post-merge cleanups
+"
+"289aa393c0c3614b6f062d43b7846b5b5a5585ed","2015-07-29 05:17:16+02:00","nacl: fixing affected android build
+"
+"01531459503487b471fe22d708998f98868e1d29","2015-07-29 06:22:59+02:00","emscripten: Fix build
+"
+"d8ccc9d2e7ff59c44d29606281de3708796b28f3","2015-07-29 06:45:02+02:00","emscripten: More rec-cpp progress
+
+It almost builds now, except emscripten randomly gives up and crashes. No one likes my code these days...
+"
+"221ba4c22d8927b0f84d94b508d48c67cb511eae","2015-07-17 23:56:51+02:00","s/cfgSetVitual/cfgSetVirtual
+"
+"9ff72a731f273466dff932aa55eb44feaaf1a97c","2015-07-17 23:58:46+02:00","Remove function declaration in the middle of a function
+"
+"8c68f4a06bea64585176d0679b436ee9e059ad40","2015-07-31 20:37:39+02:00","Fix a 'permissive' warning
+"
+"ac6bdddae3f3d809657b6ffd26b1275df78a5f3c","2015-08-03 00:09:11+02:00","Merge pull request #694 from randomstuff/cleanup
+
+Minor Cleanup
+"
+"61394d7a44a40ac7976cc65b3cc0f8ae9535966a","2015-08-03 10:41:34+02:00","shil: Disable external assembly implementations
+
+Using external function pointers is broken after the rec-cpp structural changes,
+and relatively low priority so disabled for now.
+
+Fixes builds on arm, non-android (see #720)
+"
+"2beb23978bfeb8e48b339bcc4408a04d26d018cd","2015-08-03 11:12:24+02:00","rec-cpp: Fix non-emscripten build
+"
+"7e51e13efc7232dd8089f91451a8f91f3f114768","2015-08-03 11:14:27+02:00","build: Add FEAT_HAS_COREIO_HTTP, update nacl/emscripten makefiles
+"
+"c10180b9873a0d3ba403ac6ca0826ab0448e982e","2015-08-03 11:17:02+02:00","Merge pull request #722 from reicast/fix/disable-shil-asmfn
+
+shil: Disable external assembly implementations
+"
+"0343feffa661398b4395e9097554a1ed6d087dbe","2015-08-03 11:28:29+02:00","Merge pull request #714 from reicast/wip/nacl-and-emscripten
+
+NaCL & Emscripten targets
+
+- CPU_GENERIC
+- TARGET_NO_THREADS
+- TARGET_NO_NIXPROF
+- TARGET_NO_EXCEPTIONS
+- TARGET_NO_NVMEM
+- TARGET_BOUNDED_EXECUTION
+- TARGET_NO_COREIO_HTTP
+"
+"8cce1a4976d30383ba03f757b34ee8d7a5ee6c8f","2015-08-05 02:43:40+02:00","rend/soft: Import the experimental core from nulldc/drkpvr, better renderer modularization
+
+- Adapted for indexed, async rendering, shared ta decoder
+- This blits via a quick-and-hacky GDI blitter for now
+- SSE/MMX intrins based, so not very portable
+- A rather not good 'reference' implementation
+- At least, it's not terribly slow though
+- GetTexture moved to Renderer interface
+"
+"f2f9a041e182a67600d9795c7defbe50160b707e","2015-08-05 04:25:06+02:00","Merge pull request #727 from reicast/wip/import-drkpvr-softrend
+
+rend/soft: Import the experimental core from nulldc/drkpvr, modularize
+"
+"4aaff464b3bceecd4616207383b506a34107f50d","2015-08-05 05:00:01+02:00","shrec/jitx64: Implement all block ends
+
+This is still minimal and doesn't do any linking or other smart stuff
+Also fixed a bug on shop_jdyn
+"
+"6beec6824d7ba605ab17e5ecea5e39048bda1568","2015-08-05 05:01:08+02:00","msvc: Separate target names, better split imm directories
+
+Now different builds don't delete or collide with each other
+"
+"c094da088070bad3afafa2891c1041f51f7a2fe4","2015-08-05 05:09:27+02:00","Merge pull request #728 from reicast/feat/x64-all-blockends
+
+Feat/x64 all blockends
+"
+"b4b04ea75f4aa077b04ee6a4650aa2901ed37f49","2015-08-05 08:19:50+02:00","pvr/softrend: Implement basic alpha blending
+"
+"4d9b151322467f712f4634527e116abae405d000","2015-08-02 15:43:02-04:00","Convert third-party source to library (avoid license conflict)
+"
+"7b30fe61098c291865c12eaccf1bce1df83f3505","2015-08-02 19:31:58-04:00","Move third-party to top level, sync with originals
+"
+"95b39b885a15c9aa970ccf21fd9bb288d84290f4","2015-08-07 16:12:17-04:00","Fix iPhone build and import GameController / iCade
+"
+"8de800497e5c829f796a9861e7a6beb968d50658","2015-08-09 01:48:41+02:00","windows: Don't call InitAudio from os_CreateWindow
+
+Huh, why was this call even there?
+"
+"bf75c95ae884276cb40b1f64cd47d9b456a2ecc0","2015-08-17 07:59:39-04:00","Update project for #755 and fix warnings
+"
+"8faef19c3f043600abf4d53fd832ba70fe9776d9","2015-08-10 03:02:59+02:00","Apple: fix disabled nvmem blockmgr path, add printfs, clean xcode files
+"
+"7dd17a4175d74bc4dbf2d53fc263553924fd1654","2015-08-10 14:49:59+02:00","xcode: move shared schemes on the workspace
+"
+"ff1b466116f363e1b7c2f70ce1f1a56c6ac357d2","2015-08-10 15:05:29+02:00","xcode: limit to armv7
+"
+"83d525d0f9d288a49d2b01ee41f5233e8ed66b5b","2015-08-10 22:24:38-04:00","Verify 'flist' is not null before sort / add
+"
+"0f4afb29c344791a919b858964a1b53872c0ce9e","2015-08-10 22:40:44-04:00","Resolve an Xcode whitespace tragedy
+"
+"37625778e56258464c81a49076e58cce7898eb1c","2015-08-10 23:02:57-04:00","Increase the search depth slightly
+
+This will account for storing games in a second-tier folder, such as
+putting bins in one directory and chd in another with each game having
+it’s own folder for bin and cue.
+The BIOS search should handle 4 levels to account for the use of
+/Android/data/com.reicast.emulator/files but should also ignore
+directories, such as cache and obb, where the file will never be.
+"
+"291812ba72b56dd403f3a3a8fc89a0879f2260d0","2015-08-10 23:39:11-04:00","Send updated folder to options after verification
+"
+"1d1bd5a92fe30bb7e7f4fad325ce1a0228371441","2015-08-10 23:55:40-04:00","Exploit file specifications to shorten results
+"
+"8a23dc4dec130a8d8e887825d44f26869079c9dd","2015-08-11 00:22:17-04:00","Merge pull request #733 from reicast/config-cleanup
+
+Fix BIOS locator, improve search results
+"
+"b12055f7c02de1f421503629a277ab8e19b66a87","2015-08-11 00:23:55-04:00","Merge pull request #721 from reicast/loungekatt
+
+Convert third-party source to library (avoid license conflict)
+"
+"bedd2db7b6453596ab685c3470c69f69aea6a3f0","2015-08-05 08:49:39+02:00","softrend: WIP floating interpolation to handle big numbers
+
+Still not 100% correct pixel fill
+"
+"fcf273dd11fd1a6327a823b4d4b0e2f392b99114","2015-08-05 12:05:58+02:00","softrend: Add support for culling
+"
+"e6a9d3e661a33ae28cdff4d7a68ca264bb34b8da","2015-08-05 17:02:34+02:00","softrend: Resembling a pixel pipeline, textures, sort, cull
+
+- Basic pixel pipeline, a bit better triangle tests, specialized render handlers
+- Textures w/ point filtering. Not very smart is it goes 32 -> 16 -> 32 bpp, but works.
+- The texture cache is shared rather inelegantly w/ OpenGL one
+- Culling
+- PParam sorting (shared w/ GL)
+
+The texturing and color blending paths are ugly and slow
+"
+"e3845465f05c91e2cdd562f7aa1be704f59f1a19","2015-08-07 15:54:51+02:00","win64/jit: Generate unwind table for the jit code cache
+
+This required moving the SH4_TCB outside the exe, as new tables that belong on the executable are ignored.
+This isn't perfect, but there's a large area to scan for available address space so it shouldn't be a problem
+"
+"3e9431b2b7de9d77c220ff2975554e53b659e6a6","2015-08-07 16:03:20+02:00","softrend: billinear filtering, perspective uv, alpha test, ARGB1555
+
+- Texture pixels are predecoded and expanded to quads for filtering
+- bilinear input ordering might be wrong
+"
+"19fa2f1678fa957a848ea968cbe793a8601e3baa","2015-08-07 16:22:57+02:00","softrend: Limits on #defines, scissor area as rect
+"
+"dfc341a5feecc2919b1611cd22b839fb124fd9a5","2015-08-08 01:36:58+02:00","softrend: OpenMP support, fix present overflow during untiling
+
+- Uses vertical slicing
+- Efficiency wins are best for 2-3 rendering threads
+"
+"26cfcd79e9ad3e13bccdf1f695c8bbd7ac28c52f","2015-08-05 21:04:17+02:00","OSX: Fiddling to get the rec-cpp/noexcept path running
+"
+"5d46b773875ebfb67aef0e9eb0bca87b70cb75d5","2015-08-05 21:11:00+02:00","OSX: How about initializing opengl before using it?
+"
+"45f0a47eec3f7a7d16cadbb1d16d0a2f5e46c78c","2015-08-08 07:14:06+02:00","OSX: Basic keyboard input
+"
+"4f9ff3fc3f4d1647c7a8919b0d35cdd2a40c37d8","2015-08-08 07:29:54+02:00","OSX: Fix release build
+"
+"cda7036ef197c78534d6c4d554d7da8f5c1d2047","2015-08-08 15:31:51+02:00","apple: moving around xcode files
+"
+"c60fca49733a230b702152161caffe41bd55f6fe","2015-08-08 17:04:10+02:00","sh4: Cleanup SetFloatStatusReg a bit
+"
+"cdec92d36cc782a578c7e4a3a6ccdc0fbfb575a8","2015-08-09 21:53:50-04:00","Rebuild iOS project paths for new location
+"
+"1908ade46430f5a21a43a64f20833744b2fd81e9","2015-08-11 12:07:55+02:00","Update context.h
+"
+"648710950762d3b0facf137ab8301c5b750d1763","2015-08-11 08:16:46-04:00","Merge pull request #730 from reicast/wip/osx-support
+
+OSX support
+"
+"6358222a0bec4bcf694a34a55cf23b58dc5bffab","2015-08-11 08:20:47-04:00","Cleanup leftovers from platform move
+"
+"12c1fb7a57c850e9b68f692e8216dbb39c7f39c9","2015-08-11 08:22:02-04:00","Merge pull request #734 from reicast/loungekatt
+
+Cleanup leftovers from platform move
+"
+"91039911cea3046fbded0ce948c04b0d43af54c2","2015-08-11 15:58:45+02:00","softrend/gltex: Fix non-windows builds
+
+_mm* are windows only, and so is softrend for now
+"
+"bb1bf000fd8d393acc249016c83216dea3718710","2015-07-27 16:17:07+02:00","Merge beagle/pandora/rapi2 Makefiles into Linux Makefile
+"
+"fe48f04f78402dfbeb8012a341fb01db11b845b6","2015-07-27 16:59:14+02:00","Separate platform auto-detection code in Makefile
+"
+"93355dd5330fa1a6734b7ee89dcf840b556f1d02","2015-07-27 17:25:19+02:00","Merge gcwz into Linux Makefile
+"
+"a090eba78cb42d58e02657421e26dc040d70d0bd","2015-07-27 18:43:40+02:00","Don't include CFLAGS/MFLAGS in CXXFLAGS
+"
+"91338761d698c9655c93db37ba2b4f9065fbc425","2015-07-27 18:47:19+02:00","Makefile: Fix Whitespace
+"
+"f96ec5ff8942f2562daf2e71d948628972f82678","2015-07-28 17:55:53+02:00","Remove FOR_ARM definition in Makefile
+"
+"752c13691033f35d437207dac449d8cb2c675e18","2015-07-28 17:59:13+02:00","Allow overriding compilers for specific platforms
+
+The Raspberry Pi 2 seems to need `gcc` instead of `as` as ${AS}
+"
+"7653f790a0d34554775e4d688c998da4b6a05384","2015-07-28 18:11:25+02:00","Makefile: Add CFLAGS to AS calls (in case gcc is used instead of as)
+"
+"4cb4feba61c5de2a3b4d83e57962f4f3bdf8e8b0","2015-07-29 03:09:01+02:00","core.mk: Replace ifndef DESKTOPGL with ifdef USE_GLES to match Makefile notation
+"
+"d295bad50b3efd415b8ea5fa6f4f7ee3eb3ecb89","2015-07-29 13:22:09+02:00","Makefile: Use separate obj directories for each platform
+"
+"0b505e6857ebb8e07ac75d0ddb00c65f58185d9c","2015-07-29 13:27:27+02:00","Makefile: Rename i686 platform to x86 and AMD64 to x64
+"
+"dd837994af57dec6310b70fff479ae4c1f1bb8c2","2015-07-29 14:41:37+02:00","Merge LinCPP Makefile into Linux Makefile
+"
+"961e1c057abf4853ef078c622f0da540fd338933","2015-08-11 17:43:04+02:00","Makefile: Only define USE_X11 for x86, x64, linCPP and pandora
+"
+"c3c2c68f21fa2ae2768a30185a96d98eba0b1e58","2015-08-11 17:43:47+02:00","Merge pull request #729 from reicast/wip/softrend
+
+Basic and buggy software renderer
+"
+"cf53f3ec222b7d2ca5cbb97c8a8f5192530b9a18","2015-08-11 11:42:55-04:00","Fix links to files for relative Xcode paths
+"
+"795e84f3b1942a062aa597eac9f0664e86f96f76","2015-08-11 12:04:14-04:00","Remove an overlapping ifdef
+"
+"990470e19a6a0e0801c1ba274b1cbc86f29b171c","2015-08-11 18:08:06+02:00","linux: Fix input for rpi2 & co
+"
+"6348057402c59575f02d621001ac413750b8d0f9","2015-08-11 18:19:37+02:00","Merge pull request #705 from Holzhaus/unified-makefiles-all
+
+Merge Makefiles for beagle/pandora/gcwz/rapi2/lincpp into Linux Makefile
+"
+"8453016608b9c163a9806f538548493a212b2357","2015-07-28 17:10:21+02:00","Add ODROID-C1 support to Makefile
+"
+"1ec91c30d80a931a50d6adac7240a0085b0d03e2","2015-08-02 16:41:36+02:00","Add support for ODROID-C1+/X/X2/U2/U3/XU/XU3/XU4
+"
+"1c7c68493798ec36c126f6435641400cc7e47115","2015-08-11 18:38:15+02:00","android: Fix makefile
+"
+"924241c01ab18b00fb01d911cc79fd0ea05744da","2015-08-11 18:48:41+02:00","Merge pull request #738 from reicast/fix/android-gles-makefile
+
+android: Fix makefile
+"
+"365accfde23a63444796387818d8a6e4bb089e63","2015-08-09 06:26:03+02:00","windows: fix TARGET_NO_NVMEM
+"
+"9bc0a8ff0fcf55ed4ff9cf0983144bb421db7d2c","2015-08-09 06:30:40+02:00","shrec/bm: BM lookup table size follows RAM_SIZE
+"
+"7d0d2ba572f91b7e190550833038ea353d8fa3fb","2015-08-09 06:34:02+02:00","naomi: Initial support for TARGET_NAOMI, windows only
+
+- Import naomi code from nullDC, modify and cleanup
+- Only unprotected dimm-board support, custom lst files
+- Still a compile option
+- Boots naomi bios and some games, no input yet
+"
+"7feeec0ceb8076f84fc52e4dfe1986589559e517","2015-08-09 22:39:32+02:00","naomi: Refactor cart logic to naomi_cart
+"
+"b53b303c895b8f656243f7908a7461473583626c","2015-08-09 23:40:05+02:00","naomi: Portability fixes, add posix support
+
+- Replaced BYTE, WORD, DWORD w/ u8, u16 & u32
+- mmap/munmap/open
+
+I should wrap the mmap fns in the oslib methinks...
+"
+"f2d8ed06f58a16de0ced4f5aafe0ce935a1e95bc","2015-08-10 04:55:15+02:00","arm7rec: Increase the emitter guarantee to 64 KB
+
+I run into this with the x86-arm-arm7 backend because of per-block compile and largeish blocks
+"
+"a0175c8011257967a56a99ada96886fe2db12459","2015-08-10 04:56:00+02:00","naomi: Don't spam on DIMM board detection reads. It's disabled for now.
+"
+"89b96876282a2216a4be21c47e9f08173287c195","2015-08-10 04:57:00+02:00","shrec/x86: SIMPLELINK implementation for cross checking
+"
+"b77a549bf4564d5a1d479378fcdea75451a02a87","2015-08-10 04:57:59+02:00","shrec/x86: Fix canonical for reg_ptr prms
+"
+"7d2cb5a7c07a1e255dc17732101defe5367e973f","2015-08-10 05:01:57+02:00","vmem: Correctly map buffers > 16M
+
+The previous implementation would generate pointers
+with the offset doubly-added, pointing to +16M after
+the correct address
+"
+"0c0008d17b0b8f66043523a6d23b5e4050bc5a44","2015-08-10 05:26:25+02:00","naomi: Pass Dreamcast keycodes to get some kind of input
+"
+"bfbb01d47031ac8a109e2314d0fe2ff37c7d992b","2015-08-10 05:27:02+02:00","naomi: 32MB-aware block lookups from arm-jit
+"
+"13b2c4d8aa69c0052b6aa32d44ca7ca5daf27073","2015-08-10 05:27:48+02:00","naomi: Don't lock vram mirrors if vram isn't mirrored
+"
+"ca83428fa569a6fe34d41d6ba49829d4fed7ac66","2015-08-11 19:07:23+02:00","naomi: Fix linux builds
+"
+"7ec1a12580da2e3e7d195f4bb1be31b1843cc5b2","2015-08-11 19:16:18+02:00","Merge pull request #720 from Holzhaus/add-odroid-support
+
+Add ODROID-C1/C1+/X/X2/U2/U3/XU/XU3/XU4 support
+"
+"417dfc5d8f3396a3b5035b2ba0164c4aa3e14b78","2015-08-11 19:21:00+02:00","Merge pull request #732 from reicast/wip/naomi-support
+
+Naomi support. Enjoy.
+
+To build, edit core/build.h to DC_PLATFORM_NAOMI (or, -D TARGET_NAOMI at the makefile level)
+"
+"10ba5d336f7d7b5418008af2afb9412d2f8196c7","2015-08-11 13:36:58-04:00","Shorten toast (blocks thread), Remove unused strings
+"
+"a6aab55ebb64354b4ff653d0533b5bed18a4717b","2015-08-11 13:48:00-04:00","Merge pull request #739 from reicast/loungekatt
+
+Shorten toast (blocks thread), Remove unused strings
+"
+"64152635b534798445da076137a57c6aec4347a3","2015-08-11 20:20:12+02:00","linux-dist: Remove unnecessary if case
+"
+"6808bbba66f7abdb804f55f452bf7928960a8d8f","2015-08-11 20:27:51+02:00","linux-dist: Add brackets to else expression
+"
+"4077941dee21789ed520e2ea554485ce486b63fa","2015-08-11 20:43:14+02:00","Fix a DC_PLATFORM_NORMAL leftover
+"
+"1706027c1026b69e4708dbb9cec0df7fc289aae3","2015-08-09 00:03:02+02:00","Rename newdc to reicast
+"
+"2b027e9897047abab256cf53796409367e77fbce","2015-08-08 18:36:57-04:00","Update log tags and add new native identifier
+"
+"24b721c359f94f41bf7ab4983a41ffd6765b289c","2015-08-11 20:50:32+02:00","Replace reidc with reicast on logs
+"
+"75e3c441edd3dfb9de83b4565ad9f1fbb89cf839","2015-08-11 21:01:16+02:00","Merge pull request #731 from reicast/feat/rename-newdc-reicast
+
+Rename newdc to reicast
+"
+"60c827cf0c324533771e555738946de633017a85","2015-08-11 21:31:57+02:00","linux-dist: Clean up home dir detection
+"
+"5fbfc0fb8b54781f8439c7b03718dbcb0515f1f7","2015-08-11 21:36:14+02:00","linux-dist: Rely on USES_HOMEDIR for home dir detection
+
+Neither Mac nor Emscripten define USES_HOMEDIR in their Makefiles, so checking
+if HOST_OS != OS_DARWIN && !defined(TARGET_EMSCRIPTEN) is pointless.
+"
+"851acf851889cc5c981795643a8961f1a6a504f4","2015-08-11 16:13:46-04:00","Remove deprecated log tag from debug
+
+Conflicts:
+shell/android/src/com/reicast/emulator/debug/GenerateLogs.java
+"
+"04ddf64441beb9e2ac07e0f1466001e295b26579","2015-08-11 16:29:03-04:00","Merge pull request #742 from reicast/loungekatt
+
+Remove deprecated log tag from debug
+"
+"3703b15c3a9b63c22b9c9653c26f1e98805151c0","2015-08-11 23:55:48+02:00","sync: Also sync to video if too fast
+
+config:pvr.SynchronousRendering controls this feature
+
+Not quite perfect, but should reduce the issues
+with too fast hardware
+"
+"025dbd645893a2a495759e643dab12e773c81c07","2015-08-12 00:31:11+02:00","Merge pull request #740 from reicast/fix/some-linux-main-fixes
+
+linux-dist/main.cpp cleanups
+"
+"ab33f473b34e7cfe1c72b8f7fe925f3045413216","2015-08-12 01:57:29+02:00","linux-dist: Fix indentation and reformat code
+"
+"9ec657949aa14c3a1a9acf610e5ce2c37125fcbe","2015-08-11 20:45:05-04:00","Basic Android option to toggle Synchronous Rendering
+"
+"d497204d024a74cf8967333223d665168fc70bbe","2015-08-11 20:57:06-04:00","Disable turbo mode toggle when synchronous
+"
+"6724db4f8c47b0aa8ecc4927b4ec707675f42505","2015-08-12 03:05:14+02:00","shrec/arm: Fix 16M mode lookups. I hate hardcoded consts
+"
+"eeeb2d6a62cc7aaaf18b90a205d7f781f8983c9e","2015-08-12 00:53:26+02:00","texcache: Correctly compute size for STRIDE PLANAR textures
+"
+"67ecd6d9f94616096fc7c490828439ea7d45a449","2015-08-12 00:58:50+02:00","vmem: Automatic fallback to slowpath if alloc fails
+
+This consolidates some of the work done for TARGET_NO_NVMEM and
+feat/no-direct-memmap. If nvmem is disabled at compile time or alloc
+fails _nvmem_enabled() will return false. Various other fixes
+and cleanups all around.
+"
+"71c2cb4512d91f14fd22383514548391c9fa64b1","2015-08-12 03:59:16+02:00","Merge pull request #743 from reicast/feat/nvmem-automatic-fallback
+
+nvmem automatic fallback
+"
+"ab45419ba7494d920b31d6281a0a3b2b6539dd12","2015-08-12 10:23:08-04:00","Improve the Github API plugin accessibility
+"
+"52b423f42b21b66689b7d5d502f066578b4dc67f","2015-08-12 10:46:00-04:00","Add a separate drawer offset for large-screen devices
+"
+"8c8b952434f1ef50dc62c903bca2e0be4b5bf7be","2015-08-13 13:24:48-04:00","Replace SlidingDrawer with compatibility DrawerLayout
+
+Remove actionable references (requires v7 overhaul)
+
+Darken background and remove unused views
+
+Fix alignment of pseudo action bar to list
+"
+"c0f3241bcfbf2a2464063b16d3dcb378c57f4d34","2015-08-13 14:58:22-04:00","Ignore Android warning about useless layouts
+
+This layout keeps the menu from overwriting the first item
+"
+"90b624b08110fd6fc4e4feb9aa4d884eb3e2bb08","2015-08-13 16:36:35-04:00","Proper debug icon, Tile background, Standardize font
+
+Standardize listing text, Reduce Toast text size
+
+The toast was nearly a full screen dialog for one line of text
+
+Differentiate the headings from the list items
+
+Increase transparency of tiled background image
+
+Fix an issue with text size for switch compat
+"
+"e92b04ef018be92f36a0c0b82acfab474d9db63b","2015-08-14 00:01:29-04:00","Merge pull request #747 from reicast/loungekatt
+
+Improve the Github API plugin, Drawer updates
+"
+"a4a754005583643b0fc3a2951775c791e4422aff","2015-08-14 23:15:18-04:00","Fix path structure and relationships in iOS project
+"
+"282dde58196b4166343a5d9cdb322a044905fed2","2015-08-14 23:37:46-04:00","Merge pull request #748 from reicast/loungekatt
+
+Fix path structure and relationships in iOS project
+"
+"154c92bd59c3229272e4c458ac72061e57398c77","2015-08-12 12:16:23+02:00","linux-dist: Remove unnecessary for-loop
+"
+"77cac7b0f9d85757f95fcd542786f9b5372fc3f6","2015-08-12 12:29:41+02:00","linux-dist: Fix code spacing and alignment
+"
+"f6c167b20b49c5ff1ca81981d727e9f21bdf2c4d","2015-08-15 17:55:55+02:00","Merge pull request #751 from reicast/holzhaus/fix-linux-dist-formatting
+
+Fix linux-dist/main.cpp formatting
+"
+"109a2cce93d914000964731cce7204be726acf4a","2015-08-03 15:57:49+02:00","rec_x64.cpp: Fix function calls
+
+Resolves #719.
+"
+"604dcce5317b937aa04a065ff61abc6aa129e1d7","2015-08-03 16:19:34+02:00","core/hw/holly/sb_mem.cpp: Fix 'expression >= 0 is always true' warning
+
+This is the original warning message:
+../../core/hw/holly/sb_mem.cpp:219:12: warning: comparison of unsigned
+expression >= 0 is always true [-Wtautological-compare]
+if ((base >=0x0000) && (base <=0x001F) /*&& (addr<=0x001FFFFF)*/...
+~~~~ ^ ~~~~~~
+"
+"1d0ef81a4361cddcc537c177fb80fbfee06f730a","2015-08-03 16:36:53+02:00","core/hw/sh5/dyna/decoder.cpp: place parentheses around && expression
+
+This compiler warning has been fixed:
+../../core/hw/sh4/dyna/decoder.cpp:1181:66: warning: '&&' within '||'
+[-Wlogical-op-parentheses]
+...|| blk->BlockType==BET_Cond_1 && blk->BranchBlock<=blk->addr)
+~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../core/hw/sh4/dyna/decoder.cpp:1181:66: note: place parentheses around the
+'&&' expression to silence this warning
+...|| blk->BlockType==BET_Cond_1 && blk->BranchBlock<=blk->addr)
+^
+(                                                        )
+"
+"5ab3d7b59bc987862c99219ed67fef58a0bf55b0","2015-08-03 16:58:15+02:00","core/hw/sh4/dyna/shil.cpp: Fix '&&' within '||' warning
+
+Here's the original compiler warning:
+../../core/hw/sh4/dyna/shil.cpp:700:24: warning: '&&' within '||'
+[-Wlogical-op-parentheses]
+...if (op->rd.is_reg() && op->rd._reg==reg_sr_T ||  op->op==shop_ifb)
+~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~ ~~
+../../core/hw/sh4/dyna/shil.cpp:700:24: note: place parentheses around the '&&'
+expression to silence this warning
+...if (op->rd.is_reg() && op->rd._reg==reg_sr_T ||  op->op==shop_ifb)
+^
+(                                       )
+../../core/hw/sh4/dyna/shil.cpp:843:25: warning: '&&' within '||'
+[-Wlogical-op-parentheses]
+if (op->rs1.is_reg() && op->rs1._reg==reg_sr_T
+~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
+../../core/hw/sh4/dyna/shil.cpp:843:25: note: place parentheses around the '&&'
+expression to silence this warning
+if (op->rs1.is_reg() && op->rs1._reg==reg_sr_T
+^
+(                                         )
+../../core/hw/sh4/dyna/shil.cpp:844:25: warning: '&&' within '||'
+[-Wlogical-op-parentheses]
+|| op->rs2.is_reg() &&
+op->rs2._reg==reg_sr_T
+~~ ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
+../../core/hw/sh4/dyna/shil.cpp:844:25: note: place parentheses around the '&&'
+expression to silence this warning
+|| op->rs2.is_reg() && op->rs2._reg==reg_sr_T
+^
+(                                         )
+../../core/hw/sh4/dyna/shil.cpp:845:25: warning: '&&' within '||'
+[-Wlogical-op-parentheses]
+|| op->rs3.is_reg() && op->rs3._reg==reg_sr_T
+~~ ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
+../../core/hw/sh4/dyna/shil.cpp:845:25: note: place parentheses around the '&&'
+expression to silence this warning
+|| op->rs3.is_reg() && op->rs3._reg==reg_sr_T
+^
+(                                         )
+"
+"595af1a26784a2f8fb48c6c1cba97f2a21159c39","2015-08-15 18:41:06+02:00","Merge pull request #753 from reicast/holzhaus/small-code-fixes
+
+Fix some compiler warnings
+"
+"f1ec7050677c5cb45e3c3c3190a74759ba6448dc","2015-08-16 18:51:44+02:00","cfg: Move actual file parsing code into ParseFile method
+"
+"78091577ea1b631fa58cc3613eecca954ced12b4","2015-08-16 19:09:22+02:00","cfg: Move more code into the ConfigFile class
+"
+"60e094dbb9efba741dbcfc006da1bec4a6482afe","2015-08-16 20:25:08+02:00","cfg: Make ConfigFile reusable
+"
+"87f7ca0bb4592c3d100a6343c38d30f49669cab9","2015-08-16 21:05:47+02:00","cfg: Allow LoadInt to parse hex strings
+"
+"8744516e52abc8a6e91020e62941e19d3fc798d4","2015-08-16 21:17:47+02:00","cfg: Remove redundant code
+"
+"e4527bf531936d983d128fb2753293ba590640a7","2015-08-16 23:00:05+02:00","cfg: Fix indentation
+"
+"509ac93463edd90a39c036c0e9a85dfefde874b8","2015-08-16 23:35:13+02:00","cfg: Move ConfigFile classes to ini.cpp/h
+"
+"6c5575f08943d917230052bb509ad7c4d8f2c17a","2015-08-16 23:46:17+02:00","gitignore: Update .map and *.elf paths
+"
+"e0f00e661b17c2870bbcdf171e8ebb03c811a24d","2015-08-16 23:46:56+02:00","Merge pull request #756 from reicast/holzhaus/update-gitignore
+
+gitignore: Update .map and *.elf paths
+"
+"a90a2cf91c1f2329ae5ea182d7283a3825ce1133","2015-08-17 03:10:07+02:00","Merge pull request #755 from reicast/holzhaus/cfg-improvements
+
+cfg: Make ConfigFile class reusable
+"
+"5eaafbc7f063b2b29700f4b12ccb5f7d03de5532","2015-08-17 03:21:10+02:00","Fix Linux Makefile
+
+as does not recognize -m32
+"
+"bf84eb3ca80cbca30af4e2cfc22e608fc2d5c470","2015-08-17 19:37:05+02:00","ARM: Append CFLAGS to ASFLAGS (because gcc is used for AS)
+"
+"6500201a38efc3348655dd4ed9271ae7147b610d","2015-08-17 20:32:46+02:00","README: Update 'Building for Linux' section
+"
+"e942feb338ecf177de7c865d206ffcc863ee7eda","2015-08-17 20:34:23+02:00","Merge pull request #763 from reicast/holzhaus/update-readme
+
+README: Update 'Building for Linux' section
+"
+"fd913f0c3dd662febd4bd057360210499b306f27","2015-08-17 20:36:59+02:00","Merge pull request #762 from reicast/holzhaus/makefiles
+
+Makefile: Fix Linux_x86
+"
+"4a4a304815e5f01d99eaf9b0d0399da20355a41c","2015-08-19 00:51:45+02:00","VisualStudio: Update project for cfg (#755)
+
+- Add cfg/ini.cpp and cfg/ini.h to the project
+"
+"c942b2bbcc2839c63b0d4ed75093619807dc1893","2015-08-19 00:54:33+02:00","VisualStudio: Enable Edit&Continue, fix interm. dir
+"
+"c09cf0b1c635b946074e56e62aa78a822436b844","2015-08-19 01:21:35+02:00","Merge pull request #770 from reicast/fix/windows-vs-projects
+
+Fix/windows vs projects
+"
+"4f62b995b67f3426decd945c33fdc0edf5269bb7","2015-08-19 00:57:27+02:00","reios/naomi: First baby steps to support booting naomi roms
+
+- Setups state, copies binary
+- Binary locks up w/ a reboot loop
+
+Naomi roms have a 512-byte header, executable length seems to be
+at 368 or 3C0. The rom is copied from [0, len) to 0x0c020000.The
+bios then hands over control at 0x0c021000
+"
+"6137152f49672e71c2a8b078b180eb2ea9352a83","2015-08-19 01:48:02+02:00","Merge pull request #771 from reicast/feat/naomi-on-reios
+
+reios/naomi: First baby steps to support booting naomi roms
+"
+"3dc97132623a57f354eed1fe2b3af6794c2007fa","2015-08-12 02:31:03+02:00","linux-dist: Move evdev/joystick setup into their own functions
+"
+"064b22f2379348355081b2695224b090f1e8482d","2015-08-12 02:37:12+02:00","linux-dist: Harmonize input device fd names
+"
+"9dac10ae1041d24f65aca3522c53a68331b17578","2015-08-12 03:03:01+02:00","linux-dist: Replace platform ifdefs with USE_EVDEV and USE_JOYSTICK
+"
+"87b6a79199bff7a8ba18975ddf71be7989ca12ec","2015-08-12 03:40:09+02:00","linux-dist: Consolidate evdev/joystick code even further
+"
+"73a9269fbd946bd6702655a70a8dd29dd2233c30","2015-08-12 03:57:34+02:00","linux-dist: Remove redundant code in input_evdev_handle
+"
+"d76e605aebbcb700295dee108f8da4915ee74b28","2015-08-12 04:16:19+02:00","linux-dist: Use a switch case in UpdateInputState
+"
+"a49c83b21c035213f042d4329dbbb5705af3a53d","2015-08-14 12:06:06+02:00","linux-dist: Make input devices configurable
+"
+"e3fc2cd1b944112781bc65c0ed5e6bb6b7344265","2015-08-14 12:06:06+02:00","linux-dist: Add missing newline in printf calls
+"
+"275cd3eb73ba0a57dcd9b2dc014941173961f295","2015-08-14 19:03:27+02:00","linux-dist: Add XBox360 controller support via evdev
+"
+"14f77c92d935369fb088d5b47272db21833acf89","2015-08-14 19:04:46+02:00","linux-dist: Fix bug where trigger values zeroes all the time
+"
+"5fe9803743b15b358a74a9e78286e9c89b3cb77a","2015-08-14 19:06:40+02:00","linux-dist: Improve XBox360 controller support for legacy joystick api
+"
+"845f101bf011e2ad3163ef4295fea2d74e6cc934","2015-08-14 19:18:01+02:00","linux-dist: Add DPad support for xpad kernel driver (XBox 360)
+"
+"452374afab0b76cc87af2a483d4976c4df5fcc1b","2015-08-14 20:57:32+02:00","linux-dist: Add evdev multiplayer support
+"
+"14ea9e4196f763638ce3f206c74adb69af610c22","2015-08-15 03:23:11+02:00","linux-dist: Refactor the evdev input code
+"
+"729ded83f67b21ed738e2202f6b6e0d6ba26a2b6","2015-08-15 05:07:37+02:00","linux-dist: Move evdev/joystick code into separate files
+"
+"1843fc3fe40ccd065f9466501aa8f4415aecae74","2015-08-15 05:50:08+02:00","linux-dist: Move most x11 related code into a separate file
+"
+"a2b2b4fd5f404d812c28b95bdaf5909d7bb97170","2015-08-15 05:56:17+02:00","linux-dist: Fixed variable reference in Pandora's clean_exit
+"
+"3b2472766d26a3ed39dd1dd116f4632f64f12002","2015-08-16 01:14:34+02:00","linux-dist: Add evdev keyboard support & option to disable x11 keyboard
+"
+"a408e27cda9008d6c2c27db908076bc0e9c133be","2015-08-16 22:19:38+02:00","linux-dist: Don't print EV_MSC events (evdev)
+"
+"32c3cca681842b7f3f94682ef4eb070be4d5f561","2015-08-16 22:28:05+02:00","linux-dist: Fix evdev mapping detection for xboxdrv
+"
+"223b1284fe2a3084d1f068b979aedd29a874ee6a","2015-08-17 02:06:06+02:00","linux-dist: Separate xpad and xboxdrv controller mappings
+"
+"1661c2368055e8e2500ed785efdfe75d74c447a0","2015-08-17 03:22:01+02:00","linux-dist: Fix missing const members in keyboard mapping
+
+On some compiler versions, this caused an error:
+../../core/linux-dist/evdev_mappings.cpp:57:3: error: uninitialized
+const member ‘s_evdev_controller_mapping::Axis_DPad_X’
+../../core/linux-dist/evdev_mappings.cpp:57:3: error: uninitialized
+const member ‘s_evdev_controller_mapping::Axis_DPad_Y’
+../../core/linux-dist/evdev_mappings.cpp:57:3: error: uninitialized
+const member ‘s_evdev_controller_mapping::Axis_DPad2_X’
+../../core/linux-dist/evdev_mappings.cpp:57:3: error: uninitialized
+const member ‘s_evdev_controller_mapping::Axis_DPad2_Y’
+../../core/linux-dist/evdev_mappings.cpp:57:3: error: uninitialized
+const member ‘s_evdev_controller_mapping::Axis_Analog_X’
+../../core/linux-dist/evdev_mappings.cpp:57:3: error: uninitialized
+const member ‘s_evdev_controller_mapping::Axis_Analog_Y’
+../../core/linux-dist/evdev_mappings.cpp:57:3: error: uninitialized
+const member ‘s_evdev_controller_mapping::Axis_Trigger_Left’
+../../core/linux-dist/evdev_mappings.cpp:57:3: error: uninitialized
+const member ‘s_evdev_controller_mapping::Axis_Trigger_Right’
+"
+"b0e91185d2dc852770f7f65aebd1fe689567cd4e","2015-08-17 23:46:28+02:00","linux-dist: Fix indentation
+"
+"6bfa831e5a54e057b5412d45843e0f2fc0bc90d5","2015-08-19 18:37:58+02:00","Merge pull request #752 from reicast/holzhaus/linux-input-overhaul
+
+Linux Input overhaul (Better evdev input & multiplayer support)
+"
+"955c9b99a4a5397b21222e6afa0a2b7792abf762","2015-08-19 18:38:44+02:00","Merge pull request #764 from reicast/holzhaus/linux-dist-indentation-fix
+
+linux-dist: indentation fix
+"
+"fc2d1edea995f93c30a685c07e3aa0d757267b83","2015-08-19 12:45:21+02:00","linux-dist/x11: Enable fullscreen toggling via F11 button
+"
+"a4028154f91575a20f55d6983baa69e01d0a0d9b","2015-08-19 15:32:07-04:00","Fix to prevent EXC_BAD_ACCESS on iPhone
+
+This is inelegant and should only be temporary but resolves the issue
+of CodeCache and ICache “getting lost” during initialization.
+"
+"537e1172e054bc50abaca89e780d95487f6b8ec2","2015-08-19 16:41:00-04:00","Add a missing check for native activity context
+"
+"58cf5860123ee53d6f3bb6a8eeed168990bd8d30","2015-08-19 16:42:52-04:00","Merge pull request #777 from reicast/nativeact
+
+Add a missing check for native activity context
+"
+"f83130b84ba6353c72a7400c8a304f382d84eca2","2015-08-19 23:55:20+02:00","Merge pull request #766 from reicast/fix/ios-and-osx
+
+Fix ios and osx (projectfiles, nvmem)
+"
+"9af36186501f1f83564253f5c79bc2a46deb0d17","2015-08-20 15:56:21+02:00","Update README.md
+"
+"dc6758d847e42860694efbd08e2a5eaf87282ac0","2015-08-20 17:15:06+02:00","x11: Use the default x11 display (not always 0)
+"
+"c17486a0ef12745576ad985d2685b7ea66b0a011","2015-08-20 17:12:15-04:00","Workaround for missing fp.h header in Xcode
+"
+"e138cca4b99a79513a844da9c56fc52a82edf1d2","2015-08-20 17:21:11-04:00","Remove internal conditionals to use defined flag
+"
+"73714d16b6588fe0d460cee5a547459a36214e95","2015-08-20 17:32:31-04:00","Merge pull request #781 from reicast/xcode_fix
+
+Workaround for missing fp.h header in Xcode
+"
+"f000accbb213e8cb77c419c80037f48f405ca0b1","2015-08-20 21:01:05+02:00","[Wercker] Add preliminary wecker.yml for Linux_x64 building
+"
+"4dee5652eea97322843d97a47a664ac1e4fbd940","2015-08-21 02:07:03+02:00","x11: Allow starting in fullscreen via config
+"
+"ac18a59906ec9ea293f9c17acd99d289607c9dce","2015-08-21 02:10:31+02:00","x11: Remove unused code
+"
+"e404a5201d2b2c3fb12c9cd035439ad25d5ca477","2015-08-21 02:16:48+02:00","x11: Get rid of one platform ifdef
+"
+"71021175dfc06e7af3d69e6b45c3a0cf062ccde8","2015-08-21 02:29:14+02:00","x11: Add some typecasting so that gcc is happy ;-)
+"
+"2c4eb1847d702bf4c47d576b9c7d377ecbbe3602","2015-08-21 02:35:31+02:00","Merge pull request #774 from reicast/holzhaus/x11-fullscreen-mode
+
+Linux: Enable x11 fullscreen toggling and fix window resizes
+"
+"94012ae1924991ae7414472f91fe1bba88eddba3","2015-08-21 02:40:20+02:00","Merge pull request #782 from reicast/holzhaus/wercker-tests
+
+[Wercker] Add preliminary wercker.yml for Linux_x64 building
+"
+"1a5ef4e023bf355d461f6ab59ccaff85201ceb36","2015-08-21 03:06:44+02:00","Linux Makefile: Remove .map file on clean
+"
+"16897f70147a95e3a21e322d7b58b8dd0fa0891f","2015-08-21 03:09:10+02:00","Linux Makefile: Remove EXECUTABLE_STRIPPED file on clean
+"
+"c733f20325960f6856d4aec519292c2f07fbb5d1","2015-08-21 03:09:56+02:00","Merge pull request #784 from reicast/holzhaus/remove-map-file-on-clean
+
+Remove map file on clean
+"
+"e35518aca1e62fa17a55d9435683548179eb7632","2015-08-21 14:32:04+02:00","linux-dist/evdev: Fix evdev_config_key buffer overflow
+
+Fixes #785.
+"
+"997ced790064b807c4f57f6c77550540d1daa99e","2015-08-21 14:41:07+02:00","Merge pull request #787 from reicast/holzhaus/evdev-buffer-overflow-fix
+
+linux-dist/evdev: Fix evdev_config_key buffer overflow
+"
+"7b963c941abf0744fd756557fc3cd5bd38f2d24e","2015-08-21 15:03:08+02:00","linux-dist/evdev: Use raw button codes
+"
+"2a07c3701100cb64e8725b24d06756eec7bab323","2015-08-21 15:10:58+02:00","msvc: Update sln files to use 'x86' instead of 'win32' for appveyor
+"
+"a604eafc500603d61c1b834d2b75dcf4af1de8d5","2015-08-21 18:53:40+02:00","Readme: Add more CI badges, improve wording
+"
+"4a0dbcdde4c6b41c52601b1e779f8bdafdb18653","2015-08-21 18:56:00+02:00","windows/ci: Add appveyor.yml
+"
+"c0ede35263e76a5cd4ab497a899d26053e131e14","2015-08-21 19:57:39+02:00","Merge pull request #788 from reicast/holzhaus/evdev-raw-keycodes-in-mappings
+
+linux-dist/evdev: Use raw button codes
+"
+"16c67ddc443205d5fa24c6afe77a0e85b38b444c","2015-08-21 19:57:57-03:00","Add a generic 32-bit ARM rule.
+"
+"b0214d89f688aa0c26ad8bdfbb3ee46f8ea1565a","2015-08-21 20:23:16-03:00","Update libpng to 1.6.18.
+"
+"b62a6b3b5abf02fcc75c784117c1e4fae5014518","2015-08-22 01:32:25+02:00","Merge pull request #789 from reicast/feat/appveyor-windows-ci
+
+Appveyor ci, Update sln files to use 'x86' instead of 'win32'
+"
+"da8a572535d7f2c318a272d0e6428a9c552745d9","2015-08-21 20:36:28-03:00","Fix header in pngstruct.h
+"
+"5782726346f3f42ddb6d1b1269cec6e01daa7c89","2015-08-18 00:28:01+02:00","Better handling of image file extensions in CLI argument processing
+
+* Only match the end the file name
+* Case insensitive
+* Recognise .gdi files
+"
+"7e0f4fc8717c804f1b30a521de978e7bb276585d","2015-08-21 21:36:32-03:00","Update zlib to 1.2.8.
+"
+"f44df005c51a7cf5c0a90dafc6649bcd82dc69c7","2015-08-21 23:01:12-03:00","Delete zconf.in.h.
+"
+"287a8e113494df6cec98f5d4ca41a401bda33b20","2015-08-21 23:04:28-03:00","Change arm to armv7h in Makefile.
+"
+"db191561445ce9707abf0bb73a93bae7d9d8c060","2015-08-21 23:13:50-03:00","Make ARM generic rule more generic :)
+"
+"225b38dd19c98aeaa8d27d347a2f632cf6edcf44","2015-08-21 23:23:16-03:00","Add optional NEON support in the generic ARMhf rule.
+"
+"446f2a4da7ef2e99c334c411c10ce8ba0c105d0e","2015-08-22 04:37:10+02:00","README: Make the build section a table
+"
+"1611f98191cd3d1a7b9caa5c059cae53146d00f7","2015-08-22 09:55:23+02:00","readme: Move downloads to column on CI table
+"
+"b6899c555db7df16a0e0181d009e387d855411f6","2015-08-22 16:08:53+02:00","Linux: Add install target to Makefile
+"
+"7e854f6544995887fc7140b865e26af32af58f15","2015-08-22 17:24:29+02:00","nulldc: Remove some hardcoded values
+"
+"c2ea3934cfdf134794822e2f03407b4edf9f596d","2015-08-22 17:34:18+02:00","Merge pull request #797 from reicast/holzhaus/remove-some-hardcoded-values
+
+nulldc: Remove some hardcoded values
+"
+"5fd66a1322be2093893f9af2b2f75d7ce4551391","2015-08-22 17:35:08+02:00","Merge pull request #765 from randomstuff/gdi
+
+Handle .gdi files on the CLI (and other enhancements)
+"
+"e466cba3e91461004115db7da2f1dbc6ba4fd41f","2015-08-21 02:52:49+02:00","linux-dist: Remove unneeded code
+"
+"3315fe7da4e5c8b9f32ac909d1708a70eb196ef4","2015-08-24 11:09:42+02:00","Merge pull request #794 from sergiobenrocha2/zlib
+
+Update zlib to 1.2.8.
+"
+"80c09343e0a1096b9eb9a145f96c4df089d38a70","2015-08-24 13:01:12+02:00","msvc: Enable build target for debug/x86
+"
+"e1ffc70b84de3be9b9d32afe49e0f3c0b739d490","2015-08-24 13:18:42+02:00","Merge pull request #803 from reicast/fix/msvc-sln-cfg
+
+msvc: Enable build target for debug/x86
+"
+"4c19f347aa9fe1478e36fd6f81f5734dbfb1f1e5","2015-08-24 13:21:18+02:00","x64/xbyak: Update to 4.86
+
+- Resolves call warnings for clang/gcc
+- Overall minor improvements
+- Also added copyright file
+"
+"a4186381fbe0f290cb7b1f1e80b3af39d024686d","2015-08-24 13:27:51+02:00","xbyak: Move to deps folder
+"
+"f065bc5289ca8ce785f728469339763fb3e9ed8d","2015-08-24 13:47:51+02:00","Merge pull request #744 from reicast/feat/improved-speed-sync
+
+sync: Also sync to video if too fast
+"
+"7a5c90ccca3b311537c74dbfbaf89586b751b3ba","2015-08-18 19:36:19+02:00","cfg: Reimplement ConfigFile using C++ maps and strings
+"
+"89e4bf78cc9cf80967cc4caa7b4283b617a0effe","2015-08-19 03:50:22+02:00","cfg: Fix nit
+"
+"42f7919c488d69a25557c73bdbe4d9e01a09deed","2015-08-19 04:43:54+02:00","cfg: Add virtual entry support
+"
+"719850a3497280e637f03363a97b69899bf4bac9","2015-08-23 03:12:20+02:00","cfg/ini: Use stricmp for get_bool()
+"
+"99d75220e76b9bdd786fc625016980b94482fac0","2015-08-24 13:30:01+02:00","cfg/cfg: Don't save the config immediately after opening.
+"
+"9058d48d51e40aa27880af4fe8d9266fba946c81","2015-08-24 13:54:50+02:00","Merge pull request #804 from reicast/fix/update-xbyak-4860
+
+Fix/update xbyak 4860
+"
+"2e28e57be85ecaea5aa58fd2f6a7f826d6b46101","2015-08-24 14:04:23+02:00","cfg/ini: Handle empty ini files
+"
+"aa7aa18cabcbf19d0dd771f86931cf5b0ed405a1","2015-08-24 14:05:51+02:00","cfg: Create emu.cfg if missing
+"
+"f56299209dd5854a38320eee445a243dda6a84df","2015-08-24 14:45:52+02:00","cfg/cfg: Only save config file if has been read or newly created
+"
+"42977f8284ca9c384e6693d7ca5e4dcc81877899","2015-08-24 14:46:45+02:00","cfg/cfg: Fix a nix (add brackets)
+"
+"d0c639eb7c0438869255eec14eec27b0ba33b54c","2015-08-24 14:48:01+02:00","cfg/cfg: Also call savecfgf() on cfgSaveInt
+"
+"1c57c3a1dd3a7f92a49fea579ea722b4dcbd592a","2015-08-22 17:05:47+02:00","Linux: Add simple man page
+"
+"ac37edecee170c15baed716774b060330c07d4b8","2015-08-24 15:19:19+02:00","Merge pull request #796 from reicast/holzhaus/linux-make-install
+
+Linux: Add install target to Makefile
+"
+"72af9d58180b5aa15a6cb5920ce39974ba8216b0","2015-08-24 15:47:34+02:00","linux/man: Improve reicast man page
+"
+"59de3bbd60e05ee4e7686dd7dc568b3d5fbb8969","2015-08-24 16:01:08+02:00","linux/man: Add section about BIOS/Flash ROMs
+"
+"85a56bab44e1b05ee28b240b6fbe979385dc3668","2015-08-24 16:02:11+02:00","Merge pull request #805 from reicast/holzhaus/improve-man-page
+
+Linux: Improve man page
+"
+"d3e2114b4cd5948d82d0a2fce7a8f6b985b85738","2015-08-24 16:43:44+02:00","linux/Makefile: Add .desktop entry
+"
+"dd311d5380851c29d0bd31e594e372cc596f446d","2015-08-24 16:45:52+02:00","Merge pull request #806 from reicast/holzhaus/linux-add-desktop-entry
+
+linux/Makefile: Add .desktop entry
+"
+"64748409aba4c37de3c26c1d64c1cb9ed74f1ea5","2015-08-24 18:35:36+02:00","linux/desktop-entry: Fix French translation
+"
+"b6ace44675e7423320351ac858f064d87aae1303","2015-08-25 07:49:35+02:00","AppVeyor: Add build artifacts
+
+We might want to budle the exe with some 'Ask Toolbar' installer, since
+Windows users might be confused if it's not.
+"
+"46e0123ad2cbb963a6efd7e43c73e593472eaf2d","2015-08-25 08:42:33+02:00","AppVeyor: Add slow modifier to build artifacts to indicate debug builds
+"
+"0b19f810b348d07d0714d63ea0366a8d5ba7afc4","2015-08-25 19:33:59+02:00","appveyor: postfix executables/artifacts with -win-
+"
+"5bee39a91728468c7e91e12dd30175838a3cdfba","2015-08-25 19:38:08+02:00","Merge pull request #810 from reicast/holzhaus/appveyor-artifacts
+
+AppVeyor: Add build artifacts
+"
+"6b12ffc6b7fe8b4c6bc0bd86b42accf97e0eb211","2015-08-25 19:41:39+02:00","Merge pull request #783 from reicast/holzhaus/remove-unneeded-code
+
+linux-dist: Remove unused code
+"
+"3eee909801cff0ee3e074d7905b870733d6f86c6","2015-08-25 20:12:12+02:00","Merge pull request #767 from reicast/holzhaus/reimplement-cfg-ini-with-maps
+
+cfg: Reimplement ConfigFile using C++ maps and strings
+"
+"5c01098cabd844e899d51caebbac1ee55b4b5091","2015-08-18 20:57:18+02:00","linux-dist/evdev: Support custom mapping files
+"
+"528cd5a793430d40f2d8512590e82dbcf7638c47","2015-08-18 21:50:19+02:00","linux-dist: Drop hardcoded mappings in favor of mapping files
+"
+"b8716e300808eddd78e671ed71a890711a12f387","2015-08-18 21:51:54+02:00","shell/linux: Add mappings for evdev
+"
+"e4e7e092c225dc4c6767ad7267bf2b668357009d","2015-08-19 03:18:12+02:00","linux-dist/evdev: Add controller axis value autoconversion
+"
+"72778bdf39a9a435006f2d1821501e98ff358bad","2015-08-19 07:04:36+02:00","linux-dist/evdev: Replace evdev_keycodes.cpp/.h with dynamic libevdev call
+"
+"7018ca42c457c620191ddd90c216708e80d8ff49","2015-08-19 10:08:58+02:00","linux-dist/evdev: Make controller axes invertable
+"
+"ceb2a11441283b30b493e1c8632b7d4741a3b93f","2015-08-19 10:20:52+02:00","linux-dist/evdev: Clean up namespace a bit
+"
+"785b819cb92db87b618213bac0e9d24bf660466d","2015-08-19 13:50:04+02:00","linux-dist/evdev: Introduce a more consistens button naming scheme
+"
+"b12f1fa199c4aa29464ee979433bfc56b5c0eab5","2015-08-19 13:52:12+02:00","linux-dist/evdev: Remove unecessary newlines
+"
+"cb3b0019743697eb39b6ad8dd2b28f344e73f26f","2015-08-21 19:55:18+02:00","linux: Added python tool to create evdev mappings
+"
+"e3b796e812d5584fbb5430b217488558dde3369f","2015-08-21 21:09:39+02:00","linux-dist/evdev: Always show Keycode names if possible
+"
+"760371e1d6fef34e436d0a1239f339ecc66ac614","2015-08-23 23:45:19+02:00","linux/reicast-joyconfig: Add python2 support
+"
+"76ce592aa78ba18187a5f7ee20ac20c6f53491b8","2015-08-23 23:45:44+02:00","linux/reicast-joyconfig: Add exitcodes
+"
+"f46ae2567c6e64884494f9e63a8583ce12719e88","2015-08-24 00:00:28+02:00","linux/reicast-joyconfig: Fix crash if evdev module < v0.4.4
+"
+"c97727984d4fef36b9e1aa0732881f2a027633a0","2015-08-24 00:19:01+02:00","linux-dist/evdev: Add absolute mapping file path support
+"
+"7eab958472152f8ba5b3c7b3ae2804de5f5adb2f","2015-08-24 00:20:00+02:00","linux-dist/evdev: Print error msg if unable to open mapping file
+"
+"25b8bb5f29c02fabea99b4a936133b55fbed99d0","2015-08-26 01:11:16+02:00","linux-dist/evdev: Move *_inverted in mappings to compat section
+"
+"9b5e997ddcb72670a42590f51bd5fcae03b6f8ab","2015-08-26 01:17:45+02:00","linux-dist/evdev: Use default python version in joyconfig.py
+"
+"382d5db41542614c21f1405fbecfcdf99481b575","2015-08-26 01:22:06+02:00","linux/Makefile: Add reicast-joyconfig to 'install' target
+"
+"67b4af881811ba6936e6b92c860f87c331f9df23","2015-08-26 01:27:19+02:00","linux/Makefile: install mappings to /usr/share/reicast/mappings
+
+Until we have some decent way to load system wide files, users can
+easily copy the mappings folder from /usr/share/reicast into ~/.reicast
+to get the pre-defined mappings.
+"
+"62029a40b1d3caa0447eef286bdc1b41f5100856","2015-08-26 01:34:49+02:00","linux-dist/joystick: Disable legacy joystick API by default
+"
+"64942450fb6c84074dfc791deea722ad972751bb","2015-08-26 08:56:24+02:00","Appveyor: Deploy to S3
+
+- Add S3 credentials, bucket reicast-builds-windows
+- Don't split platform with - (win_x86 and win_x64, makes for easier regex)
+- Naming consistent with current android builds naming
+"
+"2ecb688e4016bf326290e77dcdc4d79c01a8e341","2015-08-26 11:08:19+02:00","Merge pull request #811 from reicast/feat/rename-appveyor-artifacts
+
+Appveyor: Deploy to S3
+"
+"2456bc9c8264819435cb1501e8c28900904c63c3","2015-08-26 20:13:42+02:00","Merge pull request #769 from reicast/holzhaus/evdev-mappings-from-file
+
+Read evdev mappings from file
+"
+"021acb51af67b3554659bc46cd8d8265eb81e4f0","2015-08-27 00:45:10+02:00","linux: Fix typo in Makefile
+"
+"053ea61137a73324f1a007ff6a20346580c2f65b","2015-08-27 10:55:07+02:00","readme: Add link for windows builds
+"
+"bc4c1ab47cf5f93121303251e63d131f8d57cfb5","2015-08-27 14:15:40+02:00","Linux/man page: Add documentation about evdev mappings
+"
+"223bc3c185ca2fcd62433c999252179c77ef41f2","2015-08-27 14:39:12+02:00","Merge pull request #790 from sergiobenrocha2/master
+
+makefiles: Add a generic linux 32-bit ARM rule.
+"
+"402e7eca704aeccb408928eca99183db36dcda11","2015-08-27 14:41:05+02:00","Linux: Add man page for reicast-joyconfig
+"
+"60d4ee19ea356ea5a48b570357b63d8879d93892","2015-08-27 14:44:31+02:00","Linux/Makefile: Add missing commands to 'uninstall' target
+"
+"4fa0119f24c39374618eaac6d39de8533f34eb54","2015-08-27 14:46:33+02:00","Merge pull request #815 from reicast/holzhaus/improve-man-pages
+
+Improve man pages
+"
+"5ae82b7f4fe04e5a0b298de039d57174da9cdaab","2015-08-27 14:49:53+02:00","Linux/Makefile: Readd .elf file ext and remove it during 'install'
+target
+"
+"6ada8179be84fff7d46859dbcc92cdecf836ae71","2015-08-27 14:51:02+02:00","Merge pull request #816 from reicast/holzhaus/makefile-improvements
+
+Linux/Makefile: Readd .elf file ext and remove it during 'install' target
+"
+"a4c475a26ca6b452ce23e0c25dae8606b1c6a653","2015-08-27 14:56:02+02:00","Linux/Makefile: Add preliminary NAOMI support
+"
+"826853a0a46c01c1a3d61e4d0025486e18930cf3","2015-08-27 14:59:46+02:00","Linux/Makefile: Fix 'uninstall' target
+"
+"def93ca4be90690b3750ceeb3214ff6c7642767b","2015-08-28 04:06:36+02:00","linux/x11: Map X11 ESC key to exit emulator
+"
+"cbb8c11cf408121cff3dbeccc3f3ec0d2d9d6dca","2015-08-28 04:08:10+02:00","Merge pull request #821 from reicast/holzhaus/use-escape-to-exit-reicast-in-x11
+
+linux/x11: Map X11 ESC key to exit emulator
+"
+"dc921249cf4ac59659fae540c308b1e424bd2bad","2015-08-28 04:13:42+02:00","Linux/Makefile: Use different folder for NAOMI object files
+"
+"661b3d353891cd1146c3fe56ff562e4282feca29","2015-08-28 04:14:25+02:00","Merge pull request #817 from reicast/holzhaus/makefile-improvements
+
+Linux/Makefile: Add preliminary NAOMI support
+"
+"a704b0b46a7e35bbb34f4e0096ea0733628b0c82","2015-08-28 04:35:10+02:00","linux/Makefile: Fix regession caused by commit dc92124
+"
+"61a6975601c22a941143bec993a9fcca43377bcc","2015-08-28 04:36:33+02:00","Merge pull request #822 from reicast/holzhaus/makefile-improvements
+
+linux/Makefile: Fix regession caused by commit dc92124
+"
+"78f4890535c2d631a9ad5f6881b18e34fd0a609b","2015-08-28 13:50:58+02:00","Merge pull request #791 from sergiobenrocha2/libpng16
+
+Update libpng to 1.6.18.
+"
+"1a751e3b5bb1240071f34008739602cbfba67872","2015-08-27 15:40:12+02:00","xcode: Update projects for libpng
+"
+"dcd77326cca53185bb5545255c9166f5d06035cb","2015-08-27 16:57:22+02:00","sh4/mmu: Import the old mmu implementation from nullDC.
+
+Reicast doesn't support exceptions yet, so this isn't of much use now,
+and is intended mostly as documentation. nullDC used some call stack
+hooking magic to handle exceptions, which was never generic and clean
+enough to be worth the effort to port to Reicast.
+"
+"c87b6fc5581311d3d3cbc6d739e4138d862167cf","2015-08-27 14:15:44-03:00","Added Ubuntu PPA for development version.
+"
+"4ad6db345b6aea4b8ef99d308659178d8123f141","2015-08-24 23:24:30+02:00","nixprof: make private stuff static
+"
+"c24a5faf5bd3cb8f1ec9f9039910fe36ec4b58fd","2015-08-22 18:47:17+02:00","Linux: Use $XDG_CONFIG_HOME if possible
+
+This coommit makes reicast use $XDG_CONFIG_HOME from XDG Base Directory
+Specification[1] if possible.
+
+For backwards-compatability with older installations, it checks if the
+old-style config directory at $HOME/.reicast exists. If so, it'll use
+that instead.
+
+All new installation should use $XDG_CONFIG_HOME/reicast (or if
+that environment variable is not set: $HOME/.config/reicast).
+
+[1] http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
+"
+"0a6f6f3bde06d50f0b0d98b27b83accf24f4951f","2015-09-02 04:30:14+02:00","Merge pull request #819 from sergiobenrocha2/master
+
+Added Ubuntu PPA for development version.
+"
+"3e76175c7a2169ecf558751099b0bccb57cc2f9d","2015-09-02 04:46:31+02:00","Merge pull request #818 from reicast/feat/import-nulldc-mmu
+
+sh4/mmu: Import the old mmu implementation from nullDC.
+"
+"b6d0cddcaa3837950e0bdec6629923f2d9b9dac7","2015-08-22 21:49:12+02:00","stdclass: Add support for separate config/data dirs and system wide dirs
+
+This adds support for separate config and data dirs.
+
+On Linux, these will be compliant XDG Basedir Specification, i.e.
+XDG_CONFIG_HOME and XDG_CONFIG_DIRS (or XDG_DATA_HOME and XDG_DATA_DIRS
+respectively). On all other platforms, there currently just set to the
+homedir path (so no previous behaviour has been changed).
+
+If reicast wants to read and write a data file, it just calls
+get_data_path('/samplefile.txt'). If it does not need to write to
+that file, it just uses get_data_path('/samplefile.txt', false). That
+way, we can also use system-wide dirs (like /usr/share/reicast on
+linux), that the user usually doesn't have write access to.
+
+The same applies for config file, where you use get_config_path(args)
+respectively.
+"
+"5f6480e9838343b8cb842ad8306920e757b2fa7c","2015-08-23 02:13:19+02:00","linux-dist: Also add /etc/reicast as system config dir
+"
+"4bd5154c9f8aee90a219e32f04d4c48b9639ddc9","2015-08-23 02:21:53+02:00","stdclass: Use access to check if file is readable
+"
+"4267d51f90d063c6778e328a580eac9fbb4e96c2","2015-08-29 01:28:51+02:00","stdclass: Make path getter function names more verbose
+"
+"e9beb8606934055b4d78229924fcae3aa90a5984","2015-09-02 16:14:50+02:00","Merge pull request #798 from reicast/holzhaus/linux-use-xdg-config-home
+
+Introduce separate config/data dirs (user & system wide)
+"
+"ad068dcff29d3b56e142aa86ae8cf5204ab1a3db","2015-08-25 00:54:23+02:00","Bind profiling in X11 to F10
+"
+"a34a4d6f387a42cb62a0b312c79358146b539bc1","2015-08-25 01:25:50+02:00","libelf: get section link for ELF64
+"
+"c87307162dff396ab6c86adc92536508686b3935","2015-08-25 01:27:36+02:00","nixprof: Use sh_type insteaf of sh_name for section identification and use SHT_SYMTAB
+"
+"ceca8c72bfc921bdfc339ad82bcbb56affa10b2d","2015-08-25 01:49:09+02:00","nixprof: make it work with ELF64
+"
+"8fc2d5d0690a48c20e743572deba3413e106dd5e","2015-08-25 01:56:04+02:00","nixprof: only save STT_FUNC
+"
+"2a469b1def2f51f06d60a93d7f2fd88997d99d6f","2015-08-26 13:30:26+02:00","nixprof: fix notation for Hz
+"
+"56f8ffac0e84e731fe773cd409803c4369f55db7","2015-09-04 19:55:19+02:00","Merge pull request #807 from randomstuff/nixprof
+
+Nixprof: some enchancements
+"
+"76dfeae55c9b08010ee3c46cbd1b12da7fd20c0f","2015-08-29 20:23:16+02:00","SDL: Remove redundant sdl/ code
+"
+"1dbc0d73df63ccbcdf89fb6822c350bdb3786b57","2015-09-17 01:06:47+02:00","nixprof: Fix printf, PRI & friends don't exist on android
+"
+"175bb68af3915daca98f0c8d365b5a8d8e78a4d9","2015-09-22 14:55:36+02:00","Linux/man: Use gdi as example image file
+"
+"e04776caade666db7c86ae5fc7feeb863addd91e","2015-09-22 15:01:29+02:00","Linux/man: Add warning about CDI images
+"
+"aefa2e08dfcd84e9bc28669d6b57d86001a1bec5","2015-09-22 15:02:27+02:00","Merge pull request #839 from reicast/holzhaus/man-page-fix
+
+Linux/man: Use gdi as example image file
+"
+"d843e0a0203466dba050868cfdbfe9eef0eee792","2015-09-22 15:09:12+02:00","Linux/reicast-joyconfig: Fix error handling for Python < 3.0
+"
+"de29f0da76bfa116c9eb4266432b4f20030bba08","2015-09-22 15:10:34+02:00","Merge pull request #840 from reicast/holzhaus/reicast-joyconfig-error-handling
+
+Linux/reicast-joyconfig: Fix error handling for Python < 3.0
+"
+"543e355259bd2a58cad28af62f13fe2198f40529","2015-09-23 11:42:46+02:00","Merge pull request #826 from reicast/holzhaus/merge-sdl-into-linux-dist
+
+SDL: Merge sdl/ code into linux-dist/ code
+"
+"d44ad7ee59f954e5a077fe6eca9fe0d011ad4c18","2015-09-29 02:51:45+02:00","Update wercker.yml
+"
+"72f51f4f0e177350079c6ca7c89d9dc371992520","2015-09-29 03:06:43+02:00","Merge pull request #842 from reicast/holzhaus/fix-wercker
+
+Update wercker.yml
+"
+"42823955287b1d13dd0ddb81c4e40597057bd75d","2015-09-28 14:59:42+02:00","apple: Add primitive core audio support
+
+Also made the project xcode 7 friendly
+"
+"4a060b563505847c0cb663bbfdf596d16f54ef47","2015-09-17 17:52:01+02:00","sh4/mmu: C++ exception based sh4 exception support. Won't run wince yet.
+
+- Rewrite mem ops to only modify regs after exception path
+- Throw & catch logic for interpreter that raises the exception
+- Re-enabled some commented mmu code
+"
+"d99c803a0cd8f5b8dcc5a9b9fce5055b7c521cba","2015-09-17 21:31:25+02:00","sh4/mmu: Typo fixes, less log spam
+"
+"d85e4d8dff8559519776f2eca86b9202f6c789c3","2015-09-29 03:17:26+02:00","sh4/mmu: Don't use exceptions when disabled
+"
+"915d6b26d67ebda19e6029eb3547b6c6295cb7ef","2015-09-29 03:34:48+02:00","Merge pull request #837 from reicast/wip/mmu-exceptions
+
+sh4/mmu: C++ exception based sh4 exception support. Won't run wince yet.
+"
+"7d951b7697d0c98cb900c0c4f8e9ec0785bfbb52","2015-10-05 23:32:25+02:00","rend/if: Logging/verification of MD5(ta command list data)
+
+This allows for some very primitive auto-automated testing, by comparing known good frames.
+As this happens on the TA level, it doesn't actually require rendering (and thus it's server friendly)
+
+Two new config entries under the new [testing] namespace control behavior
+- ta.HashLogFile, file where data should be logged, empty if not logging
+- ta.HashCheckFile, past log to check against, empty if not checking
+
+The emu will crash via verify if the logs don't match, and exit(1) if they do
+"
+"cb69ab4b94601254d92104a08da19dbb0ca7d3e6","2015-10-08 00:48:11-03:00","Update linux manpages.
+"
+"73a585a135bfe0bf88e7b7bccf0dea952d947687","2015-10-09 12:19:08+02:00","Merge pull request #849 from sergiobenrocha2/master
+
+Update linux manpages.
+"
+"b38813ca34b540cc6f523ca36ed48377b1df48fc","2015-09-12 20:19:28+02:00","SDL: Add OpenGL3/SDL2 support
+"
+"098e208a576699ef676f84b48702c78cdbf97a55","2015-10-11 18:06:06+02:00","SDL: Drop SDL1.2 support and use SDL2 for GLES, too
+"
+"20d43fb04e03d66e503e10c591d5f414cb373833","2015-10-11 18:19:52+02:00","SDL: Remove some unused variables
+"
+"5aed3dffc4a5e031a86e2b292aad410b8e9ae65e","2015-11-01 14:32:55+01:00","reicast-joyconfig: Fix crash if button/axis is unnamed
+
+This resolves #848.
+"
+"2e7732aec7ef4748b617d0d791f99e1ffebcb08d","2015-11-13 08:37:41+01:00","README: update Linux build dependencies
+Tested on Debian Jessie
+"
+"01c7920d1ebc6bf2da5a2fa42f21319b75284e7f","2015-11-13 15:06:02+01:00","Merge pull request #860 from philenotfound/master
+
+README: update Linux build dependencies
+"
+"f5f3332b097439e6c52ca06bb00a4e66edf74365","2015-11-14 00:22:22+01:00","Merge pull request #867 from reicast/fix/issue-848
+
+reicast-joyconfig: Fix crash if button/axis is unnamed
+"
+"7b8f3ea6fa001066ba38b6e31f3bee292a092e16","2015-11-15 00:35:19+03:00","Update strings.xml
+
+added missing strings, reworked translation
+"
+"3ed2985d510733062e295f8d343cc717f158b4c7","2015-11-29 13:04:23+01:00","reicast-joyconfig.py: store btn_escape in the right section
+"
+"5e377399d338e10cd6e35672d28126a1f79a70ce","2015-12-04 00:53:42+01:00","linux/softrend: builds & runs, doesn't push to screen yet
+"
+"62018cf203df945c47759daa2a7bc268affa0ba0","2015-12-13 13:47:56+01:00","linux/softrend: Fix porting bugs, hackplement X11 drawing
+
+- Fix RECT fields oder (initialized via {} on the code)
+- Initialize shuffle_alpha (duh ...)
+- X11 Image drawing (hacky, depends on internal X11 details)
+- Untwidle code w/ optional flipping (X11 doesn't use inverted bitmaps)
+- rgba shuffling (not needed yet, but left for documentation)
+"
+"f3e4416bb44b895f30ed3fafdb55ab0acb121d76","2015-12-13 14:08:16+01:00","linux/softrend: Cleanup accidental file changes
+"
+"43649b5b610fc505530b604fdd32ed21d3fb52f6","2015-12-13 14:22:49+01:00","linux/softrend: Fix x86 makefile
+"
+"af01baae756cde3b98e41d7ce526d57de2a05fde","2015-12-13 23:58:24+01:00","linux/softrend: Optional via makefile, sse4.1 detection
+"
+"6c3c726019a34b2cd81ad3085375966878ce8cb0","2015-12-14 03:11:40+01:00","softrend: Fix windows build
+"
+"852521564eb3439f2b1d524e33d22ad0e4cc9b57","2015-12-14 03:45:07+01:00","Merge pull request #869 from 6lackmag3/patch-2
+
+[Android] Update values-ru/strings.xml
+"
+"7a7cae9f144d3e15839d11c02a54798fc01b3e1f","2015-12-14 03:50:49+01:00","Merge pull request #875 from reicast/skmp/linux-softrend
+
+softrend: linux support
+"
+"f868fc065501355d701efe6c6edb6738544fa108","2015-12-14 04:06:01+01:00","Merge pull request #841 from reicast/wip/osx-ios-sound
+
+apple: Add primitive core audio support
+"
+"ad7e23d84959c6a059ca0da55253c25ddbb8c8b6","2015-12-14 04:15:37+01:00","Merge pull request #846 from reicast/feat/ta-hash-logs
+
+rend/if: Logging/verification of MD5(ta command list data)
+"
+"d8dabb713d9a9aeef090297593206af51de01273","2015-12-14 10:09:46+01:00","Merge pull request #873 from gizmo98/patch-1
+
+reicast-joyconfig.py: store btn_escape in the right section
+"
+"c7b1f60cb1e5cd55a26edaa44ebb475a2590556a","2015-12-16 19:58:05+01:00","Linux: Fix Makefile Indentation
+
+Spaces and Tabs actually have different meanings when used in makefiles
+"
+"0e4949e7bdc66b564c9ec8880f8084f95d0e587e","2015-12-18 00:14:57+01:00","Linux/Makefile: Fix spaces in path name
+
+This resolves #883.
+"
+"dde4647e55c856b2403dff797b358601f1d3f403","2016-01-30 10:21:17+01:00","Fix the check for the enviroment variable
+
+I tried running reicast and it immediately died with:
+
+terminate called after throwing an instance of 'std::logic_error'
+what():  basic_string::_S_construct null not valid
+Aborted
+
+I was missing the environment variable XDG_CONFIG_DIRS
+
+Turns out find_system_config_dirs() checked for the existence of
+XDG_DATA_DIRS but then tried to use XDG_CONFIG_DIRS (non-existent in my
+case).
+
+fixes #847
+"
+"45deafc9401f17ccd4a1f9fcf88a1895ed81a328","2016-01-30 18:45:50+01:00","Merge pull request #902 from philenotfound/master
+
+Fix the check for the enviroment variable
+"
+"52afec6f7dc0f280347c49c5e7d9bb9fb35aaddc","2016-03-04 15:13:25+01:00","Merge pull request #832 from reicast/holzhaus/sdl-opengl
+
+Move to SDL2 for OpenGL 3.1 and GLES support
+"
+"0a1689cb40753d7c4ec572304f9de57ae76897d8","2016-03-17 01:30:22+02:00","Fix broken ru xml
+"
+"6c49f0a8528f57769a71781717ac36518f0a1326","2016-04-25 12:10:12+02:00","Update maple_cfg.cpp
+"
+"469dda0e57de2b4e2d047a3c96a2c5a0758da1c3","2016-04-26 17:06:45+02:00","Update maple_cfg.cpp
+
+Add players.nb option in emu.cfg. You can add 1-4 SegaController.
+"
+"ccfb6b635ab9cd4d4911da30da3cd961caf074cb","2016-05-13 14:37:47+02:00","Delete spurious code - fixes sprite palette issue with games like
+Street Fighter III 3rd Strike/Capcom Vs SNk 2, possibly others
+"
+"b60659377464949132bd053437b29d412b95ef81","2016-05-13 14:44:53+02:00","ftrc fix - revert back to nulldc defaults
+"
+"3d7d73e1e55c1dd6708fbcb5ccd8766d08065581","2016-05-13 20:16:21+03:00","Merge pull request #927 from reicast/sprite-palette-fix
+
+texcache: fix vram_lock to actually lock the entire texture
+"
+"7c5e49a6d292504ac9f93b4425b73ba981009c29","2016-05-14 04:15:16+03:00","dyna: Fix f2i canonical + x86 to saturate
+"
+"3cb39268a9d402f4a00cf2aceead5ac6ba563d39","2016-05-14 04:44:24+02:00","Merge pull request #926 from reicast/ftrc-fix
+
+ftrc fix - revert back to nulldc defaults
+"
+"a5b7011c57badf0e5a5524a99db68585aa46e216","2016-05-15 14:48:40+02:00","Merge pull request #929 from Hyell/master
+
+Multiplayers with configuration file
+"
+"3c9ed1b3c1cd990140011d4b2d9d2b3033a3edf2","2016-05-22 11:59:13-05:00","Fix Linux build under CMake.
+"
+"73e2691c6136a1199d10e59ff2e6c565bd6bfc48","2016-05-22 19:04:52+02:00","Merge pull request #931 from rohit-n/linux-cmake
+
+Fix Linux build under CMake.
+"

@@ -1,0 +1,109 @@
+"commit id","commit date","commit message"
+"3436dcba8d3a7cd7bc18ec8cb740e2e53fcaaf51","2016-01-12 23:00:20+00:00","Remove the debuggable option from AndroidManifest.xml
+
+The default value is false is anyway.
+"
+"8678a366ca6f2aae9c36f7dae10390daf6eb6015","2016-01-12 23:14:11+00:00","SearchActivity: Remove the search menu item
+
+This is removed when the menu is created so it is pointless to list it
+in the menu resource. This was left around from when the menu resource
+was shared between multiple activities.
+"
+"6c637621f24405ab9fbb0ecfac05ef29ed943f97","2016-01-13 15:25:10+00:00","Convert the README to markdown
+"
+"5e6eceab0a0558a1cfbf198e78d06d489fe5f1d8","2016-01-13 15:31:50+00:00","Merge tag '0.12'
+"
+"41f8af537b88d23321a964b6733dacad72a036a0","2016-01-16 14:34:27+00:00","MenuHelper: Add a helper method to create an intent for SearchActivity
+
+The helper function sets the language for the intent.
+"
+"91ab3ce3795932ac06c7f7db1849b615ba6c1850","2016-01-16 14:00:18+00:00","SearchActivity: Add menu items to rapidly switch to the main languages
+
+The menu in the search activity now has dynamically added items to
+switch to the 2 other most used languages.
+"
+"dc3149b17534c0d6ef007851890f7c8d2ae95835","2016-01-16 14:30:09+00:00","SearchActivity: Add an intent extra field for setting the search term
+
+When the activity is launched it now checks whether the search term
+has been specified in the intent and if so it will immediately set the
+search text box to it.
+"
+"c40292a4f133965debfb8b963877c8a5d8d879fb","2016-01-16 14:31:49+00:00","SearchActivity: Retain the search string when switching language
+
+When one of the convenience menu items is used to switch between the
+main languages it now preserves the search string by setting it in the
+intent.
+"
+"4bc43c22f3471a9d8dfaa1f8be7efbe10e784817","2016-01-16 14:42:59+00:00","SearchActivity: Fix the name of menu item for searching in esperanto
+
+Otherwise it says ‘serĉu en la esperanta’ which is a bit weird.
+"
+"912e90bb2d81a365e5cdc4e009b790857e74f8e5","2016-01-16 14:45:02+00:00","Add 2016 to the copyright message
+"
+"69eecb6e4a567d364c117a5d22b39b7b9b56d480","2016-01-16 16:02:09+00:00","SearchActivity: Put the language shortcuts on the action bar
+
+The menu items to select the most used two languages are now shown in
+the action bar with just the language code as the condensed text.
+"
+"e7e48410a716aeb06760a6fb0af6224d0b6d5154","2016-01-18 10:03:13+00:00","Update the TODO list
+"
+"3b9a2a9db742bb22de5cd1924fa4cafed10bdd97","2016-01-18 17:15:28+00:00","Cache the trie indices
+
+Instead of each SearchActivity loading its own copy of the trie, they
+are now cached in a static class so that they can be shared. The cache
+only keeps the last 5 used indices so that if the user switches
+between a lot of languages it won't use up too much memory.
+"
+"742d3ee1f4b2a6461627215400700ba08de7d3b3","2016-01-18 18:46:36+00:00","SearchAdapter: Don't save the trie index
+
+The trie is now loaded on-demand from the cache whenever a search is
+initiatied rather than keeping it around forever. This should usually
+hit the trie cache so it shouldn't cause any delays but it also has
+the benefit that if the user opens a bunch of activities with many
+different languages then the garbage collector will get a chance to
+collect the tries. They will be loaded again when a new search is
+started on the activity.
+"
+"bb3b6c8c112c5446de81e0067e99757aff42891e","2016-01-18 20:03:41+00:00","Search alternative indices instead of just the main one
+
+When searching if no results are found it will now try searching in
+up to two other of the main languages. If at least one match is found
+it will display the results from that language instead.
+"
+"8437c6418c5b360d6ee3ab628da6347bac6d7a05","2016-01-18 20:24:27+00:00","SearchAdapter: Keep track of the language number that had results
+
+The number of the language that was finally used to return results is
+now tracked by making the filter return a new object which has this in
+addition to the actual results.
+"
+"479d5b8b61310a427b44edf92314c564357c8dbe","2016-01-18 22:29:16+00:00","Add a convenience function to get the language name with ‘la’
+
+This adds a second method to LanguageList to get the language name,
+but this one has a parameter to specify whether the article should be
+added. It now returns ‘esperanto’ instead of ‘esperanta’ for eo and
+never adds the article.
+"
+"a38714f5600ede268c4b1cfcbc62d9a6e170444c","2016-01-18 22:06:28+00:00","SearchAdapter: Add a note when an alternative language is used
+"
+"cb4e6758dab72c2239525640315ef3f36a1ece3b","2016-01-18 23:42:27+00:00","MenuHelper: Use a Context where possible instead of an Activity
+"
+"5bd846f0e9522f3e965f5f744990cf399415cca2","2016-01-18 23:48:46+00:00","SelectLanguageActivity: Use MenuHelper.createSearchIntent
+"
+"4dd00bc3fe12e2b91e8c0ac972ad875d090c00fe","2016-01-19 00:04:26+00:00","Mark the language as used from the SearchActivity
+
+Previously the last used language and the language count was only
+updated if the language was selected from the SelectLanguageActivity
+menu. Now there are updated whenever a SearchActivity is created so
+that it will include uses from the search activity menu.
+"
+"751701009c63b90d35eaa1712cdb7334951c576f","2016-01-19 00:15:05+00:00","Don't mark a language as used if coming from a generic search
+
+If MenuHelper.goSearch is called (ie, from the start activity or from
+the generic search button) we don't want it to mark the language as
+used because it's just using the default language so the user hasn't
+really explicitly selected it. To make this work there is now an extra
+string on the intent to specify if the language should be marked as
+used.
+"
+"03ce95f2a3991414a8990271cb3a43e3a34014a5","2016-01-19 20:32:02+00:00","Release 0.13
+"

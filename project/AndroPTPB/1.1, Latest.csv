@@ -1,0 +1,74 @@
+"commit id","commit date","commit message"
+"fc11fabe17c7a65be50e85e591812a91ebb467c4","2016-01-05 13:32:09-08:00","Update pastehint retrieval to use JSON format
+
+Prior to this, the hints were specified in the following format:
+hintgroup somealias1 somealias2
+
+Now, ptpb.pw offers outputting in either YAML or JSON. We chose JSON
+since the Android SDK already has JSON parsing.
+"
+"8d92f43135f55556f83f1f1f668a4a1d2d6453d9","2016-01-05 13:49:27-08:00","Reorganize functions in SQLiteOpenHelper
+"
+"755a43632cb8cbcb3d7a4bc1292162ac70e1f58e","2016-01-05 14:07:55-08:00","Add statements for styles and formatters table
+
+Also add basic CRUD for styles available on a server.
+"
+"9b2feb61480d68b6dbba4b4c1fd10b204c291a29","2016-01-05 14:13:08-08:00","Refactor whereClause's in DBHelper's functions
+
+In detail:
+- whereClause instances were refactored to use String.format to make it
+clearer what fields are being queried. It also avoids hardcoding the
+fields in case we need to change it in the future.
+- naliases and maxName were the same in both instances of getHintGroups.
+To avoid recreating these strings, they're declared as private static
+final Strings on the class level.
+- Avoid recreating the query that grabs the biggest hint group id
+"
+"5600fc85c97cd0a1d6ca98b99d202aba1bb3d198","2016-01-05 16:03:13-08:00","Change check for sha1 to digest in NetworkUtils
+
+ptpb.pw changed the checksum field label
+"
+"a9fc26e78cca3c88480192b73aac61e67e76baa3","2016-01-05 16:08:00-08:00","Add manual refreshing for paste hints
+
+Currently, auto-refresh on enter is only additive. The manual refresh
+purges the current cache before refilling the paste hints for the
+server.
+"
+"6fb95b202ec29eeb26ef1dbe92685c760177fe2e","2016-01-06 09:54:09-08:00","Update the rest of NetworkUtils to parse JSON
+
+The following functions are affected:
+- getRedirectResult: Also includes a bugfix since the output for
+redirected URLs have changed. They now resemble the other results for
+submitting too.
+- getUploadResult
+- getReplaceResult
+"
+"494fde27af667ec63b6dd2c33bdbb7c8ce5fa094","2016-01-06 10:00:02-08:00","Add functions for retrieving formatters and styles
+"
+"62f3a3fbf2489969e19e27a6b2f62810d7a435e6","2016-01-06 11:01:30-08:00","Standardize and update log tags
+"
+"1e656ed3e6b60107d46290b69466feed2c799785","2016-01-06 11:06:07-08:00","Add hierarchical parents to activities
+
+The following activities are affected:
+- UploadOptionsActivity
+- PasteHintsActivity
+
+This is to make sure that the user can tap the titlebar to head back to
+the main screen.
+"
+"b20affc67bd6b43a9186ebbcace753510f51d768","2016-01-06 11:10:03-08:00","Clean up warnings in build gradle and update
+"
+"80a2030e19412d44666f606debb32d2835e48462","2016-01-06 13:41:18-08:00","Remove redundant server id lookup in PasteHints
+"
+"ef56443f0455265c68bc97bb8385a26f27160636","2016-01-06 18:00:28-08:00","Implement support for formats and styles
+
+- Formats control the file format the paste is rendered as. For
+instance, specifying an rtf format will give you an rtf file you can
+view in a word processor.
+- Styles control the colorscheme the file is rendered with.
+
+There are still a few minor usability issues with this, such as
+indicating what the previous style/format was before we select a new one.
+"
+"75a794aba7a59e610b3973682c8a2d3bc77efed1","2016-01-23 11:19:10-08:00","Bump version
+"

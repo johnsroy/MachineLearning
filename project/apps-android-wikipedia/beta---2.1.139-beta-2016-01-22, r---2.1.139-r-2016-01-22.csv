@@ -1,0 +1,348 @@
+"commit id","commit date","commit message"
+"d7e18b5b0f3dbad70537152e15d5106b82b1d8ee","2016-01-11 14:49:02-07:00","Hygiene: misc EditTaskTest micro clean ups
+
+- Consistently use test context.
+- Replace +\ magic string with symbol.
+- Replace Context state with method.
+
+Change-Id: Ib0a5b30517619415fde9fbc5fa5f503b8f574726
+"
+"47a6efda8406761b569be063384e70c72df7775a","2016-01-12 17:13:37+00:00","Merge 'Hygiene: rename test to 'ClassTest' convention'
+"
+"0340f65013e42be9b032535f25bb261f7325b204","2016-01-12 17:19:16+00:00","Merge 'Hygiene: misc EditTaskTest micro clean ups'
+"
+"861a238fa5ec7a3ef74a24d40fbfb7d76de29eb8","2016-01-12 17:35:58+00:00","Merge 'Hygiene: update CreateAccountTaskTest to JUnit 4'
+"
+"e937ee1e8245e556816183de14d278a05c3157af","2016-01-12 21:42:53-05:00","Update event logging for intents.
+
+This adds event logging for the new ACTION_PROCESS_TEXT intent. It also
+rolls widget-based launch events into the same schema, and also adds event
+logging for the SEND intent, which we weren't logging previously.
+
+https://meta.wikimedia.org/wiki/Schema:MobileWikiAppIntents
+
+Bug: T121910
+Change-Id: I318bf591d5b7a68023948464c656e35d09f0b6a5
+"
+"5f77bce0ed4db1c0d4ca9da9a899c932bb708ce6","2016-01-13 07:59:48-05:00","Fix share-a-fact cards when lead image scrolled away.
+
+Share-a-fact cards were no longer showing the background image correctly
+because the underlying ImageView is now using a Matrix transform to
+achieve the parallax effect, and it becomes incorrectly applied to the
+share-a-fact card.
+
+This patch simplifies things by letting the share-a-fact card access the
+underlying Bitmap of the ImageView, instead of making the ImageView draw
+itself onto a new Bitmap.
+
+In the previous implementation, I see there was some concern regarding a
+possible exception due to using a recycled bitmap, but I don't see how
+this can happen, given our current way of drawing the card.
+
+Bug: T123283
+Change-Id: Iff4731499fe324f632c42543eeaa1b1ff157fddb
+"
+"7fda6a4e4c4d1a40c9badbc61c01e77e7a83d564","2016-01-12 14:39:32-07:00","Refactor and fix EditTaskTest
+
+EditTaskTest
+• Fix testAbuseFilterTriggerWarn(). This requests exercises a warning,
+not an error. A second request will succeed or stimulate the warning.
+Now the test makes a second request as needed.
+• There appears to still be one lingering and very rare bug around
+tokens in testAbuseFilterTriggerStopOnArbitraryErrorCode(), possibly
+T89702. The error message is, 'badtoken: Invalid token'. This may be
+addressed when more information is available.
+• Remove token storage interaction. testEdit() was the only client
+actually using the token from storage and that token was cleared
+before access so the anonymous user token (+\) was always returned.
+Tokens are a separate concern and should be tested elsewhere.
+• Improve the testing DSL by extracting subject usage to a private
+subclass that owns threading. This concern obscured the intent of the
+tests with copious boilerplate. Additionally, move common default
+values into the subclass.
+• Require that the response of testCaptcha() be a CaptchaResult, not a
+SuccessEditResult. This test always seems to produce CaptchaResult
+responses.
+• In testEdit(), verify edit success by checking the instanceof result
+instead of the result code magic string.
+• In testEdit(), when the service indicates success, don't re-fetch the
+wikitext and verify the result. This is the concern of the service.
+• In testEdit(), don't try to handle the exceptional case of the test
+running at the same time elsewhere. None of EditTaskTest tests play
+nicely when run in parallel.
+
+EditTokenStorage
+• Replace reference to implementation with reference to interface.
+
+Change-Id: I75fe88ca71a7cbd3fcafed31d022e37bf1103c65
+"
+"eea3a3671e417ac2e6ff84a4734eb807d50d8be6","2016-01-14 08:20:25-07:00","Fix implicit token usage in EditTaskTest
+
+• Don't mix login and anonymous edit tokens in EditTaskTest. Since
+cookies are merged across domains, each test case now just clears all
+cookies. This was the behavior of the test last year. However, it was
+modified to be more exact by limiting the domain which introduced the
+subtle bug of including the login session token.
+
+• Fix SharedPreferenceCookieManager.clearCookiesForDomain() to clear in
+memory cookies for the given domain. Previously this only updated
+nonvolatile storage.
+
+Change-Id: I58b046d9b81313d2fb00a6546438f8990b2000dd
+"
+"4e59f412a7a6da22ce9111b17747b19bd8887dec","2016-01-14 11:40:00-05:00","Prevent possible NPE.
+
+https://rink.hockeyapp.net/manage/apps/226650/app_versions/8/crash_reasons/99184406
+
+Change-Id: I5e3a0ee49b3ebe77ff8511b67580d7c60a5c7ee2
+"
+"2219da4f426dc49026e30c475797d7b761ec00e0","2016-01-14 12:12:53-05:00","Fix possible race condition when augmenting remaining sections with RB.
+
+https://rink.hockeyapp.net/manage/apps/226650/app_versions/8/crash_reasons/98351549
+
+Change-Id: I16ddd95cea47f5488423ab4ba496a2b9e67b4592
+"
+"bc75cb155735945e842571db6f6638ffcc339bec","2015-12-02 13:46:25-05:00","Implement Wiktionary definition dialog
+
+An implementation of Wiktionary popups based on the existing
+SwipeableBottomDialog component. Adds a 'define' option to the CAB menu
+that triggers a definition dialog containing definition(s) from
+Wiktionary.
+
+Currently limited to English Wiktionary -- other languages to be added
+later.
+
+Bug: T118737
+Depends-On: Ie9bcaf3d6af9eadd92d04d999ed52315c7b3bfd3
+Change-Id: I461d84ab241c26d4c34649afd09eafea6f8b11e2
+"
+"e68866c81f39202b68d86a497e3f4241a2c44a78","2015-12-23 12:38:21-05:00","Add event logging for Wiktionary popup
+
+Schema: https://meta.wikimedia.org/wiki/Schema:MobileWikiAppWiktionaryPopup
+
+Bug: T121909
+Change-Id: I20ee5380d6c6c784d440a720f923a9a63bd89153
+"
+"3a96b378fa7a7a86325fab92a545d257845f9070","2016-01-14 20:05:15+00:00","Merge 'Refactor and fix EditTaskTest'
+"
+"9985f8c08c36d9c948557ee29a689b437832513b","2016-01-14 20:16:55+00:00","Merge 'Fix implicit token usage in EditTaskTest'
+"
+"1b5e5c43b778965c65e65061920ad45b73941edd","2016-01-14 21:32:50+00:00","Merge 'Fix possible race condition when augmenting remaining sections with RB.'
+"
+"12f9c151b26ff4290cdcd319c4532300929850a4","2016-01-16 16:26:12-07:00","Only define testAll* tasks for active build type
+
+testAll* Gradle tasks were defined for both debug and release build
+types. These tasks have dependencies on connected*AndroidTest but these
+exist only for one build type. This patch limits the creation of
+testAll* tasks to the active build type.
+
+Bug: T109616
+Change-Id: I274a4f1a7140bf044ca6bd574ffa58886f706a7a
+"
+"31c3c4fc141bdaf876ff972b398e35b471b17c76","2016-01-18 16:51:35+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I9f65dadde1bda4c1229aefbc723d795fc97c7a2b
+"
+"cdbbefb3d378819a6c4d3a549ff503d159c6815b","2016-01-16 20:55:16-08:00","Remove code that falls back to HTTP
+
+Wikimedia is HTTPS only now, has no HTTP support
+
+Bug: T123853
+Change-Id: Ifb8abacdfd6e51ab63157f8eb64731c6cb4552a6
+"
+"55014be4ec441184ea6f8423242089f3da9125b5","2016-01-18 16:23:33+00:00","Merge 'Remove code that falls back to HTTP'
+"
+"026b8ed03996d0683c62ff4d301a7181055d19b1","2016-01-15 16:23:02-07:00","Retain preload channel ID
+
+We now keep the same package ID for OEM installs as the Play Store. This
+is good for users and developers because everyone gets the same apk when
+updates are made. This is bad for trackers because the preload channel
+ID, a property of the original preloaded apk and different for upgraded
+apks, was lost as soon as the phone was connected to the internet and
+upgrades are downloaded. We now record the channel ID on first boot.
+
+Bug: T115396
+Change-Id: Iec363ee4b011dd70e457dcea733fc21551244def
+"
+"86a45a7a723e6eb77ded176c16d4f865c083fa8b","2016-01-18 15:06:53-07:00","Hygiene: remove unused funnel
+
+Remove ConnectionIssueFunnel (Schema:MobileWikiAppStuffHappens) which is
+now unused.
+
+Change-Id: Ie412dc6536897514d61f2924ccd24e5a1966921f
+"
+"77fa0b0cbfbe899d2b1f4d1a8f86ed6d2a44b44b","2016-01-19 13:34:25+00:00","Merge 'Only define testAll* tasks for active build type'
+"
+"4ea68bc3f4f2b7cabda3e5f5fa236320dc95bf71","2016-01-19 08:22:27-05:00","Send DNT header if opted out of event logging.
+
+Bug: T108955
+Change-Id: I473158b5f71ef63749d380c3b9cc4aa73ede0c40
+"
+"0efbca87c6aeca943d45fdf53e1ef8b640d870a2","2016-01-19 15:10:06+00:00","Merge 'Send DNT header if opted out of event logging.'
+"
+"cd483822f7baabc64c54541eefef716eb852310b","2016-01-18 13:40:39-07:00","Don't show the retry button for 404 errors
+
+Replace the retry button with a 'go back' button for HTTP errors that
+are unrecoverable by retrying. The ticket only describes removing the
+retry button but the dead end experience of an error with no obvious
+way out feels overwhelming.
+
+Bug: T120280
+Bug: T120393
+Change-Id: I44145e1a521e1d5f4de9793b1b22f8903ac9fdd8
+"
+"f2bffcb95a76868721511cd53d2e6fac1ee7424a","2016-01-18 14:56:21-07:00","Hide pull to refresh for 404 pages
+
+• DRY up refresh article method. Refreshes are now always permitted for
+the page load error state but UI is only exposed when the error is not
+a 404.
+
+• Error state is now reset on page refresh.
+
+• Show error for refresh failures.
+
+Bug: T120282
+Bug: T120393
+Change-Id: I7d48195ff3fd647fca6dfa56f2d39cc8066f34d2
+"
+"4f1bb0f761ce527e2bb8c2525a73dee96cc3d399","2016-01-18 17:35:51-07:00","Hide table of contents button when loading / error
+
+• The table of contents button was intentionally disabled while page
+contents loads. Now hide the button itself during page loads.
+
+• Only show the table of contents button when page load completes
+successfully.
+
+• Workaround FloatingActionButton.show() / hide() race condition.
+
+Bug: T120391
+Change-Id: Ib5e180e218322e45cad2396549340cdb12ef8ab4
+"
+"ca895746ea149ab391ecf25a1e04f80c1c8fefc2","2016-01-19 10:41:06-05:00","Prevent crash after requesting empty definition from prod content service
+
+Sending an empty string to the production content service to request
+a Wiktionary definition causes the app to crash (though oddly enough this
+does not happen when running locally).  This adds a check to immediately
+fire a 'no definitions found' dialog rather than sending the request when
+selectedText.trim() is empty.
+
+Also added a minor fix to hide the progress bar consistently when the 'no
+definitions found' message is displayed.
+
+Bug: T123783
+Change-Id: Iba04e02e16ca5cd1d7d8723999f618c8995fa761
+"
+"5fd80e45a1c59739a65bc9350fb6ba5fec292891","2016-01-19 09:14:11-07:00","Don't update the article header for the error page
+
+The article header should not be shown for the error page. The header
+was mistakenly updated on configuration change which caused the page to
+display as an odd hybrid of error page and the previous wiki page
+visited. This patch amends that behavior to only update when not on the
+error page.
+
+Bug: T120279
+Change-Id: I2b35a6880aca9eda6805d0af1824497b855e22ef
+"
+"a9e2277cb9887ee06ef00be0e9889a15006ab7d6","2016-01-19 17:52:04+00:00","Merge 'Hygiene: remove unused funnel'
+"
+"3037655893daf655fdb5639c1255328bc096b54e","2016-01-19 13:20:53-07:00","Use production RESTBase URI for empty dev inputs
+
+It's very inconvenient to type the production Content Service URI if
+previously testing with a different instance. Previously, if an empty
+URI was specified, the app would crash. Now we check for a blank input
+and use the production value in that case.
+
+Change-Id: I06a87481cf7d1b4eac8e06f33927ee180e806881
+"
+"3c43d2530845f1732b6e47f472bf0069c20d672a","2016-01-19 14:36:52-07:00","Hygiene: replace attribute with style
+
+Replace android:inputType='textVisiblePassword' attributes with new
+style, DataStringPreference, for magic strings in the dev settings.
+
+Change-Id: I68dd928fbef9e673c564fa4fa49bfedf4a3e81f2
+"
+"ffc31de0a54447d1562400865e3cfa32c5b01314","2016-01-14 22:33:32-07:00","Upgrade to HockeyApp v3.7.0
+
+Upgrade HockeyApp to v3.7.0[0]. Also, rename the activity_login.xml
+layout file to work around a resource conflict in the new aar[1]. This
+patch was tested for crash logging, crash report preference, remote
+logging, and locale changes on the production release build variant.
+
+[0] https://github.com/bitstadium/HockeySDK-Android/releases/3.7.0
+[1] https://github.com/bitstadium/HockeySDK-Android/issues/121
+
+Bug: T123579
+Change-Id: Ia73343357adbea92480dace7a2a5c9a6f16093ff
+"
+"65aaa1d39d0f3d12a17729b720313e768798328a","2016-01-20 16:28:58+00:00","Merge 'Don't show the retry button for 404 errors'
+"
+"7bebb1f8e03c521edd46a4cbd1bff4723d56421b","2016-01-20 16:45:09+00:00","Merge 'Hide pull to refresh for 404 pages'
+"
+"4c5bab2c0071a22bcdfccd767d5c9adb53bd383a","2016-01-20 16:53:16+00:00","Merge 'Use production RESTBase URI for empty dev inputs'
+"
+"d6a9bb142e23524b06e52a2f77010c9dea25ee7b","2016-01-20 16:58:04+00:00","Merge 'Hygiene: replace attribute with style'
+"
+"d68746dd9c545b2afa6b43c71c6d7054930b1b92","2016-01-20 17:14:06+00:00","Merge 'Hide table of contents button when loading / error'
+"
+"452a8132dfa38e3c676069bf62cebe9e282413b6","2016-01-20 17:15:02+00:00","Merge 'Don't update the article header for the error page'
+"
+"1237aa2a0b10e5ed8df1e236d3c61b4acff57ce5","2016-01-21 11:28:28-07:00","Hygiene: consolidate ViewUtils
+
+A second ViewUtil was unintentionally added. This patch merges them into
+one.
+
+Change-Id: I291428c55849a1517b286b992d40b52d66508c70
+"
+"50037ff167aedde52d18e7b15041a8f47317d321","2016-01-21 22:34:38+00:00","Merge 'Upgrade to HockeyApp v3.7.0'
+"
+"d6c3805e0ce8f3fe7af4e66b9739cbf51b334f26","2016-01-21 22:59:33-07:00","Remove expired cookies
+
+Bug: T124252
+Change-Id: Iaca32853b4b546364bac369b452b1caba5b05db7
+"
+"46cacf34ffc726fefd6afcf5f32c9c9cb503e3c4","2016-01-21 23:06:23-07:00","Bump versionCode
+
+Depends-On: Iaca32853b4b546364bac369b452b1caba5b05db7
+Change-Id: I357ce345dc1501b1966e6fb6aafa94e258991639
+"
+"bb93b03c4fcd2eacb0c37d5e37e65e6ea8b665d3","2015-10-22 12:38:25-06:00","Add Spoon and update page load tests
+
+• Add Spoon and the Gradle plugin. These run like
+`gradlew spoonAlphaReleaseAndroidTest`.
+
+• Update the page load tests with a few common cases. Currently,
+articles with images, without images, and RTL language. There's a lot
+more we can do but it's overwhelming for a single patch. This patch
+focuses on a few essentials.
+
+Bug: T118099
+Change-Id: I1ae94d279003efeb629d24cfc7c2b585036029db
+"
+"bdebefab2ed24ad2dac5f3a7ccb4d85cb2ddcb19","2016-01-22 18:14:13+00:00","Merge 'Hygiene: remove Hugo'
+"
+"5d5819c42f9ee6bfbdd46689ebae9f55403e8492","2016-01-21 13:28:49-07:00","Hygiene: consolidate duplicate code
+
+No functional changes intended.
+
+Change-Id: I25dc3eeef9481542eb5db9756c8eea2b99865024
+"
+"4f99cc1d1e8aac66d3c883f5e4d29c469f9d124f","2016-01-22 12:13:05-05:00","Update RbDefinition to reflect Wiktionary endpoint response changes
+
+Needed to accommodate changes to the Wiktionary endpoint in
+https://gerrit.wikimedia.org/r/#/c/265655/
+
+Bug: T124321
+Change-Id: Ib75d28585e1b520840eaf44d6e2a7e89b8b2d189
+"
+"be46b29acf47b57b6bf251d705bd0f80e414c1ed","2016-01-22 22:19:10+00:00","Merge 'Update RbDefinition to reflect Wiktionary endpoint response changes'
+"
+"36d439851fa6f4f7120f678fd16c7988ba3f3912","2016-01-22 15:07:55-07:00","Use canonical MediaWiki & RESTBase API, not mobile
+
+Remove the m. part from MW and RB endpoints.
+
+Change-Id: I97db3c2da3d8ac42cfddd94f929bf30adb4196b2
+"
+"06c0614028c0750174b78bcf519e5a0298fefdf9","2016-01-22 15:46:32-07:00","Bump versionCode
+
+Change-Id: Iacedba80755cf337bc11b747e872b1ac53f9e8f6
+"

@@ -1,0 +1,121 @@
+"commit id","commit date","commit message"
+"d08793cfcb97e4ebbda590b98315407cefe58893","2014-07-20 22:16:12-07:00","ProfileManager: Copy certs into individual files
+
+Some users have reported problems storing certs in the SharedPreferences
+(which apparently have a 8192-character limit per entry), so we'll copy
+them into /data/data/app.openconnect/files instead.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"6a2a8421f28c2fd31cd900cf67477004296827c3","2014-07-21 20:09:12-07:00","AndroidManifest: Bump version to 0.97-beta1 (971)
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"c89dcef2a424a549bf204141765dd6befd5defd5","2014-07-21 20:09:39-07:00","ProfileManager: Store relative paths to certs
+
+This might help in cases where the configuration is backed up, then
+subsequently restored to a different path (possibly on multiuser tablets).
+
+Also, increase the file limit to 64kB, and make sure the output file is
+executable, in case it's a CSD script.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"c17011a6b118e9c2209fd99bc21698fe6cde09d1","2014-08-03 13:38:21-07:00","Import ACRA 4.5.0 jar
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"e200f8c0ed82a3cfce2008d0f64b91791098d9ad","2014-08-03 14:29:08-07:00","Enable ACRA crash reporting
+
+This shows a confirmation dialog and posts directly to cloudant.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"15a04f0fa1d40c626074ea0d72cdad7f15451a9f","2014-08-03 14:44:30-07:00","Replace 'Send log file' and 'Send feedback' with 'Report a problem'
+
+The new, simplified option shows up in CommonMenu.  It uses ACRA instead
+of the old email reporting mechanisms.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"b106acf51f8536a03eaca2075afd8674bb32e3bb","2014-08-03 14:52:38-07:00","CommonMenu: Move 'Help with translations' into the About page
+
+The menus were getting too cluttered; put the lesser-used options
+someplace else.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"1646be59c6c3d3dc9127e20e005230a9585b81f1","2014-08-03 15:17:29-07:00","GeneralSettings: Copy limited updatePref() from ConnectionEditorFragment
+
+Use updatePref() to show the current setting in the summary on each
+ListPreference.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"39266ee7ca39fa6e092ed5e1b0cc166c90d57991","2014-08-03 15:41:14-07:00","LogFragment: Move timestamp configuration to GeneralSettings
+
+This isn't used enough to justify putting it in the context menu, but
+we still want to let users configure it.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"e28c02f6dbf65f04acdb81aa6f06d3b62a7350bd","2014-08-03 16:52:40-07:00","acra: Add APPLICATION_LOG to the crash report
+
+Dump the contents of the circular log buffer into the ACRA report data.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"2f73dc35515b9b033d1c845a5534af910d3f3f3c","2014-08-03 17:23:40-07:00","OpenConnectManagementThread: Keep stats on connections, attempts, etc.
+
+This is intended to help in interpreting log data, e.g. 'did this profile
+ever work?' and 'when was the last successful connection?'
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"14364c4aeb4dffd42be57819b031686f2720dcc6","2014-08-09 10:18:41-07:00","external: Use the official openconnect v6.00 release
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a97874e85a136400bf358328ff3febcab14d43ce","2014-08-09 10:24:40-07:00","libs: Sync with latest openconnect sources
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"461546a88e922e8e6ec0fa355aed01f4375fbd06","2014-08-09 12:20:25-07:00","Add XposedBridgeApi-54.jar to build
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d9357a964cc55b5f37890a6d235f75ceb0feb458","2014-08-09 15:42:19-07:00","xposed: Add a module for bypassing the VpnService dialog
+
+If a user has rooted their device and installed the Xposed framework,
+an 'OpenConnect' Xposed module will become available and this will allow
+bypassing the system-managed VPN confirmation dialog.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a7acdec0d73b0dfe8b22e63714a9af7459825bc7","2014-08-09 16:09:13-07:00","travis: Don't nuke acra-4.5.0.jar
+
+We only want to rebuild the stoken/openconnect jars from source.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"8a01f8aff03945027e6d82105d5f7f4c94d7ad03","2014-08-09 16:11:59-07:00","faq: Update instructions for bypassing the VpnService dialog
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"ace0337fe727926750e2655c75b433f9c80904e8","2014-08-09 19:56:56-07:00","acra: Count the number of successful 'Add New VPN' operations
+
+I receive a fair number of problem reports that look as though the user
+never even tried to add a VPN entry, and the log section is completely
+empty.  By tracking 'num_profiles_added' these can be automatically
+filtered out.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"1a23ac6599da575bd6cdffe539c4f66bf1ec6266","2014-08-09 20:04:45-07:00","Update changelog and bump version to 1.00 (1000)
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"f3896a3e8d3778978d14776c8b604a8ee6a8b656","2014-08-10 17:43:16-07:00","Bump version to 1.00-final (1009)
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"

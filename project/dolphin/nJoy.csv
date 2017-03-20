@@ -1,0 +1,1958 @@
+"commit id","commit date","commit message"
+"470db5965e6df643262edf93aea52fcbcb137338","2010-03-07 16:37:35+00:00","Minor optimization that's been sitting on my harddrive for a while.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5165 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ff7da32c6bb1636808b56cb6a42977bb3aecd51a","2010-03-07 17:08:42+00:00","just a little clarification around sram stuff, and silence some compile warnings.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5166 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"beba3b7f5bc20a8990a2b31569605586c31f43b5","2010-03-07 22:48:37+00:00","Removed more compiler warnings in linux.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5170 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"76ad8db4459248d10785c82f7a877434664a0ff3","2010-03-08 08:03:42+00:00","Added a null check when stopping the DSPHLE plugin with the DSound back-end.  Fixes the DSPHLE crash on stop.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5172 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"70a712c065cd53f8d106d0994795bf8f265eaebe","2010-03-08 21:25:35+00:00","DSPLLE - flags&stuff,xar->subarn,0x80 kinda figured out,... (experimental)
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5174 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a0952684b03e5d6e22a9b4c3eaa4b5f4069ee84f","2010-03-08 23:18:19+00:00","DSPLLE - removed some ifdefs
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5175 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"5beb6dfd4718c5580d4b90edf38ef7bd6882e0f4","2010-03-08 23:29:16+00:00","Implement render to main in linux.  In order to compile this in you will have to have libgtk2.0-dev (or your distributions equivalent) installed.  If not dolphin-emu will still build, but without render to main operational.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5176 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"cc7c6cd35f0cccb19a4e3681259b55cebeeb80ba","2010-03-09 04:38:07+00:00","Texture coordinates are stored in fixed point format in TEV which allows overflows to be emulated correctly. Added logic to calculated texture LOD and use the correct mip. Dumping textures will now dump all mip levels. Added line rendering. Changed data stored in vertex from float arrays to vectors for cleaner math.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5178 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"2049caa9fc714ea3b008d69d3aa8c37e1d7f4482","2010-03-09 21:15:28+00:00","Fix NoWX build, use a different define in CoreParameter, the one we all know and love, and add a Function call to VertexManager which can boost performance, tells the drivers that we don't care about the current data, because we are putting new data in it anyway. This gives quite a performance boost on OSX since it bypasses a call in the drivers that takes around 24% CPU time
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5179 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"3754bf5d0677b9fe154146f4d2ae498b252a9e30","2010-03-09 21:22:09+00:00","Add JITTed version of subfex, disabled for now since it requires us to set the CR0 flag correctly, which I currently don't have working with 64bit build. It will improve performance in RE0 which will be nice. Can probably be done more efficiently as well
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5180 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"914cb632fbfbbe56102881f4cbf1d5c755d91e31","2010-03-09 21:32:50+00:00","Woops! I put subfcx in to subfex on accident, silly me
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5181 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"c455673f8705d9035b939edab682e2e246edf94e","2010-03-09 22:17:33+00:00","Added scons options 'shared_libname=true' to link agains the system shared libraries for lzo, sfml, and soil.  For example add the scons option 'shared_lzo=true' for lzo.  This will check for the system libraries and then fall back to building and linking statically against the Externals if not found.  You must have liblzo2-dev, libsoil-dev, and libsfml-dev installed.  Note that you need version 1.5 or later for sfml.  Currently scons doesn't check the version for you.
+If you are having trouble with segmentation faults in linux try 'shared_soil=true'.  That seems to fix the problem.  How do we fix this for the static build?
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5182 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"70627c56529b9534d09ab34d343028fac33ce387","2010-03-10 06:45:13+00:00","Extend the OGL virtual XFB to handle games that use multiple XFBs to make a frame. This should allow games that require the XFB to work without using a real XFB in RAM which is slow and limited to the original resolution. To use this enhancement you must check Use XFB in the options. The previous option was renamed Use Real XFB. I don't think this works with the aspect settings yet.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5185 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"5fa18ae114bbe93be6b458ba903b5e5a1d454d7b","2010-03-10 17:29:19+00:00","Fixed an issue that caused the render to main window to lose focus if the gfx config dialog is opened while the emulator is running.  Only affects linux.  Also fixed a few preprocessor conditionals.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5186 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"e6efc4a6110d5699df14ce79a5abfb7652cad499","2010-03-11 17:20:32+00:00","remove wiimote led/speaker status from statusbar
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5187 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"5bf33f778f403bc879d10b7f27ee436eeba62b7d","2010-03-11 17:21:25+00:00","re-add the HidOutputReport() in wiimote plugin's ControlChannel, homebrew needs this (wiimote in homebrew still broken atm...)
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5188 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"b2ab31681a3780b4b05eaf20fb12f5a2e194ab24","2010-03-11 17:22:13+00:00","rewrite (lowish level) wii ipc to be more like wiibrew (http://wiibrew.org/wiki/Hardware/IPC)
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5189 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"3ccbd152fda33c69c4344117b3372f546796f8a9","2010-03-12 04:10:48+00:00","In linux with render to main, make sure the emulator window is resized if the log window is opened or resized.  Also fix a memory leak, and a little code clean up.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5190 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"34d1d7a41e16d6aff627917f1106907dc18dc682","2010-03-13 02:28:21+00:00","DSPLLE - AX PCM16 fix
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5191 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"c5a0e861235d499d651ba7c7bfa95553efabb895","2010-03-13 10:29:32+00:00","DSPLLE - u16 aram reads (zelda type) fixed
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5192 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"2bbef42c378551339b4655deef75824e258c0f34","2010-03-13 15:49:40+00:00","Fix an issue in linux where if both render to main and fullscreen are checked the emulator started in fullscreen with the wrong window size.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5193 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ed0740b512617d29d7ee618cce5ba086ba9d0849","2010-03-13 20:39:33+00:00","Still didn't have the render to main resize thing.  Need to move the window if the panel is to the left.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5194 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"3bdf7d3711cb7ec2f750139531e2de52288756bb","2010-03-14 18:57:50+00:00","this is a ugly unstable commit but i'm going to be out for work some days so ...
+implemented donko's xfb in D3D:
+the bad things:
+*is solower in some cases, slower as opengl
+*it do not work in dual core mode, it seems direct3d has serious synchronization problems, to the other devs please if you can take a look and help me :)
+*real xfb still not working i have to give it more time to make it work.
+the good:
+*games that uses multiples xfbs will work now using the virtual XFB.
+*implemented a more hardware like approach to scaling, now to calculate the pixel scaling i use the xfb size not the efb so the screen pixels relation is more correct now.
+*simplified a little donko's virtual xfb to make it less memory consuming as xfb textures are the exact size of the scaled xfb and not full target width.
+* when it works even real xfb will let us use super sampling.
+I repeat this commit is totally unstable and in dual core mode it will for sure hang the emulator or at best give totally incorrect results.
+Other devs please help as thread sync is not one of my strong points :)
+i'll keep waiting for the comments an the -1 :)
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5195 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"c5d4c2c1b1c6ac669f2573b5ae84fa946f0db243","2010-03-14 21:01:02+00:00","Fix an issue with scons not using cached command line arguments
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5196 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"2015d252f02f422cd92c10c2a0aad4417ca2656e","2010-03-15 23:25:11+00:00","Rewrite of fullscreen toggling in linux.  This goes back to using the EWMH specifications.  I wasn't using it right before, but now it should work on all EWMH compliant window managers (like KDE, Metacity, Compiz, etc).  Since this doesn't need an override redirect Alt-Tab works even in fullscreen mode.  This also allows for some other nice things to be done.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5199 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"172cc24f321e0c7c12ed7dd662a34e82d394c654","2010-03-16 01:16:55+00:00","nowx build fix, and fix a bug when render to main is changed from the gfx config dialog while the emulator is running.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5200 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"6723a91664bde890fb9f80d5da89a157a8382bef","2010-03-16 03:34:27+00:00","No gui fix in linux.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5201 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"d6b9a2ec814565b2e1ca4c42782a98b303b11e91","2010-03-16 13:18:52+00:00","Shutdown NoGUI build properly in linux.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5202 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a7b03fd2cd91b2f194ec34e25f043fb65f3dc33f","2010-03-16 13:30:52+00:00","Implement pausing (with the Escape key) for the NoGUI build in linux.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5203 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"721935c6ffc34b5f319c10a6c7850543c48d9e19","2010-03-17 01:54:40+00:00","Several little fixes.
+Fixed a segfault in linux when a cd/dvd drive is empty or invalid and 'Boot from DVD' or 'Show Drives' are selected.
+On all platforms if a game fails to load show the game list again.
+The other things here are essentially code cleanup and won't be noticeable by most users.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5204 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"4e9be9aa594207c4a0fc229157af5e031a2cb87b","2010-03-17 09:38:13+00:00","This fixes JIT Loading Store Floating in 64bit OSX
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5205 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"fa9ae47d02afddd4a9c7bed6d36f0e079a54e3e0","2010-03-17 10:13:58+00:00","Woops
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5206 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"3eebd28a6b0d5bf4124c6150fff8a1edff903da4","2010-03-17 11:23:24+00:00","Renable Load Store in JIT since I found the problem. Haven't fixed it since I'm not 100% sure why it fails, but that code is disabled in x64 OSX. Still is faster than disabling the entire thing. Only core part left is Load Store Paired
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5207 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"02edaf3db892592c686a9325ce44ae5dfb88942f","2010-03-17 18:58:19+00:00","Added several XKeyToString translations.
+Fixed minor font issue with wiimote pad button dialog.
+Removed unnecessary OpenGL_MakeCurrent call from DoState.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5209 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"d9714c3c9dd3cb888bbeb21f132158b54321c8bf","2010-03-18 00:18:36+00:00","DSPLLE - tons of bugs fixed... try Zelda ucode games under LLE now (like Luigi Mansion :)
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5211 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"14bb53dcc693135ea44672b9683e0e6cbf1c9e88","2010-03-18 06:20:52+00:00","DSPLLE: Run the threaded mode a bit differently and with respect to idle loops.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5212 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"f885eb2de0103699347da903c63acece4db0cb7f","2010-03-18 14:34:37+00:00","Did some clean up of the GUI main.  Also, parse command line options first, then set up directories (linux and apple), then load the log manager, sconfig, etc.  Removes the need for my silly log manager and sysconf reload.
+Changed the default font for the log window to the local font (why was a Japanese font the default?).  Also fixed an issue that prevented the log windows settings from being saved properly.  Lots more needs to be done with the AUI manager.  That stuff doesn't work.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5213 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"4f56d8144b0e5c4de1ab45eafe67997c8ab9fd6f","2010-03-18 23:01:04+00:00","same commit as r5169, but this time to trunk instead of stable
+(should fix wii homebrew (loading) on osx.)
+and minor changes to the wrtc test
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5215 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"503bf545a3e21815d2312f8f5dd0bcde7f286b24","2010-03-19 21:53:41+00:00","DSPLLE - 0xa100 figured out = abs(), small mul fix, cleaning, some extra comments
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5216 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"e94229cba026340533b752ddbd1de99c721c8f56","2010-03-20 20:56:33+00:00","small cleanup in dsp lle
+I wonder if we should bother making DMAs take time?
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5217 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"020ff8c62b42b9762c425261e9244003a80b2873","2010-03-20 21:18:41+00:00","forgot to remove the check that would detect proper DSCR setting during DMA as an error
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5218 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ef3a40c64462bb45213f672681cddaae8e25ba45","2010-03-22 00:21:39+00:00","small fix for the windows resizing problem introduced in my last commit, still much to do but working to fix the remaining problems.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5219 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"11a215567b8b096b2e9c02c51d0b4b26d9316f9d","2010-03-22 13:46:00+00:00","DSPLLE - idleskip-ing improved a little (it still fails totaly for zelda type games (exp7))
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5220 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"cac8fa8afc246dafce5ef132bb9ce0fcb34483de","2010-03-22 16:32:48+00:00","DSPLLE - small fix
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5221 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"744167f561a23e413d536eaceebab0a81fcfeb82","2010-03-22 18:19:41+00:00","Implement IOCtlV 3 (ReadConfig) for /dev/net/ncd/manage.
+This fixes an error message when trying to play Mario Kart Wii over WFC, although it still fails when trying to connect now.
+Also fix some cosmetic issues (double include and indentation).<NeoBrain Patch>
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5222 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"cf7101ef0843d2b548be390d93b4e62e698c3d79","2010-03-23 03:30:25+00:00","use jit64's implementation of divwux instead of always falling back to interpreter. please test for stability...tho it looks fine.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5223 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"f6db5b7d8d31b7bbcceb7a36bef696af0b84f70f","2010-03-23 03:32:19+00:00","make WII_IPC_HLEInterface manage the IPC message queue instead of the 'lle' portion.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5224 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"9fc6383a94233deca477a091971d5de4ffce09ca","2010-03-23 20:52:37+00:00","Change log window font back to SJIS.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5225 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"6481b3d899c74e9842cb222d1f5d339a30ed3340","2010-03-24 02:42:09+00:00","fixup for jit64 divwux: avoid trying to divide by 0
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5226 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ed403c270cfb1c11fcc4997405e7ca3b6b0a4a56","2010-03-24 03:02:24+00:00","ipc hle: re-comment a warning that was annoying people
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5227 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"2e622c17dce5ad0a6b50095deb7ba8ab51fc0cb9","2010-03-24 05:05:25+00:00","Remove the UDSP union
+functions are passed by value rather than by reference
+This is part of a bigger change so please report if it broke compile
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5228 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ea90996852fd7b928acf9bd8ca1b6d97b700718a","2010-03-24 05:11:26+00:00","#ifdef __APPLE__ && _M_X64 needs to be #if defined(__APPLE__) && _M_X64, etc
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5229 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"47239ce0f4bd61e3e95fb04bc185ae11d4872db4","2010-03-24 11:22:33+00:00","XK patch for adding jit config to audiocommon/c16 function to x64emitter
+and Skidu's fix for 64bit
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5230 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"095f81e2f91844fe697f48d6bffd1f9476190f0e","2010-03-24 14:51:04+00:00","DSPLLE - 5 new conditions added (not used atm), 4 used ones are now correct
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5231 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"5ff07aace65f852620e6cba6dce8ce9d8a8470e6","2010-03-24 20:27:09+00:00","Cleared out the top 16 bits in PARAM1 of the ABI_CallFunctionC16 JIT command.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5232 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"4173cd587659d08dc2900546149cdf4f5ffcd7f8","2010-03-24 22:51:06+00:00","Disable divwux until we find out what's wrong with it, enable subfcx, and also JIT64 now sets cr[0] correctly.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5233 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"5cf6ed484b15b94aa9f36df0095ce7138958ee45","2010-03-24 23:06:23+00:00","Make this perdy
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5234 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"8812fe6a3a1cb3152d367797912dc9459d323f89","2010-03-25 02:26:12+00:00","some fixes over my last commit, now the speed with xfb disabled must be at least equal to the speed before the xfb implementation. fixed fps counter.
+please give some testing to this changes to see if i going the right way.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5235 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"e6f30126049a913e6b1c0e9d63c16b419c91d4d9","2010-03-25 03:20:28+00:00","fix a spelling error in a PanicAlert, drop another x86 instruction from calculateRc, and trying to get subfex working in JIT, currently something wrong, so it's disabled. Once it is fixed it should speed up Super Monkey ball quite a bit
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5236 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"1e9fd8e4adf250272fe6d42307224f1e0f5cb779","2010-03-25 15:07:06+00:00","Disable subfcx because it causes problems with a few games...
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5237 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"9dae69095166bcf9f47972a28150964eda7684a9","2010-03-25 19:46:09+00:00","Puts an end to my meddling
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5238 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"beee4f48049dfc2c99817b5bceaa04314742f9e5","2010-03-25 22:01:33+00:00","other experimental commit:
+applied mlkbouba patch to make Mario Strikers Charged Football work (i do not own the game so please test).
+some minor tweaks to the plugins to improve performance. for game that do not use xfb the best settings are dual core enabled, audio throtle disabled, frame limit set to the desired value, and xfb off.
+change the frameskip calculations to use fps instead of vps as in dual core vps != fps caused by unresolved sync problems, till this problems are fixed the best for game play is calculate times in base of fps.
+please test and let me know the results
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5239 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"b7f5582e6497b767c1aaff88454a7b4ad48194e2","2010-03-26 12:36:28+00:00","Commit Schez's patch that allows you to adjust IR Sensor sensitivity for real wiimotes.
+http://forums.dolphin-emu.com/thread-7697-page-1.html
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5240 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"1a07772c8f31580a017f1b7338fd790849fb675a","2010-03-27 04:21:19+00:00","Commit some work based off of James333's auto reconnect patch.
+This still requires more work, like making the option only per Wiimote then rather the first one counting for them all.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5241 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"14d489dfee0e8138a4f882b88397780d51994b71","2010-03-27 06:37:37+00:00","Allows more than one instance of Dolphin to be running.  Credit goes to Billiard for the code.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5242 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ef193f2e9566c09d71ecf2f29a44fbf09b9c8fc0","2010-03-27 06:51:37+00:00","fix divwux and divwx in interpreter, and fix divwux in jit64 - use the jit64 version as well.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5243 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"672132eb84c8aa3e287d686c17721e0fc154021e","2010-03-27 19:48:34+00:00","fix setting of cr in jit64 for divwux (when div by 0)
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5244 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"f0f7bf13c21b7bab6c2db4f71f38ed1c96fc4776","2010-03-27 23:55:12+00:00","fixup Jit64::subfcx and Jit64::subfex
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5245 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"4fb21aa137ba16e9794cf349c714c93a17d27e20","2010-03-28 09:51:57+00:00","Fix a problem with the sensitivity setting being grayed out when the wiimote wasn't set to emulated.
+Fix the problem with wiimote plugin not saving information correctly for the auto reconnect option.
+
+Fixes issue 2475
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5246 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"6bcae13ff8603a8a26e7a5e7ad2f9cd09734f4a0","2010-03-28 17:10:36+00:00","DSPLLE - small idleskip improvment for zelda
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5248 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"49d568488ca9052d3275009e4ab6db716184bd59","2010-03-28 23:51:32+00:00","fixed fps limiting when using using virtual xfb, now fps = vps, in fact now real xfb is as fast as no using xfb, i'm thinking now that the correct thing is leave it enabled as default, and even remove the option.
+the problem is one strange behavior i found, in opengl when xfb is enable, frame limit causes the frame rate to be limited exact half the correct speed, so if you choose auto and the game uses 30 fps you get 15 fps
+so in opengl, you have to limit to the exact double of the game speed, 100 to pal games and 120 to ntsc.
+in d3d this not happened every time, it just happen when you change some time consuming setting like changing the ssaa or resizing the window, in that case you have to disable and re enable frame limit to get the correct fps
+to all the devs please if you can help me debug this, will give you a lot of thanks as i'm short in time to debug this error and is driving me crazy not to find the source of the problem.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5249 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a8865d21b32f50b45f48cd1f8e4d1cafc5486585","2010-03-29 01:18:05+00:00","DSPLLE: Opcode LUT Cleanup
+
+ABI: Far Call --> Call (thanks to correct vcproj settings)
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5250 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"85a1b2af455157e38a40faa427909f950e9d41d2","2010-03-29 09:26:19+00:00","This should largely go unnoticed
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5251 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"f56ce07c8bd8c506744637a177ba3252df9a7984","2010-03-30 11:53:41+00:00","Hopefully completely fix up the issues with the wiimote auto reconnect option not turning on/off properly.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5252 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"d69abeac432c2e8afc530794760c148ebbe5b686","2010-03-30 17:57:44+00:00","buildfix, plus some cleanup to make things a bit more readable
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5253 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"f51d8fffa0ec3c7411cc6216dbfececdf7015e44","2010-03-30 19:14:11+00:00","Plugin that should eventually replace the GCPad and emulated Wiimote plugin:
+It's currently only really usable on Windows. Linux/OS X will need keyboard support added in, but SDL should work for joysticks on non-Windows without too many modifications.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5254 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"7041270d40a4bdd5d59c8d4b34c54220d54a9390","2010-03-31 11:47:46+00:00","Fixes issue 2483
+Sorry everyone for my really shit commit.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5255 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ca3f4a6494806cc1c5b20c3250ff6746fd3f64e3","2010-03-31 16:41:30+00:00","Fix game-specific dual-core checkbox
+Fixes Issue 2438
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5256 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"d2cee0a869489414c46b4349deff7487d9b5d56f","2010-04-01 02:59:40+00:00","Clean up of new Plugin, get it compiling in Linux/OSX, Linux side, you need to add the Xlib portion to SConscript
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5258 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"4e1719e98b31668f35b6d40ed01213005eb97ba4","2010-04-01 03:34:49+00:00","Fix pad working in OSX
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5259 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"c3df2e93d788d6a7bbc2e3c1913983059c7a5fa6","2010-04-01 04:33:07+00:00","NewGCPad: Sliders should be functional on DirectInput, also Axes renamed. XInput devices won't have their limited DirectInput counterparts listed. Minor cleanup, warning removal.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5260 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"47f61920049a19c9caecd2bb327cbb50ae0b36d8","2010-04-01 05:10:39+00:00","add two paths to addx in JIT that Crazy Taxi kept hitting, add 'add' and 'add.' tests to the ASM test, although I haven't tested it yet
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5261 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"9cf7cb6cb80a65ff343874160b5f8598833612d0","2010-04-01 05:52:17+00:00","Don't let ASM test crash and burn if it can't open file
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5262 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"e0b4cbcdaed4e82295a589e0d00d03b2d9c7272c","2010-04-01 10:06:43+00:00","Another one bites the dust
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5263 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a744391aac60a80a6436f995f3f9e0ba1fcd1067","2010-04-01 11:49:44+00:00","Remove GCPadNew from the linux build until I get a chance to fix it.
+It breaks the linux build now.  SDL version 1.3.0, which includes SDL_haptic, is not available for most linux distributions at this time.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5264 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"f6c8fd691a4041819c6afc86ec3c27b895399b01","2010-04-01 23:13:26+00:00","Fix state saving and loading in linux.  Apparently that is why the OpenGL_MakeCurent was in the video plugin DoState.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5265 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"748c49239517cfbb73daaddaa8b83e2ba1173312","2010-04-02 00:11:08+00:00","Build fix for windows
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5266 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"9e1d956e98f0c3f5c5c18ef8a8c99a252a8bfdfd","2010-04-02 01:17:40+00:00","GCPadNew now compiles with SDL 1.2, disabling haptic features.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5267 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"2742be1c2e6cada267f297c66ce903ecfd91f420","2010-04-02 02:48:24+00:00","A few changes to the GCPadNew needed to compile in linux, and put GCPadNew back into the linux build.  Also changed file properties to eol-style native.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5268 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"48533bb3dbc7a7cc6d90f57e86d007f111aebeb9","2010-04-02 09:41:43+00:00","Start work of OSX keyboard input, doesn't work, so it's currently disabled, but it's a beginning. Also changed variable 'id' to 'cid' because id is a object type in Obj-C, which I was running in to problems with, kept it that way just in case.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5269 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"f118de80a174c7c868fe371e7a14ab2f1da0fa27","2010-04-02 14:04:24+00:00","Wiimote: Close find handle afterwards, plus some cleanup.
+Fixes Issue 2504 (thanks to Wienczny for finding that)
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5270 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"962fef0626537315faf63b8f0e48bb6fba9b8211","2010-04-02 21:28:56+00:00","Fixed bug where the projection hack setting was not being saved in the Game Properties dialog.
+
+Removed the obsolete projection hacks:
+
+* Final Fantasy CC Echo of Time
+* Harvest Moon Magical Melody
+* Baten Kaitos
+* Baten Kaitos Origin
+* Skies of Arcadia
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5271 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a4736f7f6b1ba97cdae469d675e583fe93c43d41","2010-04-03 22:22:55+00:00","back to limit vps instead of fps as this fix fps limit and now it works correctly as now the sync between the plug in and the core is almost correct.
+fixed fps display in the top bar, now it shows the real fps of the game.
+some code clean up and some corrections to make everything work right in the reference renderer.
+multiples xfb now is broken even in single core as is was not an error caused by dual core, i really dono where the error is,everything looks correct but if you test a game with multiples xfb or the ipl you will see the error.
+ector if you can take a look at he code and throw me some ideas i'll thank you.
+please test.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5272 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"3746b9e505e376a127a94ed353350081eecc4a22","2010-04-04 13:19:03+00:00","corrected some things i forget in my last commit
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5273 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"44038081e390fab5f841cdfbc540ee589cdbad2f","2010-04-04 13:23:10+00:00","Add the Binary directory to the svn ignores
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5274 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"8cd46cc3bfd09f2b648e7d8eb2b7821279451279","2010-04-04 14:21:46+00:00","Partially implement IOCtlV 0x8 (NCDGetWirelessMacAddress) of /dev/net/ncd/manage
+Only works on Linux for now, need to test the Windows code later
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5275 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"0954dac86e07daee633f8e801a8e226866649e39","2010-04-04 18:40:25+00:00","Fix NCDGetWirelessMacAddress always returning the hard coded MAC address instead of the 'real' one
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5277 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"675fc84255974ef1edb34eb77865ec9c94201fb6","2010-04-04 19:25:49+00:00","trunk: Don't enable selection of mic device if dolphin is not compiled with portaudio support.
+Restrict SI AM Baseboard device to port 1.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5278 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"758bcf17cbde9e41e0ad68d74821a5a98587cf65","2010-04-04 22:52:27+00:00","Tweaked the widescreen hack: It now 'hacks' to and from any aspect ratio, not just from 4:3 to 16:9. When 'Stretch to Window' is chosen, the aspect ratio will be adjusted to 5:4, 16:10, or anything (whatever the aspect ratio of the window is). Works for 4:3 and 16:9 games.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5280 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"131bb7889745b55af18c1421a4f99d189241599f","2010-04-05 10:19:38+00:00","Change a PanicYesNo to a PanicAlert
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5281 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"3a4b13e71fb78537b78b2a81fe12b9c3e140921b","2010-04-05 10:46:43+00:00","DSPHLE - some games are even changing/sending again the same ucode while ingame... This fixes/improves NFS Carbon, FF Crystal Chronicles, Beyblade (and probably some other GC AX games that were stuck on loading screens) under dsphle
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5282 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ff9b185a7f6e4794ebe5a07b7970dc11c695e6cc","2010-04-05 13:05:47+00:00","Fixed game-specific Wii/Widescreen and RE0 Hack checkboxes.
+Disabled game-specific Wii/Progressive Scan checkbox, since its never used by Dolphin; it would cause side-effects to global configuration if we did write to SysConf in that place.
+Fixes Issue 2518
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5283 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"8549b30170b7e3209ff37f936da69717f6d1e405","2010-04-05 13:12:15+00:00","DSPHLE - the same thing for AXWII - fixes De Blob, Cursed Mountain, ...
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5284 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"33a005c8019a1e56e606694979912c407270c81c","2010-04-05 20:25:00+00:00","Partially implement NCDGetWirelessMacAddress on Windows as well
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5285 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"c26a34d4a5cd9cfce3d2e5a2aa0eb77eca7b748d","2010-04-06 15:02:09+00:00","Fix wrong sprintf usage: the parameters use the restrict keyword so they may not point to the same location.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5286 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"1b96bef8e1ee40fdaff7636b9b17b3e71c683dc7","2010-04-06 22:43:12+00:00","fixed gcpad new to work with certain devices that need reaquiring of the device when inputlost is returned, billiard gave me the code :P
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5287 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"499936561a0683d6798c6edfa0b86b1ffcba8ec0","2010-04-07 15:04:45+00:00","DSP LLE Jit, joined work with XK and skidu.
+VERY EXPERIMENTAL DON'T EXPECT HIGH PERFORMANCE!.
+
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5288 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"eada74b74e9d602802fa629fbcd2133f17803d50","2010-04-07 15:35:10+00:00","windows compile fix (thanks lordmark)
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5289 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"b0e8a67cf2da02e4568986cbb06fbca9f14705fb","2010-04-08 03:33:16+00:00","GCPadNew: Added option to disable input when Dolphin window isn't active. Some other minor fixes/cleanups.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5290 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"0ecdb7b83efbb136f684c6763498827813d06f38","2010-04-08 09:18:42+00:00","Fixed the bug where JITIL could not be selected in debugger mode.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5292 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"b452bf7051112d9bb603aa9c3a228b06fdb4b2e1","2010-04-08 14:58:50+00:00","Fix another wrong sprintf usage
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5296 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"f727139ebfc28c82455fc050cea953cb7d204b5f","2010-04-08 16:59:35+00:00","Random fixes and cleanups
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5297 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"73caf37bcab99de6b9c87d1a35738df31a6465cd","2010-04-08 22:09:52+00:00","Fix an issue introduced in revision 5290 that caused a segmenation fault when GCPadNew was used in linux.  The same issue made the IsFocus function useless in windows.  The g_PADInitialize was never initialized.
+Also added Xlib.cpp to the linux build.  It is completely non-functional but it builds.
+Finally, did some clean up of GCPadNew.cpp.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5298 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"6136c94de594713375d2df4dc2b3d36c55699e76","2010-04-09 03:02:12+00:00","VideoCommon: merged SSSE3/SSE4.1 codes. Added some additional SSSE3/SSE4.1 codes which will be used in 'The Legend of Zelda: Twilight Princess'.
+These codes don't work unless '_M_SSE=0x301', for SSSE3, or '_M_SSE=0x401', for SSE4.1, is defined as a preprocessor definition.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5300 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"91c6f5acba916087035586d4c2e606478e3f1517","2010-04-09 15:11:02+00:00","DSP Jit removed useless push/pop (at least I hope they were useless).
+enabled nr in jit after getting skid_au's help in writing the inscrease_addr_reg.
+ector can you please take a look and see if the loop code makes sense? it seems
+no one it really sure how loops suppose to work in jit
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5301 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"956b8eb54db07e98f694082f5f14a9558e393a88","2010-04-09 15:13:42+00:00","VideoCommon: Added automatic selection routines for SSSE3/SSE4.1 codes. It selects SSSE3/SSE4.1 codes only if a proper preprocessor definition is defined and the target cpu supports SSSE3/SSE4.1. The selection routines in VertexLoader_* use function pointers. TextureDecoder uses a combination of '#if' and 'if' statements.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5302 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"0c1baa888a6a9b4c0e93c6b3d6b7f7cc7a56b785","2010-04-09 15:32:10+00:00","DSP Jit: Forgot include
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5303 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"b513e2d2c9a0caa4d91d801c4108ae5bc199b542","2010-04-09 16:43:47+00:00","buildfix for Plugin_VideoSoftware
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5305 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"57a3c878158d56565e42164a2c23e01d07050dd3","2010-04-09 19:18:50+00:00","DSPJit: disabled NR again until we fix DSPEmitter::increase_addr_reg.
+And to help test things like that: DSPJitTester (use with caution on x64, most likely fails there; r5250 might be why)
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5306 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ab76cbf2fcf31b059edf10c220800150313ddf18","2010-04-09 19:28:18+00:00","set eol-style native
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5307 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"32794fc028b6c2c8f78d571361b5770b16b9edf4","2010-04-10 01:37:51+00:00","VideoCommon: Fixed the bug that some texture become black in SSSE3.1 codes.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5309 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a75c37826b4198b8907a821e5750bcfeab8b8781","2010-04-10 01:39:33+00:00","VideoCommon: Fixed the bug that VideoSoftware does not initialize SSSE3/SSE4.1 codes.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5310 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"474363bc270842f9fd1663292b1e519c946b8dfd","2010-04-10 05:04:51+00:00","neXus' patch for z:tp intro music
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5312 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"4b5b074b8189a2aea39175f8dc6c8177f5008630","2010-04-10 14:39:54+00:00","sanchez's patch for real wiimote pair-up, unexpected disconnect, and wiiuse resource leakage.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5313 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"be70b43a2b8decf90da6386f78d2f1d43f60190d","2010-04-10 15:41:44+00:00","JIT single stepping
+
+Enable it by uncommenting the defines in JitBase.h.  For breakpoints to work in JIT mode, the block cache must be disabled.  The PPC instruction trace, regs, fpu regs, flags, generated x86 binary and generated x86 disasm are logged in the Dynamic Recompiler log.
+
+Fixes issue 1052.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5314 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"4fe3924d548ec0fe1e3dcef2d6fa89371e207663","2010-04-10 16:22:45+00:00","Update Cg to 2.2 Feb 2010
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5315 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"9d1cb60affd4637a5c129eb12bab4cdd82827a0c","2010-04-10 16:41:23+00:00","update GLew from 1.5.1 to 1.5.3
+see http://glew.sourceforge.net/log.html for changelog
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5316 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"25684ab5a91855a1a0b15bd54b07de34a5df55c6","2010-04-10 16:53:06+00:00","update SFML_Network to 1.6
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5317 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"50a4293d85d0bf5b7c2e9117fcf910418ed450a6","2010-04-10 17:10:32+00:00","update zlib to 1.2.4
+changelog is at http://www.zlib.net/ChangeLog.txt
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5318 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"d00f5b20a1493b437efeca825dca3544489ba99a","2010-04-10 18:49:26+00:00","Real Wiimote build fix for linux
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5319 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a5edf59787d0b1fd501540faec9ac49ca5bce348","2010-04-10 20:44:56+00:00","Get GCPadNew keyboard working in linux.  Also some code cleanup.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5320 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"c3b1705e3f45d6e40c6e069f07b643d8f8161280","2010-04-10 21:14:18+00:00","Fix some not-so-obvious breakage in Frame.cpp, removed Xlib from the build (its only for non-win32)
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5321 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"58f7de09dd43e1f6d94aaa10d9f3d5f934a66a9e","2010-04-10 22:49:57+00:00","Make sure Keyboard::Key::GetState returns either 0 or 1 in linux to make sure key presses are registered.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5325 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a4515490ce8c7f539bed4c2794c2087245f27fb6","2010-04-11 11:16:57+00:00","Code cleanups, warning fixes
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5326 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"7c35138435251458b482f82e62cef73da27bc76c","2010-04-11 12:14:51+00:00","DSP JIT reenable nr with a small fix
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5327 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"800595980e0bea5a8da5bfe4124369f89c2bf8af","2010-04-11 12:27:27+00:00","Fixed a small bug in J_CC when emitting jumps that exceed 0x80 in range (only used by DSP NR yet).
+Add back a CMP nakee missed in his last commit
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5328 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"945f8089b84c1baa679edaeab671c5b0b4f65f07","2010-04-11 14:06:46+00:00","Removed a stray MOV in increase_addr_reg, fixed decrease_addr_reg. NR should work now.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5329 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"524a6dd2bba21b87fad612a01b578c46615b34cc","2010-04-11 16:36:00+00:00","DSP jit: a so people can review commit
+(that for ector, bhaal, skidau)
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5330 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"d9507260418d233faea32b2c07acc254455a4089","2010-04-11 18:06:29+00:00","DSP Jit: Jit some more AR action and added compile SR which suppose to hold the status for
+flags such as S40 which we can use to optimize compile.
+
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5331 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"db78c01ee170ebe62bc3f79fbb76dcfa4a2ef039","2010-04-11 19:14:20+00:00","buildfix
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5332 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"d0e7e03c78c491892a2b501c829866e36afe2a21","2010-04-11 20:03:38+00:00","DSP Jit: Some small fixes to SR set functions
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5333 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ba853e682c93b8e0562674af00bfadefbdef7f9c","2010-04-12 01:26:57+00:00","Build fix.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5335 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"33a64d5db02df586483ad67974dedd2c2f6031d3","2010-04-12 01:33:10+00:00","Big restructuring of how the video plugin works.  In linux and windows you shouldn't see a change in the functionality; however, there are changes in how render to main or not, and fullscreen modes, and such are handled.  Input is largely restructured for the video plugin.  It is now handled by the host.  Keys for pausing and changing fullscreen are configurable.  More will probably be later.  This is probably classified as highly experimental.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5336 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"3861f56d5170af38e81f502b86f316c92de5fa3e","2010-04-12 01:56:05+00:00","Added files I forgot in last commit.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5337 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"22551a0a8ad01024a01ba70089e6ff4c7a2131e9","2010-04-12 02:00:15+00:00","a few minor code fixes.
+also added a user file that should simplify running from VS for newcomers
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5338 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"5cb916e9d14d0c7287f7e8e679719c359916e2a2","2010-04-12 02:35:59+00:00","Fixes wxGL, so it draws correctly in OSX, so Draw to Main works if enabled in OSX. Disabled, it creates a window but with no titlebar
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5341 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"e7dc6c26ce8420eac4a09a7dc0fa299b2dfe60c4","2010-04-12 05:33:17+00:00","UnitTests compiles on non win32
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5343 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"9a26cd01c6529551316f3e070986fce44a51bdf3","2010-04-12 15:11:24+00:00","Forgotten file
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5346 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"0b45b3c7a1c31ee2ba3a5904b5d64b5da3f9fe95","2010-04-12 16:06:02+00:00","More jit fixes (Thanks ector)
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5347 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"448af895d35c5212485072e099fd12c65a7e44a2","2010-04-12 20:41:38+00:00","Fix some segmentation faults with the GCPadNew configuration dialog.
+Also improve the visual appearance in linux.  I think I have done so without hurting the appearance in windows.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5348 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"fe5fb76fd49308dea2d932d118295c403d2ff192","2010-04-13 01:34:11+00:00","Added UDPWii (iPhone WiiMote) support.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5351 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"16d3cfadb4995c2e6318835bbbcbf4a17187b268","2010-04-13 02:12:09+00:00","Make 'Start in Fullscreen' work with the DX9 plugin.  Also a partial fix to the problem with Windows not saving the window size correctly when not rendering to main.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5352 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a2fb7540b64275f74c6d6beb6277b231a48790bf","2010-04-13 03:14:21+00:00","Build fix for windows?? What am I doing?
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5353 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"9592da1a9ba32d5574e210df93c36a5913ee0427","2010-04-13 04:00:41+00:00","Save the correct render window size.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5354 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"d8906d2a0ca92b636b2e228da6431621e0cc9479","2010-04-13 05:15:38+00:00","Commited my new wiimote plugin work so far. Some code was copied from the current wiimote plugin. I have cleaned up most of the functions, but there are still a bunch of unused structs and stuff that I need to clean up.
+Moved ControllerInterface to InputCommon. Moved GCPadNew GUI/Config code to a new project, InputPluginCommon. It is used by both GCPadNew and WiimoteNew. I hope that I included everyone's fixes to GCPadNew and ControllerInterface.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5355 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"379c4693436c9a71e4f88e3428e37ef46a7534c2","2010-04-13 06:09:45+00:00","Linux compile fix for billard's changes.
+(Had to do it myself since glen is now a windows person :P)
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5356 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"122d5e7b4ebd77ab1c802cb91b7587daeb82e241","2010-04-13 10:18:05+00:00","Fixed the crash in DSP LLE JIT on x64 by aligning the stack.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5357 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"578828a14203dbf255118669daab5410ab44ea71","2010-04-13 19:31:31+00:00","moar testing! changed some things to make it easier to use, added some bits of documentation for other devs eager to use it :)
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5358 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"387aba7a6c27232a164179d30366d7dfc57b0ba1","2010-04-13 20:02:48+00:00","Hopefully fixed 'RendererHasFocus()' on windows. Input should work again.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5359 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"bfe6e92c15ea4ebd25070d1a95f0eca380f2c92b","2010-04-14 03:26:18+00:00","Return a string instead of a wxChar pointer.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5360 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"c2ac9be9b23cde55da95b088e39b5bc5ee65a9f7","2010-04-14 03:27:45+00:00","Some video SW clean up and bug fixes. Did a hacky fix for bad light data. Add fog rendering. Add some offsets to make rasterized pixel locations and texture coordinates more accurate.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5361 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ba89d91872c8c257f48d21c45df73a64ef2dfe5a","2010-04-14 03:48:37+00:00","Moved InputPluginCommon into the Plugins directory. I don't think it made sense in Core. Some minor fixes to the new wiimote plugin also.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5362 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"0dc924efefeee54fe77d85452fabf4063c7ea040","2010-04-14 04:32:59+00:00","osx buildfix, add resolutions to ogl dialog
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5363 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"26b082d384906fd7c30e5ab4ef99fee2102ac2ed","2010-04-14 06:19:07+00:00","DSP Jit code cleanup
+Unit Test nr/dr/ir need AR0 not ACC0
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5364 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"1483715567f355e2f93467a4ac0b125f62597c08","2010-04-14 11:27:26+00:00","HLE: Remove the RE0 hack because of reports of it not working which is most likely due to the amount of HLE changes since Rev 3200.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5365 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a25dfc47b4a2bf58f05c48e764eadc49be56cef8","2010-04-14 13:57:16+00:00","fixed xfb bumping introduced by my last commit.
+implemented loading of native mips, see sms water :).
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5366 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"273ae5920b25697061241fcc08d3b5d1bd282728","2010-04-14 15:15:01+00:00","disable loading of native mip for compressed textures as they are not working, this should fix grass problem in zww
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5367 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"803030de7b4ef3320cc96c8ee98ebd4012c0d182","2010-04-14 20:29:46+00:00","Fixed segfault in linux when the control chooser dialog of GCPadNew is closed.
+Also disabled some code in the same place that caused the application to hang in linux.  This means that if you select keys from the key list you will have to click Set to make it take effect.  At least until I can figure out how to get that working.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5368 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"110fc18375274864fc5cf7fc50fe160bba0619b8","2010-04-14 23:50:33+00:00","Fixed GCPadNew GUI, clicking Set is no longer needed after choosing items from the list on Linux.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5370 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"01e11610a4e75c23ea88fe423148f946e3ba4c54","2010-04-15 03:25:35+00:00","Make sure screensaver does not start while a game is running in MS Windows
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5371 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"7a7d1a7b55a0cb8edf1fcee1ec99d1dc70b449cb","2010-04-15 09:23:59+00:00","Re-added Skies of Arcadia projection hack.  Fixes issue 2514.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5372 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"6cc0ddadd49f1577739a61126ca69770fc7c5195","2010-04-15 16:47:55+00:00","Implemented Auto-Unpair (MS bluetooth stack). For those people, who are tired of removing the batteries after they were finished playing around with dolphin, to avoid battery drain. It's switchable via checkbox within the wiimote gui. This will simply remove valid wiimote pairings on Exit/Close.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5373 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"01fc261c2f48b806bae65ec675da609cec324b00","2010-04-15 20:01:44+00:00","DSP Jit: rewrite dsp_increase_addr_reg a couple of times, only to find that int was wrong - credits to LordMark for finding that.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5374 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"4b232e50c5e8f0de95c9c9a1b8025ff42308f422","2010-04-15 20:58:34+00:00","Re-add the show FPS/VPS speed information in the window title when not rendering to main.
+Also fix an issue with the DX9 plugin not being the correct size when starting the game in fullscreen at a higher resolution than the desktop resolution.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5375 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ebac492716620999d00cd4d4f624e6c9ece43ca1","2010-04-16 10:50:52+00:00","DSP Jit some code cleanup
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5376 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"060eed80c1174a3488f71625617581d4aab66562","2010-04-16 13:32:13+00:00","Moved ToMask hashing into utility func, changed J_CC end to a short jump
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5377 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"3b35cb12f291bb2541b1b1712b9b447b39584cd3","2010-04-17 03:00:35+00:00","Fixed the LI and LIS PPC instructions in the JIT.  This fixes MGS:TS Konami logo hang.
+Made the JIT sanity checks more informative.
+Sanity checks are now only performed in the DEBUG and DEBUGFAST builds.  This gives a tiny speed-up for everyone else.
+
+Fixes issue 2187.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5378 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"0a12b9d9f5c200d190be596a00d4c48044f92df0","2010-04-17 03:17:36+00:00","Logical reorderring of the GUI boot sequence.  Also a little clean up in the OpenGL plugin.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5379 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"fadbe78a5976b9887d11039f1cb6a2e56bced8cb","2010-04-17 20:14:38+00:00","dx9 savestate crash fix
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5380 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"3fb80c52af90f743ee1a304d37c1506a4b305c90","2010-04-17 20:42:39+00:00","DSP LLE: trying to clean up exception handling. Hopefully it didn't break anything
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5381 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"766818baa8eedc946f2df71428260121179f63c6","2010-04-17 21:02:03+00:00","possible savestate memory leak fix in DoBuffer
+made Lua run on the CPU thread to fix unreliable script execution issues
+several fixes so the Lua savestate functions can actually work
+added Lua function savestate.verify to help with catching desyncs
+implemented FailVerifyAtFrameBoundary in Lua interface
+added a Clear button to the LuaWindow
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5382 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"b31042cb103a2a60ba8e0460098b632d442db98c","2010-04-18 08:28:52+00:00","fixed a bug where events scheduled for the same time run in backwards order
+simplified CoreTiming::AddEventToQueue
+fixed emu.frameadvance and implemented emu.wait
+fixed Lua script termination
+brought over some luaconf customizations to fix issue 2245 in a better way and deal with certain other scripting problems
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5383 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"9095b4d67f6fec10870ada9a29dfe029bae72333","2010-04-18 14:50:21+00:00","Link wiiuse statically in linux.
+Fixes issue 2562
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5384 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"26a8556c822148a2e34cb8291daeaee00cd91455","2010-04-18 18:39:54+00:00","DSP jit: a bit more work
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5385 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"7bc2887f34f76d77ea925d7d1ccdbb53695f5975","2010-04-18 18:42:59+00:00","Compile fix
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5386 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"d93cebf84b4d417930b8b50278faafe1318e7fd3","2010-04-19 03:06:18+00:00","Build fix for the NoGUI build.
+Also removed a few compiler warning while I was at it.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5387 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"63d296fcbac2e34cdfe7305ea4f789a3bcf836a2","2010-04-19 03:39:26+00:00","Take care of a few more compiler warnings.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5388 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"282cf6c6b5f9623c8d996ec250b625252438be22","2010-04-19 13:02:24+00:00","DSP jit: 'mv 's 'sn are now jitted. Added
+void pushExtValueFromReg(u16 dreg, u16 sreg);
+void popExtValueToReg();
+instead of the backlog.
+Someone might want to add it to the Unit test
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5389 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"d86167961c5751f40ccf11b710de92738060af98","2010-04-19 13:29:05+00:00","DSP Jit enable ls* and sl* in jit.
+Anyone feel like helping with the unit test?
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5390 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"badf7c2771fc149f8542c875d184bf8bb733ca39","2010-04-19 19:20:33+00:00","Fix GUI hotkeys like Alt+F5 etc.
+Fixes issue 2608
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5391 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"026450006afc6b76d5bd6bc49493ecf4532bfe90","2010-04-20 10:52:28+00:00","DSP jit shift fix
+Please tell me if 'mv still crashes
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5392 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"c15b1d3219ced27e736c5c0eccd8d2726bb1c8fd","2010-04-20 13:19:36+00:00","OS X: enable path in Jit64::stX. fix wxw assert on opening ConfigMain. __force_align_arg_pointer__ not needed on x64 builds
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5393 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"8eb21d1bac066ac314bdc7fd117f2ef70668f425","2010-04-22 02:51:07+00:00","fixed mipmap loading in both plugins.
+add an option to limit fps instead of vps for games with bad synchronization
+some minor fixes in d3d gui
+enjoy :)
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5394 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"140332c02ea905de29de1870c384174dda41303b","2010-04-22 04:28:34+00:00","Move fullscreen display resolution control to the GUI with the rest of the fullscreen toggling code.  This removes redundancy of code that was in several places through the various video plugins.  Unfortunately it means the fullscreen resolution setting also had to be moved to the main configuration dialog.  I am sure that will meet some resistance.
+
+Also added a window size setting for windowed mode.
+
+Also pulled some X11 specific code out into a separate file.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5395 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"7c22b83f668c9f5f8eebf4bab85359f10271b6c4","2010-04-22 07:11:49+00:00","Improvements to new emulated wiimote plugin: IR cursor works with mouse or analog stick control. Wiimote mii data is saved/loaded to 'User/Wii/mii.bin'. Background input checkbox works properly. All reporting modes except the interleaved one should work. Fixed a rumble prob with multiple XInput devices.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5396 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"3adc2cef685b798dc4aee308b450c686456fe03a","2010-04-22 11:54:46+00:00","Build fix for wiimote new in linux.  Don't expect functionality, this just gets it building again.  The config dialog segfaults when you open it.  I will fix that soon, and add mouse functionality.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5397 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"219e8beb6dae61802a2de26c2259ab40fc0502d5","2010-04-22 18:43:24+00:00","DSP Jit 2 small fixes
+one from bhaal and one from skidau
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5398 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"05e3808beb0b14cc29436104cc2af18b636d8b96","2010-04-23 04:46:42+00:00","Get the wiimote new plugin working in linux.  Wiimote emulation works at least.  Real wiimotes don't.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5399 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"de081d09008cd9128165d3cd45a72409d2a27cdd","2010-04-23 08:15:00+00:00","DSP jit: fixed some crash by pop/push (close to bhaal's solution)
+If it breaks 64bit you know what to uncomment :-)
+
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5400 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"951b219bf896e1ad7a846fde79674468652eeea3","2010-04-23 15:54:48+00:00","Unittests: Extend DSPJitTester to compare (and initialize!) iram/dram for testing opcodes that perform memory access
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5401 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"1d8db5ce3f44cf637a88a6521680e2a336ff8f7c","2010-04-23 19:15:44+00:00","osx buildfix
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5402 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"23689387e1f00bf045daa44df5c733950cdfb5d2","2010-04-24 00:44:10+00:00","More improvements to new wiimote plugin: Added emulated Drums/Guitar extensions. Wiimote rumble now handled for every output report. Fixed some mem leaks. Hopefully fixed a floating point exception in Linux, thanks to glennrics.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5403 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"8d5c9f30ada8604a6608e1b18d8bd95060fbe8f4","2010-04-24 20:09:01+00:00","Fixed new GCPad/Wiimote plugin IniFile code to handle saving/loading of values with leading/trailing whitespace. Was causing issues with gamepads that had trailing whitespace in their names. Also, reordered drum pad colors in the GUI to match their physical layout.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5404 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"64447eab2cafb88eea889d5e3dee7f0e1325bf50","2010-04-25 14:24:55+00:00","DSP Jit more minor fixes
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5405 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a443ec7d8d32cbbe616b4d0775944b7ccdf5b1e4","2010-04-25 14:35:13+00:00","DSP Jit annoying shifts
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5406 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"452c2e711abbe40b8b4da72dedbf292992fd35f0","2010-04-25 18:04:55+00:00","First OSX keyboard stuff...works, with limitations:\nNo Mouse support yet (Add gamepad via IOKit as well?)\nCould poll less for less cpu time\nDon't know why rumble events don't seem to be sent to the class until right before it's deleted (Billiard?)
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5407 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ca3de2f1ec670e8ba70d89b4ef7967f649ea7f0f","2010-04-25 18:17:44+00:00","oops, don't need ~KeyboardMouse() anymore...
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5408 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"98bd41385d5840556156157edac30fe7e066117b","2010-04-25 20:10:16+00:00","Make wiimote connect/disconnect hotkeys work when not rendering to main.  Also made them configurable.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5409 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"06f0bc91ee0a01f1eca84bcf78102032a38926d5","2010-04-25 22:39:47+00:00","Just a small WIIUSE[WIN32] update to avoid dependencies @wiimote_plugin in my next commit.
+You can check whether WM_DEVICECHANGE got triggered by a Wiimote.(Pair-up arrival/removal)
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5410 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a4acd0d66cb9f7ac7957db2b60af2fe60ef03f29","2010-04-25 23:41:01+00:00","cleanup some osx keyboard code...still can't get mouse or hid transactions to work (although supposedly the kernel caches reports anyways)
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5411 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"c34450252473fd2e476cc562d77515bf761425df","2010-04-26 10:49:12+00:00","wiiuse buildfix nonwin32, mea culpa.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5412 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"c59409b46a00530ad6805f37aaf0adbe1baa5b25","2010-04-26 17:51:32+00:00","Introducing WM_DEVICECHANGE win32callback.
+No need to press the 'refresh wiimotes' button on pair up anymore, checking the extended pair up box(still experimental) allows u to pair and hook up the wiimote while being ingame. You still need to do the ALT+F5/F6/F7/F8 connect, but you wont need to press the pair up button + refresh button anymore, feel free to test it, its not perfect yes. Just press 1+2 on your Wiimote to pair it up ingame(you need to check the extended pair up box for that feature).
+PS I hope I didnt break nonwin32 builds, I gave my best however.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5413 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"41ba7d9ec5a1bcdee72c1556ac4e7758d38c38c9","2010-04-26 23:25:36+00:00","Fix something...  Whistle and walk away.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5414 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"199ebe5c9c608d996f2d381d6689fb49088a3d59","2010-04-27 00:25:09+00:00","osx keyboard: add pretty names for keys.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5415 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ac8bc6b350f82d367ded1e0df87ce0ec283269fa","2010-04-27 07:33:33+00:00","osx input: now supports mice(buttons + axes). also less crashes :p
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5416 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ed71457d46cb7347ee5a4104e92e7ef84e9ac377","2010-04-27 15:22:23+00:00","osx input: scale mouse axes more nicely
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5417 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"c7634aa8dc620222560ae7d916d2c047fe592241","2010-04-27 15:50:54+00:00","osx input: remove some debug code...
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5418 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"757285f7d01506502901e9ac5f2b002bd2bc36f4","2010-04-27 18:15:08+00:00","DSP jit more work
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5419 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"3103b920b6bc851a8a22735aed4755a9b12caa84","2010-04-29 12:50:12+00:00","[OSX] Use spinlocks instead of mutexes since mutexes are really semaphores, gives me a decent speed up.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5420 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"81f06220cec97e093d75e862f98e4b2853cd89a7","2010-04-29 13:46:20+00:00","Massive Poo storm, had to take shelter. Hacks, fixes, etc etc
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5421 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"22c2276cef00c92ecaa814c777ab72de86477e90","2010-04-29 18:51:04+00:00","New Wiimote Plugin: Added 'Upright Wiimote' option. Fixed a nunchuk problem in ZTP and Wii Sports with some Hacks. Some work on emulated Swing and Speaker (disabled). Fixes/Cleanups. ControllerInterface: Fixed an issue when a DInput device reports the same axis more than once. Fixed some old comments.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5422 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"d1bf94993b7669adf5bf1c11429e180de933d218","2010-04-29 21:13:08+00:00","wiimote new 64-bit build fix
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5423 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"1796cbc917f1b3b71d3e4d327f04cdc22e8151d3","2010-05-01 10:52:34+00:00","WiimoteNew Buildfix Debug/DebugFast x86/x64
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5424 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a6d6d2732847720119410c28ba4e0f4f863a2c05","2010-05-01 19:10:35+00:00","NetPlay: completely redone - should be somewhat usable when using Single Core and DSP LLE Plugin.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5425 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"b2e0dc25193352ba5b3585f0e5efe57151c5ffa7","2010-05-01 21:27:48+00:00","Netplay build fix for linux, and a little clean up.
+For some reason something in (or included in) Frame.h messes up the SFML inclusion in NetPlay.cpp.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5426 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"533162b41ffaf7efc5c2907b9c940752f7f53d06","2010-05-02 04:24:49+00:00","NetPlay: Fixed a problem with client game start code. Other minor fixes.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5427 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"66ffa3b04590ced0dff0fde1bdc12d572e5de4bd","2010-05-02 14:05:14+00:00","Commit durante_d3dhiresfix.patch. should finally fix rb swap when loading hires replacement textures in the d3d plugin.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5428 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"6c407b5fa0121968c83992a2c8134692a70b82ed","2010-05-02 21:12:51+00:00","OS X buildfix
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5429 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"fd1ea33fb2d902db7c7d91b87a72cd73e8f887fe","2010-05-02 23:01:50+00:00","NetPlay: some code cleanup, added a stop button (sometimes works), host can now change the game after starting a session
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5430 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a8659054acf6d48610ba59c4650c44b145a1f895","2010-05-03 23:48:42+00:00","Build fix.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5431 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"0ea01d84628c4779a801d74bd01ce9006fe0372a","2010-05-04 14:43:30+00:00","fast commit :
+make native mips loading an option to prevent performance lost in game that not need this functionality.( thanks to dorian.fevrier for point the performance lost.)
+added a patch from  pierre@pirsoft.de to avoid vertex drops when index array is full in opengl implementation that do not support large index arrays
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5432 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"6c934f79515c4a0bd221226ac44fd81d22f0a23e","2010-05-04 18:15:22+00:00","lpfaint's fix for compressing small disc images. Fixes issue 2569
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5433 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ec11685a664dd3f34720f0c0ad589e92a652cc5f","2010-05-05 04:31:21+00:00","NetPlay: Allow manual adjustments to the pad buffer size. Hacked in all the functions that will be needed for wiimote support (not functional yet). Rumble is sent to the correct gamepad during netplay. Stop button works better. Games no longer hang on disconnect.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5434 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"0c16bf279b61d01f2d82c5f9fa24c4a7cecfc946","2010-05-05 04:44:19+00:00","Forgot some files. Also... Hacks.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5435 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"f72616daa38491c90cea4c156cab34661dea3292","2010-05-06 10:06:15+00:00","apply soren.jorvang's case-sensitivity patch (closes issue 2656) :P
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5436 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"f6ce87765f798c36deb9e0c85e20599a16b0896d","2010-05-07 19:32:16+00:00","DSPLLE - AR decrement fixed, +other small fixes
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5437 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"7742e1a6dd4baec8e660cb1acf6fcda0da9cebd7","2010-05-07 22:39:06+00:00","Stage1: Introducing MotionPlus as emulated extension, allowing us to boot games that require the MotionPlus itself.
+I also already implemented most of the needed data structures and datareport handling for the motionplus-nunchuk passthrough mode, which I'll add up next as well.
+
+Wii Sports Resort is now bootable by just using an emulated wiimote (only working under the old wiimote plugin atm,
+I asked billiard to port my commit into his plugin since he knows his plugin better than me and its less work for him than for me,
+I kept most parts of my code in modules to simplify that task).
+
+Upcoming stage2: Faking the motionplus on the fly on real wiimotes, that means you will be able to play, e.g.  Redsteel2 with a real wiimote and nunchuk or wii sports resort with just your real wiimote.
+and nunchuk, but w/o the need of having a real motionpluscontroller connected. The new Zelda 2010 will benefit by that, since it will require a motionplus controller.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5438 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"39b17ca6405a7e01592f7e098ea34c65cb4fba38","2010-05-07 23:14:40+00:00","Linux: Fix horrible latency when the alsa pulseaudio plugin is involved, see issue #2651
+
+The fix is asking alsa for a prefered 'hardware' buffer size, so alsa does not fall
+back to pulseaudios offering of ~1 minute. Additionally, alsa busy waits when pulseaudio
+is used, sw:avail_min is set and hw:buffer_size is small.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5439 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"08b5ee65555b5096e964453e80574debb7bc65fb","2010-05-08 10:54:53+00:00","Fixes Issue 2596 @old wiimote plugin. Core data hasnt been zero'd everywhere before usage.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5440 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"079f8b630cbb2b20e99d89e4953b589c0366e190","2010-05-08 15:25:11+00:00","A small change to my last motionplus commit, to re-establish load/savestates downwards compatibility.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5441 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"7923903f928c3490f981f91c270221599e4b6d86","2010-05-09 03:14:11+00:00","[Plugin_VideoDX9] A minor speed up for SetMultiVSConstant4fv().
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5442 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"7f6a4bbfc8e19c59a5a7117a7a3ed8c6d20a007b","2010-05-11 22:44:52+00:00","OSX add a script by WinterMute that makes distributable dmg files
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5443 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"bbc9e8cb7165d781dbf965ac8678eef819963290","2010-05-12 00:32:49+00:00","OSX fix dmg script for wxw builds that report all libs in one string
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5444 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"e7099251ce9ffb7fdb7eb8bdab62c55224e8f195","2010-05-12 04:26:32+00:00","OSX fix Dolphin not actually using the Application Support path.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5445 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"b9d51683881ac4d47b77f4f4686afb736f50726d","2010-05-12 12:13:07+00:00","Fixed a memory leak in the TrampolineCache.  Occurs when stopping a game.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5446 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"c1dde5bb1d8b49df2a580ba0a949b7d553a60e98","2010-05-12 13:33:02+00:00","dsphle - small regression fix
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5447 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"303f7e3af8e8ad0fff8e696a17ffc8e65efaa385","2010-05-13 04:50:18+00:00","Install shared content from wads to the proper location
+allows (among other things) installing the wiimenu from a wad extracted from the update partition of a game
+currently you can choose Tools > Install Wii Menu or right click wad from the gamelist and install
+restart required to have the Tools > Load Wii Menu work
+
+I thought I had already commit this, I guess I forgot and it's just been sitting on my hdd :p
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5448 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ba9dd697de9766813fd3d917661ee1fb94478211","2010-05-13 12:42:38+00:00","Fix a wx error popup when trying to launch a game.
+The error was caused by trying to set the text for a status bar field whose index was equal to the actual number of fields.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5449 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"68cd793480313d78234c7596272af68475658b46","2010-05-14 14:23:08+00:00","Update svn:ignore for some recently added folders
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5450 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"aaafff7f9db6909aa7f59bfb65ad1f2de1616020","2010-05-14 21:47:16+00:00","a little fix for real xfb in opengl that stop working after one of my commits.
+thanks to lordmark to point me the exact revision.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5451 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"2840914dab6e5a8ce0fcd042f22e6585916e7f64","2010-05-14 21:47:35+00:00","Introducing: Adjustable read timeout for real wiimote + minor clean up within old wiimoteplugin
+Issue 2211 closed.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5452 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"950df7eaff428e31cc832080dcabcc54b3751cd4","2010-05-15 17:04:03+00:00","minor cosmetic changes (old wiimote plugin).
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5453 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"869f5e64c733a53cb8671232287a09bfafcbb1c6","2010-05-16 07:37:22+00:00","Added a catch-all OpenGL visual.  This allows the VideoSoftware plug-in to run under VirtualBox.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5454 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"bdbdef51eed810bea0a37e6e7e2def27393d204b","2010-05-16 17:11:51+00:00","Fixes importing and exporting wii saves with dirs.
+disable install wii menu item after installation (restart required still for NANDContentLoader to find it
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5456 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"7947543d98327a082d6f7006339b265882c40801","2010-05-17 22:17:46+00:00","a little optimization in shaders constants setting , based on the same idea of nodchip changes.
+a MAYORRRRRR change in pixel shader generation, please review all games you can and leave comments this must improve accuracy in graphic emulation a lot.
+for example: mario eyes in super mario galaxy, water pod transparency an water transparency on game intro in super mario sunshine, etc.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5457 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"2c7a08fc6198a2b44c78a0fca9903946da501a80","2010-05-19 03:15:36+00:00","after a good commit lets make some experiments:
+implemented fixed efb scale to improve alignment and discard some error caused by incorrect scale.
+make both plugins work similar. this must improve opengl image quality a lot.
+also implemented dynamic resizing in opengl, this way the resolution math the windows resolution on resize.
+this is highly experimental so please test a lot.
+implemented shader dumping on error thinking  in future experiments with shaders.
+enjoy :)
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5458 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"866e1275101386faf7dcb156156f5fe083f810ba","2010-05-19 03:23:01+00:00","Fixes wiimenu on 32bit caused by not allocating enough memory for GetAdaptersInfo.
+Fixes issue 2672.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5459 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"3ff6a8bd6806b5afae9262fc1861beaa41f54463","2010-05-19 21:54:54+00:00","small commit to try to fix issue 1509
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5460 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ab89decac5c08c4eb4114535391332e0a0312d5f","2010-05-21 22:48:57+00:00","Linux: Better ALSA support
+
+This removes some bad behaviour, like the audio thread busy waiting inside ALSA code,
+missing begins of voice samples(due to DSP_HLE code not getting called often enough).
+Turns out my understanding of ALSA API was lacking.
+
+Tested with pulse plugin and directly on my intel-hda/realtek hardware.
+
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5461 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"e07a91930df0ac5b71cd2e0beb654e57e78b72dc","2010-05-22 16:54:34+00:00","The result of the last texenv stage is used regardless of destination register
+
+The real hardware probably always sends the result of its computations
+to the alpha test/fog units, in parallel to its registers, but those
+only take the result of the last texenv stage.
+
+This makes grass show up in ZTP, where the last texenv stage oddly writes to
+reg #3 instead of #0.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5462 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"78b7a95d3f3c4b5c9a52c83902bd0fc7e2f843ee","2010-05-22 19:55:07+00:00","Modify r5462 as requested by rodolfoosvaldobogado
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5463 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"b1a79b822d89bce80a50dad73f37cd96564ab631","2010-05-22 20:40:43+00:00","Use symbolic names instead of numbers and bump cache version
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5464 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"782d9111e592f33ec4cf42a299f8e8cbbf20d694","2010-05-22 21:58:43+00:00","let's keep experimenting:
+almost fixed real xfb in d3d, i say almost because there are some minor scalling problems. hope will fix them soon.
+implemented a more intelligent index generator to emulate more accurately the behavior of the gc.
+please give me feedback on this changes.
+enjoy :)
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5465 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"1648b84f080764551868879311384c27e486bd4a","2010-05-23 02:29:23+00:00","add some dx checking routines to the dx plugin + some minor stuff
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5466 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"1883b32f3350f4276ab55d1de984fe072af6e1fa","2010-05-23 02:59:36+00:00","woops forgot some stuff :P :/
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5467 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a0c44df6c0cb2bd33a71590ac221dbd2f4bedaf3","2010-05-23 08:41:58+00:00","misc stuff
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5468 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"655e3b3381e6182e0bbd9244a02f9ca9b4d9f62b","2010-05-23 13:09:52+00:00","MSVC++ 2010 doesn't seem to like certain function declarations, fixed SOIL.h accordingly.
+Thanks to xsacha for reporting.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5469 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"19e3e6effe991cf72fa57a0199ee94bdd9b1a243","2010-05-23 20:13:45+00:00","Fix Linux build broken by use of stricmp and vsnwprintf.
+
+strcasecmp is provided by Source/Core/Common/Src/CommonFuncs.h
+and vswprintf is overloaded in C++ to take the same parameters as
+vsnwprintf, according to MSDN.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5470 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"88cf89e7fed62e2ff3972afb5e51e6eaafe3a145","2010-05-23 22:31:40+00:00","Replace the calls to sscanf(for number parsing) and number parsers with strto(u)l
+
+The wcsto(u)l functions are available for your wide character needs.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5471 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"b73b77014fa1dfe7659f93e1d7e72df7268cc985","2010-05-23 22:46:13+00:00","Rework the logic for avoiding lerp() in shader code
+
+This should give the exact same shader code except for the cases of
+SELA == SELB and SELC == 1, the latter only for the color combinder.
+In these two cases the results of the shader should not change in any way.
+
+It would have been possible to optimize the SELC == HALF case too, if
+the actual factor had been 0.5f instead of 0.4980392f.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5472 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"4b1909ea98c22fa49daee23777cf400b45c97fd1","2010-05-24 14:20:19+00:00","hopefully solved all the pixel align problems when drawing full screen quads.
+this not solve the remaining projection problem in some games like mario kart wii
+will work that problem later.
+please test and let me know the results.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5473 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"2e12bd5e345c552b0186e0e3a395bfad3a7ea71c","2010-05-24 14:53:27+00:00","Fix a few compiler/valgrind warnings, kill check for 17th texenv registers,
+and one problem reading a truncated sram file.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5474 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"99d0bd7762be67e645ebbaa418b65f8014d2e8c5","2010-05-25 19:25:31+00:00","fixed setting of texture parameters like lod bias and max and min lod.
+as a nice result of this eliminate the nasty glubuild2dmipmaps.
+thanks to neobrain and orphis for discovering the error and the right values
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5475 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"619dc12349ee8378b62e8553cd575c9412c04d44","2010-05-26 15:41:47+00:00","Stage1.continued: Introducing partial emulated MotionPlus+Nunchuk support, allowing us now for instance to get ingame on RedSteel2. However dont expect too much yet, since this is not completely finished. Wii Sports Resort with mp+nunchuk won't work yet and input from the nunchuk passed through the motionplus does not work properly either. Apart from that Stage1, is almost done.
+Just minor stuff that needs to be finished: Dummy motionplus data needs to be kept dynamic(just like wiimote accel data), or it might cause disconnects after some time. Furthermore, there are 1-2 remaining register writes that have to be understood and emulated.(e.g. 0x00F3/F4). In the end just minor stuff. I'll address that in my next commit.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5476 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"57a22f670f4b1b75309f8f0e9624307171d15513","2010-05-26 20:43:16+00:00","Remove unused variables.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5480 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"2cd31e8c10aef3490b948d58fb1fc44bd59e3712","2010-05-26 20:44:53+00:00","Don't return a value from a void function.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5481 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"3061942dfc0aef3ba9bf075db3004e8bf8cfd39b","2010-05-26 20:45:29+00:00","We don't use the return values of SaveTGA() here.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5482 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"daf1069c2768495bc3fa6508491b5c0e7adab2da","2010-05-26 20:46:28+00:00","Fix variable types.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5483 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"cf62b109565ee0efb5a18a37c63e5ed71fc64d63","2010-05-26 20:46:51+00:00","Move platform-specific variables into proper scope.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5484 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"3bf3c27d3e347057080173164600a1d34c180800","2010-05-26 20:47:15+00:00","Fix comment pasto.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5485 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"3edae70ea0bbede6d9ed57a91af9532101bd7ef8","2010-05-26 20:47:56+00:00","Hack this dodgy compile-time assert so it works with gcc.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5486 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"c7c0733dba7446c4818c74ef199a00dbfa722a2f","2010-05-26 20:48:23+00:00","Unnecessary non-negative check of unsigned variable.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5487 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"f2609d1af3bc6e5715ac97429b8242526df64bb1","2010-05-26 20:52:44+00:00","#if 0 work-in-progress code.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5488 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"47af7bd8b15f34912f4546ae6d6410d0d6ed51bd","2010-05-26 20:53:18+00:00","WriteDual32() is only used in 64-bit builds.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5489 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a94c7fc534b8fcb114625f95267a01b8473ffc8d","2010-05-26 20:53:37+00:00","#pragma warning is specific to the MS compiler.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5490 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"d391c5951950c97d8760ef3e794a1989fc9641b8","2010-05-26 20:54:20+00:00","Exceptions are not allowed.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5491 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"208a4f5646ff4e17e00554daf6a513d0dc2cd7ed","2010-05-26 20:54:48+00:00","[Connection defaultConnection] and NewString are deprecated in OS X 10.6.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5492 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"7215732bcdf6a35000e2b219ac7a5606aed1233d","2010-05-26 20:55:04+00:00","Don't assume writeable C strings.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5493 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"f38ba8fcfe2166345f3884ac67d958bfaf2ef739","2010-05-26 20:55:33+00:00","Fully initialize the xfbSource struct. Not sure if this could actually be used
+uninitialized, but this at least placates gcc.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5494 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"8949c1e30949cfe8736ee59b19b31cf378fae20d","2010-05-26 21:03:42+00:00","If the format is not one of the expected ones, just return rather than
+proceeding with uninitialized data.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5495 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"810e6d53f099eb2e1fb8bc08c88ac368b3091795","2010-05-26 21:05:42+00:00","For these assertions to trip, enums in CPMemory.h which seem pretty much set
+in stone would have to change.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5496 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"39a014353eaa43397f555c25b6181d3c2a01a0f1","2010-05-26 21:07:13+00:00","Simplify logging a bit.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5497 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"b524af8fb9246b0bf7b0db2db8f27a9285711080","2010-05-26 21:07:49+00:00","NEWLINE
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5498 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"7d3fe592aba009be6ca6da981fed9d0dd64c8c70","2010-05-26 21:07:52+00:00","Unbreak nowx build.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5499 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"03e01872b0f6c3974133dc15938d090070298e74","2010-05-26 21:13:43+00:00","Unbreak nowx build.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5500 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"00758fcafb609292db8cf73943840d29e528e9b2","2010-05-26 21:16:03+00:00","Uninitialized variables.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5501 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"86f89cce923b7feda15439e3c3bcf4c20efbcc9b","2010-05-26 21:21:12+00:00","Move 64-bit specific variables into proper scope.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5502 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"5f9cdad7cd43ea7b8f3e1ebe10a33e93720f3e9a","2010-05-26 21:23:44+00:00","Unbreak nowx build.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5503 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"774035d71525b1a58d0ce6a4cf7cc2fdb29b03dc","2010-05-26 21:31:50+00:00","Always build a universal binary on OS X. This requires wxWidgets >= 2.9.
+Enable -Werror (OS X only so far - please test and enable on other platforms).
+Clean up library handling a bit.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5504 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"b19aff0084859169f8c33a0f092088e3fca48bcc","2010-05-26 21:38:30+00:00","Uninitialized variables.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5505 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"d18253fe33b94ca904f448b5a03aae8942de3ab0","2010-05-26 22:40:06+00:00","Don't assume writeable C strings.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5508 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"1dacd1ac1b616cfdc3def9e72c1fe3aae6176e93","2010-05-27 02:08:18+00:00","Put back call to ScanDirectoryTree() while FindValidTitleIDs() is still in use.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5510 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"253573ea02a59a96287f1208bb3d1b1c09ff1836","2010-05-27 03:05:43+00:00","ultra experimental commit. fixed tev functionality, now it must be almost perfect emulating native hardware.
+please test as many games as you can this should impact a lot of games.
+enjoy
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5511 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"d0a79d8cd1e22af0e340f27e9f3ff92c1fec865a","2010-05-27 03:27:59+00:00","Revert previous. rodolfoosvaldobogado had already applied the same fix in the
+next-to-last change, just enough lines above that svn silently merged it.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5512 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"0119497f3a28d3962d089d0047146845530fbd11","2010-05-27 03:51:00+00:00","On OS X, create a release dmg if bundle=True like on Linux.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5513 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"af6478647201ed4de13cef4224e3e44e777b51aa","2010-05-27 12:12:48+00:00","win_width/win_height are used in X11 builds as well.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5515 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"687f12531570ad8f0e38c7b4a4edd3928578db7a","2010-05-27 12:13:37+00:00","Slightly redo how Linux global builds get the prefix/lib location.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5516 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"60c0d2efdaca7dd7b48bdc1a6495a688e1dcad96","2010-05-27 12:36:51+00:00","Revert previous.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5517 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"f8b159eb90e32fa3b9dfb5e2a3afa9e5aae10673","2010-05-27 12:37:24+00:00","One more case of 64-bit code outside _M_X64, pointed out by omegadox.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5518 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"e960cf1ce622c8c8bc0a3a265c7373bb477cda08","2010-05-27 21:28:48+00:00","Fix another piece of cleanup fallout which appears to have been the cause
+of the file save bug.
+(_dbg_*() should really get the same treatment as *_LOG() to remove this
+whole class of #ifdef hell.)
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5519 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"66914c7ae4b906d09780e0c83d1a2e50d46273b5","2010-05-27 21:43:07+00:00","lets apply some mathematical magic:
+* optimize may last commit to make it faster
+* reorder the code to make it more readable
+please test and enjoy
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5520 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"5663872c7c1fb1120faf7cee726535e8ec88867e","2010-05-27 22:19:16+00:00","Avoid newline errors, will cause library checks to fail otherwise if -Werror is on.
+Dunno why this is in our code, I think scons has this built in ?
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5521 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"58d64625f9feb020e56edd1be3316dac68f886ab","2010-05-28 02:45:10+00:00","Stage2 is approaching: Redsteel2/WiiSportsResort is now working with Motionplus&Nunchuk, and the controls for the nunchuk are working now as well.
+Apparently, motionplus games are very strict on calibration data checksums, they don't like invalid/0x00'd checksums(this is trackable via 0x01 writes to the active extension register at 0xA400F3). I'll keep all motion plus related stuff that I've discovered on my blog: http://snzgoo.blogspot.com
+Next time I'll fix the disconnects, which are most likely caused by the sent motionplus empty/dummy data.
+So stage2 might come sooner than u guys thought. Let me hear u scream;)
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5522 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"99d9aa061359420124ded2699c4b075629727804","2010-05-28 03:13:33+00:00","Small change to my last commit, thanks for Billiard passing me the proper checksum for the old used calibration data. cheers!
+I changed the checksum in the new wiimote plugin as well.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5523 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ffc0c3736546e7f146c7cbc94c44842f749f20bf","2010-05-28 05:30:03+00:00","GameListCtrl: fixes progress bar for extracting multiple files (cant mix ascii with unicode wxstring:format)
+use appropriate extensions extracting compressed wii discs
+check for tmd+tik for each title and list titles correctly for sysmenu versions <=0xE0
+this will allow viewing of installed channels but they will not launch until ES_Launch is emulated
+so far I have not been able to determine why later sysmenu versions do not display channels correctly
+switching between system menu versions is as simple as rightclicking a system menu wad in the gamelist and installing to wiimenu than restarting
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5524 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"6687f3e79186ce4c8edb30b4f1869cf665ac70c5","2010-05-28 09:33:31+00:00","Linux compile fix
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5525 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"270fe2a99747cd30cddb7a9e292babc33b7c8549","2010-05-28 14:45:07+00:00","In r5448 the CSharedContent and cUIDsys constructors create the Wii/shared1
+and Wii/sys directories if they do not already exist. This conflicts with
+DolphinApp::OnInit (run after constructors) which populates the User tree
+only if there isn't already something there.
+
+Instead, set up the two directories in the Data tree.
+
+With this change, sys/uid.sys still won't be created until the _second_ run
+after a fresh install, so these file initializations should be moved out of
+constructors so that they will be run after OnInit().
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5526 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"0d75190af9fbae45531ff966b1289919764535f7","2010-05-28 17:23:51+00:00","wxFileSelector with wxWidgets 2.9 on OS X allows only very simple glob
+patterns like '*.foo'.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5527 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"ceabf90bdabd49b401b6f035ce5eb71178fc682a","2010-05-28 23:14:16+00:00","Improve iterator usage.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5528 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"4f10ded2b6035beaa17b0824522fc9e8cee39ae3","2010-05-29 09:32:44+00:00","Slightly optimize uploading D3DFMT_A8R8G8B8 data to textures.
+This is especially perceptible for 'big' textures, so e.g. EFB copies to RAM should be a bit faster now.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5531 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"05ef8231b83a7a1014b23c9400a93725cabb10d0","2010-05-29 10:09:24+00:00","Changed both video plugins to save PNG screenshots. Made GCPad New default in trunk (it already is in stable). Fixed a hack in new wiimote plugin. Other minor changes.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5532 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"bcfc6881406668d6702bb08343e16b77118e6bbf","2010-05-29 14:24:55+00:00","Get disk cache revision from SVN_REV.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5533 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"926f96daf0e055a362b41887ab690354f4bbd869","2010-05-29 15:35:31+00:00","Revert 5533, removing the misleading TODO and commenting it properly.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5534 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"659d5705c9415344a88e95667807adf92586d981","2010-05-29 18:22:50+00:00","DSPLLE: Some cleanup. Possibly very small speed increase.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5535 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"bdeefd361a1598cfe3bdac81431092d94512ddaf","2010-05-29 19:06:18+00:00","MotionPlus code clean up and small code improvements.
+Removing and adding some elements, making it more readable for others.
+Off-Topic: Have fun at the Grandprix! May the best win:P
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5536 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"55fd46de26797e1aaab70ee35487d3263858768e","2010-05-29 19:37:29+00:00","Add some safety to file names. This fixes a buffer overrun when extracting everything from an ISO.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5537 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"492636c3fa11d3d8134236a01ed710e641fe1a10","2010-05-29 20:31:09+00:00","Temporarily back out r5521 until a more complete answer to the
+filterWarnings problems is ready, as it currently breaks the OS X build.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5538 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"1d24ac9157fe6e3a10a998ec6145fccc0c70d649","2010-05-29 20:48:21+00:00","Match types in comparison.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5539 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"6ea0d508726fdefd86e22ae035300301cd9ae327","2010-05-29 21:28:27+00:00","Make this work with debug builds again.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5540 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"1d1b08a0917987a43b1f0eb4882a2927927e7033","2010-05-29 21:34:34+00:00","Core audio system work (Watch for regressions please!):
+
+* Restore Audio Throttle to function properly, broken by Ayuanx many hundreds of revisions back.
+* Simplify DSPLLE JIT dispatcher in preparation for an asm rewrite
+* Remove hack that made DSPLLE JIT seem faster than it was by running fewer cycles, but resulting in bad sound. This shows off how mysteriously slow it is - I don't understand why it's not faster. Use the DSPLLE interpreter for now if you want to use DSPLLE.
+* Made 'DSPLLE on Thread' work properly with correct-ish timing - although the speed benefit is really small now.
+
+If it seems like this change slows anything non-LLE down, try turning off Audio Throttle and use the frame limiter in options instead.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5541 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a88e09edc2e592bae5f1933c3aced22cb8ab2463","2010-05-29 21:43:46+00:00","DSPLLE: followup to last change: bugfix + remove extraneous exception checks
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5542 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"7f50bb55795729cfa86ef7badd640e62e4719dd5","2010-05-30 04:21:01+00:00","Get the audio unit output buffer size and use that as the rendering
+quantum, as the callback wants us to provide exactly the amount of
+samples needed.
+
+This is incomplete because core audio may ask for less than the full
+buffer size (for me, typically 1484 or 1488 bytes of a 2048 byte
+buffer). As a quick hack until I read the rather impenetrable core
+audio documentation, assume that each callback request will want
+about the same number of samples as the preceeding one.
+
+This makes sound bearable.
+
+Also various cleanup.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5543 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"77894f0fe60e40ef55ca33d48280738540cc80c0","2010-05-30 05:25:32+00:00","Match types in comparison.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5544 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"2245b1040f51d1ef7981cbf052eabdf94bdc3318","2010-05-30 07:09:09+00:00","Another creeping wx dependency via NetPlay.
+Is nowx worth maintaining?
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5546 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"9cd3c70b02f85e617f4abc37afc79b4668a2d0ca","2010-05-30 08:08:26+00:00","The rendering codepath doesn't currently quite recover from an OpenCL
+initialization failure, so help it along a little by also considering
+the CPU as an OpenCL device.
+
+Use CL_DEVICE_TYPE_DEFAULT rather than CL_DEVICE_TYPE_ALL as that will
+give preference to the spiffy GPU if one is present. Implementations
+of OpenCL are likely to put a GPU as the first device in the list, but
+there is no guarantee of this and this code currently only picks the
+first device in the list.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5547 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"5070a5979983452b4f53fc45fa2ca07550d31631","2010-05-30 08:22:04+00:00","Made the Dolphin config dialog shorter with an added 'Display' tab. Removed code that toggled fullscreen on double-click in gamecube games because GCPad New allows mouse input (maybe double-click fullscreen toggling should be an option though). Changed the label in the toolbar from 'GC Pad' to 'GCPad' (all other labels on the toolbar are single words and we call the plugin 'GCPad' everywhere else). Made game properties dialog open centered on screen.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5548 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"c48aca7c376427eed4d8aaefe1695a42dd375fd1","2010-05-30 09:41:38+00:00","De-inline StripTailDirSlashes() to work around a weird code generation bug.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5549 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"20eda8551ad2a095d554945b4523ad1905933e59","2010-05-30 16:33:01+00:00","'A' appears to be another country code for Europe.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5550 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"997ab4ada1385617c779dd0c419e03480dae1f93","2010-05-30 17:16:06+00:00","Mark 'A' as being region-free, but still explicitly default it to
+European settings. Also try to add sensible defaults for [LMNTQ]
+taken from http://wiibrew.org/wiki/Title_database#Region_Codes .
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5551 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"c2daee96cc27154c4d09b2e0dc8efea7081a5daf","2010-05-30 17:31:52+00:00","Consider 'X' as region-free.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5552 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"33566b5c07aa0104b5e3ea3ea232d19adeeb9285","2010-05-30 17:57:56+00:00","Limit buffer size required to extract files. This helps avoid out of memory errors.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5553 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"99e7a2ceac6c2f3ecb71208c3701df8dd7e5b9fc","2010-05-31 02:44:48+00:00","debug version of dx9 dll isn't always in the PATH, so you would get an error while dolphin would still load the correct release version of the lib and continue running. so...just check for the release version of the dll.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5554 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"fdd532356a66c17fa3b8b309680f92e03a5567db","2010-05-31 05:05:53+00:00","Have the AudioUnit callback drive the internal mixer directly instead
+of going through an intermediate thread and buffer. This seems to be
+how Core Audio is meant to be used, although I still haven't read the
+manual.
+
+Indeed, sound on OS X works perfectly now.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5555 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"a909d0cb76bda7aff140d71255f6364e8c444664","2010-05-31 14:21:25+00:00","I did a small stupid copy/paste error on my last code clean up, which broke MP, mea culpa!
+Motionplus should work again. I'm right now addressing the disconnect problem.
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5556 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"220c3ae8297b52c81a48f88db568d63a2d5b6d65","2010-05-31 16:18:40+00:00","Identify OS X application bundle with SVN version number.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5557 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"95edef2e0d610d54984a10585248f41fca247e12","2010-05-31 16:23:13+00:00","Avoid printing garbage numbers in the status line when the process
+becomes blocked. This was most readily apparent when first starting
+programs from a high-latency filesystem.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5558 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"66c480c86b5fb3c22d43fecae0fa857aeaeabeac","2010-05-31 16:54:21+00:00","Don't print a bogus number of bluetooth devices found.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5559 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"f7494e6b2bf10d0897bd506ac87fd47390c4be93","2010-05-31 19:54:05+00:00","Bring this a little more up to date.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5561 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"9d7b569ccb17ccdd57d0ea510d31799a8fb19344","2010-06-01 20:45:30+00:00","Now that Core Audio works, reduce the number of build permutations a bit
+by not linking in other Unix audio modules.
+
+Use kAudioUnitSubType_DefaultOutput instead of kAudioUnitSubType_HALOutput
+so that a runtime switch to another audio device is automatically handled.
+
+Use ERROR_LOG for audio errors.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5562 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"4ffdba7b9258f920b10eeb24f8aa3a4e43cdf57f","2010-06-01 20:47:07+00:00","Only warn about unknown magic words if none of the known ones are found.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5563 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"c9564405d94d1eb7cc1c4f94ed5e1ee094ca5241","2010-06-01 21:03:02+00:00","Some wxWidgets features, like wxProgressDialog used when updating the
+game list, rely on the main event handler already running, which isn't
+the case until after OnInit(). This is a problem when an ISO directory
+is already set at startup.
+
+To deal with such actions that can only properly be done after the wx
+environment is fully functional, schedule AfterInit() where the initial
+game list scan is done.
+
+The underlying icon object for wxIcon on OS X didn't work with our
+(non-square?) 96x32 game list graphics, but we weren't using any wxIcon
+properties such as transparency anyhow, so just skip the wxBitmap to
+wxIcon back to wxBitmap conversions.
+
+Use wxID_ABOUT and wxID_PREFERENCES so that those menu items are
+automagically teleported to their canonincal locations on each platform.
+
+USE_XPM_BITMAPS has been implicit on all platforms for some time now.
+
+AddGrowableCol() causes problems in a couple of inessential places for
+some unknown reason, even though the same pattern works fine elsewhere.
+
+These changes make us play a lot nicer with wxWidgets 2.9.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5564 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"714af087bfed09cff991334a56df363ce364f8c3","2010-06-01 21:05:00+00:00","GL: Relax multisampling constraints on visual
+
+All visuals with parameter GLX_SAMPLE_BUFFERS_ARB = 0 have
+GLX_SAMPLES_ARB = 0, so the old code would only ever choose
+visuals with GLX_SAMPLE_BUFFERS_ARB>=1 and GLX_SAMPLES_ARB>=1.
+Some drivers do not export any multisampling capable visuals,
+so dolphin fails to find a matching visual and falls back to
+the single buffered visual(which does not work for some yet
+unknown reason). Fixes issue #2647.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5565 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"43dfff651a401b461f3097ee7fd38b200952e06c","2010-06-01 21:10:49+00:00","Hopefully fix building on Linux.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5566 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"03673f6496e06e95e02c8d45a1f089a50e7ef922","2010-06-01 21:33:20+00:00","Incorporate a few comments.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5567 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"9c1b4dee4497e20634e3e7416ba1989bef055014","2010-06-01 22:23:16+00:00","fix AudioCommon including linux headers on windows
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5568 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"d5e2bbf7cde4ab41ea3e8b330fb979f117d22d97","2010-06-02 15:54:35+00:00","Remove a few __APPLE__ ifdefs which are no longer necessary.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5569 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"f32a4b7e9cc52c520c3f7e581256a73872985a62","2010-06-02 17:11:44+00:00","Higher resolution icon image contributed by the original artist.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5570 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"e2ef72504ee2d29a72d08d598f703a38518f0715","2010-06-02 17:19:23+00:00","Fix typo.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5571 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"664cea45c7593ad646dd06cca72ff5fd34efc32d","2010-06-02 18:00:22+00:00","Meta:
+
+Using Unix tools to operate on a tree containing filename with spaces in them
+is really annoying, so rename the handful of instances where there were spaces.
+
+Host.cpp has never been used.
+
+Games tend to lookup the following directories that we don't yet have anything
+to put in, so prepopulate them in Data/User/Wii:
+
+title/00010001
+title/00010002
+title/00010003
+title/00010004
+title/00010005
+title/00010006
+title/00010007
+meta
+shared2/title
+
+Set eol-style native on a number of text files which didn't already have it.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5572 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"03d1438be8e0d871839dd662a393d1c4f04fc260","2010-06-02 18:07:08+00:00","Cleanup after multi-level SVN rename.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5573 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"30e437f9e362a484c96bbb87513294e7d9c4ac1c","2010-06-02 20:35:12+00:00","Fix some cases of variables being used uninitialized. Also some unused
+variables, writeable strings and dangerously shadowed variables.
+
+index(), gamma(), exp() and y0() are POSIX functions and using those
+names can cause namespace confusion.
+
+A number of C files were missing the final newline required by ANSI C
+and some versions of GCC are pedantic enough to complain about this.
+
+These changes simply the scons build, allowing us to get rid of
+filterWarnings which is simply more trouble than it's worth.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5574 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"3a7b8c51c66595addaa259ac595a984cf137f54a","2010-06-02 20:49:18+00:00","Oops, didn't mean to enable -Werror for devel builds.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5575 8ced0084-cf51-0410-be5f-012b33b47a6e
+"
+"52c912a59ed7fdfa82aaa33316ef19060eeece90","2010-06-03 01:24:26+00:00","Make wxgl mandatory on OS X.
+
+
+git-svn-id: https://dolphin-emu.googlecode.com/svn/trunk@5576 8ced0084-cf51-0410-be5f-012b33b47a6e
+"

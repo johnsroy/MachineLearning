@@ -1,0 +1,359 @@
+"commit id","commit date","commit message"
+"b80cce4350672a72858423df7fdd034e95db6cd5","2015-06-11 17:43:24-06:00","Add Chinese dialects to template script
+
+- Add Simplified and Traditional dialects to template script.
+- Update FileAlias, MainPageName, and SpecialAlias files with updated template script.
+
+Change-Id: Ic2d351a93d0a26dce41d31b3b9f918b838331f26
+"
+"586fef72e921e65a435d52acbd4f8478c67a0c83","2015-06-11 18:19:53-07:00","Hygiene: Migrate ToCInteractionFunnel to standard sampling logic
+
+Recently some more standardised sampling logic was added to the Funnel class,
+so that child classes didn't have to reimplement it, which reduces code
+duplication. Most classes were switched over to this, but ToCInteractionFunnel
+still uses the old sampling method. It should be migrated to the new version.
+
+Bug: T102212
+Change-Id: I95fb587d15590147152bc72d9a8f058ee82a095c
+"
+"0216f2ffeab4e17a9fa8bef2c6a43eb91e14293a","2015-06-12 03:42:33+00:00","Merge 'Hygiene: remove Maven pom.xml files'
+"
+"556287280c37821402456da01b9b7995cb78ed4f","2015-06-11 22:03:46-04:00","Simplify and fix inconsistencies in share-a-fact handlers.
+
+This patch unifies the TextSelected and NoTextSelected handlers, since
+both are now using the same call to the Bridge to retrieve selected text
+inside the WebView.
+
+In the case of no text highlighted, we switch to fetching the actual
+content of the first <p> element from the WebView, instead of extracting
+the HTML in Java. This also makes it consistent with iOS.
+
+Bug: T99151 T99144 T96493 T98994
+Change-Id: I5d5be3b025643e004402067099abe6d00621ce0c
+"
+"dc55ddd57b12eb1c0eac52e2f26b3c5d918271cb","2015-06-12 18:40:39+00:00","Merge 'Simplify and fix inconsistencies in share-a-fact handlers.'
+"
+"a84f22aeee9b3368051b2d7f381999df22b201df","2015-06-12 14:37:51-06:00","Improve memory profile of AppLanguageLookUpTable
+
+Hold soft references to app language resources instead of hard.
+
+Change-Id: Id12cce50ac0a3ff633a6edcd612e452fc8edc0c1
+"
+"d1b0e0f416ac8987cffb86bbae07b2928c549d3e","2015-06-12 10:05:30-04:00","Make sure random feature flag ID is positive.
+
+We currently do a/b testing by taking the feature flag ID modulo a certain
+number, and using the result to switch between features.
+
+However, it's not immediately obvious that the feature flag ID can be a
+*negative* number, and might produce a negative value after the modulo
+operation.  This patch ensures that the feature flag ID will always be a
+positive number.
+
+Change-Id: I43f0af1e22b5f9a49db77ee6151821852021fb77
+"
+"3c3e976dbbd1b51b9ac10a7a211859b7360a4eed","2015-06-14 16:30:26+02:00","Remove dup. initialization of LeadImagesHandler displayDensity
+
+looks unnecessary to me to have it twice.
+
+Change-Id: I278cb934e8a105daf995c84fb45e106d6eb64596
+"
+"90bf548a2d97b1e46619cc9be4604e3e7b37867a","2015-06-15 15:19:18+00:00","Merge 'Add Chinese dialects to template script'
+"
+"3f9dc35383c64f14507cc055eb42afae78ce91d0","2015-06-15 11:33:29-06:00","Fix hardware overflow menu color
+
+Bug: T102319
+Change-Id: Ic9589af16a4eddf1381dace42478f5eaacb9c353
+"
+"e633775cbaae498e2afc24d417dc5f33dcb12f34","2015-06-15 19:59:00+00:00","Merge 'Improve memory profile of AppLanguageLookUpTable'
+"
+"f8a9425062e3faa65b4aedb75ced0470402a5379","2015-06-12 17:55:44-06:00","Hygiene: refactor dialect from AppLanguageState
+
+Change-Id: I8d437b3941d17ab00d0912595a967ec59b6aa43e
+"
+"dbf4610cb521718a5723fce6529994841052bd73","2015-06-12 16:50:41-06:00","Hygiene: refactor accept-language header logic
+
+- Move accept-language header logic from WikipediaApp to AcceptLanguageUtil.
+- Enable WebView debugging iff app is debuggable.
+- Add missing @NonNulls from Android Lint.
+- Very minor refactor of part of getAPIForSite() into buildCustomHeaders().
+
+Change-Id: Ibc64f1fce5308faf5bd6b30fef62ba30d3c6d1b6
+"
+"4471cb087eba041e1f28fe0a49028553f8301441","2015-06-13 23:21:05-06:00","Upgrade Gradle and the Gradle Android plugin
+
+- Upgrade Gradle to v2.4 and the Gradle Android plugin to v1.2.3.
+
+Change-Id: I625cf4adce7bc440d8996512de0ffb87380e6e9c
+"
+"33b86def22fcfcb6847a84acc9510f41ed44bc69","2015-06-14 16:43:09+02:00","Hygiene: Move displayHeight code to separate private method
+
+For editing descriptions, we need to put a little bit
+of new code in the constructor.
+
+To help avoid making the constructor overly complex,
+some of the code should be split up, such as the code
+that sets displayHeight.
+
+Change-Id: Id750f98ee58103f51f0f47a9c31a2d18b6946830
+"
+"6b52603ddba741cc001348396e08f32b6781cdf0","2015-06-15 16:34:14-06:00","Set Edit preview canned summaries to page Locale
+
+Bug: T102559
+Change-Id: I5a7bd0dc844598f6a74bb1baa04e0baae36e4cf1
+"
+"1ba787f77965c03551902d492c5a118017bda4ea","2015-05-01 16:07:48-04:00","Use larger and higher-quality images where appropriate
+
+Enlarges in-article images as appropriate based on the device size and orientation.
+
+Based largely on mhurd's code accomplishing the same on iOS; see https://gerrit.wikimedia.org/r/#/c/211068/.
+
+Bug: T94646
+Change-Id: Ic8360baff30c6c5ad36f8b405c96845e81c95837
+"
+"98193742d9371090980a15ec4f5f55731778ccf6","2015-06-15 17:40:56-06:00","Hygiene: use DimenUtil when calculating display height and density
+
+Also renamed displayHeight to displayHeightDp since that value is in dp.
+
+Change-Id: Ife84b0181f3ef729c0343ffec7ea721b0b75bd8b
+"
+"b84b21de4431c542e072443fd1a57d8d83d1ca2f","2015-05-19 21:13:47-04:00","Consistent list design.
+
+- Reuse the same layout for search results, history, saved pages,
+disambiguation, and read more.
+- Made a custom TextView style that contains some RTL-related tweaks to
+display RTL and mixed RTL-LTR content properly, and applied it to any
+TextView that contains dynamic content from the network (or any TextView
+that may potentially contain mixed RTL-LTR content.
+- Removed the 'history source' icons from the history list, and removed
+the corresponding resources.
+- Removed alphabet header from saved pages list.
+
+TODO in future patches:
+- Create an actual custom View that represents a generic page list item,
+and use it where appropriate.
+- Store wikidata descriptions in History and SavedPages persisters.
+
+Bug: T97822
+Change-Id: I40f0082cfcb887a57a70a25a024852bc57d44b17
+"
+"48ad60399cf8ee878954d871726a1c93b90f85a3","2015-06-17 18:39:24+00:00","Merge 'Hygiene: use DimenUtil when calculating display height and density'
+"
+"f4dbea4da6a5e045cb3dec2322f4028826e5bca1","2015-05-27 15:26:22-04:00","Tabbed browsing.
+
+- Implemented tabs, basically as a two-dimensional backstack of pages.
+- Refactored the logic to update the current PageTitle's thumbnail.
+Previously, the thumbnail was only loaded upon fetching the page from
+the network (a separate request is made to fetch the thumbnail), and
+then persisted to sqlite. Whereas now, when we load the page from
+cache, the thumbnail is loaded from sqlite.
+- Feature flagged for non-production only.
+
+Bug: T69251
+Change-Id: I00967dc2256fc2cb8c251cc5a6a0ebb83e144a6e
+"
+"4a6df00dbe071180e31fb0904d48b5f1fc952c8c","2015-06-17 17:02:40-06:00","Use Material-ish edit pencil background
+
+Depends on corresponding backend change: https://gerrit.wikimedia.org/r/219083
+
+Bug: T99678
+Change-Id: Iadb5517f465fee8cc7eb5dc3fda162831881bde9
+"
+"96d019896e316562c4319ac1bd31df24794dc7cb","2015-06-17 22:01:19-06:00","Hygiene: Lint ignore string app_store_description
+
+See if TWN sync preserves resource XML attributes.
+I'm going to run a sync right after merging this to see if those will be preserved.
+
+Change-Id: I0cbc3246c187131bf229275b3bb5e619b7c8fd3a
+"
+"4cb9fca82ef3b39735acd31a2c3ab6588fb32a65","2015-06-18 13:36:55+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Iee824dc5e55c73d4a29264858345ee3654170bcc
+"
+"0e07c114ac8d54f41f28c654349c273c10d8d47b","2015-06-18 16:05:07+00:00","Merge 'Use Material-ish edit pencil background'
+"
+"2afcd33ded22bfe16df1dc4492e643370e64289f","2015-06-17 17:32:23-04:00","Design tweak for tabs, and a bugfix.
+
+- Made the shadow under tabs a bit more subtle, and made the rounded
+corners of the tabs have the correct color background behind them.
+- Fixed minor issue where the incorrect HistoryEntry was being saved
+(probably an artifact from the PageLoadStrategy refactor)
+
+Change-Id: I43cbbaac7428edc40abc6e710935dd0012e0455e
+"
+"727f014ce5f2aeca8bb7d784f7105dd03bf28ec4","2015-06-18 12:22:31-04:00","Fix erroneous description in articles without a description.
+
+This was happening because we're performing asynchronous animations on the
+Page Title text view, and then fading in the Description when the Title
+animation finishes. If we start loading a new page in the middle of the
+title animation, the fade-in of the description will still happen, even if
+the new page doesn't have a description.
+
+This patch fixes the issue by explicitly canceling the animation whenever
+a new page is loaded.
+
+Bug: T100173
+Change-Id: I9c2ece0a8292be080857ce5fc1864b8d04616f16
+"
+"0aaf227160f17d8c3eed25d35feabb0570d5a9b6","2015-06-18 20:43:23-04:00","Make sure 'page does not exist' error is hidden when loading new page.
+
+When the 'page does not exist' label is shown (due to the user navigating
+to a nonexistent page), it can never actually be dismissed. This patch
+makes sure this error is hidden whenever a new page is loaded.
+
+Change-Id: I8729ec7b59f4ac89aa6f92ecb4cd49390fdd9147
+"
+"d696d40614814cf7a24365e1803cd8d739495f82","2015-06-18 14:54:34-06:00","Use distribution with sources
+
+Change-Id: I01d6fa14d7622832ca4cf853daa71d82fa9f96ef
+"
+"47e06182612fc5f0e0c30e3098373aa4f5291840","2015-06-18 16:52:58-04:00","Fix possible race condition in tabs.
+
+There is a brief window of time when the PageTitle within the
+PageLoadStrategy was getting set to null (right before a new PageTitle is
+fed into the PageLoadStrategy), which left a small chance where an event
+coming from the WebView might be handled by a callback that accesses the
+PageTitle, and produces an NPE.
+
+This patch eliminates that possibility.
+
+Change-Id: Ia6bea9c028d2777c3b220a7412c65a458d3eed0b
+"
+"f129b773c210b4b93e4a72604d67ee52b94bf98b","2015-06-10 11:42:33-04:00","Fetch and add underlying image license icon to Share-a-Fact cards
+
+Bug: T101436
+Change-Id: I51c7d627f4b00f260831c925d0177499ddbbee9a
+"
+"647a53d3ea896c3c66805fd65726852d126f48f5","2015-06-18 12:55:09-04:00","Redirect Special page links to external browser.
+
+Bug: T102543
+Change-Id: I25310e061915d74b5af4dc28e3df0b4546334f63
+"
+"a1658435a6dbf8242e3879da963617557df35c17","2015-06-18 21:05:21-04:00","Design tweak in History and Saved Pages.
+
+Added a bit of margin around the Search field in History and Saved Pages,
+and made the text size consistent with the main Search bar text
+(refactored it into a dimen).
+
+Change-Id: I68d621aad7b2c68038eda00ac2980a382f6c54a3
+"
+"20fe195ae02af596c1d8eeaf3ef450cbabbe70a5","2015-06-19 10:08:56-07:00","Hygiene: Use shared parsing code and get correct license info for GalleryItems
+
+This patch updates the gallery code to use a image license metadata parsing function
+shared with share-a-fact.
+
+Change-Id: I76eca6a6f6baca09a1145cc8e5b34c8f13ac9fa8
+"
+"9a9c58847fdf071b0e42b07dc252857cd2dd8aad","2015-06-22 11:59:17+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I318989a94a5f6aead20bf654c35a873605cb40e4
+"
+"9a80b6f80d8db0f8b757c88b10be9807fd886ca8","2015-06-22 16:56:08+00:00","Merge 'Hygiene: Use shared parsing code and get correct license info for GalleryItems'
+"
+"4fdf995458e780844f4fef04a239bdf9c4588728","2015-06-16 22:17:22-06:00","Hygiene: refactor shared preferences access
+
+- Move all shared preferences file IO to PrefsIoUtil. Add necessary get / set functions to Prefs. Roll PreferenceUtil and PrefKeys into Prefs and PrefsIoUtil.
+- Move a couple string CSV and delimited string methods to StringUtil.
+- Minor rename of some SP access methods in WikipediaApp.
+- Rename shared preferences string resource key names to have consistent prefix. Very minor rename of some key names for clarity.
+- Use GravityCompat.* instead of Gravity.* in PageActivity and ToCHandler.java.
+- Expand some wildcard imports.
+
+Change-Id: I5d2de61ae0adf163e6bbb39337236d1d8c592c84
+"
+"de3acc17468e9c97a67040c898f267661289552c","2015-06-18 16:06:06-06:00","Move tests to default structure
+
+- Move tests to default folder hierarchy. Remove unnecessary test manifest.
+- Remove unnecessary test resources.
+- Move checkstyle.xml to config.
+
+Change-Id: Icc00dc3671f6dfcc3eb4a49461c48d88e9ae7b84
+"
+"eb90d43ea6008b086ddadb10f4bacf4c3fbd64f9","2015-06-22 12:08:38-07:00","Remove initial login onboarding splash screen
+
+Bug: T102482
+Change-Id: I4ead606666bacb5b69af331926d1011ab5caf9db
+"
+"8f1c3a71ad8fcade66a1e4a2217320a84e024c82","2015-06-22 14:33:42-07:00","Hygiene: Remove obsolete resource reference, make manifest whitespace consistent
+
+Change-Id: I54dfdf903a11f0cd9b6985b4f330d8dd63a264c8
+"
+"656ae2460030e77ccd3933bd096ac8df7cd075a4","2015-06-23 13:37:29+00:00","Merge 'Remove initial login onboarding splash screen'
+"
+"82d35c0f1db8e184cc44d0de81adcb7769058acb","2015-06-23 16:01:26-06:00","Fix translation
+
+Invalid parameter format caused a test failure.
+
+Change-Id: I09759758397c8b85323c2ae3640d65370cde886e
+"
+"7428ed6b75fcab2f2646864180ae725e201fd7c3","2015-06-23 09:49:26-04:00","Add link to privacy policy in Login and Create Account screens.
+
+Bug: T103201
+Change-Id: Ifef8a6a8e60d90ed851447b9f665dbacea0afa83
+"
+"d2122439af101fcf5fff9ee9967de057142cfdd1","2015-06-23 14:54:11-06:00","Hygiene: accept throwable instead of exception
+
+Change-Id: Iebde762ee7026b52cfe64af32c8917b6585f5724
+"
+"f8688b5524c4819334d96aea6a5cd96e7d628e90","2015-06-21 14:56:27-07:00","Fix image widening for images that intentionally overflow the column width
+
+Certain images intentionally overflow the column width.  See, e.g., the first
+image in 'Counties of England.'  These should be left alone.
+
+The image widening patch recently merged (see T94646) included an outdated js
+bundle as well as js changes that, when included in a new bundle with grunt,
+improperly resize these images.  This patch introduces an updated js bundle
+including code to prevent the undesired resizing.
+
+Change-Id: I031e459b42436cfebcc1eb91dd450e2902c3149b
+"
+"ffcc9f27c05e6b7af5e934edf74b907c5cda0a67","2015-06-17 11:54:44-06:00","Enable morelike Cirrus search for half of users
+
+- Enable 50% featurization of Cirrus 'morelike' search of related articles.
+- Add verbose logging of web requests on dev builds.
+- Always events on dev builds.
+
+Bug: T101041
+Change-Id: Ifc464e6028f9526b1bd24939bb5e2a8584a989d0
+"
+"a4cd9e85f8f9ff3c64def7a191d02657301e6372","2015-06-23 17:13:08-06:00","Hygiene: add Robolectric and MockWebServer
+
+- Enable Android-flavored JVM testing with Robolectric.
+- Add MockWebServer for fast, stable network tests.
+- Add RobolectricTestRunner subclass, TestRunner, that supports gradle.properties.
+- Route logcat to stdout for JVM tests.
+- Configure JVM tests for API 21.
+
+Change-Id: I5f71592a5d3f187d632c44bf973e292b04b18cf5
+"
+"68caa9c2388b13cafcdfca611a0b24e0f6a2fec9","2015-06-25 12:19:58-06:00","Fix string references in channel manifests
+
+Update string references in channel Android manifests that missed a previous rename.
+
+Change-Id: Id5134efbfb278aa54258117cbb4fdf4dcf889557
+"
+"a2d74cea1e7f629984fa28a8fcb09729af0d0ff0","2015-06-25 12:17:13-06:00","Remove strings not in default locale
+
+Change-Id: Icda8ecc24739b6da9c7f5befad81f498e09c659f
+"
+"1b4a249330971064551d90c088c2b40dd2ebff9b","2015-06-19 12:36:28-06:00","Fix edit pencil active state for RTL languages
+
+Depends on: https://gerrit.wikimedia.org/r/219421
+
+Bug: T103711
+Change-Id: I31d92f199719bd30d1367b089d1e89b55d658f36
+"
+"5cfe6f97ff9ba71ab688d2957876aeeb256987c8","2015-06-25 20:34:28+00:00","Merge 'Fix edit pencil active state for RTL languages'
+"
+"0af49dd0557fc8c20682b708b8b93ceb0d9c6065","2015-06-25 17:15:08-04:00","Fix crash when removing the tabs icon more than once.
+
+The tabsMenu button is removed upon the first call to
+onPrepareOptionsMenu. When this function is called subsequent
+times, the tabsMenu button is no longer there, and becomes
+null, hence we have an NPE.
+
+Change-Id: I41ae294e07cb659b5c8769257b0143a7d1ba71ce
+"
+"4680a6a7858456af91ce6557f9f5bd215a5b3051","2015-06-25 15:59:50-06:00","Bump versionCode
+
+Change-Id: I58ccf9b3231bb2dad52a100373d344ad089ead43
+"

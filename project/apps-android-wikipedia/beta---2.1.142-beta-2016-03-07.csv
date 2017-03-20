@@ -1,0 +1,683 @@
+"commit id","commit date","commit message"
+"59c16c49f3671e9f258547fddc2615ddc0d1b8c0","2016-02-10 16:10:33-05:00","Bring back pinch-to-zoom in gallery.
+
+So, it looks like the Fresco repo contains a 'samples' directory that
+contains a 'ZoomableDraweeView' that precisely suits our needs.
+https://github.com/facebook/fresco/tree/master/samples/zoomable
+
+Unfortunately, this is not yet part of the packaged distribution of
+Fresco, so we need to package it ourselves for now, and keep an eye out
+for updates.
+
+Bug: T126164
+Change-Id: I764a81e904f889318744a985fa197d4c1373c971
+"
+"7c8027086b395b667ce83cc938fe970d0dbfed56","2016-02-11 11:27:33-05:00","Preserve gallery activity on screen rotation.
+
+Sorry <3 but this fixes quite a few issues, and keeps the gallery nice and
+responsive upon rotation. When viewing a video, the video even keeps
+playing!
+
+Bug: T117054
+Bug: T107773
+Bug: T102168
+Change-Id: I83f406407c578406170ce79c65dd0c40ebf735fa
+"
+"a1a2247863f4fbe58364470defda4ea0e684fdd4","2016-02-11 15:43:15-05:00","In gallery, fall back on sharing URL if sharing image fails.
+
+Bug: T125270
+Change-Id: I19ae97b3c134f02b9226c1f696c1b2c2f3ebaba5
+"
+"6b3f7470b719b7d3a45909e465dd1b8587cd25ad","2016-02-11 20:56:43+00:00","Merge 'Preserve gallery activity on screen rotation.'
+"
+"d6897ac12a0263dabe03250d773423d17cc29caa","2016-02-11 21:22:00+00:00","Merge 'Bring back pinch-to-zoom in gallery.'
+"
+"c4e5c4f4cbdcfd6d329cb944cbb612fadc00830c","2016-02-11 16:36:49-05:00","Ensure lead image has white background.
+
+Modified the lead image postprocessor to explicitly set the bitmap
+background to white. In other places where we load images, we set the View
+background to white in XML, but this is not practical for the lead image
+because it would ruin the fade + Ken Burns effect.
+
+Bug: T126657
+Change-Id: I6dc79030aab6fa16d0f8c3fdcf9994a29b27aa0f
+"
+"28743ff5fb1178837bef0c463c259d148ba30f4a","2016-02-11 21:49:12+00:00","Merge 'In gallery, fall back on sharing URL if sharing image fails.'
+"
+"4436c784b6bfcd3dfd66862a607d7dc1c5304da9","2016-02-11 22:08:10+00:00","Merge 'Ensure lead image has white background.'
+"
+"6c1ae74c1eea5082488b594aab60cbfb37f7fc2b","2016-02-11 15:09:55-07:00","Hygiene: add missing @Nullable annotation
+
+Change-Id: Ie5ff7828b184e029b18a049adee821effe9bc2ed
+"
+"33a9bfb22b894f78fcafab812f93592992610e2f","2016-02-11 22:42:59+00:00","Merge 'Upgrade Gradle to v2.11'
+"
+"ac502f0894be991a6aef945719dff75f0b16ff6c","2016-02-12 01:16:05+00:00","Merge 'Hygiene: add missing @Nullable annotation'
+"
+"3913195d951b053f9de19023bb7aa0488f373cdd","2016-02-11 21:06:38-07:00","Change order of text highlight CAB actions
+
+The tooltip now points to the wrong CAB action since we introduced
+the new Wiktionary definition action. This patch simply changes the
+order of the actions and now the tooltip points to the correct one.
+
+Bug: T124836
+Change-Id: I17a24c3dae4ace4e758bcc2c2400ee80a3d6ad00
+"
+"09d66b6fbfcddf678eb54cd4ec3affdfcdfa60d2","2016-01-20 10:24:44-07:00","Fix Wikipedia logo on About page
+
+Bug: T104491
+Change-Id: I9991619a30ca7108cd26e3de6b54f7d23ba31572
+"
+"84d06b57f1b6a7c300f926545ad44fb17d8bfcad","2016-02-15 03:44:32+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I3e1d5477f889ff525ef972714df3f4d1355f71fc
+"
+"0aeafc950d487d3434de5b634014207771c40d5d","2016-02-15 14:37:09+00:00","Merge 'Fix Wikipedia logo on About page'
+"
+"adf959c0a90d76c6ba9ec48c2989abb1e03bddff","2016-02-10 18:35:43-05:00","Implement custom strings and EventLogging for Wikipedia Zero
+
+Requested by the partnerships team for program compliance and better
+analytics.
+
+Other changes to Zero functionality:
+-Removed redundant dialog when zero-rated connection is lost
+-Reduced zero banner size/text size
+-Add link to banner when bannerUrl setting is present
+
+Also includes substantial refactoring of the Zero-related code for
+easier ongoing maintenance.
+
+Note: EL as implemented here deviates slightly from schema in returning
+times for all actions, rather than only a subset, as a result of
+subclassing TimedFunnel.  Additionally, I a few fields will be under
+discussion in the task.
+
+Bug: T123748
+Change-Id: I993e8c4f99c766c7bd3ced3f8bb9c2ac14a49cb1
+"
+"4c63de1ed2e2336f6d3336dea0c35507bdcaeb7e","2016-02-16 10:27:01-05:00","Log extlink action when appropriate
+
+A small number of Zero operators whitelist only certain language wikis.
+This action logs when a user is not shown an exit interstitial despite
+being potentially zero-rated based on IP address because the specific wiki
+the user was on was in a non-zero-rated language.
+
+An example of this is when a user is on a network owned by a provider that
+zero-rates only English and French Wikipedias, and is browsing German
+Wikipedia and clicks an external link.
+
+Bug: T123748
+Change-Id: Ia09b03c9e435303240e1ffe5a6e124827bcda582
+"
+"fd4838378a7e4fb2fe7173573a97a4b4e7a31982","2016-02-12 16:51:20-05:00","Log action extlink-always when user switches off Zero exit warnings
+
+This is a tentative implementation of the extlink-always action in
+https://meta.wikimedia.org/wiki/Schema:WikipediaZeroUsage.
+
+Apparently, in the exit intertitial dialog on the mobile web, there was
+once an option to suppress further warnings and always continue.  I think
+this is what Yuri had in mind when creating the schema.  But I can't
+replicate that behavior.
+
+If we decide to include such an option in our exit warning dialog, we can
+log this action there, too, but manually switching off the warnings in the
+settings also seems like an action that meets the criteria for logging
+extlink-always.
+
+Bug: T123748
+Change-Id: I69ef8cf7dacf0266a4f51d5bf81c706434d6fb40
+"
+"bcc6b23c6d8d037731c61d73d56523ff1026a0d0","2016-02-16 15:58:21-05:00","Replace Picasso with Fresco in credits
+
+Replace Picasso with Fresco, add Fresco license, remove Picasso license
+
+Bug: T126749
+Change-Id: I9e54fc2be2158263867f2ecaaab417a9114f56f7
+"
+"b01d76c1afdba23571620991746e0b85b1c67a64","2016-02-16 21:45:46-07:00","Hygiene: add missing type parameter
+
+No functional change intended.
+
+Change-Id: I525042f04149c770b69f7eab2f606ee61afdfabf
+"
+"57e273e4b76a578f746d3d45748498f2d7f71f94","2016-02-16 21:51:13-07:00","Hygiene: add missing @Nullable annotation
+
+No functional change intended.
+
+Change-Id: Ifd1aefbfdd02392d37908e244c72d50879f2ad94
+"
+"eaeccd52bfaa19d10da448b313b93ed8c53a6b0e","2016-02-16 22:07:23-07:00","Don't hide database column programmer errors
+
+• Use Cursor.getColumnIndexOrThrow() instead of getColumnIndex(). From
+the Javadoc:
+
+> If you expect the column to exist use getColumnIndexOrThrow()
+instead, which will make the error more clear.
+
+This should have no functional effect if there were no preexisting
+bugs.
+
+• Add some getInt/Long/String helper methods to DatabaseTable and make
+use of them where possible.
+
+• Refactor DatabaseClient to use helper methods for readability and
+reuse in a forthcoming patch.
+
+Change-Id: Ic47287eb5f18a76ae07f479e5b251fd3f2b998a5
+"
+"25551d79c3d05af2b01aceee1c8e303fbe375ede","2016-02-16 22:37:11-07:00","Never return a null CursorLoader
+
+The Activity lifecycle limits when Fragment.getActivity() will return
+nonnull. A CursorLoader just calls getApplicationContext() on the passed
+in Context and does not require an Activity. Decouple the CursorLoader
+constructor from the Activity lifecycle by using getContext() instead of
+getActivity().
+
+Change-Id: I7f07a704fbe96450ab7660e9fc28fa0bfcb4d9b1
+"
+"d4747d96eb2e8a01a3ae99e9b1b64436e0c4d4a4","2016-02-17 14:58:10+00:00","Merge 'Hygiene: add missing @Nullable annotation'
+"
+"3f96145aed135af65a9c132cc3677454948eeeb9","2016-02-17 15:58:14+00:00","Merge 'Don't hide database column programmer errors'
+"
+"28df9e01d9f6123e160963267bdd3a7efff3ee97","2016-02-17 16:03:19+00:00","Merge 'Never return a null CursorLoader'
+"
+"ea1aaea2c2fa28e7599ffd7df29c8d5e2b29312a","2016-02-16 21:42:21-05:00","Hygiene: Don't rely on hard-coded image db column index.
+
+No functional changes intended.
+
+Change-Id: Ib1bfca108b76b758b5e76799420e60770616a8c3
+"
+"5eed6f9c774934fe34402f92e278f678378ea3ce","2016-02-17 10:05:11-07:00","Hygiene: centralize loader IDs
+
+Centralize loader IDs which must be distinct. No functional changes
+intended.
+
+Change-Id: Ie216476db99fc1efc6e601676a76d59d5958803c
+"
+"bf057fb08fbd407b376d88197ebe734f02ccb655","2016-02-17 17:24:14+00:00","Merge 'Implement custom strings and EventLogging for Wikipedia Zero'
+"
+"462a06c37ef77fc2796b3d4ed8bd00d0c8720bf7","2016-02-17 17:39:29+00:00","Merge 'Log action extlink-always when user switches off Zero exit warnings'
+"
+"433dc0bd90ef42e29ee9a06ee260ce0416a12d3c","2016-02-17 18:59:04+00:00","Merge 'Log extlink action when appropriate'
+"
+"d0f1f5d3575dfc5375d1c05374ca0f08b6a52cd5","2016-02-17 12:17:32-05:00","Implement A/B test for beta search autocomplete feature
+
+This will test the user engagement of the new beta autocomplete search
+generator against our existing prefix search.
+
+Note that this will make an undocumented (but permitted by the server)
+change to add a third 'autocomplete' value for the typeOfSearch field.
+
+Bug: T125984
+Change-Id: I19571459f09e260415f2f53fdb1d7a96b6af13d3
+"
+"18e23c27ec1a48713002f77ce38e32ea6bb5a6fc","2016-02-18 06:24:11-07:00","Don't hide database column programmer errors
+
+• Replace a couple missed Cursor.getColumnIndex() invocations with
+getColumnIndexOrThrow().
+
+• Remove superfluous constructor.
+
+Change-Id: I2fce45f2452aba2a42d71ca144336e84264bfd56
+"
+"2e6f7f8b880440196f2411ff59c2ebe2bd402d42","2016-02-19 15:42:36+00:00","Merge 'Implement A/B test for beta search autocomplete feature'
+"
+"cdf36c69915574a3cf9d3c6082231cb9dd4ef454","2016-02-19 15:52:05+00:00","Merge 'Hygiene: centralize loader IDs'
+"
+"5f5dda7d6a5c0c7c330bf79aa18fd9528088a0e1","2016-02-19 10:03:52-07:00","Remove boot permission from F-Droid builds
+
+Bug: T127479
+Change-Id: Iba5d03b2425e0f407f3e32ecf80aaf750757d96b
+"
+"8ebf91d65271e54c7e9431d8f5246709f9d1f169","2016-02-18 06:27:26-07:00","Hygiene: move a couple SharedPreferences to Prefs
+
+• Move a couple SharedPreferences to Prefs.
+
+• Use color constants instead of Color.parseColor.
+
+Change-Id: I2a06f89911eb1a1fb5fb07e6f8ec64fb574500bc
+"
+"c1cb7aa32555bcaea40a50f4eef53e131a996e63","2016-02-19 18:42:46+00:00","Merge 'Hygiene: move a couple SharedPreferences to Prefs'
+"
+"2b41f72bcb237a65c690b92a9b4fbee468d9ac97","2016-02-11 12:37:09-07:00","Add stub authenticator
+
+The sync adapter's account is user visible even if the sync adapter
+itself is not. This means users can add or remove a Wikimedia account
+from the system account settings screen. This patch enables that
+functionality but doesn't provide an account that is usable by other
+apps, including other app flavors (dev, alpha, beta, prod), which is a
+future improvement.
+
+Change-Id: I0b562771d89787b589a1273bed87505c88cbd29c
+"
+"6663ac765d2e9023727309b79c6d3900d46bffb2","2016-02-12 00:16:48-07:00","Hygiene: consolidate RestAdapter factory
+
+No functional changes intended.
+
+Change-Id: I06fcca965a8aef09d7d7a646aeffb2cd44edf42e
+"
+"f1a50adf0bcb550114cf0df42283d206ed7e45d7","2016-02-12 00:25:00-07:00","Work around empty Retrofit POST request bodies
+
+https://github.com/square/retrofit/issues/854#issuecomment-159750494
+
+Change-Id: I738c1d739e8bc871e4392b64050e7083ab72c40f
+"
+"be0be0f77ae705b6afab0e4339c7adfabc2cd6c9","2016-02-22 17:34:32+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I88f335396dc1cb8ac6752a65356a569113edee6e
+"
+"7adea3809b62940b388fb9ef5a7edc6fbf7b26eb","2016-02-18 11:55:24-05:00","Fix memory leaks (for real!), part 1.
+
+My ongoing search has finally yielded some tangible nuggets.
+Exhibit A: Adding a TextWatcher to a TextView, but never removing it! (The
+TextWatcher holds a reference to the fragment, thereby leaking it)
+
+Also, now explicitly removing the onItemClick and onItemLongClick
+listeners from the ListView, since this seems to lead to a leak in
+API <20.
+
+Change-Id: I497ebd37f3059b420622416a66ee5b87a15a2d0c
+"
+"82d5024ca07fa5e6e57be7d23e985fdafc3497dd","2016-02-18 18:16:53-05:00","Prevent leaks of link preview dialog.
+
+Explicitly set a few listeners to null, which were holding references to
+LinkPreviewDialog beyond its lifetime. For some reason, this leak was only
+manifesting itself in API <20.
+
+Change-Id: I3d9e84a9fc4b19af029b007ab15d31c18db4a495
+"
+"87a1302d966208fb4a7efd5a72e5f14009cbae34","2016-02-23 10:58:30-05:00","Prevent leak of GalleryItemFragment.
+
+Once again, the leak is prevented by clearing out several listeners that
+hold references to the fragment.
+
+Change-Id: I6127b983a87c379ebd66d210103bbd83a6134b95
+"
+"04ffd3e718e3854b808234ce4d5f68a330103dd2","2016-02-23 17:08:01+00:00","Merge 'Fix memory leaks (for real!), part 1.'
+"
+"de53f8dfe36ab78545a988e43d912eb5caf15e49","2016-02-23 17:17:00+00:00","Merge 'Prevent leak of GalleryItemFragment.'
+"
+"134cb3e244ac96a526f516b17b4bdf1d474350d6","2016-02-23 12:42:56-07:00","Throw exception on failed insertion
+
+Change-Id: I0fd6a12c30075605147738653ea3925e6834c18e
+"
+"f267f91126e93d938e6f90a727336f9295c678eb","2016-02-23 12:43:54-07:00","De/register event bus in onDestroy/Create
+
+Registering and deregistering the event bus in onStart / onStop is too
+aggressive and may cause events to be lost. The previous implementation
+also registered in onCreate but deregistered in onStop.
+
+Change-Id: Ie6bb004696cc0d77e8db32e40a52074435fd1a94
+"
+"c3edc5897887e7ae26a18d431d4d9609a519e10d","2016-02-23 21:01:05+00:00","Merge 'De/register event bus in onDestroy/Create'
+"
+"584f6a034fb6c92808d95fa5991278aab0f926c6","2016-02-23 16:29:36-05:00","Hygiene: Rename Restbase server classes to match MW API server classes
+
+While writing the Wiktionary definition endpoint I had the idea that a
+definition for our purposes was notionally separate from a page, and so
+I renamed these.  But this doesn't reflect the endpoint structure (which
+still contains /page/) and ruins the correspondence with the MW API server
+classes.  So it's better to change them back.
+
+Change-Id: Icc848f4fddc56b400efdf7214bd058d574836bda
+"
+"4f25a3e3c4b51045c872d503a89ae6b4abfb5ec9","2016-02-18 18:05:50-05:00","Prevent leaks of PageFragment.
+
+This prevents leakage of PageFragment by explicitly setting a couple
+things to null -- the tabsProviderListener and searchBarHideHandler, both
+of which maintain references to the current fragment beyond its lifetime.
+
+This also adds a method to our custom WebView to clear all of its
+listeners.
+
+Change-Id: I3d710f2476a0c5bdd79a853721f0992d9ca037bb
+"
+"235c78cdb43bd90dd0790f6a2bd173f4bf5155b3","2016-02-24 16:55:08+00:00","Merge 'Hygiene: Rename Restbase server classes to match MW API server classes'
+"
+"bb8856b1e53db948f54d7d0241c4bc3671bc1466","2016-02-12 00:46:02-07:00","Add user option data client
+
+No functional changes intended at this time. This code is exercised by a
+subsequent patch.
+
+Change-Id: I7a3f3663dcd9c383d84bf2ca16eafb8a1469e491
+"
+"45e0e165675c9f0501522ca730d0a3b57082c3ff","2016-02-12 15:09:18-07:00","Share cookies with meta, fix meta language header
+
+• Share Wikipedia and Wikimedia site cookies. This will allow us to
+use meta.wikimedia.org with the login cookies from en.wikipedia.org,
+for example.
+
+• Note that meta is not a language and don't send it in the
+Accept-Language header.
+
+Change-Id: I13f5efb0a1bf9fbfe0e9798ef0fa3ec3010175f2
+"
+"bca4dd406ccb12f23406445c29b4864aed2f4c03","2016-02-24 14:49:45-05:00","Finish harmonizing RESTBase and MW API server classes
+
+Completes the work begun in https://gerrit.wikimedia.org/r/#/c/272853/.
+
+Change-Id: Ifd9f155604eea7e1709094a5e0ed56760b49db37
+"
+"709c1b2a12420c8b19477724b8afa5a58bbbbb5b","2016-02-25 09:17:24-05:00","Prevent leak of EditSectionActivity.
+
+Again, set a few things to null, and don't use a 'final' context that is
+used by anonymous classes.
+
+Change-Id: Idd08e41e4b6ce833d8d2ed1f5f4b8d9e5ab739da
+"
+"50e93b21d04cf74587bfde50f8cb0d714bf52d47","2016-02-20 10:05:51-07:00","Add user option database
+
+Bug: T124350
+Bug: T103903
+Change-Id: Ib891604ad757429a5282d3c44578c3237de916db
+"
+"c0a12b5c76fca7d6a3161b91aa59c52451dd62c6","2016-02-25 16:31:50+00:00","Merge 'Prevent leak of EditSectionActivity.'
+"
+"13ea2e4c1ac13613a6744f2f0cf91bbf5e5d5143","2016-02-25 16:32:42+00:00","Merge 'Finish harmonizing RESTBase and MW API server classes'
+"
+"0aff7de8391174589cac485ea7b4b215b8be7a78","2016-02-25 14:28:40-07:00","Hygiene: update Site Javadocs
+
+Add and update the Site Javadocs using URL syntax terminology[0]. No
+functional changes intended.
+
+[0] https://en.wikipedia.org/wiki/Uniform_Resource_Locator#Syntax
+
+Change-Id: I40d652ff07d25775299d20c31ace2baa78ea8435
+"
+"3222420261fc1658a146eccaa13eb17543daf4d3","2016-02-25 14:51:36-07:00","Hygiene: update Site member names to URL syntax
+
+No functional changes intended. Update Site:
+
+• Reduce ambiguity by renaming members to match URL syntax
+terminology[0].
+
+• Reduce verbosity by renaming members to leverage type information,
+like dropping the little m on member variables.
+
+[0] https://en.wikipedia.org/wiki/Uniform_Resource_Locator#Syntax
+
+Change-Id: Ib43051785969d78d35690b4bdd337c80ce9550ac
+"
+"d53e6bcea3d3f9e01eba3f593dfbfd1dc3b06d78","2016-02-25 14:59:39-07:00","Hygiene: reorder Site members by client interest
+
+Reorder Site members:
+
+• Member variables on top, public first.
+• Public static methods.
+• Public constructors.
+• Public methods.
+• Overrides.
+• Privates.
+
+No functional changes intended.
+
+Change-Id: I628bfb5d40e8b928730a8c0f6457a3f30daf8c38
+"
+"75318929cbe14b2a7e8feeb81efee232f29862f5","2016-02-25 15:36:16-07:00","Hygine: infer nullity in Site
+
+Change-Id: I71fe13eacf35fb9c8a9d8f7c04ce39dfaf81febe
+"
+"d37b360190b588fe00a4e9beded19bad1f90c14b","2016-02-26 16:56:07-07:00","Update language list and templates
+
+Run generate_wiki_languages.py and make-templates.py.
+
+Change-Id: I9825317fed0a433feac6d9024b2b05bc5d7e9bfe
+"
+"d75aa012bb66fd087d492f21b70751f574f15d44","2016-02-29 08:06:21+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I5f1927bd9bbe28eee8e4cb280380714db4a9893c
+"
+"6f51717e636e2388a28cdb90f843327211f974ac","2016-02-29 17:09:11+00:00","Merge 'Localisation updates from https://translatewiki.net.'
+"
+"373e7bd069f57f31447cf907378987e6182fe394","2016-02-29 18:10:44+00:00","Merge 'Hygiene: reorder Site members by client interest'
+"
+"4e45ce301ecb9a79f1afe092d9214003567b497d","2016-02-29 20:59:25+00:00","Merge 'Hygine: infer nullity in Site'
+"
+"33284ceaf2d079c6238e6097175ad791e899c649","2016-02-25 15:54:24-07:00","Convert Site HTTPS constant to variable
+
+Replace the Site HTTPS constant, true, with a variable defaulting to
+true. No functional change intended.
+
+Change-Id: Iac42f127b4083247f79de6554c35363e8ff282b8
+"
+"b5e089e4e64e39e5e711c764c40805abde680f82","2016-02-25 16:17:32-07:00","Hygiene: move URL scheme from WikipediaApp to Site
+
+Move WikipediaApp.getNetworkProtocol() to Site.scheme(). Since
+getNetworkProtocol() always returned 'https' and Site.secureScheme is
+always true, this change should have no effect.
+
+Change-Id: Ie26251537dfca08fa881d2b16170e1b5dbbacdc9
+"
+"1fdc79585e9f2fc5eaf0075e38a5924cccc367db","2016-02-26 10:11:35-07:00","Convert Site implementation to URI
+
+• Change the site backend to use the URI class to encapsulate scheme,
+host, and eventually port.
+
+• Add MediaWiki base URI to developer settings for testing custom
+installations. Port is not yet respected.
+
+Change-Id: Iab6eeb6843d406b616c6e7689520af4d909d7e8d
+"
+"cf550550c0d4dfbe6057029d1aa9d7e2b0efa176","2016-02-29 14:34:40-07:00","Add support for no language wikis
+
+• Don't assume nonempty language code.
+• Add empty language for development to the end of the language list.
+• Fix comparison of a null and an empty string in StringUtil.equals.
+
+Change-Id: I1ba833d8ae5b049233683c3bf3e10ebae9304d74
+"
+"57b643c5b52ce54045db77ec18cdbbc75dcf430c","2016-02-29 17:11:10-07:00","Avoid deriving language from URL
+
+For certain dialects, deriving the language code from the wiki site may
+not be possible. Upgrade the database with a language code column and
+use the URL + language code constructor wherever possible.
+
+Change-Id: I0ff30395b8dae58f5d7e26326274c3db79996177
+"
+"2256ef11e0d3f05a8d0d20374a47f7e987399994","2016-03-02 10:39:54-07:00","Hygiene: remove unused code
+
+Change-Id: I3964aa07457dc3f0ea6b03bb493eb0d90a87e6d6
+"
+"6c1c2ab745d5d07b170bc5b1d633093fefbd5fae","2016-03-02 19:29:16+00:00","Merge 'Update language list and templates'
+"
+"39dad3df4bba69291bd4051a0dcda7733bdeeb39","2016-03-02 19:40:06+00:00","Merge 'Hygiene: remove unused code'
+"
+"8f829e3c324f778fa83af59ee6d0657fe50a8eba","2016-03-02 20:16:50+00:00","Merge 'Avoid deriving language from URL'
+"
+"636c02deaf3e8a437a7338d2e045f2491c5ef5fe","2016-03-02 15:28:22-07:00","Revert 'Hygiene: remove unused code'
+
+This reverts commit 2256ef1 as the code that needed it hadn't been
+merged.
+
+Change-Id: I9ad639dc29e5f113f67cf2d0234b5081f82814cd
+"
+"16f9cabd8a45211b49e8bb02b26828145abbabd0","2016-03-02 15:45:57-07:00","Hygiene: replace while loop with for-each
+
+No functional changes intended.
+
+Change-Id: Ife56504fecb2e71e39c8a91bd6584f09707fb843
+"
+"dc8c31f5d34cc3d7bc59b22d118a6dd986be57a2","2016-03-03 00:55:22-07:00","Add X-Analytics request headers for previews and pageviews
+
+preview=1 is set whenever the summary endpoints are used
+pageview=1 is set whenever the lead section requests are used
+
+This is done for both MW API and RESTBase endpoints.
+For the MW API we need to add it to the lead section request since the
+Analytics Refinery uses the legacy lead section requests.
+(We don't want to count both the lead section request and the remaining
+section request as separate pageviews.)
+For consistency sake I did the same for the RESTBase case, even though
+there it's not strictly required.
+
+Bug: T128612
+Change-Id: I497691fed1ab30d62a7f3359503bc099e0be0f02
+"
+"5dea194f5fc6c1795bf7fdbb280273dc7c0b899f","2016-02-29 17:52:36-07:00","Use URL authority instead of host
+
+Bug: T120415
+Depends-On: Iffe3cf1a0ebc75da22362706cc743b69ba8b9755
+Change-Id: I23516ad1c2239f5fee6f2c0e7bd163dc220f8bb7
+"
+"7a9cac91a44d047a371081f9d158430624124363","2016-03-03 17:22:35+00:00","Merge 'Revert 'Hygiene: remove unused code''
+"
+"f8100ee5b391d3139847f21826fbe9f6b03fe489","2016-03-03 17:31:16+00:00","Merge 'Hygiene: replace while loop with for-each'
+"
+"740837cbc115ce3b91fc9aa471571d2a32eb7283","2016-03-03 18:06:56+00:00","Merge 'Add X-Analytics request headers for previews and pageviews'
+"
+"5ff2e06c115a198d55891fcf65c78f0cefbd4808","2016-03-02 15:44:38-07:00","Hygiene: tidy up XML
+
+• Close empty tags as reported by Android Lint.
+
+• Remove redundant rectangle shape attribute for shape tags.
+
+• Fix indentation on some files that had none.
+
+• Remove unused namespace.
+
+No functional changes intended.
+
+Change-Id: If4996c3e225d211fc877a7a55829cf2693d4fe17
+"
+"fa63baf997ace395bd9b14466df8502d925e1e77","2016-03-02 10:36:33-07:00","Hygiene: move DatabaseTable.Column to new file
+
+• Move DatabaseTable.Column to org.wikipedia.database.column.Column.
+
+• Replace anonymous Column subclasses with IntColumn, LongColumn,
+StrColumn, and IdColumn.
+
+• Fix a couple type parameters.
+
+No functional changes intended.
+
+Change-Id: Id00e093d2ab2476259c4fadb3e2ec59760051ff1
+"
+"ac821bb0881b1759282a0b8b2339e1c6367c18a9","2016-03-02 12:21:35-07:00","Hygiene: add missing type parameters
+
+• Add missing type parameters.
+
+• Use DatabaseTable.getColumnsAdded() for unhandled database versions.
+
+• Make Column.val abstract.
+
+No functional changes intended.
+
+Change-Id: Ia5a2d11ada3823206b16123c7bdcf7cc0eb0d653
+"
+"30140c84f35a74bc36dc4a8d09bb021c0a4b3994","2016-03-02 12:35:28-07:00","Hygiene: use getDBVersionIntroducedAt on upgrade
+
+DB upgrades invoke DatabaseTable.getColumnsAdded() which should use the
+value of getDBVersionIntroducedAt() for its initial case. Change
+SavedPageDatabaseTable to use this value and replace the hardcoded
+initial version with a symbol in HistoryEntryDatabaseTable and
+PageImageDatabaseTable.
+
+Change-Id: I02104b294d19a69d7d737e1e023ba4d691bee4ff
+"
+"11e23e800d6914e82ec920ad04b2b3ea0a3e3561","2016-03-02 17:50:59-07:00","Hygiene: use Columns instead of Strings
+
+• Encapsulate column SQLite as Column types.
+
+• Add DateColumn for timestamps that are always converted to Dates.
+
+Change-Id: I8d99b0fcd4470abb6027806c0bad80d9b9f75bc5
+"
+"1eb6fd36f073b28fe485833a40bac267fe8a7afc","2016-03-03 15:29:17-07:00","Hygiene: replace hardcoded table and column names
+
+• Replace hardcoded table and column names with symbols. This could be
+better yet but using symbolics is an improvement.
+
+• Generate symbols for database table constants in build.gradle.
+
+• Move DatabaseTable table name dependency to constructor instead of
+override.
+
+• Remove DatabaseTable column name helpers now in Column.
+
+No functional changes intended.
+
+Change-Id: I3bc07699a7b3758cc42ef6bc06cb71a4202e0f4f
+"
+"3ab839fa154a211ed1649e5a3f6f28ceea34479b","2016-03-03 16:19:33-07:00","Fix regression when upgrading database table
+
+Pre-namespace tables do not have a language column. Derive language from
+the wiki site during db upgrade.
+
+Change-Id: Ic4d70b90adedaf418917c8a1ced392f9560feac6
+"
+"43186ee63815796535324e64347ff7fcf0fe943c","2016-03-03 16:21:36-07:00","Fix database upgrades for multiple column changes
+
+Multiple columns cannot be added in a single alter table statement[0].
+Add columns one at a time. Upgrade path tested in prod v2.0 (2015-03-23)
+to this patch (database versions 5 - 10).
+
+[0] http://www.sqlite.org/lang_altertable.html
+
+Change-Id: I173556958c23968f33d6c62ec8eb0fb998747c52
+"
+"4833fd46ff7f4563c7e38c755a55d73eabb9ff03","2016-03-04 00:34:15+00:00","Merge 'Hygiene: tidy up XML'
+"
+"3d74cda0bc468a5f5da2c98009e79199e21b817a","2016-03-04 14:53:15+00:00","Merge 'Hygiene: use Columns instead of Strings'
+"
+"bf33e61e36c9a046155b2abbbea4237c68f7a916","2016-03-04 15:18:03+00:00","Merge 'Hygiene: replace hardcoded table and column names'
+"
+"6bb9950df74bbfd878a5c083f762c010d921371a","2016-03-04 15:29:54+00:00","Merge 'Fix regression when upgrading database table'
+"
+"16f63090636de36c33841d5fe2b2decb4b2520ba","2016-03-04 16:46:11+00:00","Merge 'Fix database upgrades for multiple column changes'
+"
+"d026cc1789642fb5b3069ec23701a65280664b25","2016-02-23 12:29:50-07:00","Add user option sync adapter
+
+Bug: T124350
+Change-Id: Ibb3428ac4b35e114b3f753488f5dbc38ab029095
+"
+"e0b16ac1ad0ac94f2623248b71b20d0a74453754","2016-02-23 12:32:08-07:00","Add user options database to dev settings
+
+Change-Id: I11f8955aebd4e2f7d725a4860033dd80cf3b78b6
+"
+"9b17528e88becd87d7920f44ab2030abd18ffe04","2016-03-07 17:19:21+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I86cf393fc68716630466b9b67f78acec1be87193
+"
+"2805e1c65b1d3d4f44c143df58921ffb6ed4fc3f","2016-03-07 18:40:24+00:00","Merge 'Add user option sync adapter'
+"
+"c5a888f02df0d12052c5f43acbc17ff18bf4bf3e","2016-02-18 23:47:44-07:00","API client for reading lists, part 1
+
+read only operations:
+* get lists
+* get pages in a list
+
+Bug: T126750
+Change-Id: Ie0b719351e9eaa08716cbfc131fb2e0b5a057b01
+"
+"7dfd94e4e0c3efb4225d242757cf28b6ffb1e375","2016-03-07 11:45:11-07:00","Move option sync from app to PageActivite.onCreate
+
+Synchronization of user options should occur at least as often as the
+page Activity is created. Move synchronization from
+WikipediaApp.onCreate to PageActivity.onCreate.
+
+Change-Id: I2812e7150cfa039cd1f4eaa53753c75e17ae3e59
+"
+"2008e0508faac08c8b2d365629f302843fc25aeb","2016-03-07 18:45:56+00:00","Merge 'Add user options database to dev settings'
+"
+"741464c8022625978e86a63a40023d898f123e3a","2016-03-07 13:53:48-05:00","End A/B test of morelike 'opening_text' query.
+
+Change-Id: I372c46a03910125edac3d99caf295e7554eab323
+"
+"44c930bb10cd6e721eb58cbbf76a90e95783e036","2016-03-07 19:07:24+00:00","Merge 'Move option sync from app to PageActivite.onCreate'
+"
+"c9c4c8d536e9d39c44e24b0692a8c14886f21320","2016-03-07 19:19:46+00:00","Merge 'API client for reading lists, part 1'
+"
+"7bd246d15591565617923ecf18266b1acd9a8e19","2016-03-03 17:05:34-07:00","Change RB remote config key for production app
+
+This is to ensure that for the production app only the latest app version, which
+sends the correct x-analytics: pageview=1 header, gets to use RESTBase and
+the Mobile Content Service.
+
+Bug: T126934
+Bug: T128612
+Change-Id: Ie49d02141402ede6c292244d223531ee2ef76575
+"
+"c630fa238dbd886fd44784d2e8cd66e7e0baed72","2016-03-07 13:42:43-07:00","Bump versionCode
+
+Change-Id: I2d369c1beefc021c03694eb1be080070072fe95b
+"

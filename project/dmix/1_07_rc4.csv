@@ -1,0 +1,60 @@
+"commit id","commit date","commit message"
+"1b392679362b15d9c4c86f4edacd3752c2d3e149","2014-11-20 16:31:50-08:00","dmix: iml updates for AS 1.0RC1
+"
+"4b7c035c0003174f6cf5233516e054acd69152ba","2014-11-21 12:15:39-08:00","MPD: Fix (very) slow add.
+
+This fixes #635 using MPD's commands, if available.
+"
+"1a1478a84d110a39c28f1d30f46b57cb5daa8cf4","2014-11-22 09:14:15-08:00","MPD: Make album adding a bit more greedy.
+
+This fixes a regression with 4b7c035 where the album would be added without an
+artist being specified. This also adds a helper method, no documentation as
+this code is likely to be rewritten prior to next release.
+"
+"bad737d3c18c82a0faf32d9c7a2ff01fedff3fa7","2014-11-22 06:46:07-08:00","StreamHandler: If the headphones plug is pulled, turn streaming off.
+
+If the headphone plug is pulled, it's a likely expectation that the user no
+longer wishes to stream.
+"
+"6072f1459419e047a5809fd6c2bf2dba6791f1b7","2014-11-22 06:51:05-08:00","StreamHandler: If the stream is stopped during buffering, don't play.
+
+This should fix an inconsistency bug where if a stream was playing, and the
+stream would be stopped by the checkbox during buffering, the stream would
+continue playing and there would be no way to control stopping it without
+killing the instance.
+
+This fix is essentially the same thing as before, only slightly more strict.
+"
+"b3885fcb5f57f08c172254c1762e2894ec94df33","2014-11-23 10:24:15-08:00","MPD: Move Genre adding to MPD, incorporate find add support.
+
+The GenreFragment has always added it's items externally from JMPDComm, this
+patch incorporates the functionality and adds support for findadd/searchpladd.
+"
+"713d491800f93aa2e1a0d2d066a9648e5e435e91","2014-11-26 21:50:08+01:00","Fix old icon for Nexus 6
+"
+"d4f5ccaf5d898beafe80bb8527e4e756bf941b1d","2014-11-26 12:31:49-08:00","gradle: Update for AS 1.0rc2.
+"
+"515c9b6d56bc76ce33ed9642819e10ef27b78b9f","2014-11-27 17:22:04-08:00","PlaylistEditFragment: Fix playlist file track removals.
+
+This commit fixes a regression from ef2484a where playlist files were given a
+position as a song id, since they don't have a natural unique id by design.
+This didn't make sense from a JMPDComm standpoint, so it got removed. Then I
+found the regression which playlist track removals required a unique songid
+so, this patch implements playlist file track position as a UID in MPDroid.
+"
+"caa287c12cdb24ac66a91f14c751bbc746364813","2014-11-27 19:55:28-08:00","PlaylistEditActivity: Fix updating, move to command queues as possible.
+
+Removing and playlist editing was still not working correctly, this is an
+attempt at fixing this behaviour.
+"
+"fd12d8fc641f8de44e2f0ba4d5622d4d0dc3fd5f","2014-11-27 20:32:55-08:00","StoredPlaylistFragment: Update the list after editing.
+
+This means we do twice the work due to being stuck doing it in onStart() as
+well, but it's better than possible inconsistency.
+"
+"c7e667242c74710e4e1907079c28348efc5ec6b8","2014-12-01 00:26:03+01:00","Fix CUE problem for contextual menu
+"
+"3e205d5b6665f69d6af30ff612e94036aa88ee1a","2014-12-01 00:27:53+01:00","1.07 RC4
+"
+"c3913dac0e094061410b1c2ee35a180aafd1f9f8","2014-12-01 00:28:04+01:00","Merge branch 'release/1.07_RC4'
+"

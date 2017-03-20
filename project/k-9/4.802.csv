@@ -1,0 +1,223 @@
+"commit id","commit date","commit message"
+"ad2fdbdc0017c317fc6056c4e52f8d194f24a3a2","2013-11-10 17:24:16+09:00","Updated Japanese translation of the changelog.
+"
+"ee98624a41e829a15ccd64a42d37f87ce3ae4f3e","2013-10-30 00:49:16+01:00","Update Polish translation
+
+new strings + one typo
+"
+"45a725b51b3da21e3096c4fc1799200300322456","2013-10-30 10:18:31+01:00","Update Czech translation
+"
+"b8786d27bf351543c5ae264858c79ebc17277fc3","2013-11-01 09:54:44+03:00","Update Russian translation
+"
+"14b291a4dee276ca45a8bae1c4fad8f5e39dd69e","2013-11-01 09:15:26+02:00","Update Greek translation
+"
+"c4b44bb6e358f3130925058f7b9b4d5ba48805b2","2013-11-01 10:51:45+01:00","Update Hungarian translation
+"
+"3170de4229ae68d7724ef9c9c4ed88a0fdaf3bfb","2013-11-10 22:58:16+01:00","Clean up Hungarian translation
+"
+"7ab9d5c3e81720cc233e8698e2ae225c0b9428e7","2013-11-10 23:19:20+01:00","Merge branch 'translations'
+"
+"266a71513828474059e0bcc37173a91cba05f4f1","2013-11-10 00:25:10+00:00","Use TrustedSocketFactory for STARTTLS.
+
+The TrustedSocketFactory, which provides goodies like better cipher suites and
+TLSv1.2, was only being used for tunnelled connections.  Use it for STARTTLS
+connections as well.
+"
+"6ebec693831ca900cab8b1e3c96282848e6d5581","2013-11-11 01:09:09+01:00","Recreate app icon from SVG file
+
+Add higher resolution icons so K-9 looks snazzy on newer devices.
+"
+"583d1d403f9a6aad487a609503e11a94096e52cb","2013-11-23 13:26:57-05:00","Fix inadequate certificate validation
+
+Proper host name validation was not being performed for certificates
+kept in the local keystore.  If an attacker could convince a user to
+accept and store an attacker's certificate, then that certificate
+could be used for MITM attacks, giving the attacker access to all
+connections to all servers in all accounts in K-9.
+
+This commit changes how the certificates are stored.  Previously, an
+entire certificate chain was stored for a server (and any of those
+certificates in the chain were available for validating signatures on
+certificates received when connecting).  Now just the single
+certificate for the server is stored.
+
+This commit changes how locally stored certificates are retrieved.
+They can only be retrieved using the host:port that the user
+configured for the server.
+
+This also fixes issue 1326.  Users can now use different certificates
+for different servers on the same host (listening to different ports).
+
+The above changes mean that users might have to re-accept certificates
+that they had previously accepted and are still using (but only if the
+certificate's Subject doesn't match the host that they are connecting
+to).
+
+This commit modifies AccountSetupBasics so that it now calls
+AccountSetupCheckSettings twice -- once for checking the incoming
+settings and once for the outgoing settings.  Otherwise, an exception
+could occur while checking incoming settings, the user could say
+continue (or the user could accept a certificate key), and the
+outgoing settings would not be checked.  This also helps with
+determining if a certificate exception was for the incoming or
+outgoing server, which is needed if the user decides to add the
+certificate to the keystore.
+"
+"f95ab8f6a8b6336d265f83ec4822cec67b9875f2","2013-11-11 13:29:14+01:00","Fix contact picture color generation.
+
+Make sure to return different colors for senders with different name,
+but the same mail address (e.g. mails sent by certain issue tracking
+systems).
+"
+"5282fe482f689899499bd419a5443a14dc2c6f41","2013-11-29 05:33:48+01:00","Properly save and restore instance state in AccountSetupBasics
+"
+"8a6e8de56d7248a44e4b5c4f95774edd3ab6ef1d","2013-11-30 18:34:57-05:00","Eliminate the need for reflection to access hidden API
+"
+"9cc98bcd3348a647ce72cf3298d531af091d7b51","2013-11-29 10:49:52+01:00","Add unit tests for TrustManagerFactory
+"
+"a2162e4c37763db1faefe2bfaa6b0008e5b60957","2013-12-02 14:04:40-05:00","Extract code into new LocalKeyStore class
+
+Also, implement the ability to configure an alternate key store
+file location. This permits the running of unit tests without
+clobbering the live key store file.
+
+Also, add a test to confirm that the key store file is being written
+out and reread correctly.
+"
+"07e4eb9042e6ae7b6b4961d3afc0c96d4b833a6e","2013-11-29 11:39:04+01:00","Add test to make sure we don't check the wrong certificates
+
+Right now we happily accept every certificate in our local key store as long as
+the hostname matches the certificate DN. So this test fails.
+It's not a huge deal since the user accepted the certificate at one point. But we
+want to do this right.
+"
+"fd9eb78aa3f4612a2245ecd75c3f362b18723580","2013-12-02 14:07:57-05:00","Move some classes out of com.fsck.k9.mail.store
+
+The classes are just as much related to com.fsck.k9.mail.transport
+as com.fsck.k9.mail.store, so having them in
+com.fsck.k9.mail.store doesn't seem appropriate.
+
+Move LocalKeyStore to com.fsck.k9.security
+
+Move TrustManagerFactory and TrustedSocketFactory to com.fsck.k9.net.ssl
+"
+"0c96c799ebf40e232bf2f0630eca52157ac1a6d0","2013-11-29 13:56:09+01:00","Only check against the certificate stored for a server, not all of them
+"
+"7a9663c4f955543cd771a46bff330856bf567dd4","2013-12-02 14:33:01-05:00","Implement pruning of old certificates from LocalKeyStore
+
+Certificates are deleted whenever server settings are changed
+or an account is deleted.
+"
+"ee69bd084581e2b61d0f9f85f4ba85027ab274e5","2013-12-02 16:42:33+01:00","Add more unit tests for TrustManagerFactory
+"
+"7296b67126feb9dcd1817b20c83acd6e49d6de16","2013-12-02 14:37:07-05:00","'upgrade' the LocalKeyStore
+
+Implement an 'upgrade' capability for the key store file,
+and then use it to delete the old file.
+
+The existing certs in the old file are not a security
+risk, but they are now useless because the format of
+their aliases was changed in commit a4440b4.  They now are
+just taking up storage space and memory.
+
+Users will need to re-accept *ALL* certificates that they had
+previously accepted and are still using.  (Actually, this requirement
+was effective with commit 4b57d79a.  Before that, certificates whose
+Subject matched did not require re-accepting.)
+"
+"dc5afd4b67bcbcdb4313e8f619e8f81fa385a324","2013-12-17 02:37:27+01:00","Merge branch 'cert_validation' of git://github.com/k9mail/k-9.git into cert_validation
+
+Conflicts:
+tests/src/com/fsck/k9/mail/store/TrustManagerFactoryTest.java
+"
+"9727cd6bca5445349f440fce0bf221adeb635c4a","2013-12-02 16:50:57-05:00","Move unit test class to match changes in commit 40404c3
+"
+"16aa119d65a766484bb0d66f76aa680f8a9cf0bd","2013-12-03 12:56:31+01:00","Remove LocalKeyStore's dependency on Account to reduce coupling
+"
+"8d85fe7e9eb8cd715325697f1b631300d7957344","2013-12-03 13:28:48+01:00","Remove LocalKeyStore's dependency on K9.app
+"
+"255bf1fb360aef3ef356b770e1bae3042ada20f5","2013-12-03 19:03:41-05:00","Don't delete certs. on account creation, & assure that only one instance of LocalKeyStore is created.
+"
+"8099aff8e7bec12d9080e079e1cf1595a2153183","2013-12-03 19:20:20-05:00","Eliminate the need to pass a context to LocalKeyStore.getInstance
+
+Instead, have K9.onCreate initialize the location of the key
+store file (similar to what is done with
+BinaryTempFileBody.setTempDirectory).
+
+Also, LocalKeyStore.getInstance has been changed so that it
+no longer needs to be synchronized.
+"
+"182c9dd95f9dcebaf7146ac43ad1a3a82d945573","2013-12-04 04:46:06+01:00","Merge branch 'cert_validation'
+"
+"12742d9df21d0c4d4be6451993c040fb008afb5f","2013-12-06 00:39:57+01:00","Add script to fix problematic linebreak/whitespace combinations in strings.xml
+"
+"f7f6a0e9f3011a02859928882c8c819de7ad7d17","2013-12-04 04:09:44+01:00","Change the way we harden SSL/TLS sockets
+
+Blacklist a couple of weak ciphers, bring known ones in a defined order and sort unknown
+ciphers at the end. Also re-enable SSLv3 because it's still used a lot.
+"
+"957dc2af5b62817b33294ac8e38a6b08a0a1ad28","2013-12-06 01:30:00+01:00","Replace no-break spaces with regular space characters
+"
+"927950b16c26e518cfbffc280352d9d12fe6ec91","2013-12-04 12:10:12-05:00","Change LocalKeyStore error reporting
+
+The error reporting assures an exception is thrown if
+setKeyStoreFile(null) is called without a prior call to
+setKeyStoreLocation(String directory).
+
+Also, fix TrustManagerFactoryTest indentation.
+"
+"956972b8d003ad6829a89e26dd3c4b07e5479bb6","2013-12-06 02:59:58+01:00","Remove problematic linebreaks from strings files
+"
+"e54cba22fd27ea66b9b5808c5f99d92a436d9e12","2013-12-05 04:28:28+01:00","Add support for bitcoin URIs
+"
+"26a25b8df0004bfdc6b14404de7a563ad7d9f45c","2013-12-06 03:33:28+01:00","Merge branch 'fix_strings'
+"
+"2fac2d6e0e48d783f16a2f6491198eee27d9b798","2013-12-06 06:53:04+01:00","Return proper error message when certificate couldn't be verified against global key store
+"
+"513f28e69a34dc7f89022bcfa436cd2f9ad99ba6","2013-12-06 06:41:09+01:00","Switch to a certificate that can be verified on the Cloudbees emulator
+"
+"181ce284139c88ec8c8ae50922cc6bc625ea2e49","2013-12-11 15:52:30+01:00","Fix dutch translation
+
+Fixes issue 6103
+"
+"624a16b9005b9ff72d83e5b888111da3a010997c","2013-12-12 16:48:30+01:00","Ignore all errors in initialization of TrustedSocketFactory
+
+On Android 2.2 getEnabledProtocols() throws an
+ArrayIndexOutOfBoundsException
+"
+"a275e913bc757477b8fcb8bae71e5a14301d9d50","2013-12-15 16:54:41+01:00","Fix Ukrainian translation
+
+Fixes issue 6101
+"
+"ca8d4a08d724dc3ff7f73fbac990d1b8165fa924","2013-11-11 22:28:20-02:00","Update Brazilian Portuguese translation
+"
+"74b7a7a06911f4590a47133704e5dde7fc36e994","2013-11-11 16:49:25+01:00","Add posteo.de to providers.xml
+
+Add Posteo.de to providers.xml (according to https://autoconfig.thunderbird.net/v1.1/posteo.de and https://autoconfig.posteo.de/mail/config-v1.1.xml)
+"
+"d78d43f7e9c8000b762f0eb18d2848ee2599765f","2013-11-29 06:51:51+01:00","Update French translation
+"
+"faac8670f53a891ea6c8bec02cf07e46c1adac81","2013-12-01 13:05:20+01:00","Add Azet.sk to providers.xml
+"
+"d518d47d099feadc72bea8bf938d0d9cb14a8929","2013-12-15 17:27:02+01:00","Merge branch 'translations'
+"
+"3947f05d6a21fbdaa8f14c65f89a38d0deea2a74","2013-12-15 20:50:59+01:00","Merge branch 'providers'
+"
+"c1bcdf5dbe9e8ea173c37cab39542bfb5b97c821","2013-12-08 01:01:40+01:00","Add work-around for Asus Transformer WebView display bug
+"
+"df0f6f3a8e645c23e3b0b1da8dde78557e3ae4b1","2013-12-15 19:16:10+01:00","Make IMAP autoconfig recognize 'Draft' as drafts folder
+
+Yahoo names it 'Draft' instead of the more common 'Drafts'.
+"
+"cca983fe99cde71a8b93cc89d2a3c559ef3815a0","2013-11-04 22:48:27+01:00","Upgrade Gradle build files
+"
+"6633cfb87251354263a4c4dda11a1df7e2082632","2013-11-04 22:48:58+01:00","Add Gradle wrapper
+"
+"4499ebf7e82af33b71bda5cc1278d57680594cf8","2013-12-17 03:10:36+01:00","Add changelog for 4.802
+"
+"089a5474fd619e1adf277c8cd1272d91cb75d700","2013-12-17 03:29:31+01:00","Revert 'Temporarily bump ourselves up only install on KitKat for a market hack'
+
+This reverts commit 4134685c65ecdbed5d6f85e14960b7a21dc456b4.
+"
+"38d58a68aeab4582d378384bd582a8b5edd68655","2013-12-16 21:59:16-05:00","Bumped manifest to 4.802
+"

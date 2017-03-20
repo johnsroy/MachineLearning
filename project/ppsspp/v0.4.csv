@@ -1,0 +1,464 @@
+"commit id","commit date","commit message"
+"0dc3b0b5669401c61b452bd63424974a8bd3312d","2012-11-18 22:35:08+01:00","Add a 5s timeout to tests
+"
+"451db6b9dfeebb2a70690644393b313487575b3b","2012-11-20 12:31:30-08:00","Merge pull request #69 from Orphis/testtimeout
+
+Add a 5s timeout to tests
+"
+"45369af482f2bd93ba7a3d3a4ae232de7e1e45bc","2012-11-20 22:40:55+01:00","0.31 in the UI
+"
+"237c19be9de1f1a032f3b598f058fe6c3c153411","2012-11-20 22:41:04+01:00","Activate some more tests
+"
+"db16f9309ecf6ae1b10f4fea1598b427879ceef2","2012-11-20 22:57:14-08:00","Don't crash if something goes wrong with mutexes.
+
+Probably can't happen but being defensive is good.
+"
+"fa9b9840d0516084d004d431ba35b904ca605106","2012-11-21 00:21:10-08:00","Implement LwMutex locking and unlocking.
+"
+"879efb25cc168f93383ac2cbef32637e678efd43","2012-11-21 00:28:29-08:00","Don't allow unlocking someone else's mutex.
+"
+"3934876908602c70d35058bfe3da80d3e1c26552","2012-11-21 01:48:44-08:00","Merge pull request #70 from unknownbrackets/mutexes
+
+Mutexes
+"
+"d914c394aebf6f81fd78ee7f162aa3c87aa9f2b1","2012-11-21 23:04:21+10:00","Version update for Blackberry
+"
+"1bf04790e92a7d18f61314fe8cd4c4d48fb887cf","2012-11-21 07:24:22-08:00","Darn, buildfix for debug.
+"
+"aa82ba285f68f655e5b06644167575d5ed33c021","2012-11-21 08:13:59-08:00","Merge pull request #72 from unknownbrackets/mutexes
+
+Darn, buildfix for debug.
+"
+"547945d6cea4c1f2a4998aaedc30c4f4bf24d0ff","2012-11-21 09:10:24-08:00","Merge pull request #71 from xsacha/master
+
+Blackberry 10 port
+"
+"cd93e49584bc8ce46035c178fe876012e9ab456e","2012-11-17 23:13:55+00:00","Move toplevel windows-specific files to the Windows dir
+"
+"6108e36ae9661468bb8a1bc0ae61c3584478b3f0","2012-11-17 22:44:29+00:00","Several fixes to build under stricter C++11
+
+Add missing #include to various files.
+
+strings.h isn't provided by MSVC so we don't include it there; it's needed
+for other OSes/compilers.
+
+Get rid of pre-ISO-C malloc.h includes; malloc is provided by stdlib.h.
+
+Fixes some linuxisms.
+
+Prepend __builtin_ to __clear_cache, calling it without the prefix is a
+GNU extension.
+"
+"096eae01b254fc0ade469d5611f586d7c6c5c759","2012-11-21 11:47:36-03:00","Update native submodule
+"
+"2936c334b5fc6b3d9c008dcc66471ae26ae8d777","2012-11-20 18:20:17+00:00","Add android.toolchain.cmake from http://code.google.com/p/android-cmake
+
+ANDROID_DEFAULT_NDK_API_LEVEL was changed to 9, otherwise the file
+is unchanged.
+"
+"d04a1cadca58e99d76e75c549a44d2b61c9f068a","2012-11-18 13:00:27-03:00","CMake-based build system.
+
+Tested on Windows with NMake Makefiles and Visual Studio 11 targets.
+Tested on Linux with GNU Makefiles target, using GCC as the compiler.
+Tested on FreeBSD using clang as the compiler.
+Tested for Android on Windows with NMake Makefiles and r8c NDK.
+
+Proxy-tested by xsacha for blackberry.
+
+The android build requires that the android/android.toolchain.cmake
+toolchain file is used; an error will be raised if ANDROID is defined
+without loading the toolchain file.
+
+When targeting ANDROID, the resulting .so files will be placed in
+'android/libs/$ANDROID_ABI' even when building out of tree, since it's
+where `ant` expects to find them.
+
+Since the Core library is expected to be named 'ppsspp_jni' on ANDROID,
+we also put its name in a variable that is set to 'Core' unless building
+on ANDROID, where it is 'ppsspp_jni'.
+"
+"1654eb7f8d3866dc34e5665b226e5ba7835c9c91","2012-11-21 14:53:35-03:00","Update bar-descriptor.xml and blackberry_package.sh
+
+The binary that the cmake script produces is PPSSPPBlackberry,
+not ppsspp like the old system.
+"
+"e1c91b375c74ece46057c00ee5a87a235ed4be26","2012-11-21 11:17:02-08:00","Merge pull request #73 from Kovensky/cmake
+
+CMake-based build system
+"
+"6eb81490b8f323ebac881b571ae0984783d1cc0e","2012-11-21 19:04:13-03:00","Update the README
+"
+"bb47195ca3c00bde4e110edf124996d78cab4a7b","2012-11-21 19:04:23-03:00","Add build*/ dirs to gitignore
+"
+"2b528a3680a8d58ece37d2486cd2b23aefabc444","2012-11-21 14:06:30-08:00","Merge pull request #74 from Kovensky/readme
+
+Update the README
+"
+"d7e0a0c2df4e11cefb48be1f97918e92a5476066","2012-11-22 07:56:01+00:00","Enable HEADLESS build by default
+
+Accidentally disabled by not setting it to ON on non-portables.
+"
+"a911b565abee737257e91b967a1d419cb191e0d9","2012-11-22 07:56:40+00:00","Don't set ANDROID, the toolchain file already does
+"
+"20ac169fbb1e65064950964e7a3e1ed42b8a56c8","2012-11-22 00:19:15-08:00","Merge pull request #76 from Kovensky/cmake
+
+Enable HEADLESS build by default
+"
+"975b8000fcbd6d8bed178704541ae4a4d6bb408d","2012-11-22 19:25:37+10:00","Adjust blackberry build script for new CMakeLists (redundancies, build dir).
+"
+"c14331b7f1b8200f80829f37678b4d5b3b84b6e2","2012-11-22 19:59:30+10:00","More blackberry build cleanup
+"
+"15251fe4e982d46c481961271ecea1e2e5affb28","2012-11-22 02:05:36-08:00","Merge pull request #77 from xsacha/master
+
+Blackberry 10 port
+"
+"232b84cd1079e7f385876dcc6f359038b21c9095","2012-11-22 18:12:56+01:00","Assorted FPU/VFPU fixes, after adding more tests.
+"
+"df3aad4341e58e654b3060a97f91e6424d9f267d","2012-11-22 19:00:37+01:00","Upgrade native
+"
+"8f33837de9aaa8f98815d69c99cf98a213e85673","2012-11-22 20:14:24+01:00","Bug fixing mtv/mfv, add comment
+"
+"02a94e52ee432093802d819ea284ae66fa3d7d76","2012-11-22 20:57:41+01:00","Do GPU ram<->vram block transfers. Could be smart enough to clear textures from cache but isn't yet.
+"
+"03c5e83953aa9c4adb0528edc8ee755a45bbe88a","2012-11-22 20:46:22+00:00","Some sceUtility wrapping
+
+Minus OSK and netconf
+"
+"1e687570898422582abd34e8cb5807edabcb4659","2012-11-22 13:19:17-08:00","Merge pull request #78 from tmaul/master
+
+Some sceUtility wrapping
+"
+"a6a47c0c3e268e2bc92a0c868902b74188036953","2012-11-21 22:59:26-08:00","Don't complain when PPGe wasn't init yet.
+
+This was causing BlockAllocator complaints if you closed right away.
+"
+"f41445354cd1df99d9cc2177404760ecdd882741","2012-11-22 00:09:43-08:00","Correct stdafx.h path in project file.
+"
+"772b599041b99a23fd3b7db36bbd938fd5afa9ff","2012-11-22 22:26:13+01:00","Resurrect vmfvc/vmtvc, they are different from mfvc/mtvc
+"
+"08f8f4b323b44f45aad9b3c80cad9e379d3c0093","2012-11-22 22:29:51+01:00","Cleanup sceRtc, move sceFont to its own file.
+"
+"272bce83d68707c7c241ae32e015fdebcad6a432","2012-11-22 13:31:41-08:00","Merge pull request #79 from unknownbrackets/master
+
+Remove some warnings, fix old proj files
+"
+"d141d205f8541dbfb22738345ffae3e324a14c9b","2012-11-22 23:07:15+01:00","Delete old textures, to prevent memory usage from growing indefinitely.
+"
+"e92e919926e86d3c656a0bc74419be58b069c62f","2012-11-23 01:26:12+01:00","Fix problems with additive blending, fix color doubling.
+Greatly improves MotoGP among others.
+"
+"c2c2b77792d9f2354f1c187b774d907c0be7467a","2012-11-22 16:31:18-08:00","Fix threads locking more than one mutex at a time.
+
+Duh, of course they can.  Even my test did, I'm stupid.
+"
+"d3f2d9d10bd42fdf52dbaf6006b24094d78b1ea6","2012-11-22 16:40:26-08:00","Use u64 here to avoid warnings, better precision.
+
+The timeout value is u32 anyway, so an int was already a loss.
+"
+"7a98ed79aedd91e59016c10ac411010aeb2ad3a3","2012-11-23 10:45:14+10:00","Change Blackberry build process (removed package script and integrated in to build). Removed old CMakeLists.txt. Added Blackberry build instrucions to README.md
+"
+"077e111e8a21b10612e0a34fd036ccc8521654a9","2012-11-22 23:41:21-08:00","Merge pull request #80 from xsacha/master
+
+Blackberry 10 port
+"
+"d52666171e4c4c315ee75706c65de5c656068d9d","2012-11-22 23:41:46-08:00","Merge pull request #81 from unknownbrackets/mutexes
+
+Fix threads locking more than one mutex at a time.
+"
+"6a4a26d4bfe2a20bab34e14950c16eab7ed9b83a","2012-11-22 18:33:56-08:00","No need for these headers anymore.
+"
+"21398bfcf8d135b7cddfb275b37ea48bf7107192","2012-11-22 19:03:03-08:00","Fix sceRtc module name so the right funcs are run.
+
+Makes rtc/rtc pass again.
+"
+"965eeaf9dad2a20adc15a955e4b79c6f2510a31b","2012-11-22 19:19:37-08:00","Add error handling to sceRtcGetDaysInMonth().
+"
+"c40d8a4fbe543fde21d253fd8431f78563aea6b3","2012-11-22 22:38:14-08:00","Implement sceRtcGetCurrentClock().
+
+Not sure if this needs some kind of DST handling for the tz?
+"
+"ad116632bfc6e0805281e1913057ba41eafcee97","2012-11-22 23:46:38-08:00","Implement sceRtcGetTick().
+
+Unfortunately, this fixes things so that rtc/rtc is correctly failing.
+"
+"e78c53746935906f4d4f51e0192789a8c58ae0f1","2012-11-23 00:44:05-08:00","Merge pull request #82 from unknownbrackets/rtc-funcs
+
+Implement and fix some RTC functions
+"
+"a385ec6056b8136924560ffcc570c5704aefc011","2012-11-23 10:32:35+01:00","MIPSDis cleanup, allow mfv zero, 255  (appears to be used to flush VFPU state or something)
+"
+"f3aeadedfa88dd08b90e72a807acd2ce7286fcf0","2012-11-23 10:33:19+01:00","Remove audio rate throttling, it's better to frame rate throttle. Gets rid of the slowdown that audio caused.
+"
+"a97f66766dcba9bf6d8b2dd4cc6f8b4d30bcda77","2012-11-23 12:42:35+01:00","Add 'slightly faster interpreter', optimizing the most common instrs. Not as helpful as I thought it would be on Android, really need a proper JIT.
+"
+"b9645166693fbb67d5838e37720052d589f7422f","2012-11-23 12:43:31+01:00","Fix clear mode, turn Alpha Test back on
+"
+"1968841d20f0747a83cc29a19c55ee561e57318c","2012-11-23 17:03:51+01:00","Fix Linux build
+"
+"c3635f84d31ce02d166d65d65fbf38d85b814a78","2012-11-23 17:15:38+01:00","Fix headless binary path on Linux, add shebang and exec flag to test.py
+"
+"67d09c2c262cba70e082ec30010ec02fc70ce844","2012-11-23 18:33:40+01:00","Tests diff the output and expected output until the end of both file
+"
+"fbc47cd961ba0fea2c9bf61d9e2334ba87017d77","2012-11-23 18:41:46+01:00","Strip whitespace from test result lines
+"
+"c4731cffc8dc931884d87aee604ae95b595d7777","2012-11-23 10:07:38-08:00","Change test line numbers to match IDEs.
+"
+"388eaaa0e3143ee9aa56f40fcf86869d4f0ee269","2012-11-23 10:13:55-08:00","Merge pull request #83 from unknownbrackets/master
+
+Change test line numbers to match IDEs
+"
+"fcfeeb8319c0efd865d68aae125afa8e03ffd1c0","2012-11-23 18:51:36+00:00","add sceKernelMemcpy & sceRtcSetTick
+
+Untested apart from via games. gets bemani going further.
+"
+"d78bd1bdb44e691fcd6e70edd5063a6c88220426","2012-11-23 11:09:08-08:00","Merge pull request #84 from tmaul/master
+
+add sceKernelMemcpy & sceRtcSetTick
+"
+"3642c02562a41cc820eb7f8944dff3c34a14ef3d","2012-11-23 16:25:26-08:00","Add some guards to audio funcs on channel.
+
+The atrac test was crashing.
+"
+"364061a45c40a647a21bd354425e31e375ac5648","2012-11-24 00:45:51-08:00","Merge pull request #85 from unknownbrackets/audio-crashfix
+
+Add some guards to audio funcs on channel
+"
+"56175bc50504f2b10f8fc39e19c080ae03ec9811","2012-11-24 15:19:29+01:00","Defer blend, cull and depth test changes to draw command
+
+Avoid unnecessary state changes and reduces the amount of OpenGL calls.
+It also puts all the interesting logic at the same place, reducing the
+complexity a little.
+"
+"cb7e5f11f11f06abf65b14ab27c51364ded0a96d","2012-11-24 07:01:55-08:00","Merge pull request #59 from Orphis/gpustate
+
+Defer some state changes to draw command
+"
+"eb6638bc8f2b99e8ec02df79e29e052b261022a0","2012-11-24 17:37:42+01:00","Linux fixup
+"
+"063f914ff3d25e85ca7e09b80ae08dfc3012b585","2012-11-24 09:19:40-08:00","Fix project files so things build again.
+"
+"8e09869ac25d2c0b1a867b8e0b3b39e397023855","2012-11-24 10:43:16-08:00","Invalidate the texcache without restarting loop.
+"
+"11868f26a985044c900650004a808fbfd8317f46","2012-11-24 10:58:10-08:00","Cache textures based on more parameters.
+
+This makes Tales of Eternia run much faster.
+"
+"8971ff7e997d417ca107e3ef270656ad20c0e00d","2012-11-24 11:00:29-08:00","Don't log texture cache evictions.
+"
+"f71d82fc6ed2e75c728b00e5ab08a36d7a79454a","2012-11-24 11:20:04-08:00","Merge pull request #88 from unknownbrackets/texcache
+
+Make the texcache evict less often
+"
+"4143801891f763e2fb1bcf9f828c3c34035d7e0d","2012-11-25 00:15:21+01:00","Handle depth range (zmin, zmax) in a hackish way
+"
+"7e85df9c0f222ee412356fe42e2e97222c2ee3e8","2012-11-25 00:14:14+00:00","Update sceRtcSetTick based on test cases
+"
+"68d644306e0bfb54923431949baa41654407ffb3","2012-11-25 00:22:39+00:00","Rename and retype a variable
+"
+"31aa8ed5eb087643c3f0e782301a4addf992fc04","2012-11-25 00:55:42+00:00","Update libkirk to latest version
+
+Just in case..
+"
+"abbe155971c00d4df6a3ebdb1b77bd3071295023","2012-11-25 00:57:34+00:00","Missing new line at eof warning fix
+"
+"8736a567b25af9355cb2a0aef3bb1e55daf19ed8","2012-11-24 18:25:42-08:00","Advance the PC after vrnds.
+"
+"8432c830364dd753a6c20fb914f226e1da798557","2012-11-24 18:15:33-08:00","Fix tests on Linux to behave more like Android.
+"
+"5022922a3adccbcca17a273af8383f740748855a","2012-11-24 21:45:32-08:00","Make headless take arguments like a standard cli.
+
+I like -l.
+"
+"85c9a43dc171b44335aa8b43d352a8c86d8f6ed8","2012-11-25 02:11:05-08:00","Merge pull request #91 from unknownbrackets/linux-fix
+
+Fix tests on Linux to behave more like Android.
+"
+"ec25bfc9a40c56a18401d46b2a6898ba3aede02a","2012-11-25 02:13:27-08:00","Merge pull request #90 from tmaul/master
+
+Update sceRtcSetTick based on test cases
+"
+"fc453c979fea4b990f3daa43c46158c5c574fe65","2012-11-25 12:25:07+01:00","MacOSX buildfix. Doesn't run right yet though.
+"
+"6f8f5cb39131408125b6631edb2ed33f55e59417","2012-11-25 12:39:15+01:00","Fix gl ui issues
+"
+"b039f58aea5f4748e109383f9ed65392bf070b25","2012-11-25 13:46:11+01:00","Unbreak BB build
+"
+"ced89f5983f22eb8a26e4d47228be1a50823941e","2012-11-25 15:46:51+01:00","Warning fixes
+"
+"d0f829353da9359328d64f47b450b9d680cd67a2","2012-11-25 15:49:37+01:00","Support FIXA and FIXB blend factors as well as possible.
+"
+"4b67f22072a97d94c68523deee9e37614c218b8d","2012-11-25 17:21:23+01:00","Fixes to usage of gl state stuff
+"
+"2f39496ec5ad97feb5610df2dcf003a44e6ef986","2012-11-25 17:45:50+01:00","Use ambient material color when no color in the vertex
+Fixes color in celshading demo
+"
+"c0075d83228ebd743a0bc4ff979ecfbdd4a96de0","2012-11-25 17:47:33+01:00","Special case for GL_ZERO blend factor too. Don't log on 'sync'.
+"
+"fd76b2bb158a1fac8b4ada0838bfa7a5c87b834d","2012-11-25 18:12:20+01:00","Fix ordering in gpu state struct
+"
+"6983c1cd7065a70766864fc096ec14b2ec337107","2012-11-25 20:09:00+01:00","upgrade native
+"
+"1a7ca88df4bb92639a50b854b5959aabb1421bd7","2012-11-26 01:21:14+01:00","Fix some black textures
+"
+"e3b521b89347ccb1368aa9b6abce5bf174f4d14e","2012-11-26 00:36:36+00:00","sceRtc function stubs, and some actual working functions
+"
+"a1a72b3f21d5fbfcf7d797b71d8b3764f7a951de","2012-11-26 12:41:57+10:00","CMakeLists cleanup.
+Tabified CMakeLists. Introduced USING_GLES2 and X86 option and exposed USING_GLES2 to C++. Removed some redundancies and messiness.
+"
+"3c903dda240395006fbc0fa5604ade40a708384d","2012-11-26 13:25:14+10:00","Improve portability to future platforms. Make use of new USING_GLES2 define throughout PPSSPP. Also use ARM definition where suitable. Remove some redundancy with includes.
+"
+"5019462317bcdaf9a0f343644575b66c9d076af9","2012-11-26 14:06:35+10:00","iOS Support
+Preliminary iOS support using new framework.
+"
+"a5509f2bd00bdc157699de10cb519a437af439a1","2012-11-25 23:59:57-08:00","Merge pull request #93 from tmaul/master
+
+Some sceRtc changes
+"
+"b3a6444f4ba1cfe2be9aba33c2c5372b2222f6c4","2012-11-26 00:02:30-08:00","Merge pull request #94 from xsacha/master
+
+CMakeLists cleanup; Improve portability to future platforms; iOS support
+"
+"00c218860eaeb22aac4282f6681643ae7c4c93b7","2012-11-26 09:06:22+01:00","Add -DARM and -DUSING_GLES to standalone Android makefiles.
+"
+"ec55fac3cd6b3b2efecfd874fda8d8ceeab341b3","2012-11-26 11:32:49+01:00","Float TC coordinates apparently work in through mode. Add one more special case for blending.
+"
+"b76152d88a4e9b9437fd84f36d5bb54ed4cfd5bc","2012-11-26 20:38:39+10:00","Use gl_common from native.
+"
+"3d4bc245253497fc32ac275047951cb114a8583e","2012-11-26 02:45:19-08:00","Merge pull request #95 from xsacha/master
+
+GL header Cleanup
+"
+"870ea6628b198670d172a3a63042eee5cfe0a336","2012-11-26 17:35:08+01:00","Reasonably correct viewport handling. Optional debug stats overlay (not always 100% working).
+"
+"d8c92caad92e22ea7076db322a57fdc86f6557c4","2012-11-26 18:04:34+01:00","Safer matrix loading. Change default G3D log level from Notice to Error.
+"
+"2822ce273760be7e59a97fd53ab71cea9c851635","2012-11-26 20:38:26+01:00","Temporarily disable most of the viewport code as it broke some games. Kept the flip detection.
+"
+"9b87a2a6df4a7d1aa4b83561941d0427762cd45c","2012-11-26 19:03:44-03:00","Add vim modeline to CMakeLists.txt
+"
+"3b6d413dc114a727826fc07be7ef6c03a2288d76","2012-11-26 19:04:30-03:00","Only disable the Headless target on mobile platforms
+
+As in actual phone OSes, not ARM or APPLE.
+"
+"faab4af701b3657eb93d908c6724ae00973e8a00","2012-11-26 19:06:18-03:00","Support building PPSSPPHeadless on APPLE
+"
+"cf135e5405e5c6626b420a6391673feb6c6fdc4a","2012-11-26 15:33:43-08:00","Merge pull request #96 from Kovensky/cmake
+
+CMakeLists fixes for building on APPLE
+"
+"c124c079dcdb056f88840b3d3cda9b66d0dc468a","2012-11-26 23:37:21+00:00","more sceRTC functions. Ones marked as hack either fail the tests or are a bit wrong
+"
+"ded40ee139ace17a377fe2e3388921c5284c109d","2012-11-27 00:44:52-08:00","Merge pull request #98 from tmaul/master
+
+add more rtc functions
+"
+"6db4ea2ad1ad20d80e57055d492e042aa8b04977","2012-11-27 10:18:36+01:00","less Memory::GetPointer
+"
+"4991c84868fcc6c5de64e37dbebe7025df21feb5","2012-11-27 01:31:50-08:00","Merge pull request #99 from Ced2911/endian
+
+less Memory::GetPointer
+"
+"a74af8f3727b0e82079dc098921e0e96112acad8","2012-11-27 11:40:30+01:00","Some new NIDs, log fix, very minor bugfix.
+"
+"f6fd7e13d126fd7d1a721ce5a69c3c80b759ebd1","2012-11-27 12:18:58+01:00","sceAudio wrap
+"
+"8bf93cfb5449cc5d9799b241050d9f95949743f1","2012-11-27 13:05:51+01:00","sceAtrac wrap
+"
+"156cfc4e6abdca46be99753cd98ab6486093ce1f","2012-11-27 04:12:37-08:00","Merge pull request #100 from Ced2911/endian
+
+sceAudio wrap
+"
+"6192bdf6df97c6e6ac444870cd58a82fcdf7b398","2012-11-28 04:57:30+10:00","sceIoRename function
+"
+"bad3ae3ea81e6309a0405088b3467116bc741649","2012-11-27 12:50:45-08:00","Merge pull request #101 from xsacha/master
+
+sceIoRename function
+"
+"52572d92e67c5befba901336d84ce449fdef0bb0","2012-11-28 10:38:22+01:00","Merge branch 'master', remote-tracking branch 'origin'
+"
+"111f52d67f26ebae53023613370fb295fe7f30b0","2012-11-28 11:09:12+01:00","Unbreak sceAudioOutput2OutputBlocking - must be careful about returns in blocking functions!
+"
+"980d13fe5064329417040cece68f9c84a98b128f","2012-11-28 13:45:22+01:00","Assorted GPU fixes: Advance vertex pointer, fixes missing triangles in SPT. More logging. Separate proj matrices for through and normal mode (through matrix don't need to get updated as often). Some cleanup.
+"
+"6ff2964170277ac1de5f754152dbab836e7da9f7","2012-11-28 14:01:28+01:00","Fix mistake in gpu signals, add more logging
+"
+"5fb8e6dfb07ad11efa7ec91ec2e632d03825e34b","2012-11-28 16:12:29+01:00","DXT textures now mostly working-ish (work left to do on alpha for DXT3/5)
+"
+"7a7548a70f9059fd92be646dc6a3f9cc48deae7e","2012-11-28 16:20:38+01:00","Warning fixes etc
+"
+"37f28ab4ebc34865b9423276087cada40e9e14d3","2012-11-28 17:09:19+01:00","Buildfix (?)
+"
+"de0a161be69e41b28434fa6e643069aa07bb33c9","2012-11-27 23:44:36+00:00","reduce the number of errors in sceRtc.cpp
+"
+"5d0c88334bbb4d0085543f7c433656dac2e2a47b","2012-11-28 19:24:35+00:00","9999 is actually the maximum year as verified on my PSP
+"
+"509dcded91e1189c988e4ce26ed48bfb8ca75a9f","2012-11-28 12:23:09-08:00","Merge pull request #102 from tmaul/master
+
+reduce the number of errors in sceRtc.cpp
+"
+"e370a1a8aa2458752602844e5a31fdc2c64c74af","2012-11-29 10:40:15+01:00","Fix project and .rc so it builds with VS 2010 Express, thanks Darth1701. Plus logging tweaks.
+"
+"945d9b676218ffc48205ce3eed6768cb03928d20","2012-11-29 14:35:44+01:00","Implement wsbh
+"
+"537234cc6e72d0ae0c41412de51137702179e22e","2012-11-29 14:40:11+01:00","Update test.py to look for the cpu_alu instead of cpu test
+"
+"82abb1e296cc01b7b94bd3be6ef6567d45b12d0f","2012-11-30 16:47:04+00:00","at least one game expects the UMD to be on UMD:
+"
+"96fce482bd92a4e2e322d8c002361fcd07484b86","2012-11-30 12:13:37-08:00","Merge pull request #107 from tmaul/master
+
+Add UMD: and umd: mount point
+"
+"e4c0d2d5cd4f0b3ad880cb02620c12c52d987827","2012-11-29 15:04:32+01:00","printf Asserts, so they end up in the test logs.
+"
+"aa04eaec31107064c7fd6fe88a61c321083b1f63","2012-11-29 15:06:54+01:00","TextureCache: Cleanup, memory savings
+"
+"6102e0f1433db0fbda464a5543156eea5a240a65","2012-11-30 19:33:01+01:00","Fix silly issue with logging in debug mode
+"
+"a5e35ad6d94245e36ad4a81a10dba8c08d4c4cb2","2012-11-30 21:49:59+01:00","Parse PARAM.SFO to get the disc ID, show in title bar on Windows
+"
+"e255550a8e2260282015f12f5f20a9eaf4394e87","2012-11-30 21:50:52+01:00","Update tests
+"
+"1189da826ca8c4fc09e909f661de9069cd57c904","2012-11-30 22:32:15+01:00","Also get TITLE from PARAM.SFO
+"
+"3ab41e515d189c7dd1c2c74a69322393a846b0bd","2012-11-26 00:41:55-08:00","Mutexes and semaphores don't always reschedule.
+
+It's just the normal rescheduling happening.  Previous tests weren't
+correct.
+
+Also some minor cleanup.
+"
+"71646387990186a85836cd7c29939f510ec9262a","2012-11-27 23:22:49-08:00","Allow semaphores with waiters to signal.
+
+If the max is 1, but there's 1 waiting, it's okay to signal 2.
+Really, the final result is what matters.
+"
+"48c5efd0c2f2a9cb1a6783dc10574349eb278140","2012-11-30 22:20:14-08:00","Match hw timing of mutex/sema timeouts better.
+
+Affects some tests passing/not passing due to minor timing issues, ugh.
+"
+"998104e2eb9f12ca4cbd4a4ac5565c15fe7f6f0a","2012-11-30 23:04:24-08:00","Consider threads still waiting until they wake.
+
+This seems to match the actual behavior of timeouts much better.
+"
+"a2ee73679353dc9d97eb61a7e1624a0f7ca76bec","2012-11-30 23:06:27-08:00","Process events when idle or switching threads.
+
+Fixes hrydgard/ppsspp#104, so things execute more accurately.
+"
+"f8629c514477a0dbc76427c506e9a976b3e963cf","2012-11-30 23:22:55-08:00","Update tests.
+"
+"d3109cc32758ed7867febea5c2bbe5214775c52a","2012-12-01 01:16:35-08:00","Merge pull request #108 from unknownbrackets/scheduling
+
+Scheduling fixes (mostly sema/mutex)
+"
+"d4cc0bada7c4e88237f006eb2b1e1b23054b5543","2012-12-01 02:12:30+01:00","Revert broken optimization in TextureCache (there are still memory savings to be had though)
+"
+"cdc94a6cad9d59bde9ac74d5c8707ea521bf781e","2012-12-01 02:13:42+01:00","Halve the kernel memory so that the 'volatile' 4MB fits without overlapping
+"
+"6e32b30afdf7b662f3139ae21a390a65944d5ae6","2012-12-01 02:15:46+01:00","DisplayDrawer->FramebufferManager
+"
+"ab4482a0a435cd3c113c2548c62abe6c4ac6c46a","2012-12-01 10:33:05+01:00","Respect param len in PARAM.SFO parser
+"
+"3de1259eb887a61eb5fe6bfe0c49a2b58572b08a","2012-12-01 10:39:20+01:00","Upgrade native
+"
+"815c3240bcb2767b5eee19510a42926e3ef7c5f5","2012-12-01 10:44:37+01:00","V4
+"

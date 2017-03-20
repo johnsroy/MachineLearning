@@ -1,0 +1,997 @@
+"commit id","commit date","commit message"
+"848d2ab19a44c4ba7e042f6c194978566c3d7c31","2015-10-08 18:54:38+02:00","rename colors
+"
+"45485a275de0669b545619cd3b2cdcd5d5b2b578","2015-10-08 19:40:34+02:00","add an intro screen on first run
+
+Based on https://github.com/WhisperSystems/TextSecure/commit/3035dc4df9c35f0801ea3133aeacc26a1a287d99
+"
+"1f5b8453338af2c643768171865afa95666ed49d","2015-10-10 20:24:55+02:00","Merge pull request #260 from SMSSecure/splash
+
+Intro screen on first run
+"
+"40b9110ea84d919b257e110824b1a133a6383b15","2015-10-13 14:49:32+02:00","fix NPE when changing passphrase
+
+Fixes #262
+"
+"c91f2b222ef2af23efd3c5136ded1e004f104d29","2015-11-15 16:11:14+02:00","LED doesn't blink with encryption enabled #261
+
+Notifications in SMSSecure seem to rely mainly on two public methods:
+
+MessageNotifier.updateNotification(Context, MasterSecret, long) and
+MessageNotifier.updateNotification(Context, MasterSecret)
+
+The difference between them is that the first is also aware of in thread
+notifications and triggers visual and audible alarms. Since the second
+method doesn't call setLights, calling it after the first will cause the
+blinking lights to stop. This patch changes a number of things:
+- separate the alarms into visual and audio alarms.
+- so long as the notification is not canceled, make the second method also
+call setLights if the first method was previously called.
+- removed unnecessary calls to the first method to avoid duplicate sound
+alarms.
+"
+"c15ad97909db724117e9ddd4ea464a0b3bca0e2f","2015-11-19 00:34:54+02:00","Character counter doesn't work properly since 0.10.0 #279
+
+Currently both secure and insecure SMS messages are using
+SmsCharacterCalculator to calculate remaining characters.
+Use EncryptedSmsCharacterCalculator for secure messages.
+"
+"df0e21e2c1733c22a36d5c4659bfc4a6037caee6","2015-11-20 00:22:16-05:00","Merge pull request #283 from discworld/charcount
+
+Fix encrypted character counter
+"
+"965d32694e4075f27160a72aa96154c7154db4e8","2015-11-28 21:15:31+01:00","Merge pull request #263 from SMSSecure/fix_262
+
+Fix NPE when changing passphrase
+"
+"88c8ca0298146078836411566852ef443f795c02","2015-11-28 21:16:08+01:00","Merge pull request #284 from discworld/notifications
+
+LED doesn't blink with encryption enabled #261
+"
+"bdf1c0b4ef2f81e9bba38edac7ac7c8684a5d379","2015-10-12 18:25:05-07:00","Refactor 'parts' to contain MMS/PDU madness to MMS code paths.
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4248
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/09e52834a6cc080a2234dbf01e713e12222b467c
+"
+"0905b9fded42cfaa863f0b4dbc41cac3e67fa5e6","2015-11-27 00:38:21+01:00","fix for secure mms
+"
+"f2ac5b529aadf28bda8b5c0571692a67a5f4c53d","2015-11-27 00:57:54+01:00","on android 5.0+, don't use legacy mms api
+"
+"33372c0a350809b1c2fa3f7f3dc099344cbabff4","2015-10-14 15:09:02-07:00","stop listening on old recipient changes
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4251
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/4a3faf90864d330f0d244da25a597c2bf97031bd
+"
+"3425634c524b6d705f4cd6647910282539285c34","2015-08-04 12:29:26-07:00","only load partial conversation by default
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4252
+Fixes https://github.com/WhisperSystems/TextSecure/issues/3911
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/ae97495c47afed6613a350b24661e999503f3e06
+"
+"e56c0bb807878322b0246b7a71f2a4e660ae99be","2015-10-21 15:32:19-07:00","Join attachments instead of running an asynchronous query.
+
+No more SlideDeck futures, just SlideDecks.
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/d2f44f6584e779a1215cfff9e0b45fcd353eb4d7
+"
+"2278fadc84215e32c35d41effa18cf91378ef536","2015-11-28 13:22:29+01:00","update gradle to v2.8, use upstream proguard rules
+"
+"d95a398f116873d9a82b3c8bf8878e872ac54557","2015-11-29 19:34:30+01:00","use upstream tests, remove broken AttachmentDatabaseTest
+"
+"e1109407ce72d29c2d23137da2fd3b11a6930d35","2015-10-21 15:32:29-07:00","Support for an audio view to allow in-app playback of audio.
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4270
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/15c6f18750a78474fe5ed2084070a2a60693a353
+"
+"09798d36ef2dfba8a9bd3d6b69cfb9afcbe09d47","2015-10-16 13:59:40-07:00","Display thumbnail previews for images in conversation list.
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4262
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/5111fe2e95b705ce25e041f1691665817c2f764a
+"
+"63f4eab5e9f0fb8010b3c418022f7dc56f7d8409","2015-10-23 16:54:58-07:00","Fix start/stop audio race condition.
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4289
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/2ce16297ff1dfbbc948aec1c5d352c46f95c2547
+"
+"5ac021e7c9afeae49128f63f314a7f3db3c8181b","2015-10-23 16:55:23-07:00","Reset seekbar at end of play if mediaplayer doesn't do it for us.
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4286
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/a1f46b3aaefa9eaebb110c68783170d118814e0f
+"
+"6c7303aa8277aab9ee0ac8fcd1550d49599f6955","2015-11-30 00:24:12+01:00","fix script usage
+"
+"47d88de9cf0ec502f5a20b483524681cd5102b1d","2015-11-29 23:47:09+01:00","add a script to automagically test and apply upstream patches
+"
+"ba1b3ecc01aca0715a8661d14681fa2d03192df7","2015-10-23 17:00:51-07:00","Stop audio when leaving conversation.
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4290
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/d70f0f1216065790f463cc73a791a71de1a5ff1c
+"
+"300e8e70ce46acce96e65cc12dd06a33b1a230c2","2015-10-23 17:47:06-07:00","Fix audio seekbar layout on GB
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4287
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/474922493f0020f182d8497ba5ea447f6eb79f0e
+"
+"3d16b3cb451d0d784c30666149bc92c43860f6ae","2015-10-24 09:40:04-07:00","Expand MMS-specific queries, properly parse incoming MMS.
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/c258b4c7aa63d9572371cd7d577e2e2fcfe3da8a
+"
+"96c33dad0ade7ad80e694bb19d0dde5e300dd7ee","2015-10-24 10:33:20-07:00","Propagate clicks on conversation list thumbnails.
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4292
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/34b80f91ee7b03c9e8d13ccf725148b7b10c8c3f
+"
+"c9f8202f0fb146d49cb24addb22d3aec447cd23e","2015-10-24 14:38:03-07:00","Distinct rows from join
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/cb3f9a6805e5b118e0bfa4bc0d4445aa70511bc4
+"
+"d2155e286a6ba9f1e4e7b025a78d09846447c23e","2015-10-24 18:36:03-07:00","Correctly format numbers in outgoing MMS
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/a64dba8a7e524b31c6f77db7ab6b2f6f74beb12f
+"
+"6fc4038ed7507c3c22be0396770f9e08b6d6520a","2015-10-24 17:51:17-07:00","Really limit the number of rows that can be joined from parts.
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4299
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4298
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/f714f5b5726d2588b36568a944970c9416e5b313
+"
+"94fd8cb712359ea8d3017a8e207f8be941fde338","2015-10-26 11:39:00-07:00","Generate thumbnails for outgoing pending messages.
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4307
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/f6a5f117b82d01ead706fcf298444aaed2257127
+"
+"ea374104abad76315c199e7f8d41f2e18e460680","2015-10-26 12:33:45-07:00","Catch exception strangely thrown by system query from Sony device.
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4309
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/40108d5276a972491f81661413fc5f7371fe366f
+"
+"ca796f3c6598181b7ac3737c89c5a370141a099b","2015-10-27 01:27:21+09:00","Change string 'Load' to 'See'
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4304
+Closes https://github.com/WhisperSystems/TextSecure/pull/4305
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/ea4def7ea1faa2db7d7c4c000da517de955f149e
+"
+"c363281d518697578382a4346ff408b604ca44b7","2015-10-28 10:24:55-07:00","Be more rigorous about discerning media message thread.
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4312
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/4271732b104cef0ad3ea3ba27f4e4fd72a9bb311
+"
+"baa4eb372bf42ff3497196268bea8d7c0ae96d70","2015-10-28 16:50:45-07:00","Only prompt for importing system SMS db when we're the SMS app
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/bd280ec8954c5fba7b43da9396dba3cbb0638ff8
+"
+"e964d89fcb01077f0f0b116c9543e86356cf7bf0","2015-10-30 16:59:01-07:00","fix failed incoming MMS regression
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4308
+Closes https://github.com/WhisperSystems/TextSecure/pull/4334
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/d4887e11be70796d8a9b7f2005c79a04b5fe67ab
+"
+"a00d4bc2da7ccca12eb1db6748be51b8deadd905","2015-10-01 12:22:17-07:00","Switch recipient preference from Rington -> Notification tone
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/c6abb7dc64de7570efd6ecd34bf55b85af6b9742
+"
+"2e75885b7d53093fb248b0e77143b7c57e32bf58","2015-10-28 20:44:57+01:00","Make some 'notification sound' strings consistent with the rest
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4324
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/13bd3c773cc96cbf3c72f04ff62bd7ef04492287
+"
+"db46d94ee166035983232a3217f6599232d44487","2015-10-26 11:03:08-07:00","Canonicalize entries in canonical address database.
+
+Make all our queries E164, so eventually everything in there
+will be E164.  Stops thrashing between formats.
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4306
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/434ce4f9c9c36fe054792c75f1fc83d952a2f856
+"
+"b811e254fe42b5936cd8bbadcf2f4c9bd2139329","2015-11-02 12:22:46-08:00","Fix onNewIntent transport selection assertion
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4301
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/4371708fc4f7ee8084238480fb3d692c9761f539
+"
+"7262afcaaa2149dfb57d5e20e74f2c4cdae0a0ff","2015-11-02 13:55:16-08:00","show transfer progress when re-sending failed media
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4341
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4104
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/3fa11d993158281de49b244ef73b198887dfc2c0
+"
+"3b9864372bf370447b8e3d7afaf16026d5945f3c","2015-11-03 10:37:06-08:00","Lower SMS retry count to 15
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4296
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/004a87eba9b1458b60a7bfbf8381e0e39fb5508f
+"
+"bd3c30bd4178a4a479d86a0290c2ac5cbba707fc","2015-10-23 23:01:53+02:00","show total number of messages or threads to be deleted
+
+in delete-confirm-dialogs
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4284
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/328a3ff20eba42f09e425ec67b2876aa676ed9d8
+"
+"7ab9b3d0d4586147e121d9a83a395816d1b351e6","2015-11-04 12:29:14-08:00","Fix for broken build
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/5704fad7cc9e75ff570eaacef88e4c20ba0e778d
+"
+"0e5acd76353aa95fd7306946290b9085ed4d8502","2015-11-04 12:39:53-08:00","Mark muted messages as read when in thread
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/3562
+Closes https://github.com/WhisperSystems/TextSecure/pull/3643
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/72b9c37ec891c0db20e4e5aff2dfaa4218afaad4
+"
+"35b59116ffef2863e71a1e5da404473a65c70a39","2015-11-04 15:39:01-08:00","Don't show group avatar icons in thread preview
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4383
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/60ab71099f2b516ce43aad6160f8ae698cf4d36a
+"
+"80855493121f42cd471d2a8d6eac7548b67857a2","2015-11-30 02:05:40+01:00","fix crash when sending a mms
+"
+"43edb1b670d86657be2ede4b7443063476682a3d","2015-10-15 14:40:45-07:00","unjankify incoming media sharing
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4374
+Fixes https://github.com/WhisperSystems/TextSecure/issues/3989
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/59f2446a2ba6a3158be893d5dce7deae7e113cd8
+"
+"d7688e2056c20959b9345e29e2c44ed8a07fc594","2015-11-02 14:03:38-08:00","extra logging for activity lifecycle
+
+to help debug #2971
+Closes https://github.com/WhisperSystems/TextSecure/pull/4342
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/d6a061d50f3fd827dfa44df2ca8aeacfcf59c93c
+"
+"6aa3156e941a1248a82d51cca9b0f756d57f8d8a","2015-12-09 01:08:21+01:00","unbreak build
+"
+"dbe30cf6d29f1a3979afff94f188a233de9a0496","2015-10-28 09:47:09-07:00","Nicer looking attachment type selector
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4367
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/be0ca330f5d70125341c2c557fd2bad5394bae0a
+"
+"56cb56f17370dc3954e2d12b18e8838cd7eefbb8","2015-11-04 17:13:21-08:00","Add close button to attachment type selector
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/09c57f3f44ea57a7c91473d919ff0703d4bc3b37
+"
+"6244456d30510b41a54d904cc04e3d1aeded1fda","2015-06-21 19:54:19+02:00","remove brackets from recipient numbers as not allowed for dialing
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/3450
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/e808ae0ddcece26d93f097b23d85febc62c7757f
+"
+"12f58c198f99ad5e794afeea7888f6dc9fe33c7a","2015-09-30 20:42:39-03:00","Flag secure in all activities that extends BaseActionBarActivity
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4152
+Fixes https://github.com/WhisperSystems/TextSecure/issues/3327
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/a930ec540412e65a9016563c8e259f73fc55107e
+"
+"125e846da8e05187c6d4a57deed4f10a73dc953b","2015-11-05 17:47:29+01:00","add custom color to MessageDetailsActivity
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/3560
+Closes https://github.com/WhisperSystems/TextSecure/pull/3580
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/0ef56fb86d437a16ea9ed85317b4f1dffd937c29
+"
+"ab7554f1ef5cf48dbb3806791dac0d0d42623494","2015-11-05 11:08:54-08:00","catch MMS NPE for time being
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4379
+Closes https://github.com/WhisperSystems/TextSecure/pull/4401
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/00a18f58a7398f2b1544dcc72c8aef391ea5c19f
+"
+"c5d81b7f7181de1747f5706013035a78e9761c40","2015-11-05 11:03:05-08:00","fix ContactSelectionListItem NPE
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4394
+Closes https://github.com/WhisperSystems/TextSecure/pull/4399
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/796940bda53cc8c3c14f8f9390439cf75073e11e
+"
+"815af50052081147cf0d0a8716eded5108b71fe5","2015-11-05 23:42:04+01:00","Change 'SD card' to 'storage' & cosmetic corrections
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/3920
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/7f0b0803bc9f565e8c4b6fa67874a9e3db4421f6
+"
+"3e1f6e576c1e5a0243dbe4fbd1c5db3794756ad2","2015-11-05 19:22:10+01:00","Replace 'my' with 'your'
+
+See
+https://www.google.com/design/spec/style/writing.html#writing-language
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/e1f95192350c6077f1a70f195f04577a9be23848
+"
+"f0b5d27865888ff5c7871e43f830b1ab67eb0976","2015-11-08 19:22:23+01:00","Add the option to mute notifications for one year.
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4448.
+Closes https://github.com/WhisperSystems/TextSecure/pull/4454
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/181c7dfd858d8cd9dea97c7eec2676880f0a2603
+"
+"ee7094a428ae836157106797680f09bcc84f1912","2015-12-08 22:00:05+01:00","respond to generic panic trigger Intent by locking
+
+PanicKit provides a common framework for creating 'panic button' apps that
+can trigger actions in 'panic responder' apps.  In this case, the response
+is to lock the app, if it has been configured to do so.
+"
+"e7193a5d070864c4801b6c9beb52a1634846bdad","2015-12-08 22:09:05+01:00","after receiving panic trigger and locking app, remove from history
+
+This makes the app fully exit, and removes it from the Recent Apps listing.
+"
+"c70cf481cb37306046683169183ad328a35ef0cf","2015-12-09 18:58:11+01:00","refactor contact selection
+
+1) RecyclerView-based, with better long scroller
+and more material-inspired look.
+2) Add badge for SMSSecure users to contact selection
+list.
+
+Based on https://github.com/WhisperSystems/Signal-Android/commit/fb8d6cb538511d2e9745b764c91f111861035a1d
+"
+"34c182312479ce730f8d09332a5f495b72dcc568","2015-11-12 14:44:25-08:00","bring back the ripple when clicking on preview
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4506
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/0c75e652eba217d94b3806d0f4f42e10486535d0
+"
+"c36d410be2e29e8b1dc82294e166f6d48ced96ca","2015-11-16 10:48:28-08:00","fix external gif sharing
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4539
+Closes https://github.com/WhisperSystems/TextSecure/pull/4556
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/ae379cd3ddc6ccc7161214e9a58ffff3dc2bec1c
+"
+"5790b69a04a2f7f9111d54e50719604c6824a124","2015-11-13 10:49:11-08:00","Don't E164 shortcodes
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4478
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/21f04605c68a2e157cfe0da4e5a480635842f5ec
+"
+"8d75623ad50cc5644efb231ec3933d191648ed46","2015-11-13 17:07:43-08:00","Uhh, switch from valid to possible short codes?
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4478
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/2a753c7795893d7f4d142e902f62badf21c13d6a
+"
+"923380f21b50aecc2e45ae396c35aac86724c449","2015-11-14 15:17:05-08:00","Consider everything <= len(4) a short code, except short countries
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/69f5aacd2514ba3ea90d1b3cfba3908e229bc40b
+"
+"d6942afa7758f7269be09bae9224811923410907","2015-11-16 11:35:11-08:00","More shortcode fixes for Germany
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/058bcf1f4a94cb9339306919eabce6167078b354
+"
+"1993302022dd5e825d8cc870870be4c692c1d1ec","2015-12-09 20:04:05+01:00","update libtextsecure, fix tests
+"
+"507aa1dd3c824b0bf8c8fe9456ad871bb6e818bf","2015-11-13 17:46:35-08:00","avoid older android 9patch transparency bugs
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/dd0a952c833617985e0449df8ae05656ae638abf
+"
+"a38b372b2ac0f052cce0ae4a474c301ef5130584","2015-07-24 03:16:45+12:00","Add button to toggle passphrase visibility
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/3776
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/927aac2c4a820fb5cebdef6cb0f071ee701a79b6
+"
+"e5aa56176e62e77311ad67277ff9aaffbd9c4a8f","2015-05-20 23:36:30+02:00","migrate to AppCompatDialog
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/3222
+Fixes #291
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/c4339813e61b42153f70808e775cf08ab1b2f9c2
+"
+"b7309a065166e7f072c977385c7282ba21677f70","2015-08-18 22:45:53+01:00","Change notification privacy setting wording
+
+'Neither' -> 'No name or message'
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/3903
+Closes https://github.com/WhisperSystems/TextSecure/pull/3966
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/66578a2c763313e31e91d04493f1caaacd8f07c3
+"
+"2d3fdf3a79476ef262c559e0760f512ddfe9e4ce","2015-12-09 22:43:15+01:00","fix menu string
+"
+"7c0b9a8026966e9508ca9b7da1886932c3743652","2015-07-15 14:02:03+02:00","save fragment state when changing theme/langugage
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/2782
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/0cd4cc67afdbf61e5c64c075ceac9117068b91e0
+"
+"e333a174ded398282c2f546513e4b944847d5072","2015-07-26 22:49:43+01:00","Make long pressing the attach button open the transport popup
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/8efe6e7286f229202dee5d1ebff1e17a89049acb
+"
+"a7f5c61c31300a7b9ccf1f41a673d30181294ade","2015-08-05 19:19:57+00:00","activated state of switches match textsecure color
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/3881
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/04f9187c14c9e14cc07fb647559569c942dcc46a
+"
+"dfc292b46c89ae39bbe9ca8e88871cfbbf6b13fa","2015-11-18 17:20:58-08:00","correct all colorControl* AppCompat attributes
+
+solves problem described in #4494
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/36426a74c13fb8301d11c6599e914c1770251388
+"
+"c86198c46dceae8f5ebcd833f36887aa6020886f","2015-11-13 00:48:03+01:00","hide irrelevant preferences in RecipientPreferenceActivity
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4505
+Closes https://github.com/WhisperSystems/TextSecure/pull/4509
+//FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/ce617fb7cb173a360b71d1641613b085f38691a0
+"
+"cf75c902e1c65c02752f0120ae9f50d45eec5b17","2015-12-07 23:36:31+01:00","smssecure attachment filename
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4541
+Closes #289
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/ce1c6e237261635eb627130bd8470c2f630db307
+"
+"03b96bdbd668fe45bafbe0a6a34a23670f6b9dcf","2015-06-09 01:34:24+02:00","add dark theme to PassphraseChangeActivity also adding DynamicLanguage to fix ActionBar language changes
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/245c0adeea9352fa2a5be0580de2b3d412c12955
+"
+"23060881d8502e53d93c2d2a32f69f24e8c90804","2015-11-16 17:39:13-08:00","use material labels for passphrase text
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/3374
+Closes https://github.com/WhisperSystems/TextSecure/pull/4570
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/25da3525faec12daec1b5b98044654165f1d6d95
+"
+"143922a829dbf045bdac676865997d6b49b0f4a7","2015-11-16 18:38:36-08:00","clear drafts immediately upon sending or new intent
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/3843
+Closes https://github.com/WhisperSystems/TextSecure/pull/3850
+Closes https://github.com/WhisperSystems/TextSecure/pull/4571
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/bcd08956bd8d041fd80df72e1b964d38aaa1b555
+"
+"32e82217f444ddedc472d918c9a0de18835982c6","2015-11-18 18:24:47-08:00","fix crash on null Android contact name
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4592
+Closes https://github.com/WhisperSystems/TextSecure/pull/4594
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/7aeb4c96eea89f3a4372ccce1b8500cc698d1d11
+"
+"7da965b46aeb5c5b8b59de3afddb308920f3a632","2015-11-07 18:56:32+01:00","Fix 'Silent' summary for ringtone preference
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/3962
+Closes https://github.com/WhisperSystems/TextSecure/pull/4441
+
+//FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/6a99c6c4ac5aa7c0d1e0024bf2800b2ed7f50a10
+"
+"0326a9e036a875064f0578f8ebab66019926c641","2015-11-18 12:54:40-08:00","enable media forwarding
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/1362
+Closes https://github.com/WhisperSystems/TextSecure/pull/4589
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/02c37e815cecb41a2378a8134130afd1f51bb5d1
+"
+"d0061e2c97d8f38c1d3a4f4561c121dcb33ac038","2015-11-13 13:20:16-08:00","add stable IDs to conversations
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/2856
+Closes https://github.com/WhisperSystems/TextSecure/pull/4607
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/4314a4b42b63a5746dc3428a9c1ea11b75aa76f5
+"
+"5f1e8d6e2112aa9b86742dc0b82d0e64277b832f","2015-11-13 00:07:05+01:00","Don't show images without data under 'all images'
+
+This affects images
+- that have yet to be downloaded (using media download controls)
+- that are currently being downloaded
+- that failed to download
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4507
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/06f2908d7806142d25a401473063225ff56f3486
+"
+"c91a165bcd4cf1d924091d95129b8dcdf14a9a67","2015-11-19 15:58:50-08:00","Fix for audio attachment server NPE
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4615
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/7817c7697efec789df0937b8d8b0f2cccea87928
+"
+"5aca9d2d1bdffe53453ae1a332837e28b681790f","2015-11-20 11:06:41+09:00","Fix 'Repeat new passphrase' spelling
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4617
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/d5bf1b613714bacde63b8c9ebebe8cef89fd312a
+"
+"d0f56e0b190e2b506e1aa4f0ae3b849667055262","2015-11-19 18:28:57-08:00","make RecyclerView unique IDs per thread
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4619
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/2e8841c1d6c75cb0c7049c83752f0139cecdc769
+"
+"25eb5f936943c4fc0efe8f590e4d119b2bed9a6a","2015-11-22 22:09:12+01:00","fix crash in RecipientPreferenceActivity
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4674
+Closes https://github.com/WhisperSystems/TextSecure/pull/4679
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/4dce79334dffce8dd8b2ba4aef26e2004e5fa664
+"
+"41f3d5979635f201ab683d34f987afb2055cd866","2015-11-22 16:04:49-08:00","fix header/footer item ID issue
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4667
+Closes https://github.com/WhisperSystems/TextSecure/pull/4685
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/473e470883e042d9925abb2ecdd5c7cbcbb67afc
+"
+"04529e35ebd3d945c4e74c57dc0627600bf82b59","2015-11-23 10:46:01-08:00","don't allow fast scrolling until data is available
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4666
+Closes https://github.com/WhisperSystems/TextSecure/pull/4693
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/d58f4d12321c7ef558629d806f624fec7ec278af
+"
+"2c584272c3e52eadda901791622d0b02f6244898","2015-11-23 11:33:51-08:00","scroll *all* the way
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4664
+Closes https://github.com/WhisperSystems/TextSecure/pull/4695
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/a0beb7f0e0e630cf274fc709cd291d31564dc73d
+"
+"4cd74f4046ada8f2a995dc4cea4973fae1403d30","2015-11-23 11:17:56-08:00","select *all* threads
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4565
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/69ee4cbc716103b31f0b6542d37f3ee59493b43d
+"
+"cf285ee62a942f6f7e20ca2ecd5218d0d7476eae","2015-11-24 11:47:50-08:00","Fix strange conversation draw behavior in GB
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/13328ca0d0b37002cbdc68d73f33fda32641967a
+"
+"2bb2ffa796c1c67ee525ff6faeb25630f5f14a49","2015-11-19 15:32:33+09:00","Improve date localization for API >= 18 (4.3, JELLY_BEAN_MR2)
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/3102
+Closes https://github.com/WhisperSystems/TextSecure/pull/4597
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/c4f9bc2b5efaa6cbde1ff4202fa7be2e99315e7e
+"
+"e4b4c86cfea195430f050a6426156d6cfe237c79","2015-07-17 17:44:24+01:00","Improve generated contact photos with emoji names
+
+Improve the logic for generating contact photos with contact names
+which start with emoji or non-language characters.
+
+This fixes the infamous 'question-mark-in-a-box' character from
+appearing in the contact photo for contacts whose names begin with
+an emoji or a non-language symbol.
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/3684
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/67415a8dcbeff4ab3b52757400fe09fb015cca5c
+"
+"6f4a2ba6a9e77cc1859d0f5afd51d14d5c8ebc20","2015-11-23 17:22:10-08:00","fix 'partial scroll' when sending in certain cases
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/2856
+Closes https://github.com/WhisperSystems/TextSecure/pull/4702
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/8914c79613fcc04392351f07f6f7d73d64b58af2
+"
+"1d18900cc1b2a4cda9934cf58e4cad525c5a0799","2015-11-25 17:49:31+02:00","No need for capitalization in dialog title.
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4713
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/ec58132b25faca0232b68e663c42341fd5afc706
+"
+"b15d83a2fdc665cf101c23abee572ab2bedc36fd","2015-11-17 00:55:22+01:00","Switch from 'Contents Hidden' to 'New message'
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4004
+Closes https://github.com/WhisperSystems/TextSecure/pull/4566
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/796decdb0fb6a5dae038752159b9c8a755f58515
+"
+"886258bc2a7640c7e5f963609018fde78eff1c60","2015-11-23 15:07:41-08:00","Support for archive actions
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/1141
+Closes https://github.com/WhisperSystems/TextSecure/pull/4698
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/2ab0029d4929e020414ab56e5afdfddc3a695726
+"
+"5b610beb3a548804675d8d22255c0f4231930c0a","2015-11-21 17:04:19+09:00","'image/jpg'->'image/jpeg' on MIME type checks and saving
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4602
+Closes https://github.com/WhisperSystems/TextSecure/pull/4643
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/e83827ab75d070d5743308528a774e7df80c3fc9
+"
+"f2570a1cdb5bc31c901fa43320409faff4e443eb","2015-11-27 14:45:07-08:00","add equals/hashCode to glide models
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4737
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/946c43940b1e5ddb06db4bf7e86e09284cea95ff
+"
+"db06ea8ae899b74c5d57488c2dfcf7005ca0a4a0","2015-11-27 15:46:40-08:00","Fix rogue action button toggleing in contact selection
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4700
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/0a9f28c228bf33b8c81cade838d83fa167c5119e
+"
+"727eeb91e13bcb1a477ed756cb3bacfa7e09c793","2015-11-30 10:36:56-08:00","Reposition thumbnail when in archived view
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4744
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/cdb122d3d1000d86a62266ab57f96eabeaeb4523
+"
+"8df05f03090a3c273b11d7fb4dcf19783af53366","2015-11-30 10:37:38-08:00","Don't add 'archive (n)' placeholder to list of batch selected
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4750
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/3bf8052811fda5f20cbb4eb7b2cd837bdcfed742
+"
+"732c9b427bcfe9c3a2c589bdfccce9acf5ae9d19","2015-11-30 11:16:30-08:00","Keep track of attachmentmanager garbage
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4764
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/adcb29616a18a027badca8ce3d1cb6fc44ca87e6
+"
+"2aeec36d2de47836e71637e068091bbad6d30356","2015-11-28 02:24:58+01:00","Remove unnecessary capitalizations
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4739
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/24360bf5b671efca95fe5f3f9c4472602c0ee3ef
+"
+"3b053b2b557020e8395d0ded0f21911a9b20fd43","2015-11-28 20:26:28+09:00","Increase swipe-to-archive snackbar duration
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4745
+Closes https://github.com/WhisperSystems/TextSecure/pull/4746
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/fa411f5623e7468e3f5feab9129379cd74b657d7
+"
+"acb53d0e91f8fbcf394b9629b26b90b3d3678a89","2015-11-28 21:10:12+09:00","Add string resource for unarchive button title
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4747
+Closes https://github.com/WhisperSystems/TextSecure/pull/4748
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/591ee92e4542ded5986be86ddbcd435cc8ae0e0e
+"
+"b5cde81675da3ebfae079b56a0dfe2814dc8547a","2015-11-28 17:02:10+01:00","Wording consistency: thread -> conversation
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4753
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/65176c940eee6a2aa7b3c57a88ab26b6ee876c60
+"
+"518bc657a72bf661a9f5016d9f10d3ff78f9b9a3","2015-11-23 13:18:54+09:00","Update attachment content type when updating attachment data
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4687
+Closes https://github.com/WhisperSystems/TextSecure/pull/4688
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/8269047c88c06815381438b98a842db0ab3c997c
+"
+"36cd06d47cf5f994e997ad0b9b31ed37523e68a8","2015-11-20 18:54:10+09:00","Fix NewConversationActivity toolbar/overflow dynamic theming
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4624
+Closes https://github.com/WhisperSystems/TextSecure/pull/4626
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/8afdbc1f4d2ac51d1ea740852add2d0651c60b28
+"
+"f54d26d699d68ecb3ba8e626a8e6e4020bbc7a0e","2015-11-24 16:06:41+01:00","Add delivery status icons to the conversation list
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4710
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/7c95adc7e61e8157a686caa19ac8b6c8cf593eae
+"
+"f90e9055c778714bd9ce00ca3f739b96b504ae55","2015-12-01 01:38:37+01:00","Return to archive on back button press in archived convo
+
+When the back/up/home button in the action bar is pressed in an
+archived conversation, return to the archive instead of the inbox.
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4770
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/eebe227a2011f5b05c73548bc8ac95b3185352be
+"
+"190ad23a021af2dc63d0967228c01cdde5321de3","2015-12-03 12:36:47-08:00","Mark messages read when swipe archiving
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/adda7622f4b1233e9205c07b264786a4f1ae32d9
+"
+"7aee532bd1a8ad4cf3748346b2751dd335c59098","2015-12-04 22:47:33+01:00","Add inbox delivery status migration
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4799
+Closes https://github.com/WhisperSystems/TextSecure/pull/4809
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/b41364c709dc1c076a7057179eb4e5654a63fa6a
+"
+"e0ec62a7eca7c0cfeefcadb4554dc429b084f607","2015-12-09 19:53:19+01:00","Update inbox status icon on SMS delivery receipt
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4848
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/e5cd3e4fd10622f5bcde5d177d629dfa242f6aec
+"
+"3af04f53b5dd8b280a0eb8232bd04bbc7b1a0bfa","2015-12-04 14:13:09+01:00","Wording ambiguity: Archived conversation -> Conversation archived
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4802
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/307578eb189004f6410a4e7aaa5cc54e0b334370
+"
+"8075d28f3ca57efedb3aaf94f6607af51849231e","2015-12-04 15:00:13-08:00","Display group info in message notifications
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/1033
+Fixes https://github.com/WhisperSystems/TextSecure/issues/2558
+Closes https://github.com/WhisperSystems/TextSecure/pull/3020
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/3b80e3554732865e42406e36f4bf38bef661af5a
+"
+"fbb0c6c8e2d1fe457c2248fd4db750506bc7cac1","2015-12-08 04:40:26-08:00","Use Ringtone instead of MediaPlayer directly
+
+(Copied from rhodey's PR)
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/3340
+Closes https://github.com/WhisperSystems/TextSecure/pull/3342
+
+// FREEBIe
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/81fa209910246330d4fb705c3bb04dc0bf8fcb76
+"
+"bde664d290fb54b3d32a4286498179e664d13344","2015-07-06 17:14:57-05:00","Change media message timestamp from received time to sent time
+
+Fixes https://github.com/WhisperSystems/Signal-Android/issues/3525
+Closes https://github.com/WhisperSystems/TextSecure/pull/3535
+//FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/fe5e101463670041fe6923ff76e8ce7e35cd9d1d
+"
+"57ce4be2dea9a2f350717d48e369897c922f5f0d","2015-08-15 14:00:08+02:00","Don't notify of failure when viewing message details
+
+If message delivery fails and the currently visible activity is the
+MessageDetailsActivity of the failed message, treat the failure
+notification as an in-thread notification.
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/3947
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/57cb68849e6d096517f4a8daab78f388755c98b4
+"
+"bad42ea63ed8d343d64bebfec54f9a397632c19c","2015-10-16 15:39:27+02:00","Update recipient info after adding a contact
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4074
+Closes https://github.com/WhisperSystems/TextSecure/pull/4259
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/b40f0ffeb05b4f06199794b49c20fd1e22f41855
+"
+"fd4d06f4a174362c1c8e0c70e854ff5b77b627ba","2015-12-05 17:27:09+01:00","fix some plurals
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4815
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4811
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/08b61572e99214c574aac64711bcd6e184e0602a
+"
+"ca1562c03867bd7dad68e5e337b60b6fa262918d","2015-12-09 20:07:14-08:00","Strip whitespace in addition to parentheses for outgoing SMS
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4833
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/371ef3ce95549856a1db7cc72603d7b5ed8bbbf8
+"
+"a193c0659928adf84ec05ce277d5d616bdceea23","2015-12-10 03:35:59-08:00","Fix libphonenumber shortcode data for Finland
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4853
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/3efcb5dfa102e8f794e8bae8e4e78c4ed37969af
+"
+"52c4d8912e1932e468d4b1f7aecb8c89d469e764","2015-12-10 18:49:58-08:00","Let's take this SMS number cleaning thing to its logical extreme
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4833
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/bde838d35a59d7e3791ecf6fc7fe5b00ccd7b2f1
+"
+"f3974e3a9fb9b6c1eb0ee24a85a5599d130e5e27","2015-11-23 17:56:41-08:00","prevent overwriting external capture URIs
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4719
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4538
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/7625ba919e923ef34855cc3fb1f31bcaf3d021e5
+"
+"70c60e5d5c9c68328f2a032414804dd68d3954a1","2015-12-11 22:57:18-08:00","Catch ActivityNotFoundException on contact add intent
+
+Fixes https://github.com/WhisperSystems/TextSecure/issues/4865
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/67e6031d253c1634923b569fe81e06c5af5c4719
+"
+"4f60f58a5b11bc1db2e1ea2d49ddf7ae5b1f59a3","2015-12-10 23:45:07-06:00","Strip separators prior to validating non-email SMS recipients
+
+Refs #1516. Refs #3099. Refs #4833.
+Closes https://github.com/WhisperSystems/TextSecure/pull/4861
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/50c432aaf0b7deb8d8f4f890ff0a8542de5faf9f
+"
+"03b7615351282a01adf275f482b84d802e08e021","2015-12-11 10:39:55+01:00","Enable preview for image drafts
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4863
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/e79ee7803fea85ec999e0f6dc803fc1227096cd0
+"
+"52c72ea322773752251da4c039ba99778350dd27","2015-12-18 13:37:56+01:00","(re)add a menu to delete a conversation while viewing it
+"
+"d80058d7195e3c55b211292bd5991abca98c49e4","2015-12-18 14:07:48+01:00","menu item to (un)archive conversation while viewing it
+"
+"872f69d30e908cdf3130e7aaef85837a584ca70a","2015-12-18 23:54:51+01:00","fix stuck fast scroll bar
+"
+"5485034f2fcc7f486cb29213e1532269702e76d4","2015-12-19 00:27:23-05:00","Merge pull request #287 from SMSSecure/upstream
+
+Upstream
+"
+"00da827c98013cc1204d8e95fe906abb81927058","2015-12-19 21:08:31+01:00","Merge pull request #290 from eighthave/master
+
+allow 'panic button' apps to lock SMSSecure
+"
+"cf673cfc18d1f5502fcb75800e9bab121f03677c","2015-12-20 00:12:32+01:00","Revert 'LED doesn't blink with encryption enabled #261'
+
+This reverts commit c91f2b222ef2af23efd3c5136ded1e004f104d29.
+"
+"38a4dee6328dd58d7cdb8edb0f7b9e503bb7932b","2015-12-13 01:37:16+00:00","Fix crash when adding a contact from a conversation
+
+Closes https://github.com/WhisperSystems/TextSecure/pull/4872
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/e9b53cc164d7ae2d838cc211dbd88b7fd4f5669e
+"
+"3299ae6c90cc4be48cb362965e377c9988d650b3","2015-11-22 09:32:02-08:00","Remove identity menu option from conversation list
+
+// FREEBIE
+
+Upstream commit: https://github.com/WhisperSystems/TextSecure/commit/e91449621691077d5317004e24069fcc81863f93
+
+Fixes #294
+"
+"4646e14cc92397467e233080824272835ba620fd","2015-12-22 14:52:56+01:00","Revert 'Remove identity menu option from conversation list'
+
+This reverts commit 3299ae6c90cc4be48cb362965e377c9988d650b3.
+"
+"31d822143eeeddd7bbc99892b97d7de0708143d6","2015-12-22 20:02:05+01:00","add a script to find missing strings
+"
+"3797b82ddee64aaeabf4cf1c7b817f7be672c743","2015-12-22 20:06:32+01:00","fix missing string wording
+
+Fixes #294
+"
+"9f0d15870d6d167bab0c5b44fec62e1a438673c8","2015-12-22 20:13:42+01:00","Revert 'Add close button to attachment type selector'
+
+This reverts commit 56cb56f17370dc3954e2d12b18e8838cd7eefbb8.
+"
+"8540a76269da2c7672a93926e1d1a83571ecc0ce","2015-12-22 20:13:48+01:00","Revert 'Nicer looking attachment type selector'
+
+This reverts commit dbe30cf6d29f1a3979afff94f188a233de9a0496.
+
+Closes #292
+"
+"c6f1cf87c8e9446078ddb9ce8f68beb1b0534e53","2015-12-22 20:19:52+01:00","unbreak build
+"
+"e95297ff740a7c0a8a1810cb13d6a3ae27c55128","2015-12-23 01:40:29+01:00","Merge pull request #295 from SMSSecure/issue_294
+
+Issue 294
+"
+"92e2b623621d927926d2dae1fbc9dc46283e47c4","2015-12-23 02:04:29+01:00","fix string key
+"
+"314b6bae5251ff7a81df7bc4e41bc68cf44db844","2015-12-23 02:17:38+01:00","update translations
+"
+"8ea82185aa35a5adf6fd816d1d698e8976debfc7","2015-12-23 02:18:31+01:00","bump version to v0.13.0
+"

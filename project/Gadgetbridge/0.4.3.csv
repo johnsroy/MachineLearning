@@ -1,0 +1,61 @@
+"commit id","commit date","commit message"
+"ef2bbf13c79d8144591869b2f51870f86b6b1d8b","2015-06-29 22:38:37+02:00","Close stream on error and log exception
+"
+"1caca1439a699b5a5ca0da48b9758175df6050a9","2015-06-24 20:14:08+02:00","Initial implementation of setting alarms to the Mi Band.
+
+The code basically works, but there a lot of things to fix / improve.
+* The alarms are stored to and read from the Shared Preferences, but there is no persistence within the app (basically they are read and stored at every access)
+* The alarm list is not updated when coming back from the alarm detail view (probably related to the point above), but the actual alarm is
+* The alarms preference names is sometimes built by concatenating strings, which is not really safe
+* There is no check in the alarm constructor whether the stored string is a valid alarm representation
+* Even though only 3 alarms can be stored on the device, we could have more in the app and let the user choose which to sync
+* In the alarm detail view XML some material* drawables are used, it's possible that these break on android version < 5
+* ...
+"
+"764dd70e45b141137be31bffe0bddb817703837c","2015-06-25 12:42:47+02:00","low hanging fruits:
+- add break after case
+- center vertically the smart wakeup checkbox
+"
+"dc3ed1659c109face110b07d55725a9550ad05bc","2015-06-25 14:34:21+02:00","use parcelable for passing alarms around
+"
+"109b2bef4da7b457d2c7a6810d6eb9b03d4a85a2","2015-06-25 14:48:46+02:00","add a Toast to confirm the transfer of the alarm or to warn if the transfer wasn't possible.
+"
+"900511760c4152a9f1aabd56e553415b788dd9ce","2015-06-26 17:22:42+02:00","further improvements:
+- the day of week are evenly spread across the screen in the alarms detail activity
+- the alarms are stored in a single shared preference (as a set) NB: you'll have to reset your alarms if you used a previous version (and also manually clean the shared preferences, but this is not needed)
+- the list of alarms gets correctly updated after editing a specific alarm
+- the actionbar back button saves the alarm status, the device back button doesn't. I'm not sure if it's a bug or a feature :)
+"
+"371a7bb4afc3ea31062f05d8f99080f20b362fa6","2015-06-27 18:32:13+02:00","Get rid of the Checkedtextview because they weren't in line with the our style
+"
+"3068d687bf19a0b3ec7afd792edae344f5fad914","2015-06-27 18:56:05+02:00","Adressed some of the observations made re the last commits.
+"
+"594bf8c45beef9c045d1d0709b8d0284f6daa8f6","2015-06-30 09:43:51+02:00","Merge pull request #81 from Freeyourgadget/set-alarm-tomerge
+
+Set alarms on device (miband)
+"
+"b25d771ee9fd50f50b2b5d895b6eb2ac57d1d968","2015-06-30 12:09:29+02:00","reformat code
+"
+"dfea2cbcc1d069ca33e70a54834c24de12b1971e","2015-06-30 21:18:27+02:00","fix find device which started alarm activity
+"
+"410b29dd6db58ddb49087f5d60cbfb56e8656235","2015-07-01 23:26:05+02:00","Updated translations from transifex
+"
+"78c0f2797dccc0af777fe9860079894db1c061be","2015-07-02 14:02:26+02:00","Update CHANGELOG.md
+"
+"580b86f41bc30375693e7721a443efa797d31b28","2015-07-03 21:58:13+02:00","Add creation timestamps to BtLEActions and transactions in debug output
+
+(I think I still sometimes get 'old' notifications)
+"
+"f36caafc54fc3c0d204b5c8c46cb44df9f7bbe8f","2015-07-04 22:22:59+02:00","Fixed syncing activity data (#45)
+
+Bytes 1-6 represent the date/time, so we should not try to check for this.
+Thanks a lot, Daniele!
+"
+"33d785f67c47f4b15d388f665820e026299617ad","2015-07-05 00:21:13+02:00","update translations from transifex
+"
+"0ca375b87b8e61d9f26aa63e03b117342b8e6482","2015-07-05 00:27:48+02:00","update CHANGELOG, bump version
+"
+"cdd26a43d26555062b9de6de44d495c76c5c9a61","2015-07-05 00:41:06+02:00","Do not allow alarm to start alarm activity from a long press on a Pebble
+"
+"c01423e79dc7d1ef07556f36d9078c786dc45f43","2015-07-05 00:52:12+02:00","update README
+"

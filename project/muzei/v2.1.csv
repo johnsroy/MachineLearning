@@ -1,0 +1,140 @@
+"commit id","commit date","commit message"
+"4e3efc3c706c86a0116749be75486d566c38d3e0","2014-12-30 15:58:05-05:00","Switch to Java 1.7 and clean up code with new Java 1.7 features
+"
+"ce71af307b631d118e56df79328b9cf95218f9ab","2015-01-01 17:51:32-08:00","Add date to Android Wear watch face
+
+Show date on the watch face in MM/dd or dd-MM (locale dependent) format:
+- Round: Date is shown above the time (as time is centered on the screen / floating directly above peek card)
+- Square: Date is shown below the time (as the time is in the upper right corner)
+"
+"d027623ab25589af1b067158a2943838917c6a80","2015-01-17 21:20:08-08:00","Fix Watch Face crash while scaling bitmap
+
+On activating the Muzei Watch Face, occationally `onDraw()` will be called between when a background is set (`mBackgroundBitmap != null`) and when the scaled bitmap is created (`mBackgroundScaledBitmap != null`) which led to it attempting to draw a null scaled background. Change `onDraw()` to also check against `mBackgroundScaledBitmap` to prevent crashes.
+"
+"6324e261d167349d0a43c06401f8c17f44ae1a13","2015-01-17 22:02:33-08:00","Move Gradle, build tools, and compile/target SDK values to main build.gradle
+
+In order to not touch every build.gradle file every time either the gradle plugin updates or the build tools updates or the newest SDK comes out, we can move all of these values to the main build.gradle file as suggested here: http://tools.android.com/tech-docs/new-build-system/tips
+
+This update also updates the gradle plugin 1.0.0 to 1.0.1 and build tools 21.1.1 to 21.1.2
+"
+"6363e17011a2461759e4f39760960db15515211e","2015-01-29 10:40:08+11:00","Update build tools version
+"
+"ab5e72b6db13899ded503cee8d3030fab31f698d","2015-01-29 10:41:02+11:00","Fix web archive. Fixes issue #133
+"
+"e209499e49072485f0028e6aad74e85b40b4e319","2015-02-09 21:31:50-08:00","Merge branch 'common_gradle_config'
+
+Conflicts:
+android-client-common/build.gradle
+main/build.gradle
+wearable/build.gradle
+"
+"96490bfcb49442198ca138af6635c370fdc5dfda","2015-02-09 21:32:50-08:00","Merge pull request #132 from ianhanniballake/common_gradle_config
+
+Move Gradle, build tools, and compile/target SDK to main build.gradle
+"
+"66c2b08d2075cfc5cae26955350ddc100b14bfea","2015-03-01 22:29:44-08:00","Update to Gradle Plugin 1.1.0
+
+Uses [Elvis Operators](http://groovy.codehaus.org/Operators#Operators-ElvisOperator(?:)) on signing config properties as they can no longer be null.
+"
+"c59300689f6c7c4445b5b46c0aa871e65b6421db","2015-03-01 22:29:59-08:00","Merge pull request #140 from ianhanniballake/gradle_plugin_1.1.0
+
+Update to Gradle Plugin 1.1.0
+"
+"ee7b9d5c7b277461713b4c061ab8e8337ce8f859","2015-04-05 15:59:15-07:00","Merge pull request #146 from ianhanniballake/watchface_date
+
+Add date to Android Wear watch face
+"
+"43dce1a27e69581e8c3b9988d93be6850f839d65","2015-04-05 16:05:13-07:00","Update to Google Play services 7.0
+
+Removes ProGuard configurations as they are now automatically included as part of the Google Play services AAR as per https://plus.google.com/+IanLake/posts/1HfDuFFkMXG
+"
+"6218738e5013155911d5bd6f1b5a5a1d9ef7a911","2015-04-05 16:05:50-07:00","Merge pull request #147 from ianhanniballake/play-services-7.0.0
+
+Update to Google Play services 7.0
+"
+"d7618ce3e79ccb225cbe997cf0c04d809d192b69","2015-04-07 22:10:55-07:00","Remove no longer needed <meta-data> elements for Google Play services
+
+These elements are included by default as of Google Play services 7.0
+"
+"0c3eda1bb229b58a1fca1bdc4837e9d43333493e","2015-04-07 22:11:12-07:00","Update Muzei API to build against API 22
+"
+"2f70ad5dd83f87105d77478bc4ff438f8bae1bda","2015-04-07 22:12:44-07:00","Merge pull request #148 from ianhanniballake/version_cleanup
+
+Version cleanup
+"
+"b4cf1def22e6bb7feb62d923a7480016cd3d6390","2015-04-07 22:17:13-07:00","Remove double call to super.onPeekCardPositionUpdate() from watch face
+
+Don't want to call the super method twice.
+"
+"e7ab098c38d25963cbfbce5ba25aff5a93515131","2015-04-07 22:17:22-07:00","Merge pull request #149 from ianhanniballake/wear_double_super
+
+Remove double call to super.onPeekCardPositionUpdate() from watch face
+"
+"b9f3d70475330a4680de842f0c6a4778e43394cc","2015-05-31 16:58:51-07:00","Update dependencies to latest versions
+
+Updates Support Library to 22.2.0, Gradle plugin to 1.2.3, compile SDK version to 22, build tools to 22.0.1, and Google Play services to 7.5.0
+"
+"3fdbdc6ced089534067e26ab90ff81be2bb57d11","2015-05-31 16:59:27-07:00","Merge pull request #159 from ianhanniballake/update_dependencies
+
+Update dependencies to latest versions
+"
+"1f4fe68c95cbfd1f75f8124530ee42bdee151100","2015-05-31 17:48:05-07:00","Moves base theme to Theme.AppCompat.NoActionBar
+
+As of AppCompat 22.1.0, themes that do not want to use an action bar must contain both
+<item name='windowActionBar'>false</item>
+<item name='windowNoTitle'>true</item>
+
+Which is automatically done for us when you extend Theme.AppCompat.NoActionBar. As all of our themes, use a Toolbar and not the provided action bar, we can switch our base theme to Theme.AppCompat.NoActionBar and remove the windowActionBar=false declarations scattered throughout our themes.
+"
+"b5aa065aae7b4c81ccc4d92be58f143bec49dca8","2015-05-31 17:48:32-07:00","Merge pull request #160 from ianhanniballake/noactionbar
+
+Moves base theme to Theme.AppCompat.NoActionBar
+"
+"75df7c532ff26a02670ca762b15fbee2b677666f","2015-05-31 18:17:49-07:00","Use the CapabilityApi to send activate_muzei messages to the correct node.
+
+Replaces the Wearable.NodeApi.getConnectedNodes() call with a call to Wearable.CapabilityApi.getCapability(), ensuring that only the main app (which has the capability 'activate_muzei') will receive the message to activate Muzei, rather than other Wearable devices or the cloud node.
+"
+"ffeded1d6e646b1cbce97f05afa8c080f99eb59e","2015-05-31 18:18:25-07:00","Merge pull request #161 from ianhanniballake/capability_api
+
+Use the CapabilityApi to send activate messages to the correct node
+"
+"b63ed9d9fb13d14c61e3180fe46da4e7f03d87f7","2015-06-17 02:02:12-04:00","update wikiart scrape code
+"
+"21175a2c8e4660f9b438dea0bf504834fc9d0a3c","2015-07-31 14:35:55-04:00","web updates
+"
+"45b098ad24cc553fb9589ecdda753e460cf5865c","2015-08-03 10:34:34-07:00","Fix date shadow alignment for round devices
+
+Set text alignment for date shadow correctly based on round vs square.
+"
+"d7d7897e8ee4a8198fa75549e5795fb6aa336050","2015-08-03 10:57:47-07:00","Reduce clock/date shadow to take into account changed density
+"
+"d2160756e9b059c346bcd17a2202b37279040d9e","2015-08-20 09:29:46-07:00","Hide date when there is not enough vertical space
+
+When a large peek card is used, the combined height of the clock and date may overlap with app icons on square watches or indicators (charging/new notifications) on round - hide the date in those cases.
+"
+"4e05c435c9c8661e6d310380c715a60f6ebb0019","2015-08-20 09:43:06-07:00","Merge pull request #171 from ianhanniballake/date_fixes
+
+Date fixes
+"
+"7bfe785498d76c4dd4cc1693c05de5e99ade627f","2015-08-20 09:53:19-07:00","Make the Muzei watchface interactive
+
+Tapping the watchface will now swap between the image and a blurred and dimmed version of the image.
+"
+"bbf9a4114c5c59e1f8c4bd664d8b718cd0da210d","2015-08-03 10:36:07-07:00","Ensure ImageBlurrer makes a copy for the destination
+
+In cases where the size was not changing, both the src and dest copy was being changed when blurred
+"
+"6893495ceb774ee04b4da2e758244b7e512b4f71","2015-08-20 09:57:50-07:00","Merge pull request #172 from ianhanniballake/interactive_watchface
+
+Implement simple blur toggle interactive watch face
+"
+"db70450c510458a5947b58ad6c6e4e893c3c6e35","2015-08-20 09:59:48-07:00","Update version number to 2.1
+"
+"e45506dcad407d01a4ee146550bb839e7e663715","2015-08-19 16:54:36-07:00","Combine main and wearable version.properties files
+
+Keep main and wearable versions in sync as per suggestions from documentation.
+"
+"4592d23b6ded5028dcdaba03996e4d0f4f43aa74","2015-08-20 10:01:34-07:00","Merge pull request #173 from ianhanniballake/version_update
+
+Version update
+"

@@ -1,0 +1,104 @@
+"commit id","commit date","commit message"
+"62c4747241155620c1cc7e49fcb6ef4ce05f038d","2013-06-06 21:23:10+09:00","RSS Parser improved.
+
+FeedHive fails to parse some RSS channels - ex egloos blogs.
+CASE:
+* Title has '#text' section. But there is NO valid(non-whitespace character) character in it.
+* Instead of '#text', it includes valid title string at 'cdata-section'.
+"
+"63fc3ec6dccae694f70a5e0d330b8aa8a556cfa8","2013-06-06 21:27:49+09:00","More stable network connection for parsing feed.
+
+Timeout of network connection when reading feed, is increased from 1s to 5s.
+Most case 1 sec is enough. But it's not enough for feeds hosted by distant country.
+"
+"a62ddc0ca80487473e49b51c83e50d46294f6a8b","2013-06-08 23:14:42+09:00","Avoiding reloading when adding/deleting channel.
+
+Asynchronous reloading causes unexpected FC error. And not good in terms of UX too.
+"
+"65f714d334a0cdf24b69f51007eaac3c156d87f8","2013-06-09 00:16:40+09:00","Some predefined channels are newly added.
+"
+"20e8c2cb0560377c749bb9facac7abe2040852de","2013-06-09 00:18:36+09:00","prepare for release...
+"
+"7a7f9bb0e2f9d116523f3f3c015188f13adf01d1","2013-06-27 23:17:00+09:00","'delete' menu to channel item is newly added.
+"
+"8b0b159c688d0d40d4d23d73162657e8b2923784","2013-06-30 15:55:34+09:00","Downloaded data should be removed to when deleting item.
+"
+"75ee8220d368088a2fad465fa58bc0720f4ad09a","2013-08-10 08:56:16+09:00","Deleted host-dependent environemnt file (.classpath, .project)
+"
+"b8225e936c1f873d20eff70b096400df4e32719d","2013-08-10 09:11:11+09:00","Supported wifi only mode
+
+Updating/Downloading can be done only through Wifi.
+(Preference is supported for this.)
+"
+"0b4aa3d2e5f062e43ca16d63484086abddd37566","2013-08-10 09:14:38+09:00","User can change category of AppWidget in runtime through button in the widget.
+"
+"96adc489651ec1e423bfab6cb3db940bd966813f","2013-08-10 09:17:49+09:00","Big refactoring to support various features regarding feed-contents(downloaded file).
+
+Refactoring
+- Listener management
+- Code/File rearrangement.
+- ContentsManager is newly introduced.
+: supports monitoring feed-contents-change.
+: uses human-readable channel directory instead of using just 'number' as directory name.
+"
+"3b744ef020325c5bd75c082fc409a4190f6f7d56","2013-08-10 09:18:41+09:00","Used standard way to configure AppWidget.
+
+In some devices AppWidget cannot be added.
+By using standard way, compatibility is improved.
+"
+"cc23fd3148a330219e43cb65cadbb44801ade95c","2013-08-10 09:19:33+09:00","Supported multiplel selectdion when choosing predefined channels. (Not tested enough)
+"
+"0feb7421f811c05f97cd2651b00163de1838dfd6","2013-08-10 09:20:22+09:00","Fix bug : fix message like '-1 items are deleted'.
+
+This should be shown as '0 items are deleted'.
+"
+"4ea997c5819648a6977d716e54d8a3573a3f9b24","2013-08-10 12:56:03+09:00","Bug fix : Fix item data file path, and AppWiget save file item icon.
+
+Incorrent data file path is returned because of missing '/' at the end of
+channel directory path.
+"
+"b7a3ffe8472e7e848172eefc1214151ef7cef793","2013-08-10 13:18:48+09:00","Improved AppWidget list row layout.
+"
+"bde10e4acad9deb339573f05b269d639696094e2","2013-08-10 15:43:57+09:00","Fix Bug : Fix item data file directory path and default title is NOT set as url.
+"
+"73a683f36b02191a93b088b659f2c8406890fc67","2013-08-10 19:52:59+09:00","Added extra menu on AppWidget.
+
+Some refactorings are done as an side job.
+"
+"9f0265b97232f8df2300a889c14390d9e018248c","2013-08-12 22:45:13+09:00","Refactoring : Wifi only is checked at 'checking network availability' (Not fully tested yet.)
+
+This is to integrate network check routine to one-path.
+"
+"90b7942e91b15b14e55646b8a30a82206509c61c","2013-08-12 22:50:30+09:00","Changed all tool icons to mixture of Android original.
+
+License dependency is reduced.
+(Remaining one is App Icon.)
+"
+"917bb304b2a1c15fba0567280ff4c4a1621dfe81","2013-08-12 23:13:32+09:00","Refactoring : 'information' menus are moved to 'more menu'.
+"
+"9afb68fac64cb45b41b73dbf01b3e7c58e415227","2013-08-12 23:15:47+09:00","Support 'Move-to-top' function at AppWidget list view.
+
+User can move to top of the list at AppWidget.
+"
+"ac8987c226448ae94f5179cb6431672623656c3c","2013-08-13 20:06:57+09:00","Supported changing position of button in AppWidget layout, dynamically (+ Refactoring)
+
+Refactoring to use resource text instead of hard-coded string for 'preference' and 'array' in x
+"
+"419a17914762ebaacb596364b734ebe58e0ddd07","2013-08-13 20:08:21+09:00","Deleted host environment dependency - '.settings' directory.
+"
+"1857248e9c6389780210701305042841de94e4b7","2013-08-13 22:41:14+09:00","Fix bug : cloned ChanInfo value SHOULD be put into HashMap.
+
+Reference of ChanInfo SHOULD NOT put into HashMap for future read!
+(Referenced value can be changed at anytime)
+"
+"f70f16b55f8f4c9edf67320708dcad1b7654022a","2013-08-13 22:45:07+09:00","Added additional new channels to predefined database.
+"
+"f07fe648108c4e565e7caed71fd9c26632537391","2013-08-14 21:09:18+09:00","Bug fix : FC when try to enter 'setting' menu for empty channel.
+"
+"fd69285391955761ba51d7468d281ec952b6ecba","2013-08-14 21:10:46+09:00","Improved feed parser : parsing non-standard feed data - ex. sisagate
+
+At some feed, guid has web url value, and it is used as enclosure url.
+Now parse can handle this case.
+"
+"6e806167aa49671fb6a1495490c1dd17d1a491e7","2013-08-14 21:15:37+09:00","Prepare for release - update version number/string(52)
+"

@@ -1,0 +1,62 @@
+"commit id","commit date","commit message"
+"447bd160285d743580b9702b5fa82a09976afbc4","2013-02-13 12:51:00+01:00","ping: fix servers not supporting the extensions
+"
+"32d1da2698f375acd9c9f53af544f6831c3f9e78","2013-02-13 12:52:44+01:00","version 0.8.6b
+"
+"e0f5c77931d0fcd8c64cd42d891fa468d4518df4","2012-02-27 21:34:31+01:00","logo update
+"
+"d62298897e7ede78884a236300cdfc3b283b835f","2012-02-27 23:25:47+01:00","new colors
+"
+"0ce499f16e6b4f00ad3c59de18e9a1b424cf09ac","2012-02-28 19:41:31+01:00","paw image assets
+"
+"b5d5bb188d478578bbe4ad4f479c61ecf33c83e0","2012-02-28 19:47:44+01:00","status and missing icons
+"
+"6c964948abf7672d6b9566002be98791fda0264f","2012-02-28 20:03:06+01:00","rename new assets
+"
+"53f2ede2cc26315b55ef05557e60140388a9d4b8","2012-02-28 20:44:20+01:00","brunofy status icon
+"
+"327913f7a7a25f5088a9c75403c297339184e9e3","2012-03-09 18:17:31+01:00","moved graphics to right dir, added sb_message paw
+"
+"697f8c931dbea2f14e23c44040b78cd98102c85f","2012-03-09 18:18:29+01:00","modified basic paw
+"
+"441df200d88f3cae988bf2b1cf46668ffc643e5b","2012-03-09 18:56:26+01:00","added sb_message PNGs
+"
+"bd0a6b29b66008e66efa631e572e56fd16351512","2012-03-09 20:55:54+01:00","sb_message: bubble -> letter
+"
+"f93042e8b07d5d0dce18fc4a9f365d72ecf28007","2012-03-09 20:57:57+01:00","first theming adoptation
+"
+"dde3bd1bc82ffd0fec69d35d32b44ec92c055213","2012-03-10 00:47:42+01:00","make light theme actually green
+"
+"27e98990a09b7e28d7e5aec7262b0611d3b71fef","2012-03-10 21:55:52+01:00","separate normal and prefs theme
+"
+"550d87ddf781cbf0ac5b96bcb5643423478bc900","2012-03-10 22:11:44+01:00","make green third theme
+"
+"41c7527d3f2b720b848f8911f14c2fea41d13a59","2012-03-10 00:17:46+01:00","cacheColorHint transparent is the right magic
+"
+"bb4d026f2b38050faa767b9ac482676c4ee71b6b","2012-04-01 16:57:34+02:00","strings update
+"
+"89fbb26790e6a0ccf384bf6c0bb1c7f335d47765","2012-04-01 17:04:39+02:00","lighten up light_pink background
+"
+"e2008d834f18006e9a64dae986eeecabdf4751db","2012-05-13 18:38:45+02:00","bruno: new 'ice' theme
+"
+"ba568098c566963ce091d94ca0a0561cf8842165","2013-02-11 19:38:22+01:00","strings update
+"
+"be5abb31041c3da8bd96f3c60af254bb0a6029d5","2013-01-28 21:54:36+01:00","yaxim -> bruno namechange
+
+git reset --hard bruno
+
+set -e
+
+sed -i 's/org.yaxim.androidclient/org.yaxim.bruno/g' `grep org.yaxim.androidclient -rl res src` AndroidManifest.xml
+mkdir src/org/yaxim/bruno/
+git mv src/org/yaxim/androidclient/* src/org/yaxim/bruno/
+sed -i 's/yaxim/Bruno/g' res/values*/*
+sed -i 's/Bruno.org/yaxim.org/g' res/values*/*
+sed -i 's/#Bruno/#yaxim/g' res/values*/*
+sed -i 's/'yaxim'/'Bruno'/g' src/org/yaxim/bruno/data/YaximConfiguration.java
+git add res src AndroidManifest.xml
+
+set +e
+git rm -f res/values/version.xml
+git rm -f res/values/translators.xml
+"

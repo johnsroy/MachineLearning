@@ -1,0 +1,38 @@
+"commit id","commit date","commit message"
+"6430aac45d2b93dc55e6f4f2e943e2e924a960b9","2011-07-26 22:09:45-04:00","Added instructions to create GLWallpaperService.jar
+"
+"2fa98bd04aac167cfda4d6ca7ec6293f073f4d84","2011-09-02 23:48:37-04:00","Swap out the implementation of GLWallpaperService
+
+This implementation uses an internal GLSurfaceView directly, rather than
+copying and re-implementing all the GLSurfaceView code
+"
+"e3ffe9cf80c36ac91c26d71b400e1cd1f811049b","2011-09-03 00:15:36-04:00","Changes to make compatible with old implementation
+"
+"793c95f090f0e71c62fa98341640f23d515e5850","2011-09-03 12:45:49-04:00","Don't recreated the GLSurfaceView after onSurfaceDestroy has been called
+"
+"7f4f6916b6d68874f3335587a7dba5744a8144b5","2011-09-13 21:51:59-04:00","Add dual-license with bsd/apache for GLWallpaperService
+"
+"a793a7252f10892d94b332139e1b1e73fc2a80c9","2014-09-19 20:41:31-04:00","Porting Really Slick Screensavers
+
+This pulls in a port of the GLX version of Really Slick Screensavers.
+
+This has three of the live wallpapers, and allows settings for each.
+
+They were not originally meant for Android, so some changes were
+necessary.  Particularly with regards to Android Service lifecycles as
+opposed to standard desktop OS screensavers which are either running or
+not on one screen.  So I worked towards making it more robust - reducing
+state, encapsulating, putting mutual exclusion around critical sections
+(mainly draw calls), replacing getopt with the more thread-safe optlist
+etc.  That work is not yet done, but it is less crash-prone now than in
+its original ported state.
+
+The RSS-GLX code uses OpenGL, not Android's OpenGL ES.  I used the shim
+that was in Xscreensaver to do the translation of OpenGL to OpenGL ES
+calls.  Including a partially implemented glLoadMatrixf call which I
+wrote (but did not finish).
+"
+"214e7bb108310796101b9c55c57163a3ab1f5a2d","2014-09-19 22:10:43-04:00","Some APIs and devices need explicit loading
+
+Some APIs and devices will need libraries explicitly loaded.
+"

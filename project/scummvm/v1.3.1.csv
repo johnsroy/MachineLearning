@@ -1,0 +1,212 @@
+"commit id","commit date","commit message"
+"f8d5744a90e2b58861080056b903feb5b28145ab","2011-06-01 23:49:19+02:00","TOON: Fix crash #3308220
+
+Bug #3308220: 'Crashes'
+Added clipping to magnifier effect
+(cherry picked from commit 3429a14c119752daa8d17c499dbffb27a3fe23a5)
+"
+"9b74ad191b46283f477fb02ffe2576646f76ecc4","2011-06-04 15:50:34+02:00","BUILD: Add missing include
+
+This is in the mpeg2 player, so was completely unused and harmless.
+Still fixing it to avoid confusion should we do a 1.3.1. (Bug #3311446)
+"
+"784a6f4caa73ea1bba416d38af57c5f5da6651be","2011-06-04 23:33:58-04:00","IPHONE: Updated xcode project
+"
+"a2bb8a02ba6529c0299c2e955a4b81b2df67bd5d","2011-06-04 23:34:12-04:00","IPHONE: Fixed a COMI crash and some minor gfx glitches
+"
+"c831c7243d34e61d234ea622bea0e81f6ae5cf7a","2011-06-08 03:13:13+01:00","AGI: Fix Broken Predictive Text Input.
+
+This was a regression introduced by
+4b2f92b5e56a1fc273c8c8d2e69b747f938ea92f (r55135)
+"
+"1e41c47cfe119694d6204d1f16b21b101662c80f","2011-05-18 00:53:20+02:00","COMMON: Add (another) Eclipse project file to .gitignore
+"
+"be5b4fad02d73b5c3840fb42726335050c38bf16","2011-06-10 00:37:51+02:00","SCALERS: Fix for compiling for ARM without using ASM scalers
+"
+"1dd8d1eb1ef53d16e47faf4d141a3e67bc13ce59","2011-06-10 20:30:49+02:00","ARM: Fix normal2x scaler for width % 4 != 0
+
+The first jump to 'thin:' didn't leave r14 (remaining width)
+in the right state.
+"
+"05025987cb614b274e08e4eca78dd2d2a6aee1c1","2011-04-28 06:43:56+08:00","WINCE: Fix mouse coordinate scaling when ARM scaler support is active
+"
+"42f8f397f537a29bba7965cb9e4d63a27c723b0d","2011-05-26 14:33:34+01:00","OPENPANDORA: Use the SDL plugin provider not the main POSIX one.
+"
+"60bc0c84df05f134ab728910524b15cc25fcdae7","2011-06-11 01:07:46+02:00","WINCE: Some cleanup (public vs. private scopes), fix freelook
+"
+"6e48fe2aa3f5b41b5d24879bce54562b5539871d","2011-06-13 21:51:48+02:00","SCUMM: possible fix for #3315631
+
+While I can't reproduce that particular bug (no default music in INDY4 FM-TOWNS) with the release build, I have removed the MDT_TOWNS flags from the INDY4 and MONKEY2 detection entries, since the FM-TOWNS midi driver is not part of the 1.3.0 release anyway.
+"
+"89affc920970b4c822ecead59ee30e5cd53234f8","2011-06-13 04:39:38+02:00","WINCE: Add support for language auto-detection in WinCE
+"
+"ba53696d458d320c0ca58319503c378ae4779cc4","2011-06-14 22:19:48+02:00","SCALERS: Fix Normal1xAspect scaler bug reported in bug #3313709
+"
+"187b3770fbfde45d6344191a2972b417e06f6275","2011-06-05 18:26:25+02:00","AUDIO: fix device detection (missing rom files for MT-32 emu)
+
+This is an attempt to fix the problem Max described in his devel mail.
+The presence of the rom files will now be checked in detectDevice().
+In case of failure there will be fallback attempts.
+The user will get notified of the detection failure if he has expressly selected the device that failed.
+
+Please test with your platform / engine (with or without rom files).
+"
+"247c28e0a204362f67c450bf78fc8d3934e0dcf7","2011-06-05 18:28:05+02:00","KYRA: fix audio detection
+
+Don't attempt to detect PC devices for non-PC versions of the game, because this might trigger unnecessary detection failure messages.
+"
+"3c83d9ab1f67c8e3007c64a96a4b41f8f01b4c58","2011-06-05 22:04:42+02:00","AUDIO: replace GUIErrorMessage()
+
+GUIErrorMessage() shouldn't be used since it changes the window caption and resets the graphics mode.
+"
+"cc4809a8cb7afc4678b27ebcc2ed76de66eee1cf","2011-06-06 00:17:24+02:00","AUDIO: replaced kDriverName in MidiDriver::detectDevice()
+
+(This is irrelevant for the MT-32 emulator, but makes sense for plugins which really have more than one device)
+"
+"8cc6dad747d331ac270c9d5380e584b52695e478","2011-06-06 01:15:04+02:00","AUDIO: cleanup MidiDriver::detectDevice()
+
+(wrong enum usage)
+"
+"eab87fa1967ed03ac4ad14568073917ca6ebd2f3","2011-06-06 12:44:28+02:00","I18N: Make MidiDriver detection errors translatable.
+"
+"e6b671e6590de5a06f88e93efb6f8bb9884cb016","2011-06-06 16:05:55+02:00","AUDIO: some more text tweaks
+"
+"6efc829f3a7df3673abfa5ff3e357edffb181668","2011-06-07 18:27:13+02:00","AUDIO: improved warnings in detectDevice()
+
+Silent fallback would occur if the user expressly selected a formerly available audio device which now has become unavailable (switched off, disconnected, no longer compiled in, etc.). A warning dialogue will now be displayed, before the fallback takes place.
+"
+"ec8e6162c0570973970225869d76848a2701e1b7","2011-06-09 18:15:55+02:00","AUDIO: Remove dead code
+"
+"1c9f7fdd01fba450ba15a0f4eaab3ca02d1b6993","2011-06-13 03:00:03+02:00","SCUMM: fix engine destructor
+
+(This is relevant for cases where the engine errors out early, before certain arrays get initialized).
+"
+"6cb3cd58b646f18c37a4de01d2e4f7573fada3b5","2011-06-13 12:39:15+02:00","SCUMM: some cleanup in gfx_towns.cpp
+"
+"2443bc6d1f3450ea044533cdc8ff7cc64522f177","2011-06-13 22:35:01+02:00","SCUMM FM-TOWNS: add number of color check in TownsScreen::updateOutputBuffer()
+
+Although the 16 color surface is normally not on bottom, there could (theoretically?) be cases in 8bit fallback mode where this becomes relevant.
+"
+"e2b3e39bc998ce24fd708070fd44a331b47699a8","2011-06-15 17:12:17+02:00","SCUMM: fix bug #3316738
+
+This provides fallback to 8bit color mode for SCUMM3 FM-TOWNS games on platforms which set the USE_RGB_COLOR define even though that color mode is not being fully implemented for that platform.
+"
+"d19b9ba8ed7f32423e03284899858f59ca36878f","2011-06-15 22:01:24+02:00","SCUMM: hopefully fix 16bit mode support for SCUMM FM-TOWNS games and LOOM PCE on Android
+
+This mostly reverts 5b7754e3f095eb8a469dd4b7de5a6379f8e13c27. Instead, we try to use other 16bit modes  after 555 fails.
+"
+"3c26c9b24d21e169a50f4b2cde9d202676f4ac1b","2011-06-15 22:54:38+02:00","SCUMM: change comment in last commit
+"
+"cc9bcd01d1b799819034afb8d38ef5f0d4602d53","2011-06-16 20:51:09+02:00","SCUMM: slightly changed behavior of 16bit mode detection
+
+(another attempt to fix SCUMM FM-TOWNS for ANDROID)
+"
+"d09701e705247507038521d20f17b23ebd8630f1","2011-06-16 21:31:45+02:00","SCUMM: fix bug in cb661d63d0cd45d1231435a593b74dfc51872a0f
+"
+"87e525932c0803b98216d5c83fbd6bf72e692740","2011-06-17 23:37:21+02:00","SCUMM: fix FM-TOWNS graphics output for ARM devices
+
+(changed behavior of USE_ARM_GFX_ASM define)
+"
+"d9f6aea085adaa8318e1b3e71fda15f7174e4e83","2011-06-18 13:14:51+02:00","NEWS: start 1.3.1 section
+"
+"6804df0f89438d12eb4876c12f64df6966f985da","2011-06-18 13:12:13+02:00","SCUMM: make sure asmDrawStripToScreen is not called in 16bit mode
+
+(fixes possible issue in LOOM PCE)
+"
+"77571fab08d3817fe5c93acf7435f6008584d269","2011-06-18 16:32:59+02:00","SCUMM: regenerate 16bit palette after loading a savegame in LOOM PCE
+
+(this avoids isssues when using savegames from different ports with different 16bit color modes)
+"
+"e17a33c81e679aeddcc2f9fb6f923b428ff7c8a9","2011-06-19 14:46:02+02:00","SCUMM: fix SCUMM3 FM-TOWNS font rendering glitch in Japanese mode
+
+(Wrong character height for non-SJIS chars which messed up the inventory scrolling arrows)
+"
+"712579f4afde04fe734e064621c35db36b04f6ff","2011-06-20 17:23:30+02:00","TINSEL: Fix/comment CORO_KILL_SELF macro.
+
+This reverts 9573b1d2f54818f9bdac4a91e0a90b306ade7810, which changed
+the behaviour of (among other things) NewScene, which made Discworld
+uncompletable. Thanks to digitall for bisection/reproduction.
+"
+"ee6765aab9cb670bd60f5428a0eae29593c2739d","2011-06-21 13:54:59+02:00","NEWS: Fix 1.3.1 news entry.
+"
+"fc5c25e36ed26e1a4c0861ae4d6fae3123084fab","2011-06-22 18:35:59+02:00","NEWS: Mention Tinsel fix.
+"
+"0568c9540e43da6fe1c98aed8743b1665b55405c","2011-06-11 14:33:06+03:00","SCI: Added the Spanish version of EcoQuest 2 (bug #3313962)
+
+(cherry picked from commit 1f0f0595c46cc083dc2c6f00be1abf7f55a7b175)
+"
+"4a8bda64615232c9c0816852160e51f62c958ae6","2011-06-11 14:34:47+03:00","SCI: Fixed script bug #3313962 - 'ECOQUEST2 Spanish: Crash near beginning'
+
+(cherry picked from commit ece449298d5c34db763ae78b370842de17af17ef)
+"
+"6bfaddd70bee191a6668dffa345bec091362781e","2011-06-25 01:00:07+02:00","WINCE: Hide toolbar when returning to game list
+"
+"2165c6887a8395c02731ba2401e00e349b7a402a","2011-06-25 10:43:41+03:00","SCI: Added the Mac versions of LSL1, LSL5 and Dr. Brain 1
+
+Taken from bug reports #3328251, #3328262 and #3328257.
+Thanks to omer_mor for reporting these
+"
+"41359c7f32b2ffeb6fe08054444daa6e784c8b0d","2011-06-23 00:28:44+01:00","SAGA: Fix Bug #3323722 ('IHNM: Crash to desktop in Ellen's Adventure')
+
+Thanks to fuzzie for this fix.
+IHNM and ITE should be retested.
+"
+"7a60ce40400cb74c2445f7119453f9052f3defa8","2011-06-23 18:35:27+01:00","SAGA: Fix for Bug #3324850 ('ITE (SAGA): crash in dog sewers')
+
+This read of 1 byte past the end of the buffer has existed since
+the dragonMove() function was implemented, but since the change
+in bfb0986c to use ByteArray, this now causes an assertion due to
+the stricter bounds checking.
+
+This commit corrects the original issue.
+Thanks to fuzzie for this fix.
+"
+"c0c33ea78c1c67801f008dfdade47fc3dce30772","2011-06-04 19:34:41+02:00","MOHAWK: Add a bunch of LB detection entries.
+"
+"1954c0c8e98bacf8abb97e89dc129bce0577e803","2011-06-25 10:12:48+02:00","NEWS: Mention SAGA fixes, new Mohawk detection entries.
+"
+"563a7065e152ba98b3cebd76e0e5d2c568fe217f","2011-06-25 12:42:49+03:00","SCI: Fixed bug #3325512: 'EcoQuest 1: Audio settings are not saved'
+"
+"de1dbba660e365e9f881837084f43c11d6cd2e6f","2011-06-25 12:54:48+03:00","Updated NEWS with the latest SCI changes
+"
+"cca706126e9dee314d548853e3bfce5e433d4201","2011-06-25 13:49:38+03:00","NEWS: Removed superfluous whitespace
+
+Thanks to salty-horse for pointing it out
+"
+"ec56debc2a132a1276f3608fbe6277731389bf41","2011-06-26 02:09:54+02:00","WINCE: Fix timer manager
+"
+"ceec203ab3d1e61cff109efd650ce0f693ae06f3","2011-06-27 02:00:33+02:00","WINCE: Added option to disable panel toggling with double tap on top of screen
+"
+"0991ae0cc11a7b1b5b66274210328a1a93ced155","2011-06-28 12:55:05+03:00","SCI: Fixed script bug #3292327 - 'SCI: HOYLE4: Cribbage bug'
+"
+"c271f09f48a102913715da03124956a34225c045","2011-06-30 22:54:49+03:00","SAMSUNGTV: Change save path. Requested by aquadran.
+"
+"6ac4eda522ae5346ebb0b59dff9ee7dfd5e96468","2011-07-01 01:14:56+02:00","WINCE: Update port specific README
+"
+"0d864a245eaa68da2f7e532487e722e37214e08f","2011-07-01 05:46:42+02:00","SCUMM: Fix first parameter in FontSJIS::drawChar call.
+
+Probably a typo. Fixed in master with 933ee5b.
+"
+"3861584c3e75f7769b789b370050eaef83001718","2011-07-03 14:33:38+02:00","SCUMM: fix crash in digital iMuse games when using RTL and restarting
+
+(static array were not reset to NULL after being freed and therefore didn't get reallocated on restart)
+"
+"ee3f24a8827f93049873b14b221871699fd3d79b","2011-07-03 23:19:20+03:00","RELEASE: Set 1.3.1 release date
+(cherry picked from commit 98dfef0ca4df8b2c8d16683a03d55a88783d7004)
+"
+"3998a9e36417e40c5640cf301fdbd61890c08d49","2011-07-03 23:26:59+03:00","RELEASE: This is 1.3.1
+"
+"9b2c2dbfeee94c50d8ece0937cbe1fed4a911155","2011-07-03 16:46:54-04:00","Removed $URL$ and $Id$, as they don't get expanded by git.
+
+Minor aesthetic cleanup in common/stream.h.
+"
+"4752c35272b7e7ddbb509cb9e0fdd99a1893846f","2011-07-03 16:50:16-04:00","Merge branch 'branch-1-3' of git@github.com:scummvm/scummvm into branch-1-3
+"
+"584da65a1d03d4feff8e29c7219ce49096595b7f","2011-07-04 08:32:20+02:00","AUDIO: fix issue in detectDevice when config manager setting is missing
+"
+"97674b66b8f71f3128f5e0b243b44a018529ff11","2011-07-04 11:18:00+02:00","REDHAT: Update list of packaged data files
+"
+"3595529c435638640d57925ef7ace3232044fe16","2011-07-04 19:45:21+10:00","BUILD: Update the windows installer script.
+"
+"cf2bd3f6bd6c9053edf289ec303870d69d12b3a1","2011-07-04 15:05:31+03:00","Merge branch 'branch-1-3' into branch-1-3-1
+"

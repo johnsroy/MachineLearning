@@ -1,0 +1,110 @@
+"commit id","commit date","commit message"
+"8b92bc383652285c92b1ddc468db07b502331db6","2010-05-12 04:17:52+00:00","Fixes Issue 1474
+Fixes Issue 1562
+
+Issue 1474:
+Provide new facility to totally wipe all data for an account but leave
+settings intact.  This is useful because sometimes storage is so full
+that SQLite cannot perform the usual VACUUM or message deletion.
+
+Add confirmation dialogs to destructive Clear and Recreate operations.
+
+Remove destructive Clear from FolderList so as not to have to
+duplicate the confirmation dialogs.
+
+Issue 1562:
+Suppress notifications when new messages arrive in Trash, Sent or
+Drafts special folders.
+"
+"1502660826b4018c8600fcbff2c404ac722f31ca","2010-05-12 05:35:08+00:00","Fixes Issue 1561
+
+The user can elect to have opening a Notification open a
+account-specific search for unread messages.
+"
+"b51bce6ebf6fcae9a8a5a261f252faf9c443d4f0","2010-05-15 19:35:07+00:00","Fixes Issue 1551
+Fixes Issue 1577
+
+Issue 1551:
+Some IMAP servers send untagged EXPUNGEs to IDLEing
+clients without ever haven't sent an untagged FETCH.  The untagged
+EXPUNGEs are harder to deal with because they don't have a UID.  So,
+if the user has elected to have the IDLE connection start with a poll,
+we can maintain a map of message sequence numbers to UIDs that we can
+use to figure out which message to delete.  To mitigate the risk of
+the map falling out of date, we do a UID SEARCH UID before removing
+the local copy of the message, just to make sure the message is really
+gone from the server.  If we detect an error, do another poll to
+resync the map.
+
+Issue 1577:
+Restore the removal of notifications for an account when the account's
+unread message count goes to 0.
+"
+"ecebdf18cd4efe3f47ce4d8f23c83b2b2c12dd88","2010-05-15 19:46:16+00:00","find src/com/fsck/ -name \*.java|xargs astyle --style=ansi --mode=java --indent-switches --indent=spaces=4 --convert-tabs --unpad=paren
+"
+"f799be05c90c256271cf85ea2be5386d256830ab","2010-05-15 20:35:39+00:00","Account.java had developed dos line-endings.  :/
+"
+"384803076dbd154a8463771c1848468d5c66abe5","2010-05-15 20:35:47+00:00","When instantiating an account, set the default color to something
+random, rather than blank, so that new accounts don't endup without
+colors.
+"
+"ea6bb0000ea673efe5de1f6d0ff195fcc42264f8","2010-05-15 20:35:59+00:00","Let users pick LED Notification colors different from their account chip colors
+"
+"a59ade4fdd65a6254c1a877a7dd2ed963f9833ea","2010-05-15 21:03:44+00:00","When no messages are selected yet, 'Select all' is the only valid batch
+option. Instead of forcing the user through a submenu, show 'Select all'
+instead of the submenu
+"
+"71c43b963499f8ddff39956bd47568fb46e96faf","2010-05-15 21:26:15+00:00","Fixes Issue 1482
+
+Utilize cketti's AutoSyncHelper in order to provide a way to make K-9
+Mail obey the global Auto-sync setting.  K-9 Mail doesn't obey the
+Auto-sync setting by default because K-9 Mail isn't listed as one of
+the listed applications.
+"
+"9cf42ef91372e813804c568fe769c6d5438d4ed3","2010-05-17 00:30:32+00:00","Provide for tracking all WakeLock usage.
+
+Simplify WakeLocks use by pushing.
+
+Correct fault in IMAP IDLE WakeLock usage.  The ThreadLocal in
+MessagingControllerPushReceiver meant that the WakeLock acquired when
+the DONE was sent was not being released when entering back into IDLE
+state.
+
+Consolidate the account notification so that all Activities use the
+methods in MessagingController.
+"
+"f8994f6491aafd00a0ff302769535a25deab7607","2010-05-17 01:04:42+00:00","Turn off tracing by default.
+
+Lower log level.
+"
+"0e3f9a9db4790a9eabcc3d8b295d96ec01591e42","2010-05-17 02:33:19+00:00","Synchronize access to encapsulated WakeLock
+"
+"22ce159fe6bb8931cd273e42c055be44d57d75b1","2010-05-19 13:31:48+00:00","Merge imap-parser branch.
+
+Fixes issue 1547.
+"
+"58b8479612f497a7d561260569226f640f4b912b","2010-05-19 18:17:06+00:00","Code refactoring:
+- Created 'controller' and 'mail.filter' package
+- Moved a lot of classes to new/other packages
+- Removed unused classes: NoSuchProviderException, MessageDateComparator
+"
+"077fc78d88ac29d48d46e92fb68c015cc0c2e0ff","2010-05-19 18:21:40+00:00","Removed now empty package 'codec'.
+"
+"26bd72573e26124962957ae6b6a9f68d90831208","2010-05-19 18:32:30+00:00","Removed unused imports.
+"
+"b5a6a28f1916f1c0c6c677290d4d37d8c16de9d3","2010-05-19 18:44:22+00:00","Fixed some more warnings:
+- Removed unused imports
+- Removed unnecessary @SuppressWarnings('deprecation') annotations
+- Added @SuppressWarnings('deprecation') to API 1-3 code that's now (API 5) deprecated
+- Added missing @Override annotation
+"
+"6e3183f54f10459383fec0f2b000ebd98205c2d5","2010-05-19 19:16:36+00:00","Moved classes Regex and DomainNameChecker from android (package) namespace to K-9 namespace. This way we're protected from modifications to these classes in future Android versions.
+"
+"ac3fbf7259b5645ba41dfd81db7e2a061acccb66","2010-05-19 19:19:16+00:00","Remove now empty android package.
+"
+"44da2e1fe608807850fa353466277739258e62c0","2010-05-20 02:33:44+00:00","After discussion with cketti, reinstate using LIST to find the path
+delimeter, but only if the server does not support NAMESPACE.  Since
+we've encountered non-compliant servers that freak out at the LIST
+command, enclose in a try/catch structure so that failures do not
+totally prevent IMAP communication.
+"

@@ -1,0 +1,256 @@
+"commit id","commit date","commit message"
+"1afff1e38fe779180ec1c3333b89d9a68d28b28e","2013-09-20 18:13:04-04:00","Delete related files when deleting a database.
+
+The journal file was not being deleted when an account was deleted.
+Over time, one can end up with a collection of dead journal files.
+"
+"313a5bff9c2567669a1b10b550e2f611c4268439","2013-09-20 18:15:27-04:00","Contact picture fix.
+
+Clear out old/unrelated (previously bound) contactBadge info in
+MessageListAdapter.bindView that could otherwise be displayed
+when tapping on a contactBadge with no counterpartyAddress (may
+require scrolling the message list up and down first before the
+bug becomes evident).
+"
+"e20170c996856e5da2887dde86aaf40fbd248a98","2013-09-29 21:53:24-04:00","Update the tests project.
+
+Target the same SDK version as in K-9 Mail.
+
+Update the .classpath file as modified by the latest Eclipse ADT plugin.
+
+Remove unused import.
+"
+"33678ea0228f5f46786a6300febceb56b42d9c01","2013-09-30 16:55:39-04:00","Eliminate unnecessary override in LocalAttachmentBody.
+
+The overriding code is the same as the overridden code.
+"
+"005241d97b217d0a43594f050300da7861136d97","2013-10-09 15:53:39-04:00","Issue 4594: draft not saved with shared info
+
+When another app shared info with K-9 Mail, the draft was not
+always being saved when the 'Save as draft' menu option was selected.
+"
+"bfb03165831429352434b0150f9d4a79f70816e5","2013-10-08 19:14:08-04:00","Fix fatal IndexOutOfBoundsException
+
+The problem:
+
+Configure the account (just an example -- problems can occur in other
+configurations as well):
+Message Format: HTML
+Reply quoting style: Prefix
+Quote message when replying: yes
+Reply after quoted text: yes
+
+Reply to a message that has a large quantity (20+) of \r\n scattered in
+the body of its HTML version (not an unusual scenario).
+
+Add a reply.  Save the message as a draft.  Go back & open the draft
+again.  A fatal IndexOutOfBoundsException occurs.
+
+The cause:
+
+When the draft was saved, the X-K9mail-Identity header was computed and
+added to the message, then the text of the message was processed with
+MimeUtility.fixDraftTextBody, replacing all occurrences of \r\n with \n in
+the quoted message before being saved in LocalStore, thus invalidating the
+X-K9mail-Identity header.
+
+The fix:
+
+Remove MimeUtility.fixDraftTextBody and implement
+MessageCompose$EolConvertingEditText instead.  Any message text placed in
+an EolConvertingEditText widget is assured to have \n line endings.  Any
+message text extracted from an EolConvertingEditText widget is assured to
+have \r\n line endings.  The X-K9mail-Identity header will always be
+computed correctly.
+
+Issues thought to be related:  4782, 5010, 5634, 5725
+
+As noted in some of the referenced issues, errors didn't always result in
+a fatal exception, but instead with mixed up text.
+
+Ref:  commit f9a35aeaeeae67bd88c3b253c25d06832ca7da73
+"
+"114be7a15daee705e841cd6073fadb0833084ccc","2013-10-08 19:15:43-04:00","More robust checking to prevent fatal IndexOutOfBoundsException
+
+Even with the fix in the parent commit,  the X-K9mail-Identity header can
+become invalid if, for example, a user creates a draft in K-9 Mail, then
+edits the draft outside of K-9 Mail, then opens the draft again in K-9
+Mail.
+
+This commit assures that an invalid X-K9mail-Identity header will not
+result in an IndexOutOfBoundsException.
+"
+"5a46575dc2a95a68d6c27c8bd39b24e6972c5717","2013-10-08 17:07:21-04:00","Generally replace \n with \r\n when part of a message
+
+This builds upon the efforts started 2 commits back where \r\n is used for
+all message text and \n is only used when the text is inside an
+EolConvertingEditText widget.
+"
+"ef01cabccc88aa0c5a28793d22a3dd1d3be21187","2013-10-10 15:56:55-04:00","Remove \n from R.string.message_compose_reply_header_fmt
+
+This string resource is used in two places -- both with and without the
+linefeed at the end.  Instead of having a linefeed in the string and
+having the code remove it if not needed, the linefeed is now omitted from
+the string and the code adds it if needed.
+
+Also, the line ending is changed from \n to \r\n.
+
+Also, the string in the DE and FR locales had linefeeds at the start that
+were removed so they match all the other locales.
+
+(The string in the zh-rTW locale was left alone, since it had no
+linefeeds.  It looks like that file has numerous instances where \n was
+replaced with actual newlines, which is probably not correct.)
+"
+"0323af09e5f6edb67fbbf4461bcc3de68791fdd9","2013-10-08 18:30:21-04:00","Don't add blank lines to composed messages if there is no quoted text
+"
+"dc42f2589d926c1a5131e956debcfa0363819d15","2013-10-12 08:11:12+09:00","Updated Japanese translation of the changelog.
+"
+"bd42a7d06e55b1c0735762e5208290faad2966c7","2013-10-14 15:49:30-04:00","Upgrade to SDK version 17
+
+The ant build was failing after commit 1afff1e
+
+Ref commit 88c7b20
+"
+"d84ce6ddb996e0e17c3de974bf67cb2f1d42b668","2013-10-15 10:16:42+02:00","Hardened TLS cipher suites and versions
+
+As Georg Lukas wrote in his blog post about how Android handles TLS
+handshake (http://op-co.de/blog/posts/android_ssl_downgrade/), an
+explicit order of cipher suites and TLS versions must be supplied to
+avoid having the weak (presumably broken) RC4 cipher at the top of the
+preference list.
+
+This commit adds the list included in the blog post to every TLS socket
+creation, including IMAP, POP3 and SMTP, see Wireshark screenshots done
+during testing at http://vsza.hu/k9mail-tls-hardening/
+"
+"418a8d9f67baa9a904f2847e78b91155d3bd6721","2013-10-01 08:56:06+03:00","Add Lithuanian translation
+"
+"3a5965be08d989702c75a4ef80ad0c469b3452cf","2013-10-06 17:34:15+09:00","Update Korean translation
+"
+"ffa3730f2fe2467dbdf63880f83f3b06db29aa05","2013-10-09 17:40:15+09:00","Update Korean translation
+"
+"99c17ff796d010105cda59928b6150fe10228efc","2013-10-07 12:16:38+03:00","Update Greek translation
+"
+"a3d06b12710bb816c3dc758292a7d358a1f41edd","2013-10-13 17:35:07+02:00","Update Slovak translation
+"
+"0222bb0829cb231e03766a4174ea640f2996e3dc","2013-10-13 17:53:44+02:00","ckChangeLog - SK translation
+"
+"f5ada9947b3ba2288be4a4f0d2ab6326549cd437","2013-10-13 17:58:11+02:00","Android-PullToRefresh - SK translation
+"
+"4f6241a4bb18c4570cd30e63ff0d531e7d459b39","2013-10-15 09:46:06+04:00","Update Russian translation
+"
+"4442cd030f2219bb2a05f556f2957bc7d53bbdf6","2013-10-16 19:55:59-03:00","Update Brazilian Portuguese translation
+"
+"aa81f7858725e45bd0acd7f8627c4ea451ac2499","2013-10-19 18:03:04+02:00","Add Lithuanian to list of supported languages
+"
+"43d10840477adc3f884c06c05229f45aeeaab827","2013-10-19 17:37:50+02:00","Run script to sync translations
+"
+"1279d597acd5e576b108b05b8de5755aa17368d3","2013-10-19 18:13:01+02:00","Fix format of Lithuanian translation
+"
+"ad3c394322d5dfa68a77a68b11053960914dd769","2013-10-19 18:28:43+02:00","Fix German translation
+"
+"fecf77bcded7b0fabcf8e7c03641c2e4d344ee0e","2013-10-19 18:31:29+02:00","Merge branch 'translations'
+"
+"a0709f22484551ce0dbd1da7c3470f6e407a6cc4","2013-10-19 20:42:48+02:00","Remove newline in reply header of zh-TW translation
+"
+"ef3ba02a892cc98e8c9e765958c812bb282fa35f","2013-10-19 21:22:29+02:00","Merge pull request #400 from zjw/change_line_endings
+
+Fix problems related to the saving and retrieval of drafts
+"
+"dbc47c7297b677636c7a242e386372f7f8236093","2013-10-20 10:22:53+02:00","filter enabled cipher suites by availability
+"
+"77d43fb7bdb79c86fd7e6e41abc953c5b3a8c961","2013-10-20 10:30:33+02:00","extracted method filterBySupport
+"
+"105d3b3c4e26f326117d22d876eb088089fb6fe1","2013-10-20 10:40:16+02:00","filter TLS protocol versions by support as well
+"
+"d3fea3ebb2f48dcd6963347b770a84f863962369","2013-10-20 14:28:41+04:00","ChangeLog plugin RU strings added
+"
+"5b967d46a87c29d158a0aabfecad23ae337da189","2013-10-20 14:30:42+04:00","PullToRefresh plugin RU translation updated
+"
+"f57fd551e2992ebcae5f2581e9554ab17e407cec","2013-10-20 14:33:29+04:00","Sync with ChangeLog translation
+"
+"42bea0fbc09b44e43c071f89031ef42ae8cba782","2013-10-21 05:04:25+04:00","Update strings.xml
+"
+"5d1abd89bfe4cb846d158c53544a1f3a62fc9f7f","2013-10-21 05:05:09+04:00","Update strings.xml
+"
+"aa1d7f87b93327ebaf05cb9eec9b6a2d71205f4d","2013-10-22 10:35:36+04:00","Update strings.xml
+"
+"58699190a4a0545e1e99267b05110d83a5a86ab3","2013-10-27 11:44:55-07:00","Merge pull request #406 from bboa/master
+
+Update ru translation
+"
+"f7562e1b0f454a6da3853c7ab95dd81b6fafe72a","2013-10-28 21:27:34+09:00","Updated Japanese translation. catch up with ef01cab.
+"
+"8f45d76b5cecba3f76478c49094346c4ce913a8e","2013-10-29 03:42:37+01:00","Extract WebDavSocketFactory
+"
+"a97705ffa96de522c19614bb8628626923c15683","2013-10-29 04:01:12+01:00","Refactor TrustedSocketFactory
+"
+"a036e4d2f91cbebb23c191547182df6dc85801e4","2013-10-29 04:40:06+01:00","Merge branch 'tls-hardening'
+"
+"f4de21187d1ad1571008c6a572fbfc782e3af77d","2013-03-23 12:50:44-04:00","Import NonLockingScrollView from AOSP Email client.
+
+As contained in current AOSP master:
+https://android.googlesource.com/platform/packages/apps/Email/+/b3c37a31ccffe137cc9b1c1068bb99d3d00a2ee4
+"
+"94a45853175e5ac4881d7af6d641c8c20fe67a90","2013-03-23 17:53:02-04:00","Switch to using NonLockingScrollView
+
+This implements the AOSP Email solution for incorporating
+a Webview inside a ScrollView, while still being able to
+scroll diagonally.
+
+This replaces the functionality of TitleBarWebView (which
+is now removed).
+"
+"7b0082026c6a37c99bf7e8de2e3e274191ac4e8a","2013-03-23 16:36:51-04:00","Revert auto-scroll changes that are no longer needed.
+
+Revert 'Only Jelly Bean seems to have the auto-scroll issue'
+
+This reverts commit a3802a7a8eece86f31070868f9ba7c9c7b23f92e.
+
+Revert 'Hack around WebView's initial auto-scrolling past the message header'
+
+This reverts commit 8dcc769c50ab4cfb7c5b8f8f9b5bed3fd28801c2.
+
+Conflicts:
+
+src/com/fsck/k9/view/MessageWebView.java
+"
+"97d571cb4374495ed71f76ca102623bfed1989da","2013-03-23 12:40:22-04:00","Import RigidWebView from AOSP Email client.
+
+Also import prerequisite classes.
+
+As contained in current master:
+https://android.googlesource.com/platform/packages/apps/Email/+/b3c37a31ccffe137cc9b1c1068bb99d3d00a2ee4
+"
+"fa962e7bd718f060536a221f6e81120af2161fd8","2013-03-23 22:41:40-04:00","Move AOSP files.
+
+Patch RigidWebView for K9.
+MessageWebView would need to extend RigidWebView.
+"
+"5311a2ef0139e3e1ff9931532ff5be974b764dc6","2013-03-25 09:51:16-04:00","NonLockingScrollview fixes.
+
+Implement methods missing in API 7
+
+Fix coordinate reference frame mismatch.  Touch events are
+relative to the view display, whereas view children are relative
+to the view.
+"
+"1cbdd390f3e0c9cc82f72f369619167d2af4ee14","2013-03-27 13:12:33-04:00","Use non-deprecated constants
+"
+"5957735a0b9f60dbeec3c5f4be00cf572fb258aa","2013-03-31 16:15:04-04:00","LinearLayout fill_parent
+
+(Don't think it really matters.)
+"
+"6089b9078e5316968535390ff724cb1382821662","2013-04-02 10:17:54-04:00","Fix missing 'download remainder' button.
+"
+"8f19d56f00a5a457c62086182823183fd430a15a","2013-11-05 16:59:12-08:00","Merge pull request #415 from zjw/non_locking_scroll_view_rebased
+
+Kit Kat UI issue
+"
+"e20e513039c85d8ef8ca18686c0851a34bd4f796","2013-11-05 20:19:27-05:00","Sadly, KitKat's file manager fails to recognize our mimetype and won't let users import settings
+"
+"0986e822d242bf81c4e8f9a2b5421a4404507791","2013-11-05 20:28:46-05:00","changelog for 4.701
+"
+"5475f47bcfeee92301e793cb9da7b08648525d25","2013-11-05 20:29:16-05:00","Bumped manifest to 4.701
+"

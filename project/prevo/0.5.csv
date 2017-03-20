@@ -1,0 +1,89 @@
+"commit id","commit date","commit message"
+"f081031d152f41a69904bd446a97aacf9fe85de3","2013-01-07 22:14:42+00:00","Unprepare for release
+"
+"c1bfe657bb12914b77c50bbb337baa758ddfe7e7","2013-01-08 11:04:39+00:00","BinaryReader: Keep a single buffer around to read integers
+
+Instead of allocating a separate tiny buffer every time an integer is
+read, it now conserves the buffer as a private member variable.
+"
+"eaf3706b854f8fe9779165970f8b95c6f4fc14e1","2013-01-10 12:00:40+00:00","Add 2013 to the copyright years
+"
+"f47924cc73aa1d4ea83823b274680e1cc19cd363","2013-01-18 10:59:40+00:00","Skip language codes in the articles
+
+The prevodb tool now adds language codes to each section of the
+article so that eventually the app can selectively show translations.
+Currently these codes are just skipped.
+"
+"3049869fb101685cdf05b3a802a3012917e0ba58","2013-01-18 11:00:30+00:00","search: Show the language code in the title
+
+Sometimes it's difficult to remember which language you are searching
+in so this patch makes it display the language's code in the title.
+"
+"8d8ee1491d64d4f64c7a3d6e944d1ac5dd99299b","2013-01-18 21:43:15+00:00","Add a shared preference for limiting the displayed languages
+
+This adds a shared preference called ‘selectedLanguages’ which is a
+comma-separated list of language codes. If this is set then the
+article activity will skip sections of the article that have a code
+which isn't in the list and the languages activity won't list
+the unselected languages.
+
+There is a new class to help parse the comma separated list which
+stuffs the language codes into a sorted array so that it can be binary
+chopped.
+
+There is currently no UI to change the seting.
+"
+"3ade7e065d55209ac7e709c4fcb194a2313e68d1","2013-01-20 16:10:18+00:00","Add a launch activity to skip the language select activity
+
+The LanguagesActivity has been renamed to SelectLanguageActivity and a
+new activity with the old name has been created to decide which
+initial activity to show depending on the preferences. If the user has
+previously already selected a language it will jump straight to the
+search page for that language, otherwise it will default to the select
+language activity.
+"
+"f5fb9d3e2a427d0cbdef450a319576d6aa5957be","2013-01-20 16:23:56+00:00","Update the TODO list
+
+Two tasks have been completed
+"
+"b5290e7e3404dc548d4805de0043fe4cb9ab2434","2013-01-21 19:50:19+00:00","LanguagesAdapter: Move list of languages to a separate helper class
+
+The list of languages should never change throughout the lifetime of
+the program so in order to aid sharing the list with other adapters it
+is now stored in a shared global object. There is a new class to wrap
+the array and it includes functions to search for a name given a code
+by binary chopping the list.
+"
+"73044a777920edf5aac1b03f8f71ce2db7a0299d","2013-01-20 15:40:09+00:00","Add a preference activity to choose the translation languages
+
+This adds a list activity with all of the languages with a check box.
+The user can select which translations to display. This sets the
+selectedLanguages preference.
+
+The article and select language activities have been modified to
+register for preference changes on create and destroy instead of start
+and stop. When the UI switches to another activity the old activity is
+usually stopped so it is not enough to cause it to reload the state.
+However to avoid redundantly reloading state for invisible activities,
+it now queues a reload when the pref changes and only actually reloads
+when the activity is started again.
+"
+"6f1f54d1fffce7fc2a8fb4bb3dff6dca8b8ba7d7","2013-01-22 23:28:31+00:00","Move a couple of strings from the Java source to the resources
+
+Two strings from the language selector activity were encoded directly
+in the source code instead of being in the resource file. Also for
+some reason they were all in capitals. This has been fixed.
+"
+"7d403e0e9b9dbec62b8b6a6a3fbf5ced18002765","2013-01-23 19:27:51+00:00","Fix loading the article when there is a non-default font size
+
+Previously if there was a non-default font size then it would try to
+set the size on the views before the article has actually been loaded.
+This patch changes it to delay setting the font size when there is a
+reload queued. The font is always reset after the article is loaded
+because the new views will again have the default size.
+
+This patch also moves some initialisation out of loadIntendedArticle
+into onCreate.
+"
+"7d5e461bcbc5f38de1dbff28cc47ea832dc8d5ed","2013-01-25 09:58:38+00:00","Release 0.5
+"

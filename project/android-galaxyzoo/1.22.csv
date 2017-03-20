@@ -1,0 +1,47 @@
+"commit id","commit date","commit message"
+"3b8548a7a112c8354a35f7e69154bb9fca20ae2b","2014-11-20 13:02:14+01:00","Revert 'Temporarily remove translations.'
+
+This reverts commit 89973efacacc958d8ae48d85daf814782920fb7e.
+"
+"1911d63f50c44bc7c2691d804e35536fd7c8d478","2014-11-20 13:30:54+01:00","Add a transifex-client (tx) configuration file.
+
+This uses this Transifex project:
+https://www.transifex.com/organization/murrayc/dashboard/android-galaxyzoo
+We can then push translation to transifex.
+"
+"ad136eda1e9bd057de865c456d8ebf81b93540e7","2014-11-20 13:38:49+01:00","Add a README_transifex_client file for when I forget how to use it.
+"
+"ec89afe8bbb411056d08c596f5bec95a14a20582","2014-11-20 13:39:19+01:00","README_translators: Mention that we use Transifex.
+"
+"cbeb1bd76afa3940b0a43341737ab917960a8a0f","2014-11-20 13:42:51+01:00","Pull translations from Transifex.
+
+No strings were changed, but transifex adds the context comments
+into the translated strings.xml, so doing this now will make
+it easier to see what has changed after the next tx pull.
+"
+"d489c17808fdbc115a74911148763d8be44c155e","2014-11-20 13:47:54+01:00","Remove the .po files and the .android2po configuration file.
+
+Because they would just confuse things now that we are using
+Transifex. I can always add this back if it's useful to someone.
+"
+"94f694bd026466b4a67afb85a714f7661db52389","2014-11-20 19:59:08+01:00","ClassifyActivity: Fix a crash in logged-in check after 3 classifications.
+
+Call our LoginUtils.getLoggedIn() from an ASyncTask.
+A user reported a crash via Google Play with this exception:
+java.lang.IllegalStateException: calling this from your main thread can lead to deadlock
+Strangely, that looks like a StrictMode exception, though StrictMode
+is not enabled in the app, and I can't reproduce it when I enable StrictMode,
+but the code really should be in an AsyncTask anyway.
+"
+"00f0be7aa8bdd0b0495766c6f0c64daeb25148e2","2014-11-20 20:05:48+01:00","Temporarily remove translations.
+
+Because the only finished app translation (German) doesn't have
+a finished decision-tree (website) translation,
+and the only finished decision-tree (website) translations
+don't have finished app translations.
+
+Hopefully more app translations will be ready soon. Then I can
+revert this commit.
+"
+"4e1701b667ece25413a08b2e37473c2aa33a510b","2014-11-20 20:09:09+01:00","1.22
+"

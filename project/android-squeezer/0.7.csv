@@ -1,0 +1,193 @@
+"commit id","commit date","commit message"
+"1a9fa63d7028b60de4f136862b1d7710ab148adc","2012-02-01 23:14:08+01:00","Fix menu items being duplicated when the activity is recreated,
+e.g., on orientation change.
+
+The menu fragments are looked up in the fragment manager, and added
+only if they do not already exist.
+"
+"5711c787f16d48bd2519b6db822cbc60fa2fb238","2012-02-01 23:18:14+01:00","Fix possible crashes when playlist rename/delete dialog is open.
+
+The playlist is saved in the activity's instance state, so it
+can be restored when the activity is recreated.
+"
+"4f688319d1af4e5a5525200c7850162a309b77fe","2012-02-01 23:32:45+01:00","Don't enable analytics in debug mode.
+"
+"7580837b3369b9d07f1a2e2707b3403c5ed6394c","2012-02-05 18:46:04+01:00","Provide functionality to scan the local network for Squeezeservers.
+
+This is a work in progress.  Chief issue at the moment is that spinner
+that lists discovered servers does not react when clicked.
+"
+"7a148edf5f1b3eaca7718161de18254970290ce0","2012-02-05 20:14:57+01:00","Fix bug where the server adapter was non-responsive.
+
+Do this by calling setAdapater() before re-showing the spinner,
+which appears to have an undocumented beneficial effect.
+
+Remove some unnecessary disabling of UI elements.
+"
+"23a75d1de18019bc981f6438bf549ea9d70b5177","2012-02-05 20:22:21+01:00","Use onDialogClosed() instead of onClick().
+
+This means that orientation events and using the back button are caught
+correctly, and stop the scanning thread.
+"
+"58b2caccb20c2a2d1a32d8c85ecac990dcbbafc6","2012-02-05 20:23:32+01:00","Correct a Spinner comment, remove unnecessary debugging statements.
+"
+"a1f6e167a7c83b88de0f62805649f3ea0d156f6e","2012-02-05 23:22:24+01:00","Further polish to get in to a mergeable state.
+
+Replace hardcoded strings with string resources.
+
+Fix a bug where 0 servers being found would show an empty spinner.
+
+Fix a bug where the button to cancel a scan wouldn't work.
+
+Change dialog layout to linear rather than relative, to get the
+progress bar to line up properly.
+
+Remove commented references to this functionality not being implemented
+yet.
+
+Adjust the scan code to scan a whole subnet, rather than just the
+addresses I was using for testing.
+
+Add copyright statements.
+"
+"f0227883fa2bb0ed655bb130e50af11317f8d513","2012-02-07 00:12:16+01:00","Implement most of the music folder browsing functionality.
+
+Displays the top level folders, descending in to them is work in
+progress.  Also needs to confirm that the server supports this
+functionality.
+"
+"8f4d29804c834fe2f4a8deff2748523a1e9ec143","2012-02-07 21:43:38+01:00","Support browsing sub-folders of the music folder.
+
+Add assorted comments that explains what's going on.
+"
+"4abec6c8d9be122359b134106f3168c287f6a956","2012-02-07 23:31:20+01:00","Show per-type icons for music folder items.
+
+Fetch the music folder item's type, and use this to show an
+appropriate icon in the list of items.  Adjust the layout used
+accordingly.
+
+Add additional comments after spelunking through the code.
+"
+"f8ee252a7770b14ab1a989052e78d568c6175413","2012-02-06 00:03:47+01:00","Fix NPE when the Connecting is manually dismissed (by the back key).
+"
+"1d99229bc18a60173d773e5ed89f211c8b22add1","2012-02-08 00:23:30+01:00","Add initial context menu support when browsing music folders.
+
+Doesn't work for anything other than music folders at the moment,
+see comments for possible fixes to explore.
+"
+"847c9eca190a831fea5c92f156f169560eabf360","2012-02-08 10:05:28-08:00","Merge pull request #3 from kaaholst/bugsense
+
+Fix NPE when the Connecting dialog is manually dismissed (by the back key).
+"
+"f901605d80a9956de68ec107f1032f95513a88b4","2012-02-09 19:25:04+01:00","Implement per-folder-item type context menus.
+
+Add SqueezerPlaylistItem, items that can be added to a playlist
+derive from that.  Adjust the model.* classes to derive from this
+as necessary, and implement getPlaylistTag() in each class.
+
+Clean up a couple of comments while I'm here.
+"
+"4e2b4004749ea5eff7e34348b2953372367700cb","2012-02-09 19:51:10+01:00","Rename SqueezerMusicFolder to SqueezerMusicFolderItem.
+"
+"9c0ce4760059853abe2d0c9410037811df3811ae","2012-02-09 23:28:58+01:00","Make browsing the music folder conditional on the server's capability.
+
+Rewrite IconRowAdapter to make it easier to have a list of rows with
+disjoint identifiers.  This removes some gyrations in
+SqueezerMusicActivity which only gets more complicated as more special
+cases are added.
+"
+"52303c98da0c8c72097b3b6ed8c03429fb1270e0","2012-02-11 00:30:24+01:00","Get closer to platform standards for list views.
+
+Adjust the icon sizes and padding in icon_large_row_layout.xml to
+be multiples of four, with icons 48dp in size.
+
+Provide drawable-{l,m,h,xh}dpi versions of all icons.  The mdpi icon
+images are 48px x 48px, and the others are scaled in the ratio
+3:4:6:8 (l:m:h:xh) per
+http://developer.android.com/guide/practices/screens_support.html.
+
+Remove plugin_item_row_layout.xml, it existed to add a right-facing
+caret to menu items with submenus, and this is non-standard for Android,
+per http://developer.android.com/design/patterns/pure-android.html.
+"
+"0f8aec337f7143a5ed5a7a62949e9c1e8a71f892","2012-02-11 13:02:30+01:00","< -> <=, to scan the last host on the network.
+
+Move the default port in to a resource, and adjust
+ServerAddressPreference.java and SqueezerConnectionState.java
+accordingly.
+"
+"ae42328f6db75f51ce4edbbb2581ab481a486cfb","2012-02-11 13:13:18+01:00","Remove unused DEFAULT_PORT constant.
+"
+"adaee6baa78a903f4f659773377cad40a82802dd","2012-02-11 13:38:22+01:00","Merge branch 'master' into musicfolder
+"
+"f7ac678dafa35f6b96908cde9162f210d4c00840","2012-02-11 13:58:43+01:00","Merge branch 'fix-icons'
+
+Conflicts:
+src/uk/org/ngo/squeezer/SqueezerMusicActivity.java
+"
+"9f9c0221338e962f0051ed2bda03f9a5ee51581b","2012-02-11 14:10:04+01:00","Add a 'take screenshots' step.
+"
+"de15dd19482498d6c138569309e2c0a3df713c08","2012-02-11 14:10:54+01:00","Remove the 'Browsing music' TODO item.
+"
+"f55b8dd94ef57ae9e13b58479ba049253e6c0031","2012-02-11 14:12:29+01:00","Note support for browsing folders and scanning for servers.
+"
+"5531e91d82a64f432d64f4ffa6d25bca7f4ebc6d","2012-02-11 14:21:14+01:00","Start noting improvements in 0.7.
+"
+"4e6d4f988af08d89ff2f6fda953597a6197f63c0","2012-02-14 19:30:58+01:00","Use the theme style for the serverscan progress bar.
+
+This ensures that it picks up the correct look-and-feel for the
+current theme.
+"
+"7507c05c45877d57a86ede9bf3562411c6ce8674","2012-02-16 20:15:21+01:00","Spell 'Wi-Fi' correctly and consistently.
+
+http://en.wikipedia.org/wiki/Wi-Fi suggests a couple of names in common
+use, but 'Wi-Fi' is the trademark and brand name.
+"
+"194f0be113662090868ae373eb98e940e141e33f","2012-02-16 20:57:52+01:00","Use 0dp layout_{height,width} widgets with a layout_weight.
+
+Per lint, this is more efficient than wrap_content.
+"
+"56ba027ad8bd16d1854c2c4e1791adc75cc8ad36","2012-02-16 20:59:05+01:00","Remove unused settings_serveraddr_format string.
+"
+"d2f4dbaf6e6d0fa38bc549fe8bea47bb5cfa7fe5","2012-02-18 11:24:17+01:00","Adjust layout to a 4dp grid.
+"
+"e53ac1938e1fc027aef57cb5134e50601f813672","2012-02-18 11:24:37+01:00","Remove unused audio_player_common.xml layout.
+"
+"b58b7ea3e9407926693fc52d7f78cc7cf1a74aec","2012-02-18 14:27:49+01:00","Use 8dp of padding in the About dialog.
+"
+"e1118e7167cfa87e20778a561a74a9f4c3d3a386","2012-02-18 16:48:19+01:00","Use a compound drawable in the search result lists.
+
+Instead of a LinearLayout, an ImageView, and a TextView per heading
+entry, using a TextView with a compound drawable.
+"
+"1d58eaf795baa432055a64901e7e975f0c3e616c","2012-02-20 18:40:45+01:00","Localise the server scanning strings.
+"
+"5883ae35fc089951fba86dbe2c96b24bc9cd4c83","2012-02-20 21:18:53+01:00","Display cover art for some tracks that were missing it.
+
+It seems as though there's a bug in the server -- I've seen tracks
+which come back with a coverart:1 tag, but no artwork_track_id:...
+tag.
+
+If that happens, use the track's ID as the ID for the cover art.
+"
+"6c43f531b8cd82ce160abce09d5f6ae5e4df1931","2012-02-22 17:01:56+01:00","Use the artworkTrackId variable.
+"
+"9bcc117d75dc442eaee23265259b8e87422dadff","2012-02-22 17:25:33+01:00","Whitespace.
+"
+"bf7154ac87590a28634e036dd38915a2f30b4560","2012-02-22 20:31:09+01:00","Add a comment for future work.
+"
+"cfdf1753e7ad1d95420c3c7819dbbcec38d16ae7","2012-02-22 20:32:35+01:00","Make touching a playable item in the music folders play it.
+"
+"b21830cc834d03593dfbf7ae47f96627bcdbd3df","2012-02-22 20:34:48+01:00","Note some TODOs.
+"
+"6b02fb9aa41d02f5acbd9d4a93d9813c401bb25b","2012-02-22 21:34:40+01:00","Remove an unnecessary space.
+"
+"60e1da8525865d4d514afc530117ba639142dfbb","2012-02-22 21:35:38+01:00","Add some additional comments.
+"
+"66df2a2ecf584d9947c0b25b4bc82ab687da14c3","2012-02-22 21:36:22+01:00","Set the title appropriately.
+
+When browsing anything other than the root music folder, set the title
+to the title of the thing we're browsing.
+"
+"e23ae7873284898083e4e611eda65424e8648c7c","2012-02-23 21:30:17+01:00","Prepare 0.7 for release.
+"

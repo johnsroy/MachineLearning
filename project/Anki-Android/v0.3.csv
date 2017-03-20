@@ -1,0 +1,238 @@
+"commit id","commit date","commit message"
+"58f719fe10b1dfb050cd68b8a6143921dcf0017a","2009-06-03 10:56:54-04:00","initial import
+"
+"7f858dec66cb6f936c80cb4abecd2c507a6680ff","2009-06-28 18:04:10+09:00","Removed generated R.java; modified some settings required by Market; added filtering Java code so that deck selector only shows deck files
+"
+"0284a44cf2d77207dbfd4106d7873488e1adcdec","2009-08-18 20:30:55+09:00","Started to implement spaced repetition, work in progress
+"
+"cdd2e749c4c2f3bbafeeb4ba23e308c895a2de72","2009-08-20 20:53:42+09:00","Fixed incompatible ids problem by treating ids as strings instead of int
+"
+"47c5a7b818e7e4c348575e003adae5a122f4d8f1","2009-08-21 19:01:47+09:00","Very basic but working version of the spaced repetition feature
+"
+"9b95ab5445e2da11004d154389d6c5b2ba675696","2009-08-24 20:17:04+09:00","Added missing Javadoc comments, removed debug code, cleaned, prepared for signed delivery
+"
+"935bb2e788e6507744a5b17e729f5c7f7b11ff91","2009-08-25 19:12:20+09:00","Moved Whiteboard to its own class to make FlashCard.java more understandable
+"
+"f0e5c1e1d92a7e832a7c9c8f1d91b6422cc5a79b","2009-08-25 19:24:58+09:00","Added menu to switch to another deck
+"
+"1e16797b066b6fac99a4e0c7a0f7f702749f8798","2009-08-25 19:54:35+09:00","Start to add ability to remember which deck was opened last time, not actually usable yet
+"
+"781a094261c7d015ee8d691b1a6c61acbb63efa7","2009-08-25 22:20:05+09:00","Deck picker is now only an ActivityForResult instead of being the main activity
+"
+"97b7d20d641ef2ca68dc24e73b20b88e2b9adf18","2009-08-26 20:21:13+09:00","Renamed FlashCard to Ankidroid because Android was confused not finding it. Also: Skip suspended cards
+"
+"32153c0380b800eb5a56732d82505c7a5447afbb","2009-08-26 20:56:44+09:00","Keep deck filename during short interruption like phone calls or rotations
+"
+"611506f704610cb7d69e5957eb094e457cf951c1","2009-08-26 22:01:50+09:00","Started to implement sample deck loading, for user-friendliness. Commented out by now because unstable
+"
+"e6ba3f6022a853262fe7b02a56be1fffa361e495","2009-08-28 20:02:37+09:00","Integrated sample preferences dialog found at www.kaloer.com/android-preferences
+"
+"f2fdd1104ef597bf952a337ce065e91eb676f610","2009-08-28 22:02:45+09:00","Finished preferences, now remember the deck from last time, added About box
+"
+"a6d9b0b2bcdaeb5bab49b2dc99c38fe3bfe0b9c3","2009-08-28 22:26:32+09:00","Fixed bugs in last commit
+"
+"c198668831e7571f69ddd4e2557d4e99bf223300","2009-09-08 18:33:20+09:00","Made Spaced Repetition optional, checkbox in preferences. Fixed crash when generating sample deck while no SD card is present.
+"
+"ad0093a0daae05a1616e8dee1541b1e2c0ea880d","2009-09-23 08:03:39+02:00","Improved deck picker screen
+
+Redesigned deck picker that gets rid of the filesystem browser. The path
+to the folder in which the decks are stored are set in the preferences.
+The picker screen then shows a list of all the decks.
+
+Deck.java contains a new class to represent the top level object in the
+database, the deck. It is nowhere near finished, but is supposed to
+contain the functionality of the Deck class in libanki.
+
+No new data is written to the database. Read data (due cards etc.) is
+cached and might be out of date.
+"
+"172a95ca9bc70ad88c3954880ee500f313ce2937","2009-09-25 21:36:00+09:00","Fixed typo, replaced outdated README with link to Wiki, bumped version code and version name as I published the app to the Android Market
+"
+"010c4343ac3531711948b7c2fc9be53b15437572","2009-09-25 17:04:06+02:00","Merge remote branch 'upstream/master'
+
+Conflicts:
+res/layout/preferences.xml
+"
+"51da3a693f339130762ff56a22251e60bb5a99fc","2009-09-27 08:47:06+02:00","Progress dialog when loading a new deck
+
+There can be quite a delay when getting the next card from a big deck.
+So I added a simple progress dialog when loading a new deck, so that the
+user knows something has happened when he selects a new deck. This
+implied creating a new thread to do the loading while the ui thread
+shows the dialog.
+"
+"2ce76a9ff5e303821d2e379e445cc3d356a8e31c","2009-09-29 18:17:18+02:00","Fixed bug with Whiteboard: when you started Ankidroid or selected on preferences to show timer/whiteboard, the Whiteboard was always visible even when the button said it was off
+"
+"bb43b8489c261a2724589af8dbce1e163b7c20fa","2009-09-30 23:21:44+02:00","Deck picker screen with updated due and new counts
+
+Non-cached version of the counts for new and due cards for each deck
+listed in the deck picker. Ported quite a bit of python code from
+libanki to make it happen (ie. there are probably bugs).
+
+tagIds() in Deck.java is only declared, but
+not implemented since it will not be called from the current code. However
+it needs implementation for possible future calls to it.
+"
+"5388922ccc46b25ca99cdddfdcf3f4f54bcb49ad","2009-10-01 13:49:33+09:00","Merge branch 'master' of git://github.com/daniel-svard/Anki-Android into daniel-svard
+"
+"f60f84dee787f8e6b05c49320838a7ae2f29accb","2009-10-01 14:10:47+09:00","I just commented two @override markers that somehow prevented Eclipse from compiling:
+- The method accept(File) of type DeckPicker.AnkiFilter must override a superclass method
+- The method compare(HashMap<String,String>, HashMap<String,String>) of type DeckPicker.HashMapCompare must override a superclass method
+
+I don't understand why, these @override are right in my opinion. Maybe a problem in my environment? I am using compiler compliance level 1.5 on the latest Eclipse, and Java HotSpot 1.6.0_16 on Linux.
+"
+"e0770cb39af96a8cd0e75390870150fdb9d10390","2009-10-01 14:15:50+09:00","Merge commit 'daniel-svard/master'
+"
+"92cc795b630d1aa76224e658081339615f0eac2b","2009-10-01 14:21:22+09:00","removed two @override markers that somehow prevented Eclipse from compiling:
+- The method accept(File) of type DeckPicker.AnkiFilter must override a superclass method
+- The method compare(HashMap<String,String>, HashMap<String,String>) of type DeckPicker.HashMapCompare must override a superclass method
+I don't understand why, these @override are right in my opinion. Maybe a problem in my environment? I am using compiler compliance level 1.5 on the latest Eclipse, and Java HotSpot 1.6.0_16 on Linux.
+"
+"635ff3603e292e41d3108595cdf7f9338f309a3c","2009-10-01 09:24:16+01:00","added build.xml + config
+"
+"1e6cb73471a53e295fe0b429efa8d76d90a1a431","2009-10-01 20:12:16+09:00","Example of location.properties file. I created mine by hand actually, it was faster than figuring out the tool that would create it
+"
+"9e1ccb57fe6103e499715176585484d49c942c7c","2009-10-01 20:13:50+09:00","Spacing algorithm that should be a bit less lame, but still not compatible with the Anki format
+"
+"95bc9b17968759731cb670e3709dcd23610fd8c3","2009-10-01 19:22:44+02:00","Removed two @override commands
+"
+"4fdf5a51cfcb6128b222418a3583882bf1d5b111","2009-10-01 19:26:22+02:00","Merge remote branch 'upstream/master'
+
+Conflicts:
+src/com/ichi2/anki/DeckPicker.java
+"
+"bd716d815c7a43beb12dd52007c0af624c768d5b","2009-10-02 00:20:26+02:00","Asynchronous loading of card counts in deck picker
+
+Delegates the loading of the card counts to a separate thread to improve
+responsiveness when choosing the deck picker. I'm not sure how locking
+for the database works so I implemented a separate locking scheme. With
+this, a deck choise will not be acted upon until the counts for all the
+decks have been loaded. Should be fairly easy to implement so that the
+loader thread will stop loading new decks if one has already been
+chosen.
+
+Also fixed an issue about the deck not being loaded again when pressing
+the 'back' button, causing a force close when trying to space the next
+card. It's just a quick fix in Ankidroid.onResume(), not very pretty.
+"
+"df38b32b3982d5b21bd420fb82c7e57797d8fc16","2009-10-02 08:58:29+02:00","Fix for the NullPointerException it DeckPicker.handle.handleMessage
+"
+"30b930a09e236be277e11f2d99925f615368ea43","2009-10-02 11:23:41+02:00","Progress spinners
+
+Adds a small progress spinner to the right of each deck in the deck
+picker while its counts are loading. Purely cosmetic.
+"
+"9824c6b266887a9ea2f313f82aa43bed24f91c65","2009-10-02 13:05:33+02:00","Stop loading deck counts when a deck has been selected
+
+Tell the loading thread to finish after it has loaded the current deck.
+Should speed up the loading of the selected deck, especially if there
+are many large decks in the list.
+"
+"5e2608f814dc12e96727cb042fa35f60dce6d305","2009-10-02 00:20:26+02:00","Fix for db not being loaded if user cancels deck picking
+
+Fixed an issue about the deck not being loaded again when pressing
+the 'back' button, causing a force close when trying to space the next
+card. It's just a quick fix in Ankidroid.onResume(), not very pretty.
+"
+"468b33023f97d5bd84f02696441d47d247d5069d","2009-10-02 15:54:07+02:00","Hide underlaying controls when showing progress dialog
+
+Makes the background black while loading a new deck. Looks prettier than
+before when it was showing the last card from the old deck.
+"
+"9539a6632a3297ab09fe6b6e5f8311e8fa197e74","2009-10-02 16:32:34+02:00","Removed two warnings
+"
+"44b95dba538a95434789e365c75c2a76208a805a","2009-10-02 00:20:26+02:00","Asynchronous loading of card counts in deck picker
+
+Delegates the loading of the card counts to a separate thread to improve
+responsiveness when choosing the deck picker. I'm not sure how locking
+for the database works so I implemented a separate locking scheme. With
+this, a deck choise will not be acted upon until the counts for all the
+decks have been loaded. Should be fairly easy to implement so that the
+loader thread will stop loading new decks if one has already been
+chosen.
+
+Also fixed an issue about the deck not being loaded again when pressing
+the 'back' button, causing a force close when trying to space the next
+card. It's just a quick fix in Ankidroid.onResume(), not very pretty.
+"
+"999e36b3b4054a79e02224bbbc002abbc0c245cc","2009-10-02 08:58:29+02:00","Fix for the NullPointerException it DeckPicker.handle.handleMessage
+"
+"0ac45dea303cfecb36f87acec2919188af3e40c3","2009-10-02 11:23:41+02:00","Progress spinners
+
+Adds a small progress spinner to the right of each deck in the deck
+picker while its counts are loading. Purely cosmetic.
+"
+"7fc02e02a0da40bef9ca89ef0709f7f4e969d2c2","2009-10-02 13:05:33+02:00","Stop loading deck counts when a deck has been selected
+
+Tell the loading thread to finish after it has loaded the current deck.
+Should speed up the loading of the selected deck, especially if there
+are many large decks in the list.
+"
+"8b9448e23eea6b1971deaa71c3403ac13c2f73d4","2009-10-02 17:01:14+02:00","Merge branch 'asynchronous-loading-in-deckpicker' of github.com:daniel-svard/Anki-Android into asynchronous-loading-in-deckpicker
+
+Conflicts:
+src/com/ichi2/anki/DeckPicker.java
+"
+"5bdd741863d62d9059608179e9db82f2576e4087","2009-10-02 18:58:22+02:00","Fix for IllegalStateException bug
+
+Fixed a bug causing no database to be open when returning from the deck
+picker screen if user presses 'back'. This caused an exception when
+trying to space a rated card.
+"
+"cc39fd63638b86f468338e6ba4d889ac030072dc","2009-10-03 12:48:50+02:00","The progress spinners now actually works as expected
+"
+"a99b25d2f29163f6fa5d25e3e7b96e8102068071","2009-10-03 19:00:07+02:00","Sort the deck list by last modified deck
+
+Last modified as in the last time the desktop anki application modified
+the deck.
+"
+"3b291a4c22cde0788d492855612ae0b4523ad962","2009-10-04 18:47:18+02:00","Moved UI strings for deck picker to resources
+
+Moved all the UI strings for the deck picker screen into strings.xml so
+that they can be changed easily and to enable future translation.
+"
+"35cf3fbb6c79e1239fbeb06f82de6dbcf2b25ab6","2009-10-04 18:59:46+02:00","Changed visibility of some methods in DeckPicker.java
+
+No need to have these methods public.
+"
+"1e8132c8d1825b8d3c329047cca4302c6a36a773","2009-10-07 22:55:23+02:00","Fixes whiteboard bug
+
+Fix for the bug where the whiteboard and timer is displayed despite
+being set not to be displayed in the preferences.
+"
+"2d1d406f546c22466b24302abd0ed1c962f46649","2009-10-08 14:04:29+09:00","Resolved trivial merge conflict
+"
+"f644fb37bcd236763f2d885a783f3cebf820c99e","2009-10-08 16:41:59+02:00","Easy toggle between front and back card implemented and fixed a minor bug involving the whiteboard. Implemented the Whiteboard's behaviour: right now, you only can write on it the first time you see the question of a fact
+"
+"bec770b0e1b04831b538b044deb116451023a76d","2009-10-09 12:29:53+02:00","Merge different versions and solved minor conflicts. Fixed a bug between subsequent executions, where the Timer and the Whiteboard toggle button were visible although on Preferences the option wasn't selected. Unified the way to log messages and formatted the code.
+"
+"966887513d65e0baf00810560f7170633c5475a9","2009-10-19 14:06:02+09:00","Removed @Override annotation that somehow prevented Eclipse from compiling
+"
+"fe0a7b436986d7c0dbe75ee617078efd510738c9","2009-10-22 13:03:04+02:00","Unified the way of tagging log messages on Deck.java and Stats.java
+"
+"ab4f8fc3bf9a8d3a0c0a1c6b681c5cdd15c34643","2009-10-23 11:07:50+02:00","Fixed the bugs involving rotation of the device: Now the deck is not reloaded when the orientation changes and it's possible to write on all Whiteboard's surface in every possible orientiation
+"
+"70629e4075bb61641e43ba253cd1627026af0a96","2009-10-28 14:22:09+01:00","Implemented the focus behaviour between buttons.
+"
+"6fdcbe0fb15f0a72b5a97e45111bc4cdee873724","2009-10-29 18:39:02+01:00","Fixed the bug where the application crashed when there was no sd card attached. Right now, the app can be openend without sd card attached and the navigation between the different activities works just fine. Moreover, the sd card can be attached while the app is being used without crashing.
+"
+"b554dd2efe8cc70b6fd31e632d7a9e765f7e814f","2009-10-29 19:11:56+01:00","Deleted Toast message when About page was displayed.
+"
+"008ce582913d813c6bfced6144c83a82c610936d","2009-11-03 13:08:43+01:00","Fixed the DeckPicker bug where it crashed when there was some file ending in '.anki' that was not a real anki file.
+"
+"1091865d4ad2fcf3732d094a6459f77e74c5f16b","2009-11-03 17:03:17+01:00","Fixed bug involving the displaying of all the decks on DeckPicker. The decks that had the same last modification date were not displayed and now this problem is solved.
+"
+"6272c63c0dc883babfc5db9e59e48bc46ee62970","2009-11-05 12:04:20+01:00","Complete handling of the events of sd card implemented. There is still some bugs regarding with using the app with any deck selected and the 'Deck sample' option off.
+"
+"fddf1f8683cf797f3fda3d5248e791edee74e7ba","2009-11-05 14:10:52+01:00","Fixed all the crashes caused by starting the app without any selected deck and with the option 'Sample deck' deselected. It also has been implemented the DeckPicker's title change when sd card is unmounted and the correct display in both orientations of the message informing the user about the sd card being unavailable.
+"
+"376d9b6a568f18910b8d6fafb671809b020c37c7","2009-11-05 19:59:34+01:00","Fixed minor bug where the controls were shown when they had not to be shown and cleaning of the code.
+"
+"e2903b9df835fd6b2c5d58f1417277fa48648df3","2009-11-06 17:45:32+01:00","Added message informing the user when there is no deck loaded, removed the title bar from Ankidroid Activity from Manifest, fixed some minor bugs and cleaned and reorganized the code.
+"
+"2c434c13445d690e8eccb5004f22a74732ddb3c6","2009-11-06 18:40:03+01:00","Fixed the crash when trying to load an empty deck. Right now, if an empty deck is loaded an informative message is shown to the user.
+"
+"dfef1d820ad00ea4b832370a15365045d7899a56","2009-11-09 13:31:35+01:00","Unregistered the BroadcastReceiver on onStop, fixed a minor bug and added a verification for the ProgressBar Dialog to make it work correctly on the emulator.
+"
+"29326b827f79d05fd7ad1ac91570afed4714ca7f","2009-11-10 12:19:11+01:00","Added unRegisterReceiver on onDestroy in Ankidroid.java, cleaned the code in openDeckPicker (deckPath is always obtained form Preferences so it's not necessary to put it into the Intent), created a new control variable called deckLoaded, cleaned the content of the previous card for a better visualization and fixed various minor bugs.
+"

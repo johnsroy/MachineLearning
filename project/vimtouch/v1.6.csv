@@ -1,0 +1,207 @@
+"commit id","commit date","commit message"
+"11399a0435563419e7ee9982b994d5cba3de52e4","2012-09-05 22:23:44+03:00","local.properties should not be tracked by VCS
+"
+"cb495631acafd2b1a45ff2e9b0d7deb339c44a77","2012-09-05 22:42:54+03:00","A helper script to prepare a clean repo for build
+"
+"e91b9ab572d6902eaac707442869cebcb3a3ba3a","2012-09-05 23:20:07+03:00","Fix bug with keyboard staying on screen after :q
+
+Vim code calls exit() when it quits and that immediately drags the whole
+app's process with it. Instead of calling mch_exit(), longjmp() to the
+place of call to AndroidMain() and quit gracefully.
+
+With that in place, Java side is now able to clean up before closing.
+"
+"bd8478daa08c4cb6894f1c25617f431ddcdeb801","2012-09-06 22:24:50+08:00","add quick bar postion preference to change the postion to top,bottom, left and right
+"
+"b4a33d4961e291d011726fa6edb3f41ca4ec952b","2012-09-06 22:31:42+08:00","rename TermSettings => VimSettings
+"
+"386ed4344bae1aaf01c5258f1adc177e46723cd8","2012-09-06 23:13:01+08:00","use quickbar file to setup quickbar dymanically
+"
+"f890ebb515178db2275a168611d77d2a20cb2ff0","2012-09-06 23:21:28+03:00","Do not hold reference to activity in TermSession
+
+Use callback instead.
+"
+"c9005f3eef78e0a8668fbcb2e59557f2cc0dd122","2012-09-06 23:25:45+03:00","Don't quit when closing file descriptor
+
+The native implementation of Exec.close() should only close the FD and
+not call for process termination.
+"
+"b63c9637b791dae7d64ee64fc47964ce41f7730f","2012-09-06 23:31:08+03:00","Fix wrapper for pthread_exit()
+
+Rename the wrapper to pth_exit() to hightlight the fact that it's a thin
+wrapper for thread exit and not system's exit(). Also, actually return
+the exit status.
+"
+"83cdbd44ae0730dcc895f2b816f16408d5c3ced7","2012-09-06 23:33:49+03:00","Cosmetics: rename variable to C style
+"
+"78169d6452c825e4ec7c24cb9af2d7e0b9236f58","2012-09-06 23:35:11+03:00","Remove unused variable and fix style
+"
+"168e6973fa70cd77bd02117f9069910e32953395","2012-09-06 23:43:55+03:00","Fix Exec.waitFor() to return thread exit code
+"
+"b2213f94fe6f89f426d7658eecd052d94824bd30","2012-09-06 23:45:51+03:00","Fix memory leak in error handling path
+
+In thread_wrapper(), when error handling code path is hit, the memory
+allocated for the argvs is leaked. Fix that by moving memory management
+into the same thread that allocated it. To accommodate possible future
+use of Exec.waitFor() with other threads, tie the data to thread id.
+"
+"cabdfcb23edba56d2a7b0df4d9891b15da8bed96","2012-09-07 12:23:34+08:00","add mutex in termExec
+"
+"9ba2a8c60d9af5c772dacea9bc2a901241caba84","2012-09-07 17:38:09+03:00","Merge branch 'master' of https://code.google.com/p/vimtouch
+
+Conflicts:
+jni/termExec.cpp
+src/net/momodalo/app/vimtouch/VimTermSession.java
+"
+"57361a58f80311fdcf90ce13136278d1e8eb357f","2012-09-10 17:22:11+03:00","Move 'set nocompatible' to top of vimrc
+
+As per vimrc_example.vim.
+"
+"f0e613b35d8039a3f60ec28826beb8de3e07a1bc","2012-09-10 17:24:28+03:00","Set backspace behavior to that of modern Vim
+
+By default it works in compatibility mode with vi, which does not
+backspace over start of insert mode.
+
+Fixes issue http://code.google.com/p/vimtouch/issues/detail?id=17
+"
+"2163dbe346012bdf06e4d3fa7dc211552aae1f13","2012-09-09 08:18:55+08:00","Fixed empty quick button string
+"
+"19deb8af2eaf29914b2028e2956cdbf8dc0f9a6b","2012-09-09 17:46:12+08:00","Change the install progress activity to theme holo light and center the circle icon.
+"
+"fdfc49159e859e9c776b88b9b48ea4932c4469fd","2012-09-11 10:01:09+08:00","Refine the InstallProgress code structure and support accept intent data to install runtime
+"
+"43706308fc92e45ff678af0ca931d1514eaea909","2012-09-11 10:13:35+08:00","remove logs
+"
+"70a12859077d97d454942817faf3cfe269468b8a","2012-09-10 22:22:20-07:00","Initial commit
+"
+"74012d59e3ec387f708cde6fc4037a81a95bb9dc","2012-09-11 15:08:05+08:00","add InstallProgress to filter the *.vrz to install
+After installation finished, InstallProgress will popup notification and finish.
+"
+"735484f14cae5d5af96fb3658947a2ec0fead77e","2012-09-11 15:36:45+08:00","add new option menu to launch extra full vim runtime download and installation
+"
+"8e60c3398624032cf3f6df1be3a9b5b1f2c37402","2012-09-11 15:45:16+08:00","Merge Github initial import
+"
+"3be5b7370f365408f818d146e6f0aefba1cb59fe","2012-09-13 13:39:47+08:00","when everytime app installed or updated, vimtouch will check the vimrc and vim.zip's md5 to see if the vim runtime needs to be installed again.
+"
+"9694c851c76b97641cd44fb6315155a7f62a7168","2012-09-13 13:46:58+08:00","use doCommand to send quickbar command and send it as string instead of command if the command is ':'
+"
+"6802a5277c72c5cc144aad50f0fc797e4f9fb339","2012-09-13 13:53:47+08:00","move doToggleFullscreen out of onOptionItemSelected
+"
+"0f506cf4bc50e9501e974a140b1823750077daa0","2012-09-13 13:55:22+08:00","add ':' in default quickbar
+"
+"3b91078585dd85eec077ed25f64c5305bbb2c71e","2012-09-13 15:01:48+08:00","Fixed IntentReceiver leak issue
+"
+"4f4e8c90ecaad94a53c17796f05ea5f85862dd00","2012-09-13 23:23:23+08:00","exit app when onDestroy to workaround issue
+https://github.com/momodalo/vimtouch/issues/2
+"
+"9d456f9d48b049df9cf295c998117bff47e74fef","2012-09-13 23:57:32+08:00","install content from DownloadManager
+"
+"39aea9eeb9fe2b5471193d1a33e65aafa91a0bed","2012-09-14 00:31:18+08:00","The original vim full runtime still have lots of issues. Switch to 'Extra downloads' for user to download extra vim runtime components(ex: doc)
+"
+"3184c730a7bb25dd7c61017d526ed5d6dbf93fb7","2012-09-14 09:16:53+08:00","add screenshot
+"
+"261a3eccd283306a2b135a81f47ed1fd7f5d1516","2012-09-14 09:31:33+08:00","Initial add sections in README.md
+
+add About, Features, Screenshot and Issue sections
+"
+"c10cc3a0b19fccba0116cd4fae718c92be455012","2012-09-14 09:33:37+08:00","add another screenshot
+"
+"3747dac8a44505c1b1d530d28654aa9c5460fbc1","2012-09-14 09:38:49+08:00","add another screenshot in README.md
+"
+"8c14fddbdd1f5ab376252c548270418bc5cb3e7c","2012-09-14 10:45:32+03:00","Fix notification crash
+
+1. The contentIntent parameter is required.
+2. Don't use DEFAULT_ALL, which includes vibration, which requires
+permission and annoys people, being completely unnecessary.
+3. Set autocancel flag to automatically remove notification from status
+bar when it's clicked.
+"
+"21f29daafb85608c9d362b3ab24480e942400b30","2012-09-14 10:51:04+03:00","Cosmetics: break/fix long lines
+"
+"8e38b66c774b9ebcaf6aaeff7754494870c0d0b2","2012-09-14 10:51:47+03:00","Cosmetics: remove trailing whitespace
+"
+"5c87aa870d6683675399583ece7c0b2407591487","2012-09-14 11:06:08+03:00","Some more directories for gitignore
+"
+"cb86625c9ab3c329d1c9d90d28e1fd7f433cb647","2012-09-14 11:06:55+03:00","These files are supposed to be tracked by VCS
+"
+"4521657e22202d4292ccf9755767ddf8117b0cad","2012-09-14 12:19:18+03:00","Bump Android SDK targets in libraries
+"
+"4c29a7a22ad7a83174a73903dca4eecf376f565f","2012-09-14 12:19:54+03:00","Update prepare script
+
+* Use target SDK in update lib-project
+* Don't patch project.properties anymore, it's now tracked by Git
+"
+"b182105e7007e6bbe4e7dc09aecee085b6777576","2012-09-14 14:39:04+03:00","Get rid of setjmp/longjmp hack, yay!
+
+As expected, it didn't take long for setjmp/longjmp pair to cause us
+problems. After a trivial change in 9694c851c76b9764 the app crashes
+again on exit due to longjmp() crossing thread-boundary.
+
+This changes the hack with a call back to Java side, which then
+initiates exit of Activity.
+"
+"8252c7837d3528843edfb1a5197358b8e32bc20f","2012-09-14 15:41:11+03:00","Fix layout inflation on pre-Honeycomb devices
+"
+"20b53d9b40b0b107ef13d7f9edf61dd78bfff732","2012-09-14 22:40:55+08:00","Update README.md
+"
+"21c4f4f6d0817468d5dd5f5a4274575b639a6ba2","2012-09-14 22:48:36+08:00","Merge branch 'master' of https://github.com/rtfb/vimtouch
+"
+"31cdc9e97078cd6b79da785837e4cbb577748c69","2012-09-14 19:40:22+03:00","Fix UTF-8 string handling on native side
+
+Fixes https://github.com/momodalo/vimtouch/issues/1
+"
+"1b514e1c7fd242a310b3afc94d1a4f41ca5600d0","2012-09-14 20:03:28+03:00","Update build instructions
+"
+"7b4d5296fe385f567c5b76a6a1ebff055fec2195","2012-09-14 20:06:24+03:00","Fix markdown
+"
+"b7de2a5626dce239a0fe45081efa7addd3badebe","2012-09-14 20:07:47+03:00","Fix markdown, harder
+"
+"b4adc58a50ddf7bbca2c6d4bb671d097d70d3382","2012-09-14 15:40:18-07:00","Merge pull request #4 from rtfb/master
+
+Bugfix and doc update
+"
+"867a19e340f29326b08e9da0579dd373da078dda","2012-09-15 11:46:56+08:00","Fixed typo
+"
+"e0fff674f29a61f62a2230902ae99d4972fb63d1","2012-09-15 11:52:07+08:00","Fixed ICS action bar disappear issue
+"
+"b8b1327b0dcd24cdd2cc967369df4fe087fdd215","2012-09-15 21:55:02+08:00","Separate InstallProgress by using label 'Install Vim Runtime'
+"
+"bdf2a47b7f692fe90a822b31c4a16b16f3214906","2012-09-16 20:20:22+08:00","use doCommand to send action bar command
+"
+"e0a5e2a715511ad499161a2bc5dcb0d1de0238d5","2012-09-16 21:10:18+08:00","Change the runtime installation process
+
+User choose 'extra downlaod' from menu => use browser to open download
+website => download xxx.vrz => InstallProgress intent-filter =>
+InstallProgress trigger DownloadManager to download the file =>
+InstallProgress received the DOWNLOAD_COMPLETE broadcast => install the
+downloaded content => finish
+"
+"6bf3d58d4eb4420a3fa5a775725ed2fbbeeac2fa","2012-09-16 21:19:00+08:00","avoid broadcast reciver leak
+"
+"db04beeae3b55f2c9ac293b3d91a783350bbefc1","2012-09-16 21:43:57+08:00","Revert 'avoid broadcast reciver leak'
+
+This reverts commit 6bf3d58d4eb4420a3fa5a775725ed2fbbeeac2fa.
+"
+"fb1f9ba7b0e600919c81a39ec2efbb4d29bc025b","2012-09-16 21:52:17+08:00","remove experimental code
+"
+"a795e186225297d5ad335af8cd59c1f153918cca","2012-09-16 21:52:39+08:00","avoid receiver leank
+"
+"18282b54f16e4c6b0a5f2799a5c0c5ebbd2183e7","2012-09-16 22:01:55+08:00","recover the missed finish() in the installDefaultRuntime()
+"
+"484972225d8b7d4d0fb7ec54d132fa5f1a78db8c","2012-09-16 22:06:23+08:00","remove exp code ( I coded too much today)
+"
+"56ab8788d1cf768a3aeb2386de02bb47d5485715","2012-09-17 06:52:40+08:00","Move the download back to code.google.com
+
+remove the https from the manifest and move the download back to
+code.google.com
+"
+"562ad93a1ca58c5f442a4b3c4ba33fec43c075b8","2012-09-20 22:42:31+08:00","Invoke all necessary routines called in the android_mch_exit()
+Original mch_exit() still handled stuffs that need to close a file.
+So the patch to call android_exit instead of mch_exit caused some
+problems. This patch provides a android_mch_exit to simulate all
+necessary routines from mch_exit to complete it.
+"
+"ed991be7e7a09644a2683e01e2042119dd68636c","2012-09-22 09:58:05+08:00","Fixed IME hide after quit cleanly.
+"
+"e6980fc728aec8f182586497b53af6b29f8e63cd","2012-09-22 10:04:00+08:00","v1.6
+"

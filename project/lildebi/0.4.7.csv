@@ -1,0 +1,88 @@
+"commit id","commit date","commit message"
+"9af8649799e1b2b61f310b3b9185d46bcc654e41","2014-02-21 12:45:38-05:00","another device-specific SD mount point
+
+Samsung Galaxy S2 (GT-I9100) running CM9.1.0
+"
+"71735ef1a0134804deca1481740942936068b294","2014-04-09 13:23:01-04:00","do not include javadoc jars in apk when built using ant
+
+oops, before the javadoc jar was being included in the release APK.
+"
+"81dca5ddb9a9f62b015efc2f2a8b282d540f75bf","2014-04-09 14:16:01-04:00","update reference to use official var: $ANDROID_HOME
+"
+"23a160d88fd5759adb2b334d184ea81fb1c79d4e","2014-04-09 20:14:27-04:00","do not bzip2 debootstrap.tar
+
+The APK itself is compressed, and the bzip2 file is hard to make
+deterministic.
+"
+"4d4841e26c2daeecf0c14a67827682404c691086","2014-04-09 20:38:54-04:00","force timestamps of debootstrap.tar and contents to that of the .deb
+
+Use the timestamp from the downloaded .deb file to set all of the files and
+the .tar file itself to the same timestamp.  This should make the creation
+of the .tar file deterministic.
+"
+"667de45193ea0645f9f4af869568cf253b467e3e","2014-04-09 20:55:43-04:00","fix remaining references to debootstrap.tar.bz2
+"
+"9adfa3bcf1d6a11db3035639fd99286471982bec","2014-04-09 21:33:12-04:00","make reproduceable tar files using GNU tar specifics
+
+https://wiki.debian.org/ReproducibleBuilds
+"
+"6c237c94ab86b5a788601913cfdb0d830aa09086","2014-04-10 10:09:46-04:00","use long args debootstrap.tar for clarity
+"
+"123c8b641d6c1bb5b933961ab0374d14c33994e7","2014-04-11 15:33:13-04:00","make pkgdetails and busybox build repeatable on my machine
+
+Using `faketime` means the timestamps are forced to being the same, and
+that is enough to make the builds bit-for-bit repeatable on my machine.
+Hopefully it is enough for repeatable builds on other machine as well.
+"
+"ffdc33fb8837310d0f092ccd1586c91305af3730","2014-04-11 16:50:22-04:00","use faketime on release builds for deterministic builds
+
+Running a program with faketime causes that program to recent a fixed time
+based on the timestamp provided to faketime.  This ensures that the
+timestamps in the files are always the same.
+
+This gets the process to the point where the APK signature is transferrable
+no matter who builds it.  This process does not produce an APK with the
+same hash.
+"
+"1bf282580cf9d0075e02e0e3890810648ede7d6e","2014-04-16 15:52:33-04:00","reduce differences in debootstrap.tar
+
+Some setups will extract the debootstrap.deb with different permissions,
+so tell tar to try to keep the permissions as set in the tarball.
+
+Thanks to Michael Rogers for this bug report and fix.
+"
+"692e0013c8ce29ed24e0a2fe5e4dec5b66c472ba","2014-04-17 14:13:59-04:00","use special faketime timestamp format to freeze time
+
+faketime needs to have a very specific timestamp format in order to freeze
+time.  The time needs to be frozen so that the timestamps don't depend on
+the speed of the machine that the build process is running on.  See `man
+faketime` for more info on the 'advanced timestamp format'.  Also, force
+time to UTC so its always the same on all machines.
+
+https://lists.mayfirst.org/pipermail/guardian-dev/2014-April/003420.html
+"
+"5aaa417591ee5d780996bec729f4526824f8f0e7","2014-04-23 11:25:39-04:00","add --fix-broken to final `apt-get upgrade` just in case
+
+I mistakenly had it on `apt-get update`, where it does not do anything.
+"
+"d1a7c3e8149e8d52b4329ec2411b526bd793844a","2014-04-23 14:40:05-04:00","force timezone to UTC for busybox
+
+busybox includes a timestamp in its code, set in a C macro called both
+BB_BT and AUTOCONF_TIMESTAMP.  BB_BT is set to AUTOCONF_TIMESTAMP in the
+build flags.  AUTOCONF_TIMESTAMP is set in busybox/include/autoconf.h. This
+timestamp includes the time zone, so make sure it is always UTC.
+"
+"66fde00babddcc9c55144ac769f787b5de5afbb3","2014-04-23 15:33:24-04:00","use faketime 'advanced timestamp format' to make it freeze time
+
+I was using the write timestamp format, but I had forgotten the -f flag.
+Adding it make faketime actually freeze time :-D
+
+Thanks to Michael Rogers for spotting that.
+"
+"34ef6e7b1e622f79a975a952ee40c1ef9fc590b0","2014-04-23 15:51:07-04:00","set timestamp on the files in assets/
+
+This uses the global timestamp to set the time on the files copied to
+assets/.  This gets us closer to a perfectly deterministic APK.
+"
+"1ae1e14782bfac262858f942229b2ae8cf67a097","2014-06-06 19:42:28-04:00","bump to version 0.4.7 code 12
+"

@@ -1,0 +1,3963 @@
+"commit id","commit date","commit message"
+"ffe3f03bc514d5cd2a0a520ea6fb69594c7dff77","2015-08-20 04:02:00+02:00","Continue with 0.4.13-dev
+"
+"6a1047d8c116f793890b63427d53f04ceca95d54","2015-08-21 22:43:40+02:00","Fix wrong android versionName
+
+Before, android versionName was set to '...13', which made the f-droid build fail.
+"
+"e4bff8be94c0db4f94e63ad448d0eeb869ccdbbd","2015-04-07 06:13:12-04:00","Clean up threading
+
+* Rename everything.
+* Strip J prefix.
+* Change UpperCamelCase functions to lowerCamelCase.
+* Remove global (!) semaphore count mutex on OSX.
+* Remove semaphore count getter (unused, unsafe, depended on internal
+API functions on Windows, and used a hack on OSX).
+* Add `Atomic<type>`.
+* Make `Thread` handle thread names.
+* Add support for C++11 multi-threading.
+* Combine pthread and win32 sources.
+* Remove `ThreadStarted` (unused, unneeded).
+* Move some includes from the headers to the sources.
+* Move all of `Event` into its header (allows inlining with no new includes).
+* Make `Event` use `Semaphore` (except on Windows).
+* Move some porting functions into `Thread`.
+* Integrate logging with `Thread`.
+* Add threading test.
+"
+"32e4f4b32d7633a5f17c9e0e0733141ebb1257f8","2015-08-24 11:20:53-04:00","Fix Android build of threading sources
+"
+"6c5bc14290e8895a61ca2bf9b71fa3c69857675a","2015-08-17 21:35:43+05:00","Fix comment positioning in minetest.conf.example
+"
+"67d38a303b38042639097f8d2f0cd64529389961","2015-08-24 14:37:14-04:00","Add setting for mods to copy to Android app
+"
+"ca9ebd45451d06eb308244698364258608b98ce7","2015-08-16 22:59:06+09:00","Use gettext to 'None' of texture pack list
+"
+"2480f2d06fe50295184a60d6659378f9a5d57065","2015-08-14 16:00:03+02:00","Add fgettext_ne as keyword to updatepo.sh
+"
+"34b7a147dcf9831f3b4d81599c473ba01ff5da00","2015-08-25 21:23:05+01:00","Change i++ to ++i
+"
+"8658c8d9b5f30dc952eed29a19d619de9210474c","2015-08-25 07:00:56+02:00","Use numeric indices and raw table access with LUA_REGISTRYINDEX
+"
+"3304e1e517fb8aac008c4684e72a4b59b408414a","2015-08-25 07:44:53+02:00","Push error handler afresh each time lua_pcall is used
+
+Fixes 'double fault' / 'error in error handling' messages
+(issue #1423) and instead shows a complete backtrace.
+"
+"17b7b7c85fc4faca2180a0104ed457c3a8734627","2015-08-27 02:50:45+01:00","Dungeongen: Remove floating frames
+
+Preserves the rare unbroken protruding dungeons
+Fix random range for first room roomplace
+Fix checked volume for first room 'fits' bool
+and check for 'untouchable' flag instead of 'inside'
+Remove 'enable floating dungeons' setting
+"
+"18973f9af196ca48abfca25e05d4b1a396fdd871","2015-08-28 16:16:19+02:00","Ores: change ore chance in clusters to better respect clust_num_ores for dense clusters
+"
+"9c44aace4fce5f4b496201214d3215899f1481c3","2015-08-30 01:17:03+02:00","l_mainmenu.h: remove unused l_get_dirlist function
+
+The commit
+8f9af57314f71aae1cc77e13f9996e13015d776d 'Add core.get_dir_list' by @ShadowNinja
+has removed the implementation of the l_get_dirlist function and all its usages
+from the l_mainmenu.cpp file, but hasn't removed it from the header file.
+
+The reason why this hasn't been detected earlier is that C++ has this interesting
+feature to still make it possible to create instances of classes whose never used
+private methods are declared but not defined.
+"
+"2c637ce1c26145269b09c62afb451240a8def401","2015-08-31 13:26:40+02:00","Make ClientInterface::statenames consistent with the state enum again
+
+Fixes minetest.get_player_information segfault due
+to out of bounds access problems, when compiled as debug build.
+"
+"714b68add28bc0604f8bbc670c8faa34dae00e20","2015-08-31 16:37:02+02:00","Credits tab: fix accidental merger of two contributors
+
+Fixes #3125
+"
+"dce9468925b2208b8178722af218d9cd30a35a64","2015-09-01 02:36:02+08:00","gettext.cpp: Fix syntax error when using MSVC
+
+Also remove trailing whitespaces from the file
+"
+"0903190ba2ed2134c464f2efe694d7281ead1c09","2015-09-01 03:07:02+02:00","Hide minimap if it has been disabled by server
+"
+"4124e360cb676f68ee0d20ff7f9282f8f80f44c7","2015-09-01 06:57:12+09:00","Minor tweaks __builtin:falling_node
+"
+"fa30a14c5ce4cac402a6cecaee2e450969625f68","2015-08-30 20:28:48+02:00","Make example config more readable
+"
+"7419504079c894dd15fd84116505b853feb44287","2015-09-01 14:26:15-04:00","Enable server build when no builds are enabled
+"
+"e511282d78a844af24602791cd3cab9aa6e6996d","2015-09-01 14:27:41-04:00","Warn when building without cURL
+"
+"94961b3364f76d5861913af321e9be6200d080b3","2015-09-02 01:34:37+02:00","Don't add line number to comment when running updatepo.sh
+
+Otherwise, this updates all .po files for all line numbers that changed
+since the last time updatepo.sh was run. We still add the filename, but
+this information shouldn't change too often.
+
+xgettext beginning with 0.18.4 supports this feature.
+"
+"196975ba5c11f798851dc89a4a8cf677646e6b39","2015-09-01 22:36:12+02:00","Add two missing directories to doxygen
+"
+"d4938554818aa71aceb0d360f33c6cfd42f67008","2015-09-03 01:09:48+09:00","Small fixes of minetest.has_feature
+"
+"2035bfc3a64e7c0c82f0cb100cd7d4cc588d0203","2015-09-03 05:58:29+02:00","Areastore: fix 'attempt to index a number value'
+
+Before, calling get_areas_in_area for an areastore with both
+include_borders and include_data would result in a lua error,
+if there was at least one area as result:
+attempt to index a number value in function 'get_areas_in_area'
+"
+"c345657289ff64a7e623a264d4c57ac06c3213db","2015-09-02 16:22:12+05:30","Rename minetest-icon.svg to minetest.svg - Fixes #1564
+
+-Complies with the Linux standard freedesktop icon naming specs: http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html#guidelines
+-Ensures compatibility with icon themes
+-Edit minetest.desktop, CMakeLists.txt and README.md to reflect this change
+"
+"91bf68e1fee1dd82fe1ed1d7aaeb895321260d95","2015-09-04 05:55:31+09:00","Change my email
+"
+"588f0c1fb03db162c573ac92b13f0de465e3040c","2015-08-27 20:51:07+02:00","Fix building on OSX, broken since 'Clean up threading'
+
+Commit
+
+e4bff8be94c0db4f94e63ad448d0eeb869ccdbbd - Clean up threading
+
+by @ShadowNinja has broken the OSX build.
+
+Including things inside a namespace isn't good.
+
+Also fixes #3124.
+"
+"31b6d2678455c0b3de7f4b97c9607388b06c8f8c","2015-09-03 06:53:35+02:00","Fix occasionally failing travis builds
+
+We require sudo right now, tell this travis, so that they don't try to
+run it on their container based infrastructure.
+"
+"645e2086734e3d2d1ec95f50faa39f0f24304761","2015-08-24 14:32:15-04:00","Use CUSTOM_LOCALEDIR if specified
+"
+"4967e483b617e50332869d42975e0b947c41971f","2015-09-07 02:15:13+01:00","Mgv5/mgv7 biomes: Reduce heat and humidity noise spreads to former value of 750
+"
+"0b875560481ca16782ace98b0bace9f02d18b22d","2015-09-07 21:48:58+02:00","Shaders: use triple-frequency waving for leaves and plants
+"
+"fe6575b8d38b29026adb9bf3d6226b5b3ceb4cab","2015-09-07 18:51:45+02:00","Add more information about how get_node_light works.
+"
+"1f1e14ab7fe1680eae12955929be004af7f39fe4","2015-09-08 18:29:02+02:00","Change m_client_event_queue's type to std::queue
+
+As indicated in its name, m_client_event_queue should be a queue.
+Change std::list to std::queue to improve the queue's performance.
+"
+"183d0d5633b94bfa831528cb637fdb29342676d4","2015-09-08 21:45:16+02:00","Update leveldb git url
+
+Google code was shut down, project moved to github.
+"
+"2a9da62b21b5c509496b8fd427f29dd650035fe6","2015-09-08 23:57:28+02:00","Improve locale directory detection
+
+Use in-place locale directory if that exists, and
+static one (RUN_IN_PLACE or CUSTOM_LOCALEDIR) doesn't exist.
+Report to errorstream if neither static nor in-place locale
+dirs exist, and report successfully found paths to infostreem.
+
+Fixes two bugs:
+
+-> Regression of commit [1] where if we use RUN_IN_PLACE=false,
+but don't make install, locales aren't found. One might
+think this is no regression, as its no bug, but all other
+paths (mainmenu, etc.) are detected properly.
+-> Regression of commit [1] where locales don't work on windows.
+
+References:
+[1]: Commit 645e2086734e3d2d1ec95f50faa39f0f24304761 'Use CUSTOM_LOCALEDIR if specified' by @ShadowNinja
+"
+"64a5eec1bd92a352995ac510b69e6051421ee774","2015-09-10 10:23:00+02:00","networkprotocol.h: remove 'u16 command' from doc
+
+Its obvious that 'u16 command' is inside every packet, therefore this
+commit removes all mentions of the command, if non-array like notation
+is used. We already didn't add 'u16 command' to new packets or removed
+it at packet changes, so now we remove it from existing packets.
+"
+"beb963f10a3d8154fa58341f3d99078589bae72d","2015-08-11 21:25:13+02:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (270 of 270 strings)
+"
+"e4831d9249f39ebc127a4d51ce16161929d8400f","2015-08-13 19:32:32+02:00","Translated using Weblate (Japanese)
+
+Currently translated at 100.0% (270 of 270 strings)
+"
+"8ae30bb9d6a9b0ef4e3f5d7ae0b284cd8d1d2c38","2015-08-13 20:18:47+02:00","Translated using Weblate (Japanese)
+
+Currently translated at 100.0% (270 of 270 strings)
+"
+"67175a9e1d53fbe5b8b74e0c831dfa9bc341bfa4","2015-08-15 03:28:03+02:00","Translated using Weblate (Japanese)
+
+Currently translated at 100.0% (270 of 270 strings)
+"
+"38d3f6ca45d05cc37af2ce9c719326c15a7a14cc","2015-08-15 15:37:45+02:00","Translated using Weblate (Lojban)
+
+Currently translated at 100% (0 of 0 strings)
+
+Created new translation.
+"
+"a9586d59e29c84e515f784de2e56c017d89fd436","2015-08-15 15:34:22+02:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (270 of 270 strings)
+"
+"97493614e30f497488c60f6ba68ec0c3a9c7a827","2015-08-15 16:30:47+02:00","Translated using Weblate (Lojban)
+
+Currently translated at 38.5% (104 of 270 strings)
+"
+"ba31be0e47a7db8375afedf9165f587f56509fe3","2015-08-24 20:35:12+02:00","Translated using Weblate (Italian)
+
+Currently translated at 80.7% (218 of 270 strings)
+"
+"26f81955c8a7d7afcbb570e14f5d585eb7af535d","2015-08-24 20:44:17+02:00","Translated using Weblate (Italian)
+
+Currently translated at 82.9% (224 of 270 strings)
+"
+"51064d0362479e87f222cbf96c99af27d3ca1a41","2015-08-25 19:47:36+02:00","Translated using Weblate (Czech)
+
+Currently translated at 95.5% (258 of 270 strings)
+"
+"14dc75c470a12b82fb8f330489cacca8c1d50ba6","2015-08-25 19:54:13+02:00","Translated using Weblate (Czech)
+
+Currently translated at 100.0% (270 of 270 strings)
+"
+"7dcc115b02af411844152ae49c8579d1bd146108","2015-08-26 01:25:25+02:00","Translated using Weblate (Spanish)
+
+Currently translated at 100.0% (270 of 270 strings)
+"
+"17e83c05c5958de358a1d0a3e7f5ad21eafd3dbb","2015-08-26 01:29:54+02:00","Translated using Weblate (Spanish)
+
+Currently translated at 100.0% (270 of 270 strings)
+"
+"d58211264e98d80dc80fc5b15171670a2b82abb5","2015-09-01 18:04:11+02:00","Translated using Weblate (Czech)
+
+Currently translated at 100.0% (270 of 270 strings)
+"
+"0d1b41f3800d17915c4cbac86f6fbdc282b27aa4","2015-09-03 19:24:34+02:00","Translated using Weblate (Esperanto)
+
+Currently translated at 100% (0 of 0 strings)
+
+Created new translation.
+"
+"ca32374ff7b558d705644b88520d4d29c15df961","2015-09-03 22:38:34+02:00","Translated using Weblate (Esperanto)
+
+Currently translated at 44.8% (121 of 270 strings)
+"
+"73c93787436750a66ae79bb548b2cdcbaf2886ce","2015-09-03 21:35:21+02:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (270 of 270 strings)
+"
+"5cea06bfd5f89d034cece35331628b3dd51e19a3","2015-09-05 08:38:59+02:00","Translated using Weblate (Dutch)
+
+Currently translated at 90.7% (245 of 270 strings)
+"
+"458293977e9ab8057c3af8e4ea89dc5c05e4a4d1","2015-09-04 15:07:45+02:00","Translated using Weblate (Esperanto)
+
+Currently translated at 73.7% (199 of 270 strings)
+"
+"3e3dfebad63f0f5de330a15862916a3d52fd412e","2015-09-06 07:38:42+02:00","Translated using Weblate (Indonesian)
+
+Currently translated at 97.7% (264 of 270 strings)
+
+This is a combination of 9 consecutive commits by the same author.
+Their messages in chronological order are:
+
+Translated using Weblate (Indonesian)
+
+Currently translated at 79.2% (214 of 270 strings)
+
+Translated using Weblate (Indonesian)
+
+Currently translated at 80.0% (216 of 270 strings)
+
+Ini merupakan istilah dan tidak perlu diterjemahkan
+
+Translated using Weblate (Indonesian)
+
+Currently translated at 89.6% (242 of 270 strings)
+
+Penerjemahan
+
+Translated using Weblate (Indonesian)
+
+Currently translated at 94.8% (256 of 270 strings)
+
+Penerjemahan
+
+Translated using Weblate (Indonesian)
+
+Currently translated at 95.9% (259 of 270 strings)
+
+Mencari persamaan makna
+
+Translated using Weblate (Indonesian)
+
+Currently translated at 96.2% (260 of 270 strings)
+
+Penerjemahan
+
+Translated using Weblate (Indonesian)
+
+Currently translated at 96.6% (261 of 270 strings)
+
+Mencari persamaan makna
+
+Translated using Weblate (Indonesian)
+
+Currently translated at 97.0% (262 of 270 strings)
+
+Penerjemahan
+
+Translated using Weblate (Indonesian)
+
+Currently translated at 97.7% (264 of 270 strings)
+
+Istilah tidak diterjemahkan
+"
+"d5591b65d68379de526a77dc2d79f8dc73e740bf","2015-09-06 07:40:53+02:00","Translated using Weblate (Dutch)
+
+Currently translated at 97.0% (262 of 270 strings)
+"
+"1d9eb5a4d5ce0125a1aa0ed6ef50ffc5347b307c","2015-09-06 08:59:35+02:00","Translated using Weblate (Indonesian)
+
+Currently translated at 98.1% (265 of 270 strings)
+
+Penerjemahan
+"
+"02dd60bf5aba575682cb1644625d0e70b68211a8","2015-09-07 11:31:52+02:00","Translated using Weblate (Russian)
+
+Currently translated at 100.0% (270 of 270 strings)
+"
+"90b57c4d82285dd5e7e20f87f4fb9a73691d8edf","2015-09-07 11:49:54+02:00","Translated using Weblate (Russian)
+
+Currently translated at 100.0% (270 of 270 strings)
+"
+"8eeff63fa289b2628840eed2b185ba290d4be730","2015-09-09 16:11:48+02:00","Translated using Weblate (Hungarian)
+
+Currently translated at 91.1% (246 of 270 strings)
+"
+"a5b34550eb48f78ccaa5814755c6bbbd4c088ba7","2015-09-10 17:14:30+02:00","Translated using Weblate (Esperanto)
+
+Currently translated at 100.0% (270 of 270 strings)
+"
+"1d6911676e8e9eadba76ef9f170d750fe6fa31bc","2015-09-12 23:22:38+02:00","Run updatepo.sh
+
+After this, it should hopefully not record line numbers anymore,
+so the diffs of updatepo.sh runs are smaller. Well, this is theory,
+lets see how it will turn out to be in practice.
+"
+"beba96941365a750f8b681df7a73566bdf797f0c","2015-09-13 00:09:00-04:00","Ore: Add ore sheet column height range selection
+
+Modders are now able to select the range of ore column height,
+and the midpoint at which they 'grow' starting from.
+This commit adds three new parameters for the 'sheet' ore type:
+column_height_min, column_height_max, and column_midpoint_factor.
+clust_size is now deprecated for this ore type.
+"
+"915807f8db1f3721ad9ffc00a4863ad940010c45","2015-09-13 23:41:17+02:00","Rename doc/mapformat.txt and update doc to match SRP changes
+
+The documentation file contains not just information about the
+map itself, but also about further files inside the world's
+directory.
+
+Documentation didn't reflect recent SRP addition, now it does.
+"
+"283bf97a1cc5435179533fac5428a382f9af3934","2015-09-14 06:02:41+02:00","Serialisation: documentation fixes, clarifying renames and whitespace fixes
+
+1. Do two renames:
+* SER_FMT_CLIENT_VER_LOWEST -> SER_FMT_VER_LOWEST_WRITE
+* SER_FMT_VER_LOWEST -> SER_FMT_VER_LOWEST_READ
+Now the two define values are consistently named with the _WRITE defines
+SER_FMT_VER_{HIGHEST,LOWEST}_WRITE, and to better point out what the two
+serialisation versions actually are for.
+
+2. wrap some lines in doc/worldformat.txt, and point out that the node
+timers are serialized at a later point, as this can cause confusion about
+what now happens (if one doesn't strictly read the if block's conditions).
+
+3. some whitespace fixes in NodeTimerList::serialize, and one new comment.
+"
+"8acccf4c584b31ab08dc6ba0b95cb223c8ab4dad","2015-09-14 07:44:12+02:00","Fix 'make install' and add underscore to doc file name
+
+Fix regression since commit:
+
+915807f8db1f3721ad9ffc00a4863ad940010c45 'Rename doc/mapformat.txt and update doc to match SRP changes'
+
+And add an underscore to doc file name to make it more readable.
+"
+"620dcddf4394f381c69df57528ad17577b7979ed","2015-08-15 04:22:43+09:00","Minor tweaks handle_settings_buttons
+"
+"8e9c9e305aecdb5b432c0990fef85fa6ff3c042b","2015-09-12 22:19:29+01:00","Firelike drawtype: Improve code
+
+Remove unusable fine rotation by param2
+Remove unused and redundant code
+Fix code style issues
+"
+"f61f817b9c170942a5b3ce3591125c2191645cd0","2015-09-15 18:37:58+02:00","Disallow placing entities outside safe boundaries
+
+Entity positions are serialized as F1000. Disallow placing
+entities outside safe borders with the minetest.add_entity
+call.
+
+Note that this patch only enforces those boundaries for
+placing entities, moving entities that move outside boundaries
+aren't affected.
+
+Thanks to @nanepiwo for pointing this out.
+"
+"6c81be51ffd26ec7dee1ecb887a8743a8b6a6ce4","2015-09-16 16:12:59+02:00","Fix object position border checking
+
+Borders have to be converted into BS format in order to be accurately comparable to
+object positions.
+"
+"dcbb95338a9b0e2c5c95fcfc6eeceb9d6d93f320","2015-09-15 21:28:16-04:00","Ore: Add puff ore type
+"
+"94f1e5d9bdd30725a7a63b668450dc0646a873cd","2015-09-17 20:08:11+02:00","Send proper block to old clients for swap_node calls
+
+The legacy code added in commit
+
+d879a539cd19ddd1ee34afec2512fb2238de2822 - 'Add minetest.swap_node'
+
+for sending the whole mapblock to older clients on the case of a node
+modification with swap_node, had the problem that the block chosen to be
+sent to the client was referenced with node coordinates and not with
+block coordinates, resulting in getting the wrong block sent to the client.
+"
+"691eb2d06d646ff96af9aaed0bfe823f64f0acda","2015-09-18 15:02:02+02:00","Document current node metadata format
+
+Document the node metadata changes of the commit (serialisation version >=23):
+
+704782c95b8a4194a9383da55d93f37fd0f7278f 'WIP node metadata, node timers'
+"
+"795db97fe3a6af8db039b7a7aed6f419e3e44f1b","2015-09-18 20:44:15+01:00","Blob ore: Fix partial blobs
+"
+"fe994946b7fabdb6f3cc7d11ec6ee1a27f7f5c20","2015-09-19 00:16:23+01:00","Mgv5/6/7: Re-add #include profiler.h as commented-out option
+"
+"9c635f28ac2b103bf7196e47947bf64673c13393","2015-08-05 22:29:47+02:00","Little optimization on getAdded/Removed activeobjects per player loop.
+
+Use std::queue instead of std::set, we don't need such a heavy container.
+Don't convert position to int to convert it back to float in the next function.
+"
+"452df1c723722183ebf3a332f7bcc355be5b2998","2015-09-18 13:45:42+02:00","Various style cleanups + unused code removal
+
+-> Don't pass pointer to whole IGameDef to NodeMetadata constructors
+and deserializers, but only to IItemDefManager, which is needed
+-> Remove the unused content_mapnode_get_new_name() method
+-> Fix style for MapBlock::deSerialize and MapBlock::deSerialize_pre22,
+improving accuracy of error messages a bit
+-> Fix style at other serialisation methods too
+-> Improve accuracy of some comments
+"
+"4f03f8d119283c16034836d6e8d617961a8150c9","2015-09-21 18:10:05+02:00","lua_api.txt: fix typo
+
+Thanks to @kaadmy (NeD) for pointing this out.
+"
+"d130c36e140f949bd2385a8398018f49e1b9032a","2015-09-21 19:26:54+02:00","Fix another typo in doc/world_format.txt
+"
+"1adc7bf5c60830cc8dcbab34c682f7fddde55558","2015-09-21 20:03:35+02:00","Replace 'self program' with 'this program' in fstk boilerplates
+
+... and remove trailing whitespace.
+"
+"a56aedb4eae7d21864ab8dc56a82f644c4639f7a","2015-09-21 01:21:28+01:00","Mapnode: Add rotateAlongYAxisFull supporting 24 facedirs
+"
+"596484da4fcd301e597a851a9a54b6dc276a286a","2015-09-23 18:53:54+02:00","Save and remove player by pointer
+
+Why doing things simple ? Use pointer instead of strings to save players and remove them.
+Saving players by name does a lookup to find pointer we already have ! Idem with removePlayer
+Also remove unused removePlayer(peer_id), it's never called
+"
+"f062bbd7a182233f96c61287d0397534811627d9","2015-09-23 00:31:45-04:00","Add /emergeblocks command and core.emerge_area() Lua API
+"
+"524a7656e3e5cd671b05c13e2ad69cb84bad0423","2015-09-26 00:26:52+02:00","redis: throw error if block request failed
+
+Fixes #3196. Before, we didn't throw an error, and the engine thought the
+block isn't occupied. But in fact it might be that redis is still loading,
+and the block does exist in the database. The result was a cheesy map.
+"
+"89e8f3a9182f5ec15b0c43389a516b10a54741d9","2015-09-20 15:19:52+02:00","Update .gitignore to ignore symlinks to non-static Minetest directories and sort into an editor section
+
+[ci skip]
+"
+"776760aba730f1db565d124b4c04efae1c152d9e","2015-09-20 15:19:52+02:00","Clarify radii and distance types in documentation
+
+Because not all circles are round:
+* circles using an euclidean metric are what we usually call 'round'
+* circles using a maximum metric look like euclidean rectangles with equal adjacent sides (squares)
+* circles using a manhattan metric look like an euclidean right angled rhombus (squares, but 45° rotated to the former one)
+
+[ci skip]
+"
+"8787d2e7e9671f3b5930ca9c41c6e0867b8a5a54","2015-08-18 12:05:24+02:00","Fix falling through nodes on world load (fixes #2784)
+
+On world load the collision code can not see node boxes, since the
+nodes have not been loaded. Thus it collided only at the next full
+node. However, standing on a slab on world load leaded to sinking into
+it until the world finished loading. Then one maybe fell further, if
+the node below was not walkable.
+
+Now, with this commit, when no node around the player has been loaded
+it simply does not move the player.
+"
+"88a44122abdef9c23c5ab984742f12e4fbd41188","2015-08-24 19:05:41+03:00","FindJson: use PATH_SUFFIXES jsoncpp to find incdir
+
+For example, on Fedora systems jsoncpp headers is installed in `/usr/include/jsoncpp`.
+"
+"4338f100f84100f5779d4e12fe23d359f94ef718","2015-09-26 23:29:08+02:00","Fix redis erroring on non found blocks
+
+Thanks to @netinetwalker for spotting the error, proposing a fix, and testing it.
+
+Error due to @est31's merging changes to PR #3202 to add more error reporting for invalid reply types, commit:
+
+524a7656e3e5cd671b05c13e2ad69cb84bad0423 'redis: throw error if block request failed'
+
+Now we branch out on the valid reply type 'not found'.
+"
+"e7282816fffc433861e7e83b0bf1de701d3ea2d1","2015-09-27 00:18:05+02:00","Abort at uncatched exceptions
+
+Change a remaining assert(0) call to FATAL_ERROR(msg).
+There was a regression since commit
+
+ced6d20295a8263757d57c02a07ffcb66688a163 'For usages of assert() that are meant to persist in Release builds (when NDEBUG is defined), replace those usages with persistent alternatives'
+
+where when an 'uncatched' exception is thrown inside a 'side thread',
+the program doesn't abort anymore.
+
+This led to the problem @netinetwalker experienced where the emergethread
+got an unhandled exception for loading a mapblock while redis was loading,
+(see #3196) and then jmped outside its loop to work down its queue.
+This resulted in the server not doing any emerges anymore.
+"
+"ffe291cb78fc7135034fe6456b2d7dfc3761dc52","2015-09-26 00:28:48+01:00","Decorations: Remove error message 'chunksize not divisable by sidelen'
+
+Sidelen larger than 16 is essential for low density decorations
+With sidelen > 16 chunksize may not be divisable by sidelen if
+chunksize is changed, in this situation setting sidelen = chunksize
+is desirable and should not create error messages.
+"
+"0cde03254a6564eaec21603e9add4f14e6c2fe52","2015-09-29 01:55:12+02:00","Don't serialize StaticObjectList with > 65535 objects
+
+Because the count is serialized as u16, this would cause overflow.
+
+If minetest later deserialized a mapblock with an incorrect
+static object count, it would be unable to find the NameIdMapping
+(which comes after the StaticObjectList) and abort with an error
+such as 'Invalid block data in database: unsupported NameIdMapping
+version' (issue #2610).
+"
+"2a7d01b833da7b93125ad31e787f3e2145a22ec5","2015-09-29 17:26:07+02:00","Some map border related fixes
+
+1. Check for entity addition success in spawn_item implementation
+2. Check for success in item_drop callback, so that the player
+doesn't lose the item if they are outside bounds and try to drop it.
+3. When existing player joins game, check that their position is inside
+map bounds. If not, set their position to the return value of findSpawnPos().
+4. Make findSpawnPos() respect the border
+
+2 fixes a lua crash if a player drops an item outside map bounds.
+3 fixes an assertion crash if a player leaves when being outside map bounds,
+and then rejoins.
+"
+"0bf1984d2c9fb3a9dc73303551c18906c3c9482b","2015-09-30 00:38:05+02:00","Fix some SRP issues
+
+-> Remove memory allocation bugs
+-> Merge changes from upstream, enabling customizeable memory allocation
+"
+"8aaae7db05917dbbedebbd1b5616db976dfc2e8e","2015-10-02 01:07:57+01:00","Mapnode: Replace rotateAlongYAxis with improved version
+
+Get facedir by using lowest 5 bits of param2 and limiting to 23
+More robust, frees up higher param2 bits for other uses
+Change lookup table and table index to u8
+"
+"21944a0d3c5284f6bf1e61286ddbcc2ab2f1e2aa","2015-09-26 09:06:13+02:00","Add environment variable MINETEST_WORLD_PATH
+
+Also add PATH_DELIM for Windows compatibility.
+"
+"a5bdfb6b3cfddaac1e961bd8c8780c74ccde3567","2015-09-29 12:38:08-05:00","Add get_biome_id(biome_name) callback
+
+It returns the index used in mg->biomemap for a given biome name.
+The biomemap is useless without this unless you re-register all existing biomes,
+which could cause problems for anyone else trying to use biomemap.
+With this, you can quickly create a lookup table of ids and names.
+"
+"20405edb06f44308aae760dc2f4dad5c61e0d30f","2015-10-03 13:19:58-04:00","Fix MinGW 32-bit build
+"
+"b12bdcce348323247811b9a0299e2e9294991d13","2015-10-02 21:18:40+02:00","Added minetest.wallmounted_to_dir
+"
+"f0cd5da687ca216b4bdd9abe7bc8038a679d3763","2015-10-04 02:50:04-04:00","Define and use limit constants for Irrlicht fixed-width types
+"
+"7b01b94c6bde1989e48208befff8595c141183e6","2015-10-04 02:53:52-04:00","Remove redundant code in player interact handler
+"
+"1f9c5a4a7b15ab49e717d81162fe58e4202c0814","2015-10-04 15:32:17-04:00","doc: Update node callback documentation
+"
+"0850d3bb930ac5e2cfd71a58fd49725e4c2a4c96","2015-10-04 02:54:25-04:00","Add emerge completion callback mechanism
+
+Major refactor of emerge.cpp and Map::init/finishBlockMake
+"
+"9f25aba6c2c3a922ebe74c327e275e83fef1f6f6","2015-10-04 16:37:03-04:00","Hide mapgens from main menu not intended for end users
+"
+"5130dbce7b294c392733e93c05e2099786523342","2015-10-04 17:26:08-04:00","Allow setting chunksize in core.set_mapgen_params
+"
+"b0523adc5f673208b5414cf49c6640e4fc148b87","2015-10-02 23:36:28+02:00","Add new ContentParamType2 'CPT2_DEGROTATE'
+
+This might break some mods, but it is important for all uses of the param2 to
+be documented.
+
+This doesn't need a serialisation version or network protocol version change,
+as old clients will still work on new servers, and it is bearable to have
+new clients getting non rotated plants on old servers.
+"
+"5bf4af9e6c655db474c1f0cbaec8237c1f11499c","2015-09-13 12:36:41+02:00","Translated using Weblate (Esperanto)
+
+Currently translated at 99.2% (276 of 278 strings)
+"
+"de85688c92ae7ec2ec332f1bd3f1d3d65d0c5b7b","2015-09-17 12:43:17+02:00","Translated using Weblate (Chinese (Taiwan))
+
+Currently translated at 100% (0 of 0 strings)
+
+Created new translation.
+"
+"56faa2faf3893ac13b556c99a45396c24cbf52f8","2015-09-17 12:44:35+02:00","Translated using Weblate (Chinese (Taiwan))
+
+Currently translated at 0.0% (0 of 278 strings)
+"
+"9701372e9d1a72460b08cf7e9eceaf44da9d7457","2015-09-17 15:10:20+02:00","Translated using Weblate (German)
+
+Currently translated at 98.9% (275 of 278 strings)
+"
+"3bef5fbde2af0eb7932c7320968dac13c410ecf1","2015-09-17 15:10:49+02:00","Translated using Weblate (German)
+
+Currently translated at 98.9% (275 of 278 strings)
+"
+"69fff104b9ff901ee8261c95577e17bf09254e27","2015-09-17 15:11:25+02:00","Translated using Weblate (German)
+
+Currently translated at 98.9% (275 of 278 strings)
+"
+"a3ca8854a89dbb25bf984d2b4cb76b8d5101419f","2015-09-17 15:12:29+02:00","Translated using Weblate (German)
+
+Currently translated at 98.9% (275 of 278 strings)
+"
+"1d628a5858070762d2003b42bcd0aef7790c2486","2015-09-17 12:48:02+02:00","Translated using Weblate (Chinese (Taiwan))
+
+Currently translated at 100.0% (278 of 278 strings)
+"
+"8518ec2861aba8d4fd643c3da2ba66996db6db6f","2015-09-17 15:13:06+02:00","Translated using Weblate (German)
+
+Currently translated at 99.2% (276 of 278 strings)
+"
+"9a3dce3b88820bcaab8a2ff14aa5e5f9da17e30c","2015-09-17 21:56:08+02:00","Translated using Weblate (Ukrainian)
+
+Currently translated at 46.4% (129 of 278 strings)
+"
+"bcf03e0ff5ae855dc149be038e20d7ffbcd9eb20","2015-09-17 22:38:55+02:00","Translated using Weblate (Ukrainian)
+
+Currently translated at 66.5% (185 of 278 strings)
+
+Maybe it is better to describe allowed symbols instead of writing regex?
+"
+"4cd7e46c634ad9998c5298a2a2066146b4a63fcf","2015-09-20 17:49:52+02:00","Translated using Weblate (Spanish)
+
+Currently translated at 100.0% (278 of 278 strings)
+"
+"51cb2fd26980df2ed664736d1347634bc5d652ba","2015-09-20 17:54:26+02:00","Translated using Weblate (Spanish)
+
+Currently translated at 100.0% (278 of 278 strings)
+"
+"1472b25a585137ef67c75d3ae19854344665bd5b","2015-09-21 14:55:05+02:00","Translated using Weblate (Hungarian)
+
+Currently translated at 92.8% (258 of 278 strings)
+"
+"a5768239175b0cb72c9c5de63a2517446e687ea0","2015-09-20 17:15:21+02:00","Translated using Weblate (Norwegian Bokmål)
+
+Currently translated at 3.5% (10 of 278 strings)
+"
+"a77b980c94ad7782f9ae853a08fb8552b1203028","2015-09-20 18:00:45+02:00","Translated using Weblate (Spanish)
+
+Currently translated at 100.0% (278 of 278 strings)
+"
+"66f6b4ca5994624408e67280c1895505a8eaf81e","2015-09-19 23:15:12+02:00","Translated using Weblate (Ukrainian)
+
+Currently translated at 78.0% (217 of 278 strings)
+"
+"58ec4482ce4e0ee48ca07563963d8e1b4a6c7c70","2015-09-21 23:18:50+02:00","Translated using Weblate (Ukrainian)
+
+Currently translated at 81.6% (227 of 278 strings)
+"
+"31c2f03451b9372d0dfa1265378f3e8f88548d9e","2015-09-24 15:53:00+02:00","Translated using Weblate (Spanish)
+
+Currently translated at 100.0% (278 of 278 strings)
+"
+"8b7860ec70d05013f6a6987b2dff9884d828b796","2015-09-26 18:43:29+02:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (278 of 278 strings)
+"
+"d441159fb7a1bfeb67c56a86d5fbf5eb4a75bca6","2015-09-26 18:45:55+02:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (278 of 278 strings)
+"
+"7521d15bf2ff19c0993ba46d6a83c1e4368b44cf","2015-09-26 18:47:01+02:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (278 of 278 strings)
+"
+"8373df623bf147bd50e1fee63045bb94b375c392","2015-10-02 20:11:01+02:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (278 of 278 strings)
+"
+"94464fce70c729bc0499d471862ffba53410d41e","2015-10-04 12:36:17+02:00","Translated using Weblate (Spanish)
+
+Currently translated at 99.6% (277 of 278 strings)
+"
+"ce1a70c70355f2a08fc64d63b1fd3f23743d934f","2015-10-04 03:52:55+01:00","Mgv5: getGroundLevelAtPoint searches a larger range
+"
+"e62eac49d590ca53fa250c0367dd9850729156b3","2015-04-14 04:38:01+01:00","Mapgen: Add 4D fractal mapgen
+"
+"caf0df8924d4a64feee40170e7235eb2202ddde5","2015-10-03 16:01:39+02:00","Add viewing range GUI setting
+"
+"8edc8a14e4507e4ef78b1a0d39d338ee2d4a721d","2015-10-06 19:08:53+02:00","Correct SRP documentation
+
+Previous statements were wrong.
+"
+"d152b55971a57f76211f3db07e864cac015edff2","2015-10-06 22:14:44+01:00","Android/Mapgen: Add fractal mapgen file to android makefiles
+"
+"706e7cebeada1f3f1f060de8a4c6f1127f4209ad","2015-10-07 02:05:03+01:00","Fractal mapgen: Add seabed and large pseudorandom caves
+"
+"7504cdcfbf1d4fffae93041878c5d66d035b019c","2015-10-08 05:17:25+01:00","Mapgen: Use mapgen-specific names for constants in headers
+
+Update copyright years in all mapgens
+Add myself to copyright notices in mgv5 and mgv7
+"
+"41d896d5c248be18f87776433f126c43d7dbca9b","2015-10-10 17:07:53+02:00","Clear list rings when loading a new formspec
+
+Fixes a bug where the old list ring remained when a new formspec
+was displayed over the old one. This created the list-ring of the new formspec
+to be partly ignored.
+
+Thanks to @VanessaE to report the bug, and @DonBatman to produce the code that
+exposed it.
+"
+"3a4bcf35a14d0f4740fe1ce379d87ac2094cc5ba","2015-10-10 20:56:29+01:00","Fractal mapgen: Fix mysterious bug
+"
+"bda2f565038ccba902880a3daf4ea8d9dbe97069","2015-10-11 18:11:09+01:00","Mgfractal: Independant offset and slice params for mandelbrot and julia
+
+Player now spawns on julia set due to julia offset
+Add commented-out '#include profiler.h' for timetaker use
+Use v3fs to reduce number of parameters
+Tune tunnel width to match mgv7
+"
+"7f2cefa093aa14729bb49db85a49c7f9b3fed6a4","2015-10-11 21:10:26+09:00","Localize digprop_err function
+"
+"e0b57c1140554fccbf3e57a036cc4100887ab8f1","2015-10-12 21:25:11+02:00","Fix how address is logged when a wrong password is supplied
+
+- SRP: print the address only once, not twice
+- Legacy: previously the address was not printed at all
+- Make both messages structurally the same, to facilitate log analyzers
+"
+"2139d7d45fb1a8ed250ad96c9975c581f02f72a9","2015-10-13 03:57:44-04:00","Refactor logging
+
+- Add warning log level
+- Change debug_log_level setting to enumeration string
+- Map Irrlicht log events to MT log events
+- Encapsulate log_* functions and global variables into a class, Logger
+- Unify dstream with standard logging mechanism
+- Unify core.debug() with standard core.log() script API
+"
+"96cc5b34fe0151d2a1498eaaafb205757db346c4","2015-10-14 01:26:03-04:00","Use warningstream for log messages with WARNING
+
+Remove DTIME macro and its uses, too
+"
+"4236792b87a68819c56f3b6f8bd44f48058dec57","2015-10-14 02:21:41-04:00","Lower log level for benign socket errors
+"
+"6f4d6cb5741d10e10dacc78e264e421bf6a297cf","2015-10-14 02:33:04-04:00","Always use errorstream for DEBUG_EXCEPTION_HANDLER
+"
+"6f2d785d0ff761961912d7e79a7d16c4adf86861","2015-10-14 02:39:30-04:00","Rename macros with two leading underscores
+
+These names are reserved for the compiler/library implementations.
+"
+"659922fd30d5ee3d7876b22e4d26b116d1ae2513","2015-10-15 00:23:29-04:00","Remove explicit syslog printing for uncaught exceptions on Android
+
+All log operations are now added to the syslog implicitly.
+Also, pass along mutable string to argument vector for main().
+"
+"7b8d372947aae232ddf598155e972bb4dda157af","2015-10-15 01:08:18-04:00","Use warningstream for deprecated field messages and refactor log_deprecated
+"
+"e067ceacb8787f1dc5b1ab69b50dba4497c55433","2015-10-15 00:45:56-04:00","Clean up gettext initialization
+"
+"1a5b4b38f3457a8f1423305cef4e85d05da47d62","2015-08-06 00:26:18-04:00","Add BufReader and vector-based serialization methods
+"
+"5d88501a5799dbee8623ce9920423948659368fa","2015-10-15 01:45:59-04:00","Compress textures and fonts
+
+Used PNGOUT, OptiPNG and DeflOpt.
+Removes ~350 KB without any loss in quality.
+"
+"b600bc30a9fbd92800dabad14a38f28f0ccdd28e","2015-10-15 23:46:03+02:00","Fix enforcing of nametag hiding
+
+Commit
+
+d2ca662569427d36642660314668e416bf68f3c8 'Enforce hiding nametag'
+
+didn't fix the issue for 'client' instances, where the nametag update
+was received before the object was added to the scene. This resulted
+in the grey shadow on the nametag that commit tried to fix.
+
+Thanks to @neoascetic for pointing out that there still is a shadow.
+"
+"836486a98e7b09e25b97c9d989301ed9eb365b3b","2015-10-17 01:01:12+02:00","Fix crash regression when invsize formspec gets used
+
+The invsize formspec element is outdated. Even though,
+it is still supported, only a deprecation warning is shown,
+introduced by commit [1]. The lua context passed to the
+log_deprecated method added by commit [1] is NULL for the
+invsize deprecation warning, as its run on the client and not
+the server.
+
+Commit [1] has removed checks for NULL inside the log_deprecated
+method, resulting in a crash when a formspec with an invsize
+element is parsed. This commit puts the check back.
+
+Fixes #3260.
+
+Referenced commits:
+
+[1]: b5acec0a3c5701c53854ff7afdf4008863e6e8df 'Add proper lua api deprecated handling'
+
+[2]: 7b8d372947aae232ddf598155e972bb4dda157a 'Use warningstream for deprecated field messages and refactor log_deprecated'
+"
+"6be74d17df75714066b36cfa6ae40081526ef477","2015-10-16 21:12:30-04:00","Refactor thread utility interface
+
+- Add 'thr_' prefix to thread utility functions
+- Compare threadid_ts in a portable manner, where possible
+"
+"765a834cd04473afeb4b86b445dee901e0d0c83c","2015-10-16 23:43:29-04:00","Refactor Thread class to improve readability and portability
+
+- Fix some incompatibilities with obscure platforms (AIX and WinCE)
+- Clean up Thread class interface
+- Add m_ prefix to private member variables
+- Simplify platform-dependent logic, reducing preprocessor
+conditional clauses and improving readibility
+- Add Thread class documentation
+"
+"6ba9d6545d9a02dd3552f89e7b79c6ba2e760736","2015-10-17 01:16:17-04:00","Fix missing include on AIX
+"
+"06e5d0f5c59b7d3d1bb20d76abf011a474302b3a","2015-10-17 19:23:07+09:00","Fix == to =
+"
+"006ef5b4a5e362eed848ca26b411a8059d74b965","2015-10-15 21:32:31+02:00","New settings tab contain all possible settings
+
+Settings are automatically parsed from builtin/settingtypes.txt
+The edit dialog automatically adjust based on the type of setting
+"
+"6b408248a16b0c61007247d8bce23a349f86b45c","2015-10-17 22:19:04+02:00","Re-add 'file' type for --add-location for xgettext call
+
+Passing line numbers in the comments is bad.
+
+References:
+
+* Commit 94961b3364f76d5861913af321e9be6200d080b3
+* Previous commit
+"
+"c4d18623440b58b9f90629c798687608bc32c6da","2015-10-17 23:34:45+02:00","Fix GUITable selection issues with trees
+
+- setOpenedTrees(): this internal function was calling setSelected()
+to update m_selected. Since setSelected() calls autoScroll(),
+this caused the scrollbar to scroll back to the selected row
+in some cases when that shouldn't be done.
+
+For example, clicking the '+' to open a tree caused autoscroll.
+
+Fix this by making setOpenedTrees() modify m_selected directly.
+
+- setDynamicData(): set scrollbar position after calling
+setSelected(), not before. This avoids setSelected()'s autoscroll
+messing up the scrollbar position again.
+
+- setSelected(): If an invisible row is selected, open all parents
+of the selected row in order to make the selected row visible.
+
+This fixes the issue where all the trees are closed again whenever
+you return from the setting edit dialog to the settings tab.
+"
+"f3d82567c9dc98d5b1fa8724055727956ed351eb","2015-10-18 02:18:10+02:00","Display sane output for empty descriptions
+
+According to its man page, the function gettext(3)
+'may return a nonempty string' when msgid is ''.
+
+This commit fixes a bug where the comment ''
+for some settings caused gettext to return a
+'nonempty string', in this case header info of the
+po file.
+"
+"6b0cae5a9d6e220b9f1ecf8e6a821d84961564fd","2015-10-18 02:29:06+02:00","Remove wstrgettext
+
+Everywhere where wstrgettext was used, its output was converted back
+to utf8. As wstrgettext internally converts the return value
+from utf8 to wstring, it has been a waste. Remove the function, and
+use strgettext instead.
+"
+"ba9d7215ecc38b6a33e2984a600c13db203f6274","2015-10-18 10:42:44+02:00","Settings tab: don't autoscroll when toggling 'Show technical names'
+"
+"2364449d7a173086c2681eae267b32e5c1596b00","2015-10-18 11:03:59+02:00","Settings tab: double click opens/closes trees
+"
+"3b9f99e0d61957c571ba857301d58ad29fb44527","2015-10-13 05:17:33+01:00","ABMs: Make catch-up behaviour optional
+
+Default is true for backwards compatibility
+Update lua_api.txt
+"
+"df80b1ae5ae153daf428ec2f0dd4a83a42b28505","2015-10-19 11:47:14+08:00","init_log_streams: check if log_filename is empty.
+
+Fixes #3262.
+"
+"1ac19c6dcfe063f1d440ea99de694d56ed46565b","2015-10-05 02:00:34+02:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (278 of 278 strings)
+"
+"16d208e1dd7c776d348bc050e766442cfc0758f4","2015-10-05 08:20:24+02:00","Translated using Weblate (Japanese)
+
+Currently translated at 100.0% (278 of 278 strings)
+"
+"37c1e2012724a5d74aa0b720ab91953a2cf2bf05","2015-10-15 04:11:56+02:00","Translated using Weblate (Portuguese (Brazil))
+
+Currently translated at 72.6% (202 of 278 strings)
+"
+"c32847838d72c327031520c48b76607b63da4ccc","2015-09-03 21:28:38+02:00","Add more ways to pass data to check_player_privs
+
+The callback can now be invoked with either the player object or name as
+the first parameter, and with either a table or a list of strings, like
+this:
+
+minetest.check_player_privs(player_name, { shout = true, fly = true })
+minetest.check_player_privs(player_name, 'shout', 'fly')
+minetest.check_player_privs(player, { shout = true, fly = true })
+minetest.check_player_privs(player, 'shout', 'fly')
+"
+"59fa117d13ba881f6f5e77c94f5a4ce6adb9647f","2015-10-21 08:51:59+01:00","Decoration API: Add flag for placement on liquid surface
+
+Add findLiquidSurface() function to mapgen.cpp
+Update lua_api.txt
+"
+"964be640cb1072b122e5047ddfed19907c6b9dab","2015-10-17 22:42:48-04:00","Fix some threading things and add additional thread unittests
+
+- Fix thread name reset on start()
+- Fully reset thread state on kill()
+- Add unittests to check for correct object states under various circumstances
+"
+"f9eb31f317ed2de61f6a57fb6d99604aa9d13b94","2015-10-24 08:20:42+02:00","Flush rollback log more often
+
+Flushes the buffer of rollback actions that wait to get saved in two more situations:
+
+1. Flushes in the destructor of the rollback. This makes the server not
+forget the last < 500 rollback entries when it shuts down.
+
+2. Flushes the rollback when /rollback_check is invoked. This is neccessary
+as otherwise it leads to confusion if users want to test the rollback functionality
+by placing a node and then executing the check on it, or if the actions were
+very recent out of other reasons.
+"
+"380e1504eb2445fd43c03c87d23b8e41e85a7871","2015-10-23 23:52:45-05:00","Improve rollback database indexing
+
+Index more columns in the action table of the rollback DB to improve the performance of /rollback_check
+"
+"127b9aed09d2b807f75495137ef1a07ca53c518b","2015-10-23 23:38:21+02:00","Fix on_rightclick() being called directly after placing node
+
+fixes https://github.com/minetest/minetest_game/issues/537
+"
+"2d207afe8e12f00b5a1276a678e2402c3c4c7961","2015-10-24 13:31:42-04:00","Fix compilation under MSVC and remove unnecessary conditional function prototype
+
+Thanks to SmallJoker for pointing this out.
+"
+"6f2d9de7691c99b833f71c1414230c5d04c42ae0","2015-10-18 10:41:52+02:00","Improve Lua settings menu
+
+* Add key settings to setting table and ignore them later
+This way they are added to the auto-generated minetest.conf.example
+* Add flags type
+* Add input validation for int, float and flags
+* Break in-game graphic settings into multiple sections
+* Parse settingtpes.txt in mods and games
+* Improve description for a lot of settings
+* Fix typos and wording in settingtypes.txt
+* Convert language setting to an enum
+"
+"2f19abd70486e19e992f8a426ce718cbcadce210","2015-10-24 12:52:14+02:00","Small logging refactor and additional options
+
+-> Get rid of Logger::logToSystem and use normal downstream output system for android instead
+
+-> Give the downstream output system more information: enrich the log function of ILogOutput
+with information and add ICombinedLogOutput for easier use.
+
+-> Make Logger::getLevelLabel() static and public so that it can be used by downstream log output.
+
+-> Add g_ and m_ prefixes where required
+"
+"85c6b5fd0696d3e7411fb8d08a09dbd95650148d","2015-10-05 01:52:41+02:00","Better gettext support for protocol version mismatch messages
+
+Previously, xgettext failed to resolve the dynamic call.
+Thanks to @JakubVanek for pointing this out.
+"
+"e46fa2200359854969d42cb3a313c3f2381f9ce0","2015-10-24 20:29:11+02:00","Run updatepo.sh
+"
+"49bda7f98d2ca1d3553460d27c7308856969fb44","2015-10-24 20:44:07+02:00","Android: statically load iconv library
+
+Fixes #3291
+
+Thanks to @arpruss for reporting the bug, and suggesting the fix.
+
+Also, remove trailing whitespaces.
+"
+"e2fc8f7dda9316460063bc3290aaee0285c62ec9","2015-10-23 23:02:10+01:00","Mgfractal: Independent iterations and scale parameters
+
+Complete set of parameters for each of mandelbrot and julia sets
+The julia set structure often needs different iterations and scale
+"
+"9ee0d376d4e4679be074ed3a27e9700169aecea3","2015-10-24 22:31:54+02:00","Don't allow games or mods to add secure. settings
+"
+"7d5c7365314c9517369a7a7d6e4fc5d8712b93c7","2015-10-24 23:11:21+02:00","Fix setting comments
+"
+"1f76808e4fa5a198f1dbddba6fa18ea1ecb20cb6","2015-10-25 00:01:57+02:00","Fix out of bounds vector write in Logger::addOutput(ILogOutput *out)
+
+Previously, the invocation of Logger::addOutput(ILogOutput *out) led to
+an out of bounds write of the m_outputs vector, resulting in the
+m_silenced_levels array being modified.
+
+Fortunately, the only caller of that method was android system logging,
+and only since a few commits ago.
+"
+"6907c3e40a16d491fd0f7b224ba30a58e0777a24","2015-10-25 10:56:58+01:00","Escape ' in generated settings_translation_file.cpp
+"
+"50ba7e114d0937061f988c9452904dd2456399b5","2015-09-28 20:49:38+02:00","Add option to disable backface culling for models
+
+- Disabled by default (except players)
+- Fixes #2984
+"
+"df2c474d19c751bb1ee25c0a11e52490b909c06b","2015-10-24 17:30:36+09:00","Credits: Remove my name
+"
+"eb92bfb03038aa2ed42af46ff5ec7d144f0ff9af","2015-10-25 18:15:31+01:00","Check if hitter has inventory when punching item
+
+Fixes #3280
+"
+"eba5f7cd6cfb550b28de230bd5013a771d37b196","2015-10-25 19:14:07+01:00","Fix parameter passing to gettext call
+"
+"3936a5e3f71d46e61f819b8f6c85dd47a440f21e","2015-10-26 00:12:39+01:00","Correct comment in l_util.cpp
+
+Remove outdated loglevel list from a l_util.cpp comment,
+and rather point to the updated code.
+"
+"54f1267c2c87daea769966c694777a2e5977f870","2015-10-25 00:45:18-04:00","SAPI: Mark all Lua API functions requiring envlock
+"
+"d69ef6acd386ccfd5ff456002591b97b92a26956","2015-10-25 23:12:59-04:00","SAPI: Throw runtime error instead of if l_get_mapgen_object called in incorrect thread
+"
+"5f342aa0154e59503fbb22e46ac95ef655aaad1a","2015-10-26 04:13:27+01:00","Remove some abort() calls
+
+abort() doesn't benefit from the high level abstractions from FATAL_ERROR.
+"
+"306b0670916fee8d0316a69f161c7a9b14e9516d","2015-10-26 03:45:55-04:00","SAPI: Move core.get_us_time() to Util module
+"
+"bc0318d2fc0d435e20b1186203ce2908162241ca","2015-10-26 04:01:01-04:00","SAPI: Fix seed parameter truncation for LuaPseudoRandom constructor
+
+Also fix a potential seed truncation issue on platforms where the
+range of ptrdiff_t (the underlying type of lua_Integer) is too small.
+"
+"2c25107c31c0b0e72fe4a48b0dc3f5b09a0b46aa","2015-10-26 15:14:22+01:00","Fix typo
+"
+"8a6e921cb8c9886db598dd77ddde3e7ba294085a","2015-08-12 17:13:19+02:00","Fix jittering sounds on entities (fixes #2974)
+"
+"27eed1389b8bece41950c53b47acffb3bb0c83ee","2015-10-27 01:50:46-04:00","Move basic, non-numeric macros from util/numeric.h to basicmacros.h
+"
+"c406438b95e3df181961add56a2511b96bd9d690","2015-10-27 15:55:34+01:00","Fix missing #include
+"
+"ca8e56c15a26bc5f3d1dffe5fd39e1ca4b82d6f8","2015-10-27 21:03:59+01:00","Environment: Time of day fixes and add serverside getter
+
+-> Put access to time variables under the time lock.
+-> Merge both time locks, there is no point to have two locks.
+-> Fix the lock being released too early in Environment::setTimeOfDay
+-> Add serverside getter so that you don't have to get
+the environment if you only have the server
+"
+"c56d7fe0eba7905b0a63c4a1cfe909988653c23d","2015-10-27 02:51:43-04:00","Add DISABLE_CLASS_COPY macro (and use it)
+
+Use this macro to disallow copying of an object using the assignment
+operator or copy constructor.  This catches otherwise silent-but-deadly
+mistakes such as 'ServerMap map = env->getMap();' at compile time.
+
+If so desired, it is still possible to copy a class, but it now requires
+an explicit call to memcpy or std::copy.
+"
+"688556a5d1910ead2cf06a87af6908110fa9d035","2015-10-27 22:27:32-04:00","Add STATIC_ASSERT() macro and use it
+"
+"182b3fd2831a7deb22d709e7c285eca3a57a5678","2015-10-28 22:58:39+00:00","Mgfractal: Add filler depth noise
+"
+"c0a7c670a465b4c05d90a8a4e8001797ec4e628a","2015-10-29 00:17:48+00:00","findSpawnPos: Add setting for max height above water level
+
+Increase default from 6 to 16 to help with mgv7 and mgfractal
+Large-scale or alternative mapgens can result in a lowland spawn point not
+being found, causing a spawn at (0, 0, 0) possibly buried underground
+The max height is now settable to allow correct player spawn
+in any mapgen or when using custom noise parameters
+"
+"b6dfae02215d7bd61e06ff1999ee3ecb0ec80b9e","2015-09-28 13:59:03-05:00","WoW-style Autorun
+
+This allows the player to toggle continuous forward with a key (F by default),
+so we don't have to hold down the forward key endlessly.
+"
+"482c4d69b094bddf5e6e10dfc996a972a628850a","2015-10-31 08:35:27+09:00","minetest. to core.
+"
+"fdede6003446efe2002fc650f635f1be73265116","2015-10-31 02:38:23-04:00","Fix C++11 compatibility
+"
+"b872df6ef6a15ae4624b35ea7b8960bc24da1128","2015-10-29 23:10:05-04:00","Fix clang warning
+"
+"9269a0ecc7267822bc5ac5af95ad4977bdc94fec","2015-10-29 14:48:10-04:00","Fix server crashing on Lua errors
+
+Previously, the server called FATAL_ERROR when a Lua error occured.
+This caused a (mostly useless) core dump.
+The server now simply throws an exception, which is caught and printed before
+exiting with a non-zero return value.
+This also fixes a number of instances where errors were logged multiple times.
+"
+"d198e420ec54be47fe2285b3205953282ec06742","2015-11-01 11:16:18-05:00","Fix Noise compiled under clang >= 3.7.x with -O2 or higher
+
+When compiled with optimizations, the most recent versions of clang seem
+to 'optimize' out a crucial 'and %reg, 0x7FFFFFFF' instruction in noise2d(),
+probably because it somehow assumed the variable n would never become greater
+than that amount.
+Indeed, signed integer underflow is undefined behavior in C and C++, so while
+this optimization is 'correct' in that sense, it breaks lots of existing code.
+Solved by changing n to an unsigned type, making behavior well-defined.
+"
+"52e5b513ed9dc143c967c733423fe751e1b663d1","2015-10-31 16:31:43-04:00","Fix Lua scripting synchronization
+
+For several years now, the lua script lock has been completely broken.
+This commit fixes the main issue (creation of a temporary rather than
+scoped object), and fixes a subsequent deadlock issue caused by
+nested script API calls by adding support for recursive mutexes.
+"
+"3285bf73b9dae5b0c713f9a79263a732294c2aab","2015-11-02 00:10:09+02:00","Print direct command line responses to standard output instead of using the log system
+
+Using logging for these just makes them bloated and hard to read and overally just not neat at all.
+"
+"8f49358153637bb87f492e558a13cf9f23046e64","2015-11-02 02:46:36+01:00","Print --videomodes response to standard output, too
+"
+"eabfe091b5ecfa6e53b70e08faf76df7f0684529","2015-10-31 03:06:36+01:00","Rename and move basicmacros.h to util/basic_macros.h
+"
+"5c3546e459ede7fbdfc22b340ed6b2af5073ec5b","2015-11-02 14:17:44+11:00","Speed up saving of profiling data by 27x
+
+On Windows Release x64 bit build this changes:
+
+ProfilerGraph::put
+1.68% -> 0.061%
+
+ProfilerGraph::draw
+12% -> 17.%
+
+So yes, there is a tradeoff between saving profiling data
+(executed always) and drawing the profiler graph (executed very rarely).
+But usually you don't have the profiler graph open.
+"
+"c2b5da735ea0c961d4f6521df9d96142c7143eee","2015-10-30 02:48:37-04:00","Add callback parameter for core.emerge_area()
+"
+"6ba4f3775e9b2a5bacb2537c058728a67222b67d","2015-11-03 01:03:33-05:00","Silence 'unused typedef' warning for STATIC_ASSERT()
+"
+"1550ab3c5d17787bcb9885c045db2f07aa4971ac","2015-11-03 15:29:52+01:00","Only go fast in autorun if fast move is enabled
+"
+"abc354a5d0a941cf1f3877e487cce325cc609ba8","2015-11-03 13:09:23+01:00","Atomic: cleanup and add more operations
+
+Cleanup:
+* Remove volatile keyword, it is of no use at all. [1]
+* Remove the enable_if stuff. It had no use either.
+The most likely explanation why the enable_if stuff was there is that it
+was used as something like a STATIC_ASSERT to verify that sizeof(T) is not larger
+than sizeof(void *). This check however is not just misplaced in a place where we
+already use a lock, it isn't needed at all, as gcc will just generate a call to
+to the runtime if it compiles for platforms that don't support atomic instructions.
+The runtime will then most likely use locks.
+
+Code style fixes:
+* Prefix name of the mutex
+* Line everything up nicely, where it makes things look nice
+* Filling \ continuations with spaces is code style rule
+
+Added operations on the atomic var:
+* Compare and swap
+* Swap
+
+The second point of the cleanup also fixes the Android build of the next commit.
+
+[1]: http://stackoverflow.com/q/2484980
+"
+"f9b09368f063cdace93a042d5bdd45987c084d94","2015-11-03 08:56:56+01:00","Time: Remove serverside getter, and use atomic operations
+
+It isn't possible to use atomic operations for floats, so don't use them there.
+
+Having a lock is good out of other reasons too, because this way the float time
+and the integer time both match, and can't get different values in a race,
+e.g. when two setTimeofDay() get executed simultaneously.
+"
+"8f03995604164c891cacb41c83ff4d6e73a8535f","2015-11-04 03:07:32+01:00","Time: use locks again
+
+The Atomic implementation was only partially correct, and was very complex.
+Use locks for sake of simplicity, following KISS principle.
+Only remaining atomic operation use is time of day speed, because that
+really is only read + written.
+
+Also fixes a bug with m_time_conversion_skew only being decremented, never
+incremented (Regresion from previous commit).
+
+atomic.h changes:
+* Add GenericAtomic<T> class for non-integral types like floats.
+
+* Remove some last remainders from atomic.h of the volatile use.
+"
+"64049cf72ae240c774e07c7fd45e1dc7cc95e780","2015-11-04 02:18:37+00:00","Mgfractal: Add documentation to conf.example and settingtypes
+"
+"c75ab521153b928e6718d7d3ac4c2104f13ac1e4","2015-11-04 06:44:55+01:00","Fix time progressing too fast
+
+Before, time progressed wrongly. This was due to a mistake in how m_time_of_day_f was calculated,
+and a regression of the last two commits.
+"
+"732cabee193c101fb59c9f3a6c181b32d77fe37d","2015-11-04 23:07:29+00:00","Settingtypes: Correct documentation for mgfractal
+
+Use type 'string' for v3fs and add comments
+"
+"1384108f8c32f309852c1d1665a613f2a3e3fcc2","2015-11-04 03:33:12-05:00","Schematics: Add core.place_schematic_on_vmanip API
+
+Fix memory leak in minetest.place_schematic
+Slightly refactor Schematic code
+"
+"5e507c9829942c434a6f1ae7a4f3a488c7e50bef","2015-07-25 07:43:32+02:00","Add server side ncurses terminal
+
+This adds a chat console the server owner can use for administration
+or to talk with players.
+It runs in its own thread, which makes the user interface immune to
+the server's lag, behaving just like a client, except timeout.
+As it uses the same console code as the f10 console, things like nick
+completion or a scroll buffer basically come for free.
+The terminal itself is written in a general way so that adding a
+client version later on is just about implementing an interface.
+
+Fatal errors are printed after the console exists and the ncurses
+terminal buffer gets cleaned up with endwin(), so that the error still
+remains visible.
+
+The server owner can chose their username their entered text will
+have in chat and where players can send PMs to.
+Once the username is secured with a password to prevent anybody to
+take over the server, the owner can execute admin tasks over the
+console.
+
+This change includes a contribution by @kahrl who has improved ncurses
+library detection.
+"
+"2ec1eee090845a308e24dbfdcb54b160a09aacf4","2015-11-06 08:38:01+00:00","Conf.example, settingtypes: Improve mgfractal documentation
+"
+"578649bd158a756adc966609f72444dc845355f0","2015-11-06 23:05:40+01:00","Document ENABLE_CURSES in README.txt
+"
+"2a12579fab7803fdee2fac2fa8a6837f131dde7a","2015-10-24 12:28:35+02:00","Add support for audio feedback if placing node failed
+"
+"f9e394a4669e667fcef8992946458c769b4e2770","2015-11-07 03:27:33-05:00","Improve LuaVoxelManip documentation
+"
+"337c02c0f0186c52e2bd4307c6018295a1d2b137","2015-11-08 18:16:20+01:00","Don't compile pcgrandom on Windows
+
+There it isn't needed.
+"
+"330f94ed73b66f7f3404bb61fae574a00c539938","2015-10-24 20:51:12+02:00","Translated using Weblate (German)
+
+Currently translated at 36.2% (273 of 753 strings)
+"
+"25526551bb455d0828926dce9839fa331c2a2086","2015-10-24 21:58:23+02:00","Translated using Weblate (French)
+
+Currently translated at 35.4% (267 of 753 strings)
+"
+"d0567e92f5d47bfc336e5dc98049c2c74e5fbdc6","2015-10-24 21:36:54+02:00","Translated using Weblate (German)
+
+Currently translated at 52.3% (394 of 753 strings)
+"
+"b046023b78e39f4e40785d95e30a6793a6936bc4","2015-10-24 23:09:05+02:00","Translated using Weblate (German)
+
+Currently translated at 54.1% (408 of 753 strings)
+"
+"6a15211bc2969e07315659667d6c83ae08515939","2015-10-25 00:01:38+02:00","Translated using Weblate (German)
+
+Currently translated at 61.6% (464 of 753 strings)
+"
+"1e6f0e63f8c9e289f8b66ebc5b1d593fc1c1228a","2015-10-25 11:08:19+01:00","Translated using Weblate (Chinese (Taiwan))
+
+Currently translated at 36.9% (278 of 753 strings)
+"
+"4f1f652d969388fddf0b3fc1699cba8f44d54c1a","2015-10-25 10:46:27+01:00","Translated using Weblate (Indonesian)
+
+Currently translated at 40.2% (303 of 753 strings)
+"
+"56162a647ecde2bc221a2d3eea736cfab3af085a","2015-10-25 13:14:23+01:00","Translated using Weblate (German)
+
+Currently translated at 75.5% (569 of 753 strings)
+"
+"81ff738ccdd9a934aec0c4fd0dd4b764336433bd","2015-10-25 14:01:46+01:00","Translated using Weblate (Chinese (Taiwan))
+
+Currently translated at 43.8% (330 of 753 strings)
+"
+"d1ab04146b53f5659ca1b7fc560c0bdc064777bb","2015-10-25 16:11:35+01:00","Translated using Weblate (German)
+
+Currently translated at 95.4% (719 of 753 strings)
+"
+"1c03176078e8b3be97d9209f449b47ae640e3406","2015-10-25 17:23:58+01:00","Translated using Weblate (German)
+
+Currently translated at 98.0% (738 of 753 strings)
+"
+"22ff2c34fbea1dad350c944b044629d5652f4aa9","2015-10-25 18:19:45+01:00","Translated using Weblate (German)
+
+Currently translated at 98.1% (739 of 753 strings)
+"
+"ad7c37b58bfe451d73a8d0f8eb94860bea8c3501","2015-10-25 19:11:24+01:00","Translated using Weblate (German)
+
+Currently translated at 98.1% (739 of 753 strings)
+"
+"5d9901897887ad5f5d37ecb4756832ac7a090272","2015-10-25 21:15:46+01:00","Translated using Weblate (German)
+
+Currently translated at 94.0% (708 of 753 strings)
+"
+"51247993035b6e3d205d33470b4c5c45c41a5357","2015-10-26 07:09:05+01:00","Translated using Weblate (Spanish)
+
+Currently translated at 32.5% (245 of 753 strings)
+"
+"e3c3eab101727b1a6ef7a4aaca17871577436d5e","2015-10-26 11:41:17+01:00","Translated using Weblate (German)
+
+Currently translated at 94.1% (709 of 753 strings)
+"
+"a8a2fe85b2ee07a2e748d994db9d3ea7e0ce7626","2015-10-26 14:49:49+01:00","Translated using Weblate (Hebrew)
+
+Currently translated at 100% (0 of 0 strings)
+
+Created new translation.
+"
+"7ebe1f9363e41af5ace38d85735b994f3f7e3fce","2015-10-26 15:25:18+01:00","Translated using Weblate (French)
+
+Currently translated at 56.3% (424 of 753 strings)
+"
+"62583ed4a6605042c59b00489bc8365ebe1bd2f5","2015-10-26 12:17:52+01:00","Translated using Weblate (German)
+
+Currently translated at 98.8% (744 of 753 strings)
+"
+"b48810ee0fc1e74b7f59841a9739563ddeac1628","2015-10-26 13:24:10+01:00","Translated using Weblate (Russian)
+
+Currently translated at 32.1% (242 of 753 strings)
+"
+"1167d38e08612c8c0c1b08eedf651bd8ecf0f016","2015-10-26 16:53:14+01:00","Translated using Weblate (Czech)
+
+Currently translated at 40.5% (305 of 753 strings)
+"
+"8d33f0887a9e8890837f0905990d7a393e74026a","2015-10-26 20:03:59+01:00","Translated using Weblate (French)
+
+Currently translated at 75.5% (569 of 753 strings)
+"
+"6926a489a55cceeee11ca19ea4a640a04091157a","2015-10-26 16:22:49+01:00","Translated using Weblate (Hebrew)
+
+Currently translated at 3.3% (25 of 753 strings)
+"
+"7e44515f67a96faf62c76959e53cbf8b90a18ba2","2015-10-26 21:18:26+01:00","Translated using Weblate (French)
+
+Currently translated at 84.1% (634 of 753 strings)
+"
+"4ebf720650c568617b6c70feeef7bd24d3fbcf26","2015-10-27 00:27:17+01:00","Translated using Weblate (German)
+
+Currently translated at 98.6% (743 of 753 strings)
+"
+"04c4f7a8d0975834d0dfb86b2d86b5863913b36f","2015-10-26 21:07:00+01:00","Translated using Weblate (Turkish)
+
+Currently translated at 33.0% (249 of 753 strings)
+"
+"7167e86ab1f6db61007dac9cb88b4b8be31869bf","2015-10-27 15:21:00+01:00","Translated using Weblate (French)
+
+Currently translated at 96.4% (726 of 753 strings)
+"
+"037221c84d0c7cc18d1c41c3ec3d206150a2975f","2015-10-27 16:46:43+01:00","Translated using Weblate (Spanish)
+
+Currently translated at 32.5% (245 of 753 strings)
+"
+"54634fa8b3ddde57958f051c50da0ab7fd716fe6","2015-10-27 16:45:01+01:00","Translated using Weblate (Chinese (Taiwan))
+
+Currently translated at 43.8% (330 of 753 strings)
+"
+"45b8b381f0a40ddbcf01f3eaf86f688708247d6d","2015-10-27 16:44:05+01:00","Translated using Weblate (Dutch)
+
+Currently translated at 31.3% (236 of 753 strings)
+"
+"b41032fa566495c717372b14acf0fdc9227e6ac0","2015-10-27 21:53:13+01:00","Translated using Weblate (French)
+
+Currently translated at 98.2% (740 of 753 strings)
+"
+"d7d280b407ce1b7d07a77f65de37b0ff6695029a","2015-10-27 20:56:50+01:00","Translated using Weblate (German)
+
+Currently translated at 98.8% (744 of 753 strings)
+"
+"2797c6c4507c62d8b05f193e42bcd0f9022d9f23","2015-10-27 16:45:42+01:00","Translated using Weblate (Indonesian)
+
+Currently translated at 40.2% (303 of 753 strings)
+"
+"a7874a283c93d920983e68eef56ae0a0593647cf","2015-10-27 16:45:33+01:00","Translated using Weblate (Italian)
+
+Currently translated at 28.2% (213 of 753 strings)
+"
+"78bf13663fb492780a57fc43eb3612aaef896de0","2015-10-27 16:46:51+01:00","Translated using Weblate (Portuguese (Brazil))
+
+Currently translated at 26.4% (199 of 753 strings)
+"
+"44ee97a1bbd436804ef8bfafb8f492f9d8cefef1","2015-10-27 16:46:32+01:00","Translated using Weblate (Romanian)
+
+Currently translated at 25.8% (195 of 753 strings)
+"
+"cf9351e07d5fe6e11b7f821b4507994d7de51b82","2015-10-27 19:39:27+01:00","Translated using Weblate (Spanish)
+
+Currently translated at 32.9% (248 of 753 strings)
+"
+"f1d19e7358b033e313ed056a3ff84d8763433cb4","2015-10-27 16:46:20+01:00","Translated using Weblate (Turkish)
+
+Currently translated at 33.0% (249 of 753 strings)
+"
+"d6a91b51729d2ee8b4bc112c17aa4072b50dc6f7","2015-10-28 00:08:37+01:00","Translated using Weblate (French)
+
+Currently translated at 98.2% (740 of 753 strings)
+"
+"23321beb454dfc86a6632428006edc7a66af1ee7","2015-10-28 12:51:26+01:00","Translated using Weblate (French)
+
+Currently translated at 100.0% (753 of 753 strings)
+"
+"1b0883c754a371774e4ee9e8a0bef7265336cefc","2015-10-28 12:55:41+01:00","Translated using Weblate (French)
+
+Currently translated at 100.0% (753 of 753 strings)
+"
+"80dd4086ee39656498ef72cfff52255c022e8bfb","2015-10-30 21:51:46+01:00","Translated using Weblate (Russian)
+
+Currently translated at 32.2% (243 of 753 strings)
+"
+"d89aa09b7094d22bd48436a68ac30283a4087601","2015-10-30 21:53:53+01:00","Translated using Weblate (Russian)
+
+Currently translated at 32.6% (246 of 753 strings)
+"
+"94da70a544fafa6445ee0a7492cd04f4c7b4b795","2015-10-30 19:48:30+01:00","Translated using Weblate (German)
+
+Currently translated at 99.3% (748 of 753 strings)
+"
+"2240b1d8b8c75ad0585b332f38396718635ee28c","2015-10-30 22:12:03+01:00","Translated using Weblate (Russian)
+
+Currently translated at 39.7% (299 of 753 strings)
+"
+"d048636576a61a3d06cbdf6b54c0fef9f59e4548","2015-10-31 14:59:14+01:00","Translated using Weblate (Chinese (Taiwan))
+
+Currently translated at 46.7% (352 of 753 strings)
+"
+"dbb46f4da44cb8d287b157abc309e14e9b08d451","2015-11-02 13:23:10+01:00","Translated using Weblate (Chinese (Taiwan))
+
+Currently translated at 48.0% (362 of 753 strings)
+"
+"2203e2889dc1c20ff63c3822fe51f4f823843cf1","2015-11-02 15:04:08+01:00","Translated using Weblate (Chinese (Taiwan))
+
+Currently translated at 56.3% (424 of 753 strings)
+"
+"7a019c28b0091e734308abff8ddc605af1265a33","2015-11-05 04:46:35+01:00","Translated using Weblate (Japanese)
+
+Currently translated at 40.6% (306 of 753 strings)
+"
+"a93b79d9bb629ff1af6ca8bdd01ebd393f888de9","2015-11-06 16:37:27+01:00","Translated using Weblate (Italian)
+
+Currently translated at 35.1% (265 of 753 strings)
+"
+"6f468a0baf09752d42f255a801182b2c633ca72d","2015-11-06 16:40:04+01:00","Translated using Weblate (Italian)
+
+Currently translated at 35.1% (265 of 753 strings)
+"
+"5d8e24d7be0403c078ddc71411f1d65d0be8a8f7","2015-11-06 17:28:34+01:00","Translated using Weblate (Italian)
+
+Currently translated at 43.0% (324 of 753 strings)
+"
+"0dd4da19edebf6b5848e1abd33badcf82e0afb28","2015-11-07 08:04:52+01:00","Translated using Weblate (Chinese (China))
+
+Currently translated at 30.0% (226 of 753 strings)
+"
+"7f3e4a4bf633f2ffc55503a6622d2c16f159841b","2015-11-08 09:55:15+01:00","Translated using Weblate (Russian)
+
+Currently translated at 47.0% (354 of 753 strings)
+"
+"bfb30362a2fcfffd6c4dd1f8d2658c46baa93537","2015-11-08 09:56:42+01:00","Translated using Weblate (Russian)
+
+Currently translated at 47.2% (356 of 753 strings)
+"
+"87769c7747ad00b428ad46338060cc716093855f","2015-11-08 09:56:51+01:00","Translated using Weblate (Russian)
+
+Currently translated at 47.4% (357 of 753 strings)
+"
+"2d493a215d1e829cbf01f0ccffd6f8ccbba47e6d","2015-11-08 09:57:08+01:00","Translated using Weblate (Russian)
+
+Currently translated at 47.6% (359 of 753 strings)
+"
+"aee0afa7977d32b1fb3db8bce077ad3d0690f3c5","2015-11-08 10:49:26+01:00","Translated using Weblate (Chinese (Taiwan))
+
+Currently translated at 58.0% (437 of 753 strings)
+"
+"cefa5b3710d2b6e485d3fc1e63d0a22a2b631767","2015-11-08 10:10:12+01:00","Translated using Weblate (Russian)
+
+Currently translated at 49.5% (373 of 753 strings)
+"
+"aabdf80d1b6e7e48520deede3c0289dee4c58ee7","2015-11-08 20:41:57+01:00","Russian translation: remove weird char
+
+Whatever that char is, it isn't a space.
+"
+"d657dce61b7526a097d97885b7bba9be849e302e","2015-11-08 20:42:38+01:00","Some german translation improvements
+"
+"9a91f58e66e84bfba13c967753d537996e4c5d6d","2015-11-08 21:07:41+01:00","Settings tab: add v3f type
+
+Add the v3f type, currently is just a nice placeholder for string.
+Currently undocumented, on wish of @PilzAdam, to support future changes.
+"
+"78caafbd43a27aad4d94fe5d02e79ea1d32c696f","2015-11-08 21:23:09+01:00","Update minetest.conf.example and src/settings_translation_file.cpp
+"
+"d506d567075914b138ca869981f2e45ce503ee5d","2015-11-08 21:26:42+01:00","Run util/updatepo.sh
+"
+"ad5ac39d8d1a8b8f6f0fe077e20bac914ddc624b","2015-08-06 08:57:13+02:00","Add LuaSecureRandom
+"
+"6f95bb1ef371c5e838f0df4d6e3edd9d6b132bf9","2015-11-08 16:19:34-05:00","Fix misc. MinGW and Valgrind warnings
+"
+"4ae6e509ffe886492598610a3511179ad87c1f43","2015-11-08 22:23:16+01:00","Write new line character sequence at end of print()
+
+Fix regression of commit
+
+5e507c9829942c434a6f1ae7a4f3a488c7e50bef 'Add server side ncurses terminal'
+
+where no line termination character was printed after a
+lua print outside of terminal mode.
+
+Fixes #3350.
+"
+"88a3977954f537b391c714be2a52da6b19711154","2015-11-08 18:14:36-05:00","Add errno to socket creation failed exception
+"
+"889f893ff37021d97d1805c2e21128b5befa21f5","2015-11-08 23:08:53-05:00","Abort compile when attempting to build client with Irrlicht 1.8.2
+"
+"63e7137e3bb3ef2531faac995e8817b2c3fedc8c","2015-11-09 06:04:24+01:00","Put ChatEvent handler into own function
+
+Comply with line limit.
+"
+"c3e179f256246b4b5a86cd908dfc567a7ec454ee","2015-11-08 08:18:47+00:00","Cavegen: Make mgfractal use mgv5 cavegen
+
+Remove CaveFractal
+Add a lava depth constant to CaveV5 to make it universal
+"
+"f3ac2517ea585d31d176070be25adf8a68624c87","2015-11-08 23:40:18-05:00","Convert usages of PseudoRandom to PcgRandom for ore and deco placement
+
+In addition to being a better random, this fixes #3228
+"
+"76c9abe4c89f6c8170b82558182837259efdd2ea","2015-10-30 02:45:38+00:00","Mapgen: Add flat mapgen in hidden form
+"
+"0876623aedcd93100103d145788affcb5001bdaf","2015-11-05 19:56:19+01:00","Add the player name to dropped items
+
+The player name is now added in the field 'dropped_by' on the created
+entity.
+"
+"36855522a5382614c525c69dd884560a197b875d","2015-04-19 22:06:34+02:00","Fix scrollbars
+"
+"657a16d90c42afc212e70c594296b1e204545a4c","2015-11-13 01:35:54+01:00","Only allow players with shout to chat
+
+Fix regression of commit
+
+5e507c9829942c434a6f1ae7a4f3a488c7e50bef 'Add server side ncurses terminal'
+
+which allowed all players, even those without a shout priv, to chat.
+
+Fixes #3362.
+"
+"4434498367929f5fe67d7bf8a12e594d51b632ce","2015-11-10 06:50:22+00:00","Mgv6: Move global mapgen flag 'flat' into mgv6 spflags
+
+Add mgv6 spflag 'flat'
+Global flag is kept for backwards compatibility but is now undocumented
+"
+"987d6a82f639126d5d8833739499150da286bdda","2015-11-11 05:05:20+00:00","Mgfractal: Create a choice of 4 mandelbrot formulas
+"
+"fc89f467009822b5294967e3e58dbb2fd792bc44","2015-11-13 07:16:15+00:00","Decoration API: Fix missing low density decorations
+
+For a decoration count between 0 and 1 calculate a chance for 1
+"
+"395ef21c86b3712bf45488b15d2d8dbc430e4c8e","2015-11-14 03:00:52+01:00","Load sound from memory
+
+* Remove trailing lines from src/sound_openal.cpp
+* Don't do a horribly ugly copy of the file's path, allocating and deallocating a
+10 kb buffer in the process. This copy was needed for backwards compatibility
+with libvorbis 1.3.1 and earlier, as the removed comment explains.
+However, even Ubuntu precise has 1.3.2 already. Dropping support and sparing
+the ugly copy can therefore be considered safe.
+* Actually load sounds from the memory, not caching them at the disk first,
+removing the old hack. This is the main motivation for the commit.
+"
+"bdfb761dd06261e71f96b731ad423338a9c01008","2015-11-15 08:17:32+01:00","sound_openal.cpp: remove unused header
+"
+"cb7da901383e2da6397444cb0acc93235b132d2b","2015-11-14 09:18:01+00:00","Mgfractal: Revert unnecessary duplication of parameters
+"
+"3bf332d9f53025c3f8770d6f10a39589bf33bce9","2015-11-08 21:55:16+01:00","Translated using Weblate (French)
+
+Currently translated at 96.8% (762 of 787 strings)
+"
+"5c2efab0e40f8e893b7f210a09347694b24d03e4","2015-11-08 22:18:03+01:00","Translated using Weblate (French)
+
+Currently translated at 100.0% (787 of 787 strings)
+"
+"59c16b3dab185fceb507f7deee2ec8e13f0f8f32","2015-11-09 10:38:10+01:00","Translated using Weblate (Japanese)
+
+Currently translated at 40.2% (317 of 787 strings)
+"
+"ca322b487df7f6d3ab524d2fe8ea1bb6363eecd6","2015-11-09 19:10:07+01:00","Translated using Weblate (Polish)
+
+Currently translated at 25.4% (200 of 787 strings)
+"
+"ac99a2873da5a3eab14fee6a3e8b5ab276fda9f0","2015-11-11 20:55:19+01:00","Translated using Weblate (Dutch)
+
+Currently translated at 44.0% (347 of 787 strings)
+"
+"bba7fed23b751181a0c00c71fb2533ca7a2c4e5e","2015-11-11 12:12:31+01:00","Translated using Weblate (Estonian)
+
+Currently translated at 21.4% (169 of 787 strings)
+"
+"c990dbece46139f001b36540decdd96f74afbae0","2015-11-12 12:49:26+01:00","Translated using Weblate (Catalan)
+
+Currently translated at 100% (0 of 0 strings)
+
+Created new translation.
+"
+"28fd913058b36db005c5241423bc1bfffde91192","2015-11-12 16:56:25+01:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (787 of 787 strings)
+"
+"564ebf04999968b6694201ed9801ee5958fe1752","2015-11-12 17:52:35+01:00","Translated using Weblate (Catalan)
+
+Currently translated at 9.2% (73 of 787 strings)
+"
+"fd84a388f89178c3f22c1ef69fcbc3c49b9103cf","2015-11-12 17:52:14+01:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (787 of 787 strings)
+"
+"1e8286467f78f9a65450fd51005d2acd1a068f51","2015-11-12 02:44:58+01:00","Translated using Weblate (Japanese)
+
+Currently translated at 41.4% (326 of 787 strings)
+"
+"c0e2bc30e5b6adab8fab7b03326d462120cd7707","2015-11-12 13:08:42+01:00","Translated using Weblate (Polish)
+
+Currently translated at 31.6% (249 of 787 strings)
+"
+"b54f5ddfec1765351e5ef14eb8f630da3d0a122a","2015-11-12 12:48:26+01:00","Translated using Weblate (Spanish)
+
+Currently translated at 31.6% (249 of 787 strings)
+"
+"ea1af74d319199aaf6a7268727a73ba619d4f2f1","2015-11-12 18:07:38+01:00","Translated using Weblate (Catalan)
+
+Currently translated at 11.8% (93 of 787 strings)
+"
+"84b72b112068d2ff28028e1aa9d2cc46c7c3bd4d","2015-11-12 22:13:34+01:00","Translated using Weblate (Catalan)
+
+Currently translated at 26.3% (207 of 787 strings)
+
+-
+"
+"013e8e6adca04a2bc2a0ecdb398dbc8562ce0e3f","2015-11-12 18:10:23+01:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (787 of 787 strings)
+"
+"71fc4040a978ac20fccd23aef249bdb953c09e9a","2015-11-13 21:05:40+01:00","Translated using Weblate (Spanish)
+
+Currently translated at 45.6% (359 of 787 strings)
+"
+"132e06199d6c6a965a188f9b03845a64d1ef7c12","2015-11-13 21:06:24+01:00","Translated using Weblate (Spanish)
+
+Currently translated at 45.7% (360 of 787 strings)
+"
+"a8d2aa9c817945f87d37ab49189fdb43de4650b1","2015-11-13 22:39:38+01:00","Translated using Weblate (Catalan)
+
+Currently translated at 32.4% (255 of 787 strings)
+"
+"fd1b83712208ee27e8673a3f7c8febae627c22da","2015-11-13 21:07:16+01:00","Translated using Weblate (Spanish)
+
+Currently translated at 45.8% (361 of 787 strings)
+"
+"c19b43d4f79a3c4181a2abcd1b121f7bd83539ee","2015-11-14 22:10:37+01:00","Translated using Weblate (Italian)
+
+Currently translated at 42.0% (331 of 787 strings)
+"
+"3f8eb5e0d0a7dd30bfd6b805d6c03e0f45182e9a","2015-11-14 12:00:52+01:00","Allow craft replacements to use groups
+"
+"e664abeb887fe74ff1966e93ed5201c6e19a5c31","2015-11-09 11:52:52+00:00","Add a status text for autorun
+"
+"2f58e4d9624b4f31c5064dc640e0ad40d8adb9ea","2015-11-16 17:11:32+01:00","Android: hardcode irrlicht revision, update other dependencies
+
+Recent irrlicht revisions break the build, hardcode the revision to a working one
+until upstream publishes a working version. See issue #3366 for
+a discussion about this.
+
+Also update dependencies to current versions.
+"
+"4fd394b657fbaf6f1966024553a45c4e5401542a","2015-10-11 21:25:58+09:00","Log static_spawn error only once
+"
+"d7bbe81726f46b46d88b188298155dc7519ae1a4","2015-11-15 11:55:45+00:00","Mapgen: Add global 'decorations' flag
+
+Flag is set by default in MapgenParams
+The global 'trees' flag remains but is now
+undocumented and unset by default in MapgenParams
+Add mgv6_spflag 'trees' set by default in
+defaultsettings.cpp to affect new worlds only
+This is automatically backwards
+compatible for existing worlds
+"
+"a4e3ed013611aead302a82836d5702640b2811a0","2015-11-22 16:15:47+01:00","Update HUD flags on server like on client
+
+Fixes bug for which commit
+
+6c37e89f08f962eaba788a31f5d3c798ceaa65e6 'Fix old client showing duplicated health bar on new server'
+by @sapier
+
+laid the groundwork, where the server has
+updated its copy of the hud flags without
+respecting the mask.
+
+Fixes #3395.
+"
+"c24f3b0a65afc7654a8377fde29dec0709b1fc49","2015-11-21 20:22:45+00:00","Mgfractal: Move julia set selection into formula parameter
+
+Improve default parameters
+Update and improve documentation
+Unhide mapgen, but is still unstable
+"
+"0cf15470fc16e1ebc13a7d8445cfd4278c3caf8b","2015-11-07 16:31:32+01:00","Simplify regex used in check_modname_prefix and other improvements.
+
+Simplified the regex used, added comments and changed the error message
+to contain the correct mod name.
+"
+"900db310638531a8b9fb1a587f75a02a15ae0c24","2015-09-13 21:04:22-04:00","Re-enable texture pre-filters on wielditems, fixing #3178.
+"
+"452c88308c80dc52df95d5c2a9e0e105154684d0","2015-11-28 14:51:22+00:00","Dungeongen: Also preserve river water nodes
+
+For future river mapgens
+Dungeons will not generate in river water, to
+avoid dungeons filling and blocking river channels
+"
+"5292ba7391cd611c60ca55df55246af7edefb16c","2015-11-28 19:49:11+00:00","Lua_api.txt: Add documentation for biome definition
+"
+"6fead2818acf00a63c89ec613230a59bc0c4cab5","2015-11-29 17:57:12-06:00","Remove unused OpenALSoundManager::m_can_vorbis and EXT_vorbis check
+"
+"57b429574ef92c62d202955535896b36845b88db","2015-11-30 01:43:28+00:00","Dungeongen: Fix rarely triggered segfault
+
+A segfault exposed a missing 'vm->m_area.contains()'
+check in makeCorridor that allowed the calculation
+of vm index for a node outside the vm area. The huge
+and invalid index number caused getContent to fail
+"
+"97908cc65670d3f6cf2e286390bfea10f653aaa8","2015-11-18 12:26:09-07:00","Add on_secondary_use when right clicking an item in the air
+"
+"e51ea66bd087e56b2e446f64bd4d185b4786325c","2015-11-30 02:31:43+00:00","Mgv5/v7/flat/fractal: More large pseudorandom caves
+
+Mgv7/flat/fractal: Reduce tunnel noise spreads to 96
+"
+"89168a7ec8fe31715a4ca321a6e0ccb2d4972257","2015-12-02 18:26:09+01:00","Document limitations of minetest.get_password_hash
+"
+"d8975eabf95fac1881f75ab149d0cebeff3d10f3","2015-12-03 21:34:46+01:00","Fix build if BUILD_SHARED_LIBS defaults to 'ON'
+
+openSUSE sets that option to ON.
+
+Fixes #3420.
+"
+"5643b9b9ed3ec39f90e3a7c9bf09bc255e0bcef3","2015-12-05 17:51:56+01:00","Make travis work again
+
+Now we do sudo apt-get update to download package sources.
+This fixes travis build with the new GCE based infrastructure.
+
+Closes #3427.
+Closes #3426.
+"
+"70ece71ee4e8f8bff5cbc572710c0fa6fc3b355f","2015-12-03 21:18:39+01:00","Improve LuaJIT detection
+
+On openSUSE luajit is not detected correctly.
+This is because openSUSE is using a lua version suffix, like other Linux distributions do it also.
+So the include directory is:
+include/luajit-5_1-2.0
+"
+"a78dd7f2b6b0e1fefdbaa1ae21b722dd4459e4f4","2015-12-05 21:00:11+08:00","Fix spelling of noise_threshold
+"
+"49073ba2c34dfd8e286865ed2d108a4ec1eb3e3c","2015-12-02 03:28:03+00:00","Mapgen: Add propagate_shadow bool to calcLighting
+
+To terminate unwanted shadows from floatlands or realms above
+Also add to LuaVoxelManip calc_lighting for use in mapgen mods
+Remove the 2 argument calcLighting, mapgens now use the 5
+argument form to specify the volumes for propagateSunlight and
+spreadLight
+In mgsinglenode replace calcLighting with setLighting and
+clean-up use of tabs and spaces
+"
+"9a5a538e8d1981fb3c2dd69ca3d37e4f9c426cf5","2015-12-07 07:26:12+01:00","lua_api.txt: add blank lines before * lists
+
+If rendered as markdown, lists need a blank line before them
+so that they are recognized as such.
+"
+"51e8c2b27786c050f0271eeeaed5eea17d62f0a0","2015-12-07 09:42:39+01:00","Fix threshold type
+
+Fix the type of the threshold value for mapgen.
+The commit
+
+a78dd7f2b6b0e1fefdbaa1ae21b722dd4459e4f4 'Fix spelling of noise_threshold'
+
+has changed it to be read as int, but it can have non-integral values too.
+
+Thanks to @kwolekr for pointing this out.
+"
+"ea2964f5a168cb52d1b9f74a08f00c7c068c6649","2015-08-24 17:00:06-04:00","Add seperate cache path
+
+This is set to the XDG cache path where possible.
+It's set to the app's cache path on Android.
+"
+"696148e29889b2923f926b27f76979454676506d","2015-11-29 00:17:51-05:00","Fix Event implementation
+
+On non-windows platforms this just used a semaphore,
+which meant that multiple calls to signal() would
+result in wait() returning multiple times.
+"
+"a64d78a37e95b99f32c29c8dec2e0cdae85a8b41","2015-12-09 23:08:55+01:00","Speed up and make more accurate relief mapping
+
+using linear + binary search.
+"
+"8e3602f6949026b740bd190c0d21a75cf5720eeb","2015-12-10 18:25:28+01:00","Fix some setting documentation
+
+* Horizontal and vertical are used wrongly. Use height and width because
+horizontal/vertical describes different things. Thanks @kilbith for pointing out.
+* Update minetest.conf.example and settings_translation_file.cpp
+* Correct maximum/minimum copy paste mistake.
+"
+"6133b2bc4518d0b7cf5836fef0d7317f677bf8e0","2015-12-11 11:22:05+01:00","Fix android build
+
+Fix android build since commit
+
+696148e29889b2923f926b27f76979454676506d 'Fix Event implementation'
+
+by @ShadowNinja.
+
+Fixes #3444. Thanks @kwolekr for pointing out the fix.
+"
+"aed10765f208aedf324128972c74ecc033bb5035","2015-12-11 22:40:37+01:00","Fix events on Windows
+"
+"c26eb87aec7438d167fa2f460a3f412db09c0ac5","2015-12-08 05:40:36+00:00","Mgfractal: Add 3D and 4D fractals
+
+3D Mandelbrot/Mandelbar
+3D Christmas Tree
+3D Mandelbulb
+3D Cosine Mandelbulb
+4D Mandelbulb
+Plus corresponding julia set for each
+Add credits for formulas
+Rename parameter 'formula' to 'fractal'
+Speed optimisations
+"
+"19f73e4efc14622b4d020c9d373176cd7801e37f","2015-12-02 10:45:57+08:00","Get movement setting instead of hard coded value
+"
+"9eee3c3f465c071bb9908749cf48be3c131a1bdf","2015-11-20 23:46:33+01:00","Add option to give every object a nametag
+
+or change the nametag text of players
+"
+"6a7e1667f6e696f152191d9fdd74947ceefcfd3a","2015-12-17 20:43:25+01:00","Android: Fix pressed buttons not beeing cleared on opening menu
+"
+"a3fd167ddab4fa02d8d84554c3339459ac65cf81","2015-12-15 21:41:03+01:00","Android: Remove non freetype fonts from apk
+"
+"dcb91cf0c0c9a20622feeb4e5e8104ffbc9fa8ec","2015-12-16 00:59:44+01:00","Android: Don't put html docs to apk
+"
+"bde6194638e8856c4df28d80ae6e15d2e9e31e91","2015-12-17 20:51:54+01:00","Android: Remove unused build target curl_binary
+"
+"06632205d8765b5417c36df798617721bab0d02f","2015-12-13 23:00:05+01:00","Android: Implement Autohiding button bars to cleanup screen
+"
+"70ea5d552e283bd5bce3278cbf3819bd87ba2602","2015-12-15 00:03:18+01:00","Add support for limiting rotation of automatic face movement dir entitys
+"
+"f192a5bc43951f7ea120877335e97efe755ac29c","2015-12-20 03:36:47+01:00","Fix missing pop
+
+Previous commit
+
+70ea5d552e283bd5bce3278cbf3819bd87ba2602 'Add support for limiting rotation of automatic face movement dir entitys'
+
+by sapier has broken minetest's feature to open worlds. This was due to a
+missing stack pop operation.
+
+Thanks to @oleastre for reporting this bug and suggesting the fix.
+"
+"b4eb614d31a6ed7935bfaa4090fa275a306a3aee","2015-12-18 23:26:44-05:00","Android: Fix extra files being copied to the APK
+
+dcb91cf0c0c9a20622feeb4e5e8104ffbc9fa8ec hacked around the biggest issue
+this caused, but wasted a lot of CPU time and disk space  It also still
+included a lot of other unwanted files.  This removes all of `doc/` except
+the license, and also removes the server list.
+"
+"5755c9a43980930ba97fe7db56d3e0509a3e2d77","2015-12-18 17:38:25+01:00","Fix missing localization for obj
+"
+"5de8e026a38f4fd080c10e98d4650de6435c2975","2015-12-21 00:24:37+01:00","Fix lua object:get_properties() being broken
+"
+"80edc7f78a01f59c4649ee2c6d774c4a12f696b1","2015-11-15 15:37:50+01:00","Translated using Weblate (Italian)
+
+Currently translated at 42.0% (331 of 787 strings)
+"
+"1ba9ed70085b7a2edd4960d523ba62cdfdfe2982","2015-11-19 16:52:36+01:00","Translated using Weblate (Estonian)
+
+Currently translated at 23.7% (187 of 787 strings)
+"
+"bf889997a8eb97da5bcc3062b553249c4a1ef9b4","2015-11-19 05:07:59+01:00","Translated using Weblate (Lithuanian)
+
+Currently translated at 30.7% (242 of 787 strings)
+
+Squashed two translation commits to one
+"
+"0ae14a506f31811f80f6d9ac99b9bd6174e27a79","2015-11-22 06:05:30+01:00","Translated using Weblate (Lojban)
+
+Currently translated at 11.4% (90 of 787 strings)
+"
+"d3b0c6dcd5797443c61a1bf92b0ef85c8f20bb6b","2015-11-23 16:45:21+01:00","Translated using Weblate (Czech)
+
+Currently translated at 49.0% (386 of 787 strings)
+
+Squashed two translation commits to one
+"
+"a8a4a66b83de2492c31061dfa5600d1abf560bc7","2015-11-23 07:16:33+01:00","Translated using Weblate (Japanese)
+
+Currently translated at 39.8% (314 of 787 strings)
+"
+"f5597c5f9075759354dfdb191d7ddd74603ac480","2015-11-25 08:42:11+01:00","Translated using Weblate (Hebrew)
+
+Currently translated at 3.1% (25 of 787 strings)
+"
+"c97f7d35e30fcebcef335011f6042393dbf35906","2015-12-10 08:13:11+01:00","Translated using Weblate (Chinese (Taiwan))
+
+Currently translated at 59.7% (470 of 787 strings)
+"
+"8e36cfaecee75f8a0c4c37219da60cf03994bff3","2015-11-26 19:08:05+01:00","Translated using Weblate (Czech)
+
+Currently translated at 56.6% (446 of 787 strings)
+
+Squashed two translation commits to one
+"
+"0f75141d6938427bd36b47de9984efb68b60f9ed","2015-12-14 23:08:44+01:00","Translated using Weblate (Italian)
+
+Currently translated at 43.8% (345 of 787 strings)
+"
+"b675d4984beef28c33b7e0711cbca70936890884","2015-12-17 23:01:57+01:00","Translated using Weblate (Russian)
+
+Currently translated at 48.7% (384 of 787 strings)
+
+Squashed two translation commits to one
+"
+"e4215c1d177cb6d47bd3d34633ba2d30f5be2c3d","2015-12-19 01:09:48+01:00","Translated using Weblate (Dutch)
+
+Currently translated at 95.1% (749 of 787 strings)
+
+Squashed two translation commits to one
+"
+"d1c0aa1ce7586329f5a5c6a9d30712a7025e71ae","2015-12-19 11:07:16+01:00","Translated using Weblate (Japanese)
+
+Currently translated at 40.0% (315 of 787 strings)
+"
+"7eb3ed8b2a93bb28ebd2e581bf37e6487912d242","2015-12-21 22:09:55+01:00","Translated using Weblate (Italian)
+
+Currently translated at 43.8% (345 of 787 strings)
+"
+"98d16e0d9a945f5f48462c05f26ae4bde2db5731","2015-12-23 04:51:09+01:00","Android: Tell make about sub-makes to speed up build
+
+Before, sub-makes called by make were called without make knowing they
+were sub-makes. This however led make's jobserver not do its tasks,
+and the build process ended up with inefficient parralelisation. This
+commit fixes this by applying the two ways the make manual tells
+about: putting + to the start of the line (used when ndk-build is
+invoked), and exchanging 'make' with '$(MAKE)'.
+
+Before, make complained with messages like:
+
+make[2]: warning: jobserver unavailable: using -j1.  Add `+' to parent make rule.
+
+This complaint can now only been seen for openssl. openssl has issues
+if make gets exchanged with $(MAKE): if exchanged, above error message
+is multiplied for various subdirs of the openssl source tree.
+
+On a 4 core box, 'make -j 4' build time from 'make clean_all' cleaned
+source tree could be improved from 15:34 minutes to 10:45 minutes.
+This means a speedup of 45%.
+"
+"9c9b02ca8ad2753ad9c2e10e5b40e23029739634","2015-12-18 20:05:13+01:00","Android: shorten initial progress bar text way more simple
+"
+"cdbb9ef228f40863761fb73ff7575a0b0fb1fea9","2015-12-25 14:11:39+01:00","Add missing documentation of automatic_face_movement_max_rotation_per_sec entity parameter
+"
+"e834e83ed8c1208dcfe945abf5900e278fa3f518","2015-12-23 23:51:06+01:00","Update URLs for buildbot & travis
+
+The freehoster these files were hosted on is shutting down soon-ish, they're now hosted on my VPS.
+"
+"382ab969d4de29cd5f74db2de433a37254d40d2a","2015-12-25 22:10:29+01:00","Alphabetical sorting of texture packs in menu (fixes #3487)
+"
+"8a46c5df1c1b7d7c2b46b73f973a45388a517e71","2015-12-26 17:01:41+01:00","Database backends: fix bug, and small speedup
+
+-> Redis backend: break from switch to fix bug
+-> Dummy and redis backends: reserve the count so that creating the list is faster
+"
+"e2d54c9f9275e4f77ec33be8054621d42945f7a4","2015-12-26 16:19:09+01:00","shutdown when requested from lua in singleplayer too
+
+Before, minetest.request_shutdown didn't shut down
+singleplayer instances or server instances from the server tab.
+
+This commit fixes this. Fixes #3489.
+"
+"f14e7bac54af65e3d3d99f89f23f114b17058e49","2015-12-19 13:29:06+01:00","Refactoring and code style fixes in preparation of adding mesh typed items
+"
+"91bafceee6606fab79db1bde4cba01b84fed65c7","2015-12-19 04:43:59+01:00","Add support for using arbitrary meshes as items
+"
+"61cb4d52a6873a0af69bb8c9a295586f09b2c27a","2015-12-18 19:20:06+01:00","Make collisionMoveSimple time overflow message written to log/show up at max once per step
+"
+"25d128da36bb5aaa27f0dcd32b86fb5616684426","2015-12-29 19:53:38+01:00","Revert 'Add support for using arbitrary meshes as items'
+
+This reverts commit 91bafceee6606fab79db1bde4cba01b84fed65c7.
+
+Reverted due to missinterpretation of agreement, obvious dislike and me not interested in doing fights for feature I don't actually need
+"
+"1735c20549d474a45f1f231ea7d25ff8e3157818","2015-12-29 19:55:50+01:00","Revert 'Refactoring and code style fixes in preparation of adding mesh typed items'
+
+This reverts commit f14e7bac54af65e3d3d99f89f23f114b17058e49.
+
+Reverted due to missinterpretation of agreement, obvious dislike and me not interested in doing fights for feature I don't actually need
+"
+"848b050a567e360e857577c50dee82494b14973b","2015-12-21 20:52:40+08:00","Add macos/freebsd missing endian.h include and add win endianness info
+"
+"c6bb6f99d1fc0acd0161307a17dd31eea4a56fff","2015-12-23 11:38:50+01:00","Handle SQLITE_BUSY errors gracefully
+
+This allows other applications (e.g. minetestmapper) to interrogate
+the database while minetest is running, without causing an almost
+certain minetest crash.
+"
+"cb30facda0351a148005bfe33377c2ecc8f97af8","2015-12-28 19:34:16+01:00","Include custom error message in all SQLite3 exceptions.
+
+And replace manual tests for error with SQLOK() where possible.
+"
+"9719aded5430dd57591310c9cae06944dc345d42","2015-12-18 15:42:12-05:00","Fix cache path with RUN_IN_PLACE
+
+If an `XDG_CACHE_HOME` can't be found or `RUN_IN_PLACE` is enabled,
+`path_cache` is left at its default of `$PATH_USER/cache`
+(at a time when `PATH_USER` is `..`), rather than being reset to
+`$PATH_USER/cache` after `PATH_USER` has been properly set.
+"
+"a142e4f4b2256e7c4a16d14aecde6e04be33457c","2015-12-30 00:50:50+01:00","Fix client crashing when connecting to server
+
+My commit
+
+e2d54c9f9275e4f77ec33be8054621d42945f7a4 'shutdown when requested from lua in singleplayer too'
+
+broke minetest's feature to connect to servers. The client crashed
+after the connection init was complete.
+
+Thanks to @sofar for reporting the bug.
+
+Fixes #3498.
+"
+"43c804a00b5f6177d0bb02404804234606197dc5","2015-12-29 23:42:34+00:00","Minimal: Add mapgen alias for air
+"
+"64c060e1f2d94d8277246d8cdd8a886010564770","2016-01-01 18:14:30+02:00","filesys: safeWriteToFile(): Remove the target file before rename only on Windows
+
+Removing the target file on other platforms was enabled likely unintentionally
+by commit 5f1f1151d3a9c113902630adc16cc3f4845da7ba.
+
+This may be the reason why there has been corruption of files on Linux on hard
+shutdowns.
+
+Previously I described the problem and this fix in issue #3084.
+"
+"a7c50a3080e55a6cf11175a60121696de7393dba","2016-01-02 22:14:09+01:00","Made it more clear that '[combine' does accept a list of files.
+"
+"87dcee6ac2058bbf5264ea7f82874bba67277252","2016-01-03 18:25:09+11:00","Prevent technically unsafe access with empty vector
+"
+"09a6910dc78af7e403e3d68bed61199ecb5e0377","2016-01-03 18:30:39+11:00","Add MinSizeRel and RelWithDebInfo to MSVCBuildDir check
+"
+"e7e9171f37730c34dd687aa2b9ca5392aa41e46b","2016-01-04 16:15:50+11:00","Fix for commit 87dcee6 It uses the wrong variable and only covers some use cases. This change covers all use cases.
+"
+"bd40ee2b95138139a8cfbef878b3461176688c15","2015-12-06 21:34:30-05:00","Improve Doxyfile
+
+* Add main page.
+* Organize into sections.
+* Add threading sources.
+* Include SpatialAreaStore, LevelDB/Redis, sound, FreeType, and cURL in output.
+* Add logo.
+* Fix project name hardcoding.
+* Remove PAPER_TYPE (only used when GENERATE_LATEX is enabled).
+* Have dot render graphs as SVG (smaller, and works even if dot's text drawing functionality is broken).
+* Enable built-in STL support.
+* Enable search bar.
+* Switch from header-bar based navigation to treeview based navigation.
+* Enable dynamic HTML (collapses graphs).
+* Enable generation timestamp.
+"
+"0bbbc6e13dc8180cf1d98f9866bc72a510162eb3","2015-12-30 04:22:58+00:00","Liquids: Flow into and destroy 'floodable' nodes
+
+Add new node property 'floodable', default false
+Define 'air' as floodable = true in C++ and lua
+"
+"57a461930ba13b0b499c334d77e4b6a0aa73606b","2016-01-08 15:37:11+01:00","Fix redis error reporting
+
+Previously, we assumed that reply->str was NULL
+terminated. However, this turned out to be not true,
+as users reported crashes in strlen connected to
+where reply->str was appended to an std::string.
+
+Use the method recomended by the docs, to read the
+length separately.
+"
+"95c1b66722bbad9e82ef14bcc53d31d035b49012","2016-01-02 03:21:17-08:00","Update lua_api.txt
+
+set_sky does work with on_joinplayer
+"
+"386d190e0915a7ed270c313b4e9998f25d219e41","2016-01-07 23:16:56+01:00","Clarified what get_node does.
+"
+"9c77725653061baa9ae169a966205a4eb2f6c3fd","2016-01-04 18:02:12+11:00","Replace instance of readsome with read in decompressZlib Make decompressZlib more robust
+"
+"2800ff0660922803bf432ca24fcc6fc69ba1e9c0","2016-01-08 20:31:53-05:00","fixed spelling
+
+Fixed spelling mistake!
+"
+"7510e0b55187c674adc14ac59e1bf8c574911ee3","2016-01-09 16:13:37+01:00","Fix screenshot links in AppData file
+"
+"fe3f6be4d262b466cd511595ad3b3c9bd5c89ea1","2015-03-13 13:09:58+02:00","Simplify custom games packaging
+"
+"9943ae3f1a4fa1b687c780419b7f3a2d8091abe0","2015-12-14 19:01:32-02:00","New 3D Mode: Pageflip
+
+The pageflip mode requires a stereo quadbuffer, and a modern graphic
+card. Patch tested with NVidia 3D Vision.
+
+The mini-map is not drawn, but that's what is done for topbottom and
+sidebyside modes as well.
+
+Also most of the time the user would prefer the HUD to be off. That's
+for the user to decide though, and toggle it manually.
+
+Finally, the interocular distance (aka eye separation) is twice as much
+as the '3d_paralax_strength' settings. I find this a strange design
+decision. I didn't want to chance this though, since it's how the other
+3d modes interpret this settings.
+"
+"711808343db6d081e0aec550553a018554bed4d6","2016-01-09 15:11:43-05:00","Actually add Doxygen main page
+
+I apparently forgot to add this file in my previous commit (bd40ee2b95138139a8cfbef878b3461176688c15).
+"
+"106d4b7d05cfbba901abd540113991042d77bc97","2015-12-07 17:39:48+08:00","Cache disable_anticheat and check it for 'interacted_too_far'
+"
+"58babf8b1945f1a2db0180a4a3ed7b0d52872bef","2016-01-07 12:33:26+01:00","Improve parsing of setting types from settingtypes.txt for settings tab
+
+- Accept numbers prefixed with '+'
+- Accept multiple spaces instead of just a single one where spaces are expected
+- Allow flags to have an empty default value
+"
+"31ac53dfd0eb0ab1e42921e85cf6575a16cbc38e","2016-01-07 20:59:35+01:00","Fix the checking of flags values in the settings tab
+
+Changes:
+- Accept setting an empty flags-type value in the settings tab
+if the variable specification permits it
+- Don't accept substrings of flag values
+E.g. with values: 'one,two,three', 'hree', 'w', etc. used to
+be accepted. Not any more
+- Don't accept flags with random pattern-matching special characters
+E.g. with values: 'one,two,three', 'on.', '(o)[n]e*' etc. used
+to be accepted. Not any more.
+"
+"3e0ea3c6eda27a7b6535570c2c208213be046494","2016-01-10 03:27:32+00:00","Mgflat: Set blank default spflags. Unhide
+"
+"8fc8cb819b60dcaca887056e9fcb9cb7927412f1","2016-01-11 00:30:03+00:00","Mapgen: Various fixes and improvements
+
+Lua_api.txt: Document 'minetest.registered_biomes'
+Minimal: Remove 'mapgen_air' alias
+Cavegen: Add fallback node for 'mapgen_ice'
+Dungeongen: Add fallback node for 'mapgen_river_water_source'
+Mgv5: Remove unnecessary '#include util/directiontables.h'
+Add missing 'this->'s in makeChunk()
+Mgv6: Edit empty line formatting
+Remove leading spaces in makeChunk()
+Add missing spaces after 'for' and 'if'
+Mgv7: Edit empty line formatting
+"
+"b4cbcaea262ba1b75e1b29b06d177e9d8d25b177","2016-01-11 05:46:41+00:00","Mgv7/flat/fractal: Place biome top node on tunnel entrance floor
+"
+"3c6b2ffb10e053ad0b585347275034c4d889530d","2016-01-13 21:57:02-06:00","Add Valleys mapgen.
+"
+"da686160c33069b77a7b4c31fd97da5fa5b59baa","2016-01-15 02:16:21+01:00","Make all mesh manipulators in mesh.cpp work with any vertex type
+
+cloneMesh() has to use a switch in order to create a different
+mesh buffer type depending on vertex type. (Credit: the new cloneMesh
+was written by RealBadAngel.)
+
+To avoid repetitive code, all other methods use getVertexPitchFromType()
+to automatically adapt the indexing to the vertex type at runtime.
+"
+"a58c0f458d336fdab59737c754661e4f16818d99","2016-01-15 13:40:59+01:00","Make ItemStack:set_count(0) clear the item stack
+
+fixes minetest/minetest_game#786
+"
+"752d8202061b1092daacb1f7056ace4d5aabef01","2016-01-16 03:53:02-06:00","Prevent spawning in rivers with valleys mapgen. Remove unecessary whitespace.
+"
+"487ab593d031bf310bd76b3edfe2ad42c1e248b5","2016-01-08 09:29:39+01:00","Fix error message in settings tab overlapping 'save' button
+
+The save button is now fully functional again when an error message
+is shown.
+
+After an invalid value is entered in the settings tab dialog, the GUI
+label for the error message that is shown was partly overlapping the
+'save' button, so that the top half of the button could not be clicked
+on.
+"
+"22bc66d3a7b96f0742669a988b45d07d58e32928","2016-01-16 05:23:00-05:00","corrected minetest.pos_to_string()
+
+corrected this bit reflect the function properly.
+"
+"13e7589fecfc8b6c247839ddaac66e9d045e513c","2016-01-18 06:08:54+01:00","Fix wield item glitch
+"
+"eb6e2c11b16c9ef5287bda224fa965a37ef49131","2016-01-18 01:55:08-06:00","Correct overflowing rivers in Valleys mapgen.
+"
+"87291ea44a61614d5bd9efc0657926da3f867b5f","2016-01-08 15:59:36+01:00","Show infotext with description for item entities
+"
+"b67eab3b0050a1f08d9c56138969d1a659ee7eac","2016-01-19 10:15:01+01:00","Fix Settings::remove() always returning true
+"
+"9f988e3b962389e10a7cf010fd4bf0f81d70e31a","2015-11-14 03:07:21-05:00","EmergeManager: Do not queue duplicate block requests
+"
+"882a89d65aa78b89cfaf2af054d15cc4c94ad022","2016-01-18 20:44:46-08:00","Allow per-tiles culling.
+
+Backface culling is enabled by default for all tiles, as this
+is how the lua parser initializes each tiledef. We revert to
+always using the value from the tiledef since it is always
+read and serialized.
+
+Mods that wish to enable culling for e.g. mesh nodes, now can
+specify the following to enable backface culling:
+
+tiles = {{ name = 'tex.png', backface_culling = true }},
+
+Note the double '{' and use of 'name' key here! In the same
+fashion, backface_culling can be disabled for any node now.
+
+I've tested this against the new door models and this properly
+allows me to disable culling per node. I've also tested this
+against my crops mod which uses mesh nodes where culling needs
+to be disabled, and tested also with plantlike drawtype nodes
+where we want this to continue to be disabled.
+
+No default setting has changed. The defaults are just migrated
+from nodedef.cpp to c_content.cpp.
+"
+"0459eca8eb2e73e9670e00b838dabc9347acb35f","2016-01-17 05:11:35+00:00","Liquid flow: Prevent water spreading on ignore
+"
+"e50c784e2ca55735fc360ae51534288c2ea59ca5","2016-01-23 05:45:00+01:00","Fix C++11 compilability
+
+Previous commits broke it... :(
+"
+"52eea799285998d9d9595945f89c27a0be64b090","2016-01-21 16:04:41+01:00","Fix texture tear issue
+"
+"ef779b0ab6d7460fe074d8b2eda05864c822d905","2016-01-23 06:26:58+01:00","Fix compilation warning if compiling for android with c++11
+"
+"735e3b70596e16d04de1edcd878deec3c539c6ed","2016-01-21 14:40:24-08:00","Backface culling: Ignore setting in tiledef from old servers.
+
+Outdated servers are always sending tiledefs with culling
+enabled no matter what, as the value was previously entirely
+ignored.
+
+To compensate, we must (1) detect that we're running against
+an old server with a new client, and (2) disable culling for
+mesh, plantlike, firelike and liquid draw types no matter what
+the server is telling us.
+
+In order to achieve this, we need to bump the protocol version
+since we cannot rely on the tiledef version, and test for it
+being older. I've bumped the protocol version, although that
+should have likely happened in the actual change that introduced
+the new backface_culling PR #3578. Fortunately that's only 2
+commits back at this point.
+
+We also explicitly test for the drawtype to assure we are not
+changing the culling value for other nodes, where it should
+remain enabled.
+
+This was tested against various pub servers, including 0.4.13 and
+0.4.12.
+
+Fixes #3598
+"
+"a594963a7dad2f1ea3d4904610033164983a1389","2015-12-07 00:49:01-03:00","Fix world config menu ignoring `name` in `mod.conf`.
+"
+"73838a982ffa5882dc993d56df949a74cc0007cd","2015-12-30 16:01:36+01:00","Translated using Weblate (Chinese (China))
+
+Currently translated at 34.8% (274 of 787 strings)
+"
+"1bd48e429849b43da3e14d199bde5d5f53726473","2016-01-13 09:23:08+01:00","Translated using Weblate (Danish)
+
+Currently translated at 30.1% (237 of 787 strings)
+"
+"d486ca064c7a357f273042e27364501a14128115","2016-01-13 08:54:13+01:00","Translated using Weblate (Japanese)
+
+Currently translated at 42.0% (331 of 787 strings)
+"
+"42dc568f16a7bc93a34f55113df33ba090959817","2016-01-14 08:53:58+01:00","Translated using Weblate (Japanese)
+
+Currently translated at 43.4% (342 of 787 strings)
+"
+"e3e75a43db65e358725f2a9012f0b823050f2d29","2016-01-14 18:20:14+01:00","Translated using Weblate (Portuguese)
+
+Currently translated at 23.6% (186 of 787 strings)
+"
+"e24de58b4d14396eda1755b498f2d997c3e87131","2016-01-14 18:32:23+01:00","Translated using Weblate (Portuguese (Brazil))
+
+Currently translated at 26.6% (210 of 787 strings)
+"
+"d0d7122c002bddcd782410ea7eee03e02ed00493","2016-01-14 20:25:46+01:00","Translated using Weblate (Portuguese (Brazil))
+
+Currently translated at 41.6% (328 of 787 strings)
+"
+"c07a242d8be1fef1565e7bb8797070f614f56fe2","2016-01-23 04:35:25+01:00","Translated using Weblate (Dutch)
+
+Currently translated at 95.5% (752 of 787 strings)
+"
+"0097e0308d8a7f5d660533fe7a6d47b2b769636b","2016-01-25 00:59:19+01:00","Translated using Weblate (Hungarian)
+
+Currently translated at 32.4% (255 of 787 strings)
+"
+"e52ebda8b2273bbd80573838d6dbafb31ee2cd2b","2016-01-24 15:00:55+01:00","Translated using Weblate (Italian)
+
+Currently translated at 52.0% (410 of 787 strings)
+"
+"860d70bd0e228ee542e3e559961bfc7e56888d77","2016-01-28 23:53:58+01:00","Don't print whole json data buffer to errorstream on error
+
+`errorstream` must not be overly verbose as clientside it is directly printed
+onto the ingame chat window. These days, the serverlist can contain > 200k bytes,
+so better print it to warningstream if the data buffer is too long.
+"
+"4ac1e9bccbd0222ab779b3fc4d2144d60e1f2b49","2016-01-23 23:06:26-08:00","Clocksource: use a better clock if available.
+
+clock_gettime() is a far better clock than gettimeofday().
+
+Even better than clock_gettime() is that you can select either
+CLOCK_MONOTONIC, or even CLOCK_MONOTONIC_RAW. These clocks offer
+high precision time. And the _RAW variant will never roll back
+due to NTP drift or daylight savings, or otherwise.
+
+I've adjusted this code to select the right clock method auto-
+matically based on what's available in the OS. This means that
+if you're running a very old linux version, MacOS or other,
+you will automatically get the best clocksource available.
+
+I've tested all Linux clocksources by selectively compiling and
+running a 10k+ timer test suite. In all cases I confirmed that
+the 3 POSIX Linux clocksources worked properly, and were
+selected properly.
+
+I've modified the OS X compile path to use the high-res clock
+source for all time functions, but I can't confirm it works or
+that it compiles.
+
+As for WIN32, I confirmed that the used clocksource is indeed
+a Monotonic clocksource, so good news: that code section appears
+to be exactly what it should be.
+"
+"ad884f23d4e73d38ce0f529de49591dd66cee44d","2016-01-21 01:07:38-08:00","New timer design.
+
+I could honestly not make much sense of the timer implementation
+that was here. Instead I've implemented the type of timer algorithm
+that I've used before, and tested it instead.
+
+The concept is extremely simple: all timers are put in an ordered
+list. We check every server tick if any of the timers have
+elapsed, and execute the function associated with this timer.
+
+We know that many timers by themselves cause new timers to be
+added to this list, so we iterate *backwards* over the timer
+list. This means that new timers being added while timers are
+being executed, can never be executed in the same function pass,
+as they are always appended to the table *after* the end of
+the table, which we will never reach in the current pass over
+all the table elements.
+
+We switch time keeping to minetest.get_us_time(). dtime is
+likely unreliable and we have our own high-res timer that we
+can fix if it is indeed broken. This removes the need to do
+any sort of time keeping.
+"
+"4e93ba06a749fa2503786bf8d7dbda3d1e36a65a","2016-01-25 00:06:01+01:00","Don't pass non-const references to collision methods
+
+Non const references cause a lot of confusion with behaviour of code,
+and are disallowed by minetest style guide.
+"
+"83583aa2d5f795ede066ab7f8e28162633d3786a","2016-01-29 16:43:29+02:00","Fix OSX building issue caused by ad884f2
+"
+"80c7612e76ca83fa69a6e709213026478edfe5ab","2016-01-31 02:59:15-06:00","Mgvalleys: use standard caves
+
+Replace simple caves with V5 caves, adding unpredictable water and lava
+settings and massive caves based on subterrain. Remove fast terrain mode
+and accompanying settings. Remove superfluous temperature/humidity
+settings. Remove lava/water height setting. Fix errors in humidity
+handling and remove humidity_break_point setting. Move cave noises to
+generateCaves. Fix minor formatting/naming issues and use
+MYMAX/MYMIN/myround.
+"
+"0a8af8814787654dcbe0459a28255586fbfa3bd1","2016-01-31 04:23:46+00:00","Mgv5/v7/flat/fractal: Move tunnel noise calculation into generateCaves
+
+Tunnel 3D noises are only calculated when solid terrain is present
+in mapchunk, avoiding large amounts of unnecessary calculations
+Change 'int' to 's16' in calculateNoise
+Change 'i' to 'vi' for voxelmanip indexes for consistency
+Keep 'u32 index3d' local to a smaller part of tunnel code
+Mgv7: Don't call CaveV7 if no solid terrain in mapchunk
+Give 'open' bool a more descriptive name
+"
+"99c905c5633ebb5aef0ed8af13553c38b892c5e2","2016-02-01 02:09:43-06:00","Mgvalleys: fix riverbeds below sea level
+
+Stop riverbeds from forming plateaus under sea. Minor corrections to
+random lava/water placement.
+"
+"c4e0d95c87a3aec22ad52ae427b704a9f3a22d21","2016-01-29 16:15:58+02:00","Implement OSX Travis builds
+"
+"0e75eb4324ba71c3d685b2f22a8a36b3aa0c9ef5","2016-02-03 19:09:13+13:00","Add admin command which says who the administator is for the server.
+"
+"bf884e37a06e0a8dd6c31789a69921f07ec5a9a9","2016-02-06 05:49:12+01:00","Use tangent space meshes only when shaders are enabled
+"
+"6cd2b3b445bf558fda1e5a7908adef8e3a45449a","2016-01-24 14:19:17+01:00","Use meshes to display inventory items
+"
+"16c70087711db38ac40a428c64623355b8e7691b","2016-02-07 20:27:50+01:00","small drawItemStack cleanup
+
+-> Replace the three bool params with an enum
+-> Add struct for the static content, leads to less repetition
+-> cache enable_animations setting
+"
+"430195381d8d7254a7b8cdcf6b50769c2c598329","2016-02-04 09:58:44-03:00","builtin: Fix `print` crashing on nil 'holes'.
+
+The engine implementation of `print` packs the varargs into a
+table and passes the table directly to `table.concat`. If you
+pass any value not supported by `table.concat` (particularly
+`nil`), the server crashes. This is unexpected behavior, as
+`print` is supposed to be able to work with anything.
+
+This patch changes the implementation so it first converts
+all arguments using `tostring`, which fixes the issue and
+makes the custom `print` function compatible with the stock
+Lua behavior.
+"
+"b44da4916aa09b27155ce6675cccbcc128b5a66c","2016-02-07 04:08:43+01:00","Cleanup selection mesh code, add shaders for halo and selection boxes
+"
+"38e712260046f159aa201259569054bdf9793b7f","2016-02-08 01:40:05+01:00","Use inventory_image in the first place for inventory item mesh
+"
+"4adbd69a3701608876b50665ed3f7a150750d26e","2016-02-04 01:03:31+00:00","FindSpawnPos: Let mapgens decide what spawn altitude is suitable
+
+To avoid spawn search failing in new specialised mapgens
+Increase spawn search range to 4000 nodes
+Add getSpawnLevelAtPoint() functions to EmergeManager, class Mapgen
+and all mapgens
+Remove getGroundLevelAtPoint() functions from all mapgens except mgv6
+(possibly to be re-added later in the correct form to return actual
+ground level)
+Make mgvalleys flag names consistent with other mapgens
+Remove now unused 'vertical spawn range' setting
+"
+"180893e79dd358d2f8f720b200a62daa2838e341","2016-02-07 04:24:24+01:00","Remove ClientMap::m_camera_mutex
+
+All places that lock this mutex are only called by the main thread:
+ClientMap::updateCamera(), ClientMap::updateDrawList(), ClientMap::renderMap(), ClientMap::renderPostFx().
+"
+"eb3840a3f88dd9902ff1c5ea50d90a7f33e08d82","2016-01-25 13:33:22+01:00","Filmic HDR tone mapping
+"
+"baa7c8f8ad4e5717e324948c85d3da6bbbf17c16","2016-02-09 06:06:10+01:00","FormSpec: Add StaticTextSpec and superimpose over item image buttons
+"
+"4e3fe460e38bed832266ee3168463a262d7fa444","2016-02-09 23:03:54+01:00","shader.cpp: don't test twice if shader programs are present
+
+Also use string::empty method, it is better than comparing with empty strings.
+"
+"ba8fa9e889b399d67f4e2172e7dbf7717fdc2b86","2016-02-09 23:46:20+01:00","Fix inverted conditions in shader.cpp
+"
+"47464c9344a1a4817ad6e4c6ec44526df305b1f6","2016-01-23 19:53:27-08:00","Fix backface culling when connecting to new servers.
+
+Introduce a new contentfeatures version (8). When clients
+connect using v27 protocol version, they can assume that
+the tiledef.backface_culling is trustable, but if clients
+connect to servers providing contentfeatures version 7,
+then the v27 clients know that backface culling settings
+provided by the server in tiledefs are bogus for mesh,
+plantlike, firelike or liquid drawtype nodes.
+
+thanks to hmmmm, est31, nerzhul.
+
+Tested on new client - new server, new client - old server
+old client - new server.
+"
+"b1428ab4bb1e2cf73bc8ac951d41d22203ea68a0","2016-02-08 22:20:04+01:00","Add '/clearobjects quick'
+"
+"0f03547b033690932707b2dde1ce3eeb09ddcf7e","2016-02-09 08:56:40+01:00","Log /clearobjects mode
+"
+"13dd7959dbb62ca9327062181d7c4f04b469c38c","2016-02-09 21:46:22-03:00","Initialize facedir and wallmounted tables only once.
+
+This makes the functions a bit faster since they don't
+have to recreate the tables every invocation, and makes
+the code more readable.
+
+Also, document `wallmounted_to_dir`.
+
+The function was implemented but not documented in `lua_api.txt`.
+"
+"7e5eea9ad5f6b5a88c5b4b5bc1b2733cf451b9fd","2016-02-11 03:40:50+00:00","Documentation: Remove now unused 'vertical spawn range'
+"
+"f253ff9f1ab246c67ee5d3fb520c584b384ee708","2016-02-10 04:27:45+01:00","Dump shader programs on compile errors
+"
+"c1044b9a4a2eb45a0b71566bee59e5961708bebf","2016-02-11 07:22:15+01:00","Set proper GLSL pixel shader version
+"
+"9357294cfc4c73aa5ccc56a34aae8834a4766378","2016-02-11 04:57:01+01:00","Use single box for halo mesh
+"
+"24b312cc085b7fae6477c8a47fffb57484b20f6e","2016-02-11 00:10:05+01:00","Drop luaentity_common.h which is not included anywhere
+"
+"fefa148d694364cb4c60fbb4ffdc0f8ae6388df6","2016-02-11 15:21:21+01:00","v2d & aabbox3d<f32> & sky cleanups
+
+* Sky: rename Box => m_box and inline getBoundingBox
+* Uniformize aabbox3d<f32> to aabb3f
+"
+"bd439338282fccb2c50fd1395e55843259914e25","2016-02-13 01:45:06+01:00","Remove unused 'm_selection_active' field
+
+Thanks @ExcaliburZero for noticing. Fixes #3698.
+"
+"5ca48a35a610aefd5c34d615cb49900f423b7aa6","2016-02-09 10:43:38+01:00","Formspec: recreate item_image_button pressed state for its image and label
+"
+"c17c40a0f5f4276c576400259e691f1273370193","2016-02-13 22:08:58+01:00","Formspec: fix broken irrlicht 1.7 build
+
+Fixes #3701.
+"
+"cfc8e447595db0351754a2eae29a18918742d29d","2016-02-14 09:00:34+01:00","Use proper variable types for uniform sampler layers
+"
+"3a74b84007f2c0f0690524459cc935616f8805d2","2016-02-14 17:45:06+01:00","Player::accelerateHorizontal/Vertical should be member of LocalPlayer
+"
+"7ea40e45b1bf893aa693c179cbe8612ede86faee","2016-02-12 12:25:20+01:00","Use vertices with tangents only when its needed.
+"
+"08517244f7d19556f0449ff5d90f66e9ef079977","2016-02-16 03:51:57+01:00","Mapblock mesh: Eliminate meshgen lags
+"
+"4c654557ecc32620b78c146bd6d90f531a71d25a","2016-02-16 23:58:30+01:00","Clientiface: remove 'value is dummy' from docs
+
+Commit
+
+6a1670dbc31cc0e44178bbd9ad34ff0d5981a060 'Migrate to STL containers/algorithms.'
+
+has replaced core::map<T, bool> with std::set<T>, but didn't update
+the accompanying comment saying 'value is dummy'. This happened at
+two places.
+"
+"c3b279750ece0b5144bf8e973d55108347462223","2016-02-15 14:01:01+01:00","Move object nametags to camera
+"
+"1ec1a605d664b42a034cecb9f2e768fab3d738d4","2016-02-13 23:39:37+01:00","HOTFIX: fix too agressive block culling
+"
+"997be666e37e9494bb92a50521b4b749156a609c","2016-02-17 02:39:21+00:00","Clientmap: Define p_nodes_min/max as v3s32 instead of v3s16
+
+'cam_pos_nodes -/+ box_nodes_d' can exceed the range of v3s16
+when a player is near the world edge using a large view range
+This previously caused world to disappear
+Create new function getBlocksInViewRange() called from
+updateDrawList() and renderMap()
+Correct code style throughout updateDrawList() and renderMap()
+"
+"4827ee1258ac9d68808ca4e2a9cb88bf49473e6b","2016-02-18 16:06:07-05:00","Require request_insecure_environment to be called from the mod's main scope
+
+Previously you could steal a secure environment from a trusted mod by wrapping
+request_insecure_environment with some code like this:
+
+local rie_cp = minetest.request_insecure_environment
+local stolen_ie
+function minetest.request_insecure_environment()
+local ie = rie_cp()
+stolen_ie = stolen_ie or ie
+return ie
+end
+"
+"5dbaa689677e89ee10e2c6e3a4e8eb57b79f3140","2016-02-19 14:13:21+01:00","Camera: Don't count camera offset twice for Nametagged CAOs
+"
+"5f4ed94d90668af58a3e677e7401f0028871acce","2016-02-18 17:17:17+01:00","Minimap: show player markers
+"
+"1b9aef43c94a79ca58f488bbfee8c40ab5b5b5b0","2016-02-19 21:14:38+01:00","Ignore spaces in secure.trusted_mods setting
+"
+"a44393e43a39d2b78ff6673fc646be44698c9d37","2016-02-19 19:55:31-05:00","Don't print locale directory error message when GetText is disabled
+
+Also, downgrade the error to a warning.
+"
+"60dc01dc258db842e229351b871d0989e3e7d62c","2015-01-27 23:33:54+11:00","Fix jumping at node edge
+"
+"c6d7d2097c3736b3de82f074c63eda959c07290f","2016-02-20 09:44:22+01:00","Little collision.cpp cleanups
+"
+"ecc8b70182b9ad3aaec910d7c8b32fc54cac824a","2016-02-19 10:03:02+01:00","Restore simple settings tab and add advanced settings as dialog
+"
+"354635f9fbe67cebbcd147db94b48983aa3799eb","2016-02-20 06:53:56+01:00","Dont make fastface if tile is not seamless
+
+Fixes #3378
+Closes #3751
+"
+"2f4cf0bcca1ce5941dd3d2625fe4636e86e73e75","2016-02-20 03:37:26+01:00","Remove preload_item_visuals code
+
+Closes #3748
+"
+"b2aabdfe074d361b69c59f7ea29a85f060330f12","2016-02-20 04:42:35+01:00","Camera: remove auto tune FPS, single view range setting
+"
+"a3892f5a6632550bf0c14c18e6902f6ae06bb567","2016-02-17 20:36:51+01:00","Fix HTTPFetchRequest performing a GET request if post_data is supplied
+
+Instead, perform a POST request with post_data.
+"
+"31e0667a4a53a238d0321194b57b083bd74c0a5b","2016-02-18 11:38:47+01:00","Add Lua interface to HTTPFetchRequest
+
+This allows mods to perform both asynchronous and synchronous HTTP
+requests. Mods are only granted access to HTTP APIs if either mod
+security is disabled or if they are whitelisted in any of the
+the secure.http_mods and secure.trusted_mods settings.
+
+Adds httpfetch_caller_alloc_secure to generate random, non-predictable
+caller IDs so that lua mods cannot spy on each others HTTP queries.
+"
+"9961185550ff2a8ada61455ac351f85ea7122aa2","2016-02-20 10:58:40+01:00","Fix getting pointed node
+
+Fixes #3719
+Closes #3753
+"
+"a26970cdd4aec995416566cd75dd271c6b485f16","2016-02-22 17:43:42+01:00","Android: hardcode leveldb revision
+
+Newest leveldb commit breaks build.
+With no fix in sight, there is no other way
+than to fall back to the last working leveldb
+revision, and hardcode it.
+
+Workaround for upstream bug
+
+https://github.com/google/leveldb/issues/340
+"
+"e17fbb31d6db3e6d2d9b68f5793ad8b2146f7bcc","2016-02-01 19:29:53+01:00","Reset block send timer when invoking setBlock(s)NotSent()
+
+As stated in this forum thread [1], I noticed that there is a
+2 second interval in which inventory changes are shown on the
+client. @yyt16384 found the source of these 2 seconds:
+m_nothing_to_send_pause_timer is set to 2.0 every time there
+are no changes to make, but this timer is not reset when
+SetBlockNotSent or setBlocksNotSent are invoked. So in worst
+case, the changed block will be sent over 2 seconds too late.
+
+With this change, changed inventories are updated almost
+immediately, but it causes additional connection load.
+"
+"f3f4af3fb9148d30480ffa1c9f4cf55e879c51c0","2016-02-23 01:14:00+01:00","Fix android build
+
+Android had a linker error since commit:
+
+31e0667a4a53a238d0321194b57b083bd74c0a5b 'Add Lua interface to HTTPFetchRequest'
+
+Fixes #3766. Thanks to @MoNTE48 for reporting the bug.
+"
+"147425483a9e1afa2a2a4d9c0d5fa8b68d105644","2016-02-23 10:58:13+01:00","GOTBLOCKS & DELETEBLOCKS: test packet size only once
+"
+"8591713405419c434801c61ca59a9b6c019eb957","2016-02-21 13:28:34+00:00","Sheet Ore: Eliminate crash caused by PcgRandom range max < min
+
+In the calculation of y_start,
+when 'column height max' was large it caused
+nmin.Y + max_height > nmax.Y - max_height
+Now, in this situation y_start is set to the
+midpoint between nmin.Y and nmax.Y
+
+Limit y0 and y1 to between nmin.Y and nmax.Y,
+otherwise index calculation, which has no checks for limits,
+places them at unwanted locations in the voxelmanip
+"
+"e8a3d22cbef3aa2764c1ad217585667276df8c80","2016-02-23 20:32:57+01:00","Shaders: fix fog not affecting opaque liquids
+"
+"f77b35b35bf028f4a4a3d9b40e6524608e46fb0a","2016-02-24 18:22:22-06:00","Add dependencies for Fedora systems
+"
+"4efb7eb7347bfd712297f5e11d3a055bb74cf597","2015-09-02 20:21:55+01:00","Cache some settings
+"
+"8eb7ddb0a2f03ae514a96191f6edba9333ba2423","2016-02-21 07:34:29+01:00","Remove new_style_water
+"
+"f9d727764fc9c74990fc979d4966a33882d0c19b","2016-02-22 04:26:32+01:00","Mapblock mesh: Allow to use VBO
+"
+"033a510cf3f5b6bc36c976bec18ab98e69fb0d5e","2016-02-25 09:47:28+01:00","Fix minetest.request_insecure_environment() always returning nil
+
+Fixes #3765
+"
+"af4cd48e417f7788c41d116ca63a137234f07559","2016-01-28 20:32:40+01:00","Translated using Weblate (Hungarian)
+
+Currently translated at 69.1% (544 of 787 strings)
+
+(Merger of three commits)
+"
+"e845ef09632fbecb023b8a041d421e5b4d23b7b5","2016-01-26 16:32:41+01:00","Translated using Weblate (Indonesian)
+
+Currently translated at 42.4% (334 of 787 strings)
+"
+"7a8687b83c2c35b8288dae08d54ce5881b83e651","2016-01-25 18:13:15+01:00","Translated using Weblate (Italian)
+
+Currently translated at 52.7% (415 of 787 strings)
+"
+"acf40f15cc6a25b48fd94786775d5a3414bf3194","2016-01-25 08:35:47+01:00","Translated using Weblate (Spanish)
+
+Currently translated at 45.9% (362 of 787 strings)
+"
+"f9dd819ff9bd111a099f99233814a9e1ec3d179c","2016-01-25 23:23:31+01:00","Translated using Weblate (Ukrainian)
+
+Currently translated at 30.4% (240 of 787 strings)
+"
+"8019562b0d63e3f1bd595276e77c39a8bb5cb10a","2016-01-31 17:19:31+01:00","Translated using Weblate (Polish)
+
+Currently translated at 33.9% (267 of 787 strings)
+"
+"8dcc808b507ec796da75aab5884c6714ecf7786d","2016-02-03 20:31:55+01:00","Translated using Weblate (Portuguese (Brazil))
+
+Currently translated at 65.5% (516 of 787 strings)
+"
+"f63a7a8d8b28f0b28f0ef4e2b603c44f10c72c96","2016-02-02 19:22:47+01:00","Translated using Weblate (Spanish)
+
+Currently translated at 46.6% (367 of 787 strings)
+"
+"40fa2e3b276dce8816eba581e6ba81838d01ee62","2016-02-06 01:25:33+01:00","Translated using Weblate (Catalan)
+
+Currently translated at 37.3% (294 of 787 strings)
+"
+"1528c9af60eb517bfdb444f1653e5e990d8d8523","2016-02-11 01:41:06+01:00","Translated using Weblate (Spanish)
+
+Currently translated at 47.0% (370 of 787 strings)
+
+(Merger of two commits from the same author)
+"
+"abcccffc21a58a388be945b7d1068647e603cc67","2016-02-21 09:45:44+01:00","Translated using Weblate (Russian)
+
+Currently translated at 49.5% (390 of 787 strings)
+
+(Merger of three commits)
+"
+"e9cd01045a8595aec45802d7ae46f1b3e0952932","2016-02-21 09:46:02+01:00","Translated using Weblate (Russian)
+
+Currently translated at 61.3% (483 of 787 strings)
+
+(Merger of five commits)
+"
+"e81753b69c42ddacc9e892f3fa283059914edc73","2016-02-27 05:26:58+01:00","Don't generate trailing spaces in minetest.conf.example
+
+If the default value of a setting was empty,
+it previously generated a trailing space.
+"
+"158bd76e8796c70f94e67bc3be44c88101dcf9b2","2016-02-27 05:50:42+01:00","Update po files, minetest.conf.example and settings_translation_file.cpp
+"
+"6969dd4224d0f309e006edf50b8eb1a188fc1254","2016-02-26 20:41:13-06:00","Mgvalleys: Add Dry Riverbeds
+
+Lower water table where base humidity is low.
+Alter heat and humidity to compensate for river humidity and altitude
+chill.
+Correct misuse of surface_max_y in generateTerrain.
+Remove sand trails in the water at river mouths.
+Remove river water below water_level.
+Correct heat/humidity calculations where noises are less than zero.
+Correct heightmap errors as much as possible.
+Make humidity calculations more readable.
+"
+"6359ff9a8722d54c48391e8322b5c289e644d054","2016-02-26 22:30:50+00:00","Nodedef: Restore smooth lighting to water
+"
+"b114fd87a95dbba147b5a659f12323fd47975ad6","2016-02-27 20:11:32-05:00","Resize object_marker_red.png to 16x16
+
+Having a non-power-of-two image broke the Android app.
+"
+"ee50341297435d05fd276d28ff469505fbdb303b","2016-03-01 11:15:08+01:00","Revert 'Fix jumping at node edge'
+
+This reverts commit 60dc01dc258db842e229351b871d0989e3e7d62c.
+
+This fixes issue #3773
+"
+"da97969c9b72ea1752efb741663b727c0225795a","2016-03-02 10:13:11-08:00","Fix a mistake in the world format documentation
+
+Fixed a minor mistake that made it appear as if the inventory
+is serialized multiple times - once per each variable. In fact
+it is serialized once per each node.
+"
+"effa24737d6997dc40508533635accca3ed099e9","2013-06-02 21:16:32-03:00","Use the console instead of a dedicated window when pressing keymap_chat/cmd
+
+keymap_console opens a full window for chat history browsing.
+"
+"3edb7575a1ccca631994c0f5515b770b7a3e20d2","2016-02-27 15:51:09-05:00","Unlock cursor when opening console
+"
+"430929e75a4e6c81d7dd2746570f925bb45e674e","2016-02-27 16:04:44-05:00","Add text selection and copying to console
+"
+"9dd38cf9682539ff5a2cf8e698a269cbcde3961a","2016-02-27 20:10:35-05:00","Add Android chat form
+"
+"8b006a154b31a2fd0fb58e77db25debef4bb61e0","2016-02-28 13:27:54-05:00","Add support for non-ASCII characters to chat console
+
+This still only supports 256 characters, but that's because
+Irrlicht's clipboard handlers don't support wide characters.
+"
+"abd4a79acbdfcea0bb661b8065ef3ac8f3e25e80","2016-03-02 23:59:42-05:00","Remove debug.getupvalue from the Lua sandbox whitelist
+
+This function could be used to steal insecure environments from trusted mods.
+"
+"7bcbc0105b3e67b7e066be6fd77775769cffdd16","2016-03-03 00:57:19-05:00","Fix main menu being unable to set secure settings
+"
+"1100a5d614c2eaf8e1c4f3adbc70b477e01a405c","2016-02-25 10:22:54+01:00","Require minetest.request_http_api to be called from the mod's main scope
+
+Fixes #3764
+"
+"48a718e715710c9cb7edd6ad8e1cd7a0ed416908","2016-02-27 23:49:53+00:00","Decoration API: Allow force_placement of simple decorations
+"
+"af714c7ade02d3f645671276a0f0514f5099b59e","2016-03-01 19:50:35-06:00","Mgvalleys: Correct spawn problems
+
+Increase maximum spawn altitude to reduce spawn issues.
+"
+"096a01ffef032a11239bd97e548a9ebb3c6add4a","2016-02-05 20:56:56+02:00","Update Android dependencies, -O3 optimization, remove old ARMv5 config
+
+* Update OpenSSL (thanks @sapier, i use his patch!), Curl and SQLite3.
+* Remove old arm config. Almost all phones that use ARMv5 have 1 core and 256-512 RAM, it's about 2-5 FPS.
+* Do -O3 optimization for libs and remove -fexpensive-optimizations for Minetest (-O3 includes this! Read gcc docs).
+* OpenSSL fix - thanks @sapier, again.
+"
+"335ad705e6cb3cad4ba1a1e27d36d77d163777e8","2016-03-03 21:48:18+01:00","Update settings tab + some misc. clean-up
+"
+"75db0543f3df4b30ce23731f5008d0c9afa277ff","2016-03-05 13:21:51+07:00","Add forgotten valleys mapgen in mapgen name
+
+Missing `valleys` in `settingtypes.txt` and `minetest.conf.example`.
+"
+"24e8b0ac1ea45719937948607259f13866c8bc64","2016-03-07 00:53:45+09:00","Faster insertion into table
+"
+"04e311a36d15ad6c1e4436f169fe6b45e855009f","2016-03-05 11:48:02+01:00","Settings Tab: Regroup dropdown datas in tables
+"
+"88fbe7ca1e5451851ee0c7ab5524c39a7bb703c2","2016-03-06 14:41:26-05:00","Use LuaErrors in security check macros
+
+Throwing a LuaError calls destructors as it propagates up the stack,
+wheres lua_error just executes a longjmp.
+"
+"d494733839e9cf6cb557462326ed21e7a58816c7","2016-02-09 07:08:31+01:00","Add minetest.register_lbm() to run code on block load only
+"
+"725cb4eb0743a382851e011fb7de1b7d443ce51f","2016-03-07 19:34:48+01:00","s_env.{cpp, h} cleanups
+
+* Replace string by-val passing with const reference
+* Fix code style
+* Remove redundant `int table` definition and indentation level
+"
+"095db16990eea878ce01b29c1eb85a128f98381a","2015-10-29 23:08:32-04:00","Simplify AreaStore ID management
+"
+"f021db724301f082cbde719afb2405ec1d8cf82c","2015-10-29 23:17:44-04:00","Make AreaStore cache setting private
+"
+"0079887b645e0ee441bd2cfcd7874a1148fdd656","2015-10-29 23:26:03-04:00","Move AreaStore to util
+"
+"2e74e9ee20cee987a7326378c6ab73ec93e25457","2015-10-29 23:38:36-04:00","Move AreaStore container selection logic into getOptimalImplementation
+"
+"5641da43d635ae46770eb20c5482a8971086202f","2015-10-30 00:04:10-04:00","Clean up VectorAreaStore
+"
+"6e9d71342a1d8d928d88bb3dfd1575a0dcf1e44a","2015-10-30 00:52:45-04:00","Sort AreaStore header
+"
+"8ae1e1f4d29342d5d95648f7be1c8fe7f36eda52","2015-10-30 01:25:44-04:00","Add basic AreaStore method documentation
+"
+"c4b7afed7ed12f8d5894c1a5dd15ea376af06da6","2015-10-30 10:26:14-04:00","Fix SpatialAreaStore not freeing removed areas
+"
+"821551a2669123ac9a476894d65b5efe10026040","2015-10-30 19:27:48-04:00","Implement AreaStore serialization
+"
+"3ce6642a26d43fd368c24cdfc5460557258fb44f","2015-10-30 20:38:22-04:00","Add AreaStore custom ID API
+"
+"4e59fcf5c1e40dee764317a1190dceadc3a77829","2016-03-06 12:02:21-08:00","Add consistent monotonic day counter - get_day_count()
+
+I've written several experimental bits of code that revolve around the
+need for a consistent calendar, but implementing one is extremely hard
+in mods due to time changes and mods overriding core.get_timeofday(),
+which will conflict.
+
+The second part of the problem is that doing this from a mod requires
+constant maintenance of a settings file.
+
+An implementation in core is trivial, however, and solves all of
+these problems at virtually no cost: No extra branches in server
+steps, and a single branch when minetest.set_time_of_day(), which is
+entirely reasonable.
+
+We store the day_count value in env_meta.txt.
+
+The use case is obvious: This change allows mods to create an actual
+virtual calendar, or properly account for seasonal changes, etc..
+
+We add a '/days' chatcommand that displays the current day count. No
+permissions are needed. It can only retrieve the day count, not
+modify it.
+"
+"dc8bf4e9284bdc0b9367dc8dc23c394e7b5bde34","2016-03-07 20:23:34-08:00","Avoid try/catch for settings.
+
+We can just test for the presence of these settings nicely here,
+no need to use a try / catch construct.
+"
+"f627ef39e038089d977f4f671b11cd357b1dcd70","2016-02-28 21:53:26-08:00","Introduce 'protection_bypass' privilege.
+
+This privilege allows map protection bypassing for server operators
+and world moderators.
+
+Initially I had thought that bypassing protection mods would have been
+something that could entirely be done inside mods and minetest_game,
+but the concept of protection is defined in core, in the code of
+core.is_protected().
+
+I don't feel that it would be logical to introduce a protection
+concept in core, but not some way around that for server operators
+to maintain map parts that need fixing, de-griefing or cleanup.
+
+Others had noticed the same problems, and proposed a patch to
+minetest_game. That patch is fine by itself, but it fails to add
+protection bypass functionality for digging normal nodes and placing
+nodes.
+
+So, instead, we indroduce the new priv 'protection_bypass' in core,
+and modify 'on_place_node' and 'node_dig' to allow bypassing node
+protections if the player holds this priv.
+
+This priv was tested with protector redo by tenplus1.
+
+A followup patch to Minetest Game will include allowing special checks
+for doors, trapdoors, chests in Minetest Game.
+
+Protection mods will likely want to mimic the changes in their relevant
+code sections.
+"
+"6f325070dde739ab942286bd6e368930ea41cb42","2016-03-11 16:24:55+00:00","Documentation: Clarify global and mapgen-specific mapgen flags
+"
+"0d2df732e5c5075cd8848b9a9530865430630bfe","2016-03-11 18:41:56+01:00","Fix ask_reconnect_on_crash option being ignored
+
+Since commit
+
+3b50b2766aeb09c9fc0ad0ea07426bb2187df3d7 'Optional reconnect functionality'
+
+there is a config option named ask_reconnect_on_crash.
+It asks the client to reconnect to the server if the server crashed.
+It has been implemeted and works, but due to a function parameter not
+being passed it never showed effect. This patch adds the parameter
+and fixes the bug.
+
+Also fixes the `reconnect` option of minetest.request_shutdown being ignored.
+"
+"20312fda18cb93b85e26d39a5b7386d7f7be9148","2016-03-11 21:56:32+00:00","Documentation: Auto-update conf.example and settings_translation_file.cpp
+"
+"8c951cae5bcfa715e227d47d122cc2de45d70a63","2016-03-12 11:58:02-05:00","Fix chat console not opening after formspec opened over it
+
+The MainMenuManager set the console invisible when a
+formspec opened over it, but didn't properly close it,
+and the chat console never set itself visible again.
+"
+"e737b1c271c9d957651ef2201bb820e4465358bf","2016-02-25 00:16:31-08:00","Nodebox: Allow nodeboxes to 'connect'
+
+We introduce a new nodebox type 'connected', and allow these nodes to
+have optional nodeboxes that connect it to other connecting nodeboxes.
+
+This is all done at scenedraw time in the client. The client will
+inspect the surrounding nodes and if they are to be connected to,
+it will draw the appropriate connecting nodeboxes to make those
+connections.
+
+In the node_box definition, we have to specify separate nodeboxes for
+each valid connection. This allows us to make nodes that connect only
+horizontally (the common case) by providing optional nodeboxes for +x,
+-x, +z, -z directions. Or this allows us to make wires that can connect
+up and down, by providing nodeboxes that connect it up and down (+y,
+-y) as well.
+
+The optional nodeboxes can be arrays. They are named 'connect_top,
+'connect_bottom', 'connect_front', 'connect_left', 'connect_back' and
+'connect_right'. Here, 'front' means the south facing side of the node
+that has facedir = 0.
+
+Additionally, a 'fixed' nodebox list present will always be drawn,
+so one can make a central post, for instance. This 'fixed' nodebox
+can be omitted, or it can be an array of nodeboxes.
+
+Collision boxes are also updated in exactly the same fashion, which
+allows you to walk over the upper extremities of the individual
+node boxes, or stand really close to them. You can also walk up
+node noxes that are small in height, all as expected, and unlike the
+NDT_FENCELIKE nodes.
+
+I've posted a screenshot demonstrating the flexibility at
+http://i.imgur.com/zaJq8jo.png
+In the screenshot, all connecting nodes are of this new subtype.
+
+Transparent textures render incorrectly, Which I don't think is
+related to this text, as other nodeboxes also have issues with this.
+
+A protocol bump is performed in order to be able to send older clients
+a nodeblock that is usable for them. In order to avoid abuse of users
+we send older clients a 'full-size' node, so that it's impossible for
+them to try and walk through a fence or wall that's created in this
+fashion. This was tested with a pre-bump client connected against a
+server running the new protocol.
+
+These nodes connect to other nodes, and you can select which ones
+those are by specifying node names (or group names) in the
+connects_to string array:
+connects_to = { 'group:fence', 'default:wood' }
+By default, nodes do not connect to anything, allowing you to create
+nodes that always have to be paired in order to connect. lua_api.txt
+is updated to reflect the extension to the node_box API.
+
+Example lua code needed to generate these nodes can be found here:
+https://gist.github.com/sofar/b381c8c192c8e53e6062
+"
+"37b4f0d34c73de58e0f5d153b7e699dc7430e23d","2016-03-03 23:18:04-08:00","Allow nodes to specify which sides to connect to.
+
+NDT_CONNECTED attempts to connect to any side of nodes that it can
+connect to, which is troublesome for FACEDIR type nodes that generally
+may only have one usable face, and can be rotated.
+
+We introduce a node parameter `connect_sides` that is valid for
+any node type. If specified, it lists faces of the node (in 'top',
+'bottom', 'front', 'left', 'back', 'right', form, as array) that
+connecting nodeboxes can connect to. 'front' corresponds to the south
+facing side of a node with facedir = 0.
+
+If the node is rotatable using *simple* FACEDIR, then the attached
+face is properly rotated before checking. This allows e.g. a chest
+to be attached to only from the rear side.
+"
+"2c72f6da7b7595d2e180937f05f902c510ef1c14","2016-03-07 19:09:07-03:00","Add options for screenshot format and quality
+"
+"089f9bbe817debc5c30f1d845170909f638c9642","2016-02-15 16:05:40+01:00","Resend blocks when modified while sending to client
+"
+"5a40a7dad8cbf46320c3b5dd1122808eb4919b62","2016-03-13 14:25:54-07:00","Connected nodes: fix 2 minor bugs
+
+1. Copy-paste error: properly test for back-connection.
+
+In the case of two different connected nodebox types, we want to
+assure that if A connects to B, that B also connects to A. This test
+was accidentally not implemented correctly.
+
+2. Clear the connects_to_ids before deserializing.
+
+With each new connected node, the deserialization code added more
+and more targets to the map, since the map wasn't cleared in between
+deserialization steps. This caused e.g. wall blocks to connect to
+things in the fence connects_to map.
+"
+"c0b6986e3875e6f42682c78fd5db0080a7bae651","2016-01-04 17:21:33+01:00","Fix player teleportation bug whilst sneaking
+
+Only set back position when sneaking if player wasn't teleported by adding and using a bool 'got_teleported' to player
+it fixes #2876
+"
+"bb2ee54d3b841ebdb6c6a0b6573b64216ae0baae","2016-03-13 07:56:27+00:00","Mapgen: Fix light in tunnels at mapchunk borders
+
+Don't excavate the overgenerated stone at node_max.Y + 1,
+this creates a 'roof' over the tunnel, preventing light in
+tunnels at mapchunk borders when generating mapchunks upwards.
+"
+"e0151d1054c9923630b8ae9cdae36efa261756d3","2016-03-09 03:12:22+01:00","Much better API for auth.{cpp, h}
+
+* No function overloading
+* Adhere coding style and with method names following
+lowercase_underscore_style
+* Use std::string in external API, handling these is
+much more fun
+"
+"2607b97b4f2b41767d7a010e9376d3e7f578cb71","2016-03-15 08:55:45+01:00","Fix two reconnect bugs
+
+Fix two bugs related to the reconnect feature
+introduced by commit
+
+3b50b2766aeb09c9fc0ad0ea07426bb2187df3d7 'Optional reconnect functionality'
+
+1. Set the password to the stored one
+
+Before, we have done the reconnect attempt with a
+cleared password, so using the feature would only
+work if you had an empty password.
+Thanks to @orwell96 for reporting the bug.
+
+2. Reset the reconnect_requested flag after its use
+
+the_game only writes to the reconect_requested flag
+if it sets it to true. It never sets it to false.
+If the flag is not reset after its use, all 'reset's
+to the main menu will look like the server had
+requested a reconnect.
+"
+"af30183124d40a969040d7de4b3a487feec466e4","2016-03-14 10:18:29+01:00","Add option to not send pre v25 init packet
+
+The legacy init packet (pre v25) sends information about the client's
+password that a server could use to log in to other servers if the
+username and password are the same. All the other benefits of SRP of
+protocol v25 are missed if the legacy init packet is still sent during
+connection creation.
+
+This patch adds an option to not send the v25 init packet. Not sending
+the v25 packet means breaking compat with pre v25 servers, but as the
+option is not enabled by default, no servers are affected unless the
+user explicitly flips the switch. More than 90% of the servers on the
+serverlist support post v25 protocols.
+
+The patch also fixes a bug with greying out of non compliant servers
+being done wrongly, the min and max params were mixed.
+"
+"095f623fa7278375a6fa4fe01ed39d2b68cce7af","2016-03-15 13:34:27+01:00","Remove chat escape sequences from chat messages, for future colored chat.
+"
+"3132bcb3732df51c08c8b2f34781e463cd94fe7f","2016-03-16 13:21:34+01:00","Set EXAMPLE_CONF_DIR to DOCDIR if DOCDIR gets customized
+
+Before, customisation of DOCDIR did not lead to
+changes of the EXAMPLE_CONF_DIR default value.
+This was inconsistent with expected behaviour
+if you didn't know of the existence of the
+EXAMPLE_CONF_DIR variable. The confusion is
+very strong, as (for not in place builds) both
+DOCDIR and EXAMPLE_CONF_DIR share the same
+default value, it is unexpected that setting
+CUSTOM_DOCDIR changes the location of all
+documentation files but one.
+
+The best meaning of EXAMPLE_CONF_DIR is to
+further allow customization of the mt.conf.example
+storage place, but otherwise keep defaulting to
+whatever DOCDIR is set to, at least for not in
+place builds. This patch implements that
+behaviour.
+
+Fixes #3863.
+"
+"d915ca11249050fd67a87ebee16ca2b2f67f93d5","2016-03-19 09:18:22+01:00","lua_api.txt: improve vector documentation
+
+Before it rendered very badly in HTML.
+Also point out what vector.round does.
+"
+"c5c727d62735e334ec64f07c557a2896d6d66d9f","2016-03-01 23:14:26-08:00","Allow NodeTimer, ABM and block mgmt interval changes.
+
+ABM's are hardcoded to run every 1.0s, NodeTimers are hard coded to
+run at every 1.0s. Block mgmt is running every 2.0sec.
+
+However, these timers can be better tuned for both higher and lower
+values by server owners. Some server owners want to, and have the
+resources to send more packets per second to clients, and so they
+may wish to send smaller updates sooner. Right now all ABM's are
+coalesced into 1.0 second intervals, resulting in large send queues
+to all clients. By reducing the amount of possible timers, one can
+get a far better response rate and lower the perception of lag.
+
+On the other side of the camp, some servers may want to increase
+these values, which again isn't easily doable.
+
+The global settings abm_interval and nodetimer_interval are set to
+current values by default. I've tested with 0.2/0.5 type values
+and noticed a greatly improved response and better scattering of
+nodetimers, as well as enjoying not faceplanting into doors with
+pressure plates anymore.
+"
+"f1aea6b4ff7a3bcd0227527f3fd4c1a29fc89fe4","2016-03-15 17:28:29+00:00","Mgv7: Limit pseudorandom caves to surface mapchunk or below
+
+To avoid bright caves at mapchunk borders when generating mapchunks upwards
+"
+"65c09a96f41705bb8e75fc5ff4276342be91ed11","2016-03-19 21:43:58+09:00","Set acceleration only once in falling node
+"
+"2ce02c99b4dee5c2c6c6260d1a7ff522c89db878","2016-03-19 18:36:48+00:00","Builtin/game/falling: Re-add comma removed by recent commit
+"
+"eb7db21d50f866d1e847d7556f83995294a7e54f","2016-03-19 01:21:58-04:00","Tweak travis script
+
+Exit if cd fails and don't insert '\' in string.
+"
+"93887043d9443ba6627fea68921994d0f1896517","2016-03-19 12:08:24-04:00","Clean up Strfnd
+
+Changes:
+* Fix indentation.
+* Pass strings by const reference.
+* Merge Strfnd and WStrfnd into one class instead of copying them.
+* Remove trailing spaces.
+* Fix variable names.
+* Move to util.
+* Other miscellaneous style fixes.
+"
+"493a298c0c94d03cdcdb4a52684094f88cbd48c5","2016-03-19 19:10:37+00:00","Mgv7/flat/fractal: Stop tunnel-floor biome nodes being placed everywhere
+
+A bool for 'in or under tunnel' was missing
+1-node-deep stone ledges were being
+replaced with biome surface material
+"
+"80cec4702dde598ded6a5b31e291d2973b26cc7b","2016-03-14 23:20:56-07:00","Fix connected nodes' selection boxes.
+
+This allows the player to more easily target and punch connected
+nodeboxes, especially if they have a fixed nodebox that is very
+small, like technic cabling, or xpanes. Tried it on fences and
+my xpane conversion, and happy with the result.
+"
+"2f640888d8c0224bcd3ceb13454bd6542d5ae5ef","2016-03-22 21:59:23-07:00","Make `options` local here.
+
+Undoubtably this may cause problems later if unchecked.
+
+```
+2016-03-22 21:57:52: WARNING[Server]: Assignment to undeclared global 'options' inside a function at .../sofar/git/minetest/bin/../builtin/game/chatcommands.lua:862.
+```
+"
+"21c479688b4ee93c58f41d20f5c7555a41e4ad97","2016-03-21 13:15:50+09:00","Credits: Make that easy to add/remove
+"
+"25da0594eb09bb0e72816aaf8280573a668af00c","2016-02-27 14:48:10+01:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (865 of 865 strings)
+
+This is a merger of 3 commits.
+"
+"3a18c237bdb7215aca10a613a9e8da2efefc9f69","2016-02-28 09:11:41+01:00","Translated using Weblate (Spanish)
+
+Currently translated at 45.3% (392 of 865 strings)
+"
+"228abc52bd29ebbf67e06f238c377689bafd9a22","2016-03-04 04:45:18+01:00","Translated using Weblate (Czech)
+
+Currently translated at 54.1% (468 of 865 strings)
+"
+"485344ea800522b3ef46883cc02ffff1be47bea7","2016-03-04 08:53:59+01:00","Translated using Weblate (Hungarian)
+
+Currently translated at 74.9% (648 of 865 strings)
+
+This is a merger of 3 commits.
+"
+"5f09574326ab4e53505e272d83e0a378ee69a5b7","2016-03-05 14:40:03+01:00","Translated using Weblate (Chinese (Taiwan))
+
+Currently translated at 100.0% (865 of 865 strings)
+
+This is a merger of 2 commits.
+"
+"57b5fe3c0adc652ec56e4ac796bdfc91ace5a326","2016-03-09 17:45:13+01:00","Translated using Weblate (Indonesian)
+
+Currently translated at 47.9% (415 of 865 strings)
+"
+"478e0a0043cef8fd4b104f2808c9cbaaed44b1f4","2016-03-12 13:59:34+01:00","Translated using Weblate (Italian)
+
+Currently translated at 47.9% (415 of 865 strings)
+"
+"67d377594180e87d81f621f9eadccc5596f99abb","2016-03-14 19:34:01+01:00","Translated using Weblate (Romanian)
+
+Currently translated at 23.2% (201 of 865 strings)
+
+This is a merger of 2 commits.
+"
+"fea6e37e0a98743466c0f12ae111358cbb4dbdc1","2016-03-15 06:17:38+01:00","Translated using Weblate (Spanish)
+
+Currently translated at 46.1% (399 of 865 strings)
+
+This is a merger of 3 commits.
+"
+"fe042a02f1035eb58c6b29f10b00ca6e7e0d006e","2016-03-15 09:03:59+01:00","Translated using Weblate (Japanese)
+
+Currently translated at 51.2% (443 of 865 strings)
+
+This is a merger of 2 commits.
+"
+"0e0906fddac0101f6f7696f8107322c7b0047e48","2016-03-15 16:20:58+01:00","Translated using Weblate (Catalan)
+
+Currently translated at 36.6% (317 of 865 strings)
+
+This is a merger of 2 commits.
+"
+"d9da543c5f210ab4a98dfdc49b90dbb5d28b446e","2016-03-15 21:30:07+01:00","Translated using Weblate (French)
+
+Currently translated at 89.1% (771 of 865 strings)
+
+This is a merger of 2 commits.
+"
+"975020127b85fd9c2ca880be1be50e5306a174f6","2016-03-21 11:27:00+01:00","Translated using Weblate (Chinese (China))
+
+Currently translated at 34.4% (298 of 865 strings)
+
+This is a merger of 6 commits.
+"
+"e79c2c7791c7ab0e4949c49aa739ddc9d91d77f6","2016-03-23 11:22:57+01:00","Translated using Weblate (French)
+
+Currently translated at 92.4% (800 of 865 strings)
+
+This is a merger of 3 commits.
+"
+"93997f3c29948c27c75e1973dd11991fffe5b041","2016-03-24 00:52:46+01:00","Translated using Weblate (Portuguese (Brazil))
+
+Currently translated at 70.6% (611 of 865 strings)
+
+This is a merger of 2 commits.
+"
+"b22d6bf8cfb5be7344814d55188a543590f96d85","2016-03-24 13:23:00+01:00","Translated using Weblate (French)
+
+Currently translated at 93.0% (805 of 865 strings)
+
+This is a merger of 2 commits.
+"
+"b534b94eb95d4b7d337434d5d10a5424c64d5f5d","2016-03-24 15:55:48+01:00","Translated using Weblate (Polish)
+
+Currently translated at 33.7% (292 of 865 strings)
+
+This is a merger of 2 commits.
+"
+"5cacb815e1cf85242d07a89990f38dc6d2913085","2016-03-24 13:49:36+01:00","Translated using Weblate (Portuguese)
+
+Currently translated at 34.5% (299 of 865 strings)
+
+This is a merger of 2 commits.
+"
+"0fde86dd93d77ad3ff2662a049eeb90ad432575e","2016-03-20 15:43:38+01:00","Update menu header image
+"
+"c3f6cdcd54fa4b0e1b4a21e9075695f98a97a454","2016-03-24 12:20:00+09:00","Falling: Set acceleration on step again
+
+Commit
+
+65c09a96f41705bb8e75fc5ff4276342be91ed11 'Set acceleration only once in falling node'
+
+has made the acceleration being set only once.
+But this has introduced a regression.
+
+Fix #3884.
+"
+"205e38f5b8bd480bbe880db5d30300faea13a465","2016-03-25 15:57:18+01:00","Replace CRLF with LF in shader files
+"
+"cedb2ffe141ba8bbb335d68fbdbfacde3e12962f","2015-09-03 19:19:29+01:00","Add CONTRIBUTING.md
+"
+"b9068af27d74c5bfcc61896fdd0d7737fc820f9c","2016-03-27 00:22:22+01:00","Revert 'Translated using Weblate (German)'
+
+This reverts commit 25da0594eb09bb0e72816aaf8280573a668af00c.
+"
+"8f43aaf6ae5bf0d0e0809999308d84d9ece6eb6a","2016-03-29 19:55:39+02:00","Fix small formatting issue in SRP debug output
+
+Writing an u8 to verbosestream writes a char, not it's numeric value.
+"
+"0338c2eb91ca2ba19551aaa23bbfb46552cee9ac","2016-03-29 11:31:52-04:00","Mapgen: Spread both night and day light banks in spreadLight
+"
+"e72b8f25ee192e25c641b9de8e134ec86f351342","2016-03-27 21:09:35+01:00","stop falling.lua error
+
+2016-03-27 15:47:01: ERROR[Main]: ServerError: Lua: Runtime error from mod '*builtin*' in callback luaentity_Step(): Node name is not set or is not a string!
+2016-03-27 15:47:01: ERROR[Main]: stack traceback:
+2016-03-27 15:47:01: ERROR[Main]: 	[C]: in function 'add_node'
+2016-03-27 15:47:01: ERROR[Main]: 	/usr/share/minetest/builtin/game/falling.lua:96: in function </usr/share/minetest/builtin/game/falling.lua:43>
+"
+"630f453da402c7b6f0af9ea32aa8b127ce2e4629","2016-03-25 15:39:24+00:00","Mgv7: Decrease cliff steepness
+"
+"597c1d73da38ab299eb440a3429fce04da10cf05","2016-03-25 17:50:26+00:00","Nodes shader: Decrease amplitude of waving leaves and plants
+
+Fix initialisation of variable 'disp'
+Fix a few minor code style issues
+Add independent X motion combining 2 prime frequencies
+"
+"0115da1d6348a08388238d8728daaa048a603522","2016-03-29 23:59:39-04:00","Mapgen: Don't spread light of nodes outside the desired area
+
+This fixes #3935, a regression from 0338c2e.
+An 'optimization' was performed where an index for the VoxelManip being
+operated on was mistakenly used for bounds checking within the incorrect
+VoxelArea, namely, the area wherein light should be spread.
+"
+"0aac1b74037ba0f6b0526e81ad0ea7367e31c224","2016-03-28 14:39:43+02:00","mg_schematic: fix leak in lua API, and small cleanup
+
+* Fix leak like behaviour if you load multiple schematics in a loop.
+
+* Cleanup check in for, fixing theoretical out of bounds read if
+Schematic::deserializeFromMts reduced the number of elements
+in m_nodenames. A != check may need an overflow of the counter
+before it hits, if origsize is larger than m_nodenames.size().
+
+* Fix function name passed to errorstream: it was wrong. Also use
+__FUNCTION__ instead of manually using the method name at other
+places in the function.
+
+* Don't shadow the name member in the loop.
+"
+"e082c7766afd2be8bf55b47e261544f7191bd0ed","2016-03-30 00:06:47+02:00","ParticleManager::handleParticleEvent: use switch
+
+Use a proper switch with breaks.
+"
+"f9a90383e14a02ab0e66e5d5c36940a4ffb54502","2016-03-31 01:07:47+11:00","Remove expensive copy of ContentFeatures
+"
+"c8ff11b417ae2c3a156bcaca819eaeec334c76b5","2016-03-29 19:53:15+09:00","Mainmenu: Move description.txt textbox down
+
+Additionally, fix misc. code style issues
+"
+"b8ac7b80e6031f1322b76d638256f8e4a52e89d1","2016-04-02 01:43:34+02:00","Fix nametag hiding
+
+Commit
+
+c3b279750ece0b5144bf8e973d55108347462223 'Move object nametags to camera'
+
+has added a regression to still display
+a shadow if their alpha got set to 0.
+"
+"66af984e0ec90eb58b21f7eb48641cd638dffdca","2016-03-31 12:19:41-06:00","Dungeongen: Update disabled torch placement code
+"
+"01ae43c48009f816f4649fae2f7f6997452aa6cf","2016-04-02 23:35:42-07:00","Add an option to colorize to respect the destination alpha
+
+Also, rework the colorizing code to be more efficient.
+"
+"24b32ab09d1967866ddc092cadc6f6d678dac0c6","2016-04-05 15:36:24-07:00","Fix compiler warnings from 'Add an option to colorize to respect the destination alpha'
+
+Fix warnings added by commit 01ae43c48009f816f4649fae2f7f6997452aa6cf
+
+Fixes #3952
+"
+"15e1dcc020ca5c64e4b5b306529e513cb2b97bef","2016-04-06 01:11:36+02:00","Fix #3955 (player dying on login).
+
+It was caused by player not moving because fall was prevented, but their
+velocity still increasing, causing fatal fall damage when world was
+finally loaded. This commit fixes it by setting player velocity to zero
+when the world around them is not loaded.
+"
+"ecdd5921a14a8e61ab1bd1338d61373ad96d5d3d","2016-04-06 00:38:11-07:00","Clearer explanation of [colorize with alpha
+"
+"c3993f6604a646b42c1586219c471acb6d9895c6","2016-04-07 04:01:43-04:00","Re-add and disable blit_with_interpolate_overlay
+"
+"465bb6f5d13803819f329e4920bceb25a3887c6f","2016-04-02 02:05:08+01:00","Mapgen: Optimise cave noises and tunnel excavation
+
+Instead of doing nothing at node_max.Y + 1 use 1-down
+overgeneration for tunnel generation and noisemaps
+Move some old unused code in mgv7 to end of file
+"
+"27ee8d8943080a5dd735c9faa47c726604bafdff","2016-04-05 23:53:00-07:00","Fix ncurses lookup on Arch Linux
+
+Arch Linux doesn't put it's ncursesw includes inside an ncursesw
+directory.  This script ends up setting USE_CURSES as true, but
+doesn't pick up any of the headers.
+
+https://bugs.archlinux.org/task/13994
+"
+"92d4a738435c4b8d5944375c596befcc15b3f47c","2016-03-31 17:26:39+09:00","Mainmenu: Refactor tab UI code
+
+- Use local variables for tabs in place of globals
+- Merge together if statements where possible
+- Replace manual table searching code with indexof where possible
+"
+"af799d4bd2d277a108154f815ff6b6b7a8394a9a","2016-04-07 21:50:33-07:00","Minimap: 'North' indicator arrow for circle minimap
+
+Related: #3730
+
+This adds a simple, and small 'North' indicator to the circular
+minimap. The indicator is in a classical triangle-like arrow with a
+little bit of shading to accentuate the shape and give it a little
+bit depth. The indicator is stuck exactly at the edge as far outwards
+as possible, and is not too intrusive but still easy enough to spot.
+"
+"c566a8f2de162fa985aca53647efdc82a82c2d29","2016-04-10 04:52:18-07:00","Document hpchange callback ordering thing (#3981)
+
+Document hpchange callback ordering thing
+
+Callbacks registered by register_on_player_hpchange are ordered so that non-modifiers are called after modifiers are called. Credit to @TeTpaAka who mentioned this previously-undocumented feature in #3799.
+
+See also commit
+
+aa13baa30a45b0f834c23bd5c0407895eb8ec0ee 'Add minetest.register_on_player_hpchange'
+"
+"9a04dfd0f5a69f60318a243535993ffa234f6bf6","2016-04-10 04:08:22+02:00","Update CSRP-GMP to commit deaa11a7c29a73008
+
+Backports 10 commits, with 8 commits
+actually affecting source code:
+
+https://github.com/est31/csrp-gmp/compare/695822e45d9ca48b75b4ec1af1b4eea19139f8b1...deaa11a7c29a730087380da231e785909ad21630
+"
+"eae33951ad8b13cb335fca8eaec73185959eb44e","2015-01-09 17:04:25+00:00","Hud: Fix offset being ignored by inventory bar
+"
+"2eeb62057a9e08def6a0f013e3ca5d84768d1566","2016-04-10 23:51:36-04:00","Hud: Cache hud_scaling, fix minor style issues
+"
+"d7908ee49480caaab63d05c8a53d93103579d7a9","2016-03-30 07:50:10-07:00","Convert nodeupdate to non-recursive
+
+This took me a while to figure out. We no longer visit all 9 block
+around and with the touched node, but instead visit adjacent plus
+self. We then walk -non- recursively through all neigbors and if
+they cause a nodeupdate, we just keep walking until it ends. On
+the way back we prune the tail.
+
+I've tested this with 8000+ sand nodes. Video result is here:
+
+https://youtu.be/liKKgLefhFQ
+
+Took ~ 10 seconds to process and return to normal.
+"
+"3b43e7e87cb83f44820838c9d4b1ab4b82467f09","2016-04-10 11:03:16-07:00","Minimap: revert change from RGBA to Indexed
+
+@kilbith spotted correctly that I had accidentally removed the
+'soft' edging on the minimap overlay by converting it from RGBA
+to Indexed, which killed the transparent pixels on the edging.
+"
+"73d4538d9463b349eedc767c47d1750a164e2b7b","2016-04-11 23:04:42+02:00","Fix hotbar placement on displays with low screen density
+"
+"fe349d401d2d414f1ddc02c471c01d948bd89ee6","2016-04-09 00:24:36+01:00","Mgvalleys: Don't let cavegen place biome nodes everywhere
+
+Fix use of 'air_above' bool so that biome
+nodes are only placed in tunnel floors
+Minor code improvements
+'Continue' when massive cave air is placed
+"
+"e661d8b32c99681c98b8bc469ceb19f7699cf381","2016-04-09 03:03:46+01:00","Mgv5: Optimise tunnels, add biome material in entrances
+
+Place biome top node on tunnel entrance floor
+Instead of doing nothing at node_max.Y + 1 use 1-down
+overgeneration for tunnel generation and noisemaps
+"
+"4fdf66bbf4d90846844ee3f6d41acb31ce06ca8b","2016-04-12 04:43:22+01:00","Mgv7, mgflat, mgfractal: Tunnel generation code optimisation
+"
+"b5f6d41eedca983a98470fdb97b5732e08802d24","2016-04-12 12:54:08+01:00","Fix inventory hud scaling
+"
+"6530ed4dd8e8304a6f7769b05bd776535c9c3abc","2016-04-14 02:15:41-07:00","Add option to disable entity selectionboxes. (#3992)
+
+Setting only loaded once, default value is to enable them.
+"
+"d82c5da0dccb1f30250725d17c3f373aacdda0e2","2016-04-15 14:37:09+02:00","mainmenu: Tidy up logic in is_server_protocol_compat() (#3997)
+
+Apply de morgan to simplify the logic.
+"
+"bc4dc80c0166bd5c7f645bec1472101e4a9e20bb","2016-04-15 04:13:53+02:00","Mainmenu: Still support favorites if send_pre_v25_init is disabled
+
+@SmallJoker has noted a bug that servers from the (local) main menu
+favorites list can't be opened.
+
+This commit fixes the bug by disabling any main menu based protocol
+checks for servers from the favorite list.
+
+Also, it fixes a second bug that happens when a server from the
+public serverlist doesn't send its supported protocol versions,
+most likely because its running a minetest older than commit [1].
+Then we have shown an error msg that the server has enforced
+one specific protocol version. This was most likely not the case.
+
+Of course, we can't do anything better than do an assumption on
+the protocol versions if they are not known. That assumption
+should however be closest to the most often occuring case as
+possible.
+
+Also, some little cleanups.
+
+[1]: 5a0ed780f56a5225b3d7c5f64099586e390e5f39 'Server: announce MIN/MAX protocol version supported to serverlist. Client: check serverlist'
+"
+"855a305057a8a41d1e34520c4e88845872a01d6f","2016-04-13 23:10:37-07:00","falling: walk 4 additional diagonally down directions.
+
+This seems very little cost and matches the old behavior more
+closely. This will cause some more falling nodes to get added
+to falling clusters. With the efficiency of the algorithm, this
+really doesn't do much damage.
+"
+"fed5dd3b5d153bc38939298f37650062d11a7082","2016-04-16 23:20:20+01:00","Mgv7: Combine mountain terrain generation with base terrain generation
+
+Previous mountain terrain generation was by necessity placing
+stone in air, this was removing air from any overgenerated
+structures such as tunnels, dungeons and large caves
+Moving it into the base terrain generation loop ensures that
+only 'ignore' is replaced
+
+generateRidgeTerrain: only return if node_max.Y < water_level - 16
+Previously, if water level was set a few nodes above a mapchunk
+border the river channel was only partially excavated
+"
+"65db88d24e65972b34da824743ba7dc6d307def0","2016-04-18 18:20:04+02:00","Mainmenu: Unify favorite servers with main serverlist
+"
+"8cf26bb0bbc94de437342c84c7b0854feb8957e8","2016-04-18 22:43:12+02:00","Mainmenu: Code cleaning
+"
+"a60aa8e226584b97d0be0d26688b302dfddf7125","2016-04-19 15:47:14-07:00","Fix timer initialization.
+
+This fixes the problem that the first timer tick is an
+overrun and causes all timers to expire immediately.
+
+replaces #4003
+"
+"9b437088dfff0303c99f70848f8f404b16ed1e55","2016-04-20 07:24:14+01:00","Textures: Replace menu background fallback dirt_bg.png with empty sky texture
+"
+"5c32c5e945275c612c10021bbd2117a73a97fc3f","2016-04-21 08:58:29+01:00","Biomes: Make dust fallback 'ignore' to fix y = 63 lighting
+
+The shadow bug at y = 63 was caused by dark air being placed as dust,
+when the biome dust was unspecified it was falling back to 'air'
+In dustTopNodes only dust == 'ignore' will disable dust placement
+"
+"c350cfb50b3bf81c075a80307adb15393ea773d0","2016-04-21 10:45:42+02:00","Make logging use a fixed-length buffer to avoid race conditions.
+
+Previously, race conditions occurred inside logging, that caused
+segfaults because a thread was trying to use an old pointer that
+was freed when the string was reallocated. Using a fixed-length buffer
+avoids this, at the cost of cutting too long messages over seveal lines.
+"
+"7a6502a7a5007e4bed8c1dd10af39d4fa2b296a4","2016-04-17 18:35:02+02:00","CONTRIBUTING: disallow signed git commits
+
+They break bzr-git, and bzr-git breaks the Minetest PPAs.
+"
+"2177f3090e6bb8037779a5b518f193a03094797f","2016-04-22 14:20:16+02:00","Fix mainmenu code downloading the public serverlist twice.
+
+Also, fix a nil error that can happen sometimes in
+menu_handle_key_up_down
+"
+"21079cc8ebae0bf694c1903c07bf3e1517feab99","2016-04-21 23:26:31+03:00","Fix bug that was leading to oversized tooltips containing multiline text when it have multiple lines
+"
+"48939df9a5ef1ff20f4f9717d1341b51a50dff14","2016-04-04 18:31:00+02:00","Escape more strings: formspecs, item descriptions, infotexts...
+
+Also, change the escape character to the more standard \x1b
+Thus, it can be used in the future for translation or colored text,
+for example.
+"
+"46da0e8b3b7ac9f833b660afd34b24095531bcb0","2016-04-24 14:56:56+10:00","Make GUIEngine use pause_fps_max not fps_max
+"
+"31c1fca6fd5e200c4f4b24d7ba62b36a16494ed2","2016-04-21 21:54:30+02:00","tile.cpp: Automatically upscale lower resolution texture
+"
+"ae7fb9b5bea291f81a82912d42fc43b7e71702bf","2016-04-22 15:49:06+03:00","Inventory: Make ItemStack with different metadata not stackable
+"
+"26a9a85129db3c769a9deecf905640858dc48ed8","2016-04-25 15:05:35+03:00","Android: Update dependencies, GMP was required as a dependency
+"
+"6278da296be13c1229bfce45c476119a1db9477f","2016-04-28 01:58:09+10:00","Handle particle spawners in env and delete expired ids
+
+Rebased by Zeno (2016-04-2016)
+"
+"30083d1e0070d0f86337a57ea36b6bba7fd52572","2016-04-24 15:44:10+02:00","Mainmenu: Standardize the menu button order and sizes
+"
+"17bfe2fe5b24aa7cf097bfe0a18dd3a66a0cee38","2016-04-09 16:07:45+01:00","Builtin: Add basic_privs setting
+"
+"dc35091affef70e8af8caa2b0fbbd328f1844550","2016-04-25 11:18:17+02:00","Android menu: Unified serverlist
+"
+"7baddd173591cc9394d57cdb265f978495314f7a","2016-04-28 23:59:54+10:00","Avoid teleporting player if /teleport coords are out-of-range
+"
+"e41673820ffe200df78b1ec185ccb9d9ca962ae1","2016-04-13 14:14:04-04:00","Upgrade Android build to Gradle build system
+
+The old Ant build system has been deprecated for a while and new development is focused on Gradle.
+I also removed a hardcoded string that lint caught and moved the patch files to a subdirectory.
+I left the JNI files in the root directory.
+"
+"46fd114e9a4e05b74576dce682e24357363298e7","2016-03-07 16:55:32-05:00","Fix race on thread creation
+
+This often broke the threading tests on OSX.
+"
+"8b1f8e99cf860625ebd20531ab7f3e8316a66b51","2016-04-25 11:47:25+01:00","Mapgen: Make 3D noise tunnels' width settable
+
+Correct parameter names mg_valleys to mgvalleys
+Remove biome NoiseParams from MapgenValleysParams
+Improve format of parameter code
+"
+"ae75073944f6cdea22d5d4cc40b81937afe4dfa6","2016-04-30 12:29:52+10:00","Fix prepreprocessor error in thread.h (related to C++11 threads)
+"
+"a53357d2917d57966503348e7c030c024e89bb1b","2016-04-30 09:44:28-04:00","Fix POSIX C++11 build
+
+I broke this in 46fd114e9a4e05b74576dce682e24357363298e7.
+"
+"6e6bd7e774d52d30691fc91b5791256a2aaa3e24","2016-03-25 17:20:51+01:00","Translated using Weblate (French)
+
+Currently translated at 94.1% (814 of 865 strings)
+
+This is a merger of two commits.
+"
+"93fc5556caeb55b3df14c7fb1376653583571409","2016-03-25 23:43:50+01:00","Translated using Weblate (Portuguese (Brazil))
+
+Currently translated at 71.3% (617 of 865 strings)
+
+This is a merger of two commits.
+"
+"a760359391dc4b99116932e11727114ec729edb9","2016-03-26 12:16:43+01:00","Translated using Weblate (Spanish)
+
+Currently translated at 46.2% (400 of 865 strings)
+"
+"aec0979b27f66b5b4a09e90e974ccf3836fe764e","2016-03-28 01:47:32+02:00","Translated using Weblate (Russian)
+
+Currently translated at 58.9% (510 of 865 strings)
+"
+"ac38f4ec9946b6467f5ba947b9ddc85ab5963615","2016-03-28 01:48:26+02:00","Translated using Weblate (Russian)
+
+Currently translated at 58.9% (510 of 865 strings)
+
+This is a merger of two commits.
+"
+"7a923f5b0b69a76facc7997de0b59a24cf7c3f77","2016-03-28 01:48:58+02:00","Translated using Weblate (Russian)
+
+Currently translated at 58.9% (510 of 865 strings)
+"
+"2b1ad6a4dc666fd31f3b1bec911c2ce3a8d2402c","2016-03-28 01:50:02+02:00","Translated using Weblate (Russian)
+
+Currently translated at 58.9% (510 of 865 strings)
+
+This is a merger of two commits.
+"
+"fe64f93170a6217944d3be90df3c5e1f408e2697","2016-03-28 01:49:35+02:00","Translated using Weblate (Russian)
+
+Currently translated at 59.3% (513 of 865 strings)
+
+This is a merger of 5 commits.
+"
+"1e103d08508ce5282653c2032c9e5357205ba39c","2016-03-29 17:59:08+02:00","Translated using Weblate (Chinese (China))
+
+Currently translated at 75.3% (652 of 865 strings)
+
+This is a merger of 3 commits.
+"
+"01517e210cb22174d746bfee9274b8818e6f84a8","2016-03-27 03:07:17+02:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (865 of 865 strings)
+
+This is a merger of two commits.
+"
+"cd9177964a478d938701bf2ce0b92d9981173aa3","2016-03-25 13:26:39+01:00","Translated using Weblate (Portuguese)
+
+Currently translated at 67.5% (584 of 865 strings)
+
+This is a merger of 5 commits.
+"
+"9fc4415f9d2b3a3ad8d7c50ac5fe8fe7959ced45","2016-04-09 13:53:33+02:00","Translated using Weblate (Estonian)
+
+Currently translated at 21.8% (189 of 865 strings)
+"
+"e9c3824d1b33ac404d4f0ebe2529378164a98826","2016-04-12 18:24:43+02:00","Translated using Weblate (Indonesian)
+
+Currently translated at 57.4% (497 of 865 strings)
+
+This is a merger of three commits.
+"
+"b2b8c49d04e8e2379a9f1308a8c7bfe649f43bce","2016-04-17 08:53:06+02:00","Translated using Weblate (Danish)
+
+Currently translated at 28.7% (249 of 865 strings)
+"
+"2a12ebd6523148f48c2fc595de0b7f4b10d27a80","2016-04-16 11:26:36+02:00","Translated using Weblate (Catalan)
+
+Currently translated at 46.5% (403 of 865 strings)
+
+This is a merger of two commits.
+"
+"3de452e0d21283dd38d2f1f11ed3681d3f60515c","2016-04-24 15:15:50+02:00","Translated using Weblate (Chinese (China))
+
+Currently translated at 75.4% (653 of 865 strings)
+"
+"6667ffc0ab680783aad4ea50200d9b09fe9b8e96","2016-04-29 21:48:10+02:00","Translated using Weblate (Italian)
+
+Currently translated at 100.0% (865 of 865 strings)
+
+This is a merger of two commits.
+"
+"0d40bb83a7eed5f271a345cd6770658f0bf30fd5","2016-03-30 13:09:05+02:00","Translated using Weblate (Japanese)
+
+Currently translated at 51.7% (448 of 865 strings)
+
+This is a merger of two commits.
+"
+"29877dfb4588c9a7fa4fb6321f625bcd8e0bcd84","2016-04-30 17:09:59+09:00","Mainmenu: Remove space under mod list
+"
+"c95734654caf1064907926978b2cbbc3601fdae9","2016-05-01 17:27:29+10:00","Use MoveFileEx to rename files on Windows (not rename)
+"
+"c1a0ebb725d6ac05e94cc6ad8507106636b63326","2016-05-01 16:47:08+10:00","Fix use of uninitialised variable in class Event
+"
+"46e5ef4e9a19a162c8baee15d314233c0bb0e331","2016-04-01 01:20:34+02:00","Move pathfinder classes to cpp file
+
+There is no need to put them into the header, they are solely used
+inside the pathfinder.
+
+Another advantage of this change is that only the pathfinder.cpp has
+to be compiled if PATHFINDER_DEBUG gets defined or undefined, not
+all files including the .h.
+
+This commit moves the pathfinder classes to the cpp file without
+modifications.
+Also, the PATHFINDER_DEBUG macro gets moved to the cpp file and
+the PATHFINDER_CALC_TIME macro gets moved to a plce where it
+actually does work.
+"
+"ac8bb457aae58867cbb96a5e64d286e7edc18e16","2016-04-01 01:52:17+02:00","Pathfinder: Fix style
+
+* Fix naming style for methods and classes:
+Use camelCase for methods and PascalCase for classes as
+code style demands it. And use sneak_case for methods that
+are not member of a class.
+* Replace '* ' with ' *' for Pointers
+* Same for references
+* Put function body opening braces on new line
+* Other misc minor non functional style improvements
+"
+"f0de237de729b7b68091210570f10545134b7cf2","2016-04-01 02:43:28+02:00","Pathfinder: use core::aabbox3d instead of own type
+
+There is no need to reinvent the wheel here, we have
+great classes from irrlicht.
+"
+"9aec701a4cb999b3d1eb097d4b01df0480b4ebd0","2016-04-01 03:13:24+02:00","Pathfinder: improve GridNode storage
+
+Before, the GridNodes were stored in vector<vector<vector<T>>>,
+and initialized in advance. Putting three vectors inside each other
+puts lots of unneccessary stress onto the allocator, costs more memory,
+and has worse cache locality than a flat vector<T>.
+
+For larger search distances, an the array getting initialized means
+essentially O(distance^3) complexity in both time and memory,
+which makes the current path search a joke. In order to really
+profit from the dijkstra/A* algorithms, other data structures
+need to be used for larger distances.
+
+For shorter distances, a map based GridNode storage may be slow as
+it requires lots of levels of indirection, which is bad for things like
+cache locality, and an array based storage may be faster.
+
+This commit does:
+
+1. remove the vector<vector<vector<T>>> based GridNodes storage that
+is allocated and initialized in advance and for the whole
+possible area.
+
+2. Add a vector<T> based GridNodes storage that is allocated and
+initialized in advance for the whole possible area.
+
+3. Add a map<P,T> based GridNodes storage whose elements are
+allocated and initialized, when the path search code
+demands it.
+
+4. Add code to decide between approach 2 and 3,
+based on the length of the path.
+
+5. Remove the unused 'surfaces' member of the PathGridnode class.
+Setting this isn't as easy anymore for the
+map based GridNodes storage.
+"
+"aa8c88cf4a61362ada473fc058fbfb50aa235d23","2016-04-25 17:14:57-07:00","find_path: consider walkable instead of CONTENT_AIR
+
+The path finding code works fairly well except that it considers
+anythin not CONTENT_AIR to be 'above the surface'. This results in
+paths that are unwalkable for entities since e.g. plants are not
+walkable. The path would force them to jump on top of grass plants,
+etc..
+
+The obvious solution is not to use CONTENT_AIR as a criteria, but
+instead distinguish between walkable and non-walkable nodes. This
+results in paths that properly walk through grass nodes.
+
+This was extensively tested by a flock of electric sheep.
+
+Note that for underwater purposes this changes the behaviour from
+'the surface is walkable' to 'ignore water entirely' making the
+path go across the water bottom, and pathing fail likely from the
+water surface. This is intentional.
+"
+"8fe753c3d96957cb9d58d9f82677b993effe3652","2016-04-28 20:27:59+02:00","FileSelectMenu: Fix formspec parsing broken by Irrlicht file-chooser
+"
+"c92cff5d52efa0f811b605efd8d77ff23e44b226","2016-05-02 15:01:17+10:00","Fix Windows build
+
+Fixes the issue introduced by c1a0ebb (Fix use of uninitialised variable
+in class Event) causing Windows builds to fail
+"
+"b22de6470b9ad97c5d3854ec433a959e4123ce22","2016-05-02 23:16:28+01:00","Settings_translation_file: Update mapgen with cave width parameter
+"
+"d864c1333303f0f38df1a8106c4b11ecfce529ad","2016-05-04 21:21:13+10:00","Fix holding down F10 (open console) causing GUI to freeze
+"
+"063be8a126b5f5131f190f318921d707db981322","2016-05-05 16:12:58+02:00","Update settings translation file and minetest.conf.example
+"
+"ae02d1eb8f4222d5cd3f885352011e4e699e6a3f","2016-05-05 16:14:09+02:00","Run updatepo.sh
+"
+"a279426d126631e82f49f5b9d1d7bfb2c580396d","2016-05-02 21:22:06+01:00","Lua_api.txt: Add warnings of l-system lighting bug
+"
+"bb925479a56e7b961e3520024c20b74245640035","2016-05-03 03:24:36+03:00","Android: Increase player_stepheight for thicker snow nodebox
+"
+"d5c3db9c4179e27a80c32ee95d6573ad0ec7137e","2016-05-05 18:50:02+02:00","Make dropdowns show the string that was their argument.
+
+This makes it work even if it contains escape sequences,
+which didn't work before.
+"
+"4d9dbceb39324ee0aef6520b8193fa093470cc01","2016-05-05 19:08:45+02:00","Run unescape_enriched *after* unescape_string.
+
+Doing it the other way round was a mistake, since it breaks
+minetest.formspec_escape with escape sequences that contain
+special characters.
+"
+"0f6e4a0913ea3d96a34dd2da15b140a4b54b0983","2016-04-10 03:12:10+03:00","Optimize default settings for Android build
+"
+"2cdd9b4ab6cfc878dafb88aa8446b12cf2f94278","2013-04-23 23:17:33+02:00","Chat: Keep scroll position constant in ChatBuffer::deleteOldest()
+"
+"b8aed9dfc2ae5e1c877707c856b061ee76b0e1c4","2016-05-08 19:02:11+10:00","Fixes #4098 ce8a9ed didn't quite go far enough, and left this bug in
+"
+"1db499dc6df3681b68ce86ab7aea604895bcd2a1","2016-05-08 01:03:56+01:00","Defaultsettings/Android: Increase 'max block generate distance' to 3
+"
+"95446f4b6d16e8b24b3513fcdd028cedebef3f06","2016-03-24 17:17:37+01:00","Update credits tab
+"
+"53e9587861fdf8c588f7e51eca522215167250b4","2016-05-03 20:14:01+02:00","Add [resize texture modifier Resizes the texture to the given dimensions.
+"
+"3f89bf4d7f241cebc118cccf2ac147ee6454216e","2016-05-09 23:44:15+01:00","Lua_api.txt: Fix documentation for facedir rotation
+"
+"e289c9e648ed2b53ee7738f0a464a5191a517cf1","2016-05-05 22:33:12+02:00","Translated using Weblate (Dutch)
+
+Currently translated at 85.6% (760 of 887 strings)
+"
+"d9a9fae51ddd2e25dc0e30b58974afca87b46c13","2016-05-05 22:33:07+02:00","Translated using Weblate (Dutch)
+
+Currently translated at 89.6% (795 of 887 strings)
+
+This is a merger of three commits.
+"
+"ea712b721b3a30f2e29c0cdee9066f38aae53a95","2016-05-06 01:16:37+02:00","Translated using Weblate (German)
+
+Currently translated at 100.0% (887 of 887 strings)
+
+This is a merger of three commits.
+"
+"ecb9378e0f89a2132ef0f8d5c72b3d2791fdbf64","2016-05-05 19:09:42+02:00","Translated using Weblate (Chinese (China))
+
+Currently translated at 73.9% (656 of 887 strings)
+"
+"487bd601eb01ad4e9ff7f0bd54a119cafb8d3d24","2016-05-05 22:50:35+02:00","Translated using Weblate (Danish)
+
+Currently translated at 27.6% (245 of 887 strings)
+
+This is a merger of two commits.
+"
+"36c9c92ec141ee14f279768601675adeccb58811","2016-05-07 03:17:37+02:00","Translated using Weblate (Hungarian)
+
+Currently translated at 75.7% (672 of 887 strings)
+"
+"4ac92079fb287f4c06b0f6f217117a52eb5bb8ec","2016-05-07 00:18:04+02:00","Translated using Weblate (Japanese)
+
+Currently translated at 50.6% (449 of 887 strings)
+"
+"d01a8054b061239acf8f8beddae80f61f6a21fda","2016-05-07 11:19:25+02:00","Translated using Weblate (French)
+
+Currently translated at 90.7% (805 of 887 strings)
+"
+"d23669a8596a5015cc780ea2a420dde6f5fb25fd","2016-05-07 16:10:10+02:00","Translated using Weblate (Japanese)
+
+Currently translated at 51.5% (457 of 887 strings)
+"
+"d3304a7dc4e04aacf393c22e65d0007ea3e1819a","2016-05-07 20:15:36+02:00","Translated using Weblate (Italian)
+
+Currently translated at 100.0% (887 of 887 strings)
+
+This is a merger of three commits.
+"
+"fb1cfb43e2f9697facad88ed4359ed7bbedbcc2c","2016-05-08 17:39:07+02:00","Translated using Weblate (Lojban)
+
+Currently translated at 10.5% (94 of 887 strings)
+"
+"f102d36f6242502c62f26d465ef05cbe68072212","2016-05-09 16:22:10+02:00","Translated using Weblate (Ukrainian)
+
+Currently translated at 38.4% (341 of 887 strings)
+
+This is a merger of two commits.
+"
+"29fc344d25c6431c7be2accf410d0ae2d86b9c57","2016-05-10 17:34:28+02:00","Translated using Weblate (Spanish)
+
+Currently translated at 51.5% (457 of 887 strings)
+"
+"c8705ca2aa1574c4baf9acec56da68ebd8921030","2016-05-10 17:32:35+02:00","Translated using Weblate (Spanish)
+
+Currently translated at 51.5% (457 of 887 strings)
+
+This is a merger of two commits.
+"
+"759fbabaea6fbd21497a1dc62a395af6e385518e","2016-05-06 03:34:11+02:00","Translated using Weblate (Spanish)
+
+Currently translated at 56.8% (504 of 887 strings)
+
+This is a merger of two commits.
+"
+"5d9b6aaa03fb326073b1d70645a5c08f10b7e461","2016-05-10 14:28:45-07:00","README: Update Fedora dependencies list
+
+Edited packages to reflect correct packages
+"
+"ebe638c32db2fb29886a5ae82c7726afad4c0010","2016-05-10 22:06:03-04:00","Mapgen V6: Synchronize spflags with defaultsettings
+
+This fixes an issue where trees are omitted from Mapgen V6 maps on
+configurations that explicitly defined the mgv6_spflags setting.
+"
+"58b54cf9a97221a2457b8a5cf3816be4490848a5","2016-05-11 17:15:41+10:00","Add platform name to --version information
+"
+"8bb9e467d6d0f284db45431de881690d72e9336f","2016-05-11 23:20:20+10:00","Fix typo in the info printed by --version
+"
+"a9b5c2662fca2e38ccafe2bd8be675ef0a98ffdc","2016-05-12 00:52:29+02:00","Android: update openssl to 1.0.2h
+"
+"997002703be14826b73a38bfd0e92e6b0c7c4bfd","2016-05-12 02:11:27+02:00","Android: download deps using https
+
+Its more secure, and some pages even redirect to the https version.
+"
+"9d3d43f3340030db8855ebc394e969f10d00dc30","2016-05-13 01:38:29+10:00","Fix #4111 ('Provided world path doesn't exist' if choosing singleplayer on first run')
+
+Bug and whitespace error fixed (Zeno)
+"
+"ec15e35ad7effe54d04c0d34ead3bc63d0e311f1","2016-05-13 02:22:31+02:00","Mainmenu: don't show change keys dialog on android
+
+The change keys dialog can't be left. It doesn't make
+much sense to show it on Android in the first place,
+therefore disable it, just like commit
+
+aed70cb0b652d6cb2272e7b94cd56671b3df6239 'Disable sound and key binding settings in 'pause' menu on android'
+
+has disabled it for the esc menu.
+
+Fixes #4115.
+"
+"b906ed4e5902785ab6f15012666e344c98fabe14","2016-05-14 23:35:56+10:00","Fix locked hardware buttons on Android
+
+Fixes #2122
+Fixes #1454
+
+Addendum (est31)
+According from its docs in android_native_app_glue.h (from the NDK), the
+onInputEvent should 'Return 1 if you have handled the event, 0 for any
+default dispatching'. Before, we always returned 1, meaning we blocked
+all hardware keys to be given to the OS.
+This broke the volume keys and has caused #2122 and #1454.
+
+Although it bases on lots of guesswork, it can probably safely be said that
+CGUIEnvironment::postEventFromUser returns true if the event was handled,
+and false if not. Therefore, set the status variable depending on what
+postEventFromUser returned.
+"
+"b25554c8d7260cdac6551c69900b78e24b0b48eb","2016-05-14 16:46:46+02:00","Fix android build by fixing patch line endings
+"
+"c65e7a9b3edbd1f42e7478acdb02252e3c2237ec","2016-05-14 22:12:38+02:00","Android: Re-add button to remove singleplayer world
+
+Fixes #4120.
+"
+"854d9e3745304f5f420805818de99e5e6d1b2596","2016-05-15 14:49:15+02:00","Bump version to 0.4.14
+"

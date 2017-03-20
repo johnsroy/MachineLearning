@@ -1,0 +1,41 @@
+"commit id","commit date","commit message"
+"2ece649225a70b86304274f898ca13c936bed3dc","2011-10-02 23:30:22-07:00","Added tag 1.23rc4 for changeset b54d9694ddcc
+"
+"5de17c581091f6322ab46d8bd7350e8e043bbf95","2011-10-02 23:34:59-07:00","Added tag 1.23rc3 for changeset f19dae1d383c
+"
+"308ef660b07d9cd3c5a5a09f620164064d99b2a2","2011-10-04 16:36:27-07:00","Fix popup character upcasing for 'S'
+
+The default 'S' altchars '???' get upcased to '?SS?', and the iteration ended
+early due to using the now-wrong length of 3, resulting in the '?' character
+being missing. (The 'S' characters were omitted from the popup intentionally
+since 'S' is already present on the keyboard's main map.)
+"
+"fbe82017c4f1b3912bb5db4b61cfedcfe1efe83d","2011-10-04 16:38:33-07:00","Add semicolon to punctuation shown in suggestions area.
+"
+"475ef654d22f62e0ace0d9e50d35b82ff28d5adf","2011-10-05 12:33:13-07:00","refactor compose and dead-key logic
+
+- add a static DeadAccentSequence normalize() method, this required moving the maps to static initializers
+
+- use a persistent StringBuilder for efficiency, Java strings are immutable which makes concatenation expensive.
+
+- replace the partialKey linear search with a direct Set lookup
+
+- add 'space + combining diacritical' map to spacing diacritical equivalents
+
+- temporarily disable most of the other DeadAccentSequence additions, I'm unsure if these are needed.
+"
+"112b116e6d7e98f5244ba11d0c864b303a6dff47","2011-10-05 12:36:14-07:00","Adding Norwegian 5-row layout
+
+Contributed by havarh, with some tweaks for dead key support.
+"
+"7b2948209f54c1a26696c567d34ce8f6862c2e33","2011-10-05 12:37:37-07:00","Dead key refactoring
+
+Some hackery to get the key labels looking more reasonable where the font
+engine isn't handling non-spacing diacritical marks correctly.
+"
+"b92fc8202b103c3a53657f08c5337d36ae56691d","2011-10-05 13:08:45-07:00","Main view tweaks
+
+- add 'Input languages' button to make this more discoverable
+- rearrange buttons and remove the header line to save room
+- some edits to the help text
+"

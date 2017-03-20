@@ -1,0 +1,1909 @@
+"commit id","commit date","commit message"
+"c25c406c00175155f635aa1e1d37adb5e37cdb4c","2008-07-14 19:14:26+00:00","cleanup (and test for Marwan's branch.... ;)
+
+svn-id: r33061
+"
+"9c91f091ff7a389da31534bce99908ba4e856163","2008-07-14 20:34:31+00:00","Register spilling avoided in AGOS background drawing (and 2x unrolling)
+
+svn-id: r33062
+"
+"ff5f3730c57a81816e3bc2e3365c4fc30701ca1f","2008-07-14 21:00:39+00:00","Don't draw scumm saveload dialog while reflowing layout, as that would use uninitialized values
+
+svn-id: r33063
+"
+"ba4ba85124d5cffdd75093abb6759f7588280f06","2008-07-14 21:04:42+00:00","remove accidentally committed debugging code; fix shadowing warning
+
+svn-id: r33064
+"
+"ebd3510b72aeff0021c2676ddfb08f12c3697b11","2008-07-14 22:10:04+00:00","AGOS: Got rid of _masterVolume and replaced with _musicVolume and _sfxVolume so that music and sfx are separately controlled via the Options menu
+
+svn-id: r33065
+"
+"60357650e03c8504b06631bba3ca520285977f15","2008-07-14 23:10:51+00:00","Fix for bug #2016647 (FW: crash with italian amiga version).
+- Consists of a workaround for a script bug that used local
+variable 251 when it should've used global variable 251.
+- Also added a fix for a crash when failing copy protection
+in Amiga or Atari ST versions of Future Wars.
+NOTE: That any of the Amiga or Atari ST versions of Future Wars
+haven't crashed right in the beginning before seems like plain
+luck because accessing local variable 251 is out of bounds!
+
+svn-id: r33068
+"
+"619b45e4d38f8d7a74e77271522361bb7db68567","2008-07-15 10:47:24+00:00","config.log and tmp files should be put into the configure (= current) dir, not the source dir
+
+svn-id: r33070
+"
+"551f6d71c3821fac0f9245ed667c8547e05d6778","2008-07-15 10:59:58+00:00","Made frame unpacking buffer dynamic (this frees some BSS space).
+
+svn-id: r33072
+"
+"943b4c2036002454b276e0190dfc2c8919fb0cbf","2008-07-15 17:13:06+00:00","Implemented audio double buffering (for now OSX only)
+
+svn-id: r33075
+"
+"00aee7dd7373a6e6775b99e2768037e6d4b8419e","2008-07-15 19:35:40+00:00","Reverted an incorrect change to AGI
+
+svn-id: r33077
+"
+"2bae0df17e2c2a77295b13b107b208e63147638d","2008-07-15 20:26:12+00:00","fix bug #1995042: stop previous sfx playback when starting a new sfx (matches original dos code). Also removed the 'sound skipping' hack in final bam scene.
+
+svn-id: r33078
+"
+"cdade7eff3e481ef7aca404ca13138cccd920365","2008-07-15 20:31:11+00:00","fix bug #1876741: changed .SB playback rate to 11840Hz (matches dos game)
+
+svn-id: r33079
+"
+"7ecd54a9da6b9a14b4f16c3e53f87475d43bc2da","2008-07-15 22:54:39+00:00","Reverted some incorrect changes and fixed sound settings issues for LURE.  Fixed issues with quitting and calling GMM during intro sequences in LURE. Added a KEYCODE_MAINMENU in common/keyboard.h for the GMM.
+
+svn-id: r33081
+"
+"7f480ac571f978802a3ecd5cf6169d0271d1f561","2008-07-16 04:22:56+00:00","Quit and RTL code is more modular now.  EVENT_RTL no longer sets _shouldQuit, shouldQuit is only set if there's an EVENT_QUIT.  EVENT_RTL and EVENT_QUIT are completely separate from each other.  Engine::quit() method now checks both _shouldQuit and _shouldRTL to determine if the engine should exit.  There is no longer a need for resetQuit(), so it's removed
+
+svn-id: r33082
+"
+"bd17a600dcf86255be4e5d7d359b190e4b1351b1","2008-07-16 09:08:44+00:00","Split the drawVertImage function in the agos engine to make it clearer
+and easier to profile
+
+svn-id: r33083
+"
+"17d86414cb5d7c2b4c5159b5b5d1b2330fa8eb83","2008-07-17 00:38:11+00:00","Fixed regression bug in dialogue, which de-facto allowed user to skip in-game protection.
+
+svn-id: r33086
+"
+"67bef188d3977478c7d57b4016885c9293642cd2","2008-07-17 07:13:41+00:00","Patch #2019455: Patch for reducing the BSS size of Cine engine.
+
+svn-id: r33087
+"
+"0f74124d789488d42bc62b6a8bcf67d31e0b9bfd","2008-07-17 15:56:24+00:00","Committing PS2 changes on behalf of the other Max ;)
+
+svn-id: r33089
+"
+"41d896dc2fce7624c36788916f2fc8b3fd906fce","2008-07-17 17:49:38+00:00","SWORD1 Sound settings work with the GMM
+
+svn-id: r33090
+"
+"437b9ee281587fe97e3e21c0989dfe620f96d2c9","2008-07-17 20:08:59+00:00","More work with SWORD1 sound settings
+
+svn-id: r33091
+"
+"45d24a58f9f87c02a56db08773cbfd8d1ce7d586","2008-07-18 01:46:33+00:00","QUEEN sound settings work with the GMM
+
+svn-id: r33093
+"
+"702e26965c48e99490c25ca635e41c14ac88add2","2008-07-18 04:16:00+00:00","Don't crash if you try to use music file #2 as music file #1. When the music
+wasn't found, it would close the file even if something else was already
+playing from it. (Some music is in both files.)
+
+svn-id: r33094
+"
+"cb366384f7f6a7d45ace3d67f8df529fe8312584","2008-07-18 09:36:49+00:00","In OSystem_SDL::closeMixer moved the call to SDL_CloseAudio to before the deletion of the _mixer variable in  to fix an assert that was being generated in OSystem_SDL::mixCallback
+
+svn-id: r33095
+"
+"8757326b5f2b464ddc6cc2b523f573c31a191ad3","2008-07-18 14:01:53+00:00","Added savefile position comments to savegame loading routine (Helpful for debugging the formats).
+
+svn-id: r33096
+"
+"7b00db03123ae6a4761d0fc42bac0a5be6b4ad28","2008-07-18 19:02:40+00:00","Symbian soundsmixer update. (Compile fix)
+
+svn-id: r33098
+"
+"0f03a7bcd82ae6e07521cfaf599b41ac6b38f5ef","2008-07-18 20:40:48+00:00","Introduced cache for filereading to fix slowness in AGOS among others.
+
+svn-id: r33099
+"
+"4657a52b077740c0c1da6208019ba886d0da2242","2008-07-18 22:07:52+00:00","Fixed typo in filehandling
+
+svn-id: r33104
+"
+"6cff2e82399bd9fb7ff87378f84d9f83aedfed5a","2008-07-19 07:08:37+00:00","eof was not working properly with caching
+
+svn-id: r33108
+"
+"ec02171268db13d069dd312cdd38ab281087366c","2008-07-19 07:44:12+00:00","Enable support to turn off ALL variations. all variation is most often the one used
+
+svn-id: r33109
+"
+"4ab211f6732afb445e8f0e579b9e07b7fbfaa644","2008-07-19 21:42:31+00:00","Removed -Wundef from the default list of compiler flags, and changed PLUGIN_ENABLED_DYNAMIC to not use 'defined()', thus avoiding compiler problems on e.g. BeOS
+
+svn-id: r33114
+"
+"282cb3c0df70153c3dcc93ab93b5ce2bb02eb88c","2008-07-20 01:30:47+00:00","1. Re-added 'rpckbd' as in 0.11.0
+
+2. Committed only its source, you will need to do a make inside its folder
+before being able to compile our beloved PlayStation2 backend.
+
+Enjoy,
+-max
+
+svn-id: r33115
+"
+"8c807529a7561bbff96b4a7dfecd06102e2a5f43","2008-07-20 01:44:40+00:00","Added 'DEPDIR := .deps' in Makefile.ps2
+
+Thanks Max [the other one] for pointing it out!
+
+svn-id: r33117
+"
+"8b5e175af45fc0ff3f5cccc29dc4c522516ab2b6","2008-07-20 11:15:29+00:00","workaround for bogus findfirstfile. kyra now starts up correctly
+
+svn-id: r33120
+"
+"a49a3c6aaa31e3a59c0fa2fec87f82764e6c2bc2","2008-07-20 16:27:12+00:00","cleanup
+
+svn-id: r33135
+"
+"22ab05aa8a8260f6b0863d951025f9c233fd777d","2008-07-20 16:28:06+00:00","Fixed nasty bug in findPlainGameDescriptor -- contrary to is documentation, it would not return 0 upon failure to find a match, but rather a (0,0) record.
+
+svn-id: r33136
+"
+"c625a6a647ec176f9b411872a871ea6488e95643","2008-07-20 16:42:56+00:00","Fixed potential issue in Common::String when asserting a substring of a string X back to X (memcpy -> memmove); also added some other sanity checks, and merged some duplicate code into a new method String::initWithCStr
+
+svn-id: r33137
+"
+"113352bbded6c067bdd05db5c90786f3486e76a3","2008-07-20 16:47:34+00:00","Two new TODO/FIXME comments for class File
+
+svn-id: r33138
+"
+"f7ec115f0863f6b5ad93a8ff71cb4adb47b963fa","2008-07-20 16:47:52+00:00","New SeekableReadStream::readLine_NEW() method, closely modelled after fgets, w/o the line length limitations of the old eekableReadStream::readLine() (which it will replace, after the feature freeze has been lifted)
+
+svn-id: r33139
+"
+"ec1212eadfa30c4a2b40374b732205ac5b739547","2008-07-20 16:52:25+00:00","Fix for bug #1971499: ALL: config manager crashes when reading too long lines
+
+svn-id: r33140
+"
+"90781369cbc2a87917f9a0318121cccffc3a40cd","2008-07-20 16:55:51+00:00","modified patch #1882942 - optimize and kill code for really old platforms
+
+svn-id: r33141
+"
+"0d08240e45e3389d98aa86771e5b7cdc30b22ea7","2008-07-20 17:04:27+00:00","a little more cleanup
+
+svn-id: r33142
+"
+"e54ac15109b41e0f2d1c4dd1e65bc8fe88025ef9","2008-07-20 17:56:43+00:00","Solaris tr does not like character classes in some locales.  Use 'C' locale.
+
+svn-id: r33143
+"
+"2354ea80c6ec0da27594fab91b8dc0e1439cff56","2008-07-20 18:00:00+00:00","KYRA: disable incomplete PC-98 audio support for 0.12.0 release (use towns audio instead)
+
+svn-id: r33145
+"
+"0b8602f9950dcc6e6f11b719786244094564bb8e","2008-07-20 19:25:16+00:00","Commented out some more PC-98 audio stuff, to avoid warnings.
+
+svn-id: r33146
+"
+"f82cf58780dde55ad1367a0011ffc7eeed7991c8","2008-07-21 05:09:29+00:00","This is 0.13.0svn now
+
+svn-id: r33160
+"
+"361bed0a9535104611d3e0e88d5b3e1ad788639d","2008-07-21 06:08:30+00:00","Massive refactoring of dialogue code, which is now implemented as a finite state machine. Related code in other files has been updated has well.
+
+svn-id: r33162
+"
+"5a71d764e7278fd4c9d83ba80e500e05b9b18fc7","2008-07-21 09:25:40+00:00","Some refactoring for tracking of floating labels.
+
+svn-id: r33165
+"
+"ecd44b8f90ec3f1e749f3b8787f6348e95030b0b","2008-07-21 10:13:44+00:00","Avoid branching in the inner loop of AGOS drawVertImageCompressed
+
+svn-id: r33167
+"
+"e1c71dab99c9bf60ee1cc26da09ebd797a693a3a","2008-07-21 10:32:20+00:00","Spacing.
+
+svn-id: r33168
+"
+"e09eb75ef77d6e76b763b3a47540a530013a887f","2008-07-21 11:33:30+00:00","Silence a warning which complains about using an uninitialized variable.
+
+svn-id: r33169
+"
+"9560a4c3d3197464b4a1b218a713bdd26f2623eb","2008-07-21 19:15:28+00:00","Separated Speech from SFX in SAGA, improved configuration of SAGA sound settings through the GMM
+
+svn-id: r33176
+"
+"8b01922317ae96e8180319c573f77f6c46c7c892","2008-07-21 19:37:12+00:00","Improved GMM sound settings support for SKY
+
+svn-id: r33178
+"
+"34d3d74b9737b508b237e7eec1249ef86d4560bb","2008-07-21 19:46:23+00:00","Fixed a small SFX issue with AGOS
+
+svn-id: r33180
+"
+"0cae5552db214a7e11c552205e03fd5c0c38f6fd","2008-07-21 21:11:28+00:00","Improved GMM sound setting config for Parallaction
+
+svn-id: r33181
+"
+"09f4fd946ee4b3fd6d9780e080b9bc95fbcd0a69","2008-07-21 22:46:39+00:00","Merged revisions 33052-33053,33056-33058,33061-33064,33068,33070,33072,33075,33078-33079,33083,33086-33087,33089,33094-33096,33098-33099,33104,33108-33109,33114-33117,33120,33135-33146,33160,33162,33165,33167-33169 via svnmerge from
+https://scummvm.svn.sourceforge.net/svnroot/scummvm/scummvm/trunk
+
+svn-id: r33183
+"
+"791d2b3ba2aea96c45c3221c1ce84a06b4f1f6e3","2008-07-22 09:00:39+00:00","Changed comment display code so that input polling is integrated into the main loop, instead of being performed in a blocking way from a separate routine.
+
+svn-id: r33188
+"
+"85f56095bf4e3637a59cf1fd5a442fd08e6a9c47","2008-07-22 09:12:10+00:00","Removed unneeded input code.
+
+svn-id: r33189
+"
+"446a0406de97dba9417df8f82c4363cd3542a64b","2008-07-22 10:12:20+00:00","Fixed regression in dialogue code: certain commands weren't executed anymore after dialogue ended.
+
+svn-id: r33191
+"
+"2a90435e5dccc0085613e35cc7177d1766cea6d0","2008-07-22 10:15:58+00:00","Fix for bug #2019355 (FW: broken compatibility with 0.11.1 saves):
+- Changed savegame loading related functions to use SeekableReadStream
+rather than InSaveFile so MemoryReadStream can be used transparently.
+- Fixed loadResourcesFromSave to load multiframe animations correctly
+and to load 0.11.0/0.11.1 Future Wars savegames which used a slightly
+different format.
+- Added a savegame format detector that tries to detect between the old
+Future Wars savegame format, the new one and a broken revision of the
+new one.
+- Changed makeLoad to first load the savegame fully into memory and only
+then handle it (If the savegame's packed then it's unpacked first). If
+the packed savegame can't tell its unpacked size (i.e. it's using zlib
+format) then we'll try to load up to 256kB of the savegame data.
+Thanks to wjp for his help with nailing this release critical bug.
+
+svn-id: r33192
+"
+"cc0f95ce744b4078b3399e196101c239b7b094c9","2008-07-22 10:17:19+00:00","Fix build.
+
+svn-id: r33193
+"
+"a38234d6e6f564b3eb6ed7db63bd907fc1d695fb","2008-07-22 12:17:44+00:00","Fix CineSaveGameFormat enumeration's include order (Caused problems at least with GCC).
+
+svn-id: r33196
+"
+"5ea9bdd99aac134e739f06b4934a8ff5278633a1","2008-07-22 12:35:46+00:00","Merged inventory input code from different files.
+
+svn-id: r33198
+"
+"c92f154b90ef5c09e500978d6e60f9d8f2db1868","2008-07-22 14:38:54+00:00","Fix warnings in CINE
+
+svn-id: r33202
+"
+"705c92ddc33b050fd982aab728ef3eb7303e0af3","2008-07-22 14:39:26+00:00","Added String::trim() method
+
+svn-id: r33203
+"
+"b422f0ba734190ed5807f4fcf58aee3bf9b6f49e","2008-07-22 15:24:39+00:00","shutup valgrind warning
+
+svn-id: r33206
+"
+"abecf0a5f77b34dce555adb8f5f4b7b980a5bd6e","2008-07-22 18:52:13+00:00","Fixed seek problem when cached data is used.
+
+svn-id: r33210
+"
+"c296869108e4d098fa50e62a8f9d817d31341568","2008-07-22 19:09:10+00:00","Disable hashmemory pool for Symbian OS
+
+svn-id: r33212
+"
+"62d4a469b9897623913d8e83018f253e8d14017d","2008-07-22 20:13:57+00:00","AddedAdded MAD as default feature
+
+svn-id: r33218
+"
+"5eec5f6b17d7e403408699d9eaf71a1956574cd9","2008-07-23 01:07:39+00:00","More merging of input code.
+
+svn-id: r33219
+"
+"a5ebc88dbc9d02ddbf96f49f43e448cd4de9caaf","2008-07-23 02:01:15+00:00","Fixed mouse cursor when closing inventory.
+
+svn-id: r33220
+"
+"5544e180a33a820ca89eae6ac3f7c1ac974c8fc6","2008-07-23 02:41:02+00:00","More savegame-endianness fixes :/
+
+svn-id: r33222
+"
+"8932619ee273967821c3c5fc93ae162f75f7d6c8","2008-07-23 02:45:09+00:00","More decoupling of inventory code.
+
+svn-id: r33224
+"
+"78ccedf8985151c594ef384fda95de295d39bb5c","2008-07-23 07:31:35+00:00","Removed useless event management code and made readInput() more general.
+
+svn-id: r33225
+"
+"53615c91288b32892e9a8334ea67d4c0059b575c","2008-07-23 07:52:43+00:00","Removed the historical waitUntilLeftClick function and adapted code to use the more general readInput and waitForButtonEvent.
+
+svn-id: r33226
+"
+"e7c1a88dd3bf024e87ef62ff0c851b6a551ae2a5","2008-07-23 09:01:33+00:00","Update NEWS.
+
+svn-id: r33229
+"
+"c441c5261ff3e6ad114c0384ef818b942655f3a6","2008-07-23 09:02:47+00:00","Added Tinsel engine to main repos (no news item for it ON PURPOSE)
+
+svn-id: r33230
+"
+"1f44cba3ee52029b0511a436190eadc3f548472a","2008-07-23 09:28:23+00:00","Replaced the out of date file list in the MSVC8 project with the proper file list
+
+svn-id: r33231
+"
+"265ef07ef8d0b3ba415476806fdb216b8dba0d10","2008-07-23 09:37:15+00:00","Added the Tinsel engine to the Scummvm MSVC8 Solution
+
+svn-id: r33232
+"
+"f2919e735ab83544008a22a540cca9d7887dc6cd","2008-07-23 09:45:44+00:00","Updated rest of the MSVC project and solution files for Tinsel.
+
+svn-id: r33233
+"
+"d5e2c6d4bf32d066948df8a8a2bd4730e473a1cc","2008-07-23 09:53:29+00:00","Fix String::trim to work right for shared strings; augemented test cases to cover this
+
+svn-id: r33234
+"
+"bc2ec5afdeb9be3cc35b4e45f21d783c79cf6709","2008-07-23 10:27:24+00:00","Got rid of some typedefs
+
+svn-id: r33235
+"
+"3595a9b2a4e8b34c24cd740e84687d7f804f51df","2008-07-23 10:29:37+00:00","Removed some dead code
+
+svn-id: r33236
+"
+"33c34f2eb474fb4ce1256c5b389b1149e6e13a60","2008-07-23 10:33:36+00:00","cleanup; removed const  bNoScroll variable
+
+svn-id: r33237
+"
+"0ff328d4aec4274e8a2dff0701eb8ed1e26df494","2008-07-23 10:54:59+00:00","Added extra defines and include for Tinsel project
+
+svn-id: r33238
+"
+"31be1c9c939ac18a40751baa36da0fdaebed571d","2008-07-23 12:15:02+00:00","Enable Tinsel also for MSVC 7 & 7.1 & 9 in addition to MSVC 8.
+
+svn-id: r33239
+"
+"55bf215ba4b6b6fe9cfb6d1a0035c1f62d804824","2008-07-23 14:19:31+00:00","Renamed opcodes 0x49 and 0x68:
+- Opcode 0x49: setDefaultMenuColor2 -> setDefaultMenuBgColor
+- Opcode 0x68: setDefaultMenuColor  -> setPlayerCommandPosY
+
+svn-id: r33240
+"
+"4acde448f5a70d924d15cfbd385901ff4ad79dda","2008-07-23 14:42:27+00:00","Moved POLYGON struct into polygon.cpp; got rid of some more typedefs
+
+svn-id: r33241
+"
+"6e2e844f310d4e57ead0c887760d79c39d406e8d","2008-07-23 14:44:33+00:00","Added Tinsel to credits & NEWS
+
+svn-id: r33243
+"
+"15c610a069c4f86f921791584fa0248a9e26b9c2","2008-07-23 16:33:53+00:00","Added convenience method String::makeUnique(); simplified String::operator=(char c); extended String unit tests
+
+svn-id: r33246
+"
+"918e0fe4738ce3de0c069ec0fd423ae0daa524f0","2008-07-23 16:49:45+00:00","Reorder stuff a little bit, moving private String methods together: cleanup
+
+svn-id: r33248
+"
+"29a96430a06b415b9965f261785eb256224c8004","2008-07-23 16:55:52+00:00","TINSEL: Renamed CoroutineInstall back to ProcessCreate; got rid of yet another typedef; more cleanup
+
+svn-id: r33249
+"
+"a5f280647b5cfab615f8ef8ce00e79af0f5a696b","2008-07-23 17:01:42+00:00","cleanup
+
+svn-id: r33250
+"
+"8fd3b0c1b3e90fe8e4d2ca468474cc26651fabcf","2008-07-23 19:50:57+00:00","Fix bug which was triggered by file named 'a' in current directory.
+
+svn-id: r33252
+"
+"627e0c277426b02153b79c82616ae7f351ad5bc3","2008-07-24 08:04:17+00:00","Can't test a SharedPtr for nullity!
+
+svn-id: r33258
+"
+"69dac1d4f22f9a63a5a9030d4405ba071e5e8b89","2008-07-24 08:59:17+00:00","Moved scheduler / process managment code into a new class Scheduler
+
+svn-id: r33259
+"
+"4936e5f7df8e2257b1af4ee3ab2fdcd8cb88e91b","2008-07-24 09:24:32+00:00","* Moved end intro and end game sequences code to gui.
+* Rewrote all gui code to be run inside the main loop
+* Added code to avoid crashes when a scene with no standard background is drawn
+
+svn-id: r33260
+"
+"ba1f91eba80dd6f65101d4461fdd4b8612a12c7b","2008-07-24 09:42:44+00:00","Fixed leak in new gui code.
+
+svn-id: r33261
+"
+"728a045308e62579262bcf50d11fd5c37b6e26e0","2008-07-24 10:31:37+00:00","cleanup
+
+svn-id: r33263
+"
+"50a54103169487e2173727e2c5b8b25445a376f3","2008-07-24 20:16:21+00:00","Implemented listSaves() for AGOS
+
+svn-id: r33265
+"
+"6b2337740ecdce2bcc7053568c5b232845be75ff","2008-07-24 22:12:48+00:00","Make sure _musicVolume and _sfxVolume are clipped to fit in a byte.
+
+svn-id: r33266
+"
+"d1a6b175f5ef7f64435477775015730657195a11","2008-07-25 02:37:55+00:00","* Merged old input management flags into a single mouse status variable.
+* Mouse is now displayed when it is needed, and hidden when it is not ;)
+
+svn-id: r33270
+"
+"884a6b1dfb465990757c9ea3619d874a0c8c208c","2008-07-25 06:35:02+00:00","Converted BRA to work with the new menu approach. It is not yet well plugged-in as in NS, but it suffices for the moment.
+
+svn-id: r33272
+"
+"a27f0faeef4e09b9625d8183207323dc0d780b17","2008-07-25 08:27:44+00:00","Made character visible in BRA.
+
+svn-id: r33273
+"
+"2fc0c3e85933ccbee0b3e0373b45c49d932f5159","2008-07-25 09:05:04+00:00","TINSEL: Updating the palette should only require a call to OSystem::updateScreen and not a blit
+
+svn-id: r33274
+"
+"52a3dd758128ed442900ef57925c16e90c4c6316","2008-07-25 09:12:03+00:00","TINSEL: Get rid of Graphics::Surface class
+
+svn-id: r33275
+"
+"3d6badc476fa12f228702d15c1395da376aa7be9","2008-07-25 09:13:08+00:00","TINSEL: ActorTag & PolyTag abused a SCNHANDLE and some global enums to keep a trinary state -- fixed that by introducing a new enum HotSpotTag
+
+svn-id: r33276
+"
+"75ff7a1b0e87a016fbc545ed06de98e56720c0f8","2008-07-25 09:15:03+00:00","cleanup
+
+svn-id: r33277
+"
+"f96faab2ba530375dbd32f31761430535473dd60","2008-07-25 09:15:32+00:00","TINSEL: Got rid of NO_TAG (not used)
+
+svn-id: r33278
+"
+"1bf64890e53e6c85d3402f3f252fd6118c33ff28","2008-07-25 09:16:33+00:00","Added Common::Rect::isEmpty() method
+
+svn-id: r33279
+"
+"bfcc4339c1792a33386a6b3b584e9bb839375c36","2008-07-25 09:17:47+00:00","More tinsel cleanup
+
+svn-id: r33280
+"
+"054fe75422167ecc30757f944cb16c2fc6a56416","2008-07-25 09:18:39+00:00","TINSEL: Fixed forgotten ClearScreen(0) call
+
+svn-id: r33281
+"
+"04985c8ac94027fd05351866f243bbb6d590c4f9","2008-07-25 09:19:06+00:00","TINSEL: Got rid of PIMAGE, PINT_CONTEXT, PINV_OBJECT, PINV_DEF, PCONFBOX, PCONFINIT
+
+svn-id: r33282
+"
+"ba351015cbbdbfd75235996cfa4f177442448bba","2008-07-25 09:36:18+00:00","Fix to prevent attempt to delete a non-initialised object during game exit
+
+svn-id: r33283
+"
+"71d40e23f5fff8557283726fb0563a79e6ba7a9c","2008-07-25 10:20:05+00:00","change PPINIT struct to use ScummVM datatypes, so sizeof(PPINIT) is 28 on ppc/OSX as well.
+
+svn-id: r33285
+"
+"5ab21dcb0528fdb1f843d66a6f016959ecab02ad","2008-07-25 11:39:58+00:00","Update MSVC project files for Parallaction.
+
+svn-id: r33287
+"
+"84505d6374e0eb7134f1201050b84c45c29580fe","2008-07-25 12:59:46+00:00","Fixed the inventory bug that's been reported in the forums
+
+svn-id: r33288
+"
+"3e08d36363c1f761807ad012de4dd3f6aa3589b0","2008-07-25 16:01:25+00:00","* Changed walk code to use Common::Point instead of the clumsy WalkNode.
+* Changed walk code to use object copy instead of managing pointers.
+
+svn-id: r33289
+"
+"1174296a664a7e796cf178297b4e65d6a56bb158","2008-07-25 16:08:10+00:00","Changed the remaining references to Nodes into Points.
+
+svn-id: r33290
+"
+"dac805c281d9dd37140644315bc968d7f312a265","2008-07-25 19:41:17+00:00","Added -x and --list-saves support for LURE
+
+svn-id: r33291
+"
+"cbe0af1c194525543ef7cd5c3605b738c90cc010","2008-07-25 21:24:09+00:00","Added --list-saves support for PARALLACTION, and -x support for NipponSafes
+
+svn-id: r33292
+"
+"aee128467893daa3e3482ad3c9a90b66cbc1bcdf","2008-07-26 02:09:50+00:00","BRA now parses path data from the scripts.
+
+svn-id: r33295
+"
+"7950a9183b34fe60f979576c6f4d5b6f9d56a3dc","2008-07-26 04:01:11+00:00","* Added walk calculations to BRA (doesn't walk yet, though).
+* Adapted Character and Animation to handle both versions of the engine.
+
+svn-id: r33296
+"
+"34ff51d1c6331e3654877da17cd689351edd86f1","2008-07-26 05:37:52+00:00","Cleanup.
+
+svn-id: r33297
+"
+"8245aa42b5892b92aafe0f0c9c891cabfd7f91ef","2008-07-26 05:56:39+00:00","More cleanup.
+
+svn-id: r33298
+"
+"4f445e3deb2e468393a26166d46ed34e758ef316","2008-07-27 01:54:40+00:00","Fix buffer overflow in error message.
+
+svn-id: r33321
+"
+"b9d0e4dafb82a6481dc6a16d834edb9f017e4e26","2008-07-27 08:35:00+00:00","Doug from BRA can now walk in his hotel room. He still stops in bizarre poses, though.
+
+svn-id: r33325
+"
+"5ca78661b1f57aee500a4d9e5d6a22b5c3e17731","2008-07-27 10:15:57+00:00","The iPhone backend is now (mostly) up to speed again, and works for firmware 2.0
+
+svn-id: r33326
+"
+"e0503bc5499614399bf5778c66ff0b7f4e5e4b07","2008-07-27 10:36:26+00:00","Search common directory, when loading frames and talks in Amiga verison of BRA.
+
+svn-id: r33327
+"
+"6e4d26fb70566846c1d8e559db9e1c4b39e3324d","2008-07-27 10:37:54+00:00","Added rudimental support for location changes when walking through doors. The best part of this commit is that Doug now stops in a normal position.
+
+svn-id: r33328
+"
+"4c7420125ec5b1549953e137176a5e6109459a5f","2008-07-27 10:43:15+00:00","Add music/sound loading in Amiga version of BRA.
+
+svn-id: r33329
+"
+"52e3dec37b260ca3dadaa03e66cd35552f79a9dc","2008-07-27 11:07:38+00:00","Fixed win32 plugin provider.
+
+svn-id: r33330
+"
+"bd5cac4e2efb75f67235222a8ea2ce01247429ae","2008-07-27 12:05:40+00:00","Fixed macro.
+
+svn-id: r33332
+"
+"b95c05c384fd99e1deb75245aa295a5de64b9091","2008-07-27 12:09:10+00:00","Fixed typo.
+
+svn-id: r33333
+"
+"7e7468b322d928a28243a3e03bc64e87dda4fadc","2008-07-27 12:12:40+00:00","- Fixed fadePalette for HoF and Kyra3
+- Fixed bug in wsaFrameAnimationStep
+
+svn-id: r33334
+"
+"d223e90002d5e95c1dccd14aa81c7090138abbd1","2008-07-27 13:43:40+00:00","Inventory icons are now loaded correctly (not yet displayed). BRA doesn't crash anymore when pressing the right button. :)
+
+svn-id: r33335
+"
+"387134a16a144df3c9512e8c61901e7b7142e540","2008-07-27 14:21:16+00:00","Moved inventory cursor drawing code to InventoryRenderer.
+
+svn-id: r33337
+"
+"955d0700f55b21e6e70668170869f72ad9746bd7","2008-07-27 14:33:37+00:00","Cut savegame loading into smaller functional parts (resetEngine, loadPlainSave etc).
+
+svn-id: r33338
+"
+"cedbb6b2b23ef5d55c26022b7535cf3d248c5df7","2008-07-27 14:36:53+00:00","Clear the confusing usage of NUM_MAX_VAR (It's 255 actually, not 256).
+
+svn-id: r33339
+"
+"ff64eb3756f75980333dbbb0d8cd25e22987310a","2008-07-27 18:22:23+00:00","Fix for ftell error when caching. HOF now starts properly
+
+svn-id: r33340
+"
+"4a245208c093f9587163a9df283d91a440e21379","2008-07-27 21:14:31+00:00","Patch from bugreport #2020561: 'MMNES : Incorrect detection (US/GB)'
+
+svn-id: r33342
+"
+"e93fb5fe805017bed3e8efc17864dde6e650816b","2008-07-27 21:35:39+00:00","Fixed the Symbian default savepath, but adding the needed \ at the end.
+
+svn-id: r33345
+"
+"2f0a40a6971a73737e16ecd46fda3b78c4c7b04e","2008-07-27 21:37:47+00:00","Fixed the Symbian default savepath, but adding the needed \ at the end and now as a string.
+
+svn-id: r33347
+"
+"06a45c49c79056ef6ae81cc9f846ebddf07d03bc","2008-07-27 22:50:36+00:00","Added a preliminary saving routine for Operation Stealth (Disabled by default, needs more work still. WIP!).
+Added backgrounds' name saving (8 names in Operation Stealth instead of just 1 like in Future Wars).
+Added 256 color palette saving and restoring (One of the palettes isn't properly handled yet though).
+
+svn-id: r33349
+"
+"b0e2cd5967442f1b7cb1cea1df6dcea097bc6f73","2008-07-28 02:56:17+00:00","Fixed constructor for WindowsFilesystemNode. On Windows, trailing slashes can be added only to directory names.
+
+svn-id: r33350
+"
+"4394371ab751ac26ac7a458dbea1a0a33c1b9637","2008-07-28 04:50:27+00:00","Added --list-saves support for AGI
+
+svn-id: r33351
+"
+"03ffd60054141dfee971232e935cf6d75c737700","2008-07-28 05:18:23+00:00","* Changed Disk code in BRA to use FilesystemNode (duplication has become truly visible!).
+* Fixed Inventory items loading.
+
+svn-id: r33352
+"
+"7173aa2e3a564fa36bb84eb73afb4d12e721d924","2008-07-28 05:21:11+00:00","Some unneeded references slipped in with the last commit.
+
+svn-id: r33353
+"
+"1d1fc64c663060888347fa4c4efc4402c3f755d2","2008-07-28 05:38:24+00:00","Fix compile.
+
+svn-id: r33354
+"
+"df50b8ee68fd24afcdf4c882d653fbd9d78a3e0e","2008-07-28 06:06:35+00:00","Inventory is now properly rendered. Item selection is not yet working.
+
+svn-id: r33355
+"
+"258f1e8fe630e4323c93c03bbf993307ef652fb5","2008-07-28 06:18:39+00:00","There is no mask or path directories for part0 of BRA (Amiga), so always check whether they exist.
+
+svn-id: r33356
+"
+"533dbfd756f744234fdc2942472a61b542530193","2008-07-28 07:20:55+00:00","Add basic support for running Amiga and PC demos of BRA.
+
+svn-id: r33357
+"
+"8d59006bd7ed3ea00e84649d316139da4fa37408","2008-07-28 08:25:06+00:00","Some instrumentation for script debugging.
+
+svn-id: r33359
+"
+"356adc5e0908e50f8982fb727375d9a08cd01919","2008-07-28 08:25:52+00:00","Added support for text in BRA DOS demo.
+
+svn-id: r33360
+"
+"b5a7735ffcad29c533edf22944262c1339d5bf82","2008-07-28 08:44:14+00:00","Correct character name set by character location parser.
+
+svn-id: r33361
+"
+"16fe053ab4535865b7f52a274cc886a682caf7d4","2008-07-28 08:44:49+00:00","Made the savegame loading routine choose between loading a Future Wars or an Operation Stealth savegame format.
+Added a stub for loading the Operation Stealth's temporary savegame format (Not yet implemented).
+Made mouse cursor change to a disk icon when loading a savegame and back to normal after its done.
+
+svn-id: r33362
+"
+"c6cbf1f144110ab2d754e42032036018768ef9ff","2008-07-28 08:56:37+00:00","Added a post processing step to runScripts, so that Animation can be validated after buggy scripts have been executed.
+
+svn-id: r33363
+"
+"5d2e25ee11f15fd36173ce548f4ea06a80054680","2008-07-28 09:00:00+00:00","Preliminary code for traps.
+
+svn-id: r33364
+"
+"50088df80fb3fbc421e252f667faab88f73bc6f9","2008-07-28 10:09:00+00:00","Now detects temporary Operation Stealth savegame format and saves it. No loading yet.
+
+svn-id: r33365
+"
+"c23f805a7fb3870fcf2695d889a09954a010d959","2008-07-28 10:44:54+00:00","Cut Future Wars savegame loading routine into parts that can be reused when loading the Operation Stealth savegame format.
+
+svn-id: r33366
+"
+"b08288c1cd816105636aa628526dba758e886236","2008-07-28 10:54:53+00:00","Added remaining load functions needed for the Operation Stealth savegame format loading (loadSeqList and loadZoneQuery). Not used yet.
+
+svn-id: r33367
+"
+"f4ef55a2e5d3bbbd561c927f6a77e5d21123768a","2008-07-28 11:47:03+00:00","Tiny readability aid for parser code.
+
+svn-id: r33369
+"
+"fb388deb99be4c1457dd052382c32a05dfc4b528","2008-07-28 11:48:04+00:00","Implemented opcodes for picking up/dropping/opening/closing items.
+
+svn-id: r33370
+"
+"a1557bd776c9335b36313860d437bc8b1ef2a936","2008-07-28 11:50:36+00:00","Pick up/drop/open/close actions are now available in game.
+
+svn-id: r33371
+"
+"b67db7baf5fae6ad24174a4eafd3e5a76566b462","2008-07-28 12:46:30+00:00","Cleanup
+
+svn-id: r33373
+"
+"a5d225d438d86ab5ccada755773f131e1007f0f5","2008-07-28 14:02:46+00:00","Fixed loading of static items.
+
+svn-id: r33375
+"
+"30d943fe2f18df9677225ab7a92ddc6b2a42062b","2008-07-28 14:22:44+00:00","Moved validation step from revision 33363, so that it is executed for all animations.
+
+svn-id: r33376
+"
+"ec04a81e81615fed1b10f1887ada097365a97a84","2008-07-28 14:23:49+00:00","Yet another hack to deal with labels... Must rethink this crap from scratch.
+
+svn-id: r33377
+"
+"add07fceaaa2cbbc9e286c420d4bc66c4d17dc36","2008-07-28 16:02:40+00:00","Added loading of temporary Operation Stealth savegames. Needs testing!
+- Music related settings and adBgVar0 & adBgVar1 aren't loaded currently.
+Modified resetEngine to also reset more of the Operation Stealth specific variables.
+Added getter for background scrolling value.
+Changed additional background indices 1 & 2 from byte to uint16.
+Made savegame loading functions return !in.ioFailed() as return value instead of true as previously.
+
+svn-id: r33379
+"
+"d2639f0c845b8b1f07a3545868e61c29c067cbca","2008-07-28 16:46:20+00:00","Fixed crash when running Operation Stealth introduced in r33339 (There are actually 256 global variables although only 255 of them are saved and loaded from savegames. The last one is VAR_BYPASS_PROTECTION and it is written to in the mainLoop so that's why there was a crash).
+
+svn-id: r33380
+"
+"09f70b640897b4b36185acd7359e908eb0e3ae7b","2008-07-28 22:21:11+00:00","Fixing 'warning: comparison of unsigned expression < 0 is always false'
+
+svn-id: r33383
+"
+"7baf727790f0bd9879ae60bb52d703c113875238","2008-07-28 23:21:03+00:00","Enforcing use of nullZonePtr only for nulling out pointers, as it is useless for comparisons.
+
+svn-id: r33384
+"
+"4a9104515c1ddc5ac7aee3fa075f3c43b9752898","2008-07-29 00:02:06+00:00","SDL: Properly init vars related to mixer double buffering
+
+svn-id: r33385
+"
+"e1520c6462b0cd465ef744a6af5a709abaea635d","2008-07-29 00:49:44+00:00","Changed output of --test-detector: multiple hits with same gameid now only are a warning, not a failure
+
+svn-id: r33387
+"
+"d848543ee432a11c11968af59dd1caa362a2021d","2008-07-29 00:50:12+00:00","Changed advanced detector to *always* use the FSNode API for detection (i.e. killed second code path which used File::open trial&error directory 'scanning')
+
+svn-id: r33388
+"
+"e5c09b018ae0ebead3c5310637e354a7d023bba8","2008-07-29 00:54:28+00:00","BASE: in runGame, do not set addDefaultDirectory() the game path before invoking createInstance() -- detectors must use FSNode for detection, not rely on File::open
+
+svn-id: r33389
+"
+"c318987ff515cdc95ac87402df5b4e23500cea32","2008-07-29 01:52:29+00:00","Added --list-saves support for QUEEN
+
+svn-id: r33390
+"
+"6023e665a98cb0187d81714442037805bef95eff","2008-07-29 02:12:07+00:00","Added --list-saves support for SAGA
+
+svn-id: r33391
+"
+"c8400e97251ce8d494bb102f9dd4706ac1dc6b7d","2008-07-29 03:14:35+00:00","* Fixed positioning of balloons and faces in BRA (dos, at least).
+* Adapted loading of faces.
+
+svn-id: r33392
+"
+"fd40cb43427ea26836e967a866124d74aa854e9a","2008-07-29 04:00:07+00:00","Add check common directories, in loadScenery() for Amiga version of BRA.
+
+svn-id: r33393
+"
+"598394e5b88f8513b9f5d9ee841e5bc2882f5d6c","2008-07-29 04:06:10+00:00","Mask files don't always exist in Amiga version of BRA, in paricular NULL.msk.
+
+svn-id: r33394
+"
+"b0e08965795e18c560bfe26a0dcacb6ffaab611e","2008-07-29 04:51:23+00:00","Added --list-saves support for SWORD1
+
+svn-id: r33395
+"
+"cf97920930df19581c2d5f1a169facdd9a3811ef","2008-07-29 05:05:04+00:00","Added --list-saves support for SWORD2
+
+svn-id: r33396
+"
+"50b7e5aa0d7f7df3b750ed683a9e5fed83b91ce7","2008-07-29 06:04:16+00:00","Added --list-saves support for TOUCHE
+
+svn-id: r33398
+"
+"290f76a62352e741acd5888574cb30831c39da5d","2008-07-29 09:16:53+00:00","Added a reset method to SharedPtr, which allows NULLifying it.
+
+svn-id: r33400
+"
+"a1f48b91eae7d61be15d1235a653402dea291d13","2008-07-29 09:23:54+00:00","Formatting.
+
+svn-id: r33401
+"
+"884b753c7362b25356f427f4f15abe90bf411032","2008-07-29 09:44:05+00:00","Added dialogue text rendering for BRA.
+
+svn-id: r33402
+"
+"0365c45b8c613eb9a84e656b5a4f0eb2be33e5e0","2008-07-29 10:13:53+00:00","Rearranged parts of the Operation Stealth savegame loading routine.
+- Emulating the Future Wars savegame loading routine and hoping for the best.
+- Fixes an array out of bounds access when loading the global scripts.
+Now the loading crashes in the mainloop in processSeqList!
+But at least we got a bit farther this time. More fixing to come...
+
+svn-id: r33404
+"
+"f31cf5d94cb949d02a6ef42dcbadd48cc807ce40","2008-07-29 10:22:50+00:00","* Added flexible verb configuration for both NS and BRA.
+* Objects can now be really opened and closed in BRA.
+
+svn-id: r33405
+"
+"52700d59fdba83f549a23569c058e1cccac7f510","2008-07-29 12:56:32+00:00","Added a debug message to loadTempSaveOS's to check whether we loaded the whole savefile. Made objectStruct's clearing also clear x and y member variables in resetEngine.
+
+svn-id: r33407
+"
+"f46ee2b70c3722b59e8a95e89e9cba649d87d58b","2008-07-29 12:59:55+00:00","* Implemented pause/resume of command execution
+* Implemented command opcode MOVE (not the script instruction).
+
+svn-id: r33408
+"
+"d83c6d7d68027d3a174ad305720ed3c5de7cb0c7","2008-07-29 13:44:14+00:00","Added purgeSeqList function (Used in mainloop now). Let's see if this helps any...
+Renamed functions:
+* addScriptToList0 -> addScriptToGlobalScripts
+* executeList0     -> executeGlobalScripts
+* executeList1     -> executeObjectScripts
+* purgeList1       -> purgeObjectScripts (Also added a clarifying TODO to this function)
+* purgeList0       -> purgeGlobalScripts (Also added a clarifying TODO to this function)
+
+svn-id: r33409
+"
+"c9051fcfbd9b1f227bf5bddd81aac478d139e358","2008-07-29 13:46:42+00:00","Make sure processSeqList and purgeSeqList are only called in the main loop when running Operation Stealth. Mostly a precaution as the seqList should be totally empty when running Future Wars as it doesn't use it.
+
+svn-id: r33410
+"
+"0be985ce833d03e4458bb4512d5bed377c13d9c7","2008-07-29 16:09:10+00:00","Changed class File (and derived classes) to only support read-only access; added a new class DumpFile for writing
+
+svn-id: r33412
+"
+"bcac4966154ca51e47a8259204760c36d37f5954","2008-07-29 16:12:42+00:00","CONFIGMAN: Store domains in the order they were added
+
+svn-id: r33413
+"
+"df6e8e88896c5af373d4c4efdd38bb226c4f03d5","2008-07-29 16:16:15+00:00","Added convenience accessor method GameDescriptor::preferredtarget
+
+svn-id: r33414
+"
+"57c069ad47b3ca40f7ec280d3c30942cc4b41e86","2008-07-29 16:29:28+00:00","Mass detector: sort all newly detected games by target name before adding them to the config manager
+
+svn-id: r33415
+"
+"0a95a4814cbc9453f3af7abb46d6998409d96f53","2008-07-29 17:00:15+00:00","Added documentation for the functions in algorithm.h.
+
+svn-id: r33416
+"
+"aaa4d104f7eb4094ec6bd69ef2d44f80edd61aa4","2008-07-29 17:42:19+00:00","Added two new classes, BufferedReadStream & BufferedSeekableReadStream, as proposed on scummvm-devel
+
+svn-id: r33419
+"
+"a1e3d416fe3e77b5ceff7bea43b8bb0453290e5a","2008-07-29 19:01:17+00:00","Added --list-saves support for CINE
+
+svn-id: r33422
+"
+"68f41290a30001d3d05c8ccf4e2cf65bd8e740be","2008-07-29 20:09:30+00:00","Documentation for func.h.
+
+svn-id: r33425
+"
+"e3a600b1d0e9bb6f3932c338f12ffa7c74fef323","2008-07-29 20:15:29+00:00","Little fix for documentation.
+
+svn-id: r33426
+"
+"ca8a4eff265debb0aed9b038cc454be20cbe16e7","2008-07-29 20:21:54+00:00","- Formatting
+- Improved Functor#Mem::isValid implementations.
+
+svn-id: r33427
+"
+"8bdbbaf413d61cacbe62d11195842c93be786a18","2008-07-30 06:25:17+00:00","Reordered initialization lists to silence warning.
+
+svn-id: r33432
+"
+"1e2988b7f75adc471e3dc39aa42eb99e33727023","2008-07-30 07:39:41+00:00","Changed BufferedReadStream to not permanently decrease its buffer size at the end of a stream (this would fail when using BufferedSeekableReadStream and then seeking back from the end); this also fixes a bug which let you seek back beyond the start of a stream (not that we currently support that in other streams)
+
+svn-id: r33436
+"
+"3dbeeaf8a10a07491465657f6effebe341251635","2008-07-30 07:58:25+00:00","* Unified implementation of flow control opcodes in NS and BRA
+* Simplified script execution loop and context
+
+svn-id: r33437
+"
+"8941a96bf0742b35e04741d9841d4c1430201baa","2008-07-30 08:23:04+00:00","Make sure that save game descriptions are 0-terminated
+
+svn-id: r33438
+"
+"4210defa2980092822bd8e931b7ca37bbae020ad","2008-07-30 11:03:52+00:00","Added some debug aids related to addAni and the processSeqList crashing.
+
+svn-id: r33444
+"
+"81cb4931582f5839cca2958a634525ffb81a1714","2008-07-30 11:36:14+00:00","Debug printing a couple more relevant variables in addAni.
+
+svn-id: r33446
+"
+"aa2ffe047bfa6844cb0176a256fc39a34a88bde5","2008-07-30 15:01:15+00:00","Reordered initialization order to kill a ton of warnings.
+
+svn-id: r33452
+"
+"04c05d3ca0717aea07fd3872b4ce54220a45b78f","2008-07-30 15:16:57+00:00","Advanced detector: split out part of detectGame into a new function detectGameFilebased; some cleanup
+
+svn-id: r33453
+"
+"fbe4f0dd48c290701532e39502551cd07d881dcb","2008-07-30 15:38:42+00:00","Simplified advanced detector file sys scanning code
+
+svn-id: r33455
+"
+"4632a33087524a2ccb872ddb567b5a01b11aee26","2008-07-30 15:44:34+00:00","Revert my accidental commit of the OSystem changes (oops)
+
+svn-id: r33456
+"
+"9e4bc568619567d1e49a8928cec61c93a6b3d860","2008-07-30 15:48:16+00:00","Simplify/optimize/cleanup detectGameFilebased further
+
+svn-id: r33457
+"
+"55e4eb8d15e1cb9966963bdd5bf326db587e98fb","2008-07-30 16:06:46+00:00","Fixed Win32 build, after Fingolfin's commits (probably because of the revert in revision 33456).
+
+svn-id: r33458
+"
+"278a5fbb57f5707cbb2d0b3688c37d4bce946fc6","2008-07-30 16:26:38+00:00","This time properly reverted my accidental commits of the osystem&configman patch (I didn't mean to commit it in the first place, still waiting for any replies to my corresponding scummvm-devel mail). Sorry for messing up so badly
+
+svn-id: r33459
+"
+"1fe2700dab621a62a2ce67864c829bd4af95f779","2008-07-30 21:48:45+00:00","Added support for Savestates to be loaded from the launcher
+
+svn-id: r33461
+"
+"5e0df8ad8e9755e1fcf11d8433052dc11c74e988","2008-07-31 10:47:15+00:00","Committed slightly modified patch #2029395 'KYRA: Lands of Lore Intro + Character selection'.
+
+svn-id: r33463
+"
+"eb9462c1a096a9abad8494b8446721a3e82f8bad","2008-07-31 10:52:29+00:00","Removed debugging leftover.
+
+svn-id: r33464
+"
+"bc0ec3f6d8e4f949dddb2a385db2b07804e083c7","2008-07-31 11:16:48+00:00","Update MSVC project files for Kyra Lands of Lore additions.
+
+svn-id: r33466
+"
+"538fdcc61a801573f9f42bf928efe720c5f6bbd9","2008-07-31 11:29:37+00:00","Set correct font for dialogues in BRA Amiga.
+
+svn-id: r33467
+"
+"591973c827c60648b6d94e2bca44fd1df49ed2f5","2008-07-31 12:26:12+00:00","Changed Gfx::_backgroundInfo to be a pointer. This temporarily kills all z-buffering.
+
+svn-id: r33468
+"
+"6ed4beb1bfc1ffe7a2ca9f99dbd63eaf9c245bea","2008-07-31 12:50:43+00:00","Made changing of background more flexible, in that the engine can now configure its BackgroundInfo before passing it to Gfx.
+
+svn-id: r33469
+"
+"342d0bd2876aff9f39ea249b10d61d2a92202791","2008-07-31 13:36:13+00:00","- Added Common::mem_fun_ref for object references instead of pointers.
+- Added simple tests for a little bit functionallity from common/func.h
+
+svn-id: r33470
+"
+"b79f069c58fb8f90562b1ddacd52046b0d1d24be","2008-07-31 13:45:58+00:00","Applied my patch #2030058 ('Workaround for incorrectly compressed FotAQ'), and
+made a mention in NEWS that speech is played correctly now. Of course, we
+should still provide a correctly compressed version at some point.
+
+svn-id: r33471
+"
+"0679889d98ef00275c7c726147b3bc54cbefdca6","2008-07-31 14:20:51+00:00","Disabled masks in BRA Amiga, because the decoding is not known yet.
+
+svn-id: r33473
+"
+"f5b7004faed0d64bf24e0080d7312eeb40c16a10","2008-07-31 15:15:42+00:00","* Removed references to the current _backgroundInfo from parser code.
+* Re-enabled masks (in BRA DOS).
+
+svn-id: r33474
+"
+"e89a01dc633ccdc821751fc076ae2d83c9315b33","2008-07-31 17:33:48+00:00","Enabled the correct features for standard builds
+
+svn-id: r33478
+"
+"8721102dedd1eb60d5ff2e0452b669e9fcd88f96","2008-07-31 21:13:02+00:00","Updated modern and classic themes for the 'Load' button
+
+svn-id: r33482
+"
+"a51f45407659bba43254b466d20b6af2e8f17ffd","2008-07-31 21:56:05+00:00","Added check for valid save slots, when loading savestates using -x
+
+svn-id: r33483
+"
+"0145dd38d933f0e5693483b012e0904a18b8fb91","2008-08-01 14:03:20+00:00","Added load confirmation dialog for IHNM, like in the original.
+Fixes bug #1971699 - 'IHNM: No Load Game Confirmation'
+
+svn-id: r33490
+"
+"3f56ff874213797b19634113bb372946e6915608","2008-08-01 14:27:40+00:00","Fixed crash on exit from commit #32742 - the memory leak was only in IHNM, not ITE (in ITE, the 4 sprite lists are actually one)
+
+svn-id: r33492
+"
+"fb122a08ebc8630d9da1cfef1b5dd27fe4059faa","2008-08-01 16:31:40+00:00","Print a warning if unsupported XMIDI controllers are used
+
+svn-id: r33495
+"
+"a89fb6b7fb886e2bdb4ca0975b8aa075914c638a","2008-08-01 16:33:22+00:00","Moved Ludde & yaz0r to a new credits section, retired project leaders
+
+svn-id: r33496
+"
+"15aada52c4d641e54bc6c15af0999b5ea47a9025","2008-08-02 02:24:36+00:00","* Added a preprocessor to deal with the crappy location scripts in BRA.
+* Added some comments on how the parser and related code should be changed to make things smoother.
+
+svn-id: r33509
+"
+"3ec28ce42cdea625afd9a502237a1c3ac6749be4","2008-08-02 02:26:09+00:00","Removed debug code I forgot a long time ago ;)
+
+svn-id: r33510
+"
+"86079c20f53b3536d6c0522945106c42109671e2","2008-08-02 02:43:05+00:00","Fixed issues detected by DrMcCoy's obnoxious compiler. ;)
+
+svn-id: r33511
+"
+"c349a8dcd914656e9d960337bfea7d9d84bd081b","2008-08-02 03:19:45+00:00","* Increasing max number of allowed token on one line.
+* Increasing buffer size to match old parser.
+
+svn-id: r33512
+"
+"8c5360c8331e82208d56de8a82bacd95f7d010d6","2008-08-02 11:40:09+00:00","Fix for bug #2035459 'KYRA1: long savegame names cause garbage'.
+
+svn-id: r33518
+"
+"0cbaaf736b44c758422ede4c2a09adec5b1b24bb","2008-08-02 11:57:06+00:00","Proper fix for bug #2035459 'KYRA1: long savegame names cause garbage'.
+
+svn-id: r33519
+"
+"a023dba94147aaaeacf72c2f80ac00e09fe723fb","2008-08-02 14:32:05+00:00","Fixed regressions in kyra1 amiga.
+
+svn-id: r33522
+"
+"b58beb242f36f31a25f8cf1b3117cf85d39eb9ee","2008-08-02 14:35:38+00:00","HOF: bug fix for FM-Towns music when using output rates other than 22050 khz
+
+svn-id: r33523
+"
+"2e65c05991cf1f4ff04ad08613f6bec28ee5216f","2008-08-02 14:35:43+00:00","Add warning when a voc file is not found.
+
+svn-id: r33524
+"
+"2d647afbbfdbd562c3f1c53c486407efaf358ae8","2008-08-02 14:37:10+00:00","Detect both HOF non-interactive demos.
+
+svn-id: r33525
+"
+"6e9bbd734892a9ba25c8638f769e97ca0681d1ea","2008-08-02 14:42:44+00:00","Fixed yet another crash in kyra1 amiga.
+
+svn-id: r33526
+"
+"64fe71fed3df3d0a84fbbbc2b699f66fd266ccdd","2008-08-02 15:05:19+00:00","Added a member function loadSoundFile to Sound which accepts a filename string instead of a filename list id.
+
+svn-id: r33527
+"
+"6307c46604bfcc23930d8cb4abe8f55a3538f2a5","2008-08-02 15:47:25+00:00","- Combined loadAbs and loadResource into one function.
+- Made resource loading functions (loadSpl, loadMsk etc)
+return the number of the animDataTable entry right after
+the loaded data.
+- Made resource loading functions always load multiframe
+data into directly sequential animDataTable entries
+(Hopefully this won't break anything).
+
+svn-id: r33529
+"
+"efd4a7a72f6e44fc18be1827c92dcbbb59b5beb2","2008-08-02 15:59:38+00:00","Made loadResourcesFromSave internally use the loadResource-function.
+Fixes Operation Stealth savegame loading! HURRAH! FINALLY!
+
+svn-id: r33530
+"
+"4d10465cdf91c7381449e0120adc183dd2e4ca05","2008-08-02 21:05:46+00:00","Fix crash when drascula.dat file is missing
+
+svn-id: r33537
+"
+"7e808d771434f893f67e8c64d95f826614c46594","2008-08-02 21:22:05+00:00","Fix bug #2007170: 'DRASCULA: No Spaces in SaveGames Names'
+
+svn-id: r33541
+"
+"39449357af4b443d4ee9247ae800db7619d54870","2008-08-02 21:36:08+00:00","Fix bug #2023727: 'MONKEY2: Misplaced Text'
+
+svn-id: r33544
+"
+"e6b1ff04ef60cbc18dc295b693c6367e8905ffc8","2008-08-02 21:57:35+00:00","Fix bug #1879606: 'MANIACNES: Crash when game ends'
+
+svn-id: r33546
+"
+"9034ce2a7c5034d4864e1ae79e4cb28eeb602400","2008-08-02 22:32:32+00:00","Fix for bug #1972625 'ALL: On-the-fly targets are written to the config file'
+
+svn-id: r33550
+"
+"3047e084c1402af4f7643b718e655532c0e2c892","2008-08-02 22:51:53+00:00","Fix for bug #1945335: 'SCUMM: Invalid charset id can be stored'.
+Regressions possible.
+
+svn-id: r33552
+"
+"b998a7ef07ca3b94de43502beac3ed1d08a4795d","2008-08-02 23:01:14+00:00","Renamed Tinsel v1->v0 (used in the demo only), and v2->v1, to avoid confusion with DW2
+
+svn-id: r33553
+"
+"da2720d498c160c39435b42d9f1a18d2a0a328e1","2008-08-02 23:05:38+00:00","Fix bug #2035390: 'GUI: setting game id to 'scummvm' messes up list'
+
+svn-id: r33554
+"
+"4c74db446385611a158efcdab67a27107d8b20aa","2008-08-02 23:11:31+00:00","add non-interactive lol demo
+
+svn-id: r33556
+"
+"4984a28ca50aa4e942e34f3f47b008fb0228060e","2008-08-03 07:40:04+00:00","Fixed #2021902 ('DRASCULA: Can't adjust the volume inside the game'). I can't
+verify that this matches the original behaviour, but at least it's better now.
+
+svn-id: r33558
+"
+"b76f7668885ad706edc8d4a1037b663438ea5b8c","2008-08-03 08:01:11+00:00","Shut up MSVC warning about mgY being an unreferenced local variable.
+
+svn-id: r33561
+"
+"01c50cfe1d583e2044b82e639a53d470e550888d","2008-08-03 08:05:19+00:00","Proper fix for bug #2035390: Check for ConfigManager::kApplicationDomain, and also forbid targets starting with an underscore
+
+svn-id: r33562
+"
+"dcecff4829b30471cd230c03fe4c75c5d1f4b31b","2008-08-03 09:41:10+00:00","Fixed bug that prevented upper-case letters from being used in savegame names.
+Apparently, strchr(..., 0) will find the string terminator - at least for me -
+and when that's added to the name, it will terminate the string.
+
+svn-id: r33565
+"
+"e8cee7823d5c2087c4a6bfde04c350d16c56774d","2008-08-03 09:51:13+00:00","Fixed bug #1995022 ('BASS: wrong displayed 2 line text').
+
+svn-id: r33568
+"
+"117dee5e4a024d41edf1e21b74c0017f78341424","2008-08-03 10:16:17+00:00","Fixed bug #1995033 ('BASS: BG Sound stopped on opening item list'). Apparently
+the sound is supposed to be paused and then unpaused, but the pause function is
+called many more times than the unpause function. In the original, this
+presumably didn't matter. In ScummVM's mixer, it does.
+
+svn-id: r33570
+"
+"c88c69f357fd886822e7cb9f5c98b59fb993df57","2008-08-03 11:42:05+00:00","Fix bug #2017432: 'DRASCULA: Typing is slow when you save a game'
+
+svn-id: r33574
+"
+"c49e7ab73ff6575419a9d781c94287e174c6f1c7","2008-08-03 12:02:09+00:00","Fix bug #2011470: 'DRASCULA: slowdown when you hold mouse buttons'
+
+svn-id: r33576
+"
+"5ae93cb1080644e8b4643bcf4d3790a0ec69ace1","2008-08-03 12:09:48+00:00","add support for HOF Italian fan translation to kyra.dat
+
+svn-id: r33578
+"
+"126d4a5ec64f091040c3bf3a8b5f9f17415dcd9f","2008-08-03 12:16:53+00:00","Added detection entries for kyra2 cd italian fan translation (see fr#2003504 'KYRA: add support for Italian version of Kyrandia 2&3'). (totally untested!)
+
+svn-id: r33579
+"
+"eec2a0137dff261e4a43d12eeb4cc1f0d1d66831","2008-08-03 12:50:56+00:00","fix last commit (invalid kyra.dat game features for HOFCD)
+
+svn-id: r33580
+"
+"5dedf1bc435913a07c4f20d1816a9630d929eae5","2008-08-03 12:53:12+00:00","Removed comment.
+
+svn-id: r33581
+"
+"6377b8bdd570d3c23dbdc9239b844492f7e09b9d","2008-08-03 16:54:18+00:00","New OSystem API for loading/storing default config file
+
+svn-id: r33584
+"
+"b54a1227d9bb53135e434ba9e00ce6cba592f6b1","2008-08-03 17:05:01+00:00","OSYSTEM: Pushed some SDL/Symbian specific code to the respective backends; made openConfigFileForReading/openConfigFileForWriting return 0 if they failed to open a file
+
+svn-id: r33585
+"
+"fe9323ae578eab9dd9f76457add2f63deefbf21d","2008-08-03 18:11:27+00:00","Implemented DumpFile::open(FSNode)
+
+svn-id: r33586
+"
+"01f07b5e218cc2179343d4e6b3b905efc5fb9172","2008-08-03 18:29:37+00:00","cleanup
+
+svn-id: r33587
+"
+"4d5df949c7ee7066fca39b714ecdb4679fe9b629","2008-08-03 18:35:51+00:00","FilesystemNode code: some comment cleanup; added FilesystemNode::openForReading() and openForWriting() methods (for now these are simple wrappers around Common::File)
+
+svn-id: r33590
+"
+"3f180a4c3f14112f62114c7c63e990144031efd3","2008-08-04 01:57:50+00:00","Remove debug left over.
+
+svn-id: r33596
+"
+"99f546caad19cf15d4f8769672dd01ffc340d961","2008-08-04 11:30:47+00:00","Moved the OutSaveFile::finalize method to WriteStream; implemented DumpFile::flush()
+
+svn-id: r33604
+"
+"c92ee34e45f7e1a38ab3ab3463891f4efe96be79","2008-08-04 11:32:42+00:00","Removed join_paths from default save manager, and use FSNode API instead (may lead to regressions, watch out)
+
+svn-id: r33605
+"
+"5f4c9f913f60d1098cbe527a9a4acabd39c5c23b","2008-08-04 11:38:25+00:00","Turned InSaveFile & OutSaveFile into simple typedefs
+
+svn-id: r33606
+"
+"73cbcd33e0b8ffc9a089aa7d8dbf9e5b2c25d6de","2008-08-04 11:46:52+00:00","SCUMM: Only try to load savefile metadata from slots >= 0
+
+svn-id: r33607
+"
+"d061e50a7efc5d5201daff760341b10bc80f55bd","2008-08-04 11:48:33+00:00","DefaultSaveFileManager: Killed class StdioSaveFile, used FilesystemNode::openForReading()/openForWriting() instead (may cause regressions, watch out)
+
+svn-id: r33608
+"
+"05968b18c9dac22951618ce885d8e1587d94d324","2008-08-04 13:25:30+00:00","Modified DumpFile::open to accept non-existing nodes, and to actually open files in write mode -- d'oh
+
+svn-id: r33609
+"
+"2efe13026d3d19583429f7e0de50b062db838980","2008-08-04 15:01:41+00:00","Fixing compilation under MSVC
+
+svn-id: r33610
+"
+"1ed65c1e2ef0ec0cd2de5e144e179218a7c4260d","2008-08-04 15:23:08+00:00","Added Italian translation for the load confirmation window in IHNM
+
+svn-id: r33611
+"
+"92d6ee3d7611617abfe1c4cdcf3a838116c34c95","2008-08-04 17:17:37+00:00","Moved ConfMan.registerDefault calls for savepath to DefaultSaveFileManager (eventually, should be pushed into backends/platform/ code)
+
+svn-id: r33614
+"
+"2f2a4f03d0eda0f7f81fbfb9a8bc9cb95586bd43","2008-08-04 17:41:07+00:00","Modified DefaultSaveFileManager::checkPath to perform at least basic checks on non-UNIX, non-Symbian systems
+
+svn-id: r33615
+"
+"4900a3e96ec7bb8ce2414776f55f96d8c84ebb32","2008-08-04 17:46:22+00:00","Remove some code which was rendered obsolete by md5's commit r33610
+
+svn-id: r33617
+"
+"476e5bbb10743a8d15271363a6ccb2be1bc780e0","2008-08-04 18:14:17+00:00","List the correct engines in about,
+updated actions with Lure (from WinCE).
+Increased min heap size to 5MB
+
+svn-id: r33618
+"
+"99addb709cb4982725c685447774021ad2917e59","2008-08-04 19:32:52+00:00","Fix for misplaced objects in mouse object selection (Operation Stealth specific).
+- Implemented Operation Stealth specific part of getObjectUnderCursor
+which handles negative frame values.
+- Fixed a test case (Should test for ydif <= 0 although tested for ydif < 0).
+- Made part-value be anded with 0x0F in a test case to comply with disassembly.
+- Added comment about a test case which isn't present in the disassembly.
+Removing it makes things crash sometimes so letting it be.
+
+svn-id: r33620
+"
+"4f5479ee744ac6b419cdf7ec1e96fbf7c83d36ef","2008-08-04 19:38:28+00:00","Pushed some port specific code from DefaultSaveFileManager out to port specific code in backends/platform/
+
+svn-id: r33621
+"
+"5dd834488e564be1078679648ab832985b4406c8","2008-08-04 20:00:56+00:00","Symbian build package should now contain drascula.dat also
+
+svn-id: r33623
+"
+"4198ee962399305a4a158b1f43224c00e2e04a1b","2008-08-04 22:34:07+00:00","Merged revisions 33188-33189,33191-33193,33196,33198,33202-33203,33206,33210,33212,33218-33220,33222,33224-33226,33229-33243,33246,33248-33250,33252,33258-33261,33263,33266,33270,33272-33283,33285,33287-33290,33295-33298,33321,33325-33330,33332-33335,33337-33340,33342,33345,33347,33349-33350,33352-33357,33359-33367,33369-33371,33373,33375-33377,33379-33380,33383-33385,33387-33389,33392-33394,33400-33402,33404-33405,33407-33410,33412-33416,33418-33419,33425-33427,33432,33436-33438,33444,33446,33452-33453,33455-33459,33463-33464,33466-33471,33473-33474,33478,33490,33492,33495-33496,33509-33512,33518-33519,33522-33527,33529-33530,33537,33541,33544,33546,33550,33552-33554,33556,33558,33561-33562,33565,33568,33570,33574,33576,33578-33581,33584-33587,33590,33596,33604-33611,33614-33615,33617-33618,33620-33621 via svnmerge from
+https://scummvm.svn.sourceforge.net/svnroot/scummvm/scummvm/trunk
+
+
+svn-id: r33624
+"
+"73185331893cdddd93d9c663456f8792a6ac6eca","2008-08-05 00:21:46+00:00","Fix win32 compile.
+
+svn-id: r33626
+"
+"f7cc93f71ab5b7526a69bae5df80abeafeef5d31","2008-08-05 00:27:25+00:00","Removed unneeded #includes.
+
+svn-id: r33627
+"
+"0725f7ec932311987a936d11cefd4ce50f5fc49e","2008-08-05 02:11:00+00:00","Made changes to keep KYRA and PARA compatible with RTL/GMM
+
+svn-id: r33628
+"
+"2acbc2a88eac1abe4bd548c5eb67a7d90fead4d1","2008-08-05 02:31:26+00:00","Merged revisions 33626-33627 via svnmerge from
+https://scummvm.svn.sourceforge.net/svnroot/scummvm/scummvm/trunk
+
+svn-id: r33629
+"
+"b89c9c9b89a9ae21a5e0ebcf5db7d0d014062ad4","2008-08-05 11:32:16+00:00","Changed implementation parameters/return values to match definition.
+
+svn-id: r33632
+"
+"a9bef1051ec7471a277a2f4300c7165fc6ace4a9","2008-08-05 11:42:04+00:00","Remove file attribute check, since getChild() can be called on file path that doesn'r exist.
+
+svn-id: r33633
+"
+"e2e0b1393b1dc73850d216c2527e40b4b87e38ef","2008-08-05 12:13:01+00:00","Output errors on (some) missing files.
+
+svn-id: r33635
+"
+"966b5eb94eec33f52536e2e4cf9cf3b359fcbaf8","2008-08-05 12:58:23+00:00","Fix prompt updating regression introduced in r32257:
+Previously prompt didn't get updated all the time,
+like e.g. when selecting EXAMINE and moving the
+cursor over to DOOR and then moving the cursor to
+a place where there was no selectable object. The
+prompt would've still shown 'EXAMINE DOOR', now
+it shows just 'EXAMINE' which is correct AFAIK.
+
+svn-id: r33637
+"
+"bedebaccc39bdef75fe316ea20e57c6dec5b501e","2008-08-05 13:08:07+00:00","SCUMM: Don't try to load metadata for slot -1 (i.e. don't try to load metadata if nothing is selected)
+
+svn-id: r33639
+"
+"8d830effc1796684b743d36cc5ff45f3776fd74e","2008-08-05 13:11:22+00:00","SCUMM: cleanup SaveLoadChooser::updateInfos code
+
+svn-id: r33640
+"
+"941706664161b7009db465a0049f25cc282aea10","2008-08-05 18:17:55+00:00","Add detection entry for a previously unrecognized 16 color PC version of Operation Stealth (The John Glames variant).
+
+svn-id: r33642
+"
+"f3ecdaa6fea27d2e286f4b56057bc197cf886254","2008-08-05 19:30:16+00:00","Made rest of resource loading functions used in loadResource return -1 on error.
+This fixed a crash in Operation Stealth when walking out of the airport
+(Some file couldn't be opened and the game crashed because of that.
+Now it doesn't crash but handles the missing file gracefully).
+
+svn-id: r33643
+"
+"df1246bf9fa04f0f72330d8dcea8c003c65f814d","2008-08-05 21:20:11+00:00","Workaround for missing player character animation when exiting the airport in Santa Paragua in at least the 256 color PC version of Operation Stealth.
+
+svn-id: r33644
+"
+"169b27de0a6ed5c5e80d9b0c63b8c4292c9f1742","2008-08-05 21:26:04+00:00","Patch #2014663: Do not mark stack as executable in HQx scaler
+
+svn-id: r33645
+"
+"21cd277f13341375d9badc2c251426fc51448344","2008-08-05 21:38:59+00:00","Fixed some GCC warnings
+
+svn-id: r33647
+"
+"4e66938e8c39778422e1d6a7e17f0f1979e6e0df","2008-08-05 21:43:10+00:00","Committed my patch #2026097 ('ALSA: Try both 65:0 and 17:0 by default'), with a
+slight modification to the README changes. (I don't know how to interpret all
+the output from aconnect, so I'm only documenting 'the most important bit'.)
+
+svn-id: r33648
+"
+"e30d16ddc25f784273ad20ca9833825580240a6f","2008-08-05 21:56:45+00:00","Fixed more warnings
+
+svn-id: r33649
+"
+"af16043008edf6b8ca39993ebdee753d9d52c295","2008-08-05 22:02:24+00:00","Added FIXME comment to ConfigDialog class
+
+svn-id: r33650
+"
+"8bcc4619ec8750266328367f910a4d1fea99eb43","2008-08-06 01:48:46+00:00","Added a check to make sure there is an active engine available when trying to load a game from the launcher
+
+svn-id: r33652
+"
+"eb649983fcc7c05209be30ba6d19b997112dd639","2008-08-06 09:13:57+00:00","SCUMM: Renamed inventoryScript -> inventoryScriptIndy3Mac
+
+svn-id: r33654
+"
+"e7027503f1b0bfbce5f700a9c2e14079105d88d1","2008-08-06 10:32:20+00:00","Workaround for bug #2016521 (DOTT: Bernard impersonating LaVerne)
+
+svn-id: r33655
+"
+"32ad70f60840cc2a6ac79a47dcb4b30b3e9fd7a9","2008-08-06 16:03:06+00:00","Do not query savestates which obviously do not exist (to shut up bogus console warnings)
+
+svn-id: r33664
+"
+"a944497d7586dfb7adb6246667b4625b988a7542","2008-08-06 20:41:53+00:00","HACK: Force oxygen to maximum during Operation Stealth's first arcade sequence.
+This way the arcade sequence is completable now.
+This hack should be removed later and the first
+arcade sequence be made properly playable!
+
+svn-id: r33667
+"
+"66fc0d6a2579bf8346ccb91cce37fe517938156f","2008-08-06 20:47:59+00:00","Add 320x200 screen bounds checking to Operation Stealth's checkCollision function.
+Fixes teleporting bug when getting out of the water after first arcade sequence.
+The player previously got teleported to the beach near the hotel. Now it doesn't happen.
+The player is still caught motionless and can't move after this fix though...
+
+svn-id: r33668
+"
+"a10753e2a1d0f6b0a8d98fd215beac5acd91edd3","2008-08-06 20:54:38+00:00","Renamed page3Raw to collisionPage so it's more apparent what it does.
+
+svn-id: r33669
+"
+"f5e9a3e185088692fe13ece79d86600f2e1d7759","2008-08-06 20:58:02+00:00","Tiny comment update to loadCt-opcodes: Load collision table data.
+
+svn-id: r33670
+"
+"78159c34a1a7de551c7a3b171565ec36656347b6","2008-08-06 21:44:43+00:00","Added RTL feature to Tinsel
+
+svn-id: r33671
+"
+"f41471d34bb6afb1dc0b6604b1952d10ef583765","2008-08-06 21:47:20+00:00","Engine::runDialog() returns a value now
+
+svn-id: r33672
+"
+"92eec1b905c81f068a4e65d54cc1fb8944914592","2008-08-06 23:12:25+00:00","HACK: In Operation Stealth after the first arcade sequence jump player's position to avoid getting stuck.
+The player's position is changed only by *one* pixel but it helps
+and makes it possible to carry on with the game (Previously the player was totally stuck).
+
+svn-id: r33673
+"
+"1a99bce2011ec14772b581ec9df2ba8a90894ecf","2008-08-07 09:10:42+00:00","smartphone-specific code not needed anymore
+
+svn-id: r33674
+"
+"99ade3d25c3d916aa6b95019fca2431a275afc78","2008-08-07 13:36:02+00:00","Initialise the _sound object. Otherwise, ScummVM crashes for me if I use a native
+MIDI driver instead of Adlib.
+
+svn-id: r33678
+"
+"a30ecc96a070f46fe15f5e1114bc73fdc26b6f2c","2008-08-07 18:36:12+00:00","setup interface for later kyra games
+
+svn-id: r33682
+"
+"b8bfd5d04f0436b685ea36a845439e20bb756766","2008-08-07 19:04:19+00:00","Fix for popup boxes sometimes blocking animation when they shouldn't in Operation Stealth:
+- Made waitForPlayerClick updating more like in the original.
+- Moved removeMessages to after the frame drawing in main loop hoping to be more like the original.
+- Added an additional test to Operation Stealth's implementation of overlay type 2 drawing.
+- Added an additional parameter incrementing and testing to Operation Stealth's removeMessages.
+Hopefully this won't cause any regressions in Future Wars!
+
+svn-id: r33686
+"
+"853f4dbbe00afb8d857c821dd6c0ef3aed4733f2","2008-08-07 19:31:12+00:00","Made drawPlainBox handle border cases so it won't corrupt memory so easily. This may help with some memory corruption issues when for an example trying to draw the player's command string out of screen.
+
+svn-id: r33687
+"
+"da84a546943bd28615ccc6e4999e697c855e58d6","2008-08-07 19:46:06+00:00","Added precautionary tests to background scrolling function in Operation Stealth to avoid possible memory corruptions.
+
+svn-id: r33688
+"
+"092d7224b95d611414c2940bf48b095ade6dcf40","2008-08-07 21:46:56+00:00","Implemented game speed changing by pressing - or + to e.g. ease testing.
+
+svn-id: r33689
+"
+"303333352a3393c15958dd888d898a6973629ced","2008-08-07 21:49:55+00:00","fix for bug #2040311: TOUCHE: Missing characters in the spanish version
+
+svn-id: r33690
+"
+"52650efb6a510960109af0b1a040102f57a396e8","2008-08-07 21:50:12+00:00","fix for bug #2040484: TOUCHE: Graphic glitch with long answer options
+
+svn-id: r33691
+"
+"fd65ea311ae0f1ea0ddfe6c4daa7bbe1a79823f9","2008-08-08 02:18:17+00:00","Hopefully allow quiting at any stage AGOS engines games again.
+
+svn-id: r33693
+"
+"f68d52ce4df7630cb86f2ff7e392fa91217d7fe1","2008-08-08 02:49:51+00:00","Remove debug leftover.
+
+svn-id: r33696
+"
+"5cb08bd1e5aca23f685caee0544a77d4824cec15","2008-08-08 13:30:01+00:00","Added basic moving using keyboard (Only works in Operation Stealth at the moment):
+- Should make it possible to complete the first arcade sequence legitimately
+Renamed input variables (Their names were mixed up between Future Wars and Operation Stealth):
+- Future Wars's inputVar1 -> egoMovedWithKeyboard
+- Future Wars's inputVar2 -> xMoveKeyb
+- Future Wars's inputVar3 -> yMoveKeyb
+- Operation Stealth's inputVar0 -> xMoveKeyb
+- Operation Stealth's inputVar1 -> yMoveKeyb
+
+svn-id: r33698
+"
+"70760a77fdb42a18ea9997f7a3c74b613c589af6","2008-08-08 14:46:19+00:00","Partially fix Adlib volume setting in Cine (Now uses music volume for Adlib volume, previously always played with full volume. Doesn't differentiate between playing sound effects and music!).
+
+svn-id: r33700
+"
+"c0701bfcb670e43cf4a26bfefb94bf82a76f62b9","2008-08-08 18:28:13+00:00","Added detection entry for the Sony published CD version of Future Wars.
+Also added decrypting of the crypted AUTO00.PRC for this particular version.
+Now this version should work but no CD audio support for it yet though.
+
+svn-id: r33703
+"
+"8e33f1530c2b61ca49dd62fdcb14c0c6b128c9d4","2008-08-09 10:44:12+00:00","Small cleanup: Renamed rol to rolByte and made it handle all cases.
+
+svn-id: r33708
+"
+"36e6bb27b5c5fed7f304e80801afc4b8fa292ccd","2008-08-09 10:52:48+00:00","Removing moving with keys qweasdzxc for now because they messed with savegame name typing. One can move with the cursor keys anyway.
+
+svn-id: r33710
+"
+"80648431d93dbbeb8707f64e334c31c2e7ec8587","2008-08-09 15:17:32+00:00","Added updating of global variable var5 to Operation Stealth's renderOverlay function's type 20 overlay case (Previously var5 wasn't updated anywhere!). Also added a lower bound for var5's value into a comparison (Previously only the upper bound was tested for).
+
+svn-id: r33712
+"
+"e02f94d3922b39bdc8d0333c2e9fd602aeb40ef6","2008-08-09 16:07:08+00:00","Added preliminary version of drawing type 22 overlays (Such overlays are added with opcode 0xA4 (o2_loadMask22) and removed with opcode 0xA5 (o2_unloadMask22)). Things might be wrong so needs testing! WIP!
+
+svn-id: r33713
+"
+"355f100793c8c8946b5fc418f00b2744cd4b2089","2008-08-09 18:09:24+00:00","fix MR on ce: allocate large buffer on the heap instead and of the stack, and improve the workaround
+
+svn-id: r33714
+"
+"71f4a15e4efebf4de7a25d2b09817cf3a5aa51b5","2008-08-09 18:12:43+00:00","hotfix around drascula mem leak problems. see also bug report
+
+svn-id: r33716
+"
+"f098b2817f03866d062418da289f365826b79d74","2008-08-09 18:37:18+00:00","Updates to the recent OSystem API changes
+
+svn-id: r33719
+"
+"ce3d1e1a7d9ec9860d3fc42d8127a1634051d950","2008-08-09 19:03:29+00:00","Merged revisions 33632-33633,33635,33637,33639-33640,33642-33645,33648,33654-33655,33664,33667-33670,33673-33674,33678,33682,33686-33691,33693,33696,33698,33700,33703,33708,33710,33712-33714,33716 via svnmerge from
+https://scummvm.svn.sourceforge.net/svnroot/scummvm/scummvm/trunk
+
+svn-id: r33720
+"
+"0f0759218471cb79c0e15c67f248ca83176b918d","2008-08-09 19:47:05+00:00","Made drawPlainBox's effective width and height always at least one.
+- Makes oxygen gauge during first arcade sequence visible as it gave drawPlainBox a height of zero.
+Made type 21 overlays be drawn as type 22 (Filled rectangle).
+- For an example the oxygen gauge during the first arcade sequence is a type 21 overlay.
+Flipped type 21 & 22 overlays as it looks correct for the oxygen gauge.
+These features are quite WIP, they need testing to see if they're correct.
+
+svn-id: r33721
+"
+"3e5e5f5342c60f7b48ea451751937c214d61dca9","2008-08-09 19:57:46+00:00","Made type 21 & 22 overlays not be flipped (The oxygen gauge looks actually better when it reaches zero this way although in its fully charged state it still does look a bit off. Disassembly seems to agree with not flipping the overlays so I'm going with this one for now).
+
+svn-id: r33722
+"
+"c60565e108a5e541b00f0f4b6ab1e7dfa476945c","2008-08-09 20:02:56+00:00","Updated the Makefile to the new build system.
+Introduced a Makefile variable to build a gamecube version.
+
+svn-id: r33723
+"
+"09119829549c13c06aa5af80ca01197eb8ce7cda","2008-08-09 20:50:10+00:00","Converted objectTable from a plain array to a Common::Array. Should help to catch out of bounds access errors that may cause memory corruption.
+
+svn-id: r33725
+"
+"983a4f21e51814d4f2a65480c6e571ca5a6fb0c3","2008-08-09 20:55:01+00:00","Converted animDataTable from a plain array to a Common::Array. Should help to catch out of bounds access errors which may cause memory corruption.
+
+svn-id: r33726
+"
+"ef3b72d5e4a7b1772799224fe94ade279ea2fb5a","2008-08-09 22:38:03+00:00","Converted zoneData and zoneQuery tables from plain array types to Common::Array. Should help catch out of bounds access errors that may cause memory corruption.
+
+svn-id: r33727
+"
+"39d2c3bdadfd2e27b109a82f63340d99a15cab44","2008-08-09 22:42:03+00:00","If no default config file is present, just don't load it, instead of crashing
+
+svn-id: r33729
+"
+"dca7116cb54026cfa3ee25148cf3b961f7febdd2","2008-08-09 23:07:32+00:00","Use FSNode API in default OSystem::openConfigFileForReading & OSystem::openConfigFileForWriting method implementations
+
+svn-id: r33730
+"
+"8268b5c210ee5fd7fa264ecd570c98b26b245d60","2008-08-10 00:17:56+00:00","Fixed crash in KyraEngine_HoF::pauseEngineIntern.
+
+svn-id: r33733
+"
+"980b3f8af1318d5b42eb4e5f3c1d0748f46c1a0d","2008-08-10 00:36:46+00:00","Fixed kyra to support properly support restarting of engine (for GSoC RTL, based on a patch from Chris Page).
+
+svn-id: r33736
+"
+"f8355abdee1a85dd3cf387a7fcc74b18b43d2597","2008-08-10 01:28:00+00:00","Added fallback to text only mode when voice files are not found.
+
+svn-id: r33742
+"
+"002c55dfac217faba3187f749c71b1acc7c24044","2008-08-10 17:10:09+00:00","add support for drascula engine
+
+svn-id: r33754
+"
+"cb6cbc69d3e9f14b0d4178e6f0d852bff0d1e006","2008-08-10 17:13:24+00:00","hint the backend to show the VK
+
+svn-id: r33756
+"
+"df12c19dadfeff6c8ae63fc18efbbf3d81c298a7","2008-08-10 17:15:30+00:00","address the ignored events and bad inventory screen handling 'features'
+
+svn-id: r33758
+"
+"327ae17095edb51b2df0ada8cd8eba28463c5127","2008-08-10 17:35:42+00:00","Add checksums for ScummVM repacked Italian and Spanish versions.
+
+svn-id: r33761
+"
+"d08c3ba66ba81a06ef681ea9a49334a80d296609","2008-08-10 17:59:42+00:00","Committed my patch #2040074 ('XMIDI callback control events'). At the moment, I'm
+not aware of any game that actually uses this XMIDI feature, so its primary
+function right now is to silence lots of warnings while running the DOS version
+of Simon the Sorcerer 2.
+
+svn-id: r33763
+"
+"9d0b0523cf119fdc400bf477c2f9d6f4f37ddce6","2008-08-10 18:44:00+00:00","Fixed a bunch of Valgrind warnings (mostly uninitialised variables, but also an
+invalid free()), so that I can start and quit the game without any unexpected
+warnings. (The obvious next step, of course, would be to actually *play* the game
+for a bit...)
+
+svn-id: r33766
+"
+"fcc00f20b93d719c9f7bce848ed7c3600be982b9","2008-08-10 21:58:18+00:00","Merged revisions 33719,33721-33723,33725-33727,33729-33730,33733,33736,33742,33754,33756,33758,33761,33763,33766 via svnmerge from
+https://scummvm.svn.sourceforge.net/svnroot/scummvm/scummvm/trunk
+
+svn-id: r33769
+"
+"c9e0422722eadeabdd0fd0dfe8591f90a3f00e89","2008-08-10 22:53:43+00:00","Added Autosave support for AGI
+
+svn-id: r33772
+"
+"3fdc69941108f98bde114b3528c56c720630cbdb","2008-08-11 14:47:50+00:00","LOL: add support for floppy installer files
+(startup will fail nonethelesse since we have different pak file names)
+
+svn-id: r33777
+"
+"02c9cb35f4e190891a4d59a2f335b817a9147334","2008-08-11 20:09:03+00:00","Changed readBundleFile to unpack data in-place and added debugging messages to the function.
+
+svn-id: r33781
+"
+"c1462dda14e45e14f9070047d62f7b26130525b1","2008-08-11 20:18:33+00:00","Added a safeguard to readBundleFile so it shouldn't corrupt memory even if the input says the data's unpacked size is less than its packed size (This shouldn't ever happen with non-corrupted data).
+
+svn-id: r33782
+"
+"2d5a140725194f8a44d98091b510469f5889275a","2008-08-11 20:41:13+00:00","Changed partBuffer from a pointer to a Common::Array. Removed numElementInPart variable as it's now equivalent with partBuffer.size().
+
+svn-id: r33783
+"
+"d6dde4b85f3f32fe0f602270b9223eaa299db91c","2008-08-11 21:26:41+00:00","Removed textDataPtr pointer as it's not used beyond the loadTextData function. Reworked loadTextData a bit so there are no two loops for the same thing (Also renamed some of the local variables).
+
+svn-id: r33784
+"
+"8aaba9d38e8a0c2259cf7617bb1b07c725a49b0b","2008-08-11 21:45:47+00:00","Changed palPtr from a pointer to a Common::Array named palArray. Removed palEntriesCount variable as it's now equivalent to palArray.size().
+
+svn-id: r33785
+"
+"36e0d2eab8bc920d337d8e6f1436e057049ffac6","2008-08-11 22:26:25+00:00","Moved fontParamTable inside TextHandler struct and made it a constant size as that's what it is (No need for using malloc & free anymore). Previously we would've tried to free an array that wasn't heap-allocated in freePoldatDat (Freeing fontParamTable_standard or fontParamTable_alt), that's fixed.
+
+svn-id: r33786
+"
+"15ca9704989347a65c8c883f7d6a9337e5d8e7d5","2008-08-11 22:43:00+00:00","video mode polishing:
+* proper fullscreen video mode
+* multiple graphic modes with different overscan values
+* 'fullscreen mode' stretches the picture on 16:9 displays
+* fixed broken sword 1/2 gfx garbage
+* support for setShakePos()
+
+svn-id: r33787
+"
+"c8188bf344fa99dc762d9658a7bdd75da618c5a0","2008-08-11 22:44:29+00:00","build a wii binary per default
+
+svn-id: r33788
+"
+"88ec480cef8d637c2fd69b8197ab3c7de39ede8b","2008-08-11 23:01:32+00:00","Implemented drawMessage changes for Operation Stealth's timed cutscenes (Negative colors are used for timed text boxes that are totally transparent, only the text is drawn).
+
+svn-id: r33790
+"
+"96a1ca17090eb17157707a9e989eec3ebb7c94fc","2008-08-11 23:20:10+00:00","Made Operation Stealth's action failure messages use a background color set by the opcode 0x49 'o1_setDefaultMenuBgColor'. Should fix the 'text hard to read' problems.
+
+svn-id: r33792
+"
+"c935a09ef53a594f408d3279cd30c783bade9ed1","2008-08-12 00:13:27+00:00","Changed commandBuffer from a char[80] to Common::String and made FWRenderer::setCommand use a Common::String. Hopefully this might help with the command buffer overflow stuff, although this isn't a fix for the problem behind it, just a bandaid.
+
+svn-id: r33793
+"
+"811e4b3128de561289a19806c854ea05a9ab96b5","2008-08-12 14:44:44+00:00","Implemented Operation Stealth specific parts of processInventory and added another mouse button waiting loop into the function's end (It's in both Future Wars and Operation Stealth). Fixes inventory showing in Operation Stealth.
+
+svn-id: r33795
+"
+"eb9633ee1e085df0ce7fc747a5ee58891c2aa986","2008-08-12 19:33:17+00:00","Implemented Operation Stealth's makeCommandLine.
+
+svn-id: r33805
+"
+"e547eeb116a7747aaf49f82a626418ecf9cc69e9","2008-08-12 20:27:49+00:00","Tiny comment fix.
+
+svn-id: r33807
+"
+"095fa5552754626fb12f5c6bc97104697658d671","2008-08-12 20:58:26+00:00","Fix for GCC warning in OSRenderer::renderOverlay: declaration of 'len' shadows a previous local.
+
+svn-id: r33808
+"
+"03edc74ef69cdedfc440607cad2109500d87d2e3","2008-08-12 21:23:40+00:00","fix typo 'baclup' -> 'backup'
+
+svn-id: r33809
+"
+"00cbedb25f891ef508e71c49ffa0f9973361ba60","2008-08-12 22:45:38+00:00","Added possibility to get the read resource's size from readBundleFile. Made loadMsg handle input data that has empty strings residing just beyond the input buffer (Thanks Valgrind :-)).
+
+svn-id: r33810
+"
+"954244d3502343cc945f730bddd116f1e461d46f","2008-08-12 23:44:39+00:00","Fixed drawPlainBox's boundary checking (It wrote outside the screen occasionally). Now using the Common::Rect for clipping, yay! It's good.
+
+svn-id: r33811
+"
+"582104752b337adcc2f51b3fa4842a0b8a5b42db","2008-08-12 23:56:13+00:00","Hopefully fixes 'Conditional jump or move depends on uninitialised value(s)' Valgrind warning at sound.cpp:611.
+
+svn-id: r33812
+"
+"eeba630cbf48b093bd07d3e8413d6059fddb07df","2008-08-13 01:02:00+00:00","Changed Agi::SoundMgr's sound buffer to a member array of size BUFFER_SIZE. Also added initialization of _playing to false in SoundMgr's constructor. Hopefully helps with the occasional crashes in the sound code when starting the first sound in an AGI game.
+
+svn-id: r33815
+"
+"be9192687b22e11bee2fe98f5e06a7a2dd623fd1","2008-08-13 01:10:03+00:00","Shutting up Valgrind about using uninitialised values from array _chn in function stopNote.
+
+svn-id: r33816
+"
+"9b8665fa85ae2a65d448ad9dba06dd27455f48d1","2008-08-13 10:13:22+00:00","Clarify SCUMM MD5 message: We do not want reports on fanmade translations
+
+svn-id: r33817
+"
+"f69cc559b9d35526b25ac76bcc82046471b39d06","2008-08-13 11:36:45+00:00","Reverted r33815 (But not r33816).
+
+svn-id: r33819
+"
+"09762ac7a6c7e201b44466b8286aa1e53e7fadaa","2008-08-13 11:57:48+00:00","Fixed initialization of some SoundMgr-class's member variables. Moved _sndBuffer's allocation to SoundMgr's constructor and its deallocation to the destructor. Made fillAudio SoundMgr's method and removed a superfluous global static variable 'int16 *buffer'. Should help with the occasional crashes when starting the first sound in an AGI game.
+
+svn-id: r33822
+"
+"6ee8022bac3d14fae9b9d0548e2a638534c6d0ac","2008-08-13 13:40:28+00:00","Type 21 overlay comment update (Found the drawing routine in the disassembly and checked the original for how the oxygen gauge during the first arcade sequence looks like. They're some kind of sprites most likely and not just simply filled rectangles).
+
+svn-id: r33826
+"
+"e514760c7a32a10e5b2f9f0022c80266b54632e3","2008-08-13 15:16:38+00:00","fix bug #2038992 by saving and restoring channel volumes
+
+svn-id: r33829
+"
+"0f95bb9fd516ad9d61f9d8ccc492cdb1c69cfc87","2008-08-13 19:10:31+00:00","Added detection entries for kyra3 Mac.
+
+svn-id: r33837
+"
+"5a54dc61a43a7f911a2ef230da9258e3b41fd691","2008-08-13 19:13:53+00:00","fix bug #1910057: FT multifunction
+
+svn-id: r33839
+"
+"56c9e3ab04825845c6f6fd9af9f740a5a715c51a","2008-08-13 19:32:25+00:00","fix a small bug in the quit dialog
+
+svn-id: r33844
+"
+"2d31207a8169491647d8fa3baab7eadbfdfa1da9","2008-08-13 20:27:39+00:00","Fixed some memory leaks
+
+svn-id: r33846
+"
+"8a84e3a46f5e336ed983f1b9b44f6425a9720082","2008-08-13 20:37:54+00:00","cleanup
+
+svn-id: r33847
+"
+"8d8c46e36fade04d4452f0ce1fbdd3ee942ac898","2008-08-13 20:45:00+00:00","Cleanup: Got rid of _quit and _rtl variables in engine.h/.cpp which are not used anymore.  Found some _quit flags in Agos and Gob and replaced with bool quit() where appropriate
+
+svn-id: r33848
+"
+"4f00562bb2a0343259caa8d276e351ed8f94baf2","2008-08-13 21:37:02+00:00","Fixed some memory leaks in Tinsel
+
+svn-id: r33849
+"
+"6bebff8ab0f6f7d440a83d7109ee46047085c5cc","2008-08-14 00:26:57+00:00","Fixed a memory leak in Agos
+
+svn-id: r33852
+"
+"c747e1d1050a22b45c014f91612cb9082a722eeb","2008-08-14 03:50:48+00:00","Added 'delete' button to the launcher's load dialog, implementation for deleting a savegame to come
+
+svn-id: r33855
+"
+"5acac50f54e1f927cd2b738c4f2feefb31a5e793","2008-08-14 06:51:04+00:00","Added implementation for deleting savestates from the launcher for engines which do NOT use an index file.  Implementation for those engines that do to come
+
+svn-id: r33857
+"
+"4a46c99026b4287c8cbb69d60a4ddeb3f8026bd7","2008-08-14 07:10:42+00:00","Removed cross-references between the general parser and the text formatter. To achieve this, I have rewritten the latter for both NS and BRA.
+
+svn-id: r33858
+"
+"5cfa50f02839dd34a3f600f36000b989c614c5b2","2008-08-14 07:14:34+00:00","Finally moved parseNextToken to Script, where it belongs!
+
+svn-id: r33859
+"
+"4447be7102ec0689ed5a27f14a61a51532848dfe","2008-08-14 10:04:43+00:00","Cleanup.
+
+svn-id: r33860
+"
+"15f4bc43cf03b7e1f69b883ea5c5f2d17d2798ef","2008-08-14 10:24:39+00:00","More cleanup.
+
+svn-id: r33861
+"
+"d3440f2cc5f7cb6e617d8e04047808ba38c8b7d6","2008-08-14 13:45:32+00:00","Some variable renamed to make more sense.
+
+svn-id: r33864
+"
+"63f31692133a085f9aaf9a0635afaa0cc62870d6","2008-08-14 20:18:13+00:00","Added debug showing of the collision page when pressing the Alt key. Alt isn't used for anything else so one might as well use it for this.
+
+svn-id: r33871
+"
+"c2c2e940d0fc3960529e757195190568adb34580","2008-08-14 20:49:34+00:00","Fix for bugging moving at the bottom of the ocean when trying to free the girl from the ropes and swimming to the surface. Some global variables related to mouse position weren't being updated in executePlayerInput, now they are and things seem to work. Also enables moving in the labyrinth arcade sequence at the palace.
+
+svn-id: r33872
+"
+"8fe533657c4387ffcd0212c7e36aacc4b790cb80","2008-08-14 21:21:04+00:00","- HOF: another Italian fan translation
+
+svn-id: r33873
+"
+"3f316681a00108d668867261a93e9ae789aa058f","2008-08-14 21:34:29+00:00","- HOF: forgot french and german entries in last commit
+
+svn-id: r33875
+"
+"e56359eac0d994c18e79a8a3a19acfcbedc0e0fb","2008-08-14 22:01:56+00:00","Moved showing of the collision page from Alt-key to F11-key because Alt conflicted with taking screenshots using Alt-s. Great. Hopefully F11 doesn't conflict with anything useful.
+
+svn-id: r33877
+"
+"027e6c51a8279a7e4e2a66ddb40cf6bfc31af3c6","2008-08-14 22:09:36+00:00","Improved version of my resource loading patch from -devel (check also r33876).
+
+svn-id: r33878
+"
+"7b87867a4865493246c15f2f18f3c2c7fad3d316","2008-08-14 22:11:56+00:00","Formatting.
+
+svn-id: r33879
+"
+"d6ac646d0bebb1a67a3578b3462a65f4c44c4813","2008-08-14 23:46:37+00:00","lol: new detection entry (german floppy extracted)
+
+svn-id: r33886
+"
+"ea2a2cbb7c3a0d8721f1968414bd421a43b13596","2008-08-15 02:52:42+00:00","Simplified handling of script variables (especially locals).
+
+svn-id: r33889
+"
+"2679f6ce7ae1d3810187f8472d9cf8fe2368d83c","2008-08-15 03:36:01+00:00","Disabled lip syncing code in BRA, since I couldn't find any scripts actually using it. Some warnings have been added as a sentinel.
+
+svn-id: r33890
+"
+"c70d09bc26c28b565de022491dfa164bc1d720e6","2008-08-15 03:59:45+00:00","Made scripts access Animation fields via accessors and mutators, instead of using raw pointers.
+
+svn-id: r33891
+"
+"0606fef24e03580d2d2f3c34f9fd254f361d7623","2008-08-15 04:30:45+00:00","Made coordinates and frame number protected into Zone and Animation, and changed client code to use get/set. This will allow various simplifications (e.g. when calculating Z), and is a step towards correct handling of interactive zones of Zone/Animation in BRA.
+
+svn-id: r33892
+"
+"5bc5855ae9148672b242bd99f3faf5e7ede93ac8","2008-08-15 07:10:23+00:00","Added some MetaEngineFeatures, defined MEFs for the Scumm engine
+
+svn-id: r33893
+"
+"22eaffcb343c688defbcd53445ad111390edb71d","2008-08-15 08:44:41+00:00","Updated layer calculation: animations are now hidden properly by background elements (but not items yet).
+
+svn-id: r33894
+"
+"4e0485197fcfb6e8807996e5bf179c0249a7369c","2008-08-15 10:47:42+00:00","Fixing a segfault in the Bargon Attack menu
+
+svn-id: r33896
+"
+"05a021fd952c4d35ab82f487753162f3ed3bbd43","2008-08-15 14:25:43+00:00","Added routines to load and handle item masks: animation are now correctly hidden when they are behind any object. The masks of items that are not explicitly activated (even if visible) still are handled (e.g. the crown in the museum is not visible in the foreground).
+
+svn-id: r33900
+"
+"b4a2aee9640485b28ca61776c9c620b34747e451","2008-08-15 14:38:25+00:00","UpdUpdated actions and Readme for Symbian OS port!
+
+svn-id: r33902
+"
+"7891e5afceff341c2a225a1f1856ea870f2e015d","2008-08-15 15:08:08+00:00","Implemented raster operation for masks and postponed blitting of zones after everything in the location has been loaded. This fixes the remaining problems with animations not being masked by items.
+
+svn-id: r33903
+"
+"9d3cdcb2da64ae3afdcd19f1ea18a917f9318190","2008-08-15 18:15:14+00:00","Defined some MetaEngineFeatures for the engines, the launcher uses these features to allow/disallow loading and deleting saves
+
+svn-id: r33909
+"
+"ad5b550df8d428a0e7b94e681c63d73422620adc","2008-08-15 18:26:59+00:00","Small correction for last commit
+
+svn-id: r33910
+"
+"7e49b2e8a1ab7a856795bffdd1cee44ab5d114e9","2008-08-15 19:44:17+00:00","Fixes for Cine engine loading from launcher
+
+svn-id: r33914
+"
+"603f0a2f8c9a57f48c6a1d4b3ae7f12ed7e4d25f","2008-08-15 20:49:56+00:00","Fixes for Sword1 engine loading from launcher
+
+svn-id: r33915
+"
+"dca5f7dc20743d57c30ee2978979c3f5b313658f","2008-08-15 21:25:24+00:00","If the last savegame is deleted, reset save_slot in config man to -1
+
+svn-id: r33918
+"
+"f2111eeb45dc8c41afb3e63bf3b86a09bf9a3532","2008-08-15 22:06:15+00:00","SCUMM: Made some potentially ambiguous (to the reader, at least) checks slightly less ambiguous
+
+svn-id: r33919
+"
+"ec8dac5540d87925525523eb1715abc1ec271261","2008-08-16 02:53:16+00:00","Added a MetaEngineFeature for RTL support, the RTL button is disabled in the GMM if the engine doesn't support it
+
+svn-id: r33921
+"
+"20f0bb7a40776f4ed64de29898c3939f1c13a8ba","2008-08-16 02:57:30+00:00","Added documentation to the README, also added --list-saves to the HELP_STRING in commandline.cpp
+
+svn-id: r33922
+"
+"c22f9b23588121d41fe0a12ce44926d683d7a18d","2008-08-16 04:15:11+00:00","Fixes for Parallaction loading from launcher
+
+svn-id: r33923
+"
+"909b66ef54f8d6d6dfeb0fdee2aa018f2065b6c9","2008-08-16 04:30:01+00:00","Merged revisions 33777,33781-33788,33790,33792-33793,33795,33797,33805,33807-33812,33815-33817,33819,33822,33826,33829,33837,33839,33844,33847,33858-33861,33864,33871-33873,33875,33877-33879,33886,33889-33892,33894,33896,33900,33902-33903,33919 via svnmerge from
+https://scummvm.svn.sourceforge.net/svnroot/scummvm/scummvm/trunk
+
+svn-id: r33924
+"
+"086e3bb963d4d91a35c0a8c879e2edb877b2d863","2008-08-16 05:40:37+00:00","After merging trunk, Cine doesn't crash on RTL anymore. Awesome.
+
+svn-id: r33926
+"
+"8e9bbf0e31ce222a31b02cee6edaa932a7bc5ecd","2008-08-16 19:00:29+00:00","Fixed typo in the README
+
+svn-id: r33945
+"
+"58166351c6420ce1f6f0b7daac4b0ee6f1e43390","2008-08-16 22:06:44+00:00","Made sure to set the loading slot AFTER selecting the active domain when loading from the launcher.  Also fixed the flickering Virgin logo in BASS
+
+svn-id: r33949
+"
+"370cc6615e5700c31c7b9dae49e19b0573cdee62","2008-08-16 22:30:19+00:00","Fixed volume change after loading a game in Saga
+
+svn-id: r33952
+"
+"d370c8eedda98c1bd1601844cf2c91c559bce49d","2008-08-16 22:42:19+00:00","Agos volume levels changed by the keyboard correspond now sync with the config manager
+
+svn-id: r33954
+"
+"f45749759e8788b7751dbd6423a4471be4e80f22","2008-08-17 02:02:22+00:00","Added ScummVM Title and version info to GMM
+
+svn-id: r33955
+"
+"c559546020af4313a620f5f7e839d79ba1887909","2008-08-17 22:24:55+00:00","Formatting corrections to the previous README commit
+
+svn-id: r33979
+"
+"852bc9dbb750b9995d31e70f4158c97d3758c46f","2008-08-17 22:50:05+00:00","Added a confirm dialog for deleting savegames
+
+svn-id: r33981
+"
+"c2c8856f0d1cc051d72ab2d91246799daa17eba1","2008-09-03 23:24:18+00:00","Reverted an incorrect change made to SKY regarding the Virgin logo
+
+svn-id: r34322
+"

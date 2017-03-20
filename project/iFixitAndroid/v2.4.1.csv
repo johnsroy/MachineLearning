@@ -1,0 +1,314 @@
+"commit id","commit date","commit message"
+"ae89bb2d748da173922071ae67bd398bd5cd9334","2014-01-17 16:41:56-08:00","Upgrade gradle-android-plugin to 0.7
+
+Unfortunately this results in some duplicated code because buildConfig
+was changed to work on individual fields with buildConfigField so you
+can't construct the value in a method.
+"
+"832217d31f0404b3a6fa3adf42367fbfbf6c07cb","2014-01-20 16:44:31-08:00","Fix DEV_SERVER in release
+
+Turns out you need to pass in a string that contains 2 double quotes.
+"
+"a419d3da2e971c39183645e37189f2d40a329c9e","2014-01-24 10:52:16-08:00","Update build tools and gradle plugin
+
+Might as well.
+"
+"8528712bbe1dc59bf61ff81f17d45025b0fbb43c","2014-01-27 11:42:05-08:00","Merge upgrade-gradle-android-plugin (#186) into master
+
+Upgrade gradle-android-plugin to 0.8
+
+Unfortunately this results in some duplicated code because buildConfig
+was changed to work on individual fields with buildConfigField so you
+can't construct the value in a method.
+"
+"d1fbc9b89897f919d0ae4ecd163ee0b6891c0fce","2014-02-11 15:04:44-08:00","Fix accustream search suggestion authority
+"
+"eb1908cb211fa8f66b09a50497a94bf756124120","2014-02-17 12:28:22-08:00","Step edit text: Remove autoComplete
+
+http://stackoverflow.com/questions/13831955/using-textautocorrect-and-textautocomplete-together-in-android
+
+Apparently textAutoCorrect and textAutoComplete are mutually exclusive
+and textAutoComplete takes precedence. Turns out, textAutoComplete
+doesn't get us much of anything unless we want to add a custom glossary
+for completion choices. textAutoCorrect gives us auto correction and
+'double space to period space' that is really useful.
+
+Note: This is now the same as the step title with 'textMultiLine'
+rather than 'textShortMessage'. Also, I removed 'text' because
+'textMultiLine' implies 'text'.
+"
+"5679629a4b6b7dca61fe5f6519169b2126ae3f0c","2014-02-19 17:50:39-08:00","Fix Teardown intent filtering
+"
+"1cf8f50c3e5d49a521bb2e6f8cd1f429764c4018","2014-02-24 11:34:30-08:00","Merge fix-step-edit-auto-correct-input (#192) into master
+
+Step edit text: Remove autoComplete
+
+http://stackoverflow.com/questions/13831955/using-textautocorrect-and-textautocomplete-together-in-android
+
+Apparently textAutoCorrect and textAutoComplete are mutually exclusive
+and textAutoComplete takes precedence. Turns out, textAutoComplete
+doesn't get us much of anything unless we want to add a custom glossary
+for completion choices. textAutoCorrect gives us auto correction and
+'double space to period space' that is really useful.
+
+Note: This is now the same as the step title with 'textMultiLine'
+rather than 'textShortMessage'. Also, I removed 'text' because
+'textMultiLine' implies 'text'.
+"
+"59b0f69ba734388f84c93327ebd12bb27172f4a1","2014-02-24 11:34:56-08:00","Merge fix-teardown-intent-filtering (#189) into master
+
+Fix Teardown intent filtering
+
+In my [refactoring of intent filtering](de5dff3d4a5ef58d0c7cde5e9695dfacdc5ecd40), I introduced a bug that causes teardown URLs (e.g. `/Teardown/Macintosh+128K+Teardown/21422`) to not open guides correctly. We just need to check for `teardown` as well as `guide` to match a guide view URL.
+"
+"3b4c4f5a5147304d8b16a11ee4c90bcc784a0894","2014-02-21 13:59:52-08:00","build.gradle: Refactor of productFlavors
+
+So now we aren't duplicating a bunch of buildConfigField values.
+Note: There is a modification of gradle.properties to work with these
+changes.
+"
+"34f02221a5f1517fd755c7fdea505f8a1778009a","2014-02-27 15:22:58-08:00","Rename MainApplication to App
+
+It makes sense to have a short name because it's used in so many places.
+The name 'MainApplication' isn't any more descriptive anyway.
+"
+"b2ca743443fb08cbadc0968b1eef49ec066f990b","2014-02-27 16:06:46-08:00","Merge rename-mainapplication-to-app (#202) into master
+
+Rename MainApplication to App
+
+It makes sense to have a short name because it's used in so many places.
+The name 'MainApplication' isn't any more descriptive anyway.
+"
+"671b2dcca88344e4c847e2d9ba62a07f0b568a22","2014-03-03 11:04:52-08:00","Merge refactor-product-flavors-definitions (#199) into master
+
+build.gradle: Refactor of productFlavors
+
+So now we aren't duplicating a bunch of buildConfigField values.
+Note: There is a modification of gradle.properties to work with these
+changes.
+"
+"5512a7e7068216df76426cfd619a9af0f704e5c5","2014-03-04 15:39:32-08:00","Always ensure guide exists before saving step
+
+1. Create New Guide
+1. Enter some step content
+1. Hit the plus to create a new step.
+1. Hit 'Yes' to save the current step.
+1. Crash.
+
+Now we always ensure that the guide exists before trying to save a step
+and everything works itself out.
+"
+"ee453cf2de217893fb5e1ef2d94e849e422138dc","2014-03-04 15:42:54-08:00","Step save dialog: Don't try to add a new step
+
+This always caused an extra toast to be displayed which confuses the
+user because the message conflicts with the dialog. A new step is added
+after the step is saved by setting the flag so it was entirely
+unnecessary.
+"
+"609921bd2b9358a3e8fcf0e80dbfc86bcf6e1b19","2014-03-04 17:47:23-08:00","Dozuki: Fix QR Code Scanner dependency
+
+Just a simple copypasta error that resulted in Dozuki without the ZXing
+library which renders the QR code scanner feature useless.
+"
+"3bf365a081c39733ccd56e3d96bbc67e353a6880","2014-03-04 17:48:55-08:00","SSO login: Fix webview
+
+I'm not sure what exactly what caused the issue, but the WebView used to
+display OpenID/SSO login wasn't displaying any content.
+
+I think it was ultimately a combination of the following:
+
+- Upgrading to 4.4 which uses Chrome for the default WebView client
+- Loading pages with insecure content
+- Layout width
+- Overriding the WebChromeClient
+- Not specifying a wide viewport
+
+At any rate, this code is more consistent with the other WebView we use
+for displaying Answers and no longer exhibits any of the aforementioned
+problems.
+"
+"5fc5c46976ef2d44686fb6968dc757416f880bf5","2014-03-05 12:05:54-08:00","Merge sso-signon--fix-webview (#206) into master
+
+SSO login: Fix webview
+
+I'm not sure what exactly what caused the issue, but the WebView used to
+display OpenID/SSO login wasn't displaying any content.
+
+I think it was ultimately a combination of the following:
+
+- Upgrading to 4.4 which uses Chrome for the default WebView client
+- Loading pages with insecure content
+- Layout width
+- Overriding the WebChromeClient
+- Not specifying a wide viewport
+
+At any rate, this code is more consistent with the other WebView we use
+for displaying Answers and no longer exhibits any of the aforementioned
+problems.
+"
+"075972e916de8566af12f1de29c40efa9f20b1cd","2014-03-05 12:06:17-08:00","Merge guide-edit--fix-missing-guide-step-add (#204) into master
+
+Always ensure guide exists before saving step
+
+1. Create New Guide
+1. Enter some step content
+1. Hit the plus to create a new step.
+1. Hit 'Yes' to save the current step.
+1. Crash.
+
+Now we always ensure that the guide exists before trying to save a step
+and everything works itself out.
+"
+"b335cef1974cbccf7462f88533de0e221506f194","2014-03-05 12:06:26-08:00","Merge dozuki--fix-qr-code-scanner-dependency (#205) into master
+
+Dozuki: Fix QR Code Scanner dependency
+
+Just a simple copypasta error that resulted in Dozuki without the ZXing
+library which renders the QR code scanner feature useless.
+"
+"a0ab493553972971c1913209869fd6bb774dc220","2014-03-05 14:14:06-08:00","IntentFilter: Fix guide view orientation crash
+
+1. Navigate to a guide through the IntentFilterActivity (scan a QR code
+or view a guide/category/search URL).
+1. Change orientation.
+1. Crash
+
+I couldn't ever fully track down the issue, but doing the above resulted
+in a DeadEvent _before_ `onGuide` was eventually called. The DeadEvent
+was retried when changing orientation which happens before onCreate.
+This resulted in a crash because the ViewPager wasn't initialized yet.
+Removing the call to `finish()` fixed the DeadEvent issue and
+subsequently the orientation issue.
+"
+"4b24e2b063e63e5d729e051149aaebee1c7a2798","2014-03-05 14:43:43-08:00","Merge intent-filter--fix-guide-view-orientation-crash (#208) into master
+
+IntentFilter: Fix guide view orientation crash
+
+1. Navigate to a guide through the IntentFilterActivity (scan a QR code
+or view a guide/category/search URL).
+1. Change orientation.
+1. Crash
+
+I couldn't ever fully track down the issue, but doing the above resulted
+in a DeadEvent _before_ `onGuide` was eventually called. The DeadEvent
+was retried when changing orientation which happens before onCreate.
+This resulted in a crash because the ViewPager wasn't initialized yet.
+Removing the call to `finish()` fixed the DeadEvent issue and
+subsequently the orientation issue.
+"
+"f61e005a419ef9726ebaa8352ef9359533a3cc95","2014-03-05 15:54:39-08:00","Barcode scanner: Fix failing scan result parsing
+
+1. Go to the Media Manager.
+1. Add an image from the Gallery.
+1. A 'Failed to parse result' toast is displayed but everything works as
+expected.
+
+This is caused by the ZXing library parsing the Activity result but
+returning a null `IntentResult` because the request codes didn't match.
+The app didn't crash because the parsing code is all wrapped in a
+try/catch to swallow all errors because of the tricky reflection. This
+fixes the bug which removes the awkward Toast.
+"
+"4f6b27b30c7afb6188a04a4e539da13dbee759a1","2014-03-05 16:01:10-08:00","Merge barcode-scanner--fix-result-parsing (#210) into master
+
+Barcode scanner: Fix failing scan result parsing
+
+1. Go to the Media Manager.
+1. Add an image from the Gallery.
+1. A 'Failed to parse result' toast is displayed but everything works as
+expected.
+
+This is caused by the ZXing library parsing the Activity result but
+returning a null `IntentResult` because the request codes didn't match.
+The app didn't crash because the parsing code is all wrapped in a
+try/catch to swallow all errors because of the tricky reflection. This
+fixes the bug which removes the awkward Toast.
+"
+"7a57a50e8fe8f0a38d7aba33df8b33122a0aef9a","2014-03-05 16:32:58-08:00","Step edit: Fix focus-induced jumping
+
+1. Open step edit on a step with lots of text.
+1. Focus is given to the step title EditText which causes the view to
+jump down and hide the images.
+
+The timing is especially awkward on this because everything is peachy
+until ~0.5 seconds after the page is swiped over -- _then_ it jumps down
+in a disorienting fashion.
+
+Removing all focus-related attributes on the title fixed it while still
+giving it the primary focus.
+"
+"c3707e4e6ae09862731b640457b938822cc9936f","2014-03-05 16:40:06-08:00","Merge step-edit--fix-focus-jumping (#211) into master
+
+Step edit: Fix focus-induced jumping
+
+1. Open step edit on a step with lots of text.
+1. Focus is given to the step title EditText which causes the view to
+jump down and hide the images.
+
+The timing is especially awkward on this because everything is peachy
+until ~0.5 seconds after the page is swiped over -- _then_ it jumps down
+in a disorienting fashion.
+
+Removing all focus-related attributes on the title fixed it while still
+giving it the primary focus.
+"
+"e6cf92d16471d728087bdabe803a389ba991080d","2014-03-05 17:32:15-08:00","Guide view: Fix restore fragment state crash
+
+We've had several puzzling crash reports for a while:
+`android.os.BadParcelableException: ClassNotFoundException when unmarshalling: android.support.v4.app.FragmentManagerState`
+
+I finally reproduced it:
+
+1. Enable `Settings` -> `Developer options` -> `Don't keep activities`.
+1. Open guide view.
+1. Click on a part or tool.
+1. Hit back.
+1. Swipe to other steps and back.
+1. Go to 3.
+
+In my experience it takes 2 tries to get it to crash. Turns out it's a
+bug in the support library:
+https://code.google.com/p/android/issues/detail?id=37484#c1
+
+The upside is that it's an easy fix. The downside is that we have to
+extend the class at `android.v4.app.FixedFragmentStatePagerAdapter` and
+use that one in place of the default implementation.
+"
+"1fd31fca2109c066315dea9e429fb7719ed71b44","2014-03-05 18:09:35-08:00","Merge guide-view--fix-restore-fragment-state (#212) into master
+
+Guide view: Fix restore fragment state crash
+
+We've had several puzzling crash reports for a while:
+`android.os.BadParcelableException: ClassNotFoundException when unmarshalling: android.support.v4.app.FragmentManagerState`
+
+I finally reproduced it:
+
+1. Enable `Settings` -> `Developer options` -> `Don't keep activities`.
+1. Open guide view.
+1. Click on a part or tool.
+1. Hit back.
+1. Swipe to other steps and back.
+1. Go to 3.
+
+In my experience it takes 2 tries to get it to crash. Turns out it's a
+bug in the support library:
+https://code.google.com/p/android/issues/detail?id=37484#c1
+
+The upside is that it's an easy fix. The downside is that we have to
+extend the class at `android.v4.app.FixedFragmentStatePagerAdapter` and
+use that one in place of the default implementation.
+"
+"753baaa4d6eb29fbfa8f0f8477e8906b77b213ac","2014-03-05 18:45:23-08:00","Fix MediaFragment.getPath() NPE
+
+From crash report in the PlayStore. ContentResolver.query() can return
+`null` so we must guard against that.
+"
+"88aac95ff2e83b6a250bbebf7ad28d88e373c416","2014-03-05 19:06:08-08:00","Bump version codes for 2.4.1 release
+"
+"bf1faed36ebfc6737ca1738f74504b2f1e4a16e1","2014-03-05 20:15:48-08:00","Fix flavor extension
+
+Turns out it didn't exactly work out like it was supposed to because
+minSdkVersion is a function that must be called rather than a value that
+needs to be assigned. It's easy enough to just conditionally include it
+in the productFlavors definitions.
+"

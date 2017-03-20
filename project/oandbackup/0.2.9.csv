@@ -1,0 +1,355 @@
+"commit id","commit date","commit message"
+"f21ebd68833b9863a819badefabb5a3ee7d9ca27","2014-03-14 16:05:45+01:00","check for null on listFiles when compressing
+
+also changed the fileList variable from global to local.
+"
+"705f5d27ecf81be5fe5dc6eb6b54af8fc4e1e940","2014-03-14 19:13:04+01:00","only display option to back up apk if there is a path to it
+
+with the introduction of special backups there will be apppinfos
+without a path to sourcedir. check for that so the option to
+back up apk isn't displayed and the method to delete old apks
+isn't called if there isn't an apk.
+"
+"fa8c4b039c9bb391f3fe8dfd693507fff9f73845","2014-03-16 15:18:53+01:00","remounting with toolbox mount when restoring system apps
+
+for some reason busybox mount in some situations fails without error
+when remounting. toolbox mount generally seems to be safe.
+"
+"e01e9a99de2df06728dbe01c93d6b2a7bf260070","2014-03-16 15:32:08+01:00","show su error message more prominently
+"
+"bdfc24907a74f1706653a7d7956234c49433e05c","2014-03-16 16:28:07+01:00","use SparseIntArray instead of HashMap<Integer, Integer>
+
+sparseintarray is more memory efficient than mapping mapping
+integers using a hashmap.
+http://developer.android.com/reference/android/util/SparseIntArray.html
+"
+"bfe538825a37834a857131a530083aadefc2c0c3","2014-03-16 16:45:37+01:00","use english locale instead of root
+
+the root locale has an api level too high. use the english locale
+instead for language-independant conversions to lower case.
+"
+"2a918c4daf973d357123413f5f3aaa11b1dc3a1d","2014-03-17 13:49:41+01:00","use a regular expression to get uid and gid
+
+using regex removes the need for grep and awk and for the second
+command since the regex can account for the whitespace in front
+of 4 number uids.
+"
+"70c7e718ce36b5dda35d5d6ed6792949517c3dd8","2014-03-20 21:25:59+01:00","update readme
+"
+"cd15c0b4aa9312901e042d7a8e328c502d95db3a","2014-03-24 18:28:03+01:00","update readme
+
+add instructions for cross-compiling busybox
+"
+"7cd3abe618a246b87ddfa60a6eb2cfb484efaccc","2014-03-24 21:29:25+01:00","add warning if scheduling interval is zero
+
+an interval of zero days is ignored by HandleAlarms and should
+therefore result in a warning.
+"
+"097d6e7c706cb6ed2e08ca79f9659e62a825e75a","2014-03-24 21:53:29+01:00","add option to disable notifications
+
+as requested by issue #54 (https://github.com/jensstein/oandbackup/issues/54)
+this adds an option to disable notifications.
+"
+"313e43db97ef45b91784de2a9e621e5bbf1fb881","2014-03-27 13:59:42+01:00","count the starting day when scheduling backups
+
+take the day the backup was scheduled into account when calculating
+the time to set its alarm. in this way, backups scheduled to run
+every day will start on the same day they are set.
+compare the scheduled hour to the current hour to prevent backups
+getting scheduled in the past. this has the side effect that a schedule
+set for some hour before the current hour will initially have the same
+amount of time with intervals 1 and 2 (of days) until it it executes.
+
+remove unused variable hourOfDay.
+"
+"22209b009c011ff24e9153477413fa1b6aba2efd","2014-03-28 10:29:18+01:00","pass icons as bitmaps instead of drawables
+
+bitmap implements parcelable so it will be easier to make appinfo
+implement parcelable if it contains a bitmap instead of a drawable.
+"
+"6995f86686ba4b53da48bf34078a021ebe485018","2014-03-28 10:39:14+01:00","make appinfo implement parcelable
+
+if appinfo is parcelable it can be passed properly to the dialog
+fragments with setarguments instead of through their constructors.
+"
+"912f122d17d2e045381f918a8c99d400c90edb3b","2014-03-28 10:58:39+01:00","pass appinfos to dialogs in bundles
+
+fragments should have empty constructors so data should be passed
+with bundles. and since the dialogs don't have any other constructors,
+an empty one is created by default by the java compiler.
+http://developer.android.com/reference/android/app/Fragment.html
+"
+"93ba4925cee7db0a5adfe45b4263c9bd2b2821f7","2014-04-01 10:48:25+02:00","check for error on apk restore before proceeding
+
+check to avoid problems as descriped in issue #53
+(https://github.com/jensstein/oandbackup/issues/53)
+"
+"2d468c080e31a785bc7b75dcdfb61b7ddae3c812","2014-04-01 11:20:09+02:00","split batch operations into more methods
+
+the doAction method of BatchActivity was very much too long
+so backup and restore has been split to separate methods.
+"
+"c715723be44ba8c02d39c722ba2425c2e57ade1c","2014-04-01 11:56:28+02:00","use newer method for showing message in batchactivity
+
+also incrementing the counter is moved to the bottom where
+it logically fits better.
+"
+"9691f76e086b8a44e38cad3e3be53d25d98dfc8d","2014-04-01 12:10:04+02:00","toggle checkbox states when returning from batch
+
+set all checkbox states to unchecked unconditionally when returning
+to the main activity.
+using newer setChecked instead of toggle to get rid of the extra check
+to see if the item is checked.
+"
+"acc6ed75367b78faf277a7c68822081a7d3c6f58","2014-04-01 12:28:16+02:00","move unnecessary global variable
+
+no reason for listview to be a global variable.
+also condensed a poorly written comment.
+"
+"0c1f71a848b6d5c2813dcc91a3121f783cf3b166","2014-04-01 12:37:30+02:00","remove toggle method from appinfo
+
+the toggle method has now been replaced in all instances with
+setchecked().
+"
+"907701a649ac65b4a22479bffabba1ac5f478ed8","2014-04-06 13:05:02+02:00","do compression in separate method
+
+the dobackup method is too long and compression will be reused
+by a future method to do special backups.
+also removing the old code for deleting tar.gz files
+"
+"deae01fe12fc1b80dd1b21a78b3c134eaa476111","2014-04-06 13:25:34+02:00","wrong starting index in boolean array
+"
+"7ed293a97467c11b0cb7e7a13854a2d22aa0ad57","2014-04-06 13:38:15+02:00","don't access the boolean fields of appinfo directly
+
+proper methods for getting the values of the boolean fields of
+appinfo are now implemented.
+system and install don't have setters since those values can only
+meaningfully be set with the values from the packageinfos when the
+appinfos are instantiated.
+"
+"225a7bfbe2e93c86bed970d7f55669a16cf7ee8f","2014-04-06 14:09:00+02:00","fewer parameters in writeLogFile method
+
+the version of writeLogFile which takes many parameters is only
+kept for writing from the legacy logs. as soon as the old logs are
+deprecated there will only be one version of writeLogFile.
+"
+"bd36f11d1b5f9a70ba90e5235484f1279d941585","2014-04-06 15:05:02+02:00","make check for subdirectory and old apk file more compact
+
+there's no need for the second if clause to be on a line by
+itself.
+"
+"54fe62507136d20bb7ef23a34c0c19857987874b","2014-04-06 21:02:15+02:00","fix method to set new backup mode
+
+values should only be added if they are different and neither
+is above MODE_BOTH.
+this fixes a bug where the value would keep increasing if the
+values are equal.
+"
+"630562e2c37a5eac4c15e768852d56f031117e56","2014-04-07 15:22:10+02:00","move getting uid and gid to its own method
+
+setPermissions really did two separate things which had no
+reason to be in the same method.
+"
+"6d47fe6fb31c192d6881a9b1bfb8ae8045935af1","2014-04-07 18:39:44+02:00","rename getPermissions to getOwnership
+
+although the code was part of setPermissions it actually only
+gets the user and group id so it doesn't do anything with
+permissions.
+an actual getPermissions that could fetch permissions for each
+individual file would be good to have at some point.
+"
+"93569d9c21d8d2da8dbd752b93225637a5394bba","2014-04-07 19:48:55+02:00","add parameter to choose shell privileges for getOwnership
+
+while stat works without su on directories it needs su for
+single files.
+also, writing to error log is added to getOwnership.
+"
+"6859e00222bec3e5c0efff4fcad34144c9a85f06","2014-04-09 20:31:06+02:00","handle symlinks better when backing up
+
+symbolic links are better handled by the -L flag to cp. with -L
+cp will dereference or follow any symlink it meets.
+this should therefore handle issue #55
+(https://github.com/jensstein/oandbackup/issues/55)
+"
+"5af50d7d489960f75e120123c4f864225f496bce","2014-04-12 20:27:56+02:00","add support for special backups
+
+as suggested by issue #42 (https://github.com/jensstein/oandbackup/issues/42)
+this adds support for backing up things which are not identified
+as packages by the system itself.
+since the paths to these files need to be hardcoded there will be
+a need for some checks to determine whether a given path is correct
+on a given android version.
+"
+"6684dd7f1782c2474544a5d78066a08d5d8ef504","2014-04-12 20:47:21+02:00","add filter to show special backups
+"
+"1d761cd3391d0474988a19dfc50ad2bacafa5d26","2014-04-13 20:10:46+02:00","special backups in batch and scheduling mode
+
+check isSpecial() when backing up and restoring with batch
+mode and making scheduled backups.
+batchactivity needs proper error handling when trying to restore
+a special backup with either apk or both apk and data checked.
+"
+"eff7f41eb233b817d35a1510e6a2eb71473e0652","2014-04-21 12:14:06+02:00","Change which class has appInfoList as a public field
+
+There is no reason to have appInfoList as a public field in
+the other classes when they can just access it where it originally
+is created.
+The reason for having it as a public field in the first place is
+that it is too large to transfer between activities in an intent
+extra. And when appInfoList is static it will also survive
+configuration changes.
+"
+"07c03b49bd2d8868e900ae2a46673e16336601c8","2014-04-21 21:52:35+02:00","Clean up batchactivity
+
+Remove unneeded imports and variables.
+"
+"04019aaa48d62f527543ba1c0e12b5d7da068bc8","2014-04-23 10:56:25+02:00","Handle configuration changes properly
+
+Remove configChanges from AndroidManifest.xml so the activities are
+actually recreated on configuration changes.
+Add variable threadId in OAndBackup.java and BatchActivity.java to
+track id of current running thread so it can be tracked if a thread
+is running when the configuration changes happens.
+Add method to show message again if the thread is still running.
+"
+"e3b8bbbbcf915d97bc23c22b9221292fad225d0a","2014-04-23 12:17:57+02:00","Make the LanguageHelper methods static
+
+There is no need to initialise LanguageHelper so the methods
+can just as well be static.
+"
+"2d33a5cc50257f614a3273be7c1b2343fc4fce23","2014-04-23 16:40:18+02:00","Handle language changes in all activities
+
+For some reason it doesn't work changing language in the onCreate
+of a PreferenceActivity but as suggested here:
+http://stackoverflow.com/a/20057397 it works changing it in
+onSaveInstanceState.
+"
+"40618be8621418bc9520d245158176134fb5f680","2014-04-23 17:13:01+02:00","Don't instantiate Locale unnecessarily
+
+Since Locale.getDefault is static there is no need for an instance
+of Locale there.
+"
+"23d1369cbfcb3ea9be12973e3a18045bf97ef7e0","2014-05-02 10:26:49+02:00","Make getCurrentUser static
+
+This will be helpful if the gathering of AppInfos are moved to
+its own class where ShellCommands might not be needed for anything
+other than getting the current user.
+"
+"94fce42aa38199e15f5c957af2e8e83027f1b95c","2014-05-03 09:19:38+02:00","Move methods to gather AppInfos to their own class
+
+Since the need to gather package info is shared between scheduling
+and the main activity, the method to do it should be in its own,
+separate class which is then called by the two.
+At the same time, a switch is added to control whether the packages
+no longer installed are included in the list since scheduling only
+does backups and therefore has no no use for them.
+"
+"2aa116be22c5e3b3bb389e52791b6e4bbf4d1d2f","2014-05-11 17:20:58+02:00","Add boolean to handle subtraction on alarms
+
+The subtraction of a day from the alarm interval should only be
+done the first time the alarm is set so a boolean is added to
+handle that.
+"
+"eab475d4aab221b418b3faa77e8051423ba905bc","2014-05-11 17:33:22+02:00","Add French translation
+
+Thanks to gwenhael
+"
+"7bf218f18f29aa85c401bdb7ff225b5ed9802321","2014-05-31 10:42:42+02:00","Add a file browser for choosing backup folder
+
+Add an activity for displaying and navigating the files.
+Add a custom preference that has both a field for typing in the path
+manually and a button for invoking the file browser.
+"
+"fc9592b4ea2aa23b37eb40651441aed252c8db29","2014-06-01 10:23:23+02:00","Add check for errors when listing files
+
+This adds a check for the null pointer that File.list() returns
+if it encounters an IO error.
+"
+"489afac8a16089136c4efff40ff3da33e5afa92b","2014-06-01 12:31:29+02:00","Include path to parent folder in the file browser
+
+A file pointing to the parent folder is included in the list of
+files generated by the file browser for navigating back a step.
+To designate it clearly as the parent folder it is represented by
+the string '..'. The place holder class ParentFile is used to give
+FileListAdapter a way to distinguish between the normal files and
+the parent file (this approach is loosely inspired by the approach
+in the file manager of the cyanogenmod project).
+"
+"23f3510bdda327c3ff5c37e66ee52cbcb90284c0","2014-06-06 20:39:39+02:00","BaseActivity is made a FragmentActivity
+
+Dialogs are not correctly handled in the secondary activities right
+now but with BaseActivity able to handle fragment they can be.
+"
+"d6cda2ea152692398efe825c120d03af39fdbaa2","2014-06-07 10:31:10+02:00","Add option to create directory in the file browser
+
+Add a dialog to set a path which will be created in the current
+directory of the file browser.
+"
+"b53f88c49352e52d12aeaa487536c8129070cfb7","2014-06-07 11:14:20+02:00","Add option to refresh file browser
+
+Also refreshes after trying to create a directory.
+"
+"99a24d8411f06c6e82dabfc9ffded76d115ad138","2014-06-07 16:29:30+02:00","Add context menu to file browser
+
+The path to the backup directory can now be set from a context menu.
+"
+"8d469c9ee93537477a6148d813804149e475644e","2014-06-07 17:08:43+02:00","Remove unneeded LinearLayout
+"
+"0eb6a7428e9a3d9f473195987a701c55ea6e68f1","2014-06-15 09:34:42+02:00","Workaround for ids in unknown state
+
+Sometimes when restoring packages which are not installed on the
+system stat might be called before the user and group ids of the
+program are set. As a quick workaround we sleep for one second before
+calling stat.
+"
+"295140472b7b389d561dadf4e8c812999769ec3f","2014-06-16 15:52:48+02:00","Check busybox path when it is changed
+
+Run the same check as is run on every boot when the path to the
+busybox binary is changed in the preferences.
+"
+"4c26c11110f8cba78a93ab446954022651ab3f70","2014-06-22 15:56:34+02:00","Remember scroll position in main activity
+
+For some reason which is probably a bug, the scroll position of the
+listview is not remembered on orientation changes so it is now set
+manually.
+"
+"5177883bbe4016d2cd45ef3ce2d3980483ee7ff6","2014-06-22 16:04:32+02:00","Move dialogs to their own directory
+"
+"3e160ea89bc9d631700167276b23740886834a0e","2014-06-22 16:56:06+02:00","Add confirmation dialog for batch activity
+
+The confirmation dialog which was before an anonymous alertdialog
+now has its own class. It will now survive configuration changes.
+"
+"7fefc8eb4c4726d12eb1edd31ad0cacf7bff0b2b","2014-06-22 17:02:30+02:00","Move adapters to their own directory
+"
+"edb3fd297d0c72d8bc3cf11d972d819c4dbfd3d6","2014-06-22 17:21:05+02:00","Update changelog
+"
+"e8b1bee12fdaf91469da8d385201e3458f06287a","2014-06-25 20:23:49+02:00","Update Serbian translation
+"
+"e2bc4f0267de42b4f88539dfd873a6513ba4b1b6","2014-06-27 13:10:45+02:00","Add option to toggle handling of symlinks
+
+An option to choose whether to include the -L (dereference symlinks) flag
+when using cp to back up. If it is turned on, errors only referring to
+the /lib symlink will be ignored.
+This should answer to issue #58.
+(https://github.com/jensstein/oandbackup/issues/58)
+The check for error on the /lock symlink of firefox is also brought back.
+"
+"827920ca510f8af8dc360dd5f532906bffd4238e","2014-06-27 13:53:11+02:00","Check state of listview before saving position
+
+onSaveInstanceState can be called before listView has been instantiated
+so it needs to be checked before being accessed.
+"
+"6068769de7b9a96b6d07c0493d573437a29b2bba","2014-06-29 21:28:35+02:00","Check for build version on special backup paths
+
+The paths are different on older android versions where having multiple
+users are not implemented.
+"
+"f50addd5d2883b30ec087a62aa187a049a574b79","2014-07-04 09:09:05+02:00","Add option to toggle special backups
+"
+"0ad1f686fa39e0a877beadd3ee811b936820c2ae","2014-07-04 09:24:09+02:00","Update translations
+"
+"c29acee366b8c1bed957d4b4698d2b8291403f4c","2014-07-08 08:13:36+02:00","Update translations
+"
+"e06b1fa8c25ebb3f7fd74915c2585e656cc9c094","2014-07-08 08:42:31+02:00","New version
+"

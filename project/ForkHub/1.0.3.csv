@@ -1,0 +1,74 @@
+"commit id","commit date","commit message"
+"cb946df1eb3ecec52311073f8a358a991356d793","2012-07-10 15:16:23-07:00","Guard against fork event with missing user
+
+This appears to happen if a news feed item is selected
+for a fork that has been deleted.
+"
+"de033c1bda32595d8d5e0cd60bb87833f594986d","2012-07-10 15:29:53-07:00","Call close on database after closing cursor
+"
+"8d80bd1a63dc3b79bf2ea5b38cf7c230fd24fad5","2012-07-10 15:33:28-07:00","Don't refresh list when item is clicked
+
+This was originally done to mark the repository
+as recently viewed in the list but can cause
+confusion since the item appears to disappear from
+the current position in the list that is visible
+since it moves to the top area which is most likely
+not visible.
+
+The repository will still appear in the recent list
+the next time the activity is created.
+
+Closes issue #71
+"
+"e58826210aad9a08a1edf9a47ebcb8b0f09a7411","2012-07-10 15:54:15-07:00","Prepare 1.0.3 release
+"
+"dcdf48a1727f7dd87c6e18ca30f02f34f0565c6c","2012-07-11 00:57:08+02:00","Added french translation
+"
+"d941003c8a6344baa122a50d1d9a055008958e5c","2012-07-10 22:12:00+02:00","Initialized german locale
+"
+"ada207c61b8b5b12a2759054fe1fb5c12bcae7f0","2012-07-10 22:28:16+02:00","updated german locale
+"
+"daa1c9f01efd14af9a3cd96d9b498cc9b7318c4b","2012-07-10 22:30:56+02:00","fixed typo
+"
+"532e3e44031254cdde82a81e63c2603a98758466","2012-07-10 23:46:45+02:00","fixed translation for assignee
+"
+"79fd6f992cb2f2e213f6317c40269008d3114756","2012-07-10 21:19:38+03:00","init ru_RU locale
+"
+"a34e4fa7c11a4ef6075fa31947e227213b0fc585","2012-07-10 21:40:50+03:00","updated ru_RU locale
+"
+"25432e26348212fe52dc1fdb63a41edb6724dfd2","2012-07-10 16:35:15-07:00","Add backslash before apostrophes
+"
+"240a03328692de966ddbb930faa98455fd1bfd93","2012-07-10 16:42:11-07:00","Move German translation to values-de folder
+"
+"34900849aaaf015b666567b0ac7160909d391528","2012-07-10 16:45:38-07:00","Move Russian translation to values-ru folder
+"
+"41f1df670ca953e09f6f48bb63502530db5ef790","2012-07-10 16:46:19-07:00","Remove russian translation of ruby method name
+"
+"8b896d68c2af473b23400588cdd4d5762507b578","2012-07-11 01:37:28+02:00","Update German translation
+"
+"d4e6b89b137539318e893c6fb4fe772fd7b5fe91","2012-07-11 09:03:18-07:00","Don't read/write to database if unavailable
+
+Catch any SQLiteException thrown when a readable
+or writable database is requested from the
+SQLiteOpenHelper and don't attempt to store
+or read the items being cached.
+
+A few exceptions were reported where a SQLiteException
+was being raised and when uncaught it would cause the
+application to crash.
+"
+"c546afc59e056d848d96d6fbd367de3698de356a","2012-07-11 11:58:23-07:00","Show progress dialog while repository is loading
+
+Use RefreshRepositoryTask from SearchRepositoryListFragment
+to load the repository in a background task with an
+indeterminate progress dialog.
+
+Previously the task would load with no feedback between
+when the list item was clicked and when the repository
+was loaded and opened in a new activity
+"
+"3e2eaf402df39a78e1a96ebbcb5834d1d1cbab81","2012-07-11 13:58:24-07:00","Remove unneeded calls to SQLiteDatabase.close
+
+The SQLiteOpenHelper is always closed in a finally
+block and closing the database is handled there.
+"

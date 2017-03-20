@@ -1,0 +1,45 @@
+"commit id","commit date","commit message"
+"9e0457e5df62ddfc52a6c86af3374f4c477e1e12","2014-01-03 20:40:55-05:00","bump target SDK version to android-19 (4.4.2) KitKat
+"
+"7ad89d73a37c45308540a290bc06fe9f981f7c25","2014-01-03 20:45:20-05:00","add 0.4.5 changes to the ChangeLog
+"
+"78258daadd633a51e09acc394af95fba6d53db98","2014-01-03 20:49:56-05:00","update to build a wider range of recent NDKs (use gcc 4.6)
+"
+"a0e3d2c5c8b6db970e7e1b5b8096518761cc0815","2014-01-03 21:37:54-05:00","update translations: da de es fr nl zh_CN
+"
+"664746c4892e69a255047375c0749abe73c8988b","2014-01-03 21:38:41-05:00","update transifex mappings sl_SI -> values-sl and pt_BR -> values-pt
+"
+"2cf45870f8f3c0d7712ab6a3a3f4e51598c2417d","2014-01-03 22:13:27-05:00","try new tricks for getting sdcard path on Android 4.3/4.4 and newer
+
+They've messed up the sdcard path even more since 4.2.2, we need even more
+silly tricks!
+
+fixes #66
+fixes #82
+fixes #81
+"
+"9fba2b1b7b89167b9c087d31f8abbb62c00c5e1f","2013-08-23 08:45:08-04:00","run native setup in Application subclass to ensure its always run first
+
+The android.app.Application instance associated with the app is always
+launched first, so its the natural place to run the native setup.  This
+fixes crashes that happen if the InstallLog was the last Activity viewed,
+then the app gets killed and relaunched.  Before, it would launch and go
+straight to InstallLogViewActivity and never run the native setup.
+
+Most of the code in NativeHelper should probably be moved to
+LilDebiApplication.
+"
+"ffa09ae6caeaaf313507f5f74bfd35c30543b4f0","2014-01-03 23:10:06-05:00","in Terminal Emulator is installed, add menu item to launch Debian shell
+
+Thanks to Alexander-- for the key inspiration and research.
+
+closes #76
+"
+"705ba1f99f9e0a7c05f711a661c5e2eb90c43fd0","2014-01-03 23:21:30-05:00","bump to version 0.4.6 code 11
+"
+"a0b35f6d6133b5a197d8574e87333a831eb5a5e8","2014-01-03 23:47:59-05:00","use a bash --login shell in Terminal Emulator to get PATH settings
+
+Right now, this environment it is launched in is basically just the Android
+shell, which sucks.  Adding -l aka --login makes it a little better because
+it sets $PATH better.
+"

@@ -1,0 +1,103 @@
+"commit id","commit date","commit message"
+"b6ba0ed75d7453b0d67457b0b42eab6fa4ae310d","2014-08-11 22:05:57-04:00","Updated binary for 2.1.0 beta (bummped version code)
+"
+"5d15b9b7b6b3658c431ddad97bd454e4fd660ecd","2014-08-21 18:04:34-04:00","Bugfixes
+SelectCalendarsActivity:
+-fixed bug where calendars would appear checked in the list even though they were not selected
+"
+"91718609de8cef621ba17e9673a7c908d99a5401","2014-08-21 19:17:36-04:00","Add actionbar to SelectCalendarsActivity
+"
+"7bb522cc4a99c3e9b0b1e5e6cdfdfda98d741221","2014-08-21 19:54:11-04:00","Adding rudimentary support for custom ringers per calendar
+"
+"14104f9faa7a135198a8556458faf3cb3f193498","2014-08-23 20:37:57-04:00","Remove checkboxes from calendar selection list
+-reformatted all code
+
+SelectCalendarsActivity:
+-removed checkboxes from list items
+-selected items show up with green background (temp color)
+
+MainActivity:
+-added 'ignore' to cycle when single clicking on an event in the list
+"
+"0fda533f29e68588428275b27360f81a37302725","2014-08-31 21:28:54-04:00","Fixed bug where calendars would appear selected when they were not
+-fixes #8
+"
+"8dd606dffd707caaba44102d1d3a162552d878c1","2014-09-05 00:30:23-04:00","Basic support for per calendar ringer settings
+SelectCalendarsActivity:
+-fixed onItemClickListener() not working on calendar listview
+-fixed calenders in the listview being clickable even if all calendars are set to be synced
+-implemented AlertDialog to select ringer for specific calendars
+
+MainActivity:
+-updated getRingerIcon() to return a colorized icon to show whether ringer state is from default settings (ugly red), event series settings (ugly green), calendar settings (ugly blue), or event instance settings (basic grey)
+-icons still not reflecting colors from event series properly, likely due to all database rows of event series being updated with new event ringer type (this should only be stored in preferences)
+"
+"114399644a21055de6d6d513465f5055e803b6be","2014-09-08 22:19:19-04:00","Bugfixes
+EventSilencerService:
+-now properly includes calendar and event series settings when determining whether an event should be ignored
+-now properly finds the best ringer to use (default < calendar < event series < event instance) fixes #13
+
+EventDetailsFragment:
+-applying a ringer to an event series now removes all custom ringers from the local database before writing to preferences, fixes #14
+-slightly better layout (more padding, adding icons to event title and calendar name
+-checkbox to save setting for all instances only visible if there are more than one instance of the event
+-clear button only visible if the event instance has a custom ringer or if the event series has a custom ringer set
+
+Columns, DatabaseInterface, EventDatabaseOpenHelper, SimpleCalendarEvent:
+-removed logic for custom ringer.  Events now only store their specific instance ringer, preferences must be queried to determine whether a calendar or event series specific ringer has been applied
+
+build.gradle, Versioning:
+-debug builds now clearly marked as pre-release debug builds (with build date)
+"
+"df1df6995ffdb365a18e98f5547c0cb74b1586dd","2014-09-10 23:32:48-04:00","UI and functional changes
+MainActivity:
+-displays separate error if no calendars have been selected to be synced
+-updated colors used for ringer icons:
+default - light grey
+calendar - blue grey
+event series - green grey
+event instance - dark grey
+
+SelectCalendarsActivity:
+-redesigned list layout (text is still overlapping icons on right side if the calendar name is too long)
+-clear button is only visible if the calendar has a previous setting applied
+-checkbox used instead of changing the list items background color
+
+SettingsActivity:
+-removed sliders for media and alarm volumes, toggling either checkbox will now totally silence the media and/or alarm volumes during an event
+
+VolumesManager:
+-current media and alarm volumes are stored in preferences before the channels are silenced and are restored after the event ends
+
+Prefs:
+-removed methods related to the variable alarm and media volumes
+-added methods to store and retrieve media and alarm volumes
+"
+"54e8170b90e6aafe22b144344eb171e6c8bad89f","2014-09-11 22:14:49-04:00","Added first run tooltips, visual improvements
+-added rounded sidebar image
+-replaced vibration icon with slightly larger version
+
+ChromeHelpPopup:
+-tooltip something like the chrome first run tooltips
+
+MainActivity:
+-tooltips are shown on first run (add event, and quicksilence button) or when there are no events (add event) or when no calendars have been selected to be synced (settings button)
+-added broadcast receiver to be notified when one tooltip is dismissed (so that all tooltips can be dismissed together)
+
+ShowUpdatesActivity:
+-updates dialog is only shown if not on first run
+
+TooltipManager:
+-added manager to simplify sending broadcasts when a tooltip has been dismissed
+
+Prefs:
+-added methods to get and set first run status
+"
+"71ba54ab8e4c9c4df5ef52b8f8df1830d768e67d","2014-09-11 22:57:36-04:00","Removed contstructors from ShowUpdatesActivity
+-added static method to hide changelog for current app version
+"
+"6bc400d689a57c5fdac974cfb0e9e59ff0745185","2014-09-11 23:06:37-04:00","String fixes, updating changelog and version codes for beta 5 release
+"
+"7e524a0663639418a27efd037eef6f2cf49cc117","2014-09-11 23:28:22-04:00","Replacing down_arrow shape with bitmaps
+-normalized margin offset for both up and down arrows in popup tooltip
+"

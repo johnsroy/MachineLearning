@@ -1,0 +1,406 @@
+"commit id","commit date","commit message"
+"71a6787c899f6fa68c599490f2c6a1070b063b70","2012-04-17 02:09:55+02:00","Added Hungarian translation
+"
+"b7cc6d551aac48acdee617a52909b91eb9a6241a","2012-04-21 22:02:01+03:00","Update res/values-fr/strings.xml
+"
+"e427dccd8389d6aafcde1e186a49227438a0f95a","2012-04-22 11:38:12-07:00","Merge pull request #96 from eauland/patch-10
+
+Update res/values-fr/strings.xml
+"
+"73f7db6bb6ccec90b147719cc8924ada1c4fba75","2012-04-22 11:39:23-07:00","Merge pull request #93 from gLes/master
+
+Added Hungarian translation
+"
+"8d567a430ff73e1827e55b8aa6019a944d9ebca8","2012-04-09 20:53:26-07:00","Behave sanely when selected shell is the empty string or doesn't exist
+
+Instead of crashing or exiting immediately when something is wrong with
+the user's chosen shell, fall back to the default shell, which gives the
+user a chance to go into the preferences and fix the error.
+"
+"6108f58a342137b7040e0a5fe25ba876a10cb15f","2012-04-26 07:37:20-07:00","Merge pull request #97 from steven676/for-upstream
+
+Behave sanely when selected shell is the empty string or doesn't exist
+"
+"b9b1e03913e8169c8eaf12d6ed9bf12b7dfce7ca","2012-04-28 19:23:46+02:00","Added READ_LOGS permission(Issue #99). Fixes Issue #99
+"
+"3ca8dd4fb558397f996ba65fc8e5f5d821dd2f33","2012-04-28 13:22:07-07:00","Add example showing how to use intents to open ATE
+"
+"e4a3f7e721b465dfe6a1edcc814369ca692dcfa0","2012-04-28 13:26:07-07:00","Merge pull request #100 from damor/master
+
+READ_LOGS Permission
+"
+"3192f6bf20602ab0d5e0322cacc2d1a3f748e650","2012-04-30 03:40:56-07:00","Keep action bar window list in sync after creating window from WindowList activity
+"
+"53e70ab8ee72484bba680259a43838440f84a81c","2012-04-28 22:34:59-07:00","Log an error when user's default shell isn't found
+"
+"f82d42a81f48acca15864bdcff36389915648e49","2012-04-29 02:02:57-07:00","Refactor JNI code
+
+We'd like to provide native methods for more than one class, so move the
+initialization stuff into its own file and provide for the possibility
+of registering methods for more than one class.
+"
+"dbb80d9501bd051f2661374a8ec088c769b5469f","2012-04-28 22:07:00-07:00","Add FileCompat class for File.canExecute()
+
+This is new in API 9 and JDK 1.6, and needed for PATH checking.
+"
+"fd79e603738aeb401bfbc5654a28db1711881052","2012-04-29 02:05:52-07:00","Add native code implementation of File.canExecute() for API < 9
+
+file.canExecute() is equivalent to access(file.getAbsolutePath(), X_OK),
+so add native code to do just that to implement canExecute() for older
+devices.
+"
+"ddc206a0870d6488f1a0cfe8b58c74084a74b26f","2012-04-28 22:09:06-07:00","Also check to see whether user's shell is executable
+"
+"337408e23abb78ea808f1e4ccf3fef5009205175","2012-04-28 22:29:07-07:00","Remove inaccessible directories from the user's PATH
+
+Go through the default PATH and remove directories without the execute
+bit set (meaning we can't access files in that directory).  Requires
+File.canExecute() from API 9 or later.  This will prevent the misleading
+'permission denied' errors which come up when you try to run a
+nonexistent command; instead, the correct 'not found' error will appear.
+
+Add a preference to control the behavior (defaulting to true) so that
+people who insist on always running as root can turn this off.
+"
+"f861544988a4419dc7a4dbee6d3941cb97370873","2012-04-29 02:22:04-07:00","Add native method to set/clear UTF-8 input flag on tty
+
+The Linux (>= 2.6.4) terminal driver uses the IUTF8 flag for
+termios.c_iflag to implement correct character erase behavior in cooked
+mode.  The flag has to be set from native code, so provide a method to
+do it.
+"
+"58b90cf643a510c43595a03be24e7ebda502b2df","2012-04-29 02:28:47-07:00","Bump shared library ABI
+
+We've added two new native methods, so bump the ABI version of the
+shared library to prevent problems with ROM-installed copies of the
+library.
+"
+"5cd41ef5ef97a3df0343be850269408d5ed9fff9","2012-05-02 15:28:35+02:00","Improved German translation
+"
+"39a99d6eecd3911fda8e66a741b3b245e693b5ae","2012-05-02 17:07:35-04:00","Fixes issue #102 and #21
+"
+"0ff202b775020af703bcf5915c516d21d8c5cc13","2012-05-03 11:34:30-04:00","Updated french translation
+"
+"2581629242deef4d83be8965e4ef890d84e97724","2012-05-06 10:26:34-07:00","Merge pull request #103 from steven676/for-upstream
+
+Miscellaneous bugfixes and PATH/shell verification improvements
+"
+"fcfa06a94192e2b60281742e97a0d35b1e954df6","2012-05-06 10:27:59-07:00","Merge pull request #104 from mabako/improved-german-translation
+
+Improved German translation
+"
+"8a6f7e50b4ece367ad1acb809ff5370370f937b9","2012-05-06 10:48:50-07:00","Upgrade personal build scripts
+
+Use environment variable ANDROID_NDK_ROOT instead of hard coded path.
+
+These scripts still aren't useful for anyone besides me. Sorry!
+"
+"070f16fcb467a302617baa4562f5a20226b189ae","2012-05-06 10:55:14-07:00","Add MIPS support. (Untested).
+
+Requires Android NDK version 8 or later.
+"
+"dd31e3ce4d57b524151ec9975d866ca5707efa68","2012-05-06 13:54:46-07:00","Merge pull request #106 from dfffffff/master
+
+IME enter key return char '/r' instead of '/n'
+"
+"252e24914da78b3d0e2b3b290508a7d7e261dd5a","2012-01-21 03:27:19-08:00","Refactor session and widget code into separate library project
+
+We'd like to make the terminal emulator and view reusable by others, so
+separate out this code (primarily TermSession, TerminalEmulator,
+TranscriptScreen, EmulatorView, and associated classes) into a library
+usable by other projects.  Users of the new library are expected to
+instantiate (or subclass) TermSession, connect it to the emulation
+client via an InputStream and OutputStream, and then attach it to an
+EmulatorView, which will display the terminal screen and scrollback.
+
+In the app, we subclass both TermSession (ShellTermSession) and
+EmulatorView (TermView) to consolidate the setting and updating of
+preferences in one place.  Since tty-related handling stays in the app
+(there's no guarantee library users will be using a tty), we also
+override various methods of TermSession to handle our tty functionality.
+"
+"707dabc6794dc6f68bc78402d4037df26fe6f116","2012-04-30 19:34:02-07:00","Allow EmulatorView to be instantiated through XML layout inflation
+
+The XML layout inflater needs constructors that take an AttributeSet
+parameter, so add these constructors and provide a public method to
+attach a TermSession for when these constructors are used.
+"
+"b65fb79ee8249f0c48a523b38f876913aa5318f8","2012-04-30 16:34:08-07:00","Make library internals package-private
+
+Many of the classes, fields, and methods in the library don't need to be
+exposed to users.  Make them package-private or private.
+
+To accommodate the changing of TerminalEmulator to package-private, we
+need to add a method to TermSession to allow writing directly to the
+TerminalEmulator input.  Do this and convert the existing user of this
+functionality.
+"
+"5b01462cea6f51d22622e185fab46391f0cb3926","2012-04-30 16:51:21-07:00","Remove superfluous EmulatorView.resetTerminal() method
+
+Presumably this is a vestige of the days when EmulatorView was coupled
+to the Term activity.  Superseded by TermSession.reset() and now has no
+users.
+"
+"4db06d31d5d5886128fe8d021ebab680ede00631","2012-04-30 16:54:14-07:00","Style fix
+"
+"723c0812a3a6d9ddab2cfaf71b91150ddbebff78","2012-04-30 02:13:18-07:00","Add script to regenerate the JavaDoc docs from the source
+"
+"f1826723b25d62ff99945d622b4c6755a652951c","2012-04-30 16:56:14-07:00","Document the library API with JavaDoc
+"
+"a2372ab1c9b9a3c309e825a54b4e810633b3d493","2012-04-30 20:02:14-07:00","Add generated JavaDoc HTML documentation for the library
+"
+"d4d9166b52712b32acc9a7e2bf2b623daf8e1661","2012-02-07 04:19:52-08:00","Set/clear UTF-8 input flag on tty as appropriate
+
+The Linux (>= 2.6.4) terminal driver uses the IUTF8 flag for
+termios.c_iflag to implement correct character erase behavior in cooked
+mode.  Set the flag when entering UTF-8 mode, and clear it when leaving
+it.
+"
+"5268fb36d0cc107b5bcd747d5745870238ebb0f4","2012-04-29 05:15:05-07:00","Allow external packages to modify PATH by responding to broadcasts
+
+One of the most frequently-requested features in Android Terminal
+Emulator is an easy way to install additional command-line tools beyond
+the limited set that Android offers by default.
+
+We accomplish this goal here by sending out ordered broadcasts when
+we're first started (in onCreate()), asking for external packages to
+provided additional directories to be added to the user's PATH.  This
+allows Market packages to make commands available to ATE users by
+implementing a BroadcastReceiver which will respond to the broadcast
+with the directory it's installed its tools in.
+
+We send out two broadcasts with two different actions:
+
+* jackpal.androidterm.broadcast.APPEND_TO_PATH requests directories to
+be appended to the user's PATH.  No special permissions are required
+to receive this broadcast.
+* jackpal.androidterm.broadcast.PREPEND_TO_PATH requests directories to
+be prepended to the user's PATH.  This is intended to allow BusyBox
+installers to override system-installed commands, and is therefore
+protected by a new permission,
+jackpal.androidterm.permission.PREPEND_TO_PATH.
+
+In addition, two new preferences are added to allow the user to disable
+all PATH extensions, or just PATH prepending.
+"
+"76038f03430c3cd01501356cf6c4c036b5d49c64","2012-05-02 03:33:54-07:00","Add sample receiver for PATH broadcasts
+"
+"a35c783e21d9d05736ed1bb009889cb8cb5466f1","2012-05-06 15:19:07-07:00","Require permission to append to PATH as well
+
+As requested by Jack in #45:
+
+I can see two potential security issues with appending:
+
+1) It could change the behavior of existing scripts that check to
+see whether specific commands exist or not.
+
+2) A nefarious program could 'typo squat', by registering common
+mis-spellings of system commands.
+"
+"cfdf7eb2e08d10b77e02d7260f139501a0fece72","2012-05-06 15:47:01-07:00","Update EmulatorView library JavaDoc HTML docs
+"
+"3bef0ee647b542fe9ea4fcaf8ced9d25d0870a2d","2012-05-06 16:33:54-07:00","Merge pull request #112 from steven676/for-upstream
+
+Widget library and path broadcasts
+"
+"74a482afaa0af63556a711242328ca834e8cdc9d","2012-05-12 04:08:29-07:00","Recursively look for android project files.
+"
+"d5f5bc7583f4853309de33e413dab5206bb5d661","2012-05-12 04:57:08-07:00","Tweak build scripts
+
+The build-debug and build-release scripts are now position independent.
+
+PushAndRun uninstalls the old version, which avoids an error if we are
+replacing the signed release version with the unsigned debug version.
+
+Use Term-debug.apk for the debug version of ATE
+"
+"b4e0e15e55cfc69d42987993491ae0cb592d178a","2012-05-12 04:58:15-07:00","Partially update build documentation for current build system
+
++ We're using ant now.
+
++ We're using an emulatorview library.
+"
+"90fe5ea17c2fe8b1a36ffc19c1c9c7e22d7278b7","2012-05-09 01:57:57-07:00","Term: Have EmulatorViews request focus when clicked
+
+The only time this doesn't make sense is if the click will open the menu
+or show the action bar.
+"
+"14866d3368625460e77868095e044dec466f7462","2012-05-09 02:01:10-07:00","TermViewFlipper: Have EmulatorView request focus in resumeCurrentView()
+
+Fixes a bug where input focus would be taken by the action bar under the
+following conditions:
+
+* the device has a hardware keyboard and navigation keys, D-pad, or
+trackball;
+* the action bar is showing;
+* more than one window is open;
+* and the current window is closed by someone typing 'exit' on the
+hardware keyboard.
+
+After the previous commit, it's now possible to give the EmulatorView
+focus just by tapping on it, but it's better to fix this at the source.
+"
+"de3838810310341ef61563d4c1f65138ee8aba96","2012-05-07 15:04:11-07:00","Don't try to initialize EmulatorView before a TermSession is attached
+
+This avoids a crash when the view is inflated from XML and a TermSession
+isn't attached right away.
+
+Because onSizeChanged() no longer tries to initialize the view if no
+TermSession is attached, we now need to call initialize() in
+attachSession() if the view hasn't been initialized at that point.
+"
+"9ba5ea4c8a193fd9f46b70d2b9c8fce47925230a","2012-05-07 14:47:40-07:00","EmulatorView library: use default scheme if setColorScheme() not called
+
+The documentation (and common sense) suggests that it shouldn't be
+necessary to call setColorScheme() on the EmulatorView and TermSession
+before using them, but this currently causes crashes.  Fix this by
+introducing a default color scheme (corresponding to white on black,
+with the color values as defined in the default BaseTextRenderer color
+arrays).
+"
+"1b15cac265debd2082bc789de13204a05af25de2","2012-05-07 14:56:16-07:00","Make setColorScheme(null) set the default color scheme
+"
+"8e4a2c584368af7d068f76fa668ed7807eff4740","2012-05-09 01:53:14-07:00","EmulatorView: Request focus when clicked on
+"
+"1670ff5502b9ae35574c0c3e557969cc61ded405","2012-05-12 21:35:04-07:00","EmulatorView: update font size the first time setDensity() is called
+
+This ensures that the default font size is density-independent (font
+sizes set via setTextSize() are already density-independent).
+"
+"5deba5b1f4b42afaed84446c60e9b633f0f3931e","2012-05-09 01:08:36-07:00","TermSession: move writes to the OutputStream off the main thread
+
+This has two major advantages:
+
+* Big/slow writes no longer block the main thread, leading to more responsive
+UI (compare the effects of dmesg in a terminal before and after).
+* It's now possible to pass a network socket directly to setTermOut() on
+API >= 11.  Previously, this would result in an exception on Honeycomb and
+later because of the network I/O on the main thread.
+"
+"7ede27609622f99b0b7cb7baf0c02a46945381ed","2012-05-09 01:19:42-07:00","TermSession: Use more descriptive thread names
+"
+"ef9c1b1ff9fe7e9bb8f65dede31cc924ca853e63","2012-05-09 17:57:09-07:00","TermSession: stop the reader/writer threads and close streams in finish()
+
+This prevents the leaking of threads when we go away.  Note that we also
+close the attached InputStream and OutputStream, since that's the only
+reliable way to interrupt the threads if they're blocking for I/O on
+those streams.
+"
+"869b5164d23095e110569b4422cedd67a446f124","2012-05-09 01:32:58-07:00","TermSession: add processInput() method to allow subclasses to modify input data
+
+It's useful for derived classes to be able to modify the input stream
+before passing it on to the TerminalEmulator (e.g. to interpret protocol
+commands).  At the moment, this requires that they wrap the real
+InputStream with a filtering component; instead, give them a method to
+override, which should generally be more convenient.
+"
+"f4768bb8fd3a92606374e2014aaeb9a1d6aa103a","2012-05-09 01:36:03-07:00","TermSession: Update appendToEmulator() for consistency with processInput()
+
+* Make appendToEmulator() final.  Technically an API break, but not a
+painful one given the youth of the API and the existence of a direct
+equivalent.
+* Change parameter names to be consistent with readFromProcess()
+* Clarify the difference between appendToEmulator() and
+readFromProcess()
+"
+"e6077459f1370a679328be4ef70733b7cfae7b40","2012-05-09 18:15:17-07:00","TermSession: Add a write() method which functions on byte arrays
+
+This will be more convenient for many use cases than the existing
+methods, which operate on Strings and individual Unicode code points.
+Also, by modifying the existing methods (which encode their input to
+UTF-8 bytes) to use this one for pushing data to the writer thread, we
+give subclasses a single method to override if they need to modify the
+output stream.
+"
+"dba5c354a68c202a3e71a3b2e1783959b87df468","2012-05-11 00:53:43-07:00","TerminalEmulator: do all I/O via TermSession
+
+This ensures that subclasses of TermSession see all of the I/O coming
+from the terminal emulator.
+"
+"5e1d399d558bb23a4c36df4cea889e59b20611f5","2012-05-09 18:10:34-07:00","TermSession: Improve the documentation
+
+* Document our use of threads
+* Point out that EmulatorView will initialize an attached TermSession for you
+* Suggest users call finish() when done with the session
+* Eliminate specific references to tty in processInput()
+"
+"c2a1913e6f4875e0e81d449757b230a953f048c9","2012-05-09 18:32:28-07:00","Update HTML JavaDoc documentation for library
+"
+"27f498493f7f70cb46e8149e6cd04cfac7d73e5c","2012-05-13 11:56:45-07:00","Merge pull request #113 from steven676/for-upstream
+
+EmulatorView library bugfixes and API improvements, focus bugfixes
+"
+"b077dbae2bf724401895fffdf62ba8c11b2b6d72","2012-05-07 07:31:06-07:00","Add new sample application to demonstrate use of EmulatorView library
+"
+"ada58de74d35566ac8636899ef1c695903f15253","2012-05-10 14:56:09-07:00","Fix the Makefile to work in a fresh source code checkout
+"
+"2274fa8d2701583afe781798d6c926b64adab129","2012-05-10 15:30:34-07:00","Address review comments
+
+* Use log TAG strings where possible
+* Use a briefer expression to get byte's unsigned value
+* Deal with case where \r\0 is split across two calls to processInput()
+
+Thanks to Jack Palevich for the code review.
+"
+"cb7b9801da59243405cff9fa0a34a2f9e427ee3e","2012-05-10 19:35:44-07:00","Widget sample: don't crash if Send button is activated before session connected
+
+Apparently some phones/devices/platforms do this when the activity is started.
+"
+"7f8cb53a6eac6cbc46a6701e456ad33eb088e370","2012-05-11 01:11:04-07:00","Telnet sample: buffer Telnet output explicitly instead of in OutputStream
+
+The old method was causing network writes on the main thread on some
+devices, so implement the write buffer explicitly on the main thread and
+make all direct writes to the OutputStream via the superclass write()
+method, which uses a writer thread.
+"
+"38b6edd2b1f4780b9b94c1137324afa9c3e71935","2012-05-12 21:53:22-07:00","Widget sample: statically link the execpty binary
+
+Apparently Google TV uses a different libc (glibc) than standard
+Android.  Statically link to avoid all library compatibility problems.
+"
+"fdaddf0ba506e8428f29652f7295a54294d184a5","2012-05-13 17:51:52-07:00","Widget sample: call make to build execpty during ant build
+
+Call make in a custom -pre-build target in custom_rules.xml (referenced
+in the project build.xml provided by the latest version of the SDK
+Tools).  Also, call make clean in -pre-clean.
+"
+"9ea0e030d5e8ff7044ac6c5b1145125bf36f8476","2012-05-13 19:27:34-07:00","Widget sample: copy the appropriate binary to bin/ on every invocation
+
+Not terribly efficient, but hey, it's a sample, and this gets around the
+problem of what happens when the binary is updated.  Real apps should
+probably implement versioning of some sort.
+"
+"adb906efafc2f925f96707523742231ee5d47e80","2012-05-13 19:28:39-07:00","Telnet sample: add default telnet host to connect to
+"
+"f3fc2761e0c475dc562c3bd01f14057c198bfae9","2012-05-14 03:06:18-07:00","TerminalEmulator: cursor placement fixes during screen resize
+
+* Don't place the cursor off screen even if the original location
+scrolled off screen during the resize (fixes IllegalArgumentException
+caused by negative cursor location)
+* Place the cursor correctly even if not on the last line during a slow
+path resize
+"
+"c6d83250711a55b3dfc354ec8d0a01de29bddf5d","2012-05-14 04:10:59-07:00","Support sending additional commands to existing window via remote interface
+
+This implements an idea posed in #111.
+
+* Generate a handle for every window created via the remote interface
+* Return the handle to the caller via setResult()
+* If a handle is provided in a call to RUN_SCRIPT, try to find the corresponding
+window and run the script there
+* Switch to the existing window where the script is run if found
+"
+"b68ff3f2d6eb06581378ed9629073740c11752ed","2012-05-14 21:58:29-07:00","Update intent sample to demonstrate reuse of existing windows
+"
+"14ed3c33865487212fba8d04af6f437156105d87","2012-05-14 21:59:56-07:00","Select the correct window when Term activity is created via the remote interface
+"
+"0d68a02000decb96317a0e2acc08a7b74cb2cb76","2012-05-14 22:06:48-07:00","Correctly hide the action bar on startup if requested when status bar is showing
+"
+"2b66c88404265383ed4999e7cb6a02a55f17ba1e","2012-05-16 06:36:06-07:00","Merge pull request #114 from steven676/for-upstream
+
+Sample widget activity, sending commands to existing windows via remote interface, miscellaneous bug fixes
+"
+"72e7379a458ac1371f78f606cafd331ca6b243a0","2012-05-26 18:09:01+08:00","Minor edits to build and release instructions.
+"
+"da0a245a839d483ef078c28e52624909906a38a5","2012-05-26 18:09:27+08:00","Update version number.
+"

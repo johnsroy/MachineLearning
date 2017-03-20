@@ -1,0 +1,419 @@
+"commit id","commit date","commit message"
+"640d36777310cc81c7840a99bd2fbe037e2a925f","2015-03-02 11:07:25-08:00","Promote Share a Fact to all build flavours except production release.
+
+Change-Id: I1c5e387a8d7f21c81791361cf03b56c26b5e7ba6
+"
+"3130098a3d795da7ffce607f8662631b0140618f","2015-02-13 10:42:05-05:00","Dark toolbar with white icons.
+
+- Switch to a dark toolbar with white icons in both light and dark theme.
+- Update theme styles to be more consistent and sane.
+- Fade in the system statusbar color on 5.0+ devices in articles with a
+lead image, and make it the same as the toolbar color in articles with
+no lead image.
+- Remove light bounding box from search text.
+- Slightly decrease the height of the background gradient of the toolbar,
+and make the gradient less dark.
+- Make the default window background color fully white, instead of
+slightly off-white.
+
+Change-Id: I64a345ba43e47cc7e8d824b09752c8037a3462d8
+"
+"f997bec5bd3e0c2a46c384b5b06af15a3a1bc516","2015-03-03 21:12:58-07:00","Use designtime layout attributes
+
+The namespace prefixed with 'tools' is stripped out by the compiler,
+and only used for IDE and other tool support. So it's safe to leave this in
+since it doesn't get included into the apk.
+
+This is great for overriding or setting attributes just for the
+IDE's layout preview/designer.
+
+More at http://tools.android.com/tips/layout-designtime-attributes
+
+Change-Id: Id942a78801648196b689d7571c4c6a34c11e46ae
+"
+"b50b1763f8ddf001d8864e5a38dac239b23edc49","2015-03-05 22:42:03+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I91e5b9d43e5e20e61e5b0545bae8be4d2094b765
+"
+"1bbfbfc5bdcf0de4fb7016b36e152d95e9ed5690","2015-03-05 16:31:43-07:00","Bump versionCode
+
+Change-Id: I5b41a0b7b14dd71f5101366a4b1160bc030c834d
+"
+"ab203708c6792b09988107c442b98298210f7deb","2015-03-06 16:52:47-05:00","Fix crash when highlighting text for sharing.
+
+Be more permissive when finding the 'copy' and 'share' context items
+that the WebView provides. Should cover more API levels.
+
+If we're unable to find the context items, then fail gracefully by
+falling back on the default context actions.
+
+Also fixed minor style issue for correctly setting text color for
+action modes.
+
+Bug: T91767
+Change-Id: I6da051fc9f7274c99e5ba78a642431d28797b6ce
+"
+"0483c57482b244b794a9cfd13ee25d6eda646c6d","2015-03-02 17:27:04-05:00","Single 'read next' item at the bottom of articles.
+
+- Includes A/B toggle based on app install ID. (Half of users will see the
+old 'read more' section, and the other half will see the new one)
+- Also feature-toggled only for non-production builds for now.
+- The Read Next item is the result of a full-text search for the first
+item that has a lead image (and not the same as the original title).
+
+Change-Id: Ifdc7080749c4a97c01b265c1586f287797fc0ab9
+"
+"720390f6f9d146c945074c0eb4dc5528de69ab93","2015-03-03 16:52:16-05:00","Update event logging for Read Next.
+
+Added a 'version' parameter to the schema to differentiate between
+the old and new style.
+
+Change-Id: I5092a8b7562ebaf543eec97b1db64921d58aa5c5
+"
+"834fe148e614e5e1e3bbe598022322a3bf3b99cb","2015-03-07 21:22:53-07:00","Just log the read next items actually shown
+
+Before it was logging up to 11 items when it only showed 1
+for the new Read Next functionality.
+
+Now callers of SuggestionsTask specify both the number
+of items requested and the max number of items shown.
+
+For the case where a lead image is required just one extra
+item doesn't cut if since there could be items without
+lead images in the result returned by the API.
+
+Also fixed the test.
+
+Change-Id: I26be484d9f98d51dadf96de5c4736fa292f387c2
+"
+"7b8b160b670dabe7e61c57e39bb69b8c0ced3ffd","2015-03-09 16:18:59+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I8d8b8956c2e8a1d575d3b03ef70ac831af516e59
+"
+"ab023f7304f18e25d5c737b3e4c80cea934be2ef","2015-03-09 09:51:49-06:00","Update qq for read_next
+
+because the de and lb translations were misleading.
+I guess the string resource name lead some translators to believe that
+this is about reading the next section, but it's really for reading the next page.
+
+Marked de/lb string as fuzzy and fixed German translation.
+
+Change-Id: Ide77f030e2e53508a8b31f795b70d481fe2ebf0a
+"
+"fb9730b19e2ef1ca51d48c8591a28e42f672ad77","2015-03-09 12:01:38-04:00","Bump versionCode
+
+Change-Id: I27a467b7ae00080f6041af51077cf01db67f3460
+"
+"654010c918a457938865ed2634b039ddd92ec804","2015-03-10 20:44:58-04:00","Remove focus line from search views.
+
+Change-Id: I4cd97105de0676b34ab42b48941ca50cb045cab4
+"
+"82266bb0ddd0d167ff8e3ed609bb69e836d11723","2015-03-02 11:57:04-05:00","Add wordmark to top of left nav menu.
+
+Also tweak sizes and padding around icons.
+
+Change-Id: I5af66d2848b007a62604526ffe7e0068f0e48b42
+"
+"27e7228a845be4d84aa764a1cb26a7ffff26053a","2015-03-10 14:47:12-04:00","Update launcher icon.
+
+Also no longer generate the icon from SVG, since the new design of the
+icon (done in Adobe Illustrator) uses SVG elements that don't seem to be
+compatible with rsvg.
+
+For the time being, the policy shall be to receive a 512x512 icon from
+designers, and size it down to the desired resolutions.
+
+Added 512x512 icons in a separate folder. May be beneficial to add a
+script that creates the various sizes based on the originals, in the
+future.
+
+Change-Id: Ic943f410369fd0ff1e72296b702cdadb470aa38f
+"
+"eaeea585726c6b810ad3e01111e764ac3ebdbd37","2015-03-10 22:27:03-04:00","Patch support-v4 crash in SwipeRefreshLayout.
+
+This seems to have been fixed already in support-v4, but not released yet.
+
+We're already extending SwipeRefreshLayout ourselves, so why not.
+
+Bug: T88904
+Change-Id: I9695741bc289e17c36ab7ba3fe97f27995859cf3
+"
+"9ee0f18d2b7144d06dfe006988905eca5f8b5401","2015-03-10 21:39:25-04:00","Tweaks to gallery license icon and text.
+
+- Align the license icon vertically with the description text.
+- Default license to 'fair use' when license metadata is empty.
+- Default attribution to 'uploader unknown' when uploader metadata is
+empty.
+
+- Enable the translucent search bar in 2.3, since we're now using
+getBackground().setAlpha(), which is allowed in 2.3.
+
+Change-Id: If11bf5675e82e43fd5e54711554938287aefe54c
+"
+"9159176cc76ef9dffc539c3d53e9cd229005d4ee","2015-03-11 18:25:23-04:00","Update target SDK and AppCompat versions.
+
+Change-Id: I1df97e716bcf1f6160e0d4073abd4db8c4b32416
+"
+"ff65e86f3863c8f28a612a00934b76704ae0dcc0","2015-03-11 21:23:33-06:00","Use Gradle SDK Manager Plugin
+
+This Gradle plugin by Jake Wharton automatically downloads
+the necessary SDK components by looking at the build.gradle
+file. Pretty nifty.
+
+No more struggling with the command line, which seems to be hit
+or miss, to get updated  SDK components updated on headless CI servers.
+
+Read more:
+https://github.com/JakeWharton/sdk-manager-plugin
+
+Change-Id: I681800163577977ecacbe25b7df1c51bac46c07b
+"
+"d4872a31da6ccc14b9b79f13bca886ba7a3da6ec","2015-03-11 21:25:19-06:00","Move link to MW API to better place in README
+
+It felt lost at the beginning of the readme and was out of context IMHO.
+
+Change-Id: I70f766a00c73f076fe098bb6e371c4f4fd950c50
+"
+"efbce7d70c5f84651ece7d29ae857a03306a1fb2","2015-02-26 17:04:57-07:00","Hygiene: SpUsage: Using dp instead of sp for text sizes
+
+Let Lint ignore those specific instances as already mentioned
+in the comments of the XML file.
+
+Change-Id: I4b0d03c86c7cec781b96208056f73936473744fa
+"
+"5b90fe70911018f4ddb824d97af2c10c953d0d02","2015-03-07 21:41:49-07:00","Replace explicit type with '<>'
+
+Change-Id: I7a88926d57d6c55ef123c99a781d46ffabd14798
+"
+"d73000d9bba2ceb16e81819aa28bab2c612ccaec","2015-03-07 22:06:19-07:00","Tackle some more inspection warnings
+
+Change-Id: I39a0adc3d83e0ca8fdf00aa5e06ec83b5af66050
+"
+"ed1ab874c00b732c27318d8bc05d12e6a6c5fd9c","2015-03-12 15:05:07+00:00","Merge 'Use Gradle SDK Manager Plugin'
+"
+"49eb214af16cb14827d43e19bbe7d6a6b32f68f4","2015-03-12 15:07:46+00:00","Merge 'Hygiene: SpUsage: Using dp instead of sp for text sizes'
+"
+"5afcb4dddcab00bd25c72f7007ae4b3754145260","2015-03-12 15:14:06+00:00","Merge 'Replace explicit type with '<>''
+"
+"3b382603c7eb7ee1fbdb01ecabeef7d4bcdc9ed4","2015-03-12 17:06:33+00:00","Merge 'Tackle some more inspection warnings'
+"
+"494e78765c7eb5805eb079ef8b142786a5140200","2015-03-12 13:06:27-04:00","Fix some items to comply with latest AppCompat library.
+
+The latest AppCompat library seems to be a bit more strict about a few
+things:
+
+- Explicitly call setDisplayHomeAsUpEnabled() when setting the Toolbar in
+the main activity. Otherwise the hamburger icon is not shown.
+- Fix an issue in EditSummaryHandler where it wasn't correctly finding the
+container view.
+
+Change-Id: I578c624d04efdfeb67a9e69998505f6a09f81d67
+"
+"0666751a41a56cdfe7b9b50b927b9f5e22211918","2015-03-12 14:02:25-04:00","Fix list item background in 2.3.
+
+Under 2.3, the list items (search results, history, etc) were showing up
+with a solid blue (selected) background. It looks like the state_activated
+property is having an effect on the background, even though it's not
+supposed to apply to 2.3.  I've split off the list background selector for
+API 11+, and modified the one for API 10 to no longer have
+state_activated.
+
+Change-Id: Ie3e29c151f9989e8c23ace09a188a84d00f660ca
+"
+"4dfdcbecff7a558a281c4ebed98bccb7116a60d6","2015-03-12 21:57:29-07:00","Don't crash if the user clicks on an invalid URL.
+
+If the user clicks on a URL like http://en.wikipedia.org/% then the app
+crashes. This patch simply catches the exception that's thrown and does
+nothing, which is confusing for the user but doesn't suck as much as crashing.
+
+Bug: T89156
+Change-Id: Id7932b469397afcaf76071fa75b12afeb5fdb676
+"
+"3d9503a08e90224c113fb48cbd2e15fb806a3fe2","2015-03-11 23:55:17-06:00","Tweak layout for Share A Fact
+
+to be closer to what the iOS app has.
+
+Text snippet:
+- font is bold
+- font can be bigger
+- text is vertically centered over the allocated area
+(looking at the iOS project it doesn't center horizontally as the task claims)
+
+Gradient:
+- is darker
+
+Bug: T91721
+Change-Id: I9d44554b9bdfa6ade90c5e9c43e7b7448ca716a7
+"
+"1483eaf00add7147d9b2accf1c48d2b0a7ad7e8f","2015-03-13 15:14:06+00:00","Merge 'Don't crash if the user clicks on an invalid URL.'
+"
+"eaea4c44461b90a9ab6667ebd9641046e7643a02","2015-03-13 10:03:26-06:00","Fix issue where the bottom portion of About screen was white in dark mode
+
+The main change is setting layout_height of the ScrollView to match_parent.
+Also added design time value for version text.
+
+Change-Id: I89e06e2e06d0648752bfaa506ffed2b80d90b756
+"
+"3e4a407650b27f23ba765d90a6ae45a3a315dce0","2015-03-13 19:04:53+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ib4ec190ab3a30496226452505dac0b8f157d489e
+"
+"97febbe7c61528fffddfdd15ee8d1847ce88c39b","2015-03-13 11:41:24-04:00","Fix action mode menu item color.
+
+- Action mode text color fixed by using proper styles.
+- Unfortunately, for API <21 the icon color has to be set
+programmatically.
+
+Bug: T92510
+
+Change-Id: I68438b6900bdcf653c192505e7ad35f652a11196
+"
+"da7d574d83973ae7459059fe198a8889e462899c","2015-03-13 16:58:00-06:00","Light theme chooser button was not labelled on 2.3
+
+Another regression since moving to app compat 22.
+
+Change-Id: I7dc69f39b726e3133bc17e2c609738101b1b3452
+"
+"d033f9eb1860481b3916903a85969280fdcb02ca","2015-03-13 17:03:14-07:00","Update store description string.
+
+This patch updates the string for the store description to reflect the current
+store description.
+
+We're in the process of deprecating putting this description in here, but for
+now let's keep it in sync with the app store.
+
+Change-Id: I192f8968be3f76412e6957770f3e22a2ea579436
+"
+"95300ff910f4c33b52629aa8d4a77d7fe6c7c705","2015-03-16 00:35:15+00:00","Merge 'Fix issue where the bottom portion of About screen was white in dark mode'
+"
+"b6df0ee9c50371307b91ef423578f118d84a956c","2015-03-16 00:36:31+00:00","Merge 'Light theme chooser button was not labelled on 2.3'
+"
+"2b2d903780527257df82c760a54e73bdad5bcb40","2015-03-16 00:39:34+00:00","Merge 'Update store description string.'
+"
+"b882a401ac1e6174d580a36b8bda4a10953108c9","2015-03-16 10:29:41-06:00","Set text color in error popups for 2.3
+
+In light mode on 2.3 the error popups were white on white,
+and therefore not readable.
+This patch is setting the text color to red.
+Unfortunately, it's not easy to change the background of
+the popups. We would have to roll our own.
+
+Bug: T92851
+Change-Id: I001db984192f8df722a375ce76abaf076e813305
+"
+"eda31e774bc68441f85833fcda2e82ca6f40298b","2015-03-16 12:00:03-06:00","Remove (R) from wordmark in ShareAFact image
+
+Change-Id: I701e57bcffb67b8b3cc7f7214d74f6fd9393ccaa
+"
+"50e4d6b9b4a15b1d640e9f3faec20081937048c5","2015-03-17 14:08:25+00:00","Merge 'Set text color in error popups for 2.3'
+"
+"bb31e47776b11393be87409a6671cc7d566f65cf","2015-03-17 12:12:24-06:00","Updated SquareUp libraries
+
+- Added missing credit for Picasso
+- client.setCache does not throw IOException anymore
+
+Highlights from https://github.com/square/picasso/blob/master/CHANGELOG.md:
+* Memory and Network policy API controls reading and storing bitmaps in memory and/or disk cache.
+
+TODO:
+We may not need to use the OkUrlFactory shim in OkHttpConnectionFactory anymore, or even the whole class.
+Updating acra would require code changes.
+
+Change-Id: I44fd062e2d7c74c5b538146fa5a2fe637d2e9342
+"
+"eac9f6419d43acb73536a6277b5b91d322a512b6","2015-03-17 12:18:20-06:00","Roll appcompat-v7 back to 21.0.3
+
+Too many issues on Gingerbread right now.
+Want to see some comments on the upstream bug first.
+
+Change-Id: I4a49df9681171bf43119867cec81be32df78b569
+"
+"792bcbfc5c122376fee537f4933f4d5a225e4e0e","2015-03-14 17:24:34-04:00","Cache pages on disk instead of ram.
+
+- Added DiskLruCache library to project (with license/credits, etc)
+- The cache directory will automatically go to external storage (if
+detected), or fall back to internal storage if no external card is
+available.
+- Caching pages in key:value pairs where the key is an md5 of the page
+title, and the value is a json dump of the Page object.
+- The json structure of the Page object now includes the list of Gallery
+items. However, this does not yet include the *full* set of information
+for each Gallery item. This still has to be fetched from the network
+when the user browses the Gallery activity. This will be addressed in a
+future patch.
+- When launching the Gallery activity, we are now passing it the original
+page title (instead of the normalized title), since the original title
+is the one that gets cached. The Gallery activity can then use the
+cached page, based on the original title. However, this required a
+slight modification to the API call that retrieves the collection of
+images for the page, namely the inclusion of the 'redirects' parameter,
+since generator=images doesn't work for page titles that are redirects,
+and the 'redirects' parameter allows the API to automatically resolve
+the redirect.
+
+Change-Id: I08cf2aa15895456013145ee5991ee52b0d780d3d
+"
+"79dcc5fb10c86437a6df172efa2161c0eb7a6fd1","2015-03-15 19:07:59-06:00","Remove executable bit on image file.
+
+Change-Id: I919c300b8e680b5eb04c3c24674b9425ee225361
+"
+"8e99ecec265fb763535ebc3191fd0fe3c07c4d19","2015-03-19 11:21:09-04:00","Make text in certain TextViews selectable (for copying)
+
+This allows the user to long-press text fields such as the page title or
+description, gallery info text, etc. for copying the text to the clipboard
+of the device.
+
+Change-Id: Idbafb9e3fa06006c9922917ae798766ed0bc1120
+"
+"e25ff5b77cb3ee4b3255e242e6c2c95d149e4a3e","2015-03-19 16:47:11-04:00","Apply a Ken Burns effect to the lead image.
+
+(only for non-production for now)
+
+Change-Id: Ic4f9eadc173a16e5e1b25175874e783b13d60631
+"
+"4192cdb7e2a0eac3951e0c7203e95d0f51b5af75","2015-03-20 13:45:27-07:00","Hygiene: Add @NonNull annotation to two methods in LanguagePreference
+
+Two overridden methods in LanguagePreference didn't have the @NonNull
+annotation that is present in the overriden method. It stands to reason that
+if the overridden method has a parameter that cannot be null, then the
+overridden method does too. This patch add those annotations.
+
+Change-Id: Ia865529710962b8ef47ef05b01c34573b4441d53
+"
+"43c813b3247714bdf0ff37b894826ded464a0fb2","2015-03-23 11:43:59-04:00","Don't load Main Page from cache, except on screen rotation.
+
+...since the Main Page is updated daily, and the app needs to show the
+latest content automatically.
+
+This isn't yet a totally optimal solution. Once we merge the
+single-webview patch, we'll implement more comprehensive cache policies
+for various types of pages, including the Main Page.
+
+Bug: T93356
+Change-Id: I773992aef1cfc05af84d273cd486ad5be38ba954
+"
+"156a619e6018c59aeb3d03fb25bbe099a5e4f316","2015-03-23 18:19:38+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I4767afe4fc98445e720e9a273d38a683b20fcd82
+"
+"89451fc56da4e500d8532ddc0ae6912c43152361","2015-03-22 19:59:46-07:00","Don't crash when the AbuseFilter emits an arbitrary error code.
+
+The abuse filter unfortunately allows admins to specify filters that
+emit arbitrary codes. This is a nightmare to handle properly.
+
+Right now, our lack of proper handling for these arbitrary codes is
+causing the app to crash if one is received from the API. This patch
+changes that behaviour to simply treat arbitrary codes as errors. That
+sucks, but it's better than crashing.
+
+Bug: T93539
+Change-Id: Ib839d4104f4a51b344dc7b00faf7a8bcad069fe5
+"
+"a65548f86e61babb218f6a351b7f4915c3d102da","2015-03-23 14:30:15-04:00","Promote share-a-fact to production.
+
+Change-Id: Ie227cf08c41cb0d6b9e765424c00c0ffc85621f3
+"
+"e720d87faf11dbe75de6390f0eef9477af3e6c0b","2015-03-23 15:54:24-04:00","Bump versionCode
+
+Change-Id: I87f3afeca93c42b63dceee8446a51c66f3df7628
+"

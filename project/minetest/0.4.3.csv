@@ -1,0 +1,129 @@
+"commit id","commit date","commit message"
+"a9a475ad50ae93c253e0d1eda1f71a42dbc20298","2012-08-12 11:09:38+03:00","Remove unwanted ! from ifs in inventory record-for-rollback code
+"
+"d05e3adbc7fe912319a14d5c164941017f2c7170","2012-08-10 12:34:02+10:00","fix node timers so on_timer gets the correct position
+"
+"e3b831e97505a6bd6a07813b2a0b8608637a3cd9","2012-08-12 15:49:06+03:00","Fix wrong amount of nodes being dropped from inventory
+"
+"1ed559bd2418dc34689160df09af8f779300ee9f","2012-07-30 09:45:26-04:00","Allow digging of unknown nodes
+
+This allows the removal of nodes with unknown types.
+get_item_callback() (C++) would fail if a node has an unknown type.  Now it
+will try using the callback from minetest.nodedef_default in this case.
+Also, minetest.node_dig() (Lua) was altered to always allow digging when
+the node definition is empty (i.e. unknown node).
+"
+"8e0ac70c4ddfffedcd9e85b409360b4356d033c4","2012-07-28 15:49:23-04:00","Remove trailing comma after player list in server status string
+"
+"548da26ddc1e38bffbc05c5577fe9a60476f8e71","2012-07-28 15:27:31-04:00","Extend Lua API in order to implement chat commands
+
+minetest.get_server_status()
+minetest.request_shutdown()
+EnvRef:clear_objects()
+"
+"8a3c777c40e2b61c1ba561ba0c60ab8d281886d2","2012-08-01 17:17:52-04:00","Add ban management routines to Lua API
+
+Those functions are:
+* minetest.get_ban_list()
+* minetest.get_ban_description(ip_or_name)
+* minetest.ban_player(name)
+* minetest.unban_player_or_ip(ip_or_name)
+"
+"b29d609b0bf54345f9c7cb8a1e3d6de6799fa147","2012-07-22 09:42:43-04:00","Move chat commands to Lua and remove servercommand.{cpp,h}
+
+Commands moved:
+/me
+/status
+/time
+/shutdown
+/ban
+/clearobjects
+"
+"b717b6505b4d401b901d5e07412aa580ff6ec462","2012-08-12 17:11:23+03:00","Fix crash when furnace is full (minimal game)
+"
+"0b1ab41a954e2a2b035888e200d775372a3b394e","2012-08-19 10:55:04+03:00","Fix github issue #213: Dropping unknown items crashes the game
+
+The items will now just disappear when dropped.
+"
+"1d7408a7b866a8948e7913a7e8bac7d608f90fbb","2012-07-28 21:41:32-04:00","Fix black display inside opaque water
+
+Opaque water's solidness was being set to 2, like a normal node.
+When you swim, it is treated like a solid block, and the display
+goes black.  Setting it to 1 like transparent water allows you to
+see.
+
+It looks somewhat awkward when you swim, look up, and see an opaque
+wall of water (the surface), but there isn't much that can be done
+about it.  If you made the water transparent so it looked good,
+it would defeat the purpose :) .
+"
+"8887105ffda38d42eb7dd3958f574317d7ce2ca6","2012-08-31 17:58:55+03:00","Properly initialize baseimg for texture modifier [combine:WxH:X,Y=filename:X,Y=filename2
+"
+"f3630e95d6eb4f51e57cec7705764b788572e9ec","2012-08-31 18:06:47+03:00","Use proper alpha blit in some more texture modifiers
+"
+"f60227f112a36d943c83d4d1ac0b24754fbd537e","2012-09-01 09:23:39+03:00","Don't crash in 'unexpected multibyte character'; just print it in log. Github #222
+"
+"43ebec2be1949aa5eac127df7cb902d37e4e461b","2012-08-19 13:15:42+02:00","Make shift the default descent control on ladders and when flying
+
+'aux1_descends' setting switches to the old descend control.
+"
+"6a16075912d016926ee0361fb85f9979c119be52","2012-08-20 01:29:56+04:00","Add InventoryList width property & allow custom crafting grids.
+"
+"b17d3e7ad7e59a10df50277c15174529f20d0bed","2012-09-01 12:07:27+03:00","Add disable_jump and fall_damage_add_percent node groups
+"
+"3b43c69df4ce7d68aebb4bd02aaa4aca18b9afad","2012-09-01 12:58:37+03:00","Add bouncy node group
+"
+"c129b3852b97b7bd7ea7fe904af68243ad44a333","2012-09-01 13:21:52+03:00","Fix the bouncy node related stuff a bit
+"
+"0f7728f84decb836bd7d025456315c297fe30435","2012-07-26 22:52:05+04:00","Smooth transition to the desert biome.
+"
+"c0bd96d9b314e78a7aeb74b1bff70e1023b2f9e2","2012-09-01 13:41:15+03:00","Attempt to fix flying gravel and dirt
+"
+"3e7957512bdb86acb3836c6c1df96e38e05efa3c","2012-07-26 09:49:00+02:00","A bunch of GUIKeyChangeMenu fixes
+
+- Display message when associating a key already in use
+- Fix issue for not beeing able to assign space to an action
+- Cleaning up
+- Make it build (by celeron55)
+"
+"5194505407884f6375311f0ab4c5f8783646cb91","2012-09-01 18:02:29+03:00","Fix GUIKeyChangeMenu so that '/' can be inserted on a finnish keyboard
+"
+"7a14171be4cdb2d78b9cb361b4fc10137ba3299c","2012-07-25 15:56:09+02:00","Fix issue with openal mac os x compile
+"
+"b6c12d2aa3f7f3f0faca86a0b20904e309c15179","2012-09-01 18:32:15+03:00","Fix github issue #224
+"
+"d53a6cd8518edd025acdfc7878ede857867e507b","2012-09-02 19:38:44+03:00","Add overridable function for handling dropped items from nodes
+"
+"6495007924d8907ddfff14be09d38a4b1745b95a","2012-09-02 20:13:11+03:00","Fix bug in moving a larger sized stack in inventory on top of another
+
+- You have 2 stacks: a with x items and b with y<x items
+- Take a with your mouse and place it on b
+- Whole stack a moves to b
+- (y * 2 - x) items move from b to a
+- (x - y) items are left to the mouse cursor
+"
+"e1a495ee306290b3bec2de9aa298aac1528e9243","2012-09-02 22:51:38+03:00","Make inventory GUI do sane things when server-side inventory acts unusually
+"
+"cc47ff7c4cd3a2ae1685f19c52da98164befcd0a","2012-09-02 23:01:40+03:00","Fix moving stuff into a mismatched stack in a 'infinite' inventory
+"
+"0e6f7a21c60d162b3b7134882dc22dbd8acd014f","2012-09-03 23:31:51+03:00","Fix shift-descend to ladders from a floor
+"
+"ee2d9d973a0397ce244f05d49083250956578780","2012-09-04 09:48:26+03:00","Reorganize ClientMap rendering code for a bit more performance
+
+- Don't select blocks for drawing in every frame
+- Sort meshbuffers by material before drawing
+"
+"60932d2bd76cbe006e297f36bc118b830ae969d3","2012-09-04 23:02:56+03:00","Remove 'Unknown inventory identifier' deserialization errors, because they can break forward compatibility
+"
+"1b63f8d6b9cb3b8775f3a541dded890b0adfa6fd","2012-09-05 00:39:43+03:00","Version 0.4.3-rc0; increase PROTOCOL_VERSION due to backwards-incompatible InventoryList width field
+"
+"a0da6bcf43d71d22b949ccf1e68153b51da53e39","2012-09-05 00:55:19+03:00","Add aux1_descends to key change menu
+"
+"5dd1d354f86692e4c08cc78f3d9743557103449e","2012-09-02 16:51:17-04:00","Enforce stricter world names using a blacklist
+
+Blacklisted characters are: / \
+"
+"c8895dd43b098d635ec0ae55fbbbfe5d1fe8bef9","2012-08-30 15:41:48-04:00","Prevent world creation if the world already exists
+"
+"9696ed31a41b5e3ca85bad4a29c190a0d25c7752","2012-09-05 01:31:06+03:00","Version 0.4.3
+"

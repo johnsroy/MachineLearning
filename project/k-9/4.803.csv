@@ -1,0 +1,150 @@
+"commit id","commit date","commit message"
+"cfaa36403c83315f9c6d68911ae6ca04a24c56b7","2013-12-17 18:47:38+01:00","Revert 'Make IMAP autoconfig recognize 'Draft' as drafts folder'
+
+This reverts commit df0f6f3a8e645c23e3b0b1da8dde78557e3ae4b1.
+See https://github.com/k9mail/k-9/pull/429
+"
+"2e398c8f79fad2c62cb9564e11c043730b326d83","2013-12-18 00:21:18+01:00","Fix ClassCastException
+"
+"a9fac2af3c7dea82acd4f2139a3c09b9b82c86d4","2013-12-24 09:58:34+01:00","Spelling mistakes
+
+bezittelijk voornaamwoord en d/t-fout voltooid deelwoord 'verversen'
+"
+"e1c9916eb24ffff9abb440794ca0a121904654cc","2013-12-24 10:10:05+01:00","Add missing translations
+
+colorizing missing contacts, visible refile actions, attachment dialog
+"
+"12d886e1444a85a4249a2f81aaf7c91de84a9053","2013-12-27 15:51:06+01:00","Consistent Dutch translation for 'attachment'
+"
+"86e15bd888910ebd9ad04c94f0865efc324aaacb","2013-12-24 01:54:05-08:00","Merge pull request #433 from raboof/patch-1
+
+Dutch translation update.
+"
+"3a502f4471abcd40029178f5a97753cc5e84c863","2013-12-22 23:20:39+01:00","Update strings.xml
+
+Translation error (ES): L856 'inificada' --> 'unificada'
+"
+"1d4b84c266aeb132814a0f4b492da7a00e9c0e92","2013-12-27 10:42:39-08:00","Merge pull request #435 from raboof/patch-2
+
+Consistent Dutch translation for 'attachment'
+"
+"f6d08fe852152bc3d1339626506aab98f694d975","2013-12-29 19:43:01-05:00","Fix typo
+"
+"27743681b458793a539a20ae784544c90be8f2f2","2014-01-04 01:40:56+01:00","Update build.gradle to work with latest Android Studio
+"
+"25236e7085ab27c870581ccc4ba384bd681168ff","2013-12-23 11:21:10+01:00","Update strings.xml
+
+Danish translation added. New to Github so hopefully I did the right thing :)
+"
+"7333d94973a1d00bd003ecde199525213673d424","2013-12-27 16:47:25-08:00","Merge pull request #431 from miplopez/patch-1
+
+Update es strings.xml
+"
+"6c9d84b9fa06409cc907e04e0ab8a00dccbb5ae4","2014-01-04 01:44:31+01:00","Rename plurals to make Transifex happy
+"
+"b14c5a72229921e4428503975ad2fed9c914258e","2013-12-27 16:48:51-08:00","Merge pull request #432 from Mittaa/patch-1
+
+Update da strings.xml
+"
+"329dca1491de5c0202f70f7a1dab0d6b4f25b1a6","2013-12-20 14:02:43+01:00","Update Slovak translation
+"
+"ff302e78900193bb024e685487fc6d746e451e93","2013-12-29 10:42:57+01:00","Update Danish translations
+"
+"e7ebb8621e8fa70fd9a8304c9196da8421cfc35b","2014-01-01 21:04:33+03:00","Update Russian translation
+"
+"0ecfb5e45c42c3307d1466a670f7a6b883be1dff","2014-01-04 01:52:09+01:00","Add Transifex config
+"
+"f336dc195912beee54ee0c6f4f764c26b97fefb0","2014-01-05 01:08:18+01:00","Merge branch 'translations'
+"
+"f38659d30ebeb89e7da0e96113d16d771769e831","2013-10-19 18:01:12-04:00","Update .gitignore
+
+Ignore auto-generated files that result from
+'android update lib-project' (which is invoked within 'ant debug').
+
+Some of the plugins (library projects) already have their own
+.gitignore file which includes the exclusions made here.  This
+commit assures that the exclusions are applied to *all* plugins,
+regardless.
+
+This, of course, has no effect on files that have already been
+intentionally checked into the git repository (such as the main
+build.xml).
+"
+"c5d3e4e814a204d78aee352263a2af64ba62f3c6","2014-01-05 03:51:21+01:00","Fix Danish translation
+"
+"c47777b82177d9e4b4692ff4ed0b8b06ff99ba16","2013-10-23 10:41:06-04:00","Remove ant.properties
+
+The properties currently therein are duplicates of those in
+project.properties.
+
+The build.xml file first loads properties from ant.properties, then from
+project.properties, so ant.properties is redundant.
+
+The file's existance was a maintenance issue.  The past couple times
+when the property 'target' was updated in project.properties, the
+property was overlooked in ant.properties, so ant builds would fail when
+Eclipse builds would succeed.
+"
+"dc0c5670075e9f557234df5a029c13bcdcebf2ae","2014-01-05 04:16:34+01:00","Revert 'Add work-around for Asus Transformer WebView display bug'
+
+This reverts commit 78428e287bae6739b0df9fd9ca78ef7c2daaa893.
+"
+"d6b6bf6254b0ce23a507eb33668d8023aa068eee","2013-10-23 17:50:06-04:00","Account preferences clean-up
+
+There were a number of preferences that were not being removed
+from the preferences DB when an account was deleted, so they
+would remain there forever.
+
+There were a few attempts to remove preference keys from the DB where
+the keys were obsolete and not in use for some time.
+
+Certain obsolete preferences were not modified:
+mUuid + '.name'
+mUuid + '.email'
+mUuid + '.signature'
+mUuid + '.signatureUse'
+These were in use before implementing multiple identities, and are still used
+as a fallback for old accounts without multiple identities configured.
+"
+"b392603ae07a2e0a89690d42429ff1f9db9fcb0a","2013-10-10 16:51:39-04:00","Use a locale-specific date in the header of a quoted message
+
+Also, include the sent-date in the header when using
+the 'prefix' quote style.  'Be like mutt' (and gmail,
+and thunderbird)
+
+Also, the quoteOriginalHtmlMessage method was using the mSourceMessage
+field in various places when it should be using its originalMessage
+parameter.
+
+Related issues:  2249, 3456
+"
+"d1fc587772269e357aa132aa6275069375b2e004","2013-12-17 13:44:25-05:00","Fix POP3 STLS command
+
+The server response needed to be retrieved.
+
+Thanks to Paul Durrant:
+https://groups.google.com/d/msg/k-9-mail/0XHNNMR1TQ4/yExsr7nvJQwJ
+"
+"0582432166aa2c481d67635f3ad6f4cb2f16f917","2014-01-05 04:30:28+01:00","Merge pull request #437 from zjw/misc_clean_up
+"
+"2655132c87f66a827dcc4204fe7e8a099421414b","2013-12-20 13:24:47+01:00","Add provider Outlook.sk
+
+..and fix settings for Azet.sk
+"
+"301527417df06fee4a9b29845d027884913a3924","2014-01-12 23:21:51+00:00","Update providers.xml for German providers
+
+Sources:
+http://kundenservice.freenet.de/hilfe/mail4/email-programme/einstellungen-generell/generelle-einstellungen/index.html
+http://hilfe.telekom.de/hsp/cms/content/HSP/de/3378/FAQ/theme-45858870/Internet/theme-45858718/Dienste/theme-45858716/E-Mail/theme-305642824/Allgemein/theme-57360865/IMAP/faq-45858521
+https://hilfe.web.de/e-mail/imap.html
+https://hilfe.gmx.net/mailprogramme/imap.html
+"
+"85317af6ff0f439776ed826e5feb70074f8bf9a1","2014-01-27 15:55:09+01:00","Fix issue 6064: Inline images don't display on KitKat
+
+Backported Joe's fix.
+See commit 094156cc2a3cadd58f3c965c0e32a18fced810f3
+"
+"cfbe6c24468cb4cea1d35912bd02671bddfc7201","2014-01-27 15:59:22+01:00","Prepare changelog for 4.803
+"
+"99dbe6b666948ceaf6be01f163708658c83bbf7d","2014-01-27 13:34:32-05:00","Bumped manifest to 4.803
+"

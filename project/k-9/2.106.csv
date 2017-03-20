@@ -1,0 +1,67 @@
+"commit id","commit date","commit message"
+"d871d2d2eec43d7eb4549204942f5fe0a7c204c9","2009-11-28 14:51:44+00:00","Fixes Issue 827
+Fixes Issue 734
+
+On reconnection, IMAP IDLE folders will now fetch up to the most
+recent 10 message that arrived while a IDLE connection was not
+available.
+
+Fixes Issue 232
+
+A serving of NAMESPACE-based auto-configuration on the side.  If the
+IMAP prefix is empty, and the IMAP server supports NAMESPACE, use the
+IMAP prefix supplied by NAMESPACE.  Also, if the user manually puts
+the separator as the last character in the prefix, don't append the
+separator.
+
+Also:
+Improved reliability of IMAP IDLE incoming message and flag state
+change handling.  Reduction (but not elimination) of multiple
+connections under startup conditions.
+"
+"61319d8c21892279d4d8f6fe0b7b6cb205246afb","2009-11-29 06:25:03+00:00","Fixes Issue 835
+"
+"f1abdbb7696162852644eea346daf3c275a435f1","2009-11-29 16:55:35+00:00","Bulk flagging (read/unread, flag/unflag) implemented.
+
+Message List batch ops wired to bulk flagging.
+
+Manage batch button state when messages are deleted (from outside
+agents) while in batch mode.
+
+Remove throws clause from Folder.close() to make it easier to close
+folders where necessary.
+
+Eliminate some cruft from MessageList
+
+Consolidate unreadMessageCount fetching in notifyAccount
+"
+"c7e7b9bedab175328a4060424df63dbe3f3fa315","2009-11-29 18:07:34+00:00","Bulk deletion for IMAP and stub for other Stores.
+"
+"1b3d0eb99249915eb42d7ad4bea8187b944c6064","2009-11-29 18:18:52+00:00","The closest thing to bulk delete for POP3.  Stupid POP3 has no
+multiple delete command, but at least we can index UIDs in one shot.
+"
+"3126298b460c181a10768e9219406526f13ca07a","2009-11-29 18:33:42+00:00","Bulk delete for WebDAV
+"
+"ed4685e82dd90f46dea178af03c414c48ad2301f","2009-11-30 04:02:34+00:00","we need to generate valid sql in the not-yet-used 'not deleted' mode.  Thanks to danapple0++
+"
+"299cd9a07ca93d859eb41f65b5d4206725b050de","2009-11-30 04:02:43+00:00","add 'deleted' to our default database indexes. (wants some query analysis at the SQLite level)
+"
+"4f5c9c8b3c0dc42273a7b99f50982a8294d9229c","2009-11-30 04:02:51+00:00","Now that our not-deleted-messages mode works, actually use it in messagelists
+"
+"da8ad69366b83ca55d9965079b590951564ac90e","2009-11-30 04:03:00+00:00","deleting messages in messageView now preserves the direction the user was 'travelling' in before the delete
+"
+"2c1dad555411e01d139764d228e669e2de0c7703","2009-11-30 04:03:08+00:00","when we go into a folder for the first time, jump to the first message being displayed rather than the widget at the end of the list
+"
+"955211407593ed0cf6397b070beffec1a73731fb","2009-11-30 04:03:16+00:00","actually set the deleted flag when purging a message. should help perf a bit
+"
+"b54dab0c7f27eaa4ea5183ca03f3494d4748300a","2009-11-30 04:14:24+00:00","remembering next/prev will work better if they don't use the same constant
+"
+"87673c91a5e627e349a5b5b4a2ac3a31b41e8c94","2009-11-30 04:57:29+00:00","Implement Bao-Long's suggestion to modify
+LocalStore.purgeToVisibleLimit only to work on undeleted messages.
+
+Convert LocalStore.clear() to use the new DELETED column.
+
+Make markAllAsRead only work on undeleted messages.
+"
+"87d4d940723b75798d84c9356c227cdbd159dd8b","2009-11-30 05:21:17+00:00","2.106
+"

@@ -1,0 +1,95 @@
+"commit id","commit date","commit message"
+"8dd67b146d09801ae2be20ae818daa92995ec6ad","2015-01-06 00:19:03+01:00","Initial commit
+"
+"dada70e92cee69f2b8b386f8834dee2951e52d27","2015-01-07 14:00:18+01:00","First checkin of actual code
+"
+"cc2b224a71bdd9bdb496b6907cfcb104e6526e25","2015-01-09 13:45:47+01:00","Do dot reuse BluetoothDevice, remember BT address instead and lookup the corresponding BluetoothDevice every time
+
+This fixes problems after sleep with bluez on Android.
+"
+"85fcdb208abb4c6f6c2ded1d7f187ee903fc9e97","2015-01-12 00:35:15+01:00","Put Bluetooth communication into a foreground service and keep socket open.
+"
+"88bb64583415949b8d0d14117fd7e9d6214a0bc9","2015-01-18 01:10:44+01:00","Add ACTION_SETTIME to Service and add a corresponding button in the ControlCenter activity
+"
+"fcaf099e70f06adf61b52ef8562af831d53aab9c","2015-01-18 22:44:38+01:00","fix various annoyances
+
+- only ask for notication monitoring permissions the on first start
+- filter out annoying system messages like keyboard notifications
+- rearrange buttons
+- bugfix for message being ignored when sending a test message to the
+Pebble (sender was used as message content)
+"
+"59c281c61ca75461bdd33836c9078b9b81595e7d","2015-01-20 23:51:55+01:00","Reply to Pebbles version requests
+"
+"bf6abe967264a838c4151809a5b361c758a9ccdd","2015-01-22 22:49:50+01:00","Quick and dirty support for incoming calls notification the Pebble way
+
+Incoming calls are no longer send as simple notifications but properly as
+incoming calls. The Pebble will vibrate until the call is taken or dismissed.
+
+It is not yet possible to dismiss the call using the Pebble button.
+"
+"070c6db5ed83e7e95d9126df54800a9c7930ef7c","2015-01-23 11:32:58+01:00","Resolve caller names by phone number before sending to Pebble
+"
+"94c73ef20eb347e7cfe80ba01bc94d0163eb401b","2015-01-24 12:21:15+01:00","Receive SMS the proper way, filter them out in the generic NotificationListener.
+"
+"2880e4dac98728f1a5e1fe37539ee5a4f9c0994d","2015-01-26 18:52:19+01:00","Native support for K-9 Mail, bugfixes for generic notifications
+"
+"ebf4c73e0281bfdcdcff26920e7c9d08931abed1","2015-01-29 00:30:38+01:00","Added (ugly) icons.
+
+But having ugly icons is better than having default icons....
+"
+"8e69723931e919e34b07dd265538b5ec4a3bb4c9","2015-01-30 11:59:36+01:00","Added quit button to Service notification, removed unneccessary ACTION_STOP form Service
+"
+"c0bfe2f715459e23c08300e218a18590af65d8fa","2015-01-31 11:49:46+01:00","make quit button work by letting BtSocketIoThread actually leave its main loop, do not display 'Unknown' for unknown numbers but the number itself.
+"
+"24c9b5b40011159bd479f8a0bb923efe6cc95636","2015-02-01 00:34:12+01:00","quit BtSocketIoThred when socket has been closed by remote,  remove dead 'passive mode' code
+"
+"fafcdc1d780030a1e86a223b7889a984dd7e98ac","2015-02-01 00:43:31+01:00","Update README.md
+"
+"ab233279e1381ca00643cc4c62834d322487465a","2015-02-02 21:16:42+01:00","enable/disable BroadcastReceivers via PackageManager when Socket is connected/disconnected
+
+This does not work with NotificationListener unfortunately.
+"
+"243b9f0a88b0edd62a3675f2124f1d0ac0b08eff","2015-02-06 13:55:44+01:00","Various changes to Service, Activity and Notification handling
+
+- Bluetooth connection is now established in BtSocketIOThread
+- Service is now started as soon as the main activity is started
+- changed 'start service' button to 'connect' button
+- quit button in service notification now also quits the main activity
+- Service notification now displays 'Gadgetbride started',
+'connected to Pebble XXXXX' and 'not connected' depending on connection state
+"
+"2793669e88793b2507ab3e1b9b7be794cbf483ae","2015-02-06 14:28:57+01:00","New icon
+"
+"d80e98d26a447ad22a476deee65c4029608c044c","2015-02-06 23:28:24+01:00","fix encoding of pebble version command, stops pebble from rerequsting our version over and over
+"
+"a47ba3c96faac14ab991bb36cf8c6df820bf6df0","2015-02-07 12:58:18+01:00","Cleanup main Activity, move debug code to DebugActivity, added Call related debug buttons, add state tracking to PhoneCallReceiver, support in-call display of incoming calls (untested)
+"
+"efa7920b9db144ee188c77deb92e66d53e985847","2015-02-07 13:20:38+01:00","do not disable/enable NotificationListener at runtime (leads to loss of permissions to read notifications)
+"
+"ebea37fa8e26874db6703408f7b1a1ef7eec2e0c","2015-02-07 13:30:12+01:00","update README
+"
+"20b3dffba6982e051a270fd7d5d1c25691f5b388","2015-02-08 23:53:40+01:00","initial support for music playback information (artist, album, track), fix encoding of empty strings in PebbleProtocol
+"
+"df8c290442cbcc144854b10d649388e3c72dc739","2015-02-12 16:00:45+01:00","Implement music control (play, pause, next, previous). Try to make code a bit less Pebble centric.
+"
+"e0c146bde9ca6588fa8fea119fec171b7ef0ee58","2015-02-24 12:36:38+01:00","add notification icon. This fixes #2
+"
+"bc40f41eab97735f49999e794fbaa04831aef1fc","2015-03-04 23:47:47+01:00","Do not send notifications out notification when screen is on. Also filter out 'ongoing' notifications
+"
+"e52e26168a62f34455e730adef1818fbb64eeeac","2015-03-06 14:00:56+01:00","quick&dirty preference screen. Allows to enable/disable SMS/K9/generic notifications
+"
+"4e7553836ba4237d01971422b55c1cd6ae3a4e38","2015-03-07 14:40:59+01:00","Workaround for non-working outgoing call display. Fixes #6.
+
+This is still a bit ugly because we cannot (yet?) detect whether remote has
+taken the call or not. So we will start counting in-call time from the moment
+we start dialling.
+"
+"85ccafc922b8eb5b2eaba0d24845592ae58341af","2015-03-07 15:32:34+01:00","Experiment with styling.
+"
+"6fa99082ab54641244474a3fbfdcef960660e2dc","2015-03-07 17:44:39+01:00","Support for rejecting/ending calls via Pebble buttons
+"
+"326e07906876b5a845e0faca0f269d4b2ea501fd","2015-03-11 12:40:59+01:00","fix crash when no Pebble was paired, change version to 0.1.0, build tweaks
+"
+"3e4922a4ebbae3f8de4580977abc49bb27c73154","2015-03-11 21:46:01+01:00","revert some useless changes in gradle files
+"

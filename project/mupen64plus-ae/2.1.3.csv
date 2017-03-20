@@ -1,0 +1,69 @@
+"commit id","commit date","commit message"
+"7f24c090aea76cf91509d5b289f0b1855f77afcb","2013-03-14 08:17:19-04:00","Add another exception catch to copyFile in FileUtil.java.
+
+Allows being specific if for some reason a file cannot be found.
+"
+"09f6877c0586253735e579a120fe453d2859ddc7","2013-03-14 08:41:17-04:00","front: Updated version string (debug).
+"
+"04a5a5612b10f533ce2fc6f35918e032bd2f6888","2013-03-14 08:44:59-04:00","Remove an unnecessary null check.
+
+If pathname isn't null, then getName can't be null.
+
+Plus, getName returns an empty string if no filename is in the path.
+"
+"cd677c6afa643e5e6a73a8eba44338b48d463966","2013-03-14 09:18:15-04:00","Fix unnecessary boxing in some methods.
+
+valueOf = return an object of the given type. ie. Integer.valueOf( var ) returns an Integer.
+parse[type] = return primitive of the given type. ie. Integer.parseInt( var ) returns an int.
+
+Some of the methods were of a primitive type, yet returned a statement using valueOf. Only parse[type] is needed in this case.
+"
+"7d472e7fbb92147761e619624dda62fe58c62195","2013-03-14 10:05:36-04:00","front: Removed some unused imports.
+"
+"354875407ac3e6f547cdb7be4c85e961563eb8b4","2013-03-14 10:54:48-04:00","[front] - bugfix & simplification: Simplify a boolean expression in CoreInterfaceNative.java.
+
+Previously someone could have made a file named 'zip' (without an extension) and it would attempt to load it as an actual ROM. Whoever does this with files other than ROMs is obviously pretty damn daft, however better get this out of the way before someone does do that.
+
+Made it check for a file with a length of at least 5 characters in length because the minimum length for a file with a zip extension is 5 characters (ie. 'a.zip')
+"
+"f5feec39594eb6be589871e3b8f0ee8004f6536d","2013-03-14 11:08:04-04:00","[front] Simplify two if statement conditions in Utility.java the same way I did in the previous commit.
+
+Also changed the cosmetic look of the simplified version of the condition that was simplified in the previous commit.
+"
+"cf70bad8001c9115afc94b0778da31ff98662814","2013-03-14 12:11:41-04:00","[gles2n64] Bugfix in Textures.cpp.
+
+Fixes an if statement.
+
+The way it is now, cache.hash.insert(cache.bottom->crc, NULL); gets executed regardless of the condition (the ; on the if statement terminates it).
+
+You really don't want to set the bottom-most element's data of the texture cache to NULL unless the cached texture you're actually working with is the bottom-most texture itself.
+"
+"92863a62cf60ed53bb7a6d2c27951f7474f6f754","2013-03-15 09:27:20-04:00","bugfix: Fixed null pointer exception in PeripheralController.
+"
+"a303f164a8e10bcc4b29fff2cf15b594c193ba5c","2013-03-15 11:55:32-05:00","OUYA: Do not use vibrator if running on OUYA
+
+This will allow android.permission.VIBRATE to be removed from the manifest
+without causing the app to crash in initControllers (assuming the removal
+of this permission from the manifest is manditory - I am still waiting on
+official from OUYA about this)
+"
+"0ed30778c77622cff14367daf326d669f34ae6d7","2013-03-15 12:29:16-05:00","front: Removed diagnostics from Advanced menu
+
+The controller functions have been moved to the input mapping activity.
+Having device info as the only item in Diagnostics category didn't look
+right, so I moved it to a separate preference.
+"
+"8eb3e2e9d8fcb73b44c86fd3aba673ccb10a251e","2013-03-15 13:29:01-05:00","OUYA: Exposed static fields from OuyaController
+"
+"7c8ce1dab6d34d24ad3fb2681ef881f3ac987427","2013-03-15 13:58:59-05:00","OUYA: Show OUYA button/ axis names when on OUYA
+
+This is so the app meets OUYA's Interface Guidelines.  See
+https://devs.ouya.tv/developers/docs/interface-guidelines for more
+information.
+"
+"3ff04d8e9055565fc7152aec1c0337a91e313000","2013-03-15 14:07:33-05:00","OUYA: Default to OUYA Input map when on OUYA
+"
+"bb1ca23da84bbe49c979e94fbb866e63c400b020","2013-03-15 14:21:52-05:00","OUYA: Fixed typo in comment
+"
+"81538d13068964402e3d4d10288eccf99a984d3d","2013-03-15 16:15:49-05:00","front: Edited version/ changelog for 2.1.2 update
+"

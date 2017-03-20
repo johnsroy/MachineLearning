@@ -1,0 +1,222 @@
+"commit id","commit date","commit message"
+"97a09e2e1e2b2ee67275ee53e75098f8336a6d9e","2014-11-22 19:03:48-05:00","Adding additional notification controls and a simple widget
+-added smaller versions of ic_state_ignore and clock to be used with notifications
+
+EventDatabaseOpenHelper, Columns, EventInstance:
+-removed column END, replaced with ORIGINAL_END
+-added columns EXTEND_BUFFER and EFFECTIVE_END
+-updated EventInstance constructor to take extendMinutes
+-effective end is calculated dynamically as originalEnd + bufferMinutes (in ms)
+
+EventDetailsFragment:
+-added controls to remove additional minutes from the shown event
+
+NotificationManagerWrapper:
+-added additional controls to quicksilence notification: 'open tacere', and '+15'
+-added additional control to event notification: '+15'
+-additional notifications restricted to Pro version
+
+ExtendQuicksilenceService:
+-basic service to restart a quicksilence request tacking on an additional 15 minutes to whatever time is left on the duration
+
+ExtendEventService:
+-basic service to add additional bufferMinutes to an event before writing it back to the database and restartint the event silencer service
+
+EventListItem:
+-updated to use effective end time instead of original end time
+
+ActiveEventWidgetProvider:
+-basic widget to show the currently active event
+-sizing and content still off
+-restricted to Pro version
+
+QuickSilenceWidgetProvider:
+-basic widget to toggle quicksilence
+-not working, disabled in manifest
+
+EventListWidgetProvider:
+-basic widget to show a simple event list
+-not working, disabled in manifest
+"
+"5c84f28ac1490dfbbe30603529dcc28cdee22d2d","2014-11-22 19:08:57-05:00","Adding binaries for 2.1.0-beta-5 - 2.1.0 stable
+"
+"5cae8055d88ec464305819d9b1cdac08e7310725","2014-11-22 21:12:27-05:00","Adding support for FDroid releases to access paid features
+"
+"399b9528a9a866cc63457eab991156b35dc51b30","2014-12-12 16:32:30-05:00","Bugfixes, adding widgets
+-accent color changed to deep orange (testing)
+-added properly sized icons for notifications
+
+build.gradle:
+-updated to support changes in gradle library
+
+BetaPrefs, AdvancedSettingsFragment:
+-added option to disable vibrations for when an event or quicksilence period starts/stops
+
+ProUpgradeActivity:
+-updates all widgets during onDestroy()
+
+DatabaseInterface:
+-string fixes
+
+DataSetManager:
+-using WidgetNotifier now
+
+AlarmManagerWrapper:
+-extra debug logging added
+
+NotificationManagerWrapper:
+-added button to active event notification and quicksilence notification to extend the silencing duration by 15 minutes
+-icon attached to active event notification reflects the state of the ringer
+
+RingerStateManager:
+-fixed bug where AudioManager ringers were not mapped to internal enumerated ringer types
+
+ServiceStateManager:
+-setQuickSilenceActive() now takes and ending epoch timestamp
+-added getEndTimeStamp() to retreive the end time of the current state (or 0 if nothing is active)
+
+WidgetNotifier:
+-one stop shop to update all widgets
+
+Prefs:
+-added getBaseSharedPreferences() to return a reference to the underlying SharedPreference
+
+EventSilencerService:
+-fixed bug where going from one quicksilence to another (usually by adding 15 minutes to an ongoing quicksilence period) would trigger vibration
+-added check to vibrate() to skip vibration if turned off in BetaPrefs
+-updates widgets during quicksilence start/stop, and after every normal wake
+
+WidgetPopupRinger:
+-activity to simulate a dialog when user clicks on active event widget ringer icon
+-filler for now, content should be replaced with EventDetailsFragment later
+
+ActiveEventWidgetProvider, QuickSilenceTinyWidgetProvider, QuickSilenceWidgetProvider:
+-providers for the three widgets
+"
+"445acd62dba99afeea9d9d085a3490ee4e34bb75","2014-12-12 20:03:20-05:00","Updating updates.html for 2.1.1 - beta 1 release
+"
+"8bd11454bd23acf9262bc5f2a9d4770bc456b6af","2014-12-12 20:04:41-05:00","Fixed bug in EventSilencerService where NORMAL wake during quicksilence would restore ringer, shutdown service, and leave quicksilence active
+"
+"90a79d8c12784b83f80c0d663061284dc942aaaf","2014-12-12 20:06:13-05:00","Broke pro upgrade intro into multiple textviews, changed to use unicode bullet
+"
+"16ad30a3b040de45262d646dc46a016369b71b25","2014-12-12 20:07:04-05:00","Fixed bug where intents attached to notifications would sometimes be lost because they shared the same request codes
+"
+"542376808033452baff2d033670b65e900e6e215","2014-12-19 15:03:03-05:00","2.1.1 Release
+-switched all custom dialogs to use light theme
+-fixed bug where ringer state would not be restored correctly
+-changed color scheme slightly
+"
+"d07b26af63ae1bc9bd3ba03c3d5275f514168653","2014-12-19 23:24:17-05:00","Updating sample crash report to reflect changes in what is reported
+
+TutorialCrashReporterFragment:
+-switched to use asset sample_bug_report.html
+"
+"624156b9fb7aacee6139c4754a6fa1f976c4734a","2014-12-19 23:25:12-05:00","Main activity warning message icon now uses icon_tint color instead of primary
+"
+"35ac2cb4512720fa005c4e063bce31e97be133b5","2014-12-19 23:26:07-05:00","About activity version number now restricted to one line, scrolls with marquee effect
+"
+"86686133c60ede16a628a63b0342359c9d2e7d2a","2014-12-19 23:32:46-05:00","Removing viewPagerIndicator from repository
+"
+"7bc7d4eb9215b1b91e3f3ba1094830a64bf0a470","2014-12-19 23:34:14-05:00","Adding viewPagerIndicator to .gitignore
+"
+"e278400e94ece7139e7b4373e2b7268082f9e528","2014-12-19 23:34:41-05:00","Adding additional icon resources
+"
+"f4a1dd6e9c8d7e4e302ce6d472da7f285030db2e","2015-01-03 17:12:35-05:00","Fix text rendering issues when using large/huge system font
+-removed unused TutorialEndFragment
+"
+"223db6aaf27b7d70d6bdb5a412891653ca99cb41","2015-01-10 18:16:13-05:00","Fix for database sync crashing on API < 16
+-removed use of Instances.DISPLAY_COLOR, replaced with Instances.EVENT_COLOR and Instances.CALENDAR_COLOR
+"
+"973bfa4ab3b8ba4edd995c64623b6a608f5a10da","2015-01-10 18:22:31-05:00","Fix for enum types embedded within intent bundle generating class not found exceptions
+
+EventSilencerService:
+-now expects the wake request type to be specificed as an int value
+
+RequestTypes:
+-added int values to types
+-added getTypeForInt()
+"
+"eb8dd94eb8cd938cd04d8a02593efa0cdcc7c4d1","2015-01-10 18:23:53-05:00","Fixed about dialog header resizing when beta settings switch is revealed
+"
+"5e4c35f94fbe7270ddf39c81997919b038824702","2015-01-10 18:24:49-05:00","Fix (hopefully) updates dialog now showing bottom close button when webview text is larger than screen
+"
+"05925721f2a444a711d38dd1e511244d3c3d21e5","2015-01-10 18:25:11-05:00","Removing unused tutorial page
+"
+"9628535fdf53fb38d9d9254c7f21f2eb552460ea","2015-04-04 18:19:36-04:00","Adding new drawable resources
+"
+"38e88b90d58c77f893e788272c987e321787f5da","2015-04-04 18:20:08-04:00","Adding release apks
+"
+"012189f384d3e92aece932bf082cd068cdb61b5d","2015-04-04 18:21:01-04:00","Removing permission READ_LOGS, not needed any more to read our own log file
+"
+"9cbc9ed506e73b6d6bfa17d355018be68f89d3e7","2015-04-04 18:22:14-04:00","Adding animation resources
+"
+"b4d1cb84094825cedb847a6f1964feb690c71e75","2015-04-04 18:22:36-04:00","Adding drawable resources
+"
+"e3290ac1ddd0981b0a51e2590294d3af80178826","2015-04-04 18:23:10-04:00","Removing some legacy files
+"
+"324701f0c84740ef415a248f113a2512c8da5042","2015-04-04 18:23:55-04:00","Adjusting sidebar height
+"
+"86a2a8d5e0acefd56b447c0188b6ff91c8233f68","2015-04-04 18:25:41-04:00","Updating build release information for 2.1.2 release
+
+-adding additional error checking to DatabaseInterface
+"
+"e68b83d8d19e82b25cff53ce16552a45d3567a1a","2015-04-04 18:30:20-04:00","Test failing build
+"
+"07a911027e0ca42c778efefc6e1b96f8d5ba2c87","2015-04-04 20:29:54-04:00","Fixing fail test
+"
+"d5afcd5f39fab85f11f936b3f2cb538bbe3e5fb7","2015-12-12 00:15:25-05:00","Replacing deprecated FloatMath with Math
+"
+"b93008cfda7f71b1828a49d9f664627d31cc95d0","2015-12-12 00:41:14-05:00","Pulling out github oauth key
+"
+"6413e6aa3cb17147517a0a62210bea90ed5c3f91","2015-12-12 01:09:58-05:00","Move IAB keys to new flavor
+"
+"25da7fd6bb52d0e7152f5c9fc4753312ea1d9107","2015-12-12 01:14:56-05:00","Separating FDroid and Google Play Store flavors
+"
+"9a8d24b8a1665475de8161f580fd87fa10692090","2015-12-12 01:15:03-05:00","Separating FDroid and Google Play Store flavors
+"
+"5f75cc22276a239efc2a3793e9e3878d480beeb5","2015-12-12 01:15:31-05:00","Separating FDroid and Google Play Store flavors
+"
+"89b91e4730e2d378c745f4a4f81b0c6adb69f03e","2015-12-12 01:15:44-05:00","Separating FDroid and Google Play Store flavors
+"
+"3e05e3ecc447a61fedb5539bedabfb66b2d6bb14","2015-12-12 01:16:20-05:00","Use new android release versions
+"
+"f8007964d0e89001736dcc056ef39cecab031b31","2015-12-12 01:17:07-05:00","Update to use new build tools and android sdk
+"
+"7961922d9c2dc01e06cb0211c6a96b35cadfe6fc","2015-12-16 23:36:31-05:00","Fixed crash when showing notification due to calendar having no title
+"
+"9fe3d44b7750dd48b6db907f35c1691f562316e7","2015-12-18 14:33:14-05:00","Better support for permissions management
+-added full page warning when calendar permissions not available
+-added checks to databaseinterface to avoid permission exceptions
+"
+"9dfb524ca1ccf9900dc183f9ac4b981b38f64c48","2015-12-18 14:42:16-05:00","Continuing split into play store and OSS versions, bug fixes
+-added stub authenticator to fdroid flavor
+-renamed TutorialProVersionFragment to TutorialExtraFeaturesFragment
+-bumped version code to 26, release to 2.1.3
+
+NotificationManager
+-fixed crash due to empty calendar titles
+
+AlarmManager
+-added better date formatting to log messages
+"
+"a5d01d643c61ba38ac967e65a93f75bcac1b9f2b","2015-12-18 14:47:06-05:00","Updating donation key config
+"
+"28f19b48655b0f3be06d5f8cef58678e341cf2c6","2015-12-18 14:48:08-05:00","Removing donation key module
+"
+"0b596f38d769c75a72893f588e3098fa35164072","2015-12-18 14:49:03-05:00","Updating config files and library references
+"
+"ab5d58e68bb517c8d42e8a4a2b067e11a0086533","2015-12-25 11:08:03-05:00","Migrating activities to fragments
+
+SettingsFragment:
+-renamed from MainSettingsFragment
+
+BugReportDialogFragment:
+-renamed from BugReportActivity
+-changed to DialogFragment
+
+AboutFragment:
+-gets version type string from Authenticator
+
+Authenticator:
+-added getAuthenticatedTypeString() to report the app version type (basic, pro, foss).
+"

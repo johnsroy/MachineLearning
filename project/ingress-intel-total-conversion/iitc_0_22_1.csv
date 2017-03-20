@@ -1,0 +1,120 @@
+"commit id","commit date","commit message"
+"92bbf1ec152f6a83fe3daf56ff3fd685a258efbe","2015-02-27 01:14:11+00:00","bump version numbers after release
+"
+"b42fbe8574e9b2470c235dbe4d569ce6e4d1230f","2015-02-27 01:14:26+00:00","guess-player-levels - remove special case for level 8 - since the new levels, 8 is the min guessed level, not the final level limit
+of course, given all activity is based on L8 and lower gear, it'll never guess any higher...
+"
+"b42b19b9833347d151ec84564eb214d24b81a96c","2015-02-27 02:03:43+00:00","player tracker: guess player levels integration: remove special case for L8, as in the earlier commit for guess player levels - this plugin does it's own formatting
+"
+"ef7640de6a44f2a9fd1656bf92f7b9cb7689daee","2015-02-28 04:47:03+00:00","debug highlighter plugin: a place for experimental/temporary highlighters
+currently, highlighters for the unknown_10/11 flags recently added to the portal data
+"
+"5756db7623e31efebe0615168707c86aa7359bff","2015-02-28 05:15:16+00:00","oops - change new plugin @id firld
+"
+"6148ec4258e9aa6749b37fe8409def345726d24d","2015-02-28 19:43:02+00:00","should have been local variables - no point in polluting the global namespace
+"
+"58b9d1c7d3c28d113566814de1df5e552b608cbd","2015-03-03 20:24:40+00:00","hide ownership plugin: use core IITC function to get style, rather than hard-coding the parameters
+"
+"ece5dac26f742496ef47bf6f9bcd59aa61b12ba1","2015-03-03 20:49:49+00:00","portal markers: tweaks to the sizes used for different levels
+"
+"3b96ed49ea3c3f9185e989ac768aca2a78959e63","2015-03-03 21:05:42+00:00","radius scaling less extreme - reduced scale increase on mobile, reduced scale decrease when zoomed out
+"
+"22ef6a62a1661ebfaf86bcdd0fde5f9eed286577","2015-03-04 01:03:30+00:00","indentation fix
+"
+"55529c938ed3a2b5bcf0f1f360924b4c7f2f405b","2015-03-04 01:03:55+00:00","indentation, and dead code removal
+"
+"9b530753d3da4db4352b1e66e740e061613f2055","2015-03-04 21:41:27+01:00","iitcm: update views on app start
+"
+"e9d643626031c35ad27b7a368194ffc996ad0007","2015-03-05 19:37:40+01:00","Support shonin shards
+
+Fixes #951
+"
+"4336c2b29cce1eb9ae6346892a2db02a74fb0a7b","2015-03-05 18:49:14+00:00","Merge branch 'master' of https://github.com/jonatkins/ingress-intel-total-conversion
+"
+"cabe7692feb2bd935d87512a8be2ef7a06f27831","2015-03-05 18:54:53+00:00","tweaks to shonin shards
+"
+"54a6861aefa8695f9053cbcb4b77de671ec6506a","2015-03-05 18:55:28+00:00","code to easily disable botguard, if desired
+not recommended for general use, but can be good for occasional troubleshooting
+"
+"b6c89c9575415fc83486706226f097c3a80ebab5","2015-03-05 18:56:23+00:00","tooltip tweaks - slightly cleaner this way, i think
+"
+"fe192278394faec07fe37c33c7a3af88c37f8296","2015-03-08 03:01:54+11:00","Eliminate CPU churning on cache highwater check
+
+On older machines loading high portal dense areas this check is
+using 70-90% of CPU in Object.keys(cache).length, leading to
+resource starvation, and refresh times up to 10 times longer.
+
+The LRU cache high-water mark is checked every time we receive portal
+state from the intel servers to see if we need to do GC. In
+my case this peaks out  500-1000 portal adds per second on
+an aging laptop with the existing code with chrome-unstable,
+and minimal IITC plugins.  GC itself (ignoring v8 GC) was only
+taking 15ms, amortized to about 15usec a portal.
+
+Unforutnately the Object.keys(cache).length check was taking
+2-3ms each portal add, and 70-90% of the main thread was spent
+there, grinding older machines to a halt.
+
+I've just added a counter to track adds to the cache, and am
+updating it with the real cache size on GC (the two checks
+are almost always identical in higher density areas, and
+won't lead to performance issues if cache adds are over-
+estimated).
+
+Effects:
+- pushPortalGuidPositionCache goes from using the majority
+of CPU when loading dense areas to almost nothing.
+
+- Older machines can actually view western europe without
+grinding the browser to a halt.
+
+- the cache itself is now hitting GC_LIMIT in less than
+100ms on my old laptop.  (I think increasing GC_LIMIT
+to 80,000 and GC_KEEP to 40,000 is going to put less
+load on the Javascript engine GC, and have the cache
+be useful still, but I left that out of the PR as it's
+slightly more subjective)
+
+- v8's GC is being slammed slightly less often than normal
+(it's still thrashing, but this isn't the main culprit)
+
+The patch has been tested by about half a dozen people
+using different blends of IITC plugins on both Chrome,
+Firefox and across different OSs and with very different
+hardware. Reports ranged from minor to (more often) huge
+improvements in load speed and responsiveness in high
+density areas.
+"
+"dd9f053ed3371005fc25275df6d88c5a247dcb7b","2015-03-07 16:38:54+00:00","Merge pull request #952 from eidyia/pr-guidCacheHWMbug
+
+Eliminate CPU churning on cache highwater check
+"
+"052d208783e7e7538e5f644b330b925b36c35b72","2015-03-07 16:55:01+00:00","increase latlng to guid cache size
+"
+"7157eceae33d2827b2c5181621fc3901227ef54d","2015-03-09 00:02:29+00:00","distance-to-portal plugin: integrate with portals list
+"
+"d96ee8de505eb7eaa9d9c1e93997132ae72dd283","2015-03-09 00:04:55+00:00","distance-to-portal: fix case where current location is not set
+"
+"2f67616c5d3145224e92ae77eb545b1c3c9e9a26","2015-03-12 20:26:15+00:00","unknown_10/11 flags - renamed to the mission status they represent
+"
+"1dae89b4bc3afeccf140ec28ab5a2a2590b7cc2c","2015-03-12 20:26:53+00:00","mission plugin: initial basic highlighter
+debug highlighter: remove unknown_10/11 highlighters - not needed any more
+"
+"522ef34f77c86c54cc7586a298d5a6f74f75aef4","2015-03-12 20:47:05+00:00","earth radius: change leaflet and leaflet-draw to use the radius value used by the s2 geometry library
+this library is used in the ingress backend, so distance calculation, etc are far closer if we use the value from that
+"
+"c5b068eda1ed35db7384e6080da024d5e58f4a88","2015-03-12 21:33:22+00:00","ignore portals returned in the map data that are below the portal level requested
+this shouldn't be needed - the stock intel map completely ignores these so they shouldn't be returned - but since niantic added mission portals to the map they bypass all portal level filtering code, for some reason
+"
+"d98546a1735212b4ad58f58c940b35ebbc5699b9","2015-03-20 21:30:52+01:00","fix chat after intel change
+"
+"5298c98fdde802204eef9beefcc747c6995a8ac2","2015-03-20 20:53:45+00:00","minor api change for chat callbacks, and plugins fixed to use the new changes
+(which broke after today's niantic site update anyway)
+"
+"5e8ddb2344c5762369f635c5c59fa7ae71c48e44","2015-03-20 20:54:44+00:00","move portal entity array decoding into one place, and share the code for the common array elements
+TODO: move link and field entities into here too
+"
+"7e7622584de4d6fe4b3d7f96e99c569bb9c962c2","2015-03-20 21:33:15+00:00","website: update for 0.22.1 release
+"
+"2d128c8d602714ea7a9c18a56843a9476b26726a","2015-03-20 23:21:59+00:00","Merge branch 'master' into release
+"

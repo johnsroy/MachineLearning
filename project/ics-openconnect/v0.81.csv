@@ -1,0 +1,24 @@
+"commit id","commit date","commit message"
+"27818c6ad6d8033184e7f94d82ebbb2b87f62882","2014-04-06 09:47:28-07:00","OpenConnectManagementThread: Fix base64 stored file detection
+
+Android's base64 decoder rejects 'some' bad inputs, but not all of them.
+This means that if a VPN profile had stored a literal certificate instead
+of a base64-encoded certificate (as was the case in <= 0.7), it might get
+decoded into junk data.  Through experimentation and reading the source
+code, it was shown that inputs like 'a&bc' or 'ab*c' do not raise
+exceptions.
+
+So we will add a regexp to reject any base64 string with invalid
+characters.  At the minimum this should cause PEM files starting with
+'-----BEGIN ' to be processed as literal values, not as base64.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"6ddeeb190113f00a9e0a9e332578075f9bd7e56e","2014-04-06 09:54:37-07:00","Bump version to 0.81 final (819)
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"3901ba0f1a708ae34ed2d154043a2b9c25bb4744","2014-04-06 09:56:53-07:00","doc: Update changelog
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"

@@ -1,0 +1,211 @@
+"commit id","commit date","commit message"
+"2e472b183487a6527d46ac14b37121a22e20788c","2015-08-10 13:13:40+08:00","Update changelog.wiki
+"
+"b93d66b11af89ee9b3916427f079af7032a2c007","2015-08-10 09:25:50+02:00","Merge pull request #121 from KrasnayaPloshchad/patch-6
+
+Update the version history
+"
+"9ce11e7fbea6c11555d1a7de747b3dc1d9798af3","2015-10-27 14:55:46-06:00","When the touch down part of a tap causes scrolling to finish, ignore that tap (e.g. don't open a link or flip to the next page.)
+"
+"3e4592185b01519bd97066b8ec07295d47c4d7db","2015-11-01 10:46:20+01:00","Merge pull request #130 from ericwa/ignore-tap-to-stop-scroll
+
+Ignore taps that stop scrolling
+"
+"9979db74206f41e2c3aac3586f2bbcf7189df747","2015-11-01 17:25:34-07:00","Replace uses of FloatMath class (deprecated in API 22, removed in API 23) with Math.
+
+This is a prerequisite for upgrading the target SDK version to 23.
+"
+"8a55b5521c5292174ab7fd9e7f84e129a0d73d50","2015-11-02 08:48:38+01:00","Merge pull request #134 from ericwa/remove-floatmath
+
+Replace uses of FloatMath class with Math
+"
+"5e496b3c068a912e6c9f8bf42024cc2b04242549","2015-11-02 22:29:27-07:00","AbstractViewController.dispatchKeyEvent(): if a key is bound, consume both key down and key up events.
+
+Previously, this code was only consuming the key up events.
+This fixes https://github.com/SufficientlySecure/document-viewer/issues/128  (tested on my Nexus 4 running Android 5.1.1); now the system volume control UI no longer appears when I use the volume buttons to flip pages.
+
+TODO: For the scroll up/down keybindings, it would be better if the scrolling continued as long as you held the buttons down, instead of just scrolling once upon releasing the button.
+"
+"7bfe458a295c8102610efc0e23b91160fec8092f","2015-11-03 09:52:43+01:00","Merge pull request #135 from ericwa/volume-buttons-fix
+
+Fix for volume UI appearing when scrolling with volume buttons
+"
+"d7e05689b19054c4d93c90514aebaf8cf5613e4c","2015-11-05 18:17:10-07:00","Set the ebookdroid application theme to 'android:Theme.Material' in values-v21/service_styles.xml
+"
+"8b55e4b76cc47508c7bea32d76bae4c00c8b44d7","2015-11-06 16:50:39-07:00","Add an Up button to the viewer activity actionbar, to go back to the library activity (which is org.ebookdroid.ui.library.RecentActivity).
+Implemented as described in this guide: http://developer.android.com/training/implementing-navigation/ancestral.html
+"
+"da873978e9f582df4693c5a679131dd88d5ab995","2015-11-07 15:48:44-07:00","Add a compatibility wrapper IUIManager.setProgressSpinnerVisible().
+
+This restores the progress spinner in the action bar on Android 5.0+ with the material theme.
+See also: http://stackoverflow.com/questions/27788195/setprogressbarindeterminatevisibilitytrue-not-working
+"
+"212873496fc937cdf9a04e7968f9e62a2f7d9768","2015-11-10 19:35:34-07:00","Make the content:// URI scheme non-temporary. Others are unchanged.
+
+This will remove the save confirmation dialog when closing a document opened from the Downloads app, or an email attachment, etc.
+"
+"283fe18ab0b4a4616cbf33ac0bc60429947fc81b","2015-11-11 02:15:24-07:00","Up button: Show the save prompt, if needed
+"
+"576e76995660018a6664550d0a0155cd24fd1347","2015-11-11 02:45:15-07:00","Up button: finish the activity in the case when we create a new task for the 'recent books' activity.
+Without this finish() call, the following scenario happens:
+
+-Open a PDF from the 'Downloads' app
+-Press 'Up' button to return to the document-viewer library
+-Switch back to the 'Downloads' app
+-The PDF you pressed 'Up' on will still be visible.
+"
+"a894e061f5b779a526a2e9bd978fa6e0d9376e90","2015-11-12 01:37:30-07:00","Up button: work around bug where pressing 'up' does nothing when the viewer is launched by tapping on a pdf download notification in the system notification list.
+"
+"a3a2de76b8609a63115ea0f8e971f60c6048bf00","2015-11-12 02:27:17-07:00","Up button: reuse the instance of the RecentActivity rather than start a new one.
+This means if you're on a tab other than 'Recent Books', whe you press 'Up' from the viewer activity, you return to the same library tab you were on.
+
+Add a hack to prevent System.exit from being called in ViewerActivityController.onDestroy() during the up navigation.
+"
+"41c0b3ead94565d565247819ebae003ecf84c39b","2015-11-13 12:49:49-07:00","Minor tweak to avoid redundant calls to getActivity()
+"
+"240ab001b02461c8869162c7452d897d3de03373","2015-11-18 22:12:12+01:00","Merge pull request #138 from ericwa/up-button
+
+Add an Up button to the viewer activity actionbar
+"
+"e69a0d141a49f19616d696d80c8589a282cf7a32","2015-11-18 22:17:06+01:00","Merge pull request #140 from ericwa/content-scheme-not-temporary
+
+Make the content:// URI scheme non-temporary. Others are unchanged.
+"
+"1d40d62282c12c06ea14607492bc5fdb3621aae8","2015-11-18 22:28:18+01:00","Merge pull request #137 from ericwa/material-theme
+
+Use material theme on Android 5.0+
+"
+"5c11230ba3e62eee3b1f2c885bd1372b350b7d78","2015-11-19 20:06:15-07:00","Fix a crash introduced by https://github.com/SufficientlySecure/document-viewer/pull/140 when opening a pdf from the Gmail app.
+
+ViewerActivityController.afterCreate() requres that if `temporary` is false, the document URI is a file:// URI that can be converted to a filename, which PR140 broke.
+Instead I added a new ContentScheme.promptForSave field that's just used to decide whether to show a save dialog.
+"
+"de805aacf47219d80aa875f364262daa86f7b8f8","2015-11-20 12:42:40-08:00","Merge pull request #145 from ericwa/fix-email-crash
+
+Fix a crash introduced by my recent change to ContentScheme
+"
+"769d0d1acc3bb2900a90e107e43e89614f5a69bc","2015-12-02 12:55:01-07:00","Remove the 'Show Title' option, make it depend on !fullscreen.
+"
+"6b6a4555763f5e8ba5d7129a5d0523a57426839a","2015-12-02 13:33:22-07:00","Make unhandled taps in the viewer toggle fullscreen mode.
+"
+"9b278369f127f45cfe2b51261895532569a1a196","2015-12-03 13:51:50+01:00","Merge pull request #148 from ericwa/merge-showtitle-and-fullscreen
+
+Remove the 'Show Title' option, make it depend on !fullscreen.
+"
+"1fca9ee69654e1440332c50ba10ed3064718bf2b","2015-12-03 13:54:04+01:00","Merge pull request #151 from ericwa/tap-toggles-fullscreen
+
+Make unhandled taps in the viewer toggle fullscreen mode.
+"
+"78042922939d273c09bfabbd66db0502d68ff53c","2015-12-03 15:16:24-07:00","init.sh: specify --force to 'git submodule update' to discard local changes in submodules.
+
+init.sh applies patches, so this makes it clear out the patches applied by a previous invocation of init.sh.
+"
+"05fd8397f7ed6051dfc9d9b0b0af7b89c5de86cc","2015-12-03 23:37:11+01:00","Merge pull request #154 from ericwa/submodule-force-update
+
+init.sh: specify --force to 'git submodule update' to discard local changes in submodules
+"
+"9eefa8a945dc1361640055337134a807552e2f8b","2015-12-03 16:36:13-07:00","Remove rotation from app settings.
+It's still present as a book setting, with the same options (unspecified, portrait, landscape) as before, and the toolbar buttons still work as expected.
+"
+"9ab7cad2d62a64e68476f50806ea1d53b94be1ce","2015-12-03 19:35:14-07:00","ContentScheme: when saving a content:// URI to the cache, use a file extension that matches the file type being loaded.
+
+Fixes epub files not loading from the Downloads app.
+"
+"c7e8737d6869c1032d7da1ace3463822b55ce4aa","2015-12-04 09:12:13+01:00","Merge pull request #156 from ericwa/fix-epub-from-downloads
+
+Use correct extension for temporary files for content:// data
+"
+"49604121fcbfce08308ec6db5ffe2549ef0e44e3","2015-12-05 10:37:46+01:00","Merge pull request #155 from ericwa/drop-global-rotation-setting
+
+Remove rotation from app settings.
+"
+"732581ce2cc246be085879660a0acce8c781a10c","2015-12-05 15:43:23+01:00","Correct visibility flag for indeterminate progress
+"
+"ac7463ded5e7230ad4f93dcaf92acbed0ab9589e","2016-01-17 17:03:39+01:00","German translation: Extend the book menu
+"
+"652cc8acd78b0067ba2bc111c0d663cf9149e1df","2016-01-17 17:05:04+01:00","German translation: Improve OPDS menu translation.
+"
+"9497c67352234780425302fd6725826b781d9df0","2016-01-17 18:47:54+01:00","German: Add some strings to performance preferences
+"
+"ff55c54aa8fc2c02701571592f9ffe7bb03cd1b4","2016-01-17 18:49:00+01:00","German: OPDS preferences translations
+"
+"21b640e60c12550303fd6b963820104580a7a214","2016-01-17 18:50:15+01:00","German: Extend common translation a bit
+"
+"8fff8ae70f2638615abd1f15ac8ac498d85438a5","2016-01-19 18:14:23-07:00","Merge pull request #162 from matsimon/german
+
+German translation additions
+"
+"5b0ccefa3dcbc064f6dbc81f75ccd6cc8fb1b224","2016-01-20 18:50:28-07:00","Outline: visual tweaks for Material design.
+
+- fix outline not filling screen on Nexus 4 / Android 5
+- fix dialog title padding on Android 5.0+
+- change outline icons (expanded/contracted arrows) to chevron-right and chevron-down from https://github.com/Templarian/MaterialDesign (Creative Commons Attribution 4.0 International)
+- change green selection color to low-opacity white
+"
+"465ce7d250a5ccb61e100aef9a61011efe19f54c","2016-01-21 09:52:36+01:00","Merge pull request #163 from ericwa/outline-appearance
+
+Outline: visual tweaks for Material design.
+"
+"0626eed61a9dd6f02bf8961a69784f64bca73f1f","2016-02-04 16:02:23-07:00","AbstractViewController.dispatchKeyEvent(): Only handle keys on KeyEvent.ACTION_DOWN.
+
+By default, this is only used to handle actions_verticalConfigScrollUp and actions_verticalConfigScrollDown (bound to volume up/down keys).
+The best UX for these actions is to deliver them on key down events only.
+
+Fixes:
+https://github.com/SufficientlySecure/document-viewer/issues/164
+"
+"78b80270cd73a4f205732363011711cd5c97fd51","2016-02-04 18:05:00-07:00","RecentActivity: Remove unnecessary onKeyUp() override.
+All this onKeyUp() override was doing was calling the mainmenu_close action, which just calls finish() on the activity, but Android does this for us.
+"
+"9ac1a5e09ef817eece2b409e1e8925f468e1a69c","2016-02-04 18:56:44-07:00","BrowserActivity, OPDSActivity: handle KeyEvent.KEYCODE_BACK on keyup instead of keydown
+"
+"30a839a25ff2c6c5bf9522d96a89a4067ef3b85d","2016-02-04 19:54:38-07:00","Remove EBookDroidApp.onActivityClose(), which was calling System.exit(0).
+This is considered bad practice on Android, and it slows down app startup.
+"
+"d45eae52aea908042614229e6a985e609ffa45e6","2016-02-05 16:17:36+01:00","Merge pull request #167 from SufficientlySecure/no-system-exit
+
+Don't call System.exit(0) when last activity closes
+"
+"9852356a8af744d945b11a61b3047219cbefa189","2016-02-05 10:38:07-07:00","Merge pull request #166 from SufficientlySecure/fix-library-unwanted-closing
+
+Fix for closing the file browser or OPDS activity also closing the Library
+"
+"b7811daf700b3a23d7b9fc4a1675ef9355518ca1","2015-11-28 18:18:18+01:00","Share document
+
+A content provider has been implemented so documents which might not be
+accessible by other means can be read by other apps.
+"
+"063b346b70de6c192c7eb0d4f4d3460512344eee","2016-02-06 10:52:47-07:00","Merge pull request #165 from SufficientlySecure/fix-keyrepeat
+
+Fix continuous scrolling when holding volume up/down buttons
+"
+"e2b76e8ea5b7027b36bf33d2430d21e5e4b2b9ff","2016-02-24 13:35:00-07:00","GLES configuration: request EGL_STENCIL_SIZE 1, and if there are no matching configs, request EGL_STENCIL_SIZE 0.
+
+Previously, we were requesting 1 on non-emulators, and 0 on emulators, because emulators use Android's software GLES implementation that doesn't support stencil.
+That meant the app wouldn't run on devices without stencil support.
+
+This should fix https://github.com/SufficientlySecure/document-viewer/issues/94
+"
+"0681a6d030340af0863bc53f43f9b78e9aaee7ed","2016-02-24 19:55:10-07:00","Don't export the DocumentContentProvider.
+
+Fixes a security issue with the last commit: another application without the READ_EXTERNAL_STORAGE permission could use document-viewer to read any file that document-viewer could by doing:
+getContentResolver().openInputStream(Uri.parse('content://org.ebookdroid.document/sdcard/somefile.pdf?application%2Fpdf'));
+"
+"a547bdd27d23438c82891ef59ad9161ffdd2c18d","2016-02-24 20:54:05-07:00","Share menu item: remove incorrect icon
+"
+"0a482fa289a742b8da83eb00169e666facd49e70","2016-02-24 22:43:06-07:00","Add an 'Open with...' menu item that triggers Intent.ACTION_VIEW
+"
+"ffafabbd3030bfd68d33df8e3418d7b8b5bdb4e3","2016-02-29 18:02:58-07:00","menu: set showAsAction='never' for 'Share...' and 'Open with...' on menu-sw600dp-v11/mainmenu.xml so they always go in a submenu, not on the action bar.
+"
+"90946b0d84f08b1a43ccf35a03b67628be95c4df","2016-02-29 18:09:27-07:00","Merge pull request #173 from ericwa/share-document
+
+Add 'Share' and 'Open with...' menu items
+"
+"c77ba7b39391b768affb7e720317c265fb8e65c4","2016-02-29 18:10:49-07:00","Merge pull request #172 from ericwa/stencil-request
+
+GLES configuration: fall back to EGL_STENCIL_SIZE 0, if 1 is not available
+"
+"5a661db143eab3a4fe9852aaa4fc00211aa60567","2016-03-02 23:18:12-07:00","Update changelog.wiki
+"
+"0e34d873be97b7dc6b221499b77eb412a9ca5cb7","2016-03-02 23:26:05-07:00","v2.7.4
+"

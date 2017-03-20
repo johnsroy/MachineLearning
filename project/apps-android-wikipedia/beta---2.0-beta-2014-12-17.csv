@@ -1,0 +1,388 @@
+"commit id","commit date","commit message"
+"b6e61fa56dca65932a9a7860c5b9fef8d2a9d35e","2014-12-03 09:56:58-05:00","Image viewer.
+
+- Added an Activity for viewing individual images clicked from a page.
+Eventually the activity may be adapted to accommodate a scrollable
+gallery of images.
+- The activity has a Toolbar with a gradient background, as well as a
+blank container for description and license information, and a stub menu
+item for displaying additional (exif) information.
+- Created task for retrieving metadata for an individual File page.
+
+Change-Id: I739d68860e957b84a7a927e089db10b3695d9598
+"
+"d6edf79c66b28665abffd83fe66a41a3770b2026","2014-12-09 14:40:48-07:00","Update README
+
+Need JDK 7 now.  Tried to be less Mac specific.
+Update Android Studio info to 1.0.0
+Removed info about Maven and IntelliJ.
+Rearranged some chapters and added more info on how to contribute.
+
+Change-Id: Ib0200a84cb2be923d14fa1bc4da8f018fb1349ac
+"
+"ce21078da24a26211f59770d104ff09bb65e896e","2014-12-09 15:22:53-07:00","Avoid NPE in when calling isSearching
+
+Got this in recent build:
+java.lang.NullPointerException: Attempt to invoke virtual method 'boolean org.wikipedia.page.PageActivity.isSearching()' on a null object reference
+at org.wikipedia.page.PageViewFragment.onCreateOptionsMenu(PageViewFragment.java:145)
+at android.support.v4.app.Fragment.performCreateOptionsMenu(Fragment.java:1868)
+at android.support.v4.app.FragmentManagerImpl.dispatchCreateOptionsMenu(FragmentManager.java:1989)
+at android.support.v4.app.FragmentActivity.onCreatePanelMenu(FragmentActivity.java:276)
+at android.support.v7.app.ActionBarActivity.superOnCreatePanelMenu(ActionBarActivity.java:276)
+at android.support.v7.app.ActionBarActivityDelegate$1.onCreatePanelMenu(ActionBarActivityDelegate.java:79)
+at android.support.v7.widget.WindowCallbackWrapper.onCreatePanelMenu(WindowCallbackWrapper.java:49)
+at android.support.v7.internal.app.ToolbarActionBar.populateOptionsMenu(ToolbarActionBar.java:459)
+at android.support.v7.internal.app.ToolbarActionBar$1.run(ToolbarActionBar.java:69)
+at android.os.Handler.handleCallback(Handler.java:739)
+at android.os.Handler.dispatchMessage(Handler.java:95)
+at android.os.Looper.loop(Looper.java:135)
+at android.app.ActivityThread.main(ActivityThread.java:5221)
+at java.lang.reflect.Method.invoke(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:372)
+at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:899)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:694)
+
+Change-Id: I5b069c734687ad2622f38eb1510212eedde8bfb5
+(cherry picked from commit 75ca999168f6608fc136e80ad5ef98468fa7c414)
+"
+"9819853d23cf3156b3c3bd693d9bbbb75c9fc49e","2014-12-10 00:33:52+00:00","Merge 'Update README'
+"
+"95a7b427e54420c271906128bb44bb81dc947a06","2014-12-09 20:03:15-08:00","Add hidePageContent convenience method to PageViewFragmentInternal
+
+Currently, there are three separate places in PageViewFragmentInternal where
+you want to hide all of the content of the page. Previously this was just the
+web view, but now we have extra native components for content (lead images,
+read more) which need to be hidden too.
+
+This method adds a hidePageContent convenience method to the class, to reduce
+code duplication.
+
+Change-Id: Iaa6612b0aa521236b6a00c09f54f2676b468317d
+"
+"d027ded84fd215faec69d6306975e4967241fb05","2014-12-09 21:28:27-07:00","Fix checkstyle warning
+
+Change-Id: Ib738d65090cd82736c7a6a770b403a4d48f66af4
+"
+"79bb16054506969f17ce7d5116a748c256bc46d4","2014-12-09 22:10:32-07:00","Avoid crash when menu button is pressed on 4.1 LG devices
+
+According to https://code.google.com/p/android/issues/detail?id=78154 this
+is a common issue on LG devices with 4.1 and appcompat-v7, version 21.0.0
+through at least 21.0.2. Apparently, this did not happen with older
+versions of appcompat-v7 (before 21).
+Same workaround is on
+http://stackoverflow.com/questions/26833242/nullpointerexception-phonewindowonkeyuppanel1002-main
+
+Consider removing the workaround when updating appcompat-v7.
+
+Bug: T78117
+Change-Id: I381cfe39f0d370fa20c968ae86ffda0f04be409f
+"
+"a0920fa727811eb26f2f0a88d0672989488a06a6","2014-12-09 21:38:18-08:00","Refactor code for storing preference for EventLogging opt-out
+
+Right now, Funnel and MccMncStateHandler have to interact directly with the
+SharedPreferences instance to get whether EventLogging is enabled or not. This
+is quite clunky.
+
+This patch abstracts this interaction to the WikipediaApp class, so that these
+classes can use app.isEventLoggingEnabled() rather than interacting directly
+with the SharedPreferences instance.
+
+Change-Id: Ibba0e4baab923b4095cc8aa9f5a057f40f379977
+"
+"d1cb60242b77dfec92a845ea758ed7d9888449dc","2014-12-10 15:29:33+00:00","Merge 'Avoid crash when menu button is pressed on 4.1 LG devices'
+"
+"5fefdfef96844dc735da8e61250502b99ed8149a","2014-12-10 15:39:14+00:00","Merge 'Refactor code for storing preference for EventLogging opt-out'
+"
+"9f374a7eddff35768f77fd36eff5729cf48e2a70","2014-12-10 15:46:09+00:00","Merge 'Add hidePageContent convenience method to PageViewFragmentInternal'
+"
+"2a2d01f0ec926918f8a4b91e3d39758e82f5a78a","2014-12-09 21:09:37-07:00","Legal requirement: add links to license text for libraries
+
+License links are added to credits in About screen.
+License text is bundled with the app.
+Ordered the libraries alphabetically.
+
+Was originally planning on creating a script to update the
+license texts but most are not in separate files.
+We just try to remember to update the licenses when we update
+the libraries.
+
+Change-Id: I74350f1215c859d6a3f2275891c7a2e2660e01c6
+(cherry picked from commit ec0f32778487199c96b29d073eb64b7e13b745e8)
+"
+"f9750ce9feab41eb57906a697305029d01410ccf","2014-12-10 10:17:11-05:00","Wikidata descriptions in Nearby.
+
+Change-Id: I5036322dc8554ca9f3fabad2ac04f1b4ffcf63f2
+"
+"70266b555419162c292a0d1e3693d7c96a681f97","2014-12-09 10:54:52-05:00","Display image description/license/metadata in gallery view.
+
+- Added pinch-zoom / scroll / fling functionality by using the PhotoView
+library (added to gradle and credits).
+- Displaying image description, credit, and license on top of the image.
+- Created a pop-up dialog of Exif and miscellaneous metadata accessible
+from overflow menu.
+- Added option to navigate to the File page from overflow menu.
+- Made links clickable in descriptions and metadata items.
+- Refactored the Wikipedia Zero interstitial dialog (and removed the
+associated Bus event), so that activities don't have to individually
+implement the interstitial handler.
+
+Change-Id: I983d84a76a96cb57e35ad33db2048d385e47b253
+"
+"c9534830fb45e0bc29cdc62d9f805640c07e6a26","2014-12-10 12:54:26-07:00","More areas to avoid NPE when calling isSearching
+
+Looked through the code where we call ((PageActivity)getActivity()).isSearching()
+Let's make it a pattern.
+
+Bug: T78115
+Change-Id: I272b7d17b9a411616f401752dbc8147202dd3ac6
+"
+"83c33254ad64433b54838bea7dc25b7f74a7e98f","2014-12-10 15:36:26-07:00","Update support libraries to 21.0.3
+
+Change-Id: I7eaffc13e161bb9a50eb2d797d8aab2582dcc8f8
+"
+"26d4df84a79b6aca97b55d99f3b5e345dc48c758","2014-12-10 16:38:31-07:00","Hygiene: Removed unused class PopupMenu
+
+Change-Id: I24391e80a93cef6ba5e9e7ede3a279e98f1b44dd
+"
+"1dc4c790e0854ffbf3b63d590f6855be514cc7d5","2014-12-11 01:32:36+00:00","Merge 'Update support libraries to 21.0.3'
+"
+"a5cc5d770ed9be1280aee1612a04680b8f7d3c76","2014-12-11 01:33:00+00:00","Merge 'Hygiene: Removed unused class PopupMenu'
+"
+"90ae5518e88dbb558a94d1a404fc178d44a82169","2014-12-10 20:36:56-05:00","Hygiene: delete unused dialog xml files.
+
+Change-Id: I822d5577a7bab31285f2363f6db57e3166780289
+"
+"e0decbeccf83ee405c0e0402eb60ec41e9e93104","2014-12-10 20:58:38-05:00","Adjust image size to fetch for gallery view.
+
+to comply with predefined bucket sizes, for performance/cache reasons:
+https://git.wikimedia.org/blob/mediawiki%2Fextensions%2FMultimediaViewer.git/f9e7bae91a8032fa13fc68114a0d57d190ea77f9/resources%2Fmmv%2Fmmv.ThumbnailWidthCalculator.js
+
+Change-Id: I6fef16c591d149e5e1c7a5e7ae53eb057bbef1c3
+"
+"3c3a551b8d992d4ceb028ed498edc496cfaf3dcb","2014-12-11 10:12:00-05:00","Fix possible crash(es) related to fragment manager state loss.
+
+So, in a couple cases in our code, we perform transactions with the
+FragmentManager from the result of AsyncTasks. This is technically
+frowned-upon, since at that point the task has no way of knowing the state
+of the Activity (whether its instanceState has been saved), which can lead
+to an exception being thrown when we try to commit() a fragment
+transaction.
+
+Fortunately there is a function called commitAllowingStateLoss() which is
+designed specifically for this purpose. Therefore I've split off the
+functions that deal with fragment transactions, and gave them a parameter
+to optionally allow state loss. Going forward, if we need to push a
+fragment from an AsyncTask result, we should allow state loss, but *only*
+in those cases.  In all other cases, the regular commit() function should
+still be used.
+
+Specifically, the cases where we now allow state loss (in this patch) are:
+- Fetching a Random page.
+- Going to the Main page after changing the Wiki language.
+
+Bug: T75237
+Change-Id: If01483bb4e8c3e699f668853b7f31b73c01c9e86
+"
+"41d88b399bb31c04ee54ba0302b8eba8a9a7f16d","2014-12-11 15:13:41-07:00","Enable Lint
+
+Mark string files that never get translated to ignore missing translations.
+Set MissingTranslation to warnings.
+
+Change-Id: If3235273632b17118e0a2096caa79a6fd51fe6d9
+"
+"aec69bfe16d37c177ddbf79f931d95c5b44d52b5","2014-12-12 10:29:13-07:00","Code inspections
+
+Fix some low hanging fruit code inspections in Android Studio
+
+Change-Id: Ib3845d2a65a37b7dbef8c619fcce3a3d6d59afcd
+"
+"8324ed260300666619d9bda0bd77efcd6de3c916","2014-12-11 11:42:49-07:00","Enable basic ProGuard minification
+
+We can make the ProGuard config more aggressive later.
+Want to keep it on the lighter side initially.
+This is mainly driven by the desire to fix the bugs mentioned below.
+
+Bug: T78197
+Bug: T76279
+Change-Id: Ic91e83e6dc4d25780dc8815318aba2e2a0c009fb
+"
+"6bf62cf19c830971d94dec463ebbca62e4a942ad","2014-12-12 18:48:43+00:00","Merge 'Enable basic ProGuard minification'
+"
+"6c8c6f4d398eecd047578e2017ea0ccbabded193","2014-12-12 13:50:28-05:00","Decrease the edge width of Drawer drag areas.
+
+Compromise between the default value and our old (annoying) value.
+
+Bug: T78240
+
+Change-Id: I93f016fffefbf343edcb381ded2f7991ca95ee7c
+"
+"e060a5ddde5a1e60576b05503cee19500abfe640","2014-12-12 14:11:22-08:00","Change 'Credit' to 'Author' in the image viewer.
+
+The word 'Author' should be a lot clearer to our users than 'Credit', which is
+a bit more of a technical term.
+
+Change-Id: Ib85559affec5ee978d8b1c8dc6ce852f840ac327
+"
+"7bbedf7b3fa58e8666bcd5983600704cf32a88b9","2014-12-12 16:08:11-07:00","Save ProGuard mapping files
+
+In case we need them to unscramble stack traces.
+We haven't turned up ProGuard very much but better be safe than sorry.
+
+Also wrapped some long lines since Checkstyle doesn't like that.
+
+Change-Id: I45a230f064f27c377e0f224bd6b3f5e123160277
+"
+"cb016e5af7fe7ff7eaebf12b54cc909c3d928517","2014-12-12 16:12:45-07:00","Add releases folder to gitignore
+
+Now that we also store mappings files there.
+
+Change-Id: Id6aeeae15dd2a7179d0393ddf1f89847ae8c930d
+"
+"2e9b543bac089674ae948533bc6c5a48f1a1430e","2014-12-09 17:20:04-05:00","Refine search logic a bit.
+
+- No longer offer the choice of Title vs. Full-text search.
+- Default to Title search, but if it returns fewer than 5 results, then
+switch to Full-text search seamlessly.
+- Switch back to Title search when a new search term is given.
+- Once we're convinced that this method is better than before, we can
+refactor the whole thing so that there's only one sub-fragment (instead
+of Title vs. Full).
+
+Change-Id: Ibf9ebc49299393a0afc17b87b4b8bc02f0ba74a6
+"
+"a57e92515fcf30c55c739768f154b1edcea903fc","2014-12-15 14:30:20+00:00","Merge 'Change 'Credit' to 'Author' in the image viewer.'
+"
+"2d34e9eb68b01d5490fa4e4ed8c060906d1f4b98","2014-12-15 14:38:39+00:00","Merge 'Save ProGuard mapping files'
+"
+"657dfedfebb8fade1473dd41b678fa570a9b684f","2014-12-15 14:40:48+00:00","Merge 'Add releases folder to gitignore'
+"
+"e96bef58b49e35073b6b385fca0d33aaaea5fab0","2014-12-12 16:26:13-05:00","First round of design tweaks to the Gallery view.
+
+- If the aspect ratio of the image is *almost* the same as the window
+aspect ratio, then scale the image to fit, so that the user doesn't see
+thin black bars. (the user may still zoom out to see the full image)
+- Now trimming whitespace from descriptions.
+- Using dash instead of colon for Author and License.
+- Adjusted color of Author and License.
+- Decreased the resolution of fetched images :( since very high-res images
+may use a prohibitive amount of VM memory, and will not render correctly
+on some devices.
+
+Change-Id: I88df4782576775486f67838a180b7fb9e9e78bd2
+"
+"f8effe4d5a1743ef9aaec6698307269340ea75c6","2014-12-14 12:13:55-08:00","Don't display 'Read more' section if there are no read more suggestions
+
+Bug: T78502
+Change-Id: Ifc58333a1df47fc9c4ffd06a19a517c4930e9b32
+"
+"7ac317eab0a217dfe54d07e844fe5c3bec2fafda","2014-12-15 19:48:04+01:00","Manual import of Android string translations from TWN
+
+Change-Id: Icf737841dacc0c0cb5204a18d401695aa77e564f
+"
+"8ba64d3222690a5338e0b82d104088239ebe4627","2014-12-15 11:53:57-07:00","Fix test compilation
+
+Change-Id: I266d256f131ed0c19fe61bbfb6d3a2da333a5ba7
+"
+"feb4fce608254a75d78fdcf113ff21573549ff99","2014-12-15 11:00:54-07:00","Stop making gallery view info labels bold
+
+Change-Id: I6af64b29bfda736bae85363c69400c932b0de28c
+(cherry picked from commit a1271fc6f4d3178839e87623a1280ac8c9f92861)
+"
+"c7acc9904e822225796df0ab050a2dea90727a20","2014-12-16 01:18:10+00:00","Merge 'Fix test compilation'
+"
+"de79ea2b1a539c875853a3ee18d7843ca5b9cbe2","2014-12-16 01:18:41+00:00","Merge 'Stop making gallery view info labels bold'
+"
+"67533dcfa16a059e99a625df67827bcfc14e165a","2014-12-16 14:18:41+00:00","Merge 'Don't display 'Read more' section if there are no read more suggestions'
+"
+"bbd7550ce83812842eb63807d116546095f43043","2014-12-10 22:40:41-05:00","Minor tweaks in collapsed infobox design.
+
+- Give it a drop shadow instead of a solid border, to be more Materialy.
+- Make the chevron icon a bit smaller, and a bit darker.
+- Refresh generated CSS contents from MobileApp.
+
+Change-Id: I4ec317358e39115f5ff3e034fbe2d0bd29df9049
+"
+"682597509491bcfb77562a03342817e80d2bad8d","2014-12-16 13:48:36-05:00","Improve scrollbar in Gallery description text.
+
+Make it no longer overlay over the text.
+
+Bug: T78347
+Change-Id: Iccab7c29fa50f56da922a1e1a182bea9e76470e9
+"
+"e32ab09c2dbaec07de0aa82e3d7dfb632f06702f","2014-12-10 23:06:38-05:00","Minor tweaks of the Toolbar design.
+
+- Made the drop shadow under the toolbar a bit more subtle.
+- Made the toolbar color a bit lighter.
+- Decreased the font size of the search hint text.
+- Made the background of the SearchView be the same as the placeholder.
+- Removed the Submit button from the SearchView (the 'go' button on the
+keyboard still applies).
+- Removed the magnify icon from the SearchView when active.
+- Fixed checkstyle.
+
+Change-Id: Ic1ace7a314d80c46c48a4cf88a899f5fcebe8dcf
+"
+"4feb8d95ae3ebf4ab980f3976ade786d16603701","2014-12-15 20:19:32-05:00","Enable lead images in Beta.
+
+Change-Id: I4c1fd12af767cbda480721595cd378503763fd96
+"
+"1cfe0b7aa8557d2047b9fdf852ce451c72f2752b","2014-12-16 15:12:35-07:00","Fix NPE in LeadImagesHandler.beginLayout
+
+Bug: T78501
+Change-Id: Idc1b027ceca932bf83b8a3ec3760937bca5caf55
+"
+"48a122a66c82bf878126e2eae1b6a908dd617518","2014-12-16 16:29:35-07:00","More space between wordmark and slogan
+
+Also, better wordmark alignment in OnboardingActivity for Hebrew
+
+Bug: T78350
+Change-Id: Ic69e2f1632f56fd8daef677c9a76adc6d683a587
+"
+"534fc2431f687ee497557583108c24b7e1cb133e","2014-12-16 18:42:06-07:00","Read More only for regular pages
+
+Don't add a ToC entry and don't even try to request
+one from the server for main, file and special pages.
+
+Change-Id: Ia47c8131facf38469368c6a7f9fea980e8ad25a2
+"
+"f653ab0370faf0665b953743c0af995a1eee235e","2014-12-16 22:19:27-07:00","Hide system bar in GalleryActivity
+
+Change-Id: I00b24b5c45bfefa9ab3462532680f0d95bc14159
+"
+"84360a8c0d1581ac6187ee0f0b4c12f44027bcd9","2014-12-16 23:11:39-07:00","Back button goes back to calling activity if on first page
+
+The problem was that it opened the ToC drawer automatically.
+
+Bug: T75918
+Change-Id: Ia822b3e7beb73a80d15be690cb9dcd90546481f4
+"
+"98700a781651df0acc93aa2ceedc1c6beede7896","2014-12-17 16:05:45+00:00","Merge 'Read More only for regular pages'
+"
+"8b9875bfa38029c3f0bf68ba6ab2138ec85d61eb","2014-12-17 16:08:41+00:00","Merge 'Hide system bar in GalleryActivity'
+"
+"8c2b2cb00543858343e73c12c3b41756f04ba6ec","2014-12-17 16:19:00+00:00","Merge 'Back button goes back to calling activity if on first page'
+"
+"1a2cf1486e68be83e2c83e7df99995912a51b1a1","2014-12-16 15:04:04-05:00","Share/save images.
+
+- Added toolbar item for sharing the current image.
+- Added overflow item for saving the current image to the local device.
+- Requires new WRITE_EXTERNAL_STORAGE permission.
+
+Change-Id: I577cc5f4607aba9f0f1be2d9e3e6eb53868f78f4
+"
+"ef7de79b4faf56eed9e510aa43d7e17594a4940b","2014-12-17 19:43:15+01:00","Manual import of Android string translations from TWN
+
+Change-Id: I6407ce9c551ec0bc7f0f01a187c6f2d6cf4c3291
+"
+"9f2e9720427002edadcb647fcafe226c5026822b","2014-12-17 12:10:07-07:00","Fix conversion parameter in an older translation
+
+This would have caused a crash.
+Also added more (commented out) logging for TranslationTests.
+
+Change-Id: I8975962486841d236ebab77264a6ac98e90a360c
+(cherry picked from commit 8d72e2c8f1d0a4d5bfda0049fb5a380d3bbba39c)
+"
+"787412bb8c9071970f61a2b4bc3b32f3327b9565","2014-12-17 14:36:01-05:00","Bump versionCode
+
+Change-Id: I54b36ef164a29dead67600caebe171248d7814dc
+"

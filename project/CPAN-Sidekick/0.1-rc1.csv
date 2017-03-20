@@ -1,0 +1,242 @@
+"commit id","commit date","commit message"
+"617ce2db24b383b6fb7f3865cbee9bc29dd67b0d","2011-12-01 00:00:50-06:00","Initial import, includes very simple search via metacpan
+"
+"81bbc083bf1bf1d95d7aea60fbc0494bf7cee145","2011-12-01 22:16:02-06:00","Cleaning up some of the details
+
+* Textbox is single liner
+* Show the search button on the soft keybaord
+* Enter causes search
+* Use the light theme
+"
+"3bcf96daede368a6760ae0b7bd607cd3410d7ec2","2011-12-01 23:03:29-06:00","Renaming main.xml -> module_search.xml
+"
+"c9172bed89c83f7df9a6b794cf029a591de02304","2011-12-01 23:04:40-06:00","Renaming SidekickActivity -> ModuleSearchActivity
+"
+"8479eb54cb51dcef25004ed0570b93bab9d0d5ae","2011-12-01 23:54:37-06:00","Switching to a custom adapter
+
+This is preparation to make a much fancier list item view.
+"
+"a0c97da9cf53d8fcd2d629182ff45a0972188577","2011-12-02 11:11:06-06:00","Making the module search list view show author/distribution/version
+
+Also has placeholders for favorite, rating, and author avatar.
+"
+"7292c2806cd1d3916ba91c51a7a02cd1073e1814","2011-12-02 12:56:56-06:00","Adding ratings to the list view
+"
+"2c385c6c07846ffd56eb9550927274a8768c5750","2011-12-02 14:20:29-06:00","Add the abstract to the module search results
+"
+"d16a53fd99b096b30c52972824ccf1f0e2d0541c","2011-12-02 16:53:46-06:00","Adding support for author gravatars on the QuickContactBadge
+"
+"599890b2f46ff0bee8a1843ebd7e450c9f168a82","2011-12-03 00:58:09-06:00","Added favorites count
+"
+"a73f9b3977ff240d78b95841f58f87e81bfda7d9","2011-12-03 01:21:17-06:00","Adding a progress dialog and dismissing keyboard on search
+"
+"e65902fc67006485d341c2a67d94bffaf1507f61","2011-12-03 10:45:11-06:00","Added the drop shadow to the favorite button text
+"
+"eee3c264636a750eaa114b52b75d410837596fdf","2011-12-03 15:09:45-06:00","Moving to a document model for the module list
+"
+"f754354fbcb70dadaf4530734656703fecce46c9","2011-12-03 19:13:47-06:00","Add state save/restore to the module search activity
+"
+"97aff6ba4a43e1b81419c50d5bf0444355e39864","2011-12-03 20:39:24-06:00","Fixing up notification
+
+Also moved the ModuleList collection into the collection package
+"
+"fbfb9b858ffe9fd3489e95ed3e0f00460b36cc7d","2011-12-04 01:05:41-06:00","Added page loading when scrolling to the bottom of the module list
+"
+"3dfee571a8d3865d58683162dbdd1bef49ba0a6d","2011-12-04 21:48:17-06:00","Fetch smaller gravatar images
+
+Also make sure to set total count to 0 on the module list when clearing it, or
+we might end up with a double query.
+"
+"b78f6d258c9cf00605240f6d5df5d6cc53cac681","2011-12-08 12:00:56-06:00","Broke up the search into multiple AsyncTasks
+
+Still not quite as nice as it could be, but works a quite a bit faster now.
+"
+"5f46c00f62af9d4d003a99c339041bffd2cfc21b","2011-12-08 22:38:23-06:00","Splitting off the task of fetching images from Gravatar
+
+Images load one at a time now, which looks much nicer than waiting for all 10
+and then showing them.
+"
+"ee8a511bde850fe3ff7aa4bfb6795079aabbe99d","2011-12-10 23:04:18-06:00","Adding in the module viewer
+
+So far it just displays the same view was was shown in the search results, but
+will be filled in with the HTML generated from the POD below shortly.
+"
+"e30fdd809109f78ff9fe09875b6a2a4e700ef48a","2011-12-10 23:08:37-06:00","Use the module name as the title
+"
+"8b61860f49061a9b94be7028609076a5a4f1ad1b","2011-12-10 23:20:45-06:00","Using the web view to load the content
+
+It is primitive, but it's a working CPAN documentation browser now! Needs custom
+CSS and some other dinking around to make it nicer... but woot!
+"
+"738c4a3d80cf269ca0bbd32ce49820ccfc7d4568","2011-12-11 22:12:11-06:00","Fixed the drop shadows a bit
+"
+"8aa9b76649755612007f269775b6fcc396c80109","2011-12-11 23:02:05-06:00","Added the 3-books icon to the application
+"
+"b00c993c34d5f3c54ebe67897aacf8033fd8c7b3","2011-12-11 23:17:05-06:00","Added a special launcher activity
+
+Right now, this just allows me to easily make 'CPAN' the name of the
+application, but immediately load the 'CPAN Module Search' activity, which is a
+terrible application name.
+
+In the future, this will probably be used to determine which activity to launch
+at startup based upon type of device, previous state, user preference, etc.
+"
+"476ce09e91d6f3ffeff9bd8646c6a9d03eac7878","2011-12-13 01:23:21-06:00","Cleaned up the API framework, added CSS to pod view
+
+This reorganizes the assets directory to allow for different types of files to
+be kept there. This also applies a CSS file to the HTML for module
+documentation, which led me to doing some work to reorganize the API framework.
+"
+"26bbe0c9b474200e7faf3f1709fc219de3ae15f5","2011-12-13 20:23:41-06:00","Copied part of the MetaCPAN CSS over
+
+...and got nice looking formatting for free. Thanks, MetaCPAN!
+"
+"df17f2bd28536e47a342802b61cd4f5042d158c8","2011-12-13 20:37:09-06:00","Clean up imports
+"
+"e229cfe5928cdec835e445d4e9e0feb550a6ee08","2011-12-13 22:15:06-06:00","Splitting off the distribution and author objects
+
+Previously, I had module as a single unit. Now splitting out the distribution
+and author classes to allow for better encapsulation and prepare for the
+distribution and author screens.
+"
+"c4bc1f43fa642a711aa78712763a82414dab8d4c","2011-12-14 23:11:34-06:00","Adding a place for common model functionality
+"
+"c6b6ae30b94993b832be7cdc9b7f53eddea667cc","2011-12-14 23:46:33-06:00","Refactoring the author by distribution search to work on AuthorList
+"
+"269ff1ff75264f1c9bf119e054e3fce23de55d55","2011-12-14 23:55:41-06:00","Refactoring the distribution searches to use DistributionList
+"
+"b3bbd48b0d1b381c64276d43272244ac18895252","2011-12-14 23:58:57-06:00","Getting rid of the legacy author/distribution accessors
+"
+"9bb223cf7390103253bb6cd182d5798f91bfa7f4","2011-12-15 00:09:52-06:00","Add search to the module viewer
+
+This is the first step toward making it so that a quick click on the module
+search on a module whose ratings, favorites, or gravatar has not loaded will
+finish loading on the module view screen.
+"
+"1ca251f4ca351e8ad2b88c9e70ede6874bd486c1","2011-12-15 00:21:49-06:00","Module details will finish loading on the module view now
+"
+"cb4e28e1603486d6596d1d15928094d67ddaf090","2011-12-15 23:01:14-06:00","The module viewer will now follow module links
+
+It also manages the back history correctly and loads the module header info as
+we go.
+"
+"5df03dcfedcebb6d4d354e97590145f55b7a6200","2011-12-16 23:31:32-06:00","Making changes to support Android 2.1
+
+We will still try to use AndroidHttpClient when available, but fall back to
+using DefaultHttpClient otherwise. Also, one of the KEYCODE constants I had
+bound does not exist in API 7, so added code to use it if avaialble or not
+otherwise.
+"
+"e81b03a8c5e75b3f10a47c4aa403eefbc6436cf8","2011-12-16 23:32:52-06:00","Turning off the orientation lock
+
+Because of how the modules are now loaded, this is no longer necessary. I will
+probably delete it entirely in the future.
+"
+"921c28d6fee4154a7b893ecbe5f6a88c7f7b090a","2011-12-16 23:33:25-06:00","Make sure the current activity listens to moduleList events
+
+If you used back or changed orientation, it sometimes could have lost contact
+with the original moduleList.
+"
+"0ab385cec2a76fc15dd5d573cd6dbe6356b76d01","2011-12-16 23:42:44-06:00","Fixing issues found by the Android lint check
+"
+"108eafbd0ccf90f444f78c11a4e52e277bebc18a","2011-12-17 21:52:34-06:00","Altering model lists to only contain unique model objects
+"
+"125f882f33e3f6fb3a33b4a5843481311ff968fe","2011-12-18 23:07:25-06:00","More enhancements to models and collections
+
+Under no circumstance should I care to have more than one of a given item in a
+list. This continues that theme the rest of the way.
+"
+"4b1de22434fa334fa5d76af52aeee47a22c410b4","2011-12-20 21:44:49-06:00","Making module list loading a little more robust
+
+Also making it so that the module search will continue loading module details
+when the activity is resumed.
+"
+"5d8dfc53308d8d013c35facfe0e73bb397c1d760","2011-12-24 21:49:46-06:00","Use parceable array rather than module array
+
+...when loading from the Bundle in onCreate()
+"
+"d7dd81fd26250cee3a5d036bb6a72df7af4bd57f","2011-12-24 22:29:15-06:00","Make the modal search cancelable
+"
+"1bcbafd40207b9824b90cde7e374c217cf50da1c","2011-12-24 22:37:59-06:00","Make sure a click on the progress item does nothing
+"
+"0efe331961ae808197be328a8c2e851e27d4aa00","2011-12-24 22:42:52-06:00","I saw a NullPointerException once in a place this should warn about
+
+This is an attempt at trying to pin that issue down more carefully.
+"
+"6ccf72bb69b25f68e0e68c3074dfd3d6ade6732f","2011-12-24 22:43:39-06:00","Make sure to mark the action complete on cancel
+"
+"5e1b6c85d316f7cabd05a5c8e9183ab80dcb36d2","2011-12-24 22:50:56-06:00","Make sure a canceled search will cleanup the client manager
+
+Normally, it starts three of its actions within the post-execute. However, the
+post-execute will never run if canceled, so we need to tell the client manager
+that 3 additional actions are also complete on cancel.
+"
+"8147e00496091b306ac99ecba8053551334090f7","2011-12-25 23:51:18-06:00","Adding the Artistic License 2.0 info
+"
+"41ad154b143365c6b589c4082ff400d4d54b9912","2011-12-26 00:11:24-06:00","Fixed a bunch of whitespace issues
+
+Telling Eclipse to use spaces instead of tabs in the text editor is not enough.
+This is an attempt to fix all the tabs the code templates and other such thinsg
+have added.
+"
+"6825d62c8887287f8de24d977be166c618fc8264","2011-12-26 00:30:41-06:00","Adding some class-level Javadoc
+
+It's not much, but it's a start.
+"
+"cec2f80bde3a44b6f94147feb76993b0589e6819","2011-12-26 23:27:47-06:00","Better centering of the Loading from CPAN list item
+
+It was incorrectly left justified on large screens (tablets).
+"
+"6ab9561402a32b41f47ccb48ab1ca59e9811a6c4","2011-12-27 18:50:41-06:00","Invoke the default browser for links we can't handle
+"
+"c1ac77fe00d6fea622ce8f27b8667852644bebed","2011-12-27 18:51:26-06:00","Working towards better HTTP client management
+
+To avoid setting up and tearing down the HTTP client object, we try to share
+them. However, the previous solution was very manual and difficult to keep up
+with. This adds a reference counter to keep better track of pending actions.
+However, it still is not working quite right in every case.
+"
+"75c2ffb284119eb1ab2a9fa634bbf0209fbf50a5","2011-12-27 22:02:57-06:00","Removing log clutter
+"
+"09dca7b7776855a0ca0ac9c39ad37f613d2350ba","2011-12-27 23:27:04-06:00","Still working on making the http client stuff robust
+
+Added some tight timeout parameters to Gravatar requests because we really don't
+care about those. Made it so that the indeterminate progress shows anytime the
+http client manager is busy in the search.
+
+Plan to do the same for the viewer as well.
+
+I suspect that I'm running into some sort of deadlock updating the Gravatar
+images now, though. Too many synchronized actions...
+"
+"2433b50672d77e1d8d85c01f5266e6a98601ac9d","2011-12-28 00:09:10-06:00","Add a reaper to reap long running Gravatar requests
+
+The Gravatar server takes the connections and keeps them alive, but returns
+nothing. I would rather just drop the connection after 10 seconds than have the
+Gravatar images, so this is what we now do.
+
+Ultimately, we should keep an LRU cache of Gravatar images so we can pick up any
+missed ones on a later retry.
+"
+"ac525f806980aacbd3697515a068b673e08535a6","2011-12-28 00:15:05-06:00","s/metacpan/cpan/ and split up the API package a bit
+"
+"99d6a4f7bdf65a278f5de6b9fd4f4f687473adf2","2011-12-28 00:15:35-06:00","Moved the app version to a string resource
+"
+"5af73bdfdd830fe5700d542cd0d73acb34411e83","2011-12-28 00:27:36-06:00","Pull up the http client manager progress code
+
+Now the view (mostly) shows the indeterminate progress while oading the header
+and such. Since the web view handles part of the loading, the progress bar
+clears before rendering is complete.
+"
+"401ef1a9d31a568aff22f3575a4274daa8d02325","2011-12-28 23:47:39-06:00","Adding BugSense for error report tracking
+
+The API key is null. This is deliberate, in case someone forks the app or
+something, I don't want the error reports accidentally being sent to my BugSense
+dashboard.
+"
+"43679c43f5712f08fabed7a478c3b04c12f8aab9","2011-12-29 19:36:37-06:00","Mark this as version 0.1-rc1
+"
+"ba5f5695e30c9486ba7fbc4ff67e8a60eca2dcd6","2011-12-29 23:58:50-06:00","Adding a README.
+"
+"acf5f498125cec49271055957e367694bee88d17","2011-12-30 00:13:08-06:00","README formatting cleanup
+"

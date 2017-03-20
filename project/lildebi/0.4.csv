@@ -1,0 +1,76 @@
+"commit id","commit date","commit message"
+"13c4db9e731991f4cceb2a1aa1710f83f2789be1","2013-03-04 17:12:33-05:00","start-debian.sh: let mount figure out which filesystem (ext2/3/4), closes: #43
+"
+"bff8864d9910d7eb1ab38a31338d667a8d631cab","2013-03-04 17:13:40-05:00","find first free loop device, 'losetup -f' is not reliable on Android, closes #31, #40
+"
+"0fa348460b28b8b28322de6f8e357319012ce5df","2013-03-04 21:55:03-05:00","add upgrade logic for the app_bin folder, saving a copy of any old versions
+"
+"3a1bd42c3dc83ba36be9dd957ca25b28efef18a5","2013-03-04 22:02:07-05:00","log app_bin install/upgrade info to the log view console
+"
+"ad3a5c0be7cb76f953600c565484bc978c30425f","2013-03-04 22:56:08-05:00","check mount error code, and exit if not success, closes #37
+"
+"8567dca4d59be45f0bfa0eb9c16fc23945d29406","2013-03-04 23:06:25-05:00","stop-debian.sh: find used loopback device, if still in use, and delete it
+"
+"6faf04dbb82699bd293d7d426499ad48f0a5d1fb","2013-03-05 12:19:53-05:00","add e2fsck.static from Debian's e2fsck-static package
+
+Many Android distros completely omit fsck for ext2/3/4 even though some
+system partitions are formated with ext2/3/4 by default. Therefore we
+include one.
+"
+"d60ea2aeb961a9a4086fee4f1a189339de9d8130","2013-03-05 12:34:07-05:00","wire up our included e2fsck.static so disk checking happens on all devices
+"
+"855139f6b607ea24ed7a995c096f52375f704c9d","2013-03-05 18:26:20-05:00","make sure /sys/kernel exists before trying to create /sys/kernel/debug
+"
+"ead8892bbe5ea1df3dd27b45a373b3ce8bc650c3","2013-03-05 18:30:30-05:00","include awk since its used in create_mountpoint() in create-debian-setup.sh
+"
+"4d84d096e3870f988e5c793648d84f0dc895c417","2013-03-05 18:38:46-05:00","android:allowBackup='false' since the app data is only log files
+"
+"39b9c015a6020227c479866a9053311767ce1c14","2013-03-05 19:19:04-05:00","fix warning: argument of type null should explicitly be cast to Void[]
+
+The argument of type null should explicitly be cast to Void[] for the
+invocation of the varargs method execute(Void...) from type
+AsyncTask<Void,Void,String>. It could alternatively be cast to Void for a
+varargs invocation
+"
+"4f0363e9fa7aeccc93144ce01eb9a5619a525561","2013-03-05 21:31:04-05:00","if stop-debian fails in create-debian-setup, then exit the whole thing
+
+If there is a problem in stop-debian.sh and it doesn't unmount everything,
+then things can go horribly wrong later, like things getting double-mounted
+"
+"ea7441dfcb289f1d1144cc150b18a1dbccb49af6","2013-03-05 22:21:15-05:00","use 'apt-get clean' to remove cached packages, saving disk space on chroot
+"
+"ba97a0484bc7dd2bde04b34f8c0ee880975a5fa3","2013-03-05 17:17:04-05:00","use tune2fs to switch to ext3 if available after formatting new imagefile, fixes #43
+
+It seems that the busybox mke2fs only supports formatting as ext2, and its
+tune2fs does not support the -j flag for turning on the ext3 journal. So in
+order to use ext3, format then convert using Debian's tune2fs. To use
+ext4, it should be mountable, but it'll have to be formatted off the device
+"
+"6cbce660fd94c1d6c85cae52c89c0d8dc4913263","2013-03-05 23:24:02-05:00","when unmounting, try to delete the loop device at the same time
+"
+"e3bb1b6fbe3cf48652a57aadc057ce3c64d42aee","2013-03-11 14:33:50-04:00","on complete uninstall, remove /data/local/bin/debian
+"
+"1559c36ac654091c4d4e8de3bc0b2e8ed507228d","2013-03-11 14:34:27-04:00","remove-debian-setup.sh: use 'set -x' to show all steps taken by script
+"
+"0f5fab240e2fe6faa9945127d28d9d0707bb6dba","2013-03-11 15:17:43-04:00","create shortcut scripts as early as possible, since they're only created here
+
+The shortcut scripts /debian/shell and /data/local/bin/debian are only
+create by the create-debian-setup.sh script. If there is an error in the
+script before those shortcuts are created, you can be left with a usable
+system but without those shortcuts. Create those scripts as early as
+possible to they're available if there is a working setup.
+"
+"90cb7d9a9efbe10208b301ea3b727ed6bbb6c7ee","2013-03-11 18:32:45-04:00","make a basic chroot to run e2fsck.static in, to provide /etc/mtab
+"
+"9f71b8f16c60be5201234ca06d2e9036d2cb2fd1","2013-03-11 19:42:25-04:00","set 'umask 077' to make all files created private to this app
+"
+"4ee2a3dd21407b866887dfd053d28723ebbbdc37","2013-03-11 20:09:16-04:00","make log buffer static so it can be used throughout the app
+"
+"5f6e5e335442a8a333dc2007794c1a0f0c023339","2013-03-11 22:38:01-04:00","add a preference to check the SHA1 sum of the image file before starting
+"
+"98cfa9de9681c80ff45b8ec1480e688948a54153","2013-03-12 14:10:05-04:00","always 'test || mkdir' parts of the fsck-chroot, they all need to be there
+"
+"e55ddbb62b43e228acd05f18539be8e2de83d748","2013-03-12 14:10:45-04:00","AndroidManifest.xml: targetSdkVersion='15' (4.0.3)
+"
+"e229aeb12c341e21082b3c1c123e67ed10ddb4ae","2013-03-12 14:10:58-04:00","set version to 0.4 build 5
+"

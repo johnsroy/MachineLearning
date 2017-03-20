@@ -1,0 +1,186 @@
+"commit id","commit date","commit message"
+"f6ebe4d4e08ec281c0931c0b46bdc582b308bea8","2012-02-29 03:03:20+01:00","Deduplicated code to create SearchAccounts for special accounts
+"
+"5591865f17a09f4eaf0d46826d55deeb868eb28d","2012-02-29 14:09:41+01:00","Merge branch 'uidplus'
+"
+"f1baa8f461c92b4d489e7ac52e0c91cef16eed0f","2012-03-02 05:16:58+01:00","invalidate message content WebView when the message header changes
+
+This fixes redraw issues where text appears doubled or is cut off
+"
+"8d12244a9c23da0b5146afa418f75a4b7e49747d","2012-03-02 05:41:01+01:00","Message header changes
+
+* remove expand/collapse arrows, instead use the background area of the header to toggle
+* allow expanding of To: and Cc: texts when too long and cut off by clicking on them
+"
+"78615f878d4ea28201e79652bd2c8694a09980a4","2012-03-05 15:17:31-06:00","added From: addresses on reply all when Reply-To: is set. don't repeat address in To: field if it's already included in replyToAddresses.
+"
+"faf9dc6e0263e7cb3df1d09ebdeea6fb85777df8","2012-03-06 04:26:18+01:00","Restored show/more less indicator in the message header
+"
+"a089fadd9aaff69ecbc309bb19e9b22a65817f5f","2012-03-06 05:26:11+01:00","Merge branch 'messageheader'
+"
+"4721d92e7909fd00619a02571916c438ec5b395b","2012-03-07 21:40:41+01:00","Avoid some instances of autoboxing
+
+This will hopefully allow us to compile with 'Android Java IDE'.
+"
+"ee34344d30fded0c3cba2b489a3462b271ff97a8","2012-03-07 21:52:47+01:00","Upgrade to SDK 15
+"
+"7163d39091b2a32724d9767b5ebf92dcb786a90b","2012-03-09 21:50:26+01:00","Change ImapException to always be a permanent error
+
+This way IMAP commands that get anything but an 'OK' response are never
+tried again (pending actions).
+"
+"0cb4207ef73027e86feee4400647ad8f10f777d9","2012-03-09 21:51:48+01:00","IMAP: don't create the destination folder when copying messages
+"
+"dda072eff65c135a59da78b8b04482471e9ad199","2012-03-11 14:31:35-05:00","Upgrade to SDK 15
+"
+"f9a30d1822b0de034bab4d08b1e9392b7d7e69e4","2012-03-11 17:48:56-05:00","added sort by arrival option.
+"
+"561d2a1a44ae6e9615b9a9c04d8a040b4a724690","2012-03-12 17:44:53+01:00","Added unit test for MimeUtility.getHeaderParameter()
+"
+"aeb0220e56b4717e4af262097f391d42fd3a3a4b","2012-03-12 17:45:34+01:00","Fixed MimeUtility.getHeaderParameter() to not crash on unexpected input
+"
+"f181e923ca8bb4f75f250f6f56f8b4409e0a4ae3","2012-03-15 21:21:00+01:00","Don't modify draft messages when storing them in the database
+"
+"a48adafbbc99ce2b0ad275060f2045d1f8199328","2012-03-16 22:56:09+01:00","Don't use null for 'text' and 'html' in ViewableContainer
+"
+"dbf38dae653aa2fdfe2372cec2ab2e19bea5f5c7","2012-03-17 00:30:40+01:00","Fixed the change of the previous commit
+"
+"3fa8081e88e0b035377c721fd21676a735d82baf","2012-03-17 03:19:09+01:00","Fixed MimeUtility.extractTextual() when loading messages from the server
+"
+"f9a35aeaeeae67bd88c3b253c25d06832ca7da73","2012-03-17 04:15:30+01:00","Replace CRLF with LF when loading drafts
+
+This is necessary because we save the offset and length of the user-
+supplied text in the identity header. These values are then later used
+to split the draft in user text and quoted message.
+When calculating these values we operate on a string with LF line
+endings. Ideally we want to do the reverse operation on the same
+string, but when saving the message to the server LF is converted to
+CRLF to create RFC-conforming messages.
+
+This is only a hack and will probably be the cause of more trouble in
+the future. A better solution would be to make the identity header more
+robust or get rid of it entirely.
+"
+"8192d54cce6d5f0796ad9a806627dd9b11249238","2012-03-17 23:08:14+09:00","Updated Japanese translation. catch up with f9a30d1.
+"
+"39f2138292225c1b904c5bfbeec41e58c20d100b","2012-03-04 09:47:29+09:00","added a Japanese provider 'auone.jp'
+"
+"f9fb74241a5f5520dab90f4453ce1f735d38343a","2012-02-29 00:51:02+09:00","avoid NPE. address may be null when the parser is failed.
+"
+"10c37942a632dc1a05cbf7624e0739a7e624ae02","2012-03-07 00:56:33+09:00","Added two domains handle docomo emoji
+"
+"ef01dc906b1b006a0bab045ebd426281407c2558","2012-03-17 18:27:17+01:00","Use AlertDialog's ListView on import instead of creating our own
+
+This fixes a display problem when using the dark theme.
+"
+"69ee6a48187d7c1cde3bc3cdb292f4858d7c5c56","2012-03-17 20:12:33+01:00","Avoid NullPointerException in Accounts.onCreateDialog()
+
+Also cleaned up code formatting of onCreateDialog() and
+onPrepareDialog().
+"
+"482ae352c158d75eb3db820305d020b809715a32","2012-03-18 04:51:29+01:00","Reverted most of the recent message header changes
+
+Clicking the additional headers area still allows to hide that view
+again.
+"
+"58c01c05b7753bac9e3026aa8a46659717cc8f3a","2012-03-18 18:28:03+01:00","Fix for Issue 4164: Force close when moving an email to another folder
+"
+"6bdaac4353cfcb7bc61674cefd6b2fff5741016b","2012-03-18 21:46:32+01:00","Fixed whitespace (tabs vs. spaces)
+"
+"09bc07596ec7bff27ae9a912a86fc5804277fc7d","2012-03-18 21:48:22+01:00","Got rid of unnecessary instance variable
+"
+"b7c1f8ab2fb1a2be01ffa783e7491417a7bfd9c5","2012-03-18 21:51:01+01:00","Prefixed instance variables with 'm' to comply with K-9 code style
+"
+"4f2412eacda3daae3181bbaaede6eaaaf4e200b2","2012-03-18 22:06:44+01:00","Changed code formatting. No functional changes
+"
+"16afff4dfcb6adcedb021d6753feb660a1540e5c","2012-03-18 22:09:52+01:00","Notify the adapter from runOnUiThread() instead of using Handler
+"
+"8c66a2f835b76f323682862a6f4bc4619a86907c","2012-03-18 22:13:27+01:00","Replaced hardcoded strings with references to string resources
+"
+"5245191900f4568a068a1f35160d3d122c325886","2012-03-18 22:43:47+01:00","Notify the listener provided as argument to doRefreshRemote()
+
+With this change pressing 'Refresh folders' in ChooseFolder actually
+refreshes the folder list.
+"
+"1d28eb003df376a9ba186fece011d499ef1da96a","2012-03-19 04:44:41+01:00","Added a setting to disable marking messages as read on viewing
+"
+"8180fd9ad2113c5c92a9ea7de2d19b396ffa10f8","2012-03-22 22:17:10+01:00","Added a button to switch the identity in MessageCompose
+
+Originally I wanted to use a Spinner, but it doesn't support multiple
+view types (see [1]). Those are necessary because we use different
+layouts for accounts (section headers) and identities (selectable list
+items).
+Removed the ChooseAccount activity because it's now unused.
+"
+"f4274eec6e63067d2ab4ea8592bfd7d4fb660955","2012-03-22 21:20:51+01:00","Converted tabs to spaces
+"
+"52d333c8d9d05e772a36d2f60d14b924d7425561","2012-03-22 21:25:57+01:00","Fixed indentation
+"
+"8436e6b50b2e58d592314d432b49766d771dd8d9","2012-03-22 23:37:03+01:00","Tweaked MessageCompose layout
+"
+"365f8e71e049f411c363ebeade991c8073bfd3a9","2012-03-23 04:20:29+01:00","Fixed array length calculation
+"
+"580f1639c39b10adea67cf6248141cfb9a919f20","2012-03-23 21:34:29-04:00","UI improvements to the 'select identity' button
+"
+"ea90e24785a3d2d1e74a3acea37183c927cde80d","2012-03-23 22:00:53-04:00","move the chips, change the sizes
+"
+"b9e0ec1ab47f9b314faa3c957396e31848c9d38a","2012-03-24 20:43:17+01:00","Added AccountHolder
+"
+"661ed080616188aea1e61484052bd9ff91eb467a","2012-03-24 22:51:33+01:00","Removed unnecessary layout containers
+"
+"f32dce53aed8da95d80eb98fe1f954175f895f46","2012-03-24 22:56:51+01:00","Fixed a small display issue in MessageCompose
+"
+"acffe973eb41d27801dec1128d147aa3bc52904f","2012-03-25 00:28:40+01:00","ADT 17 changes
+"
+"43cb78d2de6ad01cba5de33a428eb179b545078e","2012-03-26 07:29:10+02:00","Fixed display issue in MessageCompose
+"
+"a1caebdcf10b63841d2bc86f5721451dc409c7c4","2012-03-26 19:41:21+02:00","Fixed potential NullPointerException
+"
+"4e21f049d304c21a8caf6bdf655d0f0925365f0a","2012-03-26 21:36:26+02:00","Validate 'original message' field of identity header when loading drafts
+"
+"1266c3c73ec332071e1d72017338bb06dccef82a","2012-03-27 20:41:43+02:00","Don't allow invalid values for header/footer insertion point
+"
+"d584492a6df117baec2b1aaf20138b77fc8d5744","2012-03-29 06:33:01+02:00","Changed internal representation of the selected theme in the database
+"
+"2331696153dbeef1d2873c3b24e4cad5f03332b5","2012-03-29 06:39:31+02:00","Always use the light theme in MessageCompose
+
+This fixes a display bug in the 'Send as' dialog in MessageCompose.
+"
+"240f7ea9ac743ed6d3f4391758c22ae2817c8a33","2012-03-30 05:24:44+02:00","Updated and improved german translation
+"
+"1d25d2ff40e7db531d713ea41efbcb84555fc2a6","2012-04-01 21:08:31+02:00","Added helper class to use the most recent ClipboardManager
+"
+"1596ddfaaba40ba751aa4170d813a7ea3841a6e2","2012-04-01 21:14:43+02:00","Moved sanitizeFilename() to com.fsck.k9.helper.Utility
+"
+"5819d273946bbb9dd3e15af9025d8cd2c51eea0d","2012-04-01 22:46:36+02:00","Added long-press popup menu to WebView in SingleMessageView
+
+Actions:
+- Open link for viewing
+- Share link
+- Copy link to clipboard
+- View image
+- Download/save image
+- Copy image URL to clipboard
+- Call number
+- Save phone number to Contacts
+- Copy phone number to clipboard
+- Send mail
+- Save to Contacts
+- Copy email address to clipboard
+
+This is based on work done by kernelhunter92 and ShellZero.
+
+Fixed issue 1248
+"
+"7715e396c482058eaf3c705c3447058003e58512","2012-04-02 01:35:02+02:00","Updated german translation
+"
+"d1c065230f921ede45ffe389ffd235dd6eae8440","2012-04-03 00:02:52+09:00","Updated Japanese translation. catch up with 5819d27.
+"
+"4612ceb3c8a2264741d929bb6d60d125f69a81bc","2012-04-03 03:41:44+02:00","Enabled dark theme for MessageCompose and MessageView
+"
+"0caac114a6e507a16e3ab92b509b45ceed6e3e2b","2012-04-03 07:35:19+02:00","Added some error checks when processing IMAP FETCH responses
+"
+"809f8efc77291029e8d9afa2939c7be98a08d6f6","2012-04-03 07:54:22+02:00","Improved the look of MessageView with the dark theme
+"
+"cd8224fa6b8270fa0c38675043c380a19ddb2f85","2012-04-03 09:33:22-04:00","Bumped manifest to 4.113
+"

@@ -1,0 +1,94 @@
+"commit id","commit date","commit message"
+"63b0f941ec2df3f794a9a561f582a1bf0c895bf3","2015-04-04 09:01:04+02:00","goods_full decision tree: Remove examples count from 'Done' checkbox.
+
+As in the web UI:
+https://github.com/zooniverse/Galaxy-Zoo/commit/ed0c942c7b344604b104e2526f72977e8063eb9b
+"
+"5b15ec33677285366c3e56d94e99e555fe6c17b8","2015-04-04 09:28:35+02:00","Update (commented-out) code to get icons.
+"
+"af85a99fc02417b1b47e615705bb9e2e8ce0c7dc","2015-04-04 09:36:26+02:00","Add a missing goods_full example icon.
+"
+"4950ca5306d53b069559363159d236ead59984e7","2015-04-04 10:07:22+02:00","goods_full tree: Correct some examples counts.
+
+As in the Galaxy Zoo web UI:
+https://github.com/zooniverse/Galaxy-Zoo/pull/193
+"
+"3a952b8660c73c50d9674d28864d57b006e3fce6","2015-04-04 10:26:19+02:00","IconsCache: More corrections for (commented-out) icon caching code.
+"
+"2f7065048497e8a5e5e0b4d41e50435f01bba05e","2015-04-04 10:27:09+02:00","Updated example icons.
+
+Though I wonder if they have really changed.
+"
+"9c556ac66793b68c1efd9ebf74b0cdaf2bf8876a","2015-04-04 23:09:34+02:00","goods_full tree: More examples counts corrections.
+
+As in the web UI:
+https://github.com/zooniverse/Galaxy-Zoo/pull/193
+"
+"7eb17930b07d54e8420e68e90927cffd9f2f2ff6","2015-04-04 23:20:09+02:00","Add new goods_full example icons directly from the Galaxy-Zoo git repo.
+"
+"c72fb1d799256c389093aa96377f5e9a654d2c8a","2015-04-04 23:23:05+02:00","Remove empty (because non-existant) goods_full icons.
+"
+"f1d5c6038144da048397daa422fe5dd4b30acb3e","2015-04-04 23:26:29+02:00","ZooniverseClient: Reduce the max simultaneous downloads from 10 to 5.
+
+So We get 5 of each group in the first set of 10 cached in advance.
+Hopefully this won't slow down the overall download of that 10.
+
+Thanks to Tjitse Koster for noticing the need for this while beta testing:
+https://plus.google.com/100809029711685946218/posts/8hqPkrLsEMP
+"
+"4c5497fa1debd04461c3d2da8de25e13e84a6bab","2015-04-08 20:27:36+02:00","Config: Specify different 'Discuss this' question IDs and answers for each survey.
+
+Instead of just hard-coding the one for the sloan decision tree.
+
+Thanks to Matt Roberts for noticing this problem while beta testing:
+https://plus.google.com/100809029711685946218/posts/8hqPkrLsEMP
+"
+"c0a094eddf0e2b7174b6994472f3ef0f947d0ff0","2015-04-08 20:30:37+02:00","QuestionFragment: Avoid a little copy/pasting of code.
+"
+"211a737fd465b493b9379a5d71ca927a984a9bab","2015-04-08 20:33:44+02:00","QuestionFragment: Move getDecisionTree() into BaseQuestionFragment.
+"
+"634578301f2c5abb2a943273298e0461cab4a1fa","2015-04-08 20:40:59+02:00","Resize the goods_full icons to be 100x100 like the others.
+
+Using this imagemagick command in a terminal:
+mogrify -resize 100x100 icon_goods_full-*
+
+Unlike the sloan and candels icons, the goods_full icons are just
+the full example image. But we want only thumbnails to be packaged
+with the app.
+"
+"24f9810e9161d346b04d19ae53f7f158a06564b1","2015-04-08 23:18:39+02:00","Correct the icons_goods_full-18* filenames.
+"
+"410396fa3b38e3841b86e92982c443f7f1697048","2015-04-09 00:18:08+02:00","Singleton: Move some code into Utils.getDecisionTreeFilePath().
+
+This is easier for tests to use.
+"
+"5d371109d29839cac8d1a2900a2fedbcfeea4a51","2015-04-08 23:56:13+02:00","Add an IconsCache test to check that we have all the expected icons.
+"
+"7dbcc90afb186f2b5a63a80b55b5794343e98526","2015-04-09 00:37:15+02:00","Remove an unused field.
+"
+"d9b2ca6dbd8c067d142c95539f186dba320a5f6c","2015-04-09 01:05:16+02:00","DecisionTee: Make some fields private.
+"
+"0fb343e3666255eda4a1edce2ab0524bf5cdb1b6","2015-04-09 13:41:42+02:00","ClassifyFragment.addOrUpdateChildFragments(): Remove explicit update() call on fragment.
+
+The QuestionFragment's setItemId() override() will already call update() after it has
+got the new Group Id and Zooniverse ID corresponding to the new Item ID.
+Calling update() before they have been retrieved from the database can lead the
+question ID and group ID to be out of sync. Not being able to find the
+question ID in the (wrong) decision tree was then interpreted as being the
+end of the classification process.
+
+Thanks to Tjitse Koster who noticed this while beta testing:
+https://plus.google.com/100809029711685946218/posts/8hqPkrLsEMP
+"
+"46b6b9766f716a49691ff21cf0c28b4d141f8830","2015-04-09 13:56:36+02:00","QuestionFragment: Don't save or restore the group ID.
+
+Because we always get it from the database whenever setItemId() is
+called, so it is always the correct Group Id for the Item ID.
+We already depend on this for the Zooniverse ID too.
+"
+"ee7099e5bc05e6f81d707087ba83416bf73933fe","2015-04-09 14:16:07+02:00","Log: Remove methods that take a documentId.
+
+That must have been left over from when I used this in android-glom.
+"
+"7c06ef9712346d4a266649238043dd2372cf5de8","2015-04-09 14:32:03+02:00","1.43
+"

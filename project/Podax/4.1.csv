@@ -1,0 +1,262 @@
+"commit id","commit date","commit message"
+"dad2fa849418bd154169cd3c271d4b2b73665cab","2012-06-17 23:32:04-04:00","Fix typos in Preferences window
+
+Fix 'Blueooth' and make a slight grammatical improvement in the 'Submit
+usage data' description.
+
+Signed-off-by: Dan Scott <dan@coffeecode.net>
+"
+"a278781a3a24a2a1d206c1345007c6fcb653659c","2012-06-18 00:26:46-04:00","Add support for headset control of pause/resume
+
+Using com.android.music.MediaButtonIntentReceiver as a starting point,
+hook up the headset button for pausing and resuming playback.
+
+By registering the receiver in the manifest with a stupidly high
+priority (5000; SYSTEM_HIGH_PRIORITY is supposed to be 1000), we can
+prevent Google Music from simply kicking into gear. We should play nice
+with other apps, but one step at a time.
+
+In theory, long-pressing the headset button should skip forward, but
+isLongPress() appears to never be true at the moment. That, also, can
+wait for later; for now, just having the ability to pause & resume is a
+win.
+
+Signed-off-by: Dan Scott <dan@coffeecode.net>
+"
+"df6425abeae32fc6fadd547113aa28176f1ec8e4","2012-06-19 17:12:17-04:00","Enable ICS support for headset button play/pause
+
+With thanks to http://ur1.ca/9j6w6 for the pointer to the new
+AudioManager.registerMediaButtonEventReceiver API that was added to (and
+is required by) ICS. This will undoubtedly break on Honeycomb devices,
+but lurching toward working code wins :)
+
+Signed-off-by: Dan Scott <dan@coffeecode.net>
+"
+"9bea9eece06e9e519744a5f6464ddb05b6b911d7","2012-06-19 19:34:51-04:00","Remove crazy priority for media button receiver
+
+Now tested on a Honeycomb and ICS device, and working. We still need to
+register the receiver, but we don't need the crazy-high priority.
+
+Signed-off-by: Dan Scott <dan@coffeecode.net>
+"
+"851a72e4e6371eef5ae3972417ad8c3d3e6fe120","2012-06-19 19:36:07-04:00","Bring coding style in line with rest of code
+
+Leading underscores wins the day :)
+
+Signed-off-by: Dan Scott <dan@coffeecode.net>
+"
+"9f51e90b8202c9f86a4aae751f7146a10a03467b","2012-06-24 23:27:05-04:00","Fix check for enabled mobile data
+
+The check for enabled mobile data always returned false because the test
+needed to be reversed. As it turns out, the surrounding code had been
+refactored such that we can simplify the test by reusing the existing
+ConnectivityManager instance and remove the redundant nullity check.
+
+Signed-off-by: Dan Scott <dan@coffeecode.net>
+"
+"dfa6993efa525cdf434705c814a3f8d291573703","2012-06-25 00:01:32-04:00","Silence Cursor warnings during subscription updates
+
+Logcat issues the following warning per podcast subscription when
+checking for updates:
+
+'''
+CursorWrap Cursor finalized without prior close
+'''
+
+By adding explicit close() calls, we can remove this noise from the logs.
+
+Signed-off-by: Dan Scott <dan@coffeecode.net>
+"
+"004fb3a86571102e2cc40434ac55fc99b65b51f0","2012-06-25 20:06:36-04:00","removed useless binder in playerservice
+"
+"49928ef118e3fc6e55ac5a28dd3fe89f75bd634f","2012-06-25 17:33:27-07:00","Merge pull request #65 from dbs/dbs/headset_play_pause
+
+Add support for headset control of pause/resume
+"
+"6df0ea4bc0ce00270cf9d4094fd3043cba59fa7e","2012-06-25 20:34:17-04:00","removed useless binder in playerservice
+"
+"81e6d3be7f0bd1c4b82c54e6d3f3d093c0be6742","2012-06-25 22:08:57-04:00","move media button grabbing to when we gain/lose audio focus or are in the foreground
+"
+"81e3f7ce3db78039dda1880b543e4be2c50da097","2012-06-25 22:12:15-04:00","why is java so stupid with imports
+"
+"a2756c9eb580a529ecd8ae4985ef5f950b246e57","2012-06-25 22:24:30-04:00","removed unregister media buttons for when podcast is playing while app is active then app goes away
+"
+"662e748e0d9e33c5e9bd589c20893e40738411f9","2012-06-25 22:38:59-04:00","pausing bt then resuming should resume us, not something else
+"
+"5dacbbd9fb27f757cdcfca108c0679d3cfdfefc1","2012-06-26 21:15:15-04:00","made resume on bluetooth a preference
+"
+"a524185ef90c4bd2bb35e83ac34760e2b4d72ad4","2012-06-27 14:49:05-07:00","Merge pull request #67 from dbs/dbs/cursor_close
+
+Silence Cursor warnings during subscription updates
+"
+"0db937b6059979abffe2164c5fda98f126109149","2012-06-27 14:50:37-07:00","Merge pull request #66 from dbs/dbs/fix_mobile_data_test
+
+Fix check for enabled mobile data
+"
+"0b354e7594e32067fcefe54dd57f9fecfeecf158","2012-06-27 14:51:13-07:00","Merge pull request #63 from dbs/dbs/typos
+
+Fix typos in Preferences window
+"
+"38fe6007c9b09f70cdcb35c7a51631cfe86a062d","2012-06-27 21:51:14-04:00","make sure we are parsing an RSS document and not HTML
+"
+"b6f0fa9c8fa20bec5bfe7ef12c99e23759c377e4","2012-06-29 19:06:55-04:00","added preference fragment at end of main activity
+"
+"0d7f5544b0aad5d0175cffa8d7955a9f1962a0fa","2012-06-30 21:22:25-07:00","Move preferences into overflow menu on each tab
+
+Given that preferences now control more than just downloading behaviour,
+they should be available from all tabs in the app. Given that the
+preferences won't be used very often, put the entry into the menu
+overflow area, per the Android Design Guidelines.
+
+For the same 'unlikely to be used often' rationale, we should consider
+moving the 'About' tab into a separately launched activity, and launch
+it from the menu overflow as well.
+
+Signed-off-by: Dan Scott <dan@coffeecode.net>
+"
+"1c5e64ba0b9977e765e58313db7b0b3a85158a3b","2012-07-02 19:35:51-04:00","Revert 'added preference fragment at end of main activity'
+
+This reverts commit b6f0fa9c8fa20bec5bfe7ef12c99e23759c377e4.
+"
+"bd4b85b91c6e0fd1b77acbf5198ababcf4205686","2012-07-02 16:37:25-07:00","Merge pull request #78 from dbs/fix_menu
+
+Move preferences into overflow menu on each tab
+"
+"b02b472eaac4da2cce587a81fe7cc5dcb787a0ac","2012-07-02 19:37:42-04:00","Merge branch 'master' of github.com:thasmin/Podax
+"
+"341f4b1ce1ece7f2591c6927886a5151bb170205","2012-07-02 20:06:16-04:00","remove podcast name on top of screen when podcast starts playing
+"
+"b0bf3327ad5360cde7fb19b58397672f99004529","2012-07-04 17:48:58-04:00","removed active download page, moved functionality to queue
+"
+"0229edbe72ba0f78e1d95f8466fcf3788085ccf5","2012-07-04 19:53:57-04:00","moved about to menu like preferences
+"
+"51590ebe2b33596144674a7ee198acdfc90d60aa","2012-07-05 18:38:48-04:00","put playback controls on small widget
+"
+"2643d5979476624d60bdebd986f61b62d9ac8985","2012-07-05 18:53:32-04:00","improved large widget layout
+"
+"5f994865a3546f32939a0f24f10e529b3a857f5a","2012-07-05 19:08:30-04:00","fixed lint warning by marking all receivers and providers as not exported
+"
+"c2796ace2796a0eb7f2ebc5d54b20dae718a57a1","2012-07-05 19:34:28-04:00","prevent main activity from switching pages while rearranging queue
+"
+"7effcf698cf8624384228a01068d1ee6a0904e8b","2012-07-05 20:18:22-04:00","updated android support library
+"
+"e3c5c60f9153932a4b0882e6ba7a2324f4a6bee8","2012-07-06 18:03:50-04:00","fix player bug when queue is empty
+"
+"e42b57e0483e6c44a4787a9936b54441fbe3baa2","2012-07-06 18:04:49-04:00","rearrange code in small widget provider
+"
+"160bcc709888903d0e2cc951d06cd451f9e169c9","2012-07-06 18:17:35-04:00","create opml files that podax can import
+"
+"de9a9c9a4f8b0660fa4068210f05007aa5601e6c","2012-07-06 21:15:09-04:00","changed small widget so it is 4x1 on my galaxy nexus
+"
+"c9b9f76a4573bd7f86144aa727616c1619bd21ff","2012-07-06 21:42:25-04:00","updated support library version in libraries
+"
+"c1ebd374ef2e1c77b04757f378d49ae3e0a15193","2012-07-07 15:26:01-04:00","add playback controls to lock screen
+"
+"f19181656274853a340280a2386584b14fc199ab","2012-07-08 10:19:11-04:00","step 1 of playerservice refactoring
+"
+"71e00db2c8abdfc1f6e0e533cdb6f8aa668bc08d","2012-07-08 19:51:15-04:00","rearranged playerservice to make it easier to understand, started using event bus to manage status updates
+"
+"a601e58972071fa74dc6d64fa8fa8b01cfc4cc14","2012-07-08 20:12:02-04:00","fix crash in playerservice on next podcast
+"
+"56cb5f625947c1b07fd0e40573ad5000a43f6885","2012-07-08 21:31:30-04:00","sent event to bus when manipulating queue
+"
+"47e42f167c0f699bc843003e6485401e1a80d43d","2012-07-09 19:19:57-04:00","get podcast provider to do more playerstatus updating, make active podcast first downloaded instead of first
+"
+"6d7efa038c98bc1179c9fc4dbe641920094bd13e","2012-07-09 20:04:03-04:00","move podcast detail onto playerstatus
+"
+"76d27cd189db08594f095a416cbb2119eeb12c73","2012-07-09 20:07:44-04:00","removed unused code
+"
+"4390a7339c1c3e7b48a98f831c3cdbf8f5ea9198","2012-07-09 20:09:12-04:00","removed download notification so it doesn't stick if service is killed by OS
+"
+"de0212f82aed58fbc825dd3d6b938542d37654f8","2012-07-09 21:26:55-04:00","added a paused state to playerservice for lockscreen pausing
+"
+"f8a5fe062994348b89bb43a125eb250ca7aee1cf","2012-07-10 06:55:03-04:00","add acra for better error reporting
+"
+"d119aab8e4e39362b03683da510c8b8c36f17efc","2012-07-10 06:55:33-04:00","bump version to 4.1
+"
+"2a93e1b4e3ef2363d2727be3fb7640a95e7165ad","2012-07-11 06:21:57-04:00","widgets play buttons should stop not pause
+"
+"aa6b5c4b82845845e3b4905fa6e303a7461e1096","2012-07-11 06:22:23-04:00","add acra for better error reporting
+"
+"87e6c6ac8d250dfdea103bcb818e24c686e56ed7","2012-07-11 06:23:16-04:00","remove unused imports
+"
+"946206446a86a89caddab613b1b75ad5d190b21e","2012-07-11 06:32:52-04:00","hopefully fix bug where podcast resumes after unrelated audio when paused
+"
+"8abad0a7c0d1b14c2c0a01949807ff0dc28aec95","2012-07-12 01:56:09-04:00","Issue # 86: Display Unicode data in podcast details
+
+WebView.loadData() only accepts 'base64' or ASCII; to get UTF-8, we need
+to use WebView.loadDataWithBaseURL(). Wacky, but it works.
+
+Also bump targetSdkVersion to 16, per best practices session at I/O.
+
+Signed-off-by: Dan Scott <dan@coffeecode.net>
+"
+"0fa2fcf0ca7f74392c0fd4efe02c1bb5a2fa7f3e","2012-07-12 07:14:33-04:00","fix resuming after unrelated sound while paused
+"
+"a16a6cfce1e2966c2c4db6c858bd340423506723","2012-07-15 21:41:12-04:00","Add podcast ID to prevent crashes from Podcast Detail
+
+Fixes issue 91 in which 'Add to queue' and 'Remove from queue' in the
+Podcast Detail view would lead to a crash, because the sought-after
+podcast ID column was missing from the PodcastCursor.
+
+Signed-off-by: Dan Scott <dan@coffeecode.net>
+"
+"0620f4ec1b7467aae61b055eecba0232f2f1d8ec","2012-07-17 18:01:37-07:00","Merge pull request #92 from dbs/force_close_add_queue
+
+Add podcast ID to prevent crashes from Podcast Detail
+"
+"7b94536dad761e4270defe0c980c7450eaac1a13","2012-07-17 21:02:40-04:00","remove unused import
+"
+"92f98637ff5209083144d7af5455ad4368b52127","2012-07-17 18:17:22-07:00","Merge pull request #87 from dbs/unicode_details
+
+Issue # 86: Display Unicode data in podcast details
+"
+"31710a3be1e5d19d14f620459034e33cd62ef433","2012-07-17 21:22:46-04:00","remove unused import
+"
+"68189ed09b910d63a8abce172fbbf40075da94ac","2012-07-18 20:57:51-04:00","tweak media button and bluetooth actions
+"
+"3845e51d517247e0c2d6b6ae3db3ead1530f0820","2012-07-18 21:53:07-04:00","tell widgets to update whenever the player status is refreshed
+"
+"f8af2580d5dc9badd967e5c57fc0ad2b9c7f0cab","2012-07-19 17:15:26-04:00","Update manifest per android dev recommendations
+
+Hardware acceleration was added in API level 11, per
+http://developer.android.com/guide/topics/graphics/hardware-accel.html -
+as it is just an additional attribute, it is ignored in earlier API
+levels.
+
+Signed-off-by: Dan Scott <dan@coffeecode.net>
+"
+"32dcc55e66030c49609228e59b380a75e5a7b888","2012-07-19 17:26:12-04:00","Add preference for auto-delete and i18nize strings
+
+Add a preference to prevent auto-deletion of podcasts when they finish
+playing or the user skips to the end of the podcast. If the podcasts are
+not deleted, then they are moved to the end of the queue - the user is
+then responsible for deleting the podcasts, eventually.
+
+While we're in the preferences file, move all of the strings into
+strings.xml to support translation. Also, add categories to the
+preferences to differentiate the podcast lifecycle management vs.
+hardware controls vs. crash reporting & usage data.
+
+Signed-off-by: Dan Scott <dan@coffeecode.net>
+"
+"01952bc831d78033d5b81011ff5d9cba3fc23177","2012-07-21 15:07:33-04:00","refresh player status when podcast finishes downloading
+"
+"32c07777b2d0e4eb552a4f9e16e93c0b40cfdf12","2012-07-21 12:10:47-07:00","Merge pull request #94 from dbs/auto_delete_pref
+
+Auto delete preference (fixes issue 23)
+"
+"084bec31e8df3ae418ed3213b34d4223ebbff534","2012-07-21 15:11:07-04:00","Merge branch 'master' of github.com:thasmin/Podax
+"
+"9b5a355f788f8f1cdf1040cc93bbeb90e0c0491b","2012-07-21 15:18:08-04:00","delete m4a files when podcast is removed
+"
+"89317b86eb2183c8ad793a69737f52667853c48c","2012-07-21 16:16:53-04:00","update ant build
+"
+"fd3df222b9075c7cd10d4c11459317b2d31bc257","2012-07-21 16:17:13-04:00","remove logging because it was crashing
+"
+"c5b7674cbfcf341214a100584af6efcce58b15bd","2012-07-21 16:18:07-04:00","less data from acra but better data hopefully
+"
+"92fd28bed18e198988aae22429e8a735266e3ff0","2012-07-21 16:20:12-04:00","Learn how to read a google doc
+
+This reverts commit c5b7674cbfcf341214a100584af6efcce58b15bd.
+"

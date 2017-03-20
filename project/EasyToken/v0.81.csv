@@ -1,0 +1,32 @@
+"commit id","commit date","commit message"
+"5ca36e9422fb627b582784178064b82f458b71a7","2014-07-05 14:40:08-07:00","TokencodeBackend: Stop updating if onPause() is called from the update function
+
+TokencodeWidgetService.onTokencodeUpdate() will call onPause() if there is
+no more work left to do.  onPause() cancels all scheduled work on mHandler
+but doUpdate() promptly schedules a new work item after
+onTokencodeUpdate() returns, which is wrong.  Check for this condition.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"658fc7c38145d8aab9538583d8bbf1cabc45d3ce","2014-07-05 15:25:29-07:00","ImportActivity: Always confirm token import
+
+Importing from an email client can be somewhat disconcerting, as tokens
+with no devid/password will be silently accepted with no user interaction.
+Then if the user clicks on the token again, he will be prompted to
+overwrite the 'old' token (which he just imported) with the same 'new'
+token.
+
+So, let's display ImportConfirmFragment unconditionally.  For new tokens
+the verbiage will be slightly different, but at least it will provide
+a clear way to accept/decline the new token.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"73221156fe0d94d76a4a21031f62d3d68de308de","2014-07-05 15:31:58-07:00","Update changelog and bump version to 0.81-pre (810)
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"68735d2d9ff5974a21ef63160c549efe2eb99f34","2014-07-06 10:49:38-07:00","Update changelog and bump version to v0.81 (819)
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"

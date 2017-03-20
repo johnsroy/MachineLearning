@@ -1,0 +1,132 @@
+"commit id","commit date","commit message"
+"dbb6a22b6af6ff002cd42993bc5bb32ef9f358de","2012-03-05 15:44:12+00:00","[maven-release-plugin] prepare for next development iteration
+"
+"b05a5338b65fa90df2f26e7a5c71da3cb419691b","2012-03-15 12:51:05+00:00","Revert 'Use Application rather than Context in CuriousHostKeyRepository'
+
+This reverts commit 6a90dcc9a6a2330d2091eb0513dcf5e94cea8280, which seems
+to do the opposite of what it's commit message states...
+"
+"22d891de8ca53dcdd666d922c9d3e80cdefdf485","2012-03-14 13:27:26+00:00","use simplified toy-ssh-agent
+
+fewer dependencies
+"
+"0e14a8f675d0be7d8038c4f1c036e5bd30cb217f","2012-03-14 17:09:36+00:00","Robolectric 1.0
+"
+"20cfc45bda1713a5b7f5cdc3565352a904255bf3","2012-03-15 13:23:29+00:00","tidy test, remove unsed ref to RoboUnitTestCase
+"
+"ab224e3c5b9f043d25def5262e3c7ebb423ce510","2012-03-14 14:03:21+00:00","Delete unused roboservicetestcase
+"
+"f1aa88c87ed9716dfc6d2aca7e7059664a21b5e8","2012-05-03 13:05:54+01:00","Provide host IP to android device for integration tests
+
+Used so the device can hit a local git server running in the maven-running
+host device.
+"
+"4deb158a404d8d668ead07ba16ea83835dd8f5e5","2012-05-03 15:25:51+01:00","remove call to properties.load(reader), introduced in API level 9
+"
+"5c375ed8b7ba7a483ce42d862bae6c2345f47784","2012-05-03 19:45:10+01:00","Use toy-ssh-agent with older version of sshj that works on Froyo
+"
+"3b95b62c00fdaa1ec1329fabb1b8590166480a27","2012-05-04 23:44:11+01:00","Remove unused: var from Clone op and TransportFactory class
+"
+"4fb487048a3c8a5564e06975adea3266b1201029","2012-05-04 22:30:12+01:00","Push repository-scoping of git operations further down
+
+This is to simplify stubbing out - so as to not have to worry about
+reposcope at the stubbing level.
+"
+"42fadf455bcf2d03d10434482f3e2a90e3e57c0e","2012-05-21 12:44:51+01:00","code-formatting apocalypse
+"
+"4cac9b5f11599244a53890d683418fa1ea67d1d9","2012-05-21 13:14:50+01:00","improve display of unusable network address list supplied for test server
+"
+"95942f1b81ce459f2032a5f12f53df74760f33ce","2012-05-21 12:56:36+01:00","Update to RoboGuice 2 - various API changes
+
+Delete special application classes (impl, test) as they're no longer
+necessary.
+
+com.google.inject.internal.Nullable is no longer available.
+"
+"c951f1ac65ebbf930071d52968252606a8ca5b91","2012-04-26 12:35:59+01:00","run GitAsyncTask thread within ContextScope (RG2)
+
+The GAT thread is very likely to have to perform injection, ensuring it's in
+the ContextScope seems wise.
+"
+"b1da0b986aa6c4d0a74b23f4d38366e7df1ede5e","2012-05-20 19:58:09+01:00","fix GitAsyncTask test, including correcting base application modules (RG2)
+
+Note setBaseApplicationInjector() *doesn't* automatically add the
+xml-configured module, if you pass your own modules as parameters.
+"
+"ef408e9e1bf6b8106035365340f21b24344df824","2012-05-20 11:49:47+01:00","fix some tests by using Application context, rather than activity (RG2)
+
+A lot of the test-fixes hinge on switching from injecting 'Context'
+(which is taken to mean Activity or Service) to injecting Application -
+which is a context that is always available, and doesn't require your
+classes to be ContextScoped.
+"
+"8fa58f7f2779363caa94d065c9d91b44b458aeef","2012-05-21 14:28:26+01:00","fix up InjectedTestRunner (RG2)
+
+One new requirement is ensuring that you refer to RoboContext-subclasses...
+"
+"b8166f0a9df050ecfee93b0829d76e5f1b83172e","2012-05-21 15:00:41+01:00","use ActivityInstrumentationTestCase2 constructor available in Froyo
+"
+"1222a40ff4fa5414df62cca7faf9844ec11e17a2","2012-05-21 16:03:54+01:00","upgrade to android-maven-plugin 3.2.0
+
+This has been a long time coming - the proguard-handling changed with the
+release of 3.0.0, and we've been stuck on an alpha-release ever since...
+finally made it on to the modern version!
+
+The exclusions are unfortunately necessary to avoid Dalvik verifier errors
+as it freaks out over differently proguard-ed versions of the same class.
+"
+"66ce9ef6bd297cebaf89e39caad1c9d08787cd2a","2012-05-22 10:45:26+01:00","use standard android ids for title & progress views to match ICS
+
+Notification.Builder uses android.R.id.title & android.R.id.progress in
+it's layouts.
+"
+"17b4fcd17ada778e0e6498e94c5e4d665b68ac3a","2012-05-22 11:34:42+01:00","compile against Android 4.0...
+"
+"59d7e26da787db1b870af4c5f46857ef532c1c56","2012-05-22 17:25:29+01:00","improve status-bar notifications for ICS and also Honeycomb
+
+Legibility greatly improved, appropriate colours are used to match ordinary
+notifications:
+
+* ICS - the new Notification.Builder and the default notification layout
+are used. The layout is abused slightly, with the 'info' textview being
+updated (tho the id for this textview is hidden) to serve as the progress
+text field.
+
+* Honeycomb and below - differences in colour between different versions
+of Android are handled by using the StatusBarNotificationStyles class,
+which is based off http://stackoverflow.com/a/7320604/438886
+
+The AndroidManifest target sdk update to '13' (ie Honeycomb) is necessary
+to get the nice Holo-styling on the progress bar. Targeting ICS will have
+to wait until ABS support is in:
+
+'Applications targeting [14] or a later release will get these new changes
+in behavior: For devices without a dedicated menu key, the software
+compatibility menu key will not be shown even on phones. By targeting
+Ice Cream Sandwich or later, your UI must always have its own menu UI
+affordance if needed, on both tablets and phones. The ActionBar will take
+care of this for you.'
+"
+"3b80319cb5a46c59035d0eaaefa728eb2c1513a7","2012-05-23 18:23:43+01:00","improve maven conf for manifest-updating- android-maven-plugin v3
+"
+"213de469aad1db2651971c6335f6ba039eeb336b","2012-05-24 10:09:29+01:00","re-enable proguard, mistakenly completely disabled with 1222a40f
+
+Unfortunately it's necessary to manually add various methods used by
+the integration tests - as they're only supplied by the implementation APK,
+and proguard needs to know not to throw them away so they're available when
+the integration tests run.
+"
+"bb51a0c9c16c65b7bd75f9e9659ab00f5f3e8169","2012-04-08 22:34:50+09:00","Add web launch support for bitbucket.org
+"
+"4bcdd1ee77d27bebee99ced9c8bba45f654df7cc","2012-05-24 14:36:26+01:00","add unit test for bitbucket web launch, use https rather than ssh
+
+I think it's better to default to https rather than ssh clone urls for this
+case because SSH access requires the user to have an SSH key installed -
+even if it's a public repo.
+
+also normalise formatting of AndroidManifest
+"
+"e82e1270c99f19549f9bef53680ab1c2234f937a","2012-05-24 14:37:00+01:00","Merge branch 'web-launch-bitbucket'
+"
+"953485befaf8871452b5b84a4e3d9de355a6ef85","2012-05-24 16:16:49+01:00","[maven-release-plugin] prepare release agit-parent-1.29
+"

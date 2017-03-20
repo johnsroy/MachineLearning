@@ -1,0 +1,2387 @@
+"commit id","commit date","commit message"
+"c87a6ad94d331310ff1d475e782b52247b394eb8","2014-04-08 23:25:06+10:00","Merge pull request #21 from xLaMbChOpSx/master
+
+Service, Boot Completed Receiver, TableView & Femtocatcher Additions
+"
+"64c1ff666298855a5b38b2c69dbcccbc9c26a94d","2014-04-08 15:27:35+02:00","Merge pull request #20 from SgtObst/master
+
+New Icons with new names!
+"
+"075b9dc517cf4fda22428fd4c28c8f1685c07191","2014-04-08 15:39:36+02:00","Update CHANGELOG.md
+"
+"ace12f167fb7d70d49c15ccdb8a876b9be23fc01","2014-04-08 23:29:34+02:00","Update SOURCES
+"
+"19842e195374b14bf51c848069933ff8a8d0f86b","2014-04-09 23:53:01+10:00","Universal Compatibility Commit
+
+All AOSP specific items have been removed to allow for Universal Compatibility this includes the
+AOSP frameworks and telephony class libraries and the OemHookRil class which implemented methods
+that required the hidden SDK methods.
+
+Functionality has been reduced to showing device information at present and will be extended once
+methods are discovered to issue AT commands, tracking of Cell Info, Signal Strength and Location
+are still available.
+
+Settings have been added but need to be completed but the basic items are displayed.
+
+Changes mean the application no longer needs to be signed using the AOSP platform key and functions
+correctly as a user application and should also function on any device.
+
+Femtocell Detection will be implemented full for CDMA devices in the next commit.
+"
+"af01c6c860d6b78136be13dd02f0259bf132a802","2014-04-09 23:59:07+10:00","Merge pull request #24 from xLaMbChOpSx/master
+
+Universal Compatibility Commit
+"
+"9a03f9b7865e05c362018a4143b36f6599ee903d","2014-04-10 00:17:29+02:00","Update CHANGELOG.md
+"
+"ef5ac41258e2e5fba3cbb9c1eb8d0763eb2ff077","2014-04-11 13:01:35+02:00","Merge pull request #1 from SecUpwN/master
+
+update from original
+"
+"4b5e120fa9cc4dbfc8c4eff226b8a002b0c8ac63","2014-04-10 23:24:01+10:00","Gradle Update, Google Maps API v2 & Database Export
+
+Project changed to gradle build system as I have switched to Android Studio for my main IDE,
+this change is quite significant in terms of layout of the application source code and the
+abilities provided by gradle.
+
+Google Maps API v2 support added to enable use of new features and gain an API Key for the
+application as API v1 keys are no longer available, signal strength data is now correctly
+overlayed on the map as well. Minor tweaks are required but currently everything is functioning
+correctly, the next items to add could include markers to identify tracked CellID's and user
+options to modify map preferences.
+
+Database export corrected and changed to use the OpenCV library to produce CSV copies of the database tables.
+"
+"354efa1e0eb1ba758b07b18d52dbbaea407af2ca","2014-04-12 01:47:56+10:00","Merge pull request #28 from xLaMbChOpSx/master
+
+Gradle Update, Google Maps API v2 & Database Export
+"
+"63002ffddf2e473ad5e638923206ee311b964268","2014-04-11 20:23:20+02:00","Update CHANGELOG.md
+"
+"e91aaa62360d5ea8c92001cc07c25cf31976158b","2014-04-13 20:44:11+10:00","Femtocell Detection Enabled, MapView updates, Preferences Listener and Missing Resources
+
+Added missing resources for Actionbar icons which I had initially only added for HDPI devices,
+all other defined display types have been added.
+
+MapView updated to check for Google Play Services so no FC's are experienced by people who do not
+use these services, added option to select map type and extended the details the system will apply
+to the map including markers for unique CellID's found and signal overlays.
+
+MapView will now default to last known location (if one is available) or will zoom to the last
+loaded location found in the tracking database, other map controls enabled to allow gesture
+control.
+
+GeoLocation class added from paper written by Jan Philip Matuschek found here -
+http://janmatuschek.de/LatitudeLongitudeBoundingCoordinates
+This provides an equation to determine a bounding radius of a given point, for example
+a cirle 50 miles/kilometres around a given location.
+
+The reasoning behind this is to allow these calcuations to be performed so external API's
+such as the one offered by OpenCellID.org can be utilised to provide known CellID and tower
+locations which could be enabled within MapView.
+
+Preference change is now detected correctly by the application showing immediate changes to
+through the persistant notification for system status (Idle, Good & Alarm).
+
+FEMTOCELL DETECTION ACTIVATED (Requires testing on CDMA devices)
+Femtocell detection has been enabled for initial testing (CDMA devices ONLY) this must be enabled
+through the menu and I will extend the preferences to enable the auto start option for detection
+and also implement the evasive action preference to enable Airplane mode if detected with a
+customisible automatic reset time period or manual control.
+"
+"0a3b90bdc2fc51f2270e29bfffed5487fed8ccf1","2014-04-18 17:30:32+10:00","Kill Service Preference, CDMA update and Main Display tweaks
+
+Preference added to kill the background service when quitting the application.
+
+CDMA specific updates to include further details such as System ID, Base Station ID, Network ID and Longitude/Latitude.
+
+Main layout updated to display device specific information.
+"
+"0aedf2680f98412d1063c70b4fa407678a31e2f2","2014-04-21 00:40:57+10:00","OpenCellID enabled
+
+Downloading of OpenCellID data will display markers for identified cell towers and their CellID
+within 100km of the current location, this is basically to test functionality of this API full
+data provided by OpenCellID is: lat,lon,mcc,mnc,lac,cellid,averageSignalStrength,samples,changeable
+
+This functionality could be easily applied to different APIs offered by other organisations,
+this could be helpful when comparing existing cell data to confirmed information (how accurate??)
+to assist in making a decision regarding IMSI Catcher detection.
+
+CSV file of details is stored on external storage along with the database table export files,
+further options can be included to load any found details when the MapViewer is loaded.
+"
+"42c9906ef781c53ae756dbbe93b0dcc09b9feac9","2014-04-21 00:48:16+10:00","Merge pull request #36 from xLaMbChOpSx/master
+
+Multiple updates see commit comments
+"
+"e01df5bc29680eb08e4de1cfc8f643a5702dc83e","2014-04-21 10:28:04+10:00","Unstaged change missed in last commit
+"
+"4381ca22376088b223dc5e2d93bb69c9d1c2e679","2014-04-21 10:29:04+10:00","Merge pull request #37 from xLaMbChOpSx/master
+
+Unstaged change missed in last commit
+"
+"e929e8ccf07c77f3173fea75b0a6ac988bc41775","2014-04-21 05:26:38+03:00","Update CHANGELOG.md
+"
+"e15990f8cd6a6ba765c3038e7b7a50f3cb998010","2014-04-24 23:50:43+00:00","Added previous WIPReleases
+"
+"3ba1b1a6b018694681075036a2ba65ea42bf4e5a","2014-04-25 00:16:54+00:00","Update previous WIP-Releases
+"
+"9e7a2571a6d605292d61a1d01e5270518ef4d3a9","2014-04-25 00:29:09+00:00","Removed wrong entry
+"
+"f31d929835704dd60674a2fc66efe9a74bb4edac","2014-04-25 12:51:46+10:00","Increase Minimum SDK, Export Confirmation & Code Comments
+
+Minimum SDK increased to 16 (JB 4.1) and older or depreciated methods removed that were used to maintain
+compatability with lower versions. Preference fragment updated from the older SettingsActivity and MapView
+updated to the standard MapFragment in place of the SupportMapFragment for lower Android versions.
+
+Added a confirmation dialog once the database export has been successful confirming where the files
+have been exported to.
+
+Added lots of code & method  comments, yeah I am lazy :), so eventually a nice JavaDoc page
+(Github Wiki maybe?) could be created if required to provide additional details for development.
+
+Added although not yet activated CellInfo details to retrieve the LTE Timing Advance data, this actually
+requires SDK 17 and above which is fine as this can be provided to those devices only.
+"
+"12bdaad603eead9dbedea2ccd5c17111c5393216","2014-04-25 16:20:39+10:00","Database Helper Updates, OpenCellID database and Code Cleanup
+
+Major update of the database helper functions to significantly improve the insert and update of records
+within all database tables.
+
+*** NOTE: Database updates will result in the loss of ALL existing data export current data if required
+and I will shortly implement the ability to import the exported data.
+
+OpenCellID database table added and this will be populated/updated whenever OpenCellID data is requested
+and successfully received, this will allow analysis of existing data such as confirmed cell id's and
+average signal strength to assist in IMSI detection.
+
+Removed the CMDProcessor as this was not being utilised at all except for a couple of helper methods which
+have been moved into the main AIMSICD path, this can added back at a later stage if required as it provides
+a very well executed shell management system, also removed some unneeded imports and cleaned up little bits
+of code.
+"
+"d73a502c9038809b17ecd92d7879600d7ff0c25c","2014-04-25 16:25:08+10:00","Merge pull request #43 from xLaMbChOpSx/master
+
+Multiple updates see commit comments
+"
+"6263658ea6ae900be00dc5497a11db5824658228","2014-04-25 07:15:39+00:00","Update CHANGELOG.md
+"
+"81bd0ba52891b1f6b3d5b6c781ff02d55b0dd6e6","2014-04-26 01:29:08+10:00","Database Viewer
+
+Added the ability to view the current database contents using a CardUI type interface, the cosmetics need
+some tweaking such as the colour etc but it is fully functional and allows access to all current contents
+including the newly created OpenCellID data table.
+"
+"7d5d0b9bd5990c4acd70bdfdad4091b9ded52a9c","2014-04-26 01:30:37+10:00","Merge pull request #45 from xLaMbChOpSx/master
+
+Database Viewer
+"
+"079b99f9af1558f9ad658e6753664a1b42a33941","2014-04-26 01:53:27+00:00","Update CHANGELOG.md
+"
+"88dcf09a1091d047fbb130063a342604a360fd2a","2014-04-26 01:53:55+00:00","Update CHANGELOG.md
+"
+"3e40075d5171f8a1f43757f8b2a6407817620774","2014-04-26 22:15:42+10:00","Increase Map Zoom Level, Actionbar/Menu tweaks, Database Viewer UI
+
+Increased Map Viewer default zoom level as it was too high, this should now provide a better display of the
+current location.
+
+Invalidated the Actionbar/Menu display whenever the main activity is displayed to ensure the correct icons
+are displayed for the tracking indication.
+
+Corrected the Signal Strength tracking indicator icon, this one is a good example of why I should not
+code whilst drinking bourbon! :)
+
+Tweaked the Database Viewer card display to use a darker colour scheme and gradient on the cards, I think
+this looks 100x better the original white crappy display.
+"
+"9905600f3741c3283a626fc8c948f02c98ea765c","2014-04-27 21:23:28+10:00","Default Location based on Mobile Country Code (MCC)
+
+Map Viewer will now attempt a 3 step process to determine where to initially display the map:
+1. Last location held in the location tracking database,
+2. Last known location held by the device from either GPS or Network location service
+3. **NEW** Based on current MCC the Map Viewer will move to the Capital City based on the MCC
+
+The default locations are provided through the default_mcc_locations.csv file which is found in the
+app/src/main/assets folder which lists Country, Mcc, Longitude and Latitude. These details are held within
+a database table and populated whenever the database is upgraded. This detail can also be viewed through
+the database viewer.
+"
+"b30a7ad2dacb2996e4d03eda029cfc53181f58dd","2014-04-27 21:37:28+10:00","Merge pull request #47 from xLaMbChOpSx/master
+
+MapViewer, Actionbar fixes, Database Viewer UI & Fallback MCC Location
+"
+"5be65352ac27021cb4d51cc191cabbed11292bb8","2014-04-27 22:11:41+10:00","Update Default MCC Location listing
+"
+"d16c9e7db30cffceae9352e84cadf4fbcaf08feb","2014-04-27 22:12:53+10:00","Merge pull request #48 from xLaMbChOpSx/master
+
+Update Default MCC Location listing
+"
+"700d241869c132a9a7c422a3831ce3bcb1e25471","2014-04-27 13:27:21+00:00","Update CHANGELOG.md
+"
+"4be1598f8242fa0021244a997ef8de5d4a1b9e6f","2014-05-03 00:13:49+10:00","Cell Tracking Update, Disclaimer Acceptance, MapViewer Updates
+
+Cell Tracking consolidated to include the following PhoneStateListeners:
+- Cell Location (LAC, CID etc)
+- Signal Strength (GSM & CDMA/EVDO)
+- Data State
+- Data Activity
+
+Cell Tracking preference added and enabled by default to automatically track Cell Information.
+
+Signal Strength tracking has been removed as this is now provided through the Cell Tracking
+system, all references have been removed including menus, Map & Db Viewers etc.
+
+DISCLAIMER ACCEPTANCE REQUIRED
+Activity will now force acceptance as requested in Github issue, if the user does not accept
+the disclaimer then both the service and activity will exit and the Package Manager will be
+invoked prompting to uninstall AIMSICD. If cancelled then the disclaimer will again appear
+and the process will repeat until either accepted or the application uninstalled.
+
+Map Viewer updates including preference persistance and the automatic loading of existing
+OpenCellID data with details included in the popup, this will be extended shortly with a
+custom Info Window to provide a better display of identified cell details. Logic reworked for
+initial location gathering which should now hopefully allow for the three tier system to
+work correctly.
+
+Main menu updated to only display FemtoCell detection on CDMA devices only.
+"
+"c68337f0f53b9461d855b9dc65403ef1c963ff55","2014-05-03 00:32:06+10:00","Merge pull request #52 from xLaMbChOpSx/master
+
+Cell Tracking Update, Disclaimer Acceptance, MapViewer Updates
+"
+"ee84c8d4329f0df03dd048533ccd31e8319d8afb","2014-05-03 11:06:49+10:00","Default Icon Type
+
+Added default value of 'Sense' to icon selection preference to display the default
+type when first being opened.
+"
+"fd34d4bcb08ba46ffdd7d5c2eb6c0145914447ae","2014-05-03 20:50:09+10:00","Fragment Display Update
+
+Massive update of UI with the implementation of swipe controlled Fragments, allowing
+for a better display providing quick access to functions in place of having to select
+menu items.
+
+Currently the Device Information & Database Viewer are shown in this manner and the
+next item that will be added is Advanced Cell Details including Neighbouring Cell
+information and extended cell details.
+
+Once the Cell details is added then the Samsung specific OEM_HOOK_RAW methods will also
+be added allowing display of the Ciphering Indicator and other items.
+
+Also initial code has been added to support user defined update intervals to allow
+control over update frequency which will be fully implemented shortly.
+"
+"f40bf0d8a4698cdd41d93a4635f4798ba9af6723","2014-05-03 21:01:32+10:00","Fix NPE with Line Number method
+
+Some devices do no hold the line number on the sim so throw an NPE when calling the
+getLine1Number method, this will stop the NPE and crash where this occurs and will
+then attempt to draw the Subscriber ID instead.
+"
+"6ad7fa7b169ab409c8fdc2c0f1ccb2f2555a6127","2014-05-03 21:08:12+10:00","Merge pull request #55 from xLaMbChOpSx/master
+
+Default Icon Prefernce, Huge UI Update & NPE Fix
+"
+"8d613a4b662952882549f99be2dbeaa59ec0bd10","2014-05-03 21:41:19+10:00","derp: Really fix NPE
+
+Woops fixed the getter method but forgot to check if the direct method of getLine1Number
+was used and of couse it was.
+
+This should fix the NPE experienced with this issue now... Really I know I said it was
+fixed before but now it should be REALLY fixed :)
+"
+"840408f79c6dd8123d1887255fcbc3c53d87cf93","2014-05-03 21:42:32+10:00","Merge pull request #56 from xLaMbChOpSx/master
+
+derp: Really fix NPE
+"
+"d1b3cff62654b798043901d8575c185ddd4f937a","2014-05-03 22:40:19+10:00","SIM Methods Exception Handling
+
+Seems that the SIM specific TelephonyManager methods can cause some serious issues
+with some devices so all accesses have now been wrapped in try catch blocks to
+provide stability to these devices.
+"
+"3eada16758bf790ae1656b31213486651fef56c0","2014-05-03 22:42:58+10:00","Merge pull request #57 from xLaMbChOpSx/master
+
+SIM Methods Exception Handling
+"
+"422c892bddd64d7c01f7fead94b5cfcbaeec1138","2014-05-04 01:24:49+00:00","Update CHANGELOG.md
+"
+"15d1cd1e9bd18074a3ea7b4ccde9564fc3d190ca","2014-05-06 22:33:43+10:00","Neighbouring Cell Info, Ciphering Indicator, Samsung MultiRil Implementation
+
+Full Credits to Alexey Illarionov for his implementation of the Replicant libsecril-client-sap
+methods to enable access to the OEM_HOOK_RAW methods through the MultiClient interface, please
+visit Alexey's Github here: https://github.com/illarionov/SamsungRilMulticlient and star his
+work without him this would not be possible.
+
+Advanced Cell Fragment added to display the Neighbouring Cell information in two ways firstly
+through telephony manager methods which does not work on Samsung Devices, a fallback is available
+through the methods developed by Alexey and will display if these are successful.
+
+Ciphering Indicator also uses Alexey's methods and will display on Samsung devices.
+
+Further manipulation of the results provided will enable an increase in the functionality of
+attempting to detect IMSI activity and will be developed over time.
+
+Slight change to the preference to regarding the persistent service operation changing the
+preference to ENABLE persistent operation which is defaulted to ON.
+"
+"901ee1886e613d08aa4f10319170ed346cba888e","2014-05-06 23:29:23+10:00","Initial Commit for About Dialog
+
+Still needs to be finished but the About dialog has been started, I wanted to push the changes
+for comment and will complete all functions including the hyperlink functionality and remaining
+details if this form is approved.
+"
+"7eb1486646fecb92b4a6dbd881e1fa2013f887ec","2014-05-06 23:32:30+10:00","Merge pull request #60 from xLaMbChOpSx/master
+
+Neighbouring Cell Info, Ciphering Indicator & Initial About Dialog
+"
+"0a4a0db7db9d075ceca518747d7ee777a351b823","2014-05-08 09:49:46+00:00","Update CHANGELOG.md
+"
+"d73269fd1fff08d75e591915b47a49f7f3af6899","2014-05-08 09:50:17+00:00","Fixed WIP-Release version
+"
+"99190c1902fc68bd90375c7d70d1245f6aef36cb","2014-05-09 10:15:14+10:00","Correct Main Layout, Service Persistence Preference & Map Viewer Preferences
+
+Main layout corrected so all items are aligned correctly give the display a
+consistent look.
+
+When I inverted the preference from Kill Persistent Service to Enable Persistent
+Service I missed the check in the onDestroy method so this was still acting in the
+wrong way and when Enable Persistent Service was selected it would kill the service.
+This has now been corrected and operates as intended.
+
+Converted the alert dialog into a Preference Fragment to allow correct visual display
+of the currently selected Map Type, other preferences may also be needed in the
+future so this would have probably been required down the track.
+"
+"bec1069fb65a2ae566f4e1e02046adc689a0c796","2014-05-10 17:06:49+10:00","About Page, Correct Device Info & Structure cleanup
+
+Finished About Page and correctly enabled the links to the various items also changed
+the text to white so the links were clearly defined.
+
+Corrected a number of small issues with some device varibles with Network type
+returning incorrect values and also ensuring Data activity/status was reflected
+correctly.
+
+Cleaned up the source file structure and moved items into directories giving a more
+logical structure.
+"
+"7e58d54e64f14d90f20acafd98cc618546d14b6a","2014-05-11 18:25:31+00:00","Update CHANGELOG.md
+"
+"8cdfe25e42395bbf2af03ea7968349b2f68234a9","2014-05-10 21:11:29+10:00","Save CID & Lac in Hex format.
+
+Save both the CellID and Lac variables as hex values within the database.
+"
+"660b60abb356b50438bb77be2ec0ebd8fb06b58a","2014-05-10 22:15:20+10:00","Database & Cell/Location Tracking tweaks
+
+Disabling Cell tracking will now also disable Location tracking if enabled.
+
+Updated the insert methods for Cell and Location tracking tables to ensure useless
+entries are not saved to the database.
+"
+"ec34ac008e268ea1bcd1b1c72ab4a7d9afa985fb","2014-05-21 21:43:29+10:00","AT Command Injection Started, Code Cleanup/Updates, Java 1.7 Language Updates
+
+Extension of the Samsung MultiRil to attempt hooking of the OemHookStrings method,
+presently I am not 100% certain this will work but the basic framework and extensions
+have been made to modify the current implementation to deal with the Strings request
+data and responses.
+
+This still requires work and as such is currently disabled until further testing
+has been completed as it will cause the socket to disconnect.
+
+Huge code cleanup and updates to a number of areas with optimisations across a large
+number of packages, some unused imports removed and code comments added to a variety
+of methods.
+
+Addressed a number of possible NPE causes through different parts of the application
+which will ultimately provide better stability and an increased user experience,
+although in saying that these items were not causing any issues that had been reported
+but prevention is better then a cure right?!?! :)
+
+Use of Java 1.7 language rules have further allowed updates to take advantage of
+the highler langauge level with removal of explicit types within arrays, lists, maps
+etc plus other changes.
+
+Unnecessary compatibility library removed which has resulted in a reduction in size
+of the APK.
+
+Reversed the previous change to insert the Cell ID and Lac in Hex format to allow
+further time to ensure all methods that utilise these variables to be updated, the
+original change was made too quickly and resulted in a number of issues so I have
+returned to the standard integer format until I have more time to ensure this
+change is implemented correctly.
+"
+"a481afdd31400963fea338064e7123d000a8da30","2014-05-21 16:00:52+00:00","Update CHANGELOG.md
+"
+"6170846f6fc2dad85bc47e4fe01a69593ebe81b4","2014-05-26 04:46:54+00:00","Update CHANGELOG.md
+"
+"b77bd1caf1f5a2eb0fe5262be808ca4408b8f403","2014-05-22 17:34:54+10:00","SIM Detail Update
+
+Return N/A instead of an empty string when variables are not encoded on the SIM to
+give a better indication that the variable is not available rather then AIMSICD is
+not functioning correctly.
+"
+"474bbe927aca91279266e1b46f918f7de3f42c5e","2014-05-27 22:29:07+10:00","Revert update to GMS Play Services
+
+SDK update provided a new version of the gms play services library but this is
+currently causing issues with the Map Viewer.
+
+Moved back to previous version until this can be investigated.
+"
+"aa5f71a58c1ae6b992cc3ebd73983c4a4e8a27e0","2014-05-27 22:33:10+10:00","Add Custom Map Marker InfoWindow & Refactor OpenCellID methods
+
+Added a basic custom map marker info window to display extended details of markers
+added from either tracked locations or OpenCellID data. Further enhancements to this
+will be made to provide supporting information for map markers.
+
+Refactored a number of methods that support OpenCellID processing and requests into
+the Helpers class to enable unified use of these methods across any part of the
+application.
+"
+"b79e273a0c9146a1f9d246dc1187c3021c6c8399","2014-05-27 22:35:11+10:00","Added Record ID to database viewer cards
+
+Added a simple record ID indicator to the bottom right corner for the database viewer
+for the Cell, Location and OpenCellID viewer functions.
+"
+"b41eac168c04ad2f5d79800d687afa6529a9fd6a","2014-05-27 22:46:39+10:00","Cell & Location tracking changes & Other minor updates
+
+Current status of cell & location tracking is as follows:
+- Enabling Cell Tracking (Only Option) requires GPS enabled to provide location
+details for the cell.
+- Currently as no other method has been tested the GPS lat/lng coordinates are used
+to populate both tables (Cell & Location) until another method is confirmed to work
+as required to provide the exact CELL LOCATION to be used within the Cell tracking
+table.
+- GPS location changes will only be tracked if more then 10 metres change in location
+has been registered.
+
+Other minor updates including additional logic checks added to all functions that
+request SIM variables to ensure the sim state is ready.
+"
+"f52509a36aae2ebefee948e7d7d1833ac7100736","2014-05-27 17:09:18+00:00","Update CHANGELOG.md
+"
+"4cbf2a5a7caf02771607f73785bbccfb96f6666a","2014-05-29 21:38:06+00:00","Removed unused file
+"
+"c798f1d0682b869a95d1b1789a1ca55dcf2e4821","2014-06-11 19:20:45+00:00","Updated bug report instructions
+"
+"55328a5b68d22c578db841b4123638fb9810318f","2014-06-11 19:21:23+00:00","Squashed a typo
+"
+"23d4e4a66cf27ed0c6d2ba9b98e1a63ff851afc9","2014-06-12 10:20:49+00:00","Updated CONTRIBUTING.md
+"
+"34890c48ec2027eb47fdd16b26a3a174f4d890e6","2014-06-12 18:32:13+00:00","Removed self-explanatory line
+"
+"493378349be9b9eb9c68643b598de3c8d6873645","2014-06-12 19:56:45+00:00","Added guide on pull requests
+"
+"0c94a9fe7e0d024ed0856426c353ae31987bd49c","2014-06-13 12:42:04+00:00","Major REVAMP of README.md
+"
+"14712442968376e16fe5a81c368958c9dc7d63ca","2014-06-13 12:50:56+00:00","Fixed link to donations
+"
+"0965f381bae97bc44195e42076deaacdea46d0ea","2014-06-13 14:11:15+00:00","Update CHANGELOG.md
+"
+"cc902a963836932def3550450b9363cefd90e4bd","2014-06-13 16:18:12+00:00","Corrected attack on A5/1-3 - THANKS @InvaderX!
+"
+"818282d287d9baf26f2e68e42b98888c6a62dab9","2014-06-13 17:07:45+00:00","Update CREDITS
+"
+"dd781d57f4a1fa0c79cf258213c6f185b17961da","2014-06-13 17:24:10+00:00","Update SOURCES
+"
+"13ecdf822fc0a7ea7a4f5cb81353aea8934e062f","2014-06-13 17:25:17+00:00","Added SOURCES to Index
+"
+"ee202ba701de4b64e37452de7dea14dce38d4264","2014-06-14 02:29:38+03:00","Update SOURCES
+"
+"d5daaabcc91a7cdc04b8c6027232d60eba0feb42","2014-06-14 02:33:23+03:00","Update SOURCES
+"
+"ee6947b5a3bb256193f455976cc1f2c02ee1412e","2014-06-07 19:06:49+10:00","Silent Sms Detection (Class 0), Database Restore, Progress Bar
+
+Sms Receiver will monitor for Class 0 messages and provide an alert when received,
+details are tracked to a database table and displayed in a notification fragment.
+
+Restore database tables using exported CSV files this will also be added into the
+Db Adapter shortly to allow data to persist across database updates. Database retore added to the RequestTask class so it can be executed in the background.
+
+Progress bar added to provide more feedback about background operations.
+"
+"596b9bc44a9e9fde6d721d3c74fb74835e7cd98d","2014-06-07 19:11:29+10:00","Service Persistence Preference & Minor cleanup
+
+Corrected the behaviour of the Persistent Service preference and the application will
+now correctly shutdown the server when destroyed if this preference is disabled.
+
+Other minor changes.
+"
+"7c3dc7e70825ac3a3fae2230481f9b3b53630a1f","2014-06-09 21:16:38+10:00","Gradle update
+"
+"664b73685dc907f2d10c3802247f17d7c254fd72","2014-06-09 21:19:21+10:00","Silent Sms updates and cleanup
+
+Removed code from methods that handle the silent sms broadcast and fragment to
+simplify the code associated with this operation.
+
+Request task upgraded to use different method for the download of remote files and
+processing all handled in the background.
+"
+"f52d0ee6e1eae5652aa90d4afa0048843f92200e","2014-06-09 21:20:24+10:00","Location & OpenCelID tweaks
+
+Slight tweak to the processing of OpenCellID data and to logic for checks done for
+cached locations.
+"
+"80effd439e116d19a7f5296740e7d7c477bba0d3","2014-06-09 21:25:15+10:00","Silent Sms Alarm Activated
+
+Interception of Silent Sms will invoke an alarm in the persistent notification.
+"
+"1709d7fbd1729287c5bb8fdeead9d6e26307e791","2014-06-14 18:02:09+10:00","Silent Sms Tweaks
+
+Removed the fragment that would display Silent Sms details as it was a basic
+version of the Db Viewer.
+
+Broadcast Receiver in the main service will now notify the user by a system alert
+and also posting the alert through the notification.
+"
+"b75f701f423ddc1bc2be346f34dd23626469cadb","2014-06-14 18:05:51+10:00","OpenCellID Request, Database Backup & Restore
+
+OpenCellID HTTP request rewritten and added to the RequestTask class so it runs in the background.
+
+Also added the database backup and restore functions to RequestTask.
+"
+"c42a3a4902827ec809586a07be222c89b8233ace","2014-06-14 18:09:58+10:00","Minor updates
+
+Minor tweaks to a number of items including moving some packages to local, declaring
+some variables as final etc.
+"
+"664b3c30011ec6912f6a19f2dd60154799e50ba4","2014-06-14 14:02:45+00:00","Update CHANGELOG.md
+"
+"4763f3bca06e30ef397c56ea43c2832d1b65e013","2014-06-14 22:09:20+00:00","Update CREDITS
+"
+"6269ad3fd388854e41284a4818c8233a19a06eac","2014-06-14 22:39:02+00:00","Update CREDITS
+"
+"6efeb831829ef8ae8606ec14e7e8c3c5a17f89e3","2014-06-15 23:08:53+02:00","Merge pull request #2 from SecUpwN/master
+
+Fork Update
+"
+"e2bb6a585b6e1db97055787b116f8de062c4f8ff","2014-06-16 00:46:28+02:00","This Commit contains the latest Icons with every scale.
+They follow the latest scheme of six steps.
+
+Best wishes
+
+SgtObst
+"
+"2961fa2325089639a106d798ce067ad12286816b","2014-06-16 00:57:44+02:00","Merge pull request #76 from SgtObst/master
+
+Latest Icons
+"
+"9a339520e341bdf49bde5e369234f110d9ee9a47","2014-06-16 01:36:16+00:00","Update CHANGELOG.md
+"
+"6622a935762d6a2d1cbd0e3a8c5e6e83b548c00c","2014-06-16 04:06:37+02:00","Corrected naming of Icons
+"
+"a5d2dc433e4e44acea62d7f2b84f39a5e95ae252","2014-06-16 02:07:56+00:00","Update CHANGELOG.md
+"
+"e71e3622486c78a1bde191e5b1444d99f8e17af2","2014-06-16 04:31:35+02:00","Updated naming of Icons
+"
+"e83a08598d6e86a67ef6bb241029fcf016fde6b4","2014-06-16 02:37:12+00:00","Update CHANGELOG.md
+"
+"4cd8111e3b6f72413a511dad1c9e4691a5402730","2014-06-16 05:54:47+02:00","Added SCREENSHOTS
+"
+"67f257a8702efe3ae655d83babe3ff17c4eeb412","2014-06-16 04:04:30+00:00","Added link to User Guide
+"
+"78275d68e62f1f37d121634173168f00fd8b2d49","2014-06-16 04:08:00+00:00","Update CHANGELOG.md
+"
+"99bd7d88bcb8ee0eb88a5434dc2bc2756f33a0f7","2014-06-16 16:59:23+00:00","Added more Introduction
+"
+"18fc300697af02738beb7f6e3549c64f5f42af53","2014-06-16 19:49:33+02:00","Added Screenshots of Tracking and MapViewer
+"
+"bec762d0d26bfba723dedfb2eda280531684f726","2014-06-16 19:55:34+02:00","Renamed Tracking Button
+"
+"35a96ecf8cca98265f38204a8f37e7d917564af7","2014-06-17 06:14:08+00:00","Added NSA's Secret Role
+"
+"7a621753af625d4cb1bf1a5bf27fca41e8f5d583","2014-06-17 12:18:03+00:00","Corrected strings for Flash SMS
+"
+"d91b610e61ee27982cd4c5e717da78c5f2dd25c3","2014-06-17 12:22:29+00:00","Corrected Intent for Flash SMS
+"
+"bb94a2c1b56a6e61aef1d6ca0fdb4ac4ae476aad","2014-06-17 12:24:16+00:00","Corrected values for Flash SMS
+"
+"1ade34228db1416390b76edc40e5db8f56b2d627","2014-06-17 12:27:00+00:00","Corrected values for Flash SMS
+"
+"cea0de8d2ecbc2f1b3aafa8d88430f3c3252e0f0","2014-06-17 12:28:22+00:00","Corrected values for Flash SMS
+"
+"8ecc45e6055d384ac5b0f50aab67dd27973e6d34","2014-06-17 14:30:55+02:00","Corrected filenames for Flash SMS
+"
+"4355f7fe33fd20548388df7b9e0ea7ad8a8edddc","2014-06-17 12:36:09+00:00","Corrected values for Flash SMS
+"
+"664b4cb337e84c1aafffd7554a1e8ecdcfa4eea3","2014-06-17 12:40:51+00:00","Corrected values for Flash SMS
+"
+"ac2aa45bffeb6777d28ff847a8bf870b63ac25f6","2014-06-17 12:45:14+00:00","Update CHANGELOG.md
+"
+"59c6bba6b8eeb791c67e4aa001d8308d627ab81a","2014-06-18 18:22:58+10:00","Revert 'Corrected strings for Flash SMS'
+
+This reverts commit 46f53f4295b20176f31869816d63be5f42e85b5d.
+"
+"73c760f5e82a08b4dd58d25fc749d71ef98fad82","2014-06-18 18:23:02+10:00","Revert 'Corrected Intent for Flash SMS'
+
+This reverts commit be22622f29fe31c0176d6c8e7c159fa67a6d51a9.
+"
+"0c21603240034472c8c1e1c6a94faea0fc7a734b","2014-06-18 18:23:05+10:00","Revert 'Corrected values for Flash SMS'
+
+This reverts commit 6a288cb552f74a32d5b93d7c717c674bb0686a53.
+"
+"2be09be803c7729dba603bab65108260549c74f6","2014-06-18 18:23:09+10:00","Revert 'Corrected values for Flash SMS'
+
+This reverts commit ea92ca2499746c826f412cc97a10e459c8c43c6c.
+"
+"d6147d2a007bef57a9966a02c2997e9a38cb8ba3","2014-06-18 18:23:13+10:00","Revert 'Corrected values for Flash SMS'
+
+This reverts commit f1c71ce8747f4ac2cd0cf34eafae88fb643e54d8.
+"
+"6471d185308c3c32a2348fbe929baea15d2627ea","2014-06-18 18:23:17+10:00","Revert 'Corrected filenames for Flash SMS'
+
+This reverts commit b882d47c90a0dd94cc1e09cd548176d044f04f6d.
+"
+"84db124f18e5be7e66971fe479c5eeb424b8e700","2014-06-18 18:23:21+10:00","Revert 'Corrected values for Flash SMS'
+
+This reverts commit 1335e51d13af8960adc9fd77448acbe587b55764.
+"
+"cf71a8d485689e32516639cb9fdee133a526cfc3","2014-06-18 18:23:25+10:00","Revert 'Corrected values for Flash SMS'
+
+This reverts commit a33306e6068c2322b1fb34e54d5f3efad20c3e9a.
+"
+"dca9320eb885a9b49100faab073f6598364f0f55","2014-06-18 18:11:49+10:00","Silent Sms Update
+
+Sms Broadcast receiver modified to look for true TYPE 0 Stealth Sms messages,
+processing is now done within the PDU checking the first byte value of each received
+message. If the first byte == 0x40 then as per 3GPP TS 23.040 9.2.3.9 a TYPE 0 message
+has just been intercepted.
+
+Unable to test this function as I have no ability to issue a true TYPE 0 Sms but I
+believe other contributes are able to test this fully.
+
+Updated the service to disable the notification alert once the application becomes
+visible to address the issue of the alert persisting.
+"
+"0dba3477c44d1663e978838572b5c41984b3bac4","2014-06-18 18:58:35+10:00","Silent Sms - Check both Type Indicator & TP-PID
+
+Added additional check for Message type indicator & the TP-PID value so if mti == 0
+or TP-PID == 0x40 then we have a Silent TYPE 0 Sms.
+
+Additional check added as framework seems to use both in different places.
+"
+"bd858d2694cda72d638312ab8bcadd6412e1f2d4","2014-06-18 16:37:35+02:00","Added Screenshot for Type 0 SMS
+"
+"af2faac7c3f70617b27f5fb79b005f0cb912ab41","2014-06-18 19:04:49+00:00","Merge pull request #78 from xLaMbChOpSx/master
+
+Silent SMS Update
+"
+"c44e45edce8d33d9cc384061b2fe9ce1326c4b12","2014-06-18 19:14:59+00:00","Update CHANGELOG.md
+"
+"90f18344ebc38c2508a740b52ee451b7c0ad6146","2014-06-18 22:56:46+02:00","Removed Screenshot for Class 0 SMS
+"
+"6958658b8471d27b91abc3f371ccad5fcb94597a","2014-06-19 23:03:44+10:00","RequestTask Update
+
+Corrected bug with async task calling UI methods during doInBackground modified
+associated classes and methods to move all UI based calls into the onPostExecute
+method. This corrects the issue with the database backup and restore functions.
+
+Modified the MapViewer location logic as it was incorrectly trying to use the
+getMyLocation method which does not return any data. Also added a Local Broadcast
+Receiver to handle updated OpenCellID data and ensure map markers reflect any new
+data received.
+
+Cell class added to support modified API neighbouring cell data and simplify
+operations with this.
+"
+"94e4c58ecdee7365615aade84cd3a8db8a01336f","2014-06-19 23:05:59+10:00","Neighbouring Cell Details (Android API)
+
+Updated the Android API version of Neighbouring Cell information as this was broken
+with one of my last updates, hopefully this now restores that functionality.
+
+Unfortunately I can not test this as my device (Samsung i9100) does not return any
+data for either of these methods (Known Issue).
+"
+"6136b5fdd2b5cb5b0c197b8c9a1e197c80626677","2014-06-19 23:06:18+10:00","Show our aweswome new icons correctly
+"
+"9acf1fc8ca05d8622672293a5537ef94c33c2d00","2014-06-19 23:08:36+10:00","Fix CDMA NPE
+
+The CDMA specific location method did not work and I somehow missed this reference
+and/or added it back in causing crashes AGAIN for CDMA users! Sorry about that guys.
+
+These methods and any calls have now been totally removed.
+"
+"1f46652150edc48bd1af0796cbf95141da2a15c9","2014-06-19 15:06:51+00:00","Update CHANGELOG.md
+"
+"c061620e21d0ca89ca3f745666c197361cd7803c","2014-06-20 11:25:19+00:00","Added Info about TWILIGHTVEGETABLE
+"
+"bbf541dfddb9d85a1690248e671f41c380ed4655","2014-06-20 22:12:13+10:00","Drawer UI Style
+
+Massive revamp of the UI for the application I know that this was not a priority
+but I actually got quite sick of having to swipe between pages when testing stuff so
+decided to change to the newer drawer style UI.
+
+We can customise this further with an image at the top etc and jazz it up a bit more
+and it also fits better with the current style of most other newer Android apps.
+
+I hope you all like this style please let me know what you all think.
+"
+"32c8d1aec289fed26441da060229b07ee4999a02","2014-06-21 00:08:43+10:00","Refresh Handler Activated
+
+User preference selection of the application refresh rate has now been implemented
+into the Device Information & Cell Information fragments, each will refresh the
+displayed information as per the preference selection.
+
+The timer handler will only be active when a fragment is visible (attached) and will
+remove its callback when the fragment is paused, destroyed or detached.
+
+I have set the current automatic refresh rate to 15 seconds but this can be changed
+if anybody believes a different value would be more suitable.
+"
+"3e515e59be0d86633e13f89f551858fa9d5f80e6","2014-06-21 00:11:35+10:00","CMD Processor Functions
+
+Re-added the CMD Processor functions to support root terminal functions, associated
+helpers and System Property value retrieval methods.
+
+This is to support the AT Command Injection via the device terminal as discovered by @E3V3A
+"
+"6344dbd319cac86520b8235addb5e14cd1e28fe0","2014-06-21 00:24:43+10:00","Refresh Rate Preference Detection
+
+Forgot to add the refresh rate to the preference change listener and also commit
+the change to the automatic refresh rate to 15 seconds.
+"
+"dd2184b257c128391350126a2485250b44288df1","2014-06-20 20:03:06+00:00","Update CHANGELOG.md
+"
+"54e3353ed5e157b6b6ba95a735e865daa4c620bf","2014-06-20 20:07:17+00:00","Corrected typo
+"
+"3abc40b8fa607218b56d95999522d08c0120458b","2014-06-20 20:24:46+00:00","Added Info on StingRay - THANKS @He3556!
+"
+"3dc2579d2b45c7d8c87e64bf2a051d83822b38c8","2014-06-21 13:45:19+10:00","Neighbouring Cell Fixes & Shutdown Crash
+
+Corrected the list that stores neighbouring cell information so this should now reflect
+the correct contents of the neighbouring cells. Cell ID was not being passes correctly
+to the Cell class so would not have been displaying a correct value.
+
+Modified the layout for the neighbouring cells so they display now using the Card UI style and allow scrolling of the details.
+
+Slight fix to the onDestory method which should address the NPE some devices had
+when the service was destroyed.
+"
+"5883d710edc57efd0c44f67e9b83848b1c0822aa","2014-06-21 17:40:54+10:00","MapViewer NPE Fix
+
+NPE caused by null location returned during loadEntries method and this correction
+addresses that issue.
+
+Also added method to the service to return the Mobile Country Code (MCC) so reference
+to the telephony manager did not need to be initialised within the Map Viewer.
+"
+"117df9ed0e21deb73faaa3279c7391a13c3e8338","2014-06-21 19:25:24+10:00","Fragment Tweaks
+
+Removed unnecessary calls from methods based on fragment lifecycles as some items
+would be called more then once.
+"
+"0cac3d9777f96aa7927da5ca7fd0ef34de81c4b0","2014-06-21 19:40:40+10:00","Code Format Cleanup
+
+Clean up and maintenance of code format, no real changes just arrangement of imports
+and formatting style of code.
+"
+"61e374dad8ea309e73457be3fe693c7584a17513","2014-06-21 20:54:12+10:00","AT Command Injection
+
+First thing you need to do before using this is give a BIG THANK YOU to @E3V3A (E:V:A
+on xda) for determining how this implementation was possible because without his
+perseverance this would not be possible!
+
+ROOT IS REQUIRED!!
+
+Root terminal methods are used to execute the AT Command Injection so this fragment
+will check for both ROOT (su binary) and BUSYBOX to confirm both are available on
+your device, if not the execution section of the fragment WILL NOT DISPLAY.
+
+If the initial setup works correctly the next step is trying to determine your Ril
+Serial Device through the system property ril.libargs if this is successful then
+you are in business and the AT Command Injection system is available for you to test.
+
+This will probably NOT WORK on many devices (such as my i9100) but it will provide
+details of the failure if available and display them to the screen but also write them
+to the file error.txt in the AIMSICD directory of your external storage.
+
+Have fun and try not to break anything.
+"
+"e68a516ac38fb68f35957fcadd5edccf616ca80f","2014-06-23 11:51:06+00:00","Update CHANGELOG.md
+"
+"35c32bdcc5a8c33aab42f7bc907ff56eb3685c9e","2014-06-23 19:27:21+00:00","Update strings.xml to fit smaller screens
+
+The About-Screen looked creepy on devices like HTC Desire X.
+These small changes attempt to make everything display nicely.
+"
+"a178577288dcf1c9796d2ef742b9652ad855db4c","2014-06-22 00:45:35+10:00","Remove background colour
+
+Text items had a background colour defined which made things look strange, now this
+should look much more consistent.
+"
+"015c8f65b6ea59d927fc42cb46d9a8ec836ee7a6","2014-06-22 00:46:34+10:00","Remove unnecessary code
+
+No need for the service binding in this fragment anymore so this has been removed.
+"
+"f9bdbbc2b8fb094f603eb95bc4645474ab614bfa","2014-06-28 00:02:38+10:00","More display updates
+
+Removed background colouring from all layouts.
+
+Corrected some items so they display correctly on different screen sizes.
+"
+"d57cb11d7a7e82dceac7f37ecda054dddb6544b2","2014-06-28 00:06:31+10:00","Device Class Updates
+
+Moved a large number of methods out of the service and into the Device class to
+reduce the size of the service and streamline access to the device data.
+"
+"524444103f4bc6309856781454376625fefce1eb","2014-06-28 21:03:44+10:00","AIMSICD Shell
+
+Shell class added to provide an ongoing root shell which will allow for the correct
+execution of AT Commands and receiving the response, the first implementation would
+run the native command in a single instance which is suitable as commands which
+redirect serial device output would not function as intended.
+
+AT Command fragment also updated to include the start of an automatic detection system
+for possible candidates for AT command serial devices, currently the system will
+attempt to draw the system property [rild.libargs] for the serial device. Secondly
+ATCI* devices will be checked within /dev/radio as these have been confirmed as
+working on MTK devices with the MT6282 chip.
+"
+"7a675babb2a88698aa2903c836a3174784468307","2014-06-28 22:37:09+10:00","Reduce Toast Length
+
+Changed the toast to the msgShort method which uses a shorter timer for the toast
+events, meaning toasts displayed by the application will be visible for a shorter
+period.
+"
+"1569275d77ded21c7ec0616ab8ded8b75bab4b6f","2014-06-28 20:02:16+00:00","Update CHANGELOG.md
+"
+"ce04c23c6ed784e66d1b3368f755a48ef4da8cf4","2014-06-29 22:24:16+02:00","Update SCREENSHOTS
+"
+"1dfa1a13c2e6e0cc71ce6bc476aa2074da60f364","2014-06-29 20:28:25+00:00","Update CHANGELOG.md
+"
+"80fe0237fd4f89a0f7a9a4de56bddd36e0699d6a","2014-06-29 20:42:27+00:00","Expandet wording (looks better)
+"
+"e57caa3079f0f8b232f62b84a475ed2397dfcedb","2014-06-30 01:50:35+02:00","Resized Options_Menu.png
+"
+"864cde41568b4d52f81e6b693200110c5b6cf16b","2014-06-30 18:40:16+10:00","Drawer Updates
+
+Removed the Options menu and placed all items within the Drawer pullout panel.
+
+Updated the UI of the pullout panel and sectioned off items to increase usability.
+"
+"38fe71d0807f5ce7b4db88e9c3fb73cd1be58515","2014-06-30 18:42:06+10:00","Shell & AT Command Fragment Tweaks
+
+Small tweaks to the shell system and AT Command fragment.
+"
+"93bef89c74840da4308a5681f022bde2bba182b9","2014-06-30 18:43:07+10:00","Device Class Updates
+
+Small updates to methods providing data from the device class, flow on changes made
+to the Service and Device Fragment.
+
+Gradle updated with the release of Android Studio 0.8.1
+"
+"440259b0c2364b766e9cde0eda7bab5e09d0a879","2014-06-30 18:43:42+10:00","NPE: Unbound Service Error
+
+Missing check for bound service added to the MapViewer to address NPE.
+"
+"0851dc22babeb6129fa663b83af10153db3ff023","2014-06-30 18:54:33+10:00","NPE: Possible Workaround for getAllCellInfo
+
+Method getAllCellInfo is encountering an unknown CellInfo type whilst parsing the
+results returned by this method, which is a little strange.
+
+Removed the throw and inserted a log to display the error but also provide more details
+around what type of CellInfo is being encountered which may help to address this in a
+more suitable fashion.
+"
+"9b386fa24ccac5852dce44d55885c7abb54b5af2","2014-07-03 22:11:01+10:00","Drawer Updates
+
+Updates to the Drawer UI components to allow removal of all option menu items, the
+tracking functions are now available through the first section of the drawer. Items
+will dynamically update to reflect the current status of the tracking item and
+FemtoCell tracking will only be shown for CDMA devices.
+
+Moved the all the classes & interface files into a dedicated package folder to make
+maintenance easier.
+"
+"d715e67fdcc6f54c4ab96c39caae84bccc50d56c","2014-07-03 22:14:31+10:00","OpenCellID Download Progress Bar Fix
+
+Corrected the RequestTask class to correctly show the progress bar for downloading of
+OpenCellID data, contentlength method was returning -1 as filesize of the download
+is unknown so the maximum size of the progress bar was being set to that value
+resulting in the progress bar no displaying anything.
+"
+"dd6665e5f7bb9a442c86bd0e4770bf6585a1826a","2014-07-03 22:16:41+10:00","CID & LAC Fix
+
+Reported that some devices are returning both the CID & LAC as INTEGER.MAX value,
+included a check for this and possible correct by using 0xffff bit-mask if this is
+returned.
+
+Awaiting user testing to confirm correct CID & LAC are now being returned by these
+devices.
+"
+"50107f69f238e9bc0c4123583f4eb74e0613b34d","2014-07-03 22:45:51+10:00","AT Command Timeout Option
+
+Added another spinner to allow selection of a number of timeout values to assist with
+receiving the AT Command response, values currently available are: 2, 5, 8, 10 & 15
+seconds.
+"
+"cc74e64d00bd95c59b07252e90983a47b2e4a9d2","2014-07-03 22:19:15+02:00","Update SCREENSHOTS
+"
+"9e640e53f62463e736bfa23d7a72b7b8193c974e","2014-07-03 20:19:37+00:00","Update CHANGELOG.md
+"
+"fd217258eba10f974ba7ffed1e562dc5e8d0e2f1","2014-07-08 21:57:51+10:00","Updated use of getAllCellInfo method
+
+Added the Wcdma CellInfo type to the getAllCellInfo method section to address
+unknown cell type exception experienced by some users (@SecUpwN) also extended the
+use of this method to draw Cell Identity information for the various CellInfo types.
+"
+"a89271f4db1009b2f8abf1d9efdc58d60527d0ce","2014-07-08 21:59:30+10:00","Map Info Window Background Correction
+
+During the removal of the black background attributes the custom map info window was
+also modified which was not correct, this returns the background of the info window
+to black.
+"
+"718f9551a907117202c100fcefb5bed774eb47d7","2014-07-08 22:07:37+10:00","Gmaps API for GSM (CellID) to Geolocation
+
+Incorporated the Gmaps undocumented API to translate a GSM CellID into a location value
+(longitude & latitude), functions are made through an async task which implements the
+AsyncResponse interface allowing an activity to declare itself as the delegate for
+processing of the async task response.
+
+Special thanks to @andr3jx for the correct data writing layout and confirmation that
+this method works as all examples (including this method) unfortunately result in a
+return code of 1 (error) for me which could be due to regional blocking by Google as
+reported in some forums or my crappy i9100.
+
+This method has been initially implemented for testing within the OpenCellID update
+methods as a fallback when no location can be found from Location Services, this of course can be extended for further uses such as battery saving mode to enable use of
+AIMSICD without the need for active GPS.
+
+Primary Scramling Code display has also been added to the device fragment where this
+is available.
+"
+"2ea6db1757ba9002709a733c1eca674acd9b90d6","2014-07-08 22:26:55+10:00","Removed unused imports
+"
+"8334ecc43a372a461852a853ef9afbc6b0c8f65d","2014-07-08 22:44:42+10:00","Clean up
+
+General code clean up including removal of unnecessary initializations, unused methods
+or methods which were no longer required, declaration access tweaked where
+appropriate.
+"
+"33f131af9de315940be4ec28ec7fdc11eb7f34aa","2014-07-08 13:47:37+00:00","Update CHANGELOG.md - special THANKS @andr3jx!
+"
+"0a163d6a542d53dcb72d93fda23b8ee3fd21e3f4","2014-07-08 15:02:20+00:00","Update SOURCES
+"
+"affd761caea3847e91ac93a9ec7c906d8b1a323f","2014-07-08 15:06:08+00:00","Update SOURCES
+"
+"5fb64579ca6b3a811d2438c332bbed4df0328fed","2014-07-12 20:29:43+02:00","Update SCREENSHOTS
+"
+"09e2b6d4d4a46a2dce4ff9d7e0b548597dfcb3c5","2014-07-14 06:39:24+00:00","Added HELP on GitHub Markdown
+"
+"c3013cf7b71b08ecaccf872afa6b0e2d0957f5d1","2014-07-15 06:40:10+00:00","Added link to picture of Stingrays
+"
+"ed5c1c83a5fa32ccd8dae27ad4f8ad3c404bde10","2014-07-15 22:46:44+10:00","Database Update
+
+To prepare correctly for contribution to the OpenCellID project the Cell data table
+has been updated to include a number of fields that can be provided to OpenCellID
+which include the following: Accuracy of reading, speed at time of reading, bearing at time of reading, Mcc, Mnc and string description of network type.
+
+These major changes have required an upgrade of the database version to enable the
+new table structure to be rebuild and as the changes are drastic it will NOT BE
+POSSIBLE to restore any previous data.
+"
+"0fe2ae5478e8da5d264a195ec18c69c2c0ca506c","2014-07-15 22:48:58+10:00","Cell Class & Card UI Updates
+
+Updates to the Cell class to include a number of extra variables to support extra data
+and extended functions.
+
+Data and inflater for the Card UI have also been updated to enable the newly added
+items to be displayed were appropriate.
+"
+"becbaed16134a13929f0afd61af803acc85c453c","2014-07-15 22:53:31+10:00","Neighbouring Cell Updates + more
+
+Neighbouring cell methods have been rewritten to being improving the neighbouring cell
+functions, the getAllCellInfo method has been corrected in a number of it's uses
+including within the neighbouring cells method.
+
+Further testing is required to confirm what network types return what data as UTMS I
+believe will only return the PSC and RSSI whilst other networks will return the CID,
+this update should at least bring the display of information to all devices which will
+be improved and corrected much quicker now I can actually see the details on my new
+device.
+
+Tweaks to the Device & Service to address a number of small bugs and NPEs in isolated
+cases.
+"
+"ac4e4e9dbdf9b60b9a30c91387181e795b15c11b","2014-07-15 18:54:37+00:00","Removed unnecessary hyphen
+"
+"ca8e9dfab22bb1cac0f268ba69e071281a054ea3","2014-07-15 18:54:44+00:00","Corrected version formatting
+"
+"c8989cd360c721bc4d85e52af36c31f4f5645ffb","2014-07-17 07:43:03+00:00","Google ignores Ciphering Indicator
+"
+"85d3c9902ec81d3b8fbc9561302b624adab9c2e6","2014-07-19 17:17:14+00:00","Added link to official discussion
+"
+"3335efaf730d287f2e63e696d4ee69b4088eb65d","2014-07-19 18:10:23+00:00","Added logos of supported Organizations
+"
+"e99726766d228d97dab70574269c5354a780bda3","2014-07-19 19:30:45+00:00","Removed unofficial DarkCoin button
+"
+"7b0c36ba9731d732015d441d6e8cd74ba8685505","2014-07-23 19:54:01+00:00","Added the awesome German 'Datenschmutz Wiki'
+"
+"9bafa997bbcfc43a8d4ca8926624a0ace9207eb9","2014-07-25 09:09:41+00:00","Switched to nicer Banner of @EFForg
+"
+"021af584b5bbb955ee08b49260494029875dc98c","2014-07-29 08:21:52+00:00","Added contact information
+"
+"3d8c96c0c1e80d7bd097586b5133fe85e1609752","2014-07-29 08:23:06+00:00","Corrected link to contact information
+"
+"3e0a86f6d83a7278921722aebeaebefd24ac455f","2014-07-31 11:47:42+00:00","Linking Status Icons to our Wiki
+"
+"8f4c52b82107e1e27975a07fdc4adef323c9488f","2014-07-31 12:12:05+00:00","Corrected link to Status Icons and Threat Levels
+"
+"0a1b0e9ceeb683416236d9990b6f3ba9cdcb55d9","2014-08-01 16:05:33+00:00","Added short clarification to Development Roadmap
+"
+"1aacd219108332caecb183bce4ca8b7f6fe33644","2014-08-02 02:05:33+02:00","Merge pull request #95 from He3556/master
+
+Merge pull request #1 from SecUpwN/master
+"
+"33361d05bae2b8996a81c4c9c8608e8371358f53","2014-08-02 12:57:53+00:00","Added badge for our chat on https://gitter.im
+"
+"ef115643aaa4df0ec46eee07e089eb10e132f904","2014-08-03 14:32:32+00:00","Removed Gitter (see extended description)
+
+https://github.com/gitterHQ/gitter/issues/332
+"
+"d6144f6e1f30fc9064c8ffa45eccb3120f2f59dd","2014-08-04 05:37:34+00:00","Optimized AIMSICD-Status Header
+"
+"773bbdc9efca6029e1f06c2d0d74aee4b535c661","2014-08-04 07:31:48+00:00","Added Instructions for silent followers
+"
+"c45e0e6254f63ae76c95b21e2becfbe0e536be03","2014-08-04 08:03:56+00:00","Updated links to new wiki
+"
+"8aae4ce5719ef6a33526625d847f2ba415bfd252","2014-08-04 10:17:30+02:00","Update SCREENSHOTS
+"
+"bb2f3de183f4a8e996267a20274cc5540440860f","2014-08-04 08:32:12+00:00","Corrected link to Status Icons and Threat Levels
+"
+"ac9a8b6b59227ce9405d6ef2e0719fa138f40694","2014-08-07 17:06:59+00:00","Erasing the doubt. We will make it!
+"
+"3bf0069fc553f08b956463bada4c4c1cf77b5220","2014-08-07 17:09:30+00:00","Keeping it serious
+"
+"8d96ba000ab826425f88e4502c87eb7f84cc4a72","2014-08-08 10:50:33+00:00","Improved mobile view
+"
+"d0f58910eb1c2aaee964481bc540cddc131bb5ef","2014-08-08 11:11:42+00:00","Edit of the edit of the edit of..
+"
+"fc62c01196f0b4b029e52145995a0fb057de81b7","2014-08-08 11:11:58+00:00","Update CHANGELOG.md
+"
+"9cd87e85e16411ae394bd011f37b1f4375b4bb77","2014-08-08 11:34:54+00:00","Last edit. For today. ;-)
+"
+"4e5afefa0d1f811b7d583dccdbd7aaaa06363b0b","2014-08-08 12:12:48+00:00","Perfectionism rulez
+"
+"a6d6f72dbe2e968afe6eba253197b3507aad3098","2014-08-08 12:20:47+00:00","Added CHORDGHOST
+"
+"c32acafcefe261af6b8ac10e17a25538e94e7a36","2014-08-08 22:00:28+00:00","Final midnight improvements
+"
+"a0493adb30b4673fceb3c3b214dc8d6ea16465fc","2014-08-08 22:05:27+00:00","Corrected mobile view
+"
+"4120ab34713e398641aa061c86d16852b13d616e","2014-08-08 22:20:21+00:00","Cleanup done.
+"
+"a8c2b48fd7b56cfefed50f5f56f968fe19ff6f59","2014-08-08 22:28:33+00:00","Editing done. Feeling great!
+"
+"f387c1380820cc9ba05323482aa1ca6062db3d92","2014-08-08 23:07:30+00:00","Updated contacts to developers
+"
+"21de5873192b2bdae86d855284dc5823233b1a82","2014-08-08 23:15:47+00:00","Perfectionism at its best
+"
+"ed42909626895bd3fb52fd1ad7d50e70f146cee4","2014-08-09 04:37:59+00:00","Added transparency for mobile page
+"
+"45e69a6da29f69dc9e5b49e0374f15e4d988975f","2014-08-13 21:23:05+10:00","RTL Layout Updates
+
+Slight updates to layouts to enable correct Right to Left support.
+"
+"2b5e6ee096a4dafc982e57a76cbb4743ab2968dc","2014-08-13 21:28:01+10:00","Neighbouring cell updates + OpenCellID Upload Preference
+
+Reverted the change to the getAllCellInfo method for neighbouring cell data as it
+is too unstable and provides very inconsistent data, updated the layout of the
+neighbouring cell information to display the PSC, RSSI & Network Type as returned
+by the getNeighbouringCells method.
+
+Added a new preference for contribution to the OpenCellID project which will allow
+users to contribute tracked cell information to OpenCellID, this is currently only
+the preference and the sending of data is still being completed.
+"
+"8cde2af6f19b90d1c73093de7386b901137994ee","2014-08-13 21:29:13+10:00","NPE Fix
+
+Removed the code that initially attempts to draw the MCC & MNC whilst refreshing
+the device information as this was causing NPEs on a number of devices.
+"
+"fb61905b273e216d8230a3d481de4014b06b0172","2014-08-13 22:52:49+10:00","OpenCellID Contribution Upload + Db Cursor Cleanup
+
+Finished the upload of OpenCellID data to enable contribution to the project thus
+allowing the use of the API functions, this feature is enabled through preferences
+and does not send any personal information only Cell + Location details.
+
+Cleaned up some database cursors that were not being closed correctly.
+"
+"efb0c1b97aa890f73a80447c2e6b0fe92213770b","2014-08-13 18:40:34+00:00","Fixed wording for GPL compliance
+"
+"d9c924de3c7fed67ee3c8417ea900c4ce3686c90","2014-08-13 18:45:52+00:00","Update CHANGELOG.md
+"
+"ada12df55b5256418717c7e89eae9ed3250f56f5","2014-08-15 22:03:03+02:00","Poll the telephone manager for neighboring cell infos
+"
+"8d579a1a6f314fd07101033b95cc60dda511f562","2014-08-16 21:16:41+10:00","Cell Class Update
+"
+"cbc5b4fd78b60ae78a16d0bf7345d6987d7bc387","2014-08-16 21:38:00+10:00","Revert 'Shell & AT Command Fragment Tweaks'
+
+This reverts commit c3600cd0ee856e8d9d08b919cfedbc3e1295fcd7.
+"
+"9174762b4dc5b12ac856c1d2723172a13a553422","2014-08-19 18:56:23+10:00","Correct Proguard Settings
+"
+"214369ff39fc4848fa5607958efe8c09a55c6f95","2014-08-19 18:59:30+10:00","Updated OpenCSV to v2.4
+"
+"209ad8a097a1a6e7a15220efa4ef05c3263fbd26","2014-08-19 19:11:30+10:00","Futher Cell Class Update & Implementation
+
+Futher extensive updates to the Cell Class to provide an easy system for tracking and
+comparison of Cell details.
+
+Cell class is now used throughout the application where any form of Cell based info is
+utilised.
+"
+"644158bd216d855f347ac8a26ec5a62b48843554","2014-08-19 19:13:32+10:00","AT Command Tweak
+
+Reverted commit that was possibly causing the instability of the AT Command Injection
+when compared with v0.1.21
+
+Added small banner to notify of setup and ignore any error messages that may be
+displayed.
+"
+"030460727e4df2b94a890142b7ebdd37daa96d58","2014-08-19 19:16:44+10:00","OpenCellID Upload & Download
+
+Rewrote both the upload and download methods and requested a new API key due to the
+disclosure of our last key.
+
+Contributions are required as the API key has not been white-listed and does not yet
+allow for the downloading of data.
+"
+"f3bce452b4b480926eb39fbf858293c09d3d2bba","2014-08-19 19:17:21+10:00","Removed Heading from Layout
+"
+"e991a2d329c41ca9e37a2ee080493711759c4142","2014-08-19 20:40:24+10:00","Neighbouring Cell Updates
+
+Slight tweaks based on the commit made by @rtreffr and the identification that the
+method drawing the Neighbouring Cell Information was being made on the UI Thread,
+this commit address that issue and ensures the new implementation is called through
+an Async Task.
+"
+"037a0734594554508fe8088a760371b0db323590","2014-08-20 00:19:25+00:00","Update CHANGELOG.md
+"
+"f6b6b10dfbd583582694b60ae1d362214fe0e7f5","2014-08-22 21:53:14+00:00","Talk on detecting surveillance. Thanks @ppolstra!
+"
+"48629de4b042480111c438347941d60ada10c12b","2014-08-27 07:17:18+00:00","Corrected naming of SMS
+"
+"fd9c578518c433c9f18bf6caf54d4382da6e1663","2014-08-27 07:20:09+00:00","Added question for better interaction
+"
+"c916d09dc31b10f50821b5eff5190e760771d348","2014-09-01 14:34:27+00:00","Moved recommended websites into WIKI
+"
+"d5cab1daa55cd316fd3053fe0ed03fba355cab5c","2014-09-01 14:56:06+00:00","Added link to our TODO
+"
+"c4fb5f8dd8956ffe32db38905177778db08dc13b","2014-09-01 14:58:18+00:00","Added link to our TODO page
+"
+"f9a45e9e00b4e9de9619572d45bed17b629d2409","2014-09-02 10:11:36+00:00","Removed dead link
+"
+"20e8058025286c79bf150395304bee42cbeca728","2014-09-02 10:24:20+00:00","Removed dead link
+"
+"4069929866c8c708e429fa74ec60d79f38bc77ff","2014-09-08 19:04:25+10:00","CDMA Layout Correction
+
+Removed iteration through layout row tags to display CDMA specific items and reverted
+to individual visibility changes to address NPE experienced by CDMA device users.
+"
+"d475cfc12bf04051ea4009bd894c6b06a460164d","2014-09-08 19:06:30+10:00","Neighbouring Cell Update
+
+Small tweaks to the updated neighbouring cell methods for better functionality, tested
+on both Xperia Z (Android API method) and SGSII (Samsung Multiril method) with
+correct operation experienced.
+"
+"8c74edf17536fbf8770245555b9e55586c8aa6e5","2014-09-08 20:42:26+10:00","Cleanse Cell Table Contents
+
+To assist with detection method 1 (Changing LAC) and for correct implementation of the
+Cell Information Table this change will cleanse the Cell Information Table to ensure
+only ONE (1) entry is stored for each CID. The location table continues to store
+multiple results based on the changing location and signal strength.
+
+But the Cell Information Table will now only contain a single entry for each unique
+CID.
+"
+"d8b63c91a223f5dcd44ccc4a3923b162cc6bfd12","2014-09-08 23:26:30+10:00","Detection Method 1: Changing LAC - Initial Implementation
+
+Initial implementation for detection method 1 to compare the CID & LAC with the Cell
+Information Table contents as an initial implementation for detection of a changed LAC,
+once OCID issues (API key use etc) have been finalised this detection method can be
+extended to include checking of external data.
+
+This initial implementation is activated through the drawer menu item titled
+'Monitor Cell Information' which will invoke timed runnable that will poll the Cell
+Location details using the selected refresh rate OR default to 25 seconds if
+Automatic/Manual has been selected, once testing is complete this can be enabled as a
+passive detection method which can could be controlled through a user preference.
+
+As I have no real way of testing this I require testing by other project members who
+do have access to equipment or an environment where a changing LAC can be simulated
+thus confirming the accuracy of this implementation.
+
+Presently this will only invoke the MEDIUM threat level through the notification and
+does not fully implement the capturing and score based method as per the issue details
+once further testing is complete the alert and tracking of information can be refined.
+"
+"ccf4b3614c5d0df3f330c213ec06483493a9d268","2014-09-08 13:35:56+00:00","Merge pull request #108 from xLaMbChOpSx/master
+
+Various Commits
+"
+"a59566a4449349fee859beae89b863fc76758b5b","2014-09-08 13:42:09+00:00","Update CHANGELOG.md
+"
+"cb25afb0e77e1c461fac7832dc8751267ee83acd","2014-09-08 18:07:31+02:00","Improved introduction
+"
+"3a1460a7b08a74d03aeed976cc54ca47f946cade","2014-09-08 16:30:52+00:00","Merge pull request #109 from andr3jx/master
+
+Improved Introduction
+"
+"e6e4e9cf4c6f57f7dd5496888515c05caf21a998","2014-09-09 00:23:16+02:00","Improved introduction
+"
+"8f84be420e3401b19206ee0dc6cdc541da02177c","2014-09-09 14:17:50+00:00","Put 'GPS Required' into round brackets
+"
+"c5d9125be6ae164687ab51e0c373bdc59309463d","2014-09-09 14:20:47+00:00","Merge pull request #110 from andr3jx/master
+
+Removed sentence about security protocol AKA
+"
+"b52b62da94440537d66cf3b30076a9471849932d","2014-09-15 21:04:45+10:00","AT Command Injection v2 & RootTools
+
+Totally re-wrote the AT Command Injection system using the RootTools library
+which has helped simplify the system, this change should hopefully bring back
+the same (if not better) level of functionality experienced with earlier alpha
+releases.
+
+Unable to test AT Commands on either of my devices but shell commands return expected results, so hopefully once tested AT Command execution can be
+confirmed.
+
+RootTools v3.5 - https://github.com/Stericson/RootTools
+Added to project under libs directory, gradle build config updated but you may
+need to check your IDE to confirm it is including RootTools.jar if you face
+any problems.
+"
+"db2f26e97c8d238fa69daff41e5164c82e8e7ce6","2014-09-15 21:07:11+10:00","Revert Notification Behaviour
+
+Reverted notification behaviour so the idle (grey) icon is shown whilst the
+app is running but not actively engaged in any task, normal (green) will
+display when tracking or monitoring cell details and warning and alarm icons
+will be displayed when triggered by changed LAC, femtocell detection etc.
+"
+"904a9434a3e213f079d35088355c6e344f8beee0","2014-09-15 21:53:31+10:00","Notification Update
+
+Corrected the Cell Monitoring method so it will now correctly update the
+notification icon based on the Cell Monitoring status.
+"
+"cb673e725aca7598b0cdcdda56f442b85b7ef7a7","2014-09-15 22:09:27+10:00","Location Services (GPS) Handling
+
+The prompting to enable GPS now better handles the users selection and
+detects if GPS was actually activated when taken to the settings
+fragment.
+
+The activity itself forces a check as I cannot use the method
+startActivityForResult from within the service, so whenever the activity
+binds to the service or invokes onResume it will check the GPS location
+service is running if Cell Tracking is enabled.
+
+This also forces the user to either enable GPS or cancel the dialog box
+which will leave the app in a desired state of operation.
+"
+"642f348953c07c1cc61d4323c669fa38ccff1709","2014-09-15 15:51:27+02:00","Update CHANGELOG.md
+"
+"481f1c74b1dc30f5bb3603cd3e00e64502e66307","2014-09-15 15:52:13+02:00","Merge pull request #112 from xLaMbChOpSx/master
+
+Various bugfixes, improvements and updates
+"
+"42616bc1693ae349dbbe517e0d80b45adadc2495","2014-09-15 16:22:07+02:00","Update SOURCES
+"
+"db8751e426deadd23e6b7e34c999ae4f68e993b2","2014-09-16 10:42:27+02:00","Added small clarifications
+"
+"87046b98d3a07b0c4b99ffebd2b27a8c39cb7468","2014-09-17 19:29:43+10:00","OpenCellID - User Specific API Key Support
+
+Modifed the OpenCellID methods to only operate if an API Key has been
+entered through the application settings, enabling each user to request
+and use their own keys.
+
+This will need to be extended once functionality has been confirmed to
+provide more instruction to users regarding the registration process,
+such as through alert dialogs and details regarding the OCID website etc.
+
+Key is stored on the device and only used when initiating communication
+with the OCID servers, as with all previous versions no personal
+information is sent to OCID only necessary cell/location information as
+required by their API methods.
+"
+"9832964c2bc75f487372f44c2bcf22dfc4d9e259","2014-09-17 13:38:52+02:00","Update CHANGELOG.md
+"
+"ad8bcfa6135b178e89ccdf3bcceaee7785465cf0","2014-09-17 13:39:00+02:00","Merge pull request #113 from xLaMbChOpSx/master
+
+OpenCellID - User Specific API Key Support
+"
+"fe1d43091e2652dd85c0117240e4e5dba146c87b","2014-09-17 16:56:58+02:00","add abortOnError false - so that clean build runs without a problem
+"
+"c8048b9dff2af317dc5c64a9f5378db5cf6c1d0e","2014-09-17 17:04:09+02:00","Update CHANGELOG.md
+"
+"b114d9b97afc026d382e88d740ce6bf4a77df5b4","2014-09-17 17:05:31+02:00","Merge pull request #114 from ligi/lint_no_abort_on_error
+
+add abortOnError false - so that gradle build runs without a problem
+"
+"c013afef691b8ca8fdc485897615685c66571582","2014-09-18 17:05:25+02:00","Small visual improvements
+"
+"7f2cdf01c3e76514489a2ac044a5ae83d1622835","2014-09-18 17:18:33+02:00","Update AboutFragment.java
+"
+"971877da3178c9a800b85248fadf6b73016b6615","2014-09-18 17:18:57+02:00","Added link of our WIKI to About-Menu
+"
+"fcbcce87de8b3b1af1d1cdd8ac2db80236cd7769","2014-09-19 06:55:25+00:00","Corrected TextView
+"
+"0ae1fdd2f0cc9ba4bea05703d1ad7f34f70fc484","2014-09-19 07:26:24+00:00","Update about_fragment.xml
+"
+"7e7c5870fb5158554b2722d2bf562b44ba210188","2014-09-20 21:49:31+10:00","Use GeoLocation Class & Store Last Location
+
+To address issues with the fact the location manager will purge the
+last known location pretty quickly this commit will retain the last
+location that was locked through GPS, this is then used for any methods
+that require a location such as some OpenCellID functions when there
+is no GPS lock and the users location can not be determined through
+cached information.
+"
+"0f3d5fea8f19b5eee0357018d5d7d17059a479c5","2014-09-20 21:53:27+10:00","Exit Button Fix
+
+This commit makes the drawer menu exit button actually exit the activity
+instead of doing absolutely nothing at all!
+"
+"5bdc089e246e67c948495ff976c25452ec0e5a92","2014-09-20 22:01:42+10:00","MapViewer Cell Info Display Fix
+
+Add MCC & MNC details to the Map Marker display window for local database
+cell information, this was already displayed for OpenCellID Cell info
+but was not added to the tracked cell details loaded from the local
+database.
+"
+"5602780460231af0fd68be7cc73969702a5e5200","2014-09-20 22:05:12+10:00","Extra Google Play Services Check
+
+Added an additional check for Google Play Services prior to starting the
+MapViewer to attempt to address NPE issues users were still facing with
+loading the MapViewer WITHOUT Google Play Services installed.
+"
+"0988aafc28cef1af4b0af2824cf2a7afaa3dccac","2014-09-20 22:11:52+10:00","Automatic Cell Monitoring Preference
+
+Added preference for Automatic Cell Monitoring which is now ENABLED by
+default, user can choose to disable automatic monitoring through the
+preferences fragment.
+"
+"990f4abdfe7443affef1d37adb0f2644648fd591","2014-09-20 23:38:51+10:00","Database Viewer: Fix Silent SMS NPE
+
+Correct NPE experienced when trying to view the Silent SMS database
+contents.
+"
+"4125d9083af4262910902933853b26c9b83c5dca","2014-09-20 23:43:51+10:00","Minor Code Cleanup
+"
+"fe579f8bc7832ef2215ffbe38cc74f0b8698cc72","2014-09-22 12:34:36+00:00","Merge pull request #120 from xLaMbChOpSx/master
+
+Grabbing the latest code
+"
+"df5e2de4af7212a1a6b4e185d44fc5daba1091b9","2014-09-22 12:45:45+00:00","Update CHANGELOG.md
+"
+"61b6144d335782997c23048dd741f92938e62af2","2014-09-22 19:42:36+03:00","Merge pull request #1 from SecUpwN/master
+
+syncing my fork 1
+"
+"41621f276accbe960eb37fff59be6daa6ac6644f","2014-09-23 17:47:40+02:00","switch from Google Maps to OsmDroid, WIP
+"
+"727dd9a2b101acaf5ffb3651c66257e7a72c1d6e","2014-09-24 09:16:29+00:00","Added link of FAQ to the Index
+"
+"180341b315e5625212bf244af62acc80485c6346","2014-09-24 12:25:52+02:00","osmdroid mapview in progress - all pins added to map
+"
+"67ac2e48e06cda6b553e589e559bcc620ce495f6","2014-09-24 12:34:22+02:00","added MarkerData to cell tower overlay items
+"
+"a03dde97f6a45efc6f4b91eba0aa7dfe2902f380","2014-09-24 13:28:27+02:00","implemented async map building and cleaned up
+"
+"43d91cda73875ab4bb49fef0109354acbfe8e29d","2014-09-24 14:30:24+02:00","fixed null pointers on a clean install
+"
+"e7bfd0f9d853acb2793e17df7b7526224ca47b32","2014-09-24 14:45:12+02:00","fixed default location usage
+"
+"3089ee349d883bf8864acc8333e61b91767739b9","2014-09-24 14:58:32+02:00","merged changes from upstream
+"
+"d413f4142e4617302a16a7b426b75e2bdc6010f6","2014-09-24 15:06:15+02:00","updated changes from upstream
+"
+"779131d1fbfcfb748316f31a5f8fa0d56506622f","2014-09-24 15:16:29+02:00","cleaned up info window dialog box
+"
+"f0c6d60a8fab4c01dbb5bb6803bfaf8c324f342c","2014-09-24 18:39:40+02:00","Update CHANGELOG.md
+"
+"66cd6d81b21010420eab81fe07e429b065afbb67","2014-09-24 18:39:44+02:00","Merge pull request #122 from tobykurien/master
+
+Remove Google Play Services
+"
+"982eb539ec4da47f67a38375d152f214a45d13ae","2014-09-24 19:27:41+02:00","Update CHANGELOG.md
+"
+"dded0299e566ba1a2b3f50f2b914cf268300f076","2014-09-24 21:28:43+03:00","Merge pull request #123 from E3V3A/master
+
+Merge pull request #2 from SecUpwN/master
+"
+"089712a0dca63e6520eaeaca5a5a5c11e615508b","2014-09-26 17:33:43+02:00","Merge pull request #1 from SecUpwN/master
+
+merge latest changes
+"
+"5090fcc98b3b9e95c486b8c32b824f34ca732d71","2014-09-26 18:08:57+02:00","added accelerometer tracking and GPS tweaking to save battery power - WIP
+"
+"b1a34619eba0d6aa8020a9bf7c047d2af456de06","2014-09-26 18:10:07+02:00","tweaks and added different map tile sources for the various map type settings
+"
+"e9ba782e97c050e603d13a5c8b9f53f5b1397759","2014-09-26 18:44:38+02:00","re-worked the accelerometer detection for better battery savings. Needs lots of testing.
+"
+"8f65aa2c6a320905dc3c38cd89d9c3a5288bf4b0","2014-09-26 19:49:34+02:00","- fixed bug, which terminates the service when AIMSICD is closed
+- Updated version to b8
+"
+"16dcee7ea0594bd59e1a5ff73f87f488ca39fb28","2014-09-26 19:53:12+02:00","Fixed wrong word
+"
+"60184cb9db63850fbbc15a4d1db45b1b4873ba41","2014-09-26 19:57:43+02:00","Merge pull request #125 from tobykurien/master
+
+Battery saving and new map tiles
+"
+"31e5cf4c7fe0de32162d916f35948e10710912d2","2014-09-26 19:58:22+02:00","Merge pull request #126 from andr3jx/master
+
+Fixed bug which terminates the service when AIMSICD is closed
+"
+"d4ff35b4d8f08ec6ee0742bd2f0a76b9928453cc","2014-09-26 20:00:01+02:00","Update CHANGELOG.md
+"
+"f8dfb30e565181d24fbdcebff66a850036e32451","2014-09-26 20:04:44+02:00","incremented version to 9
+"
+"c2792682d06b865c110020b84f47da41d677413d","2014-09-26 20:08:01+02:00","Update CHANGELOG.md
+"
+"6e4cf2771ed8ef3cf8380f0733fea23d6d52ff3b","2014-09-26 20:10:19+02:00","Merge pull request #127 from andr3jx/master
+
+Updated to version `WIP-Internal v0.1.24-alpha-build-9`.
+"
+"80c17f9c6527d751fb051be83c4e594feffedd75","2014-09-26 20:51:52+02:00","Changed link to Press Releases
+"
+"91f8efa07ab3f8f057cca6d9a2cc58a253c6398d","2014-09-26 20:54:40+02:00","Changed sentence for mobile view
+"
+"a62c454eee5bc00e87dc8fb12fb6234720c4966f","2014-09-27 11:22:22+02:00","Merge pull request #2 from SecUpwN/master
+
+merge upstream changes
+"
+"d0b203ce30e10fe72d993f792a23ddbef5fad864","2014-09-27 11:37:27+02:00","extracted Accelerometer and Location tracking into separate classes
+"
+"448c5ad436ebfe652e1e5c3c2eee4b9ebcb2aaac","2014-09-27 11:52:23+02:00","extracted Accelerometer, Location tracking, and RilExecutor into separate classes
+"
+"2d92b6a7f6f8eb9fb5393bb1fc552d700aa16c33","2014-09-27 11:57:17+02:00","hooked up RilExecutor into CellInfoFragment
+"
+"434dce44c4b3d269319a0dc42ac594a93afd5fd2","2014-09-27 11:59:20+02:00","moved RilExecutor to correct package
+"
+"a725ad0378e48e9799438eaf8d92f9b0c7dcf5c3","2014-09-27 12:56:07+02:00","extracted CellTracker from the service and refactored code everywhere
+"
+"186a76385a21e3f40f42bf91181910131dc836ec","2014-09-27 13:20:59+02:00","fix for https://github.com/SecUpwN/Android-IMSI-Catcher-Detector/issues/128
+"
+"916a2122ec983bb87c2ab2879b57e1149b46c89a","2014-09-27 14:14:29+02:00","fixed cell tracking status - code got left out during refactoring.
+"
+"204978cceaffb26b5a5e20c5b33442d80f10f40d","2014-09-27 12:25:33+00:00","Merge pull request #129 from tobykurien/master
+
+Service code cleanup
+"
+"6ea040aa99aa5a495a685d1aeadd617110ef4e08","2014-09-27 12:26:32+00:00","Added links to General and Technical Overview
+"
+"b0ad0667f0bba32fe6660d9e4cea31aa7b1d12f2","2014-09-27 12:39:11+00:00","Added point to sentence
+"
+"dc5deaab0a171ea282b32b9c41711357b0b34d63","2014-09-27 12:39:21+00:00","Completed sentences
+"
+"3c67fba6fceaf947f14cc59b52bf79fccccd1355","2014-09-27 14:39:53+02:00","Merge pull request #3 from SecUpwN/master
+
+merge upstream
+"
+"ab9a549893f5df303b11e236c56845332fc4eabf","2014-09-27 14:45:42+02:00","fix regression - service not loading correctly on startup
+"
+"66d0a873677f2d811f2844ece34381af44257393","2014-09-27 14:46:14+02:00","Merge remote-tracking branch 'origin/master'
+"
+"2a70465fcdd31e97de1ae2f0645d047f67f4e677","2014-09-27 12:46:35+00:00","Refreshed strings.xml
+"
+"0eb80544f5b90e24bb4b2756c6b5c28a680c74ae","2014-09-27 12:49:11+00:00","Bumbed to WIP-Internal v0.1.24-alpha-build-10
+"
+"288c0c738d451b5bbc56e8cb68b4a6700c37aa8a","2014-09-27 12:49:30+00:00","Update CHANGELOG.md
+"
+"6bff35a3fed38ea357e7a66154cf2c9e2b6f622d","2014-09-27 12:51:38+00:00","Update CHANGELOG.md
+"
+"89114bf79bdbf9be9f09d9555d4ec65816bdc29d","2014-09-27 12:53:57+00:00","Update CHANGELOG.md
+"
+"6276533e38f53539cacdc23896930cbada04cfec","2014-09-27 12:54:01+00:00","Merge pull request #131 from tobykurien/master
+
+Urgent fix for service not starting up correctly
+"
+"4342c296a2159f4aed287d850a0f7e9d4f47eaf7","2014-09-27 13:19:26+00:00","Shortening to fit screen
+"
+"15ddeca0545074296c71e07e5f3d3f04966f94e1","2014-09-27 16:41:10+02:00","more code cleanup
+"
+"b0a4bcf0133c72dc88a2ece819fa940433ea31df","2014-09-28 13:50:48+00:00","Added link to our Media Material
+"
+"71cc4a37c482f0553aa32cae2a966957fbe01b86","2014-09-28 14:13:13+00:00","Simplified sentence for mobile view
+"
+"ecb5a670ddfe204c6c095e82ad722330baba4d87","2014-09-28 14:13:35+00:00","Huge THANKS to @tobykurien!
+"
+"55395f55d687d71678e317c0ed80181f215dcf71","2014-09-28 16:49:27+02:00","Fixed sentence
+"
+"edcbb7922976eeb0a877c1e9dab098653df3eb2b","2014-09-28 17:29:17+02:00","Added Issues to project description
+"
+"7a81d8d19616754bca6a1e57d13c4e6c19ec1696","2014-09-29 21:52:06+00:00","Update strings.xml
+"
+"ccb1d9901ecfaedc5f4a73c60e32a46fa88326e1","2014-09-29 21:58:19+00:00","Update DbViewerFragment.java
+"
+"5b31d2a9748c14f7a101733a0e29a6267aab43dc","2014-09-29 22:18:22+00:00","Update CellTracker.java
+"
+"348b126826113a6664a57bc5afed5383ed269d6f","2014-09-29 22:25:59+00:00","Update MapViewerOsmDroid.java
+"
+"9baa2ae76663a0fc5fdd873a52ea8fb7867420e8","2014-09-30 07:49:18+02:00","Merge branch 'master' of git://github.com/SecUpwN/Android-IMSI-Catcher-Detector
+"
+"ad58cc09c7a1a12f7b14e9d5f2f834c7d19df89a","2014-09-30 07:52:16+02:00","code cleanup
+"
+"3ad347c81686b3840fff0e6ec2b9f10333836556","2014-09-30 10:33:37+00:00","Merge pull request #134 from tobykurien/master
+
+Minor code cleanup
+"
+"32cb1e84edcae6cf18bad1a14a184c470a2e6da3","2014-09-30 19:50:36+00:00","Update CHANGELOG.md
+"
+"4cd09b5d6b8cd560901047d95308fad750ef17dd","2014-09-30 19:51:39+00:00","Bumping to WIP-Internal v0.1.24-alpha-build-11
+"
+"bd626995aa1e25ccfcabc237a1de0cf38b35d4e1","2014-09-30 21:42:45+00:00","Update strings.xml
+"
+"c5cecc374054c20ce77e3ce030276fbb37bf1561","2014-09-30 21:48:13+00:00","Update CellInfoFragment.java
+"
+"ba2dad318cbaa873f0ea5e2bd0dbecfb1b39cdfe","2014-10-01 22:36:52+02:00","Moving README on top of directory
+"
+"605bf443ac88d4c7514fe4dc41038ad247829d00","2014-10-01 22:53:51+02:00","Added PROMOTION directory
+"
+"68fa6cd546358084d1f5098e6227b549d068f64c","2014-10-01 21:58:01+00:00","Replaced link to Status-Banner
+"
+"0cf9d7d694208f62fa658847b2ab16f9539a8622","2014-10-01 23:43:21+00:00","New theme for our website
+"
+"1ea3dd36fc4e4b7dcb064a9ab1daf3183bc8d7d4","2014-10-01 23:54:18+00:00","Added Privacy to Index
+"
+"a3f6072d9bfc6649e80149f97a41e04a6eb72450","2014-10-02 08:24:51+00:00","Fixed typo
+"
+"f1fc55729163ca8594110620bc65f1c2075636da","2014-10-02 17:52:51+00:00","Moved donation information
+"
+"9e74764f29e049e21557392e7a17d1965bd2d75d","2014-10-03 08:35:03+02:00","Merge pull request #4 from SecUpwN/master
+
+merge upstream changes
+"
+"bf67ff07d08d44d4fcd700bd40031c94ce581642","2014-10-03 12:16:59+00:00","Restructured Index
+"
+"fc622b730f6c953b3ae6b9554272104779b1ac39","2014-10-03 16:25:58+02:00","Updated SCREENSHOTS
+"
+"bc218f56da84e81ef97aaef8df6d03b090c16ac7","2014-10-03 16:28:26+02:00","Added funky Teaser
+"
+"49f02fdf119e8ef26e3df32fb93dee965b2285d0","2014-10-03 14:52:00+00:00","Added funky Teaser
+"
+"d40edc45b9997d2ffd88d160b1bb9893a9050d16","2014-10-03 21:23:00+00:00","Added link of Requirements to Index
+"
+"718718a7f8584f7b3d8dc73121ccc8da3d773198","2014-10-03 21:24:37+00:00","Fixed link to WIP-Releases
+"
+"ada49bbfd48cc73bb229d9f32358f515af067aa5","2014-10-04 06:43:53+02:00","Added support for Travis CI
+"
+"39fcf01c4cddb8dd4af286d1030413c24390fcb3","2014-10-04 07:09:17+02:00","Launching Travis CI
+"
+"6c1fe24bb5d26bd29440142ef4cc6df43a643a22","2014-10-04 07:28:59+02:00","Accept Google's Android SDK licenses
+"
+"27b579bef9d415e1836935f5f7ba27b509996058","2014-10-04 07:35:11+02:00","Added build-tools-19.1.0
+"
+"abb55c51f37a62970813800dd0264a3bc54b07b5","2014-10-04 08:05:51+02:00","Added connectedAndroidTest
+"
+"19ce7bea6e0fe13550a184995a994f8f647ea3d4","2014-10-04 10:30:14+02:00","Testing before_script
+"
+"e59f3513d4590cae8149b52d6255e9c303859612","2014-10-04 10:34:34+02:00","Merge branch 'master' of git://github.com/SecUpwN/Android-IMSI-Catcher-Detector
+"
+"3de45e6c1b5faf37814bad4e77d2763f1e67a5f3","2014-10-04 10:37:19+02:00","Fixed before_script
+"
+"5a11fb4c860070c83c7fc6c44cd0110f26339ca9","2014-10-04 10:46:18+02:00","fix for https://github.com/SecUpwN/Android-IMSI-Catcher-Detector/issues/136 and potentially https://github.com/SecUpwN/Android-IMSI-Catcher-Detector/issues/135
+Also removed old map viewer code
+"
+"a1c5b93d103351c70fab8e3e0d6c9a70e903b94f","2014-10-04 10:51:27+02:00","Added link to validate changes
+"
+"fcb2d78dba235b7536a59fdf2d0329d57d92fe45","2014-10-04 10:59:45+02:00","Merge pull request #140 from tobykurien/master
+
+Fix for #136 and maybe #135.
+"
+"7ff546ec4087032a73baec06cc8aed305160a004","2014-10-04 11:01:40+02:00","Bumping to WIP-Internal v0.1.24-alpha-build-12
+"
+"b49161c1f8f4789ad97e0d202b020f2820851d8c","2014-10-04 11:54:27+02:00","Changed 3 of the fragments to ViewPager as per https://github.com/SecUpwN/Android-IMSI-Catcher-Detector/issues/116
+"
+"2b8900f0066c0661618d25e9eadbf5a7a8d86b29","2014-10-04 11:55:58+02:00","ruby script to split opencellid CSV file into separate files for each mcc
+"
+"5df3d84ea24adf1174439dadc1ad73da7b4cf22a","2014-10-04 17:19:07+02:00","Merge pull request #141 from tobykurien/master
+
+Added a ViewPager to allow swiping of detail views for #116
+"
+"4073e0d6ea4372da4a10045b8acff237ac8e2c53","2014-10-04 21:48:28+02:00","Update CHANGELOG.md
+"
+"7613eee4bf30a4037029172d840e0d989dd4afae","2014-10-06 08:58:00+02:00","fixed overlapping of AT Command Injector and About page
+"
+"de57efd02080dc8be9e669e5d3fa3b5e959c72cd","2014-10-06 10:44:14+02:00","Merge pull request #144 from tobykurien/master
+
+Fixed overlapping of AT Command Injector and About page
+"
+"2aca61c72be91ba20f49df522656441363a76239","2014-10-07 02:22:47+03:00","Update README.md
+"
+"fd4cb6c0051e38c5b37651abae313be0b8fa52fd","2014-10-11 15:29:43+02:00","moved Api17+ stuff into separate DeviceApi17 class to prevent verify failures on older api's
+"
+"ad6a28fd7e720f5a723355beabe72da312ce6f99","2014-10-11 15:35:29+02:00","fixed startup error
+"
+"d67c7618412f02ad4dbc4ecce28c669df6b614f6","2014-10-11 15:38:17+02:00","added DeviceApi17 class to separate out Api17+ stuff
+"
+"4eecb71610a6a73468e6ab3fb092679ad8d5d56c","2014-10-11 16:18:52+02:00","Added open_cellid_api_key support to gradle.properties
+"
+"940e5c91ff46b360e78e7aa2651b4645905be4ae","2014-10-12 14:50:10+02:00","made gradle.properties optional
+"
+"b10c014d0adfe1bbbfa7e1803437034383daafa7","2014-10-12 14:57:47+02:00","Merge pull request #146 from tobykurien/master
+
+Fix for crash of Cell Info on Android 4.2
+"
+"c839e5cee44a837d0f5449241a73eaff062bf2af","2014-10-12 15:12:36+02:00","Verified all links to solve #150
+"
+"c801367cf824050f547fe9ac16a568711d6d7a1f","2014-10-12 16:14:51+03:00","Update CONTRIBUTING.md
+"
+"079ebc17815807dfac5c06283b787538c0587a84","2014-10-12 22:12:51+02:00","Pushing to WIP-Internal v0.1.24-alpha-build-13
+"
+"5ffaf822f7da971217718b40136eb7a5782629ca","2014-10-17 11:58:57+00:00","Update CHANGELOG.md
+"
+"904459374feac24485e1169c22a840c9e029c677","2014-10-17 19:25:10+02:00","fix database problems due to database connection not being handled correctly.
+"
+"cd917556b7d3bd48a7561e2378eba71c088ee0dd","2014-10-17 18:09:02+00:00","Merge pull request #158 from tobykurien/master
+
+Fix Database Connection Problems
+"
+"268efe7fe1d963fbea7da3c90473598caebecfe4","2014-10-17 18:51:42+00:00","Small improvements
+"
+"f464334698972fa75f4fe1b4415d4e8e01ff00a6","2014-10-17 18:53:16+00:00","Thank you very much, @Stericson!
+"
+"39a4c5f2b2052f65a063f9c80a4fe90b4de77da9","2014-10-18 09:46:36+02:00","Removed binary JAR files, included RootTools source and re-configured build to pull artifacts from Maven Central
+"
+"87869088cbf142e947da9f11f1c97dfdc5022e13","2014-10-18 09:50:06+02:00","removed duplicate RootTools in root dir
+"
+"da80549eed961f59a6ea0a39a55167d4c75e5357","2014-10-18 11:29:35+02:00","removed apache warnings from proguard
+"
+"be3b34aef37cd51f5cb08c26e7d700f3633c4756","2014-10-18 10:37:24+00:00","Merge pull request #159 from tobykurien/master
+
+Removed binary jar files and included RootTools source
+"
+"ce75d7491ab926189d9dca6d67d3efedfb00c7fb","2014-10-18 13:13:44+02:00","Added High Quality Launcher Icons (#160)
+"
+"fd1d69fc30302311aac1672e15a0c4ac7e3ed0fd","2014-10-18 15:11:50+02:00","Added Sense Style Icons in High Quality
+"
+"9135cad4c222e653ee6e5f2a414171f5d987477d","2014-10-18 15:26:55+02:00","Corrected Image Dimensions
+"
+"9c5f40d766d30b0d9b1229409e1fc2e947edbe9b","2014-10-19 20:53:46+00:00","Rocking to WIP-Internal v0.1.24-alpha-build-14
+"
+"fd8c3386e96d66096fa4b16a7f1d2255e20dd00d","2014-10-19 21:09:52+00:00","Update CHANGELOG.md
+"
+"75fba80bb7ff7cc49c4ca33ed16e9649e3486080","2014-10-20 01:43:58+03:00","Fixed text on Device Details page
+
+Edited strings.xml to fix some string on the Device Details page
+"
+"0837f8a260666741a604ae5d70c436286ce4cc87","2014-10-19 23:05:53+00:00","Update strings.xml
+"
+"d45f8b12769ff3b4f49a8aff13d35c737e37a9a0","2014-10-20 01:14:21+02:00","Corrected name to AT Command Processor
+"
+"966f886e50d493c6fce311c0ef44d0b3d2bf64c8","2014-10-20 08:43:16+02:00","removed the 'Sanity Check' activity of RootTools from the launcher app drawer
+"
+"60a63defea9486c418fef47ec4e7ca7d7e9f9ea8","2014-10-20 08:45:23+02:00","Merge branch 'master' of git://github.com/SecUpwN/Android-IMSI-Catcher-Detector
+"
+"b94a963468759f4748c4a3c890458ce0c20e3f5b","2014-10-20 09:01:57+02:00","removed thread contention and fixed unclosed database connection
+"
+"08701bac600502d1d188bade079909998a3d1a77","2014-10-20 09:58:24+00:00","Merge pull request #162 from tobykurien/master
+
+Couple of fixes
+"
+"8e3dd1767571424cce72d5a9ef149e1ba9a3d3b3","2014-10-20 10:43:25+00:00","Restructured Changelog.md
+"
+"2ad1ebc1581de3e02ba43294c03d9476cf704c5e","2014-10-20 10:54:29+00:00","Better readability for Changelog.md
+"
+"f8ef664c7ae89d2f02a5a0535eba84232b097fa7","2014-10-20 14:54:42+00:00","Added links and commit hash codes
+"
+"057f8cdafd5519873f044cc81a9214391cc98e83","2014-10-20 15:00:05+00:00","Test if moving commit hash code breaks link
+"
+"34b1db3fa179c2ff2a2e103dc6372ced4966187b","2014-10-20 15:12:56+00:00","Added horizontal lines
+"
+"dec7908f54472979eef97566b8a057d33948872e","2014-10-20 15:17:02+00:00","Removed commit hash codes
+"
+"822578474e0224089dc20ce8c5a44946c1ada163","2014-10-20 21:36:38+02:00","Cleaned SCREENSHOTS
+"
+"8c5f8f2a4c522b6a9ab674914f8957c5d70f2bd8","2014-10-20 21:37:19+02:00","Updated SCREENSHOTS
+"
+"0e7525aacffbe02521dc82d4458a9b82698fc20f","2014-10-20 21:39:12+02:00","Updated Teaser
+"
+"b0d4c021abe4fe076897df3d0449214331e4e8d9","2014-10-21 01:05:01+03:00","Updated text fields in DbViewerFragment.java
+
+Updated text fields in DbViewerFragment.java with few coments. Need more
+invstigation of RSSI, RAN and Average Signal.
+"
+"e3032aa8e0dad80e0a675dd53f96e2bb82e9a7df","2014-10-20 22:53:04+00:00","Update CHANGELOG.md
+"
+"7e9a7f1c78f920d26b8271b1598231de0e0182e0","2014-10-25 15:30:05+03:00","Update AndroidManifest.xml
+
+Added MODIFY_PHONE_STATE in order to support ICC (SIM) related commands.
+"
+"3d7613e5b074304ee343c0b50242798554801f5a","2014-10-25 22:42:25+03:00","Create DATABASE.md
+
+Added database related info file. WIP
+"
+"612bcc08923f7c36ad2079f27b19293983af8383","2014-10-25 22:59:36+03:00","Update DATABASE.md
+"
+"b5854569d6f0b4d346a4ad5be070b5049f734aed","2014-10-26 01:40:18+03:00","Added documentation directory
+
+Added a new directory called DOCUMENTATION where we keep all files and
+images directly related to the AIMSICD documentation.
+"
+"ad9c7e75c359f6738c027cd61c31d7704bf089fa","2014-10-26 03:16:58+02:00","Tried to make some minor fixes
+
+- Changed a few default values to simplify debugging
+- Tried to fix ATCoP (still not working)
+- changed DB file name to aimsicd.db
+- added some comments here and there
+"
+"d07b9a886ecc93886e11ed434126b2576db60666","2014-10-26 10:24:31+02:00","changed msgLong and msgShort to always find the mainLooper to display toasts
+"
+"6a7eafeeb9145e98200fea6dbd68174256d88070","2014-10-26 10:25:07+02:00","added error display for previously-silent error message
+"
+"d18b44bd68c86f750a59e2cb247fc636c1a5f7a8","2014-10-26 11:31:25+02:00","updated map pin icons, changed colours as per https://github.com/SecUpwN/Android-IMSI-Catcher-Detector/issues/166, added neighbouring cell info to map if available, added phone state listener to update the map when cell info changes
+"
+"40adc825a2518a1054a8ceed4b8ac748ce592fb4","2014-10-26 11:50:19+02:00","experimental feature to send logcat output via e-mail
+"
+"84aafac375c18b0e006f3e48f24c88efe3e677b0","2014-10-26 11:52:16+02:00","Added threading to 'send bug log'
+"
+"a3b502856086cd3da6d7165ffad9a4d6021350f2","2014-10-26 11:22:24+00:00","Merge pull request #167 from tobykurien/master
+
+Updates and Fixes for #166
+"
+"4fd6169562c074aedb967c329c4d0d72c48efedb","2014-10-26 12:00:49+00:00","Update CHANGELOG.md
+"
+"29e2db615778327f5d1a4e829cef3eafff58f5fb","2014-10-26 15:56:08+01:00","Refreshed high quality Sense Icons
+"
+"5fd0262d5996f39b61425356ef83fc908f24cd1d","2014-10-26 16:49:17+01:00","Added White Style Icons in High Quality
+"
+"ab2893f20f893578083e708d4e48a7a9661f91cd","2014-10-26 18:00:34+02:00","more string fixes
+
+Just changed some text and comments
+"
+"fa45072f51bbce3a449d29a902e09a59151b1b32","2014-10-26 17:14:59+01:00","Added Flat Style Icons in High Quality
+"
+"5c2cf942789d53eef210b447171e355cfa7d511d","2014-10-26 16:32:31+00:00","Update CHANGELOG.md
+"
+"cd7ed26599e892fde93750fa0aca5563c3338fcd","2014-10-26 23:00:09+02:00","Updated Development Roadmap and Application Goals
+
+Rewrote a major part of the Application Goals and Development Roadmap.
+"
+"f583eecc9be43c27acee22db352e6697bed33199","2014-10-26 23:01:38+02:00","Update README.md
+"
+"1e764bfd670329319590eb750e2c11d455bf1234","2014-10-26 22:54:55+00:00","Spell-checked @E3V3A's Development Roadmap
+"
+"6c8eba23134bbfc5274a0d80bd74e2f295f62d51","2014-10-26 23:30:11+00:00","Added badge for Development Stage
+"
+"04547f0ff3c9b1d0afae7014f3e57e6e9be7da9c","2014-10-26 23:36:54+00:00","Added badge against GooglePlay
+"
+"1e2dac3070418e1b62cbdc9c7c9d250d47d963fc","2014-10-27 03:46:56+02:00","Attempt to auto-rename APK
+
+Failed attempt to automatically rename 'app-release.apk' to
+'AIMSICD-0.1.24-alpha-b17.apk'. Instead get 'AIMSICD-null.apk'
+"
+"25c7783a5467ad1e285915d5e9f21542121db4ff","2014-10-27 02:46:33+00:00","Update strings.xml
+"
+"972698fe62ef85486f098611e12851223175d2d8","2014-10-28 03:22:01+02:00","Added SIMAlliance permision
+
+We may need permission to use SIM related features from the Open Mobile API (OMAPI), but we're using UICC, so not sure this is still needed or even supported...
+"
+"634a30940ba3d041270b3874dc6369b4a5e70712","2014-10-28 06:23:09+00:00","Added Coverty Scan (#169)
+"
+"7890a65a7c2769a3da0a485be1af38c5a48e6bee","2014-10-28 07:38:25+01:00","Launching Coverty Scan
+"
+"f6d7b981194609a132c4f0653c66ceb9c27bd5d6","2014-10-28 17:19:01+01:00","Slappin' Coverty Scan
+"
+"4b025c3fc66a1dac70fe2c6812a3d500d7a50b69","2014-10-28 18:51:14+01:00","Kickin' Coverty Scan
+"
+"295a9b8f7ee47a3d9d071f0c872de5fcda0d10c0","2014-10-29 00:30:37+00:00","Changed Coverity Scan badge colour
+"
+"8c9869a743fa0afa7c9c6902567a4f7ba09130d3","2014-10-29 01:37:31+01:00","Added developers to be notified
+"
+"cd1b3dedb439047bd414388a08f1ae70aff85a98","2014-10-29 01:19:59+00:00","Expressed gratitude to our Sponsors
+"
+"2dab8636d3af461e7f09c66e954ace314f827987","2014-10-29 07:08:02+00:00","Improved banners of Sponsors
+"
+"a100c33041430449d786a917926dd006636942bf","2014-10-30 03:16:10+02:00","Added pseudo-code for importing versionCode/Name
+
+Added comments and pseudo code for importing versionCode and versionName from AndroidManifest.xml.
+Need fixing the functions and testing the use. Is this the right way to do it? (Seem there should be an easier way to do this.)
+"
+"a8de1bcebeafd8306be5c6f255085d8eecb94bb2","2014-10-30 21:19:40+00:00","Changed badge color
+"
+"a7ddef2b3ad30e61d5ce9c55a0df6272eac7cd48","2014-10-31 16:10:22+01:00","Refreshed PROMOTION folder
+"
+"c36706186104c61f1b8f40ed5e4b5e80b9529e04","2014-10-31 16:11:45+01:00","Refreshed DOCUMENTATION folder
+"
+"273d7df965b2860607ebff0f63378bcddecaf167","2014-10-31 16:50:54+01:00","Erased hyphen
+"
+"4b0ed5657b4780ca32b0c75a7d6331cc099a8504","2014-10-31 16:51:10+01:00","Erased hyphen
+"
+"93db3f4441ce3cef13b937eadf4987f9729fe9bb","2014-10-31 16:52:12+01:00","Added README to DOCUMENTATION directory
+"
+"16e9e3e0235ca08d292c9556c1a9fd0deeec910d","2014-10-31 17:05:20+01:00","Removed file extension
+"
+"2cd6b4630eee335d74a6b0e5ac0c5d7fb799541a","2014-10-31 18:17:09+00:00","Update CREDITS
+"
+"8b60b4b651829fded0dac1edbe12ab962f01d9b4","2014-10-31 18:55:57+00:00","Added www.scanova.io to our Sponsors
+"
+"f4cfcb9698f90d9d706d3bf7f84ee90511d14c6b","2014-10-31 20:10:51+01:00","Added SKULL QR Code Sticker for printing. SPOOKY HALLOWEEN! ;-)
+"
+"77cdd4082137a836c0360daf069c1b69ab0035f5","2014-11-01 17:15:21+02:00","updated About screen as per https://github.com/SecUpwN/Android-IMSI-Catcher-Detector/issues/132
+"
+"c3e7b33c753f5622db1856abead951a35321f7a9","2014-11-01 19:00:11+00:00","Merge pull request #170 from tobykurien/master
+
+Updated About Screen
+"
+"3f0e58574d03b1b5e6d3aae6c4040f4f6c4e7799","2014-11-02 18:14:40+00:00","Changed banner of Sponsor
+"
+"2f1df575a8e240155ad996190fcf8414565b160c","2014-11-03 01:23:47+00:00","Update about_fragment.xml
+"
+"b7e19d635a676e45a928da4bf5de11b9d87fbdd8","2014-11-03 01:23:50+00:00","Update strings.xml
+"
+"507b76ab4fbffe8110e6d72da134f7abdb8edbba","2014-11-03 04:22:06+00:00","Update strings.xml
+"
+"34d47eac0d05e4cdd2253632e2482d364a15a0e9","2014-11-03 04:22:21+00:00","Update AIMSICD.java
+"
+"ebae250dd90d2435bf2de2c6f5c89f67fce06493","2014-11-03 04:34:07+00:00","Removed unused GooglePlay strings
+"
+"222615ac4c79c63c9aa0deaf003dd3212ca1ce45","2014-11-03 04:49:25+00:00","Removed unused GooglePlay code
+"
+"da530dfa21ef42322529bf8f23c2351fc6f4a438","2014-11-03 05:12:34+00:00","Attempt to fix Travis CI builds
+"
+"83d5399de7d4736c68a239f3d27a55cc75b6be86","2014-11-03 05:39:38+00:00","Another attempt to fix Travis CI builds
+"
+"62c13570914573409ca9d31acf5365f3435232bb","2014-11-03 08:39:16+02:00","updated version for release
+"
+"9e75feca30bba89928c4564dbce4be0407675f1c","2014-11-03 06:43:11+00:00","Merge pull request #171 from tobykurien/master
+
+Updated version for RELEASE
+"
+"1912504110a9e5a7a184cd3f1f618d4d3ba6fd31","2014-11-03 07:25:05+00:00","Update strings.xml
+"
+"c25ae90f9a2142aca246fa57c33277224ea17535","2014-11-03 07:31:01+00:00","Update about_fragment.xml
+"
+"0e36261763468f1d3b59bd54104924e8ea465f50","2014-11-03 07:41:57+00:00","Added @E3V3A to receive Error Logs
+"
+"4f30ef547a394abc4890c6d9f52df63ace89f876","2014-11-03 10:36:43+02:00","updated preference default values to match preferences XML default values. Fixed missing space in version text.
+"
+"2f7f72ea95b76a99fd6210522ab9787ffa756f4c","2014-11-03 08:47:19+00:00","Merge pull request #172 from tobykurien/master
+
+Final touches for Release
+"
+"a6e6ca519b5b97ba037b75e2ae149a1ae362538f","2014-11-03 08:59:41+00:00","Update CHANGELOG.md
+"
+"fcbc2cbb88475bf772b75a447eb59c2d77b3ac06","2014-11-03 09:02:45+00:00","LAUNCHING official stores on APTOIDE and F-DROID
+"
+"78b89aa13d6bd4679a10ced01019d37eb9759baf","2014-11-03 09:20:31+00:00","Smaller banner for F-Droid
+"
+"a02d7486969984521e20d01d5cfd3b970ce6d42b","2014-11-03 09:27:06+00:00","Corrected banner sizes for Aptoide and F-Droid
+"
+"20c606d2a16faa9bd295f8e44763593623ac6671","2014-11-03 15:41:55+02:00","Update AIMSICD.java
+"
+"86c86fb6d1a4feb0b40941bbcafbeba4bd8bf2d9","2014-11-03 16:05:36+02:00","Update AIMSICD.java
+"
+"14eb5909dfdfdce28612680a94c21b1e3c5a65de","2014-11-03 21:06:28+00:00","Update CHANGELOG.md
+"
+"280a98bb09e17eb0ab462de9d45fad0902d04dd7","2014-11-04 12:32:20+01:00","Update SCREENSHOTS
+"
+"fb14de26e3f1ff95ecc258751d8fd3fccc3331fd","2014-11-04 12:49:05+01:00","Update Banner
+"
+"efb9e7623132e74233a220c7f388ec979eb95ef2","2014-11-04 12:49:34+01:00","Added Banner as SVG
+"
+"a6d66f25731b1f6f4ca69f1ab2ed81e53437c20f","2014-11-04 12:13:25+00:00","Update CHANGELOG.md
+"
+"fd02636dcc3194d68a65f37c2d57efc8220436ad","2014-11-04 23:28:28+00:00","Testing Maven commands
+"
+"d43ae40201fc7b9247fad16f3e42cc312ede5555","2014-11-05 10:26:19+00:00","Update .travis.yml
+"
+"611d51f88f4c059e92cc226790437d91de6a8116","2014-11-06 05:28:00+01:00","Enabled full view of README
+"
+"85c7a23b2de0ada09ece75abc442d8eccbd7c321","2014-11-06 05:25:43+00:00","Create signing.properties
+"
+"f536538eaa3020878b29c831b73392b5ae00846c","2014-11-06 05:25:51+00:00","Preventing upload of signing.properties
+"
+"84dde2ae3c35772ffc21394ee59388eadce2b4ec","2014-11-06 06:43:34+00:00","New attempts on version and app name update
+"
+"5ef09ee1a2050888fda73e9b791fe02be138f431","2014-11-06 07:12:24+00:00","Attempt to fix Travis CI builds
+"
+"32e11a458ada0dd35ede41e33933cbce48494d52","2014-11-06 23:09:26+00:00","Update README.md
+"
+"0bd85b69d156eea7f5473b910191112226f06227","2014-11-08 15:03:52+00:00","Removed Crashlytics
+"
+"f3002eef6cf523a7f0ca35861dad3cf2b2500e0a","2014-11-08 15:21:58+00:00","Added @andr3jx to the core team
+"
+"cc558eec5adc478e29be4b8fb89db2831269c280","2014-11-08 15:34:24+00:00","Ignore duplicate files during packaging
+"
+"9e015d7930830f54bec00dadd27c284534602725","2014-11-08 16:03:07+00:00","Really ignore duplicate files
+"
+"c44652250f55cad625fbc25e7a083265817881d9","2014-11-09 20:40:14+00:00","Switched badge to Development Status
+"
+"f6e81470095368484f12a89d59b7c027b2f48e53","2014-11-10 00:47:24+00:00","Update build.gradle
+"
+"f1470bfcac4ed2d5347d95edd7eeba1c57b15682","2014-11-11 01:51:20+02:00","Create FileTree.txt
+
+This UTF-8 file contain the tree view of all the relevant App source files, it is used to briefly describe what each file is doing and what it is used for.
+"
+"4941cba94eba76e1d5bc2ccd69c5d65960362b77","2014-11-11 21:23:17+00:00","Reverted to working version to fix #175
+"
+"ef87fb63573fcdeb21ba4087f42a6267b275432e","2014-11-11 22:09:24+00:00","Added release signing using signing.properties
+"
+"2d7d45a62254006591ae93519d64b76769f32871","2014-11-11 22:30:27+00:00","Moved release signing
+"
+"ca644e7c922b2d2939ea7ee135718c9bc21eeeb9","2014-11-11 23:11:23+00:00","Removed release signing to avoid failing builds
+"
+"31df7f0818bade17216429fd53a41f7a8af79df6","2014-11-12 06:40:20+00:00","Hardened Travis CI builds
+"
+"4e2228a6d0eafea6eb3ebed66639471b76fb31c4","2014-11-14 04:55:41+00:00","Added Secret U.S. Spy Program. Thanks @scintill!
+"
+"8b0c2dd6008ba7309f1040b5d77a7d5ab4a4c2ed","2014-11-14 17:37:14+00:00","Updated badges of our stores
+"
+"0992d37ff4e8d7992538e38ec7061b59d42ba217","2014-11-14 17:43:41+00:00","Stopping unnecessary services
+"
+"c90f0aa9368c257f83c7643912d6a20439df9a1b","2014-11-15 10:47:21+00:00","New attempt to add release signing
+"
+"250fada3fa568e566a548a4477f088f1403c5122","2014-11-15 10:53:35+00:00","Removed release signing again
+"
+"6daec5e3c8e1b92b2e7b1384301023300d4c9580","2014-11-16 18:56:43+00:00","Added inspection of running services
+"
+"8c0af2575f5c53e605e29af2866eb1eacf13f5b6","2014-11-16 21:44:04+00:00","Added note on code comments from #163
+"
+"21b51b4d5e6d7fb2a3de4fe1374806caabc1ff3e","2014-11-17 07:31:08+01:00","Enabled more compilation details
+"
+"016fd72a83cedc74fc51459a67fbdf11d532d853","2014-11-17 08:01:15+01:00","Added updates to avoid breaking builds
+"
+"056a7e4ce8a860f3edeb6428d21f13d7672eaac5","2014-11-17 19:56:37+02:00","fixed newly added apk naming code
+"
+"a69299a637f047b5b2415b3be0377935ba2382fe","2014-11-17 18:44:08+00:00","Merge pull request #177 from tobykurien/master
+
+Fixed newly added APK naming code
+"
+"2c4c0c94fc2849473a9ec2fb9ce6763ad7be8f07","2014-11-17 19:16:35+00:00","Adjusted description
+"
+"b563fef3f3aa7c0b04878ff0ee032569ff652981","2014-11-17 20:11:45+00:00","Added a few more descriptions
+"
+"6b324d05adc276771ee18f0dba66948fe0f14bbc","2014-11-17 22:30:26+00:00","Removed clean to save memory
+"
+"1cd2678093029523cd1e3f5208bff6c91de42673","2014-11-17 22:40:14+00:00","Removed unnecessary components
+"
+"37069e9fc8de55c42496c08fd5a397df6bc74525","2014-11-17 22:57:05+00:00","Corrected BuildTools version
+"
+"af613ea8e74283041adc04c3a53affaa4c877acf","2014-11-18 20:08:23+00:00","Changed link to suggest new features
+"
+"f3f7ed7eb823a83d3d5fe729395c9ce38ad478a6","2014-11-18 21:30:09+00:00","Thank you @moonopool from the @piratenpartei! ;-)
+"
+"d03320a28551373c7118bcdc713c86caec1573a7","2014-11-19 16:30:01+00:00","Switched to 'ps auxww' for more details
+"
+"1968ebb02f2770eac0f630253f78a6df5ffdd6a3","2014-11-19 18:52:02+00:00","Removed annoying Coverity Scan notifications
+"
+"b23cb29e1f19da5f2703eb9fa8293d413a84a002","2014-11-19 23:30:58+01:00","Added vertical Banner
+"
+"00d360550a8b61fa1096e04b94fb0c63a10a3bca","2014-11-19 21:28:40-05:00","Move ps auxww to before_install step
+"
+"7ec02e7e985ed513b3bc350dcc47d1c83b0c79fa","2014-11-19 21:44:52-05:00","Move ps auxww after stopping mysql and postgresql
+"
+"6238ad5894a1ca06dfb451d7714cdcc6e687d688","2014-11-20 04:22:56+00:00","Merge pull request #183 from meatballhat/patch-1
+
+Move ps auxww to before_install step
+"
+"2a5f341e98a9838b089bb97fab1ebbb01932a407","2014-11-20 08:51:30+00:00","Added reference to 'Subscriber Trackers'
+"
+"0fdcb1cafd3cd1a3fbee94dccd7c510ef05b3050","2014-11-20 09:07:01+00:00","Linked Cryptome GSM Files. Thanks @Wilfred!
+"
+"a1f96e192fc7f75f64ab7b464b15a55676c05eb5","2014-11-20 09:18:51+00:00","Linked the ACIAPI by the @PrivacyCollective
+"
+"3f5b2ede1cb7bfe6838e31d3f6d9d4c08ee3e894","2014-11-23 11:00:33+00:00","Celebrating ONE YEAR of development! ;-)
+"
+"e1482d3e52b5c76f2e3bf20c6f143684e0fc385e","2014-11-23 16:51:00+00:00","Added SUPERUSER permission to fix #189
+"
+"83dc46b0c3f9bfcf74147b16bc940feb3a9d1ddc","2014-11-23 17:13:44+00:00","Pointed to our WIKI to avoid confusion
+"
+"689db1473cab7ca9ee6bfe4994a0827fd5bbbcf3","2014-11-24 05:35:52+01:00","Added AIMSICD Program Modules
+"
+"e2864d7ceedac2cb8e55ea0ee15319cfb52dc8d5","2014-11-25 05:23:04+00:00","Added ShowcaseView by @amlcurran for #181
+"
+"6599aac7579c9be1d3e1280bc1e0fcd9a31b15ca","2014-11-25 19:57:39+00:00","Giving more memory to Gradle JVM
+"
+"d66e9ba61690b756d3c4fdeb10ebe044267bcf34","2014-11-26 11:58:23+02:00","added record count to default mcc's list
+"
+"33efe9ffc1fdd192816e04985161263a3b70f16a","2014-11-26 12:32:59+02:00","prevented service from starting until the disclaimer is accepted. Removed duplicate code.
+"
+"731c929201da42301db7abd499368b98a04227e3","2014-11-26 12:33:50+02:00","removed proguard gen files from source control
+"
+"1a2da0dbfe746f0ecdd6c3fa85c1eeb217fb16cd","2014-11-26 19:17:18+00:00","Added bloatware removal. Thanks @menschenfresser!
+"
+"acb46d65c025d4151c0cd009683c206259bd9592","2014-11-26 19:18:18+00:00","Merge pull request #191 from tobykurien/master
+
+Some fixes for #168
+"
+"c19180fbae3b95b137706119c46e53504475e20d","2014-11-26 19:27:26+00:00","Crawling to WIP-Internal v0.1.25-alpha-build-1
+"
+"2fc1a2662ef4ae30af452dbe3b5aeb85252df1b8","2014-11-26 20:05:32+00:00","Update CHANGELOG.md
+"
+"29a4109095b00bfd8bdf52608970a075663c68f3","2014-11-26 20:08:31+00:00","Update CHANGELOG.md
+"
+"83fe21b5024c846264b2c6fd8ad4618a29f03ae2","2014-11-28 07:59:05+01:00","Added Header for General Overview in WIKI
+"
+"6ac4c77924856c1e4a6005fde3bd324ba17d39fa","2014-11-28 07:29:10+00:00","Added Titles to fix #184
+"
+"3f869a2c34279b9ea7aa99dd367889f98b76c4a7","2014-11-28 17:39:04+01:00","Added Changing LAC to explain Status Icons
+"
+"ae48e66e138c94f0df66143a8e4a528da1dc7816","2014-11-28 19:38:15+00:00","Giving even more memory to Gradle JVM
+"
+"6c1a9a912a6cf4c9a2fd4467b137262fc7c89ff4","2014-11-28 21:27:34+01:00","Disabled GAPI
+"
+"81938efbdd441a8ca2fabc169cea1beeca3be254","2014-12-01 05:35:14+00:00","Merge pull request #193 from andr3jx/master
+
+Disabled GAPI
+"
+"cf04b1eca20408236bb0187e754f99230a7dc373","2014-12-01 16:33:27+00:00","Update CONTRIBUTING.md
+"
+"ca9266f5edb40b57254550368fdfa6e86e7551eb","2014-12-03 15:30:04+02:00","minor mods to text
+"
+"240f8b05652a58a54ce098761a27a87e1ebffd4b","2014-12-04 23:34:30+00:00","Sorted Permissions
+"
+"f6485a7734a5f78ef2b020048cd2392c5a3e2c24","2014-12-04 23:38:02+00:00","Added permission ACCESS_COARSE_UPDATES for #100
+"
+"f97b2969fbb529de24ce674844d5f0f6e703a65e","2014-12-05 11:28:12+02:00","updated gradle config to use plugin v1.0.X, so that it works with latest Gradle v2.2.1 and Android Studio v1.0
+"
+"364ed0aaee5db0c0e2881201e254309d67926fe2","2014-12-05 11:36:38+02:00","added null guard on OCID api key
+"
+"d8f283c801e636c2688295ba38848d37dc5940a1","2014-12-07 08:29:18+02:00","added comments about bug https://github.com/SecUpwN/Android-IMSI-Catcher-Detector/issues/178 and submitted logs
+"
+"60dccae22addb14ccc42f0f7303d9fe714744c41","2014-12-07 10:34:04+02:00","Added ability to  request a new OCID key from Preferences
+"
+"87a6f346dae1f519d080eb4d06d70665c125478f","2014-12-07 10:42:07+02:00","Fix for https://github.com/SecUpwN/Android-IMSI-Catcher-Detector/issues/194
+"
+"ca2d61663713c27b0cfadee9195c616e16627709","2014-12-07 10:44:30+02:00","Oops, forgot to add new files to previous commits
+"
+"1b45b88fd9d5de3f49a4267d82536fca5675ae1f","2014-12-07 11:03:16+02:00","updated build tools in travis
+"
+"7b1860d66eb7f7a8238e0fb14845e019ca72d472","2014-12-07 11:06:58+02:00","updated build tools to same as main project
+"
+"4278f81503b14a2e1fa6fd27fb1cc48c06faee23","2014-12-07 12:07:51+02:00","added test for lac change detection (low-level), and a dummy instrumentation test for basing future tests on
+"
+"8b4c1271fbb45560a13ba43b4b1392004a513068","2014-12-07 12:18:39+02:00","removed assertion for title, as it might fail on first-launch (e.g. in Travis-CI)
+"
+"ada5df9b0eacec4fc7f67d0ac2e9fdd4e0307fd9","2014-12-07 12:38:51+02:00","added testApplicationId
+"
+"58927a60e3ddb993d612f04db753826af92fd14d","2014-12-07 12:20:36+00:00","Merge pull request #196 from tobykurien/master
+
+Updated build for Android Studio v1.0/Gradle v2.2, implemented 'Request OCID key'
+"
+"fc86e03d95e42b2c329681cd6e69308dc7df496c","2014-12-07 12:25:25+00:00","Sneaking to WIP-Internal v0.1.25-alpha-build-2
+"
+"b809f71e4e7491054d8f0418c0fe74c2a8f842e8","2014-12-07 13:25:56+00:00","Update CHANGELOG.md
+"
+"14e84fdddf8af984241841d406a94613e9a313ac","2014-12-07 14:02:49+00:00","Polished CHANGELOG.md
+
+Let me know how to further improve it!
+"
+"67f986113653e41239345f6acb731b2b6d9dd2b6","2014-12-07 16:25:54+02:00","debug logs activity work-in-progress
+"
+"954c9a2bb510268d17d0725c407662ad07799f4e","2014-12-07 16:29:15+02:00","Merge branch 'master' of git://github.com/SecUpwN/Android-IMSI-Catcher-Detector
+"
+"1ce7f3dd51829f808c7604f3790172e25d3591fe","2014-12-08 06:59:58+00:00","Prepared Debugging Menu
+"
+"7a1350adc97da3c8938eccdc7b881c90adebdfda","2014-12-08 09:22:39+02:00","removed debug log
+"
+"e85252ee212735ac147f783faaf1381f4808131f","2014-12-08 09:53:10+02:00","error message now displays for longer
+"
+"b5321186a143ca36c5646994e62ab498e6a27807","2014-12-08 09:53:40+02:00","specified UTF-8 charset for requesting key from OCID
+"
+"8a86c67d2796be622a2500351b6e61e1d6e3824f","2014-12-08 09:54:07+02:00","added 'Debug Logs' screen to view, clear, copy, and e-mail app logs
+"
+"b38aa8cfaa93c763c0a37f808b7cddec0ac8f399","2014-12-08 09:55:23+02:00","removed debug log
+"
+"8837396f263f21a34f466e4755a391aaebee3cb0","2014-12-08 09:59:15+02:00","merged upstream change
+"
+"84d1817ebb6ab8ca6c38ce405baf68f8e4668909","2014-12-08 10:08:39+02:00","merge and refactor upstream changes
+"
+"503850bf24f1bcfbc8690546ed59fbb466274ce0","2014-12-08 16:25:17+00:00","Merge pull request #197 from tobykurien/master
+
+Added debugging screen
+"
+"40a2c9babbee94ac6e8f9ec1d25602df20da173a","2014-12-09 05:00:30+00:00","Attempt to fix failing Travis CI builds
+"
+"f0556b0a1d7a82ca2051a1d33a6ca5b7dbf3ee80","2014-12-09 05:11:45+00:00","Fixed missing symbol
+"
+"032dcdc617970345c53d0215341fb43a76e75fa9","2014-12-09 05:28:20+00:00","Jumping to WIP-Internal v0.1.25-alpha-build-3
+"
+"a36d6f4bae4aa9c4f08bf284ebd3b74f2ea567e4","2014-12-09 05:49:33+00:00","Update CHANGELOG.md
+"
+"7045d38bae62696898b9296c48d40cf6c307f686","2014-12-09 07:31:01+00:00","Added example on code comments to fix #163
+"
+"decfd65e2dd8d235f6fee7b3de662233e30cc389","2014-12-14 22:38:48+00:00","Added espionage on norwegian politicians
+"
+"8d0cd58bb767a5ee9383dda1a4565f7efc56a28a","2014-12-15 00:23:42+00:00","Changed wording on current News
+"
+"fcf44a601eb17a74b524ddffdcb879f3ef61bec6","2014-12-15 10:01:29+02:00","removed debug log
+"
+"b94a846bc1daa91a5559f91385f2a5179ebe7174","2014-12-15 09:30:56+00:00","Merge pull request #209 from tobykurien/master
+
+removed debug log to make logs smaller
+"
+"0c55cc71b8ddd44401d8a4c747a5d84f9ede80f9","2014-12-16 09:07:06+02:00","limited log output to 1000 lines to avoid hanging
+"
+"d4ab2652466624eda9cd1b8bb05ded53a7fcda23","2014-12-16 09:24:37+02:00","fix for https://github.com/SecUpwN/Android-IMSI-Catcher-Detector/issues/207
+"
+"d996b54f43d947ddc9ca9b3452dab3b349954330","2014-12-16 09:29:03+02:00","close OpenCellId dialog on success
+"
+"44acdf81eaca6d6b2bfa4315e24959ab256159a1","2014-12-16 11:10:15+02:00","map viewer now defaults to MCC location on startup
+"
+"30a86f7722ae331aad543d4f3f1abaebc8bee084","2014-12-16 10:35:45+01:00","Merge pull request #210 from tobykurien/master
+
+limited log output to 1000 lines to avoid hanging
+"
+"858ed7619e5ab30ab40c01ac13ff996e2917315a","2014-12-19 04:46:38+02:00","A bunch of comments and text changes
+
+Also trying to fix the map viewer pin info that is:
+1. missing LAC
+2. Wrong order
+Then trying to fix the DB Viewer tables to show more intelligent names.
+Some problems...to fix, so probably wont build. yet.
+"
+"dc5a7b04365b0f07c60600c5d6dbaa3e155975ae","2014-12-19 05:17:28+02:00","Fix text labels in Map View and DB Viewer
+
+Also disabled debug in SamsungMultiClientRil to not fill logcat buffer,
+when not testing.
+"
+"ba74d3ff25313c3897c571927ab10bc822bbb5af","2014-12-19 20:02:54+02:00","Create README.md
+"
+"9dfb446f8725c7b8f28e0b892ffdf3c575cf2360","2014-12-19 22:51:10+01:00","Implemented consistent icon usage based on current security status, this fixes issue #211. Also moved all icon and status-checking out to dedicated static classes
+"
+"6bf1a09720985c5c8d195a1e1dc45361e00fb274","2014-12-19 22:55:35+01:00","Documented changes added for issue #211
+"
+"d53d3e21f20f43b28ab8f099747e716a1b990931","2014-12-19 23:35:20+01:00","Captures a map-loading function in a try/catch to stop a bug that appears some times from crashing the app, ok fix until we figure out the root cause
+"
+"2dff354a27852d954755e260fea6d4abfc0bfcae","2014-12-20 00:18:32+01:00","Fixed jumping log window - issue #207
+"
+"8958e58572908f5e55f396ba29ea328f5d6dfd01","2014-12-20 17:13:11+02:00","Added comment about origin
+"
+"967b60b6ee647c55a6ce2137a772dbd99334ff3d","2014-12-20 23:55:05+01:00","added getter function for DBM for future use
+"
+"2bf75ecdf89f2aad1809f2ed5a6b3be772148213","2014-12-20 23:56:14+01:00","Removed some redudant icon update code
+"
+"063657c98b05d9821af8cea761be58072ade563d","2014-12-21 18:36:05+01:00","Created a BaseActivity class that handles icon update and moved from status-polling to Broadcasts to fetch status changes
+"
+"bc1aeadcd9fc7ff5c0b033bac88d1a306ad101f3","2014-12-21 21:14:30+02:00","Added CHANGE_NETWORK_STATE
+
+We'll need CHANGE_NETWORK_STATE in order to change RAT and some other things. Got the idea from:
+https://github.com/yareally/SignalInfo
+'Samsung broke access to switching between LTE and 3G, as they permanently blocked developers from accessing it.'
+"
+"95c3e4fc15d5656636d1b550da7b61d46ff7d9b0","2014-12-21 21:09:03+01:00","BaseActivity: Update app icon upon opening activity
+"
+"62bf4c785ef019499d6b445c94e31025dc8be7a6","2014-12-21 21:09:35+01:00","Changed MapViewerOsmDroid.java to use the same BaseActivity as other activites are doing
+"
+"2b742137036c241bc9cb9522ad564ec28facd282","2014-12-19 22:51:10+01:00","Implemented consistent icon usage based on current security status, this fixes issue #211. Also moved all icon and status-checking out to dedicated static classes
+"
+"411971ff0be779fc7adad2549bbc80ff90b33691","2014-12-19 22:55:35+01:00","Documented changes added for issue #211
+"
+"777c6808c9a156609035e7e960e14d3945393d4a","2014-12-19 23:35:20+01:00","Captures a map-loading function in a try/catch to stop a bug that appears some times from crashing the app, ok fix until we figure out the root cause
+"
+"507bd3b994d0a99376b838f4c36b51ce2b125fbb","2014-12-20 00:18:32+01:00","Fixed jumping log window - issue #207
+"
+"99496955219f52828c2b3d89b7f83e4aa612ca39","2014-12-20 23:55:05+01:00","added getter function for DBM for future use
+"
+"32dcf94aac6e2d25a41e7d2943c865f6116b6261","2014-12-20 23:56:14+01:00","Removed some redudant icon update code
+"
+"9b754b8bdf7a07393fa5f5b61823231796f22b0c","2014-12-21 18:36:05+01:00","Created a BaseActivity class that handles icon update and moved from status-polling to Broadcasts to fetch status changes
+"
+"1b55a616e7952cb4e28f0f236e8f7789afca31d8","2014-12-21 21:09:03+01:00","BaseActivity: Update app icon upon opening activity
+"
+"715502069198c384e5d3e9045e66e990de3484f5","2014-12-21 21:09:35+01:00","Changed MapViewerOsmDroid.java to use the same BaseActivity as other activites are doing
+"
+"4d81644ab6033db15c91dec30d6f687e075fbad9","2014-12-22 03:57:03+02:00","Merge pull request #233 from scintill/pr-229-rebase
+
+PR #229 rebase to fix the conflict. The issue was just some whitespace changes in CellTracker, where surrounding lines were changed in later commits on the master branch.
+"
+"81c01670dfb9f5463434c077e8c91e3cc2e5556e","2014-12-22 21:19:21+01:00","merge from previous PR
+"
+"4f8830290b167bb39203bcff9042ae4524dd9670","2014-12-22 21:37:41+01:00","Started work on SignalStrengthMonitor
+"
+"2786b30a60a9806a3c0c8f1c10ad7afa0bae20a8","2014-12-22 21:48:30+01:00","testing
+"
+"acfb47a357a7a0db84cee7f2a35a3683b7aac44e","2014-12-23 07:57:14+01:00","Merge pull request #229 from Ueland/master
+
+Refactored Icon and Status status to dedicated classes, fixed random occuring app crash on map page and fixed jumping log window
+"
+"cc158ab0f853286fd03fc2f91ca07467612da655","2014-12-23 07:52:34+00:00","Switched to new Container-Based Infrastructure
+
+http://blog.travis-ci.com/2014-12-17-faster-builds-with-container-based-infrastructure/
+"
+"624087003a2e74d7ec34c16d11ea94e0599567ab","2014-12-23 07:58:50+00:00","Removed blocking apt-get update command
+"
+"ee16520860449b576b5a00f32188d48a4cb15f35","2014-12-23 08:05:35+00:00","Removed even more blocking commands
+"
+"a7152d811ce5a3e7f4a491837b82d2ed25f8cec5","2014-12-23 08:29:32+00:00","Fixed missing Banners
+"
+"6a16f4dc64377f35e3a04f0a98e89c080394755c","2014-12-23 11:47:53+00:00","Update and rename README.md to README.txt
+"
+"bafa33d7b966c000a1778897aba7fed0e9edbc00","2014-12-23 11:51:35+00:00","Expanded README
+"
+"f17f0fd9f030f45e18495fde1961de304f73bfe4","2014-12-23 11:55:15+00:00","Shortened README
+"
+"ef88c32eb05910e5bed5c79df8d129f77f489695","2014-12-23 13:19:03+01:00","Added Generate Signed APK Wizard window
+"
+"0d9cbf8b42a071283e60a2486ee141de8eeb17b6","2014-12-24 00:12:26+01:00","changed my contact details
+
+deleted the link to my XDA profile :)
+"
+"8f75cf6acc7a89a8e8a1fdb5d46f7ab1e6f4dc6b","2014-12-25 15:22:20+00:00","Turning off caching for #236
+
+http://docs.travis-ci.com/user/caching/
+"
+"ce6e39b638124adff50368bacdde89d2dda6e397","2014-12-25 15:48:38+00:00","Corrected Android Target to API 17 for #236
+
+https://github.com/SecUpwN/Android-IMSI-Catcher-Detector/issues/236#issuecomment-68061881
+"
+"ac9a211b2aa42c961c8fd6c4be5e3f99c260230f","2014-12-25 17:12:12+00:00","Lowered amount of memory to 512 MB for #236
+
+https://github.com/SecUpwN/Android-IMSI-Catcher-Detector/issues/236#issuecomment-68107838
+"
+"3f2455ea8c1ae252be002a456e85692a5158eed7","2014-12-25 18:43:41+00:00","Update CHANGELOG.md
+"
+"0d287382a9810c1ad7ee75bd9e4fe3c26846d51f","2014-12-26 15:52:34+00:00","Added encrypted Token for internal chat
+"
+"7b383046f5bbf1763153253f0939cdc5b090887b","2014-12-26 17:46:18+01:00","Attempt to fix looping of container-based builds
+"
+"169cd5b823510399e30504e568397da23b2512ad","2014-12-26 18:41:07+01:00","Improved fetching of Android Target and ABI
+"
+"7fa8fded055ce9e30b5a162e5dcba41456da92ba","2014-12-26 19:47:53+01:00","Relaunched Travis CI notification
+"
+"9dd074d0f248e86fe031ca83b467cb051f1fce24","2014-12-27 12:42:50+01:00","Added code to MapViewerOsmDroid
+
+Now LAC is shown in the InfoWindow on the MapView
+"
+"71b834e4bc6f3931d0b01d3d86478f50e627ba11","2014-12-27 18:05:58+01:00","Renamed SignalStrengthMonitor to SignalStrengthTracker to keep it consistent with other classes
+"
+"f3ad85b73e6edbd5cc254acb5167edd9a18622e9","2014-12-27 17:45:05+00:00","Updated encrypted value for notifications
+"
+"8bf3dfe807b6d0d192ffc43b75c35091f4bc48b0","2014-12-27 19:00:30+01:00","Added SignalStrengthTracker to important places in the code so it is monitoring as it should
+"
+"a64a78fa2697590e5b4d463b432d346b083e991e","2014-12-27 18:17:18+00:00","Reconsidering DarkCoin for donations in #74
+"
+"f02e3ffc6b47aaffd1395c460335dae54a1efccf","2014-12-27 18:41:48+00:00","Added @Ueland to our core team
+"
+"ff247a7a36636a4e9ebd71d2a6d556dc559fde70","2014-12-28 18:02:44+01:00","Completed code for SignalStrengthTracker, still gotta test it
+"
+"1e18c8ef1c1f8a826c0d226db4b4a5e5e873eb22","2014-12-28 18:27:04+01:00","Fixed some bugs detected during testing and changed some default values to more sane values
+"
+"9793fdf29f35832166ff6288d2f17b8825df13f4","2014-12-28 18:29:58+01:00","Code commenting
+"
+"a6e4c48adfa31da889c8de2c0a4bb858417da829","2014-12-28 22:28:12+00:00","Added Similar Projects to Index
+"
+"819b2465afb0886006baaab31ba647a38f1f4d47","2014-12-29 07:47:53+00:00","Merge pull request #243 from Ueland/SignalStrengthMonitor
+
+Implemented Signal Strength Monitor
+"
+"ced8b772ae76fa05f7a9d56165903a7435c7a79b","2014-12-29 07:55:13+00:00","Sneaking to WIP-Internal v0.1.25-alpha-build-5
+"
+"83bcde1d03dd6f2a8b12beeb8e1e1419fd55c871","2014-12-29 08:14:50+00:00","Update CHANGELOG.md
+"
+"2899a27a5fdc5b2fce90b680d1830cd4c354e57a","2014-12-29 19:41:48+02:00","Added some comments and changed log i to v
+
+Added some comments here and there and reverted the log level in
+SamsungMulticlientRilExecutor from i to v.
+"
+"ed834293779cb20d20c68565a628e3e9eaa26e24","2014-12-29 22:02:21+01:00","Fixed issue where signal strength was unknown in some cases, should fix #242
+"
+"a467af647609abb3f34cbdb4d491b5fb32a8a099","2014-12-30 01:52:12+02:00","added comment
+
+Comment about how to list all available permissions on a device.
+"
+"e2fc1ce0894f3ae959d64b40b25dfc336467956f","2014-12-31 01:30:23+01:00","Fixed NullPointerException when getActionBar() returns null
+"
+"25255f929022af07e3fd50dba63b8b19537f50f4","2014-12-31 00:42:34+00:00","Merge pull request #249 from Ueland/244
+
+Fixed NullPointerException when getActionBar() returns null #244
+"
+"e2e9cdb824d334fa740870a342f3b29ea547bc11","2014-12-31 07:20:02+01:00","Added directory for external link pictures
+"
+"8605dfe1cc1668984de9f846891590921318b9fc","2014-12-31 07:26:19+01:00","Fixed two small typos
+"
+"62ecb2f49dada66b6baacc8b330ec063399ce26a","2014-12-31 07:32:07+01:00","Added directory for pictures of IMSI-Catchers
+"
+"946d5e30f90438ae6c3364ea961bd51ff26db601","2014-12-31 12:09:13+00:00","Giving proper credit to @Ueland. THANK YOU!
+"
+"ff95552f677889c00e9acded6e6ac879ee71915a","2014-12-31 12:09:53+00:00","Dressed up for New Years Eve
+"
+"33b50799c42450fe569cb090cb7ac6f9ede75ee0","2014-12-31 13:13:12+00:00","Making us pretty for New Years Eve
+"
+"d5f8b5c2752fd95fb7c28f9da5d9169b8b231531","2014-12-31 13:40:52+00:00","Happy New Year Everyone! ;-)
+"
+"b7f7d49885bcf8754f0252d2b41a3c43cdbd8ec1","2014-12-31 13:45:15+00:00","Merge pull request #248 from Ueland/signalStrengthBugFix
+
+Possible fix for missing signal strength in some cases
+"
+"a2a8147f3f140dbc666a42ee5d8ec93df142e4a7","2014-12-31 21:43:41+01:00","Moved IMSI-Catchers into correct folder
+"
+"0e3958c30a4cdc997dd701db752f823ac831d207","2014-12-31 20:39:57+00:00","Updated link to IMSI-Catchers
+"
+"c01a2883712b7a1f3c0a0a432bb49fbf60472f79","2014-12-31 21:47:02+01:00","Added pictures for Glossary of Terms
+"
+"9428abba9a663a0170fe69b2c44de60e166ccfa2","2014-12-31 21:55:04+01:00","Added Ciphering and Silent/Stealth SMS
+"
+"e80c3645988865eb35a4e51666c52ecb40510077","2014-12-31 21:59:35+01:00","Added pictures of ARFCN and BCCH
+"
+"31ccb5288bc1fbbbb833bacebb5eefb4c90511b8","2015-01-01 15:10:46+02:00","Latest compile and update to b6
+
+none
+"
+"293850cadd524dabf86ded8db4223e0c4d757a13","2015-01-01 13:44:24+00:00","Update CHANGELOG.md
+"
+"814033630a829e1a258598982b481f85bd6f883f","2015-01-01 15:16:52+00:00","NEW RELEASE OUT NOW! HACKY 2015 EVERYONE! ;-)
+"
+"7d2d9d09ab8340c8e9631a7e92c5adf1e129a742","2015-01-01 17:50:07+01:00","Updated SCREENSHOTS
+"
+"755663de4fbda19682240833def5ef6205036783","2015-01-02 06:22:03+01:00","Refreshed Teaser
+"
+"74e0776c941d4623309ef6b939026cd0a4c9d7a6","2015-01-02 14:06:36+01:00","Moved PAPERS to @SpiderOak to fix #213
+"
+"220381c2c63551760628a7510bc3afa9aa731437","2015-01-02 20:46:05+00:00","THANK YOU for your wonderful support, @dalibor!
+"
+"a5012f6a550662803d0e20d1c58fb24ad10e59f9","2015-01-04 08:53:54+01:00","Updated links of PAPERS to SpiderOak
+"
+"6fb6ccdb8bc1474859560c8bbcd8d1a42c44f1c0","2015-01-05 00:46:34+02:00","minor comments
+
+Added some minor comments. First build after removal of PAPERS.
+"
+"cd4a3fa1d637fad7b5220dab4cb0c0ad83e29981","2015-01-05 13:27:04+02:00","AS error message
+
+Screenshot of the missing .idea folder error, and how to resolve it
+after deleting local repo and re-open in AS.
+"
+"5db1d1466e676eea43ac33c925e118e118ffb051","2015-01-05 12:20:50+00:00","Removed unnecessary debug report
+"
+"e5e7e348aec7c20efd105b2bbdbe69774a078f13","2015-01-06 01:40:34+02:00","Changed map pins and toaster timeout
+
+Changed the map pins to round dots and use msgLong instead of msgShort
+for the 'contacting OCID' toaster message.
+Disabled persistent service startup by default. (Dev annoyance!)
+"
+"1ed565e3b1fefa5d6e4119e84c9b0417d37af09e","2015-01-06 17:50:01+00:00","Update CHANGELOG.md
+"
+"b986baa1f425b8d85fc6f3ee19e5e6d644b86ac4","2015-01-06 21:41:21+01:00","Added some logging
+
+Added info:
+- CellID to ChangingLAC.
+- Found new Cell that is not in OCID
+- Cell updated in local db
+- Cell insert into local db
+- Cell deleted
+"
+"ac06ca18bd3ed1aa99530ad8bc4e85a103f1c5f3","2015-01-06 22:04:36+01:00","Implemented db viewer for measured cell signal strength
+"
+"9b102dc3db446d077e3c8e17e11eb4315503c649","2015-01-06 22:17:34+01:00","Better saving of timestamp for signal detection
+"
+"c50ef9bbd5a4c939b71dc16030af0e30d288a951","2015-01-06 22:21:18+01:00","Code documentation
+"
+"5827f86271dd36fb5e7b9f8d6844ff3ade4553b5","2015-01-06 22:25:46+01:00","Re-adjusted some levels for Signal Strength Tracker
+"
+"6d9de9eda033456d715b0df125b973371b28605d","2015-01-06 22:43:13+01:00","Changed Log.i
+
+Changed Log.i to Log.v
+"
+"35a1150669f5f453451be3afa6e85c751db98666","2015-01-06 22:54:47+01:00","deleted some of my code again
+
+4 rows of Log.i
+because of error: cannot resolve symbol
+cellID and cell.getCID())
+It worked before... will add it again later...
+"
+"dd8afd7a69ca4971156b10f9fcdb26af24bfaa94","2015-01-06 22:08:09+00:00","Hopping to build 8
+"
+"3fafcf5b70af668100117d7e45769d6c2c171a81","2015-01-06 22:35:21+00:00","Merge pull request #261 from Ueland/master
+
+Implemented DB-viewer for signal strength measurements collected
+"
+"6a3b80a0d5337b3d29150996129e983473dc3721","2015-01-06 22:42:30+00:00","Unleashing WIP-Release v0.1.25-alpha-b9
+"

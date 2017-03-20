@@ -1,0 +1,183 @@
+"commit id","commit date","commit message"
+"4b9038d356be3ab4c17c71f231c17d9a599ec584","2012-12-27 15:36:03-08:00","Change Scores from Strings to Numbers
+
+The score values should be treated as numbers, not strings. Better typing
+should help prevent exception errors. Now, the MAL Member Score is a
+float and the user's score is an integer.
+
+Also, since there is now a dedicated 'card' for scores, this commit also
+removes the display of the member score from the general info card.
+"
+"4eb3274e2f89bde7973be989a26c662d299c0eae","2012-12-30 13:24:33-08:00","Added Android Pre-3.0 Menu Icons
+
+For pre-3.0 devices, the popup menu uses icons. This adds platform-styled
+icons for the menu. The icons are based on the more modern icons, but
+with the older design styles applied.
+"
+"7a44ad4e72fc1bf7a0ad1e95309d3441b22258dc","2013-01-02 02:08:59-05:00","Score Bar and Submodule Fixes
+
+Added the logic to set rating after the score has been downloaded.
+Also, added ignore = dirty to .gitmodules to work around an issue with
+newer submodules and newer versions of Git.
+"
+"31f2eeb50da385c2579c10725ce1c48c1454fd00","2012-12-23 16:39:44-05:00","Permissions for 3rd Party Apps
+
+This commit adds a permissions,
+'net.somethingdreadful.MAL.permissions.UPDATE_MEDIA', that 3rd party
+apps must request in order to use Atarashii to update MyAnimeList
+through Atarashii. Also a permission group, .USE_ATARASHII for
+.UPDATE_MEDIA and any future permissions we might add for services we
+extend to third parties.
+
+Also: In handling support this way, we can attract users by having only
+one app handle their MAL account, as well as creating a
+developer-friendly way to easily integrate MAL - through Atarashii!.
+"
+"876885ef6a00106a2905e8474755343ab86cc90c","2012-12-23 16:47:26-05:00","Dummy implementation of UpdateReceiver
+
+Added a dummy implementation of UpdateReceiver to test sending a
+broadcast from another app.
+"
+"afa883c5047e97f87751f7261e6ffd149e01eac3","2012-12-23 17:46:36-05:00","BroadcastReciever now recieves properly
+
+Fixed a typo in the manifest for the permission it requires that
+prevented it from working. Amazing the difference a single 's' makes.
+"
+"9a9950cf67faabd223efcd638f322af208d6df6a","2013-01-02 11:02:58-08:00","Added Back About Action
+
+Added the about action removed in 31f2eeb50da385c2579c10725ce1c48c1454fd00
+"
+"588102f2174754e9af7cc6c9a635e1a83fc66873","2013-01-02 18:45:14-05:00","Status Card, Volumes on Manga Progress, Tuning
+
+Added a status card, volumes progress for manga, and
+tuning the font sizes to be less big. As of this commit,
+volume progress and the status card don't function yet.
+"
+"a69e1e530dabd1043e307c0532f4cb33e7e90957","2013-01-02 20:23:11-05:00","Fixed Status Card
+
+Now displays status properly. Forgot to wrap the textview
+in a layout, so it's ID was being renamed when it was
+inflated. Gah.
+"
+"f11c0dda5b629e4cc9524109e64f0cd07d6fd90e","2013-01-02 21:27:01-05:00","Added Status Dialog
+
+Not functioning yet, and design not final. Touch the
+status card to open it.
+"
+"8d4acf5af7f4eab89da3957a8412bdd3db023753","2013-01-03 13:21:30-08:00","Fix Method to return Total Volume Count
+
+The method was returning the total chapters, not volumes. This fixes to
+return the right value.
+"
+"4bec3bb7d16f0f2e96b2a09904d78fce4af31670","2013-01-03 13:22:29-08:00","Set Volume Progress and Total on Detail Card
+
+Actually update the detail card with the user's volume progress and show
+the actual volume total for the item.
+"
+"f887d0e6c21fac0c3893583cf8326a8715b3294c","2013-01-03 13:32:05-08:00","Remove Count on Completed Items
+
+It is kinda silly to include a count on the grid/list for completed
+items. This change removes the count. Users can always poke into details
+to see if they 'completed' the item without actually finishing it.
+"
+"e993d69a769db4f5deb10c397087d5f93f990dbf","2013-01-03 17:01:36-08:00","Update Database to add Last Update Column
+
+This column will be used for the delete sync feature (where the
+application will delete items that were deleted through the service
+website).
+
+Also updated the onUpgrade logic to allow for updating the db schema
+from several versions old.
+"
+"de269725b484d39450456b6c54a0882becc41f24","2013-01-03 20:03:41-08:00","Added Rules for Git to Normalize EOL on Files
+"
+"849aa662f230d25bf0e09c6248fb639be8ebc9a1","2013-01-03 20:06:14-08:00","Normalize Line Endings
+"
+"7d8c311d662ac302ae31158623aed910c8afeaec","2013-01-03 21:11:11-08:00","Cleanup Layout XML
+"
+"34f37e3f02325906b1530c4b2acd6646d1572786","2013-01-03 21:22:55-08:00","Change Borderless Button to use ABS Compatible Style
+"
+"284f2ebf5e579eeb5d83aab652f7d9720ac62f83","2013-01-04 18:16:08-08:00","Remove Unused Styles
+
+The styles for v11 and v14 are the same as the base. Removing them as
+they don't need to exist.
+"
+"f1e0c863b8f6691a38e99fda6af8a0acdc11cc7f","2013-01-04 18:19:27-08:00","Add New AlertDialog Style
+
+Adding a new style for use with AlertDialog. This sets a property so
+that the text is readable on older Android versions.
+
+The method used for the AlertDialog building is described at
+http://blog.andromo.com/2011/fixing-text-colours-on-an-alertdialog-when-using-theme-light/
+
+fixes #31
+"
+"048cad029064a249f21ea27955c796128784db40","2013-01-05 05:09:04-05:00","Status Dialog Works
+
+Finished the status dialog, now possible again to set status.
+Having to pass strings around probably isn't the best way to
+go about doing it, but ohwell. They are all final strings,
+so it shouldn't be a problem.
+"
+"f374a8c708818d8c73900e3882da926730e777d9","2013-01-08 12:54:10-08:00","Add User Agent Header
+
+Have the application advertise itself in the User Agent header instead
+of the very generic name of 'Apache-HttpClient'.
+"
+"24d4cbf00afe4abd34bcd3d7486f69c456780067","2013-01-08 21:47:53-08:00","Have Last Updated on Records Auto-Update and Fixup Manga DB Method
+
+More prep for managing items deleted through the website/other clients.
+
+These changes now set things up so the 'lastUpdate' value is updated
+every time the record is synced from the website. The next step will be
+to detect records that were not updated, thus deleted from the website,
+and purge them from our database.
+
+Additionally, updated getMangaRecordsFromDB to function more like
+getAnimeRecordsFromDB so it will be more readable.
+
+This brings us some progress on #19.
+"
+"cd07614eb14d3c92148b1ddf83e74cab30baa627","2013-01-10 13:13:11-08:00","Add clearDeletedItems Method
+
+Add the new clearDeletedItems method and call it after we do a list
+download/sync. This closes issue #19.
+"
+"accef96065cf0f96b9c4696387f6c3bb5c4786a6","2013-01-10 13:14:48-08:00","Rename lastUpdate in the List Sync
+
+Use the name currentTime for the lastUpdate variable as it better
+describes the value.
+"
+"862666d6d11f754b428d4fc9c09ed737da4f7b73","2013-01-10 21:32:43-05:00","Fix Dialog Style
+
+For Android 3.0 and up, AlertDialog wasn't using the
+Holo styles. This commit adds a seperate entry into
+values-v11 to extend the Holo theme for dialogs.
+"
+"486b01ca4998fd69ea1156d609dda7cb72546cae","2013-01-11 00:38:02-05:00","Add Rating Dialog (1/2)
+
+Like previous commits like this, this adds the first part
+to the rating dialog, that is the dialog itself. Everything
+works, and it does indeed pass a value back to DetailView,
+but DetailView doesn't do anything with it.
+
+Additionally, I spent way too long making this work, but I
+extended RatingBar to make the flavour text update as you
+slide your finger across it. Looks super cool and neat.
+"
+"9feb57b23662434fef3a6fdf0fe6a2f866e35bcd","2013-01-11 01:09:31-05:00","Add Rating Dialog (2/2)
+
+This commit finishes the previous one. The rating dialog
+now works completely, saves it, and should be syncing it
+like the other values.
+"
+"ef2ef91ea1078092d843bfc9c8daaf80d73a7b82","2013-01-11 01:27:25-05:00","Actually get personal score
+
+Wasn't being set in the rating bar, wasn't actually
+being retrieved from the record. /facepalm.
+"
+"6ea8a3935a923382a02ef254389aa40a2ec37dea","2013-01-11 01:39:14-05:00","Add GTV Support (Experimental)
+
+According to motokochan this works, so adding it to
+the manifest so GTV users can find the app.
+"

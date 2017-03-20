@@ -1,0 +1,137 @@
+"commit id","commit date","commit message"
+"3cc0731c150799d841ec403616173f162c0a52de","2015-03-28 18:32:29+01:00","Push Version 1.82 (2)
+"
+"1af400e376cc1d58ab29a8f5b52be13b21b958a2","2015-04-04 17:12:44+02:00","Replace 'google-utils.jar' by dependencie to com.google.guava as suggested in Issue #277
+"
+"5a3be94fd94450990fc203a1dfd40cd4f349ad54","2015-04-04 18:41:44+02:00","Update README.md
+"
+"fc130b5dc4a88946168decf38fa51bca39f99572","2015-04-04 19:52:32+02:00","Fix build via console
+"
+"837db249e1380252c5edbeecc18eb01f6ba518ed","2015-04-04 19:52:47+02:00","Merge remote-tracking branch 'origin/master'
+"
+"773604cf943e3982ef5a41561df9c15c19c69d2d","2015-04-06 18:46:37+02:00","Improvements to general code quality
+- Remove some possible resource leaks with context references
+- Move some data loading to a background thread
+- Close some cursors that are created but not used
+- use swapCursor instead of changeCursor since this is the default and recommended way
+"
+"0e2be3aee92baa6a041774172eb9658110cfcb26","2015-04-06 18:47:51+02:00","Removed unnecessary comment
+"
+"2f06da42754064fc9240509921fbeacb34910075","2015-04-07 20:11:36+02:00","Update README.md
+
+Removed infos for compatibility version since this is no longer necessary
+"
+"2a433b5c5b5376783edda5a99c8c3ed932699ea3","2015-04-07 21:28:59+02:00","Fix issues of changed sql statements
+"
+"824d8ebb7b169a4c90c821a279c4ae557fbbc9cb","2015-04-07 23:24:45+02:00","Reset ImageCache
+- Allow complete reset of ImageCache (including database and cache folder) via preferences -> Menu -> Reset ImageCache
+- Fix crashes in ArticleFragment
+"
+"bc66830b90c5bb195b6d87aed946aaa9ed3906c1","2015-04-07 23:36:12+02:00","Performance: Attempt to reduce access on DB while downloading images by collecting values and bulk inserting
+"
+"fc1c0464e70663f5e9522c84520b99029bda9347","2015-04-07 23:37:50+02:00","Reduced log severity
+"
+"ba3e210aa8d0336ddb29856ed639b5649612932f","2015-04-07 23:38:02+02:00","Reduced log severity
+"
+"9841c7021349ff7bb11f4b7e33215068606863c3","2015-04-11 06:51:43+02:00","Fix HTML entities appearing in image captions
+
+Apparently the method getAttributeByName used in MyTagNodeVisitor doesn't return a decoded string. This should fix that.
+"
+"39cbe15450b23b49482a937658f3db140a1bcac6","2015-04-11 11:00:19+02:00","Merge pull request #279 from japm48/patch-1
+
+Fix HTML entities appearing in image captions
+"
+"cc5bd8f134979b19507176898b4f1b9dc49f8eb9","2015-04-12 11:14:40+02:00","Fixed imports
+"
+"f1b44855dee9c531c28fa6af84f02625fd202478","2015-04-13 17:59:29+02:00","Work in progress: Implement Material Design (and remove all the old compatibility stuff)
+- Removed old actionbar themes
+- Removed themes for api levels below 14
+- Removed actionbar and replaced it by new Toolbar
+- Removed lots of images from actionbar theme generator
+- Remove color-files, moved colors into themes
+"
+"51696a6fa5cb5a2bea8dfb9a49175b5db367fbc6","2015-04-13 18:02:37+02:00","Integrated new address of project on github and removed localized versions of urls
+"
+"d468776559532e3c0dd9f701c9e784e7705a5020","2015-04-13 23:13:32+02:00","Work in progress: Implement Material Design
+- Added dimens.xml for different screen sizes and reduced spacing around listitems for lower sizes (only large and above get the full lollipop-spacing of 72dp per row, normal gets 56 and small gets 40)
+- Changed background color for listitems and toolbar to represent the values of the html template
+- Changed menu files for compatibility
+"
+"41faf2368077785a8a294c0e9c8415fb1fff3882","2015-04-14 14:38:22+02:00","Moved check for first installation from background to foreground to make sure it is done before any other checks and new users really get to see the first-installation-hint.
+"
+"1c39a6541c0f485a55a154b6c7b0851649ed2f78","2015-04-14 15:07:04+02:00","Work in progress: Implement Material Design
+- Simplified black and white styles
+- Fixed ArticleView
+- Fixed background for frame_sub in tablet layout
+"
+"9ce1fec57caeb8cd41a66a03f7ab9672f99acd9f","2015-04-14 18:54:45+02:00","Work in progress: Implement Material Design
+- Implemented temporary fix for strange effects on unused FrameLayouts. If the frame_sub is left empty it shows mirrored images from frame_main. Setting a background color just reduces the visibility with every mirrored image. Now I load an empty fragment into the frame.
+--> If this is not necessary anymore all occurrences of the String TEMPORARY_SOLUTION_MARKER indicate a place where some stuff can be removed...
+- Rebuilt the HTML template into one piece. The gained speed by splitting it and only rendering half of it with every article can be ignored since rendering only takes some 10 to 20 ms. Now all data is filled inside ArticleFragment.doRefresh().
+- Slight changes to layout and colors
+"
+"1ea3153b1b5854b47bb0667073196783a30672ab","2015-04-14 19:06:13+02:00","Work in progress: Implement Material Design
+- Fix invisible toolbar in main.xml (large-port)
+"
+"9d2171065b38539f8b52267855b978e1d776a8aa","2015-04-14 19:39:33+02:00","Fixed problem with ImageCache introduced with Revision bc66830b90c5bb195b6d87aed946aaa9ed3906c1
+"
+"7fa0d381fd2e6ba54605adbd414abb8f9a9128a3","2015-04-15 13:03:59+02:00","Work in progress: Implement Material Design
+- Add ProgressBar which was removed from the ActionBar by Google for some reason ('more specialized widget[...]) and has to be implemented manually now. I added it to the toolbar.xml as a merge-Layout using a LinearLayout to avoid layouts below beeing moved up when ProgressBar is set visibility:gone
+- Move loading of layout-width Preferences from background to foreground again since it can happen, that they are loaded too slow and produce NPEs
+- Added logic to handle ProgressBar to MenuActivity and use it everywhere else
+"
+"ce15d70879387198612ee2ee49f43063aee2ad42","2015-04-15 13:16:19+02:00","Work in progress: Implement Material Design
+- Theme for ProgressBar added
+"
+"e2d30949f31a9c0d41c5f69eef30bbc906edd643","2015-04-15 14:22:14+02:00","Work in progress: Implement Material Design
+- ProgressBar cannot use themes from Lollipop on Kitkat and lower. Modified colors to be accessible from outside the theme and hardcoded light-theme colors in progressbar.xml but looking for a more generic solution to theme the progressbar.
+"
+"cb6a078cb11a6c95b38aac9897f664cae29d532a","2015-04-15 17:51:35+02:00","Mark some strings as non-translatable
+
+This commit sets 'translatable='false'' to URLs and email addresses:
+http://tools.android.com/recent/non-translatablestrings
+Duplicate strings found in other languages are removed.
+"
+"2533dce2c2f7360a7662d5b0f2ca85ac87d48550","2015-04-15 18:22:38+02:00","Merge pull request #281 from japm48/patch-non-translatable
+
+Mark some strings as non-translatable
+"
+"15ce6e90c26107d792bd7c8e643b4131aa03b4cc","2015-04-15 19:09:43+02:00","Merge remote-tracking branch 'origin/master'
+"
+"106778b81659472e7a1af0da47af3652079df530","2015-04-15 22:06:44+02:00","Work in progress: Implement Material Design
+- Fixed background of preferences and styles for lollipop in values-v21
+- Fixed theme inheritance
+"
+"08615c0cf73c2b85e5ab7f8f6b29aa88ebdb8454","2015-04-15 22:17:48+02:00","Work in progress: Implement Material Design
+- Fixed the menu not being displayed in preferences with new toolbar
+"
+"e63bcc1d203df7ec2a7cb6c53ba64bf0add42192","2015-04-15 22:31:17+02:00","Work in progress: Implement Material Design
+- Fixed temporary solution for strange background artifacts, this lead to wrong back button behaviour which is fixed now.
+"
+"3794dd245b73b7ec42c18f5a7e33e6b48de04d50","2015-04-15 22:57:26+02:00","Fixed screen flashing and vibrate when last article has been reached and only vibrate when 'moving against the wall'
+"
+"7eb34a1bd4f34b2f9d3c880a2beca903d2fcb8c1","2015-04-15 23:12:14+02:00","Removed deleted twitter account
+"
+"60624534a1340dd904e3aa3ef856c39ce1f5a91a","2015-04-15 23:15:59+02:00","Work in progress: Implement Material Design
+- Fixed the fix for the temporary solution for strange background artifacts, this lead to wrong back button behaviour which is fixed now.
+"
+"e0d60d624b3812cd93df4a8696ddfe96adfff02e","2015-04-15 23:50:07+02:00","Work in progress: Implement Material Design
+- Removed temporary solution for strange background artifacts
+"
+"0a4b7a794ac2728439403ac2e1233c273bbb76e0","2015-04-16 00:41:27+02:00","- Added content filtering for API levels below 17 to avoid vulnerability for scripting attacks where scripts are able to access and modify the whole application through the JavascriptInterface.
+- Removed some unnecessary TODOs
+"
+"005d3e2ba361804f872fb47d864f656bea2e52b5","2015-04-16 00:54:11+02:00","Fixed back button on non-tablet devices
+"
+"fc317994ea6dd7c03c65ca923222d35a8e22e752","2015-04-16 14:12:59+02:00","Fixed background of dialog windows and reformatted some xml files
+"
+"bf0c0b9b808554c086b5c6f5a7b2eaadb2cc5269","2015-04-16 14:44:43+02:00","Version 1.83
+* Modified theme, reduced complexity, introduced first Material theme stuff (slightly changed the layout and the spacing of items, changed some colors and so on)
+* Allow resetting the ImageCache from the preferences menu
+* Reduce impact on the UI when running the ImageCache, fixed bugs interfering with the ImageCache
+* Fix HTML entities appearing in image captions
+* Implemented new Toolbar as replacement for ActionBar which was removed with Lollipop for some reason
+* Added content filtering for API levels below 17 to avoid vulnerability for scripting attacks
+
+If anyone else here is annoyed by the low-res icons of the app and is good with image processing: This app could do with a new icon set and I can't do it. :)
+"

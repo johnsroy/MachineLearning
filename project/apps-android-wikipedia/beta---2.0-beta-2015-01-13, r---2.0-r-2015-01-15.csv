@@ -1,0 +1,446 @@
+"commit id","commit date","commit message"
+"d35bb13641e8e261ead2ff2cb4ea6e7bd4737871","2014-12-27 19:35:06+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ia437a5a5950e34e71209f2e744ba361d48787dc2
+"
+"141dcca2bae0c41c4784da6e4bd92c62627beb7f","2014-12-22 11:06:32-08:00","Don't transmit zero-result search events in TitleSearchFragment funnel.
+
+The search funnel is meant to track user-perceived performance of search, and
+since the autoswitching means the user never perceives a zero result event for
+a title search, it doesn't make sense to log it.
+
+Change-Id: Ie974ef89eb3ff15a608ee3303b1c8574a78f136f
+"
+"55098811ce1efa71bb18e8312504e382193e938f","2014-12-23 12:46:36-08:00","Do not send X-WMF-UUID header if the user has opted out of EventLogging.
+
+If the user has opted out of EventLogging then we shouldn't be tracking them
+at all. This includes unique counting using the app install ID. This patch
+ensures that the app install ID not transmitted if the user has opted out.
+
+Bug: T85243
+Change-Id: Ie6b9aea9708d382119372febd9b8c849360fd5ef
+"
+"c00d2117a7ed90381e475472d3146d5fb28b36c5","2014-12-23 13:58:06-08:00","Hygiene: reduce number of fields that are used unnecessarily.
+
+This patch takes some fields and either converts them to local variables,
+anonymous variables, or removes them entirely. There should be no change in
+user-facing behaviour, but having fewer fields floating around should reduce
+memory overhead slightly.
+
+Change-Id: I38b4d8ecc7a7d661faf85efb4e2477d017e2c5d1
+"
+"90859c886d1c70a1dcdc0e3de80dbd6ce0cab249","2014-12-23 14:41:14-08:00","Hygiene: change some if statements to switch statements.
+
+JDK 7 added the ability to do switch statements on Strings. Since we're now
+using JDK 7, this patch changes some particularly convoluted if statements
+which operate on Strings to use switch statements instead, improving code
+readability and probably slightly improving performance.
+
+Change-Id: I36202c34f48b21347fa761e358dc0014ef3e9ca6
+"
+"ac35e55a184e50a4b7876a3dafbd87390cc6c38f","2014-12-29 19:53:33+01:00","Manual import of Android string translations from TWN
+
+Change-Id: I2fabfd50368be646c1a371a559504de150aa93b5
+"
+"8e19e3cfc3d3434b473b23b6795a822ae716cfed","2014-12-29 13:33:45-07:00","Fix string parameter format error
+
+Would have caused a crash in the 'lb' locale.
+
+Change-Id: I770a204a452569e90213c2a4be359d1b95720d06
+"
+"a645b0d323782f8c7c997c33751213b27b58069a","2014-12-22 17:44:57-08:00","Hygeine: use String instead of StringBuilder where appropriate.
+
+This patch switches to using String concatenation instead of StringBuilder
+appending in places where a single throwaway string is built without using a
+loop, because in these cases there is no performance difference to using
+concatenation and it gives more readable code.
+
+Change-Id: Ieebdff4ff363be4ee2503860e6df260b4a3e974a
+"
+"a983c90166849d34bab5b4804897aeeb3f64d238","2014-12-29 14:17:06-07:00","Remove unused string
+
+Was confusing translators.
+https://translatewiki.net/wiki/Thread:Support/About_Wikimedia:Wikipedia-android-strings-edit_section_abusefilter_back_text/en
+
+Bug: T69981
+Change-Id: Ibc34465e9128d5258d4fc28cb02c60e1771357a2
+"
+"8ca9fbeefb758164eac4b044ee173d73b61add82","2014-12-29 22:50:38-07:00","Don't export activities (except PageActivity)
+
+For the below mentioned it looks like another app was able
+to start one of our activities using an implicit intent.
+By not exporting the activity this should not be possible anymore.
+In the future we may chose to export some activities but this should
+be done intentionally.
+
+Bug: T85510
+Change-Id: Idaf2564e07866150a12beaecafed6eed3fd981af
+"
+"8b43e6c9d90eab7c90e33dd3d7e8dd28286aab73","2014-12-29 23:42:34-07:00","Checkstyle: switch without default clause
+
+Change-Id: I9488f806cfd6cf6d1a3ce7e844352713e3ed23e5
+"
+"9aa8921040dd3d3ea2a53ba47e66757e6aa88174","2014-12-30 12:02:39-07:00","Update pom.xml to have fixed version of MW API
+
+so Jenkins doesn't have to talk to the Maven repo for every build.
+
+Change-Id: I296e8dbc77966de1c288d31538be1c2e2d63a5a8
+"
+"35e376ff292145314c61c016e6f2ca24817fe5f3","2015-01-02 11:03:31+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I6eb59312933bed49483ab69d3873d83dec68ec96
+"
+"39d4ef46a99dbe802924cefa4fe3aac992551b9e","2015-01-04 11:50:02-08:00","Refactor: replace all usages of 'Persistance' with 'Persistence'.
+
+Change-Id: Iba43739e6bf658ebf4e35afe03ff63bda8aed57f
+"
+"8ce67bf0e510db2b5d09310845274c64db1627bb","2015-01-05 15:17:36+00:00","Merge 'Don't export activities (except PageActivity)'
+"
+"5b8f00eab49ac3709d7f673acbbb81ef2c99ee26","2015-01-05 15:18:12+00:00","Merge 'Update pom.xml to have fixed version of MW API'
+"
+"e3e54fdcb4ab18007346c0437b0e775be5b42c9e","2015-01-05 15:28:35+00:00","Merge 'Refactor: replace all usages of 'Persistance' with 'Persistence'.'
+"
+"5c5ddc7dc7e918db35f72b2be68d7a82627723be","2015-01-05 10:06:55-05:00","Fix possible crash when typing search text.
+
+When a character is typed into the search field, the app sends a message
+that triggers the search after a predefined delay. If the search fragment
+was detached during that delay period, the app would crash. This patch
+will prevent any execution after receiving the message, if the fragment is
+no longer attached.
+
+Bug: T85429
+Change-Id: I2cb8be69c776d32a6b29bfab68640a850f99cf8c
+"
+"7194d8e88a64277a2b822d2a092e2f73b858fc75","2015-01-05 18:54:05+01:00","Manual import of Android string translations from TWN
+
+Change-Id: I3a8355ee2dafca4683a81cdaad69bffcd665aa8c
+"
+"d58fa85d0282ec35c6f20f54f07995d08ca72c41","2015-01-05 15:01:44-05:00","Fix parallax scrolling when lead image is thinner than viewport.
+
+Bug: T85832
+Change-Id: Idfc776a0d8511ffcd2818d4dc1659da6c00c73e8
+"
+"a44333444b8e8f312214cfcfce297574cb56918d","2015-01-05 15:23:38-05:00","Don't show lead image if it's a .GIF
+
+If the API returns a GIF image as the lead image for an article, then
+simply don't show it.  GIF images are usually used for mathematical or
+engineering diagrams, and don't look good as 'lead' images. Moreover, GIFs
+are very likely to be animated, which also isn't good (and doesn't work)
+for a lead image.
+
+Change-Id: Ie91c59403d9747dcb85e7d8b4fba1ff3973dc6ef
+"
+"e341e323a30f5ccf112783b56af4ebcc2850bdf6","2014-12-19 11:08:58-05:00","Add custom menu item to WebView context mode.
+
+Precursor to sharing images with a quote.
+
+Change-Id: I8e5ace83216c390bbab903ac12cb5f67a2fe38fc
+"
+"e9c5c09bfb90dca2910268848645ed86c1f68cce","2014-12-20 11:52:39-05:00","Get selected text from the WebView.
+
+Sort-of hacky method that works by programmatically copying the selected
+text to the clipboard, then peeking at the clipboard contents. (The actual
+WebView provides no way of getting selected text)
+
+Only works with API >10, which is fine since API 10 doesn't provide
+long-press context functionality for the WebView anyway.
+
+Also moved Bus-related methods into an inner class, because of this issue:
+https://github.com/square/otto/issues/37
+
+When the Bus registers a class for event notifications, it uses reflection
+on all of the class's methods and fields. If a field does not exist in the
+current API, it crashes.  Therefore, it's suggested to use an inner class
+that only contains methods specific to the Bus.
+
+Change-Id: I6c29eff4d9930bd218a9f686493cbcbc67d78691
+"
+"df9a5c300a3d631335c207edfdccfab1181b1db8","2014-12-19 18:08:09-07:00","Share a fact
+
+- Refactored the GalleryActivity's image sharing code to be reusable.
+- Reused it for Share a fact
+- Currently it uses the lead image as the image to be share,
+plus the mainly static teaser text.
+
+Change-Id: Ib78821dcb772c9b5811f1c8f2bbdefb77a826844
+"
+"4660b167dac42f103f6cc8746df789f071954277","2014-12-31 16:00:50-07:00","Create image using text snippet
+
+To create an image to be shared we create a new fixed size
+Bitmap that is a bit taller than what we need.
+We manually keep track of the vertical space (y) we draw on.
+Once we're done drawing we adjust the height of the bitmap.
+
+If we have a lead image, it goes on top,
+followed by the title, an opening double quote sign,
+then the text, and lastly the Wikipedia wordmark.
+
+The lead image portion gets clipped and scaled to fit the width
+of the screen. It's reusing the imageBaseYOffset for the face detection
+adjustment and the Bitmap from LeadImageHandler.
+
+The text goes through some minor regex replacements to get rid
+of foot notes[1], remnants of IPAs, and spaces at beginning and end (trim).
+
+If less than 6 characters remain then we don't do anything.
+It is assumed that this rather arbitrary number is the absolute
+minimum length of text in any language/character set to convey an idea/fact.
+
+If the title or text is too long we first reduce the
+font size. If that is not enough it gets ellipsized.
+
+Change-Id: I4ee56a6b396734ce182bf75d38a6b318138d0dc5
+"
+"fe6c0c63c0cc2ddeb6469355af16c2d9ef63cb94","2015-01-07 10:32:11-07:00","Use ic_message icon for share a fact
+
+Removed ic_share icon since it's not used anymore.
+
+Change-Id: If8060cb0a95807dd5edd5e82663579fca601f6e8
+"
+"78144287425a89a3cdb1c5528883b35d67c95f4a","2015-01-07 00:51:40-05:00","Full swipeable image gallery.
+
+- Refactored the Gallery activity into a Fragment that loads a single
+media item individually.
+- The Gallery activity now has a ViewPager that hosts multiple fragments
+of media content.
+- Moved PageCache to Wikipedia app, so that it's accesible by
+GalleryActivity as well as PageActivity.
+- The first time GalleryActivity is launched for a certain article, we
+fetch a complete list of media items for the page. This list is then
+cached, in case we launch the gallery again for the same page later.
+- The ViewPager automatically pre-loads items to the immediate left and
+right of the current item. This allows smooth swipes between adjacent
+media items.
+- The panning & zooming of the media items will still work. When the user
+swipes the item past its edge, the swiping is passed to the ViewPager.
+
+TODO: profile memory usage!
+
+Change-Id: I18e0cacfc656f39e7eee9eb0742088de3a7261d8
+"
+"21fc3315a87274dc0d087a28d2b56937703912f9","2015-01-06 13:26:17-05:00","Don't duplicate history entries; instead, move them to top.
+
+Note: Old duplicate history entries will remain duplicated until they're
+visited again.
+
+Bug: T76951
+Change-Id: I75aa566f332fbce322f4621e8fed9c5e855251b7
+"
+"adc2e9c24ec2c8485d1ea7270e7abfc994ec39cd","2015-01-07 11:36:25-08:00","Add '?source=app' to the end of all share a fact URLs per Analytics.
+
+Our EventLogging infrastructure captures the generation and sharing of facts,
+but Analytics would like the ability to track how much the links are clicked,
+and the best way to do that is to add a URL parameter tracking the source.
+This patch adds such a parameter, conforming to the spec given to me by the
+Analytics team.
+
+Change-Id: Ie43d02653c00f40c4e1a95bcd7b05ac32f33da56
+"
+"6b2b14b93b9da387e109a7fb04067adcda754a23","2015-01-07 16:10:15-08:00","No longer emit log message when the app install ID is accessed.
+
+This patch removes the logcat message which is emitted every time the app's
+install ID is accessed. If the install ID is still needed for some reason, you
+can just set a breakpoint and inspect the return value directly without having
+to rely on the log.
+
+Change-Id: I9a83ea6da65cc1bbbf628cccd1ea96dc89c100c7
+"
+"63de69e06f3e4a272d4cc0f6d37d0d19b202aa43","2015-01-08 00:20:24-07:00","Remove old translation
+
+Keeping it causes issues with the release build.
+
+Change-Id: I01ac645c07790e2b974d3c8fb688f1f62d7faf73
+"
+"29e351dcb6cae4b32a68ed33c92e034ddd3ad8ea","2015-01-07 21:00:22-07:00","Image share improvements
+
+Share image using actual file name in folder with fixed name
+Well, not completely the same name. The file name goes through a bit
+of transformation to remove unknown characters. But it's way more
+useful than using tmpShareImage.jpg.
+
+By having a fixed folder we can delete its files before
+sharing another image.
+Staying frugal with storage space, though, and make an effort to remove
+any shared files once a day with a recurring task.
+
+Now using Context.getExternalCacheDir() since
+this folder would get automatically removed if the app is uninstalled.
+
+Plus, checking first if ext. storage is writable before trying to write the file.
+
+Change-Id: I85c9e564d2cf57630bef8c65bc0b7716b39a3850
+"
+"67bff20c3cd2d6adc9f98709cd957374accfcd78","2015-01-07 22:03:25-05:00","Fix possible crash when pinch/zooming in gallery.
+
+This is related to a bug in the Support library, and the way it's used by
+the PhotoView component. According to this thread:
+https://github.com/chrisbanes/PhotoView/issues/206
+
+...the solution seems to be to enclose the offending method in the
+ViewPager in a try-catch, and wait until it's fixed properly in the
+support library.
+
+Bug: T86166
+
+Change-Id: I7abe2cd29662ff82090120bc1bf0d191dae0200a
+"
+"76475b01c0122e23d3d364a2c57061cd183f46ef","2015-01-08 15:57:44+00:00","Merge 'Remove old translation'
+"
+"88a3f10cee60f8ed2b2c2b0efac4990b2c016281","2015-01-08 16:51:10+00:00","Merge 'Fix possible crash when pinch/zooming in gallery.'
+"
+"6a9d2d9a7ee9bf072d30cc65ee4e1c0b630c37b8","2014-12-02 11:08:11-05:00","Make references collapsible (and collapse by default)
+
+- Uses the same logic and styling as collapsing of infoboxes.
+
+Change-Id: I4d779aded8804398ea4134fad8cc90ce28b06849
+"
+"7daa716c7c3c4a3f39e363186965cc27ea691461","2015-01-08 09:47:26-07:00","Catch SecurityException when requesting location
+
+Bug: T86198
+Change-Id: Iafee01561e9cca830efb17ff3daa17b0c2333d0d
+"
+"65133bae7388eaf816972cc8f7072e8d335ece00","2015-01-08 12:19:21-05:00","Event logging for Gallery.
+
+Change-Id: Idb0a77280e85905a8f4b18db719b1f07bcfa1e47
+"
+"85da5d2c5735dd37e84dd27169ada9e57ae3c945","2015-01-08 15:12:27-07:00","Event logging for ShareAFact
+
+https://meta.wikimedia.org/wiki/Schema:MobileWikiAppShareAFact
+
+Also getting pageID and revisionId and saving in PageProperties.
+
+Change-Id: I363b3db56e6e4151411c8ab3ba37f5bea51e73d8
+"
+"37257a5b47d7d778387f11a0102be15dea25efe0","2015-01-08 16:09:23-07:00","Fix crash in Find in page
+
+Find in page was crashing:
+android.content.res.Resources$NotFoundException: Unable to find resource ID #0x0
+at android.content.res.Resources.getResourceName(Resources.java:2026)
+at org.wikipedia.page.snippet.SnippetShareAdapter.onTextSelected(SnippetShareAdapter.java:54)
+at org.wikipedia.page.PageActivity.onSupportActionModeStarted(PageActivity.java:758)
+
+Change-Id: Iabb304fc63a1941457a81db76215bbc779aece01
+"
+"b2ec1c49394a60a4fed35d80e6488ad2ea174210","2015-01-08 16:14:36-07:00","Enable ShareAFact only in alpha releases
+
+Change-Id: I26d6be22ef1f58630f8c8eb7823ccb902f9d485b
+"
+"256de2e56379edcfb9be8d34ffcb2386d4790060","2015-01-08 14:19:59-05:00","Improve list of media items shown in Gallery.
+
+No longer including SVG and PNG items in the Gallery by default. This
+effectively gets rid of most, if not all, irrelevant presentational images
+(featured star, wikimedia logo, etc).
+
+Of course, if the user explicitly clicks on an SVG image in a page, it
+will be shown in the gallery, in addition to the other default items.
+
+Bug: T86073
+Change-Id: I6013ed21c73ce48544c836366adb3b96df4dedca
+"
+"49c9509e42d7c46271050094dc18edcfb9edf523","2015-01-07 18:03:32-08:00","Change URLs to point to mobile version of sites specifically.
+
+Bug: T85062
+Change-Id: I6caa9a959bb490c9627a635953649d13453e1fe8
+"
+"8317fba2dd588f029a5d14a57eabbd3cbff4e244","2015-01-08 15:06:59-05:00","Don't show progress bar on top of ToC onboarding.
+
+Rearranged the layout so that the onboarding view covers the progress bar
+opaquely.
+
+Bug: T76932
+Change-Id: Ia08da38cf4da692c433a31f0220df9c6fe8e442a
+"
+"c08449d9fbdf7b8c267d2f12adb56f0ca622a27b","2015-01-08 20:07:14-05:00","Add back-button behavior to Share context.
+
+Also made the clipListener static, so that it doesn't get re-created and
+re-added to the Clipboard service multiple times, and thus pop up multiple
+share choosers for a single share event.
+
+Change-Id: I3dc7df414a1646699f3f9e72dcab8c0e7c734433
+"
+"1598635eb6370850739eba92155e1583f777c28e","2015-01-08 15:40:44-05:00","Handle the Search button on older devices.
+
+This is done indirectly by implementing the onSearchRequested function.
+
+Bug: T69324
+Change-Id: I1859e831e0a4cd9890f173b28a978cbf1fa592f7
+"
+"a3c27dfaab7777c9768132ef648ef4835cc4f8f6","2015-01-08 13:20:07-05:00","No longer hide hatnotes in non-lead sections.
+
+Simple modification to CSS.
+
+Bug: T85985
+Change-Id: I808656bd770e1ffbd251e1db434e95c8b05c2f93
+"
+"575eb3dc45bc509ca1ae533614bab984e0e27f8f","2015-01-09 11:53:07-05:00","Fix a few issues in ToC
+
+- Update the currently-highlighted ToC section when *starting* to pull
+out the drawer, instead of after it's already pulled out.
+- On the JS side, fix the detection of positioning in the Lead section.
+- Fix highlighting of the correct section in the ToC when the article has
+subsections that are 'deeper' than H3. Since we hide these subsections
+in the ToC, and we were previously using the sectionID returned by the
+WebView as an index into the ToC list, it was causing the incorrect
+section to be highlighted.
+
+Bug: T68612
+Change-Id: Ib1a8a730b04cae523d2068934407c3eedb588a49
+"
+"9eb7207096591a52151b656d9c0067aeab00fbe7","2015-01-09 14:31:20-08:00","Add gallerySessionToken to GalleryFunnel
+
+This patch adds a gallerySessionToken to the GalleryFunnel so that it's easier
+to link events from a single interaction session together.
+
+Change-Id: I50b7a32159892b666687552981d4af8873d0f6d4
+"
+"cb56dc72097e8d34c3b6168686ad4e3acc87c773","2015-01-09 15:08:50-08:00","Rework prose in Share a Fact slightly.
+
+Moiz and I got together and tweaked the wording a bit until we were happy with
+it. This patch implements that wording.
+
+Change-Id: I52bf9e6903a9baf0220f2251847e7b135efaa2cd
+"
+"3906c56393ee7c32e2f389d018793fe34a0aca99","2015-01-12 15:27:29+00:00","Merge 'Add gallerySessionToken to GalleryFunnel'
+"
+"ede3857c8208f706db7fb633a88a2ec8ba1d92d5","2015-01-12 19:43:31+01:00","Manual import of Android string translations from TWN
+
+Change-Id: I6d710088190f1b87fb8aa55ac2ef58bbad4d734d
+"
+"e28c599effa927c55f431ca7ee0ca4d2c5f6bcf3","2015-01-12 10:56:57-08:00","Make page-level sharing use the same strings as Share a Fact.
+
+Currently our page-level sharing stuff just naively dumps a link into the
+Intent. This patch changes that so that it uses the new message which was
+introduced for Share a Fact, which makes the text shared a little bit more
+relevant.
+
+Change-Id: I6196c755e83ce84016cdc848aa6f5cd8c6f01c24
+"
+"18c91311215c76680ec5cb7e59564c164f7c3e9d","2015-01-12 12:11:55-07:00","Add tests for two string parameters
+
+Change-Id: I07662a650f3d0752cec00fde7c67022198e0f259
+"
+"2ffe90d3fbe0d086177cb1349c1635bb3ce1edfe","2015-01-13 14:37:24+00:00","Merge 'Make page-level sharing use the same strings as Share a Fact.'
+"
+"a182b4814b6f9a38dec2832e500e15d904b9938a","2015-01-13 11:25:35-05:00","Promote lead images to Production.
+
+Change-Id: Ife65242a2bc0851547c2eaaebe70f79889044c61
+"
+"923160521324c247ce406021b38b70e31417917b","2015-01-13 11:29:28-05:00","Promote new search features to Production.
+
+Change-Id: Ie039b4c31f034fabcf2634da45009d3a05bdbf18
+"
+"fdcdbcd0a08356c1d9d2e43aefa9db6e0ec7f986","2015-01-13 14:44:15-05:00","Promote syntax highlighting to Production.
+
+(This only affects the color of templates, to differentiate them from
+ordinary text.)
+
+Change-Id: I6a93465e4a3f2a3bf045c1a6fd57e45c98f86a4e
+"
+"631cff67b4508e1336f784fa956b16d14f817510","2015-01-13 22:18:38+01:00","Manual import of Android string translations from TWN
+
+Change-Id: I763b76741ef6c84bcc2203b21510c9148e73f194
+"
+"8b183f1a67549df78359350af2e66282af7753bc","2015-01-13 14:29:37-07:00","Bump versionCode
+
+Change-Id: Ia56cc674c5a34b16eaed4bbb6f2822e7958d0055
+"

@@ -1,0 +1,69 @@
+"commit id","commit date","commit message"
+"36d5ac46993568a6a097a1bd0852ee49e33668b8","2014-08-03 23:26:02+01:00","show episode title and number at top of details
+
+show episode title in bold at top of details fragment. and combine with
+the season and episode numbers, e.g. '01x01 - First Episode'.
+"
+"a762a8fdbbe159e41affc30d2eaa2ac448ecb2e4","2014-08-03 23:45:28+01:00","put show name and season num in season action bar
+
+make show name the title and season number (or 'specials') the subtitle.
+"
+"f18b7916202d86f8f0f7c16f164978c721c5da13","2014-08-05 21:58:56+01:00","set activity titles to empty string initially
+
+for activities which load their title at run time, set the title to an
+empty string in the manifest. for the brief time before the correct
+title has loaded it's better to show nothing than the default title
+'Episodes'. (it looks a bit rubbish showing 'Episodes' for a split
+second then changing it.)
+"
+"f21b28f496f46fac60236cb49f14488097ffdf6b","2014-08-05 22:11:11+01:00","bump targetSdkVersion to 19
+
+kitkat's been out for ages
+"
+"f65ca84bd201e718d30a729ebd1087fcd38957b4","2014-08-09 00:01:09+01:00","set build target to android-19
+"
+"99a5a4b3a9f2800290b34502aa2891d62798e323","2014-08-05 22:55:33+01:00","change shows table's name column type to text
+
+from varchar. android sqlite doesn't actually use varchar and
+automatically makes them text instead. so this doesn't actually change
+the database at all, just makes the code more accurate.
+"
+"4fe06d6bee60557b9f5a7561054abedbc295c97d","2014-08-09 23:42:37+01:00","ensure EpisodesCounter moves to start of cursor
+
+...before counting episodes in swapCursor(). this is necessary because
+swapCursor() might be getting called with an old cursor, for example
+after an orientation change. this was causing #15, so this fixes #15.
+"
+"09db007461d1ecf24caa3124468b6ef7c4bbbc3f","2014-08-05 23:10:35+01:00","add banner path column to database
+"
+"e973fe11b19f85f19801344495a4232fca0e38aa","2014-08-06 00:06:12+01:00","add some logging to database creation and upgrade
+"
+"34fe2f391656583a21fec9a7bfc8fc99705a84e8","2014-08-06 00:13:16+01:00","parse and store banner path in database
+
+when show is added or updated
+"
+"188abf1bd0f2ed3390a314b0d92c561c30316a82","2014-09-25 20:50:21+01:00","add universal image loader jar
+"
+"a10968bfecff19b0cf7523b49046202335ca0cef","2014-09-25 20:59:18+01:00","initialise universal image loader in app singleton
+"
+"67bea5516c825e95efb454b4a0d1844f63c63e6f","2014-09-25 21:15:52+01:00","display banner images in shows list fragment
+
+use universal image loader to load banners from thetvdb and display them
+instead of the text of the show title.
+
+if the banner is missing or while it is being downloaded continue to
+display the show title as text. display a completely transparent image
+that has the same dimensions as the banners on top, so that the list
+item is the correct size.
+
+use universal image loader's default memory and disk caches.
+"
+"7118c3aabfb126b4b9ee24fdd595710974a584ee","2014-09-25 21:58:44+01:00","Merge branch 'shows-list-banners'
+"
+"a1681685c7cf9696abd518622dbf10eb8a6f91e6","2014-08-09 14:40:59+01:00","disable fast scroll in shows list
+
+gets in the way of the starred toggle.
+also change the scrollbar style to outsideOverlay since it looks better
+"
+"9494befc269c07d5286beefdc96e7c79983023ed","2014-09-27 13:43:05+01:00","bump version to 0.7
+"

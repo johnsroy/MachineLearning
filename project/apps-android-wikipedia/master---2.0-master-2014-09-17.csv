@@ -1,0 +1,256 @@
+"commit id","commit date","commit message"
+"315e114e55c04ddf3693ad3b49444eb43d6dc13c","2014-09-09 16:43:21-07:00","Change 'Other meanings' to 'Similar articles'.
+
+Improve the prose for the disambiguation wrap-up by changing it from 'Other
+meanings' to 'Similar articles'.
+
+Change-Id: I87af8dfef18b8f062e3a379c8a6feb6aa7512a44
+"
+"b247863c9cd866fd0fce31efde023c635f343ffa","2014-09-10 21:26:32-07:00","Improve the API error handling in the account creation activity.
+
+* Add support and messages for five more errors the API can give you.
+* Differentiate between IP blocks and account blocks when presenting messages
+to the user.
+* Change ordering of error presentation so that if there are multiple errors
+then the user is told about the unresolvable ones first so that they don't
+jump through hoops trying to fix the errors if they'd never be able to anyway
+(e.g. if they're blocked, don't tell them their password is too short first,
+just tell them they're blocked).
+
+Bug: 70635
+Change-Id: I3b991b3dbc3ff74c7b18f7214e98d29bca99f321
+"
+"6b3b3084851c60262e36e5f9eadb3a134050e993","2014-09-10 15:06:00-06:00","Show ToC automatically; plus hints
+
+Automatically opens the ToC (Table of Contents) drawer when
+the user views a page with two or more sections until she
+swipes to open the ToC or presses the Got it button.
+Adds instructions on how to open the ToC by swiping horizontally.
+I hope the translators get this right for RTL vs LTR.
+
+The only way to get this to appear again after it was acknowledged
+via 'Got it' is to clear data for our app in the settings.
+
+Change-Id: I8326e38ecc144a4e3acf53657657ee112361434a
+"
+"60d161726451148d24f43cdb442924ce795257e6","2014-09-12 14:40:11+00:00","Merge 'Show ToC automatically; plus hints'
+"
+"5439a266fbfc9fd9e08824c577bcbe6e2b432a57","2014-09-11 11:17:21-04:00","Fix ToC icon color in Dark mode.
+
+also tweak its padding so that it's aligned with the overflow dots.
+
+Bug: 70689
+Change-Id: I534da63bfd3e413d87f20cd217c9578a4dee8053
+"
+"1756f95e49b849ae32b182ee805cc6885ba6c992","2014-09-10 18:30:29+01:00","Check for new releases and pop up a notification if there is one
+
+Change-Id: Iac34556b3ef15e9ff2bf1ce626989f156b58ef74
+"
+"6a0834baa7319348398f35df1e97c92b27b9efb0","2014-09-12 18:03:40+00:00","Merge 'Check for new releases and pop up a notification if there is one'
+"
+"1b43ce49e8166a830158a6d7488e661f76f02362","2014-09-12 18:03:52+00:00","Merge 'Fix ToC icon color in Dark mode.'
+"
+"0b2a9981725b74515219c68ef4dfda586532affb","2014-09-12 11:57:54-06:00","Really mark ToC as known if Got it was pressed
+
+There was a bug that it still showed the ToC intro when one
+pressed on the Got it button but used the ToC action
+bar button to open the ToC again.
+
+Also adjusting the size of the hand swipe image to be smaller
+for devices with smaller height, so that the Got it button fits
+on the screen. Unfortunately, when orientation is changed
+it doesn't update since we still using the orientation hack in the
+AndroidManifest. So, when changing from portrait to landscape
+there is still a chance that the button would be hidden but
+switching back to portrait would fix this.
+
+Change-Id: I229af1da44bc9b7e4ead67a653420ef0022b7127
+"
+"e355df55eda935500a6f5b658fd8624bcc78ddfc","2014-09-12 09:06:25-04:00","Correctly urldecode links from Disambiguation dialog.
+
+Bug: 70769
+Change-Id: I58a2177915b533a2fa01c44041e6b80fc7bb5266
+"
+"c9c8f7fd0989a795f51bcbbf58d4a8fa2f6a270f","2014-09-11 11:00:20-04:00","Make Preference titles multi-line.
+
+Bug: 70719
+Change-Id: If9f398e0facf2f8bb56efdd9ae7adff841eccdb7
+"
+"fdf9c9b124fd1d1f89985aca22afeb8b5e75cbf7","2014-09-04 22:56:59-06:00","Nearby
+
+Get list of pages of nearby locations (up to 50 within 10 km
+- the API doesn't let us increase the radius past 10km).
+Shows list sorted by distance.
+
+The distances update automatically but the list does not
+update until the refresh button in the action bar is pressed.
+This is done as to not confuse the user while moving or even
+just scrolling around.
+
+Change-Id: Ib9cb06b0d1e959431e1ed7188bc0e6ccf35c2bec
+"
+"b5a860948971726f63911bf8c3f3c768c2150e30","2014-09-12 16:33:43-06:00","Hide actions when lists are empty
+
+in Saved Pages and History
+
+bug: 70745
+Change-Id: Icafeb67a815afa24deb90315c27caf86d87e5459
+"
+"74303ad9278a2d984047505d09f674d35095a153","2014-09-14 15:46:13+00:00","Merge 'Hide actions when lists are empty'
+"
+"e268a420553cec71680b150616096d491dbbcaf9","2014-09-13 09:11:49-07:00","Improve layout and searching of History and Saved Pages.
+
+* Add small left and right margins to the empty text so that the text
+presented when there are no search results wraps more cleanly.
+* Change empty message to not include search query so that the text wraps more
+consistently and cleanly.
+* Tweak empty messages for History and Saved Pages to be more consistent with
+each other.
+* Added note that the getString() method for the empty messages should
+eventually be removed once all of the empty messages are translated.
+
+Bug: 70102
+Change-Id: I7adebfb1c0a06dde7f2dedd3cead8cc983d4b968
+"
+"7e7f6978ba9f5e16c75c2985bfca41dcd6154082","2014-09-14 18:15:23-07:00","Add explicit super keyword to log method of all classes extending Funnel.
+
+All classes that extend Funnel have their own implementation of the log method
+but it always ends up calling the super's log method. However, the code looks
+confusing and doesn't make that obvious.
+
+This patch adds the super keyword before every call to the parent's log
+function, for clarity. Some classes already had the keyword in there, but this
+patch adds it to the rest. The actual functionality before and after this patch
+should be exactly the same.
+
+Change-Id: I03a65d4a95500568b569e2a04f5814ccd179b40d
+"
+"c966d790366b8a01453109f39ca3de1fb6165261","2014-09-12 10:04:36-04:00","Nearby - add realtime compass views.
+
+- Integrate with accelerometer and magnetometer sensors
+- Create custom view that shows directional arrow on top of an image
+- Restrict Nearby functionality to non-production builds (for now)
+
+Change-Id: I372a3850e589c21816726fc478623d68fab9dd64
+"
+"dba8a0da2cea27687e0fbdf5d6a918721357c437","2014-09-15 14:56:20+00:00","Merge 'Nearby - add realtime compass views.'
+"
+"43d1e5898318ea068e3d9e6c8c97325043409f9e","2014-09-15 15:16:04+00:00","Merge 'Add explicit super keyword to log method of all classes extending Funnel.'
+"
+"7e80bf798635b55a69b0abaf5d9c9b0a3e17ccb7","2014-09-15 10:17:10-06:00","Nearby: handle missing location provider
+
+Some devices have missing location providers.
+Catch exceptions and show error if both do not exist.
+
+Also try to preserve batteries some more by requesting
+location updates only every 5 seconds.
+
+Change-Id: I975d7e9d87753ab5ace4a23e722c370294683018
+"
+"8201a15d5a41469c491931da29438016040c1795","2014-09-14 20:39:14-07:00","Show message to user when filtering interwiki links returns no results.
+
+When the user goes to an article that has interwiki links, views the list of
+links, filters the list, and gets no results, display a message to them
+informing them that no languages matched their query.
+
+Also add small left and right margins to the messages that the activity can
+present, so that those messages wrap more cleanly and consistently.
+
+Change-Id: I68fbb60c3e8210c83744ee2b5aa86c2041d2bf6d
+"
+"5e005d62724d55f1fe4bc3e77317ed597b242902","2014-09-15 09:12:36-07:00","Add a space between any right bracket and left curly brace, for style.
+
+Turns out there are a few violations of this coding convention in the code.
+This patch should fix them all.
+
+Change-Id: Ie48bd694d3ea013cf6b4b4d93c1474371fc02eeb
+"
+"ebc846c787f5618d4fe614f28ed5808ccf9d7781","2014-09-14 15:56:13-07:00","Allow session sampling rate to be 0, and change session sample rate to 0.
+
+* Check sampling rate is nonzero before sending events in the session funnel.
+* Change default sampling rate to 0.
+
+Change-Id: I9756ef8d22dd64e94bd542a8a3848afccf278ce2
+"
+"eceafc4500f420da8315c7da0040a4c4be186b87","2014-09-15 18:06:29+00:00","Merge 'Add a space between any right bracket and left curly brace, for style.'
+"
+"78234203def7f5877ed13ed7fc0d33ab3f80c907","2014-09-15 18:37:00+00:00","Merge 'Nearby: handle missing location provider'
+"
+"e2b158dd86421fa83f2ddc1c9af37aaaa354184f","2014-09-15 18:37:44+00:00","Merge 'Allow session sampling rate to be 0, and change session sample rate to 0.'
+"
+"63677d550f45d06fd188a420c837ac9192a1b082","2014-09-11 12:15:55-06:00","pick up tests in Gradle build
+
+The main thing was to rename instrumentTest to androidTest.
+Also fix the test package name int he AndroidManifest.xml
+(for Maven) to org.wikipedia.test.
+And update the versionCode to the latest.
+
+Change-Id: I7be9fe2d640a404b81efd49deaeac9fe5e458f78
+"
+"9cb12f580630bcb870e5811d3296aa1c632b8857","2014-09-15 17:54:49-06:00","Guard against page being null in savePage
+
+bug: 69952
+Change-Id: Id04845d7b7b3f082939b9d5840960863b320800c
+"
+"4c06307be7ca127d7bf424b212fc12c9cf2fcabe","2014-09-15 21:20:14-06:00","Slow down retry button
+
+Disable the retry button during the crossFade to avoid
+concurrent retries.
+
+Also refactored some other places that had a crossFade
+inlined.
+
+bug: 70834
+Change-Id: Ib6e8ae46184c264758bfa69eeae6b4ed7bf827a3
+"
+"937bdeedba87c8f6722455393ecd1c0934fb6517","2014-09-15 22:55:24-06:00","Use serif fonts for Wikipedia logo
+
+on onboarding screen.
+Only effective for API level 16 and higher.
+
+Also make sure the wordmark is uppercase. (API 14+)
+
+Change-Id: I3627e8ceb043581c8eb286f9d3ecc009c61f2f10
+"
+"8dcc2dffa54199109c1808e84e911d9535073991","2014-09-15 23:02:41-06:00","Default resource file name for colors.xml
+
+When using IntelliJ's or Android Studio's intentions
+(alt-enter) on colors it tries to add a new color resource to
+colors.xml not the old color.xml.
+
+Change-Id: Iec61a67213b2248f33616e872e09efcc05640899
+"
+"4dd24a5f7edcc1d94356bd308336797ac6f65488","2014-09-16 14:01:41+00:00","Merge 'Slow down retry button'
+"
+"2b1aedb8dbf57f0d4f1347e6641a2460bac998dd","2014-09-16 14:04:09+00:00","Merge 'Default resource file name for colors.xml'
+"
+"454ab84bb8de82ac83530856155437aa75e9bf06","2014-09-16 14:08:21+00:00","Merge 'Use serif fonts for Wikipedia logo'
+"
+"cf917196fc2d5560d84bc516f363be1795305c7d","2014-09-15 15:17:56-04:00","Detect whether location is disabled on the device...
+
+...and give the user the option to go to Settings and enable location
+updates.
+
+Change-Id: Ic7902ae67b651d0dc52163b5412b4d884116569b
+"
+"d4e75ea502b71566e7ed51e7fccf228a6c060047","2014-09-15 16:05:28-04:00","Make sure that a new location is 'better' than the previous one.
+
+Change-Id: I64fbd0c41f828cf82de92698be55420c642cbbf9
+"
+"e812a9f4729d438d248996330c1bd98f8e3d2bc4","2014-09-16 22:56:17+02:00","Manual import of translations from TWN
+
+Change-Id: Ic6d6056b22e0847d33079e2577aab1923f2f4782
+"
+"5baffeaa677660d846fa6eac25693e01628782b6","2014-09-17 10:42:49-06:00","Fix loading saved pages while offline
+
+Use a stable ID for storing and loading saved pages.
+
+bug: 70944
+Change-Id: I116bbef24940c4e42c7dcb4878aba486c1dbdd9f
+"
+"f80fb8550d1e678c2466ee4d6d7b32ab3e11e011","2014-09-17 23:55:05+02:00","Manual import of translations from TWN
+
+Change-Id: I40ccf9d129cb21f57175752599561952543ef8ea
+"
+"54af4870b135f63307d84c88b88a4e7ad4790e19","2014-09-17 16:38:36-06:00","Bump versionCode
+"

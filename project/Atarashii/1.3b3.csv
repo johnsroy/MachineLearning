@@ -1,0 +1,118 @@
+"commit id","commit date","commit message"
+"99f809c2dadf846a9e40e73d27e96bf83c5bd822","2013-05-30 16:36:01-04:00","Add Crouton Library
+
+Added the Crouton library to the submodules and configured
+the project. Updated BUILDING with a note on Croutons.
+"
+"99141f8f04d90f5b8145497aba26f770fe8cf9d3","2013-05-30 22:48:10-04:00","Connectivity State Croutons
+
+This commit adds croutons that appear in the main UI
+to alert the user that we will be going into or leaving
+offline mode. The checks happen onResume() and also
+on the 'CONNECTIVITY_CHANGE' broadcast in order to cover
+all possible scenarios when connectivity loss could arise.
+
+In addition, this commit also disables the option to sync
+while offline by checking a flag that is set by the
+connectivity check. Todo is make everything work offline.
+"
+"f3266f693908afd9f4235089be3ed435ea709130","2013-05-30 23:20:21-04:00","Persist Connection Flag
+
+This commit persists the connection flag through
+orientation changes.
+
+Also fixed a derp in the manifest.
+"
+"a88ea2b6317578e00b2e3f8df47483100571f0ae","2013-05-31 15:41:21-04:00","Croutons queuing outside the app fix
+
+Basically, if network connectivity changed outside the
+app, the BroadcastReceiver was still registered and
+was still listening for events, resulting in a potentially
+long queue of croutons when the app was opened.
+
+This commit changes the behaviour such that the receiver
+is only listening while in the Home activity, and
+unregistered on leaving. This completes the desired
+behaviour of only seeing the Croutons when a state change
+occurs, or when entering the Home screen via the check
+onResume().
+"
+"4944583bb80cae216f80bd228e1499d8cd20c32b","2013-05-31 16:42:35-04:00","Use Volumes on Covers Setting
+
+Added a setting to display volumes on the covers for
+manga instead of anime. Due to implementation though, I
+had to touch a ton of places. Mostly just adding a 'false'
+to the calls to getPersonalProgress() since that will
+return the exact same value as before this commit.
+"
+"e9a90276db60db91664bbc486c807b15e8d7e73e","2013-05-31 17:15:57-04:00","Covers are transparent while loading
+
+As a result, the launch looks even nicer.
+
+TODO is look into adding a fade animation instead of
+just popping the image in place of the transparency.
+Would look incredibly pretty. Not high priority though.
+"
+"6ca8819dd003466dbdd0e31b99882c6bb61655a0","2013-05-31 21:23:59-04:00","Covers: Add Fade In Animation
+
+Low Priority == I felt like doing it right now.
+
+This commit adds a lovely fade in animation to the covers
+whenever we need to load them in, be it from the network
+or decoding them from file. This also contributes to how
+nice the app looks on launch. There is no longer any
+jarring elements to induce eye-cancer on startup :)
+"
+"5621f67504d5c1a828d065deeb5cd693c29ba4cb","2013-06-01 11:43:14-07:00","Add Apkawa to Major Contributors
+
+Added apkawa to the major contributor section inside the application
+as they implemented search.
+"
+"bbf9f26b3d33ecf6a78b9cae359173e5c2652822","2013-06-02 13:25:28-04:00","Offline Mode!
+
+This commit adds offline mode functionality. Basically,
+if we don't have network in DetailView, don't try to load
+from the network, just use what we have. Similarily,
+don't try to sync to MAL with no connection, just save
+locally.
+
+When connection is restored (detected by the Home activity),
+first we write any records marked dirty to MAL, then sync
+as usual.
+
+Also, the Search and Sync options vanish with no connection
+and return when connection returns.
+
+Oh, and I converted all the Toasts to Croutons. They look
+much nicer now.
+"
+"b397b493a90684fe1ca7a281a5b688778c075c23","2013-06-02 14:20:06-04:00","ImageDownloader: No network == Don't attempt to download
+
+ImageDownloader now checks to see if the network is
+available before attempting to download the image,
+because we'd simply be wasting time and effort trying
+to download without a network.
+"
+"a95853bd963e9a2cfddaae91d1ec4012d167edf3","2013-06-02 14:29:08-04:00","Cover Actions: Fix for Offline Mode
+
+Make cover actions work while offline. Incidentally,
+they had actually never been marking a record dirty.
+Never caused an issue before, just thought it was
+interesting.
+"
+"d0f4a5e6ada1699536b1db7d55eda23d6ed35ec2","2013-06-02 16:26:27-04:00","Bring our own Support Library
+
+Out of the blue, Eclipse has deciced to have a seizure
+and realize that Crouton is actually an issue when it
+rightfully should be. The reason for this error is because
+we are providing an extremely old version of the support
+library from ABS. Crouton was using a constant that had
+yet to exist, so now we have to bring our own library.
+
+Also updated BUILDING to reflect the new steps.
+"
+"d35dc0b1679febdad99e720b48045d98c97c91de","2013-06-02 16:41:41-04:00","Update Acknowledgements
+
+Updated the acknowledgements both within the app and
+on Github to reflect our usage of Crouton.
+"

@@ -1,0 +1,63 @@
+"commit id","commit date","commit message"
+"8e631b2dc6380704867beb0a74752bbde95bd221","2014-10-31 17:18:12-07:00","Music: Add composer support.
+"
+"3f02495eda2c79df8f16362c9f86fb4723d7f657","2014-11-01 08:27:29-07:00","dmix: Code style.
+"
+"9f5c81c4d0ff7c83559131f69cbbce7aa7dd5372","2014-11-01 06:52:32-07:00","item: When Android specific, abstract the class.
+
+This refactors the work from 3fdfe1b in a more sensable way, so Android code
+can cleanly be added as necessary.
+
+This should make adding Android specific code to JMPDComm cleaner.
+"
+"b6a545b39885661b20e9d8550e69eddec004af01","2014-11-01 11:09:23-07:00","Item: Don't crash when a translation doesn't exist for Unknown*.
+"
+"f232f5f9ecced6c300c4242ab531541aec6fd001","2014-11-01 19:21:18-07:00","MPDPlaylist: Add a workaround for broken partial playlist updating.
+
+An automated crash report has been received detailing a RuntimeException which
+was planted in the removeByRange() method in the MusicList class to check
+for sanity. It checks to make sure the length of the playlist after a partial
+playlist update are less than the status playlist length. Then the exception
+would be thrown, their application would fail and we would have a sad user :(.
+
+With this patch, a full playlist update will occur if the playlist length,
+after playlist changes, is more than the status playlist length says it is.
+
+There is a tiny possibility for a race between the status update and the
+playlist update, but it is more likely that this is a implementation race.
+"
+"5e696e4f6802d40975826427ceeea55220b77bdd","2014-11-02 06:41:58-08:00","ArrayAdapter: If incoming list is empty, it need not be an ArrayList.
+
+A automated crash report has been receieved detailing a RuntimeException which
+was planted in the constructors for the ArrayAdapter class which checked for
+the Items list to make sure it has an ArrayList backing store, which, we have
+not changed, except for in the case that we have an empty list which we then
+use Collections.emptyList(); so now we will check to see if it is empty
+prior to the instanceof check.
+"
+"88373d4d92f3ea1eedd45538cbb9883d8e974088","2014-11-01 10:58:02-07:00","MPDConnection: On no result / no exception, warn the user.
+
+We received an automated crash report where a command result was not received,
+and an exception was not emitted; MPDroid would crash (this is an unexpected
+event). Unsure of how this could occur right now, but we have much more work
+to take care of in the connection code and this will be fixed sooner or later,
+if it is an actual bug. For now, warn the user, and don't crash.
+"
+"d64360dfb599bbff6e98437d87a102a70b06858c","2014-11-02 22:59:28+01:00","Add and update korean translations
+
+As usual, Thanks to Mr. Min-Ho Park.
+"
+"41fb403f7308abfed5f0c94a5aeeba8f33ddfb48","2014-11-03 16:26:28-08:00","dmix: AS Gradle plugin update.
+"
+"342680eac3a0c5621edb3b5cee2c6b3c17de232a","2014-11-04 12:06:54-08:00","Sticker: Javadoc update.
+"
+"90a000ad4827f1f42ac4331d795d15f11af9dc4b","2014-11-04 06:52:41-08:00","MPDConnection: Move setMPDVersion to CommandResult.
+"
+"28520b1c4a9dfef5f6c388bb54be73b1f0e0e40f","2014-11-04 09:27:13-08:00","MPDConnection: Use the TAG of the abstract method.
+"
+"5db061f5fb46457954ef30f2b2f0151fabe17c10","2014-11-04 10:22:10-08:00","MPDConnection: Suppress the remainder false positive error logging.
+"
+"6cf7a3068f61d57814335da49b6ae8af1ac4d823","2014-11-04 22:20:13+01:00","Bump version
+"
+"23f18a80014d8398c5c8bf0d833a1e3ddceb9239","2014-11-04 22:20:23+01:00","Merge branch 'release/1_07_rc2'
+"

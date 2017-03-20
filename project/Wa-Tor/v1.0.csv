@@ -1,0 +1,171 @@
+"commit id","commit date","commit message"
+"f62cb5247adc46050b06a5b4d7d01c151562c433","2016-02-06 17:00:04-05:00","Initial commit
+"
+"5d266344e07386cf29193558408af1061b85b7c2","2016-02-15 01:40:59-05:00","First implementation (works somewhat)
+"
+"d269880e70a319c3acd0394b99c25247d39560bd","2016-02-15 02:10:05-05:00","Fixed up the gradle build scripts
+"
+"05947f5bcd5c9d0e22bf80f36a919bb595688c13","2016-02-15 02:13:20-05:00","Add default launcher icon (should be replaced sometime)
+"
+"9d92261c5fbd939ad9dbafdd62e7ff5aaa575750","2016-02-15 14:29:56-05:00","Fixed aging of fish and shark if they cannot move; fixed aging of shark; added fancy color interpolation to the Wa-Tor fragment; added names to the simulator and painter thread
+"
+"deebbf8e0db7865d46cefe44aa96b8372db9aba9","2016-02-15 15:14:47-05:00","Fixed a bug where fish would be converted to sharks; extracted some hard coded values into constants; added more debug logging
+"
+"5be2e51b1b52c2b10a863b6e4b398d52776c68df","2016-02-15 16:15:31-05:00","Fixed a bug in the initialisation of fish and shark; fixed a possible overflow with sharks that don't reproduce (can't move), some code reorganization/prettyfication
+"
+"1357c94cc8bd3aa157af0174dc981b45959f08c6","2016-02-16 22:53:58-05:00","Made the WorldInspector an inner class of Simulator so that it has more access to the innards of Simulator; removed 'worldSize' from the simulator (and replaced it with the length attribute of the world array(s)); made everything in Simulator 'final' (didn't seem to speed things up dramatically :-/); added (preliminary) support for multithreading (doesn't work yet :-/); removed dictionary xml file (probably should never have been committed); moved the Simulator and the tick/painter thread into the main activity and implemented communication between fragment and activity (this allows for different kinds of fragments being embedded in the main activity that access the same simulator); tuned the colors a bit
+"
+"9efde6feb3e4960ad4992fa390e3b4c326c55f40","2016-02-16 23:36:03-05:00","Refined (debug) logging; improved (hopefully) cleaning up the simulator/wurld update notifier threads; fixed name of the world update notifier thread
+"
+"80b4f9d5faf2cd719cd2902ea8b12d938242a6b5","2016-02-17 00:14:24-05:00","Made fish/shark count available through WorldInspector; added displaying some better stats on how long calculating the world took (sliding window)
+"
+"9e78e9a475b7a1b92f3052a0c537146c889481ca","2016-02-19 01:08:50-05:00","Adjustment of colors and simulator values; added rolling graph for fish/shark stats
+"
+"ef38efce2cd08906ab7a09d26a53acf3dbcbf227","2016-02-19 21:33:41-05:00","Replaced the releaseWorldToPaint() method in the simulator with a release() method on the WorldInspector and added counting of getting the world to paint and releasing it; added attributes to RollingGraphView so that it can log vertically; added layouts for landscape; made the display look a bit prettier;
+"
+"59136e74bf8bc087fd5b7a044581d8d41f5650a7","2016-02-19 22:22:13-05:00","Changed world size parameters to only be short instead of int; added saving/restoring the state of the activity (simulator)
+"
+"9ac5ef5b79ff6b44e16d8bf4b73ad2d4b8e601f6","2016-02-20 13:46:46-05:00","Memory optimziations: reduce number of newly allocated objects; added a new test for counting fish/shark
+"
+"e2eaab68e17746c1a4231bb5cb1fa186b5c77320","2016-02-20 14:41:52-05:00","Changed reproduce logic for fish/shark that cannot move (if reproduction age is reached, reset, even if not producing offspring); fixed a bug in RollingGraphView where it was possible that dataValues[currentValue] was not yet initialized in the painting thread
+"
+"63c928318a5e2876ae505be8b8aa353104ee6e3c","2016-02-20 20:55:03-05:00","Removed the TickWorker (need something better); extracted the simulator thread into its own Runnable class; moved WatorDisplayHost to a more generic WorldHost and moved the inner SimulatorObserver into its own interface WorldObserver; removed the method worldSizeUpdated() from that inteface; removed checking for an aged fish from one of the tests to (better) support movement in only four directions.
+"
+"e6c108b113b96042ca3fc7c87c1cd433d25b2ad8","2016-02-20 21:56:01-05:00","Prep simulator for 4 directions only; randomize sequence of cell calculation
+"
+"5c3d50a25bcffd594687ec0d2e2c80127b281456","2016-02-20 22:51:56-05:00","Minor fixing of the background of the rolling graph; added stopping the simulator tick when the water is full of fish or empty.
+"
+"d5f804437b465d93603e42f718e486b0a9493761","2016-02-21 00:43:03-05:00","Extracted rolling average code into its own class; added fps indicators to the main layout; fixed a bug with the max history when in vertical mode
+"
+"34bdcfa80450c88ce8c31f0aada32a14b13936ab","2016-02-21 00:44:52-05:00","Extracted rolling average code into its own class; added fps indicators to the main layout; fixed a bug with the max history when in vertical mode
+"
+"08aa461a75658687af040de3da5cf206498b26a4","2016-02-22 01:41:00-05:00","Fixed calculating the avg fps of the simulator in case no data has been recorded (division by zero); moved adding the duration out of the 'isLoggable(VERBOSE)' statement so that statistics is gathered even if VERBOSE debugging is off; added hamburger menu; added a fragment for restarting the simulation;
+"
+"e90fe606cdef9a5609d8018f9f0c2af61dbf003c","2016-02-22 02:02:34-05:00","Lint cleanup
+"
+"0e946c4a90cfcb082b4b3875ea168f142f5acc19","2016-02-22 02:17:31-05:00","Disable aborting on lint errors in the gradle build file
+"
+"0b52beeec385bf3c70e3484bd499b525e0e63f85","2016-02-24 22:32:16-05:00","Renamed a bunch of variables (e.g., reproduceAge to breedTime and sharkHunger to sharkStarveTime); added showing/hiding 'new world' fragment and creating a new world; fixed a nasty bug where the 'world to paint' wasn't released in MainActivity.onSaveInstanceState(...); added a nice picture of a fish eaten by a shark in the drawer; fixed a layouting problem with the command list in the drawer when the compatibility code would do the layouting;
+"
+"826669d51c17cce308b1f310369605433a8a88fc","2016-02-25 22:48:19-05:00","Created a new class for the world parameters with getters/setters (removes long list of parameters to constructor of simulator); newborn shark are no longer hungry; added initialization of the new world fragment; made the drawer a bit nicer
+"
+"dca7c309e5912c07a36e2451c1f5477d67b714ad","2016-02-25 23:54:44-05:00","Implemented changing the frame rate
+"
+"543d217efa03d54b6c03708d52b28fd533172776","2016-02-26 00:03:50-05:00","Internationalization lint cleanup
+"
+"5f772aba1223822637cea235337450ae70f14596","2016-02-26 00:15:06-05:00","More lint cleanup
+"
+"c2227bed67edcf37259bdb08a4ed4e5650a902d4","2016-02-26 01:01:35-05:00","One more test... :-); enable test coverage in gradle build file (will this change something?)
+"
+"8b180963d3bb3613fb75bc269e6ef1b0eba570cc","2016-03-01 01:09:10-05:00","New RangeSlider (and a demo version in the 'new world' dialog, needs to be cleaned up); adjusted the default world parameters a bit
+"
+"5dd2a11883cd839444f52f053a491284a89ab108","2016-03-01 09:08:39-05:00","Explicitly requesting the default locale in String.format(...)
+"
+"b654de5c9ed483ad9eda5346d87f223d4cb92912","2016-03-02 01:43:58-05:00","Little adjustment to the initial world parameters (again); replaced the seekbar in the drawer with my custom RangeSlider (muuuuuch better) and fixed dragging its thumb (so that the drawer doesn't move); removed the demo RangeSlider from the 'new world' fragment;
+"
+"61efc3e28dc9001e8079e4816352710687012389","2016-03-02 02:33:54-05:00","(Some) lint cleanup: added click detection to the RangeSlider; added a missing content description to an ImageView
+"
+"2cb82e239c4765829c2041095571ccac859bbd1d","2016-03-02 02:43:11-05:00","(Re)Added alert to enter a value in as a performClick(...) override
+"
+"1e18c736ecb92c976d4209e48eaee52746572322","2016-03-02 02:44:45-05:00","Fixed a syntax error
+"
+"61a563927d88e5a8a39b3b4cefc061f908b5ee74","2016-03-02 10:05:06-05:00","Unified portrait/landscape version of the drawer
+"
+"70a1529d8c6728183a98e3bc72f3c4aba72f20e3","2016-03-03 01:19:58-05:00","Added more stuff to .gitignore; attempt to restrict width of input alert when thumb of RangeSlider is clicked; 'new world' layout changes: next focus, (attempt to) specify fixed width for EditText's;
+"
+"ce1e84f77a6ec5c5e3dafe93d27dd8176cc06992","2016-03-03 01:26:54-05:00","Lint cleanup
+"
+"fe9b6e7af431c602226ad0bb5d06ee1dde744a03","2016-03-03 01:30:49-05:00","Added more stuff to .gitignore; attempt to restrict width of input alert when thumb of RangeSlider is clicked; 'new world' layout changes: next focus, (attempt to) specify fixed width for EditText's;
+"
+"9064db38407791c399a740593aa8cbf3fa87bb6d","2016-03-03 01:44:59-05:00","Added 'apply plugin: 'jacoco'' (seems that this is necessary to get the '*.exec' files)
+"
+"7e7c61f53320b42ee89eebc806e7858b9fbd5492","2016-03-03 09:37:43-05:00","Extracted string resources from code; made FPS slider thinner;
+"
+"92920eb3cdca64fa31bc87a540fd8018269fae26","2016-03-03 09:44:54-05:00","Elevated 'new world' fragment to the height of the toolbar (above main layer); used string resources instead of hard coded strings in the command drawer item layout;
+"
+"80377913c9aadde2abce3a5dad380fb27991963d","2016-03-03 10:03:03-05:00","Adjusted the 'generateXxxDoc' task a bit
+"
+"33f6feb9d64c3c4ab7fbc2c3a6f4aa4441724f87","2016-03-04 00:09:12-05:00","Added error checking to the 'new word' fragment
+"
+"6d77600ba6ed06b1b64e55b4e3a91544b158f1e6","2016-03-05 01:09:47-05:00","Relayouted drawer layout (again); started to add JavaDoc to RangeSlider; changed/fixed calculation of thumb size: now calculates thumb size such that a circle with that diameter fully encloses the widest label rectangle; some code cleanup; added sorting the valueSet array (we never know what we get); removed the 'logarithmic' attribute from RangeSlider (won't be implemented anytime soon);
+"
+"e698baee95a7ef0c3007c6e75c2fc372d632d19d","2016-03-05 01:20:41-05:00","Lint cleanup
+"
+"c4907fc8f20d6719b6f6e2a4a3106d0f1d80acf0","2016-03-05 01:25:17-05:00","Ignore the .idea/gradle.xml file
+"
+"538433ba5f6e6a7cc6ced2f68371de42279e2c28","2016-03-05 01:44:08-05:00","Fixed a bug in the verification of the new world parameters; added left/right margins to the new world fragment and lowered the elevation to make it more look like it slides out from underneat the toolbar but above the planet; spell corrections
+"
+"333d803553eca7fcaed9330994847e3afe20cbd1","2016-03-06 23:14:55-05:00","Added JavaDoc; changed the DrawerCommandItem to have an ID and an 'execute()' method; grouped some constants in sub classes; cleaned up some duplicate TextViews; added an 'About' drawer command and method to show an 'About' alert; made the 'hideNewWorld()' method return the previous state (visible or not); removed onPrepareOptionsMenu(...) (not [yet] used); cleaned up constructors for RangeSlider (a bit); cleaned up the string resources
+"
+"1a559734a76f3c340aca37f116c278ac60f20781","2016-03-06 23:26:04-05:00","Added 'about.xml'
+"
+"0798534c7198a2b245281235241b679678322f6c","2016-03-08 00:32:24-05:00","Use showing/hiding views instead of fragment transaction for the 'new world' dialog; fixed copyright in string resource
+"
+"1762e03e45da4fe0b36514c7a69dce8573b25985","2016-03-08 22:51:04-05:00","Changed the code to show and hide the 'new world' dialog: add the fragment only when the dialog should become visible and remove it after it was hidden
+"
+"ba20c49ede43ca2228fa056574c697f4d877ec28","2016-03-09 00:42:15-05:00","More JavaDoc; added new attributes for font size and series thickness; added respecting the padding for the view
+"
+"a0a649ad3e8bf6857efd8c7c3e92e59ceb60b734","2016-03-09 00:45:13-05:00","Made the series thickness a bit thinner in the portrait version (now matches the landscape version)
+"
+"688323363bc9e4e1aa326c110d4f7d51904d8f79","2016-03-09 01:06:44-05:00","Changed the logic to show/hide the 'new world' dialog: the fragment is now added with a tag identifying the fragment, checking whether the dialog is showing is now done via the visibility of the enclosing view and the fragment to remove (when the 'new world' dialog should be hidden) is now  obtained with findFragmentByTag(...); moved the code to remove the fragment into onAnimationEnd(...) (should never have been in onAnimationRepeat(...) in the first place); added hiding the soft keyboard unconditionally when the 'new world' dialog is hidden
+"
+"f12fcd64c1da57d25db2a0f2a7badc6e9502bb73","2016-03-09 22:25:15-05:00","In onResume(...) show the 'new world' view if the fragment is present (when rotating the fragment manager seems to re-add the fragment); fixed checking whether the user hit the thumb or not when dragging; more JavaDoc comments; changed the default FPS from 30 to 15 for the simulator ticker; changed the display of the FPS when the simulator is paused (now displays '- paused -' instead of hiding the FPS); moved setting the range slider for the desired FPS from '...onDrawerOpened(...)' to onResume(...) (avoids the slider showing the wrong FPS for a split second); moved the 'drawing' FPS below the 'simulator' FPS for portrait mode
+"
+"d4f116d430c634dbd219743299719d1fb992dab9","2016-03-09 22:55:23-05:00","Fixed a bug where the TextViews for the simulator/drawing FPS were hidden when the activity was rotated while the drawer was open
+"
+"0c1bdd091e573a6a17947d566adf5f3f7fa736a0","2016-03-10 00:03:48-05:00","(Hopefully) some performance improvements: no longer use Sets for the observer lists but rather arrays, this way we don't need to get iterators to iterate over the observers; tried to limit how often the FPS indicators are updated (doesn't work yet?); added a 'WorldCalculatorState' that stores the arrays (neighbours, fishPos, sharkPos, random) so that we don't have to recreate these every time we tick the simulator; removed the test code for two (multiple) threads, this comes later
+"
+"209e83a7e3d35ad29aee9dc1ce59f7debf783774","2016-03-10 00:48:04-05:00","Added Unit Test for RollingAverage; renamed attributes of RollingAverage to something saner; fixed average calculation; some debugging output prettification
+"
+"f0f62b877f6c1e2bbc1957b33d5ec1dbcbaf02e4","2016-03-10 01:25:48-05:00","A few JavaDoc fixups
+"
+"b8adb3008cfe597395c0f82a9a20dae17252e2d5","2016-03-11 01:37:44-05:00","Added (preliminary?) icons for the drawer commands (and added *.png versions to .gitignore); fixed up the Wa-Tor logo a bit (still not happy w/ it); prettied up the 'about' dialog; added 'labelFor' in some of the layouts
+"
+"614063fecda035e5f9aac2c58436321bc09f0005","2016-03-11 01:52:49-05:00","Downgrade Jacoco version (since 0.7.5 is incompatible with my Jenkins plugin)
+"
+"f5b1ac008daa54ad2d560eb0ffcf5e0814ad1ec0","2016-03-12 14:12:53-05:00","Upgraded support lib versions
+"
+"d8dc847b13f467e02189ce06b7d0caddf4dcecf7","2016-03-12 17:04:21-05:00","Upped version of support libs (again); some minor cleanup
+"
+"729bdfa659f47d236b9d8e08ba39950c3681aa03","2016-03-12 18:52:42-05:00","Updated the wator_logo and the new_world_icon a bit; added JavaDoc to the simulator; changed the enum returned by WorldInspector.moveToNext() to be an int constant instead
+"
+"0c18e045b03a69a134c5026b45da6c349db66a0e","2016-03-13 00:43:49-05:00","Added multithreading to the simulator (and a new slider in the drawer); removed the 100fps setting from the range slider; changed the simulator tests to run with 16 threads
+"
+"891162ff7f4938b1dc9ddc76092aefe1644e3054","2016-03-13 00:49:54-05:00","Fixed calculation of chunk size and subsequently the (re)calculation of threads
+"
+"aa6214cef5b6f09214a1ca542717522ce79bb355","2016-03-13 17:16:09-04:00","Finished JavaDoc; reorganized classes/packages
+"
+"41b5158606fd85a41d028263e768c2d4aa3cb4eb","2016-03-13 20:52:12-04:00","Added a somewhat nicer app icon
+"
+"35f752745cb45e36cd303eea3ed011dd99139827","2016-03-13 21:47:56-04:00","App icon fine tuning
+"
+"ed106954ac5b05c9c8f093f6f630e96a73d39e99","2016-03-13 22:00:26-04:00","Yet more app icon fine tuning
+"
+"1b1bed6baf08e0cb4ae8547ab2896d7e12019cae","2016-03-14 23:15:38-04:00","Changed converting the SVG files to use ImageMagick instead of Inkscape (hopefully, this is going to be more common to be installed on build machines)
+"
+"30142ad52cc83f7b43620d98e50c08a18739457d","2016-03-14 23:35:26-04:00","Fixed a bug in setting the output directory; added mimap to the dirTypes of xxxhdpi
+"
+"79fbca294bdaace876acc42a602646ba6f09da47","2016-03-16 00:22:03-04:00","Added a comment to test gitlab hook plugin
+"
+"742f1b37c3e96a7cead3587b19e4ce1d2719a398","2016-03-17 16:35:32-04:00","Fixed the icon (shark's fin was cut off)
+"
+"4f4802b7fea905987f5686a027d4cbd77df957aa","2016-03-20 23:50:05-04:00","Added GPL v3 and a README.md
+"
+"6fbb07d2808502832ef89b99e69bf9491b12140c","2016-03-20 23:54:24-04:00","Polished up README.md
+"
+"551702a39c32170aa82a15f56664d09ff02a1f0b","2016-03-21 15:12:20-04:00","Added description of BUILD_NUMBER
+"
+"6dc9ef78806b4d16528a1b2c2e7be9ae838f33eb","2016-03-21 18:23:43-04:00","Fixed a few whitespace issues in README.md
+"
+"ca969a59cf8e4168e2f629ca0da2f2e159d8de18","2016-02-15 01:40:59-05:00","Added COPYING and README.md
+"
+"bdfef86717bbefae54945b3fd1833d860743c929","2016-03-28 21:42:36-04:00","Update master to latest
+"
+"f85104900976953ede36057793ee67f98fb53b09","2016-04-03 21:51:20-04:00","Added (auto)versioning by pulling the latest tag (this may need to change in the future if we want to use tags that do not designate versions; also so far I'm using lightweight tags, this may need to change, too); added more files to .gitignore
+"
+"08ed00dc1b78ff751e7e88d8a323532a07720bee","2016-04-03 21:57:55-04:00","Added the 'gradle.properties' file for the app to .gitignore
+"
+"0e23c53182a997e463dd061bfdf260cc5f5ac852","2016-04-03 22:03:20-04:00","Removed the version code from the displayed version (it's already gone from the string definition)
+"
+"c1d9d7062ca9afd88cc04d11aede285171751775","2016-04-10 21:36:52-04:00","Added link to source code in About and fixed the web site link
+"

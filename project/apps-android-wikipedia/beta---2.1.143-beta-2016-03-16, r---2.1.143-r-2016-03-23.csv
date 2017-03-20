@@ -1,0 +1,285 @@
+"commit id","commit date","commit message"
+"2ef9f31242367b014cddd29e38e699b433f63b82","2016-03-07 16:17:50-05:00","Add license information for the app itself.
+
+Bug: T116498
+Change-Id: I6cca5d3245b288101d35ce26d661a1ffd56e9a70
+"
+"6b449ce08a2a8755ac953f23a3ca88b04f13e282","2016-03-08 16:50:06+00:00","Merge 'Add license information for the app itself.'
+"
+"91b0c5d3fc7afe04a5cfcca8d5082a5fff637a5a","2016-03-08 12:11:00-05:00","Fix possible NPE when exiting Edit activity.
+
+Bug: T129233
+Change-Id: I7ade833e9d78a2119a4d80bb7cc7640e502bacf2
+"
+"f5cba7194e69b535e6769dab1c22af5847e515a8","2016-03-08 09:26:54-07:00","Include database version in upgrade crash reports
+
+Improve the ability to diagnose crashes during database upgrades by
+including the version upgraded from in the report.
+
+https://rink.hockeyapp.net/manage/apps/226649/app_versions/15/crashes/6006003581
+
+Change-Id: I0915ef7cd2d1133ff7855f977a5f3421ee70a52c
+"
+"17dbac43a058c9dea6e2efdfa2624c0d237969f4","2016-03-08 11:51:01-07:00","Fix database upgrade path
+
+Fix database upgrade path from post-namespace and pre-normalized titles
+to post-lang. This issue is reproducible when upgrading from  v2.0.110
+(2015-08-31) to 2.1.142 (2016-03-07).
+
+Bug: T129232
+Change-Id: I9c980feef5d5a0ea2494d5f3b4ba0dd1b0c110c4
+"
+"af070d5914d3614b91be6b033961e39372241a92","2016-03-08 14:32:51-07:00","Upgrade database versions sequentially
+
+Database upgrades are exceptional. Upgrading differently based on
+originating version is a small performance gain for a large liability
+and test matrix. This patch changes upgrades to always follow the same
+path with each version upgraded sequentially until the current db
+version is met. This means that if an upgrade on the oldest version of
+the app works, all the upgrades in between should too. Additionally,
+table upgrade logic was pushed from the abstract super into the subclass
+implementation to keep responsibilities separate.
+
+Upgrades between each version work prior to this patch so testing was
+performed from each of the following versions directly to this patch:
+
+• 2.0 (2014-06-25)
+• 2.0 (2015-03-23)
+• 2.0.102 (2015-05-14)
+• 2.0.107 (2015-08-03)
+• 2.0.110 (2015-08-31)
+• 2.1.136 (2015-12-09)
+• 2.1.140 (2016-02-04)
+• 2.1.141 (2016-02-10)
+• 2.1.142 (2016-03-07)
+
+Change-Id: Id540478abf4d110840d92e43a13bd7fc0441caad
+"
+"a2aef4e605402fe176f9cf13a67d768da1df2fee","2016-03-09 16:29:50+00:00","Merge 'Fix possible NPE when exiting Edit activity.'
+"
+"8d3b91b95ba4e6515718bd2d4361fd4606f936e3","2016-03-09 10:50:51-07:00","Reduce Read More thumbnail size
+
+Previously, we had an A/B test, which had a bigger thumbnail size for
+entries in the 'Read more' section of a page. This A/B test has been
+removed from the code base but the thumbnail size was not reduced
+to its original value. This patch corrects that.
+
+Change-Id: I875e80a400e0261dd1049545a86a09ea068a2966
+"
+"15e7eca12c9c3a47f6ea463869081b474454ff1b","2016-03-10 20:40:58+00:00","Merge 'Upgrade database versions sequentially'
+"
+"a2495069cd9e10c45e31ed2662905aa29446bd7f","2016-03-09 17:30:27-07:00","Hygiene: do not allow bad code to enum conversion
+
+Although the app could likely run with a default value, perhaps it is
+better to fail early if the conversion of an invalid status code is
+attempted.
+
+Change-Id: I34e3a1e04107ef9bc3a7d80682b6286c579edbdc
+"
+"f2a6ce55a14a0a2591c5bedccd112b3f76fac218","2016-03-09 17:46:56-07:00","Hygiene: rename 'sync' classes to 'http'
+
+The concept of a sync row really deals with HTTP synchronization
+specifically. As we need to support additional types of synchronization,
+rename to 'http'. No functional changes intended.
+
+Change-Id: I3eb86a3eef7b39c785f3d32e9b0a00d981cada92
+"
+"fe19c019ef753161eff289effc51f97e7d38c0ec","2016-03-09 17:41:53-07:00","Hygiene: abstract asynchronous operation from sync
+
+'Sync' previously referred to HTTP operations to be synchronized. Now
+they're called just 'http'. Abstract non-HTTP, asynchronous concepts
+into new classes. No functional changes intended.
+
+Change-Id: Ia3124adbe1218e027dccf68dd04182ab8a78a2b4
+"
+"809f425db5bdf09333dd44d1d25583c79b153eb4","2016-03-09 18:18:48-07:00","Cache column index
+
+No performance measurements were made but this seems like a good thing
+to optimize considering how little code it is.
+
+Change-Id: I1aacc9555d33b01f8dffbb68a885dd0c31b6f485
+"
+"fc5990512f1f9f316c79949aa4397eaff28fa978","2016-03-10 12:44:19-07:00","Hygiene: consolidate SparseArray code to enum
+
+Keeping enumerations and ordinal values distinct makes refactoring safe.
+This patch adds a new interface type, EnumCode, which formally separates
+the concern and adds a new helper class, EnumCodeMap, which contains all
+the SparseArray logic common to enums that replace integers.
+
+Change-Id: Id9ed41f8d79741a6526eea065ae7dcd9afaaceb2
+"
+"60b95df2e8e1bdb805e3ba97678d09ab1ce1ac97","2016-03-10 17:31:09-05:00","Use siteinfo rather than allmessages API call to get wiki Main Page names
+
+This is a better source for this information as what's exposed here
+is the actual default namespace/main page name.
+
+Bug: T129530
+Change-Id: I1c9a8956551e68205bbd572dece32906e63243bd
+"
+"f38dfa3d0e0df6421f92c8caee95a1e87b6111e2","2016-02-26 19:29:08+00:00","Update npm configuations to be able to run npm install
+
+This allows us to run grunt from inside www/ instead of having to move it
+to parent directory.
+
+Also update packages
+
+Update grunt to 0.4.5
+
+Update grunt-contrib-copy to 1.0.0
+
+Update grunt-contrib-jshint to 1.0.0
+
+Update browserify to 13.0.0
+
+Add package grunt-jsonlint for linting json files.
+
+Change-Id: Iaf286b1dc4af2948896d2dbd37697f06b440850d
+"
+"52840310a9a964445ef35b845c80d740976ec523","2016-03-11 15:47:48+00:00","Merge 'Hygiene: do not allow bad code to enum conversion'
+"
+"ade9cb9881e1e96f46dab9b1bfb4f39170d4d3b5","2016-03-11 16:11:58+00:00","Merge 'Hygiene: rename 'sync' classes to 'http''
+"
+"10fc7da745dcc4a78e0278be7ab2ee82adadb115","2016-03-11 16:25:12+00:00","Merge 'Hygiene: abstract asynchronous operation from sync'
+"
+"3009f48e7fc6a8a130d03a95cee1b9396cbbd104","2016-03-11 16:40:33+00:00","Merge 'Cache column index'
+"
+"19c9c8807a03a227d0296196dce507dc3b48cc65","2016-03-11 03:51:58+01:00","bump-version-code clean-up
+
+Change-Id: I473f630072f7a9b293e7e86b9acb5c7b4de3064f
+"
+"76cbe8d993ff808162f35e2c657202d962f5f542","2016-03-11 17:36:10+00:00","Merge 'Hygiene: consolidate SparseArray code to enum'
+"
+"9646f0574beb97bb81050675d6a7e62c628d6da8","2016-03-11 18:56:18+00:00","Merge 'Update npm configuations to be able to run npm install'
+"
+"855d6d7fcbefa904e6fab6fcbfc6c34e85401a96","2016-03-14 17:14:09+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I334d87ad37d4130028f2cbe61204bf1b863a48b3
+"
+"c0a4c2b164f087829275da0c722aad6e42b35cd4","2016-03-13 12:12:37-04:00","Upgrade to Support 23.2.1, without functional changes.
+
+The only necessary workarounds I had to make have to do with the system
+bar, and the inability to set its flags via styles. It looks like the
+'windowTranslucentStatus' and 'windowFullScreen' flags no longer work when
+set via an inherited theme, so I'm setting them in the code.
+
+Also, the 'save page' icon in the toolbar wasn't getting the proper tint
+(possibly a bug with tinting state drawables?), so I changed the bookmark
+drawable itself to be explicitly white, since it's not used anywhere else.
+
+Also, the new version seems to have broken the
+getResources().getDisplayMetrics() function, where it fails to update the
+metrics upon screen rotation. I made a workaround for this, as well.
+https://code.google.com/p/android/issues/detail?id=201928
+
+Bug: T128126
+Change-Id: I5d231a113e36d8acec973fc4a9f0ece2eaa58d7e
+"
+"86898714a0c92ba67e15d168feb3d5a10c009e3c","2016-03-14 11:58:16-06:00","Update SDK manager to 1d07987
+
+Change-Id: I68144f5407bbae1dd47fd4d2f6adb72d6c5bdbed
+"
+"ac05384ba34f8b1c83be9c2187ded01531c6e873","2016-03-14 18:29:44+00:00","Merge 'Upgrade to Support 23.2.1, without functional changes.'
+"
+"be73d36d04e5b6bf4f69d12fc46b3098d489cb35","2016-03-14 18:49:44+00:00","Merge 'Localisation updates from https://translatewiki.net.'
+"
+"7b364cf072cabeec7a9d6cdcf2e64eb172fd9f5a","2016-03-14 19:29:38+00:00","Merge 'Update SDK manager to 1d07987'
+"
+"bdf540f4d6c90820c23f5b82e0285a9a1e50dfb9","2016-03-14 10:34:18-04:00","Improve link preview thumbnail gallery alignment.
+
+The new version of the Support library allows RecyclerViews to have
+'wrap_content' dimensions. In our link preview window, this means that we
+can now center-align the thumbnail gallery when there are fewer images
+than the width of the dialog.
+
+I'm therefore removing the minimum number of images shown in the thumbnail
+gallery.
+
+To test: go to the [[Earth]] article, and click on the [[Greek]] link in
+the first sentence.  Thumbnail galleries with three or more images should
+not be affected.
+
+Change-Id: I89b2e55eedc5e4b5380d8f159ee2abf9fd9b151e
+"
+"850605abd3e139bcffd6fb217e68ff8caa53dfed","2016-03-13 17:44:15-04:00","Start using Support Preference library, and use SwitchPreference.
+
+This transitions our Settings (and Developer settings) screen to use the
+Support Preference (v14) library, so that the appearance of the settings
+is consistent across APIs.  No functional changes expected, in that sense.
+
+This also now uses SwitchPreference instead of CheckboxPreference, which
+looks a lot more Materialy!
+
+Change-Id: I89ecdd4ced3df959380b3147cf67775a0b434bb4
+"
+"8cc0c5b9bfef30b5be404f025c320f964447c6ea","2016-03-14 17:44:26-06:00","Hygiene: collapse platform and compat Fragments
+
+Consolidate platform and compatibility Fragments. No functional changes
+intended.
+
+Change-Id: Ib8a5740a8b10bd8f13d6fa18d5f06ded9b68d653
+"
+"8574da397c181ee1923f5846d0211092d374b3d2","2016-03-14 23:57:20+00:00","Merge 'Improve link preview thumbnail gallery alignment.'
+"
+"3ae4134195ce98874c9eaa67153f29b47d6d003a","2016-03-11 02:37:04+01:00","Add tooltips to UI buttons
+
+Change-Id: I67a8804db9c206e6146274266e85e45c37168579
+Task: T104094
+"
+"795677548b682097588a176ed4630e9b3d04bf26","2016-03-14 14:32:33-04:00","Hygiene: consolidate queries for display density to a single source.
+
+This also consolidates queries for display width and height.
+
+Change-Id: Ie3804727b4617492b594472eec62ae4f97889787
+"
+"a7e1f7ff579cc2c46260deba2878bf4d71b344c0","2016-03-15 15:03:53+00:00","Merge 'Hygiene: collapse platform and compat Fragments'
+"
+"d15f234936caf30fb70f382ace774fa492a67dde","2016-03-15 13:03:54-04:00","Prevent WebView loading spinner from persisting inappropriately
+
+In certain cases (namely, for very short pages), the call to
+bridge.sendMessage at the end of the displayLeadSection listener callback
+could trigger the execution of a pending JavaScript callback related to
+the remaining sections, with the practical effect that the loading spinner
+would be removed before being added.  This changes the order of execution
+so that doesn't happen.
+
+Bug: T123940
+Change-Id: I404d2d1580021de45e3590bf0d15a44ee5811acc
+"
+"2d9a7c15c0aa73b59c4a2b448dcf5ae4e7d23481","2016-03-15 22:22:52-04:00","Don't lazy-init db column indices.
+
+Column indices can vary between different tables.
+In a subsequent patch, we can lazy-init the indices on a per-table basis.
+In the meantime, this fixes the current bug. Fortunately, there's no issue
+with the integrity of our db itself.
+
+Bug: T130086
+Change-Id: Ied03ebdbe6986217b2838d82a6fdfc0d03b5baba
+"
+"66548bc7b78b9ddb3956c431d35da5e843ec7b2b","2016-03-16 16:35:29+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I3d1f5ffc84e99a7b1d68b1e821df87ef8dd2e570
+"
+"a8273e3b95a19d42ee517087bdc8214785bc583f","2016-03-16 16:21:33+00:00","Merge 'Don't lazy-init db column indices.'
+"
+"b43c8497006dda3203da4c7e975a25879ca1b8e5","2016-03-13 22:57:28+01:00","Clean up scripts/generate_wiki_languages.py
+
+Change-Id: I9d26f658bdedc9a1fdbc103fe5499b24b4ef751a
+"
+"cc5e454790b1808656c4cc4b1be97fda5c320625","2016-03-16 13:30:04-04:00","Always make sure to close Cursors.
+
+Change-Id: I8350cade4550adb4b4afb6be5e2fe61037f2e335
+"
+"1d3d0bebeb0a8b6059d6d6405164811effdfb0b6","2016-03-16 18:14:20+00:00","Merge 'Always make sure to close Cursors.'
+"
+"747ece41f58e0c907b34893d9ec3067a34415b61","2016-03-16 11:56:24-07:00","Update copyright year in COPYING to 2016
+
+Becuase we're living in the year 2016, right? :-)
+
+Change-Id: Iaa4f1c755c7285563b7dd44ca6a8cf931af074c2
+"
+"b3c9ec26503fcc5109fbcc9bb45b9a158caa7c67","2016-03-16 19:49:05+00:00","Merge 'Update copyright year in COPYING to 2016'
+"
+"7b51a6d9efb5149ace1b2c0408cc0f38a0d198e2","2016-03-16 15:19:58-06:00","Bump versionCode
+
+Change-Id: I4568fbb397fb8a589abaf3d3e89f1e8a6a25fd76
+"

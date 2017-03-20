@@ -1,0 +1,361 @@
+"commit id","commit date","commit message"
+"daf07014f867228b77364924ec3d964a11e8f784","2011-04-15 22:05:27+02:00","Update CHANGELOG
+"
+"322c4e0ac851d70e443bee11c493e74da781afa1","2011-04-16 23:04:23+08:00","French translation updated
+"
+"ac4fa4a1042c913a778224e34fd431a557339200","2011-04-24 20:53:40-06:00","Add _ to ident chars, update comment
+"
+"b4493b81a46f41b47a55d84c32dbb4706be3d5b0","2011-05-06 17:18:20+02:00","Add danish translation (By rasher)
+"
+"1201931de1b40e34e506cac2c7f3669ae81248a4","2011-05-06 17:21:35+02:00","Updated CONTRIBUTORS list
+"
+"31023407627be9aa621a21dd4daee21d1cc512af","2011-06-08 12:37:37+02:00","Corrected CONTRIBUTORS list
+"
+"f1b57c9e25197ea2098aa814ea6087f0399f41c3","2011-05-29 17:49:42-07:00","Don't scroll to a conversation in onCreate() unless it was previously selected
+
+This has two advantages:
+(1) The activity remembers which conversation was last selected if it's
+destroyed (e.g. via the Back button) and then recreated with the connection
+still running.
+(2) It prevents onCreate() from clearing all the mentioned notifications for
+the conversations in that activity.
+"
+"caf3272f71bbc462c991389d88c00ecdb08b574a","2011-05-29 17:48:47-07:00","Ensure privmsg with mention of user's nick opens new query when appropriate
+
+If a private message that should open a new query window contains a
+mention of the user's nick, the expected new window fails to open
+because the isMentioned() path tries to use
+server.getConversation().setStatus(), and server.getConversation() is
+null in this case.  Fix this by moving the attempt to highlight the
+window to a point where a conversation is guaranteed to exist.
+"
+"464430ee742da3c5aff81b87e83d567c90d233ef","2011-05-29 17:48:53-07:00","Add FLAG_ACTIVITY_NEW_TASK to notification intents
+
+According to
+http://developer.android.com/reference/android/app/Notification.html#contentIntent
+we should do this.  Suppresses a log message when tapping on our status
+bar notification.
+"
+"c4504be725b85d7b95b297691055c58c95beba16","2011-05-29 17:48:57-07:00","Notify the user on receipt of all private messages, not just ones with nick mentions
+
+You'd rarely use someone's nick in a privmsg with them, and this matches
+the behavior of other clients.
+"
+"ffe73b7c9f58975e8d14c924d4058c197735c2f1","2011-05-29 17:47:18-07:00","Hold MessageListAdapters and MessageListViews in DeckAdapter to avoid leaks
+
+There are at least two significant memory leaks in Yaaic, which cause
+the client to force close after a few hours with an
+OutOfMemoryException:
+
+(1) The IRCService holds Conversation objects, which contain a
+MessageListAdapter, which have references to the ConversationActivity
+context.  This causes Activity contexts to outlast the Activity, causing
+a significant memory leak over time.
+
+Fix this by holding the MessageListAdapter in the ConversationActivity's
+DeckAdapter instead of in the Conversation objects.  The DeckAdapter's
+lifecycle matches that of the Activity, so this prevents the leak.
+
+(2) Every call to DeckAdapter.getView()/renderConversation() creates a
+new MessageListView and adds it to the deck.  But adding the view to
+the deck causes the deck to take a reference to the view, leaking the
+MessageListView until the Activity is finished.  (This has the effect of
+exacerbating the first leak, since the Activity context holds a
+reference to the deck.)
+
+Fix this leak by caching MessageListViews in the DeckAdapter, and
+returning an existing MessageListView for a Conversation in getView() if
+one already exists.
+"
+"ae1b57499712273f9f5f28bf12847bed16ff5ad9","2011-05-29 17:47:24-07:00","Dispose of IRCConnections properly to avoid leaking IRCService objects
+
+Each IRCConnection starts an input thread and an output thread when
+created; if not stopped, these threads continue to hold the IRCService,
+resulting in a leak when the service is stopped.  Fix this by using
+PircBot's dispose() to stop the threads when disposing of the
+IRCConnection.
+"
+"c9ed28767d505c23ccc5a0af9f97cebb2514d1cb","2011-05-29 17:48:42-07:00","Actually deliver actions to existing private message windows
+"
+"159cb8195d9c1bbef85a51d7fcd544ab08a362d1","2011-05-29 17:49:46-07:00","Remember switched conversations across screen orientation changes
+
+As of now, the activity does not remember whether a conversation is
+switched across configuration changes (such as screen rotations).  Fix
+this by adding onSaveInstanceState() and onRestoreInstanceState()
+callbacks in the activity to pass this information to the new instance.
+
+To make the implementation of this simpler, all code to configure the
+MessageListView, which was duplicated in several places in the codebase,
+has been moved to the MessageListView's constructor.
+
+While we're at it, make the padding setting independent of screen
+density instead of specifying in fixed pixels (equivalent to specifying
+the value in dp instead of px), and increase the padding for switched
+views.  This ensures that message text isn't obscured by the gradient at
+the edges of the ConversationGallery, which started happening when we
+began caching MessageListViews in the DeckAdapter.
+"
+"9a8bf44d63ae6eb1252a005c4b3c79cf2c7afa1a","2011-05-29 17:49:01-07:00","Do something sane for private messages where the sender is our nick
+
+As of now, private messages where the sender is our nick end up in
+a query window targeted at us.  Show these messages in the query window
+of the target instead, which is probably what we want.
+
+This is useful for use with irssi proxy, which will send messages sent
+by another client attached to the proxy to us in this way.
+
+(Note that this patch makes a change to PircBot to pass the target of a
+private message to the onPrivateMessage handler.)
+"
+"09fedc69757ecd873404d3107ffcb48f519cd6d5","2011-05-29 17:49:53-07:00","Include channel topic in the displayed conversation title
+"
+"61960c9add7d16aea804f53322850fa0d2837af2","2011-05-29 17:49:07-07:00","Overhaul notifications system
+
+Features:
+* Now displays the number of mentions that the user has not seen in the
+notification.
+* When no mentions are outstanding, display which servers the user is
+connected to, not the last message.
+* When more than one mention is outstanding, display the names of the
+conversations with new mentions, not just the last message received.
+* Notifications of mentions are suppressed if you're in the conversation
+at the time of the mention.
+* Notifications of mentions automatically clear when you bring up the
+conversation.
+* Vibrate notifications now generate the user's chosen default vibrate
+pattern, not a hard-coded one.
+* Add ticker text to the notification that's displayed when the IRCService
+goes into the foreground, instead of displaying a blank ticker.
+
+To allow for all of this, the implementation moves most of the details
+of generating the notification text into the IRCService, which now
+exposes addNewMention() and notifyConnected()/notifyDisconnected()
+methods instead of the lower-level updateNotification().
+"
+"91d211c51d717a91397bd316623998a41e07644d","2011-05-29 17:49:49-07:00","Make the conversation history size a configurable preference
+"
+"aa355c428391f187505177d844ef377fcc18bc08","2011-05-29 17:49:56-07:00","Rewrite onKey handling for the ConversationActivity input line
+
+The current method of supplying an onKey handler for the input line
+(having the activity implement OnKeyListener) is somewhat unusual -- the
+documentation recommends creating an anonymous inner class to pass to
+setOnKeyListener().  Do this, while refactoring the code to make it
+somewhat more readable and removing some instances of code duplication.
+"
+"35609e552975ad878b3612b66cf371d3175b4a55","2011-05-29 17:50:00-07:00","IME behavior changes for the ConversationActivity
+
+(1) Let full-screen IMEs wrap the text into multiple lines instead of
+making the text scroll off the screen.
+
+(2) Provide a preference to let the user choose whether or not to enable
+autocorrection of typed text.
+
+(3) Provide a preference to let the user choose whether or not to enable
+autocapitalization of sentences.  Note that even when this is enabled,
+autocapitalization will only happen if the option is also enabled in the
+IME.
+
+(4) In landscape mode only, don't replace the Enter key with a Send
+button, to make it harder to accidentally send a message.  (We can't do
+this in portrait, because we would be left without any send button at
+all -- perhaps the input line should be changed to be similar to the
+text message application, which has a send button next to the input
+line?)
+"
+"06e0849c171671588f7f73d4458fb0526f456e98","2011-06-05 02:33:25-07:00","Bugfix notification system
+
+* If there's a new message notification, keep showing the 'New messages
+in' content text, even after a disconnect notification.
+* Handle the case of a channel/query name duplicated between two or more
+connections more gracefully in new message notifications
+* Fix a race in updating notifications
+"
+"dc95472aaf041849b7110fe964d77092a62b6cf4","2011-05-30 18:32:28-07:00","Fix broadcast on topic change
+"
+"a9621b66b44dd292bda086a1f99ac5fc34755884","2011-05-30 23:52:28-07:00","Bugfix nick completion / autocorrect
+
+Use clearComposingText() when inserting nick completion to ensure
+that autocorrect doesn't try to replace the completed nick on the next
+keypress; thanks Thomas Martitz for pointing out the bug
+"
+"aaf3f3e3322ac284dfe09d1f7154a572031d6445","2011-06-05 02:29:04-07:00","Prevent race between IRCConnection dispose() and onDisconnect() when quitting
+
+When the user asks for a disconnect from the ConversationActivity, there
+is a race between the IRCConnection, which is waiting for the server to
+acknowledge the QUIT before calling onDisconnect(), and the IRCService,
+which will invoke dispose() on the IRCConnection when
+checkServiceStatus() is called during the activity shutdown.  If the
+dispose() wins, the thread running the onDisconnect() is terminated,
+leading to the cleanup being unfinished.  This causes the disconnect
+notification to be unreliable, and can result in the list of servers in
+the ongoing notification to be out of sync with reality.
+
+To fix this, introduce a new field isQuitting to the IRCConnection,
+which is set to true when quitServer() is called and cleared once
+onDisconnect() has finished.  If dispose() is called while isQuitting is
+set, it sets disposeRequested instead of doing the dispose itself, and
+onDisconnect() will call through to super.dispose() once it's finished.
+
+Note that this requires a change to PircBot to allow the overriding of
+quitServer(String message), which is declared final upstream.
+"
+"1a820d96095a972bb80e517b7d260cdc11cbdb10","2011-06-08 23:16:27+02:00","ConversationActivity: Code cleanup, remove unused imports and unused code
+"
+"2350e9743a588a54750ae093c02799da6339f4ab","2011-06-08 23:16:49+02:00","DeckAdapter: Remove unused imports
+"
+"14ed6f7f2b89dba1abdc76cd90e761d552c632e3","2011-06-08 23:17:31+02:00","IRCService: Code cleanup and suppress warnings
+"
+"5fa92b9cf484abdfa8dc43a75f536eab704136c8","2011-06-08 23:17:59+02:00","ConversationClickListener: Remove unused imports
+"
+"862d6664d41ab2e66cc4526575b383400bb7de06","2011-06-08 23:21:43+02:00","Update CONTRIBUTORS
+"
+"7c7ce7cc4113d429f9826470cb3563948290baa4","2011-06-09 00:02:34+02:00","channeladd.xml view: Replace tabs with white spaces
+"
+"d4e22f3846a6bbb78a5c4191c6e8af4620b6db99","2011-06-09 01:28:43+02:00","Ignore status characters in front of nicks for the purpose of nick completion
+"
+"571090aa131675a875e7f440e400d0f76ff909f6","2011-06-09 20:36:06+02:00","Update CONTRIBUTORS
+"
+"2fde7559e38927f9b94e028d25f24dfdf16c621d","2011-03-06 13:47:14+01:00","(Authentication) GUI for NickServ and SASL
+"
+"d9d1c4aba87d8c926c9f20d4432c782f602fb45e","2011-06-10 21:36:14+02:00","(Authentication) Implementation of authentication via NickServ on connect
+"
+"4739d292c52744a65f8256d9d4d39f0091771b1a","2011-06-10 21:42:06+02:00","Add Base64 helper class (Written by Robert Harder) - Needed for SASL implementation
+"
+"2f19eb803261efe705b7be0af52064fbdcdca4ba","2011-06-10 22:03:19+02:00","(Authentication) Implementation of authentication via SASL on connect
+"
+"6e48a29b34038df68ce36624b20ff6a35b5f54ba","2011-06-10 22:29:17+02:00","Display message at the beginning and end of the server login
+"
+"938577128d7682140d5f623986349eec4cb07925","2011-06-11 13:56:42+02:00","Internationalization of Authentication GUI
+"
+"8fea6440076debc4d78f3693870e981b119fb3cc","2011-06-11 13:58:33+02:00","French translation updated
+"
+"ae871f8a1fff5f33e21dd18dd33306eecd0abea7","2011-06-13 22:48:25+02:00","AddChannelActivity: Always set cursor at the end of the input field
+"
+"a69fafc4ddbfa1c44e9241e0650bfdd2405796bf","2011-06-29 01:18:39-07:00","PircBot: Gracefully handle disposing of the PircBot before I/O threads are started
+"
+"e7651315dfbe0fac721b29d8710c39e23bcf9a02","2011-06-29 01:19:02-07:00","Make reconnections actually work
+
+At the moment, the reconnect feature is somewhat glitchy, popping up
+multiple reconnect prompts even if a reconnection succeeds, and
+occasionally causing crashes.  A successful reconnection results in the
+conversation history being cleared, which is an annoying outcome when
+connected over an unreliable network.
+
+This patch does the following:
+
+* Keep track of whether a reconnect dialog is active, to prevent
+multiple dialogs from opening.
+* Introduce a new field to the Server object, mayReconnect, which is
+used to keep track of whether a reconnection should be attempted in
+the event of a disconnection.  It's set to 'true' when we connect to a
+server, and 'false' if the user asks for a disconnection.
+* Prevent the clearing of active conversations and conversation history
+on disconnect, unless the user specifically asked for the disconnect.
+* Keep the IRCService running even when no servers are connected, unless
+the user has disconnected from all servers herself.  This is needed
+for reliable auto-reconnects (see next patch), but has the side effect
+of keeping conversation history around even if the activity isn't open
+when a disconnect happens.
+"
+"bce2523f98d48d11bf889c301d931f9d8bbdef86","2011-06-29 01:20:02-07:00","Fix auto-reconnect
+
+The current auto-reconnection implementation will only try reconnecting
+once, immediately after the server is disconnected.  This will of course
+almost always fail if the network is down or otherwise unavailable, so
+as it stands, enabling auto-reconnect isn't particularly useful.
+
+This patch implements multiple retries for auto-reconnect, with the
+frequency of retries controlled by a preference.  The Android alarm
+infrastructure is used to schedule reconnection attempts; if the phone
+misses a scheduled attempt while it's asleep, the reconnection will be
+attempted the next time the phone wakes up.
+"
+"750df0de36d249960e566cf8fcdaa83b291d48de","2011-06-29 03:43:08-04:00","Extended IRC URI support and added Yaaic IRC link to about.
+"
+"a5d81a1350e61764ed9be2a5024e385039d2e35a","2011-07-02 17:48:14+02:00","about.xml: Fix indentation
+"
+"93e77ea6ed15586df2298d0daaec59a9712c6bca","2011-06-29 08:28:43-04:00","Fullscreen chat implementation. pans window instead of resizing, not easly fixable
+"
+"6da6a7b76b3d526b9a1c7d0b40a3d88851ae2186","2011-06-29 22:09:32-04:00","Added large ime option, Extended Español support, rephrased fullscreen methodology
+"
+"77dec6249db9bda779e07a05674f85ba38b51e4b","2011-06-30 06:50:40-07:00","Make sure a Send button is available in landscape when ImeExtract is disabled
+"
+"ccaf9f59c48c01d95fe313ea83e717b8b238ad56","2011-06-30 06:51:15-07:00","Resize the fullscreen conversation window when IME appears instead of scrolling
+
+When an activity sets FLAG_FULLSCREEN on its window, Android assumes
+that the window size will always be the same as the screen size.  This
+causes the window to scroll instead of resizing when the soft keyboard
+comes up, which (according to a quick Google search) isn't the behavior
+most developers are expecting.
+
+This patch implements an ugly workaround: extend the root element of the
+layout (in our case, a LinearLayout) to hook into the onMeasure()
+callback, which is called when the window size changes, so that we can
+resize ourselves when the window size changes.
+"
+"27d93ebaa737318c6fd2340d3895c952b25cec5f","2011-06-29 22:09:32-04:00","Added large ime option, Extended Español support, rephrased fullscreen methodology
+"
+"84ade9fae454c583abf9ca813b721ae8d4108f60","2011-07-02 18:01:01+02:00","Finalized fullscreen implementation, added heuristics to resizing, fixed ime extract bug introduced 2 commits ago.
+
+Conflicts:
+
+application/src/org/yaaic/activity/ConversationActivity.java
+"
+"f7ccd50227bb9dfe0a17b1ca59cbee0c64ad1967","2011-07-02 18:02:50+02:00","Whitespace clean up and light refactoring
+
+Conflicts:
+
+application/src/org/yaaic/activity/ConversationActivity.java
+"
+"5c48724425067c34a0b41f5bc60575315b80b86a","2011-07-02 18:04:06+02:00","Future proofed ime no extract support, enhanced performance of fullscreen patch.
+
+Conflicts:
+
+application/src/org/yaaic/activity/ConversationActivity.java
+"
+"2e2aebf2c4b62ffda0698c9bf8aaf3c7f8936ee5","2011-07-02 18:05:46+02:00","Micro optimized full screen code. Made starvation mode leaner.
+
+Conflicts:
+
+application/src/org/yaaic/activity/ConversationActivity.java
+"
+"61252c75352f7ea07eb8373c37975a65b99f6dc5","2011-07-02 18:09:54+02:00","Remove unused imports
+"
+"d7070c84cfc636287b020363db17f27865de661b","2011-07-02 18:33:16+02:00","Shrinked version of Base64 class. Fixes #71.
+"
+"a6da4970aa66c5c2ee60a67856f13d303570b766","2011-07-02 18:43:49+02:00","ConversationSwitcher: Update comment
+"
+"23ca120f0e10174a443893fe3b0dcbd959a20abf","2011-06-16 01:14:09+01:00","Only ignore the MOTD once.
+"
+"9dba05eb2d7c7504e140d7dbfdb0c8d3a1ca03c4","2011-07-02 19:51:19+02:00","Update CONTRIBUTORS
+"
+"2759b0008440fac38c7937bf11c920e8ff953db4","2011-06-16 22:10:50+01:00","Add an informational message for when the MOTD is ignored.
+"
+"5d5ce6445a881510272fef385ccb8c57aaf8d7ca","2011-07-02 21:13:18+02:00","French translation updated
+"
+"d80f4133f1c8dd93440bf5e4bc0619e2ea19cbed","2011-07-03 02:18:17-07:00","Ack new mentions on part or kick from a channel
+
+If we don't do this, the user is left with a new message notification
+she can't clear, and we leak the Channel object.
+"
+"e0f90768b2d0db3bf27a3ab78afe0da5eb0a2345","2011-07-03 02:19:03-07:00","Remove bogus setImeOptions() in ConversationActivity
+
+I thought this was removed when we moved the setImeOptions() further
+down in onCreate(), but it's still here somehow.  This causes the Send
+key on the keyboard to disappear when fullscreen IMEs are disabled.
+"
+"ec17d34e4d8069ec13f8be41920a0993f634124b","2011-07-03 02:19:28-07:00","Miscellaneous ConversationLayout cleanups
+
+* Simplify control flow in onMeasure() by moving height adjusting to
+a separate method
+* Various whitespace changes and comment updates
+"
+"02316ffdbccce3052a6a774c7aa87aa7fdbc18a0","2011-07-03 02:20:58-07:00","Remove bottom padding in MessageListView onCreate()
+
+If we're going to do this when changing to/from switched mode, we should
+do it when creating a new MessageListView too.
+"
+"99b4b0929a5af42cd063890cad23cef05e7d5529","2011-07-17 14:31:13+02:00","Raise default history size to 50 messages
+"
+"668f7f26ae0b96377724334c253833854df9b98a","2011-07-17 14:18:38+02:00","Bumped version number. Yaaic 0.9
+"

@@ -1,0 +1,178 @@
+"commit id","commit date","commit message"
+"c798cd00fecd948d94fe88b4e3e8ffc2c15463b7","2015-08-03 18:34:58+02:00","Prevent tearing of the barchart values over other graph elements
+"
+"afc4c9efaa03852c41f95ba7eb8f6c1bf699c956","2015-08-03 18:35:58+02:00","Added some javadocs
+"
+"7c597b325ae4490e9ad1f413ccc16516917a17cd","2015-08-03 23:09:49+02:00","Big refactoring: move classes and packages around to get a better structure
+
+- model package contains mostly shared interfaces (UI+service), not named GB*
+- impl package contains implementations of those interfaces, named GB*
+the impl classes should not be used by the service (not completely done)
+- the service classes should mostly use classes inside the service and deviceevents
+packages (tbd)
+
+Every device now has two packages:
+- devices/[device name] for UI related functionality
+- service[device name] for lowlevel communication
+"
+"db4261e02bcd56e81d40245e0dec6e6d36879f24","2015-08-03 23:51:53+02:00","More refactoring: new service/devices package and service/bt package
+"
+"c407ed1a76b7ad9ba68f059323ab855a830eacd0","2015-08-04 01:01:14+02:00","Last refactoring for now: BluetoothCommunicationService
+
+- rename to DeviceCommunicationService
+- move all bluetooth related bits into separate DeviceSupportFactory
+class
+"
+"bdc9e70e6e399135d5d80bd462d48dd947c592e5","2015-08-04 22:03:10+02:00","Attempt to fix reconnection problems after being away from the Mi Band
+
+*untested*
+"
+"910d9ef39813d4361330f1f5016b90c0e7a6f1cd","2015-08-04 23:02:36+02:00","Make firmware reading a bit more failsafe #30
+"
+"e92c9dbbb5a9ed4e9ab57e89c6e15bc988d6509c","2015-08-04 23:08:40+02:00","Better check for fw version major (#30)
+"
+"65fc6f68660636c5801b776b9506154590cad05f","2015-08-05 17:31:11+02:00","Adapt the Firmware installer activity to the new FirmwareHelper
+"
+"495a8cc65055f2db35427019ae0cff5a6e17c4c5","2015-08-05 17:32:02+02:00","Reorder the lines in the MiBandService class.
+
+No functional changes, just clarity enhanchement.
+"
+"b7223c7e864d9bbd7317d0459a4e92cfd9cf7f58","2015-08-05 23:24:58+02:00","Initial support for transaction-local GattCallbacks (not used yet)
+
+So that we won't have to mix everything in MiBandSupport
+"
+"8dee55198ea49d5589b3bebf967d281b4dbcb4e4","2015-08-06 00:40:49+02:00","Don't (always) leak the file descriptor.
+
+It's still very much possible to leak the descriptor (when an exception occurs
+somewhere in between or anything else goes wrong). So maybe the whole thing
+should be redesigned to be independent of files.
+"
+"2a2eae068a05df4272966673a61bcdb32d978ca4","2015-08-06 02:17:38+02:00","Improvements to the install activity #30
+
+- made it independent of Mi fw and Pebble fw + app classes
+- automatically connect to the last used device
+- some other small fixes/improvements
+"
+"64298fc9af0dda7ce25926ff9b350932dc094967","2015-08-06 21:35:00+02:00","Small improvements for the install activity #30
+
+Now starts the service if not already running
+"
+"f4cb7989772f8425306ad168f278943251121fdd","2015-08-06 22:24:44+02:00","Extract a method for easier reuse if necessary
+"
+"9004a8b0c1135dd6ba93a23c0bb1df56d0d22210","2015-08-06 23:17:41+02:00","Experimental: ACTION_START is now optional -- ACTION_CONNECT is sufficient
+"
+"ce7b42d9d400ad8ac77301e8154fb2f74925bcab","2015-08-07 11:49:25+02:00","Some theme cleanups and preparations for a dark theme
+"
+"6125594703ad560120e7948bcf0a61242b8ba13b","2015-08-07 13:24:54+02:00","Various changes related to INITIALZED device state
+
+Due to a bug in DeviceCommunicationService.isConnected(), devices using the
+INITIALIZED state only worked when they had useAutoConnect set to true (Mi Band)
+
+Now setting devices to INITIALIZED state to allow any action send to
+DeviceCommunicationService is mandatory. As an exception only
+REQUEST_VERSIONINFO will be also be allowed for CONNECTED state.
+
+This also fixes a problem when notifications came in on the Pebble with 3.x
+FW before we actually knew it was FW 3.x (INITZALIZED state on the Pebble
+now implies that we know the FW version)
+"
+"fe11e6d306d5d3548d99cc085b22764ca239cc57","2015-08-07 16:59:52+02:00","Some BTLE cleanup:
+
+- the BASE_UUID is shared between all BTLE devices, not miband specific. So are the UUID DESCRIPTORS. Hence these have been moved to AbstractBTLEDeviceSupport
+- the gatt-characteristic-property-constants used previously in MiBandNotifyAction are also general, and exposed by the gatt subsystem, hence the specific action has been dropped moving the logic to the NotifyAction class
+- the logic for checking the gatt-characteristic-property-constants has been extended also to the ReadAction and WriteAction class, this way we won't try to read (or write)  a characteristic that isn't readable (or writeable)
+"
+"27f88e484d210185af4731555095c142efa7970b","2015-08-07 22:07:48+02:00","Make ControlCenter only ask for version details after device is initialized
+
+This allows removal of a workaround which allowed ACTION_REQUEST_VERSIONINFO
+to be used in connected state (instead of initialized state)
+"
+"d983d7a5c42c2fbe9cbee5d7450986db05c19c69","2015-08-09 21:42:27+02:00","Pebble: answer pings from the watch
+"
+"fd5a6200910c21f218bd18faefae18d346f52908","2015-08-10 09:20:06+02:00","re-add support for NO_RESPONSE write characteristic
+"
+"b6d3317b2ddfb4e88c9c6bf96a4bc9596783dc50","2015-08-10 10:35:55+02:00","First step for GBDeviceEvents support:
+- change fw handling to GBDeviceEvent
+- misuse the hw version for showing the MiBand device name (there is still no option to set a custom name)
+"
+"7bf45d9b9f3e9e3f199c97af5f80f73b45bddaf0","2015-08-10 11:24:51+02:00","Merge branch 'master' of https://github.com/Freeyourgadget/Gadgetbridge
+"
+"5884684cadb4b0dc168ef761cd253a6432d6998b","2015-08-11 11:15:44+02:00","Pebble: add option to enable untested features.
+
+Bad things incoming ;)
+"
+"0be251e83d39583c9a8e8f12319ba2ee1819fea2","2015-08-11 11:21:10+02:00","Pebble: if untested features option is enabled use Gadgetbridge sample provider insted of Morpheuz
+"
+"5a8c9a9180cddbe552c158ed650330f682b53fe6","2015-08-11 12:04:45+02:00","Pebble: cache installed pbw files on sdcard if force untested option is set
+
+This will be needed for FW 3.x on demand installations.
+"
+"151f5b8e12fcb757bd69f6b3eed5ecbc080cee89","2015-08-11 12:47:23+02:00","Pebble: Choose binaries from basalt/ inside .pbw files for Pebble Time
+
+PBW installation is still unsupported on FW 3.x, these are just preparations
+"
+"13260416f3ae59e90368f78e83a2a331f0845361","2015-08-11 13:21:29+02:00","Pebble: decode app fetch requests for debugging purposes
+"
+"e43fed2e7ef4bd2b85e9288cbe2c20f90ff7bc77","2015-08-11 13:55:35+02:00","Pebble: various preparations for FW 3.x support
+
+- Implement encodeAppStart() for FW 3.x
+- List cached PBWs in AppManager (currently only UUID)
+"
+"6ed54484a64d83af1317648d9640f7436ad105f2","2015-08-11 14:16:08+02:00","Pebble: only fill app list in AppManager with cached apps once in onCreate()
+
+This is important for FW 3.x testing, since the REFRESH intent
+will never arrive and we want to see cached watchapps
+"
+"749fbe5eccb4407bf5ab7c648fc83a5c9e5afd37","2015-08-13 10:06:32+02:00","Pebble: fix crash with emply pbw cache
+"
+"eb2332c8be0d70c78f0e0baede544b90963d8e9f","2015-08-13 23:23:40+02:00","Some preparations for unit tests
+"
+"eec7fae2884eb1ce2d736ae316b7c72cecca9654","2015-08-14 00:23:01+02:00","Attempting to fix some connection problems after getting disconnected
+"
+"2e3de0cd0f7cc385904a1803d3c9c946b44a891c","2015-08-14 00:29:05+02:00","Always send out the current state of GBDevice when asking for version
+
+In a second step, request the version from the device (and send updated
+values then)
+
+RequestVersionInfo is either a misnomer or misused, depending on your view.
+It is actually used by activities to get the current state of thde device.
+
+We now provide this as quickly as possible, with the drawback of sometimes
+sending results twice.
+"
+"e28d6fa7cbe5938473e3cab6c64373857bb76494","2015-08-14 12:50:44+02:00","Pebble: try to install app metadata on FW 3.x (untested)
+"
+"f5fbb086969967a205f5a92ba997ffc41eb6cea7","2015-08-14 13:46:37+02:00","Pebble: remove unneccessary device update intent (this is done in generic code)
+"
+"f659e34efcf806a907a954c9a83ce6ac67b7c551","2015-08-14 17:32:06+02:00","Pebble: do not use platform dir for pbz(firmware) files, even basalt has its files in / for fw files
+"
+"d0229847e7d1e5c49092ae8a520d6450374fa485","2015-08-14 23:37:47+02:00","onFirmwareVersionReq() is no more
+
+- version information is now provided implicitly by device initialization
+- ACTION_REQUEST_VERSIONINFO is now ACTION_REQUEST_DEVICEINFO and it will
+return the current device state of the service without asking any DeviceSupport
+instance.
+- ACTION_CONNECT now implicitly answers with a device update intent if it
+IS already connected.
+"
+"ecc483f02711ea8bf11bb12c46158aa26d57dda6","2015-08-14 23:50:21+02:00","Remove now unused class
+"
+"a66a3a15c205b26d577bcd59ed119f6399620a58","2015-08-15 00:23:13+02:00","Fix remaining byte parameter in the API for steps.
+
+Maybe this was the reason for #91 (negative steps)
+
+This could happen making at least 3 steps per second.
+"
+"b6f66eb57cd76329646e7cb28248ae52710dcc26","2015-08-15 11:42:33+02:00","Updated translations from transifex, thanks!
+"
+"4ba5a7804a3c2c7ea5c806b7c10441b66c5304f3","2015-08-15 12:08:30+02:00","Updated for 0.4.6
+"
+"c69bf1b0afd350f31b61c2ff319d162285fa1a60","2015-08-15 22:38:10+02:00","Pebble: always use 2.x notification on FW 2.x except for K9
+
+FW 2.x notifications enables the 'dismiss all' action, but for K9 we would loose
+the mail icon. So K9 still needs the force option.
+"
+"a2e2600469cafaf620501446c3aa847b542c57ce","2015-08-15 22:41:29+02:00","Bump version to 0.4.6
+"
+"a5e009b3712f3fca28a453ce708cf2d72446154a","2015-08-15 22:46:04+02:00","update changelog
+"

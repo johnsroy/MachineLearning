@@ -1,0 +1,286 @@
+"commit id","commit date","commit message"
+"76839ad4f0594b46fb489c00347b0d74060e17e3","2013-06-08 18:17:11+05:30","bug fix: startup,mdpi layout
+"
+"2b42202a53019b1875fe60fb3f75e05b503e139a","2013-06-09 01:37:07+03:00","Update strings.xml
+
+Small punctuation changes in polish translation.
+"
+"29a59f842e58428b8ae5afdbad8c4bb4c23e350d","2013-06-09 03:05:11-07:00","Merge pull request #156 from sadam36/patch-1
+
+Update polish strings.xml. Merged. Thanks
+"
+"18748c1210a1a5bbbae0628aa5927183e4fcd712","2013-06-15 14:05:02+02:00","htc device admin fix in manfifest
+
+something it does not show
+"
+"7f250125b3a9d4489952232c3f2923b1b4266807","2013-06-15 17:47:15+03:00","Acknowledgements change
+
+better view and easier to add new project (if needed)
+"
+"2acea17c1dfaa4d666f71692d6be19cce57be02e","2013-06-17 04:17:43-07:00","Merge pull request #163 from CHEF-KOCH/patch-8
+
+Acknowledgements change
+"
+"53f8496a88679303f523f35049be3ccc52571fd5","2013-06-17 04:17:54-07:00","Merge pull request #162 from CHEF-KOCH/patch-7
+
+htc device admin fix in manfifest
+"
+"dc9cc0d5d0abc65807689387e889543f3d86783a","2013-07-01 17:57:16+02:00","added Google Play Store link
+
+added GPS link to free version
+"
+"7720b70220d1c1911d637d85c02151a971c4d591","2013-07-02 08:18:27-07:00","Merge pull request #166 from CHEF-KOCH/patch-10
+
+added Google Play Store link
+"
+"9a24d510dff5c334ac63d89e57c7117b0e07cb5a","2013-07-06 22:37:54-07:00",".classpath: Enable Android compatibility libraries
+
+These are needed for the android.support.v4.* classes.  See:
+
+http://stackoverflow.com/questions/16636039/java-lang-classnotfoundexception-after-changing-nothing-in-the-project-but-upgra
+"
+"e8003d192cc9b939b0f4e3efa97a43ea5c6827d8","2013-07-06 16:08:26-07:00","Apply wifi rules to 'bnep' Bluetooth PAN interfaces
+
+Bluetooth Network Encapsulation Protocol interfaces connect to nearby
+devices, like wifi with a limited range.  They are currently ignored by
+AFWall.  Apply the wifi rules to 'bnep+'.
+"
+"0a8aaf9d7f0cb55e42121f5d94e67614f80a3552","2013-07-04 20:01:26-07:00","Delete a bunch of unused code
+
+Some of this code references APIs that are slated to be changed, so
+removing it now makes it easier to refactor other functions.
+"
+"0253086e71edc0005f486ab6026f1c789c3ec78c","2013-07-04 20:06:54-07:00","Api: Delete unused runScript* wrapper methods
+
+Everybody just calls runScriptAsRoot() anyway, so get rid of the unused
+variants.
+"
+"a8bdd64e0d055c01cc228944bd2216fcce47c08c","2013-07-04 20:17:25-07:00","Api: Eliminate HashMap warning
+
+Android really wants us to use SparseArray instead of HashMap for mapping
+integers to Objects.
+"
+"2d8a04b87e55abb75b6518f23316cf31c58211af","2013-06-22 19:15:14-07:00","libsuperuser: Update to interactive-v3 branch
+
+This is taken verbatim from github, dos2unix'ed, with
+'import dev.ukanth.ufirewall.BuildConfig' added where necessary.
+
+This removes the local modification for exit status checking.  Exit
+status checks will be broken in blocking mode, but work fine in
+Interactive mode.
+"
+"26108a62296c49e97861ca9c4fc3a9313cf9ecd8","2013-07-05 13:57:33-07:00","Add new 'G' class to store preferences, globals, etc.
+"
+"66437fc56f7b7b7bc62ad4ee82cd360ffa107c60","2013-07-05 14:02:20-07:00","Add new RootShell class to support persistent root shell
+"
+"2f45cb3445820788c669f53f45f74e83616ad914","2013-07-05 15:09:28-07:00","Api: Refactor applyIptablesRulesImpl() and applySavedIptablesRules()
+
+Use a helper function to replace code that was duplicated between
+3G/wifi/LAN/VPN.  Simplify the command list and fix error checking when
+IPv6 is enabled.  Allow applySavedIptablesRules() to be called in a
+non-blocking mode from the UI thread, but retain the blocking mode
+for backward compatibility with current callers.
+
+This patch shouldn't actually change any of the packet filtering logic.
+"
+"db2225790d0848427c70298263e8a9c6125b724d","2013-07-05 15:19:22-07:00","MainActivity: Create menuSetApplyOrSave() helper function
+
+This logic gets called from a couple of different places, so factor it
+out.
+"
+"a0bca03ec73c4fd279eab18b68a21bac56cab77f","2013-07-05 16:18:16-07:00","MainActivity: Refactor applyOrSaveRules() to use non-blocking calls
+
+This will no longer block the main UI thread waiting for the iptables
+commands to execute.
+"
+"658baf7cf44375de31490d7d3a1ef942ec289e30","2013-07-05 17:13:01-07:00","Api: Refactor purgeIptables() to take a callback function
+"
+"f2fa2195b7af8f46c604c945926340ecf94a3ce7","2013-07-05 18:39:53-07:00","MainActivity: Refactor purgeRules() to use non-blocking calls
+"
+"456ba8fb751e6b81b9dddd673fafa5cb26f9dd6a","2013-07-05 18:50:16-07:00","MainActivity: Start a root shell in the background on startup
+
+This prevents the user from having to wait for 'su' the first time he
+performs a privileged operation.
+"
+"9b9cc3731a856aedb00a1306afcf3a4b9f935a8c","2013-07-06 10:36:02-07:00","Api: Add new non-blocking methods to support Rules/Log activities
+
+For logging: clear logs, fetch logs, toggle logging without reapplying
+the entire set of rules
+
+For rules: fetch rules, flush all rules
+"
+"4d7e1f2cb82d933d36b034e7565d7aa3becb8090","2013-07-06 13:39:34-07:00","Api: Add new methods to retrieve interface info
+
+interfaceInfo() lists the interfaces in /sys/class/net, then optionally
+matches each one against the ITFS_* lists to show whether they match
+the iptables wildcard rules.  This doesn't execute any shell commands,
+but it should probably be run in an AsyncTask due to filesystem I/O.
+
+runIfconfig() runs busybox 'ifconfig -a' to list all interfaces, stats,
+link statuses, and IP addresses.  This requires a new busybox binary.
+"
+"babba4016afdfd8771d46ea67ea6307b038a0f4f","2013-07-06 11:10:03-07:00","strings: Add a few new strings for Rules and Log activities
+"
+"7a393d2a53ebc76c219997bc2f66ad9f44ca9c41","2013-07-06 14:00:01-07:00","Api: Split out log parser into a common, non-blocking method
+"
+"5d85f2d5db6a619f06fb4db1387166f63c423629","2013-07-06 19:38:56-07:00","Update busybox sources
+
+Add busybox 1.21.1 and instructions for building with the NDK.  This also
+has CONFIG_IFCONFIG enabled.
+"
+"6a53abf956a54dcdff59e2c8f637c975af7ba415","2013-07-06 19:45:34-07:00","res: Add new busybox_g2 precompiled binary
+"
+"a3d330a347fb3872e5917338dadb7559ea3da7d8","2013-07-06 19:44:57-07:00","Api: Switch to busybox_g2 binary
+"
+"4771346c7ceed4453fbe88d75d5642242c483d16","2013-07-06 19:46:13-07:00","res: Remove old busybox_g1 binary
+"
+"1a84f880b39edf6dec80e15b0c19427223f30de9","2013-07-06 00:09:48-07:00","Refactor Rules.java into separate Log and Rules activities
+
+Create a generic DataDumpActivity superclass for the common elements,
+then split the Log-specific and Rules-specific code into separate classes
+to improve clarity.  Reimplement Log/Rules code using the new non-blocking
+Api functions and the new 'G' preference store.
+"
+"3324efd9e714dacb5bba0ec5ad26e91ffdffc56e","2013-07-06 14:21:27-07:00","Api: Delete a couple of unused blocking methods
+
+These are no longer needed now that Rules.java is gone.
+"
+"40bd4fa8af6788694a4d9edbbab8830bb5217c00","2013-07-06 15:11:01-07:00","Api: Add warning print to runScriptAsRoot()
+
+runScriptAsRoot() is a blocking function, and as such, it should not be
+invoked from the main thread.
+"
+"7cece27587ea792c7ec36c63cbbdc732443200e5","2013-07-06 18:06:02-07:00","strings: Minor cleanup
+
+Toast exit codes are pretty useless, so we'll drop them in favor of logcat.
+Also, fix spaces on the 'can't get su' error.
+"
+"8750e0c0bd4430932d9dd471f4eba8696851747f","2013-07-06 22:13:33-07:00","strings: Add new notification text
+"
+"9e041167e444c3d3d41b908db44d0c71703d04f8","2013-07-06 18:51:23-07:00","Add new experimental option to allow inbound connections
+"
+"2efa07482b7862bad027112ee54fdbbe2dca325b","2013-07-07 00:12:23-07:00","Api: Split static and dynamic firewall rules
+
+applyIptablesRulesImpl() can generate hundreds of iptables commands on a
+device with many apps installed.  It would be very expensive to reapply
+all of these rules every time the network configuration (roaming,
+tethering, LAN IPs) changed.  So instead, we will split the 'dynamic'
+items into a couple of very short chains, and use those chains to
+route packets into the longer 'UID list' chains.
+"
+"132fd29088b72c9b782a2605fc8b861b8d8b2a89","2013-07-07 00:39:38-07:00","Implement new fastApply() method to optimize background rule changes
+"
+"d9841a4b3e2e84c405743e18d7490bce8d2c3ea3","2013-07-06 15:41:48-07:00","InterfaceTracker: Add new applyRulesOnChange() method
+
+Now that we can run root commands from the main thread, the
+BackgroundIntentService is no longer needed and the 'reapply or don't
+reapply?' logic can be much simpler.
+"
+"600e640ed06a6d244845c2105d9d1fefe422d1c3","2013-07-06 15:43:14-07:00","Remove now-unused BackgroundIntentService
+"
+"1cc28b5dca11d4759d2862997ebed16c1cf365a9","2013-07-07 10:29:10-07:00","InterfaceTracker: Remove redundant interface names
+
+Listing e.g. 'wlan0+' and 'wlan+' is redundant, because 'wlan+' matches
+any name starting with 'wlan'.  There are several of these, and
+eliminating them reduces the number of rules that need to be applied.
+
+Also, move the wifi rules up to the front of the 'afwall' chain.  It's
+a shorter list, and wifi is likely to handle higher data rates.
+"
+"2fd68dfb18a409cbdc5e8a05409cf011fb6fb3b5","2013-07-07 15:04:06-07:00","Api: Fix data leak when applying rules
+
+AFWall applies the rule set by flushing all chains and then adding
+50-100+ rules one at a time.  This creates a 1-2+ second window of
+vulnerability in which blocked apps can access the network.  So
+set the default output policy to DROP until the rules have all been
+successfully added.
+
+This patch also causes AFWall to fail safe if the rules could not be
+applied (e.g. typo in the custom rules), instead of leaving network
+access wide open.
+"
+"ab5b57eb0018f63cdb40464de0868e48b7dbd791","2013-07-07 15:21:34-07:00","Api: Fix data leak when LAN control is enabled
+
+The current logic leaves the wifi interface wide open when there is no
+IP address assigned.  But it can take a couple of seconds to get a
+CONNECTIVITY_CHANGE intent after the IP is assigned.  So it's important
+to block traffic until the rules are set up properly.
+"
+"ab044a35e44aa8822f2598a4da92b71e0ab1df67","2013-07-07 17:28:45-07:00","Api: Fix spacing on ADB text
+"
+"47ff6dea01f0597021d302b13eceecadcb6edda9","2013-07-07 18:33:48-07:00","widget: Add missing labels
+
+Both widgets are just labeled 'AFWall+' in the launcher.  Give them more
+descriptive names so users can tell them apart.
+"
+"b6ce71f4267cceadfe85de16718b11d9215b592f","2013-07-07 18:56:01-07:00","widget: Convert status widget to new nonblocking APIs
+"
+"a9280b44c4e8fd9d043727157f215937a0f1b94b","2013-07-07 20:57:05-07:00","RootTools: Update to latest stable release (v2.6 / svn r249)
+
+This provides a new deleteFileOrDirectory() method that we'll use to
+disable the fixLeak setting.
+"
+"e377d79bd82d8796a2a5345868e35561b0c55192","2013-07-07 21:18:15-07:00","RootTools: Make deleteFileOrDirectory() a static method
+
+Upstream change request:
+
+https://code.google.com/p/roottools/issues/detail?id=39
+"
+"b7fee9ab5f0c1e3e3eb168506b1e6b90978074d2","2013-07-07 21:19:05-07:00","RootTools: Fix copyFile() error checking
+
+Return false if the file couldn't be copied.  Upstream change request:
+
+https://code.google.com/p/roottools/issues/detail?id=40
+"
+"1884579c3ecea7abf49c4e76a785dcbb04e83a55","2013-07-07 22:20:46-07:00","Refactor fixLeak code
+
+Delete the startup script when the user unchecks the fixLeak box.  Run the
+root copy/delete commands in an AsyncTask instead of blocking the UI
+thread.  Make sure the checkbox status reflects whether the script is
+installed on the filesystem.  Gray out the option if the init.d directory
+cannot be found.  Improve error reporting and consolidate redundant code.
+"
+"04063e94e7d59be47720e633c7057dd4d61e5675","2013-07-14 19:35:39-07:00","Merge pull request #167 from cernekee/async-v3
+
+Code Refactor changes from @cernekee
+"
+"5c2a508c68e57e5803c4c24618e4c033dcb4eb09","2013-07-15 09:22:24+05:30","added activeRules to be disabled for lower end devices(dependent on roam/lan - will be disabled, added missing interfaces for 3G and minor changes
+"
+"250c1e1b8f7ce646434d9ec384dd1cd44a50a8c5","2013-07-16 22:56:51+05:30","Refactor main activity to use the 'G' sharedPreferences class
+"
+"31a91cb482f9b0ee7c251797bb13f90c5b644fa9","2013-07-17 21:57:42-07:00","Refactor multi-profile code
+
+Consolidate the redundant preference checks and switch statements into
+G.java.  Revert back to the Default profile when multi-profile is
+disabled.  Fix a couple of instances where the active profile UID lists
+got out of sync with the current profile selection.
+"
+"f7f618e5b57a5617b42a1fbe849c138abdba1c9b","2013-07-18 01:54:42-07:00","Merge pull request #170 from cernekee/profile-v1
+
+Refactor multi-profile code
+"
+"ae7534b2b9e8619b55af6e9bb5c5dad6680056d6","2013-07-21 13:05:05-07:00","RootShell: Fix missing BUSY state transition
+
+rootState needs to be set to STATE_BUSY while a command list is being
+executed, to prevent lists from being executed out of order.
+"
+"49883247c2323bd1c86b2cab107d672032b66422","2013-07-21 18:20:49-07:00","Merge pull request #171 from cernekee/master
+
+RootShell: Fix missing BUSY state transition
+"
+"732f3dcd9a747f6f3a947323a6a2ddd1f1deaca4","2013-07-23 08:30:23+05:30","prepare for public beta release
+"
+"645382815cc49ced115407e7a8b5874d14373023","2013-07-23 08:36:59+05:30","i18n update for public beta
+"
+"d6ac7a2ab440fb7ef55163c1214d21bc3a4c3f52","2013-07-30 21:53:09+05:30","iptables target identifier for LOG/NFLOG
+"
+"2dc1df04c9b74d921da84893bb26b4d90db6eae8","2013-07-30 22:07:40+05:30","nflog chain support for logs on newer devices
+"
+"f29a4b71cb96e5bf441f7dc75c2e0298706f2b23","2013-07-30 22:18:11+05:30","nflog chain log support for newer devices
+"
+"594e551c921eb3591eaa8c2f3c84170b0243ab6a","2013-08-06 18:58:33-07:00","Merge pull request #175 from ukanth/beta
+
+Merge beta to master for 1.2.6
+"
+"2584f70b13fffe95532973d3f2557ae668260ce5","2013-08-08 23:13:59+05:30","prepare for 1.2.6 ps release
+"

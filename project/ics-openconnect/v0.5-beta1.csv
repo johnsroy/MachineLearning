@@ -1,0 +1,213 @@
+"commit id","commit date","commit message"
+"e07bb6ac676286cd9b0e1df4f800d332ee7a6393","2014-01-18 13:57:17-08:00","Bump version to 0.3 (3)
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"8b5770ce2534a838b44b35fecb691b25bcad1493","2014-01-18 14:21:31-08:00","README: Add XDA link
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"200e09c1000f56994f8369d34cef5320d48d8d74","2014-01-18 21:09:47-08:00","VPNProfileList: Use URI text entry consistently for hostname
+
+Currently, editing an existing hostname in a VPN profile uses URI entry,
+but adding a new VPN profile uses TYPE_TEXT_FLAG_NO_SUGGESTIONS only.
+This results in different keys being available on the touch keyboard,
+often replacing the '.com' key with a smiley emoticon in the latter case.
+
+So we will change the input type used in the Add operation to use URI
+entry.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"9c9c65be9a77854d72dab88436c3e958564a2ac5","2014-01-20 18:44:33-08:00","KeepAlive: Fix socket binding across wifi/3G handoffs
+
+On Android 4.4+, the DNS request socket can get bound to a specific
+upstream interface instead of the VPN interface.  After a handoff,
+sending data traffic to this socket can return EINVAL and log a Java
+exception.  Fix this by creating and tearing down the socket every time
+we try to send a DNS keepalive.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"1cbd2e1db11f196e1307011324c71bcd7b280d3e","2014-01-20 18:52:12-08:00","Update docs to comply with the old BSD advertising clause
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d423113b0a789d9be20ec8207e893bd16bfb9763","2014-01-20 19:29:56-08:00","DeviceStateReceiver: Use consistent defaults for netchangereconnect
+
+This defaulted to true in Settings, but false in the code.  Use true
+in both places.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"9e1279d80d0376c0302ca498660f4ff3f6fd097e","2014-01-20 22:58:50-08:00","external: Sync with openconnect rev 9ab2e9b
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"5f4e81da1964aa77d6ad26d063e0e3ad5853e7c1","2014-01-20 23:02:57-08:00","libs: Sync with latest openconnect sources
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"13b7431996f0cd36141fa33fc6773be0031d2fb2","2014-01-23 21:14:08-08:00","Enable FAQ tab
+
+Add FAQ items from the XDA thread, plus a few more as a bonus.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"e7fdf3d3bfd99e7df129c0a418af62f786ec22dc","2014-01-24 18:56:17-08:00","VPNProfileList: Reinstate FAQ hint
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"7716c901f9befca976416071bc275fe7b9f51d3c","2014-01-24 19:31:15-08:00","VPNProfileList: Redraw 'add profile' dialog on activity restart
+
+Currently the code leaks the alert dialog on e.g. screen rotation events.
+Fix this so that the alert's state is properly saved/restored, and the
+alert is destroyed if it is active when the fragment is destroyed.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a156acb6ab162f86bfb4fd9f41ae78bdeef3f915","2014-01-26 14:07:43-08:00","AndroidManifest: Don't export LaunchVPN shortcut
+
+This doesn't currently work, so the app will FC if something like
+Lock Screen Settings tries to invoke it.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"614c4411913a7be0164b28bf2a9f3ce82cc2584b","2014-01-27 19:01:09-08:00","OpenVpnService: Fix FC on null intent pointer
+
+This sometimes happens when the system tries to restart the service after
+a crash.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"9ad97742143ac4cce39807bb7101e46d2618a592","2014-01-27 19:05:59-08:00","VPNLog: Don't log exception backtrace if log file isn't found
+
+This is a semi-normal condition so it shouldn't generate a large amount of
+logcat noise.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"2577faa1f816a2a71ea5f5c4c5a248cd5350f81e","2014-01-27 20:18:45-08:00","CIDRIP: Add code to parse '1.2.3.4/8' format
+
+The new constructor will autodetect '1.2.3.4/8' or '1.2.3.4/255.255.255.0'
+and do the right thing for both cases.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"dda90334ddc6034a80d2fb3c925641541c31c9ba","2014-01-27 20:31:19-08:00","Add split tunnel preference
+
+Let the user manually enable split tunnel even if the VPN gateway offers
+a full tunnel.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"db60d5b6b1e01124ffbaef098e7e1c12972e9ade","2014-01-27 21:08:58-08:00","Make 'About OpenConnect' a menu item, not a tab
+
+Most cell phones do not have a wide enough screen to display all five of
+our tabs in portrait mode, which means that one tab will be invisible
+until the user scrolls over and finds it.  This is rather crummy from
+a usability standpoint, so let's sacrifice the 'about' tab and move it
+into its own activity (accessed through the menu).
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"e12775c8bed471b415053202c53a694c1090d3c3","2014-01-27 21:07:50-08:00","doc: Update CHANGES
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"143da580857323acd5a65ade13a4ff7fc9f28b75","2014-01-29 21:24:53-08:00","res/menu: Convert all files to UNIX format
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"12ec822cb19141da614631d2b815770fda01758a","2014-01-29 20:21:22-08:00","external: Sync with openconnect rev 5bb0605
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"9e8913a2aaaede6efc139cf2a9331362edfcf090","2014-01-29 20:27:31-08:00","libs: Sync with latest openconnect sources
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"34a63547ad05e8b788f6e7d88f8ad71e98469988","2014-01-28 20:37:55-08:00","AboutActivity: Convert this into a generic Fragment->Activity wrapper
+
+We will try to reuse this activity for the settings fragment, too.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"f0da3abe0e1aa0110763eb90eb47cac646857ea9","2014-01-28 20:39:44-08:00","Rename AboutActivity to FragActivity
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"dfd2dde5fc35f95f2502edb74292d55f764a04a5","2014-01-28 20:44:26-08:00","MainActivity: Move Settings into the menu
+
+This is currently a tab, but too many tabs do not play nice with smaller
+screens.  On a 480x800 phone they are too wide.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"e31e9f316af70de9b325f123166e852111ee9895","2014-01-28 21:29:47-08:00","LogWindow: Move logic into a fragment (LogFragment)
+
+This allows us to create a 'Log' tab on MainActivity.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"2509f5afd9911eaf6d52f8e3bdd901bc79f6f44f","2014-01-29 18:53:11-08:00","LogFragment: Tweak action bar UI
+
+Move everything except reconnect into the menu; fix capitalization.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"433a09bc6b46de773612ec3df995ff9179675254","2014-01-28 22:27:40-08:00","MainActivity: Add 'Log' tab using LogFragment
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"120e116df27e4592a6e98ae6cfe28506c893ceae","2014-01-28 23:33:54-08:00","MainActivity: Simplify TabListener code
+
+Instantiate all fragments when the activity starts; remove the Class<T>
+stuff.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a25aa7935e16d7968b68dc7e12f5f4f98dae66a3","2014-01-28 23:48:46-08:00","MainActivity: Consolidate 'Profiles' and 'Status' into a single tab
+
+'Profiles' isn't terribly useful when already connected, and 'Status'
+doesn't say much when disconnected.  So just change the title, and point
+it at the appropriate fragment.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"ca532413858b652020bd3384325555741de5e51c","2014-01-29 19:37:09-08:00","MainActivity: Animate tab switches
+
+Use slide right / slide left transitions when the user switches tabs, to
+make the change look smoother.  Use fade effect when 'Profiles' fragment
+changes to/from 'Status' fragment.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"4cb7358affb32b76a2c791bf1f8f32bf030531fb","2014-01-28 23:38:11-08:00","VPNProfileList: Add Reconnect button at the bottom of the screen
+
+Provide a quick way to reconnect to the most recently used profile.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"15d1183b0f22af8a7ded570208e4ecd39c354761","2014-01-29 19:42:32-08:00","StatusFragment: Remove 'Show log window' button
+
+The log is now in a tab, so let's start deleting references to the
+Activity.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"c5c7213377469e4dc293f1e292317cb63851dad7","2014-01-29 19:46:05-08:00","Remove 'Show log window' preference
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"cdcf65c07cab278e743f8ce7c48e7d81a5efafcb","2014-01-29 21:14:51-08:00","OpenVpnService: Save UUID on start command, not on service shutdown
+
+onDestroy() isn't always called, but we do always want to save the most
+recently used VPN.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"f6b8285a70f50852c119455668e51045f39555e0","2014-01-29 21:21:06-08:00","Bump version to 0.5-beta1 (501) and update changelog
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"

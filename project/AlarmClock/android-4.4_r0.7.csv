@@ -1,0 +1,1106 @@
+"commit id","commit date","commit message"
+"7b2b7cd1088d0a39340fb5f439e74ac6ae8b2247","2013-07-16 11:19:26-07:00","Reconcile with jb-mr2-zeroday-release - do not merge
+
+Change-Id: Ie528d8b4e5e760366c3d5df110c48c36b7b6210d
+"
+"f45aa3fe2c2774034d7794d9d441543810f1b7ee","2013-07-16 11:20:56-07:00","am 7b2b7cd1: (-s ours) Reconcile with jb-mr2-zeroday-release - do not merge
+
+* commit '7b2b7cd1088d0a39340fb5f439e74ac6ae8b2247':
+Disable GlowPad animation when alert activity is done
+"
+"44239e1dd2c7577b923a29bfc75dbcaf83590088","2013-07-16 17:31:27-07:00","Use the new AlarmManager.setExact() for our alarms
+
+Alarm clocks tend to need guaranteed timely delivery of their alarms,
+so they are well justified in needing the new API.
+
+Bug 9532215
+
+Change-Id: I383f49c19bc8e8f9bceb8c246d972fb838da092d
+"
+"25ca422d2e838d5b2cd91cae4d3317299fc69a20","2013-07-24 07:51:13-07:00","Import translations. DO NOT MERGE
+
+Change-Id: Ic7d96e4a26613ee7beba3972279d7921264f31f1
+Auto-generated-cl: translation import
+"
+"4781bf735b4c1363f7f29cce4fe9af8f9bed793a","2013-07-24 16:15:37-07:00","Temporary fix to clock digits clipping
+
+Bug: 9278057
+Change-Id: Ibc6ccfaf5707dc7335d4a3609340de3e611cc81f
+(cherry picked from commit 6548b0a019548091c29abe905a4ef3f9a9ab61ae)
+"
+"efdb148819f8600dcfecaeb38301729c15e22b33","2013-07-25 02:31:42+00:00","Merge 'Import translations. DO NOT MERGE'
+"
+"f228a7aeeb6b9c8a1f3176ed6b265a311c3e846a","2013-07-29 16:25:34-07:00","Add date and next alarm to clock dream.
+
+Bug: 7942543
+Change-Id: Ie58ffef920bc5329f893b32a6c8d1e82e3978e4c
+(cherry picked from commit c5b45b80a280794ca131b9857c5885c337d4d6e1)
+"
+"c917c8aab554b21f9fc9fb701a0bcfe27f99573e","2013-07-30 13:43:48-07:00","Hide nextAlarm label until the app updates it
+
+Bug: 7637741
+Make the nextAlarm label which hold the alarm icon 'gone' as a default.
+The app will update the visibility once it updates the text.
+
+Change-Id: If3907d18627004865b74b8cdecd0df3b027bedbb
+(cherry picked from commit ce9b106734452a66bc9fe9b75d791b64d3b90f1a)
+"
+"636f0cac27059a99d3556cbd4187192fe2032790","2013-08-05 17:30:54-07:00","Make alarm times be in local time, regardless of time zone.
+
+Bug: 5974730
+Change-Id: I454dda60f40352d202c270d518b1830ee081ad39
+(cherry picked from commit 9fc42f9af42b408e85655c55e6c7825bc1ce8665)
+"
+"90ff3a64fee25689c1583b45451c3415415b3e3f","2013-08-06 16:59:40-07:00","Fix alarm volumn persistences
+
+Bug: 9628874
+Change-Id: I3df457fb617542794ab547834a284c0b1ec3e415
+(cherry picked from commit c6bc6266783b0a424afbdfe842f9ad713a59084d)
+"
+"3096172f0579e0c9673915d747f66f15ddb9cac8","2013-08-06 15:36:49-07:00","Fix bug where old labels being used in full screen alerts.
+
+Bug: 3374958
+Change-Id: Ie4ab642a5bead884658c7a1b0b0d89ad1b578f06
+(cherry picked from commit 217d1019bfdf0321824d70a3db2b38793f8d78ad)
+"
+"9a931a67fc4097ef934a02a1a767042f57589362","2013-08-06 21:12:20-07:00","Fix bug for non-repeating alarms earlier in the day.
+
+Needs a more complete fix to better manage when calculateAlarm()
+gets called but in the meantime this will at least let alarms
+be set.
+
+Change-Id: Ib50b874edd94bfe88ca2fa48d84ad2e0231e2878
+(cherry picked from commit af4c8e48d5fd7057c3c8d2153ce799a157d2d0b3)
+"
+"e36a3c69fc75cbaa27f90cac6d52fea87e25baa9","2013-08-06 18:28:55-07:00","Fix snooze bug introduce by removing the timezone issue.
+
+Change-Id: I21b9051287ceadce597e7ea8679db4a4d67cf900
+(cherry picked from commit cb80cd29b46a2807426ca18833a86369e6b46dd2)
+"
+"dbc033f930ddb50160c0739192fac99d5592549e","2013-08-06 19:05:09-07:00","Fix issue with restart alarm after auto-silence.
+
+Bug: 7599655
+Change-Id: I8bafcaa35b237ad5c7381a6fbfeca7b525a4d541
+(cherry picked from commit fc803949d5a02d957139db1caf920090773a37f8)
+"
+"b1cb5141f896726c16e2ca7c2a0c9f564f9b07ba","2013-08-06 20:44:38-07:00","Send the delete timer broadcast immediately after deleting
+
+Instead of delaying until after the animation, because if the activity
+is null when the animation is done we can't as easily have a context
+available to send the broadcast.
+
+Bug: 9313826
+Change-Id: I659dd7dd89779c7ee15e291e9537187dc2dbe411
+(cherry picked from commit cd8877e6bf6a1381ff7eb7c96b300cd686dd5a6c)
+"
+"80d4f7ff64509b8153f991faf52665bc61e0fe76","2013-08-06 17:41:02-07:00","Allow tablets to freely rotate the alarm alert activity.
+
+Tablets were switching to their defualt orientation due to the
+nosensor orientation set in the manifest, and were then being changed
+to unspecified once the activity was created. Doing it the opposite,
+so phones and tablets start as unspecified and only phones are
+then designated as 'nosensor' during onCreate() allows us to get
+the desired behavior.
+
+Bug: 8728671
+Change-Id: I29ac593ccbb65953fa35dad38110accc9c531594
+(cherry picked from commit 025bca166d9cbbe5476c76e0ba6163bdb788b4b0)
+"
+"a0bd6355c8f9f7f3009315661d219c231622044d","2013-08-04 13:34:06-07:00","timer cleanup
+
+This change ensures the buttons are visible at the right times and
+overloads return values from BaseAdapter to simplify the code.
+(This cleanup was once part of c/255295 which was abandonded.)
+
+Change-Id: Ic35e70d4045e28c74f30e156975151fde5c57a9f
+(cherry picked from commit e55413e93d36454df7dd1de3380083244d7a8675)
+"
+"c959830fe51f2a914a22111de0dedde3e2b05c0f","2013-08-05 16:45:34-07:00","Start Delete Confirmation in Create
+
+BUG: 9901716
+
+Re-starting the delete confirmation in Resume failed
+because Resume can be called even when the Dialog is
+still up, for example due to a phone call.
+
+Change-Id: I215b6bfe137c1c7433d83b2c1c52039ead1ff303
+(cherry picked from commit e55a9263ff746b0448441260495488b2b636742c)
+"
+"74b364db3f02f6f55a25dc4ed2ae2d3bc54b995d","2013-08-04 12:55:10-07:00","Do not invalidate listview just to update one time
+
+Suspected mLapsAdapter.notifyDataSetChanged() was a key contributor to bug
+7289174, but that proved not the case. This change does eliminate unneeded
+view repaints in the listview.
+Included some clean-ups.
+
+Change-Id: I76e4698e17e3b8c6b1f988f09f96c7f7ec783d53
+(cherry picked from commit 9c483781c2a4bbc2b7ca228ea959f99cc0be149b)
+"
+"5a13015bc43d63d9031516b357451f5fc7a4b550","2013-08-07 16:31:26+00:00","Merge 'Do not invalidate listview just to update one time'
+"
+"203bf487b2648df2edc74787d6bf2ab34d24191f","2013-08-07 12:48:51-07:00","Guarding new SDK19 code
+
+Change-Id: I802e56d859c935d6492bae54eccb15d17fc3f840
+(cherry picked from commit 4fd80b58da8ad66e0e4a23cbf7c900174727fb4e)
+"
+"a5df15e47c50fe7759bb768a9b2e39af266725a1","2013-08-08 18:56:17-07:00","Fix bug where we weren't firing the correct alarm
+
+Had a bug where we were choosing the wrong alarm to fire.
+
+Bug: 10248289
+Bug: 10243530
+Change-Id: I56d7efa5c3072db1598835bdf194f2c734af19cd
+(cherry picked from commit ffdcaef971a18466f2f44c00e32430f7a19d449b)
+"
+"5a55af3fbed9e5221c69c3f40e078de733bbae84","2013-08-09 06:56:59-07:00","am 7c1190ae: Build against SDK 16.
+
+* commit '7c1190ae3518a8fd3b0b4fd34f48be6a3e7640ae':
+Build against SDK 16.
+"
+"3e5a25143b7bf84d1b19016bb19e0429dfca80ae","2013-08-08 18:56:17-07:00","Fix bug where we weren't firing the correct alarm
+
+Had a bug where we were choosing the wrong alarm to fire.
+
+Bug: 10248289
+Bug: 10243530
+Change-Id: I56d7efa5c3072db1598835bdf194f2c734af19cd
+(cherry picked from commit ffdcaef971a18466f2f44c00e32430f7a19d449b)
+"
+"48a499a12d695a1fe47561fbddf5897b19a7a3d9","2013-08-09 11:02:53-07:00","am 9df9aff9: (-s ours) Remove Dream from unbundled branch
+
+* commit '9df9aff951dce59b327f56f5821386a7b40798bd':
+Remove Dream from unbundled branch
+"
+"e62ab57741f63d737f23624c5b7012117c4a4ccf","2013-08-09 11:37:14-07:00","Keep history after resetting to build:771974
+"
+"368778de7a03a799df03919cae959a6ac7c9733c","2013-08-09 18:08:21-07:00","Fix issues with multiple PendingIntents and caching.
+
+Bug: 10256216
+Change-Id: Ib4f882b73d65fa1022afde98370315418c742b94
+(cherry picked from commit f818e204dfe5bfa6a8a83612fe6eef51f40752fc)
+"
+"6b0b55a28e3eb252d9b3664124eca8f3ae246d52","2013-08-13 09:45:15-07:00","Support RTL in clock notifications
+
+Bug:9942331
+Replaced setTextViewCompoundDrawables with setTextViewCompoundDrawablesRelative
+
+Change-Id: If154d26f362e96a0781a192ee1acc74476a4bc88
+(cherry picked from commit 9d815e84d50207f0846f2ef486e5c2d62ebdb0fd)
+"
+"c5a1c0a65b4c08e8d0d94e78c1a0795e19fcdd29","2013-08-13 13:16:22-07:00","Fix RTL layouts in alarm time
+
+The English ringtone name was rendered on the left instead of next to icon.
+The Repeat On/Off was rendered on left instead of start.
+
+Change-Id: Ia02db61f3c4c8b5d90ee6c6f7d5cfae14579cde7
+(cherry picked from commit 7e6488fa9b74c11ff4c69e417fa57e643244e876)
+"
+"fd055942584d7109ad10e77424dcd2600d1fb690","2013-08-14 04:52:25+00:00","Merge 'Fix issues with multiple PendingIntents and caching.' into klp-dev
+"
+"4562706ff250630e75c26627eb2ad303d8c79a5f","2013-08-07 18:24:56-07:00","Use locale for :00/:60 buttons in Alarm
+
+Bug:8556721
+Also abstracted the dialog background color that contained the buttons.
+
+Change-Id: Ib5fc698ab0354668005065934fda60bb6d73f02f
+(cherry picked from commit b372391c608ea64e7ab1f28072c68872b7da53da)
+(cherry picked from commit ebe66df1484684bef0a268c582fd9bb272825fa6)
+"
+"6caf0e3634d0cb0155712bbb497448bade8b162b","2013-08-14 06:06:43-07:00","merge in klp-release history after reset to klp-dev
+"
+"37487338c511d14e331fd9236ab98315a5a10929","2013-08-14 10:48:15-07:00","Update clock version
+
+Bug: 10313911
+Change-Id: Id3b0a3bd48feac30c2f35ab18823f40158ca125c
+(cherry picked from commit 28f4040a333cda56fc61ce5767b8906f85d88b12)
+"
+"d9be7e6b09a5fed5fb5d2c594bfb6917a545fdb2","2013-08-14 18:27:41+00:00","Merge 'Fix RTL layouts in alarm time' into klp-dev
+"
+"63b8c522dde9d8f17a1c8d0e2ee0be29bc4206db","2013-08-09 17:22:34-07:00","City Search functionality
+
+Change-Id: I8ec790fe7adf59f81caf74af8be50d2fcfbd6b99
+"
+"2ab0e6d33e6cdf994f1d86f9006475c0acb94ce6","2013-08-15 06:01:23-07:00","merge in klp-release history after reset to klp-dev
+"
+"93c7ee32771be90c27922f0341bc23f609a6a3ba","2013-08-15 13:31:00-07:00","Make clock dream dimmer
+
+Bug: 7314808
+
+Change-Id: I4a0895cfc82af761dbc3abe2dbbd13019f58fa68
+(cherry picked from commit 4b4c36c4ecec25286afa24e17ec3fecbe527c3da)
+"
+"bad6946a9d5b6474fda3d659f460d87e5c7439ba","2013-08-15 16:32:50-07:00","Change Counting Digits to Thin Font
+
+Change-Id: I0dfea1e81c8810115212f599426e3141095c7b87
+(cherry picked from commit 6a2ab617a8815be26c7af9ec6bcb9fadb17d5f7b)
+"
+"6c23c3f25980ea61a27a26ff22f481a0333f5643","2013-08-15 18:24:32-07:00","Remove dead activity.
+
+Change-Id: If94d399470d69f51fad4e968e4473f305343faa9
+(cherry picked from commit 4c51096686fb188fddbe85386fdbabf3ebe4dbd0)
+"
+"827b9c4d983fab1ca871ebf0b04e2e42d3fe540d","2013-08-16 21:56:29+00:00","Merge 'Change Counting Digits to Thin Font' into klp-dev
+"
+"72f83e2261f68f274ac8fbf9c4b8d0e23f00d376","2013-08-16 12:01:55-07:00","Added a log to report registration removal
+
+Bug: 8239532
+
+Stopped updating context on every broadcast reception
+Made some code reduction - sharing code in DigitalWidgetViewsFactory
+Replaced intent literal strings with the constants
+
+Fixed a deprecated reference
+Added some commentary
+Renamed some variables to improve clarity
+Cleaned up the lint warnings
+
+Change-Id: Icb38fcdec2104a271bc429b74430e7ff371d4098
+(cherry picked from commit 0de865ebbcd236d200259b355a4f41181d5d0e7b)
+"
+"4ba17067dd0aee0d633379c50e8a3f49dafd5939","2013-08-19 06:02:12-07:00","merge in klp-release history after reset to klp-dev
+"
+"cef13cc730831be5c48365db2cb502364c1df032","2013-08-14 18:59:35-07:00","Cities sort options
+
+Change-Id: I3bb7337f8ca0315882a8a5747c012da25f0c451f
+"
+"8bfaf5c1f77bd15b25913be1eac96007660f98b1","2013-08-21 06:02:47-07:00","merge in klp-release history after reset to klp-dev
+"
+"4ee0898cceddd02243500dd76dfe8c750b049299","2013-08-21 08:28:32-07:00","Import translations. DO NOT MERGE
+
+Change-Id: I92d41248115583297debc78aa8397bdbd630cd8c
+Auto-generated-cl: translation import
+"
+"35cf3c5378665caf1a7ad6e1290463f6d82e90c3","2013-08-20 18:43:42-07:00","Red checkboxes
+
+Change-Id: I57d958ab10aa4e8cd0807d7fdeaffad01a628eac
+(cherry picked from commit 98e4d2c28a00186a5972e53a42757597e50a5848)
+"
+"4058834a32400643d2d5ad76cfb39c51aed82dcf","2013-08-21 13:39:21-07:00","More visible red checkboxes
+
+Change-Id: I7bcf9825f05151985cd912d06d73da65a3978e1e
+(cherry picked from commit 34b7d8c6e253771d057ea979bc15d47302e94ec9)
+"
+"7d4c1254e95102802ff0386aa5f7288f6caa70f3","2013-08-20 16:45:26-07:00","Appending selected cities to top of list
+
+Change-Id: Idacf1acbe72fb9e9ce14f2dd102369641c3013b1
+(cherry picked from commit 96ae9779cf470b6502d46b75f606d6445d854bbb)
+"
+"9dc8d237b1aed1637934931a8d671936c1a943a8","2013-08-21 14:11:56-07:00","Red fast scroll thumb drawable
+
+Change-Id: Ieb883071d246ee30171ffbcd92895715ff398354
+(cherry picked from commit c3e13b7847296dc2511b0b581a0ec123e0fafee3)
+"
+"6c0c56926fd210a45ab745ba122f2022f6eff7da","2013-08-16 18:09:11-07:00","Incorrect top lap time format once any lap >=10m
+
+The time update function called the wrong formatting functions
+when the active lap's time was updated. Did not notice bug
+when testing c/338529.
+To test, one lap has to have >=10 minutes, then record another lap.
+
+Change-Id: I268d08813cbd0f4a44bcff536d40788f6b657806
+(cherry picked from commit ab7b489e853a376d4e06d74c5ee42747bb8ffed7)
+"
+"ab7de0f66f94ff83afad962835510e5f200c2aad","2013-08-21 16:43:51-07:00","Add .gitignore for gen directory
+
+Change-Id: Ic46543c18e61d4889b7a30ff93dcbc0f80bcb58b
+(cherry picked from commit 217e4c81a913aca6d22b01ad8b7e91bb0f1de2db)
+"
+"7ef1a2ade7bfcd9e50788e230c68a55a4d37a475","2013-08-21 16:08:26-07:00","Stopwatches cleanup
+
+Change-Id: I1c5da295fce7ab74e82dec30800431175de1cf3d
+(cherry picked from commit 61f828610a165feaa0d06ccbfb83219622bf7f86)
+"
+"138bc4143bcedc99d0ba1e471feb2d7544a3de27","2013-08-22 00:25:36+00:00","Merge 'Appending selected cities to top of list' into klp-dev
+"
+"fb6af9dde8a1df563383f91c311746aba85c70a5","2013-08-22 00:27:15+00:00","Merge 'Stopwatches cleanup' into klp-dev
+"
+"77c44eb793cec671c6564c87aaaebbb795df5452","2013-08-21 18:38:11-07:00","Adding new png files.
+
+Change-Id: Ie5f89d279fac1b5cfbd380ad794c49afa44781a0
+(cherry picked from commit 9ba9ecba42315b455d93d13eb4271748c58dc107)
+"
+"fb935cd69000a0bf6609cfa509fe0c8c2174d73f","2013-08-22 06:01:47-07:00","merge in klp-release history after reset to klp-dev
+"
+"e43161db8942cab73adb74d66a07bedd1fafa433","2013-08-20 09:45:29-07:00","Remove units in CountingTimerView
+
+Replaced the units strings with a scaled intra-segment spacing.
+
+Change-Id: Idf1f95cb1aef1af0a0c76dcfaa2944f808d47fb2
+(cherry picked from commit d27c983901df08a8ef3b839fe6d262073e50fc32)
+"
+"e3fb7d6aaed975c6b9155712c962521b3a08ea58","2013-08-22 16:41:30+00:00","Merge 'Adding new png files.' into klp-dev
+"
+"903a56005f7a651a961c4328255b130fee55d434","2013-08-22 17:34:38+00:00","Merge 'Import translations. DO NOT MERGE' into klp-dev
+"
+"cc88026cf901ce5a19e9a89a4e4d1c5deee4ac48","2013-08-22 09:37:37-07:00","ignore out + .gitignore
+
+Change-Id: I6899758ec25a29f418660e335389ad3af845522e
+(cherry picked from commit 7d6ee4ca13d95d66c13814dd04bc1f869e4f589e)
+"
+"13f2fef1a5f6877ffc1f6a593d0e8f10f535805b","2013-08-19 20:37:42-07:00","Clean up some of the DaysOfTheWeek and Alarm code.
+
+Change-Id: I3f6cd64845fe34cf8fb5299348f7779cdcddd5a9
+(cherry picked from commit 95b88d9453d7d47026b4a2e3bcc4e7bbb4dd7ccf)
+(cherry picked from commit 910f93b6b0fbc9b921ca3ef0bd648c73fa2c76ac)
+"
+"08cda7593b1a9df188b99e43c485ba50b882251d","2013-08-21 18:38:11-07:00","Adding new png files.
+
+Change-Id: Ie5f89d279fac1b5cfbd380ad794c49afa44781a0
+(cherry picked from commit 9ba9ecba42315b455d93d13eb4271748c58dc107)
+"
+"5dca2bfec4407390bdea12c623feca2c2a402316","2013-08-23 09:59:49-07:00","Import translations. DO NOT MERGE
+
+Change-Id: I5973d41d52273eb5376ecb012f88b3e67acff593
+Auto-generated-cl: translation import
+"
+"63421edeba18751e88532c2891f3a8e51a471496","2013-08-22 11:17:07-07:00","Improve Timer and Stopwatch text size
+
+Account for the text height when auto-sizing the timer and stopwatch text.
+Tweaked intra-unit spacing.
+
+Change-Id: I976385f236f98303a35ce4178c923401eaf6bdd3
+(cherry picked from commit efc4ad3bce5f68e6a64c4aeac4f2359ab9bae5a8)
+"
+"3bc02950da8c14ec04199043f41a9ffc13290c8d","2013-08-12 12:07:05-07:00","Move alarm to its own tab.
+
+Also animate alarm expansion.
+
+Change-Id: Icdebc6a18f34cfe55af70491d07dde4b1dc675c5
+"
+"887105d5e7f0f824ab8fef9c77fd578eb0c542ac","2013-08-23 10:54:59-07:00","Red checkbox asset fix
+
+Bug: 10446786
+Change-Id: Ida2b978c017205958f2dc7d0e176fc5c383ff307
+(cherry picked from commit f453282a7705dbbef5efb4be4b23ca40436d1f59)
+"
+"a0a0a7c86704eb47934a1b8c77a8af7c15ed4a79","2013-08-23 11:15:10-07:00","Fix ArrayIndexOutOfBoundsException on zero-length array
+
+Bug: 10448838
+Change-Id: Ia56bdf4cda2a14d778a14f3a0c6e6de199ffc07a
+(cherry picked from commit 31d063400a4975f2a6eedc70cf679782af762f80)
+"
+"c92cfa9a1c98819220c8b72415277b9d88273bb0","2013-08-23 18:57:18+00:00","Merge 'Import translations. DO NOT MERGE' into klp-dev
+"
+"bd2f8163889533e47e22a1031dc235ade0d2ba9e","2013-08-23 19:48:30+00:00","Merge 'Fix ArrayIndexOutOfBoundsException on zero-length array' into klp-dev
+"
+"e7d6d276c24609c10d29d0ae7a7c701e12a45428","2013-08-23 11:15:10-07:00","Fix ArrayIndexOutOfBoundsException on zero-length array
+
+Bug: 10448838
+Change-Id: Ia56bdf4cda2a14d778a14f3a0c6e6de199ffc07a
+(cherry picked from commit 31d063400a4975f2a6eedc70cf679782af762f80)
+"
+"7ec4d6229e5878763949a078bc38da452a79ec33","2013-08-23 09:59:49-07:00","Import translations. DO NOT MERGE
+
+Change-Id: I5973d41d52273eb5376ecb012f88b3e67acff593
+Auto-generated-cl: translation import
+
+Conflicts:
+res/values-af/strings.xml
+res/values-am/strings.xml
+res/values-ar/strings.xml
+res/values-az/strings.xml
+res/values-be/strings.xml
+res/values-bg/strings.xml
+res/values-ca/strings.xml
+res/values-cs/strings.xml
+res/values-da/strings.xml
+res/values-de/strings.xml
+res/values-el/strings.xml
+res/values-en-rGB/strings.xml
+res/values-en-rIN/strings.xml
+res/values-es-rUS/strings.xml
+res/values-es/strings.xml
+res/values-fa/strings.xml
+res/values-fi/strings.xml
+res/values-fr-rCA/strings.xml
+res/values-fr/strings.xml
+res/values-hi/strings.xml
+res/values-hr/strings.xml
+res/values-hu/strings.xml
+res/values-in/strings.xml
+res/values-it/strings.xml
+res/values-iw/strings.xml
+res/values-ja/strings.xml
+res/values-ko/strings.xml
+res/values-lt/strings.xml
+res/values-lv/strings.xml
+res/values-mn/strings.xml
+res/values-nb/strings.xml
+res/values-nl/strings.xml
+res/values-pl/strings.xml
+res/values-pt-rPT/strings.xml
+res/values-pt/strings.xml
+res/values-rm/strings.xml
+res/values-ro/strings.xml
+res/values-ru/strings.xml
+res/values-sk/strings.xml
+res/values-sl/strings.xml
+res/values-sr/strings.xml
+res/values-sv/strings.xml
+res/values-sw/strings.xml
+res/values-th/strings.xml
+res/values-tl/strings.xml
+res/values-tr/strings.xml
+res/values-uk/strings.xml
+res/values-vi/strings.xml
+res/values-zh-rCN/strings.xml
+res/values-zh-rHK/strings.xml
+res/values-zh-rTW/strings.xml
+res/values-zu/strings.xml
+"
+"de58829c88927b4eb9c7b483da7f0394c538a071","2013-08-23 14:27:00-07:00","Preparation for animations if Timer and Stopwatch
+
+Converted CircleButtonsLinearLayout to FrameLayout and renamed
+CircleTimerView: always draw circle in view center
+CountingTimerView: remeasure text size if view's size changed
+StopwatchFragment: some lint cleanup
+in the layouts:
+remove unneeded layout id and attributes
+remove unneeded layout layer in timer_list_item
+remove unneeded landscape timer_list_item
+
+Change-Id: Id67e1120c86679c03b55f5b6d714cac233d37842
+(cherry picked from commit c9524f8b8216c7854de4c69c44c9bb63e4097a18)
+"
+"4907f8588431d0aa8378d2c6879304a2e4b02f34","2013-08-26 06:01:30-07:00","merge in klp-release history after reset to klp-dev
+"
+"07f19005942ad217a39e6a964ea74df5614c752c","2013-08-26 08:36:44-07:00","Import translations. DO NOT MERGE
+
+Change-Id: Ic3bd5236132f40310dd03c53de37b03fbffed3ca
+Auto-generated-cl: translation import
+"
+"c499978dba984d9be39f195196ccae8ddce1079c","2013-08-23 10:48:03-07:00","Boiler plate code for SET_TIMER intent support
+
+Bug: 7497400
+Change-Id: Id0aa03a3604ce5e48b5e99a9dc07eaf7f917adb8
+"
+"8c1fcf3490a0d92448c460193c8824dbcd6790fd","2013-08-21 23:43:57-07:00","Move content provider classes to new package.
+
+Change-Id: Ida7d2d238f7ce25a3b0ddb23bdb2fbd84e7b2e2a
+"
+"2eb3e5467cb76617fd6da3ea4a3f222d537a6bd9","2013-08-19 23:06:07-07:00","Refactor and add new tables/daos to Content Provider.
+
+Changes includes:
+- Add new Instances table to hold alarm state
+- Add new Cities table to hold user selectable cities.
+- Add delete_after_use column to Alarms table.
+- Fix issue where alarmId was a int and not a long.
+- Move Alarm related code to Alarm dao.
+- Moved DaysOfWeek out of Alarm dao.
+
+Change-Id: Idd578bb3668099ec8f4b30fbe9b62b06158ab406
+"
+"f12a6863d913452706a3291aa34738aa1f1643a3","2013-08-26 17:27:33-07:00","Fix onCreate insert issue.
+
+Change-Id: Iaf87c44931e0ee0fd78e6468039c1a36c338f9b9
+(cherry picked from commit 7ef0150a7ba2aa09c7138563cd7ef6984ed7fc56)
+"
+"4078e5d6ed32f100ff907705d27540debcd0052e","2013-08-26 19:29:10-07:00","Adding additional assets.
+
+Change-Id: Ic80ea4cdc8c10bf2be0972ea129cb23292255c0d
+(cherry picked from commit 51b1e8464caa8e05ddd54671884248afb7001f12)
+"
+"05afb603eac57cb4b87850c9796a199b0c0cbed6","2013-08-23 11:37:19-07:00","Fix up layout changes as per redlines.
+
+Change-Id: I3f48a9e919312a99b455cd8634b749dc6cbffcc5
+(cherry picked from commit b839a546401f93ae2922f37677c176bf127060c7)
+"
+"bbcbda467edde352cda49b3864868401191f4d68","2013-08-27 06:02:02-07:00","merge in klp-release history after reset to klp-dev
+"
+"9cf18979ae192027a6db0b3fba18cad0d826da97","2013-08-23 17:31:30-07:00","Change alarm/timer setup font from bold to light
+
+Moved units to bottom
+Moved common setup layout into timer_h_mm_ss_view.xml
+Removed references to ZeroTopPaddingTextView from alarm/timer setup.
+
+Change-Id: Iefa9fa06be6098c9e7bd55ad943b84ac8cd760a7
+(cherry picked from commit 22e4b34c7e2fe360e577f94774192ccf1f86ec12)
+"
+"5f69b490d4bf9bd52fac8f1e0eef589c5cbf4a27","2013-08-27 10:19:32-07:00","Enable new time picker for setting alarms.
+
+Change-Id: Ie6c8299b56c04daedeec7e16e506b722e751f818
+"
+"9a5470f5b8578f417c3f2ebf17d77b2683dd4046","2013-08-27 12:18:07-07:00","Fix crash and excessive alarm creation from quick settings access.
+
+Crash was from the convertView not having an ItemHolder tag
+The intent to create a new alarm wasn't getting removed after use.
+
+Bug: 10506871
+Change-Id: I27ba36661a84092fbc99681d3190e2f2cedd37cb
+(cherry picked from commit 80fc6e3fc807896e7decbbf8ea3b394c78fb39ba)
+"
+"04d0eaaf489d08c56104d9b71d0d2edecb4e27a5","2013-08-26 20:51:54-07:00","Add support for SET_TIMER api
+
+Bug: 7497400, 8131590
+Fixes alarm not created when using the API with SKIP_UI is false
+
+Change-Id: If401c88d2d4945a1d5b85b421f7c52a329b63c49
+(cherry picked from commit 91ffb2a0726a56213c0649c864a56bf120896e80)
+"
+"bc2796a282de4f2a936f21bb35108e1e4dd0b585","2013-08-27 10:19:32-07:00","Enable new time picker for setting alarms.
+
+Change-Id: Ie6c8299b56c04daedeec7e16e506b722e751f818
+"
+"f9508b65794ae5556cd4dcd5db146f6416c2463f","2013-08-27 12:18:07-07:00","Fix crash and excessive alarm creation from quick settings access.
+
+Crash was from the convertView not having an ItemHolder tag
+The intent to create a new alarm wasn't getting removed after use.
+
+Bug: 10506871
+Change-Id: I27ba36661a84092fbc99681d3190e2f2cedd37cb
+(cherry picked from commit 80fc6e3fc807896e7decbbf8ea3b394c78fb39ba)
+"
+"75a775f6bc73f4e49b10b582d95ce676fa5bcdb7","2013-08-28 00:01:30+00:00","Merge 'Import translations. DO NOT MERGE' into klp-dev
+"
+"95db8fb4954e768cc58eb71bc3c05dfeef375cd7","2013-08-21 19:02:21-07:00","Alarm timeline view
+
+Change-Id: Id0c31d5dbe1a1cd02c0af6f02050efc36986dfee
+(cherry picked from commit abd84229d5be9a710635bc406ecbef14fbd20bcb)
+"
+"ebfe81b30c57972557d262bcd12622e0513a0d11","2013-08-27 14:45:21-07:00","Pre-redline changes for adding a timer
+
+Removed unused time picker code for alarms.
+
+Change-Id: Id61ab416a51db044de7ac29a3263f0db51d73083
+(cherry picked from commit 56be6dac87bd9735cef70da1b39ce8c9d89148f0)
+"
+"504ed1aa7d11c7667d089af4bccbf18b255b36d5","2013-08-27 16:48:11-07:00","Stop ringtone after timer deletion
+
+Bug: 10451666
+Change-Id: I4a53958aafa46e87ba0471d5d9090f7afe16f6fe
+(cherry picked from commit d62917cb297b0d6d918bf997da96b002a8c21f1b)
+"
+"12330df36597a21100f6bb9c46c38127b5587642","2013-08-28 06:01:01-07:00","merge in klp-release history after reset to klp-dev
+"
+"29b68ab8b8d6ed4e5150735bdc9fa861eca2df8a","2013-08-26 20:46:42-07:00","Upgrading icons.
+
+Upgraded stopwatch lap, add cities, timer tab, and no_alarms icons.
+
+Change-Id: I19f2c600893b94592701a8ca6b33ee5f280c549e
+(cherry picked from commit 12fdbf28c6ac29d4edec4079cf7e9df17aa39610)
+"
+"f233ae3254a1d83aa67042f4333797e534bbb27c","2013-08-27 14:56:31-07:00","Create the alarm after setting the time.
+
+Bug: 10507071
+Bug: 7402599
+Change-Id: I01d2ae44127beea3a54778df1a1d4a10b048b218
+(cherry picked from commit b9dff52be236a4c3a2088ecbbdf9811b0533d21f)
+"
+"c75020dfabbe57ab6b1af725a87e15e82cae4deb","2013-08-28 21:32:45+00:00","Merge 'Upgrading icons.' into klp-dev
+"
+"f3220c04aa63a24755765af89de6d61af36254ed","2013-08-28 15:37:33-07:00","Import translations. DO NOT MERGE
+
+Change-Id: Ic3af7a754bf7f8062373cd7ca6a2e10d7efb4837
+Auto-generated-cl: translation import
+"
+"d4998f76bc5a67b51cb926b7a425ce62f3beaefc","2013-08-28 14:11:08-07:00","Replace timer/stopwatch diamond with dot
+
+Change-Id: I8e845a4ffa9a25969fbfa1ef0fd1d22718130050
+(cherry picked from commit 8322b2fa9d474fee9e7950fec68bd35e03fc9861)
+"
+"bee91a36b8cb7195b3d92f52c68654d947f3e17f","2013-08-27 23:49:51-07:00","Fix delete after use implementation for timers
+
+Bug: 10517026
+Change-Id: I35f450dcfa379df92dbdfd997a351056e9233f41
+(cherry picked from commit e7c4dc56335d2c0f56b7c3373f8b648b8c1afcba)
+"
+"e70eb3a144c12cc010f81eb203feaa0abdc1c084","2013-08-29 00:02:05+00:00","Merge 'Import translations. DO NOT MERGE' into klp-dev
+"
+"e378b80fb35ddf3f6dfb00afb02fd888fc906e8a","2013-08-27 14:56:31-07:00","Create the alarm after setting the time.
+
+Bug: 10507071
+Bug: 7402599
+Change-Id: I01d2ae44127beea3a54778df1a1d4a10b048b218
+(cherry picked from commit b9dff52be236a4c3a2088ecbbdf9811b0533d21f)
+"
+"3d9a0df6060aaa3d621eb7315eb9b085da5099fb","2013-08-27 12:17:04-07:00","Basic animation for stopwatch -
+
+Stopwatch moves from center to start for landscape or top for portrait
+Change-Id: If6e059bdfba2f747349c53230daaa7a9e26dcc5c
+(cherry picked from commit cffb4dbf6e1fed0e0c18c2ea5073227c85ca3f9a)
+"
+"eef31673580254626ac6338bc1118598386bc786","2013-08-28 17:18:17-07:00","Update widget styling.
+
+Bug: 10220536
+Change-Id: I9a7188aad76c29ddc7ad244273bb7cdc76248e97
+(cherry picked from commit 04c53db84a244332e609c0e6d9da68f5792519b2)
+"
+"4c8f9ff8dabdf646663b96f56ff9b6e431cc05aa","2013-08-29 06:01:20-07:00","merge in klp-release history after reset to klp-dev
+"
+"29359e5406fbc2c024853f3e3ccd2b64656c2c12","2013-08-29 10:42:23-07:00","Use child fragment manager to prevent FragmentManager crash
+
+Could crash with 'Recursive entry to executePendingTransactions'
+because it was executing the timepicker transaction while executing
+the main fragment transaction.
+
+Bug: 10544171
+Change-Id: Ie65172f18141468e71fb4a056af103d270e0a929
+(cherry picked from commit 28fa47a322b126dbeff20cda1bca074ca999388a)
+"
+"dacb1c2347a7aab366b87ce8ba279411814fc95c","2013-08-28 15:53:28-07:00","Adding more resources.
+
+New disabled lap and plusone button states.
+New timer tab icon.
+
+Change-Id: Ide2897f919a8a868cccdb26dcafa0997e1892d96
+(cherry picked from commit aa396f8a256fde16c5953d38a3274bae1d1b09d5)
+"
+"7bb93b3d2931687c1bf855273c933d8fc1193a75","2013-08-29 12:06:15-07:00","Add disabled state to lap button
+
+Bug: 10151089
+Change-Id: I8c7a921447427ecc0608ace2f19dc38ae4aa3064
+(cherry picked from commit 97d2a22c32ee2ee4bcbbe6fc8efa203cb30bdf47)
+"
+"c31fa5bcc7acaa0f4d2442d99058522ec57074f7","2013-08-29 10:15:06-07:00","Remove ZeroTopPaddingTextView
+
+Change-Id: Idf8ee52846e90c9fb7f88a7b12a84c8808912ff8
+(cherry picked from commit b00e18e46da2ed0fa1805efaea2d6da84cf01ae7)
+"
+"2078f587ebb83ff58b383a1cff108cabe51531ff","2013-08-29 10:42:23-07:00","Use child fragment manager to prevent FragmentManager crash
+
+Could crash with 'Recursive entry to executePendingTransactions'
+because it was executing the timepicker transaction while executing
+the main fragment transaction.
+
+Bug: 10544171
+Change-Id: Ie65172f18141468e71fb4a056af103d270e0a929
+(cherry picked from commit 28fa47a322b126dbeff20cda1bca074ca999388a)
+"
+"4b84ed9102652486bc731c8c7b9e79cb847b3f83","2013-08-28 18:34:40-07:00","Enhance SetAlarm API
+
+Add DAYS, VIBRATE, ALERT
+Implement implicit deleteAfterUse
+
+Change-Id: Ibe58394020987469aca4a7895ac591407e64ce5e
+(cherry picked from commit 1c604c48ef4dd01e789e1fffb0dec8f815e0cd30)
+"
+"b2e25c2811320be6f719d3dfe9931cdc06212759","2013-08-29 13:48:53-07:00","Disable +1m button when cannot add a minute
+
+Bug: 10152084
+Added a disabled asset.
+Disable +1m button is the timer is less than 60 seconds below the max
+
+Change-Id: Ib6dc57ffddf267b5bd8bac7d45e3b1b2af2695ea
+(cherry picked from commit 74be96baee671f1f62b4ed543ba793336012ef24)
+"
+"aef481fbc9a7d7a4a52fae82714e3d14152d38e6","2013-08-29 17:08:31-07:00","Remove Log.wtf in stopwatch state
+
+Bug: 9524946
+Illegal state is stopwatch button may happen in monkey tests but it is harmless.
+
+Change-Id: I5fb1bf4af4b61ee981d13329d0a3d31685582b59
+(cherry picked from commit 63515135fa5f2f83580a95ac70000b91872f2f93)
+"
+"289c3643ac419d146db44846db5057dff787f81a","2013-08-29 11:39:22-07:00","Change text of auto-silenced alarm notification.
+
+Show 'Missed Alarm' as the title.
+
+Bug: 10516179
+Change-Id: I860cbab622df0be7c4c8e0763c3e6be231f8a09f
+(cherry picked from commit 7fb70dc1d258ba1f36454f7871cafbc6aa49ec4f)
+"
+"eec0bcf248f583dccba4afec74f4722c8cdd24fd","2013-08-30 08:40:22-07:00","base align AM/PM in AlarmAlertFullScreen
+
+Change-Id: Ie020037909c5720ed013e0782163e0e7fa0ff5d2
+(cherry picked from commit 67ad98b90120f775b9c9f494e68b92675aa7c379)
+"
+"9f43d4c1125d6a607a74d39fb4784ccaebf77214","2013-08-30 10:26:01-07:00","No DAYS EXTRA Implies Non-Repeating
+
+So don't try to reuse a recurring alarm in that case.
+
+Change-Id: I0c6cb6b4ee68306f3dc1798b40c3a2901f1b5db7
+(cherry picked from commit 3534dc25837e27090ce5cfdcf6190f879d3aa4e2)
+"
+"3f4b0e308a1ed2b1a193cc7d01130a1bee939665","2013-08-30 11:25:31-07:00","Handle SHOW_ALARMS Intent
+
+Change-Id: I9435b66cbf5d37fac89a206bad14b5a11735d543
+(cherry picked from commit 101ed3de571396c3cfc66f66f86e9b0d8afbc600)
+"
+"6cd59e7ba2a716355a23b1256aa30b64737eda91","2013-08-30 14:24:23-07:00","Correcting right/end margin for cities fast scroll
+
+Change-Id: I7c4bf37731d7af2d7c03e05d3fd26e4704ab1aef
+(cherry picked from commit a8c04cc2835f23de3edc019ec67b45db04fae158)
+"
+"8bcc32f8e65178d86758232909ca35323cfce903","2013-09-02 06:01:32-07:00","merge in klp-release history after reset to klp-dev
+"
+"be73716c121d586982b7376669279d84ca4fa06d","2013-09-03 08:36:53-07:00","Import translations. DO NOT MERGE
+
+Change-Id: Iad4111ac6b0cbdc11390663a78b8ef5feb556448
+Auto-generated-cl: translation import
+"
+"d71f62927cef282134b02af49645a178e6ed983f","2013-08-30 14:15:37-07:00","Use Audio Focus
+
+Use AudioManager.requestFocus() and abandonFocus() when playing alarm timer alerts.
+
+Bug: 10130126
+Change-Id: Iab21151b5bfde1f2ebc1c8d373334ebc4c755688
+(cherry picked from commit 205f02bc332c272cd43a2466578ac741bc700d10)
+"
+"45995e9331aaca94ec7fc0748475c98f4f7de1e2","2013-08-30 13:37:43-07:00","Use Build.VERSION.CODENAME instead of SDK_INT until its set to 19.
+
+SDK_INT is still set to 18 until K SDK is finalized. Until then we
+can use CODENAME to see when we're on KLP.
+
+Change-Id: I4129e99e604dad5769e790401879879a9909701e
+(cherry picked from commit 67cdfec102ccd50cbf19585200840051b9b36668)
+"
+"6c3176cc7dd7495ceee42b38c10265bbd9656ebe","2013-09-03 10:00:40-07:00","Have Screensavers Listen to Alarm Changes
+
+So they can update the 'Next alarm...' display
+
+Instead of listening to our own Alarms.NEXT_ALARM_TIME_SET, we observe
+the system setting Settings.System.NEXT_ALARM_FORMATTED. This way we
+respect 3rd party apps that use this API as well as ourselves.
+
+Change-Id: Iaa90ba8335c38bd6b0ed4571e0784f4f8cb2d154
+(cherry picked from commit ed2084787cec0f02e6cead215d409d6f2f60f737)
+"
+"205194022df468fad86bcc2159e1d028a34a7c7b","2013-09-04 04:41:25+00:00","Merge 'Import translations. DO NOT MERGE' into klp-dev
+"
+"39d55eaf3aabea461de1dfc6042e729dd00e5fda","2013-09-04 06:01:34-07:00","merge in klp-release history after reset to klp-dev
+"
+"f9540358dacec5e6f8e2004e9fe3791107ee3f3c","2013-09-03 23:14:55-07:00","Reset timer setup after adding a timer
+
+Bug: 10610622
+Change-Id: Ia13947d3ddb034106fa87e5e4be625755f93190c
+(cherry picked from commit 4473c43d00cede0fb7a0d6b9836c84a7d39e23f3)
+"
+"7e52e4a333f6a148532e5d3395412676c0673764","2013-09-04 14:10:57-07:00","Click on alarm empty state should create new alarm.
+
+Change-Id: I40da89f853b628f494d8f68d27be902e18d1cddc
+(cherry picked from commit f5535e238ad9cbd0fe7e3ec259fb58fa9a2ed6ed)
+"
+"35375f869332ac336d33d5a20c467142f0fae8ea","2013-09-04 17:59:26-07:00","Strings for alarm timeline view
+
+Change-Id: Ia730a6708201dcb53cfd1a9767b6d59188285a60
+(cherry picked from commit 2339c50dd924b75d0d850c105e872ea33f2f9ac5)
+"
+"5d881e5f11f249e989f019083f56457db54a65fe","2013-09-05 06:01:37-07:00","merge in klp-release history after reset to klp-dev
+"
+"5c1b5eb31f60c807491ae1d2a2a586634504fd0f","2013-09-05 07:39:07-07:00","Import translations. DO NOT MERGE
+
+Change-Id: I4e6eef9e00daebd154bc19045c37a9cbf2fb179b
+Auto-generated-cl: translation import
+"
+"fa33aa997a0f169d973b5ed743dd7ade2638312e","2013-09-05 14:55:52-07:00","Hide keyboard in alarm alert
+
+Bug: 10620218
+Change-Id: I3f82b3846241c9d931ca4302b22d2fc2203b9dd4
+(cherry picked from commit b8e91963ad8e6f69142b04ccc5cb42e6ff0db981)
+"
+"ad168b10c2e2f02d42a01cad2442f312b6d9b391","2013-09-05 14:55:52-07:00","Hide keyboard in alarm alert
+
+Bug: 10620218
+Change-Id: I3f82b3846241c9d931ca4302b22d2fc2203b9dd4
+(cherry picked from commit b8e91963ad8e6f69142b04ccc5cb42e6ff0db981)
+"
+"e0015b19ad58639a84a018579286a6c79f6155dd","2013-09-05 23:26:23+00:00","Merge 'Import translations. DO NOT MERGE' into klp-dev
+"
+"f772f7438f4a98ddde6eaf49d73d551e46425d93","2013-08-29 17:38:38-07:00","Use Keep's StaggeredGridView for timers.
+
+Also update header and background layouts.
+
+Bug: 10516184
+Change-Id: Ibe73ce965acb11796c21e9df4b35e6bb830aabb3
+(cherry picked from commit 4c68a4b737d7776fd23e857eb612f89c6dba3ec0)
+"
+"d9eafb1431134f0b30e7de993fa7bde9494af9a9","2013-09-06 10:52:58-07:00","Remove unused drawable.
+
+Leftover from old lights out code.
+
+Change-Id: I868215573368b51e7cb700b96a418081861e7fec
+(cherry picked from commit d1150b54da435cd8d62fe6b9a57c5e5f58b795e5)
+"
+"41d6b3c8d834c034390247d2c2840d58a565df69","2013-09-06 18:00:42+00:00","Merge 'Use Keep's StaggeredGridView for timers.' into klp-dev
+"
+"7bede55f78581a5f34348331f2825043039fc6b5","2013-08-31 12:23:18-07:00","stopwatch animation redlines
+
+adding list view item motions
+Change-Id: I14a095ed27041a4bb5c956fa4968efbb0b8f9038
+(cherry picked from commit 319265e3e8564f3e71dca8bc752632c9a1708938)
+"
+"a19314fd8af534821bb7c7edacb44087c1a8b6cd","2013-09-05 17:55:09-07:00","Use dark theme for clock's timepicker.
+
+NOTE: This CL should be submitted only after
+I0574de6f79f0d2973a80ea91bcc885e207f2fcf8 has merged.
+
+Bug: 10516092
+Change-Id: Iaec89ea7516d5f4000709a0fc74e6e4732fed700
+(cherry picked from commit f54f71cbfe2695998c01e4719eaa5b7c3a5b7467)
+"
+"557accce95475df53c667778dbcc43076cb86e17","2013-09-06 18:18:41+00:00","Merge 'stopwatch animation redlines' into klp-dev
+"
+"165b571f62c9a8273c1b2b03d866a693c3842747","2013-09-06 11:55:10-07:00","New asset for +1 in timer
+
+Bug: 10625308
+Change-Id: I121c7f9ee772d39972b06345976f5ba2142f5338
+(cherry picked from commit 55e9ba8ed040fe316703fb6fcbdd3c84af5a0199)
+"
+"12c79e065d4b0172bb900e3599142041a968f5eb","2013-08-30 08:35:08-07:00","timer setup redlines
+
+Red line deviations:
+Gutter between dial pad digits removed
+In landscape time view is centered with dial pad
+
+Change-Id: Ic34c77a6bf38c3ff80b9b2a6a9e30213facb9e90
+(cherry picked from commit 749b3b31aa96a520784ce92262c99644de9d01fc)
+"
+"5c17cdfbad3a99f4aebd57dda4db23b041cc9d04","2013-09-06 14:56:29-07:00","Fix HMS alignment in timer setup
+
+Change-Id: I52c2cd777a85f038d337f64c93621d7a84720bec
+(cherry picked from commit c33fdd63371a780747b825e53eb6d857af967da1)
+"
+"63f5b0d55907d2b42ba9374a35eabe006c2fb7c6","2013-09-06 16:20:59-07:00","Start Alarm Explicitly with a Class
+
+Bug: 10220104
+Change-Id: Id60b16394472b62c72be3cf7d6029374c53650f4
+(cherry picked from commit db0f8bed081929805dc706de6c198ca8418e5266)
+"
+"0c8bd483f3e04ee59adde27ad1617b53c6fd7f2d","2013-09-06 11:24:10-07:00","Support PreferenceActivity.isValidFragmen
+
+Bug: 10114369
+Change-Id: If5c030362c65f585695510299f283949e17ca5f2
+(cherry picked from commit 339b3be0e0c293393ab7d71cb65aecdb21897f55)
+"
+"d8eab66d75849cd7920d2bf7d6df91d7182e6e78","2013-09-06 17:26:13-07:00","Adding digital clock format for en-rGB
+
+Bug: 10447526
+
+Special file for the digital clock date display was missing for en-rGB
+
+Change-Id: Ia150233b81a292358f1a5a96dda4946e603fa973
+(cherry picked from commit 44053936a730cd79722c8d07594c4a7f6ffe7471)
+"
+"47b10c08f7aaf2b2a28a5c66071b58c2707dad20","2013-09-06 22:19:59-07:00","Use two-pane layout for tablet landscape world clocks.
+
+Bug: 10654098
+Change-Id: I3825ed5a503b6d48d935d439bdb7afd3391ed0da
+(cherry picked from commit 6ae9f520831c7547654176ffc1e2f02c0675a894)
+"
+"49b14693f2909995c6c12017ddcf71cfdf2cefad","2013-09-09 06:02:23-07:00","merge in klp-release history after reset to klp-dev
+"
+"d01970e2116388aea075eaa9296dd7f90cccb067","2013-09-06 18:19:32-07:00","Finishing touches on redlines.
+
+* make sure the alarm items' hairlines are correctly translated
+on rotation
+* use new timer icon for timer notifications
+* remove colon from alarm summary
+
+Change-Id: Ia747f645483fb4f2770afb5da6821351b85bdb65
+(cherry picked from commit f41e32c702b2b6d241cbf095b1f69612655515d2)
+"
+"23c1f76148fdbac191278694b75430b036f18b96","2013-09-09 08:00:33-07:00","Import translations. DO NOT MERGE
+
+Change-Id: I2d7ed1610398a41bcaf31250e2e2936d11fd9f0f
+Auto-generated-cl: translation import
+"
+"cc5da61fd143d7df8fe8876c7a621c276ec79f9c","2013-09-09 16:11:26+00:00","Merge 'Adding digital clock format for en-rGB' into klp-dev
+"
+"68baa28a8830a3fe3f6c99a4edc260031357347c","2013-09-09 00:05:41-07:00","New cities in city list.
+
+Bug: 10648656
+Change-Id: I7c7ac0a567f124ca2a69c82b242dc38a188ddc65
+(cherry picked from commit 579433a07dd70e394d6ec46247d90bc49635943e)
+"
+"34877f59ab2db893ebcac2a82f1618c687444bd7","2013-09-09 20:54:44+00:00","Merge 'Finishing touches on redlines.' into klp-dev
+"
+"b93772c506ca7e144446f619996eedbdc4285b23","2013-09-09 15:16:49-07:00","Workaround for missing cities translations.
+
+Change-Id: Ic259e5894f08848b26a409e12272e1932757da83
+(cherry picked from commit 25ca0e1b5e70386b30171d8aba8810593baffecb)
+"
+"148c8e33b6ad80f51163d06786628a0e303b3a40","2013-09-06 18:45:35-07:00","Fix timer gridview animations.
+
+Bug: 10516184
+Change-Id: I75fe04af25281179a11c7118ab844b23d5bec3bb
+(cherry picked from commit 1aa24a276dd7aa4f92f6e443bcd8279cf70d14a8)
+"
+"f7de8003e56d6d6f3dd35f494162c75acc993cd9","2013-08-28 12:01:37-07:00","Timeline view empty states
+
+Change-Id: I2e25c0a64db7cefb9b5e8ae0e4945811bca921d7
+(cherry picked from commit 5aa304e127beeab9a7a54e82cab03735eab1cf2a)
+"
+"4d11a33629ced143c87d047ba6097d259cb4d31b","2013-09-09 14:35:01-07:00","Start/Stop button in stopwatch is animating poorly
+
+Bug: 10656637
+
+To get the poor animation to stop, also had to put spacers in the portrait layout.
+In the end it is better that portrait and landscape transitions are effected identically.
+
+Change-Id: Ic79b6bdef6dfe5fae02cde3eb8f88893978ef1aa
+(cherry picked from commit 491d478228091d46be86fff362b67ac966f56893)
+"
+"d5202b46aaf96b1d217cedba645f28aa1fee04c6","2012-11-26 15:31:09-08:00","Adding Timer times-up notification
+
+Bug: 7498098
+Bug: 7564768
+
+Complies with Section K of wireframes with the agreed exceptions:
+(1) Show 'Done' instead of 'Stop' when timer is delete after use
+(2) Clicking on stop does not launch DeskClock
+Features to QA:
+- Updating label, updates notification
+- Selecting +1m when desk clock not running updates the in-use notification
+- Times-up notifications appear if and only if the Timer Buzzing Activity is not shown
+- Selecting +1m or Stop(or Done) updates the desk clock timer tab
+
+Change-Id: Ia27f86ad6ba1a3bdba50403a6fdb86208f911637
+(cherry picked from commit e332c5744e5741a6149afd226e1f193111dcb7de)
+"
+"1c7788b33dd4516dae81e6bcab043addc45fc1a1","2013-08-26 17:26:21-07:00","Refactor alarm manager code to use new Instance table.
+
+Change-Id: If0ef94f68383ebfcb4a0af697671c7854f33383d
+(cherry picked from commit ab0d28c68a77bea2a4a2ee50378da3670a1dd939)
+"
+"0fed0febbfeed08a709f76ca5a10934e86bad4c8","2013-09-10 04:53:51+00:00","Merge 'Import translations. DO NOT MERGE' into klp-dev
+"
+"d42988e6e855a9775b9ebbbfa949ef90c5abf2cf","2013-09-10 11:26:55-07:00","Update clock fragment alarm text on alarm change.
+
+Bug: 10516129
+Change-Id: Ibd1b3db80e9f7b2e2eb8db59cf88438f58571528
+(cherry picked from commit 5b0de6c83ff2401b61ed8f191d018a99d6d6c7e1)
+"
+"3e8ebd961d99125d6b1704b5fa8d425d101e32f5","2013-08-27 13:50:59-07:00","New layout for selected city with remove button
+
+Bug: 10449456
+Change-Id: Iacaa75ec9c283cb4b1cc5ab73eff0b1ced22587a
+(cherry picked from commit 263c74772f786b43a346d5649df70e15fc12067d)
+"
+"6da4068d34ede187e9237c54ab70681755995e48","2013-09-10 12:20:32-07:00","Show menu when moving in landscape from timer to clock tab.
+
+Bug: 10534546
+Change-Id: I216300ebcdd59e80e5da49fcb1fb4509a43a94e0
+(cherry picked from commit 7244a01bc5b24dbe9f0ade8e8d7116b8284ac8c3)
+"
+"cb29d956174842ed9762eb3139240baad4f4698e","2013-09-10 14:28:56-07:00","merge in klp-release history after reset to klp-dev
+"
+"c56d3677db8c11c61578c4ac30828db355c86334","2013-09-10 16:51:40-07:00","Log to report changes in quarter-hour alarm intent
+
+Bug: 8239532
+Change-Id: I08261e8280719ba2229fcc67bab7fe8029d90e88
+(cherry picked from commit 7651c373a1301761bea4090738df9d03884684dd)
+"
+"eddf7797cab8ca51a45dd66908654267fcf6fe18","2013-09-10 16:22:15-07:00","Fix a few alarm state manager issues.
+
+- Prevent missed notification from starting app.
+- Fix alarmId issues on notifications.
+- Fix issue with missed alarms being re-enabled after timezone change.
+- Fix issue with missed alarm notification not dismissing properly.
+- Remove alarm noise on missed notification
+- Added safe guard to prevent duplicate alarm instances.
+
+Change-Id: Id9dd65e6ec59df1e6952c8a892022d20a09eb5a5
+(cherry picked from commit 20dccf1991285ab46670521cea5adbc795b5be5e)
+"
+"6ac48365fa00c4a499204f893ec25193b0d7162f","2013-09-10 17:43:37-07:00","Fix NPE on selected cities
+
+Bug: 10691557
+Change-Id: I86b7eaa36bd5db6aba723663623ccc39034717e4
+(cherry picked from commit b10333515a9b3992238c66b1495abd6749f309b2)
+"
+"595e83dc346131c90b71ce959ec71908b826849c","2013-09-11 00:54:59+00:00","Merge 'Log to report changes in quarter-hour alarm intent' into klp-dev
+"
+"c0a1cea7e6164500cc8362cae963c320e16dfc4f","2013-09-10 16:56:32-07:00","Hide bottom bar in landscape.
+
+This way we can make sure analog clock has enough space.
+
+Bug: 10691481
+Change-Id: I2075238965fcff2574ffbf3405299378b8cf3c51
+(cherry picked from commit 13b1605e4372cc715a09d7fff1d1a8aee4522782)
+"
+"e7fd0a459b1ea4b3e2c0a77179efe283701c6323","2013-09-11 06:01:07-07:00","merge in klp-release history after reset to klp-dev
+"
+"c05dc705b04b914a41fa36826a8de628274b883f","2013-09-11 08:34:29-07:00","Import translations. DO NOT MERGE
+
+Change-Id: Id3ba3ef7571ea8de4f6bc8b13d9f71c5545e1b46
+Auto-generated-cl: translation import
+"
+"be13177b0b9ad533a63f57fee671e9ee6d19286c","2013-09-11 10:28:18-07:00","Fix crash in async deletion task and remove some dead code
+
+Bug: 10704924
+Change-Id: I30a05f391acef88564107fccd35b79d431111ee6
+(cherry picked from commit 7e81db28d1475e7c5804eb85ed7e4d53dd55d931)
+"
+"0ab167de98f42460c5c5cff7f8c2d0759f9f684b","2013-09-11 11:17:37-07:00","set correct alpha on disalbled alarm
+
+Bug: 10699318
+Change-Id: I4420e24cfcea7c8cd11f6f463d10e891031bef6b
+(cherry picked from commit 8b84f953852c9c41118767e907a93a410ee9e58b)
+"
+"37c5318ff0fd000faf299972898777b83f89325e","2013-09-11 10:28:18-07:00","Fix crash in async deletion task and remove some dead code
+
+Bug: 10704924
+Change-Id: I30a05f391acef88564107fccd35b79d431111ee6
+(cherry picked from commit 7e81db28d1475e7c5804eb85ed7e4d53dd55d931)
+"
+"2e9baaafc515b89a40aca0b99b4907aa727fea50","2013-09-11 14:40:22-07:00","Add category to stopwatch intent
+
+Bug: 10711760
+Change-Id: I09864e22899c14d071c28fe45278c67615879e1e
+(cherry picked from commit 5b986600a3b458123555107f7845331fecafc0e7)
+"
+"8ea47506e43a167925df5c3202c36c667cb6ab44","2013-09-11 16:27:34-07:00","Update clock daydream date display at midnight
+
+Bug: 10670611
+
+Upon Time or Timezone changes restart midnight detector.
+
+Change-Id: I889f90509fcff2fa7aba543385a5ea990de85e04
+(cherry picked from commit eb3a1f0714e209a8335d84142778465aa6b44c5c)
+"
+"9176f18c279aa6b90dcfffaf58d1b2345a1d42f0","2013-09-12 02:42:20+00:00","Merge 'Import translations. DO NOT MERGE' into klp-dev
+"
+"6f407e6ebf7b7051113e33fd774aa9c4ed61b9bc","2013-09-12 03:41:32+00:00","Merge 'Update clock daydream date display at midnight' into klp-dev
+"
+"3be617051555682a32024195f29e7fe007ea9836","2013-09-12 06:01:51-07:00","merge in klp-release history after reset to klp-dev
+"
+"7f1d432795649e1840ebf6c7e02d939797e6f535","2013-09-12 13:34:21-07:00","Update widget preview asset
+
+Bug: 10640597
+Change-Id: I288188ef395d5bd8e9f11ed3bad7b9cbf6f84276
+(cherry picked from commit 268648ae89da1f2f23022cd4af1fd73a5e85abfd)
+"
+"690cfb6e29ea4111e3b2eb451272024c0fedbf80","2013-09-12 13:49:33-07:00","Fix alarm db upgrade.
+
+Bug: 10724387
+Change-Id: I38be806f35e874a6e5916296cf15abcb12cb9061
+(cherry picked from commit a5a4521002afe0e2c9fd354cf9cf978145354f91)
+"
+"96b1fe6335c20eca5fb96bd534ef78f8e31a635e","2013-09-12 14:28:20-07:00","Log Every Intent From DigitalWidgetViewsFactory
+
+Bug: 8239532
+Change-Id: I5efcc81788ccc4552af6eb18cdd08678e7b8008a
+(cherry picked from commit 05b8713fbc70def232f2db497b2b944587505067)
+"
+"e6f7c0b573441fa6330bb5ca87e9230d3fdfbf7d","2013-09-12 13:49:33-07:00","Fix alarm db upgrade.
+
+Bug: 10724387
+Change-Id: I38be806f35e874a6e5916296cf15abcb12cb9061
+(cherry picked from commit a5a4521002afe0e2c9fd354cf9cf978145354f91)
+"
+"7d3673bb64c8c330ddbb4a0510da252a01e61489","2013-09-12 22:15:46+00:00","Revert 'Import translations. DO NOT MERGE'
+
+This reverts commit c05dc705b04b914a41fa36826a8de628274b883f.
+
+Change-Id: I027de3498fdf80e148cb4b3ab3c89c9cd8c38ee4
+"
+"74c7afafbf4e7265a00eafeb1e04816c711182f9","2013-09-12 22:17:34+00:00","Merge 'Revert 'Import translations. DO NOT MERGE'' into klp-dev
+"
+"f5abb011dde166e41e85d529bceea3e40202ec63","2013-09-12 14:32:51-07:00","Replaced AlarmManager with postDelayed runnable
+
+Bug: 8239532
+
+AlarmManager.setRepeating(AlarmManager.RTC, ...) was ceasing to fire.
+This replacement has proven more reliable and exact.
+
+Change-Id: I38d9f61026c5825cde21b9d27ea5002e8861b1a1
+(cherry picked from commit 9096dcec19f88883933e74b2d446eb94e6196089)
+"
+"f8d45553007a3447953eb3bc40715d7e80a8ba89","2013-09-12 16:47:12-07:00","Adjusting logs for timers
+
+Bug: 10686452
+Change-Id: Ia7227985d3fb851fea3975a29a9b7a953656b0f3
+(cherry picked from commit d73459eee307459d478983e00b2a4084c6e8273b)
+"
+"74b82ca044ac1ff26f68c3061bfe32b40f993f26","2013-09-16 11:06:44-07:00","merge in klp-factoryrom-release history after reset to klp-release
+"

@@ -1,0 +1,97 @@
+"commit id","commit date","commit message"
+"fdd151d4fce7f355be4b9ce271babaf6ae2f8170","2013-08-23 10:14:34+02:00","The bare minimum for my personal needs :
+* activity launches the tracking service
+* stop button stops the service
+* service listens to GPS updates every 30 sec
+* service sends HTTP request to my server on location change
+* service stops running after 24 hours
+
+TODO :
+
+display 'GPS enabled/disabled' on activity
+
+quit activity on taping stop button
+
+settings activity for
+* URL
+* updates interval
+* maximum service run time
+"
+"1d9f642774c0f9247f239cd6847aaef7193b07c4","2013-08-23 11:46:25+02:00","added url field on activity screen (not used for now)
+replaced stop button by toggle (does only stop for now)
+added gps status textfield + broadcast message from service to activity
+"
+"8d0b20dec58ba430758f47ec36feb1e66492810a","2013-08-23 12:17:15+02:00","Replaced button with a toggle button 'Track' on/off.
+Added a placeholder for network status (TODO display network status)
+
+Note: No need to stop tracking service if net and/or gps is disabled.
+Only warn that it's disabled. Then user enables it. Then service
+works again without having to get back to activity and tap 'start'.
+Better in case of network/gps temporarily unreachable or unvolontarily
+disabled.
+"
+"fe4e20107c8008eb893a0c120b1f385002d9c5c5","2013-08-23 13:26:22+02:00","Activity needs to listen to gps status, even if service is not running.
+"
+"0bbb12935a50e96abc8c6ff99c6e4bdaa1d59468","2013-08-23 14:01:47+02:00","On resuming the activity, is the service already running or has it stopped ?
+(has it reached maximum run time ?) => Toggle 'Track' button accordingly.
+"
+"c36bd59f03738528405c990f7609bcef36a7ac0c","2013-08-23 14:25:05+02:00","Service send a notification to Activity when it stops by itself on
+reaching its max run time.
+"
+"2f9a2e4f0c3c5bf1929c9c7125e7e7baa7c70119","2013-08-23 14:27:01+02:00","Back to default max run time of 24 hours (hardcoded for now)
+"
+"2e3d3f8400980fd00c3eb834860d8cd82cc944b8","2013-08-23 15:07:25+02:00","Removed a few useless Toasts.
+"
+"3233c979195610e12a498c6fb1d361fd0201ab5e","2013-08-24 07:37:37+02:00","Bigger text on ToggleButton.
+"
+"0f61be4737245a1fb0906541e5147e409ab33580","2013-08-24 13:06:49+02:00","Added 'Running since' / 'Stopped on' field in Activity.
+Streamlined code for lifecycle management :
+* Activity already listens to the GPS, no need to get notified about GPS by the service
+* use BroadcastReceiver only to get notified of service status updates (no need for extras)
+* locationManager initialized in activity's onCreate (better than onResume)
+"
+"808cef3b7fa8beeb707dfe4b571d6ca422724951","2013-08-24 15:19:50+02:00","URL now in preferences.
+Focus/unfocus edit text field thanks to
+http://stackoverflow.com/a/1662088
+http://stackoverflow.com/a/6120141
+"
+"7b0c0edaeff7d9104687d8166fb90a66ca8e11fe","2013-08-24 16:57:37+02:00","Added preferences activity for :
+* GPS updates (in seconds)
+* Max run time (in hours)
+
+(compat. w/ Android >= 2.1, because there are some in my family)
+"
+"9277a11db9626fade4c064aefb1844739e0ab509","2013-08-24 17:46:18+02:00","Uses prefs for GPS updates & max run time.
+GPS status is back in main activity's onResume (mandatory, after all)
+"
+"081df021200130cfb21c49dca23074a98c2f8683","2013-08-24 17:51:02+02:00","Don't restart service if settings changed, it's overkill.
+We already let the user know that he has to do it. If he wants to.
+"
+"6c38b46c81c09cb923260a2ef2793e480f8c5ab3","2013-08-24 18:32:39+02:00","Add an AsynTask to handle HTTP requests. Mandatory since Honeycomb.
+Warn user to restart tracking only when he changed a value (and service is running)
+"
+"ddac036644e9c7c61a3e76eb77c8a022aec14115","2013-08-24 18:35:34+02:00","Typo in a Toast.
+"
+"4387e599d603ec4f53fb198baec7aa9ba31ca92f","2013-08-24 18:55:52+02:00","Icons.
+"
+"f20cef101e7d576bc055f63a989b80608e75b7ed","2013-08-24 19:35:59+02:00","Add the icon on the layout.
+"
+"ac9da72b97d824aaac0975977ab3a2fe1dcc8939","2013-08-24 20:43:14+02:00","Add connectivity monitoring.
+"
+"44217aad2822b24e70755d04ccd25d4152fc62ed","2013-08-24 21:06:21+02:00","Cleaned-up imports.
+"
+"b97a46db3516c97c83befa807bf8ea2fecbcea6b","2013-08-24 12:50:34-07:00","Initial commit
+"
+"80462ce2059901c837843a9cde24b44fc6f6df34","2013-08-24 23:11:26+02:00","Removed useless calls to Log & last known location.
+"
+"da110a59fe7fbe77bec2c25444bd67a2133618e6","2013-08-25 00:19:25+02:00","French localization.
+"
+"bc127061c02456d332d03f15dfcf289a8c72a957","2013-08-25 00:34:52+02:00","Warn in red if network or GPS is disabled.
++ Typo in french strings.
+"
+"de9273bfc075e779287c3eb35ea6b376870c2aee","2013-08-25 08:51:29+02:00","Added server-side demo files.
+"
+"db6855a7682b73eeb5fe388b678efae850c6bb13","2013-08-25 09:05:04+02:00","Merge branch 'master' of github.com:herverenault/Self-Hosted-GPS-Tracker
+"
+"0f55d203a037efdfd7b43334c41782c965e9b316","2013-08-25 09:17:06+02:00","Modified .gitignore
+"

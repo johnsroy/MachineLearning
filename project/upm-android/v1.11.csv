@@ -1,0 +1,39 @@
+"commit id","commit date","commit message"
+"3ef37074d60ec23b171a168c20d7bcdb1f741772","2012-01-02 20:28:09+00:00","Converted res/values-ru/strings.xml from DOS to UNIX format
+"
+"99decff3d58906d90b3620fd7cee1e7aaa75f342","2012-01-02 20:30:00+00:00","Added missing translation from the RU resource file
+"
+"88e628486c6518c830ecb67a26681f24f0560421","2012-01-06 21:23:02+00:00","Fix crash when screen rotated during password decryption
+
+When the device is rotated the EnterMasterPassword activity
+is destroyed and a new instance created. The problem with the
+old code was that it didn't recreate the ProgressDialog.
+Subsequently, when the Async task finished an error was raised
+when it tried to dismiss the dialog.
+
+This fix manages the progress dialog lifecycle and ensures it's
+destroyed and recreated in paralell with it's parent activity.
+
+Inspiration for this fix came from,
+http://stackoverflow.com/questions/3821423/background-task-progress-dialog-orientation-change-is-there-any-100-working/3821998#3821998
+"
+"ca30811a9b3046e8836022df5d6af392543d6d9a","2012-01-07 20:42:41+00:00","Reopen db on AddEditAccount activity
+
+If the AddEditActivity is in the foreground, UPM is sent to the background,
+UPM's process is terminated, UPM is brought back to the foreground, the
+AddEditAccount was throwing an NPE because the database no longer existed.
+
+This fix opens the EnterMasterPassword activity from within onResume()
+if the db is null.
+"
+"d6b81700805ff32a36a37795385891759bf22388","2012-01-07 21:14:01+00:00","Maintain scroll position on FullAccountList
+
+When returning to FullAccountList don't repopulate the List unless it's
+necessary, i.e. a change was made to an account name or an account was added.
+"
+"eea57df7cc771f17c7b02d58d1d1ad56adedde04","2012-01-08 14:47:50+00:00","Ensure password db is not null on AddEditAccount
+
+If the db is null the EnterMasterPassword activity is displayed
+"
+"84ce5e0b8ae8d5a485ce8d2c941bc27786dd5bda","2012-01-08 15:36:47+00:00","Prepare for 1.11 release
+"

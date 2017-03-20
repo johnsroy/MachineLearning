@@ -1,0 +1,319 @@
+"commit id","commit date","commit message"
+"12bd18f60c1e325b6054eb4736599c5b674d94b8","2014-10-17 16:08:06+03:00","Rephrase the error_network_error string
+
+This string appears when there is no network connection.
+There is no reason to show it in the past tense,
+because the problem is current.
+
+Change-Id: I37bd86faf5f532c671715747aa821b61579aae4c
+"
+"065c418c36590d9c57e9ac9061af2d0fe72c37fa","2014-10-20 15:21:38-06:00","Fix PreviewTaskTest
+
+Change-Id: I57bb210ed99c394ae18d9294f8519e92f2ccbd33
+"
+"6b323fd01655448314aaacdfec5d94558b52d12d","2014-10-21 15:33:25+00:00","Merge 'Rephrase the error_network_error string'
+"
+"f7cc7767ba0b70be902410a0bcfe393e1236d5a6","2014-10-20 18:11:44-07:00","Only fire onboarding 'start' event the first time the activity is created.
+
+Right now, the 'start' event for onboarding is fired every time the activity
+is created. This means that if the user closes the app and leaves it in the
+background for a long time (and then the activity is destroyed by Android),
+the event is fired again when they reopen the app. This should track on a
+user-by-user basis, so this is actually pointless.
+
+This patch changes the activity so that it only fires the 'start' event the
+first time the activity is created. That way, we can get closer to figuring
+out the true bounce rate (on a user-by-user basis, rather than a view-by-view
+basis).
+
+Change-Id: I3f8f9e6290e3ab52856e5f39755b61fc6b8de04c
+"
+"45de1124b7ff44413c6e476ed0756e425d02ee92","2014-10-21 15:47:39+00:00","Merge 'Only fire onboarding 'start' event the first time the activity is created.'
+"
+"d30775be3163936412d80a7b51904679a8aebeba","2014-10-21 14:55:43-04:00","Fix intermittent NPE in DrawerLayout.
+
+- This required patching one of the components in the actual v4 Support
+library. We'll monitor the bug on Google (that I submitted), and see
+what solution they suggest:
+https://code.google.com/p/android/issues/detail?id=77926
+- Also removed FixedFragmentStatePagerAdapter, since we're no longer using
+it.
+
+Bug: 67808
+Change-Id: Ia0b1246659c3f89e915350cc80792b545eece4f9
+"
+"0de9840d7b82df073c08a78b4aafd9b6ce3a2ca7","2014-10-21 13:15:02-04:00","Catch exception when an unknown Parcelable is in our intent.
+
+Bug: 72283
+Change-Id: Id493b8a8321621d7bb68127fdc383fa631e3d69a
+"
+"f0beec6193fe53d0481e2d120c1a20f6ced312b5","2014-10-21 16:49:44-07:00","Support colorized zero-rating croutons
+
+Prior to this patch, zero-rating croutons always had a green
+background with black text. Now, the zero-rating croutons will
+have background and foreground colors established through
+configuration by the partners team and, eventually, by self
+service operators.
+
+Change-Id: I3e2361210673bca757dd8de29d446bdca4529a1c
+"
+"7cf950ebde306299d656c4dc7149806cf078e288","2014-10-21 21:43:46-07:00","Fix all funnels to only fire 'start' events the first time they're created.
+
+User funnels should only fire 'start' events corresponding to user intent, not
+to the technical state of whether the activity was destroyed and then
+recreated from its savedInstanceState.
+
+This patch fixes all remaining activities so they only fire 'start' events the
+first time the activities are created, to figure out true bounce rates.
+
+Change-Id: Icbe1cab39bbda528a795e834196d201146ca9446
+"
+"7e17cfb095c3b18f98075b42e1a983b94e9efe09","2014-10-20 14:49:00-04:00","Ability to switch between prefix- and full-text search.
+
+- Reorganized the Search fragment a bit, so that it's a permanent part of
+PageActivity, and pops up instantly on top of the current fragment (does
+not go on the backstack)
+- The Search fragment now encapsulates two sub-fragments:
+TitleSearchFragment and FullSearchFragment.
+- Not using any kind of ViewPager or tab component... just the two
+fragments overlaid in a FrameLayout, making the code somewhat simpler.
+- The Search fragment also contains a blank layout where 'recent' searches
+will go. (Recent searches appear when the search field is empty)
+- Made the size of list items consistent between Title and Full search.
+- Made the 'Search' action bar item part of PageActivity, so that it
+appears globally, no matter what type of fragment is at the top of the
+backstack.
+
+Change-Id: Iede993cbf6569cddc5f40d8f92a6d5a9a85c723f
+"
+"01721573558b955e9ffde6410eaf61fcbe2693cd","2014-10-22 21:41:20+02:00","Manual import of translations from TWN
+
+Change-Id: Ie3e327d06651c89ad7e93c892540b220bc960fb4
+"
+"757a73d473aeecdb3d13ccde511c3c6275af8fa9","2014-10-22 13:53:31-06:00","Fix W0 test
+
+Change-Id: I8d019aeae51f24fe4e3b0a08fbe933d82933bb99
+"
+"63be27feae8bc191d4545e10659dc41064882434","2014-10-21 18:27:38-06:00","Recent searches
+
+Store recent search strings in a DB table and display them,
+most recently used appearing first.
+
+Change-Id: Icdb28e25c8d7037e7887ed249d47fe5bdbd4d53e
+"
+"85eb813e9871dbaa1aa42a6c6e9f5f8c91875cb1","2014-10-22 20:38:19+00:00","Merge 'Recent searches'
+"
+"71f5fddb93d86f8039e0ac35b14266c3adc48fc7","2014-10-23 16:26:02+00:00","Merge 'Fix W0 test'
+"
+"6f75fc69dbd271c10aca343a2024f43613e94777","2014-10-23 12:09:40-04:00","Fix possible crash when fetching Edit token.
+
+Also cleaned up redundant catching of HttpRequestException, and spelling.
+
+Bug: 71331
+
+Change-Id: I4ba8123196a427a3e737156c1a95aabee7fd2851
+"
+"9ae49833c714e6c2c1d7bbbd5090964702855221","2014-10-23 11:18:12-04:00","Update hamburger icon for RTL.
+
+RTL drawables were still using the old icon, which looks weird.
+
+Change-Id: I1ab320b362498b7590db3c64e18337dcb86f7b4c
+"
+"e99fda63d1524a2a57853b9335efc4bdb7270a34","2014-10-23 14:03:19-04:00","Make sure fragments that use a Loader have unique IDs.
+
+Otherwise, things crash!
+
+Change-Id: If24de182878f68bcdff0f838896410b800a73007
+"
+"2b8589737d45341dce069ddcb99e2ef545663934","2014-10-23 21:38:12+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I94ffcd0eb1c18ae5d16ebe0416e91ef6a620b56d
+"
+"12312a79701ab14368c3ae32f9bb278908802a40","2014-10-23 21:22:19-04:00","Catch remaining cases of SecurityException.
+
+Fixes remaining crashes with 'missing INTERNET permission.'
+
+Change-Id: I1edacb2ba4d0bda5466ce9a6f9aab3121eacd8ef
+"
+"e23811b9a35375ccbaba3a3be4c0c8c853cd0ab1","2014-10-24 12:04:13-04:00","Catch possible exception when clicking Preference with intent.
+
+If the device doesn't have a Browser app installed, it will throw an
+exception when trying to launch a VIEW intent from a Preference.
+
+Bug: 70528
+Change-Id: I06e791f4eb5126ac5ddb0d850a2a91c84b18c058
+"
+"10aab423bc42a04cdcb5a0b8608a6973cbc3c2cb","2014-10-23 22:00:01-04:00","Implement remote killswitch for disabling full-text search.
+
+Change-Id: I691044651d7160fff2cf3adf64a7c105cd2481f2
+"
+"3d853a963b6810a710e7db611b44df609301e3a5","2014-10-24 10:45:25-04:00","Refresh of bundled styles from MobileApp.
+
+takes care of, among other things:
+
+Bug: 66322
+Change-Id: I4313f680b476c046aa2f2a917f41d2fe435a94cb
+"
+"98baff922837df69149e3c27ce817ce9e37dc399","2014-10-24 10:34:58-04:00","Fix directionality of edit preview (for RTL)
+
+- Fixed directionality inside the WebView
+- Fixed margins of CC icon and Preview text
+- Fixed our custom FlowLayout to support RTL
+
+Bug: 72476
+Change-Id: I5443d659575dd3dc4801cb8bc661a6f4821eaf31
+"
+"220b5e4a6b17e4c79898ede502c7ce3563a8ed0d","2014-10-24 14:55:30-04:00","Fix 'logout' preference after crash fix.
+
+(became no longer clickable)
+Now giving an onClickListener to a preference only if it doesn't already
+have a listener.
+
+Change-Id: I93b25da9485477737f877abae34188d0243bebd4
+"
+"390f6636c9e1457e0229df0157ec94ab9cab6ace","2014-10-24 16:11:01-06:00","Fix LoginTaskTests
+
+Since the interface EditTokenStorage.TokenRetrievedCallback changed
+this test did not compile anymore.
+
+Change-Id: I819f42ba14cf015e6058555c943b6f6959027d92
+"
+"395bdb1db7093f97a2683a6a72753af1147b8c25","2014-10-24 16:19:55-06:00","Only check W0 headers for m.wikipedia.org
+
+Requires updated mwapi since we now use the API URL
+to disable W0 header checking when we go to wikidata.org.
+
+Split the patch I1e20a652a3e3b81301708ab60eeba416bd138af6
+into two, since this needs to be merged asap as to not break the build.
+
+Change-Id: I388ec6328b6127d54bc0bb84854cd949efdd732f
+"
+"24548ba1ffccea099b1349df4c1578b70986e18b","2014-10-25 17:52:40+00:00","Merge 'Fix LoginTaskTests'
+"
+"337ccd256fc7673f2c848b0beaa748c9eb031ed2","2014-10-24 16:25:16-06:00","Add Wikidata descriptions to full text results
+
+Switch to search generator so we can get the Wikidata IDs
+(wikibase_item).
+
+Once we have a list of wikidata IDs we haven't check
+descriptions for, send off one request to wikidata to get
+the descriptions for the given IDs.
+
+Also updated the item layout for full text search
+results to not cut off the descriptions.
+
+Change-Id: I1e20a652a3e3b81301708ab60eeba416bd138af6
+"
+"f43433ea08a65fdf019f9ba860a24a8223b00829","2014-10-27 16:25:16+01:00","Manual import of translations from TWN
+
+Change-Id: Iee8ca1f3bf9f0798a13d52915fca1c202776a140
+"
+"775d1a03837c195223316eacc5587067a0e229fc","2014-10-27 18:57:30+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ie42a121b89563f322dac87271a0ffbe7387c98c0
+"
+"6bffda6a1e82e864fa9ab262dab1e1b19846f2c1","2014-10-27 15:11:14-06:00","Add menu entry to delete recent search entries when in search mode.
+
+Change-Id: Ic6d6c5d17c99135e02e4a85845bf848c9d63654a
+"
+"1c50fd9a3080aaeb62a44bd871d9398a3abad4a3","2014-10-25 12:24:59-07:00","Refactor handling of shared preferences and feature install IDs.
+
+This patch changes the shared preferences system of the app so that it's at
+the correct level of abstraction. Presently, classes extending Funnel interact
+directly with the preference manager to get feature install IDs, and that
+should probably be handled centrally in WikipediaApp rather than in each
+class.
+
+This patch:
+* Makes the SharedPreferences of the app a field in WikipediaApp.
+* Instantiates the SharedPreferences field in the WikipediaApp constructor.
+* Changes ad-hoc retrieval of the SharedPreferences to use the field instead.
+* Creates generic retrieval method for install IDs in WikipediaApp.
+* Creates accessor methods for the install IDs, which use the generic method.
+* Changes classes that extend Funnel to use the install ID accessor methods.
+
+Change-Id: Ic13b36ba1d4bcc766265f5944eb2f23c95869a8f
+"
+"111f3e6a00075b47ea4dafc59da48d5c8587243d","2014-10-27 22:29:04+00:00","Merge 'Add menu entry to delete recent search entries when in search mode.'
+"
+"9c3ce21abb08dadc9fd663b777a273c0c6c6023d","2014-10-28 11:08:01-06:00","Avoid invisible search icon in dark mode
+
+Bug: 72630
+Change-Id: Iff4c34140fae3d8533fbe6686e36b6f933e6c915
+"
+"aafc4722dc4fd261aefdd6290c02521fb9b69d2f","2014-10-28 11:31:00-04:00","Don't expose fragment-specific action items when searching.
+
+Bug: 72605
+Change-Id: Ib204a186fa2a19be79a0b690e04954a77929c3ae
+"
+"65d6536e68818476471f4d7ef6f6e68069ff316e","2014-10-28 14:14:58-06:00","Fix visibility of dismiss button in ToC tutorial
+
+The @dimen/wrap_content hack doesn't work on all devices.
+Using fixed value instead.
+
+Ideally, the image should be exactly square.
+In a later patch the image could be adjusted from
+130x128 to 128x128.
+
+Bug: 72595
+Change-Id: I02e87782988205ab6e2f8d2ccd8bc0d54858503b
+"
+"f33d257b50ee10c6ed20f1178c4dd2810215dde2","2014-10-28 17:41:55-04:00","Add 'address' to 'IP' (s/IP/IP address)
+
+Thanks to Siebrand for reporting this, https://translatewiki.net/wiki/Thread:Support/About_Wikimedia:Wikipedia-android-strings-create_account_blocked_anon_error/en.
+
+Change-Id: I0b20bedc181af173170a4a7173b5f28c4c76d7f7
+"
+"a1d67547e4760a776441e13568e529808875619c","2014-10-27 22:20:30-07:00","Change ActionBar search text every time a 'Did you mean' query is run.
+
+When the full text search API thinks you've made a typo, it returns a 'Did you
+mean' result, which is a suggestion for a new search. When you tap on that
+result in the app, it runs a new full text search query with that term.
+
+This patch makes it so that when such a 'Did you mean' query is run, the text
+in the search box is updated so that it matches the query that's run, so that
+it's clearer to the user how the results match the query that was initiated.
+
+Change-Id: Ib1195b9649e01c46425f1e86523559235c108902
+"
+"0b75fce10d32115c99151e02d5f41605eddbebaa","2014-10-29 14:02:27+00:00","Merge 'Change ActionBar search text every time a 'Did you mean' query is run.'
+"
+"e9629ed15ab9835f5110088a2309e048523867cc","2014-10-28 17:05:15+00:00","Allow the user to delete individual history entries
+
+Borrows a lot of code from saved pages
+
+Change-Id: I238fb388203d61edf0cd6904c401b687a062e0f5
+"
+"d3f196adb7c1459f325edc45d009cb71de16648a","2014-10-29 14:56:59+00:00","Merge 'Allow the user to delete individual history entries'
+"
+"782f263dceafee14ae589ad0041c97aee743e80f","2014-10-29 10:18:29-06:00","Add custom channel and package
+
+Add ability to specify a custom channel and package name (app id)
+for channel partners.
+Added a new 'custom' flavor that can take a custom
+channel and applicationId.
+Removed obsolete make-beta script.
+
+Change-Id: Ia57edb7aa06427a2ce78ddeabf5da6b20e9d7ad7
+"
+"93169b295a6b197e91846457aaaa669f1511ce98","2014-10-29 16:26:28+00:00","Merge 'Add custom channel and package'
+"
+"a83a22088dbac2737fe3220532348dda71bc92d7","2014-10-09 20:01:39-04:00","Check for 'internal error' when fetching styles from server.
+
+Change-Id: Ic2179e81fef573f896357726adc56efbe5196de3
+"
+"fd9df83e7d255a74b56b89cfef8e445d75c4d14d","2014-10-27 11:48:29-04:00","A few Search refinements.
+
+- 'Select all' search text upon invoking the search fragment.
+- Scroll to top of list when search term changes.
+
+Change-Id: Id5af1450c7c97ab07848417eb71d61e59e6a783c
+"
+"f88bf81c8ae5f8ec6978f9cee29b05e0380c5fd0","2014-10-29 17:53:35+01:00","Manual import of translations from TWN
+
+Change-Id: I336c12cd367877fcb8b4383cc78a445bc3a50942
+"
+"bca9acc3983036c754b376e0f1fe21ecd9a3ea09","2014-10-29 10:59:26-06:00","Bump versionCode
+
+Change-Id: Ic74b2ff61d972fe686ff36d26558e38e3ecd5a58
+"

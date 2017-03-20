@@ -1,0 +1,19 @@
+"commit id","commit date","commit message"
+"b3401b14fc71b1fa6a34978c9091ddbd61a52d6e","2011-12-07 20:18:55+00:00","Fix crash problem when opening database
+
+When opening a database the decryption happens in background task.
+A progress dialog is presented during this process. If the screen
+orientation changes while all this is happening a new
+EnterMasterPassword activity is created. This means that when the
+dismiss method is called on the progress dialog from within the
+background task an exception is thrown.
+
+java.lang.IllegalArgumentException: View not attached to window manager
+EnterMasterPassword$DecryptDatabase.onPostExecute(EnterMasterPassword.java:142)
+
+Reading this post, http://stackoverflow.com/a/2418763/219525, the
+simple solution is to configure the activity so that Android
+doesn't create a new activity on screen rotation.
+"
+"7b32b9826574ba6def4780b6fc4f81900c5b789b","2011-12-12 19:09:23+00:00","Prepare for the 1.10 release
+"

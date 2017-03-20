@@ -1,0 +1,91 @@
+"commit id","commit date","commit message"
+"d89b0d74600aaaf68733f93e37ae0970f961874d","2016-01-10 15:38:24+01:00","Initialize start time on surface change
+
+It's probably more correct to reset the start time
+whenever the surface changes. On Android < 5, this
+means that showing or hiding the soft keyboard resets
+the start time which is better.
+
+Also moved onSurfaceChanged() before onDrawFrame()
+because that is the order of execution.
+"
+"4a4aae94b3b40bec4c5277d7d75628df5fa9610b","2016-01-11 21:53:40+01:00","Fixed typo
+"
+"1e25a5cfa2e7d82cf49cbf56f3de567e78615ce2","2016-01-11 22:57:01+01:00","Made texture arrays final
+
+Won't change so they should be final.
+"
+"4b467fa7f90b88d5cd4a69d1e405748feed0fae0","2016-01-13 00:14:23+01:00","Use static members to transfer fps and info log
+
+Better because it doesn't require a static reference to
+MainActivity.
+
+Can't use setResult() to transfer fps, info log and the thumbnail
+because going back from the preview will result in RESULT_CANCELLED
+and data is null no matter if setResult() was run before.
+"
+"1b565f44010645ca6ee429179525010f87220cb3","2016-01-14 22:13:32+01:00","Clean up remains of static instance reference
+
+Removed now unused static instance reference.
+
+Reference to EditorFragment does not need to be static.
+
+Reset static result members in PreviewActivity::onCreate().
+"
+"ced177f1075a99429ea3bf210f64e30fb4a9bb18","2016-01-25 20:41:20+01:00","Added date/time and startRandom uniform
+
+New uniform vec4 date containing year, month, date and time
+in seconds.
+
+And uniform float startRandom initialized to a random value
+at each load.
+"
+"32dd16875f6a208df78aa20d1c8cd4ae20c8245a","2016-02-15 21:32:12+01:00","Updated badges for Google Play and F-Droid
+
+Wish those guys would decide on a URL and keep it.
+"
+"1b7bb6ebeb672dce13caa0ff45d693159b78d8ef","2016-02-20 20:29:52+01:00","Allow underscores and hyphens in texture names
+
+Should filter characters in EditText to avoid invalid
+names in the first place.
+"
+"0acc9f2ce2b56d1bb8c89942e998e8c01955d55e","2016-02-20 21:35:47+01:00","Filter invalid characters from name input
+
+Only allow alphanumeric texture names with underscores and hyphens.
+"
+"08c8213d4fdc03f7f42e5bbbdce7cbe79d098fe9","2016-02-21 14:36:52+01:00","Null static member when service is destroyed
+
+Don't leak the old WallpaperService.Engine beyond
+service death. Just a precaution. Shouldn't make
+a difference.
+"
+"cc39f412af90648f768bb964db7224f9905bd1f6","2016-02-21 15:34:21+01:00","Removed hyphen from texture name pattern
+
+Hyphens are not allowed in GLSL names.
+"
+"2b124066e31547684710203fc779e0a88d850bff","2016-02-21 15:37:30+01:00","Match texture menu item with uniform menu item
+
+Better use 'Add ...' pattern for both. I'm always tapping
+on 'Add uniform' because I'm thinking add texture.
+"
+"42f13b9be9630dbf8ce772cca7dc2f76688be444","2016-02-21 15:40:28+01:00","Show texture name in texture view
+
+And cleaned up database functions dealing with textures.
+"
+"5d9a5a4cb952d87eacf9d9a69f2eed3e6f564451","2016-02-21 15:42:25+01:00","Add READ_EXTERNAL_STORAGE permission for API < 19
+
+Required to import textures on API < 19 from gallery apps
+that do not use grantUriPermission(). Later API's will not
+see that permission.
+
+Hard decision. I don't really want to add that permission
+but people (on API's < 19, especially Samsung devices)
+keep running into this limitation and I just don't see a
+better way to fix this.
+
+At the time of writing, about 25% of installs will be
+affected by this and will need to manually confirm the
+update containing this change.
+"
+"90d5083241f9c7551035758e33ddc825cac2a174","2016-02-21 15:55:49+01:00","Advanced version number to 2.3.1
+"

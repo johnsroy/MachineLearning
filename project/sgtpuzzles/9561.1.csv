@@ -1,0 +1,297 @@
+"commit id","commit date","commit message"
+"56aae7b990b0e48a1a0e23bf6a3be3fe3a98074c","2012-04-03 12:49:22+00:00","Comment the Mac build out of Buildscr, since I no longer have a
+working Mac and hence can't build it any more.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9442 cda61777-01e9-0310-a592-d414129be87e
+"
+"68960bb8f2e015cd9d4dfda4680c4f62f37076d4","2012-04-06 12:34:34+00:00","Error checking in Pattern, which was until now the only remaining game
+that _ought_ to have it but did not.
+
+I've tried to implement it before and found that the most obvious
+approach was so effective as to constitute a spoiler, so this is a
+deliberately weakened approach which in a bit of play-testing seems to
+be a more sensible balance. It won't necessarily tell you at the very
+instant you put a foot wrong, but it will at least ensure that (my
+usual minimum standard) once you've filled in the whole grid you will
+either have seen a victory flash, or an error indicator showing you
+why not.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9445 cda61777-01e9-0310-a592-d414129be87e
+"
+"48812a94bd4e4207ac6ea4fb1c93d5f36845c4d7","2012-04-07 22:19:17+00:00","Change some instances of 'print $thing' to 'print $thing || ''', to
+prevent annoying Perl warnings when $thing is undefined.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9446 cda61777-01e9-0310-a592-d414129be87e
+"
+"1963c332edd239b68e18963ffe94fb4ee9118980","2012-04-07 22:19:18+00:00","Fix redundant redrawing in Pegs. Apparently it has always redrawn
+every single peg and hole on the board, every time it did any kind of
+redraw at all, because I forgot to update the array in the drawstate
+indicating the last-drawn state of each position. And nobody's noticed
+until now!
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9447 cda61777-01e9-0310-a592-d414129be87e
+"
+"152013cef66a232e41ba513a319b189e9dd30dcc","2012-04-07 22:28:59+00:00","Add an explicit -lm to the link lines in Makefile.gtk, after two users
+reported on the same day that this is now necessary since up-to-date
+GNU tools won't consider it sufficient to have libm be a dependency of
+other explicitly referenced libraries if you're directly referring to
+the contents of libm yourself.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9448 cda61777-01e9-0310-a592-d414129be87e
+"
+"319276f5bc960c61ebfb468616e62ce685a2cf6e","2012-04-08 13:06:45+00:00","Increase by 1 in every direction the size of the blitter used to save
+the background under a Guess coloured peg in mid-drag. Currently it
+assumes the circle doesn't extend into the next pixel, which the docs
+for draw_circle warn might happen due to antialiasing.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9450 cda61777-01e9-0310-a592-d414129be87e
+"
+"5795e41e5baec9d07df3962aec27719483e48411","2012-04-08 13:06:46+00:00","Swap a 'max' for a 'min', fixing an out-of-range colour component
+being passed to the front end.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9451 cda61777-01e9-0310-a592-d414129be87e
+"
+"a9183e2cf32122f65ed31ea4f0478732e5aa302d","2012-04-08 13:06:47+00:00","Increase by 1 pixel the clip rectangle used to draw and erase the
+Black Box finish button. Like the Guess blitter, it was assuming
+non-expansion of circles.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9452 cda61777-01e9-0310-a592-d414129be87e
+"
+"fa60bb16117499798c4247263f8c6387416baa17","2012-04-08 13:45:09+00:00","Typo fix from Helge Kreutzmann, forwarded from Debian.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9453 cda61777-01e9-0310-a592-d414129be87e
+"
+"652103480b0e9c21bc040171cd2bace5dc52d4d5","2012-04-08 13:45:10+00:00","Add a difficulty exception to prevent Pearl spinning forever when
+asked to generate a 5x5 Tricky puzzle. (Debian bug #667963)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9454 cda61777-01e9-0310-a592-d414129be87e
+"
+"c272ff40a4f8df6b21a386dfa7dc4203e2eaa0f1","2012-04-10 19:51:57+00:00","Permit users to reconfigure the default setting for each puzzle using
+another of those hacky environment variables.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9455 cda61777-01e9-0310-a592-d414129be87e
+"
+"2fa939ab876f73564e59aeac29aef9a65dfebdca","2012-04-21 22:07:27+01:00","Merge branch 'upstream'
+
+Conflicts:
+pattern.c
+"
+"32a0be57ce56ee9156395ebb514cd61d5f6bda91","2012-04-21 22:08:09+01:00","Bump version.
+"
+"56d5383ce3f3d074d100ccdc5a0a8bd7db33a0a6","2012-05-06 11:35:59+00:00","Update the OS X makefile so I can build on Lion. Regrettably that
+means I have to withdraw support for OS X 10.3 and PPC.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9494 cda61777-01e9-0310-a592-d414129be87e
+"
+"2fea84d3ac18564301cf0656abd34fbd565a2125","2012-05-06 11:36:32+00:00","Stop using the deprecated NSString stringWithCString: methods.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9495 cda61777-01e9-0310-a592-d414129be87e
+"
+"bdf671a0053e77811098ac3b76fa969cd908d3a3","2012-05-06 14:01:32+00:00","Add a section to mkfiles.pl to build a makefile that compiles the OS X
+front end using GNUstep, yielding a Unix program built from the same
+code. Should make it easier to check OS X behaviour without having to
+move as far as a Mac :-) However, it doesn't compile as is, so I'll
+apply fixes to the code until it does.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9498 cda61777-01e9-0310-a592-d414129be87e
+"
+"9448706627bccc71084be34cb70a34e23629accd","2012-05-06 14:01:32+00:00","GNUstep compatibility: spell null selectors 'NULL', not 'nil'.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9499 cda61777-01e9-0310-a592-d414129be87e
+"
+"acca984492667bc03fa8ff92e4b267aff6060363","2012-05-06 14:01:34+00:00","GNUstep compatibility: comment out some API calls that GNUstep
+apparently doesn't have. Fortunately they were optional anyway.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9500 cda61777-01e9-0310-a592-d414129be87e
+"
+"40fa96f1b63dbc8ba1587a426de1c43c64ffd76d","2012-05-06 14:01:35+00:00","GNUstep compatibility: remove an unused variable which the compiler
+warned about.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9501 cda61777-01e9-0310-a592-d414129be87e
+"
+"c7225c068494140b5fb5ea1a9d0c96dc79895877","2012-05-06 14:01:35+00:00","GNUstep compatibility: stop using the API feature isFlipped/setFlipped
+to translate y-coordinates from the default of up-from-bottom to the
+down-from-top expected by these puzzles, because it doesn't work right
+on GNUstep. Instead, we run the API in its default mode (probably a
+more robust choice anyway) and translate coordinates manually in the
+front end.
+
+In the process, I've separates the processButton: method into one for
+mouse buttons and one for keys, since that was the easiest way to
+ensure the coordinates passed to the mid-end for the latter are -1,-1
+_after_ translation rather than before.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9502 cda61777-01e9-0310-a592-d414129be87e
+"
+"3747ec6a94b1f41ea7c467f042d02f7cc0d3eabc","2012-05-06 14:01:36+00:00","GNUstep compatibility: avoid attempting blitter_save with a partially
+out-of-bounds rectangle. Instead, take the intersection of the
+rectangle with the window boundary and do a smaller operation on
+what's left.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9503 cda61777-01e9-0310-a592-d414129be87e
+"
+"dccbc4b3ceb402193d0418801d379f4665b4e2dd","2012-05-06 14:01:38+00:00","GNUstep compatibility: add a missing #include.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9504 cda61777-01e9-0310-a592-d414129be87e
+"
+"a4b7d0ea4a5000f86a7cf2f1e5b775e48a4f07f6","2012-05-06 14:01:39+00:00","GNUstep compatibility: ensure both endpoints are actually drawn by
+draw_line, by the brute-force method of explicitly plotting them in
+addition to the GUI's line-drawing operation.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9505 cda61777-01e9-0310-a592-d414129be87e
+"
+"759fbc533b208bd19479087c9daee489f0d23ad8","2012-05-07 20:58:35+01:00","Fix full-screen in ICS
+"
+"3402b011f75e6f2394c7abaa2a5ab4593d8b48d1","2012-05-07 21:05:53+01:00","Merge branch 'upstream'
+"
+"23a42cfea1fdb486694f3ee371dd009ff2007284","2012-05-07 21:08:25+01:00","Bump version.
+"
+"6dc59e2013cbf1f70a7d57edfe0bbe77b52772cf","2012-05-07 21:51:45+01:00","More debugging for failure to change game.
+"
+"58d935a7c4995af33a85993501ffe71c6e2b9a75","2012-05-14 18:42:18+00:00","Patch from Jonas Koelker for the developer docs, fixing a couple of
+editing errors and adding some comments about the necessary order of
+midend operations called by a front end.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9533 cda61777-01e9-0310-a592-d414129be87e
+"
+"11f38a77344adf0f526ed0fdcc314cca02cc0b81","2012-05-14 18:42:19+00:00","Patch from Jonas Koelker to improve Filling's error highlighting: as
+well as marking a region as wrong if it has too many squares for the
+number written in it, this patch now causes a region to be marked
+wrong if it has too few squares _and no liberties_, so that it can't
+just be one the user is intending to enlarge later.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9534 cda61777-01e9-0310-a592-d414129be87e
+"
+"73cd27a4e70b0e5630ab21030071203dc325d511","2012-05-31 18:10:10+00:00","Bridges solver fix: in map_update_possibles, collect values from
+maxh/maxv for squares between islands as well as on islands.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9542 cda61777-01e9-0310-a592-d414129be87e
+"
+"17338c9fafa47ddc9046b0c9fe9b0219e240f345","2012-05-31 18:10:11+00:00","Bridges solver enhancement. In the stage 3 solver, we were considering
+the possibility that an island might form an isolated subgraph by
+connecting to one of its neighbours (and, if so, reducing the maximum
+bridge count in that direction so that some bridge would have to go
+elsewhere), but we were not also considering the possibility that it
+might form an isolated subgraph by connecting to _more_ than one of
+its neighbours. For instance, if you have a 3 adjacent to a 1, a 2 and
+something else, then at least one bridge must go to the something-else.
+
+Previously insoluble test case:
+10x10m2:a2b4a5a2a2a1ga2d3b33a3a4c2aa3e1a22b2a4b4aa3b1a2b33a1e3aa2a1a2c23a3a3a4a2a
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9543 cda61777-01e9-0310-a592-d414129be87e
+"
+"76ba94bb83cf383a96272f8c08f5361a157d1207","2012-05-31 18:10:12+00:00","Write a comment outlining a design for a rewritten faster solver.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9544 cda61777-01e9-0310-a592-d414129be87e
+"
+"9831c0efbab0e85bc85707e4fa4b00468c956e4f","2012-06-01 18:41:23+00:00","Add pointless initialisations to placate a gcc warning.
+
+(I'm confident these can't happen. maxb is initialised whenever we
+break from the first loop with y < h, and when we don't break from
+that loop the second loop which uses maxb is run zero times. But gcc
+can't work that out, sigh.)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9546 cda61777-01e9-0310-a592-d414129be87e
+"
+"fbf6adf35b2cb6cff938c847f0cbd1916672b000","2012-06-01 18:41:23+00:00","Another uninitialised-variable fix, this one pointing out a real bug.
+Simplest fix is to just remove the 'n' parameter from
+solve_island_subgroup, replacing it with a robust island_countbridges.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9547 cda61777-01e9-0310-a592-d414129be87e
+"
+"4b05f18bba023624a2ce6b22c044683f7f5478e1","2012-06-01 18:41:24+00:00","Remove the speed optimisation in the stage 3 solver which makes the
+first loop only handle rightward or downward bridges (on the basis
+that that way every bridge is looked at once rather than twice). This
+seems to be breaking in the wake of recent changes to the solver, in
+cases such as when island A is left of island B and has enough other
+outgoing edges that only one bridge remains to potentially go to B,
+but B is as yet unconstrained. In this situation the only code which
+is able to adjust the maximum bridge count for that edge is the stage
+3 solver (nothing else calls solve_join with is_max true), but it will
+only do so if it _tries_ putting two bridges there and finds it
+impossible, and when it starts from island A it won't even try.
+
+Game ID which was insoluble just before this commit:
+15x15m2:2a4d3b3c2h2d2a2a3c3w4a3m1d1a4a5a2d4d6e4q3e6a2a1e1b2g3a3o2g1d32l4b2c3a4c2b22l4a
+
+This probably means I've done something else in recent checkins which
+was not in accordance with the original solver design. However, this
+fix will do for the moment.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9548 cda61777-01e9-0310-a592-d414129be87e
+"
+"fcfde82b6e36904840e93c2c4971f40ba809750e","2012-06-01 18:41:26+00:00","Add a hacky environment variable that lets me arrange a soak-test of a
+solver I've just modified, by forcing every game generation to be
+instantly followed by an attempt to re-solve the same game
+_description_ without the aux_info.
+
+I've hacked similar changes in to midend.c several times in the last
+couple of months for one reason or another, and it's about time I
+arranged not to have to recompile to do it!
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9549 cda61777-01e9-0310-a592-d414129be87e
+"
+"4e94c8cac2223887a4e9da9967251e806d4a6500","2012-06-06 17:59:37+00:00","Fix a bug introduced by r9495 in which we try to write temporary NULs
+into a string which is usually a read-only string literal. Instead,
+copy each segment into writable memory as we need it, and free it
+afterwards.
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9558 cda61777-01e9-0310-a592-d414129be87e
+"
+"d66809e3ab38cd9371d7ba937c8d7ad3968cf75a","2012-06-10 07:20:18+00:00","Vary the behaviour of Mines's solve function depending on whether the
+user is already in the 'dead' state when they press it. If so, we
+reveal the rest of the mines in the grid as if it were the Windows
+Minesweeper 'you lose' display, which provides information showing
+what the user got wrong. (Otherwise they have to repeatedly flick back
+and forth between Solve and Undo if they want to work out which flag
+they placed wrongly.)
+
+If you press Solve while alive, however, the existing behaviour
+remains unchanged.
+
+(This feature was suggested by Clive Jones a couple of weeks after I
+first wrote Mines, and I've finally got round to doing it!)
+
+
+git-svn-id: svn://svn.tartarus.org/sgt/puzzles@9561 cda61777-01e9-0310-a592-d414129be87e
+"
+"ea2f3fff570dd76221a22b4bf6226bd12da47bb1","2012-06-27 17:15:33+01:00","Merge branch 'upstream'
+"
+"04502dafb8fe5a02af418a47cb6fca05e8655ed2","2012-07-22 14:02:57+01:00","Build against Android 4.0.3/4.0.4
+"
+"b5ce0efb2676f1557bb92148d36ae01df4639bb4","2012-07-22 14:03:53+01:00","Fix spin in Singles game generation, thanks Steffen Bauer
+"
+"9eb7a40e5fab32fea70b464f3f34710281ae64d7","2012-07-22 14:04:38+01:00","Bump version.
+"

@@ -1,0 +1,67 @@
+"commit id","commit date","commit message"
+"ec5b42cd0f29faed76ba1442bfa621a985290985","2014-04-07 18:43:16-07:00","Add NetworkLog-2.22.1.apk
+"
+"1a83ec6a08760998494a887ddba5f2cee6a272ad","2014-04-11 14:57:44-07:00","Add command to facilitate installing to emulator after build
+"
+"c473940c94a192124ea85fbf436e0b0e6eba9e3b","2014-04-11 15:06:03-07:00","Remove unused PrintWriter/BufferedWriter imports
+"
+"30b4e3d632a239c320cc059b2b4424f8a970f042","2014-04-11 15:16:59-07:00","Refactor ShellCommand, add InteractiveShell, remove networklog.sh scripting
+
+Refactored ShellCommand to facilitate use of an interactive shell.  Also reads
+stdout as fast as possible in the background, storing output in a buffer for
+later retrieval with ShellCommand.readLine() in order to prevent internal
+buffers from becoming full.
+
+Added InteractiveShell class for creating and using an interactive shell. As
+such, we now no longer need to create a networklog.sh script to batch commands
+together. This reduces the number of SuperUser invocations and removes any
+potential SELinux problems related to executing a binary in the app's files
+directory as su.
+
+In addition, we now prefer system built-in commands over the app's commands
+on Android versions equal to or greater than ICE CREAM SANDWICH in order to
+avoid potential SELinux issues related to executing binaries in the app's
+files directory as su.
+"
+"86bf335f0216f314918cb92054b7bbab7a3f6102","2014-04-11 19:35:50-07:00","Fix some potential null pointer exceptions
+"
+"7c0ae77f06afc3ca3c13d8114fe3e14d40afca16","2014-04-12 17:05:42-07:00","Display error dialog if missing iptables LOG/NFLOG target when starting logger
+"
+"dbdd8e6ef57439d9d2b8bf325d6f120540ea8a04","2014-04-12 17:06:37-07:00","Start logcat logging using adb -e if building for emulator install
+"
+"d679fe392bfebc443c31a6d05789c2455be156d7","2014-04-12 17:29:25-07:00","Initialize targets with non-null value after first attempt to prevent repetition of getTargets() failure error dialog
+"
+"cbccdd3158f2b217eb855f6541bd0728357c9aed","2014-04-12 17:50:48-07:00","Add shortcut aliases logcat emulator, delete log files, and view last log file
+"
+"7a5bbe539dd2d0d9070d6f11b83f8df77822b957","2014-04-14 15:29:40-07:00","Pre-sort by timestamp when sorting by traffic throughput
+"
+"3581437301da17dc58db7732e9614146a836991e","2014-04-14 15:40:54-07:00","Refactor previous traffic sort commit to use one synchronized block
+"
+"c2c3321eb7034e3ea242529fb1e765239aaf0320","2014-04-14 15:48:15-07:00","Refactor sortData() again to remove if statement
+"
+"f09a77e96c612404c7ff46eb11c92139a9c9828b","2014-04-14 17:30:28-07:00","Refactor app fragment sorting to remove unnecessary allocations of sort methods
+"
+"75469fcbccb6e2e799e6cda1988f1e23ffb4556d","2014-04-16 15:10:25-07:00","Correct order of adding LOG/NFLOG rules to prefer LOG rules when available
+Remove unnecessary checkRules() check for removeRules() in  addRules() since removeRules() already does it
+"
+"6588b7d42bdfbe9428c4ce146cc5a884d13b0d9e","2014-04-16 15:14:11-07:00","Don't add new-line to commands unless one is not present
+Add functionality to read remaining lines after command has exited
+Add debug logging to track sent commands
+"
+"b466705d919431acb1fb7445561ae8d8191321cb","2014-04-16 15:23:25-07:00","Refactor startLoggerCommand() and killLoggerCommand() to remove `ps` dependency
+
+For some strange reason, the Android toolbox `cat` command shows up as `sh`
+instead of `cat` in /proc/cmdline and `ps`.
+
+This has led me to investigate an alternative method of tracking and killing
+the logger process, which brought me to discover that running a bash process in
+the background sets the bash variable $! to the pid of the backgrounded process.
+
+Now we no longer need to parse `ps` output to hunt for the logger's pid, which
+could have potentially been error-prone. This background method should be much
+more reliable and efficient.
+
+Add extra debug logging to trace InteractiveShell
+"
+"729349c2a36cdb4e1df21092544311b900151d61","2014-04-16 16:39:13-07:00","Update version to 2.23.0
+"

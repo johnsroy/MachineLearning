@@ -1,0 +1,39 @@
+"commit id","commit date","commit message"
+"1673427c0f93cd7ef81f3dbca0c6dbd654f66c9f","2015-01-25 10:39:31-08:00","Updated gh-pages instructions
+"
+"5b6c18fed25b5cbf260b162ca0a55977e7f1e823","2015-01-25 17:33:24-08:00","Fix spelling mistake.
+"
+"742264fae4ab7829629e523422dc70bdb55567b5","2015-01-25 23:09:52-08:00","Encrypt shortcut intents
+
+As it turns out, the terminal shortcut feature was relying on the
+explicit component intent security hole closed in 5112961... ('Split
+RUN_SCRIPT handling out into its own activity').
+
+Intents that come from shortcuts will be seen as coming from the
+launcher, so using a permission to protect shortcut intents is a
+non-starter (we cannot expect launchers to add arbitrary permissions to
+their manifests).  Reverting the change to intent handling isn't a
+particularly palatable option, since it leaks privileges and exposes
+user data to any other apps running on the device.
+
+Instead, we add a new RUN_SHORTCUT intent (and RunShortcut activity to
+handle it) which requires shortcuts to be encrypted and authenticated
+using randomly-generated keys known only to us.  This ensures that only
+shortcuts that the user has created can be run, and that the contents of
+those shortcuts (i.e. the commands that are being run) cannot be
+discovered by someone examining stored shortcuts or intent traffic on
+the system.  (It is possible for an attacker who captures a sent intent
+to replay that intent, repeating the command; the utility of this to an
+attacker is dubious, since he cannot control, or even discover, what
+command he's triggering.)
+
+Existing user shortcuts must be recreated.  This is unavoidable, given
+that existing shortcuts are hard-coded to use the RUN_SCRIPT intent via
+RemoteInterface, which is something that we can no longer support.
+"
+"023f81f8ac94f22339d00af635912d221fe6a55a","2015-01-28 05:47:38-08:00","Add command-line-tool to increment version number.
+"
+"155eaa19a7e54ab3f8776b6cc8fe8cfdfd1eb437","2015-01-28 05:51:08-08:00","Add increment-version-number to the release process.
+"
+"4ff373b9b00bb8ebf51a20081f320072b7a779e3","2015-01-28 05:52:28-08:00","Increment version number to v1.0.65
+"

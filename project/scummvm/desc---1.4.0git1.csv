@@ -1,0 +1,407 @@
+"commit id","commit date","commit message"
+"0a03a620e12b97d02899f31376191014a5205ddb","2011-05-25 05:53:28+08:00","CREDITS: Temporarily retire Jubanka, add CeRiAl
+"
+"cd63f261f9b4018aceb5409f50f18a06b6a30f99","2011-05-25 00:02:47+02:00","CREDITS: Fix sort order
+"
+"dcfa8fd0483d05cd4bfd4cab0fe7101db5f6844f","2011-05-25 05:53:28+08:00","CREDITS: Temporarily retire Jubanka, add CeRiAl
+"
+"efcf278bdf8355448534b72ec52fe48a1e0fa636","2011-05-24 18:21:29-04:00","GRAPHICS: Optimize the convertYUV420ToRGB function a bit more
+
+A template is used to avoid a bytesPerPixel check on every pixel and less deferences are done
+"
+"91e304e35fe641f46aaf5dce874354627256c1a7","2011-05-25 06:49:59+08:00","WINCE: Update port specific readme
+"
+"23958893722f4a99da89465dc53b84921fe2c727","2011-05-25 06:49:59+08:00","WINCE: Update port specific readme
+"
+"0aa6aca4201df105276455d550d00495fdaa067b","2011-05-25 10:46:58+02:00","SCUMM: Switch some code to use String::format
+"
+"fdf12c5c09e1c644001079a9dce5335e9ae2707d","2011-05-25 11:48:50+02:00","SWORD25: Remove more unused loadlib code + use of fopen
+
+The functions loader_C and loader_Croot provably did not do anything
+besides returning an error, so removing them was safe.
+
+For loader_Lua, this was using luaL_loadfile. But that in turn now
+uses Sword25FileProxy, which only supports loading config.lua,
+and config.lua is not used via the loadlib mechanism.
+Therefore, I deemed it safe to also remove this third loader.
+
+This leaves loader_preload as only remaining loader. It is probably
+unused, too, but I did not both to investigate further, as I already
+achieved my primary goal (getting rid of fopen/fclose use).
+
+All other removed functions were unused due to the removal of the
+first three loader_* functions.
+"
+"1b248cd9362e7201b209eb0bc2a099c4b7cbca27","2011-05-04 16:30:10+02:00","BUILD: Reorder parts of configure
+"
+"7585303c06fbac525b8e24404c79b673fa1be9c5","2011-05-04 23:02:31+02:00","BUILD: Do not manually set endianess
+
+If for some reason the endianess is not detected right, then this should
+be reported as a bug; and any (hopefully temporary) specification of
+the endianess should be accompanied by an explanatory comment.
+"
+"ecb8618cb723bed6eb054f25c4ee1d2822adabb5","2011-05-04 23:19:22+02:00","BUILD: Unify build & configure rules for SDL based backends
+"
+"e013a516041b56e2c0f94b7c967de5cad615d12d","2011-05-05 12:19:47+02:00","BUILD: Enable ARM asm only based on _host_cpu
+
+Also moved x86 and ARM recognition code in configure to be
+next to each other; and print whether ARM specific code is
+going to be used or not.
+"
+"63a69b4f1e3356c1bfbfbfdc77dbb58e26b85d7e","2011-05-05 13:43:30+02:00","BUILD: Overhaul how we determine the need for aligned mem access
+
+Also add some comments explaining what is going on and why.
+"
+"9b14c50b774afe0d257534e261f412455d8ed93e","2011-05-05 14:02:18+02:00","BUILD: Unify how debug/release mode defaults are determined
+"
+"d935c53cdf00a54d95714139046abc35bf5c2c6a","2011-05-05 14:14:21+02:00","BUILD: Rearrange some PSP stuff
+
+Cursory testing shows no regressions caused by this, but proper
+testing of this change is recommended.
+"
+"6639eacb3ae7189bd18e4267d0115caa0a05edb4","2011-05-05 14:21:17+02:00","BUILD: Move some Android 'hack' back to near end of configure
+"
+"39076ef9722529d80feff94bdff25843beb4fc13","2011-05-05 15:38:54+02:00","BUILD: Rename UNIX #define to POSIX
+"
+"38ff07589c8e6c3ecd2b2fcfbc8e1bc1b495eb78","2011-05-05 16:14:28+02:00","BUILD: Unify how _posix is computed
+
+However, the current approach of determining _posix based on _host_os is
+flawed and should be replaced by feature detection; added a TODO about
+this.
+"
+"8387b68c5758819789a0f555abadb089a7c500b1","2011-05-05 16:26:05+02:00","BUILD: Add only one -D to DEFINES per line; add FIXMEs to -D in CXXFLAGS
+"
+"717a7accf5f4c58e4b4b9187ee349841163c3896","2011-05-05 16:34:17+02:00","BUILD: Always enable indeo3 codec
+"
+"4b7f6dfa3c8ca3ee614810007728e49ba2fd9e6e","2011-05-05 17:32:31+02:00","BUILD: Rename USE_TEXT_CONSOLE -> USE_TEXT_CONSOLE_FOR_DEBUGGER
+
+This reduces the similarity in name to the otherwise mostly
+unrelated DISABLE_TEXT_CONSOLE #define.
+"
+"d2e778bf0b4692e957c74a7749a75d6fd5ed214d","2011-05-06 13:14:44+02:00","BUILD: Replace _need_memalign runtime test by hardcoded list
+
+According to a discussion on -devel, this test cannot work reliably in
+general: It cannot determine when unaligned access really works reliably
+in all situations, nor on all implementations of the target CPU arch;
+nor does it determine whether unaligned access is supported effectively
+(as opposed to say supported via super-slow fault handler mechanism).
+"
+"c439e08590f3e340d80c0c135f412893ddc0c8d5","2011-05-09 16:37:23+02:00","BUILD: Declare RELEASE_BUILD in DEFINES, not CXXFLAGS
+"
+"652bf358c25784fe84aed473b555cbe4c836b34d","2011-05-25 13:40:07+02:00","BUILD: Update comments
+"
+"6e157fd2d4ee1cc5de5b4950ca499ba28f1f153e","2011-05-25 13:40:45+02:00","BUILD: Do not define LUA_USE_POSIX
+
+It doesn't really do anything useful anymore anyway (except
+make linux builds use _setjmp instead of setjmp, but both
+are equally bad for us and need to replaced anyway).
+"
+"4f34347485c0f7451987cd25ad69f4f3cb13b1ff","2011-05-25 14:39:56+02:00","BUILD: Minor configure cleanup
+"
+"7fcaac9408b920cd5bab21336140ded966e37f89","2011-05-25 14:55:36+02:00","BUILD: Unify plugin prefix/suffix handling, unify setting DYNAMIC_MODULES
+"
+"b86da6028fd702cd2a3f0c278d1b372135208ad3","2011-05-25 16:32:38+02:00","MOHAWK: Fix warning about uninitialized var
+"
+"7e5113b4230d2186a85e2e5ef0920d9d7e753c6d","2011-05-25 16:35:09+02:00","TSAGE: Silence another (incorrect but still annoying) uninitialized var warning
+"
+"587811d852713dfd14a23e48bedc06ae9d99a79b","2011-05-25 16:42:16+02:00","M4: Attempt to fix the broken Rails code
+
+I am not sure how this code could have ever worked without lots of
+crashing, but maybe I am missing something... Still, casting an
+arbitrary integer value to an int *pointer* and then later dereferencing
+it does not seem like a good idea :).
+
+Changed the code to do what I *guess* it was meant to do. But somebody
+who actually knows M4 and its games should double check.
+"
+"8615cecfe07ee4d76d9620dd96d11c8ce4df5011","2011-05-25 16:44:50+02:00","SCI: Constify Object::_baseVars
+
+This may have to be undone if we ever want to start free'ing _baseVars again.
+"
+"1277975c6685d13a05a2e77dc5f5604f3a4620bf","2011-05-25 09:56:31-04:00","ALL: neighbour -> neighbor
+"
+"eea482fa4304cab0e23ca4abffdec3651e45f01d","2011-05-25 10:31:37-04:00","ALL: behaviour -> behavior
+"
+"6b367531707a866e5997039d2a139ef16287a256","2011-05-25 10:32:45-04:00","ALL: favour/favourite -> favor/favorite
+"
+"ad9c46344cbd1bab1685858ad743f1f12ed15c02","2011-05-25 10:33:35-04:00","GRAPHICS: flavour -> flavor
+"
+"e18401a07c7defe7a461d2a78150748ca7833474","2011-05-25 10:45:38-04:00","ALL: armour -> armor
+"
+"28301e2bd1ff9b6da313cd212b0e2695f201c85e","2011-05-25 10:48:13-04:00","ALL: analyse -> analyze
+"
+"0104d56444d09f9b65df41baa56c93a85d87f509","2011-05-25 10:48:51-04:00","ALL: recognise -> recognize
+"
+"7ff9f34aef3a89f167f1867fb31147571ba8112a","2011-05-25 10:49:12-04:00","QUEEN: tyre -> tire
+"
+"9539017ee35ce280758f22e589aa52c3baf9aaf3","2011-05-25 11:17:11-04:00","ALL: initialise -> initialize
+"
+"ed9768fde3ff673b4cd5981eee4b926b2f0107ab","2011-05-25 10:00:26-07:00","Merge pull request #9 from tiqpit/a2gs
+
+AGI: Fix //gs output
+"
+"5cd5d2663dc57157e79d5f1621ead4e446bec046","2011-05-25 19:22:17+02:00","SAMSUNGTV: change default path
+"
+"a87d33845a9e8253b876ef59d0b9b9fd45a9aaa4","2011-05-25 19:40:55+02:00","SAMSUNGTV: revert code of result some previous commit
+"
+"218d82c62b8078e82dd5dabc165e35563c464600","2011-05-25 22:43:31+02:00","AGI: Fix compilation on 64 bit platforms
+
+I'm unable to test this change, but it avoids using a pointer to store
+an int temporarily.
+"
+"185536e4b1ee2d837103cefa3605e8ed4f559ddd","2011-05-25 23:12:41+02:00","TOON: Remove unused variable
+"
+"472d45aa2b726d05c66299cbe93c515dca79a037","2011-05-25 09:07:09+02:00","TSAGE: Add a couple of comments
+"
+"bb4df3f115634ba2f719a4ef342879fc73aef246","2011-05-25 20:03:48+02:00","HUGO: Add listscreens() and gotoscreen() to console
+"
+"65a9ef7639c65afa685b2805f52df567e044810b","2011-05-25 20:08:30+02:00","HUGO: Cosmetic modification, for consistency
+"
+"be3306a9eb2bff80fc1f9bdc858ac4d759d926e4","2011-05-25 20:08:54+02:00","TSAGE: Cosmetic modification, for consistency
+"
+"fe41da83ad8d59062f9188414cf4759d1d42f25a","2011-05-25 20:23:02+02:00","HUGO: Add boundaries() to the console. God mode no longer shows boundaries, as in the original
+"
+"dceaa08e69f820b4901cc5b690c1c63487e8063d","2011-05-25 20:29:43+02:00","TSAGE: Add scene description in scene groups 8 and 10
+"
+"c6ef39dcf20cecef3639d686fd188fc9c7118421","2011-05-25 23:36:50+02:00","HUGO: Add 3 object related functions to the console
+"
+"6098506a4215ac2bb72b141da837f3a4619b3ca3","2011-05-25 23:58:46+02:00","HUGO: Fix comments
+"
+"bed40a60350c98cbe432fa75db919a78e2a66a7e","2011-05-26 07:14:53+02:00","SAMSUNGTV: added readme to dists
+"
+"bf490b4084d7d1fbec52fc2c6b47ae7a0156c7fc","2011-05-26 07:25:52+02:00","BUILD: Reorder plugin stuff in configure some more
+"
+"2c8a9b0e7669df1914b8e01d347fef7e8776ef11","2011-05-26 08:14:57+02:00","SWORD25: Avoid using strcoll
+"
+"2068bc1527369ee4468f178b745e9722ef9f695c","2011-05-26 08:22:36+02:00","SWORD25: Fix warning: double format, float arg on DC
+"
+"a2f16d91552aa888ca3d6f8bbbf41aed3ce75874","2011-05-26 08:22:46+02:00","SWORD25: Const correctness
+"
+"7b51caedbaa3594736d8a4f28064de1b65816ca4","2011-05-26 08:25:28+02:00","ANDROID: Trying to fix the recent linker failures
+"
+"984f53ac14cb0124caab39aba3e712dfc49a8ef5","2011-05-26 11:43:28+03:00","SWORD25 (LUA): Removed unused code for handling precompiled LUA scipts
+"
+"d5050463d52ef396f4e91e7780424ed19dd79fd2","2011-05-26 11:44:52+03:00","SWORD25: Removed the leftover libpng code
+"
+"de8a44abfc221a4a173cbc1bab87f596379ab14c","2011-05-26 11:02:46+02:00","BUILD: Reorder configure some more
+"
+"a654115f1a9a1497ee7d73a3c861e4f37ab1e081","2011-05-26 11:03:00+02:00","BUILD: Make endianess check stricter
+"
+"62c026d3b6a17ab3e7634cf3d4e5b63bbf0aa7eb","2011-05-26 12:29:51+03:00","SWORD25: Merged the PNG and thumbnail decoding code into a common class
+"
+"86563d00093fc1791b94489d476600f0de50ad4c","2011-05-26 12:34:22+03:00","SWORD25: Committed changes to module.mk which were forgotten in my previous commit
+"
+"7b03a6e604f154dbe23a5b927a4be01aaa28248d","2011-05-26 13:20:06+02:00","SWORD25: Fix making multiple saves at the same time.
+
+This adds a missing seek. Thanks to [md5] for guessing the cause.
+"
+"09ba2ad438d1316792861b25e68e19594eb26c7f","2011-05-26 13:29:09+02:00","DC: Don't set a lib search path for plugins
+
+Plugins may not rely on external libs, so there is no point in
+specifying a custom library search path for them.
+"
+"a010884c9bfb230da1448d2598011dc68e9efb22","2011-05-27 02:31:03+03:00","SCI: Fixed bug #3306417 - 'LAURA BOW 2: segmentation fault while talking to Dr. Myklos'
+"
+"28b7cf71a98981b6d77598aca026572ba32ee1b4","2011-05-27 02:47:48+03:00","SCI: Added a workaround for bug #3308087 - 'SCI: SQ1VGA - Engine Abort Upon Loading Ulence Flats Save'
+"
+"48140a012d69d76de5ae80de7ca926e71c39cd03","2011-05-27 03:06:06+03:00","SCI: Don't attempt to modify null/disposed objects.
+
+These cases occur usually because of script bugs. Fixes script bug
+#3303802 - 'SCI: PQ1VGA - Crash at the jail'
+"
+"fb4bdae4c7e0b49dabd08cd281a5542292032bbe","2011-05-27 19:08:36+10:00","TSAGE: Bugfix for using lift after restoring a savegame in scene #2320
+"
+"6072f976413428d4ee9f72d0a23c8ef302a2fb99","2011-05-27 19:14:04+10:00","TSAGE: Bugfix for saving game in scene #4025
+"
+"d50c6277e41a5280e5fe02015d497d2d29603aa9","2011-05-27 19:28:31+10:00","TSAGE: Bugfix for loading savegames directly from the launcher
+"
+"ff62a6050aedca96e69cb284c5406833e59ca588","2011-05-27 13:15:57+02:00","Revert 'SCI: Don't attempt to modify null/disposed objects.'
+This fix for bug #3303802 is a potential cause of unreproducible bugs
+in all SCI games that taint savegames.
+This reverts commit 48140a012d69d76de5ae80de7ca926e71c39cd03.
+"
+"cb990e68a170f354a7e3e2db3be05e0a2ce46a04","2011-05-27 17:34:43+02:00","SCI: Fix access to variables (gc_interval etc.) from the console
+"
+"edbc712a0fd0c2486b5e8205dc970f1b299b0c5e","2011-05-27 20:53:05+02:00","TSAGE: Fix (second) bug 'Scene 2100: If you sit down at Quinn's console and then get back up again, his walk animation gets screwed'
+"
+"1d9a7886498fef5c45673b1b38153909f7f2d3fa","2011-05-27 21:39:55+02:00","TSAGE: Rename _field1800 in scene 2100
+"
+"a6fedd6034b9e1d3723bd7fcee170429e1a4afed","2011-05-27 21:44:41+02:00","TSAGE: Cosmetic tweaks to Scene::setZoomPercents.
+"
+"f4b2f84c019b3c0f6f5e701119ff0fe292029693","2011-05-27 22:11:00+02:00","TSAGE: Fix priority issue in scene 2100, in the lift
+"
+"67c73a25f05c8c14669f68a5c2558977ad49d8dc","2011-05-27 22:14:04+02:00","WINCE: Update of port-related README
+"
+"625f6d3b0e04add1694be14eb44ee9aa3bd71fd8","2011-05-27 22:14:04+02:00","WINCE: Update of port-related README
+"
+"6113724eb5eb3fac1bb421751451a2af8ac18abd","2011-05-27 23:30:55+02:00","TSAGE: Fix a sound glitch in scene 4150
+"
+"daa69cce8b95e2d7dcf28c770191bc3924d0b5b7","2011-05-27 23:52:16+02:00","TSAGE: Add a workaround for the mouse hidden bug in scene 4150 (also present in the original)
+"
+"adc087c37e8c79ff78a4d60b6b32ea5628b66928","2011-05-28 00:14:45+02:00","TSAGE: Fix bug in scene 2100 when Seeker is in the cave. (Thanks eriktorbjorn for pointing the reason of the problem)
+"
+"4b01303e296e35863681ec990ae8a4812606e558","2011-05-28 01:05:48+02:00","TSAGE: Fix a couple of glitches in scene 5300
+"
+"595728c8cae665fff075bd215a8794d0ad9a9275","2011-05-28 02:08:19+02:00","TSAGE: Fix several bugs in scene 5300
+"
+"a7580aee6674fb67647f24bd851b2bd2b66c9bf8","2011-05-28 07:21:38+02:00","TSAGE: Add specific initialization for ringworld CD, fixing the color of the buttons
+"
+"1bd2f50dee281a82627df464ae7532f4279c725c","2011-05-28 07:59:34+02:00","TSAGE: Fix crash when restoring a game in scene 2100
+"
+"e213ecc74f4d6bb0df2c40d93a5c53c6336ac99a","2011-05-28 08:13:51+02:00","TSAGE: Fix similar issue in scene 2150
+"
+"b5e6a3a5e90ec90136ef397abc1514dcaa733e9f","2011-05-28 08:58:49+02:00","TSAGE: Add some comments, and a missing remove() in scene 2300
+"
+"2aaeb19a2c77b624d15a19993781559557b0386f","2011-05-28 09:22:29+02:00","TSAGE: Fix priority glitch in scene 4000 when climbing down the right chimney
+"
+"f51eaed5952ecb53ce9c780d05f04eb94e64b7e4","2011-05-28 09:37:08+02:00","TSAGE: Fix 'Restart' button, when game is over
+"
+"402fc4f950eb203e3c195b1cac7d0dcdabe10639","2011-05-28 16:35:08+02:00","TSAGE: Fix an animation issue, and the transition between scene 5300 and 5100 (Seeker waking up and leaving)
+"
+"f38bc65be50dc7e778e1bf3e8707eb8dc9523d79","2011-05-28 23:33:50+02:00","TSAGE: Fix a glitch in scene 5100, add some comments
+"
+"187ecdd54f94026dd47b959050295f10faa65bb0","2011-05-21 12:54:08+02:00","KYRA: remove useless mutex from sound_towns
+"
+"3d42141e9dda203a5dae7bb91384405be5abc243","2011-05-22 18:25:29+02:00","SCUMM: implement some missing (very low relevance) imuse code
+
+1) Don't skip transpose setting in sysex command 0. There are only a few sounds where this setting is used (mainly sfx).
+
+2) Make MI2 and INDY4 read certain player start parameters from the sound resource. The start parameters usually  match our default parameters (exception: e.g. LeChuck's Fortress). The use of these parameters has been dropped in DOTT (they use default parameters like we do).
+"
+"c60807cbb9dec063c0b00f8d6ffdb19e83db48f3","2011-05-23 16:37:58+02:00","FM-TOWNS AUDIO: Unlock internal mutex before calling imuse timer proc.
+"
+"d7f877b3ab080b8e01bd6d55d2b52114dfe0f5fa","2011-05-29 01:01:07+02:00","KYRA: pause midi sounds while gmm is running
+"
+"4b98d6a9e44e2868cf6f4c7d32f9ab291b542eae","2011-05-29 00:29:03+02:00","SCUMM: Fix bug #1013617
+
+(ZAK FM-TOWNS: Wrong verb ('Teleport To') shown)
+"
+"e42e83d303b5516c7ce40effcf975ec1d4228bca","2011-05-29 12:33:54+03:00","CREATE_PROJECT: Disable PNG, Theora and OpenGL by default.
+
+PNG and Theora are used for the sword25 engine, which isn't stable yet.
+OpenGL isn't stable yet.
+"
+"59dd072f63cfad3c9a251b9033dcf88377c4778c","2011-05-29 16:01:56+02:00","SCI: Make 'quit' an alias for 'quit game' in the console
+"
+"afe1a77d573ea15c45848c722732f9e84221c669","2011-05-29 18:54:04+03:00","VS: Disabled libpng, libtheora and opengl in the VS solution files
+"
+"bc2e7707f1e99de59cb5e21ef2239dcdfb681024","2011-05-29 19:29:01+03:00","CREATE_PROJECT: Fixed typo
+"
+"c713628721e8b07fdec05e7ead85ab9ad144b48d","2011-05-29 19:48:47+03:00","AGOS: Silenced a false positive warning in MSVC
+"
+"1ea96002b88c5d65a5f6b1e093c83d48a3c6cbbb","2011-05-29 21:12:37+03:00","SCI: Added a more generalized fix for bug #3306417
+"
+"263adb5cfcd485a99ad869ed702586202e8bc7b6","2011-05-29 21:12:42+02:00","COMMON: Limit pragma warning use in algorithm.h to MSVC.
+
+Since we only want to disable a MSVC specific warning with it and other
+compilers might have different warnings numbers it is safer to only target
+MSVC here.
+"
+"10ee61fd37b2e8fcddf425e921f1966d40437243","2011-05-30 00:36:56+02:00","TSAGE: Fix a bug in scene 7000, after talking to Skeenar
+"
+"82d18d3831e338f9fe95f4dd928712c6bc9fe5e5","2011-05-30 00:38:47+02:00","TSAGE: Fix a glitch in scene 2320 (no idea if it was visible or not)
+"
+"aa78f068986a1db7cbffd1fd563fe1d8e16eb24e","2011-05-30 01:17:12+02:00","TSAGE: Fix a mess in Seeker's actions in scene 2100
+"
+"7f8a69d6fc44ca5515a91f29ce5451c12f85daa5","2011-05-29 21:43:38+02:00","FM-TOWNS AUDIO: fix destructors (thread safety)
+"
+"ed20f18d29fa6fcfa682c74530515e26a94aef29","2011-05-29 21:02:06+10:00","TSAGE: General cleanup of object class
+"
+"f094cb81cb9e470ada4d4584e3d9e71f018ddd28","2011-05-30 20:28:21+10:00","TSAGE: Bugfix for saving in scene #2150
+"
+"2be59d519ebb009f5e6e881c055567834df3ac16","2011-05-30 20:37:29+10:00","TSAGE: Changed parameter to animate call from NULL to 0 for better type matching
+"
+"22e02b0aa221058e04ba117a63ac71b6099f0190","2011-05-26 14:03:39+02:00","BUILD: Only add one option per line to INCLUDES/CXXFLAGS/LDFLAGS
+
+This improves (IMHO) readability, and makes it easier to diff for
+changes in compiler options.
+"
+"f7e94e90b67dd21058ede1ae69283592a88bed7d","2011-05-30 23:58:45+02:00","WINCE: Remove unnecessary -I flags
+"
+"127a6f920a649e4f981ba6d3333dac516dfbb258","2011-05-31 00:25:40+02:00","BUILD: Add SDL_BACKEND=1 to config.mk for all SDL based backends
+"
+"9c3a8cd3b5de4281167e4becb0846eebe23efee9","2011-05-31 00:35:27+02:00","BUILD: Compile more files only when necessary
+"
+"1edcbe0b00c2a60ee528077fb43120bd5a6081a8","2011-05-31 01:18:31+01:00","BUILD: Fix Linking.
+
+These defines are adding to, not replacing the MODULES list.
+"
+"5a2e6e4f3f9b26569797d998252d2016a33f57c0","2011-05-31 04:44:12+01:00","BUILD: Fix compilation when --enable-plugins is enabled.
+"
+"c30904b48a1320ccc73fabea616a60ac314bc9f6","2011-05-31 12:22:26+02:00","BUILD: Fix typo which broke WebOS builds
+"
+"bea6858953dbcde1c6dc88345631f14d9b550ef8","2011-05-31 12:06:14+01:00","AUDIO: Fix GCC Compilation Warning in FM-Towns Softsynth.
+"
+"9c3e2e43bde0c03ec012b83cd501a93a9ec4025e","2011-05-31 13:48:03+02:00","COMMON: Move some code from scummsys.h to relevant portdefs.h files
+"
+"2d6be5d0771ef3c3ac5d7dac1bdb5b0aab4793c6","2011-05-31 13:56:28+02:00","COMMON: Move more stuff from scummsys.h to portdefs.h
+"
+"8654e846e4005d25f46587188c8964dc2e0a65d9","2011-05-31 14:05:37+02:00","COMMON: Shorten endianess / mem align guessing logic in scummsys.h
+"
+"1c198cec1b7f0f3025ca1db26a8d44b7584c6eee","2011-05-31 14:06:47+02:00","COMMON: Move some weird WinCE/MSVC snprintf-#define around
+"
+"e06ca6560f6c4295a9cd3828abfbeec5286630c6","2011-05-31 14:19:25+02:00","COMMON: Move scumm_str(n)icmp declaration to str.h
+"
+"811b257014c9e30a2fea9b189b2d37751cdb2e07","2011-05-31 14:22:19+02:00","COMMON: Simplify OverlayColor definition
+
+This typedef still should be moved somewhere else. Maybe a header file
+of its own?
+"
+"42fa23ff1626e3232ce6ec240dc93b119c079c60","2011-05-31 15:15:19+02:00","CONFIGURE: move some libs required by n64 port
+
+Some system libs weren't found during link stage, this should fix it
+"
+"05ac17f7b95dd9a5d7d65791835eb6b356f05460","2011-05-31 16:13:26+02:00","SCI: Fix up start/end points when pathfinding with opt == 0.
+
+Fixes bug #3304901: 'SCI: Freddy Pharkas - Stuck in the brothel door'.
+"
+"c86a6c466fabe31fbf36363aa8d0ac8ea6001b9f","2011-05-31 18:08:15+02:00","COMMON: Include SDL_endian.h instead of SDL_byteorder.h
+"
+"a4d105c902ce1b24c4edd1f3eb43b995bc46c0dd","2011-06-01 10:43:02+02:00","COMMON: Move SDL endian check a bit down
+"
+"a4610df4825a89ceda39bf1156d1b97a37cceac8","2011-06-01 15:15:31+02:00","Merge branch 'branch-1-3-0' into master
+
+I manually resolved all conflicts, and inspected every single change.
+Many were due to the version string mismatch and thus easily resolved.
+The MSVC project files add in the 1-3-0 branch were not merged,
+neither where the changes to gui/themes/translations.dat.
+
+Conflicts:
+NEWS
+backends/base-backend.cpp
+backends/graphics/samsungtvsdl/samsungtvsdl-graphics.cpp
+backends/module.mk
+backends/platform/ds/arm9/makefile
+backends/platform/psp/README.PSP
+backends/platform/samsungtv/main.cpp
+backends/platform/samsungtv/samsungtv.cpp
+backends/saves/posix/posix-saves.cpp
+base/commandLine.cpp
+base/internal_version.h
+base/main.cpp
+common/array.h
+configure
+devtools/create_project/create_project.cpp
+dists/android/AndroidManifest.xml
+dists/android/plugin-manifest.xml
+dists/iphone/Info.plist
+dists/irix/scummvm.spec
+dists/macosx/Info.plist
+dists/redhat/scummvm-tools.spec
+dists/redhat/scummvm.spec
+dists/scummvm.rc
+dists/slackware/scummvm.SlackBuild
+dists/wii/meta.xml
+engines/sci/parser/vocabulary.cpp
+engines/tinsel/handle.cpp
+gui/themes/translations.dat
+"
+"90f2cde9fa27b06fe7753d68d4166bc10c833942","2011-06-01 15:48:44+02:00","PS2: Do not add RELEASE_BUILD
+
+First merge screw up: I meant to comment these lines out (as they area
+now -- in fact, these lines did not exist pre-merge at all, I moved the
+-DRELEASE_BUILD additions manually to their own lines, so I could
+comment them out, and then promptly forgot. *sigh*)
+
+On the pro side, it was very easy to spot and correct this mistake!
+"

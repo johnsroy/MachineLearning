@@ -1,0 +1,71 @@
+"commit id","commit date","commit message"
+"d3fff6bb89073d3f2086bc9ece61f04007cb8809","2015-04-09 23:09:15-07:00","Handle case where note ID is Integer, not Long
+
+When syncing my collection, I'm getting this error:
+
+W/System.err(17831): java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.Long
+W/System.err(17831): 	at com.ichi2.libanki.sync.Syncer.mergeNotes(Syncer.java:881)
+W/System.err(17831): 	at com.ichi2.libanki.sync.Syncer.applyChunk(Syncer.java:566)
+W/System.err(17831): 	at com.ichi2.libanki.sync.Syncer.sync(Syncer.java:182)
+[...]
+
+So sometimes the note ID is an Integer rather than a Long.
+
+Using Long.valueOf(((Number) foo).longValue()) will work for both Longs
+and Integers.
+"
+"4d2293cbc5e479738a2dc6dc57ce2a5701ffb423","2015-04-10 20:46:45-03:00","Fix: correct search if using search term 'deck:'.
+
+Description of the problem (from https://github.com/ankidroid/Anki-Android/pull/800#issuecomment-90987130):
+> if you recall a search like 'deck:default foo' while you have any deck other than the default selected then no cards will appear.
+"
+"0282e21f168eda54349c5d8f58f3f0796ed93a0f","2015-04-11 08:59:19+09:00","Merge pull request #806 from brunodea/fix-search-in-correct-deck
+
+Fix: correct search if using search term 'deck:'.
+"
+"7451f43e816bc7f1f39fad14becc81404c2a67c8","2015-04-11 00:22:22-03:00","Added ic_remove_circle for 24dp and removed the others.
+"
+"dab0b0615dd09e8e92771f196f7380a70291fc7d","2015-04-11 12:35:39+09:00","Merge pull request #807 from brunodea/add-right-remove-images
+
+Added ic_remove_circle for 24dp and removed the others.
+"
+"479edafa8f3337c6f8db7a809c9dd2002dea1252","2015-04-11 12:36:54+09:00","Replace the splash screen with a progress indicator in action bar
+The splash screen wasn't working very well, and was actually unecessarily making the interface feel slower everytime the collection needed to be opened anyway.
+This removes the splash screen entirely, and instead adds a progress indicator to the action bar when the collection is loading, and shows a toast when the external storage is not mounted before closing the app.
+"
+"f9585a066232b0d4901e017033f1cf3894a056a4","2015-04-11 12:46:05+09:00","Merge pull request #808 from timrae/remove-splash-screen
+
+Replace the splash screen with a progress indicator in action bar
+"
+"0e19c0f2cb0401378f8761e31a96fef6803a9354","2015-04-11 12:56:04+09:00","Catch runtime exceptions when trying to enable cookies
+"
+"83fa4a9be785a1fadeb703e0478bbe2c7106d3cf","2015-04-11 15:08:56+10:00","Merge pull request #804 from kerrickstaley/develop
+
+Handle case where note ID is Integer, not Long
+"
+"ea7b2f1ecdc50c0a82ef664988d4b6fd560bd819","2015-04-11 17:20:35+09:00","Fix action bar in Multimedia editor
+"
+"4d7be491d6a576eb10d94288b00905f68789e857","2015-04-11 17:22:35+09:00","Merge pull request #809 from timrae/catch-runtime-exception-cookies
+
+Catch runtime exceptions when trying to enable cookies
+"
+"fd88b678e2328b83523f5546768b7d4f6ac01efc","2015-04-11 17:59:52+09:00","Merge pull request #811 from timrae/multimedia-editor-actionbar
+
+Fix action bar in multimedia editor
+"
+"48446efebc7b806a6748babeb2cbb109ca7cd3e5","2015-04-11 21:41:26+09:00","Fix Changelog and only show it for release versions
+
+A few changes:
+Add actionbar to the Info screen
+Add a progress bar to the Webview in Info screen
+Only show the changelog for release versions
+Load the changelog webpage from assets to prevent overloading server
+Refactor the version utilities to a new class
+"
+"e32c5dafd445cd1458634ddc1c117a969f246f6a","2015-04-11 21:49:32+09:00","Merge pull request #812 from timrae/info-screen
+
+Fix Changelog and only show it for release versions
+"
+"b82ade9473d77b546b6e864370f6da710cbbd1f8","2015-04-11 21:50:49+09:00","Bumped version to 2.5alpha29
+@branch-specific
+"

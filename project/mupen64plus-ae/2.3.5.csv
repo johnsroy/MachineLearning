@@ -1,0 +1,298 @@
+"commit id","commit date","commit message"
+"ace80838f405ac9745c3076b368abd4fcd43e1ed","2013-08-23 00:16:12-05:00","build: Changed version string to debug
+"
+"90793532e8d564fcae1c2e7172ef6f5cce5882e7","2013-08-17 12:11:22+02:00","Remove SDL unicode keycode compat code
+
+SDL 2.0 cannot store unicode anymore. Pre-2.0 versions provided this
+field but it was removed right before the 2.0 release. Still using it
+makes the compile fail.
+(cherry picked from commit a6d1e14d77428bbc196c01eaf8550d78fdec349c)
+"
+"eec2993041cfcbee3d3eec79b2fe9c71c47ba4db","2013-08-29 20:30:43-04:00","gles2n64: Propagate core sdl2 compat fix to gles2n64.
+
+Just copying the fix in the parent commit over to gles2n64.
+See commit 90793532e8d564fcae1c2e7172ef6f5cce5882e7
+"
+"ea498ca1c5779063881f8a78fa29b7ae70a1d760","2013-08-29 20:33:28-04:00","front: Added some named paths to AppData and UserPrefs.
+
+- temp directory
+- SRAM/EEPROM save directory
+- shared data directory
+- core library path
+- cheats file path
+"
+"676626d2456744d9e9e5a607559bc1ee08cad8f4","2013-08-29 20:35:49-04:00","front: Update config file sync to match latest upstream format.
+
+Important:
+- There are now quotes around the Audio-SDL:RESAMPLE setting
+- The Video-Rice:FastTextureCRC setting is no longer exposed by
+default in the upstream version.  We should probably follow their
+lead...
+"
+"b2bfa8ff3bc8f664368a71fd962e707f215d47ca","2013-08-29 20:39:35-04:00","front: Removed rice 'fast texture crc' from settings.
+
+The upstream version of the app doesn't expose this setting by default,
+so we probably shouldn't expose it either.
+"
+"f53b6755b856b1724f02d0d689ad2ec3c6a28475","2013-08-29 20:45:20-04:00","assets: Add example config file for super-duper-users.
+
+The app will overwrite some - but not all - config settings every time
+a rom is launched.  Extreme users and developers can still set some
+other options by manually tweaking the config file.  An example config
+file is included to give users an idea of what could be changed.  These
+are all the settings that the upstream (pc) version exposes by default.
+
+Also, bumping the asset version clears out any stale FastTextureCRC
+values which we no longer want to pass.
+"
+"795181dfa372ad2490b2e960e188f55c865df8cf","2013-08-29 20:45:55-04:00","front: Explicitly specify the SRAM/data directories in config file.
+"
+"48e94450531fe6af307737cb3606b492e188d569","2013-08-29 20:46:20-04:00","core: Remove Android customization, revert to upstream.
+
+These custom hard-coded paths are no longer needed since we're now
+passing them via the config file.  Using the original upstream values
+doesn't hurt anything.
+"
+"6a5e1ff52d185e117febe9f50cb503f489d2e94d","2013-08-29 20:47:34-04:00","ui-console: Remove many Android customizations, revert to upstream.
+
+compare_core.c: The upstream preprocessor exclusions are sufficient, no
+need to add another custom check.
+
+main.c: With directories defined in the config files/command line args,
+there's no need to customize the ui-console source.
+
+osal_files_unix.c: Again, the plugin directory is passed via config
+file, so no need to hard-code custom paths.
+
+osal_preproc.h: Core library is passed directly, no need for custom
+hard-coding.
+"
+"08f33017045eed4c6175a5931987491f29623966","2013-08-29 20:47:45-04:00","front: Remove old logcat chatter during GL context creation.
+
+This was used for debugging the GL config selection process. No longer
+needed.
+"
+"ffc4a15a890a348a28bf2438fb0f543eeccef74d","2013-08-29 20:47:59-04:00","front: Move surface holder callback to GameLifecycleHandler.
+
+The surface holder callback is for managing surface lifecycle.  This is
+interleaved with the activity lifecycle, so it makes more sense to man-
+age both lifecycles in one class.
+"
+"086161eff4e4e291aa09d1888ee63175dff5e0ab","2013-08-29 20:48:37-04:00","front: Move legacy gl config from GameSurface to CoreInterfaceNative.
+
+This was cluttering up GameSurface and really belongs in CoreInterface-
+Native, where all the other SDL version compatibility stuff is located.
+
+Also decouples GameSurface from the RGBA_8888 setting.
+"
+"a3b57e6a3a28564d11893b695314880d5f2be6f3","2013-08-29 20:49:20-04:00","front: Substitute map lookup for some big switch statements.
+
+A little tidier, a little easier to read.
+"
+"a887b6f92a451cb21a058a9448dd8f29c42789dd","2013-08-29 22:15:41-04:00","SDL2: Update to official release-2.0.0 (does not compile).
+
+This matches SDL2 upstream exactly. Does not compile because we need to
+make a few customizations for our app (see next commit).
+
+Source: http://hg.libsdl.org/SDL
+Changeset: 7632 (d6a8fa507a45)
+Tag: release-2.0.0
+Website: http://www.libsdl.org/index.php
+
+For reference, we had previously branched from rev 7064 (239ce872e8d4).
+"
+"e175994bfc4b471c993a95749332163c51877da8","2013-08-29 22:17:02-04:00","SDL2: Apply PAULSCODE-specific customizations (does not link).
+
+- Configure SDL2 to use GLES2 rather than GLES1
+- Rename makefiles in example project to guarantee they aren't used
+
+Breaking this out as a separate commit so that it's clear what we did
+to customize SDL2 on the native side. Also makes it easy to cherry-pick
+the customizations, next time we update the SDL2 source.
+"
+"220688afe5a7c5cc37520832fb397314c2220719","2013-08-29 22:20:02-04:00","ae-bridge: Update JNI functions to reflect SDL2 changes (does not run).
+
+Breaking these commits out separately so that it's clear what changed.
+"
+"f234dff567684ee73078c22db8ed257e4ecb16c2","2013-08-29 22:24:05-04:00","front: Update native functions to reflect SDL2 changes (stable).
+
+Note that the audio thread is now created and managed by SDL itself in
+native code.
+
+- Removed sdlRunAudioThread method
+- Added deleteGLContext method
+- Updated audioInit method
+- Changed return type
+- Removed call to audioQuit (old SDL2 bugfix, no longer needed)
+- Updated audio track instantiation to match SDL2 example code
+- Updated audioQuit to match SDL2 example code
+- Changed return type of some no-op stub methods
+"
+"1a7c18f3c5a8e123b0d7bfab35e9aed7e5975775","2013-08-29 22:32:07-04:00","Merge branch 'sdl2-release'
+"
+"ddca04886e4079157290fc9ab0f5224b7b2422d3","2013-08-29 22:38:02-04:00","SDL: Remove all trace of SDL 1.3.
+
+SDL 1.3 is no longer supported, and has been superseded by SDL 2.0.
+We've been carrying this code around for awhile, in case we needed to
+do any regression testing.  But I think now is as good time as any to
+cut the ties, to minimize hassle as we push towards app version 3.0.
+"
+"25bbba0a4f12b6982e0c54c257b32eb707e75152","2013-08-30 09:27:09-04:00","ui-console: Consolidate a bit of code, slightly reduce upstream diff.
+"
+"d64c1853f43fa4590557142ff17a1fae168aa63a","2013-08-30 13:31:32-04:00","ae-bridge: Fix some warnings/errors when building with NDK r9.
+
+NDK r9 is a bit more strict when it comes to printf formatting (or lack
+thereof).
+"
+"68b609132f1a3f42987166aa07c79c0a217bf1fb","2013-08-30 13:31:54-04:00","input-android: Fix some warnings/errors when building with NDK r9.
+
+NDK r9 is a bit more strict when it comes to printf formatting (or lack
+thereof).
+"
+"134c4b3615694bf021ad98d50c255974219ecb4a","2013-08-30 13:32:25-04:00","gles2n64: Fix some warnings/errors when building with NDK r9.
+
+NDK r9 is a bit more strict when it comes to printf formatting (or lack
+thereof).
+"
+"da477d5b3676b23fb436eea9012f3aff69c99690","2013-08-30 13:32:47-04:00","gles2rice: Fix some warnings/errors when building with NDK r9.
+
+NDK r9 is a bit more strict when it comes to printf formatting (or lack
+thereof).
+"
+"29588ac1e88da8f843bc52bf74583b8d27242835","2013-09-03 09:13:45-04:00","bugfix: Fix regression on older android versions.
+
+Introduced in commit
+ffc4a15a890a348a28bf2438fb0f543eeccef74d
+
+The call to setFormat( SurfaceHolder.SURFACE_TYPE_GPU ) was included in
+a bunch of NVIDIA examples, but is deprecated now... probably for a
+reason :P.  This breaks something in my Xperia PLAY running Android
+2.3.3.  My bad sneaking a functional change into refactoring commit....
+"
+"66bdc27f9e9834242d6292caf275d45d54805e44","2013-09-03 19:35:26-04:00","front: Added 'crop' setting for video scaling.
+
+Addresses Issue #197
+
+This setting is useful for games like Jet Force Gemini that have in-
+game widescreen settings.  The ROM itself letterboxes the video (adds
+black bars to the top and bottom).  Adding a 'crop' option to the
+scaling mode allows us to stretch to the full width of the screen and
+crop the unneeded black bars that the ROM adds.
+"
+"316954b07b56eb2a55d5fed31bc856ee325446aa","2013-09-03 19:40:43-04:00","ae-bridge: Removed ROM header utilities, moved to pure Java code.
+
+No need for this to happen in native code.  This isn't the expensive
+part of discerning cheats for a particular ROM.  Moving it out of the
+bridge also means that the only activity that actually uses the bridge
+is the GameActivity (as it should be).
+"
+"758297340c1822f71feccad36b43fc1911bab567","2013-09-03 19:41:04-04:00","front: Simplify header CRC handling.
+
+The complicated CRC check can be replaced with a simple String.format
+operation. Note that the new implementation isn't identical to the old
+in every way: before you could get CRC's like '0 0' from the native
+side, which would then be turned into a null after the check.  Now, if
+given the same file, the final CRC would be '00000000 00000000' instead
+of null.  However, at the end of the day, this makes no difference to
+the downstream code; it will just fail to find a cheat entry in either
+case.
+"
+"8d7dcb90c300ab53df92c7ff83b929bfc6bf3e43","2013-09-04 15:44:21-04:00","Add Javadoc to the RomHeader class, as well as marking it as final.
+"
+"b52b9426c314fe1c1c025d8c80420f464593665d","2013-09-07 09:58:30-04:00","audio-sdl: Surround custom AE code with usual #ifdef PAULSCODE.
+
+For consistency with other AE customizations/hacks.  A little easier to
+find, a little more obvious what we changed.
+"
+"f2a34575401cd1ded469098a3149af0d2a334880","2013-09-07 09:59:25-04:00","rsp-hle: Surround custom AE code with usual #ifdef PAULSCODE.
+
+For consistency with other AE customizations/hacks.  A little easier to
+find, a little more obvious what we changed.
+"
+"a20144838120332fb01cdb766e676996b9d673e4","2013-09-07 11:06:07-04:00","Make most of the utility classes final. Since we don't extend these (and we never should) they should be made final.
+"
+"8037dd8310c415d698c25fc9894e68219daf0712","2013-09-08 21:05:41-04:00","ui-console: Add Android customization back in.
+
+Oops, a little too aggressive on the cutting. Rice doesn't work without
+this change, and I must not have tested with that when I yanked it.
+Might move this into the bridge later, but for now I'll just revert.
+
+Partialy reverts commit
+6a5e1ff52d185e117febe9f50cb503f489d2e94d
+"
+"cb5b142b66f8ca863044119af0386e9e8166737d","2013-09-11 09:59:05-04:00","SDL2: Rename another example file.
+
+To prevent eclipse from importing the SDL2 example project when you
+File->Import... a fresh clone of the repository.
+"
+"f3cb61aa72916494d919be10e131615d22b86aea","2013-09-11 23:30:16-04:00","build: Upgrade to SDK-18 (JellyBean 4.3).
+"
+"f570f232f6770fb583fde2c8c515c21795f51a55","2013-09-11 22:57:33-04:00","eclipse: Remove project metafiles *SEE COMMIT MESSAGE*.
+
+These files don't belong in the git repository since they are user-
+specific and subject to change based on eclipse version.  After merging
+this commit, you will need to regenerate your own version of these
+files.  Here's how:
+
+1. In eclipse 'Delete' the project from your workspace (but don't
+delete the actual files)
+2. Close eclipse and manually delete the above three files (if they
+aren't already)
+3. Open eclipse and File->Import... 'Existing Android Code Into
+Workspace'
+4. Right-click project->Android Tools->Fix Project Properties
+5. Right-click project->Android Tools->Add Native Support...
+a. Enter name 'Dummy' and click Finish
+b. Manually delete jni/Dummy.cpp
+6. If you want multi-core compilation (dramatically faster builds),
+go to Project->Properties->C/C++ Build
+a. Uncheck 'Use default build command'
+b. Set build command to
+ii.  'ndk-build -j3' if your build machine runs 2 cores
+i.   'ndk-build -j6' for 4 cores
+iii. 'ndk-build -j12' for 8 cores
+iv.  etc.
+7. For auto-formatting the Java code (ctrl-shift-f), be sure to
+import the formatting settings located in ./doc/config_files/
+
+When this is all done, the C/C++ indexer should work properly and
+resolve #includes correctly.  The drawback (besides the initial
+recreation) is that you'll have to redo this process every time you
+jump to an old revision where the files are tracked, then jump back to
+the newer revision.  The easy solution to this is to just back up your
+untracked files and restore them every time git deletes them after the
+reset.
+"
+"d8ee111ff197cc89a017e6d7ac3e383ecb4bca34","2013-10-01 13:03:23-04:00","doc: Updated changelog.
+"
+"a13c25003f0c5c26ce48f0d4550cb15b111dd9d8","2013-10-02 00:18:36+01:00","res: Updated translations.
+"
+"2247270ad6f9bd455772aaf72a5f5e2eb67a596d","2013-10-01 20:20:35-04:00","res: Added Greek to language menu.
+"
+"da314508dfb6eeafa02d5d40b3daa99c0b7e31cf","2013-10-02 09:57:36-04:00","acra: Fix url.
+"
+"ae4c77ef5fc59615e58010a872860b1e4cd8edbc","2013-10-02 09:59:26-04:00","acra: Change reporter info.
+
+Just helps cut down on reports from forks.
+"
+"4e53c7bf503c56b9aad14e9681f92b11cc851961","2013-10-04 08:51:46-04:00","libs: Added javadoc for apache commons lang.
+"
+"df32ac9bbe1e4439b86f4409739fba9535aef78d","2013-10-04 09:00:45-04:00","libs: Added javadoc for google guava.
+"
+"1d13e630c97960b688bc58495f970ab3fca96861","2013-10-04 09:24:40-04:00","libs: Added javadoc for ACRA.
+"
+"c96bc57ffcf2e33665246cf5ebd5ace7cfff4da7","2013-10-04 09:59:57-04:00","libs: Update to android-support-v4 revision 18.
+
+We're not using this library in our own code, but I'm not 100% certain
+if other libs need it (ouya-sdk, acra-4.5.0, com.bda.controller.jar).
+"
+"2736df820e4572e7069b5811bc908c366a2ff3cd","2013-10-04 17:39:27-04:00","libs: Updated to ouya sdk 1.08.
+"
+"2d305c198633dd23937a21915313b257cf13d721","2013-10-04 17:40:10-04:00","libs: Removed unneeded libraries (android-support-v4, guava-r09).
+
+We don't use these libraries, nor do any of the other third-party
+libraries.  Confirmed using JarAnalyzer:
+http://www.kirkk.com/main/Main/JarAnalyzer
+"
+"657105135fd27c2d5e78595d607c20b3483454ad","2013-10-06 15:04:31-05:00","Build: Updated manifest in preparation for 2.3.5
+"

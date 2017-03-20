@@ -1,0 +1,276 @@
+"commit id","commit date","commit message"
+"fde676e7f20c20926940953c88ed58d066627aa3","2015-08-21 22:02:25-07:00","Remove RTL icons for social networks, mark SVGs as noflip.
+
+Currently we flip the icons for Twitter, Facebook, and Messaging. As noted
+in T109209, this does not make sense. This patch deletes the RTL icons for
+those social networks, so that the same, standard icon is used in both LTR
+and RTL, and marks the SVGs that generate those icons as noflip, so that RTL
+versions are never generated.
+
+Bug: T109209
+Change-Id: I6426c69231868212ae7876bd3eea8e51419918cc
+"
+"5bd7fe8c57fe2b3680ddd969f94e95ade2e1c710","2015-08-15 03:42:48+03:00","Hide saved pages buttons when none exist
+
+Fixed Save All/Clear All Actions MenuItem that would be visible even if
+nothing is in savedPageList
+
+Added if-condition in onPrepareOptionsMenu() method and setVisible(false)
+for the MenuItem if nothing is in savedPageList
+
+Bug: T104528
+
+Change-Id: I169d6e3638ea47a418eeedccc774b5059974f7cd
+"
+"378ab6cd40ab881c13a9136af6a9dc86cc2120e8","2015-08-24 17:59:03+02:00","Localisation updates from https://translatewiki.net.
+
+A bug in HHVM, T109402, causes most of the line endings to disappear in
+translations. After exporting from TWN, the following commands were
+executed to printy print the XML:
+
+find -name strings.xml|
+grep -Ev values/strings.xml|
+xargs -rd\\n -I{} sh -c 'xmllint --format '$1' -o '$1'' -- '{}'
+
+TranslationTests.testAllTranslations() failed because a format specifier
+was added to one string. This failure is a false positive as it is
+always safe to add a format specifier, but not usually safe to remove
+one without updating all translations since the argument would not be
+supplied in the Java code. As a workaround, the tests pass after
+running:
+
+find -name strings.xml|
+grep -Ev 'values/|-qq/'|
+xargs -rd\\n  sed -ri 's%<string name='toast_saved_page'[^>]*>[^<]*</string>%%'
+
+Change-Id: Ic46d2be21ff97730f06d9d9eb36125482bf19e0c
+"
+"0561fca2f3919c0c9b44b52dd219d13fa6df44f1","2015-08-21 21:07:55-07:00","Ensure link preview is closed when navigating to new page.
+
+Currently, it's possible to navigate to a new page without the link preview
+closing (see T109895 for reproduction steps). This patch fixes that, by trying
+to close the link preview (if there is one) whenever the user navigates to a
+new page.
+
+Bug: T109895
+Change-Id: I29c48a4136d1ae4cd2c829d94d4b07ce94d93de8
+"
+"b4e6b79907624aa8caeb78e2381b9924d9315252","2015-08-24 17:00:19+00:00","Merge 'Hide saved pages buttons when none exist'
+"
+"eb18071b84857fddc9e86e16c21cf37c5b3c68d5","2015-08-24 09:43:02-07:00","Move link preview tag to private static final.
+
+The LinkPreviewDialog fragment was being found by its tag in several places
+in PageActivity. This patch moves it to a private static final variable in the
+class to avoid duplication.
+
+Change-Id: I0d08ab2d1beffc650a9a49a92d346b9bf3c6ea91
+"
+"1341de14287691fa811e2ffa921c5cfcc9225353","2015-08-24 21:39:44+00:00","Merge 'Localisation updates from https://translatewiki.net.'
+"
+"76c9c7ec76e21daa401a33755f2279409cfe84f4","2015-08-24 22:13:29+00:00","Merge 'Ensure link preview is closed when navigating to new page.'
+"
+"1ba0f7604d0c71e5dc0f84553b9a1051208a1073","2015-08-24 22:13:48+00:00","Merge 'Move link preview tag to private static final.'
+"
+"795b7371e6d842af0549bb91292cd74fe9b7582e","2015-08-16 22:18:29-06:00","Hygiene: Add page load performance test
+
+We can't improve what we don't measure.
+I'm adding some performance tests to see how long loading a few pages
+on testwiki takes. It's good to have those tests added before we significantly
+change the page load code further.
+For serious testing increase the NUM_RUNS to a higher value.
+Also to compare apples to apples it's imperative to test on the same devices,
+ideally with the same network condition.
+(Ok, the latter is not really exactly controlled. But as long as we're talking
+about a stable broadband connection it should be good enough.
+The alternative would be mocking responses from a Mock MediaWiki server
+and injecting code to use that instead of the real servers.)
+
+Introduced a callback for page load completion which is currently only
+used for this performance test but could be used for other things in the future.
+
+Renamed another test to make it clearer that it's testing SectionFetchTask directly.
+
+Bug: T109246
+Change-Id: Ie5f8494da952cfdaa753a5e4e7a9f826599a1409
+"
+"77390718a6190a85a06cf2c4bb65b71ce8c8d4dc","2015-08-26 08:12:56-04:00","Fix possible crash involving Zero banner.
+
+When showing the Wikipedia Zero banner from PageActivity, we were
+anchoring the SnackBar to a View that's only available when a PageFragment
+is active. Therefore, when a different fragment is active (e.g. History),
+the view doesn't exist, and thus causes a crash.
+
+This updates the code to use a more generic View from the current Activity
+for displaying the banner.
+
+Bug: T110241
+Change-Id: I5852b59dd706e428381d8e7b5d39cf414236fe18
+"
+"8a9a902b95008c694b29d096a1f7679d93997d1e","2015-08-26 09:46:21-04:00","Fix possible crash upon screen rotation.
+
+This fixes a NPE when the user rotates the screen before the lead section
+of the page is fetched (and it's the first page in the backstack), by
+leveraging the isLoading() function of PageLoadStrategy.
+
+Bug: T109966
+Change-Id: I795c5a212f1c800abd70d3906dae560033ef2ac0
+"
+"8f89e8073887f625b6532f5c606948dafa5f4ba1","2015-08-26 08:43:37-04:00","Fix possible crash when closing tabs.
+
+This protects against a possible IndexOutOfBounds exception when closing a
+tab. Even though I haven't been able to reproduce it, a few users have
+reported it when 'closing tabs quickly.'
+
+Bug: T109998
+Change-Id: Ia9938506fe9c8f97f4ac3803541bdb68639f3fd6
+"
+"c5940a72781f0801bcb6d68722ee114074d7f16f","2015-08-26 16:11:43+00:00","Merge 'Fix possible crash involving Zero banner.'
+"
+"7af793a4a33f8afd2eaf018e384a3ea70ae3bd9d","2015-08-26 10:51:20-04:00","Fix possible crash when browsing a Random page.
+
+This can potentially happen when the task that fetches a Random title
+takes a long time, and the PageActivity is stopped in the meantime (this
+can be reproduced by adding a delay to RandomArticleIdTask, and checking
+'Don't keep activities' in Settings).
+
+Since the task to retrieve a Random title is asynchronous, it means that
+the PageActivity might become closed before the task is finished. However,
+upon finishing the task, we unconditionally call displayNewPage(),
+expecting the activity to be active all the time.
+
+In API 17+ there is a function called Activity.isDestroyed() that can be
+used for this purpose, but there's no equivalent function for earlier
+APIs... Therefore I added our own isDestroyed() method to our base
+Activity class, ThemedActionBarActivity.
+
+Bug: T109281
+Change-Id: I8dd624788cdfb14124bb0028d45dfb1352dc0482
+"
+"cdc7d930d6b02eb9d46ac2806a070830ac7fc5d7","2015-08-26 16:22:14+00:00","Merge 'Fix possible crash when browsing a Random page.'
+"
+"d6c4fc1db3b45d627dd74c1fcf8540f4dfa9735b","2015-08-26 16:35:07+00:00","Merge 'Scroll to an URL-Fragment of a redirected title'
+"
+"f412bdcd434f3df6c64320c9730425cf58a04bd7","2015-08-26 16:36:05+00:00","Merge 'Fix possible crash upon screen rotation.'
+"
+"d081179243259c7137c1159e83076c06df8d71cf","2015-08-27 16:31:07-04:00","Fix crash when saving a page via context menu with no network.
+
+Bug: T110589
+Change-Id: I5fc7f3f71d8b7fdd39b69fd42013bf33f476f1cf
+"
+"f26c8e25e0cd95dbeb3d2c6b4fcefb7e3a49b59f","2015-08-27 14:49:58-06:00","Fix image URL replacement for saved pages
+
+* Remove srcsets for remote images.
+* Map remote URLs to local files only after all sections are loaded.
+
+The image srcsets attribute should only be specified for remote images
+downloaded from the network. For saved pages, only one image is kept
+locally and that should be the only image considered. For this reason,
+srcsets are now removed when remapping the remote image URLs to local
+files. Additionally, this transformation is now performed after all
+sections are loaded to avoid a race condition prevalent in long
+articles.
+
+Bug: T110487
+Change-Id: If2b4642d7507a57085ed0a2185df0d04c1d8432e
+"
+"0cbc805dde0db805a474e658f0413de363c8c2f8","2015-08-28 18:22:40+00:00","Merge 'Fix image URL replacement for saved pages'
+"
+"1e6d9f6e8b9896821606af236622659c98cc9e78","2015-08-28 21:29:37+02:00","Localisation updates from https://translatewiki.net.
+
+A bug in HHVM, T109402, causes most of the line endings to disappear in
+translations. After exporting from TWN, the following commands were
+executed to printy print the XML:
+
+find -name strings.xml|
+grep -Ev values/strings.xml|
+xargs -rd\\n -I{} sh -c 'xmllint --format '$1' -o '$1'' -- '{}'
+
+TranslationTests.testAllTranslations() failed because a format specifier
+was added to one string (T110243). This failure is a false positive as
+it is always safe to add a format specifier, but not usually safe to
+remove one without updating all translations since the argument would
+not be supplied in the Java code. As a workaround, the tests pass after
+running:
+
+find -name strings.xml|
+grep -Ev 'values/|-qq/'|
+xargs -rd\\n sed -ri '/<string name='toast_saved_page'[^>]*>[^<]*<\/string>/d'
+
+Change-Id: I0da2b7f9aaf580d2983315361cfac3e132b73425
+"
+"7f6d27fc9abddce0f7ea802e902fc71aa76eaf8e","2015-08-28 14:09:24-06:00","Revert temporary string renames
+
+This patch reverts commit 88430f07d8fee23d9ad12746a7f01c17350430fd which
+was necessary to synchronize TWN string content changes. Now TWN is
+ready for name-only changes.
+
+menu_page_save                     <- menu_save_page
+menu_page_share                    <- menu_share_page
+snackbar_saving_page               <- toast_saving_page
+snackbar_saved_page_format         <- toast_saved_page
+snackbar_saved_page_missing_images <- toast_saved_page_missing_images
+snackbar_refresh_saved_page        <- toast_refresh_saved_page
+snackbar_saved_page_deleted        <- toast_saved_page_deleted
+menu_page_other_languages          <- menu_other_languages
+menu_page_find_in_page             <- find_in_page
+menu_page_font_and_theme           <- menu_themechooser
+menu_page_show_tabs                <- menu_show_tabs
+menu_long_press_open_page          <- menu_open_link
+menu_long_press_open_in_new_tab    <- menu_open_in_new_tab
+
+Old names were verified to be eliminated by grepping for them:
+
+find -type f|
+xargs -rd\\n grep -E 'menu_save_page|menu_share_page|toast_saving_page|toast_saved_page|toast_saved_page_missing_images|toast_refresh_saved_page
+|toast_saved_page_deleted|menu_other_languages|find_in_page|menu_themechooser|menu_show_tabs|menu_open_link|menu_open_in_new_tab'|grep -Ev 'menu_page_find_in_p
+age|find_in_page_|group_find_in_page'
+
+Change-Id: I5ca8534e318fbafed5aa818f56d066c2e6afbffe
+"
+"e5c01122b95c566d7fa87735b6ab576ed881a477","2015-08-28 19:50:15-07:00","Convert some fields to local variables.
+
+This patch converts some fields that are only used in a single method to
+local variables, to optimise performance and maintain code tidiness.
+
+Change-Id: Ia38f84ecdc87c66a3924b06b43d19e31f7131691
+"
+"6c2e41c0a318c319acb373602e6963f571c78846","2015-08-28 19:54:47-07:00","Remove redundant field from LinkPreviewFunnel
+
+A page title was being passed to the constructor for LinkPreviewFunnel,
+which was then never actually used for anything. I assume this was used
+for something in the past. Either way, it's not being used at all now.
+This patch removes the field and alters all the calls to the constructor
+so that it's not passed any more, to optimise performance and improve
+code tidiness.
+
+Change-Id: Ie99666ec6a9f4f0f34a1dc56f7a2e9387b72df4f
+"
+"3f9bcd8bece5ad6ce1ac3b4a03483b560b663565","2015-08-31 17:52:18+02:00","Localisation updates from https://translatewiki.net.
+
+TranslationTests.testAllTranslations() failed because a format specifier
+was added to one string (T110243). This failure is a false positive as
+it is always safe to add a format specifier, but not usually safe to
+remove one without updating all translations since the argument would
+not be supplied in the Java code. As a workaround, the tests pass after
+running:
+
+find -name strings.xml|
+grep -Ev 'values/|-qq/'|
+xargs -rd\\n sed -ri '/<string name='snackbar_saved_page_format'[^>]*>[^<]*<\/string>/d'
+
+Change-Id: I38875b1d87b6cdc9a0373cacf8bd99e7678354bf
+"
+"03dfeecd2834646a8890e2e6d2dbc75c961b9834","2015-08-30 20:05:05-04:00","Fix search result ordering based on latest API.
+
+The latest prefix search API now includes an 'index' property with each
+redirected result, as well as with normal results. This isn't an 'optimal'
+solution (see the discussion in T110231 ), but it works, and we should use
+it until an even more complete solution is presented.
+
+Bug: T104746
+Change-Id: If3593349fc04a703d4eec5aed01459fe056a24ce
+"
+"a68abb8dc162fd662ff64bee83565e8a8ac069c0","2015-08-31 15:05:34-06:00","Bump versionCode
+
+Change-Id: If467693267aa86bbc59a640f70893925606edf32
+"

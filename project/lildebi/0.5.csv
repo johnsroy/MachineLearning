@@ -1,0 +1,423 @@
+"commit id","commit date","commit message"
+"90e8407197074a27c0f075c8f5509dd7801a591e","2013-08-20 00:22:48-04:00","use /system/xbin/losetup if found otherwise use included busybox losetup
+
+It seems that the busybox losetup does not work properly on newer Android
+releases.  On Team EOS on a Motorola Xoom and CM 10.1 on a Samsung Galaxy
+Note II, $app_bin/losetup returns nothing while /system/xbin/losetup shows
+some loops still attached... arg...
+"
+"b4d3fb62843514bc53968fe0ca08d94c641cac51","2013-08-20 00:26:26-04:00","include debug header in complete-debian-setup.sh
+
+The other scripts get it automatically from including lildebi-common, but
+this script is minimalist.
+"
+"979e363229a1fcecc4eb419d97143cb016a7eaea","2013-08-20 00:47:40-04:00","quit running install scripts if one exits with an error
+
+This makes for hard to find issues since the process just keeps going if
+there is an error.
+"
+"8e18036bce7af75f7e939232d2cc266f5f2197ec","2013-08-20 13:57:24-04:00","include cdebootstrap-static 0.5.10 from Debian-armel
+
+This will be used to replace debootstrap, since its too troublesome.
+"
+"80fbbb2bd6ff52abe69f159aeee6a7a689e3830b","2013-08-20 14:16:55-04:00","convert install process from debootstrap to cdebootstrap
+
+debootstrap had constant problems running gpgv which cdebootstrap does not
+seem to have.  It turns out that using cdebootstrap simplifies the install
+process and makes a smaller minimal install.
+"
+"96b1727fc69a14a075104a61e4cd83cfc6c278aa","2013-08-20 14:19:58-04:00","cdebootstrap sets a basic sources.list, only create if needed
+"
+"0729f378498644dce081d442a20a4543793ccf90","2013-08-20 14:33:06-04:00","purge pkgdetails, cdebootstrap does not need it, only debootstrap
+"
+"e473a21d5bab717648465cd36ce50e727009d16b","2013-08-20 14:34:42-04:00","purge debootstrap, we're using cdebootstrap now
+"
+"521c22b5fc7da3fe6025ed19b9bc7b38677fea57","2013-08-20 14:44:20-04:00","install e2fsck.static from Debian, only if needed
+
+It was included in the .apk, but that is not needed since the scripts can
+install it via Debian, then copy into place in $app_bin.
+"
+"284d4a3c3950d9e73d02fbfc643c67ca3e2df968","2013-08-20 14:44:52-04:00","purge e2fsck-static from the build
+"
+"721da6ee111ac984591a00ae62f8bc9fd31fcaa9","2013-08-20 14:45:45-04:00","only delete loop on stop if find_attached_loopdev finds something
+
+This prevents losetup from dumping a usage message to the log.
+"
+"d443f5b94776bd9ced462d569910e7ef38789585","2013-08-20 14:49:28-04:00","update Polish translation (thanks mickul!)
+"
+"c938ecb6a3b380779c4f6ecc1388e2d4d77a5836","2013-08-20 14:49:56-04:00","udpate Vietnamese translation (thanks ppanhh!)
+"
+"bd7a40ff25dc81a14496b72135c5c3fcc365b55b","2013-08-20 14:51:37-04:00","add Simplified Chinese translation (thanks xtoaster!)
+"
+"9f667686640359e042ba8d14a6fb6383a6f9503b","2013-08-20 16:39:17-04:00","add checks to make sure that the native assets got included in the APK
+"
+"33b0aa64d67bc4ad135600703e9f26ebce8df58b","2013-08-20 17:15:53-04:00","move mountpoint to /data/debian to prep for writing chroots direct to disk
+
+/ is usually rootfs, which is deleted on boot. In order for the chroot to
+be actually written to disk, it should be in /data, therefore /data/debian
+is a natural place.  To maintain the handy /debian/shell shortcut, the
+start script now creates a /debian symlink.
+"
+"713f0238b74650a7adac3f8bd312c791980077d8","2013-08-20 23:10:07-04:00","disable main button while running the scripts to prevent mishaps
+
+This uses a Handler to send messages from the CommandThread to the UI. This
+should replace the BroadcastReceiver stuff in LilDebi too.
+"
+"4bf636d2da6896d7f4336cd33dfe498392a9261f","2013-08-20 23:11:05-04:00","use CommandThreadHandler to replace log and complete BroadcastReceivers
+
+This should be a lighter way to acheive the same thing.
+"
+"826beaef65eb154945a7c9354d832ef02526309f","2013-08-20 23:46:31-04:00","show a progress spinner in the title bar when there is a script running
+"
+"bda400865f30271106ff8ebad16243005e9ec25a","2013-08-21 09:29:25-04:00","convert old /debian mountpoint into new-style symlink to /data/debian
+"
+"e2a99771054d3d553f2fb775cce3ed06684a18b3","2013-08-21 18:00:08-04:00","auto-install e2fsck if no system fsck as part of Install and Start
+"
+"dda17d0bc976b744e5a7edfcb17f9741ae78cfc2","2013-08-22 12:19:41-04:00","set Debian mountpoint to 755 so any user/app can access it
+"
+"0a769cae78fa144165f3fff88b168c33278ffa22","2013-08-23 07:56:50-04:00","include missing Debian and Ubuntu release in cdebootstrap
+"
+"8107f6e6b7256d04d687bfd2d000aefa59b218e9","2013-08-23 08:45:08-04:00","run native setup in Application subclass to ensure its always run first
+
+The android.app.Application instance associated with the app is always
+launched first, so its the natural place to run the native setup.  This
+fixes crashes that happen if the InstallLog was the last Activity viewed,
+then the app gets killed and relaunched.  Before, it would launch and go
+straight to InstallLogViewActivity and never run the native setup.
+
+Most of the code in NativeHelper should probably be moved to
+LilDebiApplication.
+"
+"a4a6757debe34608e52bd89ecb0e3dda6de4b3ca","2013-08-23 09:25:27-04:00","create-debian-setup.sh: fix typo that broke if logic
+"
+"7002555d49eb803cf6364cd2ce15cebc3587b306","2013-08-23 09:32:43-04:00","fix detection of old mountpoint /debian, it was also detecting the symlink
+
+test -d is true if the symlink points to a directory.
+"
+"40069d0d0f30c18aee5a7e9625eb274264b03f79","2013-08-23 14:32:18-04:00","bump target SDK version to android-18 (4.3)
+"
+"68fdf9b06a2af8eead4626b42cf94cb995f76f1d","2013-08-23 15:08:04-04:00","downgrade Apache Commons IO from 2.4 to 2.2 to support Java 1.5/android-8
+
+Android did not have full Java 1.6 support until android-9 (2.3).
+"
+"0c51465ff01048ac91efaff9aa176b9c7afbcc2b","2013-08-23 15:11:45-04:00","make sure to close streams reading /proc/filesystems (fixes warnings)
+"
+"12c7b724fbef2f10f4994ae63ecbb0f5162f7ff0","2013-08-23 17:30:10-04:00","fix isExt2Supported() logic broken in the last commit... doh...
+"
+"a00804ee06f1c0d568a6a165ec952a6fcd268aad","2013-08-23 17:25:03-04:00","remove-debian-setup.sh: if the old /debian mount dir exists, delete it
+"
+"ac73c7fe68f4573ad73ce34eca51bb799d7ed7b6","2013-08-23 18:10:54-04:00","chmod'ing the mountpoint directory must happen as root, so in the scripts
+"
+"c54b944e3258d0dd83f230e8494c84859d9ddcd9","2013-08-23 18:12:39-04:00","if mountpoint exists and is not a dir, exit scripts with error
+"
+"e98644e3713d799bb40f8eb1537af9bf41fbb495","2013-09-09 22:34:20-04:00","create-debian-setup.sh: don't add security repo for sid, it has no updates (closes #73)
+
+sid aka unstable does not have an 'updates' repo, so an updates repo should
+not be added if the selected release is either 'sid' or 'unstable'.
+"
+"ef6fd9dee76d48afd6a7aa7dd19a99108b376f21","2013-09-09 22:50:05-04:00","add support for lzma and xz compression, sid is starting to use it (closes #70)
+"
+"2fafed0980b064d5545850070b8079360d16be45","2013-09-27 15:16:03-04:00","add Brazilian Portuguese as base PT translation (thanks Ganem!)
+"
+"072c251a3a7a94b7166c89a7fc50c3edc5131627","2013-09-27 15:16:55-04:00","add Slovenian translation (thanks ajitam!)
+"
+"1d8a0dc9881fdc8cda56dfaf04d3bfe97156133c","2013-09-27 15:18:23-04:00","update Turkish translation (thanks basarancaner!)
+"
+"509f350d9985274cfe2a75541a2a34e749bba0a1","2013-09-27 15:20:25-04:00","transifex: map sl_SI to sl and pt_BR to pt
+
+Brazilian is the standard Portuguese for computers these days, and no need
+for a SI-specific sl since there is only one sl translation.
+"
+"f4bff7ec449af75a7530be5072a6dcfb31d95003","2013-09-27 15:24:48-04:00","update version name 0.5 code 5000, leaving room in code for 0.4 releases
+"
+"b06a9e11e2661683506bc1f36398e0b51c3761c7","2013-09-27 15:41:28-04:00","fixed syntax error in Brazilian Portuguese translation
+
+The transifex text fields had \' in them, which were transposed into \\'
+upon download.  I removed the \ in front of ' and all is good.
+"
+"e560277f5d6ee975c8ccfa2df9d25c1b306bb1a3","2014-01-03 20:40:55-05:00","bump target SDK version to android-19 (4.4.2) KitKat
+"
+"4f148152bffadf8a4db5df52aefb0527f656d9d1","2014-01-03 20:45:20-05:00","add 0.4.5 changes to the ChangeLog
+"
+"001573f3d72e3f2fd55a9fa5a3d6577e984d9eb0","2014-01-03 20:49:56-05:00","update to build a wider range of recent NDKs (use gcc 4.6)
+"
+"834d614e119ed3ea2438c93db4c1fe351930eb12","2014-01-03 22:13:27-05:00","try new tricks for getting sdcard path on Android 4.3/4.4 and newer
+
+They've messed up the sdcard path even more since 4.2.2, we need even more
+silly tricks!
+
+fixes #66
+fixes #82
+fixes #81
+
+Conflicts:
+
+src/info/guardianproject/lildebi/NativeHelper.java
+"
+"5387935479acb390ccd863939f07dae7312bc52a","2014-01-03 23:10:06-05:00","in Terminal Emulator is installed, add menu item to launch Debian shell
+
+Thanks to Alexander-- for the key inspiration and research.
+
+closes #76
+"
+"bfe87cf683f71d52e3fd2251f4ed214fcb10929d","2014-01-03 23:47:59-05:00","use a bash --login shell in Terminal Emulator to get PATH settings
+
+Right now, this environment it is launched in is basically just the Android
+shell, which sucks.  Adding -l aka --login makes it a little better because
+it sets $PATH better.
+"
+"d2722c944ca558688d10d72cf89b3afe8059b593","2014-01-04 21:47:00-05:00","update ChangeLog for v0.4.6
+"
+"973ae88283ff331b7eedb7800dbb5a00f5940850","2014-02-21 12:45:38-05:00","another device-specific SD mount point
+
+Samsung Galaxy S2 (GT-I9100) running CM9.1.0
+"
+"06355d166f9282b9623885151ffa64541c4e43b8","2014-04-09 13:23:01-04:00","do not include javadoc jars in apk when built using ant
+
+oops, before the javadoc jar was being included in the release APK.
+"
+"900fb56af67e1aeafcdfd02de67595129b815e04","2014-04-09 14:16:01-04:00","update reference to use official var: $ANDROID_HOME
+"
+"8592789e5ca49c3e546a73d1eb14c93aa7ded6da","2014-04-17 19:41:42-04:00","do not bzip2 cdebootstrap.tar
+
+The APK itself is compressed, and the bzip2 file is hard to make
+deterministic.
+"
+"9e5d53c29437834969933ace027c8a79a119623b","2014-04-17 19:49:43-04:00","force timestamps of cdebootstrap.tar and contents to that of the .deb
+
+Use the timestamp from the downloaded .deb file to set all of the files and
+the .tar file itself to the same timestamp.  This should make the creation
+of the .tar file deterministic.  Some setups will extract the
+cdebootstrap.deb with different permissions, so also tell tar to try to
+keep the permissions as set in the tarball.
+"
+"52626085d8cd2ae117de07e5123dee9416d2e597","2014-04-17 20:27:28-04:00","update to latest debian-archive-keyring (fixes: #93)
+
+cdebootstrap was not happy with the old keyring file, probably
+because it was missing essential keys.  This also adds a step that
+downloads the keyring with each build and verifies it against the
+copy that is checked into git.  Sicher ist sicher!
+"
+"14c056b72218b6ef83f264a8eaad2939bc8f295a","2014-04-17 20:28:45-04:00","download cdebootstrap using an HTTPS:// mirror
+
+This lowers the profile of the build process from a network
+observer.  It also provides an extra layer of encryption in case
+other layers fail.
+"
+"24d0ad7e0ed0bd5654c0d928c668e2fb02440170","2014-04-23 11:25:39-04:00","add --fix-broken to final `apt-get upgrade` just in case
+
+I mistakenly had it on `apt-get update`, where it does not do anything.
+"
+"542483943e661cb9f208d405c40ebc85ada1d564","2014-05-15 15:22:50-04:00","make reproduceable tar files using GNU tar specifics
+
+https://wiki.debian.org/ReproducibleBuilds
+"
+"a9d045290c63aadb7a1e70a28a9b7f26073301b2","2014-05-15 15:25:49-04:00","make busybox build repeatable on my machine
+
+Using `faketime` means the timestamps are forced to being the same, and
+that is enough to make the builds bit-for-bit repeatable on my machine.
+Hopefully it is enough for repeatable builds on other machine as well.
+"
+"018370025ce003c1b563243c10454ba7e86013e4","2014-04-11 16:50:22-04:00","use faketime on release builds for deterministic builds
+
+Running a program with faketime causes that program to recent a fixed time
+based on the timestamp provided to faketime.  This ensures that the
+timestamps in the files are always the same.
+
+This gets the process to the point where the APK signature is transferrable
+no matter who builds it.  This process does not produce an APK with the
+same hash.
+"
+"6b3775e7c1a52e4df917f960a57911e8eb45ae55","2014-04-17 14:13:59-04:00","use special faketime timestamp format to freeze time
+
+faketime needs to have a very specific timestamp format in order to freeze
+time.  The time needs to be frozen so that the timestamps don't depend on
+the speed of the machine that the build process is running on.  See `man
+faketime` for more info on the 'advanced timestamp format'.  Also, force
+time to UTC so its always the same on all machines.
+
+https://lists.mayfirst.org/pipermail/guardian-dev/2014-April/003420.html
+"
+"dee0b078e5b2a1030a70242c615fbc2247fc5eac","2014-04-23 15:33:24-04:00","use faketime 'advanced timestamp format' to make it freeze time
+
+I was using the write timestamp format, but I had forgotten the -f flag.
+Adding it make faketime actually freeze time :-D
+
+Thanks to Michael Rogers for spotting that.
+"
+"24b3f3146947d9abdf5057dc9eed1092aa623f68","2014-04-23 14:40:05-04:00","force timezone to UTC for busybox
+
+busybox includes a timestamp in its code, set in a C macro called both
+BB_BT and AUTOCONF_TIMESTAMP.  BB_BT is set to AUTOCONF_TIMESTAMP in the
+build flags.  AUTOCONF_TIMESTAMP is set in busybox/include/autoconf.h. This
+timestamp includes the time zone, so make sure it is always UTC.
+"
+"7d8c4778db967afa1a5595c2f8abcf6e08957292","2014-05-15 16:10:32-04:00","fix lintian errors
+"
+"cf2282849cb94ff836a0c1d289914fc1d2147a22","2014-05-15 16:14:50-04:00","fix TypographyEllipsis lintian warning with script from fdroid
+
+Thanks mvdan!
+"
+"d1e9c011be7a5ff9dfbc535d7cfa070d391f1199","2014-05-15 16:24:36-04:00","purge unused 'run_command_hint' string
+"
+"009a7fd05b6a0bc7705e4375f4e7813f197b79bc","2014-05-15 16:27:48-04:00","do not include commons-io-2.2-javadoc.jar in APK
+
+Oops, this was unnecessarily doubling the size of the APK...
+"
+"7aab16914cba93151532e097bcaef32d1c449801","2014-05-27 14:27:48-04:00","add app description to manifest to support p2p distribution
+
+This allows other methods of distributing APKs to also include the
+description text, like the FDroid local repo swapping.
+"
+"a71ea1822311accf0c594304a1b4070e8056c55f","2014-05-20 12:04:08-04:00","document jar sources
+
+This .properties file is supported by the Android tools as a means to point
+towards the javadoc for a given jar.  I've extended it to include a pointer
+to the original download link and the source repo.
+"
+"e19df4c36fc507cd7cb57270ee0cc7679ee77204","2014-05-27 01:12:05+05:30","created class LilDebiAction which will create/start/stop Debian instead of class LilDebi
+"
+"4f4ec6d128e100bd86203b1946221f41c584604f","2014-06-06 14:28:08-04:00","make-release-build: use git tools for more flexible cleaning
+"
+"2c2e362e1b1a2fc77b5b19081670d51d98f23245","2014-06-06 14:29:03-04:00","move jenkins build script to git
+"
+"cd6c26c34c65a65164603f74a6b383fa422abc6e","2014-06-06 14:33:19-04:00","ignore = dirty in submodules
+"
+"ca2a35c7fca897ec5328f6e924c2ee30d443a3c6","2014-06-06 14:40:21-04:00","update translations: de es no
+"
+"c908761a9c858b2a8867089ecdfefaad01f3e20d","2014-06-06 14:50:26-04:00","add translations: it pt_PT sk
+
+thanks to Damtux, (Manuela Silva) alfalb_mansil, and (Jakub Srna) Krantišek
+"
+"96e323c27d2f28639a931baa2dd3206139bc9864","2014-06-06 14:52:07-04:00","jenkins-build: use date for versionCode and add date to versionName
+"
+"4765626334f507cdc3ebe6ed91f6f5187711633c","2014-05-29 22:56:20+05:30","Intent Registration in AndroidManifest.xml
+
+Earlier Intent was registered only when LilDebi Activity was started.
+So we have moved it to AndroidManifest.xml, so that Intent will be registered when application in installed
+"
+"569169553e7c2e74e61a660706989fff0aa7f0f7","2014-06-06 21:30:44-04:00","update ChangeLog for v0.4.7 release
+"
+"e43c348a5cdc31c8ef48ba8b8318ce2e4cbcbb20","2014-06-15 00:17:02+05:30","echo mount command in start-debian.sh
+"
+"f3c13672bf85137951559648aa9185b920aa8845","2014-07-03 23:03:19+05:30","Integration the booting of Debian and Android
+
+* removing stop scripts from /etc/rc0.d
+* killing the running processes
+* updating the default_post_start_script and default_pre_stop_script scripts
+"
+"a5a6693a956c62db10fbdc67747f4448d54589fb","2014-07-07 14:23:58-04:00","added support of cdebootstrap 0.6.0
+
+0.5.10 is no longer in the repository
+"
+"e75fd7d2639652cb3586267ddc4e5dee0d8af6d2","2014-07-08 03:34:29+05:30","adding ps,kill and readlink in busybox
+
+The native Android kill does not seams to be working on some devices.
+Instead of depending on the native binaries, we are using the busybox binaries.
+"
+"6203b73d4cb05d3b66e5b87b43eeb1e1ce26aca9","2014-07-08 22:20:47+05:30","added support of cdebootstrap v0.6.1
+
+cdebootstrap v0.6.0 has a bug which is resolved in v0.6.1
+"
+"6908b9ed5f171a0738ba1eed7d386ae3480c7ebb","2014-07-08 17:27:51-04:00","add complete list of ubuntu releases to cdebootstrap
+
+cdebootstrap is missing oneiric through utopic, this applies a patch after
+unpacking cdebootstrap to add all these releases.  This patch has been
+forwarded upstream:
+
+https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=754228
+"
+"e0eaa6f2a4714672e7d76d240983bd8b3208d8c3","2014-07-09 03:53:03+05:30","Using two stage install (--foreign) in cdebootstrap
+
+For the feature 'install in internal storage' we can't debootstrap debian on /data/debain as its mounted with nodev parameter.
+To skip nodev check we are using two stage installer.
+"
+"214f5976fdd07ab9402c89bf213b39d146d606e3","2014-07-10 01:04:09+05:30","Adding feature of installing Debian in /data/debian location directly without creating img file
+
+* Modifying the shell scripts
+* adding option in the Preference
+* adding NativeHelper.isInstalled() function
+* updating the media mounted and unmounted Receiver
+
+closes #59 https://github.com/guardianproject/lildebi/issues/59
+"
+"887d31c0ef171be293a8e9bf4073398fdf6a3a2d","2014-07-30 19:51:21+05:30","moving to cdebootstrap v0.6.2 from v0.6.1
+"
+"4d8729220807d09a9c5e83193a19158ad6dcbc7a","2014-08-01 01:09:22+05:30","replacing image_path with install_path
+
+After adding feature 'Install on Internal Storage' the install_path name seams to be relevant,
+as it can be a directory while install in Internal storage.
+"
+"51194288a5bb7d270a2b6610defd52400471c3b1","2014-07-09 15:17:01-04:00","update translations: da de es fr nb nl pt_BR pt_PT zh_CN
+"
+"a910af57e499624ae02202919e9290a5f0ae36db","2014-06-07 04:00:48+05:30","Avoid keeping the resource mounted because of some failure
+"
+"3ba2391f953eba35c388899036bf35a094e7176d","2014-07-31 18:16:46-04:00","fix if syntax in unmounted-install-tweaks.sh
+"
+"9a3069a6a1c106b0e5fea699f90b1fa97edc8abb","2014-07-31 18:34:31-04:00","add test script to check syntax of all sh scripts in assets/
+
+It is often hard to test these scripts, since they have to be run after the
+end of a long process, we can do a quick check here to make sure that the
+syntax is OK.
+"
+"59991fcc478e0fb7a95874cd27247bd9f1f8c0fe","2014-08-01 00:07:51-04:00","upgrade busybox to v1.22.1 to get a working readlink
+
+readlink is needed by the ./stop-debian.sh logic for killing all processes
+from the chroot.  I threw in chgrp for completeness, and removed the touch
+flags since they are not used and cause the build to fail.
+"
+"4e45621ef56f59dffd9a8c7dbc88d7e5792bccea","2014-08-02 04:09:34+05:30","removing /system binding
+
+chroot by default needs shell at /system/bin/sh,
+the env variable SHELL changes it to /bin/sh which is default shell in debian
+"
+"cd370481b7e7befa41af8be11d8ed29de3a3c756","2014-08-02 04:49:08+05:30","adding feature to start Debian installed in internal storage after Android booting completed
+
+when Debian is installed in /data partition then it is available to boot after Android is booted, instead of waiting for sdcard mount
+"
+"1e421813001e80832728b2fbd06bbc020f41626c","2014-08-04 00:32:29+05:30","lower limit to free size for debian install
+
+Prevent installation of debian if the free size is less than predefined variable named 'MinimumFreeSize'
+"
+"f933f9d4e2ca9547edfa2d5d46cdfcc78980c4f4","2014-08-04 00:53:26+05:30","moving to cdebootstrap v0.6.3 from v0.6.2
+"
+"5aa2e57753ba05b68a6f86c2166dac1a98122ec9","2014-08-13 00:25:10+05:30","re-structuring install broadcast listener registration and unregistration.
+
+The broadcast listeners were registered only in onResume(), and they were also
+unregistration in onPause(), so InstallActivity would not get the broadcast
+unless it was the current Activity
+"
+"8133576599b83e888cdc953f8e3bba4cc3a612cb","2014-08-25 03:37:42-03:00","Specifically format commit's author date rather than transforming it for faketime.
+
+closes #105
+"
+"b050230b61be27ae9a1758cbadea9154b0ea307f","2014-08-25 15:10:08-04:00","set version code/name based on time/date of most recent commit
+
+This helps with the deterministic build process since every build should
+always be based on the same date.  Also, force the timezone to UTC to
+eliminate timezone differences.
+"
+"790323c91bf42dd99d1195d7bc3174cb5b66357a","2014-08-25 19:36:13-04:00","automatically include version in release APKs
+
+a nice little hack from here:
+http://jeffreysambells.com/2013/02/14/build-your-android-apk-with-the-manifest-version-number
+"
+"1ceb46381c973bc539cab9672c2c717f8f0a9c68","2014-09-17 14:43:02-04:00","for ant build, run clock at 5% speed
+
+This should help produce reproducible timestamps in the APK file.
+"
+"a0e1ddc0bbef342c679ca526051ed7eac7c74630","2014-09-17 14:56:52-04:00","remove .sh from script so shebang can be easily changed
+
+These scripts need not be implemented in /bin/sh, that's just an
+implementation detail that should be hidden.
+"
+"9a630a1f1694a0fa8e1288441c3c744d0a72ac9e","2014-09-17 15:10:16-04:00","remove ant.properties from git, it is not used at all
+
+The make-release-build script also will copy ant.properties into place to
+setup the release signing key.
+"
+"b03ca56c91142b1c88ba60051ad5cb9ebe29312f","2014-09-17 15:50:25-04:00","only gpg-sign a release build if gpg is available with secret keys
+
+This makes it easy for people to run this script to verify the official
+release build matches their build.
+"

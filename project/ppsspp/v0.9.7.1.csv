@@ -1,0 +1,138 @@
+"commit id","commit date","commit message"
+"95af98b5033642a05b53c893191dd9222f717164","2014-02-14 16:48:54+01:00","Dummy commit to trigger a build
+"
+"63adafd9672fa14df85af7e02bb62ccca52e2b06","2014-02-15 07:28:52+08:00","avoid invalid memory in sceMp3ReserveMp3Handle
+
+Find in Heroes Phantasia
+"
+"8f09a341df084428665e2a1c6ecb23f49d3f0586","2014-02-14 21:08:24-08:00","Fix a few leaks in the Windows UI code.
+"
+"d0d4e665d164547d52d301450f7c6d751ee11a95","2014-02-14 21:17:36-08:00","Clean up double creation of memory debugger.
+"
+"26b43356373361d14ef19b5c1b0be7ee6d980713","2014-02-14 21:49:20-08:00","Optimize symbol map in debug mode a bit more.
+
+Avoid UpdateActiveSymbols().
+"
+"1d8375924a13dfe1d91a812482ba6f7f231ee7a6","2014-02-14 21:53:59-08:00","Allow double PSP_Shutdown() without any error.
+
+We call it in a few places to 'ensure' shutdown, e.g. before resetting,
+but there are cases of double-shutdown.  Let's allow it since there's
+there shouldn't be any multithreading here.
+"
+"04776c81256bfe1cbd280ca1d6b3c824d6225606","2014-02-14 22:07:39-08:00","Small optimization: avoid fallback if possible.
+
+Speeds up symbol map loading a little bit (when inserting new items.)
+"
+"7c2d36e8021201c0d585fee4f75ef21f828921da","2014-02-14 22:13:09-08:00","Don't add to the symbol map what was found there.
+
+Wasn't hurting anything, but slight hit on performance.
+"
+"8948990871e1d6eee46f80b4787ecc6f86992c18","2014-02-14 22:26:35-08:00","Optimize searching for existing symbols.
+
+Checking every time is slow, we should just skip by the address.  Some is
+just the locking overhead.
+"
+"d7233159aa1d3d9045a3b0a237cda5abd1eb0eff","2014-02-14 22:59:57-08:00","Store thunk regs on the stack, not a global.
+
+This may even be more near active memory anyway, but it reduces the '64
+bit address out of range' RIP issues a bit too.  It's currently impossible
+to enable appverif memory checks and jit in 64-bit...
+
+Avoided the 32-bit path because I'm less sure about alignment.
+"
+"75de50123ab4e866d35cf598e2c1debb4032c1df","2014-02-14 23:02:29-08:00","Don't need to check inited for PSP_Shutdown() now.
+"
+"3e6f7250f4b35f0ea3da4533f2e5e5d5d35bc6ab","2014-02-15 09:30:03+01:00","Merge pull request #5453 from unknownbrackets/jit-minor
+
+Store thunk regs on the stack, not a global
+"
+"0dd9e2dbaf280f3cc4286121a7f62eb992d4c06e","2014-02-15 09:31:37+01:00","Merge pull request #5452 from unknownbrackets/win-fixes
+
+Clean up some Windows leaks, optimize symbol map a bit
+"
+"875fc39a01e913dea7fcf4c7f6735fa350bdeac8","2014-02-15 10:00:18+01:00","Update native with rotation lock fix
+"
+"3ba629081bab0be45269a650b13f460986237a05","2014-02-15 10:00:29+01:00","Temporary: Exit 'hard' on Android again.
+
+This is to prevent more unforeseen issues like the rotation lock
+problem in the bugfix release.
+
+Will be reverted again later.
+"
+"dda1f212f00b0a519707e16aa198100ededa7f09","2014-02-15 10:15:42+01:00","Update native with haptic feedback fix
+"
+"5a71ec678c752706a1d67b97cc5cd980123fc241","2014-02-15 17:49:35+08:00","Clear the audio when paused
+"
+"2459f4e35101a540a84b0faac72fdc07c520ad5f","2014-02-15 01:47:14-08:00","Avoid a char * for a constant string.
+"
+"01ff295031faeadd923f8e361361b894fce73c2f","2014-02-15 18:07:19+08:00","Check PSMF_PLAYER_STATUS_STANDBY status to return not init error
+"
+"958786cb363c14b32abd253e16f9046f54a995e7","2014-02-15 02:03:17-08:00","Update screen size immediately in Qt.
+"
+"7d9f1ff57ad1e7707507f7ed8ae3478451c5491a","2014-02-15 18:15:44+08:00","Move memset up so it's always done
+"
+"6279bd145d5975c74bceefe28bce8ba74c773128","2014-02-15 11:22:12+01:00","Merge pull request #5456 from unknownbrackets/qt-fix
+
+Fix some qt sizing issues and warnings
+"
+"c4a995244958ea315f7d0edcf62644a92491afb2","2014-02-15 18:37:34+08:00","Remove duplicate Memset
+"
+"cc10d43c53b509bf65cafe69246827b75b6cb10b","2014-02-15 18:38:38+08:00","Remove unconfirmed STANDBY changes
+"
+"384af34403d13618886a553c43c4de775d9b6340","2014-02-15 11:42:22+01:00","Merge pull request #5455 from raven02/patch-22
+
+scePsmf: Clear the audio when paused
+"
+"88d1cb7016a9b3b53730e06f243104e7608d454a","2014-02-15 20:15:49+08:00","More logging
+"
+"9868734656facbb5a4892ff986989add46f3df1d","2014-02-15 20:20:04+08:00","Add report
+"
+"fc9b057d880ee02b33030f9baf4d7d93bf07dd7f","2014-02-15 14:24:32+01:00","Merge pull request #5449 from sum2012/sce-mp3
+
+avoid invalid memory in sceMp3ReserveMp3Handle
+"
+"3d45c9dbed234cd6d77fb83efaf223399f189112","2014-02-15 14:30:40+01:00","Handle the weird Chinese translation patchers in a nicer way.
+
+Takes care of #5458, too.
+"
+"9d64fcf6934fe910807d6d68fdae1b6baadd97c1","2014-02-15 15:10:38+01:00","Fix last commit
+"
+"c801cffcff51069c38408d5b5ae59f984d4a61f2","2014-02-15 15:40:39+01:00","Add a gameid check for the bootfile that's in USRDIR.
+
+Annoying that this is needed.
+"
+"a4e9ca40e443bf04b2be125cd7b95259aab7fb7a","2014-02-15 15:44:32+01:00","Fix silly copy paste error. I'm tired.
+"
+"81887cead3be58187847082add0946e8499767af","2014-02-15 22:50:10+08:00","Init ctx->mp3DecodedBytes/mp3SumDecodedSamples/mp3LoopNum
+"
+"ae1eda165432906a468b5cca9ae4a3913d7b0b8a","2014-02-15 16:03:27+01:00","Merge pull request #5461 from raven02/patch-24
+
+Init ctx->mp3DecodedBytes/mp3SumDecodedSamples/mp3LoopNum
+"
+"bbe36fbd8e3d85451f7a1d2fb4555b22a44c964d","2014-02-15 23:52:08+08:00","Code Geass  Hangyaku no Lelouch  Lost Colors CN translate bypass EBOOT.BIN
+"
+"b6b0ff793c2288d9d53c362c314116ecfc044044","2014-02-15 17:11:15+01:00","Merge pull request #5462 from daniel229/patch_02
+
+another CN translate bypass patcher
+"
+"348c6a16da7d2e5d88cc59a0387ec83afea3df8e","2014-02-15 09:43:43-08:00","If a focus mode is used with autoload, ignore it.
+
+Before, if the 'focused' save did not exist, we failed incorrectly, even
+though the actual save we were trying to load was the correct one.
+"
+"0ebce17e7fb0726d09941eb8af2f33f6be0f3779","2014-02-15 19:12:26+01:00","Merge pull request #5463 from unknownbrackets/savedata
+
+If a focus mode is used with autoload (or similar), ignore it
+"
+"f02ea25ea62985e1903b84f3e6c47ae9db5f9973","2014-02-15 14:01:47-05:00","fix the 'No disk' dialog when starting up ppsspp
+"
+"c81a08eed776ab90fc6f73b1a91b8f0caafe40cc","2014-02-15 20:03:49+01:00","Merge pull request #5465 from chinhodado/master
+
+fix the 'No disk' dialog when starting up ppsspp
+"
+"21f9e756ccf3028c0119e990fe47ef67a57b48cf","2014-02-15 20:07:23+01:00","Update readme
+"
+"aafdd674dcefbdb040a7980424385f362fdf9191","2014-02-15 20:09:49+01:00","Update version to 0.9.7.1
+"
+"d49cffe3f5b374bd009d9396208e2f8b2d8b8daa","2014-02-15 20:14:40+01:00","Buildfix
+"

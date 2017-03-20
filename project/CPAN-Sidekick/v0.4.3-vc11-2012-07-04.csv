@@ -1,0 +1,205 @@
+"commit id","commit date","commit message"
+"42a2cb5056c8a9b92f4d4fdbf32bd265832d8c1f","2012-03-11 21:38:05-05:00","Adding a change log to track what's new for all releases
+"
+"28c2e1101a75b3fb31194b6857f23df046205534","2012-03-11 21:39:27-05:00","Better MD formatting for change log
+"
+"8202338c283a659c436de24855eea26612fde6e2","2012-03-11 21:40:57-05:00","And even better formatting for Changes.md
+"
+"2fe6d62a0e848e6f3a512547b42d651e392133d6","2012-03-21 06:09:51-05:00","Giving the icons 15% more padding and added drop shadows
+"
+"4cd845408ef09e99e55f826cc32220321de5e66a","2012-03-13 21:54:38-05:00","Refactoring the module activity pieces into the .module package
+
+This will help keep things organized now that I will be adding new activities
+for viewing distributions.
+"
+"74076bc5cbdc83f63b149978d58c16d72cb22bf6","2012-03-19 21:48:16-05:00","Added the new layouts for use with the release viewer
+"
+"9d62967fcc50d9adc33b57852d5e8f14613c1a2a","2012-03-20 20:32:43-05:00","Splitting out the phone layout from the tablet layout
+
+..and creating the fragment stub.
+"
+"8f917c089482291f0db419c0a55456512e8dfc2d","2012-03-21 06:08:47-05:00","Here are the layout files for phone/tablet/fragment split support
+
+...this was supposed to be in the previous commit.
+"
+"a6fddc3f95532903e375a46fee9ceb9c36c913e0","2012-04-08 12:56:28-05:00","Adding the start of distribution fetch
+"
+"efd0ab25272e0dab4456e5371c40c4e30df40fe3","2012-04-14 21:57:19-05:00","Correcting class names in the fragment layouts
+"
+"221e82b2bd506f7ea9bd6c9a5e9115bcee215703","2012-04-14 22:06:40-05:00","Moving Model and ModelList into the api package
+"
+"a09a636dd4ab9ba113898077108ee0ec9960f56c","2012-05-13 00:33:58-05:00","I wanted to spend a lot of time making the fetching framework just so
+
+The existing framework was a pain to grok. I kept forgetting how it worked and
+the threading model with AsyncTask was just plain difficult to manage. I need a
+multi-threaded mini-job manager for running groups of tasks in parallel and then
+reacting to those tasks when they completed. I still have not gotten it quite
+right, but it's getting close.
+
+Once I work these classes into the application itself, they will probably be
+refactored into several separate packages and will completely replace the
+current API handling code.
+"
+"5201e6a1bad9e4fb4d83b0842bf679083e76991b","2012-05-13 00:37:53-05:00","Upgrades to Eclipse/Android SDK and embedding the support library
+
+Part of this work was trying to get a test project for the application, but
+after several hours of trying to get the test project setup, I've given up for
+the time being. For some reason, the test project cannot find the support
+library code even though I do everything the Dev Guide suggests and I've tried
+the suggestions of everyone I can find on Stackoverflow and elsewhere without
+success. The usual 'setup the support lib as an export in the main project and
+add that as a dependency definitely does not help me.'
+"
+"1571d9e82f860d6d24bd5ad2767bae23afe0d84c","2012-05-13 15:37:01-05:00","Add missing gravatar subquery
+"
+"1033c52ec6b5908a6daf5315c957602ced2fb75d","2012-05-13 15:37:14-05:00","The job run() should be called on the master control thread
+"
+"48615db48b5399cd9de7415ed15fd0c9d605abcf","2012-05-15 08:15:38-05:00","Parameterized Instance
+"
+"fd8fad26546da90c9008701d82381f9dd8483cc6","2012-05-15 08:17:23-05:00","Make the model instance objects Parcelable
+"
+"476d9bc9dff659cb4037efbb79d388a6c0ce8bff","2012-05-15 08:19:04-05:00","Improve the event handling code, focused on fetch rather than changes to resultset
+
+In some ways I would prefer to handle the updates on any change to the result
+set or the instances it refers to. However, in reality, this application will
+never update these unless there's a fetch, so tying the events to the fetching
+process is simpler and a better description of how this app works.
+"
+"11c729aa94e1663c09668b32cd3861d8f515e3b1","2012-05-15 08:21:06-05:00","Add totals to keyword search, add an authors update subquery, and index the resultsets
+
+We need to be able to fetch results by numeric index in the adapter code.
+"
+"867a0d00b55106eca9895cdbf6fcc1dd4f615636","2012-05-17 00:44:15-05:00","Refining the fetching/query/search system
+
+Formalizing the notion of the UpdateFetcher which works upon an existing
+ResultSet as opposed to a 'regular' fetcher which generates a resultset is
+pretty useful. It does, however, make defining the fetchers as full blown
+classes necessary, but this is 'easier' to read anyway.
+"
+"a00a36d644824f15c9f5547ea0b0651bb22a033b","2012-05-17 23:51:14-05:00","Adding filtered result sets to prevent re-fetching
+"
+"f0e3dec96a0e0b483ad99d74819bdad4d93f0002","2012-05-18 23:31:10-05:00","More implementation for handling UpdateFetchers
+"
+"510d4106f5b80ca308ff0074dab16d6b83518f38","2012-05-19 16:21:35-05:00","Fleshing out the UpdateFetch API and CPANDirectFetchers
+
+CPANDirectFetchers are now UpdateFetchers and may update multiple items from a
+fetch.
+"
+"9f5895d3c7901bd21145ed46ecc345e4512188de","2012-05-19 22:10:01-05:00","Backing out of Deque, since it's not available on 2.1
+"
+"37fe2023683e0ff522c1abb04c2781d48f2f5db7","2012-05-20 08:36:57-05:00","Making it so BugSense will stop complaining while I test
+"
+"2b511d607c287b9c766c9dc6c9f85b1544a7a0e6","2012-05-20 15:54:12-05:00","Getting rid of the old, fragile HTTP client manager stuff
+
+...and debugging...
+"
+"26da1615ecaafe6e5ae0948d77c79df0eace70e6","2012-05-20 15:55:41-05:00","I don't know why this was ever committed
+"
+"81a5cd6c7d9995434233949400419203bc673d2f","2012-05-23 22:19:57-05:00","Separating search setup from the job thread management
+"
+"79eb2a0e48fa2191ba89d9ac4edd11bb905e89f1","2012-05-25 17:11:48-05:00","Give some fetchers implicit control threads and access to the job queue
+"
+"c3aa0e2734afe2efb0b737ed870b05b2389c4e75","2012-05-25 22:53:37-05:00","Separate the job manager from the search builder
+
+This also greatly simplifies the job manager.
+"
+"8e479526c539b36fa3453d53848c0b2c772703ff","2012-05-27 13:58:56-05:00","Moving the Job classes into their own package; adding toString()
+
+Trying to debug some final concurrency issues and the toString() helps me see
+what jobs are queued and running. The job package and reorganizing the inner
+classes helps me keep track of what's going on.
+"
+"4bbd8c0a8cdf549027ddd0566e8a73eefd30a0a3","2012-05-28 09:35:10-05:00","So that other job manager was really major overkill
+
+Backing up to something much simpler.
+"
+"bf20a0a6f4b411eeb4c2a99f5b322a39a975da3d","2012-05-28 10:07:25-05:00","Fix a few job manager issues, renamed ParallelJob to Job
+
+This works about is well as the previous borked attempt. Still need to fix
+Gravatar fetch.
+"
+"7ec64dae71d9c479ab1d848a4bd9758a6a402d59","2012-05-31 08:54:07-05:00","Changes that get the gravatars also working
+"
+"b756f10035d525d6862ce28f095c8be4fc081e54","2012-05-31 08:58:56-05:00","Cleaning out the previous version of the API
+"
+"628f74fc8236d43230b2b84de629ff9002e75547","2012-05-31 09:34:30-05:00","Modify the UI to use the new API, still needs debugging
+"
+"ac66cf478b42fc6598da9fb84d6c1efb91b9c1d1","2012-05-31 09:38:33-05:00","Some small project related changes
+"
+"766465104a7e3bbd47273a4d2dcecac0d7b33f7c","2012-05-31 09:47:35-05:00","Moving fetcher classes into the fetch package
+"
+"33130d87f5a51942723fbc6f1eea877c3933f189","2012-05-31 09:51:53-05:00","Moving the CPAN and Gravatar fetchers into separate packages
+"
+"053b9ca362beefdcbb3924d1066656f2b7bbaf69","2012-05-31 10:02:58-05:00","Moving the search tools to the search package
+"
+"47942d362e5b64e90800ddf64e40cc4858cc5e32","2012-05-31 10:04:11-05:00","Moving the instance classes to the instance package
+"
+"362b271c6f46853e896a9845a1b42408c0ca5489","2012-05-31 10:05:50-05:00","Moving the activities and fragments under the ui package
+"
+"7284e9c1eb9169e7facf96e444f63a46f0abe93e","2012-05-31 10:06:59-05:00","Adding the remaining API utilities to util
+"
+"2888e23e792bf0b0f286ecd0a7b46bb1f47386b9","2012-05-31 11:16:43-05:00","Correcting naming issues from refactoring in XML resources
+"
+"f8b0b1d7ee1cf0a112d01479563e194ad03ad2f2","2012-05-31 11:24:22-05:00","Implement Results in terms of AbstractCollection
+
+Simplifies things a bit...
+"
+"6cc38042ec48ea4905605691afc0103280ee17ed","2012-05-31 11:44:00-05:00","Make sure the module instance is loaded properly in the view
+"
+"503f1f5742428b8fc1641069c6489744804c7be8","2012-06-01 15:33:43-05:00","Too much logging is making debugging difficult
+"
+"5cee86d0792228ebdecd8b823485ddda0950ccef","2012-06-02 10:20:24-05:00","Add a guard to keep an empty query from being performed
+"
+"ebb5420d79757280e0ffb37d2bfafbf964fe2611","2012-06-23 10:11:39-05:00","Improving gravatar time outs
+"
+"f32c16ca25e91247934089dea9c335605c667681","2012-06-30 15:27:06-05:00","A little bit of project clean up
+"
+"9f25034cc84c0533c76522121b239176f4dba5d0","2012-07-01 13:42:56-05:00","Moving the Gravatar URL munger into the Gravatar instance class
+"
+"f11592999550b402b3847a29010ffd8b7b032f84","2012-07-01 15:40:48-05:00","Sometimes the CPAN Gravatars use size= instead of s=
+"
+"fa01290751f4948a8a1033677b4e97d6a7f72259","2012-07-01 15:41:35-05:00","The live object cache was not being populated
+
+Face, meet palm.
+"
+"c41360080bc035b98e3e12e3abf69bdcdb3b77a7","2012-07-01 16:33:44-05:00","Handle a lack of connectivity a little smarter
+"
+"0f396bdd9a19b884d10a530b1a1fcca77b38c1a2","2012-07-01 16:34:21-05:00","Make sure AndroidHttpClient connections get close
+
+...but use reflection to do it so it works properly on all Android SDK version 7
+phones. (My test phone seems to have AndroidHttpClient on it, even though it's
+running version 7.)
+"
+"d5aedf22a28ec36175afa4830847e6125e9f837d","2012-07-01 18:25:43-05:00","Fixing some more object caching issues
+"
+"7057ee9ebab8b1cd8be9aa088d38d61b1928b716","2012-07-01 18:32:05-05:00","Some commented out debug logging
+"
+"283f555ee30e852640f1b2b3ab936533cab8f92a","2012-07-01 18:51:18-05:00","Bumping to 0.4.0 for release
+"
+"a38a4ec2d0b55977f08bfd5ee42f38e1fa10389e","2012-07-01 19:44:02-05:00","s/Android Market/Google Play/ in the README
+"
+"3e8bf16c4c6b6e4ea0e9042a5baebfb111ca0c7c","2012-07-01 20:44:39-05:00","Splitting off the connectivity check into a separate thread
+
+...because Honeycomb says it must be so.
+"
+"6cadf23fb5679d297ed598c3ce63dce9b4ef7154","2012-07-01 20:48:13-05:00","Bumping version for release
+"
+"88325c7df4a5c13c97c6fc3960c022e4e25fbf19","2012-07-03 18:51:34-05:00","Use executeOnExecutor() to run fetches in parallel
+
+I have no idea why I did not run into this problem previously, but I think my
+Toshiba Thrive must have a patch to the OS that causes AsyncTask to default to
+THREAD_POOL_EXECUTOR. It works that way for me, even though the Android docs say
+that AsyncTasks run synchonously by default on Android 3.0 and later.
+"
+"a8ee65c4625287ba13d9823090b30db62fb5206f","2012-07-03 18:56:57-05:00","Bump to Release v0.4.2 vc10
+"
+"07bd57688a8e1f22952e68ea63069f0a5e055c1c","2012-07-04 06:48:42-05:00","Make sure we use execute() on Eclair, executeOnExecutor() on Honeycomb
+
+It can never be simple.
+"
+"0bbdd7896f3f73c6663ff7e3067a8844f6bca877","2012-07-04 06:49:38-05:00","Fix a bug where the timer does not get shut down on exception
+"
+"c9271ba121cbf1128ac5b010a8c31d36294bae24","2012-07-04 07:20:44-05:00","Bump for v0.4.3 release
+"
+"d8a0fc8218e7067817c65149505b32f6067b7088","2012-07-04 10:56:09-05:00","releng
+"

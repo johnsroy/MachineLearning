@@ -1,0 +1,49 @@
+"commit id","commit date","commit message"
+"0dba80c8dd25c4cbe8c583e90a5064fa3ba1874c","2014-12-04 19:56:52+01:00","Merge branch 'release-1.2.2' into develop
+"
+"73196bc678a284747c735c2be0500c8778ac2460","2014-12-05 22:05:06+01:00","Fix exception from calling updateUIFromServiceState() before the
+handshake completed.
+"
+"0a5ecf12a91aa5f6d81ce43e961254c7128396f6","2014-12-05 22:12:18+01:00","Remove possibility of ordering the same page multiple times pre-handshake.
+
+- Check mOrderedPagesBeforeHandshake for the requested page in
+maybeOrderPage(), and if the page is there then there's no need to
+request it again.
+"
+"d59b40bf499c432cc7850420b0133ab08e9cd2ec","2014-12-06 15:24:15+01:00","Fix HandshakeNotCompleteExceptions by moving setAdapter() calls.
+
+Calling setAdapter triggers a layout measure pass, and the measure
+pass ends up calling getView(), which can call through to the service
+to request the album art URL, which only works after the handshake
+is complete.
+
+Where setAdapater() calls were happening in the onCreate() or
+onServiceConnected() methods, create a handshake callback and set the
+adapter there.
+"
+"89f969e657f5ff465ffe7e0c9db3671798beda1e","2014-12-07 20:12:54+01:00","Hash the player ID to generate a long identifier for it.
+
+Converting the MAC address to a long does not work for players that do
+not use the MAC address as their identifier.
+"
+"61693fff0283c08197b6915eb791815bfa6b028a","2014-12-07 20:38:37+01:00","Wrap the trackname TextView in a LinearLayout.
+
+Without this, changing the contents of any other item in the layout will
+cause the layout to reflow, which causes the scrolling marquee text to
+reset.  Wrapping the trackname TextView in a LinearLayout means that the
+TextView will not change size when then the layout is recalculated, and
+the text continues to scroll.
+"
+"fd3e198f5db552483883820fa37acd430d8c81f4","2014-12-07 20:51:16+01:00","Fix an IndexOutOfBoundsException.
+
+Caused by opening a player's context menu and then the player
+disconnects.
+"
+"84976575e203e626794640f34823cbe2887992a3","2014-12-07 21:38:49+01:00","Fix inverted logic error showing playlist option menu items.
+"
+"381459034de4cb5f548cc650ff016a58b9fd725c","2014-12-07 22:18:47+01:00","Ensure the context_menu is below the track_wrapper.
+"
+"d7db3b7d08ab45f406f926a3b538846c434d6b56","2014-12-07 22:19:47+01:00","Prepare for release 1.2.3.
+"
+"6b7a6b02cbea17ec6c5596aa63e0d49f23c5d04a","2014-12-07 22:27:31+01:00","Merge branch 'release-1.2.3'
+"

@@ -1,0 +1,265 @@
+"commit id","commit date","commit message"
+"62404a87bb1aba6443626d1bda803d2991b52634","2011-04-26 23:48:36+02:00","SCI: Round left/right edges in bitsShow to even coords
+
+This fixes the vertical black line glitch in the QfG3 start menu (#3293351)
+"
+"e467468900144a2cd1c4df04e5b708a5d4f60172","2011-05-01 14:43:45+02:00","DC: Disable serial for release
+"
+"cf41ac0fec13c1191fd107bf25505713aa60afde","2011-05-01 18:07:27+02:00","ANDROID: Disable the savegame parachute
+
+Only on the stable branch, since this is unfinished and might wipe
+savegames of the user.
+"
+"3af0bc92a221d395d7f44e7d8e5530cafaa3411b","2011-05-01 17:12:56-04:00","SCUMM: Fix v60he games
+"
+"4c540a86fc8ca4ab093a9f1be672f8088256cc2f","2011-05-01 23:41:34+02:00","WEBOS: Added a default prefix and enforcing docdir, datadir and plugin directory.
+"
+"b2ed9a40f204e425863a03875f34e9e66bb9669a","2011-05-01 23:42:23+02:00","WEBOS: Rewritten webos packaging again. No fancy settings needed anymore. Just 'make package'.
+"
+"4c2cf6739b81495afd4842e26c313b433b60f350","2011-05-01 23:43:47+02:00","WEBOS: Removed special paths from default configuration.
+"
+"2023e2f23237c44d48f268965f86c8705e23fc2e","2011-05-01 23:44:20+02:00","WEBOS: No longer creating paths which are not used anymore.
+"
+"85e1e4e24fcf1675c9db7a122c1b90828e20bf3e","2011-05-02 00:17:48+02:00","README: Added WebOS to list of supported platforms.
+"
+"2145ec51d1d9cc7632fc81b11a1f5ad05b8bc81d","2011-05-02 00:20:00+02:00","NEWS: Mention new WebOS port.
+"
+"7b81651ab1edb592bc55733206b51ad350151555","2011-05-01 23:56:35+01:00","I18N: Update Polish translation (from patch #3295481)
+"
+"39d9566133f581369aee1437a0d178c41a3e0abc","2011-05-01 23:57:43+01:00","I18N: Update translations data file.
+"
+"7c840b0c5e69fa2ffb636afc26affb0f25d14cbb","2011-05-02 14:45:53+03:00","PSP: fixed cursor disappearance bug in 16-bit games
+
+The 5650 16-bit format doesn't include alpha bits and is treated as having alpha by the PSP hardware. Other formats such as 5551 don't have their alpha bit set in the cursor buffer. Instead of adding it, we just turn on the 'reverse alpha' feature for these bits. The problem was not making an exception for 5650.
+"
+"07c3de5f7c944bf1b842345452e5b9f1486c89e0","2011-05-02 10:49:29-04:00","SCUMM: Add support for an alternate version of The Dig's demo
+"
+"de2408a624fccc59af6fa99e31f5a34ea2f9fa71","2011-05-02 10:57:23-04:00","MOHAWK: Add detection for the seussabc Mac demo
+"
+"66641da950befc8a1776d6fbcf4083e06a002bc5","2011-05-02 20:11:26+01:00","I18N: Update French translation
+"
+"757bc9727a6c71247e965c34ed7c6608e769268e","2011-05-02 20:12:29+01:00","I18N: Update Polish translation from patch #3296137
+"
+"da15159d6b1ea7e7ce1309766d494af6cf37bf6c","2011-05-02 20:13:28+01:00","I18N: Update Swedish translation from patch #3296202
+"
+"cd9aabfb2dedb716f8f06b02f2af26d8ea6d23c0","2011-05-02 20:13:51+01:00","I18N: Update translations data file
+"
+"63602c4ca2d223fdfbb1fc41439eef73fd22249c","2011-05-03 15:55:40-04:00","COMMON: Fix spelling of 'Philips'
+"
+"5b9c3a1ff87180fbef093e84282ca74f89dc1be6","2011-05-04 01:20:18+02:00","GOB: Plug a leak
+
+Thanks to digitall for finding that one
+(cherry picked from commit 30f7cdb49ac42ecabf7abfb1030319e3ce68e9b4)
+"
+"24341a19bb3d3e682c96696d131bb496ed948f78","2011-05-04 02:26:50+02:00","GOB: Don't overwrite _destSpriteX after PRINTTEXT
+
+Don't overwrite _destSpriteX after PRINTTEXT with a value that's only
+appropriate for monospaced fonts; support for non-monospaced fonts
+has been introduced with Woodruff.
+
+This should fix bug #3295889.
+(cherry picked from commit a1c339ea4f70d4f93310fbece51a6b3348e769f4)
+"
+"db0ea839c11a71ac1589fac30811f8e6268ab195","2011-05-04 21:14:19+02:00","GOB: Add another Italian Urban Runner version
+
+As supplied by alex86r in bug report #3297602.
+(cherry picked from commit 31818ad4fd42c9a0689eed30a44ab7b846e52d1e)
+"
+"cc0d85bc460056a97be32e4949a63b3c200eedee","2011-05-04 21:20:27+02:00","GOB: Add another Italian Fascination version
+
+As supplied by alex86r in bug report #3297633.
+(cherry picked from commit db22f32a446ea31693c3c13f336fae776742e082)
+"
+"9c60ba06bcc01f396e8bbdd1c1bf3879b04f85aa","2011-05-04 23:54:57+02:00","DRASCULA: Handle pitch in code using lockScreen()
+
+The surface returned by OSystem::lockScreen() can have a pitch which
+differs from w * bytesPerPixel, so modify the code to take this into
+account.  Fixes FMV problems on Dreamcast.
+"
+"b2748520bbd2a604784fe5820d115ed007c31db8","2011-05-05 17:43:33+02:00","BASE: Suppress pointless warning message (fixes bug #3291522)
+"
+"dec1fe148e179c2097ba848396061aafe611056f","2011-05-05 20:44:58+02:00","GOB: Fix a stupid typo in SlotFileIndexed::buildIndex()
+
+This should fix bug #3295893.
+
+The intention of this piece of code was to pad the first save slot
+name with spaces until it's as long as the longest save slot name,
+because the scripts use it to gauge the width of the save list.
+Unfortunately, I messed up there, overwriting variable space directly
+after the save names. In Urban Runner's case, this would be the list
+of inventory items.
+(cherry picked from commit 8e03a200ef53ce1e5d20590aae89fae0e640e873)
+"
+"066b3882c6d42b4f5cecdca5415857c20f0c2251","2011-05-06 20:10:50+02:00","BUILD: Disable OpenGL backend code.
+
+The (SDL) OpenGL backend is not ready for the release.
+"
+"16f0dcc00b96db001fad8c6a035576a72540d5dc","2011-05-07 20:08:29+02:00","ANDROID: Get rid of Fn->ALT metakey mapping
+
+Thanks to Ge0rG for the analysis
+
+Cherry-picked from bfecb37501b6fdc35f2802216db5fb2b0e54b8ee
+"
+"490e9a5cefe4fd993b64503cd0d16b496d164086","2011-05-07 22:16:49+02:00","QUEEN: Delete the parser before closing the driver.
+
+Deleting the parser may fire off a series of events, so it's
+probably a good idea to keep the driver open for that. I have not
+seen this error anywhere else, except maybe in the unit tests.
+"
+"869a6d42bdacff730d8d3aff0683a33b58dc5e1b","2011-05-07 17:57:50+02:00","WEBOS: Added comments to explain some WebOS compile settings.
+"
+"73ee6ec702eed0742be525a5015fabd14c9f6bf0","2011-05-07 18:51:02+02:00","WEBOS: Moved webos plugin build configuration into its own block so it can be configured separately from the generic linux configuration.
+"
+"6631cf60db6ecb6b426c2c9c3d5606617ebb4689","2011-05-07 18:52:31+02:00","WEBOS: Removed unused libpdl linking.
+"
+"31d86f90450093123e6dabda2e9503c233541678","2011-05-08 17:36:20+02:00","WEBOS: Added comment for Palm Pixi specific compiler options.
+"
+"894469a50858493b54d28fb64cc6afc4e0b14552","2011-05-08 20:45:50+02:00","WEBOS: Fixed ESCAPE and MENU key on WebOS 1
+"
+"95b548fe9f0f1290d7f17664dd8612c657fe283a","2011-05-08 20:47:12+02:00","WEBOS: Removed unused gestureDownTime
+"
+"cfa4051e7aac14ef3465a4cfd6204412e002453a","2011-05-08 20:56:08+02:00","WEBOS: Splitted install directory from package directory.
+"
+"8ac82fbe0128c3d6607170340a3d45598917940b","2011-05-08 23:27:13+01:00","I18N: Update Basilian Portuguese translation (from patch #3297165)
+"
+"97ba483159d09dc37795c0e7429dd92d8e4501b8","2011-05-08 23:28:12+01:00","I18N: Update Spanish translation (from patch #3298988)
+"
+"371e6177979476d85382fa30f9b419b38b997583","2011-05-08 23:30:02+01:00","I18N: Update translations data file
+"
+"559c7245724b22cb445c9cb853db3958fd03f2a3","2011-05-11 23:02:51-05:00","SCI: Fix signature of script patch qfg3DialogCrash (bug #3300241)
+
+(cherry picked from commit 33b1ca2b080e661f3d04e22ac7a1bd658a66ea80)
+"
+"be5d448dde04a04e8f2b3c199388394f8be7f08b","2011-05-12 12:52:12+03:00","SCI: Fixed bugs #3299458 and #3295849
+"
+"d352c5969a2cb51fb9c786a5570727b2f6764d6b","2011-05-13 00:15:41+03:00","SCI: Marked the sanity check inside processWorkList() as a workaround
+
+The sanity check added in rev #35086fe17c fixes the crashes with that
+code when an invalid reference is about to be processed, but these
+references shouldn't be in the stack at all in the first place, so the
+root cause seems to be somewhere else.
+"
+"40b63320e5898f4634a794ea35005b77591ca420","2011-05-13 00:10:44+03:00","SCI: Added workarounds for bug #3292251, instead of patching the script
+
+This fixes bug #3295853
+"
+"cb8460e92669da540eb54b80c249a7ba1f7df45a","2011-05-13 16:12:52+03:00","SCI: Don't include several debug tables when REDUCE_MEMORY_USAGE is defined
+"
+"7b2792328153024ef8ffd23050393ddb3098f6b0","2011-05-13 23:01:02+02:00","SCI: Avoid incrementing lockers of deleted script
+
+Having a deleted script with non-zero lockers had the side effect of
+making the deleted script re-appear in the GC's work list, including
+any (deleted) objects in the script.
+
+This should be the root cause of bugs #3299458 and #3295849, so
+also delete the workaround added for that in be5d448d.
+(cherry picked from commit c01fed7159c313680e55458efb6529d332ebc8b0)
+"
+"47e7850b91a12a69ff4a65e9f0cf899d6f280049","2011-05-13 23:23:15+02:00","SCI: Fix crash in vo with unloaded superclass
+
+(cherry picked from commit 5fc5265b0d777744e8ff65305ddf0cf2da043204)
+"
+"e7a006f21865dcb15b05b3fc27903dd03a1dd8b2","2011-05-14 00:48:57+02:00","SCI: Hardcode parser output in one case in QfG2 to fix #3288328
+
+This is a stopgap measure to make this work in the release.
+"
+"ea1ef4386a4c76b9910d72aaacd035240005ee46","2011-05-04 14:35:25+01:00","CONFIGURE: Add missing SDL_BACKEND define for the OpenPandora backend.
+
+* Not really sure when/how it got lost but as it's lack  spectacularly
+breaks the backend it is a really good idea to put it back ;)
+
+Thanks to Max for the heads up.
+(cherry picked from commit bd60a289c7748ad6a03299e4fc9d161f31495b43)
+"
+"8fb0d27f957893d3b399ff954b4d4be93b060e3e","2011-05-14 18:04:10+02:00","SCI: Replace QfG2 parser hack with simpler variant
+
+This replaces the workaround for bug #3288328 from e7a006f2 with a
+bug-specific case of the more general patch committed to master in
+eb46c72b.
+"
+"b23dfd72f123c7d98c5076d813e522834888588a","2011-05-14 23:01:08-04:00","IPHONE: Changed the iOS queued event handling to fix mouseclicks in Gob
+
+We now delay the mouseup events for 50ms, rather than just delaying them for an additional couple of pollEvent (which doesn't work anymore due to changes in the eventhandling code elsewhere). This fixes #3018512.
+"
+"26f8321fc986213ec3fdc1dd656c9f9a83f85b11","2011-05-14 16:29:28+02:00","SCUMM: Workaround bug #1463598 (INDY3VGA: giant Henry Jones sr.)
+(cherry picked from commit 47a7b65dc149149ff00baacf9fa76ce0fcaedfd2)
+"
+"136d687dd30b4721127ae359837c8470c95306ec","2011-05-16 00:31:53+02:00","VKEYBD: Update vkeybd_default.zip
+
+Specifically, in vkeybd_default.xml, 'centre' changed to 'center'.
+(cherry picked from commit db068cf8588a2058d49ae5af3d5d247a3353ef8c)
+"
+"a1f02c3f32fb0d6189bdc83aedfe597281afe9cd","2011-05-15 21:43:27-04:00","IPHONE: Fixed mouse position when the overlay is visible
+"
+"5fbc9c92537f0569b316cecaa72b6e01c8b7c39f","2011-05-19 00:29:52+03:00","I18N: Update Russian translation
+"
+"ce69c2e22e2a4efa4b18e92308a123bfd872fba3","2011-05-19 00:30:16+03:00","I18N: Fixed errors and smoothness of Ukrainian translation
+"
+"dd6b5698b181532b37cba41b1475b01813aadddc","2011-05-21 16:01:44+02:00","SCI: Fix probable alt/shift mixup
+
+A check for alt was changed into this check for shift in the
+cleanup commit 906f0248317e1a4167190a666fe308a09334bfac.
+(cherry picked from commit 0da3f8d8a5ecfef54d3580ae5db6a80f6ca2b77a)
+"
+"92a71f7452b83b5491ba0862d8da9f23055fd5bd","2011-05-21 15:45:51+01:00","DS: Port of changes from branch-1-2-0 that I should really have moved into the trunk.
+
+'DS: Prevent the command line help string from being included in the binary.'
+5f3a90a5f6911188b8d1ded08dbdf6d233e9eb7b
+
+'GUI: Allow disabling of Mass Add dialog.  Saves a few Kb of binary size on the DS, and is not particularly useful on that platform.'
+240ff87cf4472538d25a1c5628c8d15f1791ab1c
+
+'GUI: Don't search for theme zip files on startup when running on the DS.  Themes aren't supported anyway, and the search severely delays startup.'
+fe3b18ce0df03117081e83d99f4a2cbd864d3286
+"
+"a9b5d5e2bb2109b4ae08971421623c60df67a223","2011-05-21 15:46:59+01:00","DS: Fix some OPL data which was incorrectly freed from the main heap on the DS port
+"
+"987d966acc72083d1c63926e719ee3198e24ec83","2011-05-21 15:48:44+01:00","DS: Prevent arrays from growing by 32 elements inside 'operator='.  I'm concerned that this could increase memory usage on the DS, but too scared to make the change for all builds of ScummVM.
+"
+"6fdec4dfac164fd131c4e36a67a789b4b17878a7","2011-05-21 15:51:13+01:00","DS: Various changes
+- Enable libmad
+- Remove forced include of scummsys.h, it caused problems in the forbidden symbols code.
+"
+"3ce4b76b0db10fe878305ed1c8b84c6bb1ad4883","2011-05-21 15:54:20+01:00","DS/SAGA: Due to what looks like a compiler bug, having one Common::Array template inside another causes the DS build to crash during Common::Array::resize().  The only fix I can find is to make the internal byte array a normal malloc'ed() buffer.  This way, the code runs fine.  Need to dig into the assembly output for this to find out what's truly going on with the original code.
+"
+"f1903004c06de13e15d3b338986dc0212485f09f","2011-05-21 15:55:36+01:00","GUI: Prevent the GUI code from incorrectly reloading the theme when the builtin theme is used.
+"
+"4076a0466d67d42f093e3e73a30ea48e1e1d59e9","2011-05-21 15:56:42+01:00","GUI/DS: Make 99 the maximum number of save slots displayed on the GMM load/save screens on the DS port.
+"
+"92d0216db18c96c97bb4b57ada76cf532838cf5b","2011-05-21 16:01:26+01:00","Merge branch 'branch-1-3-0' of https://github.com/scummvm/scummvm into branch-1-3-0
+"
+"5838ef6719f5658dfcb381fbec1ddb7625db58cc","2011-05-13 21:09:31+03:00","SWORD25: Fix compilation when libvorbis is not present
+
+(cherry picked from commit 2d3ad096ab92a6ddcd2b14436937649bbabcd12f)
+"
+"793849c97480da2e2f9b0b08e004d33205984bc2","2011-05-23 23:19:44+02:00","TINSEL: Fix bug #3306020, DW2: Crash On Entering Sewers
+
+This is the cowardly fix that reintroduces one of the variables
+that was removed by a cleanup on April 10.
+"
+"7a9fe3f855e9d9a53253cec4dde6bb30dce24e41","2011-05-24 14:04:05+02:00","BUILD: Add msvc8/9/10 build files.
+"
+"96519ad939fab21d07727662aa28a059a3c1d510","2011-05-24 11:44:59-04:00","PS2 backend: Modified and tidied up Makefiles for 1.3.0 release
+"
+"48b4c6c9233b05843a16504064adbe5fd6f4c57c","2011-05-24 20:32:08+02:00","SAMSUNGTV: Update port
+
+This combines the following Samsung TV port updates from master:
+
+944e0be209f5ab47c3b903f258d2d41b990d80cb
+dc1d07774fc8ab0554047115d319ef8c0a2c3f63
+
+It also includes the parts touching this backend of:
+
+69b1485a22dc2b8a2cfe0bd10edcbaad0da0cf6e
+2fa63ca01586c4e5fda8eb12dca444d47a2375f1
+"
+"725db142bc4b16c930e46e03394611d7a625bbaa","2011-05-24 20:58:36+02:00","SAMSUNGTV: Fix build on non-SDL platforms
+"
+"709f0de5c5910e0326ae6e45804526b5c9a9102d","2011-05-24 21:32:24+02:00","SAMSUNGTV: Fix build
+"
+"2b112287344bb7324f0824b5836fcd0af77fcb33","2011-05-24 22:32:03+01:00","I18N: Update translations.dat
+"
+"1c2e531ebd5a6e562d4d37932030f413281cb474","2011-05-24 22:37:46+01:00","RELEASE: Specified release date for 1.3.0
+"
+"b152eca029b7a2ca8c4f343edf3787a28433435e","2011-05-24 22:39:01+01:00","RELEASE: This is 1.3.0
+"

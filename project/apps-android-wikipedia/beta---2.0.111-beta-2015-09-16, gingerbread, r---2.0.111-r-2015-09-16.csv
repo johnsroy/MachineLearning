@@ -1,0 +1,553 @@
+"commit id","commit date","commit message"
+"807936ade7a095de3a00bf7e8fca04284dfafdae","2015-08-31 21:06:04-07:00","Force LTR layout in English-based elements of About activity.
+
+Per Matanya's rationale in T110914, elements of the UI which are exclusively
+in English, even when the app is in an RTL language, should be hardcoded to
+LTR directionality. This patch does so.
+
+Bug: T110914
+Change-Id: I59883a71d88fc24d7eab37b466deb8b11986adc5
+"
+"f797afad1477820f2977da05d6afa8c7f41c6284","2015-08-31 21:13:43-07:00","Add Matanya Moses to credits.
+
+Matanya's made a lot of contributions to the app, manning OTRS queues,
+performing user research on the link preview feature, filing tasks relating
+both to the app generally and also its handling of RTL languages. He deserves
+the recognition.
+
+Bug: T110914
+Change-Id: I4f525d537e751a97c271abd79df8994612b54457
+"
+"f1c2e2bb0eb11d051a9d73cab48aefd6984805f6","2015-09-01 15:11:56+00:00","Merge 'Force LTR layout in English-based elements of About activity.'
+"
+"34221c8cf2c6f66ab70ed6c1a4cd2c23668ae556","2015-09-01 23:35:50-07:00","Hygiene: move variable outside for loop in SavedPagesFragment
+
+This patch moves a variable which doesn't depend on the loop counter outside
+of the for loop. This was recommended by BearND in the patch that implemented
+this functionality.
+
+Change-Id: I51c51140c9efe9a01c518c6060d5a4e7e7f1758e
+"
+"0a9290ede1671e06a4468392c6a20f9d52236506","2015-09-02 09:39:05-06:00","Remove LDPI assets
+
+* Remove all LDPI assets.
+* Remove LDPI support from convert-icons.py.
+
+It's hard to find LDPI devices these days. The actual LDPI usage metrics
+for the app aren't in the Play console but the global Dashboard[0] shows
+that the density comprises 3.9% of devices across all versions of
+Android. This patch removes LDPI targeted asset cuts and saves our users
+some bandwidth.
+
+[0] https://developer.android.com/about/dashboards/index.html#Screens
+
+Bug: T108861
+Change-Id: I0db83a94f6dfe9baa9696a952168ad91852c9104
+"
+"f529b1acb9e53acb14196d5da0c288f3d9e40e7f","2015-09-02 17:48:46+00:00","Merge 'Remove LDPI assets'
+"
+"69ada7109003f3757b5244143e9b3a7e20426180","2015-09-01 14:24:44-04:00","Suppress link previews for non-mainspace links
+
+Currently, link previews are shown for non-mainspace pages (including
+File, Wikipedia, and Portal), which isn't the behavior we want.  This
+patch adds a check for null namespace (i.e., mainspace) before showing
+a link preview.
+
+Bug: T108377
+Change-Id: Ic6f29c2f25762d004f32bcbd8cc9142b1f3cd0fc
+"
+"6996a9569f8e3eff5e1cf5038b3d01636589faac","2015-09-02 15:13:18-06:00","Add exceptions to TranslationTests
+
+* Exclude snackbar_saved_page_format app_store_description from
+translation tests.
+
+TranslationTests.testAllTranslations() failed because a format specifier
+was added to one string, snackbar_saved_page_format. This failure is a
+false positive as it is always safe to add a format specifier, but not
+usually safe to remove one without updating all translations since the
+argument would not be supplied in the Java code. As a workaround, the
+string has been excluded from the tests until T110243 is fixed properly.
+
+Additionally, app_store_description should not be tested and is excluded
+until T91971 is fixed properly.
+
+Change-Id: I489f7a2b93485283847a1f3893ab499d70d07f42
+"
+"59ca2ac9468b929175b57757273877bc4e8ffb22","2015-08-19 23:52:26-06:00","Use Retrofit for direct mobileview page load
+
+* Added new library + license info + ProGuard rules
+devRelease apk size difference:
+before: 3,812,413 bytes
+after:  3,852,942 bytes
+= +40KB
+* Implemented PhpApi Retrofit service endpoint
+* JsonPageLoadStrategy ApiTasks converted to use Retrofit callbacks
+* New Gson POJOs for PageLead and PageRemaining
+* PageLead Gson parsing had an issue with the protection field
+--> had to use custom JSON deserializer for the protection field
+due to T69054.
+* pageLead request uses formatversion=2 to make handling boolean values easier.
+pageRemaining doesn't have any booleans, so not needed there yet (but probably wouldn't hurt).
+* section: ArrayList -> List
+* new Section(json) -> Section.fromJson(json)
+* Retrofitted RefreshSavedPageTask functionality
+* Get Main page for widget (also added slight optimization)
+* SectionsFetchTaskTests -> PageLoadTests
+* Removed SectionFetchTask
+* Add noimages flag (have to skip sending the parameter when false
+since the MW API takes the mere presence of the parameter as a true value)
+* Add W0 mcc-mnc enrichment header
+* Add other custom headers
+* Get W0 X-CS header
+* Use OkHttpClient cookie handler and cache
+* Cache the RestAdapter's output the service object since this is a memory intensive object.
+See http://stackoverflow.com/questions/20579185/is-there-a-way-to-reuse-builder-code-for-retrofit#answer-20627010
+
+I started most of the POJO files using jsonschema2pojo.org. But manually updated them to
+introduce the static inner classes, added some convenience methods; and, of course,
+last but not least add the custom deserializer for the MwPageLead.Protection object.
+
+The parts I don't like are the extra de-/serialization steps in Section.java. I think it's probably better to leave that
+to use org.json.JSONObject parsing instead of using Gson since we pass the former over to the JS bridge.
+Now toJSON() builds a new JSONObject just for that. Oh well.
+
+The code is already structured so that it's easy to plug in a new way of loading page content through RESTBase.
+It was a bit rough to genericize regular Retrofit interfaces which are used to generate the Retrofit endpoint functionality.
+If it wasn't for that this code would have been quite a bit simpler and more standard Retrofit. Sorry, Jake.
+
+Change-Id: I0ea27355780f8d1550b743714454b5fe701d4490
+"
+"0199711dacaf22bfc4834e0c00e679d7891e50e0","2015-09-01 17:56:37-06:00","Use RESTBase Mobile Content Service to load page content
+
+This is for full page content using lead/remaining requests, as well
+as for loading a full page in a single request for saved pages.
+
+Refactored the unit test for PageLead so most of the code can be
+reused by both variants.
+
+Bug: T102274
+Change-Id: I78fda5c997e960b0871cff66fd7e3220d80e16e8
+"
+"09d5dc372e5c1a398552168aa11e7d1ae05e72cf","2015-08-30 23:54:19-06:00","Developer preference for Retrofit log level
+
+Now you can change the log level without having to change code.
+After you've changed the log level for Retrofit in the Developer settings
+and restarted the app, requests and responses will be logged with the given
+LogLevel.
+
+See retrofit.RestAdapter.LogLevel for details about the different settings.
+
+Change-Id: I546f1cca8b4c2ce75e4a550280fa3ad9fc09bbc9
+"
+"c8e8fbc64033e5007041e8f67c627713cfb7dc6a","2015-09-02 12:29:01-06:00","Developer preference for RESTBase base URI
+
+Now you can change the base URI for the request done using the RESTBase service.
+This is useful when you want to test the latest Mobile Content Service
+changes on your local machine, i.e. changes that have not been published to production yet.
+
+For production RESTBase it uses %1$s://%2$s/api/rest_v1 by default
+Lab machine (merged code): http://appservice.wmflabs.org/%2$s/v1
+Local dev env for Mobile Content service: http://host:6927/%2$s/v1
+
+Change-Id: I9dd21070886cdc59a576deb25c45941658a62cf4
+"
+"6e9703c3dd14d34ac983a1f44b86bd4baa0afaa0","2015-09-02 19:01:18-06:00","Safer RbService error handling
+
+When we open an invalid page it was crashing before,
+with exceptions in multiple places.
+
+Also added a few missing @Nullable annotations.
+
+Removed unused constant in Page class.
+
+Change-Id: I2cce8be6aab3c4ea61778b525ebeac09be76691c
+"
+"b33231d11f7176a7f89b727d9c6735f5a6e2fafd","2015-08-05 17:54:26-04:00","Check if page is saved in DB when preparing 'save page' options menu item
+
+Currently, the app doesn't reliably know when it's on a saved page. To fix
+this, I removed the existing code dealing with page save state[1] and
+implemented a check over the saved pages in the database when the options
+menu is prepared to determine whether the current page is in fact a saved
+page.
+
+[1] This previous code did not actually keep track of page save state but
+set it as saved when navigating from the saved pages fragment or when
+refreshing after saving a page. As such, it failed to detect when the user
+navigated to a saved page from other sources, e.g., an ordinary search.
+
+Bug: T102293
+Change-Id: I95ae9c11f1b29b16320359c8f0f0de52ecb3abc0
+"
+"50d40e245ddc43bd064cc1f40b78c4a86cca44ec","2015-09-04 20:34:53+00:00","Merge 'Check if page is saved in DB when preparing 'save page' options menu item'
+"
+"e61ae2a3e8f015dc537a13691e859be4798639f6","2015-09-04 21:03:20+00:00","Merge 'Suppress link previews for non-mainspace links'
+"
+"c60ed9521b22e3314438b77f642e8d11e5c9d43a","2015-09-01 17:59:10-04:00","Preserve background colors of compound images in dark mode
+
+This patch eliminates the CSS rule setting all image backgrounds to #fff
+in dark mode, which improperly cleared out some background colors.  With
+this patch, the background is instead set to white using JavaScript if and
+only if another background color is not specified for the image (or an
+ancestor).
+
+This patch ceases the recently introduced (see T104101) halving of
+RGB values for background colors in night mode to avoid introducing
+undesired shading.
+
+Finally, this patch removes a substantial amount of color inversion
+logic from night.js to no apparent ill effect.
+
+Depends on MobileApp patch at https://gerrit.wikimedia.org/r/#/c/235505/.
+
+Bug: T85646 T108333
+Change-Id: I442a5555580cfd5537d6a258808deeb1d712efb2
+"
+"517eb0fa9f4a7eec74c7c338a63c2adc085e1a4b","2015-09-08 13:35:01-04:00","Don't let find-in-page IME action dismiss the find context.
+
+Previously, when inside the find-in-page context, the keyboard IME action
+was 'Done', and had the effect of exiting out of find-in-page. This patch
+changes the IME action to 'Search', and no longer closes the context when
+the action is pressed (it just dismisses the keyboard).
+
+Bug: T109034
+Change-Id: I830f90aa50b1be699744106e472a138920d33659
+"
+"014e911cc1834921ce428e35ba1abc1b23187a1f","2015-09-08 19:24:17+00:00","Merge 'Preserve background colors of compound images in dark mode'
+"
+"a5464b473e6d82e635552c6ff2f40b0ba75b847a","2015-08-11 18:09:49-04:00","Refactor JavaScript transforms
+
+This patch restructures our JavaScript transforms to separate them out
+into individual files under /transforms.  This is for ease of analysis and
+to mirror the structure followed by iOS, facilitating future code sharing.
+
+Bug: T104722
+Change-Id: I4286ca41393789ce6e241d699310af90a8ad08c5
+"
+"ece03413a5ecf93125c8c8255855102be841b7bb","2015-09-08 16:27:30-04:00","Hygiene: Rename invertNightModeElements to addDarkModeStyles
+
+Updates the file name to reflect what's actually happening.
+
+Change-Id: I236f7f029ee5862606c8bf7bd033904f040c3b4b
+"
+"eaf7469f913ab117283a172132da8129b54b7435","2015-09-08 22:45:18-06:00","Hygiene: upgrade Gradle to v2.6
+
+Change-Id: I6b096abdcb1fc549aa712d2fabc56bd9f1d667bb
+"
+"e1bf3706c321add4baf782ac62b548f1e2ba4f14","2015-09-08 22:47:35-06:00","Always use white background for tab icons
+
+Tab icons are sometimes transparent. In these cases, they often appear
+best on white backgrounds. In night mode, a white background color must
+explicitly be set. We've made similar changes for other images.
+
+Change-Id: Iadc06862d45c043ed1ce61918ffa50b80f0d9b1b
+Example: National Assembly of Pakistan
+"
+"a3171c238672f2cf217447e1a287a142887ef356","2015-09-09 16:46:20+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I5056112156f20aca994b38d888c041c6047dda62
+"
+"e9aed1af074e13abd51b26532ce025a1997a7bbe","2015-09-09 16:46:56+00:00","Merge 'Hygiene: Rename invertNightModeElements to addDarkModeStyles'
+"
+"fe27a31550980fc1ac56ee689d3fc4a81dfc2764","2015-09-09 17:15:45+00:00","Merge 'Safer RbService error handling'
+"
+"b106356fc652d7aade86701a9dc3f403c0a070a9","2015-09-10 10:40:24+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ia8ce7f191a300caa94471cae73f5d4192c510bf6
+"
+"17367e9652e2e53b803b588770a7b7d6353baf92","2015-09-10 10:22:13+05:30","Network error message updated
+
+Change-Id: I28d74dee7b947b0e58c86332afbb8e21836f18db
+"
+"800a4be359c787cc1c437c97215b893181effe47","2015-09-10 21:22:53-07:00","Hygiene: change if statement to switch statement
+
+This patch changes an if statement to a switch. Switch statements on strings
+are supported on JDK 7+ (which we now use), and can generally be optimised by
+the compiler for performance, so this change should improve performance
+marginally as well as increasing code readability.
+
+Change-Id: Ie6b9dc8aa272a43231b4cc4466485ba175a8af60
+"
+"aff9388dcc036d32230580e0d3ecc87ceebe9715","2015-09-10 21:27:02-07:00","Hygiene: remove field that's assigned to but never read from
+
+The openedViaSwipe field to is assigned to in a few different places but the
+value is never read, so its presence is redundant. This patch removes it to
+reduce code clutter.
+
+Change-Id: I7b3a6ab77e7e9ac6566de264c403f8d5aa657976
+"
+"ce86326663637faad86b8b2d7ad2ab45a621f332","2015-09-11 14:04:33+00:00","Merge 'Network error message updated'
+"
+"96b843a19f0263695c3835b83704fe3e0defec7b","2015-09-11 14:16:20+00:00","Merge 'Always use white background for tab icons'
+"
+"076286fd6ec720a2ec62944bc46f8de67efc1a14","2015-09-11 14:47:19+00:00","Merge 'Hygiene: upgrade Gradle to v2.6'
+"
+"96dca983c8c34f65ecb3c3ec1f1058b1ac0629c2","2015-09-11 14:54:23+00:00","Merge 'Hygiene: remove field that's assigned to but never read from'
+"
+"b8f67de607a154ca9802f07702f8fb14f7d54930","2015-09-10 10:39:18-04:00","Fix possible crash in install referrer handler.
+
+This fixes a possible crash when receiving the install referrer intent
+after the app gets installed, and also modifies the logic slightly, so
+that the event gets logged only if there's at least one nonempty parameter
+passed to the receiver.
+
+Based on the data collected so far, it looks like the Play Store often
+issues the referrer intent with an empty referrer (i.e. even if the user
+hadn't reached the Play Store through a referrer link), so we don't need
+to log those events.
+
+Bug: T112101
+Change-Id: I1e793b00126a4e6b9c4989fa130fcf0f17c74fbf
+"
+"deeea3e9593a13758c12d2bd18ae03517b61e764","2015-09-11 15:20:13+00:00","Merge 'Hygiene: change if statement to switch statement'
+"
+"cfd1395d6c7a8f6933b9f8a4a0502fd14110d590","2015-09-11 15:25:23+00:00","Merge 'Fix possible crash in install referrer handler.'
+"
+"e237196b3485705179c6d85e092f5856afa71396","2015-09-14 10:00:38-06:00","Fix NPE in PageLoadPerformanceTests
+
+Minor refactoring of PageLoadPerformanceTests to replace member
+variables with locals. CI reported a rare test failure[0] I hope the new
+nonnullness guarantees fix.
+
+[0] https://integration.wikimedia.org/ci/job/apps-android-wikipedia-test/20/artifact/logcat.txt/*view*/
+
+Change-Id: I28aa725812e895d808628df8235fa05a76c336a7
+"
+"cdc1d27437c8cc1b7fb6b9082ab829e091830ea3","2015-09-14 10:54:12-06:00","Share code between instrumentation and unit tests
+
+* Add new shared sources directory, testlib. Both JVM JUnit tests and
+Android instrumentation tests can import from testlib but no non-test
+code can. Update Checkstyle configuration.
+* Move TestConstants and TestLatch to testlib. Update Java imports.
+* Bump test timeout duration out to 60s for slow Jenkins.
+* Use TestLatch in PageLoadPerformanceTests.
+
+Change-Id: I90ba29d9b4236174de9e0b32f0ecb8ad31e66c02
+"
+"a7f5129613b5f7d21604f4d09c0784326e30f7f1","2015-09-14 16:30:52+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: Ia59aa6bd62ca8e92b00c834be90e68da18cb4ff1
+"
+"b2b547bf5bf625e3794e6cb0812e1b85351d080a","2015-09-11 21:03:28-07:00","Hide floating action button whilst using find in page
+
+Currently the floating action button remains visible when using find in page.
+If the user has activated find in page they've displayed a clear intent such
+that the floating action button is redundant. This patch hide the floating
+action button whilst the user is using find in page, and makes it visible
+again afterwards.
+
+Bug: T111859
+Change-Id: Iebfb82e8fd48d33c7707d603204a62b7bb7f0858
+"
+"f7167243c36131b05f4c91910c026e1d018054f1","2015-09-14 08:54:14-04:00","Fix sequencing of logged session events in ShareHandler.
+
+In looking at the data from ShareAFactFunnel, I noticed that the session
+ID always changes between the 'highlight' and 'sharetap' events, which
+breaks the expected continuity between these events.
+
+This fixes it so that the session ID remains constant between the
+'highlight' and 'sharetap' events.
+
+Change-Id: I78e1ec3e2ba021037811385295f546b7f029c303
+"
+"19e6d23f99f1a47b01130756fc4c388bd944e3ad","2015-09-14 10:35:25-04:00","Fix sharing of links in Gingerbread.
+
+Our method of removing 'blacklisted' intents from the system-provided
+intent chooser doesn't seem to work in GB. It's supposed to work by
+initializing the chooser with one of the actual intents that will handle
+the link sharing, and then adding the rest of the intents using the
+EXTRA_INITIAL_INTENTS parameter. Neither of these things seems to have any
+effect in GB.
+
+Therefore, in GB, we'll just show the chooser with the blacklisted intents
+included (a tradeoff we can live with).
+
+Bug: T111583
+Change-Id: Idaedfcbe1f9e576f8a79c3a44bfe78a6034dc8fb
+"
+"bdb1c75a439bdc06c660b419a70442b61d6bd7bc","2015-09-14 17:56:01+00:00","Merge 'Localisation updates from https://translatewiki.net.'
+"
+"694f0718ff46728511f236ffefd87919ac03bb82","2015-09-14 18:00:57+00:00","Merge 'Fix sharing of links in Gingerbread.'
+"
+"c6f1959e596e521473f0720e19fc0296d65ac518","2015-09-14 18:43:00+00:00","Merge 'Hide floating action button whilst using find in page'
+"
+"b39da07c96fe6dbea5899cde87db56d63391db48","2015-09-14 12:20:03-04:00","Fix possible crash when dismissing link preview when activity closed.
+
+We call dismiss() as a possible result of an AsyncTask, so if the task
+takes a long time, then dismiss() might get called after
+onSaveInstanceState() has already been called, which would produce an
+exception.  The AsyncTask tries to handle this by checking for isAdded(),
+but this seems to keep returning true even after onSaveInstanceState().
+
+This patch overrides the dismiss() function and adds a check for
+isResumed(), which actually checks whether this fragment is within the
+'live' state (between onResume and onPause).
+
+It may be worthwhile to see if isResumed() should be used instead of
+isAdded() in other places, as well.
+
+Bug: T112518
+Change-Id: I27cf59b5ccb017600b4b4e9289d94f8c5862aeee
+"
+"68c440515dbed76ee3ef33cd1d117fe023e1f123","2015-09-14 23:09:12+02:00","Replacing 'internet' with 'Internet'
+
+Typo fixing.
+
+Bug: T112584
+Change-Id: I060e06dbb6f08ee0742e5e2c976b2435748d82fd
+"
+"c9b8476de8453cf448105c15007fa3444da80513","2015-09-14 16:20:37-04:00","Hygiene: remove old migration logic.
+
+Bug: T109196
+Change-Id: I376406c312bda1c8eca96232a25a80e186a6b8b8
+"
+"6e9a4503cfb15fccad1b27afbf9c618f1036fdae","2015-09-14 21:27:50+00:00","Merge 'Fix possible crash when dismissing link preview when activity closed.'
+"
+"816d8d52063bbf0b60c82749b484b7164f5dd143","2015-09-14 21:41:03+00:00","Merge 'Hygiene: remove old migration logic.'
+"
+"46ff83144677265f9c237a4d17527e82d64a6b93","2015-09-15 08:57:25-06:00","Hygiene: upgrade Gradle to v2.7
+
+Upgrade Gradle to 2.7 and regenerate the wrapper and wrapper jar[0]:
+
+> If you generated your Gradle wrapper with Gradle 2.6, we strongly
+recommend you regenerate your gradle-wrapper.jar with Gradle 2.7. The
+new checksum validation feature added in 2.6 introduced a serious
+performance degradation in the Gradle wrapper. This issue affects the
+startup time for any gradle execution via this wrapper. This issue has
+been fixed in 2.7.
+
+[0] https://docs.gradle.org/current/release-notes
+
+Change-Id: Ic11bd962abd0ee944cce5b70f18887137f4bff17
+"
+"5eb86330b6c97cf21eef4e4025eff22bcf5d3024","2015-09-11 17:02:31-04:00","Don't hide tables on the main page
+
+As a result of previous refactoring, the hideTables transform was
+mistakenly added outside the check to ensure the current page was not
+a project main page.  In fact, the transform should only happen off the
+main page since main pages often include special, project specific
+content and formatting.
+
+This rectifies that.
+
+Change-Id: Ie0ec21dafd3947b55d6b9199981c164a5819e75a
+"
+"814954b1f6cc863f6537abfcdfb97dc15ec9b86a","2015-09-15 16:28:35+00:00","Merge 'Don't hide tables on the main page'
+"
+"c0ac396178ae15f48c5aea3d33fc84dfc675cae6","2015-09-09 18:36:57-04:00","Refine handling of transparent image backgrounds in dark mode
+
+The previous patch submitted on this issue (see
+https://gerrit.wikimedia.org/r/#/c/235507/) left at least one instance
+in which image colors were being improperly stripped; see Manchester
+United F.C. > Kit Evolution.
+
+Hence, just checking the image node and all ancestors for a background-color
+style element isn't sufficient.  So with this patch, a white background is
+added to each img element that:
+
+(1) Is not nested in a table, unless that table is the infobox and the
+element has the class name 'image'; or
+
+(2) Does not have the style property 'background-color' or an ancestor with
+it.
+
+And with this, you may examine soccer jersey colors in dark mode to your
+heart's content.
+
+Bug: T108333
+Change-Id: I350a71d51dd5a452f85c28ef7ef45807455119b1
+"
+"d79f5f455198bd7013d5e7321d00d7f38309a896","2015-09-15 11:50:11-06:00","Allow scrolling when dragging across lead text
+
+TLDR: Disable text selection of title and subtitle TextViews so the
+WebView can handle the touch events.
+
+The lead title and subtitle TextViews allowed text selections. Text
+selection was desirable but had the side effect of stealing the scroll
+touch events from the WebView.
+
+As a work around, I tried always returning false in
+TextView.onTouchEvent() but while this allowed both text selection and
+scrolling, it more often than not allowed both to occur simultaneously
+which was a poor experience.
+
+The proper implementation seems to be to put the title container within
+the WebView (a ViewGroup, after all), or to create a reusable 'TouchFilter'
+ViewGroup and wrap the WebView and title container, and implement
+ScrollView-like functionality. I tried this approach from a couple tacts
+but it proved nontrivial to implement natural scrolling robustly.
+
+In one approach, I used SimpleOnGestureListener in
+ViewGroup.onInterceptTouchEvent() to listen for scroll and fling events.
+Since the TextViews don't scroll or fling, I would manually route these
+to the appropriate scrollBy() / flingBy() methods on the WebView and
+then intercept subsequent ACTION_MOVE events. This sort of worked but
+just didn't feel right. The scrolling felt off because it happened once
+in the OnGestureListener callback with any remaining scrolling happening
+in ViewGroup.onTouchEvent().
+
+In another approach, I recorded the y position on down events in
+ViewGroup.onInterceptTouch(). In subsequent move events, I checked the y
+against a scaled touch slop to determine if it was jitter or a scroll,
+with the latter returning true. This sort of worked but suffered the
+same unnatural feeling as the first.
+
+Bug: T97504
+Change-Id: I9e545c9a811840382ab11a022375bbcaf60825fd
+"
+"d04cd2d6024c74749a15eee18fb7a8b3af44ef0e","2015-09-15 13:46:33-04:00","Make references expand/collapse again
+
+An omitted export in collapseTables.js made the function that handles
+table collapsing/expanding unavailable to hideRefs.js.  This fixes that.
+
+Also, that function is renamed to describe itself in more accurate, non-
+Java-like terms.
+
+There's a further DRY opportunity here in collapseTables/hideRefs but
+I'll save that for a follow-up.
+
+Bug: T112208
+Change-Id: I7310075defb6bf50c8e81c6ac624efe086665dae
+"
+"215e785377f359201f05f43057731ff0f2b89c06","2015-09-15 18:49:43+00:00","Merge 'Hygiene: upgrade Gradle to v2.7'
+"
+"1a6ec503c45b6e43ef55881616534831f533f7f2","2015-09-15 19:21:58+00:00","Merge 'Share code between instrumentation and unit tests'
+"
+"b7c2d930217c9ecf13bc3f70ba07ed14d6d6a8aa","2015-09-15 20:10:34+00:00","Merge 'Make references expand/collapse again'
+"
+"01695c1fa1173d309c602f2bd8278ad6bbc8fe78","2015-09-15 20:27:29+00:00","Merge 'Refine handling of transparent image backgrounds in dark mode'
+"
+"afe1ef6a6653216b15d84ade6105d6d24abbfcd4","2015-09-15 20:22:08-04:00","Fix possible crash due to race condition in page loading.
+
+Since we exchange data with the WebView asynchronously, our page loading
+logic uses a 'sequence' number that our callback functions use to
+determine if something is out of sync (e.g. when a new page is loaded
+while the previous page hasn't yet finished loading), and this all works
+correctly.
+
+...except we also have an asynchronous method of laying out our lead image
+container, including the page title and description. The callback for this
+functionality did NOT take the sequence number into account, which allowed
+for a small window of time where a new page could be loaded while the
+layout was in progress, which would throw the loading process out of
+whack.
+
+This patch intertwines the sequence number into the lead image layout
+callback mechanism, and hopefully closes this remaining gap.
+
+Bug: T112519
+Change-Id: I5fcbe1316a5fecad90e1c97ee582df4c082dc063
+"
+"c1d17ca929faabffb3f789802c1628b07f2aa60e","2015-09-16 12:47:52+00:00","Merge 'Allow scrolling when dragging across lead text'
+"
+"dc81521738746c77c4f4fa1af461bf45660c9ef6","2015-09-16 08:25:56-04:00","End a/b test and feature flag for link previews.
+
+Change-Id: I2f9bfede0a809c3cbf49d481876a1008e281545a
+"
+"a157b5c1fe5f9ace4675ba5d0c762174d4a031a1","2015-09-16 13:59:57+00:00","Merge 'Fix possible crash due to race condition in page loading.'
+"
+"5603ba1b6143f3b039dbc3ae59e731460e114230","2015-09-16 14:03:47+00:00","Merge 'End a/b test and feature flag for link previews.'
+"
+"b97d0cd00f4c4fb932e9fc087334dfe779c59be3","2015-09-16 08:46:02-06:00","Bump versionCode
+
+Change-Id: I59804a3b3ee6c856cd45d9cdbc5b0bc1ed5ef0d0
+"

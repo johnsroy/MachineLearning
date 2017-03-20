@@ -1,0 +1,35 @@
+"commit id","commit date","commit message"
+"a29714ef81345170364347818c8383b3738cc93b","2013-08-11 01:50:55-05:00","build: Changed version string to debug
+"
+"0d0b7f8e9e2e69e670a38a16e4b9bf483b0a4b39","2013-08-19 19:26:09-04:00","gles2n64: Fixed frameskip-config regression.
+
+This commit fixes Issue #272.
+
+Auto-frameskip regressed in commit
+ae8db02bbe96d842809f8e007557da3654a08496
+
+Basically, that commit made gles2n64 use an obsolete code path whenever
+auto-frameskip was enabled.  In that commit I changed how the frameskip
+setting was read, using the config file rather than JNI. In that commit
+I created a new config file field (maxFrameskip) but reused an existing
+one (autoFrameskip). But that was a mistake because the autoFrameskip
+field was already being used, in a way that had an entirely different
+meaning.  Prior to that commit, autoFrameskip always had a value of 0
+(since we didn't explicitly set it) which made gles2n64 use Yongzh's
+FrameSkipper class (which encapsulates both auto and manual skipping).
+When autoFrameskip was set to 1, gles2n64 used some legacy frameskip
+algorithm that Yongzh's FrameSkipper class superseded.  So basically I
+hijacked an existing flag and tried to give it a new meaning without
+understanding its original meaning.
+
+This commit fixes the regression.  To correct the problem and avoid any
+further confusion, I just removed the legacy autoframeskip algorithm
+altogether, always using Yongzh's much better algorithm, which is
+encapsulated in the FrameSkipper class.
+"
+"9e6b8caedd96e9956a13c306d90205938d0d9cee","2013-08-22 08:37:22-04:00","doc: Updated changelog.
+"
+"1b2196d27c953a574564caaba4a6c431f5bd11b8","2013-08-22 13:43:15+01:00","res: Updated translations.
+"
+"200aec312554b04b90fef05fe331d0dbed1fb2ff","2013-08-22 20:02:27-05:00","build: Updated version in preparation for 2.3.4
+"

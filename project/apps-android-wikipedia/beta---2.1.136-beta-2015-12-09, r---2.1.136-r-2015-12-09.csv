@@ -1,0 +1,197 @@
+"commit id","commit date","commit message"
+"3d054e26ff1d6819a3ffe698d02237f28938cc2d","2015-12-03 16:00:51-07:00","Hygiene: update bump version script to Python 3
+
+Easy fix. Just change one missed print keyword to functional notation.
+This change appears to be backwards compatible with Python 2 without
+future imports.
+
+Change-Id: I7f6d6fadca53a36748f99f0c0b398b9d17f552e5
+"
+"570cebf8ebef0c2a532f398c8649346f34292b49","2015-12-04 18:12:58+00:00","Merge 'Hygiene: update bump version script to Python 3'
+"
+"af252765b5066eaa65d720efd3c647e8a868a6d1","2015-12-04 15:23:44-05:00","Fix possible crash(es) in link preview AsyncTasks.
+
+Bug: T120392
+Change-Id: Icfbb7ca8728d7f606c3a71883ef9e7d737cebb66
+"
+"e074552b12e547a998811f87e2349151da6c90d3","2015-12-04 20:44:38-07:00","Workaround Mapbox View ProGuard rules
+
+Untested.
+
+Bug: T120388
+Change-Id: I95192d0e79787479f9d5d77ca84b67cbd00929d6
+"
+"61c1306d9881509b3c448fb5c9c33273371bf116","2015-12-04 21:25:30-07:00","Hygiene: upgrade Mapbox SDK to v2.3.0
+
+https://github.com/mapbox/mapbox-gl-native/releases/tag/android-v2.3.0
+
+Change-Id: I29134129ba91c1509fb2ed2776c7a551217f1806
+"
+"db5a2395cd0de6aa8a33cf605c407c9431949526","2015-12-07 16:16:52+00:00","Merge 'Fix possible crash(es) in link preview AsyncTasks.'
+"
+"0cff9c280c9f70bd2154aebf3ce96faa345883d0","2015-12-07 09:45:01-07:00","Guard against NPE
+
+Check for a null page in LeadImagesHandler.beginLayout().
+
+Bug: T120389
+Change-Id: I9497186a01273d569f5d43ad1eb2dc8596e38657
+"
+"4ae823a068b8952f54ac053dd6b7c81c96e8943e","2015-12-07 16:46:22+00:00","Merge 'Workaround Mapbox View ProGuard rules'
+"
+"ac67176c264bf50610f0b457468deba64a7fcb36","2015-12-07 16:53:27+00:00","Merge 'Hygiene: upgrade Mapbox SDK to v2.3.0'
+"
+"9d9937d043754c388c13204f2f101cf7daa8e78d","2015-12-07 18:09:51+01:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I1e2677bd64482724c1b57c7b2ee5aa628b0dac71
+"
+"9ff06ce09c5ad9a04aa162702cf607e5a57ea89e","2015-12-07 18:54:34+00:00","Merge 'Guard against NPE'
+"
+"e53381bc735dc6e2b0d25b6a9e6ef1573ab56ca0","2015-12-07 12:31:13-07:00","Fix saved pages database crash
+
+The page namespace column is unavailable prior to app database v6. This
+patch checks the database version and uses the namespace if available,
+null (mainspace) otherwise.
+
+One method of reproducing the bug is to save pages with spaces on
+r/2.0-r-2014-08-13 and upgrading to master.
+
+Bug: T120663
+Change-Id: Ia57de63911c2204b4814a376e874a8aa38ffcd61
+"
+"10c0202c96fca890f3e35ec93436d10149e6dfed","2015-12-07 13:58:37-07:00","Temporarily lessen tab unmarshal failure penalty
+
+For nonproduction builds, temporarily allow problematic tabs to be
+discarded and tabs in the new 6191e5e format to be written.
+
+Per 59dce5f, in nonproduction builds the penalty for remote logging
+should be death. The thinking was that if it's worth burning user data
+and engineering parsing time, it's worth crashing on everything but
+prod. A TODO has been added to revert this patch when the next beta,
+2.1.135 is published.
+
+Change-Id: I86d08d4a48c591b7a2a415ab92b0b6bcfe46f069
+"
+"fcb93eba737159fba7d1a3261fe18bd25809a9a5","2015-12-07 21:39:25+00:00","Merge 'Temporarily lessen tab unmarshal failure penalty'
+"
+"6ab940645b98f1775507c532b419b85a95cf0cfe","2015-12-08 09:54:06-05:00","Improve handling of fragments in redirected search results.
+
+1) We no longer need to correlate the 'index' property between the
+redirected results and the main result list, so I took that out.
+2) However, the redirected results can sometimes contain a 'tofragment'
+property (which we were totally ignoring) that represents the specific
+section to which the result should jump upon loading.
+
+Bug: T67496
+Change-Id: I9417f569811f622af7c30cbb001095bdeebd6705
+"
+"62ef90871bf8899fc038694bd240eea84283f5e2","2015-12-08 15:11:48+00:00","Merge 'Fix saved pages database crash'
+"
+"f198e0ce1cf654dc77f5542e85adff73ff73f191","2015-12-08 10:52:14-05:00","Prevent multiple instances of DBOpenHelper.
+
+Couldn't repro this crash, but this seems like the only way it could
+happen.
+
+Bug: T120835
+Change-Id: I4f1002cb498d52607eb18a164403ddfce0d0fdb1
+"
+"252db51b76536b25ff3ce06cf928abe664d31aec","2015-12-08 11:22:30-05:00","Prevent mismatched search results when typing quickly.
+
+The actual AsyncTask that fetches search results was not being cancelled
+properly upon changing the search term.
+
+Bug: T111890
+Change-Id: I19f76aded70945c8d81cb994dc16fbe9b4a67a26
+"
+"b98803c1b0ae05d6d74cf14f09a7757634532140","2015-12-08 16:33:25+00:00","Merge 'Localisation updates from https://translatewiki.net.'
+"
+"ba900d20b9845f049c3c873a2fb33cb10e87f7f3","2015-12-08 18:08:34+00:00","Merge 'Prevent mismatched search results when typing quickly.'
+"
+"c127d3de4f369e9892f568bc0bf1a6433b149b98","2015-12-08 19:02:37+00:00","Merge 'Improve handling of fragments in redirected search results.'
+"
+"5b437739e2e73123a057a5e92f1a91657a45fe82","2015-12-08 14:07:27-05:00","Prevent possible NPE when rotating screen with link preview.
+
+https://rink.hockeyapp.net/manage/apps/226649/app_versions/6/crash_reasons/57590605
+
+Change-Id: Ifebc435ec9ec981521b0c5c665487a088fd6d6c8
+"
+"5af3db7c337ffe4e4a9fc7ff85673ca7a910e984","2015-12-08 14:10:36-05:00","Prevent possible NPE when finding-in-page.
+
+https://rink.hockeyapp.net/manage/apps/226649/app_versions/6/crash_reasons/58434226
+
+Change-Id: Idb53015df531b3b8669ae1e4dc6f0b6561111007
+"
+"9b70e6dc82e0a0ab665654372b2ed19c0388847d","2015-12-08 19:29:06+00:00","Merge 'Prevent multiple instances of DBOpenHelper.'
+"
+"3449d1e381625be4a7578ad9ef19b4c18fd3f16f","2015-12-08 19:29:08+00:00","Merge 'Prevent possible NPE when finding-in-page.'
+"
+"952400bee9bc3da0adb40224e135d7b147aa7167","2015-12-08 19:36:54+00:00","Merge 'Prevent possible NPE when rotating screen with link preview.'
+"
+"1ee083eeb2984a23cc67a94899e9150597a67082","2015-12-07 15:06:20-07:00","Hygiene: refactor JPLS sequence state & DRY checks
+
+Refactor JsonPageLoadStrategy's sequence state and DRY up some
+JavaScript event listeners:
+* Remove sequence reset in onActivityCreated() method. The sequence
+number is not preserved after app death so an int is practically
+infinite and does not need to be reset. The sequence is incremented
+indirectly as needed by an internal call to fragment.displayNewPage().
+Guaranteeing a monotonically increasing sequence number reduces the
+potential for nonunique sequence number bugs.
+* Encapsulate sequence and reconciliation behavior. This allows one tiny
+class to be responsible for the data. Presently, only that the
+sequence is always increasing. This isn't immediately useful beyond
+that but does make future mishaps less casual than --ing an int.
+* Replace common Fragment lifecycle and sequence checks in
+JSEventListeners with abstract SynchronousBridgeListener class.
+* Replace 'sequence' String constant with symbol.
+
+Bug: T112519
+Change-Id: I3f8622c0c5064c7d3b7413ff14e2ef07c889a9f6
+"
+"c4e1b54bc77ae3eb840dd8bb5ce59abcb969bc45","2015-12-08 14:46:17-05:00","Prevent possible NPE when a section doesn't have a heading.
+
+Technically this points to a malformation of the Json structure of the
+Section, but it still shouldn't produce a crash.
+
+https://rink.hockeyapp.net/manage/apps/226649/app_versions/6/crash_reasons/57894753
+
+Change-Id: Ic5f5ee6dd84d7ad87179c3b3920fbceb509c7793
+"
+"a801f9b9ee5442e4b5ec47ee54f9ff3b1b8d9b9f","2015-12-08 14:54:35-05:00","Prevent possible NPE when deleting history items.
+
+Change-Id: I46b698c7010cf396b793df9b9d7c7cf492959311
+"
+"cce4c8fce7ae6047c05dba894ac68d397e794a54","2015-12-08 20:24:08+00:00","Merge 'Prevent possible NPE when deleting history items.'
+"
+"b8b157028b3f7330ea81900fb3bf1a4ce6e376db","2015-12-08 20:31:33+00:00","Merge 'Hygiene: refactor JPLS sequence state & DRY checks'
+"
+"1b63b3b2c2a36de230294d79b0511d248bf98074","2015-12-09 10:34:41-05:00","Improve thread safety of some more lazy-initialized stuff.
+
+1) No longer lazily initialize things that aren't expensive to
+initialize.
+2) Store ContentPersisters in a synchronizedMap.
+
+Change-Id: I6a93f27deff324eb2c26c0129799f4f43fb080a3
+"
+"fd65366c273706e78704a79d154d131f2b2a6af7","2015-12-09 09:05:44-05:00","Prevent crash due to non-lead-section index mismatch.
+
+1) This fixes an actual possible condition where this crash occurs:
+- A saved page is loaded, and the LoadSavedPageTask takes an abnormally
+long time
+- The user presses Back, with the previous page having *more* sections
+than the saved page
+- The LoadSavedPageTask completes in the middle of the WebView being
+populated with the previous page, replacing the current Page object with
+a Page that has fewer sections than the current sequence chain expects.
+
+2) This also explicitly patches up the crash, by verifying that the index
+is within the size of the current page sections.
+
+Bug: T112519
+Change-Id: Ifd168f7babc246a465762c98bc651ce716a0a4b1
+"
+"43ad2a90dd94c866575f6dced4ad9e2065256154","2015-12-09 17:57:29+00:00","Merge 'Prevent crash due to non-lead-section index mismatch.'
+"
+"334cbd3640f943348a88f33df138d4b4fa1f8a1f","2015-12-09 12:18:30-07:00","Bump versionCode
+
+Change-Id: I27704ab52c423512fcdfc294dd310f618fa34b8c
+"

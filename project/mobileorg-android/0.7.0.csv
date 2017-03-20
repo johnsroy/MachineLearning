@@ -1,0 +1,402 @@
+"commit id","commit date","commit message"
+"5a7f12cba33e9be23b205418c2ff07b457487770","2011-06-17 21:11:29-04:00","Bump version for next release
+"
+"0b489fac16f940fca46647125e58ed71db68b041","2011-06-17 21:11:51-04:00","Fix a potential NullRef exception
+"
+"18da7ab5bb397f85822e40ba455bc98038f21e0d","2011-06-18 01:09:19-05:00","Fix #80, NPE on SDCard Sync With Internal Storage
+
+When SDCard sync mode is selected, the synchronizer does not actually
+copy any files off the SDCard, even if 'internal' storage mode is
+selected. When OrgFileParser attempts to read from the internal
+storage location, there is no file to open, resulting in a
+NullPointerException during synchronization.
+
+This change ensures that OrgFileParser will read the files directly
+from the SDCard whenever SDCard synchronization is selected,
+regardless of storage mode.
+"
+"7db3213e6897a311c2b622a9e5ccaa44916cfba6","2011-06-18 01:19:58-05:00","Replace Hardcoded References to SD Card Location
+
+A call to Environment.getExternalStorageDirectory will return the
+SD Card directory, which may not always be '/sdcard'. (For example,
+on my Xoom, it's at '/mnt/sdcard'.)
+"
+"c73d505d3e46cd15118b3dbc4432db80c68f8cd6","2011-06-18 10:13:55-07:00","Merge pull request #106 from jaschob/sdcard-internal-sync
+
+Fix Issue #80/Remove Hardcoding of SDCard Location
+"
+"54bffbed506e2430e496d4b49ccfc44ec057dab5","2011-06-19 02:31:10-04:00","No exception here
+"
+"f8e9f0d35a6a8eacc64a238f3f4c2a3c5efcf83a","2011-06-19 04:36:43-04:00","Add a friendly dialog to be shown instead of a blank screen after initial setup, or if the user presses 'back' without entering any input.  It will show a Dialog box that will allow the user to Sync directly or go back to the preferences menu.  The application will automatically go the preferences menu if you try to sync without configuring the app first
+"
+"a0e25fcc8fad0bf35f8241446012bd8aa1961f97","2011-06-19 04:36:53-04:00","Merge branch 'master' of github.com:matburt/mobileorg-android
+"
+"fbf82109c4733ace82d753cd8d6384402c37f371","2011-06-20 00:40:24-04:00","That's what I get for merging contributions and not testing them
+"
+"f26de75fe2971c5308ad88bc4bb0cd5294757323","2011-06-20 01:13:49-04:00","Fully revert the old file pruning code
+"
+"d67189356e5307b46864b9f8cc15433acafc859a","2011-07-14 00:21:00-04:00","Closes issue #105, if autosync is turned off then don't attempt to start the background sync service
+"
+"ac0b94e88e586b1c1bb3ae46774543edc4d6e034","2011-07-18 01:22:04-04:00","Applying patch from max, fixes #107... a regression that affects the back button behavior
+"
+"1721d53f76f71a46da78788e8d5ce55255cd46c4","2011-07-18 01:31:32-04:00","Add a deprecation note
+"
+"d21d7719de25de49ec6a394b5dfdab72a544fc07","2011-09-12 18:37:34+02:00","First steps towards improved titlebar in MobileOrgActivity
+"
+"6a1b803b13ebc1c6819786cddabb7cd942bf5b38","2011-09-12 21:16:46+02:00","Refactored OrgViewAdapter into it's own class, replaced OrgContextMenu
+calls in MobileOrgActivity
+"
+"007f62a85fb71e1d7daee012d6ed6de58eba9e54","2011-09-12 23:57:10+02:00","Fixed an epic amount of warnings
+"
+"7a571ae5c0e5289c506501d7053c9882564d0ba0","2011-09-15 01:42:29+02:00","Removed OrgContextMenu and minor cleanups
+"
+"64e659fd9c132cc1bc5363bbe34fc85934e0677b","2011-09-15 02:11:57+02:00","Disabled 'edit node' context menu entry on top level entities.
+
+Selection of this entry would result in crash otherwise.
+"
+"184480ce9c1bcdf68a7d1ec6635bf2476ebfca51","2011-09-15 03:51:59+02:00","Clean-ups in OrgMobileActivity
+"
+"33e3ae83927c1fa8aa3530c1e893f06c0d50ba97","2011-09-18 04:51:07+02:00","Fixed 'Edit Node' context menu to view right node.
+
+Plus additional cleanups
+"
+"c39ab16b42988df12b59be680dfc0dcb83ed53d1","2011-09-12 18:37:34+02:00","Working on menu in MobileOrgActivity
+"
+"0d9bee4321f1f87785edab4b5e05e1155df985db","2011-09-18 06:30:48+02:00","Replaced static menus in MobileOrgActivity with menu inflaters.
+"
+"09da01f17f815d390a54fbf2ba1da9bb4c88e005","2011-09-18 06:38:04+02:00","Created member appInst in MobileOrgActivity.
+
+Instead of creating an appinst in every function. Small cleanups.
+"
+"303c37bf00c5d69ecac7e29f970f9fc6f1556740","2011-09-18 08:32:33+02:00","Converted MobileOrgViewAdapter to use holding pattern.
+
+This speeds up the viewing of the outline list somewhat. Also renamed
+the main.xml layout file to outline.xml.
+"
+"6abd29bf24582d878502c6961be34da9ca0e12ad","2011-09-18 17:35:35+02:00","Created Gui package, moved some other files into packages
+"
+"faf2a212bdd359d6fa839ba245856572224724b6","2011-09-20 02:24:47+02:00","Created custom outline layout for testing.
+
+I have created this for my personal testing use and don't intend this for usage.
+"
+"38874aeb1a926a7d59d24259ea2580668103ee39","2011-08-03 11:57:30+02:00","No NPE when there is no network
+"
+"0562c33b5af6adcd5fd4268d8629269a21578708","2011-09-24 18:24:56+02:00","Create new ListAdapter after a Capture
+
+This refreshes the outline to show the newly captured item.
+"
+"70b25a24a194f64f4667f3d12ebc9e624162c35e","2011-09-24 19:05:00+02:00","Refactored runParser() from MobileOrgActivity into OrgFileParser.
+
+I'm tired, and this refactoring was rather difficult. If anything
+breaks with the parser, I would start by finding bugs introduced here.
+"
+"e02aa3b4214e908974e5e45ae5fa873793a90a0d","2011-09-24 21:11:28+02:00","Cleaned up onCreate() and onResume(), renamed some files, misc. cleanups
+
+Maybe I made parsing a little slower. I don't quite understand what
+onResume does with the Intent it gets, so I simply update the display.
+"
+"02b5a76eda3ac2e3e375cbf4146efdce5d037815","2011-09-24 21:46:15+02:00","OutlineActivity cleanups, simplifications etc.
+"
+"647d501c9260b3b7ad5967f26f12c9d0a464e218","2011-09-24 22:24:45+02:00","Modified constructor of OrgFilePaser to remove redundant logic.
+"
+"1e1d64c59885320af618681ec1a6eeae5a38b1f8","2011-09-24 23:22:47+02:00","Cleaned up the Encryption code and it's corresponding methods in
+OutlineActivity.
+"
+"bd01ba8400ecba078753fbc2101a436fcf77ab3f","2011-09-24 23:49:35+02:00","Cleaned up synch code somewhat.
+"
+"57ee5d58f15b24ea3a1dfafb8028e983c1e5f0af","2011-09-25 00:21:15+02:00","Small cleanups.
+"
+"dc7868b5472965ef4f3fd22acb835a50d26c946c","2011-09-25 02:06:16+02:00","Added icons to menu.
+"
+"a418e0dc09f319b95c89bfa083e96593800b1935","2011-09-25 13:33:51+02:00","Renamed some files. Removed EditDetailsActivity.
+"
+"a63a4cd41954079fce71b6a37017a0faf497b9d5","2011-09-25 15:07:06+02:00","Lots of renaming, improving of EditNode activity.
+"
+"4989a039a083f9167eeb5aa196cd389a661fda9f","2011-09-25 15:30:37+02:00","Further improvements to EditNode Activity.
+
+Fixed buttons layout. Externalized more strings. Cleanups.
+"
+"4f8eaeefbab0530be505f09eed93b7c3fc028e3b","2011-09-25 15:53:31+02:00","Cleaned up EditNodeBodyActivity.
+"
+"5665957e702e067bde3f165c9699b09dfa825460","2011-09-25 16:21:21+02:00","Simplified EditNodeBodyActivity a lot.
+"
+"594e64693eb6b36e9efc7a819ee1438b75b06548","2011-09-25 16:48:19+02:00","Fixed small bug in EditNodeActivity.
+"
+"f7cdc97ca18aa6e00b1c30d3de91ac30d44a00b6","2011-09-25 17:48:50+02:00","Created simpler getTodos() and getPriorities().
+
+Now todos and priorities can be returned as ArrayList<String>, making
+some of the logic much simpler. The grouping is never used in the
+EditNodeActivity anyway.
+"
+"0699ea6071c9a7f1a4799b4afd0948d453d987bb","2011-09-25 18:16:39+02:00","Create string constant for EditNode intents.
+"
+"84ac4be062354cb47f626fde6f1b2b70602a1e63","2011-09-25 19:04:27+02:00","Started cleaning CreateEditNode.
+"
+"fa5d123570293fbbbf3800f9818d5bc3f6c4bc1a","2011-09-25 19:06:55+02:00","Renamed MobileOrgDatabase.
+"
+"8f2d522edae3c84aded7b8d39dbbb4b9f9f695f6","2011-09-25 23:23:37+02:00","Improved edit node functionality.
+
+Nodes are now edited when OutlineListAdapter visits them, and the edit
+is removed from the list. This updates a node with the new edits when
+it's visited, instead of calculating the new node's value every time.
+"
+"0652b8b0a63badff5f1c358ab223efc4bacbbd91","2011-09-26 00:08:40+02:00","Small fixes here and there, plus some renaming.
+"
+"c056f676782c72ecffe538dfa2b29f97235f389f","2011-09-26 00:33:43+02:00","Small cleanups.
+"
+"7fbd9b20f905f00cfa31b9a89566d819c2a616f3","2011-09-27 18:30:51+02:00","Replaced nodeSelection with nodestack.
+"
+"f0d69cdffee623e2add1b4969ea7f81586645ba0","2011-09-28 00:14:29+02:00","Added some comments, fixed a bug in EditNodeActivity.
+"
+"70b207897f16b157d5b120417b8c4867079bcac3","2011-09-28 00:58:54+02:00","Created refreshNodestack.
+
+This function makes the nodestack point to a updated version of the
+nodes after a parse.
+"
+"9dc9427b906de3a63cb54d6c11bdcc2494744f82","2011-09-28 01:25:22+02:00","Modified EditNode to capitalize first word in title field.
+"
+"f60bc3846e71fb31893d4e6b008d485d51428f08","2011-09-28 21:40:13+02:00","First steps toward remove ReportableError.
+"
+"aa7327c6aefe4e9776a49cf26652400156c2b246","2011-09-29 00:11:44+02:00","Cleanups, mostly in DropboxSynchronizer and Synchronizer.
+"
+"cee747144254085cb8b79a3ccab0656f3ead6550","2011-10-01 14:50:40+02:00","Created OrgFile and started refactoring into it.
+"
+"412cdc87cff77aa8865d475bf730075792dae549","2011-10-02 00:02:21-04:00","Deprecation warning
+"
+"39837d09ccb26ddfd07dafa276d69e7fc0b82d8a","2011-10-02 00:03:44-04:00","Applying patch from max, fixes #107... a regression that affects the back button behavior
+"
+"43a31cb5f47809e9521c83533d1d57bd80f3597f","2011-10-02 00:47:02-04:00","Bump version for next release
+"
+"c935620c8af87ff1ef3f9eb72e0007a57822b9ac","2011-10-02 01:02:18-04:00","We need to check the state of the view adapter at display, if this is a new deployment then it will be null the first time through
+"
+"2895de8cee7b51e50907e880ef70804230e031fe","2011-08-03 11:57:30+02:00","No NPE when there is no network
+"
+"e18d5b713b1719412baa2ef2d327f04938e7bb64","2011-10-01 15:32:58+02:00","Further refactoring of Synchronizers.
+"
+"6cc9e710560157d4c352684e8a5401bf0d2d5a18","2011-10-01 19:59:01+02:00","Cleanups. Refactoring.
+"
+"f41a8b5e442332e18a220c8cf7bc444a087a798a","2011-10-01 22:56:15+02:00","Pull() doesn't work anymore.
+"
+"95b1aba58627607bd3699c0af8dcc51362450d19","2011-10-02 21:52:18+02:00","Fixed small bug in push().
+"
+"f4e59050ba8e15d14a003693832c96eb7750f28c","2011-10-02 23:33:59+02:00","Cleaned up and refactored Synchronizers some more.
+"
+"7b29659b14bac0c77ddc179239aa680c85995ef8","2011-09-01 10:59:20-04:00","This is stage 2 of 3 of the new wizard. I added local and Dropbox
+syncing to the wizard.
+
+What's new:
++ you can now select an SD card or Dropbox sync folder from
+a list. No need to manually type it in. To navigate to a
+subfolder, click the folder name.
++ the wizard also implements page swiping (like the latest
+Android market app)
++ the wizard 'backend' uses a custom Dropbox SDK---see the
+new Dropbox folder. It's more 'Android-like.'
+
+Misc:
++ Added logo and art for navbar
+
+Known bug:
++ Changing phone orientation causes a crash.
+
+TODO:
++ Add artwork for other screen sizes
+"
+"1092818cd9d22d952d56ba9a85f417b09c99bbd1","2011-05-08 05:11:55-05:00","Make scheduled/deadline matchers to handle repeaters
+
+We just strip the repeat information out, but at least we don't get hung
+up on them anymore.
+"
+"d041bd5fb1769077b4d7078fd9d39c8f51c3fe63","2011-11-10 18:57:34+00:00","Enable install to SD card
+"
+"d68c269cb98f560de2da8a0ed3f66ac725287678","2011-10-03 00:03:50+02:00","Further refactoring, some renaming. Added documentation to Synchronizer
+explaining design.
+"
+"7d34a34051d9080eb3239436991ca8fdee729313","2011-11-11 22:58:07+01:00","Added delete file functionality from context menu.
+"
+"730b0226388728db86264b3d15ef78b5501df568","2011-11-11 23:36:16+01:00","Small clean up in parser.
+"
+"05ce498c31130143732a7a7285d5b286d006b6a4","2011-11-23 11:35:14+01:00","Fixed crash on startup, thereby improving the new user experience.
+"
+"b71d662c4d149c7eaf3d7e02d58d6e0d3d5eacda","2011-05-08 05:11:55-05:00","Make scheduled/deadline matchers to handle repeaters
+
+We just strip the repeat information out, but at least we don't get hung
+up on them anymore.
+"
+"beb7182fcc022eb80de6966f24049696299a37fe","2011-11-23 12:12:24+01:00","Moving some of the low level org file handling into OrgFile.
+"
+"b165c090a793148082be3cf9280eb6e076e2c5c1","2011-11-23 13:06:43+01:00","Further simplifications of OrgFileParser.
+"
+"05dabfe3846db6fb1bab868578ce3210a7a5f7e2","2011-11-26 19:20:45+01:00","Removed unnecessary function from NodeWriter. Small cleanups.
+"
+"a7c73384f99f80797cf968ab17ccff40f23ba0f3","2011-11-30 17:40:52+01:00","Refactored some more. Moved nodeId calculation into Node and made it
+lazy.
+"
+"5c6bc83ca951997e95485b6972759f1c6b290785","2011-12-01 16:35:53+01:00","Moved the parsing of content from OrgFileParser into Node.
+"
+"244fd64683756783ec2f9df2f4db8c901955fbf0","2011-12-01 16:57:50+01:00","Integrated the parser functionality into Node.
+
+Node is still very messy.
+"
+"e86c2339c0a354ec5e9d2de04e59bd3968328623","2011-12-01 17:44:35+01:00","Made Node.payload private.
+"
+"69ac9f33529da5f414451f22f5cf697e4081c9fc","2011-12-01 17:58:11+01:00","Converted Node.payload to use StringBuilder.
+"
+"2f0d4aa6e55e53bf3e58b6be8038bae0ea5dd680","2011-12-02 20:41:48+01:00","Fundamental changes to how parsing of files is done.
+
+Files are now parsed 'on demand'. This means much faster startup time
+and causes files first to be parsed when they are selected in the
+outline view. Parsing of encrypted nodes has been disabled temporarily.
+"
+"7d3b3176de0a1a3226f4fc5d3c5a8d0e343bf876","2011-12-02 21:08:46+01:00","Improved synchronizer, cleaned up, improvements to nodestack and gui.
+"
+"ac1a95ef5c380ab24afc54126031010a5fb79c31","2011-12-03 00:07:33+01:00","Improved OutlineActivity's handling of having no available files.
+"
+"9a3874ef97c7265864b4b6af002e904f87386556","2011-12-03 00:23:40+01:00","Small fixes.
+"
+"93ffe99835931709b8f0750f7152182a502cc948","2011-12-02 15:50:57-08:00","Merge pull request #131 from PhilHudson/master
+
+SD card install
+"
+"acfd73d17ac1fbbb2ac86a67c54e8720b77fb033","2011-12-02 16:01:49-08:00","Merge pull request #130 from dlin/topic-parse-repeater
+
+Make scheduled/deadline matchers to handle repeaters
+"
+"74c6ed3198a614c58cb108074b36d41bed81f100","2011-12-02 22:03:58-05:00","Merge remote-tracking branch 'remotes/hdweiss/improve_gui'
+
+Conflicts:
+src/com/matburt/mobileorg/MobileOrgActivity.java
+"
+"4d9158b04caafc976cae3f96f7328add979392ed","2011-12-02 22:04:47-05:00","Merge remote-tracking branch 'remotes/hdweiss/improve_synch'
+"
+"ba02ff72ec29b4a491d57644418229fc2f102eed","2011-12-02 22:08:07-05:00","Merge remote-tracking branch 'remotes/hdweiss/improve_parser'
+
+Conflicts:
+src/com/matburt/mobileorg/Parsing/OrgFileParser.java
+"
+"7d78d1c72bceb369ce3896e4ed86145a11cd1390","2011-12-02 22:43:18-05:00","Upgrading project files for latest android sdk version, adjust manifest configuration to support installLocation on only those devices where it is relevant
+"
+"231a87f84980ae394ca25b3c729f558ad59e69d5","2011-12-03 22:33:13-05:00","Re-initialize the app instance node list after a re-sync.  Fix the way the url parser works when looking for the remote webdav org base directory
+"
+"1ae10f0f72b6267f3398aad472f3596a481cd123","2011-12-04 01:15:42-05:00","Merge remote-tracking branch 'frankandrobot/wizardlatest' into integrate-wizard
+
+Point OutlineActivity to the new setup wizard
+
+Conflicts:
+.gitignore
+build.xml
+project.properties
+res/values/strings.xml
+src/com/matburt/mobileorg/MobileOrgActivity.java
+"
+"4aff29ea4699c9944309bd7613d8dbd4f16e4005","2011-12-04 19:00:10-05:00","Semi-working webdav page
+"
+"22d6996f3290e79779b5207067c514c87453acb5","2011-12-04 19:00:27-05:00","Merge branch 'integrate-wizard'
+"
+"90be641db44bd8ccac093a22d9b3881d8298df08","2011-12-04 19:05:37-05:00","Remove some unneeded files
+"
+"61f65d0b73b264b68a20ce6c6c1cb54696819e7d","2011-12-04 15:17:06+01:00","Cleaned up Node.
+"
+"31da041abd0c14bfb68fb69828d5199c6b72db0c","2011-12-04 15:50:56+01:00","Cleaned up NodePayload.
+"
+"17284780e40cf2e7ccb4ecd75ffcd014832b2979","2011-12-04 16:01:11+01:00","Created Services package and moved classes into it.
+"
+"c56bf6331941bff9bb9615c5ea5046913ca95e47","2011-12-04 16:24:31+01:00","Renamed and moved constant ('mobileorg.org') of capture file.
+"
+"70e20f848814976b1ef61dfe817b42851b865790","2011-12-04 17:27:53+01:00","Cleanups, fixed a bug with NodeWriter.
+"
+"395c369a2c3c4764b15b41e17a844baa6cd3b046","2011-12-04 18:16:41+01:00","Fixed removing of files.
+"
+"b5613ed03d77773cb24cde167f8424beaadad0d9","2011-12-05 16:43:44+01:00","Removed some warnings, deleted newUserActivity().
+"
+"d9d7e8cb9667fc6952186b20f4faeaf0ec68cec9","2011-12-06 20:28:50+01:00","Fixed refresh bug in outline.
+"
+"d847c3f6c990f9e478511d3c18fffbaf0e43cace","2011-12-06 21:10:22+01:00","Fixed deletion of nodes and crash on parsing of edit nodes.
+"
+"5357a35a4276e45545295bea6b6012c7eccbf48a","2011-12-06 23:47:14+01:00","Filtering out edit nodes out of outline.
+"
+"f662cec32c06d04c5d271f70a4ad607b1c1f4c1f","2011-12-07 01:59:00+01:00","Started functions that strip scheduled, properties etc. of Node payload.
+"
+"6bd4d097d922d86a13fe593a746a44e551ee58f5","2011-12-07 02:18:17+01:00","Fixed bug in NodeEditActivity.
+
+Before this commit nodes would be popped of the nodestack every time the
+orientation was changed.
+"
+"5449a07bd17f61cb9389422261e2ddf872d6f12c","2011-12-07 14:08:17+01:00","Fixed bug in capture, fixed manifest and reenabled 'Share as' capturing.
+"
+"7222a4b42ecd976543b52581e6b238061a2636b4","2011-12-07 15:21:59+01:00","Re-enabled decryption of nodes.
+"
+"3cd3523cfb58ffc1d30c7f188c276eed82f9d136","2011-12-07 16:06:34+01:00","Fixed widget. Added onClickListener to widget.
+
+The widget will now search for a node in agendas.org called 'Today'. It
+will take the first child of that node and display it's children. So
+'agendas.org->Today->XXX->'Todos that are displayed''. Also
+node capturing is started when the widget is clicked.
+"
+"1dbef27182b99a23f4ed2e418c2190367bebbbaa","2011-12-07 21:50:24+01:00","Modified Widget to show todays agenda. Cleanups in parser.
+
+This commit introduces a hack to strip out '!' and '*' from the headings
+of agendas.org.
+"
+"5015f18af0f0487181729e71efb1d6d00cefd527","2011-12-07 21:57:26+01:00","Striping out :LOGBOOK: out of node content.
+"
+"00a2ceb2fae9336841236835d05b5ff6b86b7da0","2011-12-07 22:05:27+01:00","Cleaned up node payload.
+"
+"514d2e54c642e3526ab90f6e5b3c4cd02f7c7157","2011-12-07 22:33:47+01:00","Fixed bug in wizard with regards to dropbox path.
+"
+"3114ec29ada3dd9d1a393f99c48c113cfe598086","2011-12-11 21:15:08+01:00","Fixed concurrentModificationException on certain edit nodes.
+"
+"9dce26d7d78f67df2d595214bdc53a9e1d8daae6","2011-12-11 21:38:01+01:00","Fixed bug in which capture file would not be removed properly after synch.
+"
+"dbccaf79870df8b645d5d1949e8a6288d8ea02e1","2011-12-15 00:45:31+01:00","Changed the way outline is initialized.
+
+Helps sharing data betweem outline and widget.
+"
+"405b3230c0f2a6133cf97702fce1d7855d777bd0","2011-12-17 06:03:36+01:00","Changed the way synchronizing is done. Added progress indicator.
+"
+"20b268f33e2b75a673b0312277980a25d1b975ee","2011-12-24 00:27:05+01:00","Merged in changes from daniel-kullman's text-view-as-html branch.
+"
+"45d9900e09b38be0d588f3d7d62829edba7c62b0","2011-12-26 01:10:04+01:00","Created new ViewNode activity using WebView. WIP.
+"
+"79463a665e2d1cb076ce2182fe633d69846703c4","2011-12-26 16:23:04+01:00","Continued work on new ViewNode activity.
+"
+"e7f863674261699f522d3e7c263c2c45037d1a3b","2011-12-26 23:30:49+01:00","Adapted Scpcopy code into new synchronizer.
+"
+"44617114d3059bf2302a97b9e57d23e96f3e3bd6","2011-12-26 23:55:22+01:00","Implemented pushing of files for Scpcopy.
+"
+"b0675f88f284a04c51c149e66f8079d03c5e8e47","2011-12-27 00:10:13+01:00","Fixed pushing of files in for scpcopy.
+"
+"b9e98ccb19bf0b4e3fba43671c1d5b92924274df","2011-12-27 00:38:16+01:00","Added cleanup method for syncers. Scp is still buggy.
+"
+"4053a026c5230cdffaf0aeeb02780589a4d39149","2011-12-27 00:46:50+01:00","Fixed NPE.
+"
+"bb7bb754ec4665f7515335d174ec304866b01ecf","2011-12-27 22:31:30+01:00","Fixed title bar
+"
+"7415db7309b39090a8f7b96564600ced7d344007","2011-12-28 00:00:19+01:00","Removed sync dialog and added custom notification for sync.
+"
+"6f38439e2e5cebd47f1943cf5758659274d50902","2011-12-28 00:30:42+01:00","Added BroadcastReceiver to widget to listen for updates. Cleanups.
+"
+"13355cc4c358a8dfba55f66bfaecd5d2b23d374c","2011-12-28 00:53:01+01:00","Small cleanups.
+"
+"0c568b1c47a244ecba2ec4d7c8208892bf4be243","2011-12-28 01:01:14+01:00","Added toast on successful synch. Cleanups.
+"
+"2d91e809b868a999cfd9139b1a0d224f58c4af03","2011-12-28 17:42:10+01:00","Converted SyncService to use AlarmManager for regular sync. Cleanups.
+"
+"529bd10e3d3596f5fd1d0552194b243fb9067a39","2011-12-28 19:03:33+01:00","Strip out file tags out of content display. Cleanups.
+"
+"7207089ffb19026ada28a7562d0cd63ff45d8bc0","2011-12-28 20:05:21+01:00","Added yes-no dialog to edit/capture. ViewNode now updates on edits.
+"
+"1380bc047fb79585b58b27c81bf7237c8c9351e0","2011-12-28 20:20:07+01:00","Added yes-no dialog on file delete. Fixed broadcast receivers.
+"
+"6f6cb76eab96112889f98ab2de42c080999a0f14","2011-12-28 20:26:24+01:00","Improved NodeView.
+"
+"1a2b443ce2751c29bf6f0dc696abcab3e6829148","2011-12-28 20:34:48+01:00","'Fixed' sync notification intent.
+"
+"65564756ba9ce5662afd24c3b37278f05e767efd","2012-01-02 19:55:35-05:00","Replace dropbox keys with dummy values
+"
+"56460ed4fb3c02683f880add123258b728e87d39","2012-01-03 00:04:30-05:00","Support webdav from the wizard
+"
+"0bdd568fb4a8b1ef1e69cffa5356ce3b7ed1f447","2012-01-03 00:09:20-05:00","Bump version number to 0.7.0 for next release
+"
+"2f312ae6ef20a67f14f0db8431ad806ba75575e4","2012-01-08 21:41:16-05:00","Add menu option to re-run the wizard.  Fix the look of the custom settings items to match the system default
+"

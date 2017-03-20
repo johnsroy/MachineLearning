@@ -1,0 +1,170 @@
+"commit id","commit date","commit message"
+"9b87abafa41c62a3e298c5f3b6acee00593e8e36","2011-10-20 19:02:15+03:00","SCI: The demo of GK1 has no alternate sound effects.
+
+This fixes the sound effect heard in the 'Day 1' screen
+"
+"baa9a4519e019c335481885625011e47edc723fa","2011-10-21 18:26:38+02:00","CONFIGURE: Disable OpenGL by default.
+"
+"d80284d28677eb6249a4e566ccba951de654fb48","2011-10-21 18:27:19+02:00","NEWS: Remove reference to OpenGL backend from 1.4.0 section.
+"
+"af32b71e4c6cd861ef039a99796464899e5b7675","2011-10-22 19:37:49+02:00","KYRA: Fix memory leak when a sound is started but no free handles are left.
+
+(cherry picked from commit d8e50b8a037de7f721491664610682f1076ca9ea)
+"
+"46bcd3b5e9709bfc0bcd32b8db3cc337e46e409a","2011-10-21 22:24:59+02:00","SCI: fix thread lockup issue when loading savegames using a sound driver which depends on the mixer thread for timer calls.
+
+The issues seems to be known. See comments (not by me) in SciMusic::clearPlayList().
+For the same reason mentioned there the mutex may also not be locked before calling clearPlayList().
+"
+"b336406f42ba5246cc8b931ad1e8890dca704086","2011-10-23 15:04:46+01:00","I18N: Update French translation
+"
+"f15b22ae73468eed780f4b0e400ed2dcfd602c5f","2011-10-23 15:05:37+01:00","I18N: Update Brazilian Portuguese translation from patch #3427072
+"
+"0f4ebc5e4a5326062c95ac92c722b1f72a907e01","2011-10-23 15:06:37+01:00","I18N: Regenerate translations data file
+"
+"f02e9fa6253bb8ee1e1c1f0ea643c35529929abc","2011-10-24 20:50:39+01:00","DOC: Update German translation of NEWS file for 1.4.0 release
+"
+"bb50a222deed603f22ebae4c6b63c48db8c70a65","2011-10-24 20:51:24+01:00","I18N: Update Spanish translation
+"
+"3708615d2a1e3d4ab32420311d315d9681ea3586","2011-10-24 20:52:57+01:00","I18N: Update Polish translation from patch #3427957
+"
+"4c718b792a88e5851d83683ba96acba09a9c8c27","2011-10-24 20:53:36+01:00","I18N: Regenerate translations data file
+"
+"b3b4435bc797fa4f5096095b81fa05aa71948db7","2011-10-25 10:51:16+02:00","SCUMM: Initialize Sprite fields in constructor.
+
+This fixes a crash when HE games return from init() early due to the
+required color mode not being available.
+(cherry picked from commit 63aa0ef6f356c1aab2f43fe6fc96cce226fbb98e)
+"
+"2a60a739d015cfe4ccac7dff8fa53c602270e411","2011-10-25 10:52:22+02:00","DOCS: Renamed the Spanish QuickStart to use just ANSI chars.
+
+It seems it wasn't handled properly neither by Git nor by some filesystems,
+so we prefer playing on the safe side.
+"
+"5c240445dbfe5aa6109a1618501d8b9f68fdf4c6","2011-10-26 20:49:39+11:00","TSAGE: Disable Blue Force detection in the 1.4 release
+"
+"80a92cf3d304cb7f38504265507256f90e75443e","2011-10-22 20:45:15+02:00","ANDROID: Fix plugins on Android 3.1+.
+
+Android 3.1 changed the default behaviour for broadcasts so that it
+doens't wake up non-running receivers, so we need to override that.
+(cherry picked from commit ff3f4d9493d66b034119f0ff15657c9e8cd1b1a8)
+"
+"7c04fbb8caf450ef13dc2aef227b6d43445f2be6","2011-10-22 20:47:02+02:00","ANDROID: Add a shared user id.
+
+Otherwise the plugins fail to run on modern Android because they're set
+to run in-process but they're not allowed to do so.
+(cherry picked from commit 456b950c527da116e4132ed9e3e260419ac34ff0)
+
+Conflicts:
+
+dists/android/AndroidManifest.xml
+dists/android/plugin-manifest.xml
+"
+"18e646f8871460057940c84cbb541fcbe1cf73e8","2011-10-25 21:18:42+02:00","ANDROID: Move from org.inodes.gus to org.scummvm.
+(cherry picked from commit 44b7f3aed52b1213995f9e19e4395f4350997b01)
+"
+"5628bb6cd4a81328aab301004132742e384687d4","2011-10-25 22:52:25+02:00","ANDROID: Point the default savepath to external storage.
+
+(If that fails, fall back to a readable app-specific directory.)
+(cherry picked from commit 80e55c5e78a5161bda41b730892e1a853c872ccb)
+"
+"d57a2fc5fbf0b3ce8952c8cbf1ca7ea5eba577a5","2011-10-25 23:08:29+02:00","ANDROID: Match versions when checking for plugins.
+(cherry picked from commit 764ffff578d9650621a82ddc5bd5c9530940c5ae)
+"
+"90e21165710fd4d9dcb1db782454520668e1cdcf","2011-10-26 20:25:14+02:00","DOCS: Removed translation comment for 1.4.0 release in German Readme.
+"
+"c765bcf72dc9a357fdf422dea71583880dcdb4f0","2011-10-21 14:25:53+02:00","ANDROID: Delete _timerManager in OSystem_Android's destructor.
+
+If we leave it for OSystem, the DefaultTimerManager destructor tries
+constructing a StackLock which, predictably, calls a pure virtual
+function, because OSystem_Android's destructor is finished.
+(cherry picked from commit c382c0c19522ce4771b74ac02377e75350550dd7)
+"
+"a836eb2cff9e631eac3ae4a0abc9952bc869d1c3","2011-10-27 08:59:47+02:00","ANDROID: Fix sed escaping in mkplugin.sh.
+"
+"fed26146a855fc79784c3df0ae3a1bf068fc2722","2011-10-27 14:16:22+02:00","ANDROID: Actually create the savegame directory.
+
+Not sure how this went missing from the commit.
+"
+"4a400545e87f17a33f47c2bc59f7bafa0d0589a8","2011-10-27 11:16:05-05:00","MAEMO: Update debian/changelog text
+
+No more changes are happening to the Maemo port between now and the 1.4.0 tag.
+"
+"5a4b0176290f3d5ac09bd2132e2c622b2d469592","2011-10-27 21:49:33+01:00","SWORD1: Fix crash when using cutscene subtitles with mac version
+
+It might have been simpler to add a bool to Text::makeTextSprite() to
+tell it to not byteswap the frame size when called from the movie
+player but I was not sure it was a good idea to have frames with
+different endianness stored in Text depending where they came from.
+"
+"29dd6df6111c78044f4337ee61bdf992e6f3ca92","2011-05-01 18:07:27+02:00","ANDROID: Disable the savegame parachute
+
+Only on the stable branch, since this is unfinished and might wipe
+savegames of the user.
+(cherry picked from commit cf41ac0fec13c1191fd107bf25505713aa60afde)
+"
+"58c4b4870e59a378ad33d15451a2576a3a09c86b","2011-10-28 12:06:01+02:00","GUI: Change scrollbar repeat handling from a timer proc to handleTickle.
+
+This should be less heavy on timer usage and makes sure no race conditions
+will occur.
+(cherry picked from commit 7f2b2e99f8cea8258b0a28ca40ce46abd5d17347)
+"
+"18e681d7075157ef629c558bc8b4c71266a874c3","2011-10-31 15:22:10+11:00","TSAGE: Bugfix for graphics scalers not working on Ringworld
+"
+"797406fe4c77b6a56cc4f8a50c15d639cd440ce4","2011-10-31 21:43:17+01:00","AUDIO: Fix reverse stereo (LinearRate_R) on ARM.
+
+Fixes the issues I can reproduce, and presumably fixes bug #2998862.
+"
+"060a750b448db2318adc039aaddd971c19c3c28e","2011-10-31 21:02:59+00:00","SWORD1: Fix bug #3430793 Freeze before meeting with police
+(cherry picked from commit 5e4ee6d07792a976280cb00e01d3cb0f64be4f04)
+"
+"7dad6eac9937d0dbf55b14f2e31e71f3a1a03d02","2011-10-31 21:18:30+00:00","NEWS: Mention sword1 windows demo fix
+"
+"d7f7699ace7e1ec6fbcf93ec7316f5769b0762df","2011-10-31 21:21:12+00:00","NEWS: Mention fix in sword1 mac whith cutscenes subtitles
+"
+"5a53730b431684d5aa06d78eb2211eb9b179a433","2011-10-31 23:12:06+01:00","AUDIO: Fix reverse stereo volumes on ARM
+
+This commit re-converts the stereo rate converters to
+reverse stereo since they had drifted apart during the last few
+refactoring steps.
+
+In the process it makes vol_l/vol_r behave the same as in the C++.
+(cherry picked from commit 99307acf0a079aadc2de16984f23c2341f6d1982)
+"
+"9bc0f7068edff109f0b8eff0826b83e0d5ae138f","2011-10-31 23:23:06+01:00","AUDIO: Fix some comments and whitespace
+
+(cherry picked from commit 66a013d1f71e85477cd8e10bf3f2af46aca64765)
+"
+"56fd34ed0c072b6a47614e850600c34b4d2842e6","2011-11-01 16:25:04+01:00","KYRA: Fix Common::List::erase usage.
+
+Thanks to Tron for pointing that out.
+(cherry picked from commit 57ca48d5470eac957c9932c45ad8807d5545b771)
+"
+"e9e26a75cac2691310848a3ea82f4eaa26af0835","2011-11-01 17:03:33+01:00","SCUMM: fix save file incompatibility between DS and other ports for non FM-TOWNS games
+"
+"5c4d1992cb7d456e95fbc26ac0bd6380908d006c","2011-11-01 17:36:50+01:00","SCUMM: add comment to last commit
+"
+"d9f82c0290c46ff182d9f7b064c817ca3a7c6578","2011-11-01 23:42:38+02:00","SCI: Fixed bug #3430834 - 'SCI: KQ6: Music stops after leaving shop'
+
+A regression from commit 9654068
+"
+"fe2b85befacc05f448bc828c021d96deab9ea2ed","2011-11-03 13:01:43+01:00","ANDROID: Target SDK 10, and support more device configurations.
+
+This disables the required input configurations, disables the implied
+requirement for a landscape display, and explicitly notes that we
+support large screens. This makes the Market happy with showing the
+package to as many devices as possible (but doesn't help otherwise, so
+this is for the branch only).
+"
+"1495710f10583ae8d7b3e94a2b13b3e9444ce165","2011-11-03 13:11:55+01:00","NEWS: Mention ARM/android fixes.
+"
+"745e9c1814f1ab0725c4eefa31ad2243691328ca","2011-11-03 14:26:50+00:00","NEWS: Mention MacPorts support in 1.4.0
+"
+"96cb0fab0d69e6bd4e1a2850c23d9796dba7d8d9","2011-11-03 16:01:28+00:00","DOCS: Update German NEWS translation. Courtsey of SimSaw.
+"
+"34fc5a3ea364af9ded97f79365ff6298dea65a57","2011-11-03 16:49:57+01:00","GOB: Fix analyser warnings regarding sprintf() parameter signness
+"
+"f7d4c0e1746ca2de31ac41f1b164ce570daf0b4a","2011-11-03 16:58:54+01:00","GOB: Fix a very stupid typo in the pathfinder
+"
+"a0996380a01ce9fc4d42c4219018047fcdb2569d","2011-11-03 21:07:00+03:00","RELEASE: This is 1.4.0
+"

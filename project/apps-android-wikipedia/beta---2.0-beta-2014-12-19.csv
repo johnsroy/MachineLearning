@@ -1,0 +1,125 @@
+"commit id","commit date","commit message"
+"aec96da1d3713bd0446a298c833c5c4ff8662537","2014-12-17 12:50:39-07:00","Material design icon for share action
+
+Dark only since it's currently used only by gallery.
+
+Change-Id: Id654eb7d419db7ed725fcc0a4137263f410e0ba5
+"
+"34c3b7bea5f41d5d859b65821cf0d2492f9ae8e8","2014-12-17 15:29:55-07:00","Avoid StackOverflowError when initializing channel preference
+
+No recursion of getChannel() anymore.
+
+Bug: T78833
+Change-Id: Idd8fd49002bc24750b6a1fa0f8550350cd53ee29
+"
+"da53e0f3cc08b2fb733e280074ae95f19585d4ae","2014-12-12 16:55:25-07:00","Update Gradle plugin to build-tools
+
+Also updated Android SDK on Alpha build server.
+
+Change-Id: I043abccd6d7c04e28ef0031cab4afbd50a801776
+"
+"ba2f79a6f9b778d488d1825afeb931a896d4fc76","2014-12-17 22:23:45-07:00","Update README for Android Studio 1.0.0
+
+Change-Id: I6678f620564c569944675344806c8326e417af12
+"
+"ce5b5dd25bc44e1569ad6a5ceee78bfd41e6f920","2014-12-18 15:34:00+00:00","Merge 'Avoid StackOverflowError when initializing channel preference'
+"
+"d0b8f09d76930e3212b37abf63bad383c34c2752","2014-12-18 15:38:14+00:00","Merge 'Update Gradle plugin to build-tools'
+"
+"fe37df9f7e1d1196d2680cdd7f577bc8c4c124b5","2014-12-18 15:41:20+00:00","Merge 'Update README for Android Studio 1.0.0'
+"
+"8f22a5e71370e8f12e3eff5d6f223d09b7299504","2014-12-18 12:11:17-05:00","Fix possible crash when user goes to Settings from Nearby screen.
+
+Bug: T72528
+Change-Id: I3ea00a53e930c26d337f37d5f47b315f9979fc7b
+"
+"6c7276fc22899463348dfd1936a9c448addc5384","2014-12-18 10:50:10-05:00","Fix crash when lead image is abnormally small.
+
+Bug: T84881
+Change-Id: Ia59603e698305ef4ac0a5e4342a7b71fc9aa637f
+"
+"c5e45c66900abf6de894e7e0862432be73558b26","2014-12-18 11:24:36-07:00","Go to first suggestion on search submit
+
+Bug: T78749
+Change-Id: I5477a6d7fee3339febea6646ce27c4b9a88da9eb
+"
+"2b02e527a273e3f5a5b3b844f33984bbc824029d","2014-12-19 11:16:15-05:00","Fix checkstyle.
+
+Change-Id: Ia537b42c9f6fc1556b8e1e08d599989b83e1067a
+"
+"b0ddfb0158d78c507d445ce6c136d774370e06c9","2014-12-18 20:52:55-05:00","Fix lead image click area in 2.3
+
+The problem was that, even though the ViewHelper library (nineoldandroids)
+correctly slides the lead image component, it does not successfully slide
+the logical click area that corresponds to the visual position of the
+component! So, the lead image remains 'clickable' even after sliding away.
+
+The solution is to stop using the ViewHelper library, and shift the
+position of the lead image component using standard margins.
+
+There was another slight issue, however:  in Android 2.3, using negative
+margins is only possible for a component that has a LinearLayout as a
+parent.  So, I had to put the lead image container into a dummy
+LinearLayout, just to achieve negative margins.
+
+Thanks again, 2.3!
+
+NOTE: The same issue is currently present in the Search bar at the top,
+which slides away in a similar fashion. This will be the subject of a
+subsequent patch.
+
+Bug: T84998
+
+Change-Id: I79120601b156e151a8b9ddabcfef2952c1555de5
+"
+"d137754039a6d3e98895b6bdf164f33a0922ef37","2014-12-16 19:54:28-05:00","Fix possible NPE(s) when accessing parent fragment.
+
+In our LeadImagesHandler and BottomContentHandler, we use the
+getFragment() function which returns the 'internal' fragment object that
+is currently hosted by the PageViewFragment.  The problem is that, when a
+PageViewFragment is detached, it sets its instance of the internal object
+to null.  So, if the Lead or Bottom components try to access the internal
+fragment using getFragment() from the result of an AsyncTask after the
+parent fragment is detached, they will get a null pointer.
+
+This patch refactors things so that the internal object itself is passed
+to the Lead and Bottom components, so that they will never receive a null
+reference to it.
+
+Change-Id: Ie78c76e12128a89218bcea8d65fbfeed01278a63
+"
+"cfe692ec6a0678b944284dfd615ce2d8cabe4d40","2014-12-18 11:40:59-08:00","Add X-WMF-UUID to Wikipedia for Android requests
+
+See also:
+Ia0ab1691a31b9555721291803481104cb808689c
+
+For now, the inclusion of the UUID in other places not to be removed.
+
+On the Android it platform it seems that per-funnel identifiers
+are part of the event data itself, and as with iOS, the UUID is
+constructed in a reliable manner.
+
+For now the goal is to ensure the goal is to ensure the presence
+of the accurately set X-WMF-UUID header without causing other
+unintended side effects in the app.
+
+It should be possible to query request logs once this code and its
+counterpart, in the following change
+
+Ieeb3cc38e8d2f3244ec63d5345d4556e2f4a5df9
+
+, are both deployed. If the values match when expected to match,
+then it should be possible to remove the request path UUID in other
+non-event payload contexts (e.g., PageViewFragmentInternal.java's
+builder object with parameter 'appInstallID').
+
+Change-Id: I1f1cb4629cf7fe247f399a6d06feb7602ad0b455
+"
+"2bd95a5dff53cfca608b7e88ca689a567fca77f3","2014-12-19 23:16:36+01:00","Manual import of Android string translations from TWN
+
+Change-Id: I4055c53ace87e2687be6705359f8f0bfaa56b426
+"
+"6b6c27d16a3a2c7fe443b8f1a7595d066f7308e0","2014-12-19 15:53:12-07:00","Bump versionCode
+
+Change-Id: I9a1d7c35cc8b0cf696ee62d2f914e430d7487ec6
+"

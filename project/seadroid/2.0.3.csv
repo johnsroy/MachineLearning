@@ -1,0 +1,91 @@
+"commit id","commit date","commit message"
+"2dd8a8b4126ca684920d18c4f80b91e48740be42","2016-02-01 19:52:38+01:00","fix a multitouch zoom-out crash in the photo gallery
+
+Steps to reproduce (tested on Android 5.1 and 6.0):
+1. open image within seafile
+2. zoom out with 3+ fingers aggressively multiple times
+3. after 5-10 zoom-out gestures, the activity will crash (see exception below)
+
+The cause is a apparently bug in the Android framework, which causes a crash when using
+the PhotoView library. More details on the bug can be found in:
+
+* https://github.com/chrisbanes/PhotoView#issues-with-viewgroups
+* https://github.com/chrisbanes/PhotoView/issues/206
+
+The workaround is to use a modified ViewPager provided by the author
+of PhotoView.
+
+01-31 23:29:16.255 10549-10549/? E/AndroidRuntime: FATAL EXCEPTION: main
+Process: com.seafile.seadroid2, PID: 10549
+java.lang.IllegalArgumentException: pointerIndex out of range
+at android.view.MotionEvent.nativeGetAxisValue(Native Method)
+at android.view.MotionEvent.getX(MotionEvent.java:2014)
+at android.support.v4.view.MotionEventCompatEclair.getX(MotionEventCompatEclair.java:32)
+at android.support.v4.view.MotionEventCompat$EclairMotionEventVersionImpl.getX(MotionEventCompat.java:110)
+at android.support.v4.view.MotionEventCompat.getX(MotionEventCompat.java:462)
+at android.support.v4.view.ViewPager.onInterceptTouchEvent(ViewPager.java:1916)
+at android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:1961)
+at android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2406)
+at android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:2107)
+at android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2406)
+at android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:2107)
+at android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2406)
+at android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:2107)
+at android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2406)
+at android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:2107)
+at android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2406)
+at android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:2107)
+at android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2406)
+at android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:2107)
+at com.android.internal.policy.impl.PhoneWindow$DecorView.superDispatchTouchEvent(PhoneWindow.java:2625)
+at com.android.internal.policy.impl.PhoneWindow.superDispatchTouchEvent(PhoneWindow.java:1770)
+at android.app.Activity.dispatchTouchEvent(Activity.java:2742)
+at android.support.v7.view.WindowCallbackWrapper.dispatchTouchEvent(WindowCallbackWrapper.java:60)
+at com.android.internal.policy.impl.PhoneWindow$DecorView.dispatchTouchEvent(PhoneWindow.java:2586)
+at android.view.View.dispatchPointerEvent(View.java:8675)
+at android.view.ViewRootImpl$ViewPostImeInputStage.processPointerEvent(ViewRootImpl.java:4129)
+at android.view.ViewRootImpl$ViewPostImeInputStage.onProcess(ViewRootImpl.java:3995)
+at android.view.ViewRootImpl$InputStage.deliver(ViewRootImpl.java:3550)
+at android.view.ViewRootImpl$InputStage.onDeliverToNext(ViewRootImpl.java:3603)
+at android.view.ViewRootImpl$InputStage.forward(ViewRootImpl.java:3569)
+at android.view.ViewRootImpl$AsyncInputStage.forward(ViewRootImpl.java:3686)
+at android.view.ViewRootImpl$InputStage.apply(ViewRootImpl.java:3577)
+at android.view.ViewRootImpl$AsyncInputStage.apply(ViewRootImpl.java:3743)
+at android.view.ViewRootImpl$InputStage.deliver(ViewRootImpl.java:3550)
+at android.view.ViewRootImpl$InputStage.onDeliverToNext(ViewRootImpl.java:3603)
+at android.view.ViewRootImpl$InputStage.forward(ViewRootImpl.java:3569)
+at android.view.ViewRootImpl$InputStage.apply(ViewRootImpl.java:3577)
+at android.view.ViewRootImpl$InputStage.deliver(ViewRootImpl.java:3550)
+at android.view.ViewRootImpl.deliverInputEvent(ViewRootImpl.java:5813)
+at android.view.ViewRootImpl.doProcessInputEvents(ViewRootImpl.java:5787)
+at android.view.ViewRootImpl.enqueueInputEvent(ViewRootImpl.java:5758)
+at android.view.ViewRootImpl$WindowInputEventReceiver.onInputEvent(ViewRootImpl.java:5903)
+at android.view.InputEventReceiver.dispatchInputEvent(InputEventReceiver.java:185)
+at android.os.MessageQueue.nativePollOnce(Native Method)
+at android.os.MessageQueue.next(MessageQueue.java:143)
+at android.os.Looper.loop(Looper.java:122)
+at android.app.ActivityThread.main(ActivityThread.java:5294)
+at java.lang.reflect.Method.invoke(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:372)
+at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:904)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:699)
+01-31 23:29:16.269 3961-5035/system_process W/ActivityManager:   Force finishing activity 1 com.seafile.seadroid2/.ui.activity.GalleryActivity
+"
+"35ab4653794515cc34592a6eb26164d209db6ae8","2016-02-02 11:35:49+08:00","Merge pull request #482 from forouher/fix/gallery_multitouch_zoom_crash
+
+fix a multitouch zoom-out crash in the photo gallery
+"
+"3c270f3f9f747eda664fd5ac8de570ab989eac4f","2016-02-19 10:01:30+08:00","Fix Shibboleth account creation not working since 2.0.0 #488
+
+fix #488
+"
+"9b512cedcf531d47b70988e29c392beed4049601","2016-02-19 18:36:35+08:00","Popup unsafe connection dialog if authority is not trusted
+"
+"d14eff5e4486d5a0f747014787acde3e1f54fe7b","2016-02-20 14:52:44+08:00","Merge pull request #489 from Logan676/fix/shibboleth_account_creation_now_working
+
+Fix Shibboleth account creation not working since 2.0.0 #488
+"
+"1f635ad8048015183d50be581fbe9688cfd1499e","2016-02-20 14:55:38+08:00","update version code
+"
+"ab8cbf4b9cea4ea7395f23523fa33c0663ee14f1","2016-02-20 14:57:31+08:00","update i18n
+"

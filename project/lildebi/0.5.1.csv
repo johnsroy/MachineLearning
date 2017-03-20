@@ -1,0 +1,178 @@
+"commit id","commit date","commit message"
+"00376b79a3a3512bcf24edaf8344671a40822e94","2014-09-22 18:46:32-04:00","bump version name to 0.5.1 and code to 5100
+"
+"d1e6d4d731b562e591b662fbf90ce3067caf4470","2014-09-25 12:50:41-04:00","make-release.build: fix timestamp generation to always output UTC time
+"
+"b5f44f60e717fa4a68a143a8dfedcc852e303360","2014-09-22 21:32:43+05:30","Hide 'Image Size' from install screen when installing in /data
+
+fixes #115 https://github.com/guardianproject/lildebi/issues/115
+"
+"697364373eafd180e88203de84fbcfa3e1aa8207","2014-09-26 23:57:19+05:30","calculating free size of internal storage from '/data' and not '/data/debian'
+
+When lildebi is installed first time on a device, then /data/debian folder is
+not present. So when the install screen (of installing in internal storage)
+tries to calculate the free size of internal storage from /data/debian then an
+exception is generated as /data/debian is not present.  So instead of
+calculating free size from /data/debian, we will now calculate it from /data
+
+fixes #114 https://github.com/guardianproject/lildebi/issues/114
+"
+"6bde57c9997eac111cbb78f67955952f32e4b170","2014-09-26 14:57:31-04:00","use canonical/absolute path when finding free bytes on install path
+
+The SD Card aka 'external storage' on Android can do weird stuff with the
+path to support the multi-user stuff.  Using the canonical path seems to
+help with some of the issues, and if that fails, then try the absolute path.
+"
+"ee7fbe64ce6ba7ad323f8d0167a20b92cb32b8ae","2014-09-26 15:35:14-04:00","Debian's /etc/profile needs real `id -u`, so use busybox's
+
+Android's `id` is in the PATH when this little snipped of code is run in
+Debian.  So when /etc/profile is first executed and is setting the PATH,
+it needs `id -u` to return only a numeric value.
+
+fixes #88 https://github.com/guardianproject/lildebi/issues/88
+fixes #116 https://github.com/guardianproject/lildebi/issues/116
+"
+"1233a1e4c607fd08402ebd74f6c443c26b7c3645","2014-09-26 15:47:58-04:00","always show 'Open Terminal'; guide user to install it if its not already
+
+Instead of hiding 'Open Terminal' from the menu when Terminal Emulator is
+not installed, instead guide the user to install it if they click that
+menu item.
+"
+"32eab0b4327140cdf49e75cfd25f85d82d824b71","2014-09-26 16:59:47-04:00","change menu name from 'Preferences' to 'Settings' following current standard
+"
+"70d8698d2035020af6652b82a130283895f88608","2014-09-26 17:16:05-04:00","initialize 'Install on Internal Storage' pref at startup
+
+This was only ever inited when the pref changed, otherwise it used the
+hard-coded default.  Now it will read the value from the stored prefs on
+startup, and the default value is a standard part of that call.
+"
+"9c4bbb73237299f02dc746cb7dc0b2468c0b6c6c","2014-09-26 17:41:13-04:00","add preference to limit image file to 4GB (that's the FAT file size limit)
+
+The 'External Storage' is often a FAT filesystem, but it turns out that it
+is very difficult to reliably detect what filesystem the External Storage
+is using.  So this is a workaround using a manual preference.
+
+fixes #80 https://github.com/guardianproject/lildebi/issues/80
+"
+"cf2b87a9cbc75580f21416a8b326c2b504ef742d","2014-09-26 18:07:45-04:00","detect if Superuser is installed, if not, prompt user to install it
+
+Lil' Debi currently only works with Superuser, and not SuperSU.  And it
+requires an app to provide root access.  This moves the test to the first
+screen, since it no longer attempts to get root access, but instead just
+looks up the SU apps by packageName.
+
+fixes #112 https://github.com/guardianproject/lildebi/issues/112
+"
+"e7616c969436b978ae2b48a4eadf865dc8203cf0","2014-09-27 23:11:54-04:00","uninstall Lil' Debi if Terminal Emulator not installed first
+
+It turns out that if Terminal Emulator is installed after Lil' Debi, then
+Lil' Debi can't use Terminal Emulator's permission.  The only way I could
+find to solve this is to uninstall Lil' Debi, make sure Terminal Emulator
+is installed, then reinstall Lil' Debi.
+"
+"6e9dc29c0f7986a3dbc4d78d4e23add918d9c47e","2014-09-29 12:25:01-04:00","implementing minimumFreeSizeTest function
+
+This function tests whether the requested size for installation is greater
+than MinimumFreeSize (250MB) else it will disable the install button and
+change its text to 'Not enough space (< 250MB)'. The earlier Toast which does
+this work is been removed.
+
+fixes #117 https://github.com/guardianproject/lildebi/issues/117
+"
+"f5ffaac92aaa9b89138676ecd29e4c01b2e88151","2014-09-28 21:42:09+05:30","restore image_path from the Image path EditText box
+
+when we uncheck 'Install on Internal Storage' we have to replace image
+path from Image path Edit text box, instead of default value
+"
+"0e392d8e53e9cc49af559487692ac56f671e58ba","2014-09-29 12:40:37-04:00","fix crash on resuming InstallActivity when using internal storage
+
+If we resume InstallActivity keeping the Image size black we get NumberFormatException
+"
+"d9c41ff85542ddccd5ecd79702da9961d0f044cf","2014-09-29 01:49:45+05:30","Change NativeHelper.limitTo4GB after '4GB Image Limit' Setting changed
+"
+"e063db2484ce59429e339bf82fe99ea8cfeeae4c","2014-09-29 13:16:22-04:00","show error if the loopback image cannot be mounted during install
+"
+"b9b0d33982854bd73f3619f7a5bb2b4fb94b17ab","2014-09-29 15:38:42-04:00","support SuperSU on older than Android 4.2/android-17
+
+Android 4.2 introduced multi-user support and added some bizarre mount
+hacks (i.e. /storage/emulated...). koush's Superuser supports them
+transparently, but SuperSU requires that you call su differently in order
+to support that mount weirdness.  It is doable to support SuperSU, but I'll
+leave it at 'patches welcome' since it is a proprietary app.
+"
+"0929fff5b5045e9866ab8ef48776bf950ec5f09e","2014-09-29 15:39:03-04:00","improve 'Get Superuser' messages
+"
+"c29272bec57bfa233d4eaa5136257a3376276dfd","2014-09-30 01:17:18+05:30","test to check cyanogen BUILD to see if device is rooted or not
+
+as latest cyanogen build does not explicit superuser application
+"
+"37dfcfd4f06b6a1c859d8489255df065c80d9e92","2014-09-30 01:25:28+05:30","check if Debian image is available after SDcard is unmounted
+
+as some devices has multiple SDcards
+"
+"141ae07b77137013721172f0f8808f526ff9a445","2014-09-29 23:34:00-04:00","install android-permissions as early as possible in the install process
+
+This package sets up all the Android app users and permissions groups.  It
+needs to be installed as early as possible to claim the uids for group
+names like 'bluetooth' that also exist in Debian.
+"
+"09cbfbd59a4ebabc924b64831bda38fef87910e9","2014-09-30 15:54:13-04:00","include script for automating comparisons of release APKs
+
+This is useful for checking whether the build is reproducible.
+"
+"7217b78f3077b9aecc9c8eb99f3f641b807e342f","2014-09-30 16:25:14-04:00","make /debian/shell work for normal users too
+"
+"835284f98ee226312b92fa0e92800bd7ff529769","2014-09-30 17:24:36-04:00","don't set the hardware clock on shutdown, Android will take care of that
+"
+"87332f71b193c3589137ecd0e6b1b01aaf656b0b","2014-09-30 17:26:33-04:00","properly initialize image_path when 'Internal Storage' is true
+"
+"79433c531151c3f17d8be823940e7f2045307395","2014-09-30 17:27:49-04:00","attempt to auto-detect existing internal install
+
+This code tries to find an existing internal install, then uses that as the
+default value when reading the actual pref.  This is useful for when the
+app has been uninstalled and reinstalled, but the internal install is still
+in place.
+"
+"e1b5c12b93b81159155c2074e40175e6139e6aa1","2014-09-30 17:29:34-04:00","/debian/shell needs to also force the use of busybox's `id -u`
+
+`id -u` must return only a single number, so busybox's id is included. This
+makes /debian/shell use it when launching a login shell, so /etc/profile
+can work properly.
+"
+"12fb93a3eb166246b923acb5186c51d9623dc326","2014-09-30 17:38:33-04:00","add pretty Debian-style messages to stop-debian.sh
+"
+"a7b4bc0a81ff53065570c7227ceb66598465671f","2014-10-11 20:12:17+05:30","added lildebi shutdown on ACTION_EJECT and ACTION_MEDIA_BUTTON
+
+added new MediaEjectReceiver.java for that
+
+closes #113 https://github.com/guardianproject/lildebi/issues/113
+"
+"74608006890a01e2375c201da35dbedcb60c6cf4","2014-10-11 20:25:18+05:30","removed unused import
+"
+"fae72a31cbae3be01fa5ca535bdd92e2e5fecdf3","2014-10-11 21:30:18+05:30","'no_sdcard_message' msg is not required
+when installing under internal storage
+"
+"fb9a4cb697181caa8bd43cc349f61cf6a1d4f1d4","2014-10-12 13:36:30+05:30","remove terminal initial command if Lil'debi is not running
+"
+"0af70ac414d1060a4b340fd13ffbdc9a66f4c850","2014-10-12 18:16:28+05:30","Mark Install on Internal Storage feature as Beta
+"
+"eab22691fa5be9fb8874c2e96bff1fc280c1e75d","2014-10-13 00:12:27+05:30","add MEDIA_SHARED for MediaEjectReceiver
+"
+"85cb51f21e37a8dc4684613563074efd6b2b9ea0","2014-10-13 01:04:52+05:30","fix intent action names in AndroidManifest.xml
+
+closes #113 https://github.com/guardianproject/lildebi/issues/113
+"
+"69a0498bbf1f4a3db5c8d47706c3f36dfae30147","2014-10-13 01:14:51+05:30","RECEIVE_BOOT_COMPLETED permission is needed in order to receive the broadcast BOOT_COMPLETED
+"
+"52aa1a852a9164ce69efc1ba7be0cb6dbc487458","2014-10-12 21:24:17-04:00","update translations: de es it nl pl tr
+"
+"8d06630e34ef2c1c56165eb285c881029ffcc805","2014-10-12 21:24:41-04:00","remove unused strings
+"
+"8e8d0e1a587a1ca0b1332d547dafd1c367f7941c","2014-10-12 21:26:21-04:00","include Hungarian translation (thanks vargaviktor!)
+"
+"2838bf5175593d0beb45e878e85782441a9bbe68","2014-10-12 21:29:01-04:00","included Russian translation (thanks vitaliyg and yuray!)
+"
+"1797438eadacca3ecd32e5015c1a16b8ff57fef5","2014-10-12 21:36:19-04:00","update changelog with 0.5 changes
+
+closes #121 https://github.com/guardianproject/lildebi/issues/121
+"

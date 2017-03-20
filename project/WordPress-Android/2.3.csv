@@ -1,0 +1,611 @@
+"commit id","commit date","commit message"
+"353b2a44537c860bf35ad4ea73c105d0c5c8e90b","2013-01-28 23:49:21+00:00","Set targetSDK to 17, because why not? props willnorris. Fixes #405
+"
+"9525839da8d7d17af00d2ae1daccd972b57cfd53","2013-01-30 17:44:59+00:00","Fixes the Javascript interface methods from not working properly when targeting API 17. See http://developer.android.com/reference/android/webkit/WebView.html#addJavascriptInterface(java.lang.Object, java.lang.String). Refs #405.
+"
+"88fb0f224b10ebe0ded66569d163a6718e17d3d2","2013-02-01 00:39:25+00:00","Initial commit of ActionBarSherlock conversion. Note:
+
+* It's ugly at the moment :)
+* Lots of bugs to still sort out with the change of the WPTitleBar to ActionBar
+* You must have ActionBarSherlock downloaded and added to Eclipse as a Library project. Details: http://actionbarsherlock.com/usage.html
+* Started experimenting with UI tweaks to fit in with Holo better: Square gravatars, more padding in lists with no gradient backgrounds
+* Added support for the action bar icons to Posts, Comments and Reader views.
+
+Refs #408
+"
+"3e336ff52a53106d47b671159bf80eb4e773713f","2013-02-04 15:36:52+00:00","Can't use setBackground() as it was added in api 16. Fixed #410
+"
+"febc0701a8ba50ca2219ec303a8fb913d3fb723a","2013-02-05 23:23:25+00:00","Minor cleanup for ActionBar
+
+- make WPActionBarActivity an abstract class, as well as the
+onBlogChanged method.  Update subclasses accordingly.
+- fix ActionBar code in ViewWebStats that was causing the app to crash
+on older versions of Android
+
+Fixes #412
+"
+"d220ebcd87835b71113be02fbc3b83e9891f2c54","2013-02-07 16:19:26+00:00","Fixing a crash, some users appear to be getting a null XMLRPCException message.
+"
+"e1259987e18e18938b1af40a6a05ac57d8f5afda","2013-02-07 17:11:39+00:00","Moving some FragmentActivity code to onPostResume() in an attempt to fix the 'java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState' error when trying to show an alert dialog after resuming. Solution found at: http://code.google.com/p/android/issues/detail?id=23096. Appears to be related to the support library.
+"
+"11d3dc514337e84cb288fa26ccfc5af396ae4abf","2013-02-07 17:56:57+00:00","Don't attempt to share URL unless we have a valid post.
+"
+"c4987d38da10ad54d21b7fa4a5464717c100b01d","2013-02-07 21:30:29+00:00","Fixes ActionBar styles on < 3.0 devices. ActionBarSherlock requires that you duplicate each style item without the 'android:'. See http://actionbarsherlock.com/theming.html. Refs #413
+"
+"481ae1953cb2a84bf423782ce04365b8f7c1bcfa","2013-02-07 21:36:48+00:00","add null check when fetching http resource.
+
+Fixes #415
+"
+"20edc58366099c319f960fc87748f5819c8d5805","2013-02-07 21:54:49+00:00","Fixes black background of lists on < 3.0 devices. Also tweaked EditPost.java to use ActionBarSherlock. Removed a few unused files.
+"
+"55e94c9cbb3c19533e3b199cb93cb03f4da7265e","2013-02-13 00:37:44+00:00","Moving the post upload AsyncTask to operate from a service, since AsyncTasks aren't designed for long operations. A service will keep the operation alive for long post uploads. Also moved the services to the util folder.
+"
+"bf37c88a043ce241c3716f53e6a2262c3fdb09f1","2013-02-13 17:54:41+00:00","migrate to maven for building project
+
+- add basic maven configuration including all dependencies
+- restructure commonsware libraries in libs directory so that maven can
+find them
+- fix ambiguous call to SSLSocketFactory constructor
+- (sadly) drop back to API level 16.  This is because ActionBarSherlock
+is built against the android artifacts in maven central, which only go
+up to 16.  Trying to use our own artifacts at 17 causes problems when
+dexing.  We're not actually using anything in 17 right now, so it's
+not that big of a deal.
+- add readme file with build instructions
+"
+"d977b807cafcca9a683653a1c6701b5214fcf337","2013-02-14 17:32:28+00:00","revert @898 which added maven support
+
+There are more problems than I initially thought with using maven + eclipse +
+apklib projects, so reverting this change.  We'll explore other options for
+doing dependency management, but for now we're prioritizing making sure that
+building in eclipse works well.  I will follow up this commit with the
+(re)addition of a readme file that includes proper instructions for building
+from command line using ant.
+"
+"b20198acc804d354cdc8dbaaae4b0dfb1515fd3b","2013-02-14 19:07:06+00:00","Post editor updates:
+
+* Holo style and uses default text/button styles.
+* Formatting toolbar fades in and out based on whether the content EditText has focus.
+* Post content EditText now expands in the scrollview as you add more content.
+* Added integers.xml so that we can change int values based on device size/pixel density.
+* More compact, makes better use of placeholders and only showing content that is relevant in the post editor (for example, selected categories textview is hidden until you add categories or are editing a post that already has categories selected).
+* Removed separate edit.xml copies that we were using for tablet layouts. A bit more work can be done to get the editor looking nice on tablets.
+* Moved save/publish button to the action bar. Added a preview icon that doesn't have an action yet, but @koke is adding that soon :)
+
+Ref: http://dev.android.wordpress.org/2013/02/12/while-working-on-411-i-also-took-a/
+"
+"d7d21ecc76243b86950c47581c8aca33f9a666e9","2013-02-14 20:19:51+00:00","add readme file
+
+the readme mostly serves to direct people to other resources like the
+mobile handbook.  It does include basic instructions for using ant,
+since that isn't documented anywhere else currently.
+"
+"10986c0fb7aeb986af3d6586bdc9fcb10e73fc01","2013-02-15 01:27:56+00:00","Fixes a crash when viewing comments on the nexus7 due to missing resources.
+This removes the reference to the old title bar but does not correct the gap at the top of the view.
+"
+"59e4ccaa86e69b9f298436d615dcc8410fa3d34a","2013-02-15 22:22:20+00:00","Converted JSONObject usage to Gson, which does a better job at parsing/converting to JSON. Also added patch for better previews, props kokejb
+
+Ref: http://dev.android.wordpress.org/2013/02/15/while-testing-kokejbs-preview-patch-this-week-i/
+"
+"6822220dc5b6b99df017665a2f85dc915e87a43d","2013-02-16 17:48:43+00:00","remove EULA on application start
+
+The GPL isn't intended for end users, so shouldn't be used as a EULA.
+We should of course include a copy of the GPL in the source and within
+the app itself.  That should probably be done as part of #399
+"
+"7706b32a8ce554195f4cea53f060c59fa9ac6132","2013-02-16 18:54:31+00:00","initial menu drawer implementation
+
+This requires the android-menudrawer project[0] to be added in the same way
+as ActionBarSherlock.  There is certainly still work to be done on the
+menu drawer (particularly around UI), but this initial version should be
+fully functional.  This commit doesn't touch the existing Dashboard
+menu (so there is duplication); that will come in a subsequent change.
+This also doesn't yet move the blog selector into the menu drawer.
+
+[0]: http://simonvt.github.com/android-menudrawer/
+"
+"01fbd2c50a2a2e3ca43fee70d94e40e9c9762960","2013-02-19 00:26:33+00:00","Reader and Code Cleanup:
+
+* Completed the Reader conversion to use the ActionBar and Holo styles.
+* Removed old 'Title Bar' layout files and unused drawables.
+* Added a boolean to WPActionBarActivity to track if we are rotating the refresh icon.
+"
+"8e33cb892a852ae55b2c46c80e79edcaf0129e2e","2013-02-19 00:29:08+00:00","Removing some commented code.
+"
+"f3d705b777790d973be1e57cfe2fa0cd650a0fa4","2013-02-19 00:55:55+00:00","Removing a bunch of ancient drawables/layouts.
+"
+"8cb849d83a002c4babeeff25fd8a90e24ba2e14e","2013-02-19 18:13:46+00:00","add a basic comment badge to menu drawer
+"
+"c5ea5da7ed26eecc17fb1301748b88ee14ec6cda","2013-02-19 18:41:46+00:00","add menu drawer to Reader activity
+
+also fix menu drawer to only add up navigation if the activity actually
+has the menu.  If the activity adds the up navigation itself, that is of
+course left untouched.
+"
+"5db9800c49a5df7ce790be683a370ad0cbd81969","2013-02-20 21:47:24+00:00","Reader: Scroll detail view to the top when loading a new post, and give it a quick alpha animation. Also gave the ReaderBase class the HIGH render priority for best performance.
+"
+"5f2822ba023a4d584aef56aadd772edfab43bf6d","2013-02-20 22:50:47+00:00","Small string tweak for the Reader.
+"
+"2f9e2f6281d7e53d589477c6de08d8b12acb3e35","2013-02-21 00:37:02+00:00","If the media upload fails, don't publish the post and instead show the media upload error message to the user. Might help with #419
+"
+"0724aa9acd1755423bb0d6aa584f7693c0545c2d","2013-02-21 17:48:48+00:00","Higher res WP.org and WP.com logos, fixes #417
+"
+"0352c59d18a23a6ca20c5ae87e78fe08611a252b","2013-02-21 22:37:49+00:00","Layout style improvements, styling more like the new post editor.
+"
+"ce520acdee9b63537c73045fe8e99ead7111e69c","2013-02-21 23:29:50+00:00","Converted select/add category activity to use the ActionBar. Yay!
+"
+"fb5744294bef0212ddfab32abe16244f2e68fb36","2013-02-22 01:14:28+00:00","Fixing Reader f/c because of missing dimens values.
+"
+"cb08fbde6261e63f536942f531cc2387e345d752","2013-02-22 21:50:04+00:00","MenuDrawer: Added a small delay to the start of new activities when selected from the menu, so that the menu close animation can complete smoothly. Also made sure no animation is shown when a WPActionBarActivity subclass closes.
+"
+"d0cea7aa97d90a4568f084150346c51192169099","2013-02-26 22:45:54+00:00","Fixes f/c in reader when resuming the activity after leaving the app.
+"
+"0d30a63ce2f4cca0bb232c743f87c0ebe82b88fa","2013-02-26 23:32:40+00:00","Added refresh button to the ActionBar for ViewWebStats activity. Fixes #421
+"
+"3dc2124e38d065dd1b060d72260762723d1fd23a","2013-02-27 19:04:30+00:00","Return 0 in getCategoryId if no rows are returned. Fixes out of index exception.
+"
+"285a752aadc064963f5a9288e66311260e99d8ea","2013-02-27 19:17:43+00:00","Catch out of memory errors in a few places.
+"
+"e750db266ee3de1fd55ce7d708abc7cb03172bd2","2013-02-27 20:13:20+00:00","Show a toast error message if the image was not able to be added to the content editor.
+"
+"ca5118154826b5863d5a56e529228db3c17b9f74","2013-02-27 23:23:30+00:00","Increase the delay a little bit when opening a new activity from the MenuDrawer.
+"
+"018c9018e2e4ee3709f111a5c92e40afc34bc84d","2013-02-28 23:19:08+00:00","Changed Preferences.java to be a PreferenceActivity instead of using the db to store the preferences. Preferences will be migrated from the db when the user updated to 2.3.
+"
+"890268d048b477b213dbbaba8f676cb35dd0a109","2013-02-28 23:21:43+00:00","Adding a string and removing old arrays from the old stats activity.
+"
+"c481244d8a5837a9b6a2718928195506ec90ec47","2013-02-28 23:22:46+00:00","Adding preferences.xml file.
+"
+"41e9e43357fc78130f76f37d4c06190d32ea82ec","2013-03-01 17:56:06+00:00","A few changes:
+
+* Updated styles in Settings.java to copy the look of a Preferences activity. Removed cancel and save buttons and just called the save to the settings in onPause().
+* Removed a bunch of unused strings.
+* Fixed a few lint warnings and errors.
+"
+"8e5a600a1fc0e5fccbc74c805e285fba56197e60","2013-03-05 18:58:47+00:00","update setupCurrentBlog logic
+
+- move logic to display NewAccount activity to setupCurrentBlog
+- handle case where lastBlogId is set, but unable to be set as the
+current blog for whatever reason (maybe the ID no longer exists?). In
+that case, we fall back to just setting the first blog as current
+- call setupCurrentBlog during onResume.  This is mainly to handle first
+launch issues where no blog has ever been configured.
+"
+"ee2c52ca553ebcf795b444a219a07e04c23c4ff7","2013-03-05 20:55:34+00:00","make about screen accessible from preferences
+"
+"e76bc262cd21f5c2599bb9f11b0421755640e952","2013-03-05 22:49:06+00:00","update Settings activity to use passed in blog id
+
+Rather than always updating the settings for the currentBlog, now use
+the ID passed in the intent extras.  Also add new utility method to get
+the Blog object for a given ID.
+"
+"c9a36e8bb5783c53d38435bc1e7f73744c7aa43c","2013-03-05 23:06:37+00:00","add 'remove blog' button to Settings activity
+"
+"611d4d79e3e8e9e4576bb50d290d37817e3d28fe","2013-03-05 23:50:42+00:00","move blog management under main settings activity
+
+- options to add, remove, and manage individual blogs are now all
+managed via the main application preferences activity (same as iOS)
+- menu drawer item now opens main preferences activity (should we call
+it 'settings' or 'preferences'?)
+- Settings activity should probably be moved to be a formal
+PreferenceActivity at some point
+"
+"7959c97e5e205a77d00d9722fa7adf355b24eda4","2013-03-06 21:09:53+00:00","add java formatting rules based on android style
+
+Rules based on android-formatting.xml and android.importorder available
+from https://android.googlesource.com/platform/development/+/master/ide/eclipse/
+"
+"11dbaf43919cf1a7b64c753152679f625933a760","2013-03-06 22:45:31+00:00","restore some sanity to the import order
+"
+"575a5ed09162282a24ae8fb2d724f11a95dae886","2013-03-06 22:50:06+00:00","refresh blog content on posts refresh
+
+Move RefreshBlogContentTask into ApiHelper (probably not the best place
+for it long term, but it will suffice for now) and trigger it when
+refreshing the posts list.
+"
+"5516fa3ccc1ab6e0c6027955463c824045304a88","2013-03-06 23:38:54+00:00","remove Dashboard activity and related assets
+
+All of the Dashboard functionality has been migrated to other parts of
+the app:
+- menu drawer for navigation
+- application-wide Settings activity for adding and removing blogs, as
+well accessing the About screen
+- Posts activity for refreshing blog content
+"
+"069e50b185e707a76c01a225ebb8c4146e34eee8","2013-03-07 18:12:19+00:00","Updating build and version number
+"
+"48a5f18a26bb2fe188ec3a23c67a6d7ead182dd3","2013-03-07 18:47:14+00:00","update java whitespace (no substantive changes)
+
+changes:
+- use four space indents instead of hard tabs
+- strip trailing whitespace
+
+command used:
+find src/org -type f -exec sed -i '' -e 's/ /    /g' -e 's/[[:space:]]*$//g' {} \;
+"
+"72e5a8fbd12dc906e640cf1c7a3da8c40898a07e","2013-03-07 18:47:23+00:00","switch files to unix line endings
+
+command used:
+find . -type f -exec dos2unix {} \;
+"
+"76998a02419ca79aa3e222c46ab77e5f329bcfc7","2013-03-07 18:47:44+00:00","reorder java imports
+"
+"ac03812cdb754735d3de94b010713e00a3d29d91","2013-03-07 20:12:38+00:00","fix and cleanup flow for adding accounts
+
+use standard resultCode for returning ok/cancel status, rather than
+custom bundle extra.  Also define constants for requestCodes, rather
+than hardcoding the int values.
+
+fixes #423
+"
+"2ec4790074c81e7fec61dee35b90b167776b05da","2013-03-07 20:38:01+00:00","remove old TODOs for autogenerated code
+"
+"17b73b6365b8ebc8020df4a2e7da73b6916c308f","2013-03-07 22:40:50+00:00","stored lastBlogId in preferences instead of sqlite
+
+also rename methods for working with lastBlogId to use new style
+"
+"fd5594f4bfcb1dd304065dc95e224a540bd6d392","2013-03-07 22:40:58+00:00","remove 'add blog' from blog selector
+
+Also greatly simplify WordPress.getCurrentBlog() and remove duplicate
+logic from WPActionBarActivity.setupCurrentBlog().
+Extend comment line length to 100 columns to match code line length.
+"
+"511d04605b001f80c6e9aea43f6c2817cc1709b4","2013-03-07 22:46:17+00:00","refresh comments on blog change
+"
+"ba46f699e734b47e3d8b11046c54123e6d72e4ff","2013-03-07 23:53:06+00:00","remove a few lingering dashboard related resources
+"
+"68eef68de8c13d5540647774e15f4fca33397efe","2013-03-08 00:13:19+00:00","add blog hostname as preference summary
+"
+"e8772e762bb01e6b5297e5c3676657479dede58c","2013-03-08 07:49:47+00:00","don't require context when it's not necessary
+
+this commit should not include any substantive changes, as in all of
+these cases, the passed context parameter is never actually being used.
+Most of these are simply leftover from previous versions when they were
+used.
+"
+"f0d6bb8bac6d5deb5cd246311797b2dea7bd323c","2013-03-08 07:50:00+00:00","add new methods for setting currentBlog
+
+the goal here is to move away from quite so many places in the code
+directly manipulating the global state.  This will allow for some
+additional optimizations down the road.
+"
+"213cac5a915541edb5f2a99041068654675652f1","2013-03-08 08:24:42+00:00","use Base64 class provided in android sdk
+"
+"5b3b64aef1aefbd06823811efccaaa480639757d","2013-03-09 21:33:01+00:00","adjust menu drawer width (fixes #420)
+"
+"e5f55b4dcceeb6cf17fb795acfffd4b6feaed1c0","2013-03-10 04:42:35+00:00","use more generic java types when possible
+
+When declaring variables, as well as when defining the types passed to
+or returned from a method, use more generic types when possible.  There
+is no need to require that a caller to a method pass a HashMap when
+really any Map implementation will do.  It is rare that a specific
+implementation of a particular Collection type is *really* required.
+
+Also avoid use of wildcard generics (e.g. Vector<?>) when the generics
+type is known.  This prevents the need for casting values later on.
+
+I suspect that many places where Vector is currently used would see
+performance increases (albeit minor) by using ArrayList instead.  That
+change is not part of this commit, though will be made much easier with
+the changes here.
+"
+"959fda60a9d4126344669be60f31cd0b3c8ef363","2013-03-10 06:05:46+00:00","rename Settings.java to BlogPreferences.java
+
+Hopefully this will begin to help clear up the distinction between
+'Preferences' and (now) 'BlogPreferences'.
+"
+"b75e1d8d27985d83afd12d08bc906eaf5f8b6484","2013-03-10 06:05:58+00:00","settle on 'settings' for user-facing label
+
+This seems to be consistent with what Android itself does... to use the
+name 'preferences' internally for activity names and such, but to use
+the name 'settings' for all user-facing strings.
+"
+"ffde6839aec96a359847973196f888132ff92442","2013-03-11 03:35:44+00:00","Pass the current blog ID to the BlogPreferences activity after the user selects to visit their blog settings after a failed auth attempt. Fixes #426.
+"
+"08720dd494206c7e71202bac030813e68bb4b627","2013-03-11 04:06:14+00:00","rename 'reader' layout to 'webview'
+
+this layout is for a generic webview, there's nothing about it specific
+to the reader activity.
+"
+"5527f12073cc38394ee6653011bc7682aed90409","2013-03-11 04:06:43+00:00","refactor WebViewActivity
+
+WebViewActivity is primarily used to display post and page previews, as
+well as display the WordPress admin dashboard.  It looks like it
+previously was also used for the WordPress.com reader?
+
+This change refactors WebViewActivity into several classes to provide a
+cleaner API, making it easier to add additional WebViews (coming soon),
+and removes a significant chunk of duplicated and/or obsolete code.
+There *should* be no user-visible changes here.
+
+This change also starts putting Activities into the 'ui' package, as
+things are getting a little crowded in org.wordpress.android.
+"
+"1eae04c607c0454bed8a4318fa18a1b7b7a1c635","2013-03-11 04:07:16+00:00","display open source licenses
+
+new screen accessible via Settings > About.  Fixes #399
+"
+"0a6ae7dcd6b0c7806196a001bf16f5946e6d2dbe","2013-03-12 22:25:26+00:00","organize activities
+
+- move all activities into ui package, or relevant sub-package
+- apply consistent naming across UI classes (mainly just adding the
+'Activity' or 'Fragment' suffix to the class name as appropriate)
+- organize activities in AndroidManifest.xml to mostly match package
+layout.  Also use full class name (including package) for
+android:name property. It's not strictly required, but the ADT seems
+to prefer it.
+
+Additional class renaming may be helpful, but I preferred to limit how
+much was done in this commit.
+
+This commit should contain no substantive changes.
+"
+"5e7df104adcca5f33d6033fd273eb6aa06c4cfc1","2013-03-12 22:30:41+00:00","rename two additional classes that got missed
+"
+"8fad226b4a3f97a8c1700cd86b7fe9c8e3fa45d8","2013-03-12 22:38:36+00:00","Adding an mShouldFinish boolean to WPActionBarActivity so that we can track which activities should finish after a new activity is started from the Menu Drawer. Fixes #428
+
+Also added an experimental new flat WP icon for the ActionBar. I think I like it.
+"
+"5610d7a48c5c63532d4c15f7bc3cd98c7d6edef9","2013-03-12 23:39:50+00:00","don't force new task on app launch
+
+fixes #432
+"
+"9b276eabfb7373d0a3644632e7aa490cf2c0bef9","2013-03-13 21:05:15+00:00","EditPostActivity: When sharing a youtube URL to the app, just pass along the URL in the post since oEmbed support was added in WP 3.5. Fixes #386
+"
+"f57c568a84ec1dd26cc97b434c41f0477fa4e4e0","2013-03-14 14:46:32+00:00","Testing for subgit final release
+"
+"2d13e50555dfdc90d754097dba57d732643489df","2013-03-14 20:03:17+00:00","Menu Drawer: Changed drawer to use a ListView in order to better support setting the current row as selected. Added a drawable for the selected menu item with a blue border on the left to match other apps that use the menu drawer (not sure if this is in the guidelines, but I like how it looks).
+
+Also added a PagesActivity that doesn't do much, but helps when distinguishing if Posts or Pages is selected in the menu drawer.
+
+Fixes #425
+"
+"91da5bad78ce52fa44e0583ce48213f086b788ec","2013-03-14 20:24:23+00:00","Remove spacer for old action bar in large-mdpi comments layout. Fixes #441
+"
+"336fcb1ada738644a3b9f6ced97974a941033e64","2013-03-14 23:17:33+00:00","Added 'View Site' row to menu drawer. Also changed WebViewController to extend WPActionBarActivity so that we can attach a menu drawer to web activities if desired.
+"
+"a8919cc00f63a26e352f72d3770a8b41a0fb8fdf","2013-03-14 23:48:31+00:00","Added up button to preferences activity, and set DashboardActivity and ViewSiteActivity to finish if another item is selected in the menu drawer.
+"
+"35f7d62246e5fa6a1ea85f28f56070590206500b","2013-03-15 17:57:50+00:00","Added share and refresh buttons to WebViewActivity, as well as a back button override to go back to the previous web page.
+
+Also set the title of the ActionBar to the web page title after loading
+completes.
+"
+"5a57d143f82272a36bc70c2fbf0780dc2f88b788","2013-03-15 18:46:00+00:00","Fixed quick photo/video selection from menu drawer
+"
+"e2e84195e30bcd2b83034fbf4c234296099309c9","2013-03-15 21:39:39+00:00","Use standard ok text for AlertDialog. Fixes #448. Also fixed bug where tapping the new post button would open the camera
+"
+"dab1353274d667f2e10a2bb4acf0892995f8e4a9","2013-03-18 12:27:02-07:00","Fixes naming for AboutActivity to fix f/c when tapping About in preferences
+"
+"02c9c48c22b8446e205d9f78795ffe5095cc5858","2013-03-18 13:42:57-07:00","Cleaned up the posts/pages view.
+
+Removed local drafts header as it won't really be needed in the new UI.
+Cleaned up ViewPostsFragment.java a bit with proper private variable
+names and better code organization.
+
+Also set the list to use android:attr/activatedBackgroundIndicator for
+highlighting rows on tablets.
+"
+"b47e27473246c190f00ce5b316954e3b49ca5026","2013-03-18 15:16:00-07:00","Slightly better comment row layout.
+
+Still quite ugly though. Designers wanted :/
+"
+"1af62cad555b0286290f1a82fcce57ae063dbbc5","2013-03-18 15:34:20-07:00","Corrected highlight of first row on load
+"
+"5f569f7bf86f1dee9782506c9d826f46f6588f65","2013-03-18 16:21:14-07:00","Added a few missing action bar icons
+"
+"c4b465ae0fb583ecf9e912e143923a256489d44e","2013-03-18 16:45:39-07:00","Fixed up the WP logo in the action bar for a few DPIs
+"
+"d1f825bf580e3f5fb608c384fa5c4b90d230cb63","2013-03-18 17:02:04-07:00","Fixed menu drawer from turning black when scrolling on gingerbread or lower devices.
+"
+"de8f918c9526ab7420fae246a0a55956f52175bc","2013-03-19 12:21:43-07:00","Added a blog selector spinner to the Menu Drawer.
+
+* Removed navigation selector from WPActionBarActivity
+* Added titles back to a few activities
+* Fixed #427 by unescaping blog title string
+"
+"f62a1a9aea4d1ca0cf9fb97f87b95f2c7c2e29d4","2013-03-19 15:59:14-07:00","Update blog selector after adding new blogs from either NewAccountActivity or PreferencesActivity
+"
+"686623dbb693d73bd9275895cc14bd76ab28a552","2013-03-20 07:30:04-07:00","Reader: Fixed videos from not playing in Reader detail view.
+"
+"f88a1fe38f869bd1c7357f7c52d7122ca1e76a06","2013-03-20 13:03:29-07:00","Set the Up button to pop the detail view of posts and comments.
+"
+"60f004ab19dff9c397a32b7b0ebad7e4494dd6e0","2013-03-20 13:31:25-07:00","Get the mime type for images outside of the media library. Fixes #452
+"
+"21a3024f51d8056068502666cb44b2f113596aaa","2013-03-21 09:57:06-07:00","Properly set the QuickPress intent. Fixes #453
+"
+"59ef792a88e50205bd0b1caa9b82e0628601a621","2013-03-21 09:57:57-07:00","Layout and resource cleanup.
+
+Removed old wp_button drawable, and tweaked welcome screen.
+"
+"ccb63d8b2c28ec142a83e985e5da9cfb21eea5a9","2013-03-21 10:06:04-07:00","Added null check for mListView in onResume(). Activities that were not using a menu drawer would cause a f/c
+"
+"6a1c4d8e845f56c0b5a5ef404c6340fb2f71f96b","2013-03-21 10:52:58-07:00","Tweaked about screen layout.
+"
+"0009a1ac18cd8a676e339e2d95b41f81f7eaf274","2013-03-21 11:10:32-07:00","When the up button is pressed in EditPostActivity, make sure to go back to the PostsActivity.
+"
+"52e406ec07121f962af2ce97b889b942ce0ea3cb","2013-03-21 14:03:14-07:00","Reader: Use supportInvalidateOptionsMenu() instead of invalidateOptionsMenu() to support devices < api v11
+"
+"6e83d84245429ef5f571684fab58055efaeaeb0d","2013-03-21 16:29:14-07:00","Fixed long press from not working properly in the Posts/Pages list.
+"
+"a6085c0ac10b5af828854a3fe35346ccd73f342f","2013-03-21 16:38:44-07:00","Select the first post after refreshing if using the two pane view.
+
+This is band-aid fix. The app should be smarter about what data was
+refreshed or not, preserving selection in the list if possible.
+"
+"cb7168fb9e78673feb6e47e0149836d421cbba95","2013-03-25 12:49:46-07:00","Updates to SignupActivity
+
+* Added back button support to the webView so that the user can go
+back after viewing the fascinating terms and conditions
+* Used the progress bar loader instead of the indeterminate one which
+looked a bit odd.
+"
+"417db3e2745b4dbfeee8b87017df799940e60026","2013-03-25 12:50:50-07:00","Blog Preferences: Added more sizing options to the thumbnail width spinner.
+"
+"b5ea9857e89e4e19f03f89a93129f50e9b221e39","2013-03-25 12:52:41-07:00","Restore Last Selected Activity
+
+If the last activity was a valid menu drawer selection, save it and
+restore it the next time the app is launched or resumed.
+
+Also renamed a few activites to fit in better and updates a few strings.
+"
+"49ae3eda34a7f6d89fe80d0abd82c6216e8341b1","2013-03-25 17:11:41-07:00","Fixed Share Page action to say 'Share Page' instead of 'Share Post'
+"
+"a4d232ffca277061411313aff761efea2736f122","2013-03-26 08:00:30-07:00","Use getCurrentBlog() in restore selection check since WordPress.currentBlog is null at this point.
+"
+"bacc237c33096e0d0c27522f8d31bcd83850c630","2013-03-26 08:23:27-07:00","fix assistive text on several image buttons
+
+fixes #454 (props MarcoZ)
+"
+"125079fe945f36614933d17f6ec7edf089363a5c","2013-03-26 11:26:56-07:00","Fixed button styles on sw720p
+"
+"46c57afa03036062d17049a9bc134a5a4a8c2038","2013-03-26 11:27:38-07:00","Merge branch 'master' of http://android.git.wordpress.org
+"
+"ccd110987ee8fd2985cfc9d95944a4a9ecf2a7c2","2013-03-26 16:28:41-07:00","Set a static menu drawer when on a Large Screen tablet device that is in Landscape orientation.
+
+Ref:
+http://dev.android.wordpress.org/2013/03/15/willnorris-i-may-be-doing-th
+is-wrong-but/
+"
+"f63a7792ee63723cd96d4e63556525efc5087380","2013-03-27 06:47:32-04:00","new file:   res/drawable-hdpi/dashboard_icon_comments.png
+new file:   res/drawable-hdpi/dashboard_icon_pages.png
+new file:   res/drawable-hdpi/dashboard_icon_photo.png
+new file:   res/drawable-hdpi/dashboard_icon_posts.png
+new file:   res/drawable-hdpi/dashboard_icon_settings.png
+new file:   res/drawable-hdpi/dashboard_icon_stats.png
+new file:   res/drawable-hdpi/dashboard_icon_subs.png
+new file:   res/drawable-hdpi/dashboard_icon_video.png
+new file:   res/drawable-hdpi/dashboard_icon_view.png
+new file:   res/drawable-hdpi/dashboard_icon_wp.png
+new file:   res/drawable-xhdpi/dashboard_icon_comments.png
+new file:   res/drawable-xhdpi/dashboard_icon_pages.png
+new file:   res/drawable-xhdpi/dashboard_icon_photo.png
+new file:   res/drawable-xhdpi/dashboard_icon_posts.png
+new file:   res/drawable-xhdpi/dashboard_icon_settings.png
+new file:   res/drawable-xhdpi/dashboard_icon_stats.png
+new file:   res/drawable-xhdpi/dashboard_icon_subs.png
+new file:   res/drawable-xhdpi/dashboard_icon_video.png
+new file:   res/drawable-xhdpi/dashboard_icon_view.png
+new file:   res/drawable-xhdpi/dashboard_icon_wp.png
+modified:   res/drawable/dashboard_icon_comments.png
+modified:   res/drawable/dashboard_icon_pages.png
+modified:   res/drawable/dashboard_icon_photo.png
+modified:   res/drawable/dashboard_icon_posts.png
+modified:   res/drawable/dashboard_icon_settings.png
+modified:   res/drawable/dashboard_icon_stats.png
+modified:   res/drawable/dashboard_icon_subs.png
+modified:   res/drawable/dashboard_icon_video.png
+new file:   res/drawable/dashboard_icon_view.png
+modified:   res/drawable/dashboard_icon_wp.png
+"
+"ab86ad8dad5b78adb9aa1927924317237722966b","2013-03-27 13:36:51-07:00","Menu Drawer: Cleaned up blog selector margins, made menu drawer shadow a bit smaller with a lighter shade.
+"
+"e3515b5bd4f249b92d23fbac8cdfbb565552f488","2013-03-27 14:55:38-07:00","Moved Reader to top of menu drawer to match up with WPiOS
+"
+"d538513dd762e96bd93c63d3a7f5d1d5d7506518","2013-03-27 20:53:07-07:00","Fixed restoration of Reader activity not working after app launch.
+
+Also tweaked menu drawer shadow to be wider and have a bit more alpha
+per feedback from isaackeyet.
+"
+"7489458b0564383d497965e3c5974d9be8021a50","2013-03-28 09:33:08-07:00","Fixed up styles on Blog Preferences activity.
+"
+"70eec78a05f385706b74307814f3786cfeedf079","2013-03-28 11:40:42-07:00","When user switches to a self-hosted blog, and is at the Reader, load Posts activity. Fixes #455
+"
+"ef86a094bc89622a59941f6ea3245d734a88ac20","2013-03-28 12:24:47-07:00","Moved the preferences migration to a method so that we can call it from each db upgrade path. Refs #433
+"
+"42f5b8414e43b34cf6f292045e597ac22aa59b5f","2013-03-28 13:26:43-07:00","Menu Drawer: 'Peek' menu one time after adding blog to the app from the welcome screen.
+"
+"5a5089153e1cfc4ea22691ae356ec054055a3ae4","2013-03-28 13:30:24-07:00","Removed the post preview icon from the action bar. Not being used in this release.
+"
+"c239840948f1de8e459e8d28a3925b09770586cd","2013-03-28 14:15:29-07:00","Fixed the Refresh button from not animating on activity create.
+
+The refresh icon was getting created after onCreate, so it wasn't
+animating if a refresh was called during the activity started. Added a
+shouldAnimateRefreshButton boolean to request that the refresh button
+start animating immediately after it is created.
+"
+"56d0292431dc8266f835b65a575f9cd01c5b92c9","2013-03-28 15:07:52-07:00","Use 'IcsSpinner' from ActionBarSherlock to fix the blog selector on < 3.0 devices.
+"
+"bfc686cd314e62ed10df53566b0c29ad85781ad3","2013-03-29 07:25:46-07:00","Reader: Fixed a bug where the refresh button wouldn't stop spinning after changing topics.
+"
+"b84f7ab7435fb53d9cb602915a2ae08ebce1ffb6","2013-03-29 09:02:20-07:00","Added OnBlogChanged to remaining menu drawer activities. Fixes #459
+"
+"88b17506c1f75a9db997feca6e85e63dd23ad239","2013-03-29 12:33:11-07:00","Fixed JavaScriptInterface from not working for a signed build.
+"
+"6bf9cc2caf9cfdc1d06314412722b11a3fa2b992","2013-04-03 10:51:15-07:00","Tweaked progress drawable to be a lighter blue color, it was too hard to see it when it was displayed near the ActionBar.
+"
+"2dc1f18b5ec66f62027e604c9ba406a4bcd48571","2013-04-04 09:51:51+00:00","Use the correct 'app_name' when the app is loaded on a BB10/PlayBook device.
+"
+"d00fb09010357fdb66635e19e4343573ee2642fc","2013-04-04 08:28:33-07:00","Add ellipsis to geotagging buttons if they are too wide. Refs #462
+"
+"484408184ba0d873b84ba9f8606de94e2b2e09ca","2013-04-04 08:32:22-07:00","Added a condition to get the correct comments row. Fixes #460
+"
+"1762c43c5bad7bda1948b9e6ba135420ea84a765","2013-04-04 09:06:07-07:00","Listen for back on the IME keyboard, and hide the Format Toolbar when tapped. Fixes #463
+"
+"294a235e98209aadf55fd27653798e23d19e767b","2013-04-04 10:01:56-07:00","AddAccountActivity was missing the 'screenSize' attribute to ignore orientation. Fixes #466
+"
+"6aca9e8ffb11912983eb0787e485937eed6226c9","2013-04-04 13:50:54-07:00","Enabling app cache for the Reader list. Should help with #467
+"
+"43d1f3bc17dc37165218e036c9565f973b31427b","2013-04-04 13:52:31-07:00","Don't loadPosts in onResume unless they haven't been loaded yet. Fixes #471 and #472
+"
+"78dcf4d7fce8f6706011c8e876e26c940137055a","2013-04-04 14:13:42-07:00","Call onBlogChanged() after adding or removing a blog from settings so that the content updates.
+"
+"a71fcbe70ee2bcf775e0444145b2adecdba4247f","2013-04-04 15:25:40-07:00","Added orientation flags to PagesActivity and ViewSiteActivity. Also made up button from EditPostActivity only start a new activity if it was created from an external source, which at the moment is a share action or a quick post.
+
+Fixes #478 and #479
+"
+"7df66cf363fce03058f164d42100328272f95298","2013-04-04 16:18:06-07:00","Updated EditCommentActivity
+
+* Extends SherlockActivity to get the ActionBar at the top (Fixes #485)
+* Added 'Edit Comment' title string
+* Removed unnecessary layout file
+"
+"5dd5b5096a6ad5a919056f9f0e8f0ce5536a9d85","2013-04-04 16:40:59-07:00","Changed the stats auth slide-up to have a light background. Also tweaked paddings to match Holo guidelines
+
+Fixes #418
+"
+"dda707c3a738be2c9f164e144b4f0dc74071a6cf","2013-04-06 08:04:07-07:00","Removed onNewIntent since we are using PagesActivity now. Also made sure to not restore previous selection if in the PagesActivity. Might help with #490, needs further testing.
+"
+"c2364f5a85eb683c2f66ed209cb988ed99f8f965","2013-04-08 09:02:14-07:00","Reader Improvements
+
+* Fixed SSL auth error when returning to the activity after leaving
+the app
+* Fixes ProgressBar positioning issue reported in #468
+* Added a few requestLayout() calls to redraw the webview after it
+reloads content via javascript. Should help with #482
+* Added Up button support for navigating back in the Reader
+"
+"32222ae7776b984aa3fa0aba7f0fe31fba6d4822","2013-04-08 09:47:19-07:00","Updating translation strings, added Scottish Gaelic
+"
+"00b4eb178c5a831103caad4361a832cf628eda51","2013-04-08 10:45:45-07:00","Call setupCurrentBlog() to get currentBlog in case user deleted the current blog in the Settings
+"
+"643ed718ec6a8fb66256ce6f17533bdd609c5475","2013-04-08 13:29:05-07:00","Added a simple style for the welcome view layout, to better support layout on phones in landscape. Fixes #483
+
+Also changed blog settings activity to not be a singleTask since
+there's no blog selector in the actionbar any longer.
+"
+"757302e86a5669dd81ae9b17d41df7114c1a6e2a","2013-04-08 15:37:30-07:00","Don't try to save blog settings if it was just deleted :)
+
+Set WordPress.currentBlog if its settings were changed.
+"
+"0ddd569f7f832453191ed80a8bb102287763d5fc","2013-04-09 08:25:09-07:00","Hide format bar after adding media. Fixes #494
+
+Also added margin to bottom of post editor so that the format bar will
+fit for devices that don't have a soft keyboard.
+"
+"98081c4aa67da3eb195cf40bb9d91d139806ed61","2013-04-09 08:32:32-07:00","Also hide format bar when canceling media selection.
+"
+"4385ce0ae258f1d95fc13cf05855d02712fcb709","2013-04-09 15:31:22-07:00","Reload post list after editing or creating a new post
+"
+"0f6783b3650b99f258df1ac56d9fdbe86491508b","2013-04-11 07:18:48-07:00","Fixes #495 by updating the last blog ID if we are selecting the first account. Also removed some unnecessary code.
+"
+"cf8892000aecb80e895ab15b0d9bb4a320902667","2013-04-12 21:47:13+00:00","When launching stats make sure we have a current blog
+
+Fixes #503
+"
+"c5b1dcc7d36b9a5d776e795ebf9817bd915ab0a5","2013-04-14 13:17:33-07:00","Set mLocalDraft when sharing content to the app so that the rich text editor is enabled.
+"
+"17f1095c93a2d5411e57e72553efd9301f9797b3","2013-04-14 19:57:40-07:00","Fixed post/page upload error message from not showing when the Posts or Pages Activity was already created.
+"
+"129400500d07af56d3229b9ddd6c9c925b6054fb","2013-04-15 07:13:12-07:00","!ReaderActivity should use the singleTask launch mode.
+"

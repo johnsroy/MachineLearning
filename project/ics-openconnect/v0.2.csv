@@ -1,0 +1,337 @@
+"commit id","commit date","commit message"
+"0d892e3f92df116fab58e22508a0fdf23f58dc1a","2014-01-07 17:18:13-08:00","Remove old build.gradle and .hgtags files
+
+F-Droid is picking up old OpenVPN version numbers from at least one of
+these files, so just delete them.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"984f9d237beb39f0b16a31a34b4b79596561e90e","2014-01-07 17:20:15-08:00","Bump version to 0.2 (2)
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a543c06cf428092beecf9bd339667d87e06727e8","2014-01-07 20:46:44-08:00","OpenConnectManagementThread: Allow use of x86 Linux CSD wrapper scripts
+
+If the script begins with e.g. #!/bin/bash, and /bin/bash doesn't exist,
+prepend '#!/system/bin/sh' to give it a fighting chance.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a0aa11df6f798e6da24d51f41641d1a3f1c108a6","2014-01-07 21:27:23-08:00","screenshots: Initial commit
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a99b2d27fa63061958f99b68348cc25acfd80e93","2014-01-07 21:27:36-08:00","README: Update with screenshots, F-Droid link, Travis-CI link
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"9706f0734df4d20b925ce41412fe1a3b2040d832","2014-01-08 21:56:34-08:00","VpnProfile: Use case-insensitive sort in user dialogs
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a9ac84850c65aa75c0b87dfe086a70e98b767b3a","2014-01-09 18:30:03-08:00","VPNProfileList: Prompt for hostname, not profile name, when adding VPN
+
+For an AnyConnect VPN, the hostname is the only mandatory field.  So
+make it easy for users to enter the minimal information necessary to
+connect to their gateway.
+
+Now the profile name will default to the hostname, but the user can
+change them both individually from the settings editor.
+
+Also, add code to gray out the OK button until at least one character
+has been entered, to help avoid creating a profile with an empty hostname.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"732de35947ab21c1a2372879cff0021edc011a44","2014-01-09 19:45:08-08:00","external: Sync with openconnect rev 6df7029
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"e320a53c3601f6ff0cf27b3ea52c4329f8d8224b","2014-01-09 19:51:56-08:00","libs: Sync with latest openconnect sources
+"
+"e42da09c8241b88506848a118d58f3184f89c3d0","2014-01-11 10:14:37-08:00","ConnectionEditorFragment: Restructure FileSelect handling code
+
+Make the code a little more generic so it will be easy to add a
+TokenImport activity.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"18766624e5c0cf63fae00a2f08125c59970b88ff","2014-01-11 13:15:41-08:00","FileSelect: Add FORCE_INLINE_SELECTION flag
+
+There are cases where we always want FileSelect to return the string
+data from the file, not a filename.  So this flag will cause 'Copy into
+profile' to be checked, and grayed out.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"5c49d8496528c8fc0e94074be69880f59efb0a23","2014-01-11 14:20:13-08:00","Create new TokenImportActivity for editing software tokens
+
+Change the VPN preferences editor to use the new activity instead of
+the regular string value editors.  Allow importing the token string from
+a file, and perform some basic sanitization on the data.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"2a843d34235babcef50fbd22d8e1ad407b6b55aa","2014-01-11 18:26:34-08:00","external: Add libstoken to 'utils' build
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"95add713254b292d2653f37f5f7c284938101144","2014-01-11 18:27:19-08:00","external: Build stoken files and copy them into libs/ and assets/
+
+This includes both the native library and the .jar wrapper.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"ec51a311c2fcf4cf47a4ec974c4d4f9a12b387f2","2014-01-11 22:03:01-08:00","external: Sync with stoken rev 4858c2e
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"bf2084ca2636d1803adfc45414d9917849084757","2014-01-11 22:09:26-08:00","libs: Sync with the latest stoken sources
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"0c4e151a3704a925616eea4bc8cf7c49045af390","2014-01-11 21:21:12-08:00","TokenImportActivity: Use libstoken to validate and decrypt SecurID tokens
+
+Replace the dummy checks with real library calls.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"2d5a6e56fea0098c02162ef4fd302bc3baf45668","2014-01-11 22:23:37-08:00","VPNProfileList: Fix a nuisance warning
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"de72b477e9452f6fc8b699eb0aad621c7fea0885","2014-01-11 22:50:31-08:00","TokenImportActivity: Add 'Clear token' button
+
+Let the user erase the token and revert back to manual password entry,
+if desired.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"78054f12de2d80936fe36dd1ccf448fe1864daad","2014-01-12 12:00:39-08:00","TokenImportActivity: Allow importing SecurID tokens from other apps
+
+Add intent filters that let OpenConnect process URLs in the form:
+
+http://127.0.0.1/securid/ctf?ctfData=28708...
+http://rsa.com/android/token/ctf?ctfData=23049...
+com.rsa.securid://ctf?ctfData=26137...
+com.rsa.securid.iphone://ctf?ctfData=28978...
+
+This will prompt the user to unlock the token (if applicable) and then
+it will store the token string in an existing or new VPN profile.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d9ab0ed47a457e2f7d6ec57282679f1c57e1052a","2014-01-12 12:37:03-08:00","OpenConnectManagementThread: Clean up server cert validation logic
+
+Move the logic into OpenConnectManagementThread and use common functions
+to handle both 'Just once' and 'Always accept' scenarios.  Allow multiple
+SHA1 hashes to be saved in the profile, in case the gateway(s) are set
+up to redirect users to different hosts.  Clear accepted certs when the
+user purges the profile's saved form data.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"f1a5d455267f95ee89c258258c6a9e6566fcdace","2014-01-12 13:22:18-08:00","VpnConnector: Don't update stats display until it is valid
+
+Calculating the delta (data rate) requires at least two samples.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"94b930cdd6487664de31c17f27c3c14b2d844a12","2014-01-12 16:11:02-08:00","external: Sync with openconnect rev 2695c65
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"eeeed19dbda2aa8e52469351378ae59b3fb6ce66","2014-01-12 16:14:53-08:00","libs: Sync with latest openconnect sources
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"96d5e89267ec9b8cbb23dd8bf858811b19e5866b","2014-01-12 16:23:08-08:00","AuthFormHandler: Adapt to libopenconnect API change
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"5b1cddf2b5aa911ee9b624374b1ad3821619d96d","2014-01-12 17:32:09-08:00","TokenImportActivity: Make sure preference screen reflects changes
+
+Fix a couple of different bugs related to TokenImportActivity updating
+the VPN profile preferences:
+
+- IDX_TOKEN_STRING was negative, so onActivityResult() was never called.
+
+- The software_token spinner value was not refreshed when the system
+'don't keep activities' setting was disabled.
+
+- When the user clears an existing token, it makes sense to change
+software_token to disabled.  But if the user just backs out of the
+activity (e.g. right after he has enabled 'securid') we should leave the
+setting as-is.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"51c604891e2b6782e8793eacb3e31859f9e7f570","2014-01-12 19:23:21-08:00","OpenVpnService: Expose more connection info to the UI clients
+
+Allow them to query IP addresses, final server hostname, and connection
+uptime.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"f30eab59504223d2e6e551beddbc243697f41abb","2014-01-12 19:25:58-08:00","StatusFragment: Redo the user interface
+
+Add uptime, TX/RX stats, IP info.  Clean up the layout so that the
+LinearLayout views don't shift around when the width of the text views
+change.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a98e5bdaef22b18617bf6d025dc336b9edaa9019","2014-01-14 18:56:22-08:00","external: Sync with openconnect rev 2c4851e
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"9fe9ad8cc7db6384f1772e5df0f533bdbff84d94","2014-01-14 19:03:34-08:00","libs: Sync with latest openconnect sources
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"0a3a34dbf5441f7cbb5da1ab92e32e787c122e9e","2014-01-14 18:51:32-08:00","AuthFormHandler: Disable fixPadding() for now
+
+The tweaks I made earlier produced good results on a tablet, but look bad
+on a lower-res phone (especially in landscape mode).  Let's just revert
+back to the default padding for the time being.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"0ad1e71a7ec020b29f9a2d8e0b2ab1b42adb043a","2014-01-14 17:02:06-08:00","AuthFormHandler: Switch to numeric text input for PIN fields
+
+libopenconnect now tells us whether each input field is alphanumeric or
+numeric, so use this information when rendering the form.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"3777e51c98095ebd24ae477f66e36ce53d46c3b7","2014-01-14 18:52:39-08:00","AuthFormHandler: Use updated LibOpenConnect API for opt.value
+
+FormOpt.setValue() was removed in the latest iteration of the library.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"899965e7045593f564b145b72ef184ed9ea58a25","2014-01-14 18:54:17-08:00","AuthFormHandler: Prepopulate auth form when appropriate
+
+Save auth form entries across task switches or screen rotations.  If
+the server supplies form data (e.g. secondary_username), display it
+unless the user has saved a different value.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a16d35242680386a63c3644e64e6129a65e38e22","2014-01-14 19:25:06-08:00","LogWindow: Fix FC on screen rotation in <= JB 4.1
+
+The ordering of onResume() and onCreateOptionsMenu() differs from one
+Android release to the next[1].  So check to make sure mConn isn't null
+before using it in onCreateOptionsMenu().
+
+[1] http://code.google.com/p/android/issues/detail?id=39721
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d1716cea79662702b21008d61417a2e3a532b504","2014-01-14 20:31:08-08:00","Fix up disconnect/reconnect buttons
+
+Add 'Reconnect to <VPN>' button to the status fragment.  Add more checks
+to disable the Reconnect buttons on a clean install, where we have no
+VPN profiles (or no VPN profile has ever been used).
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"dd88700ec700e5e06ccaa955e86bc7e5dbfb26aa","2014-01-14 20:50:37-08:00","Make 'show log window' configurable
+
+Add a global preference that determines whether to show the log window
+or the status fragment upon connection.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"617e2fbf4a908e1cfb494607fb435bb1acc645ba","2014-01-14 20:56:21-08:00","VPNConnector: Reference-count activities separately from fragments
+
+A non-foreground activity is guaranteed to call onPause() so we know
+to raise the notification if an alert dialog pops up.  Fragments
+might not be destroyed under the same circumstances, so we ignore them
+in the refcount.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"0a89df7aa92de4586d4434b9585a0d3f20c8ee98","2014-01-14 21:27:50-08:00","Disable restart-on-boot option for now
+
+This still has a number of outstanding issues:
+
+- Network not up at the time the BOOT_COMPLETED intent is received
+
+- System VPN warning dialog dismissing itself if the screen isn't
+unlocked quickly enough
+
+- Weird task stack after GrantPermissionActivity calls finish()
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"e4841a1e7938aef18a9108a6321234c48174f53e","2014-01-14 21:49:07-08:00","OpenConnectManagementThread: Generate fake stats callbacks while paused
+
+Make sure the UI doesn't wait forever for a stats callback that won't
+return.  Also make sure we aren't filling up the cmd_fd pipe with stats
+requests while the mainloop isn't running.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"74138a444b0e0fb8f1c1ab595828229f76150253","2014-01-14 22:25:10-08:00","external: Sync with openconnect rev 1df2832
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"e48ddbf25c04e61b68edf2241f0417ce55fe8edc","2014-01-18 07:52:52-08:00","StatusFragment: Show 'days' field in uptime counter
+
+Currently the counter wraps around from 23:59:59 -> 00:00:00 at the 24hr
+mark.  Add a 'days' field so that it displays 1:00:00:00 instead.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"bb0257313f110a96f70d6604918cd8bd1e91a93c","2014-01-18 08:39:50-08:00","Add popup alerts on connection failure
+
+The status fragment doesn't provide any information about failed
+connections, so on error, show an alert directing the user to the log
+window for more details.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"c28c5c2387c54f24ceebae28a58f48fd7d3b726f","2014-01-18 08:56:22-08:00","Remove dependencies on deprecated VpnProfile fields
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d019ba81a811322f131a47e90a2b9f09df6e3730","2014-01-18 08:57:07-08:00","Delete unused RemoteCNPreference class
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"0e8252ce7a11098b7303f9b6edcff6ba328998a7","2014-01-18 08:58:04-08:00","VpnProfile: Remove a bunch of unused fields
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"0f525428bc93055324bd1b391f55107db523f3ed","2014-01-18 09:04:34-08:00","Use VpnProfile.INLINE_TAG consistently across different modules
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"4a7bff9dfe5b8158f2b48ce65c99f3fec081cef6","2014-01-18 09:08:10-08:00","X509Utils: Comment out certificate parsing code
+
+This function was causing the only warnings in app.openconnect.* so
+I'll disable it until it is needed.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"d6376ed1bd31da236dd6cb7bc8763d50ad5a7e4f","2014-01-18 10:11:12-08:00","OpenConnectManagementThread: Sync up error dialog with user aborts
+
+Don't pop up a 'connection error' alert if the user rejected the server
+cert or canceled the auth dialog.  Cache the list of rejected certs in
+case the library asks twice during XML POST fallback.
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"84a3a5fc6ba999158c429eb48eb3789da50eb22c","2014-01-18 12:09:18-08:00","screenshots: Update status fragment screenshot to match new UI
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"a2eca229d98af07c3ff7faaeb7d202ca189a328f","2014-01-18 12:02:33-08:00","doc: Add CHANGES file
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"
+"b9f62bfa399dbcdaf76648e658804eee1213fe1d","2014-01-18 12:22:05-08:00","README: Linkify licenses
+
+Signed-off-by: Kevin Cernekee <cernekee@gmail.com>
+"

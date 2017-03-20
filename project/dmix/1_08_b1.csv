@@ -1,0 +1,1259 @@
+"commit id","commit date","commit message"
+"7a4547ec117d6205f7d68c0f6c582a258a8aba66","2014-12-09 23:18:54+01:00","Merge tag '1_07_2_final' into develop
+
+1_07_2_final
+"
+"f58cd8c5b9aa65cd0164bf76ba45cb3f24da8ee9","2014-12-10 17:13:09-08:00","MPDroid: Update library dependencies.
+"
+"986d0d45eb30457f68c7ac81c174035bc2c79614","2014-12-10 18:25:37-08:00","AlbumsFragment: Prior to getString() check for an active activity.
+"
+"972c4f20077a0e4b09c275c9f60743b243588bc0","2014-12-11 20:24:21-08:00","RemoteControlClientHandler: onCoverUpdate() check for a current track.
+
+It's unlucky, but it can happen that prior to albumart decoding completion, the
+server playlist queue can be cleared and there will be no current track. This
+commit checks the current track for non-nullity prior to updating the remote
+control client object with a cover bitmap.
+"
+"110db36e16ec0bef1f7c25e1a2c7091b7ab796e2","2014-12-15 06:35:30-08:00","MPDPlaylist: Correct null check in removeAlbumById().
+"
+"40c80209f8b27187d851af1a1110623d5982b0f5","2014-12-16 06:44:00-08:00","NowPlayingFragment: Don't send SimpleLibraryActivity intent without an extra.
+"
+"58713784922f21c8bed9a81e5c0537f7167a9800","2014-12-17 11:42:07-08:00","NowPlayingFragment: Check full path for null prior to extracting extension.
+"
+"0ad0df4cdbb37d94b8264010643232810396e8da","2014-12-17 11:44:27-08:00","ArrayIndexerAdapter: Check for null prior to checking sorted for empty state.
+"
+"169266efd53c8ded8f04d3dae2424e4b1b1794ad","2014-12-17 14:20:49-08:00","dmix: Code style.
+"
+"6aa467c78948fb495e027e4dfc91d4bc5740aab9","2014-12-18 06:34:11-08:00","dmix: Update gradle wrapper.
+"
+"aebf1bcb15c37bcb11e659ac5ee3ec578b2220b6","2014-11-04 19:26:46-08:00","CommandQueue: Documentation and permissions updates.
+"
+"011517956f70241af38412629758ff5f27c07e44","2014-11-19 08:40:55-08:00","CommandQueue: Refactor toString to only output MPDCommand if command queue size is 1.
+"
+"20f8ee940384171fbe7ac5b9691935bb9096431a","2014-11-06 09:11:44-08:00","AbstractMusic: Add static key names.
+"
+"d50805af2cf31cbeda4bb5b06e5767ba557cdd76","2014-11-05 14:43:19-08:00","AbstractMusic: Refactor method names for clarity.
+
+getAlbum() -> getAlbumName()
+getAlbumAsAlbum() -> getAlbum()
+
+getAlbumArtist() -> getAlbumArtistName()
+getAlbumArtistAsArtist() -> getAlbumArtist()
+
+getArtist() -> getArtistName()
+getArtistAsArtist() -> getArtist()
+
+getComposer() -> getComposerName()
+
+getGenre() -> getGenreName()
+
+mAlbum -> mAlbumName
+
+mAlbumArtist -> mAlbumArtistName
+
+mArtist -> mArtistName
+
+mComposer -> mComposerName
+
+mGenre -> mGenreName
+"
+"5aad71fbc66143fd9add2711832945d6976123bb","2014-11-02 20:56:42-08:00","Android/Music: Implement MediaMetadata populator.
+
+Adds a method to populate metadata into a given MediaMetadata parameter.
+"
+"5242d0f30b2bf9a307955c0c401797b486203fe2","2014-09-26 17:13:26-07:00","AlbumCoverDownloadListener: Fix warnings.
+
+This also removes a RuntimeException catch, if this breaks things, sorry.
+"
+"bbb2214b51837a3f9b2af0166953e295d00706b1","2014-09-26 16:21:02-07:00","AboutActivity: Fix warnings.
+"
+"f23bfda1a721aefb012e6fd1289d602ab83d3f64","2014-11-28 10:28:34-08:00","MPDOutput: Move the outputs list builder to MPDOutput, ala music list builder.
+"
+"6c37ab1bcb46d3370882c71758b3ae3679019e9e","2014-11-11 11:56:48-08:00","Album: Use a builder pattern for album construction, make immutable.
+
+Album, uses many different types of construction and, it's getting harder to
+construct, so a builder is natural for construction.
+
+This patch:
+
+* Removes setHasAlbumArtist(), this was required to make all fields immutable,
+and work with the builder pattern.
+
+* Moves the getAlbumDetails() method from the MPD classes to addAlbumDetails(),
+this will be less confusing as it's a superset of addAlbumPaths().
+
+* This removes the findYear parameter from addAlbumDetails(). The information
+was already being retrieved, just not placed in the album object.
+"
+"484d2a93f7c046d29f7c0714d162f0451e5737c2","2014-11-07 12:39:00-08:00","Music: Javadoc additions and other clarifications.
+"
+"3319419db4c21c9b0bc241220704326107e36acf","2014-11-11 20:00:18-08:00","MPD: Remove unused trackCountNeeded parameter.
+"
+"62b4bd3cefd21ec4fd653edb63b0955932e8ea4c","2014-11-28 04:12:40-08:00","Extra: Use a string literal to each item for intent extra use.
+
+This also abstracts out remaining Items to keep the new string literals as
+Android only.
+"
+"2ad87b4ece7f12a28f355065111f0d675fd06b2e","2014-11-21 03:12:18-08:00","AbstractMusic: Replace pattern/match with simple character search.
+"
+"c08f7665dd8ebe2f661dbe725381b571b7419712","2014-11-24 07:20:40-08:00","AbstractMusic: Add response and tag type stored values.
+
+This is a change to a947dc4 which came too late to squash.
+"
+"2ab45daafb6139c38107d00d83d2d73a17a92111","2014-11-26 08:04:13-08:00","MPDStatus: Add duration support (MPD protocol 0.20+).
+"
+"d590c0b570f29a178ce32606e16c11a0d6ea3ce7","2014-11-28 11:00:06-08:00","PlaylistFile: Implement parcelable.
+"
+"854e0548b881158fb67b551d14014673753102df","2014-12-12 10:22:11-08:00","Tools: Refactor parseResponse() to modify in place and allow multiple arguments.
+
+Refactor parseResponse to modify in place using a ListIterator, this will allow
+the list to be modified in place and is actually a pretty large performance
+gain in my non-scientific benchmarking.
+
+This commit also renames the type parameter to keys and changes it to an arity
+parameter to allow multiple key matches.
+"
+"531762218d970fb50a0c02d41e0dedce687c3e5b","2014-12-12 10:46:55-08:00","Tools: Remove parseResponse() sorting.
+
+Remove sorting a parsed response after parsing, this should be done separately.
+"
+"8875466ba9a23211ebda01ebc8583863cc245dd3","2014-12-13 04:52:37-08:00","dmix: Use a singletonList for single item collection initialization.
+"
+"35b1e0c31ee14c09d10457debec977996c001af5","2014-12-13 18:10:20-08:00","CommandQueue: Convert separated lists to a list of a list of strings.
+
+Arrays, while taking up slightly less memory, are much less flexible. This
+commit converts the return and all of it's callers to a List<List<String>>.
+"
+"914a38a92837cab8a545559f019b10bfbcfee348","2014-12-14 19:04:24-08:00","RemoteControlReceiver: Split up onReceive().
+"
+"81afaf45f7f572c1b436e70253f423e5611f0133","2014-12-15 13:45:35-08:00","AbstractAlbum: Change all 'year' to 'date'.
+
+The tag for our album item is actually labeled 'date', and most tags in the
+'date' tag are formatted as dates and not years, thus this commit.
+"
+"9bad3a5d465052d487c5a5ba7768dca74e4c46b5","2014-12-16 07:22:17-08:00","PlaylistEditActivity: Remove dead code.
+"
+"debe79cad30ab99d0b29ab9282d028ae8c998839","2014-12-16 06:58:05-08:00","dmix: Use PlaylistFile types for playlists.
+"
+"289b075e0f5ee3e4099d740214a075a1a39a3ed1","2014-12-16 07:24:10-08:00","PlaylistEditActivity: Remove overly broad try/catch block.
+"
+"74d0b7ff82821bb7be825179acf0bf66fa9e4957","2014-12-16 07:32:46-08:00","PlaylistEditActivity: Small cleanup for update().
+
+Remove try/catch surrounding entire method, break out the method list retrieval
+to it's own method.
+"
+"5f27fd7c43d0fe7b510423c5a370bb064d4cd1db","2014-12-18 06:24:25-08:00","CommandQueue: Add a add() overload to allow adding single command arg strings.
+
+This commit adds a add() overload to allow adding a single command argument
+list of strings that will be iterated over and added to the given command.
+"
+"76189812e9ea13cbca1ef5d512d22e894210954d","2014-12-18 06:27:14-08:00","Tools: Add a set of tools to convert a list of int to integer ranges.
+
+This commit adds a couple of methods to convert a sequential list of integers
+to a integer range as used in various places in the MPD protocol. This is a
+win for when keeping sequence is unnecessary and integer ranges are possible.
+"
+"ba155677ed3843c9573319fdbcdf4ee672889ab6","2014-12-18 06:33:05-08:00","MPDPlaylist: Utilize integer ranges on removeByIndex() and removeAlbumById().
+"
+"7af4183c2206db23c655b78e065f2166aac4944f","2014-12-18 11:17:22-08:00","Tools: Add a couple of trivial compatibility tools.
+
+We would use Object/Integer equalivant, but they're not available on all builds
+of Android that are supported.
+"
+"d7774065876220c76e29c162d9bd721b56153221","2014-12-19 08:05:20-08:00","AbstractMusic: Change to Tools.compare().
+"
+"f16c2ebff9e170f6888c5d37201481450655207e","2014-12-18 15:04:09-08:00","MPDPlaylist: Refactor removeAlbumById().
+
+This changes a few things, structurally.
+
+* The current track must not be null.
+
+* Either a artist name or an album name must be available in the current track.
+This will be a runtime error if one or the other is not available.
+
+* This commit also changes QueueFragment to check for artist or album prior to
+calling removeAlbumById() to properly handle any errors.
+
+* After this commit we rely on the MusicList map to have the music item. The map
+should be stable now, though, if we find that it's not, this will have to be
+modified to revert the behaviour.
+"
+"3c29458f2702c604e3824bcbab27fb8f272f96e9","2014-12-19 07:00:24-08:00","Music: Generify.
+"
+"c06a383c0b0cb34f9aad1082078d3ebc185e6f1a","2014-12-19 08:03:02-08:00","Album: Generify.
+"
+"03297fc61685be6db0ae769ab7ff30907bcb66fe","2014-12-19 12:08:50-08:00","Item: Generify.
+
+This allows compareTo implementation without raw casting.
+"
+"d23cb20d2ce06a9d873ab79b15ec8312809c5900","2014-12-19 13:40:40-08:00","Item: Small cleanup for merged().
+"
+"fc0d2304c6f5959603b35821b8f0df54c626196d","2014-12-19 18:12:08-08:00","Tools: Refactor and move timeToString() to Tools.
+"
+"e696ecfd88b7635c88ab0c415c615b5c6cebfb29","2014-12-20 05:45:27-08:00","MPD: Small tweak to PlaylistFile adding.
+"
+"56b5c425e20b4ebe6011132a6c45ad235309bd43","2014-12-21 18:31:04-08:00","CommandQueue: Remove ending newline on single command toString().
+"
+"58702e98ec8387bbbc41569b294c799cd57f08f3","2014-12-21 20:17:39-08:00","CommandQueue: Cleanup toString().
+"
+"a9cbcb060fc4c532ef2780d25bc306c43082db1d","2014-12-22 14:22:22-08:00","dmix: Update Android Build Tools to 21.1.2.
+"
+"6361e25710cdcf2e32d0373b7ef506ee9d3afbcf","2014-12-22 14:53:55-08:00","MPDConnection: Require each command response to end with OK or ACK.
+
+With MPD reference implementation 0.19.x, if an error is made when
+communicating with the server, it will disconnect and this could easily lead
+to errors which are hard to debug.
+
+From this commit, require that all command responses end with OK or ACK, as per
+the protocol.
+"
+"11ec2b38858d426518aa092f66a8f028841eaf2b","2014-12-22 11:46:55-08:00","Tools: Add getRanges().
+
+Add a method to parse a list for a delimiter, and give a list of ranges for
+lines between delimiters in the same format as List.subList().
+"
+"bca254010133177b1e2f87bbb79c52cb397ea6fe","2014-12-22 11:48:42-08:00","MPDOutput: Use getRanges() with buildOutputsFromList().
+"
+"1d336eb37cc1f671f92a25f5886eb6490e235565","2014-12-24 05:07:51-08:00","MusicBuilder: Use getRanges() with buildMusicFromList().
+"
+"183b65b78c6d3af12a3ae72f2c8f5e409773e8d8","2014-12-23 16:04:33-08:00","PhoneStateReceiver: Improve connection handling when not in memory.
+
+During a refactoring earlier this year, it was not taken into account whether
+MPDroid was in memory and connected. This led to not pausing due to MPDStatus
+outputting a unknown status. This fixes that by moving some of the logic into
+MPDControl, due mostly to the fact that we don't have a good blocking
+connection lock, and MPDControl has a hacky one.
+
+This also adds the necessary race preventers required since the connection may
+take some time (hopefully not though!).
+"
+"23b9990893b3003fb9d61c3ab8fca19202b4fb3d","2014-12-24 09:47:30-08:00","NowPlayingFragment: Avoid exception for Intent.ACTION_SEND on minimal Android.
+
+If a user tries to start an activity with Intent.ACTION_SEND, there might not
+be an activity to accept that intent. This commit handles this situation.
+"
+"56d9bf387be06f4b728b8fda14fd1bdfb589abbd","2014-12-27 12:12:47+01:00","Fix russian translation
+"
+"c5b6a71b710c9f4967f24e6f36e2b4a47183e0ed","2014-12-27 12:18:13+01:00","Fix classcast crash
+"
+"c6e6e2ff696fd0a19c3e8b4687b53348bee8962a","2014-12-27 12:20:47+01:00","Catch illegal state exception in OutputsFragment
+"
+"7eed9db7ea101827171c222538ef904315f35581","2014-12-28 18:00:24-08:00","dmix: Code style.
+"
+"e5febc3ce31aa312e30e469e4bd2f3b55cc764bc","2014-12-26 13:43:56-08:00","CommandQueue: If separated server command response is empty, insert empty list.
+
+In the past we have discarded empty results. This can lead to confusion for why
+a list went missing when it's expected in the results. With this commit we now
+add a empty list when there is nothing between the list separator responses.
+"
+"52b82bda33307b0511e03d52aefcd211fc51f8f8","2014-12-27 09:33:54-08:00","MPDApplication: Don't crash when dialog not dismissed, application terminates.
+"
+"a6360b80ae12264c61864902e875718634597a39","2014-12-27 13:27:18-08:00","MPDApplication: Don't call mpd.disconnect() in the disconnect callback.
+
+We've already disconnected!
+"
+"c42df714fe6a2d5ee3de870b97ceeb46b50c38cd","2014-12-27 13:41:29-08:00","MPDConnection: Process available commands only with a valid header.
+"
+"51ab8fc0965e44bdb8a97d3568e2c30b99bc2bcf","2014-12-28 17:25:18-08:00","MPDStatusMonitor: Update queue/status/statistics before connection callback.
+"
+"1db9b7cd07ac80dba74280369a81424681edcbfd","2014-12-28 17:39:48-08:00","MPDControl: Add more media keys.
+"
+"3569258157879de77ac7c46b93d64b012256df85","2014-12-29 15:51:36-08:00","PlaylistEditActivity: Fix artist listing.
+
+This fixes a regression from 62b4bd3, apparently, Artist.EXTRA went one too far.
+"
+"fd173879819fee33a3755c4b081a146148b572f8","2014-12-29 16:05:33-08:00","PlaylistEditActivity: Fix playlist edit listing.
+
+This fixes a regression from 74d0b7f, one line deletion too far.
+"
+"8b84818c0243311ad82b6def5ddd6b8e6f813718","2014-12-29 16:20:22-08:00","PlaylistEditActivity: Remove 2 static array initializations from a loop.
+"
+"aecf18283affb269520918e0862e589f98486990","2015-01-01 06:47:50-08:00","dmix: Update copyright scopes.
+"
+"36e122eb8d114a4d3d012441c72ee7e4b975145b","2015-01-01 07:45:00-08:00","dmix: Update copyright headers.
+"
+"411ab606b3f5abecaa5d8eabdf4cb292cbc7af36","2015-01-01 09:08:35-08:00","dmix: Code style.
+"
+"d3d9a1a9dffc72c49dd4ff44d6a0a39ec9c71aa9","2015-01-01 09:58:03-08:00","SearchActivity: Check for string extras onCreate().
+"
+"209ad38a093013dedcce9bc644f59fdadc0cf093","2015-01-03 07:05:29-08:00","MPDConnection: Check to ensure the user has not exceeded the max port number.
+"
+"15d3bc1dcb97cff0db86dcff34272c376c41d998","2015-01-03 08:37:53-08:00","BrowseFragment: Add a method to safely add items to add().
+
+There have been a few reports of NPEs coming when trying to add from
+AdapterView Adapters, this commit adds a method to null check everything and
+handle errors as required and report back as to why it's occurring.
+"
+"fb0ee15a5ba6f990a85a75ae06b723eea3cfb642","2015-01-03 09:03:47-08:00","StreamFetcher: If URL checking receives nothing, return a null string URL.
+"
+"e89e06e8e3c99b546bb76cccb7435d77d189d06c","2014-12-27 16:38:20-08:00","ResponseMap: Add a class to represent a response mapped skeleton.
+
+This abstract class creates a thread-safe map of MPD key/value responses with
+helper methods and fields which can be extended as necessary.
+
+A few advantages to this approach:
+
+* Far fewer fields per class.
+
+* Value processing is done as necessary.
+
+* No need to process and store every response value, to be used or not.
+
+* This class was designed with concurrency and thread safety in mind, unlike
+the older classes used to implement similar results.
+
+* This allows easy mass value resetting, duplication, modification and
+comparision.
+
+* Value processing will be done in many smaller methods, making processing
+easier to read and write and encouraging more robust processing.
+
+* Included methods accounts for all necessary exceptions to convert to
+primatives and Objects, and handles errors as required.
+"
+"365aabd996fdec0fac399eb6ac2e772e962a1192","2015-01-02 14:40:24-08:00","MPDStatus: Rewrite to subclass ResponseMap.
+
+This commit rewrites the MPDStatus class to subclass ResponseMap under the name
+MPDStatusMap and adds a new interface under the old class name of MPDStatus.
+
+This is done to (among other reasons) allow for immutable status copies.
+"
+"52bd6628c8f8122e66b3e694818aaec03d87d018","2014-12-28 06:58:11-08:00","MPDStatistics: Rewrite to subclass the ResponseMap.
+"
+"8eb79b9f19953bc123927da8c5f6c5ccbc174228","2015-01-02 14:22:42-08:00","IdleSubsystemMonitor: Utilize the immutable status object for status comparison.
+
+This fixes a bug that has been in the status monitor since the dmix project.
+The bug affected all old states falling out of sync rarely but more often in
+multiprocessing states and reconnections, which has been fixed by assigning the
+old status directly prior to new status generation.
+
+This also, obviously, moves/renames the class to the status module.
+"
+"0d87de7abe4a0f6975d7a599eb2c83da300d735b","2015-01-03 19:51:23-08:00","dmix: Javadoc code style update.
+
+This replaces double line breaks in javadoc with <p/> and now occurs
+automatically during reformatting. This also automatically formats javadoc
+comments to wrap and format automatically.
+"
+"cf1caabdc7e5c6bb67e71d40836f5cfb4666ff2d","2015-01-01 11:28:12-08:00","Tools: Generalize and move debugIntent() to Tools.
+"
+"73eeaf961cd0537a135b3088d856c63997384d1c","2015-01-02 16:36:40-08:00","MPD: No need to check for a null response prior to status update.
+"
+"d69110f90eaaf9c37ba5af657df179d51485df9b","2015-01-03 11:31:09-08:00","JMPDComm: Change the package name to my domain.
+
+I intend on rewriting most of JMPDComm, the original author with the original
+domain is long gone. Time for a change.
+"
+"70e4da9c424a657a5915389c9ba3ae3c7ffa3fb9","2015-01-04 16:34:52-08:00","dmix: Fix javadoc builds, add overview.html for each.
+"
+"a80eab9c59344b75d09b3bbe1d93caaf4729dcf3","2015-01-12 10:02:55+01:00","update German translation
+"
+"329a5cf6a3ff1a94838d82c3e68b58fd3025de91","2015-01-23 06:43:13-08:00","build: Add changes from latest Android Studio.
+"
+"80d98dc845a061f2838840f30a5c2911eb40fd24","2015-01-12 21:22:55-08:00","JMPDCommJava: Add a new file for iml.
+"
+"ddd0e6bc39c372768f041a7c1f10616a1d326621","2015-01-07 06:56:01-08:00","dmix: Partial revert from 0d87de7.
+
+This reverts the javadoc option 'Preserve manual line feeds.' back to true,
+this worked in all cases that were in the code, but it makes it hard to make
+longer javadoc comments readable.
+"
+"b321b41a4ff7f53d007066b66506183a1c00cf13","2014-12-29 08:23:07-08:00","CommandResult: Rename setResult() to setResponse().
+"
+"bb1f68c7821e853ead7eeb0ee433f15716b42e52","2014-12-28 17:18:54-08:00","Tools: If no MPD protocol delimiter exists in the response, don't split.
+
+In getRanges(), if no MPD protocol delimiter exists in the response line, don't
+split the results; consider it to be by design.
+
+This could hide implementation bugs, we'll deal with this when we get there, if
+necessary.
+"
+"24f48ddf78ae1b5dd5907f6aa9e5cea0aa0ffbba","2014-12-29 07:49:25-08:00","MPDConnection: Rename sendCommand() to send().
+"
+"100ed4caeadd7b8a1d6fa225eac64792f79d12ea","2015-01-07 07:24:37-08:00","JMPDComm: Move status/stat updating to the appropriate class.
+
+This also, like MPDStatus, makes MPDStatistics a implementation without
+updating, which will occur in MPDStatisticsMap.
+"
+"da4809aea5111950996a74002555ddb12eaa9d78","2015-01-09 06:34:45-08:00","Tools: Don't require a key parameter for getRanges().
+
+The key can be implied by the first response line if it exists.
+"
+"453e4043e8c1871a0beffaa1b71f570a9b71db4e","2015-01-12 20:00:23-08:00","JMPDCommJava/Log: Use logger.
+"
+"c6cb53980dec34474031efcaaf977492ad21e77e","2015-01-12 20:01:15-08:00","MPDConnection: Add a method for executor shutdown.
+
+Add a method to shut down the executor, otherwise the process may never
+end (non-Android).
+"
+"8a28f6d84f89b93849cfc3c7e2f11a6696d4abeb","2015-01-12 21:11:49-08:00","JMPDComm: Add some defaults for connection.
+"
+"e8e02f894e780517a9ee1d7c3ea3d093a6497b88","2015-01-06 01:55:05-08:00","IdleStatusMonitor: Remove playlist version init check.
+"
+"a30ccf939fd4c18ea4848693f9dc9b5c636ee3ce","2015-01-16 21:28:15-08:00","dmix: Javadoc improvements.
+
+This commit adds IntelliJ/Gradle configurations for the javadoc targets and
+autolaunches the Javadoc index upon building.
+"
+"e6d24a77028d413f49ae6eb808708320017b5336","2015-01-18 05:34:43-08:00","NowPlayingFragment: Don't allow share if queue is cleared prior to send.
+"
+"10c1c515850ce0a5dde5503898809b1efca80f60","2015-01-18 05:46:50-08:00","MPDApplication: Catch a unpreventable RuntimeError during disconnection dialog.
+"
+"af12b5bf7e9bd65408d129b08b00b3d0322dd3e0","2015-01-18 16:14:25-08:00","CommandQueue: For separatedQueueResults(), use getRanges().
+"
+"731427befa38e392665e8f773dd262ae24ca3e0d","2015-01-18 16:57:47-08:00","CommandQueue: Move send/sendSeparated to MPDConnection.
+
+This moves the interface for sending CommandQueues to connection, this will
+allow more flexibility with upcoming changes.
+"
+"ef980d4df78833006c9a81438486f26782c1a523","2015-01-18 18:06:38-08:00","CommandQueue: Sublist AbstractList to offer more flexibility.
+
+This also fixes up some of the code semantics.
+"
+"3e3e6885d4628ec748092d1a27b97829ff268544","2015-01-18 20:09:15-08:00","AlbumInfo: Move MD5 hash methods into class.
+"
+"db884498203b841d18b7e2496609d09ba7c9f2fa","2015-01-18 20:15:33-08:00","AlbumInfo: Make immutable.
+"
+"ff863dd258ee8c3ec6344973d1ffa72d58a3a59c","2015-01-18 20:29:20-08:00","AlbumInfo: Convert to getters/setters.
+"
+"ebec0d5a25d54eff502e283610eda7b029092030","2015-01-18 20:41:00-08:00","AlbumInfo: Move methods only used internally into the class.
+"
+"d72b5b407c821f8cde0bf331ce63e3e9cbc02e52","2015-01-18 20:47:47-08:00","AlbumInfo: Cache checksum hashes.
+
+Checksumming is slow. Prior to this commit we generate one every single time
+coverart is loaded, which is pretty often. And we duplicate this effort for
+same album and artist. This commit puts the generated hashes into a Map for
+later use.
+"
+"600486325098389d809a574c710702a6c1121706","2015-01-19 08:15:52-08:00","AlbumInfo: Use consistent naming scheme.
+"
+"ea2a5782e6662ad763dd6a447cf24e509d177f6e","2015-01-19 10:03:30-08:00","AlbumInfo: Cleanup convertToHex method.
+"
+"22ca0443820d1aa27e7807592a17ce7d7c8406b1","2015-01-20 07:34:14-08:00","AlbumInfo: Replace dynamic regular expression with static.
+"
+"2fdd615fe9ffa9f0576971f8cdc171e4ba4829e4","2015-01-20 09:06:24-08:00","AlbumInfo: Add Javadoc.
+"
+"dbc864271532117d4ed08cce3202942e3259b637","2015-01-20 09:07:31-08:00","UpdateTrackInfo: Add more consistent naming.
+"
+"14a9d08d9c440530e388250c511306a10c666d30","2015-01-20 10:22:48-08:00","AbstractMusic: Improve field naming, use and build handling.
+
+* Remove overwriting fields at random. The fields given to us by the protocol
+should not be tainted by random values.
+
+** This adds a method to get the URI fragment (in our use case, typically, a
+stream name).
+
+** The URI fragment is now removed from the filename during call to getFilename().
+
+** This also adds a method to get the actual name tag information. Because of a
+method naming conflict, this could have been hidden by the filename due to
+FilesystemTreeEntry naming.
+
+* Clarify method naming. There were many methods which I had no idea what they
+really did, prior to analyzation.
+
+** getFullPath(): This has replaced getFilename(),
+"
+"c0dbaeeedb61e6891a642fa45756517aa9b907c4","2015-01-20 16:04:24-08:00","MPDConnection: If the command is cancelled on null result, change the message.
+"
+"55ac5c957a39a75976008888cc9ae32ae10d2137","2015-01-21 06:13:23-08:00","dmix: Clean up some string literals.
+"
+"606b29fdead1c7883cf1d596d2027404e707a271","2015-01-21 07:21:59-08:00","JMPDComm: Remove null checks from Collections.
+
+All collections coming from responses should be null safe at this point.
+"
+"6cd11989e026eac09bd6afc8b6af544eb9e2d0c6","2015-01-21 13:34:38-08:00","Tools: Javadoc updates.
+"
+"3d751ba8432107afefdf904457f629cf467ddb2a","2015-01-21 18:55:33-08:00","Tools: Improve timeToString() performance.
+
+Replaced the poor performing formatter parser with a simple StringBuilder.
+"
+"1cc8d47f8ca0419d7c1cc4160e06d8ada4c23503","2015-01-23 13:32:29-08:00","MPDCommand: Refactor for performance.
+
+This commit replaces the pattern matching with much faster character
+iteration and replacement. This also builds the string prior to
+construction.
+"
+"8459fc7d421b6805d4509a24b183a0bbe55ab6f9","2015-01-25 08:21:31-08:00","CoverManager: Small cleanup.
+"
+"ef42fedddbc4f433bfce21d0f0ca4f80ff2cda09","2015-01-26 06:04:28-08:00","Tools: Fix sequentialToRange().
+"
+"04542f60c82e055bbc40858c0d155a52e3fa6bb8","2015-01-27 17:09:54-08:00","AbstractMusic: When parsing for the URL fragment, check for none.
+"
+"f279e9659390e421101d781cb4065093a7dd40ac","2015-01-26 13:00:48-08:00","SimpleLibraryActivity: Fix 'Go to streams'.
+"
+"4d90d49b7ad9d0cd3e240394323933b9d04f4926","2015-01-27 09:37:47-08:00","MPDroid/gradle: Depend on and link JMPDCommAndroid javadoc.
+"
+"fb9a6c0397bc179c849063faa3c937709c43383a","2015-01-26 11:48:20-08:00","BrowseFragment: Generify.
+"
+"05032a29c7cf4da22dc69d5236534c4c0bcccd47","2015-01-26 12:40:33-08:00","BrowseFragment: Remove duplicate playlist file add.
+"
+"4ff73f6dd46f0c655030f3ce6be19314cc4e0a90","2015-01-27 20:52:17-08:00","Directory: Generify.
+"
+"ac9a542d7628ad8d4b8fa8642a0af4504762fa23","2015-01-31 14:42:40-08:00","GracenoteCover: Fix NPE when pulling in setting.
+"
+"eecc4366cced1c9835b319f6922cb3e3df657231","2015-01-31 15:41:17-08:00","Directory: Fix a regression with 4ff73f6.
+
+This fixes a regression where, somehow along the way, I accidentally removed a
+getRoot().
+"
+"10dd4b5a24dbc692b16a2f44c9d2d77496d53d1b","2015-01-31 16:39:46-08:00","Directory: Move makeChildDirectory() back into AbstractDirectory.
+"
+"c31a9a830d4495314c88bdab8bfb6572b130772d","2015-02-01 05:47:14-08:00","Revert 'Directory: Move makeChildDirectory() back into AbstractDirectory.'
+
+This reverts commit 10dd4b5a24dbc692b16a2f44c9d2d77496d53d1b. I would prefer
+have more duplicate code over someone extending a generic class only to get a
+class cast exception due to a unchecked cast, even though it wouldn't really
+be applicable in our case.
+"
+"1530110cda247d92299faccc62e249daa50a4940","2015-02-03 17:30:22-08:00","iml: Updates.
+"
+"97a681419169e236b2473c3f87099b630a76d281","2015-02-05 17:56:13-08:00","StreamFetcher: Prevent a NPE when opening a URL connection which returns null.
+"
+"ad2e6cc8bc4910cc48df5d3e21734e7c3d29f58e","2014-10-26 19:10:08+01:00","Break everything, add awesome transition.
+"
+"bb7a2ecd2e16d1da41842ddc6ed6a159837806ec","2014-10-26 19:37:55+01:00","We're 21 only for the time it takes to develop that
+"
+"30b30d036727b7a690218086d4fa8a3445fd7dd6","2014-10-26 19:38:25+01:00","Remove useless lines
+"
+"cada974156605e373b87050616fbd87b18bce556","2014-10-26 19:38:33+01:00","Add more animations
+"
+"03990b61f69aeedba9e04299dd3b92f1c3af0f67","2014-10-26 22:06:58+01:00","Less dirty queue menu
+"
+"342213e6041341b9e619eebc0994e3e5d2228626","2014-10-26 22:11:13+01:00","Clean up MainMenuActivity java
+"
+"dd7055f155a2347f6ef8b95c3cd49b5ba9ea9e70","2014-10-26 22:43:10+01:00","Fix transition for landscape
+"
+"3877a41cf3f2e6a4d6a13f05f9eb2df11f33582d","2014-10-26 22:43:22+01:00","Clean up MainActivity xml
+"
+"37675e914120e033beee3eb8e8efddc2bbd59ada","2014-10-26 23:02:52+01:00","Fix now playing
+"
+"e312fdeefe3c47a71c24b9630027472235f0674a","2014-10-26 23:07:20+01:00","Clean up MainMenu
+"
+"ab01df26cca19f63951be874a80fd9c6f10b26ff","2014-10-27 22:45:00+01:00","Various fixes
+"
+"6a67ab9e785212e3815cbf8123db4fb8a072c287","2014-10-27 23:36:43+01:00","Fix ssearch button
+"
+"9a8cf435b60b38d601f08b2f0034e21c35b7c82c","2014-11-01 12:16:45+01:00","Remove slidinguppanel and update library
+"
+"711c9c8c0116901e6b5f0d32cb3aff607055a943","2014-11-01 13:01:55+01:00","Optimize our release apks
+"
+"d4ff7a2ce63b29a83cf1ff94bc5fd8408c3d5793","2014-11-03 00:40:09+01:00","Fix wrong layout inflation method leading to stupid bugs
+
+Should probably be applied to develop
+"
+"6dd4a070639ada9b94be20914c2b9dd26804397f","2014-11-03 00:45:47+01:00","Material queue, using guidelines. Looks weird.
+"
+"07a9fde4cb05851bab456d8f451efb28fe69495e","2014-12-07 19:03:06+01:00","Fix material branch
+"
+"4d6ea43d6a9a918499ee92325529e3444a17d63e","2014-12-27 11:43:43+01:00","Fix shitty merge
+"
+"ed60fbf71f884182184e15f582698addb8fe5e5f","2014-12-27 12:07:16+01:00","Add cardview
+"
+"db6e358c729ba0193cc7b391e15178b3b2c74229","2014-12-27 13:22:34+01:00","Use standard cardview
+"
+"888f33429b224ebe5bd25804d4ffea08a48ea7eb","2014-12-27 13:23:00+01:00","Remove old cards
+"
+"1bde7cf4a633cae65e465651c1458d983fe51997","2014-12-28 19:03:49+01:00","First material design album songs list
+"
+"92e9fd0d60715e4de30623a2114912c8ae06fe09","2014-12-28 19:18:12+01:00","Remove the blue line in simple library activity, and fix the stupid layout name
+"
+"710b40e8b8fa18e211362d2a441657b94b61e022","2014-12-28 19:18:24+01:00","Tweak play icon button in songs
+"
+"057b890ce315760d29843f3badeea99c9ff33494","2014-12-28 22:56:21+01:00","Rename 'mainmenu'
+"
+"9d79d54d8afe60f3e10132d9ff0ea309f6268f15","2014-12-28 22:56:30+01:00","Fix search menu
+"
+"905c20481dea4f160bab1d673f59b86ee6873c34","2014-12-28 22:56:40+01:00","Add toolbar to songsfragment
+"
+"a897e1e6bad5c8ec91b05373d998d4bfab97c53c","2014-12-28 23:13:04+01:00","There is an new tabbar in town.
+"
+"c7d132406ee44af3c13752e6fb54658ac23e3abf","2014-12-28 23:36:41+01:00","Add back outputs/settings
+"
+"1a6b7a8de92c9ac1399d43b8092bf62d2e05fc76","2014-12-28 23:45:04+01:00","DEATH TO THE VIEWPAGER
+"
+"baeb7c3712e5d1aed9fe2a6db8cfdfa5dd0b4dfc","2014-12-28 23:53:54+01:00","Change small player hitbox
+"
+"c10118d4c5280f08d4fd68459a2d41df5fc83b53","2014-12-28 23:57:15+01:00","Rename the queue list item layout
+"
+"d0f1aa3fc1467bccee8aec114ddab209485dc3ac","2014-12-28 23:58:09+01:00","And the queue fragment. Shitty names.
+"
+"09f4a1909903d240b03c11b4ba459df2128e73b5","2014-12-29 00:02:09+01:00","Remove drawable for song lists
+"
+"d40d7ad7a9de6cd7b08563a359c2996933bd416c","2014-12-29 21:29:40+01:00","Libraries fix
+"
+"7f2f1ff12955cda2b38ad7a3ba4f369921dd747a","2014-12-29 21:35:24+01:00","Catch palette crash
+"
+"632eadb672b91ac4347e84ed5ac0599990de84d2","2014-12-29 21:51:15+01:00","Remove this shitty pull to refresh
+"
+"fcc066bcf9b1d266bece2f53f37d68989ecd7d8d","2014-12-29 22:37:20+01:00","Refactor toolbar methods
+"
+"7a8f336877c2186113e17229311cb7f4304034d4","2014-12-29 22:55:01+01:00","Remove useless method
+"
+"82e2fedc5239a5c3174c054b47c547a1cf68db5a","2014-12-29 23:35:37+01:00","BrowseFragments can now show their own Toolbars, yay.
+"
+"4802e6611e09bdad5d24f6b5c2768a25c934bd11","2014-12-29 23:39:10+01:00","Toolbar fix for grid browse fragment
+"
+"bcebbc7a849d72f4d40caa875168fb7758e8668e","2014-12-30 00:15:42+01:00","Disable fast scroll on song list
+"
+"ecdf25ca24af04001542cc4f5538fb0361c7ce01","2015-01-01 21:23:12+01:00","Fix rebase issue
+"
+"c4a2200d3da88305b622a0e1f11ef768a4aa8acc","2015-01-04 20:07:27+01:00","Add Album grid cover transition
+"
+"748b6477e2c25c08e78dde3e00e800d64b5ec0f4","2015-01-04 20:57:08+01:00","Album transitions
+"
+"6d094520c5b907002cebcfb29ba241244a7a4914","2015-01-04 20:58:55+01:00","Fix huge delay
+"
+"03f674d7adf7e1fa8513478fe84738173f320661","2015-02-15 12:21:42-08:00","MPDroid: Fix up a couple of merge errors.
+"
+"8df11735c525ca4e7ae12d93d83b640ec84f8461","2015-02-15 12:36:06-08:00","dmix: Code style.
+"
+"232f3b846bb3d6dd44b867e8414b78b675336516","2015-02-15 13:32:39-08:00","resources: Update.
+"
+"589a323083435ae5c5fb5b54d3a8accb6ac5ee62","2015-02-15 16:47:39-08:00","MPDConnection: Remove idle connection hack.
+
+This was a hack that's been in here for a corner case that I'm not sure that
+really exists either. If it's considered to be a valid corner case, then
+it should be implemented with the idle subsystem and not directly in the
+connection code.
+"
+"e0d5acf79aabc711dfc427112e175b3cd40b3da1","2015-01-30 07:19:59-08:00","MPDCommand: Remove non-retryable commands.
+
+There should be no case where a command should be non-retryable. The only
+theory for this is probably that a command is sent, response isn't received
+(because bad connection) but this is a corner case that just won't happen
+and even if it WERE to happen I would expect it to be so amazingly rare
+that this hack shouldn't be warranted. I can, pretty safely, say this
+cannot happen with connections being what they are; there are tons of
+other things that would happen first.
+"
+"99603b79fc76d1506a2ab703ed50d58b359eada4","2015-02-15 17:17:59-08:00","MPDConnection: If MPD sends an ACK message, don't resend.
+
+This is like being a vaccuum salesman, going to someones door to sell something
+and as soon as the potential customer has refused and closed the door,
+immediately asking again twice.
+"
+"c41c92b47eca85bbf28fbc84a90a4afa59658fc0","2015-02-15 17:24:54-08:00","MPDConnection: Send the password in the same connection/thread.
+
+For some reason we looped back into the ExecutorService. There was probably a
+reason, but there's not really one now.
+"
+"20c894f519d2593a810d755b216e403fe1fa6708","2015-02-07 19:54:25-08:00","Log: Add Log.info() and Log.verbose().
+"
+"60655a150f8c5cb8b6ee45b95912860bb43a5fcc","2015-02-15 19:05:29-08:00","MPDCommand: Remove non-fatal ACK from the command.
+
+This can easily be done in the catch block, as long as it's not in a
+CommandQueue.
+"
+"694b487324a4214217ec3fcde1045910b448b840","2015-02-16 09:01:19-08:00","MusicBuilder: Remove sort parameter from buildMusicFromList().
+"
+"13709bcf3633aaad358292b54e70de9d7d4664e8","2015-02-16 09:06:16-08:00","MPD: Remove the sort argument from MPD.genericSearch(search, args, sort).
+"
+"e01a2172784413d7558487c276cc0ec970ee0bd3","2015-02-16 09:08:11-08:00","MPD: Remove the sort from MPD.search(args).
+"
+"f61021b3872ceeb0cf25734e402d44adeae4af08","2015-02-16 09:10:58-08:00","MPD: Remove the sort from MPD.find(args).
+"
+"873fc155257895bdddefa1b7ac9919ab4c581c9b","2015-02-16 09:15:18-08:00","MPD: Remove sort from find(type, locatorString).
+"
+"d468b97059c6f83cead16307f873ead403385835","2015-02-16 09:30:56-08:00","Items: Sort at beginning of merge(), don't return modified list.
+
+This commit changes the behaviour of merge() to not return a list, since, the
+collection is modified in place. This commit also pushes the Collections.sort()
+out of this method.
+"
+"cbad559d33f25bc3bbccfea0c0f13cdf248cf466","2015-02-16 10:18:23-08:00","MPD: Remove sort from listArtists(String)/listAlbumArtists(Genre).
+"
+"e4b46d6a67f552960d1507757e77c75bd86facf0","2015-02-16 10:19:21-08:00","MPD: Change the signature of listArtists(String) to listArtists(Genre).
+"
+"c070f8b6994fa34451b0ea82d763de5feb82484f","2015-02-16 10:38:58-08:00","MPD: Remove sort from getAllAlbums().
+"
+"bebc932d685e2822337c338449bd66c368696fb9","2015-02-16 10:40:29-08:00","MPD: Remove sort from getAlbums(artist, sortByYear, tcount, aa).
+"
+"4fa66b66200d5d570b0699ed8ee154ace2497a9b","2015-02-16 10:43:53-08:00","MPD: Remove sort from getGenres().
+"
+"1f3e9e105f3080dc053f0dd170128073875bc6ef","2015-02-16 10:46:20-08:00","MPD: Remove sort from getPlaylists().
+"
+"e0d704ce18ccc479f035d2186261c9c517efab5b","2015-02-16 10:48:49-08:00","MPD: Remove sort from getAlbums(artist, sortByYear, trackCountNeeded).
+"
+"9db44290eb61da917081eb1f4a8b06bd08f70a56","2015-02-16 10:52:32-08:00","MPD: Remove sort from getArtists(useAlbumArtists).
+"
+"e2fda9c868798b49281871622f0c365128b363b1","2015-02-16 10:57:59-08:00","MPD: Remove sort from getArtists(Genre).
+"
+"9c73655158fa87046d71e37fa199282adffb0a3a","2015-02-16 11:02:29-08:00","MPD: Remove sort from listAlbums(artist, useAlbumArtist).
+"
+"414812a7848d46f40ec5bee92c811c03b25ecb3b","2015-02-16 11:06:12-08:00","MPD: Change the listAlbums() signature from String artist to Artist.
+"
+"ca49ecc5de4e93744aa5cea0c31a4885b6ff29ef","2015-02-16 11:11:42-08:00","MPD: Don't sort prior to Artist creation in getArtists(genre, aa).
+
+It gets resorted directly after, anyhow.
+"
+"59036df471d99a0f696bcdd1bbe09e3454a4ad9d","2015-02-16 11:13:49-08:00","MPD: Remove sort from getArtists(genre, aa).
+"
+"f828be59f9c59470401a44ee055387b3647dd183","2015-02-16 11:17:19-08:00","MPD: Remove sort from MPD.getFirstTrack().
+
+It's completely unnecessary.
+"
+"6aaaba5dcab3f940048324f610fabc8c6b53a361","2015-02-16 11:21:55-08:00","MPD: Remove sort from listAlbums().
+"
+"d4f06036fbdec5e9013b71673e9fc121b17b07ac","2015-02-16 11:23:17-08:00","MPD: Remove sort from listAllAlbumsGrouped(useaa, includeUnknownAlbum).
+"
+"8cf7f48aa66d0db5d5d22d1f0bb464cd38b20f5a","2015-02-16 11:31:03-08:00","MPD: Remove unnecessary sort() at beginning of getSongs(Album).
+"
+"1f574fd9c8d55061cb4c25eae576f9660ed3fdfa","2015-02-16 11:33:58-08:00","MPD: Remove sort from getSongs(Album).
+"
+"7fbb26ba23aa79bbe9eb26444e9d901a43833cfc","2015-02-16 11:19:24-08:00","MPD: Remove sort from getSongs(Artist).
+"
+"16628e774618eb222c7681e1c742eb551cc773a4","2015-02-16 11:39:50-08:00","MPD: Remove sort from listAlbumArtists().
+"
+"b84853495bf12a380b35dc7c646b01f168e9c6a8","2015-02-16 11:42:01-08:00","MPD: Remove sort from listArtists().
+"
+"b5878eccd39d3d2dca48efc60c2364e2dcd4dc1f","2015-02-16 11:43:56-08:00","MPD: Remove sort from listGenres().
+"
+"b56615250705713f53596ca28b0415aed84a8fcb","2015-02-16 11:52:24-08:00","ArtistsFragment: Sort after any collection retrieval.
+"
+"7af22bcd2087a8333806b2344551aa9c79d57015","2015-02-16 17:18:06-08:00","MPD: Remove sort from listAllAlbumsGrouped(boolean).
+"
+"51bf8ef7eecccb8ec300bcc1ff394738ccfadf11","2015-02-16 19:19:39-08:00","MPD: Remove sort from getAlbums(Artist, sortByYear, count, aa).
+"
+"5ac5f2acf43e2e33760d4a689171ab7134601141","2015-02-16 19:21:30-08:00","MPD: Remove sort from getAllAlbums().
+"
+"d193d810a5429bba2a794a391cbb710330aac5c4","2015-02-16 19:23:27-08:00","MPD: Remove sort from getArtists(useAlbumArtist).
+"
+"5909e82b31ff6c6428cbbdb27e92a0e94db31387","2015-02-16 20:34:20-08:00","Item: Utilize ListIterators to merge lists.
+"
+"b8893366f8cfb58491b9922ff2408726d1d68793","2015-02-16 20:55:54-08:00","Item: Clarify method naming.
+"
+"d1e7b08cb7e6d9ef76cac575a425fcfba1e4470c","2015-02-16 21:14:08-08:00","Item: Require all Item entries to override equals and hashcode.
+"
+"679db8b806082581f1993131bfca25d8ce966034","2015-02-17 16:50:16-08:00","NowPlayingActivity: Reimplement playlist queue clear.
+"
+"7e1ae0bbbd560c956ec3805ea669e04963e86b29","2015-02-18 19:52:57-08:00","Item: Improve collator.
+
+Change to a static and use the primary Collator, this results in *much* faster
+sorting and comes with case insensitive matching.
+"
+"b26c052c418b9e0b87c666eb28849ae336f52964","2015-02-19 06:19:16-08:00","Item: Move mainText() to toString, cleanup ResourceBundle usage.
+
+Move the _en property file to a global property name, this allows us to remove
+the exception handling.
+"
+"4fae811f1925756f37bd2d2c1c7191168f1c9f0a","2015-02-22 06:23:45-08:00","Directory: Add more useful information with the child build runtime exception.
+"
+"3a26fc85902e339ce27e234b86b26bfb56845530","2015-02-22 07:40:48-08:00","MPDPlaylist: Add range alternatives for MPD implementations 0.15.x and older.
+
+Delete ranges wern't supported until 0.16.x.
+"
+"f266d78486f57475767c766f154b377231d83d6e","2015-03-03 20:45:22+01:00","We're compatible with API Level 16 (4.1) now.
+"
+"359e8f997646baf7bf75c01aa87983b522a1d922","2015-03-03 20:52:28+01:00","Layout fixes
+
+Chiming in to do quick maintenance to at least make usuable MPDroid betas. MPDroid will not look as nice on KitKat than it does on lollipop, but that's not the goal. I won't spend hours making pre 5.0 look perfect.
+
+- Fix Z order on pre 5.0
+- Fix Text style (use material design standards)
+- Make list items a little smaller (72 -> 68 dp)
+
+Some issues remain, like the default list item style that doesn't look the same in < 5.0 and 5.0.
+
+Lots of stuff is still broken... Have fun!
+"
+"9e79c7049cd40dd0052859b2ba0d09cc34afa822","2015-03-10 05:11:52-07:00","dmix: Android Studio Canary / SDK 22 update.
+
+This also updates the code style to the new beta.
+"
+"ca8d9ca62fa3eb9c66725689bd8194d0b2efdff5","2015-03-07 08:59:19-08:00","MPDException: Correct isAckError().
+
+Since it had no users, I didn't notice it was completely backwards.
+"
+"9591b8480c509cb17631b54e43038901262f71a2","2015-03-12 11:59:04-07:00","MPD: Remove a depreciated sort signature.
+"
+"5a6e3bbfeb8eba11d230291e373939082abbd0e3","2015-03-11 09:57:28-07:00","ActionFireReceiver: Log null bundle, check/log null string.
+"
+"d18f8bd266441f3a38d5f354e44eac227f4ee293","2015-02-27 09:53:17-08:00","status: Add a blocking Semaphore for ResponseMap validity.
+"
+"df24a7f2cfd186b38ada9a81797c17cb40d08030","2015-03-03 12:29:19-08:00","concurrent: Add some classes to assist with concurrency.
+"
+"d5aa9a6e0da783bb6e58b4979281c525a7afb62a","2015-02-24 06:08:21-08:00","MPDApplication: Remove StrictMode suppression.
+"
+"ff90701e1ccd70ef58c8b3d6aa29e792b811d723","2015-02-21 07:34:21-08:00","CommandQueue: Add a constructor to add an array of commands.
+"
+"ba92136c5d5b65f64972c17e135e9734bd0ce9da","2015-02-21 07:34:44-08:00","CommandQueue: Add a improved method of ensuring one trailing exclusive newline.
+"
+"895b6414f847157335865acd6c6845a9caaa1cb7","2015-02-21 07:21:19-08:00","connection: Add a dedicated status tracker and listener.
+"
+"ce9001c1877fec58604477095022bc7214dac18a","2015-02-22 06:45:25-08:00","connection: Add a package-info file.
+"
+"e290047c353133bb1812029e76988bbde3602790","2015-02-22 15:15:29-08:00","connection: Split the command processor from the connection.
+"
+"ae7ffe02c9c83c198e1d1327ad21e4b23d6852f3","2015-02-22 15:16:25-08:00","connection: Convert to MPDConnectionListener, remove old connection listeners.
+"
+"2de55ef4ec8eac3ac8fdde59ce5ac60b9a5cb9ea","2015-02-23 06:50:28-08:00","ErrorHandler: Remove error handling from MPDApplication.
+
+This class is very much a work in progress. Hopefully someone will come up
+with a better name as well.
+"
+"510cc1116fec49cd1f316001ecd5fb9ccaa903a3","2015-02-24 07:11:01-08:00","MPDApplication: Cleanup debug logging.
+"
+"be235c6eb9040331baf423c7346e021478125da4","2015-02-25 05:41:49-08:00","IdleSubsystemMonitor: Convert callbacks to use our ExecutorService/Runnables.
+
+This commit changes things to run each listener callback to run in it's own
+Runnable/Executor so other listeners callbacks aren't penalized by long running
+threads.
+"
+"d819ca6d737ef2e2111863bd821f279a4c509cbd","2015-02-24 06:15:45-08:00","IdleSubsystemMonitor: Improve idle monitor to better handle connections.
+"
+"4e35a4e8a33fac33114bb50e3464e36934c830fb","2015-02-27 20:38:26-08:00","MPDAsyncHelper: Put the connection message at the head of the queue.
+
+The queue can be really slow at times. The connection should go to the front of
+the line.
+"
+"a8fa94fa4b4827c1a27b74ac108ee8291c1f2360","2015-03-03 11:54:04-08:00","IdleSubsystemMonitor: Don't allow idle command to block termination.
+"
+"1e07a7efe80e17212d572022dca6507051b9fe2c","2015-03-04 06:54:21-08:00","IdleSubsystemMonitor: Make runnable, use executor.
+"
+"57639f2f029943ee5878ae3174215ea0fbef2038","2015-03-04 07:18:42-08:00","IdleSubsystemMonitor: Move listeners to JMPDComm.
+"
+"281469751ca064c1b3501492c9e2b1ba5d52f132","2015-03-04 19:00:34-08:00","SettingsHelper: Make static utility class.
+
+We were always using it /like/ a static utility class, it's time to make it
+official.
+"
+"d0e96a710bb9932da13048da6fc9a51d42baf14b","2015-03-05 07:44:56-08:00","MPDAsyncHelper: Move MPD/IdleStatusMonitor to MPDApplication.
+
+These two objects are only required in global application state and no longer
+use MPDAsyncWorker.
+"
+"1e09bb2bc549083880b97a025ec58c2996b37152","2015-03-05 10:10:57-08:00","MPDroid: Don't pass MPDStatus as a parameter.
+
+Passing MPDStatus as a parameter made sense when it was immutable, but now
+that it's mutable, it really makes no sense.
+"
+"7e622536059c440bb87fb818ae29549bbe0b4f68","2015-03-05 11:25:37-08:00","MPDControl: Remove internalMPD option.
+
+Now that we've eliminated the use of MPDAsyncWorker, there is no longer a need
+for internalMPD, we'll use the global MPD instance in our Application instance.
+"
+"9004c9e4f0127a6d788ab0a70f7ecc930e8c3e71","2015-03-05 13:41:18-08:00","MPDApplication: Generate and use Async getter.
+"
+"d5712cb2692bf7ccb0248c3c396900820ee54539","2015-03-05 19:54:53-08:00","SettingsHelper: Cleanup usage.
+"
+"0c38e8b9809450002833ce8a9438767d25b06824","2015-03-06 20:27:29-08:00","CommandResponse: Update for extension and flexibility.
+
+This commit is a radical rethinking of how we intrepret command responses. With
+this commit, we take everything off the wire directly as a StringBuilder,
+convert it to a string, then processing should occur directly from
+the CommandResponse.
+
+This should allow for tons of flexibility, and adds useful iterators and
+methods for processing responses.
+
+Split CommandQueues are not yet directly supported by this code.
+"
+"7232088d1eeaea6ad679ff41bdc01528967c97b6","2015-03-10 13:25:45-07:00","StatusChangeListener: Monitor the stored playlist idle subsystem.
+"
+"9ac981f0c28e68b92bf3efdfb981004b4b63f7bf","2015-03-11 07:52:23-07:00","idea: Add new scope to ease code style runs.
+"
+"76733fec3f467d3a7b1988d7a0c2b093ea49d787","2015-03-12 13:24:30-07:00","JMPDComm: Begin converting to submit().
+"
+"f951d04867210632bbf8409cb2b9da34fc47277f","2015-03-13 17:12:35+01:00","push current track info to pebble
+"
+"734b11ff1fece298f78e5faa5c0488a03662322b","2015-03-13 19:27:31-07:00","BrowseFragment: Don't update list if not connected.
+"
+"0b5c019e6dd797c83123b1455804629165b517b6","2015-03-13 19:27:54-07:00","BrowseFragment: Update list on connected callback.
+"
+"a38710e8f450d9e1fc13f75b7ca8009cd3840e60","2015-03-14 10:40:27-07:00","MPDApplication: Synchronize the disconnect() block.
+
+The disconnect() block requires synchronization to prevent a race between a
+canceled and purged timer and another scheduling.
+
+This should fix Crashlytics #242.
+"
+"c084c13e6dd7e0e5fb90db498b414a8910756e77","2015-03-15 06:13:17-07:00","JMPDComm/Android: Change the target SDK to 22.
+"
+"117e99623db1ff70d3607a2a33e7922b9541cbac","2015-03-16 07:28:21-07:00","IOCommandProcessor: Fix an inadvertent inverse boolean.
+"
+"259fe6a79714e2538bfcba43a6609d26768b0096","2015-03-18 19:07:27-07:00","SettingsFragment: Set SSID as null when empty.
+"
+"1a4fa9b8513e671741ae7de0a5c1f546fa85bcb1","2015-03-18 19:34:45-07:00","MPDAsyncHelper: Fix ConnectionInfo listener.
+
+Android fails silently when casting to an incorrect type over a message(!).
+Bad, bad android!
+"
+"2ea73265b4f28a7ebc9a7e4b8b4c876b7499b3e9","2015-03-30 23:43:56+02:00","FAB for adding streams
+"
+"dc3dfffdc48c32bc96405718a50f5d745aca88ea","2015-03-30 23:44:01+02:00","IntelliJ files
+"
+"b042534cf8fe28e91cc4ba1a8a16add2277d7df6","2015-03-31 00:00:56+02:00","Add a (non-working) refresh button
+"
+"891c006cf0c6a55366e1adc5f3bc1e66e95ed759","2015-03-19 18:24:03-07:00","MPDroid/gradle: Update libraries and build tools.
+"
+"0217da770d99d0cb2275a30763374ed805191fa7","2015-03-18 20:42:37-07:00","IOCommandProcessor: Move checkConnected() into the try block.
+
+checkConnected has potential to throw an uncaught IOException, which in turn
+could leave the connection status in a connected state, while throwing an
+exception.
+"
+"31503c4f58b4a35fffd8da026707dfa34c32645f","2015-03-19 09:03:27-07:00","AlbumsFragment: Don't sort twice in a row.
+"
+"2d02ce28d642e36f6c269391727fa43b06e7b8b5","2015-03-23 06:15:18-07:00","Android/Item: Require all Items implement Parcelable.
+"
+"1c62f287d94520bc168317acec853a0d30c61131","2015-03-30 06:20:45-07:00","SimpleLibraryActivity: Implement ErrorHandler.
+"
+"158062ba99622af977868a130f31bda28f4bd493","2015-03-21 06:49:26-07:00","BrowseFragment: Add/remove exec listener onPause/onResume.
+"
+"e5e0772ef558864dbec86fcf92b3a16cdaa251ac","2015-03-21 07:48:56-07:00","BrowseFragment: Initialize item list.
+"
+"a38822561b52defb294be37a2a6afe10109462b2","2015-03-23 07:32:05-07:00","StreamsFragment: Initialize local list during construction.
+
+This commit not only initializes the local list during construction, but
+removes the old stream loading code which, due to a bug, has never actually
+functioned.
+"
+"4930dc59afe3ec4d7caaaf538f7b6530e0c26ca1","2015-03-23 07:48:45-07:00","StreamsFragment: Remove redundant override.
+"
+"54423f8a13558b150b4d4faf4d01608234e6f8d3","2015-03-23 07:49:53-07:00","StreamsFragment: Fix missing switch break.
+"
+"b885985ba956f1f525f177a4a19b8a7f8b2d67d1","2015-03-23 07:50:59-07:00","StreamsFragment: Fix return value for onMenuItemClick().
+"
+"0b632354f2164fbce71df82e8ab8debeb1f251d1","2015-03-23 07:59:17-07:00","StreamsFragment: Remove redundant variable.
+"
+"1befb7b0e728e62ba597589632602806877b9088","2015-03-26 07:39:49-07:00","MPDAsyncWorker: Check for null key in onSharedPreferenceChanged.
+"
+"6f3d7dd044ecc31cde1dba6260739ee3a352b0c0","2015-03-27 07:20:48-07:00","BrowseFragment: Cleanup artist retrieval.
+"
+"446c749e3cb53f2a839777978f068aca429c9582","2015-03-27 20:05:44-07:00","IdleSubsystemMonitor: Sleep upon error.
+
+Sleeps for 10 seconds while waiting a problem processing.
+"
+"4080879c11f5712acdc542bb33872d387bd9f3e2","2015-03-27 20:20:21-07:00","AlbumsGridFragment: Remove redundant override.
+"
+"50b6fde72d60fe84bf0b93aca9f599c435ef2339","2015-03-27 20:42:42-07:00","AlbumsFragment: Remove GOTO_ARTISTS redundancy.
+"
+"60dbe87281b09a4752c37f78567285351007d9fa","2015-03-27 21:12:06-07:00","SongsFragment: Demote unnecessary field.
+"
+"3fe7d1e39495ba1dbe33a3f97c43f014588efdf1","2015-03-28 06:55:17-07:00","SongsFragment: Cleanup warnings.
+"
+"48baa381ae574920264e8241de6236a24a1360f4","2015-03-31 07:13:17-07:00","idea: Partial revert of dc3dfff.
+
+Not sure why it was a problem, but I'm reverting the code style changes which
+were all discarded by this commit.
+"
+"2a511fe1d213e5b930f76df6a5e3c0c38962894e","2015-03-31 21:28:30+02:00","Fix searchview bugs
+"
+"f936c3f57d94f117e4d22a392f5ed7adc3053acd","2015-03-31 22:27:14+02:00","New landscape songs view
+"
+"526a86e6b16a69181edc2129c7bc08a1fa4ad3f0","2015-03-31 23:07:14+02:00","New now playing screen
+"
+"3faf25061dbf9c355db41f680e0c9c5e9e33a2ad","2015-03-31 23:14:33+02:00","New now playing screens
+"
+"7ff6d345882a12447fb8f5dfc7e073cc18342c31","2015-03-31 23:52:06+02:00","Tablet modes
+"
+"adb97b81ff836aa337584dedafc49c280bc80c83","2015-04-02 19:25:56+02:00","Fix kitkat compat
+"
+"5d6a2c91800dc528969777a06c3b3579cd5870f3","2015-04-02 19:26:03+02:00","We're now ARC compatible !
+"
+"831a4d674eb2d49dd7518b35fa33a5f56cfba736","2015-04-03 04:56:17-07:00","dmix: Code style.
+"
+"a6d64750a8f0db31dcc460bbd75b7c32ce6f0052","2015-03-31 07:28:25-07:00","SearchActivity: Cleanup menu use.
+"
+"fc79f4b0e1408601a0191af9ccab59bb72b3ca4b","2015-04-03 18:02:42-07:00","SongsFragment: Change behaviour to play on click, menu on long click.
+"
+"a7258f727a0dfd811b5ecb61b4113043a8518369","2015-04-05 08:00:46-07:00","RemoteControlClientHandler: Replace TAG that runs beyond the maximum length.
+"
+"12e129405f6abf8a28f815e3c56fc57231e5aaff","2015-04-05 08:05:50-07:00","FSFragment: Check activity for null prior to pushing onto the activity stack.
+"
+"012d99ebafad380e138804c31bee66fa8092b63d","2015-04-04 12:06:03-07:00","MPD: Add addAll(replace,play) method.
+
+The efficient MPD protocol way to add everything to the queue is 'add /'.
+"
+"1062aa9a67df691c6b235d17992788fe25234c1d","2015-03-31 10:16:08-07:00","Music: Remove empty constructor.
+
+This was, primarily necessary due to lack of a connection block, which we now have.
+"
+"1c05055b55b1cf3c11169978181757af63ca7c5f","2015-04-05 11:08:56-07:00","SearchActivity: Prevent a race between the PagerView / MenuItem callback.
+
+This commit should prevent a potential race between the PagerView field
+(mPager) and the MenuItem callback. The race can present itself while the menu
+is loading (menu item transition animation is active) and the user uses a
+second touch to change the view, the PagerView field can be correct, while the
+menu item callback can pertain to the previous view. This validates the view
+for equality prior to processing the menu item click.
+"
+"3980b3b7d46ec1c39b7c7b81dd0cec68e2fc290a","2015-04-05 11:33:59-07:00","build.gradle: Update FloatingActionButton to 1.3.0.
+"
+"dfcd09c4742105419cf33650b6340177cc8e3be9","2015-04-05 21:59:51+02:00","Fix landscape songs header coloring
+"
+"dc4a80f74ed2f098e0b7dcfdded4d28012e5846c","2015-04-05 22:27:06+02:00","Fix shitty text styles
+"
+"13cb828bcc203b119df7fe5a20b895d9b2898f50","2015-04-05 18:12:05-07:00","MPDControl: Wait for validity prior to calling for a MPDStatus.
+"
+"f089277e1ab8b9e099efb224774d5102a16d2856","2015-04-05 18:13:52-07:00","PhoneStateReceiver: Move the Telephony stuff back into PhoneStateReceiver.
+
+This has to be moved out due to the lack of blocking methods for the
+PhoneStateReceiver thread. This was fixed, so, the code returns to where it
+belongs.
+
+This is also a complete refactoring of this class (third time's the charm?).
+"
+"f0637e4ab33ef7d72a2cbaf0ec9bec2f9db4fd3b","2015-04-06 08:24:11-07:00","dmix: Code style.
+"
+"a9f378cb69894714a4756c9f9bb74249f458eea5","2015-04-06 07:41:05-07:00","dmix: Fix Java8 doclint warnings and errors.
+"
+"b2dc347cd8097a092c70eb0ade9c7695ffed9d69","2015-03-16 09:33:34-07:00","MPDConnection: Don't block after call to connect().
+
+This commit changes the connect() behaviour to immediately exit, and any error
+handling can be done by the connection listeners.
+"
+"c410216a00b7eda7fc333559261419f8e1293aa3","2015-04-02 14:50:24-07:00","MultiIOMPDConnection: Use a Queue to store sockets.
+
+ThreadLocal is very restricting and I've found some potential timing races.
+This commit implements the IOSocketSet ThreadLocal as a Queue, this simplifies
+things significantly, allows for direct access to the Sockets for closing and
+disconnection.
+"
+"6fcec93dfd07cad2286e6efbd11d2ad3be5fa10a","2015-04-07 08:59:50-07:00","ResponseMap: Invalidate the map on disconnection.
+"
+"b759641077338fcd5b826a99870b2c37b3a0a03e","2015-03-31 20:25:45-07:00","CommandResponse: Implement custom response class framework.
+"
+"9c3d18329f9844dcf10f46fec8ade6dfd077e3dd","2015-04-03 20:44:17-07:00","JMPDComm: Replace Tools.parseResponse() with native CommandResponse methods.
+"
+"1c3ba22daa22f3cc6cc189905f7eb6f110d4d03a","2015-04-04 08:00:57-07:00","CommandResponse: Fix two off by one errors with regard to reverse iteration.
+"
+"af589e44b366cf7dbe957c6a11c87277a02ab39c","2015-04-04 08:46:11-07:00","SimplerImmutableEntry: Use toString() to output the entire (unsplit) entry.
+"
+"a0de75fc38da0fd55ac9289d76eb36771a23870c","2015-04-04 08:54:54-07:00","AbstractDirectory: Implement native CommandResponse handling.
+"
+"138dd98d631be1dffa0dd43c45cd0a12d42f094a","2015-04-04 10:19:18-07:00","AbstractResponseIterator: Cache the next and previous indexes.
+"
+"5c0217f39544f335b77b462590be35b849c56ee3","2015-03-27 21:29:44-07:00","BrowseFragment: Revert 'Don't update list if not connected.'
+
+Unfortunately, the fix for this isn't going to be /nearly/ that easy.
+"
+"309f339bc997620d5647dfc1265cd25197aea525","2015-04-06 17:29:35-07:00","Playback: Add a class to implement the playback state and options subsystem.
+"
+"872228d870de9030c15055b4e382982ae87de379","2015-04-06 19:50:26-07:00","dmix: Refactor for Playback use.
+
+For as long as MPDroid has been around, we've opened one thread (usually
+explicit) to open another (in the connection ExecutorService) for controls.
+Now that we have better future and response routines, we can remove the
+explicit thread, and any required error handling will have to be done
+in a thread (when it gets implemented).
+"
+"6cbd88ddaf6089877e0ec1957cda6c118bc91cdd","2015-04-08 05:13:35-07:00","status: Move the command text strings to their own class.
+"
+"41bbe22d1d940db1f3d8167842e338d42e5a18ac","2015-04-08 07:11:41-07:00","status: Move the listeners to the status package.
+
+This also removes the AbstractStatusChangeListener.
+"
+"ad337f940e186c2c028ac8b8b4a666ff87aedb85","2015-04-08 08:15:33-07:00","JMPDComm: Javadoc updates.
+"
+"c5f56e22346a6c1f7266a95f3e27694f3bafbfa8","2015-04-09 08:02:45-07:00","ErrorHandler: Launch MPD on localhost if it's configured and not running.
+"
+"73a4ebec44fbb0571739d3a096c812a4756a1ffd","2015-04-09 10:16:37-07:00","ErrorHandler: Make the AlertDialog a static variable.
+
+We change state waaay too often to allow it to get lost.
+"
+"7ec209e7901edc1c32e757e355c0cd2a28b255cc","2015-04-09 10:38:10-07:00","Revert 'BrowseFragment: Add/remove exec listener onPause/onResume.'
+
+This reverts commit 158062ba99622af977868a130f31bda28f4bd493. Unfortunately,
+it didn't make sense at the time, but the typical way to register callbacks
+won't work with this due to it's strange lifecycle.
+
+This commit also adds some documentation to let readers know it needs to
+be the way it is.
+"
+"e94abfb64fb3d54b229f6b0361a63fafd81f37fe","2015-04-11 11:21:14-07:00","build.gradle: Don't fail when building javadoc on headless server.
+"
+"ecf0a3c7a4bf357ce9b28a73ef8238878cb038a9","2015-04-11 09:53:35-07:00","gradle-wrapper: Workaround broken link for now.
+"
+"3f06fdb932478e61e83db306762dab7c181611aa","2015-04-11 12:47:05-07:00","dmix: Fix javadoc build.
+"
+"316d1009bea4295e6f262a607010f09428829745","2015-04-11 09:55:34-07:00","travis: Add javadoc build; use Oracle JDK 8.
+
+This also adds the prerequisites for the Android javadoc build. This is,
+unfortunately, currently broken.
+"
+"75dcfc73dc569c61f4c50a52b716603ff0ca60fe","2015-04-09 19:35:56-07:00","MPDConnectionStatus: Check the connection the standard way.
+
+I changed from this after I thought this wasn't working, but I'm pretty sure it
+was a different bug.
+"
+"3a0b3ccc411f8844dc0a61ab6a17d0e659a085d5","2015-04-09 17:40:51-07:00","BrowseFragment: Replace a try/catch(exception) with try/finally.
+
+I think this is a more concise diff.
+"
+"f82cebdd55c44ff90feaa59b928a61f1b1b48eb9","2015-04-09 17:58:43-07:00","BrowseFragment: Only update the list onResume/connect if database time changed.
+
+This should fix a regression 0b5c019.
+"
+"ce71f13a0e2c3d05615a7c22a9f51374b839c1c1","2015-04-09 19:37:59-07:00","BrowseFragment: Cleanup.
+"
+"dd0c74b5713235f9147fef851dbc3983a70f9b67","2015-04-11 05:29:32-07:00","StreamsFragment: Clean up a couple of ternary operator warnings.
+"
+"2f8d98d74485a7250042118b84ee37c45d24cc93","2015-04-11 08:08:19-07:00","StreamsFragment: More warnings cleanup.
+"
+"94b462b3b1c793472344069bbb16d1f0ba766230","2015-04-11 09:20:21-07:00","StreamsFragment: Replicate the StoredPlaylistFragment add on click behaviour.
+
+This should fix #710.
+"
+"87d6d1d187ca7e267174706115e33d18eb9413cd","2015-04-11 09:43:54-07:00","Tools: Add and utilize a NOOP onClickListener.
+"
+"d33ca4895a82ca4de1c58046043bb663a51c7f48","2015-04-11 20:25:40-07:00","MPDAsyncHelper: Refactor execAsync().
+
+The AsyncExec thread had quite a few design issues, which should be fixed by
+this refactoring. Now, the listener is assigned at call time and a token can be
+assigned to the Runnable itself (optionally).
+
+This makes issue #445 obsolete.
+"
+"c9ef3070f3151c7363df65f958f5c301796fc41d","2015-04-12 06:34:37-07:00","BrowseFragment: Remove a couple of invalid Item collection null checks.
+
+Appears that I missed a couple in e5e0772.
+"
+"94fec96d7c1431ee7d263cdd18c55e1f108716d8","2015-04-12 15:09:30-07:00","NowPlayingFragment: Add QuickLyric support.
+
+It shows on the NowPlayingFragment menu if the package is installed. This fixes
+issue #20
+"
+"7b30949e403cbe848a60b5deeacf2ceb88cda7a9","2015-04-26 06:10:37-07:00","MPDroid: Update support libraries.
+"
+"68527e0743625bc2f158f5e148c3478510bdace7","2015-04-26 06:03:26-07:00","RemoteControlReceiver: If not connectable, silently fail.
+"
+"75572d35a761cb9c293b8cd4c0ca748b6fd83d9e","2015-04-13 07:10:02-07:00","Albums[Grid]Fragment: Use bundle and static constructor for fragment.
+"
+"387522c37d7d629cf10861bb249e8a611b530555","2015-04-13 07:27:29-07:00","StreamsFragment: Use bundle and static constructor for fragment.
+"
+"67c67ec166a5c541f6bc4e09615613323c17dddd","2015-04-13 07:29:49-07:00","GenresFragment: Use bundle and static constructor for fragment.
+"
+"53c9cf8edb2a9d1a358aa7d4857f40d9ea9ded0f","2015-04-13 07:32:20-07:00","OutputsFragment: Use bundle and static constructor for fragment.
+"
+"5679d4bb84c8960c93b93bc46d97da613669c329","2015-04-13 07:33:38-07:00","PlaylistsFragment: Use bundle and static constructor for fragment.
+"
+"aa081703fa5b9b9ce6a5a92aa84984e1c59016d8","2015-04-13 07:47:51-07:00","FSFragment: Use bundle and static constructor for fragment.
+"
+"bb5a4d5bb75607d37c319146aebba55ef068183a","2015-04-13 07:52:59-07:00","StoredPlaylistFragment: Use bundle and static constructor for fragment.
+"
+"26cfc7bba0bb4bfef3a831329e6dc0cf30132ab0","2015-04-13 08:33:28-07:00","SongsFragment: Use bundle and static constructor for fragment.
+"
+"b6495796b1f2aad3a1d4d0d5dd78ad70053acad8","2015-04-13 09:01:01-07:00","ArtistsFragment: Use bundle and static constructor for fragment.
+"
+"a10ef0d6dc66017bde0cbe359a897d49ff602aab","2015-04-13 12:00:55-07:00","LibraryFragment: Cleanup.
+"
+"699c98c63656918755b5586669e8a26faff19669","2015-04-13 13:32:50-07:00","SimpleLibraryFragment: Cleanup.
+"
+"c52409b23be115bad37bf3af3a479cd47cbadc3e","2015-04-13 17:14:04-07:00","BrowseFragment: Remove Context field due to lack of use.
+"
+"c8472cc721b8052b2098e4b62a6f46a1bfc5c793","2015-04-27 07:41:43-07:00","RemoteControlClient: Simplify 68527e0.
+"
+"a6e96ff79b129a1f8e14d9011be365fd63157548","2015-04-27 07:42:18-07:00","BrowseFragment: Don't override onDestroyView().
+
+Prior to this commit, in rare cases, this could cause a NPE at updateList().
+"
+"bcea1be4a89d58d0cdac38bd3b85586755d0ad33","2015-04-27 07:49:40-07:00","ErrorHandler: Delay main activity relaunch after MPD launch.
+
+From time to time, MPD will fail to launch, probably due to a race of some
+kind; this commit delays it for a second to prevent this race.
+"
+"e2658ba439cc9ea2359d5c963adc6e4cb4c712b9","2015-04-29 06:23:49-07:00","LibraryFragment: Use bundle and static constructor for fragment.
+
+This commit also narrows the scope of the library fragment in the MainMenuActivity.
+"
+"49951d67aacd899b0449971efe1f36b864b251f3","2015-04-29 07:03:05-07:00","BrowseFragment: Move updateNowPlayingSmallFragment to BrowseFragment.
+"
+"c34dbf9358515ed270361115ded11357073f7dde","2015-04-29 08:48:17-07:00","BrowseFragment: Add getDefaultTitle() for default string resource ID.
+
+This commit adds and uses getDefaultTitle() to standardize the default resource
+ID. This is done because getTitle() needs to be statically derived to allow
+calling prior to actual instantiation.
+"
+"cc0446f13c6afa0bdd4b484b56e73bc0835c3dc8","2015-04-30 06:42:28-07:00","NowPlayingActivity: Cleanup.
+"
+"50c39870677021b92bab827aec08aa95af491361","2015-04-30 08:51:38-07:00","CoverManager: Create files if they don't exist.
+"
+"96cf53bc175bc0642a0365e76f451fc64dc215a3","2015-04-30 09:20:28-07:00","CoverManager: Require saveCovers parameter be Serializable.
+"
+"0ddabca818a7703f174152e24b540bf8627f1ea7","2015-04-30 10:59:25-07:00","SplitCommandResponse: Handle single command responses within CommandQueues.
+"
+"564fd9e630e6600b6f4e805fdd6aa5348d77c0d4","2015-04-30 11:17:03-07:00","SplitCommandResponse: Cache next response positions.
+"
+"ac116c8c070c3bdae896ac2160069988fde309ee","2015-04-30 11:47:09-07:00","SongsFragment: Remove onDestroyView().
+
+I witnessed this NPE prior this commit at
+SongsFragment$1.onGenerated(SongsFragment.java:152)
+"
+"05d557d8b7add4c215e2607ee51028b016338023","2015-04-30 11:59:42-07:00","SongsFragment: Use the builder for the palette.
+
+This removes the depreciated Palette.generateAsync() method.
+"
+"d2dc13e8a9e5e06e590cf637eaf30c85580971ad","2015-05-02 10:20:49-07:00","dmix: Update android gradle plugin.
+"
+"18e1915858a83c8e92a1151550cefaf7acaa3e1c","2015-05-07 06:48:52-07:00","gradle: Update Gradle and Android Gradle plugin.
+"
+"77271fcf7d6ee5655d82ca6f4b8affa59cf3d3f8","2015-05-20 16:22:01+02:00","remove libpng warnings, using imagemagick convert tool strip function
+"
+"bbba57088e55ac9a8ff27cb549acd532c1b7f9a4","2015-05-09 07:37:38-07:00","gradle: Update the actual wrapper distribution.
+"
+"5967e361436cebd598a8db4d76546328f6c58e8f","2015-05-02 11:17:20-07:00","JMPDComm: Add test framework.
+"
+"de42f75203578bf6e2ec7a25a7c83823e78fde1f","2015-05-09 05:48:55-07:00","gradle: Cleanup warnings, update libraries.
+"
+"d9063c6931182f9dffcabbc4d51aa0716ef98d0e","2015-05-09 08:23:11-07:00","AbstractItem: Silence a lint error.
+"
+"133e9d105f6e29b7ab8a2f149aaaf0650d421d8a","2015-04-30 06:43:03-07:00","MPDApplication: Enable all strict mode.
+
+This only throws one (ignorable) strict log during the configuration load. If
+If there are more they should probably be dealt with.
+"
+"ff7313b9724d819373ad7ed6e2ef595ac755fbc4","2015-04-30 09:44:09-07:00","CachedMPD: Simplify.
+
+This removes the dynamic functionality of the album cache.
+"
+"32c84bc9c9ad00466b94c0642219ee1f82bc4027","2015-04-30 19:28:21-07:00","OutputsFragment: Avoid a out of bounds due to outputs processing.
+"
+"d420b62566205a0327a15b3cef61ee5a0803653a","2015-05-02 07:52:09-07:00","dmix: Fix some general formatting issues.
+"
+"ad8f8078fcabd864386204e47f0c4e63eea0e3a0","2015-05-04 15:00:07-07:00","CommandResult: Throw a RuntimeException if position and nextIndex match.
+"
+"5ad3211e3200487f30ad61ee2cd4eb18fe04113f","2015-05-07 12:00:27-07:00","CommandResult: Add toString().
+"
+"4a8a139586c2bd7ff5bfd201a24bdf6d7b56b383","2015-05-07 10:03:18-07:00","AbstractResultIterator: Implement Iterable.
+"
+"1c988e7b42b29fab3e7bc831243bc9b4b1d7581a","2015-05-05 12:07:21-07:00","MPD: Convert addAlbumDetails() to submitSeparated.
+"
+"4b3920da875a3afb139f6ff20a8cea27cdbf8d7b","2015-05-05 12:35:36-07:00","MPD: Convert listAllAlbumsGrouped() to splitListIterator().
+"
+"4fe9fef4ec1dfb571a041f6b8cab39e9cdf8ef80","2015-05-05 12:17:34-07:00","MPD: Remove listArtists(List<Album>, boolean) due to lack of use.
+
+It appears it was broken, anyhow. This also removes the sendSeparated() method.
+"
+"2ec7ffd1a00af7fea8c61b0800cd0b767b55f56c","2015-05-02 11:50:32-07:00","Music: Add comprehensive test suite.
+"
+"0a0e122144522540bb21eb9090b4cfba1f9c65d5","2015-05-11 11:15:32-07:00","Tools: Move response parsing tools to the Tools class.
+"
+"142a559c8f56347e863ca0d63d5560faa0b14de9","2015-05-04 11:01:45-07:00","Music: Refactor for lazy loading.
+
+This implements a lazier loading which processes keys and values when they're
+necessary. This simplifies construction and should require less work.
+"
+"f9055a4996f5524af36c917dbef2acbaa2775a6a","2015-05-20 06:14:21-07:00","SongsFragment: Improve fc79f4b for random + play.
+
+When random is true and the status is playing, if 'play' is true for add,
+remove, play, the currently playing song will replay. This commit does not
+play in this case, and throws an information message in that case.
+"
+"227f73a29f4b849241635af8b52d7f6d0643b273","2015-06-02 17:23:33-07:00","MPDroid: Update materialtabstrip.
+"
+"e7de53e3e1f07ed1c949ea42695570d53613b548","2015-06-06 11:01:34+02:00","Replace tabstrip with design support tabs
+"
+"503f1cfbf05e342204ffb1edd0a138d361e391a5","2015-06-06 11:01:41+02:00","Fix kitkat header refresh bug
+"
+"38ae2b3ea60393bbdcebbd67a1b04a866236ab6d","2015-06-06 11:13:53+02:00","Enable nested scroll for CoordinatorLayout
+"
+"d17caade48b14ab9d97b05c4fdc4dab252ca63fe","2015-06-06 11:21:18+02:00","Actionbar now collapses when scrolling library on Lollipop only
+
+Now to find a way to port that to KitKat and albums view
+"
+"d7fd40f41b479744cfc4f1db5f0d6c8eeed4ec63","2015-06-06 11:38:33+02:00","Include all kinds of shitty workarounds for compat
+"
+"c6c58fbc51bd0f3cab7c6edcf114b010820e3838","2015-06-06 11:50:32+02:00","1.08 Beta 1
+"

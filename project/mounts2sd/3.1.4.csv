@@ -1,0 +1,125 @@
+"commit id","commit date","commit message"
+"f161e95fd336785fb1e6d87f63f05a707416c335","2013-06-23 11:51:00+02:00","Add new upstart script
+"
+"141533577daf2040a0afebedd8db1e1e25f25ff0","2013-07-03 09:25:22+02:00","Startup Script: Add support for /data/[name]_s/ directories
+A lot of ROM's (Larger and newer systems for small devices), has started adding a lot of different system content on to /data/[system folder name]_s/ which is then linked back to /system. In order to avoid boot issues, we need to have some support for these folders.
+"
+"33367206a5cd89c2349f1c0f758543071add9e7d","2013-07-18 17:08:24+02:00","Add new Application
+"
+"44a8f3b67d62dcb506f326e4c5cf92a3c03f8398","2013-07-19 10:39:17+02:00","Add IMMC support for BML devices
+"
+"97c6df3af44fbfd90266b98cb6f41a3b6dc91089","2013-07-19 10:44:51+02:00","Fix typo which hides IMMC option when missing EMMC
+"
+"e39b5bdd2ae2b54e7f1eaa00e85811e61b9916d1","2013-07-19 11:51:01+02:00","Try to avoid having MMC config being changed by others
+"
+"fecb7ccef1e2076d0dea64116701eee6acb6f67c","2013-07-20 13:27:21+02:00","Include error level in script inviroment setup
+"
+"5917c4d5ac4a62142e0f05b2519b1655048d7a9a","2013-07-20 21:27:00+02:00","Handle wrong log syntax
+"
+"5b1932b968fb25f93de4b038cae84e577df544bb","2013-07-25 14:46:13+02:00","Fix upstart script error on external busybox versions
+"
+"f56aed501f3c49658fefc3f4aece5ccbeb826b1d","2013-07-25 14:46:34+02:00","Replace internal busybox with wider supported version
+"
+"ed01aa28ab91b5ee3648b0688f1b35050cab51a4","2013-08-07 09:52:13+02:00","Fix possible null pointer exceptions
+"
+"3c3cdd88f5bcdc248db3091d1c37bad37819c67f","2013-08-07 10:22:37+02:00","Add new Logo
+"
+"0cfa7e7f164b349612f5ad98f8f74b6a47c34867","2013-08-11 11:21:04+02:00","Update RootFW to latest developer version
+"
+"f3688be997195a51ade9e1bb0fea4828908c1c42","2013-08-12 13:08:45+02:00","Add README.md
+"
+"4b23b653bae3338c3e87b22481267b92f94c14bc","2013-08-20 21:32:08+02:00","Script: Better search in init.rc
+We cannot just search for a specific word in a line. We need to make sure that the line starts with these words. Otherwise the line could be anything.
+"
+"0283630a2b95ff0ee2e875f4be438e44e3aba8f6","2013-08-23 21:53:50+02:00","First translation step
+"
+"de77fb3ed2bfe86a42f77ed10ff78a40f73847b1","2013-08-23 21:56:22+02:00","Fix some typo in default locale
+"
+"38832c9f3c29256615a61ae6397ba290176e2777","2013-08-24 19:07:08+02:00","End of translation
+"
+"692c8f64a8ae7888106fd5b39a221678811fc582","2013-08-24 19:08:00+02:00","Merge branch 'localefr' into 3.x
+"
+"7ca714ad5a3761b6bbba0e01f1035ce2fe450453","2013-08-24 23:27:37+02:00","Add Configurations and Current State information
+"
+"e0fa4c4a40485c9340d0708f1e55722ae8beb17f","2013-08-24 14:47:14-07:00","Merge pull request #7 from PerfectSlayer/3.x
+
+3.x
+"
+"5defe25b96401169791da3af2db43ac2e91c4e2d","2013-08-25 01:58:23+02:00","Upstart Script: Revert Link2SD's app placement in root of /sd-ext
+"
+"459d5a6175562ab9c039a25f6cde9fc3a713f723","2013-08-25 09:16:40+02:00","Prepare switch from RootFW ~> RootFW3
+"
+"f65d75c545ba506021f866cf3e40c8939d494d21","2013-08-27 09:01:43+02:00","Add onBoot Receiver to handle boot configs
+"
+"b7a42e6d56c6c9707380dcb98526a681a84867b5","2013-08-28 07:39:42+02:00","Make Message Relay work as it should
+At the moment, Message Relay does not have any point. However, at some point messages will be moved to their own Tab Fragments and more messages might also be added.
+In this case, one activity should not call another one. It just feels wrong, and the Tab Controller Activity may also not always be the one handling the messages. So we make a relay which can be called.
+Then a Receiver can be added to handle them. This Receiver can be changed at any time without altering any message input classes.
+"
+"e28f853878339f0a3bded5b4ddc5c825c62ade09","2013-08-28 07:50:45+02:00","Add log information message
+"
+"695c9d4986814716dd0dfbac9583a923bedacee6","2013-08-28 08:15:05+02:00","Application Settings: Resolve script install issues
+RootFW3 does not override existing files when copying or moving. So we should make sure that files really is gone before attempting to extract new once.
+"
+"765618ca83e71b5e8d025fa5e5c8d1efac6373f9","2013-08-28 13:52:06+02:00","Overview: Add warning to content options
+Some of the content options like system files, data and apps contain more than one directory which is moved or reverted depending on the state. Apps for an exmaple has app, app-private, app-asec and app-system. If one of these is not moved to the correct location, perhaps because of low space, we can't just show a green bullet.
+"
+"44164a6d32cad54e3072f238d9ea27aa60988a73","2013-08-28 13:54:28+02:00","Add Boot Receiver
+Each time the application is launched after a boot, it takes longer to load as it needs to check all of the device setups. So we will do this automatically after each boot to speed up the first launch for users
+"
+"78ad4e56de182429151abc8fef8a63c5ba310a38","2013-08-28 14:06:14+02:00","Overview: Add warning when fschk has found partition issues
+"
+"4313764d468ea515dcb445889578e2a7b02fa16c","2013-08-28 14:09:24+02:00","Update res/values/strings.xml
+"
+"17e450717cf3aed08cf2bf8119d2c5ecb1933867","2013-08-28 14:15:31+02:00","Res/Selectors: Change title CFG ~> CFQ
+"
+"1cbcccb01d710a2caac66bf8e4ccdf088eee45cb","2013-08-28 14:43:46+02:00","Cleanup and Update sd-ext scripts remover
+"
+"2827109c451a752b781c63ecc77d5c23b9b82747","2013-08-28 14:44:46+02:00","Update to RootFW3
+"
+"f6026f3a324a377b741ba32c49687b8e38b61628","2013-08-28 14:47:13+02:00","Upstart Script: Pump to version 6.0.2
+"
+"d045a0883110e234747157f780acf7a38169068a","2013-08-28 14:47:47+02:00","Pump to version 3.1.0
+"
+"8ce9d5c811512af79b08885e993b607797d9e6b7","2013-08-28 21:12:20+02:00","Update french locale and fix default one
+"
+"87686bea37f07d53a93e4691df94f60dfbd54be0","2013-08-28 12:32:10-07:00","Merge pull request #8 from PerfectSlayer/3.x
+
+Update french locale and fix default one
+"
+"d14d7e4ade1df8883955f7bbda0d5e4f1f7525ce","2013-08-29 07:30:26+02:00","Remove debug infobox value
+"
+"6ede5c2a410d92abffc0a4747b9dffdaf1007c42","2013-08-29 07:30:58+02:00","Use the correct strings in the infobox
+"
+"af2969632027a54610f8acc008cffa6588bc68eb","2013-08-30 01:11:39+02:00","Make better compatibility between different devices and ROM's
+One of the biggest issues with different devices and ROM's, is that they are using different shells with different support.
+Some ROM's uses a pure sh, others link sh to busybox, some to mkfs, some to buxybox mkfs and even a few uses dash.
+
+These different environments is the cause of the majority of issues, although the script tries to adapt to the shell it is running in. However,
+the script does still need some features, and when running a shell with almost none at all (Dash for one), it is dificult to add support for it.
+To avoid this in the future, we now add a small runner script to init.d and move Mounts2SD out of the init.d folder. The runner script will invoke the upstart script
+using the best available shell on the device, and limiting these issues by using simular shells on all devices. This will create a more controlled environment.
+
+We also revert back to our prev busybox binary, as this has proven to cause less issues.
+"
+"ec78957a1952215384b6cd91e5ad417d26e0cfe7","2013-08-30 01:57:54+02:00","Change temp dir /tmp ~> /mounts2sd-tmp
+It seams that some ROM's clears /tmp on boot
+"
+"b67f0e9393a1b579f2c0053cd8457ea1c3f4490a","2013-08-30 02:13:36+02:00","Generate more logging to help debug issues
+"
+"2f14b65233d85df5e71c4b236a2410ec52ea1797","2013-08-30 02:28:25+02:00","Make sure that the internal busybox is always up-to-date
+"
+"5fc1a42ebecc05f7da23f4d008e197182fbf6127","2013-08-30 02:31:24+02:00","Upstart Script: Bump to version 6.0.4
+"
+"509fc967794f52422c5ae716ddcb7e951bf93e7f","2013-08-30 02:32:09+02:00","Application: Bump to version 3.1.2
+"
+"966bdaa2891fe34d99ba6885009d27b2af05c93b","2013-08-30 08:53:59+02:00","Added Dutch translation by @Skippernl
+"
+"cc3358485c6c7b382ce64c74fd41b50710817869","2013-08-30 22:49:30+02:00","Upstart Script: Handle empty values better
+"
+"07bebd13f04ac0326add0d3968d4cc7337b2b33d","2013-08-30 23:55:23+02:00","Update RootFW3 to version 1.0.4
+"
+"4a625b92f2e4c58ac855cf6172c7079fa0a61c6e","2013-08-31 00:04:37+02:00","Upstart Script: Bump to version 6.0.6
+"
+"970d4c072f27dcb1c43fa584c4d57d8fb8ebb533","2013-08-31 00:05:49+02:00","Application: Bump to version 3.1.4
+"

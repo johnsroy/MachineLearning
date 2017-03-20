@@ -1,0 +1,304 @@
+"commit id","commit date","commit message"
+"6ff3648f10a2e68cef13e4028f1fa9bd73663a31","2015-04-06 14:29:21-04:00","Got a non-reproducible NPE in a caller of getTileData(), this guards against it in future
+"
+"602943450cce0b241a969d93964f20feb005d82c","2015-04-07 09:17:45-04:00","Merge pull request #1616 from garvankeeley/getTileData-null
+
+Got a non-reproducible NPE in a caller of getTileData(), this guards against it
+"
+"a24ec37639c6c66966d87ee947666f9043e88c6f","2015-04-07 10:47:40-04:00","added tests and code to handle corrupt and missing tiles
+"
+"45a33ba8435d0d5f0ad2a719cb8becae1196ed2f","2015-04-02 14:42:35-04:00","* Removed flush() from the public interface of Reporter.
+* Updated ClientStumblerService to use the FLUSH intent instead of directly invoking the flush() method
+"
+"f9b7418584825addccc12a80ff3871c3af27c72d","2015-04-02 16:40:58-04:00","* Removed getObservationCount(), getUniqueAPCount() and getUniqueCellCount() from Reporter public interface
+* Pushed down the IntentFilter for SVC_REQ_OBSERVATION_PT, SVC_REQ_UNIQUE_CELL_COUNT and SVC_REQ_UNIQUE_WIFI_COUNT from the StumblerService into the Reporter which is where all the state is kept anyway.
+"
+"958339b62d17f985052a8b2eec315aea21918566","2015-04-06 11:10:22-04:00","less synchronization is required now because of the smaller API and
+using onReceive more
+"
+"a3906b3b95ab498c79b1f8ddf219c90c27bf341d","2015-04-07 12:37:35-04:00","remove dead code
+"
+"757ef8cff08f321182ed77933219afb4dc19a7d7","2015-04-07 12:46:39-04:00","modified the MLS search API to use a JSON object instead of raw bytes
+for clarity
+"
+"7fe4dafaf538ffceaa6b76d51b8120d842aefff1","2015-04-07 12:47:34-04:00","renamed MLSLocationGetter to AsyncGeolocate for clarity
+"
+"6050d7550fb888bffc9629135bdf5809392177ef","2015-04-07 16:19:24-04:00","pulled ReportBatch, ReportBatchIterator, ReportFileList classes up to
+module top level
+"
+"dab32f705b669bc6035648bda4ed592e9c9e735d","2015-04-07 18:17:06-04:00","Moved constants for DataStorageManager defaults into DataStorageConstants and dropped DataStorageContract
+"
+"6d4b67d92cf9db3c18474b1f7453ab7ef7b68dbf","2015-04-07 23:07:57-04:00","Extracted an interface for DataStorageManager to get better
+encapsulation
+"
+"ee62711c28d95e4cd0247b06663f3c0eb44cdb20","2015-04-07 23:50:01-04:00","added docs to IDataStorageManager to clean up the interface
+"
+"a0dda0ae525e84ad1fb6fdd589624c182af103de","2015-04-06 15:46:55-04:00","Reworked exception handling to remove all IOExceptions from the main
+codepath when reading or writing Reports from storage. This should
+give us much better errors about what is actually happening and more
+graceful error handling.
+"
+"ad7c351de8209129a46cee8a1e8d4ee55976b903","2015-04-06 15:55:55-04:00","Added ACRA stacktrace for writing syncstats, as well as
+reading/writing the primary report files
+"
+"5415d47c1f8d254b73150e6417e7f398939d47be","2015-04-08 10:11:19-04:00","fix nits
+"
+"2614f553fdf6ef7c060b31b7efd27d8bc4de0919","2015-04-08 12:48:43-04:00","Merge branch 'features/1609-eofexception' into features/1581-refactor-reporter
+
+Conflicts:
+android/src/test/java/org/mozilla/mozstumbler/service/stumblerthread/datahandling/DataStorageManagerTest.java
+libraries/stumbler/src/main/java/org/mozilla/mozstumbler/service/stumblerthread/datahandling/DataStorageManager.java
+libraries/stumbler/src/main/java/org/mozilla/mozstumbler/service/uploadthread/AsyncUploader.java
+"
+"012906b6d69f40da53340adb0096d31de7f0f5cd","2015-04-08 12:57:05-04:00","Merge branch 'features/corrupt-tiles' into features/1581-refactor-reporter
+"
+"05f376d81d834bef23d6e8f26749b93e8a7d88d3","2015-04-08 14:59:51-04:00","Merge pull request #1619 from crankycoder/features/1581-refactor-reporter
+
+Initial cleanup of the DataStorageManager
+"
+"87b426f366b5a50fabe356b7c953adb152a55c34","2015-04-08 16:54:46-04:00","* Pushed isDirEmpty from DataStorageManager down into ReportFileList
+* Changed IDataStorageManager::insert to accept a JSONObject version of a report instead of a raw string.  We want to convert to a string as late as possible.
+"
+"c94b78721983ba2953032d32de8067677a5757e6","2015-04-08 17:04:53-04:00","* Pulled StorageIsEmptyTracker interface to module level
+* Organized members in DataStorageManager so that it's clear which members are involved with in-memory and on-disk storage of ReportBatch instances
+"
+"b246aeeca4898e53da7ed09ad7184ca7d14da352","2015-04-09 13:27:47-04:00","* Initial rename of mCurrentReports to mCachedReportBatches.
+* Pushed down the reset of wifiCount and cellCount to zero into the ReportBatchBuilder
+* changed wifiCount and cellCount in the ReportBatchBuilder to be
+* added incr and getter for wifi and cell count methods to RBB
+"
+"7d21ce606e6ccf6d6dab3cc0ea470972091f20a4","2015-04-09 14:53:06-04:00","* Introduced a MLSJSONObject which can compute it's own wifi count, cell count and total radio count.
+"
+"f9d39d3151d638c38e139ac9e0981d03668c1cec","2015-04-09 15:06:26-04:00","* Pushed ReportBatchBuilder::incWifiCount and ReportBatchBuilder::incCellCount logic down into ReportBatchBuilder::addReport
+* Inlined incWifiCount and incCellCount
+"
+"9a44ac7a9e140081980ddb818add3720c2846856","2015-04-09 15:20:32-04:00","removed temporary ReportBatch variable
+"
+"f4ed39b156ef07a7857d2558284a3eac1a867a88","2015-04-09 15:53:37-04:00","* Got rid of wifiCount, cellCount, reportCount and reportString as member variables of ReportBatchBuilder
+* Added a single ConcurrentLinkedQueue to keep track of all MLSGeoSubmit objects within ReportBatchBuilder
+* Reordered extraction of report batch stats in DataStorageManager to allow finalization of the batch and clearing the batch in one call.
+* Dropped ReportBatchBuilder.clear() as it's always used immediately after finalize()
+* Renamed finalize() to finalizeAndClear()
+* Added a peekBytes method to ReportBatchBuilder so that we can compute pending data to be sent for the QueuedCountsTracker
+"
+"5541ca7dae47570ed488d6a9cae7da54ee4e8e25","2015-04-09 22:28:26-04:00","Pushed compression of data for ReportBatch into the ReportBatchBuilder
+"
+"7168b2e03946dd563aaa7e3d03bb0e30e119d550","2015-04-09 22:28:36-04:00","Remove dead imports
+"
+"8aaefe4ea60a937a579a0df789197cee9dfffc7c","2015-04-09 23:00:34-04:00","* Dropped saveCurrentReportsToDisk from IDataStorageManager as it is
+better handled within getFirstBatch().  It's only used to force flush
+in-memory buffers to disk to support a developer option to export the
+log files.
+* Renamed DataStorageManager::saveCurrentReportsToDisk to
+DataStorageManager::saveCachedReportsToDisk
+"
+"2bbc6eab5b4400168372ba728d10d9f885d69a04","2015-04-10 11:53:28-04:00","Renamed reportList to mReportList
+"
+"05dbb0a1e869070e340116f4aae8b313eca6e4dd","2015-04-10 12:12:55-04:00","Changed JSON construction as per code review
+"
+"c0f52e418ff9da92e76ad84e3d763f3a510138aa","2015-04-10 12:13:59-04:00","Merge pull request #1620 from crankycoder/features/1581-idatastoragemanager_refactor
+
+More cleanups of DatabaseManager
+"
+"d618d4c027d8c31e40891bf48ae84ada2d79a2d8","2015-04-15 06:38:25+05:30","bn-IN values add at res
+"
+"ef0e8b804c7c59b5fa52ed614d888cfbf6fc2796","2015-04-16 15:03:00-04:00","Merge pull request #1624 from shiladittyapaul/patch-1
+
+@shiladittyapaul bn-IN values add at res
+"
+"c040357b315741a3c2a0c356c01134b23472875a","2015-04-16 12:54:16-04:00","The context-less access to NetworkInfo singleton is error-prone, and not needed.
+"
+"2cd4f3d00304e4917eeaaa8153423a44e5254136","2015-04-16 18:55:57-04:00","fixed tests
+"
+"e080d58cd23976143399e13917d0b3eb290ec7c4","2015-04-16 19:48:20-04:00","Merge pull request #1625 from garvankeeley/bugzilla1155237
+
+The context-less access to NetworkInfo singleton is error-prone, and not needed
+"
+"822ab7cddde1925a123db918b5a297f682444b3c","2015-04-17 12:23:07-04:00","added a guard to check if the NETWORK_LOCATION manager is not null and
+eat any IllegalArgumentException
+"
+"1cfde65e10b7ae0bc0604e2d2c3b13775847a8d0","2015-04-17 12:48:22-04:00","moves construction of mMainThreadHandler to the constructor of
+LogMessageReceiver
+"
+"e1347b98d4fae1744dfae02f8fbffcd61f6671cf","2015-04-17 13:58:02-04:00","fixed testcases
+"
+"a4a70f2eeb17b595df1b077824c46ced45ffd828","2015-04-20 16:03:25-04:00","Merge pull request #1626 from crankycoder/features/1602-network-location-manager-missing
+
+Fixes IllegalArgumentException from #1602
+"
+"399999e2df5f87678f7f778c58a04d33bf388372","2015-04-20 19:27:12-04:00","Merge pull request #1629 from crankycoder/features/1628-log-npe
+
+Fix for #1628
+"
+"d24668d160c24ee1cb96d88c5902642e8b1565fe","2015-05-04 01:22:52+02:00","Fix typo
+"
+"49b7d863357b1200cb600f04835bd59aff75e098","2015-05-04 11:19:42-04:00","Merge pull request #1635 from stripTM/patch-13
+
+Fix typo in Spanish
+"
+"b95c8314b2420152a36ab0c30973c40dc8f6efbb","2015-05-11 11:42:01-04:00","Refactor DataStorageManager to have a reusable base class. This will be used for leaderboard data.
+"
+"028da54b37df3db3cbe4e5079d02178a74358f49","2015-05-11 11:43:18-04:00","Update tests to match changes in backend
+"
+"1e0e5648a9a05edbdf741b46122028d021cb974c","2015-05-11 19:17:54-04:00","AsyncUploader refactored to act as a base class. AsyncUploaderMLS is used for MLS uploading
+"
+"397983394b7dd4f91dd65543840fe29b2f6b43c5","2015-05-11 19:20:20-04:00","SerializedJSONRows now has a member that tracks the on-disk/in-memory state, instead of using a sentinal value on the filename member. This resulted in a trickle down of a bunch of related changes.
+"
+"e76d30d132aeb7035c2c596807d7b69c1167247d","2015-05-11 19:39:12-04:00","move ClienDataStorageManager to client
+"
+"a092be561ec2f2b9766969d7aa393a39b1be38cd","2015-05-12 20:39:26-04:00","Prev commit had a bug in JSONRowsStorageManager/DataStorageManager with creation of ReportFileList/SerializedJSONRowsList. Changed the construction of this object to use new method JSONRowsStorageManager.createFileList(). Also cleaned up ReportFileList so that it called the base calss properly.
+"
+"f08183754e3bd72d52f801201efc7da8e7870679","2015-05-12 20:42:47-04:00","Uploading refactor. AsyncUploader is now an abstract base, extended by AsyncUploaderMLS. Renamed MLS.java MLSLocationService.java. Separated ILocationService to have a base of ISubmitService (which only has a submit() method).
+"
+"04e03c95c372c1b59f7747aebeea9c7729cfe4e1","2015-05-12 20:43:56-04:00","added leaderboard classes for receiving bundles, storing the leaderboard stats, and uploading.
+"
+"1d15ae211ccb10e1d349916e043c1d6000a9c8cc","2015-05-14 15:34:25-04:00","Changed service config to use .class.getName()
+Hopefully this is ok, I don't see a reason not to use this, as we will
+get compile-time errors instead of test-run-time errors.
+"
+"796466c0578e8ac95266c883d51aeb6be30d4e50","2015-05-17 15:35:23+08:00","fix #1637
+"
+"9c9b98da0c8687da6f25ab543018c0747ab92a6c","2015-05-20 13:17:02-04:00","Renamed verifyInput to verifyFieldNotEmpty and added a testcase to verify that email is a required field.
+"
+"e3d17dbf984fe48fa568817891324a58f5f278aa","2015-05-20 16:20:02-04:00","added code and testcase to verify that attempting to send file paths
+to ichnaea using geosubmit will short circuit and do a no-op
+"
+"6fd946f4f27fa9a4cd8eac01b8af7120b19d48ad","2015-05-20 16:26:08-04:00","Merge pull request #1641 from crankycoder/features/email-required
+
+Makes email a required field
+"
+"3f35769855620bf51947705e83e7292245800429","2015-05-21 15:37:22-04:00","addressed review comments
+"
+"ec8bff5ffd35fd516ae353980705793ba533f9ad","2015-05-21 16:03:58-04:00","Merge pull request #1636 from garvankeeley/refactor-data-storage-to-common-base
+
+Refactor data storage to common base
+"
+"76504561285fa3021ba62b487e30b6b0ada79c87","2015-05-21 18:00:48-04:00","simplification of sloppy if statement as per review
+"
+"04e8cf40c084b233f78d9b398800bfa9c87dda6d","2015-05-21 18:01:30-04:00","Merge branch 'dev' into features/1640-fdroid-is-crazy
+"
+"9c023701555864756cd802efb77f1d81b3a9fa4e","2015-05-21 18:03:56-04:00","updated test case to match new MLS->MLSLocationService rename
+"
+"df4a2adb69ae26f67903939cc6679b334c0e7000","2015-05-22 08:04:06-04:00","Merge pull request #1643 from crankycoder/features/1640-fdroid-is-crazy
+
+Fix for #1640
+"
+"1929d5e581d569258a0982c16d73e1bdc2c2df1d","2015-05-24 20:17:38+02:00","Updated Polish translation
+"
+"a46b9ca2a7302e54d900ae71638049da1e46573c","2015-05-25 10:18:40-04:00","Merge pull request #1647 from piotrdrag/dev
+
+Updated Polish translation
+"
+"8af7f26c0344ac4b0d113e0b4f7f7319e2cc4796","2015-05-26 20:10:46+02:00","fix passive mode battery checker never starts
+"
+"3e49f827182d6490944f0a989e7d1184360bdf39","2015-05-26 20:27:09+02:00","fix #1583
+"
+"1225878e0c0d0fcf31ae09b29420a3eb44cec0de","2015-05-27 19:15:55-07:00","Merge pull request #1648 from cascheberg/fix-battery
+
+@cascheberg Fix: passive mode battery checker never starts
+"
+"c735f77e3a718d76fbb8708984b39d8a9036dc28","2015-05-27 22:27:53-04:00","bug 1650, tally object may not be populated if no upload occured.
+"
+"a048214bb4b2d398e872b80b98dd7ee5d9e245a0","2015-05-26 20:28:36+02:00","add dev option to test passive mode
+"
+"4a1a68cf9700bea9f5bf40b21edc150d22a35ad6","2015-05-28 08:24:51-07:00","Merge pull request #1649 from cascheberg/fix-passive-scanning
+
+@cascheberg Add developer option to test passive scanning
+"
+"af105701a67f28d6b794f3720d4b87a970d5f7f5","2015-05-06 16:25:25-04:00","started to include marisa trie code in build
+"
+"7a1fa939ffed5e4834e67d6f6742d4ae1f4f9c05","2015-05-07 09:41:37-04:00","* removed temporary jcenter directive for libmarisa
+* added options to the Prefs for a boolean switch for offline geolocation
+* added better null pointer checks and short circuit the lookups if no
+trie is found
+* ported the remaining bits of python code to java for adjacent tile lookups
+"
+"f38d5f3cdeba7f84c6e65d81a22c1c367b87267b","2015-05-28 08:49:46-07:00","Merge pull request #1651 from garvankeeley/bug1650
+
+bug 1650, tally object may not be populated if no upload occured.
+"
+"6f1bd52092d0c5d5629413e344dbafca67de1cee","2015-05-28 13:09:17-04:00","Merge branch 'dev' into features/offline-merged-to-dev
+"
+"1555282d1cfe7d0f1e01dc31e8d58622720b01c4","2015-05-28 13:28:25-04:00","fixes as per review by @garvankeeley
+"
+"4e693b4cdb15e9ccd8664fe49ec0d46efa2f9526","2015-05-28 16:07:32-04:00","fixed a bad static reference
+"
+"f8e58380a1cc94d2afc54d84d3d3dcd3ed36967b","2015-05-28 16:10:18-04:00","removed bad @SuppressWarning
+"
+"91e9b740dfeface4276995ff3b9c1cc4298abc6a","2015-05-28 17:19:02-04:00","disabled adjacent wifi adjustment code
+"
+"4d2239f2a9efa224b00bf41475ab87c8cff4aefa","2015-05-28 19:21:06-04:00","Merge pull request #1652 from crankycoder/features/offline-merged-to-dev
+
+Features/offline merged to dev
+"
+"32894b753ecf1664d53381896535976f39263c54","2015-05-29 08:44:45-04:00","refactored out the tally method from AsyncUploader and pushed it into
+SerializedJSONRows.  This removes the need to cast and fixes #1653
+"
+"a3072fd511343c8514c23afecdce65ec51557328","2015-05-29 16:12:44-04:00","Some of the constants needed a static declaration for tally
+"
+"cdffa69a847324fcfdea497a28819c64746627a8","2015-05-29 13:51:57-07:00","Merge pull request #1654 from crankycoder/features/1653-reportbatch-crash
+
+Fix for #1653
+"
+"7660f11a83bcd2b40d554e0bfb765420575e2683","2015-05-31 18:54:25+02:00","Updated Polish translation
+"
+"edabed8c353c41e52e6455964aad258c7d915689","2015-06-01 12:34:50-04:00","Merge pull request #1657 from piotrdrag/dev
+
+Updated Polish translation
+"
+"08a0da892c0b1551c56e128accb30b31565f6bb6","2015-05-29 21:42:47+02:00","fix significant motion sensor initial state
+"
+"768241426c2886b40f06f603c019b200856b3b6a","2015-06-09 14:52:37-04:00","Merge pull request #1655 from cascheberg/fix
+
+Fix significant motion sensor initial state
+"
+"e2126517b7b961d3e9ac2991d1506e503bcdcb6d","2015-06-09 22:44:44+02:00","fix NPE
+"
+"995522292b20eb3cb3f94b29ba4392bddbb1c543","2015-06-09 22:51:21+02:00","add position following in passive mode
+"
+"4fedcb57bbeb598f918e4c8499a575fd36f1a542","2015-06-10 22:38:24-04:00","Merge pull request #1662 from cascheberg/fix
+
+Fix NPE
+"
+"f5944fa0738b2100f8e54bfd0861d6a8c6441482","2015-06-23 15:40:43-07:00","Merge pull request #1663 from cascheberg/fix-passive-scanning
+
+@cascheberg Add position following in passive mode
+"
+"e54e49b1d7e75b54961cade2633e4416759fcfbd","2015-06-29 17:22:07+02:00","zoom and map overlay code cleanup
+"
+"b84624b8b69efd2fc501f8eebde96e827fb7af9c","2015-06-29 17:25:51+02:00","fix unlimited zoom
+"
+"63f875bbbc50520ca45775a042d49c04ebe693da","2015-07-08 17:03:04-04:00","added TLS patches to constrain the available crypto ciphers and
+protocols that we use
+"
+"28d8036fba86c36346037f6be849a9feed2e897e","2015-07-09 16:35:39-04:00","added comment linking GlobalConstants back to original fennec source
+"
+"03df8b2f6dadb36d956a9954cb22e2c2651a9255","2015-07-09 17:57:02-04:00","force cipher suites to use GlobalDefaults and protocols to use GlobalDefaults
+"
+"f0a301622e331a80e5fab5d1aa0666b713066bdc","2015-07-09 18:01:14-04:00","oops.  this is the same bug as what we had in fennec for failed uploads with wifi only.
+"
+"93a949a13b9817e47a4f3a8d66dac514de681356","2015-07-10 14:36:51-04:00","force a TLS POST when the debug ACRA option is triggered
+added logging at level info if we're running in a debug build and someone does a POST
+"
+"28c50a44d0a8d3195553d07e1f8c63b879ca9e32","2015-07-15 16:53:58-04:00","issue #1680, ensure update UI is on main thread
+"
+"419595e6e1dae48380ff0c989b8545acaecd418c","2015-07-20 00:34:42+02:00","fix heading computation and icon
+"
+"ae27e999a353febc809c20e33e47f3aa80691498","2015-07-20 00:50:41+02:00","switch ObservationPoint.pointGPS from GeoPoint to Location
+"
+"4d765a47f00e61af84a748f0e3c461cc99166870","2015-07-20 00:58:36+02:00","switch ObservationPoint.pointMLS from GeoPoint to Coordinate
+"
+"806b252b57614bca7531d607fff912dbd273bac1","2015-07-25 14:38:32+02:00","minor fixes
+"
+"1df53c8d739af697a3f58e78912b747a0b52ce79","2015-07-25 13:18:09+02:00","add track segment count
+"
+"2d24e6b76e0ad497bbcaa8eaae987179cfdd4fab","2015-07-25 17:45:35+02:00","add GPX export
+"
+"df789a032dffbe64ac157010e4a222e2a97bdc1e","2015-07-26 13:52:55+02:00","improve KMLFragment
+"
+"87f7953d60288564d1b4e55363e9b756281778cb","2015-08-06 12:32:45+02:00","Updated Polish translation
+"
+"5d494d68bca38e04bbb6c9e31fe85cf3a0cf2cf8","2015-09-21 12:12:22-04:00","bumped to 1.7.13
+"
+"9f16385393f239fe7223c7821d925029ee6e3461","2015-08-16 20:28:16+02:00","add simple high-power mode feature
+"

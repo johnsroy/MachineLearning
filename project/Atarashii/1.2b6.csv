@@ -1,0 +1,51 @@
+"commit id","commit date","commit message"
+"bdd52fdcc3085a7c4cc9495fa9033d5106ba6da4","2013-01-11 14:55:33-08:00","Layout Changes to Fix Eclipse ADT Issues
+
+Aparently, certain features, like renaming the package (for beta
+releases), don't work well when you have Android projects inside each
+other, as had been done with the third-party submodule directory. This
+change moves all the Atarashii code to its own self-contained directory.
+
+Additionally, update the BUILDING document to reflect the layout change.
+"
+"79d6962964e6b41b776374921a2e9501a8163890","2013-01-16 00:28:07-05:00","Fix setting manga status crash
+
+Was accidentally trying to call setDirty on mAr, which
+doesn't exist when dealing with manga. Changed to mMr.
+"
+"61b6e58566ba898cb0152f9a7d6109b738ccaf57","2013-01-16 10:45:14-08:00","Refactor Record Select Methods to use the query() Method
+
+Avoiding the use of global variables as index pointers, this avoids
+having multiple calls trampling all over each other. It also makes for
+cleaner queries and, hopefully, easier future maintenance.
+
+Fixes #38
+"
+"670940d24bebf81f7b096fce8c0bb725715e7bd1","2013-01-16 12:44:56-08:00","Clean up Alert Dialog Style
+
+Removing the textColor attribute properly sets all the colors in the
+dialog. This was tested to work on AOSP and HTC Sense.
+
+Fixes #31
+"
+"79ad4ee10605f9958e7131b2b5ca2f9afdb59fd5","2013-01-16 13:01:43-08:00","Check SynopsisFragment View Exists before Accessing It
+
+Add a quick check to make sure the view for SynopsisFragment still exists before we try to grab a view from inside it.
+
+Fixes #39
+"
+"cf21c74dcc0718f448f6a080297a3560736e29ca","2013-01-16 20:28:24-05:00","Add Remove from List (1/2)
+
+This first commit for this feature adds all of UI and
+workflow to make this work. The remove action will never
+be shown in the action bar, and thus must be invoked on
+purpose. In addition, a confirmation dialog will appear
+asking the user to confirm their choice, as the action is
+destructive. Currently non-functional, 2/2 will make it work.
+"
+"a0c7da051c088c5f4256b0bbb0fbe1664add1ded","2013-01-16 21:52:31-05:00","Add Remove from List (2/2)
+
+Added a method to delete from out database, updated
+the relevant methods and records to delete from MAL when
+removal is confirmed. Tested working 100%.
+"

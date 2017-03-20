@@ -1,0 +1,300 @@
+"commit id","commit date","commit message"
+"454ae2be5b43212c1fa64a90073b1301e2a92151","2015-05-16 19:06:01+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I4bace589a005d8bd05cc432b4640c8b2d905ac6f
+"
+"4bf74664da03b38f720a3aeb3964cfdcb10b4e92","2015-05-16 17:08:28-07:00","Hygiene: remove unused field from NightModeHandler
+
+This patch removes an unused field from NightModeHandler, improving code
+cleanliness and performance.
+
+Change-Id: I9d9b13f35814115549386076454451f7bb5ba24e
+"
+"12077a331acf1531629356cf90796b7628218981","2015-05-18 13:15:20+00:00","Merge 'Refactor: Move PageTitle and PageQueryTask classes to package org.wikipedia.page'
+"
+"de0b8b579f5030f6843e3bc63b044edc18b2a1a1","2015-05-11 16:28:45-04:00","Remove main and disambiguation pages from 'read more' section
+
+Bug: T95365
+Change-Id: Iacaa689e8f8760ea1609160c0fc5d568eff1ccb0
+"
+"c08382c361a550250eb0072d1cb842a0e37b8017","2015-05-07 17:13:00-06:00","Add system language support
+
+- Add UI support for using system language and update the WebView when
+the system language changes out of app.
+- Fix language generation script and update language ordering.
+- Don't rely on Site domain to derive language. This will not always be
+possible. Update Site.equals(), hashCode(), and toString().
+- Light refactoring in Site and WikipediaApp.
+- Rename lang and primaryLanguage to language in several places.
+
+Change-Id: I3903bdf6b70da560487206f35484af2ce2c677da
+"
+"b9f1c6d817ec8ac95a520feb277a315a52e333f8","2015-05-18 10:00:25-06:00","Add Simplified and Traditional Chinese dialects
+
+* Add Simplified and Traditional Chinese dialect support (zh-hans and
+zh-hant).
+* Replace Chinese with Simplified and Traditional Chinese in
+generate_wiki_languages. Additionally, some light refactoring.
+* Clean up WikipediaApp.getAcceptLanguage().
+
+Bug: T62743
+Change-Id: I723db2a288684b7e8fa4fd26b50ff59317e5a354
+"
+"8acf3380002d07170fe570627224ed316dc3e13c","2015-05-18 15:20:47-07:00","Switch to System.nanoTime() for time measurements in SearchResultsFragment
+
+Presently the app uses System.currentSystemMillis() to measure time
+intervals. This method is subject to changes in the system clock, which can
+throw off time measurements rather substantially. This patch changes
+SearchResultsFragment to use System.nanoTime() instead, which is not subject
+to changes in the system clock and actually has a higher level of precision
+anyway. This should fix the issue where some search result sets were
+allegedly being displayed many days before the user even typed the query in.
+
+Bug: T99577
+Change-Id: I843e63a0d96edcf6534c04c97cdaf5c4348bedc2
+"
+"a573a46466d4d2aee8022ec5588ee83f6a142798","2015-05-16 17:04:06-07:00","Hygiene: convert field to local variable in CabSearchView
+
+This patch converts a field in CabSearchView to a local variable, as the field
+is only referenced within the context of a single method. This improves
+performance, albeit in a miniscule manner.
+
+Change-Id: I5366250b59b45190debb57831378bb0abd3a847f
+"
+"fce6d49b56479f2f7aa043e74050d64e62c8ef42","2015-05-19 15:20:19+00:00","Merge 'Switch to System.nanoTime() for time measurements in SearchResultsFragment'
+"
+"3df9c2c98db3e91c32c6ccba83a44470e69ff856","2015-05-15 18:06:38-04:00","Updates to README file
+
+Change-Id: I6a795fcab7dd56a461d3e55b8d4c85f3c14e45e9
+"
+"a36040cb8a61e7587e90c22d442ee58a81e16f58","2015-05-21 22:16:10+00:00","Merge 'Updates to README file'
+"
+"3097e74c9204697f65cccb5f997a8e93e06f914b","2015-05-25 13:07:26+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I6918d222ad267adcbfa11db18da2fdb78b9e89fb
+"
+"07f8a961fc20a8df429a45e827732ccc3ec46657","2015-05-27 19:43:37+00:00","Merge 'Fix TextView directionality issue for mixed LTR and RTL strings'
+"
+"b6c2a6eea6cfe93273ebb421e0257670ec5d9bd4","2015-05-28 15:33:17-04:00","Fix margins on link preview dialog 2 (display correctly on tablets)
+
+Bug: T100677
+Change-Id: I540570cb54b93fcbfad35540d0901ed6f97d0307
+"
+"cfb2d88b5672024acd050b974db37f139eb38d3c","2015-05-28 16:45:19-04:00","Fix toolbar translucency when TOC closed
+
+SimpleDrawerListener.onDrawerClosed is not called unless the DrawerLayout is
+closed after reaching a fully open state (i.e., not when slightly opened and
+closed again).
+
+This patch fixes the toolbar translucency checks so that setForceNoFace is
+reset to false whenever the drawer is out of sight rather than relying
+on reaching onDrawerClosed.
+
+Bug: T100382
+Change-Id: Ia3507fb9391d64c553801cd46c06b383c88f8bba
+"
+"c1ee101c0167ca1e64aeefc5821122b10e094f8b","2015-06-02 16:19:40+00:00","Merge 'Fix margins on link preview dialog 2 (display correctly on tablets)'
+"
+"412182ac4229a3a651d7c1a566bb33620fc7e758","2015-03-30 23:10:18-06:00","Alpha: Allow using experimental page content service
+
+The main change is really a refactor/splitting up of PageViewFragmentInternal,
+so we can easily switch between the two page load strategies:
+the old one is JSON based,
+the new one is HTML based via WebView.loadUrl().
+
+You can switch between the page load strategies by checking the
+CheckBox at the bottom of the Theme chooser dialog.
+The transition between the two strategies is not ideal since it
+doesn't automatically reload the page, but good enough for
+occasional/experimental switching.
+(The old strategy has an explicit backstack we maintain, the new one doesn't.)
+A page refresh right after this will crash the app.
+Better use load a new page instead (Today, Random,  search, ...)
+
+Warning: there may still be some crashes while using the experimental mode.
+Using the regular page load mode should behave as it did before.
+
+Bug: T91798
+Change-Id: Ibf571c12f6d462f63cac1db52e30ad17a7215a59
+"
+"83e7f0ffac160453ec205393bf2a96659e44f368","2015-06-04 09:14:42-06:00","Fix backstack and editing issues from last patch
+
+Issue was caused by my earlier patch Ibf571c12f6d462f63cac1db52e30ad17a7215a59.
+
+The backstack was not retained since it got moved to JsonPageLoadStrategy,
+which was recreated during onActivityCreated.
+
+Editing was busted since the previous patch did not call editHandlersetPage often enough.
+
+The HtmlPageLoadStrategy still needs to use EditHandler.
+
+Bug: T101363 T101361
+Change-Id: I7f0b96e41486e6c225b925b8b32be1f3a9bcadee
+"
+"6c52d38e44552f8b5160d66b3bb3e610ef4bbcab","2015-05-18 21:59:10-06:00","Fix tag naming in make-release
+
+Change-Id: I8c10304a51b465bc160e05ca1032622aae042460
+"
+"ec950b1b9fb81a9cbc724a840c222e4bce4171b3","2015-05-16 21:07:35+02:00","Use the new isMainPage() and isFilePage() methods added to the Page class.
+
+Bug: T90843
+Change-Id: I0e1d9561e4a1b9b7d50ae37cbc8848abe9a12472
+"
+"6f17499d37b7277828fe5d3f49d4bc04c91aae72","2015-05-24 23:19:08+02:00","Update style fetcher script to work with MobileApp extension update.
+
+Also includes a refresh of styles from upstream MFE.
+
+Refer to https://gerrit.wikimedia.org/r/213431
+
+Change-Id: I73735d2142faec11d90dc42251c1b35db558e7a1
+"
+"c7176d5bb274e3d3f33ee50af0997eefa34452c9","2015-06-02 13:29:23-04:00","Add link to Wikipedia App FAQ to preferences menu.
+
+Bug: T99783
+Change-Id: If9e1e66e882e873effb4015cb2b2836e02656037
+"
+"dfa10476b969329f01658e66f62d7f4b67f73175","2015-06-05 14:21:47+00:00","Merge 'Add link to Wikipedia App FAQ to preferences menu.'
+"
+"6e54c8d032cadecc413cbb936b72edf19d3d6986","2015-06-05 14:35:35+00:00","Merge 'Update style fetcher script to work with MobileApp extension update.'
+"
+"f0ad78c0ab5886846ae4c26e3eb0d7336be0816b","2015-05-11 13:35:59-06:00","Upgrade appcompat-v7 to 22.2.0
+
+* Upgrade appcompat-v7 to 22.2.0
+* Replace deprecated ActionBarActivity with AppCompatActivity
+* Very light refactoring of PageActivity
+
+Bug: T98108
+Change-Id: I31c782d075838724309de53d81c1ad2b4032a3ef
+"
+"c3f665be6404a77b0b9b7845bdfaaef16944966e","2015-06-05 11:38:54-04:00","Fix possible crash when pulling out ToC (for real).
+
+Bug: T96358
+Change-Id: If9738fd5352de3cfb337ff5ac63aa6d4bb8cea3c
+"
+"1d744ed3dabc399e1677d88ce760703626d0e2b4","2015-06-07 23:28:41-04:00","Fix search bar text color after appcompat update.
+
+Bug: T101638
+Change-Id: I98dada3d973c6d51a118a8964355545808919b86
+"
+"ccb059c459d98b9b1976092f889d7cfc83a1acfc","2015-06-08 16:23:16+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I4fc116c4056fdda666d391b699ccad577cdc6552
+"
+"118051eba1c7caf92ccec6a6a229579044bf0b5d","2015-06-08 14:57:10+00:00","Merge 'Fix search bar text color after appcompat update.'
+"
+"901a5c28fb6a93ceb2a419947c804ab95eabce39","2015-05-17 15:48:24-06:00","Add dev launcher icon and name
+
+* Add dev launcher icons and app name.
+* Move launcher icons, and app_name and channel strings into dev /
+alpha / beta folder structure.
+
+Bug: T97238
+Change-Id: I2c295cb0799c3dc0b945c5806015c753cb2ed4a9
+"
+"374e5ad9e6212c47725b3e7b49157f3eddc1c57b","2015-05-20 16:04:43-06:00","Remove 'More information' from image gallery menu
+
+Bug: T86810
+Change-Id: Ida441e494cf11bcd7ba8155256011edb54e6fdd6
+"
+"f5609c2e9ce19ece046039ee76604326a2ed97a1","2015-06-08 23:31:55+00:00","Merge 'Remove 'More information' from image gallery menu'
+"
+"6e8485cd72a02018b0300e3a7358e8a074c25baa","2015-06-08 17:10:45-06:00","Move readme documentation to wiki
+
+Change-Id: Ia57bb2d5c28636685bbb8d6cd4af59b68e9df41c
+"
+"50208e1c91c4b83b2b2d5447949a021f366f413f","2015-05-22 12:39:35-06:00","Add 'Search Wikipedia' to system share options
+
+- Add Wikipedia as an available share option for all other apps. The
+share menu entry will appear as 'Search Wikipedia'.
+- Display main page when pressing back after app entry from search
+widget.
+- (Unrelated cleanup) Remove a couple unused functions and fix a
+Javadoc link in Utils.
+
+Bug: T73234
+Change-Id: I2d46ad08e14533fae3e35d3bdf636ef3e9b249b9
+"
+"a4a9a6593f6ed0fb8e84efa27791c2bbe188525a","2015-05-25 15:33:07-06:00","Add active state to article edit pencil icons
+
+- Depends on MobileApp patches:
+- https://gerrit.wikimedia.org/r/213759
+- https://gerrit.wikimedia.org/r/216869
+
+Bug: T99678
+Change-Id: Ic61ca15aff7166dad72bf363a09b5bfd5de7af02
+"
+"f37e5660caa2c0d41ebbe6b8e02659af05faa79e","2015-06-09 09:55:40-04:00","Use separate random number for feature flagging, instead of appInstallID.
+
+Bug: T101833
+Change-Id: Ifb4b09fa5787b6c552f36ebf9e8d22b667a8e6cd
+"
+"d8d5ee256692797f05be68a7934e1e50d7b53ea7","2015-06-09 10:46:27-04:00","Remove sampling for link preview EL in Beta.
+
+Change-Id: I81ebbc7b4b36d84b4a75c9d4258464223d91aad8
+"
+"8c5b11c4cb1a49b068bb5ab4bc6b0d100049d2e0","2015-05-25 15:32:40-04:00","Add more logging and error reporting to help diagnose page loading issues.
+
+Bug: T95182
+Change-Id: Ifbc2865ca40e2ae7e6c0454b53af222d76e8b73d
+"
+"7f2072778296646bf6562d56ad01260402a80d3c","2015-06-10 11:39:43-04:00","Tweak local cache policy in app.
+
+Presently, we load the cached version of a page regardless of how the page
+was reached. This is a bit too aggressive, since some pages are expected
+by users to be updated relatively frequently, and users don't want to use
+(or aren't aware of) our pull-to-refresh feature.
+
+This patch makes it so that pages are loaded from cache only when
+navigating back through the current backstack of pages, or when coming
+back from savedInstanceState. For 'forward' navigation of pages, e.g.
+clicking links, clicking history items, etc. will no longer use cache for
+now.
+
+This will be followed by a more comprehensive patch where we request the
+current revision of the page from the network, and load the full page from
+the network only if the revision is newer than what's cached.
+
+Bug: T101845
+Change-Id: Ide6c35cdedfa8c6ffc2ac3f4d89332270ecb0ef2
+"
+"d1b04db51f39be3847f3daf705877d25deeae7aa","2015-06-10 14:13:19-04:00","Fix thumbnails in saved pages list.
+
+Bug: T102024
+Change-Id: I818d129591020e26a03f02af81ddefea60f6b05d
+"
+"8bb3320f8207f03541bfb3db42e9dd038f8eaf2a","2015-06-10 21:50:43+00:00","Merge 'Fix thumbnails in saved pages list.'
+"
+"44f58d62ae7eb1bd8af96c267ebf59487ebb97ce","2015-06-10 11:28:43-06:00","Fix article language picker for Chinese
+
+- Replace article language picker entry for Chinese with Simplified and Traditional Chinese entries.
+- Decouple language from WikipediaApp.
+- Decouple static app language support from app language state.
+- Consider site in accept-language headers.
+- Fix and refactor LanguageVariantTests.
+- Misc refactoring.
+
+Bug: T99965
+Change-Id: I362e23ac2383d6ee81daf29d103ee8cc48c04bfd
+"
+"c15a08ab4eb90469b03f8b1606f991642fae51d8","2015-06-10 21:39:06-06:00","Fix issue where app goes to main page on device rotation
+
+When a config change occurred it saved a null value for the 'language' in onSaveInstanceState.
+Subsequently, when the activity was recreated, it used the null value and compared it with
+app.getAppOrSystemLanguageCode(), which is always set to a non-null string (in my case 'en').
+
+Why is this affecting the page we're on? Because we use the language value to determine if
+the language has changed and if we need to reset the site, which also goes to the sites main page.
+
+Thus, it looks like we have to go back to Start, and don't collect our $400.
+
+Bug: T102097
+Change-Id: Ib2a4b8fcd66f601017ff486484ec3bcfdd5a27af
+"
+"c7bc714de0b20cb1df8b5fd4c402748b6927b6a3","2015-06-11 18:28:22+02:00","Localisation updates from https://translatewiki.net.
+
+Change-Id: I580f41297f6cf367ef712c50ee45986b64e93726
+"
+"213f878793cd0364043d6f5144dda6eb64ec177d","2015-06-11 11:13:43-06:00","Bump versionCode
+
+Change-Id: I46580226ee38eb8ae36564ca77deb5c73eedff17
+"

@@ -1,0 +1,136 @@
+"commit id","commit date","commit message"
+"dfc2edce424a4f7053ac1a0aae1174c46aa6869b","2015-04-28 10:32:48-07:00","Add Gradle Wrapper
+
+I'm not crazy about committing these files but it makes it easier to get
+the development environment setup.
+"
+"caec2f24e6410e20d4fae172986ef8739561db66","2015-04-28 15:19:37-07:00","Google login: Basic building blocks
+
+This adds the play services dependency and uses it in the login fragment
+to natively prompt for google login.
+"
+"397594d0f386d578107776403fa28a9a58647ae5","2015-04-30 14:31:47-07:00","Google Login: Make login request
+"
+"ea94160d20c3e4e807a4655a8e3a8f6c2f88d418","2015-04-30 14:50:14-07:00","Google login: Get token after permissions check
+"
+"be26e99c0e1475efff4741f6f902445560430e6a","2015-04-30 15:26:44-07:00","Google login: Invalidate token after retrieval
+
+We can only use it once so we need to invalidate it from the local cache
+to avoid getting the same one next time which would then be invalid.
+"
+"9139f69e3d9a710215c521ed2160dfa26b03c0fa","2015-04-30 16:26:07-07:00","Site: Add Google OAuth2 clientid from API
+"
+"51d8f0dc4c98927737aaf649360f043303929a21","2015-05-01 09:25:41-07:00","Google login: Disable for Dozuki
+
+It won't work because of the limitations given the app's package name
+and the server's project setup.
+"
+"329f7a3ea3f042083c01a298172fdfb4e9447d30","2015-05-01 10:10:05-07:00","Play services: Don't include entire library
+
+Might as well just include the few APIs we use rather than the entire
+monstrosity that is Google Play Services.
+"
+"2bd7a6f9280ec0bf4aa2fe760e57f84fd64dff4f","2015-05-01 10:50:06-07:00","Upgrade build tools and targetSdkVersion
+"
+"f191e3eb663cc726a633659ab612d2705d03e508","2015-05-01 13:39:40-07:00","Google login: Allow logging in after prior cancel
+
+Without this clicking the Google login button after declining the
+permissions wouldn't do anything. Now it reconnects and prompts you to
+authorize the permissions.
+"
+"ec9eb7a076bf5fdddd49b13a71e4aafa1256b363","2015-05-01 13:52:59-07:00","Google login: Display progress spinner on login
+
+Otherwise it's not clear what's going on.
+"
+"2b97696ef9224f36a9b7e5071759e47651fbe583","2015-05-01 14:00:24-07:00","Google login: Remove unused strings/assets
+"
+"32c3092f38c28685c51f325d698c5ea4de29b2b8","2015-05-01 15:36:43-07:00","Google login: Fix broken account chooser
+
+This makes it so the login process continues after the user selects
+which account to use if ever.
+"
+"d37c7e89d765c108ee32b1b09a607e5247bf27bc","2015-05-01 15:55:16-07:00","Bump version to 2.9.0
+"
+"e874a528dfa56e0f7fe85c1a85bfa587b406207d","2015-05-07 11:27:34-07:00","Build tools: Minor downgrade
+
+There appears to be a bug with the latest build tools that causes
+crashes on Android 2.3. 21.1.2 gets us the tools we need to handle the
+play services proguard bug but doesn't get us the broken 2.3 bug.
+
+See: http://stackoverflow.com/q/29856263/1135611
+"
+"5a6e8ff95292ef8b44d60b82640d2df1c2ba1167","2015-05-07 14:27:43-07:00","Merge google-oauth-login (#250) into master
+
+Google Login: Migrate to OAuth
+
+Google login through OpenID has been deprecated for a little while now so
+we have to migrate to Google OAuth. This results in a much better user
+experience because it goes through the native interface and doesn't require
+the user to enter their credentials.
+
+This also increases the `minSdkVersion` to `9` which is android 2.3. This is
+required for Google Play Services which provides the Google Login
+functionality. Android 2.2 only makes up 0.65% of installs currently. It's
+unfortunate to lose them but the old app will still work for them.
+
+QA
+==
+
+- Check Google login on a few places that require it:
+- Media manager
+- Favorite guides
+- Favoriting a guide
+- etc.
+- Test on various devices:
+- Android 2.3
+- Android 5+
+- Tablet
+- Phone
+- Test in both orientations:
+- Portrait
+- Landscape
+- Unexpected actions:
+- Decline permissions
+- Cancel dialogs
+- Change orientations
+- Test on various accounts:
+- No associated iFixit account
+- iFixit account with permissions accepted through the web signin
+- iFixit account after prior sign in on Android
+
+Closes #249
+"
+"9f5f66377e2ac1141230e24df733a8fc1799554a","2015-05-12 11:11:46-07:00","IntentFilterActivity: Force new task
+
+In order to make the back button behave properly when coming from search
+results or other intents, we must force `IntentFilterActivity` to have a
+different `taskAffinity` so it doesn't launch the activities into the
+same stack as the main application. This results in an empty back stack
+for all Activities routed through `IntentFilterActivity` which is
+exactly what we want.
+"
+"ae8c9537a454be70599b23185fdf69fe7bf515f6","2015-05-12 11:23:05-07:00","Merge intent-filters--force-new-task (#251) into master
+
+IntentFilterActivity: Force new task
+
+In order to make the back button behave properly when coming from search
+results or other intents, we must force `IntentFilterActivity` to have a
+different `taskAffinity` so it doesn't launch the activities into the
+same stack as the main application. This results in an empty back stack
+for all Activities routed through `IntentFilterActivity` which is
+exactly what we want.
+"
+"42df68c0ce63fdf0bc55df911d02bf30f81359d0","2015-05-12 13:22:20-07:00","Google login: Don't always initialize API client
+
+We don't always want to initialize the GoogleApiClient because we have
+to do a white label app specifically for that site to make it happen.
+For now iFixit is the only site that has this set up.
+"
+"1103d0d9def9cfb5847d70544e4cb3e1926feb5f","2015-05-12 13:39:16-07:00","Merge google-login--dont-always-initialize into master
+
+Google login: Don't always initialize API client
+
+We don't always want to initialize the GoogleApiClient because we have
+to do a white label app specifically for that site to make it happen.
+For now iFixit is the only site that has this set up.
+"

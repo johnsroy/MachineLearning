@@ -1,0 +1,62 @@
+"commit id","commit date","commit message"
+"52004d24a863de71545fbd59729ea2c05b8806c4","2015-01-09 11:18:58+01:00","ClassifyFragment: Move AlertDialog showing into the parent ClassifyActivity.
+"
+"012b88c13d9f082fc99d0dee9e5b196f94ff5d60","2015-01-09 11:36:50+01:00","ClassifyActivity: Delay the AlertDialog until onResumeFragments().
+
+When necessary, to avoid this:
+java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState
+"
+"2f0f7b3d2b5f7c8be3b867ae203bd904dff3757e","2015-01-09 11:43:23+01:00","ClassifyActivity: Don't bother delaying startNextClassification().
+
+Because we only did it to delay the showing of the AlertDialog,
+which we now delay anyway because startNextClassification() is not
+the only thing that could trigger it.
+"
+"b303cdfa777d49bbdbe0e17cbde4bb5405dad55d","2015-01-09 11:53:12+01:00","LoginUtils: Remove an unecessary check.
+"
+"36482adad3ea790be580f20ef3639bc937e6e7d5","2015-01-12 08:59:47+01:00","AndroidManifest.xml: Use singleTop for the List too.
+
+This doesn't solve any known problem but it seems best for us to
+always return to the one list activity instead of opening multiple
+list activities.
+"
+"9968ed5fd4a1a9859d9d2fe4a8fcdd76f876d3b3","2015-01-12 09:25:27+01:00","Avoid some inspection warnings about empy else clauses.
+"
+"fc425ea922ec9b2081267b441d17944f4cea80ed","2015-01-15 09:04:08+01:00","DecisionTree: Make DecisionTreeException static.
+"
+"326477bd2003c19fc4dc0d164ca4b5e9af07039a","2015-01-15 09:17:44+01:00","DecisionTree: Constructor: Pass caught exceptions as cause.
+
+Instead of mistakenly concatenating it to the exception message.
+Found by FindBugs.
+"
+"c07fba1bd9389351efea35560e2c6a164fad7c35","2015-01-15 09:30:43+01:00","Make some final static string array projections into constant fields.
+
+And don't use the new String() syntax unnecessarily.
+Found by FindBugs.
+"
+"808a46eeb6299d75d429767f7ab8668e8db9267c","2015-01-15 09:31:58+01:00","ClassifyActivity: CheckLoginTask: Avoid needless Boolean autoboxing.
+
+Found by FindBugs.
+"
+"516ca0feebb1d0d01a27c193b275c1dde964ae0e","2015-01-15 09:33:44+01:00","ItemsContentProvider.removeItem(): Move the builder out of the loop.
+
+Because we never change it after we create it, though we use it
+repeatedly. Hopefully that is OK.
+"
+"4dd8c12ee8c3334c9bbd5d3db5022f55d2d3e375","2015-01-15 09:39:26+01:00","ItemsContentProvider.onCreate(): Avoid repeated getContext() calls.
+
+Found by FindBugs.
+"
+"a081ecf1e4618919cb7f1e66dc0d494a6ec29b17","2015-01-15 09:42:05+01:00","Use TextUtils.equals() to avoid null pointer exception.
+"
+"e1b051ba35e7c0d23fab4121e1121565a0d27c75","2015-01-15 09:46:47+01:00","QuestionHelpFragment.addRowForAnswer(): Take Context instead of Activity.
+
+Because otherwise we are being overly specific.
+Found by FindBugs.
+"
+"d5941072c150974ce79bc122c444777b64de8d57","2015-01-15 09:57:01+01:00","Use constants for where clauses instead of private methods.
+
+Found by FindBugs.
+"
+"fcc4e59079d74f64b00ddf59fecc42728fb5ba91","2015-01-15 10:19:21+01:00","1.34
+"

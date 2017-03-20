@@ -1,0 +1,115 @@
+"commit id","commit date","commit message"
+"0c80c02a18df61a411c9b1fad7d6e87ae77b27dc","2015-05-19 10:31:14+02:00","ZooniverseClient: Move NameValuePair and getPostDataBytes to HttpUtils.
+
+So we can test it.
+"
+"ea544bfde76b29001a2d1705aead88f01fcce13d","2015-05-19 10:46:40+02:00","Added HttpUtilsTest.
+
+Initially to test getPostDataBytes() for regressions.
+"
+"4eb33e974499cde60289c6920aac3e02d439fa71","2015-05-19 10:58:51+02:00","ZooniverseClient: Move generateAuthorizationHeader() to HttpUtilsTest.
+
+And test it.
+And stop it from adding a newline at the end (by using Base64.NO_WRAP
+instead of Base64.DEFAULT). This didn't seem to bother the server,
+and the server still accepts it without the newline.
+"
+"88be479a4a2e975fab61dfd9b3b6c57d3a816735","2015-05-19 11:01:15+02:00","Remove some debug output.
+"
+"7807ac5fe189db2ce978789dd8824d29de6d10af","2015-05-19 12:34:44+02:00","Correct a typo in a comment
+"
+"34a24149a9d2d2fd9e0edf3c656d37e0b3e73af0","2015-04-13 11:31:06+02:00","Show Log Out instead of Login in menu when logged in.
+
+By asynchronously caching the login status (async because we are asking
+the AccountManager, not being we are asking the server) in onResume()
+and using that in onPrepareOptionsMenu().
+However, this will incorrectly show the user as logged in if they
+change their password on the web server - clients have no way
+to check that the api_key is still valid, even when using the api_key
+to submit a classification:
+https://github.com/zooniverse/Galaxy-Zoo/issues/184
+
+This fixes this issue:
+https://github.com/murraycu/android-galaxyzoo/issues/18
+"
+"173eb98034c26a7e38cc37a8febe9a4049cce706","2015-05-22 10:04:27+02:00","Add screenshots of the menu, settings, and the subject viewer.
+
+Using the emulator.
+"
+"9ad981b27b63ff71fd46f9d71525b104faa23c4e","2015-05-22 10:55:29+02:00","Add screenshots of the Help screen.
+
+Using the emulator.
+"
+"3eb965b5054c28829e889c5e22728f608dcf4cf2","2015-06-08 12:51:24+02:00","build.gradle: Use latest support library versions.
+"
+"554a2dbb1ce47b5a2f4130c36a80799d000ee4d8","2015-06-08 13:16:28+02:00","Updated picasso and mockwebserver versions.
+"
+"4022d99d176b24945e55679c66c1113e385e5ab0","2015-06-09 10:22:43+02:00","LoginUtils: Remove an unused local variable.
+"
+"c251a28ea571fff109154ba6cbb03b94d52e3c7c","2015-06-11 13:13:12+02:00","DecisionTreeTest: Test the answers too.
+"
+"4fd908878ee8a4896ccc4319bf96c2799c56ff81","2015-06-12 16:57:18+02:00","SubjectAdder, SyncAdapter: Check ContentResolver.query() result for null.
+
+This seems unlikely, but fbinfer suggests it.
+"
+"b65d629c97b64a5106b64ea04ba26105f4593092","2015-06-16 09:06:24+02:00","Config: Make a field private.
+"
+"59785b989a68e052cbd580279c86817997f4c336","2015-06-17 10:49:30+02:00","Fix a typo to fix a test.
+"
+"6ca268af3733d41abe5f4946fb9f5315191636d0","2015-06-30 08:41:57+02:00","Add some final keywords.
+"
+"298132a5a11261784114a6f3ce3e1497cce8259a","2015-06-30 08:45:53+02:00","QuestionHelpFragment.addRowForAnswer(): Move an allocation out of the loop.
+"
+"a10f039645c359b1fa4e6dbd5d9f87c921f706b2","2015-06-30 08:57:34+02:00","ItemsContentProvider.removeItem(): Avoid unecessary logging.
+"
+"6f06db63495c1254c0829831c1b9c76af83fdd5f","2015-06-30 09:29:08+02:00","French, Italian translations: Add missing translations.
+
+Though I'm not sure about that Italian translation for 'Log off'
+in this context.
+"
+"03308c7c8fc7d40e76343e7eece17dd21a1361be","2015-06-30 09:57:05+02:00","ZooniverseClient: Use SecureRandom instead of Random.
+
+Found by FindBugs. It is not important in this code, but it is best
+practice and avoids the FindBugs warning.
+"
+"635f6ec8a2e8b004bf7dcb949a9d70bea682c261","2015-06-30 09:58:40+02:00","SyncAdaptor: Avoid a leaked Cursor when a second query fails.
+"
+"f3b06e9cf7856610c21f8bddb70a78a6dc7a34cb","2015-07-03 12:31:54+02:00","build.gradle: Update leakcanary version.
+"
+"5418eed747b3dde1c94c508874c93ddafc53e07e","2015-07-03 12:33:14+02:00","Changes by Android Studio.
+"
+"e72c10e4e2e452f727835ff6bde0ad3e805a97f9","2015-07-03 12:47:10+02:00","Config: Use only the sloan survey, as in the Web client.
+
+The sloan_singleband subjects are suddenly no longer served by the server.
+"
+"5baf51493f9539bec245de745750cbb9a3933fae","2015-07-03 12:57:21+02:00","ClassifyFragment.addOrUpdateChildFragments(): Null the QuestionFragment's groupId.
+
+This might help with https://github.com/murraycu/android-galaxyzoo/issues/22
+"
+"4b321169394bdbabeeed347d3890956742ef63df","2015-07-03 13:08:41+02:00","SubjectAdder.cachedImageExists: Correct the cursor check.
+
+This regression was caused by this recent commit:
+https://github.com/murraycu/android-galaxyzoo/commit/4fd908878ee8a4896ccc4319bf96c2799c56ff81
+"
+"7fafda1ec33770197a4213e6f8c7314b18600d6c","2015-07-03 13:16:01+02:00","QuestionFragment.updateFromCursor: Log when we have to use the default group ID.
+
+This should only happen for subjects that were downloaded ages ago by a very
+old version of the app that didn't store the group ID.
+
+This might, but probably won't, be relevant to
+https://github.com/murraycu/android-galaxyzoo/issues/22
+"
+"aa7dd41b34db459781813433b3f6a43846e2c324","2015-07-03 13:57:37+02:00","Add SingletonTest.
+
+To test that we really get multiple decision trees from it.
+And update ZooniverseClientTest for the new default group ID.
+"
+"98a3d2b58aa5ce4d4a898e1b2dd12e83624c55e7","2015-07-03 14:09:10+02:00","QuestionFragment.update(): Wipe the UI before refilling it.
+
+In case we can't get the question details for some reason.
+If that is happening, this would make it more obvious.
+This might be relevant to:
+https://github.com/murraycu/android-galaxyzoo/issues/22
+"
+"3d7743b00a343f86f0bc8b360d92df49b8ec1e99","2015-07-03 14:19:39+02:00","1.49
+"

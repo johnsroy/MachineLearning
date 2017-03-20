@@ -1,0 +1,46 @@
+"commit id","commit date","commit message"
+"54d6566fb5f63bd1b029121b3861d20e72c2ed04","2014-12-03 18:50:16-08:00","Force gradlew (and other shell scripts) to use lf line endings.
+"
+"aaf3963567e52e2bc861a7be031926d1ca5895f5","2014-12-04 13:16:12+01:00","Don't throw CertificateValidationException for all SSLExceptions.
+
+An interrupted connection attempt to the server yields an SSLException
+as well, like this:
+
+E/k9      ( 6937): Caused by: javax.net.ssl.SSLHandshakeException: Connection closed by peer
+E/k9      ( 6937):      at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+E/k9      ( 6937):      at com.android.org.conscrypt.OpenSSLSocketImpl.startHandshake(OpenSSLSocketImpl.java:302)
+E/k9      ( 6937):      at com.android.org.conscrypt.OpenSSLSocketImpl.waitForHandshake(OpenSSLSocketImpl.java:598)
+E/k9      ( 6937):      at com.android.org.conscrypt.OpenSSLSocketImpl.getInputStream(OpenSSLSocketImpl.java:560)
+E/k9      ( 6937):      at com.fsck.k9.mail.store.ImapStore$ImapConnection.open(ImapStore.java:2459)
+
+We don't want the user to notify of 'certificate problems' in that case.
+Fix it by checking whether the SSLException was actually triggered by a
+CertificateException.
+"
+"b51ad495edecb69c9f121c87a8676393fe0a0636","2014-12-04 16:17:44+01:00","Merge pull request #513 from maniac103/fix-cert-exception-handling
+
+Don't throw CertificateValidationException for all SSLExceptions.
+"
+"1fa6e117e1c438bf611663f4e7d30449c25085c0","2014-12-03 21:57:50-08:00","Add Lollipop lock screen notifications.
+
+Add vector versions for some notification icons (yay Illustrator)
+Add comments reminding people to add their settings to GlobalSettings.
+<plurals> support for notification_new_messages_title
+Not sure why #ffffffff is resulting in black with targetSdk 17.
+"
+"14edb093f2cb2638fa8128a95e1de644421d7645","2014-12-04 19:01:04-08:00","Merge pull request #512 from k9mail/lollipop_lock_screen_notifications
+
+Lollipop lock screen notifications
+"
+"105948d78c3d6ab44518dd44d713db288ab24c2f","2014-12-04 19:14:22-08:00","Oops, checking wrong platform capability.
+"
+"7177afa4d2526b12eb43a022f1c2d88ac7579131","2014-12-05 23:04:51+01:00","Update Gradle Android Plugin to 1.0.0-rc4
+"
+"410edd7107998a8f31680a5850fe41a6f6a6bb16","2014-12-06 00:42:46+01:00","Change wording of setting option
+"
+"3b2d625a0979f7ce7786230b41a67b30a89dbbd6","2014-12-06 01:03:03+01:00","Pull updated translations from Transifex
+"
+"7cbea6e4b23b0e2404eddffc5e2fa38fa12ed0ff","2014-12-06 01:36:10+01:00","Prepare changelog for 5.103
+"
+"272a4bc1cf75b3401f042b849c46b9c46c01a072","2014-12-06 01:37:08+01:00","Bump version to 5.103
+"

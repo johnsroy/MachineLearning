@@ -1,0 +1,116 @@
+"commit id","commit date","commit message"
+"736965ee7affadbada8db5b42b0307f50597b945","2012-01-15 15:54:45-06:00","Moved existing activities to fragments
+
+No feature changes. This just puts the content of the module search and module
+viewer into a fragment so we can have a special tablet view.
+"
+"5af8b4e9a5455492fc97f1fc4816510386350799","2012-01-18 22:51:33-06:00","First version of the app with a working tablet view
+
+This adds a working version of the search activity that displayes the search
+results on the left and the select item on the right. It does not look right as
+the header for the view blends with the ActionBar and the search should be moved
+into the action bar.
+
+To be done:
+
+* Separate the header into a floating box, distinct from the ActionBar
+* Show the search in the action bar instead of the search sidebar
+* Keep items selected in the search results when displaying in the view
+* Add a triangle/arrow drawable to show which item is selected, similar to how
+the Android design guidelines demonstrate
+* Show a blank box telling the user to search for something when there are no
+results.
+* Automatically select the first result when search returns something
+"
+"10fcddaa261cd54a4952fe5cdef8b09ebf1f57e4","2012-01-21 15:28:48-06:00","Making the module info bar on the module view a fragment
+
+Also made the contact badge much larger to fit better in line with the design
+guidelines and to just look better..
+"
+"97b783f3967833f327a0facfdbdbbdc2b7586719","2012-01-21 21:21:33-06:00","Make the gravatar icons the proper resolution
+"
+"54ace803a3862ce247a5830af66a134a7aec64bc","2012-01-21 21:40:53-06:00","Tablet-sized display was causing AsyncTask rejections
+
+The problem was that each Gravatar icon was being fetched in a separate thread.
+Since no test of mine had caused more than 10 tasks to be loaded at once, this
+was not a problem. However, the tablet sized screen made more than 10 rows
+loading at once common, so this exception was starting to happen with some
+frequency. Fixed by loading all the Gravatar icons for each search in one go.
+"
+"4a31c961693c652e109cd02d348be176cb17abaa","2012-01-21 22:16:34-06:00","Keep the list item selected
+
+This makes the relationship between the search results on the left and the POD
+view on the right more clear.
+"
+"a93b87b3743833420fa285100620b4200e9111c3","2012-02-10 23:44:12-06:00","Use better gravatar image sizing
+
+This works better than using the explicitly larger image size.
+"
+"c0c094979ac1ad82742ead726704b466deadaed7","2012-02-11 21:48:27-06:00","On 3.2 devices and better, improve the view header
+
+The header does not look good nested up against the action bar. This gives it a
+15dp buffer.
+"
+"e90f20b20235d2898ce281d8d35e3f10a9922b55","2012-02-11 21:50:27-06:00","Automatically switch to Holo.Light from Light at API 11
+"
+"f2fd210cdeb06baeba475a6de71946c029b7206d","2012-02-11 22:08:14-06:00","Remove the old icon builds
+"
+"8aa8fd68796925a3ee9d12bbefea716a5cb13d79","2012-02-15 00:13:47-06:00","Setup the search panel to show currently picked module
+"
+"955eccb527c2f5d999dff7aaa074d053dc1ba01c","2012-02-17 19:23:23-06:00","move the graphic build files out of the way
+"
+"60f76df03f7de1219376ba51061edaa02e3757b1","2012-02-17 23:16:18-06:00","Improving the search in Eclair, breaking Honeycomb
+
+This moves the search out of the module search fragment and makes it part of the
+activity itself. This also makes it so that the module search activity is better
+integrated with Android's built-in search features, though I am not using the
+built-in search dialog at this point because I want the search EditText to stay
+up all the time.
+
+This change adds the search menu to the ActionBar for Honeycomb, but does not
+implement it yet, so search is now broken on Honeycomb.
+"
+"0abda10134c2da43b2499c9c705eb91051505974","2012-02-22 21:12:08-06:00","First round implementation using the SearchView widget
+
+...sucks because each search starts the activity over again. This is not
+necessary.
+"
+"6ed02da23a997e690568892b70326bf2ede90692","2012-02-24 22:17:14-06:00","Adds better tablet search support that doesn't start a new activity
+"
+"d2f5c6358428872aff91c0d84829f8a2da9338a8","2012-02-24 23:53:55-06:00","Adding a callout for the help screen about to be added
+"
+"9b1fff506573bf347b2f23e38d5fe224155c37e5","2012-02-24 23:54:47-06:00","Adding a view placeholder fragment to use before a module is selected
+
+This is broken. Selecting a module leads to an FC right now, but it's getting
+close.
+"
+"a0f2d61a283868a1587dc7b9559c6690f820cc7c","2012-02-28 07:50:04-06:00","Better placeholder fragment detection, fixed the view load issue
+"
+"df5c127214bf07abfcacd5d93ce523d056d67de2","2012-02-29 12:09:31-06:00","Add a call-out to the left to suggest tapping a module
+
+This also shrinks the call-out 9-patches so that they are easier to rotate. Sets the background of the help fragment to white as well.
+"
+"b2c6c3224c3b363268aaebab1ea1d1c1c5d74add","2012-02-29 13:08:13-06:00","Fix a bad export of the launcher icon
+"
+"d911a0455404784154fd85cad7b9a74cb06aaa57","2012-02-29 21:55:58-06:00","Fix some lint and code warnings
+"
+"a74a39fabd84c32148c1febadf0738428699f5b7","2012-02-29 21:56:18-06:00","Fixes a scroll reset bug introduced in this branch
+
+The changes to show the second placeholder help message caused the module results to jump up to the top everytime more results were loaded. Not cool.
+"
+"9b8820cb651efff4cb98f329edc836ffdbf13b2d","2012-03-01 08:39:20-06:00","Bumping the version while I do beta testing
+"
+"ce39fabf79cba676a857b70fad874a62e9b216b0","2012-03-08 21:44:25-06:00","Various fragment-related fixes
+
+Nesting the module info fragment seemed like a good idea, but it caused massive trauma, so I made it a layout include instead.
+
+I also had trouble with swapping the help/placeholder fragment with the POD view. Apparently, Android really hates it if you code that in as a literal XML resource and then change it programmatically. It is much happier if you just stick to either keeping it permanent via XML or setting it up and swapping it programmatically. At least, that seems to be easier. If there's some magic incantation to make it work, I couldn't find it and my friends over on StackOverflow recommended against it.
+"
+"c6ed23bf636a431e73a9d03205963679a8bc232a","2012-03-08 21:49:23-06:00","Ran Eclipse source cleanup...
+
+This sort of helped some things... is it just me or is Eclipse a horrifying editor?
+"
+"d5528ef61cabce1fbc9397451e626384a55faa2a","2012-03-09 16:42:26-06:00","releng: prep for release
+"
+"99ccbf615ff566556a3a850910e75db6d40295cc","2012-03-10 20:46:47-06:00","Updating the README
+"

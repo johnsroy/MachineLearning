@@ -1,0 +1,77 @@
+"commit id","commit date","commit message"
+"3c416310e6f1bfa4bbc66390b39b66a69a80a3f5","2016-03-17 21:50:14-04:00","Update deps
+"
+"3572bf56ad3b0a619ed584725a30b144ace090b9","2016-03-17 23:20:51-04:00","Rewrite how logs are captured
+
+Before logs were copied either by shell commands or redirection, which made the app dependent
+on knowing how to access the external storage via both user and root context.
+Now, run the commands and grab/write the output in the Java userspace code, whcih eliminates the whole need
+for the 'root path'
+
+Currently, the app thinks theres an error eaach time you run the app - this needs to be fixed
+"
+"46f6ad68aeaa873068232274df9d9083bc740ff2","2016-03-27 21:02:43-04:00","Fix detecting errors creating directory
+
+Thanks to nels83 via issue #15
+"
+"f15973a7c1d788a800809d162f19fd03b4ae2b12","2016-03-27 22:50:26-04:00","Update the Android gradle tools for instant run
+"
+"2a0c723c739bb42de28180ece068d30e10c7c123","2016-03-27 22:50:53-04:00","Add Greenrobot EventBus
+"
+"86131112e2d1cd10ab91fd8d2a5a8620906fc5ee","2016-03-27 23:25:49-04:00","Use a background thread to get logs
+
+When finished, publish results to the EventBus
+"
+"3cb9601f34541158454080fb9a8ef0602783990c","2016-04-18 23:39:46-04:00","Update the gradle tools version
+"
+"ac4b388caacdd01e5ca4a3223cd26b763cbb7439","2016-04-18 23:39:59-04:00","Customize the TerminalView to show logcat output only
+
+I modified the TermSession to use libsuperuser to run logcat,
+and show each line as soon as it comes. By skipping the whole buffer and character reading,
+preformance is significantly faster.
+Also, I stripped the writing to the process commands because they aren't used in this use case
+"
+"f88f1e0ab1f2748fa4fb5d63aeb628745dd70203","2016-04-18 23:43:00-04:00","Update the LiveLogcatActivity to use the new logcat-specific term session
+"
+"a8844ba78824170cc015bd5aa30cf5f35cd00e15","2016-04-18 23:45:50-04:00","Remove all the 'Root Path' stuff
+
+Since we now stream the input from the shell through Java to the output files,
+this is no longer needed.
+"
+"ecc29ff0ff6e8f8b27f28054c5469b5b3d874bd4","2016-04-18 23:46:42-04:00","Update live logcat notes
+
+No more buffer troubles.
+Woo!
+"
+"19aede8f9a673f4d0781e18885b4da5f0a03e543","2016-04-18 23:58:41-04:00","Update dependencies
+"
+"9e4a33ff361bbb371e6119045c37aab989c0b9c3","2016-04-19 19:16:50-04:00","Clean up old usued code
+"
+"0b2fb6315808324371ed92a5535979967a2302cc","2016-04-19 19:17:55-04:00","Update Android gradle tools
+"
+"5b60260cb6adb704dce37f4ff6ca046d5843151d","2016-04-19 19:20:51-04:00","Add missing copyright header, more unused code
+"
+"b432b88886dd7179e106bc75ab52361a8da13184","2016-04-19 19:50:55-04:00","Show the actual progress in the running dialog
+"
+"7c7367836e75277178b128cccd86d0df36b286f2","2016-04-25 20:02:59-04:00","Update the gradle tools for Android
+"
+"046d7d2c3a032379a2e90b235a734bb6cd073ea7","2016-04-25 20:03:22-04:00","Clean up the code that gets the logcat output
+"
+"82d936fa9fbe00a4fddfd91226c50df1712a0912","2016-04-25 20:06:07-04:00","Remove old InputStreamWrapper class
+
+Its no longer used
+"
+"059be034aa48d5d8aa1c46925b6ae079c32f3dca","2016-04-26 20:28:09-04:00","Update to the release version of the gradle tools
+"
+"e03e9b1712d1ba0161c0b3c4af562e5365a230c6","2016-04-29 16:21:15-04:00","Add dependency version checker plugin
+"
+"8032b7a22dc77e3fba9d44bcd92dfceeaaf9f8a9","2016-04-29 16:42:36-04:00","Update the easy permissions dependency
+"
+"90fe5b4683da2a26741b33144a2ed35bccc16f10","2016-04-29 19:13:45-04:00","Add StringRes annotations to the message variable
+"
+"0216f4c7b3454bdd5ec9e899e798fb450880e508","2016-04-29 19:39:35-04:00","Update the build tools
+"
+"72987c287919f74253381e5b21b154bd5fa97439","2016-04-29 19:44:57-04:00","Add changelog file
+"
+"78f01283dcc9d2db5fa1dda327c16293fbb4c838","2016-04-29 20:04:50-04:00","Bump version to 2.1.0
+"

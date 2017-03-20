@@ -1,0 +1,125 @@
+"commit id","commit date","commit message"
+"8bf56dd7c31672e6af410188a7679c9d1026ad17","2016-02-08 15:50:43-05:00","Do not destroy activities on screen rotate
+"
+"ea9b6ad3d10ec17814320c830df365df0eedbae8","2016-02-08 16:10:22-05:00","Create a widget for adding an expense transaction
+"
+"989b8b35485f4bf71471232ef1c6f0156fbc3cdd","2016-02-08 19:42:33-05:00","Merge pull request #10 from brarcher/widget
+
+Widget
+"
+"1f7b686f9fee74e50a70cd801a511ab5ecb6d6e3","2016-02-12 20:03:53-05:00","Allow import/exports to be interruptable
+"
+"65c5c2b1e48b35c043884e4450521d40fd71726d","2016-02-12 20:04:31-05:00","Display progress bar while importing/export
+"
+"0ff39db997187e9f96ab035d38f1e5374b7358af","2016-02-12 20:05:49-05:00","indent string for consistancy
+"
+"163c23c7098b5491d679b91f280c89ffb93fc00c","2016-02-12 20:07:51-05:00","Allow toTransaction to not return null strings
+
+The database allows some strings to be optionally null.
+Convert such nulls to empty strings in toTransaction.
+"
+"e3da47cbb01f4861b231bde143bf314bcb8b7a36","2016-02-12 20:10:17-05:00","Add receipt field in database for transactions
+
+In the future there will be an optional receipt image
+for each transaction, and the receipt field will point
+to the image location.
+"
+"b42d8a35e8c95f53512cda50d246f979333835ed","2016-02-13 15:03:56-05:00","Allow transactions to capture and display receipts
+"
+"cb00756815b32c56e2fdf9ee2e96170d7ae5c620","2016-02-13 17:13:05-05:00","Add db call for getting transactions with receipts
+
+This will eventually be used when cleaning up the database
+from lost or unwanted receipts.
+"
+"83b2164612fbb3e6cc34dae246c74a529268afbe","2016-02-13 18:12:43-05:00","Add comments to DBHelper class
+"
+"ae5b6cbb397c8ec9b1604de8981731f035fa1703","2016-02-13 21:51:58-05:00","Add a task for cleaning up loose ends in the database
+
+Specifically, this will currently determine the consistency
+of receipts in the database, and will either remove orphan
+receipts or update transactions that point to receipts
+that no longer exist for some reason. In addition, old
+receipts may also be purged.
+"
+"3fdb0403b0b8fd49fc3e59701ec28ee1c1e815bb","2016-02-13 21:49:15-05:00","Add final qualifier to constant used in test
+"
+"112cbc4c1ec5bb699017bd05d1cabed69fa49b42","2016-02-13 22:54:05-05:00","Move time adjusting calls to separate class
+"
+"220673afee4e7684a005c10b6940384b822aa26d","2016-02-13 23:57:49-05:00","Inflate super class' options menu
+
+This is mostly for completeness.
+"
+"1b048640bf9791dea77d2597a9775e22e881924e","2016-02-13 23:58:33-05:00","Add menu option to deleting old receipts
+"
+"b480163e792226d782c49c03a3adb63745195f93","2016-02-14 14:24:56-05:00","Merge pull request #11 from brarcher/receipts
+
+Support for capturing receipts for transactions, and improving import/export usability
+"
+"70d00336be736dc535d55e9d4dca369f95928222","2016-02-14 14:18:53-05:00","Create date formatter only once
+
+As the same date formatter is used multiple times, only
+create it once.
+"
+"0d2ade537648ed1fde962752f2a81484511a3ed9","2016-02-14 14:22:52-05:00","Reduce height of ListView to parent
+
+If the ListView height was set to wrap_content, potentially
+many views will be bound while loading. In practice it was
+observed ~130 views were bound, when only several were displayed
+at a time.
+
+To reduce the number of views bound when loading, setting the
+the height to the parent has the result of reducing the number
+of views needed at a time, and half of the views are now
+bound while loading.
+"
+"2517e2429dcbbfbe47b30724c99a43ac2439a8cb","2016-02-14 15:19:10-05:00","Lookup view fields only on creation
+
+By looking up the fields only on creation, filling in
+the views have less to do.
+"
+"4a8f55500a6d5d5d9e9e6c59c2c3b2a018715ce2","2016-02-14 15:19:50-05:00","Only retrieve string resource once
+
+The fraction format is queried multiple times and is always
+the same. Look it up only once.
+"
+"8c0b0370c8cfaa378f707677c9055037a0030643","2016-02-14 16:09:32-05:00","finish budget view when moving to budget edit
+
+The editing of the budget may result in its deletion.
+To avoid attempting to load a budget that does not
+exist, do not plan on viewing the budget after editing
+it.
+
+Further, the expected use case is to transition back
+to the budget list anyway, so viewing the budget again
+after editing was unnecessary.
+"
+"9de9f4c2819b5642889f0b1b88f1653f1823cba8","2016-02-14 16:30:16-05:00","Query budgets and current values with one SQL statement
+
+Instead of querying the budgets in one statement, then
+the total expense and revenue in separate statements,
+one SQL statement can be used.
+"
+"dd83407d05d3bdb2392f2b0ccb52bc1f3b517518","2016-02-14 16:45:37-05:00","Merge pull request #12 from brarcher/performance
+
+Performance improvements
+"
+"2f28ebc2198910182f0fd366968bb06fdf8b7cc5","2016-02-14 16:49:57-05:00","Improve widget layout performance
+"
+"75633dce097919ddd67482b45461ba7568734aa9","2016-02-14 16:50:10-05:00","Improve usability of widget for screen readers
+"
+"785ebb8b2e78ac0444713ebc532b4d4e14b02abc","2016-02-14 17:06:14-05:00","Merge pull request #13 from brarcher/widget
+
+Widget improvements
+"
+"294b83623bc1f3f0eaf7c11198ff98ba48c7c42b","2016-02-14 17:07:24-05:00","Update for release v0.2
+"
+"be9c5697a3c8e5b6bb48443b722a6e68d62d8645","2016-02-14 17:26:06-05:00","Merge pull request #14 from brarcher/pre-v0.2
+
+Update for release v0.2
+"
+"057ce946f0c6fc0f7900599287253ab2b9ccc480","2016-02-14 18:36:51-05:00","Add missing camera permission
+"
+"f693144750ef23004e91111975df2aacb541b5d0","2016-02-14 19:03:54-05:00","Merge pull request #15 from brarcher/camera-permission
+
+Add missing camera permission
+"

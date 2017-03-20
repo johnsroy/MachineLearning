@@ -1,0 +1,446 @@
+"commit id","commit date","commit message"
+"b0a450d9db5c556880dc7f093477eaa54868e50b","2014-07-08 08:50:29+02:00","Update changelog
+"
+"fcf26ffa77b25ead7d54d39ce8990461754ee6af","2014-07-11 12:14:25+02:00","Make sure adapter is initialised before search
+
+This fixes the crash described in issue #60
+(https://github.com/jensstein/oandbackup/issues/60)
+
+If the search should be available before the package list is fully
+loaded (and it should), then we probably need to use something other
+than progressdialog for displaying the messages.
+"
+"557d8f9dd88cbd1cde36456e2306c17fc92a85f9","2014-07-11 13:00:14+02:00","Add bluetooth directories to special backups
+
+The bluetooth special backup is now enabled for older android versions
+too.
+"
+"d8c3b65d6a6563ba23d1f62b266dcad83e6973e2","2014-07-11 13:07:19+02:00","Write newline at the end of the log files
+"
+"d8e943799c06de9d71fa2491e1717f0d802ddaae","2014-07-18 10:45:31+02:00","Only instantiate File once when compressing
+"
+"4d1566a2c78a2e5560ea7067bd8009a474a9f988","2014-07-29 09:49:52+02:00","Remove flag from getInstalledPackages
+
+The flag for all activities is unnecessary now and I can't remember why
+I put it there to begin with.
+The extra information can cause the list to exceed the IPC limit on api
+9.
+
+This fixes issue #61
+(https://github.com/jensstein/oandbackup/issues/61)
+"
+"b2d77786a73a13beded66ddfde2047e706c4d3af","2014-08-01 08:42:28+02:00","Backup external files directory
+
+Data from the external files directory (/sdcard/Android/data/) is backed
+up if the directory exists.
+"
+"659fc63f707131bda2e593e6aa87d407af30339c","2014-08-01 09:40:24+02:00","Option to enable backup of external files
+"
+"ad19e6ee6b392ea12a2debd71f36c40a7fc0d4f4","2014-08-01 10:10:27+02:00","Handle compression in static methods
+"
+"4154551d3d248128e357fc72eb68609175434f68","2014-08-01 10:27:41+02:00","Add output directory to unzip method
+
+This can be used to extract data directly to the external files
+directory.
+"
+"72d453d47bad90e8c6aa93395f46fa3f0a4b567b","2014-08-01 11:32:34+02:00","Restore external data
+
+Unzips the external data directly to the externalFilesDir if the option
+is enabled.
+"
+"248c5c96dded4b48282cdb8b9d7e8aacacae67e4","2014-08-01 11:46:46+02:00","Name of external data backup directory as constant
+"
+"81934f27bbc5a6667465e82aba65d6ee06647880","2014-08-02 15:17:01+02:00","Remember to swap path with external files
+
+The code that uses cp to copy the external data needs
+swapBackupDirPath but the part that zips doesn't need it.
+"
+"cf41eb49756525c5fbc5dbcb4b560c275d20c778","2014-08-03 16:20:08+02:00","Change chmod to chown
+"
+"69e93e3a5da52fc6b45343f16aeb59c3caf722aa","2014-08-10 11:37:49+02:00","Move logfile to backup directory
+
+To avoid littering unnecessarily, the error logfile is probably better
+placed in the backup directory rather than in the base of the external
+storage by default.
+"
+"074b9424badbba8d623754034eb3d63faef0432a","2014-08-10 11:50:14+02:00","Remove error log from preferences
+"
+"876b6bf3653383278391116da32dcc350ee10ca8","2014-08-10 11:59:54+02:00","Update changelog
+"
+"2c562810c87e2ce2a56b9d219174f4f134dcc933","2014-08-10 12:16:39+02:00","Change label on restore option
+
+If a package is not installed, the label on the option to restore
+both data and apk cannot be 'both' since there would only be one other
+option ('apk').
+"
+"5be13ff9900d0ab775603c61b3300dcbf49b8ad8","2014-08-11 15:50:44+02:00","Reduce restore method
+
+Remove duplicate code and use constants from AppInfo.java instead of the
+numbers in themselves.
+"
+"a15cbb1c5d91057f9f056f2a71889dc91cabfbe3","2014-08-23 15:11:37+02:00","Separate special appinfos from the regular class
+
+The parent AppInfo class doesn't need the methods particular to the
+special backups. Moving them to their own class is a step towards
+proper polymorphism in the backup and restore methods. This will
+eliminate the need for checking the special flag all the time.
+"
+"b4277f314cd53244789d6f6b32792405e127efb2","2014-09-18 12:43:34+02:00","Make OAndBackup extend BaseActivity
+
+This should prepare for some future shared encryption code between the
+main activity, the batch activity and the scheduling activity.
+Also remove some unused imports.
+"
+"4431eb7aeafc2b83619c3bff3b43508061da876a","2014-09-25 14:53:02+02:00","Check if listFiles returns null
+"
+"bdd7836aa76ee2fd6a5db0178aad9184dfd966cc","2014-10-09 13:05:53+02:00","Initial cryptography support
+
+Added openpgp-api as a submodule.
+Basic support for encrypting and decrypting files.
+Selection of the openpgp provider and setting user ids in the
+preferences is yet to be implemented.
+Encryption is also very slow at the moment.
+"
+"c39d2a935fa4fb398c0651af7af59fe659fce6b0","2014-10-09 16:36:18+02:00","Add button to start scheduled backup immediately
+
+And clean up some trailing whitespace.
+"
+"0c16a95dfd620ce755a633af9136cd4946164b9c","2014-10-09 16:55:46+02:00","Show custom schedule lists with a static method
+
+Remove some global variables and the awkward constructor.
+"
+"6643620e8c12b0e9dc08dc864d876f5cc1d167e9","2014-10-11 21:13:50+02:00","Add cryptography options
+
+Add options to specify openpgp user ids to encrypt files with and an
+openpgp provider.
+"
+"5cab8075a8477126d61fc36d82f820c2385539f5","2014-10-12 09:53:07+02:00","Add option to enable cryptography
+"
+"2f3f218672a8a4d7da470f6bfd80f6aca434686c","2014-10-12 10:08:56+02:00","Start cryptography if enabled
+"
+"b7e912fad962853bbf128433c0b1c99592a6abd4","2014-10-12 10:14:34+02:00","Start cryptography if preference toggled to true
+
+And add some else's to the checks because they weren't there for some
+reason.
+"
+"ae12697d50cbdb30b2356b722905774c8deb2ee6","2014-10-12 10:40:06+02:00","Change prefs to local variable
+
+Use SharedPreferences instances as local variables where they are needed
+instead of having a global variable. This is better since the
+instantiation in a thread of the global variable could lead to race
+conditions.
+"
+"bd4e190a0220c2d3efd22a803147ede8b0a7c0dd","2014-10-12 10:57:09+02:00","Check for superuser in static method
+"
+"75516dbe857452fd4e6b6c4c240f75abc7feddc7","2014-10-12 12:54:21+02:00","Convert help screen to html
+"
+"46bf12a2be6058b6a81af5c73bc9a3e206533163","2014-10-13 21:17:59+02:00","Get openpgp provider and user ids from preferences
+"
+"610a37f1907e6f7c30b9ac1caffa21a9182886ff","2014-10-14 13:33:32+02:00","Check for cryptography availability
+
+Add own check which includes a check for android version since the
+library has a higher minimum version number.
+"
+"7f101e121c261b4e9bdbff771ed03f1ee610bb78","2014-10-14 14:52:04+02:00","Move shared backup code to separate class
+"
+"50d9b94c7c9927618e3994228389e2e482212af6","2014-10-14 19:23:45+02:00","Move shared restore code too
+"
+"5be50adaa27b2f73d6d51041e8bc65c5b98c59eb","2014-10-15 09:57:42+02:00","Merge branch 'master' into cryptography
+"
+"413bcc06b564571eaccee5a3eead44b24c0a9879","2014-10-15 12:02:14+02:00","Adjust regex to handle a single digit uid and gid
+
+Changing the regex to match zero or more spaces will catch both five,
+four and single digit user and group ids.
+"
+"364443ac4ab83229ea9e20f7c3c7552272254c01","2014-10-16 10:23:45+02:00","Add method to check for cryptography errors
+
+The error flag is moved to persist through a whole en/decryption
+operation. Having the individual methods all return a boolean would
+probably be better than a separate method return the boolean.
+"
+"d79081e5e3f565ec919bbde840ea779aa4e4ef59","2014-10-17 15:16:12+02:00","Replace Activity with Context
+
+Activity is needed for startIntentSenderFromChild but onReceive in
+BroadcastReceiver can only give a Context so it must be cast.
+"
+"ecaff2faf0fb754172d5ae7deceed53211dfe95f","2014-10-17 16:33:49+02:00","Add encryption after backing up
+
+Encryption of external files will have to wait until they are zipped
+also.
+And the code duplication should be minimised a little more.
+"
+"4df608e95f0a2788e740c3fe81bbbe082553b013","2014-10-18 14:50:54+02:00","Catch exception when getting icons
+
+The drawable returned by getApplicationIcon can as shown in issue #73 be
+a StateListDrawable which cannot be cast to BitmapDrawable.
+(https://github.com/jensstein/oandbackup/issues/73)
+"
+"6024e885c727174e7fd6aff0aa28180d895b6aea","2014-10-19 13:59:58+02:00","Don't delete old apk if only data is backed up
+"
+"eb5722baca0d450cfe364552dc7394237abf65d9","2014-10-19 19:46:46+02:00","Add missing call to commit preference changes
+"
+"2cd4e201ba8e9e9e7ab0eb065b0cfed0b1c2980e","2014-10-20 20:08:47+02:00","Fix out of memory crash
+
+Scale all bitmaps to the same size to avoid problems with
+extraordinarily large icons.
+Credits to Daniel (github user DaPa: https://github.com/DaPa)
+(https://github.com/jensstein/oandbackup/issues/73)
+"
+"dfc8488534c56a6985065afc622ec27a35971f0b","2014-10-20 20:30:34+02:00","Close BufferedReader
+
+Avoid potential resource leak.
+Credits to Daniel (github user DaPa: https://github.com/DaPa)
+(https://github.com/jensstein/oandbackup/issues/73)
+"
+"267a7e7fa20302ca19f276681dc0f5fba99f6f7b","2014-10-20 20:34:49+02:00","Add busybox prefix to sed and awk
+
+Credits to Daniel (github user DaPa: https://github.com/DaPa)
+(https://github.com/jensstein/oandbackup/issues/73)
+"
+"44785e4847d7e955e6af1e584615945065f0766c","2014-10-21 15:03:06+02:00","Check apk restore before restoring data
+
+Only restore data if the apk restore succeeded, but make an exception
+for the special backups which do not have apks.
+"
+"253d244c74967fd2cf0b6f9deafcb145ca1d17bc","2014-10-21 16:32:09+02:00","Find ownership of special backups
+
+User and group ids need to be found before copying the files of the
+special backups. This is different from regular backups and the old
+method to set ownership and permissions didn't work correctly since it
+didn't know the original ids of the files.
+"
+"36cb9dae72e394fffe571537f6b30e1583346ddb","2014-10-21 18:39:08+02:00","Remove code to read old log files
+
+Backups done before version 0.2.0 should be redone before upgrading to a
+version beyond this commit.
+"
+"e54f085da400b7012b692fb34c3e5d08127ff72d","2014-10-21 19:00:51+02:00","Only log path to apk when backed up
+
+Because the filename of the apk can change, the one in the log needs to
+correspond to the file actually backed up. The value for sourceDir which
+is stored in AppInfo corresponds to the path to the currently installed
+apk.
+"
+"b4756c029c8620e39f2cc76a5830d4741aca4eec","2014-10-25 11:50:40+02:00","Remove unused imports and a variable
+"
+"4c9af39baa074a02358cc36c3978dd21d51117a4","2014-10-25 12:15:51+02:00","Get apk filename with substring
+"
+"e228dd2687d3923bc3e62d3849c1818daab59d9c","2014-11-05 12:31:01+01:00","Only delete logged apk
+
+To avoid unintended deletion of apks only the apk logged as the old
+version should be deleted. This will probably cause some backup
+directories to have two apks during the first backup cycle after this
+commit if the package has been updated in the meantime.
+"
+"15bb93dba808cab7e215aebb8af4976e9ad11cd2","2014-11-05 19:52:37+01:00","Add decryption when restoring
+
+Add check to see if there are encrypted files in the backup directory
+and decrypt them if necessary. External files are ignored for now since
+they are not encrypted yet.
+"
+"cc68963e4e024b5dde4e041d479c7ceff01fb181","2014-11-05 20:14:50+01:00","Merge branch 'master' into cryptography
+
+Conflicts:
+src/dk/jens/backup/BackupRestoreHelper.java
+"
+"1d241ab66ee9b9d6079982ab1ae216bdb7263f46","2014-11-05 20:43:04+01:00","Add value to log file for status of encryption
+
+A boolean signifying if the backup is encrypted is written to the log
+file.
+And the boolean distinguishing between user and system apps is renamed
+to fit widely used naming conventions better.
+"
+"7cf17d088beab74e6989a67dcf5f8108ba6932aa","2014-11-05 21:27:08+01:00","Also delete old apk if it has been encrypted
+"
+"c8fe7268790caab12db91a66591a388612edbe8a","2014-11-05 21:33:42+01:00","Check if crypto is needed when restoring in batch
+"
+"db66c14ef40541226e602824202bac6e8441310b","2014-11-07 16:10:29+01:00","Write to error log in a static method
+
+writeErrorLog in ShellCommands is not tied to an instance of
+Shellcommands in any meaningful way. Making it static will make it
+easier to report errors in settings where an instance of ShellCommands
+is not needed or readily available.
+"
+"d69b9b52f9a3710994d1702b17284a8c3f829c47","2014-11-07 16:47:42+01:00","Method for logging cryptography errors
+
+Add method to set the error flag and write error messages to both logcat
+and the permanent error log file.
+"
+"055dd01bb760941b525456a95e579b7fdb4d4c9d","2014-11-08 13:43:03+01:00","Also show cryptography errors
+"
+"eb3fc0b9ca968a708408f5aca9485e7e45be8147","2014-11-08 14:54:42+01:00","Clean up after encryption and decryption
+
+Move the code to delete the encrypted files and the source files for the
+encryption into the Crypto class. This is both used when the encrypted
+files or the source files are no longer needed and for cleaning up when
+the encryption fails.
+"
+"b4913e9e670610ff35eda370772da560b03aa9bb","2014-11-09 10:58:14+01:00","Show cancellation of en/decryption in error dialog
+"
+"fad7e8fbda2a8ac1b80d7eeee90dad384cd07102","2014-11-09 11:20:58+01:00","Update build instructions
+"
+"95a199738f3dcf66714f94baa653118afca4cbe8","2014-11-09 12:34:19+01:00","Encrypt external files
+
+At the same time they need to be cleaned up if the preference to back
+them up is set to false or if an error happens.
+"
+"35b942605b67a9c8ad0f8315cbfb9976278597bb","2014-11-09 20:34:08+01:00","Decrypt external files to be restored
+"
+"0adf0509506b8710fcd3f382f150c96b408cbf0a","2014-11-19 14:28:55+01:00","Always set LogFile separately
+
+Having two constructors for AppInfo created some repeated code that is
+eliminated by setting LogFile separately if it is usable.
+The value for backup mode is then set when LogFile is set.
+"
+"3ff3146d562c2a753122638f8bcee7ec80796716","2014-12-15 12:47:33+01:00","Build schedule ui in onResume
+
+This fixes a bug where the last schedule would overwrite the others when
+returning to the activity if the ui were built in onCreate and if
+the resources had been recycled by the system.
+"
+"3db1ea5bd1094fa6d208bb11914cd5cdb92ebae1","2014-12-15 16:31:46+01:00","Also add view to parent when adding schedule ui
+"
+"7f1af0637d395ae8a084ea1d320b305faf9f486e","2014-12-15 20:38:46+01:00","Check for null when getting parent
+"
+"ba4d35263e83889bb7e50a54022000bfe89aa6d1","2014-12-15 21:10:33+01:00","Handle getting a Context instead of an Activity
+
+The receiver of the scheduled backups will most likely be
+android.app.ReceiverRestrictedContext which cannot be cast to Activity
+so in that case Context.startIntentSender should be used.
+User interaction will not be handled in this case but since scheduled
+backups are supposed to operate unattended this will not be a problem.
+An error-free execution will depend on the values in the preferences
+being correct.
+"
+"599e33d2a95c897796f79fcb8e4f4695c23dc132","2014-12-15 22:08:31+01:00","Add method to get name of file or directory
+"
+"7adb51ef66fc70bee39a5f64d2818da728985e41","2014-12-16 16:33:33+01:00","Compress special backups
+
+Zip files in the filesList of special backups if they are directories.
+"
+"ece0796e5a8762076acf1b73740848aefee4dc41","2014-12-16 16:52:22+01:00","Remove usage of dataDir from special backups
+
+Since the all the files of a special backup are now checked and
+compressed if they are directories, dataDir is no longer needed.
+"
+"dbb2db08f3ad1021a2719b4ff5f1f5397afdd3a3","2014-12-18 12:20:21+01:00","Encrypt and decrypt special backups
+
+Checks are added to the cryptography methods to handle the file lists of
+special backups.
+"
+"c84a18d9be921b0fcf271b72a5d7bb3fcbe92f05","2014-12-22 12:02:50+01:00","Add method to list files in a zip archive
+
+This method will be used for checking if an apk has any libraries in it
+that need to be unzipped.
+"
+"db18dba8405a2a0a0ff74b745c94a642fdcbdbb5","2014-12-22 12:29:40+01:00","Add argument to unzip a list of files
+
+The behaviour should be equal to that of the unzip program from Info-ZIP
+so that no other files than those in the provided list is unzipped if
+there is a list.
+"
+"4d9eef5792a48cdd32f308472deaa611cd82560d","2015-01-02 15:50:16+01:00","Use File object for zip file when unzipping
+
+It makes more sense to give a File object to unzip than passing the
+directory and filename separately. A File is often created on the
+calling side to check whether the zip file exists.
+The output directory will also often already exist as a File object.
+"
+"5f212058af89b361e738aa98666507b0bec1e2a0","2015-01-04 14:42:42+01:00","Use File object when listing zip file entries
+
+Adjust parameters to fit with the parameters for unzipping.
+"
+"0427246db8acde6c7790459dc3f44328b202b798","2015-01-06 21:15:52+01:00","Copy native libraries from apk
+
+Uncompress native libraries from the apk and copy them to /data/app-lib
+when restoring the apk of a system app. This is handled by
+frameworks/base/core/jni/com_android_internal_content_NativeLibraryHelper.cpp
+when installing normally but has to be handled manually if the apk is
+just copied to /system/app.
+
+This situation raises some problems. The value for
+ApplicationInfo.nativeLibraryDir is not always valid. An example is
+OpenWnnEngineEN.java of the OpenWnn input method provided with the
+Android source. This class is hardcoded to expect the libraries in
+either /data/data/jp.co.omronsoft.openwnn/lib or /system/lib. But while
+the ApplicationInfo.nativeLibraryDir of the package is
+/data/app-lib/OpenWnn (at least on my installation)
+/data/data/jp.co.omronsoft/lib is a symbolic link to
+/data/app-lib/jp.co.omronsoft.
+Another problem is that the system may not have have processed the newly
+copied apk in time for the copying of the libraries. In that case
+trying to guess the library directory based on the apk name might be the
+only solution but will probably fail in some cases (for example OpenWnn
+where the apk may be called OpennWnn.apk which would then give
+/data/app-lib/OpenWnn as the library directory).
+"
+"68f184176f407d2c0565b28f84e5f398f88568c1","2015-01-06 21:41:58+01:00","Check api level when using nativeLibraryDir
+
+ApplicationInfo.nativeLibraryDir was first introduced in level 9 so it
+needs a check.
+Build.CPU_ABI2 needs api level 8.
+"
+"893ed6253445e09b94eb4ce927aea484ac7382d1","2015-01-11 11:34:29+01:00","Copy libraries to /system/lib
+
+frameworks/base/services/java/com/android/server/pm/PackageManagerService.java
+calls NativeLibraryHelper.removeNativeBinariesLI for system packages so
+files in /data/app-lib/$package/ are deleted on reboots. The libraries
+that are extracted from the apk need to be copied to /system/lib
+instead.
+"
+"6f2a478c0e8e22c3e6eb8e18b4e528ff3e9d45ad","2015-01-13 11:48:17+01:00","Reset log file info if an exception is encountered
+
+A better approach might be to throw an exception that is specific to
+LogFile and show the error in a dialog.
+"
+"479586a4f3767561a0c5b2615529a32b9e8f90ac","2015-01-14 21:32:02+01:00","Only try to encrypt data if it exists
+"
+"33fca3207905890068ddf4a12bca7bdb32c42ae9","2015-01-14 21:35:57+01:00","Fix grammar and spelling in a comment
+"
+"17cff9a375672391b4f33a35e8c10f59b1754cd0","2015-01-15 16:43:24+01:00","Take account of display density for icons
+
+To avoid the icons displayed in the app list being really small on high
+resolution screen the size is multiplied by the display density (which
+is 1 for medium-density screens).
+"
+"82b6a9c224e8fa5c7ae80f0f516b101531f732d3","2015-01-15 17:50:08+01:00","Add label and version name to help screen
+"
+"e96d4b24ce93378b06686200fa5e19d5cde56541","2015-01-19 12:01:23+01:00","Change strings
+
+Thanks to Peter Serwylo for suggestions on revising some strings.
+"
+"bdbc16c27b1a3221e3359d32091466f8f4953aff","2015-01-19 12:10:45+01:00","Add japanese translation
+
+Thanks a lot to Naofumi for the translation.
+"
+"a7ea9ca4feaa7282cc2a1eea487be64502a9e088","2015-01-19 12:47:38+01:00","Update translations
+"
+"ef09b3790ab800174a2588ed1a4e6b27d8aa0415","2015-01-19 09:22:28+02:00","Handle icons that are not BitmapDrawable (for example VectorDrawable for Android L)
+
+Check if the app. icon is of BitmapDrawable type. If true, then use
+createScaledBitmap. Otherwise, create a bitmap from the drawable.
+
+Got the idea from:
+https://stackoverflow.com/questions/18459618/java-lang-classcastexception-in-android-when-try-to-get-application-icon
+
+Fix: https://github.com/jensstein/oandbackup/issues/82
+Fix: https://github.com/jensstein/oandbackup/issues/73
+"
+"e1accd4cd68b5de30ad86925f2b34408b7db64e5","2015-01-19 17:38:28+01:00","Merge branch 'master' of https://github.com/aelmahmoudy/oandbackup into aelmahmoudy-master
+"
+"756e4c18fcba4e914099462cfe65a39d7bcbf1a6","2015-01-26 22:25:48+01:00","Handle change in apk directory on android 5
+"
+"e8f6ec4d27b0a9a2b8b9c6f67d6cdf6eb1024fd3","2015-01-27 11:18:52+01:00","Uninstall system packages on android 5
+"
+"0a760ba5c7a0c2ef9f8590a22d9e01776ac41025","2015-01-27 11:19:40+01:00","Merge branch 'aelmahmoudy-master'
+"
+"daa803591652d4c678257647ffd79ecf8dba523d","2015-01-27 11:58:52+01:00","Add Norwegian bokmål translation
+
+Thanks a lot to Daniel for the translation.
+"
+"415b1084e0215c2757fd2d6046cfb799b5249e04","2015-01-27 12:14:07+01:00","Update translations
+"
+"eb9607c15ce89fb0a342b9fc606247b95e2b2075","2015-01-27 12:49:12+01:00","Update changelog
+"
+"fb34bdade9dd6d0828870c4b9765ff61947091ff","2015-01-27 12:50:56+01:00","New version
+"

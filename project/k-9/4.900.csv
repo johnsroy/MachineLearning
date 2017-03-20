@@ -1,0 +1,411 @@
+"commit id","commit date","commit message"
+"fb6e8bc25bf714caff95ab5e51f6a6ff6d84a10e","2013-11-06 23:23:56+09:00","Updated Japanese translation of the changelog.
+"
+"6d08e6969009281181964edb6a6f295cfa450404","2013-11-06 23:39:08+09:00","Fixed typo.
+"
+"c58ef8bbc5f414845f85d82db2c22cbb243880c9","2013-11-04 22:48:27+01:00","Upgrade Gradle build files
+"
+"9fe71bca2d6e9236db9a371117164a0fee326861","2013-11-04 22:48:58+01:00","Add Gradle wrapper
+"
+"b398c4d7f481cceae2260ed54e3ac277e587efd4","2013-11-07 07:33:33+01:00","Fix file selection for import
+
+Using FLAG_ACTIVITY_NO_HISTORY will cause the file selection
+to fail when KitKat's 'Open from' activity opens a third-party activity.
+"
+"d4246a09762c13fc26d771ad029c89098a4b107b","2013-11-07 10:38:35-08:00","With the new webview scrollview combo we've got loadinoverviewmode seems to behave better.
+"
+"1bfb78ee51434da589fb6ace1387d83e2ca33ec1","2013-11-10 00:25:10+00:00","Use TrustedSocketFactory for STARTTLS.
+
+The TrustedSocketFactory, which provides goodies like better cipher suites and
+TLSv1.2, was only being used for tunnelled connections.  Use it for STARTTLS
+connections as well.
+"
+"37272fbaf4c7e947c72a5fac91c4bfea285d2d3f","2013-10-30 00:49:16+01:00","Update Polish translation
+
+new strings + one typo
+"
+"b4c4dea527be3440d704bcab22efcefeadacfcdb","2013-10-30 10:18:31+01:00","Update Czech translation
+"
+"9ea241f897a2a118685f934a462f902c5f4de839","2013-11-01 09:54:44+03:00","Update Russian translation
+"
+"2a77aa1e41cb66248ab713fd2d65f84d9cd353d2","2013-11-01 09:15:26+02:00","Update Greek translation
+"
+"9fee3e50c87ff330cfa367f2eab4820a1e1cb7c8","2013-11-01 10:51:45+01:00","Update Hungarian translation
+"
+"febf9b2fb39e9ba0f7810c6e35f8a03a6640b9e7","2013-11-10 22:58:16+01:00","Clean up Hungarian translation
+"
+"042bd70290fe7342cca27069b6c4d2f9d5eabeb7","2013-11-10 23:11:50+01:00","Merge branch 'translations'
+"
+"f4ebc098c44bb6033b78af9669a6f251888379c2","2013-11-11 01:09:09+01:00","Recreate app icon from SVG file
+
+Add higher resolution icons so K-9 looks snazzy on newer devices.
+"
+"0eb24512b08386752e49905b218134f60309fea4","2013-11-10 18:17:37-08:00","Merge pull request #417 from bk2204/tsf-starttls
+
+Use TrustedSocketFactory for STARTTLS
+"
+"b500047e426baa0807570c2f2836d0cf9ba6cc19","2013-11-11 13:29:14+01:00","Fix contact picture color generation.
+
+Make sure to return different colors for senders with different name,
+but the same mail address (e.g. mails sent by certain issue tracking
+systems).
+"
+"a4440b404234215151617f43c349bae276c544bc","2013-11-23 13:26:57-05:00","Fix inadequate certificate validation
+
+Proper host name validation was not being performed for certificates
+kept in the local keystore.  If an attacker could convince a user to
+accept and store an attacker's certificate, then that certificate
+could be used for MITM attacks, giving the attacker access to all
+connections to all servers in all accounts in K-9.
+
+This commit changes how the certificates are stored.  Previously, an
+entire certificate chain was stored for a server (and any of those
+certificates in the chain were available for validating signatures on
+certificates received when connecting).  Now just the single
+certificate for the server is stored.
+
+This commit changes how locally stored certificates are retrieved.
+They can only be retrieved using the host:port that the user
+configured for the server.
+
+This also fixes issue 1326.  Users can now use different certificates
+for different servers on the same host (listening to different ports).
+
+The above changes mean that users might have to re-accept certificates
+that they had previously accepted and are still using (but only if the
+certificate's Subject doesn't match the host that they are connecting
+to).
+
+This commit modifies AccountSetupBasics so that it now calls
+AccountSetupCheckSettings twice -- once for checking the incoming
+settings and once for the outgoing settings.  Otherwise, an exception
+could occur while checking incoming settings, the user could say
+continue (or the user could accept a certificate key), and the
+outgoing settings would not be checked.  This also helps with
+determining if a certificate exception was for the incoming or
+outgoing server, which is needed if the user decides to add the
+certificate to the keystore.
+"
+"48d11fd386243f8113310b8678a5bcca690b9464","2013-11-29 05:33:48+01:00","Properly save and restore instance state in AccountSetupBasics
+"
+"c5c195d243cbe26877d6dcb56cef41cc4ef671ea","2013-11-29 10:49:52+01:00","Add unit tests for TrustManagerFactory
+"
+"8368ba8a11c3c5283494d7517d7d2fc8f52c9ee0","2013-11-29 11:39:04+01:00","Add test to make sure we don't check the wrong certificates
+
+Right now we happily accept every certificate in our local key store as long as
+the hostname matches the certificate DN. So this test fails.
+It's not a huge deal since the user accepted the certificate at one point. But we
+want to do this right.
+"
+"4b57d79acfa72245e8a41ab10e66ec96d6c0ce4b","2013-11-29 13:56:09+01:00","Only check against the certificate stored for a server, not all of them
+"
+"eb136919189d45fbc703768a596f160a7b6e6171","2013-11-30 18:34:57-05:00","Eliminate the need for reflection to access hidden API
+"
+"5f38306a9ae408112e2183701e42b7a281919e6e","2013-12-02 16:42:33+01:00","Add more unit tests for TrustManagerFactory
+"
+"76605f7d8637c147f78e41e9a4b0d8760610a89e","2013-12-02 14:04:40-05:00","Extract code into new LocalKeyStore class
+
+Also, implement the ability to configure an alternate key store
+file location. This permits the running of unit tests without
+clobbering the live key store file.
+
+Also, add a test to confirm that the key store file is being written
+out and reread correctly.
+"
+"40404c3700a4e5bf579e05e9123017d839034f25","2013-12-02 14:07:57-05:00","Move some classes out of com.fsck.k9.mail.store
+
+The classes are just as much related to com.fsck.k9.mail.transport
+as com.fsck.k9.mail.store, so having them in
+com.fsck.k9.mail.store doesn't seem appropriate.
+
+Move LocalKeyStore to com.fsck.k9.security
+
+Move TrustManagerFactory and TrustedSocketFactory to com.fsck.k9.net.ssl
+"
+"8eef43c282909eaf8dd75161a73cd66a5e2fc31e","2013-12-02 14:33:01-05:00","Implement pruning of old certificates from LocalKeyStore
+
+Certificates are deleted whenever server settings are changed
+or an account is deleted.
+"
+"0f39a9d5badf5ee185f11aab2f24189ecd7cb169","2013-12-02 14:37:07-05:00","'upgrade' the LocalKeyStore
+
+Implement an 'upgrade' capability for the key store file,
+and then use it to delete the old file.
+
+The existing certs in the old file are not a security
+risk, but they are now useless because the format of
+their aliases was changed in commit a4440b4.  They now are
+just taking up storage space and memory.
+
+Users will need to re-accept *ALL* certificates that they had
+previously accepted and are still using.  (Actually, this requirement
+was effective with commit 4b57d79a.  Before that, certificates whose
+Subject matched did not require re-accepting.)
+"
+"9e6abf5fa760ec271f3032b33549a063788d1791","2013-12-02 16:30:11-05:00","Merge branch 'cert_validation' of git://github.com/k9mail/k-9.git into cert_validation
+
+Conflicts:
+tests/src/com/fsck/k9/mail/store/TrustManagerFactoryTest.java
+"
+"5bf27c103166569f35b8914e608d9a21b88b0245","2013-12-02 16:50:57-05:00","Move unit test class to match changes in commit 40404c3
+"
+"2a9ac867b922e06e36ae0944fb9b281b85066a4b","2013-12-03 12:56:31+01:00","Remove LocalKeyStore's dependency on Account to reduce coupling
+"
+"765b390eb52e5a530ab1abaa1ff8fa342d78e880","2013-12-03 13:28:48+01:00","Remove LocalKeyStore's dependency on K9.app
+"
+"9333f4f7f4154dd57fb14ae3f29dbd957f65bd97","2013-12-03 19:03:41-05:00","Don't delete certs. on account creation, & assure that only one instance of LocalKeyStore is created.
+"
+"cedcd7e47c51b66e1aa11ac74c4835ef7d5dd22b","2013-12-03 19:20:20-05:00","Eliminate the need to pass a context to LocalKeyStore.getInstance
+
+Instead, have K9.onCreate initialize the location of the key
+store file (similar to what is done with
+BinaryTempFileBody.setTempDirectory).
+
+Also, LocalKeyStore.getInstance has been changed so that it
+no longer needs to be synchronized.
+"
+"448a80e96ad4c9a3d35d8d014343ba64efecb263","2013-12-04 04:46:06+01:00","Merge branch 'cert_validation'
+"
+"3fd7470d68d2ee7954246ebfdb8004a457b30bf6","2013-12-04 04:09:44+01:00","Change the way we harden SSL/TLS sockets
+
+Blacklist a couple of weak ciphers, bring known ones in a defined order and sort unknown
+ciphers at the end. Also re-enable SSLv3 because it's still used a lot.
+"
+"dab8d3807f92dc3a63ff3b6ee09aafe6a7be8a57","2013-12-04 12:10:12-05:00","Change LocalKeyStore error reporting
+
+The error reporting assures an exception is thrown if
+setKeyStoreFile(null) is called without a prior call to
+setKeyStoreLocation(String directory).
+
+Also, fix TrustManagerFactoryTest indentation.
+"
+"9b807c325d514e75835bb778be493e52dfbae3ac","2013-12-05 04:28:28+01:00","Add support for bitcoin URIs
+"
+"85e55e5408095e9e98e3f9fd28b6d812682f0180","2013-12-06 00:39:57+01:00","Add script to fix problematic linebreak/whitespace combinations in strings.xml
+"
+"d0a72b4f174ced80d238df1f2c30a8c2771cd446","2013-12-06 01:30:00+01:00","Replace no-break spaces with regular space characters
+"
+"4cdbe00732b8b666fea67d93493134d34e990205","2013-12-06 02:59:58+01:00","Remove problematic linebreaks from strings files
+"
+"25147754e9482ccfdf1ee99b5ef82fd3a2fa784d","2013-12-06 03:33:28+01:00","Merge branch 'fix_strings'
+"
+"43bf41332d6f16641c7dcd0dde5df6cb26518284","2013-12-06 06:53:04+01:00","Return proper error message when certificate couldn't be verified against global key store
+"
+"8e422f118322e6efbceb326fc2b25504f2e720c0","2013-12-06 06:41:09+01:00","Switch to a certificate that can be verified on the Cloudbees emulator
+"
+"211e9894721cb7c905acd8f2078477284cf658c0","2013-12-11 15:52:30+01:00","Fix dutch translation
+
+Fixes issue 6103
+"
+"c1a77181bcec7737497863744b45f0df55cbb91f","2013-12-12 16:48:30+01:00","Ignore all errors in initialization of TrustedSocketFactory
+
+On Android 2.2 getEnabledProtocols() throws an
+ArrayIndexOutOfBoundsException
+"
+"d4017d24fed27cd01a6241b64e7d92022e281640","2013-12-15 16:54:41+01:00","Fix Ukrainian translation
+
+Fixes issue 6101
+"
+"b06e912b2071b022eac8a26f9df93c75e57366f1","2013-11-11 22:28:20-02:00","Update Brazilian Portuguese translation
+"
+"388ee8e27d4945a1baf766bdef06d224b77c862b","2013-11-29 06:51:51+01:00","Update French translation
+"
+"4fe3ed66928f0fca5ec2e1eaa018c0ed01144f79","2013-12-15 17:27:02+01:00","Merge branch 'translations'
+"
+"18d80c86922c447e20eabd9ad7ff69007fe9bbec","2013-11-11 16:49:25+01:00","Add posteo.de to providers.xml
+
+Add Posteo.de to providers.xml (according to https://autoconfig.thunderbird.net/v1.1/posteo.de and https://autoconfig.posteo.de/mail/config-v1.1.xml)
+"
+"75fc5f0d708f9e5fdeb40b01b9f2846135d6791a","2013-12-01 13:05:20+01:00","Add Azet.sk to providers.xml
+"
+"8832303c7643e995fc9bee16e942e034e5dc441d","2013-12-15 20:50:59+01:00","Merge branch 'providers'
+"
+"78428e287bae6739b0df9fd9ca78ef7c2daaa893","2013-12-08 01:01:40+01:00","Add work-around for Asus Transformer WebView display bug
+"
+"453f10128c0500e7165f22e806fc1ce4e3623dd5","2013-12-15 19:16:10+01:00","Make IMAP autoconfig recognize 'Draft' as drafts folder
+
+Yahoo names it 'Draft' instead of the more common 'Drafts'.
+"
+"38e3aa7db110bfaefd19d5df3526beb5e33cc64e","2013-12-16 17:43:45+01:00","Set minSdkVersion to 15
+
+Technically, the code still supports SDK 8. But we don't want users to get stuck
+on a 4.9xx version when we do remove compatibility with old Android versions.
+"
+"79a5bc9c7e0a3eaa29f593eb413d015062297730","2013-12-17 18:45:57+01:00","Revert 'Make IMAP autoconfig recognize 'Draft' as drafts folder'
+
+This reverts commit 453f10128c0500e7165f22e806fc1ce4e3623dd5.
+See https://github.com/k9mail/k-9/pull/429
+"
+"aaa1bdd1159c2215b4c006a223602be3010b01ed","2013-12-18 00:21:18+01:00","Fix ClassCastException
+"
+"2b32f7a6dbc6eecc2e803db976be93547d18d1cc","2013-12-22 23:20:39+01:00","Update strings.xml
+
+Translation error (ES): L856 'inificada' --> 'unificada'
+"
+"9872bdb3aed4be3f795e03e5c9a640d7277834a3","2013-12-23 11:21:10+01:00","Update strings.xml
+
+Danish translation added. New to Github so hopefully I did the right thing :)
+"
+"db1ebe54811185ba6dea02abf974c44dbcde84a7","2013-12-24 09:58:34+01:00","Spelling mistakes
+
+bezittelijk voornaamwoord en d/t-fout voltooid deelwoord 'verversen'
+"
+"3204643e264bf0d6206000d603461b52a638bfaa","2013-12-24 10:10:05+01:00","Add missing translations
+
+colorizing missing contacts, visible refile actions, attachment dialog
+"
+"019555587beba0175be35378569c24f47f70958d","2013-12-24 01:54:05-08:00","Merge pull request #433 from raboof/patch-1
+
+Dutch translation update.
+"
+"87689120a5722a7a0dc73066e7d429d9acb75832","2013-12-27 15:51:06+01:00","Consistent Dutch translation for 'attachment'
+"
+"c55a216433ab3f3ab6df9eeb3c3480670d12b324","2013-12-27 10:42:39-08:00","Merge pull request #435 from raboof/patch-2
+
+Consistent Dutch translation for 'attachment'
+"
+"bb852bce8a35dfbb897e751290bd3709e1be2621","2013-12-27 16:47:25-08:00","Merge pull request #431 from miplopez/patch-1
+
+Update es strings.xml
+"
+"043043d562ce643458a07be026cf609188ae180c","2013-12-27 16:48:51-08:00","Merge pull request #432 from Mittaa/patch-1
+
+Update da strings.xml
+"
+"ce77a4e48a7110b58188fdad5d3ffe84ee24f074","2013-10-19 18:01:12-04:00","Update .gitignore
+
+Ignore auto-generated files that result from
+'android update lib-project' (which is invoked within 'ant debug').
+
+Some of the plugins (library projects) already have their own
+.gitignore file which includes the exclusions made here.  This
+commit assures that the exclusions are applied to *all* plugins,
+regardless.
+
+This, of course, has no effect on files that have already been
+intentionally checked into the git repository (such as the main
+build.xml).
+"
+"84f679ebc2980fae9d330db11afd1e98b2323fae","2013-10-23 10:41:06-04:00","Remove ant.properties
+
+The properties currently therein are duplicates of those in
+project.properties.
+
+The build.xml file first loads properties from ant.properties, then from
+project.properties, so ant.properties is redundant.
+
+The file's existance was a maintenance issue.  The past couple times
+when the property 'target' was updated in project.properties, the
+property was overlooked in ant.properties, so ant builds would fail when
+Eclipse builds would succeed.
+"
+"88010be3165107c5b22d7cb8549ff9b5f797ea6e","2013-10-23 17:50:06-04:00","Account preferences clean-up
+
+There were a number of preferences that were not being removed
+from the preferences DB when an account was deleted, so they
+would remain there forever.
+
+There were a few attempts to remove preference keys from the DB where
+the keys were obsolete and not in use for some time.
+
+Certain obsolete preferences were not modified:
+mUuid + '.name'
+mUuid + '.email'
+mUuid + '.signature'
+mUuid + '.signatureUse'
+These were in use before implementing multiple identities, and are still used
+as a fallback for old accounts without multiple identities configured.
+"
+"0de72c31b4189d77f1ef3a0f76f304f36795a00b","2013-10-10 16:51:39-04:00","Use a locale-specific date in the header of a quoted message
+
+Also, include the sent-date in the header when using
+the 'prefix' quote style.  'Be like mutt' (and gmail,
+and thunderbird)
+
+Also, the quoteOriginalHtmlMessage method was using the mSourceMessage
+field in various places when it should be using its originalMessage
+parameter.
+
+Related issues:  2249, 3456
+"
+"03925fb409ed9f80eb22e752c08e8cead0673729","2013-12-17 13:44:25-05:00","Fix POP3 STLS command
+
+The server response needed to be retrieved.
+
+Thanks to Paul Durrant:
+https://groups.google.com/d/msg/k-9-mail/0XHNNMR1TQ4/yExsr7nvJQwJ
+"
+"52d046023715629a059d876867129f1b8f0168e9","2013-12-29 19:43:01-05:00","Fix typo
+"
+"9ca4585778a0b9f499eaf171ec763bf2082ddf89","2014-01-04 01:40:56+01:00","Update build.gradle to work with latest Android Studio
+"
+"06ec8520906fa503d8da9a70519bf262b0067ab6","2014-01-04 01:44:31+01:00","Rename plurals to make Transifex happy
+"
+"8f2e88d42b3afb86a63980a67ceeae0d882208c3","2014-01-04 01:52:09+01:00","Add Transifex config
+"
+"94cafccec2988a2b787d8ce54a7e467bef2801ed","2013-12-20 14:02:43+01:00","Update Slovak translation
+"
+"16b0797dc1abb2c431a8bfe999c5545cb384b8d3","2013-12-29 10:42:57+01:00","Update Danish translations
+"
+"63e48f7e291f4972c7d7978c6ccb9500a8a3f367","2014-01-01 21:04:33+03:00","Update Russian translation
+"
+"2a092deb191dafe2ca651ef38a4d3f8e1c4b41a4","2014-01-05 01:08:18+01:00","Merge branch 'translations'
+"
+"54faf52f169a6bff9ed61fbff8988039ba246d94","2014-01-05 03:51:21+01:00","Fix Danish translation
+"
+"94296ec7dfd11617b7331fc400101924e40bf32c","2014-01-05 04:16:34+01:00","Revert 'Add work-around for Asus Transformer WebView display bug'
+
+This reverts commit 78428e287bae6739b0df9fd9ca78ef7c2daaa893.
+"
+"4955e34886662dc583f4e95455e1312b4954fc15","2014-01-05 04:30:28+01:00","Merge pull request #437 from zjw/misc_clean_up
+"
+"e91e3f4e7d4623a7777be0b9578983dda6ff0883","2014-01-09 12:33:43-05:00","Eliminate needless use of reflection
+
+The minSdkVersion was recently increased from 8 to 15.
+
+WebSettings.setBlockNetworkLoads has been publicly available
+since API level 8 (Froyo).
+
+StrictMode has been publicly available since API level 9
+(Gingerbread).
+"
+"168ac641e064ae572095d6e1a2d834859f1b1e9c","2013-12-20 13:24:47+01:00","Add provider Outlook.sk
+
+..and fix settings for Azet.sk
+"
+"ecb4ed41ba72803213f41a25d1359a156ebe0877","2014-01-12 23:21:51+00:00","Update providers.xml for German providers
+
+Sources:
+http://kundenservice.freenet.de/hilfe/mail4/email-programme/einstellungen-generell/generelle-einstellungen/index.html
+http://hilfe.telekom.de/hsp/cms/content/HSP/de/3378/FAQ/theme-45858870/Internet/theme-45858718/Dienste/theme-45858716/E-Mail/theme-305642824/Allgemein/theme-57360865/IMAP/faq-45858521
+https://hilfe.web.de/e-mail/imap.html
+https://hilfe.gmx.net/mailprogramme/imap.html
+"
+"094156cc2a3cadd58f3c965c0e32a18fced810f3","2014-01-15 15:30:59-05:00","Fix issue 6064: Inline images don't display on KitKat
+
+Eliminate the invocation of
+WebSettings.setBlockNetworkImage(boolean flag),
+thus maintaining the the default setting of 'false'.
+
+On Android versions prior to KitKat, this setting has no
+effect on inline image attachments loaded with content:
+URIs.  Such images would load regardless.
+
+With KitKat, this setting does have an effect -- a
+setting of 'true' will block image attachments loaded
+with content: URIs.
+
+By removing this call, K-9 Mail behaves the same on KitKat
+as on earlier Android versions, and the behavior on earlier
+versions is unchanged.
+"
+"4214c7290ee25f1bfacc7bf5e1bb7de7c9806861","2014-01-20 21:39:41-05:00","first pass at a changelog for 4.900
+"
+"5e7a9a848931a30d5ee70c8d712205002b9938a2","2014-01-20 21:40:36-05:00","bump version to 4.900
+"
+"d7b987f0725fed35d3babe7ddec1ea2861e24a06","2014-01-20 21:47:37-05:00","Bumped manifest to 4.900
+"
+"6c7bac585191b87e3a48cd01bfe37e71762da7d9","2014-01-20 21:47:48-05:00","Bumped manifest to 4.900
+"
+"3349c51bcd0f13619250ed802f8ffce6b9b5f037","2014-01-20 21:49:03-05:00","Bumped manifest to 4.900
+"

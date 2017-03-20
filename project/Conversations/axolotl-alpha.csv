@@ -1,0 +1,183 @@
+"commit id","commit date","commit message"
+"1c86098f3b4360eae76f39359281dbdf88321d9f","2015-07-03 13:09:05+02:00","Merge branch 'master' into development
+"
+"d30fb6f0a15fe574069694732bb23c339f0c30d1","2015-07-03 21:32:46+02:00","avoid very rare npe
+"
+"2fbeb0bbb2db84a54a67f91e45602c55bfd92ea4","2015-07-03 22:08:23+02:00","make sure unread count is initialized as 0. fixes #1270
+"
+"148955a7136b65b6a070706e5cf561db68fa6616","2015-07-04 00:05:28+02:00","version bump to 1.4.7
+"
+"bef731a3c8ec2d4cefb70e6a7fe4232825a1d876","2015-07-05 11:59:38+02:00","refactored sendMessage and merged with resendMessage
+"
+"f16b77d38202e87d919ad2daa31aad99df563bec","2015-05-29 11:17:26+02:00","CryptoNext persistance layer mockup
+
+Initial sketch of the peripheral storage infrastructure for the new
+axolotl-based encryption scheme.
+"
+"0917a75705b9b42dd83be7750428dedf5e228b23","2015-05-29 11:18:25+02:00","CryptoNext Menu entries added
+"
+"6805abbef028fca7ca334928f8697834dba12b41","2015-06-25 16:56:34+02:00","Reworked axolotl protocol layer
+
+Numerous fixes
+"
+"61f18d4dfc6afe2d9fb8f6cdc3b2f4cf410b5259","2015-06-25 16:58:24+02:00","Added PEP and message protocol layers
+
+Can now fetch/retrieve from PEP, as well as encode/decode messages
+"
+"e8e126f2ce815165c27d27331690c488e48d0231","2015-06-25 17:01:42+02:00","Added axolotl activation code to UI
+"
+"0423852cb8a3c22978aed3c5b88d18de5797010e","2015-06-26 15:41:02+02:00","Reformat code to use tabs
+
+This really sucks to do it like this. Sorry. :(
+"
+"71c0a75ec9ace910e63707e95863a86742b553bf","2015-06-29 13:40:56+02:00","DatabaseBackend bugfixes
+
+Don't leak cursors, initially create tables
+"
+"046a2d6045ca7c689761dec2c252778a9490b4fa","2015-06-29 13:53:39+02:00","Save IdentityKeys in database
+"
+"287ce131d8e5bdd0cf38d87ca50672d4f1f957f3","2015-06-29 13:55:45+02:00","Formatting fixes
+"
+"ba9520729f2588e09c25bc4deed2906ab9a56310","2015-06-29 14:18:11+02:00","Migrate to new PEP layout
+
+Merge prekeys into bundle node
+"
+"ae75c571dfd9c91fe24587c981af38e71c441b92","2015-06-29 14:19:17+02:00","Use bareJid for own session retrieval
+"
+"a58d5e8ce3cf15e739b663ba79c75a0364969867","2015-06-29 14:22:26+02:00","Fetch bundles on-demand, encrypt in background
+
+Bundles are now fetched on demand when a session needs to be
+established. This should lessen the chance of changes to the bundles
+occuring before they're used, as well as lessen the load of fetching
+bundles.
+
+Also, the message encryption is now done in a background thread, as this
+can be somewhat costly if many sessions are present. This is probably
+not going to be an issue in real use, but it's good practice anyway.
+"
+"ab2f85d2e82f86b7c3eaeb3c8c784e9775ec6efa","2015-06-29 14:25:23+02:00","Tag messages with originating session
+
+This can be used later in order to display trust status of messages, as
+well as for potential resending of messages in case of preKey conflicts.
+"
+"c1116b606635f8ee714de8f897c65758c8f0b4ef","2015-06-29 14:30:23+02:00","When receiving, add mock session if none exists
+
+We need a session object in order to build a session from a
+PreKeyWhisperMessage, so add an empty one when none exists on receiving
+a message.
+
+Warning: this will break right now if the session can not be constructed
+from the received message.There will be an invalid session which will
+break if we try to send using it.
+"
+"7680a241802c6bf412fa8fdcbb661144ad3c8a33","2015-06-29 14:33:43+02:00","Formatting fixes
+"
+"9206a49b7963837b39573b94fc7796918174189a","2015-07-03 13:20:27+02:00","Rework PEP content verification
+
+Now checks which part(s) are out of sync w/ local storage, and updates
+only those, rather than assuming the entire node corrupt and
+overwriting it all (especially relevant for preKey list)
+"
+"c5596b34bce6d8c2cb22a8aefaca6cbedcb80bb2","2015-07-03 13:27:35+02:00","Properly track message sender
+
+Previously, the sender was assumed to be the conversation counterpart.
+This broke carboned own-device messages. We now track the sender
+properly, and also set the status (sent by one of the own devices vs
+received from the counterpart) accordingly.
+"
+"12fc24dd4205bb2ff67ff9e2e2b3400cd894a370","2015-07-03 13:31:14+02:00","Fix asynchronous axolotl message sending
+
+XmppConnectionService.sendMessage() now dispatches messages to the
+AxolotlService, where they only are prepared for sending and cached.
+AxolotlService now triggers a XmppConnectionService.resendMessage(),
+which then handles sending the cached message packet.
+
+This transparently fixes, e.g., handling of messages sent while we are
+offline.
+"
+"72619de889a80f2d3b17f8ddbc30c2f60e6068e0","2015-07-03 13:34:34+02:00","Refresh PEP on session establish
+
+We now track preKeys used to establish incoming sessions with us. On
+each new established session, we remove the used prekey from PEP. We
+have to do this because libaxolotl-java internally clears the used
+preKey from its storage, so we will not be able to establish any future
+sessions using that key.
+"
+"ef1429c9a6983c101da41a277bd9353374dc89e7","2015-07-05 18:10:18+02:00","show contacts name in non anonymous mucs. fixes #1213
+"
+"4cc4e81b8e127c65a4932b0262255d71f2ec264f","2015-07-05 22:10:43+02:00","Trust all IdentityKeys
+
+The trust-on-first-use policy leads to problems when receiving messages
+from two different devices of a contact before sending a message to them
+(as their IdentityKeys will not have been added yet). Since session
+trust will be managed externally anyway, this change is not a security
+problem, and will allow us to decrypt messages from yet-untrusted
+sessions.
+"
+"835584ae3b58fbeab07516e2ce609efe9ad8bec8","2015-07-05 22:53:34+02:00","Return empty set on invalid PEP devicelist
+"
+"3b8dfafecded2a6f16c87ff9b7ff5cf3e1d5d6a1","2015-07-05 22:54:28+02:00","Only cache session if successfully established
+
+When receiving a message, only remember the XmppAxolotlSession wrapper
+if the prospective session was actually established. This prevents us
+from erroneously adding empty sessions that are never established using
+received PreKeyWhisperMessages, which would lead to errors if we try to
+use them for sending.
+"
+"4b0279a6efbc2b03fc818d4cd69f214ca5393de2","2015-07-07 19:27:12+02:00","Fix displaying Contact IdentityKeys
+
+Migrate ContactDetailsActivity to use new SQL IdentityKeys storage,
+remove dead code from Contact class.
+"
+"30403a70f25628beb7fce5c5193c0b5f61d31ebd","2015-07-07 19:28:35+02:00","Adapt prettifyFingerprint() to axolotl FP sizes
+"
+"7cdf2a99465b765027f69ac98302dfaca582d05b","2015-07-07 19:30:08+02:00","Refactor axolotl database recreation
+"
+"9d780a382a83d2fd732ff1e26b6ce31e3484ce77","2015-07-07 19:32:52+02:00","Fix devicelist update handling
+
+No longer store own device ID (so that we don't encrypt messages for
+ourselves), verify that own device ID is present in update list
+(otherwise republish), reflect update in UI.
+"
+"d5b3557157ea81397c97d3322bf97fd95a6c1b59","2015-07-07 19:36:22+02:00","Add basic PEP managemend UI to EditAccountActivity
+
+EditAccountActivity now show own fingerprint, and gives an option to
+regenerate local keying material (and wipe all sessions associated with
+the old keys in the process).
+
+It also now displays a list of other own devices, and gives an option to
+remove all but the current device.
+"
+"4f6ca6fb63f56d9db6499ca3c94c358b64e34035","2015-07-08 17:44:24+02:00","Clean up logging
+
+Add a fixed prefix to axolotl-related log messages, set log levels
+sensibly.
+"
+"9e3419722bd9a79a942c632582817b466cedd19d","2015-07-08 17:45:37+02:00","Make some fields final
+"
+"6b0d2865187931b233357f8858e34e7e9dd36be8","2015-07-08 17:46:03+02:00","Clean up unused constant
+"
+"121919def1d75520d25a3e7d4888a521da5b0a77","2015-07-08 18:13:49+02:00","Use full int range for device IDs
+"
+"2f487c794778e305ff3a1adfe010f3234f186f2a","2015-07-08 18:14:28+02:00","Display axolotl chat message hint
+"
+"34f90f2eb7c4a641994f1cb4bbc32771364d4f79","2015-07-08 18:16:05+02:00","Merge branch 'development' into CryptoNextAlpha
+
+* development:
+show contacts name in non anonymous mucs. fixes #1213
+"
+"ce4b86e6d45254fc2a590a3cf898addcbe3a8274","2015-07-09 14:15:59+02:00","Fix getSubDeviceSessions SQL query
+"
+"b1e719bd8b88bf488d845d859faed2e0638ca1f1","2015-07-09 14:18:54+02:00","Postpone initAccountService until roster loaded
+
+The AxolotlService depends on the roster being loaded when it is
+initialized so that it can fill its in-memory SessionMap.
+"
+"bdc9f9a44f337ab595a3570833dc6a0558df904c","2015-07-09 14:23:17+02:00","Overhauled Message tagging
+
+Messages are now tagged with the IdentityKey fingerprint of the
+originating session. IdentityKeys have one of three trust states:
+undecided (default), trusted, and untrusted/not yet trusted.
+"
+"2afb36d89144b692bc7cd2ce3682f9b2b8842854","2015-07-09 14:26:19+02:00","Display trust status in ContactDetailsActivity
+"

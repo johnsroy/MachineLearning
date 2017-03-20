@@ -1,0 +1,103 @@
+"commit id","commit date","commit message"
+"203716c1ec12f5d1711a53a4056756d4489e61e5","2015-01-26 23:37:02+01:00","make-release-build: normalize across projects
+"
+"9783b6c8ccee308d1484a47a3bb07a0c2bced52f","2015-01-27 10:36:58+01:00","lildebi-common: fix syntax error in mount commands (thanks @jkk88)
+
+closes #144 https://github.com/guardianproject/lildebi/issues/144
+"
+"2241b037c2d25fd1be7791d9ec4c9fd25c3945cf","2015-01-27 07:09:03-06:00","Wrap code blocks properly for easier reading
+"
+"eddf14898a2bdfa4c05c638022b7f5b9776c04c0","2015-01-29 21:51:40-06:00","Wrap additional code blocks
+"
+"f5933ba66ba8ff0326f7ca8e21b67ef497304bb9","2015-01-29 21:53:57-06:00","Remove an unnecessary space
+"
+"2cd2ac1be229501d9eb2e71ccc28b0c31c5a1299","2015-02-07 02:49:22+05:30","Adding libsuperuser as submodule
+"
+"fcab1e1c8c10c3f425ff7ab29d8b1a449b5016fa","2015-02-07 16:44:27+05:30","start using libsuperuser to do SU tasks
+
+libsuperuser library is used to check the SU availability
+Fixes #148
+"
+"be90fcba49c0bc2a67764acfefa7826138080629","2015-02-09 12:55:15+01:00","setup-ant: update to support libsuperuser git submodule
+
+closes #152 https://github.com/guardianproject/lildebi/pull/152
+"
+"f977e1b1e7bd605b2739512e712009e33d38a6ea","2015-02-09 13:04:35+01:00","do not include non-word characters in project/APK name
+
+i.e. LilDebi.apk instead of 'Lil' Debi.apk'
+"
+"e431800d123eab924471583cfc6413118cc43406","2015-01-30 16:37:25+01:00","Add gnupg v1.4.18 via STABLE-BRANCH-1-4 branch to submodules
+
+refs https://github.com/eighthave/lildebi/pull/2
+"
+"e6f3eab0dd9323b4b44acbd566ff5b3e54522d1a","2015-01-30 16:50:47+01:00","build gpgv v1.4.18 from source, statically to get around PIE vs non-PIE
+
+If an executable is built fully statically, with no dynamic linking at all,
+then the same binary will work on both PIE systems (android-21 and above),
+and systems where PIE does not work (older than android-16).
+
+refs #145 https://github.com/guardianproject/lildebi/issues/145
+closes https://github.com/eighthave/lildebi/pull/2
+"
+"aa889d6bb94b788df487b4575e461a56bfabcd04","2015-01-30 16:57:18+01:00","busybox: built entirely static binary to get around PIE requirement
+
+PIE is only required if an executable links to shared libraries.  This
+should be the final piece needed to support Gingerbread (10/2.3.3) through
+Lollipop (21/5.0).
+
+closes #145 https://github.com/guardianproject/lildebi/issues/145
+"
+"35da511f38ced1b1547a14a20971eb5c409e40ed","2015-02-02 10:30:56+01:00","switch to new NDK default compiler: gcc 4.8
+"
+"f960267edd509e4670e8230552871a749d13d91d","2015-02-02 10:31:55+01:00","bump targetSdkVersion to 21 now that it should work
+"
+"927b96521255e34cf226065fe1524caf43ac5a72","2015-02-10 10:54:44+01:00","support mounts2sd mountpoint in Debian (closes #151)
+
+https://github.com/SpazeDog/mounts2sd
+
+closes https://github.com/guardianproject/lildebi/issues/151
+"
+"ad43d71c11f00fb060f35808712d8cfb662911e7","2015-02-10 11:08:09+01:00","add `env` to built-in busybox to allow for more flexible scripting
+
+#131 https://github.com/guardianproject/lildebi/issues/131
+
+might be useful for working with LD_PRELOAD to support 5.0/Lollipop
+#145 https://github.com/guardianproject/lildebi/issues/145
+"
+"ee90c0e211e6413ac93095ce7195d360040b2dce","2015-02-10 11:10:19+01:00","bump to version code 5400 name 0.5.5
+"
+"989edcf150f77e5f7b2b13729f4822f549680f17","2015-02-10 11:17:47+01:00","make-release-build: APK names should only have letters and numbers
+
+This was trying to use 'Lil' Debi' in the APK name, but that would just
+cause trouble, so striping the special chars and spaces out.
+"
+"89e6223351665099409b2c20896b44d24904c0c6","2015-02-10 14:33:15+01:00","remove '-release' from release APK file name to keep it short and simple
+"
+"0f6653b3796079fa6af7e12c8a0a3d724716cc1c","2015-02-17 13:50:42+01:00","make-release-build: build on non-release commits, and mark the APK filename
+
+Instead of refusing to build anything but a release tag, this changes the
+behavior to issue a warning, but go ahead and make the build anyway.  Then
+the resulting APK file is named according to `git describe`, so it is
+clearly marked as a non-release-build.
+"
+"2b0368eb9e39c3faf4fc7674fed6b057d55ffadd","2015-02-17 13:53:01+01:00","do not fail if `make clean` cannot run in external/gnupg/
+
+gnupg uses an autotools build, so there might not be a Makefile there, which
+makes `make clean` fail.  When that happens, the overall `make clean`
+process should continue on and not fail.
+"
+"58c0a149121489f22b554b176466d94151dd9014","2015-02-18 13:49:54+01:00","use HTTPS url for git submodules so they work for everyone
+
+In order to use the ssh URL (i.e. git@github.com) the user must have a
+github account setup.  It is possible to anonymously access HTTPS github
+URLs, and all submodules should use URLs that can be accessed by anyone
+without special setup.
+
+closes https://github.com/guardianproject/lildebi/issues/160
+"
+"334e732825db22ab09ccf47297392014a4674b74","2015-03-28 16:26:31-07:00","stop-debian.sh simplified
+"
+"c15a9aa1947004a58bcda29e048bc63bb77000a1","2015-07-01 12:57:37+05:30","Merge pull request #167 from CameronNemo/stop-debian-cleanup
+
+stop-debian.sh simplified
+"

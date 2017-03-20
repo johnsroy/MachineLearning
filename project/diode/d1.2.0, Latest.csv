@@ -1,0 +1,86 @@
+"commit id","commit date","commit message"
+"c6c87dff771f4858ff6b33dbe1edac622d110cef","2015-07-12 23:20:28-04:00","Adds the 'Go to thread' option to comments on users' profiles.
+
+Also makes it so to 'Go to comment' goes to the comment with context.
+"
+"f9df01a0d9c903a64fe7a3bba90cf6c00aba34fd","2015-07-12 23:25:56-04:00","Updating gitignore file to ignore my IntelliJ files.
+"
+"489d2a9a2cce874c9d4c8c6e486eef50d9140c92","2015-07-18 15:57:43-04:00","Added logic for viewing a comment's context
+
+Also added a simple UI element to display when you are viewing a single
+comment's context.
+
+A light-theme element needs to be added since the orange is kinda ugly
+on the white background.
+
+Also, when the 'Focus Parent' item is selected on a top-level comment,
+it will focus the OP.
+"
+"6c6931245d9874130aee6d10eccf9a4ebae02e5f","2015-07-19 09:29:34-07:00","relabel 'Go to thread' to better match reddit web ui
+"
+"84ed0898c5b2fd7fd4efd8166d126cbd16df77ed","2015-07-19 19:22:00-04:00","If the user chooses to load context for a comment...
+
+Make sure this information is stored, so that when the comments page is
+reloaded, it will reload with the proper context, rather than reloading
+the whole thread.
+
+Say you reply to a comment when in the context view, the app will now
+keep the context view, rather than going back to the full thread.
+
+Also fixed an app crash when the user clicks the 'load more comments'
+button quickly. (Click one element more than once, or click two very
+quickly)
+
+Also added logic to make it so the app won't attempt to load a [deleted]
+user's profile.
+"
+"8b45e592465cdea38286cf43923728c99c3a9c74","2015-07-19 20:10:30-04:00","Fixed issue with markdown not getting parsed correctly in the context view.
+
+Actually, the markdown WAS getting parsed properly, but not updated back
+in the list properly.
+"
+"9bb4c4b19ac46213f316aabec58281a36b307458","2015-07-21 22:54:11-04:00","Added check to make sure logging is enabled before logging.
+"
+"02bf5bd83b796c10d5ecb744be5abb57d5136d71","2015-07-23 22:57:57-04:00","Added the ability to get to links from the Inbox and Profile listings.
+
+Also, Thing contents are not parsed until the user clicks on them.
+(There's no current reason to parse the comments for URLs if the user
+may not ever click on them -- doing so just slowed things down,
+especially in a thread with a lot of links in the comments.)
+
+Added a common utility function in Common to display the 'Links' dialog.
+(It no longer adds an onclick listener to a button argument)
+
+Removed some unused variables from the modified files.
+"
+"abba1dfa6cfcb4da129a5447a617585d6b6a9d88","2015-07-23 23:13:25-04:00","Add check to the SavedCommentsActivity prior to parsing for URLs.
+"
+"1ed904b9afc82849792e1af0da0a68697f8b2783","2015-07-26 21:51:44-04:00","Adds support for the 'distinguished' field
+
+Now comments that are 'distinguished' (moderator or admin) take
+precedence over the submitter's style. This will now also show in
+threads where the submitter has been distinguished. (This required
+creating a separate field for the submitter's name.)
+
+This works in the comments view, and user's profile view. The inbox is
+designed differently, so it doesn't work there. Maybe in the future?
+
+Also changed the 'when' strings from inline-constants to be localizable
+strings.
+"
+"dcb070fba42474601fdcb0617fbb4ed579c00cf9","2015-07-27 23:46:18-04:00","Use SpannableStringBuilder rather than two separate view objects
+
+Didn't know this existed until I saw some other code using it, I prefer
+this over having a separate TextView just to hold the spanned text.
+"
+"bc60967b885f408c4115aac5c1ec02b1dac6c070","2015-07-28 23:37:13-04:00","Loads thumbnails on demand (rather than all-at-once)
+
+Also added the 'ViewHolder' pattern to the ThreadsListActivity and
+CommentsListActivity.  This will cache the items in a view, so that when
+a view is recycled, the code doesn't have to find all the elements
+again.
+
+Also addressed some Android Lint findings.
+"
+"1a5e30f3949e4f7e3c211a8d1712f42311492f72","2015-08-22 08:23:37-07:00","version info for 1.2.0
+"

@@ -1,0 +1,492 @@
+"commit id","commit date","commit message"
+"874bf5ca2cafb254449aea583975f1ecc3edab10","2014-11-12 21:13:02+00:00","Fail better in absence of Share apps; simplify if no Bluetooth.
+"
+"0351613f3ebbdfaed064e9718126209fd1d5e0b2","2014-11-16 15:48:34+00:00","Fix #235: add completion popup in Black Box.
+"
+"78f89f7c2a6367f97cfe5ac0df5d91052d45bcae","2014-11-16 17:01:09+00:00","Nothing to Beam during game generation.
+"
+"d7a4c52937ddacc5c81049f0bfdf916df757277c","2014-11-26 19:27:35+00:00","Fix a decoding bug in Solo block-structure descriptions.
+
+Due to a copy-and-paste error, I was accidentally treating 'y' as the
+special-case character which puts no 1 bit after the run of 0s, which
+should have been 'z'. Game id 9jk#12345-5994 failed an assertion as a
+result (because it generates a y which was accidentally treated as
+special).
+"
+"078d3c0a6d6ace0f524dea0c3e03d5fa9ba361c0","2014-11-26 21:25:02+00:00","Remove an inappropriate assertion in validation context.
+
+spec_to_dsf() should not report invalid input by failing an assertion,
+because one of the contexts it's called from is validate_desc(), in
+which the whole point is to present a useful error message to the user
+before getting to the point where an assertion might go off at all.
+
+Game description 5j:c1_5o4_3c,c___aba___cca_a_a_aca now fails
+validation cleanly, where previously it would trigger this bug.
+"
+"f781937d0dd435fc24e13c117d38e530b4351d06","2014-11-29 10:23:12+00:00","Change the policy for parsing underspecified params strings.
+
+In conversation with a user last week, it emerged that the command
+'solo --generate 1 9jk#12345' was giving a different game from the one
+it gave when I ran it, and it turns out that this is because I've set
+SOLO_DEFAULT=7jxdi in my environment to make GUI Solo automatically
+start up in my (current) favourite mode. And the difficulty setting
+from that parameter string was being reused to fill in the unspecified
+difficulty slot in the '9jk', so that the same params string was being
+interpreted differently by our two machines.
+
+This is certainly wrong - the whole point of random seed strings like
+that is to be interpreted the same way everywhere. But it's a side
+effect of something I did do on purpose, for people switching back and
+forth between playing randomly generated games and playing a game id
+pasted (or typed) in from elsewhere. So this fix, with a giant comment
+explaining it, I _think_ should retain the behaviour I originally
+wanted while getting rid of the behaviour I didn't.
+"
+"69ab4b2205cd41188c9aa5f5878f876c739c4800","2014-11-29 10:24:05+00:00","Fix a GINT_TO_POINTER that was back to front.
+
+Spotted by clang, which I just tried building this codebase with out
+of curiosity.
+"
+"2fe0667f519a825e6c028b4365312a144b343d62","2014-11-29 10:29:29+00:00","Use the compile flag -std=c89 in place of -ansi.
+
+This is probably slightly nicer anyway, in that it specifies exactly
+_which_ ANSI standard I'm talking about; but the main reason for
+making the change is that it means I can now build the Unix puzzles
+with clang.
+
+It's not that clang doesn't _support_ -ansi; it accepts it just fine
+on any command line that's actually doing some compiling. But on a
+link-only command line, i.e. with only object files as input and no
+sources, clang emits the annoying warning 'argument unused during
+compilation: '-ansi', and if you have -Werror as well then that
+warning becomes an error.
+
+You'd think there would be some makefile flags variable I could
+nonetheless put -ansi in, but apparently not - automake passes CFLAGS
+to both compiles and to link-only commands.
+
+And you'd also think that surely I should be able to work around this
+by having my configure.ac do a test link and stop trying to use that
+option if it didn't work - especially since configure.ac already tests
+a bunch of compile options to make sure they don't object to system
+header files, after the time I found that a GTK header was
+incompatible with my usual -Werror. But in fact, if I change that
+AC_COMPILE_IFELSE to an AC_LINK_IFELSE, autoconf generates a single
+compile-and-link command line, and hence does not expose the problem
+using -ansi on link-only command lines.
+
+Fortunately, -std=c89 does not generate this same warning from clang.
+I don't know why not - surely the two options are more or less
+equivalent - but it makes my build work again for the moment.
+"
+"f806528a309d62f836d39ad9cc703e7592c9f68b","2014-11-29 10:39:00+00:00","Remove another erroneous GINT_TO_POINTER.
+
+This one shouldn't have been there at all - it had a pointer argument
+already, not an int.
+"
+"0053230ebf3e9b591fb6f2a11475bd488feae900","2014-11-29 13:07:00+00:00","Remove some log spam.
+"
+"a12f5980868990c3aba702623a0916bb72e95520","2014-11-29 13:37:15+00:00","Simplify game start flow, part 1.
+
+In particular, remove calls from C back to Java near the end of the process, see #228.
+"
+"5b367167af9f7eaa2c06dba4f6d6b69e1f37d859","2014-11-30 17:00:45+00:00","Fix two compile warnings in emcc.c.
+
+Reported by a user, who didn't say what version of Emscripten they
+were using but it must not be the same as mine.
+"
+"d12d173bc99bae83861bca994b23c51a553a584c","2014-12-10 21:24:56+00:00","Update for Android Studio 1.0.
+"
+"822243de1bc1fc6d26b2f2d0f45616c8f6183058","2014-12-18 09:48:02+00:00","Permit selecting a diagonal of squares at once in Group.
+
+When filling in a cyclic subgroup or one of its cosets, I've often
+found I wanted to set an entire diagonal to the same thing at once
+(usually SW-NE, but the other way round too in non-abelian groups),
+and it's a pain having to do that to each square individually.
+Restricting multiple selection to diagonals makes it easy to get the
+selection I really wanted.
+"
+"546fbe6774ce4c8b630f33a341963a77e1e151e4","2014-12-28 12:19:50+00:00","Error-highlight loops in Net.
+
+Loops are detected using the same dsf technique I ended up using in
+Slant, and highlighted in red (whether or not the connected component
+they belong to is currently powered).
+
+Should make life a little bit easier for someone who's filled in most
+of the grid to a nice uniform cyan and finds one piece left over - now
+they have some idea where to start looking for their mistake.
+
+We also take care not to generate any loops in the starting position,
+on grounds of politeness (don't accuse the user of a mistake before
+they've even had a chance to make one).
+
+Loop detection does not contribute to the code that decides whether
+the puzzle is complete, because there's no need - if all squares are
+connected together, then there can't be any loops anyway, by graph
+theory.
+"
+"79874f18e41cbbe796c0252dc96a85e150af1a15","2014-12-29 10:11:47+00:00","Fix homology bug (!) in Net's loop highlighter.
+
+I unthinkingly transplanted into Net the same loop-finding algorithm
+used in Loopy and Slant, which identifies the connected components
+into which the grid lines divide the plane, and marks an edge as part
+of a loop iff it separates two different components. This works fine
+for a planar graph, but in Net's wrapping mode, it's possible to have
+loops which do not have this property - e.g. a loop can go off the top
+of the grid and back on the bottom to join up with itself, and then
+it _doesn't_ disconnect the surface into two components.
+
+(In principle, this kind of problem can turn up in any topological
+space with a non-trivial H_1 homology group, which is why it fails on
+the torus to which Net's wrapping mode corresponds, but not on the
+plane or sphere. I think it's forgivable that I hadn't expected
+homology to be the cause of any bug in practical code ever!)
+
+Fixed by inventing yet another dsf-based loop-finding algorithm, this
+one based on tracing round the outside of connected components of the
+graph. It's still not _fully_ general, in that this one still depends
+on the graph being drawn on an orientable surface (so it'll need
+another rewrite if I ever add Mobius strip or Klein bottle modes for
+Net...), but it's fairly simple to state and implement, and detects
+loops that the previous implementation did not, such as the one in the
+starting position of 3x3w:1a39ac6a8 .
+"
+"8f8333a3516bbbd266d66e72f646741fc258ff02","2015-01-04 18:03:36+00:00","Fix puzzle window resize behaviour on Unity.
+
+Unity hijacks the menu bar and prevents it from appearing in the main
+puzzle window. And we wait for the menu bar to appear before reducing
+the puzzle drawing area's size request. These two behaviours go
+together badly.
+
+Fixed by detecting the extra GTK property that the Unity patches
+invented, and using that to know whether to expect the menu bar to
+show up at all.
+"
+"70b26db85a8e452b9b2fb65634e21d00baf04042","2015-01-08 14:10:15+00:00","Add OS X metadata to make Puzzles.app searchable in Spotlight.
+
+Thanks to Stephen Norman for most of the work, particularly working
+out what all the metadata had to be in the first place. This patch is
+mostly his work, and all I've done is fiddle with the plumbing that
+gets the right version number into the right places.
+"
+"b2f8f5fb5731a14b68372d09153cd6f04d0b7f67","2015-01-12 19:44:31+00:00","Update the new-puzzle checklist for git.
+
+Replace references to svn:ignore and 'svn add' with the git
+equivalents.
+"
+"201b32983b5cd1f904da3614ee9136cfeec59818","2015-01-12 19:51:19+00:00","New puzzle: 'Flood'.
+
+Based on a web game I saw a few years ago, and dashed off this weekend
+after I thought of a way to write a good (though not quite optimal)
+heuristic solver, here's a random little thing not quite in the same
+line as the most usual kind of Puzzles fare: instead of making you
+scratch your head to find any move to make at all, it's easy to find
+solutions in principle, and the challenge comes from having to do so
+within a move limit.
+"
+"d31eff148322ded1add98043854a5e5a5f48529f","2015-01-13 19:19:05+00:00","Handle the space bar in the Javascript front end.
+
+I wasn't passing it through at all, causing CURSOR_SELECT2 dependent
+keyboard UI not to be reachable.
+"
+"f39681ab41d60418c4a25270635a88d9cd0a685f","2015-01-13 19:31:29+00:00","Revise the Flood preset list.
+
+The ones I started with were a bit under-varied and over-orthogonal.
+Get rid of some of the more pointless things like 16x16 with lots of
+extra moves, and add some with different colour counts. While I'm
+here, make the menu descriptions nicer.
+"
+"e3a8e64812f2fa783dc5644f04f267a291bc6098","2015-01-13 19:54:46+00:00","Put the game summaries from the website into gamedesc.txt.
+
+More sensible to bring all the pieces of per-puzzle descriptive text
+together into one place, so they can be easily reused everywhere
+they're needed.
+"
+"7cf7e37d65d59bc87977deb7e810f21b4b106797","2015-01-13 20:04:18+00:00","Script to autogenerate pieces of the web page.
+
+This should simplify the process of adding a new puzzle, by automating
+the part where I have to manually edit index.html separately from the
+main build step.
+"
+"603409d092f5008d12e09f712eac4ba3381207eb","2015-01-13 20:30:40+00:00","Couple of fixes to the new web-page mechanism.
+
+I missed some spaces in the autogenerated <span>s, and I generated the
+web page components including unfinished puzzles by mistake.
+"
+"3f651b25c74d7b7c7e56ec1ca9f8afc80a3a800c","2015-01-13 20:46:00+00:00","And one more whitespace fix.
+
+It's a pain having to commit each of these separately in order to test
+the script, but there we go. Should be working now.
+"
+"202e7fecfdac09b791b204cde464f09f9165f55b","2015-01-13 20:59:54+00:00","Remove some lingering HTML markup.
+
+It was getting conscientiously escaped by the new webpage.pl :-) but
+in any case it's better to have the puzzle descriptions be plain text
+usable in any context.
+"
+"cca302c01b7b331c280ec885d783d673a0c951c3","2015-01-15 20:21:05+00:00","Improve the Flood solver.
+
+Previously it simply chose every move based on the static evaluation
+function 'minimise the pair (longest shortest-path to any square,
+number of squares at that distance)'. Now it looks three moves ahead
+recursively, and I've also adjusted the evaluation function to tie-
+break based on the number of squares brought to distance zero (i.e.
+actually in control).
+
+The result isn't an unconditional improvement on the old solver; in a
+test run based on 'flood --generate 1000 12x12c6m0#12345' I found that
+57 out of 1000 grids tested now had longer solutions. However, about
+three quarters had shorter ones, and solutions are more than a move
+shorter on average.
+"
+"bd0a357047a933bbe9359eb7d320439029a20112","2015-01-17 08:49:28+00:00","Remove a lingering bashism in makedist.sh.
+
+A load of source files in the icons subdirectory were being left out
+of the distribution tarball because I tried to include them using a
+combined wildcard and bash brace expansion - but makedist cites
+/bin/sh, so can't get away with bashisms. Expanded the braces.
+"
+"362bf8d450b6de02f8175afe979e2bca36d48c67","2015-02-08 16:23:32+00:00","New puzzle from James Harvey: 'Tracks'.
+"
+"f1e68fb516b5a8e83a9a2c923424313d0098a728","2015-02-08 22:52:20+00:00","Turn <image> tag into <img>.
+
+Not sure how I managed to write the former by mistake, but I didn't
+notice because browsers didn't immediately complain. Still, James
+Harvey points out, it ought to be turned into the actually
+standards-compliant spelling of the tag. Ahem.
+"
+"ffe0aa6a114e83649bb04ff8e09b8025be988de2","2015-03-09 07:58:10+01:00","Fix a build failure on x32 (time_t printfs).
+
+As that architecture has 64-bit time_t but only 32-bit longs, printf format
+causes a warning.  Enter -Werror...
+"
+"05b533d1f899e448fae25e27614543147f9acffa","2015-03-15 08:50:53+00:00","Update README after the switch to autoconf.
+
+A user just pointed out that it still (and now falsely) claims that
+mkfiles.pl directly generates a usable Unix Makefile.
+"
+"195217a48062c3ee64a47b1d0b5327e5838a105c","2015-03-24 19:20:03+00:00","Fix a compile warning on ARM.
+
+Aapo Rantalainen points out that comparing 'char c' against zero gives
+rise to gcc's 'comparison is always false' warning, which escalates to
+an error under -Werror.
+
+This is one of those situations where the warning is doing more harm
+than good, but here's a rephrasing which casts to unsigned so that
+both negative numbers and positive out-of-range ones can be caught by
+the same comparison.
+"
+"10460d1bc7dab94e84c5fbbde221c3d20f9e263b","2015-03-25 18:23:39+00:00","Add Tracks to the automake makefile's 'install' target.
+
+Each game's .R file should append the binary to $(GAMES) in both the
+'am' and 'gtk' makefiles, but presumably due to copy-and-paste from an
+out-of-date version, tracks.R only did 'gtk'.
+
+Also clarified CHECKLST.txt in the hope that I won't miss that again.
+"
+"d97ea217f355c182ab1ddca868a08d6d627aa1e7","2015-03-25 19:56:11+00:00","Update Android Studio droppings.
+"
+"eb48bb7aa34205248a87b2a670a6bd232217d108","2015-03-25 20:21:59+00:00","Temporarily rename READMEs to let upstream merge properly.
+"
+"05cbb9f582b2233cc95e42285a7f4b7a3e06466a","2015-03-25 21:05:50+00:00","Merge branch 'upstream'
+
+Includes Android fixups.
+
+Conflicts:
+.gitignore
+"
+"0ce98cd1402dbdc1b0f31a51c11ee7be216a7cbf","2015-03-25 22:33:54+00:00","Use title from strings.xml rather than from C, because 'Train Tracks' is too long for a phone and I've no other way to override it.
+"
+"f9f6e151e8db3385987687f5c5dd566dcf6377bf","2015-03-25 22:47:57+00:00","Make tracks' grid lines black to be easier to see on ridiculous-DPI screens. Increasing line width seems non-trivial.
+"
+"e4b5f1761786ba9e50ed5bff554b8795a0e5f009","2015-03-25 23:08:24+00:00","Regenerate docs for Flood & Tracks, although German translation is mostly missing.
+"
+"cb240486153edec0cb19c337b47ed84d57addc3b","2015-03-25 23:23:17+00:00","Mention the right place to adjust properties of new games.
+"
+"2abebeaebc0653d7ef1b573bbf9b396b286535bd","2015-04-04 17:51:31+01:00","Add controls reminders for Flood and Tracks regardless of arrow-key status.
+
+Add control icons for them too.
+"
+"7f64f4a50e46304b7bad011a1251e146ab63ca15","2015-04-10 07:55:16+01:00","Sort out abs/fabs confusion.
+
+My Mac has just upgraded itself to include a version of clang which
+warns if you use abs() on a floating-point value, or fabs() on an
+integer. Fixed the two occurrences that came up in this build (and
+which were actual build failures, because of -Werror), one in each
+direction.
+
+I think both were benign. The potentially dangerous one was using abs
+in place of fabs in grid_find_incentre(), because that could actually
+lose precision, but I think that function had plenty of precision to
+spare (grid point separation being of the order of tens of pixels) so
+nothing should have gone seriously wrong with the old code.
+"
+"00ba5b45283f3580b33bde3c651ad210200d3be2","2015-04-16 20:43:30+01:00","Add translations for new puzzles (#251). Needs review.
+"
+"c91b187f7537af3e39c5167f716d0047ea4464e6","2015-04-18 11:11:13+01:00","Update Android Studio droppings.
+"
+"875dac9765d2cca819125f92bfa8410351c60a0e","2015-04-18 11:13:29+01:00","Merge branch 'upstream'
+"
+"85a0ef119184a74fc1be20ab4d392322eb33911f","2015-04-18 12:32:42+01:00","Stop compiling unused PostScript code.
+"
+"bb5f1c586f6991b8b9642e4eeeaf32049315799c","2015-04-20 22:32:24+01:00","Tracks: fix curved rails' appearance on high zoom by using actual circles.
+"
+"00f458b9914b31222cc1e4bc307d8cc2fee4ad9e","2015-04-20 22:36:55+01:00","Fix #196 as much as I can, by reluctantly using less overdraw (more checkerboard).
+
+It seems snapshotting a subset of a large bitmap is just too slow, so this is just making it smaller.
+
+This is on the basis that drag responsiveness on all high-DPI devices is more important than wide visibility while zooming/scrolling with fingers not yet released.
+"
+"3bd64af71222db91df59b785fec01b4083139ace","2015-04-26 21:49:20+01:00","Fix #212 (thin 1-pixel lines): scale everything by density.
+
+While I'm at it, provide implementation of thick_line, and make thick_circle consistent with it, removing the need for specific hacks for Tracks.
+"
+"d11f076586e3f2361d5f6a39fd5e622d56ea117e","2015-05-09 13:25:00+01:00","Beginnings of night mode (part of #20), always off for now.
+
+I'm not convinced by the colour inversion code; I'll need to provide a manually chosen list I think.
+
+Also the night help CSS needs link colours brightening.
+"
+"5d698b2e2450ac40da7eb4d1d89d273f62eb5e45","2015-05-09 14:20:55+01:00","Tweak German for Tracks & Flood
+"
+"0068905fd04f4b5573696b9e3048c8af7a798385","2015-05-09 14:22:11+01:00","Merge pull request #1 from kaberett/kaberett-dedocs-review
+
+Tweak German for Tracks & Flood
+"
+"ec4d8e38160f3b0b43c49586d5a91b0f91ce428a","2015-05-09 14:27:17+01:00","Remove typos to tweaks to Tracks & Flood docs
+"
+"6d32567e32db555adf87ec1f7bf4bdc7577aecc9","2015-05-09 14:35:59+01:00","Merge pull request #255 from kaberett/master
+
+Tweaks to German-language docs for Tracks & Flood - thanks @kaberett :-)
+"
+"867ad3bff4f4323b36f29d433fc42f37f129f952","2015-05-09 14:40:48+01:00","Fix #251 by accepting @kaberett's updates into HTML.
+"
+"52a0f3c32af1861ceda910722549115f8a2b1cae","2015-05-09 15:35:10+01:00","Special-case right-dragging of a numbered cell off the grid.
+
+Chris Boyle reports that if you right-drag a numbered cell off the
+grid, _all_ numbered cells (except the immutable initial clues) get
+reset to blank, because this is treated as an attempt to erase a whole
+chain of linked cells (of the form a,a+1,...,a_k) and the cells with
+definite numbers are all treated as 'chain 0'.
+
+In that situation, I now substitute the same behaviour you'd get by
+left-dragging the numbered cell off the board, i.e. erase _just_ that
+cell and not the whole of the rest of the puzzle.
+
+(The previous unintended behaviour was a UI action you surely never
+want - and Chris also reports that due to the Android front end's way
+of representing right-drags, it's especially easy to hit by mistake.)
+"
+"7c7bf9106aa6214489ba4d9c1c584581d08c7119","2015-05-09 17:48:56+01:00","Provide colour names as resource (for #20).
+
+This will help when writing a list of night colours, and when eventually making colours user-configurable.
+"
+"da00c7c988037d208c6cf800506fba6565084163","2015-05-09 17:49:26+01:00","Merge branch 'upstream'
+"
+"7adefcf96ca2d3cad4eef380f03e92ac2a2dc305","2015-05-09 18:27:18+01:00","Fix omission of signpost from colour parsing.
+"
+"0c228e4d8dca204dd6eee9d28f3d4239ed15d4e4","2015-05-09 19:10:05+01:00","Fix greedy comment elimination:
+
+'a /* b */ oops /* c */ d' -> 'a  d'
+"
+"67fd49a3c400439d1af7c0b61ab3017e09ff0293","2015-05-10 09:02:50+01:00","Fix setting webView background too early.
+"
+"d5763d84cac502efde58c366f7ba0fb29df63dbc","2015-05-10 12:53:37+01:00","Hush some nullability warnings.
+"
+"e08ff18cc04daf131fdc81ebba0edc6ddc1442aa","2015-05-10 09:56:08+01:00","Make inertia less prone to death when starting a pinch-zoom.
+"
+"d1984cc8a8b6d7c3c3d3a337e6eb6cab1ae6436d","2015-05-10 12:21:01+01:00","COL_GRID == COL_HIGHLIGHT which confused my enum parser, so don't do that.
+
+(No effect outside of night mode, because COL_HIGHLIGHT is unused.)
+
+This is because in enum { A, B, C=A, D }, D == C + 1 == B, not the next unused number.
+"
+"f95ac6a1613a7d1fbb67239be3490054fd0b6455","2015-05-10 12:41:09+01:00","Make undead a little more themeable so I can have white grid & text but black monster outline.
+"
+"3f79d2af374ecfc201307597aaeba6d2ced988fe","2015-05-10 12:42:04+01:00","Blackbox: let revealed balls be a different colour so they can remain visible in night mode.
+"
+"700802542968b04c2ee3acaeac4bd412fb5f1a6a","2015-05-10 09:54:54+01:00","Instead of inverting colours, look them up as resources.
+
+First attempt at suitable night palettes for all games.
+"
+"7cf1e1f83ec8242372d330581a14276b3667468c","2015-05-03 12:40:14-05:00","Fixed a typo in a comment
+"
+"6684bec60c13f83cfd9c097d03c65e6c99d52993","2015-05-03 12:40:14-05:00","Always use ret instead of state in execute_move
+"
+"155607b768bee2284bab05fc02aea9f4b342465f","2015-05-09 21:36:44-05:00","Use the game_state and space typedefs
+"
+"774395d37366e52113c434173295db682d7d37e9","2015-05-09 18:51:00-05:00","Moved all function declarations to the top of the file
+"
+"4fa5df1cba340cf1239c68a8553af2fa61e072ab","2015-05-03 10:46:07-05:00","Draw the opposite arrow only while dragging
+"
+"83318d4218c6eca6535e70f136dd68ff60702eb0","2015-05-03 10:46:07-05:00","Add/remove the opposite arrow when you let go
+"
+"3768ed65f281400f5fcdd6e2192e154a6661c0f8","2015-05-09 18:51:00-05:00","Fix the issue with adding only one arrow when the other end was already white
+"
+"bef1b2c59b443a2778a01e6c167e29ee9670603a","2015-05-09 21:05:18-05:00","Mark some arguments constant
+"
+"3627111c5210a5b134b0e8c43b90eed07ca2e17c","2015-05-09 19:11:02-05:00","Fix the extra arrow hanging around while moving the opposite existing arrow
+"
+"f49c7f530cfc5f0cc988be265e243e074279b761","2015-05-09 19:16:24-05:00","Handle replacing an existing arrow
+"
+"64ef22f9cedd3c8f2139e8bb22483d14dbffd210","2015-05-12 21:00:16+01:00","Fix Signpost night colours.
+"
+"aea7f6078304b07f2cd5d3af3031181c57e76527","2015-05-12 21:10:15+01:00","Make night mode available! Big part of #20.
+"
+"8b772fc185bf5c9650504787b473fd86d375ea0c","2015-05-17 14:42:43+01:00","Fix #253 (cancel drag on rotate).
+"
+"894921015dde693697647b98b0c41467dcc91c08","2015-05-18 16:17:49+01:00","Move the benchmarking logic out into a script.
+
+It's a pain having it in a rule in Makefile.gtk, which isn't even the
+recommended makefile these days - it can't be re-run conveniently, and
+there's no way to parametrise it. Now it can be run no matter which
+makefile you're using, and it lets you narrow down to a subset of
+games (though not presets). Other options could easily be added.
+"
+"fb0ff8c33857e31d93dc36e1b4b2ed28837e5e44","2015-05-18 16:39:12+01:00","Add sorting-order buttons to the benchmark output.
+
+Since I'm committed to HTML5ish Javascript already, that shouldn't be
+too much of an inconvenience.
+"
+"80c1a6932939be245ed8f88cf34dc7487b6788f0","2015-05-18 16:41:06+01:00","Add the 'make test' target to Makefile.am too.
+
+Now I don't have to annoyingly switch over to the GTK makefile.
+"
+"a614347a3e5fe106e69fd697fb08d50cda81f83b","2015-05-16 13:51:34-05:00","Cleaned up execute_move a little
+"
+"7c52202bc4b3c9c9353cae9c53bfc8772dca1a5d","2015-05-16 13:51:34-05:00","Split out the text color portion of draw_tile
+"
+"486d2c8a76e325d7a145e236a8c8b21d159fa412","2015-05-12 23:23:52-05:00","Towers: you can now mark clues done
+"
+"9def49ae9abc6ee7831264827adcd9ef2a5c28e4","2015-05-25 19:46:24-05:00","Factored out a portion of game_redraw
+"
+"c3285318e60cb78d190725aba3675325921afdb3","2015-05-25 19:46:24-05:00","Reworked draw_path_hint
+"
+"f0750894ff6a23c22a14a82d405ace5b99318bd5","2015-05-25 19:46:24-05:00","Undead: you can now mark clues as done
+"
+"6bbfa6fe28139f88bfd9d154aa632d60e0fe17c1","2015-05-25 19:46:24-05:00","Updated name/size of clues_done in Towers
+"
+"11787fb061866b1954d970bdd7b79588925b526e","2015-05-31 21:58:34+01:00","Tweak Signpost night colours.
+
+Still not perfect but I suspect further improvement will require delving into the derived colour expressions.
+"
+"8ef73131aa572f1e0e8a02ec5627335e458ccc1f","2015-06-06 18:45:14+01:00","Fix #254: was missing a scale by density.
+"
+"ca08cd832952cefd9a3b545f13785d7054a3e1f6","2015-06-06 19:29:59+01:00","Fix #236 (tweak Filling greys).
+"
+"d710d9b1ad7793edbeaa79a225619799493fcf8c","2015-06-06 19:47:58+01:00","For #242, associate with .sgtp and use it in the rare case where we choose a file extension (Bluetooth).
+
+We can't pre-fill the filename field for Storage Access Framework, I think.
+
+Still associate with .sav for backwards compatibility and because that seems to be Simon's canonical extension on other platforms (or at least suggested often in docs).
+"
+"6abfc581ac056c0e49a579472c17a75a926643e9","2015-06-06 21:26:59+01:00","Bump version for beta.
+"
+"7c0bdd6216f79ad5992dbb9c89df395031c592f0","2015-06-06 21:33:35+01:00","Merge branch 'upstream'
+
+Conflicts:
+app/src/main/jni/towers.c
+app/src/main/jni/undead.c
+"
+"21944955b98ef1ca2af8cb8abf90e1c4749ac2fc","2015-06-06 22:06:32+01:00","Translate new sentence in docs.
+"

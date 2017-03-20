@@ -1,0 +1,117 @@
+"commit id","commit date","commit message"
+"693b93c7f3eb9f10d6cf44c5d1decc56262a50a6","2011-02-15 19:31:45-05:00","first commit
+"
+"09821a809b83a16bcefd8aa47fc46b4722bf1a4d","2011-02-15 19:46:32-05:00","Add eclipse project source code
+"
+"f1f83c3d99ed356af1ce353d45217f188afb9aff","2011-02-16 00:07:56-08:00","created test project and a simple test for WebsiteScraper. added ant build files.
+
+To run tests, `cd tests; ant run-tests`. Make sure an emulator or device is running, as the tests are run live. See Android Dev Guide's 'Testing in Other IDEs' page. All of the files in the test folder (except WebsiteScraperTests.java) were created by running `android create test-project ...`
+"
+"2c5da01f84ee74631ea8236430c1b076779eca8d","2011-02-16 00:46:41-08:00","extracted WebsiteScraper scraping logic into ReferenceScraper. Removed binaries. Wrote tests for ReferenceScraper.
+
+I created a scraper interface with separate methods for each bit of parsing to be done. This will allow other scrapers to be written interchangably, and allow users to pick and choose which bits of info they want parsed (to save time, in the end).
+I asked git to stop tracking binaries because there's no sense in tracking the files you're going to be building fresh anyway.
+The same simple tests used for WebsiteScraper were 'ported' to ReferenceScraper.
+"
+"c96a72b3b3c841063867232e2ff6e347503ae587","2011-02-16 18:32:20-08:00","removed printing private info to stdout
+"
+"298cb5f1e65d3857610215bdfbb71245ebc1545e","2011-02-17 13:41:51-08:00","Added service/receiver combo for phone-call alerts. Modified original GUI to be reusable. minor bug fixes.
+
+Biggest change to original code: MinutesChecker is now called by `startActivityForResult`. This allows the code to return to _whichever_ activity called it (rather than hard-coded to ViewMinutes Activity). Necessary to reuse the login view/logic for the service. See `ViewMinutes.onActivityResult`.
+Minor changes: moved some common logic into their own methods in the ViewMinutes class. See `showErrorMessageAndRequery`, `gatherAndDisplay`, and `setLoginInfo`.
+New Service: Runs in the background and is automatically started the first time a phone call is received. It (currently) scrapes minute usage and displays a toast message on top of the call screen. This is slow over 3G, so I started down the path of using a persistent cache. I need to hook it up to update on GUI usage and to CALL_STATE_IDLE events.
+
+I wouldn't call this commit stable.
+"
+"201f244cb91c7075329a8a307096cecdbc46bb8d","2011-02-17 15:00:56-08:00","cached-minutes displays on incoming call, updates on call finished. Fails semi-gracefully (annoyingly?)
+
+On incoming call, the cache is queried for minutes data. If some is stored, that most recent cache data is displayed over the incoming message dialog (via Toast, default 10 seconds).
+If cache data is not available, 2 things happen: 1) the message 'Minutes Used: Unknown' is shown, and 2) when the call ends, the user is prompted to login to VM (via the original GUI), which will update the cache for them.
+
+This could use a few configuration options, and some string resources instead of hardcoded strings. Configuration ideas:
+
+- whether to show minutes toast on incoming phone call?
+- whether to cache minutes on call ended? (showing min on incoming phone calls may be a little useless without this ... lump together, maybe?)
+
+Potential bug: how quickly is VM's website updated? Should we wait 5+ minutes before caching?
+"
+"3c6979555f4371d402cede0c777718d4749c50aa","2011-02-17 15:33:18-08:00","fixed bug: NPE on outgoing call (due to OFFHOOK for outgoing call, no toast message displayed)
+"
+"ce8d65428c696163217653f69ce2043090b39aff","2011-02-17 21:10:17-08:00","Created a horrible-looking settings menu to (en|dis)able the incoming phone call service.
+
+The settings menu needs some sprucing up, for sure. Otherwise, the service returns immediately if the option to run the service is disabled. The service is enabled by default.
+"
+"e38ced4ba89422b5fdf47104d4dcedf151427a12","2011-02-17 21:13:32-08:00","trivial leftover changes from previous commit
+"
+"9183777d368d25ce844cf46347d8d68ae1137071","2011-02-18 00:12:53-08:00","replaced custom (crappy) settings activity with PreferenceActivity (handy class)
+"
+"eb34d35357c2048c866e8ff41d3a1e30944c2d63","2011-02-18 00:46:06-08:00","fixed bug using wrong TelephonyManager strings. Now using outgingCallPref.
+
+I can't seem to find a way to truly tell whether a call is incoming or outgoing (except for the ringing event). So, for now, whenever a call comes or goes, if the outgoing pref is enabled, the minutes toast will be displayed for 10 seconds.
+"
+"ccd7807c402ee7e726feb6c250279ab04149b6ed","2011-02-18 08:02:52-08:00","removed import of deleted class
+"
+"8a35e125729ef9ebaf5f1ca31098b2655f2bc7ea","2011-02-20 14:03:00-08:00","fixed bug: FLAG_ACTIVITY_NEW_TASK not set on one intent in MinutesService; caused crash.
+"
+"23a4fdf2b9dc5960e66801f413d2e08611b1f197","2011-02-25 12:02:50-08:00","fixed service crash due to null intent.
+
+Service.START_NOT_STICKY is a more appropriate choice for this service. START_STICKY caused the intent to be null on certain calls on onStartCommand, which was not caught.
+"
+"115ffb16d051101ec886976f7862e5b11b190b7c","2011-02-27 18:26:03-05:00","1.3 Release
+
+- Increment version number
+- Change MinutesService so that it does not bring you to
+the login screen. This is so we can avoid disrupting the user's
+flow by interrupting them with a new dialog.
+"
+"2a5019fa84e3828bd23d054c7cebc54fb6e3e572","2011-02-27 18:45:31-05:00","Updated README and added license
+"
+"c18df46d6a9134597fbd8402c72d82ac8cf959f6","2011-02-27 18:46:50-05:00","Update readme
+"
+"d0e64401c9a742e4b157d867354eeb7c8da076de","2011-03-06 12:39:12+08:00","reverted poundifdef's change to stop the login procedure after a call. stale minutes and bad decisions ensued.
+"
+"e0bfbd29a23326f9152c051222af62fae2e7483c","2011-03-06 13:29:51+08:00","changed default value in code to match prefs defaults introduced in 115ffb16d0
+"
+"5532216c901abac5138000dab70062bf4ed9e699","2011-03-06 13:42:35+08:00","clear cached minutes if a scrape error occurs. cache no longer reliable.
+
+also, I removed some comments from a few commits ago. They were left as instructional aids, which wasn't necessary with git's history being awesome and all.
+"
+"6a8d77a9be688da9ab89234f64df8e144aea369a","2011-03-07 18:10:06-05:00","Undo changes from patch
+"
+"e085068778cda961fcc72545739429e5cada6155","2011-03-07 18:14:24-05:00","Merge branch 'master' of github.com:poundifdef/VirginMobileMinutesChecker
+
+Conflicts:
+VirginMobileMinutesChecker/src/com/drfloob/VirginMobileMinutesChecker/call_trigger/MinutesService.java
+"
+"17f1ff99887bcd77b4791eb465d3becea453b0e5","2011-03-07 18:23:08-05:00","Seriously I hate git (fixed fubar'd merge)
+"
+"64ee279f9b04dd38ad18ceec32a69212a6348fe5","2011-03-07 18:24:34-05:00","Add files pertaining to widget patch
+"
+"085e18ea6a20ca8260be49d0d4159533ec24aa13","2011-03-07 18:25:57-05:00","Delete extra files created by `patch`
+"
+"e060acc326b30c42080e862fac5c581d0a5f34f4","2011-03-07 22:31:27-05:00","Removed printlns causing null pointer exceptions
+"
+"e407be528d6b493ecdbb5ea073b9cc0168211be8","2011-03-07 22:46:25-05:00","Debug info related to issue 2
+"
+"99488ccc8c785b3d027f3eed7ade96780ad931a2","2011-03-07 22:46:25-05:00","Debug info related to issue 2
+"
+"af862dca94ebf5d5cbb170cfc364464c0e27f986","2011-03-07 22:53:13-05:00","Added entire log. Hope there's no personal info in here...
+"
+"c0b815e548ab36154a1e287593119e9e4b61195b","2011-03-07 22:53:13-05:00","Added entire log. Hope there's no personal info in here...
+"
+"a9b9adf81f9f961aafe5ff31b5d799a12a940359","2011-03-07 23:17:56-05:00","Merge github.com:poundifdef/VirginMobileMinutesChecker
+"
+"a1131c255ae6281e31b725414f613e0324d4f38b","2011-03-20 11:52:00-04:00","Fixes HTML parsing to reflect vmobile's new site, disable service and widget until bugs are fixed
+"
+"abd49e04ea70246f8a5694739bb488c4fc4b80a6","2011-03-20 11:53:31-04:00","Increment version in manifest
+"
+"e085d0885b0ba9c2f97bae37e11eaeb1614e301c","2011-03-21 00:27:52-04:00","Modification to undo minutes service temporarily while working on issues
+"
+"ab35c67f995e4029a6b2007fa63a0e74f8fd51fe","2011-03-30 23:19:19-04:00","New release to fix issue of not scraping site for credit-payers
+"
+"dcb85bcfafa18d9dfe9f12659e7ba0e2662ca45e","2011-05-18 22:41:57-04:00","Fix for new vm website layout, add CREDITS
+"
+"c50325b8eaa92d8debecc418b93baebe0b68d3f3","2011-05-19 00:14:34-04:00","updated credits
+"
+"432718e7a05ee90c9df33fef790f33e3fcf69c8f","2011-05-19 00:15:10-04:00","updated credits
+"

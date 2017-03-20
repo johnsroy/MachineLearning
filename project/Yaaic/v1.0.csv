@@ -1,0 +1,248 @@
+"commit id","commit date","commit message"
+"e82345c1fe140120e62ca1e5462b35d334a5c425","2011-07-17 14:35:56+02:00","Typo in README
+"
+"39175635d9847b535019cd07ac5eb19ca1dffe1b","2011-07-17 14:39:09+02:00","Update CHANGELOG
+"
+"a357c42477f86b5cbd1b0e1caba2e17ee93843a7","2011-07-17 14:40:19+02:00","IRCService: suppress rawtype warning
+"
+"0b0579c475abf07ecabad00f214bbb57495f80bc","2011-07-17 15:42:16+02:00","Update CHANGELOG headline
+"
+"4396e66954dd8001a93e2c51cd9ea6d189261000","2011-07-17 16:07:24+02:00","Bugfix: On updating an existing server configuration the real name was overwritten by the nick name
+"
+"fafbe1ca4a399b5b96ae096b81161385ef57af3c","2011-08-16 02:10:11-07:00","Display 'Not connected' in notification instead of no text when not connected
+"
+"c8266fbe622e7dd568e5d7e4e8c26db673316ad9","2011-08-16 02:10:44-07:00","Add method to remove conversation from DeckAdapter by position
+
+This makes the following patch to remove old conversations much more
+efficient.
+"
+"f84369bc19313d351049696a47ef02112af86866","2011-08-16 02:11:04-07:00","Add new conversations to DeckAdapter in onResume()
+
+Currently, when the user opens a ConversationActivity, goes off to do
+something else without closing it, and then comes back to the activity,
+conversations started since the ConversationActivity was paused (e.g. by
+an incoming private message) will not appear in the ConversationGallery;
+this is because we never check for new conversations in the onResume()
+path.
+
+Fortunately, this is an easy fix: we're already looping over all the
+conversations in onResume() in order to add new messages to the
+MessageListViews, so just look out for the new conversations and add
+them to the ConversationGallery when we see them.
+"
+"e07d99ed5d0d641031c31a10c9b999aeffdbcb4b","2011-08-16 02:11:28-07:00","Remove views from DeckAdapter when corresponding conversation has gone missing
+
+If a conversation disappears while the activity is paused (e.g. if the
+user is kicked from a channel, or if another client attached to an
+irssi-proxy has chosen to leave that channel), we currently aren't
+removing the view from the DeckAdapter when we resume.  This results in
+leaking a Conversation object until the user explicitly asks for the
+conversation to be closed or the activity finishes, and is also
+confusing because the user may not receive any indication that the
+channel was parted in the first place.
+
+There's a good case for leaving the MessageListView in place, with a
+note indicating that the user has been kicked or parted from the
+channel, but for that to work, we need to keep the Conversation object
+in the server's list of conversations -- otherwise the behavior will
+differ depending on whether the user left the activity via the Back
+button or the Home button, which is counterintuitive.
+
+For now, just remove the stale view from the DeckAdapter, which fixes
+the leak and the potential user confusion.
+"
+"d155e86cd1946e5123db43223f81bb5676520dfb","2011-08-18 01:44:38+02:00","Russian translation (By NeKit)
+"
+"0a8e75feffc8e86b5affedb1dcd0742ee9f347f2","2011-08-28 21:23:07+02:00","Add /back command (issue #89)
+
+This patch adds the /back command, which turns off the away status.
+This should close issue #89, https://github.com/pocmo/Yaaic/issues/89.
+"
+"c7c0b0c44ec1746b2b56731670ab9376f1063e61","2011-09-19 15:14:43-07:00","Updated japanese translation.
+"
+"8c8e9e80814002f4d00d7cdece5137394c885dbc","2011-09-20 08:50:02+02:00","Update CONTRIBUTORS.
+"
+"61e1681b0399da86858edafbca28463ba8db20c1","2011-08-23 10:48:36+02:00","Proper case insensitive nick completion (untested)
+"
+"5c25c86614178725b1ad8c4de456909860deb5a2","2011-11-20 14:57:37+01:00","Authentication view: Wrap in ScrollView for smaller screen sizes. Fixes #94.
+"
+"66006cabf57d87a393679865fb09a0a82697d2b3","2011-11-25 02:58:16-08:00","Work around a crash on ICS when destroying a ConversationActivity
+
+On Ice Cream Sandwich, something -- possibly even in the Android
+framework classes (not in our code) -- is passing in null to a
+MessageListAdapter's unregisterOnDataSetObserver(), which causes a
+crash.
+
+We should really find out whether this is something we can properly fix
+or not, but in the meantime, wrap the superclass's method with our own
+method which checks for null before calling through to the superclass
+implementation.
+"
+"bd17dcd598d38ee0a31d933e9355cc381cb198be","2011-11-26 22:58:15+01:00","ConversationReceiverTest: Fix interface implementation.
+"
+"e7243258b936c4c33b45586e03ceb475cd9eaee1","2011-11-26 23:06:13+01:00","Update build files.
+"
+"a0a1d3fb3d6458c1a2825a47cf4c2df560a07a90","2011-11-26 23:09:41+01:00","Remove generated build files and add build script.
+"
+"2522aacb11a687d97ee5bfddf1f1e34484070443","2011-11-26 23:20:08+01:00","Update build files for test project.
+"
+"e00cb44553b08c2b16871ad392dcad5bdfca8b6f","2011-11-26 23:40:09+01:00","ScenarioHelper: Fix createTestServer().
+"
+"d1d23ecb04e2f72b3d5d754e43865589a42844aa","2011-11-26 23:47:38+01:00","Fix incomplete build script.
+"
+"29e102b5d0a6c926d8ea04796c2567e2d6719147","2011-11-26 23:50:39+01:00","ServerListScenarios: Fix testAddingAndRemovingServer() test case.
+"
+"a4bc0ada809f3dcda3575ceecb04250f156a9031","2011-11-27 00:00:25+01:00","Update test project to Robotium 3.0.
+"
+"e6be035a8e32b6a4e60ed9634ae49588810ca5cc","2011-11-27 00:03:35+01:00","Add target to build file.
+"
+"ca0a86d2cbb51e19cf3b116d697f92f7ae3d8d4d","2012-01-12 18:45:07+01:00","Add support library to build path. Refs #38.
+"
+"659d6c0b896ae758e98bedd760b0baa8777c5a78","2012-01-21 08:21:06+01:00","Eclipse setting: Do not 'fix' indentation on save.
+"
+"e04499070aaf6aff5eaf58a6cad5df2f0e1646dc","2012-01-21 08:56:40+01:00","Replace gallery view for conversations by ViewPager. Fixes #38.
+"
+"ec90fe3db6c08920e7d9aa24b575a6e4edb24a93","2012-01-21 08:57:28+01:00","Make everything clickable in messages (links, email addresses, telephone numbers).
+"
+"6ff79ee50d4341212bfcf654b79e3ce855f4ac66","2011-11-27 00:48:03+01:00","Updated French translation.
+"
+"8386f4a1ef02e29d08e6b46139a3d778878ac412","2012-01-21 10:33:03+01:00","AddServerActivity: Disable auto-correction for the hostname field. Fixes #99.
+"
+"706a864f44236943021af55fe1441a28f8a2e348","2012-01-21 10:57:45+01:00","Add ViewPagerIndicator library project to repository.
+
+https://github.com/JakeWharton/Android-ViewPagerIndicator
+
+Licensed under the Apache License, Version 2.0 (the 'License');
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an 'AS IS' BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"
+"25cf7eb2ad93f9fe1e7bdc3843c9af6b4250a0ac","2012-01-21 11:30:41+01:00","ConversationActivity: Add ViewPagerIndicator.
+"
+"2a51daf45cec3114aca212983a4704fda45694cf","2012-01-21 11:31:13+01:00","(User) action items: More padding.
+"
+"da885094da165591396da9602ecc7820830496f1","2012-01-21 11:31:33+01:00","Add ViewPagerIndicator library project to project properties.
+"
+"b09ba251ea2d253f8a936e35097dacc47f34a816","2012-01-21 11:50:58+01:00","ConversationActivity: Make text input smaller and more 'flat'.
+"
+"f9615a234460d0d3b17da53ce8c796247c6b12d5","2012-01-21 11:55:14+01:00","Add yaaic icon in different resolutions (ldpi, mdpi, hdpi).
+"
+"c4ba9cd35db0a31ed403064879d702dea5aeb3cd","2012-01-21 12:56:53+01:00","Add ActionBarSherlock (4.0 beta) to repository.
+"
+"d4f2c1cc3acd06335fd5c6acad4615fe79a082c3","2012-01-21 12:58:27+01:00","Set SDK target version to 15 (Android 4.0.3).
+"
+"46a45523a89469ad6867ee3710f954d3e5133e4d","2012-01-21 12:59:02+01:00","IRCService: Use reflection to call setForeground() on old versions.
+"
+"3e9735760a664067afd9e96ce9d82e9eb0a532f9","2012-01-21 23:01:18+01:00","Add action bar resources.
+"
+"fbdebc2ca51b4c21c3d44c84a55bb2fbf8e16f65","2012-01-21 23:07:44+01:00","Add ActionBarSherlock to all activities. Restructure menu items. Fixes #96.
+"
+"21032950b72e1a62269983478dea8968c1d65026","2012-01-21 23:12:55+01:00","Update copright line (2009-2012).
+"
+"8d32855938cace298cdb214ac1685fb5e54f6962","2012-01-21 23:39:03+01:00","Update robotium to version 3.1.
+"
+"2fbe9c4e265956c7da39a0587c1a265bb4100b40","2012-01-21 23:39:35+01:00","ScenarioHelper: Fix createTestServer().
+"
+"e7c84fb69440b840316b7b1da98012eaf84d0520","2012-01-21 23:44:31+01:00","ServerListScenarios: Fix testAddingAndRemovingServer().
+"
+"d0ea5a2a2dfc8476d724d165b256d6a095cfdad6","2012-01-22 00:10:38+01:00","Use shared support library in all projects.
+"
+"6aff86bcb65032797b2fc396b68581322b7557b5","2012-01-23 21:31:39+01:00","Server list menu: Show settings action with text if room.
+"
+"0ec311c074b85022363f3c8361b530a22950ebfa","2012-01-23 21:32:20+01:00","Add own theme 'Theme.Yaaic' to enforce overflow menu in action bar.
+"
+"e89b6415369ebb3df7aa6428365c6bd3752e8851","2012-01-22 12:51:35+01:00","Updated French translation.
+"
+"1a4f570d6eee9409a9fdcd8e82eca27024465887","2012-04-04 18:36:31+02:00","Move support library to 'libs' folder of application. Will be automatically included and does not need to be in classpath.
+"
+"9f314df09122bf9da0e2f0112a91a78f5f39d902","2012-04-04 18:37:02+02:00","Manifest: Set touchscreen feature required to false in order to run Yaaic on GoogleTV.
+"
+"690012504e9810c700bc03e8a64410762b58ddba","2012-04-04 21:24:57+02:00","Update ActionBarSherlock dependency to version 4.0.1.
+"
+"5485213e52c0beff19404957fd1a9432514f4ebb","2012-04-04 21:25:29+02:00","ViewPagerIndicator dependency: Move support library to 'libs' folder.
+"
+"493f9f758cc5ce7479e339be89cc575ad7280794","2012-03-12 21:34:36+01:00","Disabled autocompleting on some TextView's.
+"
+"8ecb697f28414c658ccb31a019ea6320dab0064d","2012-04-12 11:48:15+02:00","Use a Holo-like style for EditText fields.
+"
+"309c730b33723dea69ba01e661a2a43adccb3644","2012-04-12 12:27:34+02:00","ServersActivity: Remove 'Exit' from menu and replace by 'Disconnect all'.
+"
+"03b5782e82964621b38e212a88cbd699216c70bc","2012-02-19 19:14:30+01:00","Update Spanish translation. Fix several typos and not Spanish words.
+"
+"5d68a5efb1e49761356699dc10a5c28ee932bab8","2012-04-12 22:02:59+03:00","Manifest: Set installLocation to 'auto'. Allow installation on the external storage.
+"
+"35b896c3d6e9d222a68c36c999e002c55a36c3f4","2012-04-12 21:42:03+02:00","Workaround for a race condition in EditText implementation. Fixes #67.
+"
+"c292892307a3190588523797d13dfc9c4c5a42c4","2012-04-13 11:21:56+02:00","Update ViewPagerIndicator dependency to latest version.
+"
+"cb5354a306ee5792e0af0c74dbb58749682dbde8","2012-05-19 11:00:23+02:00","Update ActionBarSherlock to 4.1.0 release.
+"
+"2e6292eac0bda32f64f9ae7ffadf74cc29c15743","2012-05-19 11:04:24+02:00","Use same version of support library in all projects.
+"
+"6045cd0f9132fb684eb306675973a03968266c40","2012-05-19 12:01:56+02:00","Add ActionBarSherlock to README.
+"
+"f7134664681a62941aecacd245848ad911508883","2012-05-21 21:40:32+02:00","Update ViewPagerIndicator to 2.3.1.
+"
+"8f329f475c95e75f0e3db851b2cebc7dbe4d828c","2012-05-21 21:49:44+02:00","Indicator: Do not set typeface twice.
+"
+"9a05d3b606f2c785adf93fe6ef04cde48609598b","2012-05-21 21:53:30+02:00","ConversationActivity: Do not determine density twice.
+"
+"84c3025c269dd9b8a3039bf19a7778e62925b660","2012-05-21 21:57:44+02:00","ConversationActivity: Remove code to keep compatibility with api level 3. MinSdkVersion is 4.
+"
+"ca4a93d40d6310fe9ef825a5743cb6cd4ecbfe3e","2012-04-14 12:18:39-07:00","Added missing keys and translations to values-ja
+"
+"c511e9bcc583f20995789c1d0e634cd74cdec7e0","2012-06-20 06:55:39+02:00","ConversationActivity: Do not disable menu items. Not needed with anymore with ActionBar.
+"
+"4831e715670534106bd469355e6e7949cae9353e","2012-06-20 06:59:43+02:00","ServersActivity: Change order of menu items.
+"
+"8fc10e041931403b182b2fc5cc6abc8651c8a84a","2012-06-20 07:38:39+02:00","ConversationActivity: Use same font size for EditText as for conversation.
+"
+"2c73859b58e644f422a036b846d3037b36c5c901","2012-06-22 19:17:55+02:00","Move non XML drawables from drawables/ to drawables-mdpi/
+"
+"d6176ca5a09d965e9390ad2e665e567e9c6831eb","2012-07-14 22:52:24+02:00","Use Android emoticons. Refs #114.
+"
+"b32b24c4ba7ccf6bd99da3b29f7b6aa6a9328417","2012-07-14 23:02:43+02:00","Add WTF smiley to mapping (o_O). Refs #114.
+"
+"a7c121ebeac19637b0e5ea1155cdf63c66da19e4","2012-07-15 00:16:23+02:00","Update support library to r9.
+"
+"debc79dd597b3a3201b23113f786e482e4bf9955","2012-07-28 10:32:44+02:00","AboutActivity: Code clean up. Some small refactorings.
+"
+"6f7275563cbed26780daefec53ec35b19b771fa1","2012-07-28 10:33:51+02:00","README: Update copyright year to 2012.
+"
+"9884ef1bff4f3cd0732ab67834dd2a00327e7a05","2012-07-28 11:29:57+02:00","DisplayUtils: Helper class for methods regarding the display of the current device.
+"
+"743eae9b85491e2e19d7f329d55a39c360bc119a","2012-07-28 11:32:14+02:00","Remove fullscreen option from settings.
+
+There's no need anymore on new devices and the app should not cover the
+notification bar.
+"
+"9c551d73bf78de6eee9c537e3bf89da4716a7242","2012-07-28 11:36:50+02:00","New stateful ViewPagerIndicator.
+
+Indicator showing the state of the current pages and off-screen pages by coloring.
+"
+"419c2bb3cb6edc1060d2dba99aa2c7bb94513585","2012-07-28 11:38:08+02:00","Removing old build script.
+"
+"640acec6ebe0c95d9134dbae50579f8e6310ae1a","2012-07-28 11:55:32+02:00","Mavenize Yaaic. Adding pom.xml file.
+"
+"0de3c817b1e6c74056979dd2d448f562cac3b3e0","2012-07-05 00:34:58-04:00","Updated French translation.
+"
+"929d2e873e98c22d3b532c4d12848a6ec8f695d0","2012-07-28 12:38:54+02:00","Update translations from Crowdin export.
+
+http://crowdin.net/project/yaaic
+"
+"7c27b092982952c78f294f8fab2738a75275142f","2012-07-28 12:46:29+02:00","ConversationIndicator: On updating colors invalidate title indicator.
+"
+"da78ea15d0e0d210edf6269f405b094ecdafb227","2012-07-28 16:05:55+02:00","AddServerActivity: Add up navigation.
+"
+"56304633f425b754cde7b18a846f66fd15d2c31a","2012-07-28 16:22:49+02:00","SettingsActivity: Add up navigation.
+"
+"db6ed0a1224b947d72144adfdc5a8e11d195a3e9","2012-07-29 14:14:33+02:00","Set version to 1.0. Updating CHANGELOG.
+"

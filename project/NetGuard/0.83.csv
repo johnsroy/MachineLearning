@@ -1,0 +1,117 @@
+"commit id","commit date","commit message"
+"a0dc8d46be6a3d7bab0a3304ad42df62a51b6824","2016-02-03 13:23:54+01:00","Remember last hosts file download, improvements
+
+Fixes #273
+"
+"859caa6536040212648fd8bd2f46a2c1c9ce5585","2016-02-03 13:28:29+01:00","Check permissions for roaming whitelisting
+"
+"5ab87cdca8be392d7fdfe34d1e8247514b0d5324","2016-02-03 13:42:03+01:00","Remove checks for Wi-Fi and telephony
+
+Fixes #267
+"
+"2834f1e555b4b361d10f66ead0830b78450b9747","2016-02-03 14:01:07+01:00","Layout improvement
+"
+"0d61d804d86ca908aec81e9c837140e0d5a7ccd3","2016-02-03 15:38:45+01:00","Native experiment: route DNS traffic into dnscrypt-proxy
+
+Setup:
+
+- download dnscrypt-proxy compiled for Android from https://dnscrypt.org/
+- copy the following files to /system/xbin using recovery:
+
+-rwxr-xr-x root     root       224320 2016-02-03 14:44 dnscrypt-proxy
+-rwxr-xr-x root     root       130432 2016-02-03 14:40 hostip
+-rwxr-xr-x root     root       268196 2016-02-03 14:40 libsodium.so
+
+- make these files executable (chmod 755)
+- copy dnscrypt-resolvers.csv to /sdcard//Download/dnscrypt/
+- run this script from the shell:
+
+export LD_LIBRARY_PATH='/system/xbin'
+dnscrypt-proxy -a127.0.0.1:5353 --loglevel=7 --resolver-name='dnscrypt.org-fr' --resolvers-list=/sdcard//Download/dnscrypt/dnscrypt-resolvers.csv
+
+- make sure you set an IPv4 DNS server in NetGuard
+- note that Android caches DNS responses for 10 minutes
+- profit!
+
+Refs #272
+"
+"be3dbe50dcf53c037ec0e72f2b71eb4eaa08193a","2016-02-03 15:53:03+01:00","Native disabled DNS experiment
+
+Refs #272
+"
+"2a0d7661e07c82d28461ff5f22e0f96f20fbf3d1","2016-02-03 16:10:25+01:00","Allow searching on resolved names
+"
+"4434a612803e7c1a62ccac0994e72da4b46aacbc","2016-02-03 16:26:48+01:00","Updated, added text
+
+https://tools.ietf.org/html/rfc2308
+"
+"f20b5867108337aae2f707acb4de4cb4bd0835f1","2016-02-03 16:51:01+01:00","Added indices to facilitate searching
+"
+"f8c5a4cf32845a459c6b70a1efd464d3d74b7af6","2016-02-03 17:09:12+01:00","Persists resolved DNS
+"
+"4a042339ba8872c5257dc9c12cbfbe69d995a305","2016-02-03 17:59:24+01:00","Resolve using the database
+"
+"abc16d3bef1aae053c34064f4d5b3d2e930afeb7","2016-02-03 18:25:40+01:00","Revert 'Native disabled DNS experiment'
+
+This reverts commit be3dbe50dcf53c037ec0e72f2b71eb4eaa08193a.
+"
+"14fa20dfdab25f6bb477fffc1611f2c072365887","2016-02-03 18:25:49+01:00","Revert 'Native experiment: route DNS traffic into dnscrypt-proxy'
+
+This reverts commit 0d61d804d86ca908aec81e9c837140e0d5a7ccd3.
+"
+"40b8dcc5bd1e7b710916fb818d15f77542bf967f","2016-02-03 18:32:25+01:00","Native fixed warnings
+"
+"18b780bfa459bd62a22a370eafd6cea28764d930","2016-02-03 18:40:48+01:00","Added setting to disable storing resolved domain names (default enabled)
+"
+"013e5b8cc2298eb59495b8efadded5016d7fed26","2016-02-03 18:58:15+01:00","Fixed updating dns table
+"
+"099db1b82095b255bd4ee317b68505bec814ab9e","2016-02-03 19:14:10+01:00","Make room for all those new features ;-)
+"
+"921e137955c348b00b3fb91e890d774fa5543e3e","2016-02-03 19:17:37+01:00","Crowdin sync
+"
+"caac35154d9eec5d44f28f70fa80315367aac0c6","2016-02-03 19:19:57+01:00","Give me a little space, please!
+"
+"e186d5a7c64b86cdcbb526125ac12e71fa859bf7","2016-02-03 19:20:35+01:00","0.82 beta 2
+"
+"836000529a60e2c248bcd8ffc22b6d3db9f97a93","2016-02-03 19:35:12+01:00","Fixed updating uid/IP map
+"
+"0209cc2afd8c0ed6e18ae49845af32ac81a6ebf2","2016-02-03 19:50:12+01:00","More logging
+"
+"7e6b9a34eba672719d53ecf0fb4a3887a265502f","2016-02-03 19:50:20+01:00","0.82 beta 3
+"
+"0667a58408e8dd5823ee886a391fd8547515246d","2016-02-03 20:38:38+01:00","DNS table cleanup
+"
+"f018e963daaa41aaddd008e97218a48d27322c22","2016-02-04 06:55:24+01:00","Layout improvement
+"
+"5bfc880751e7581016ef681dbd2849d390793721","2016-02-04 07:05:36+01:00","Substract network speed of NetGuard from total when filtering
+"
+"edf9e119933feffed48e37b63bc45fd0c7b6f041","2016-02-04 07:06:54+01:00","Disable name resolving while logging
+"
+"338bf5ccec7905a774345b04e92ab75ce3d55f23","2016-02-04 07:11:53+01:00","Remove last download time on local import of hosts file
+
+Fixes #275
+"
+"ac1ffb569d36cc060cebf15b677d788e1be25a0b","2016-02-04 07:23:27+01:00","Limit application access log to 50 entries
+"
+"df2c62aca0406ba0e8e4613e06f55f1259bb8129","2016-02-04 07:40:18+01:00","Conditionally create database indices
+
+Refs #256
+"
+"989303efc6fbf173c3083a8c89e4992b9c75d687","2016-02-04 08:54:54+01:00","Show allowed/blocked/hosts count only if there is something to count
+"
+"be00ef48c00b743ce8b8b65ffe3703c98794fe6f","2016-02-04 10:09:31+01:00","Better handle blocked UDP traffic
+"
+"c4391a7c94bc5cfe4eabcd4e8ef3edce89db7545","2016-02-04 11:07:48+01:00","Filter traffic log on udp/tcp/other and blocked/allowed
+
+Fixes #282
+"
+"f4657ea00f9b87cb18e15cbef8bc299a105390c4","2016-02-04 11:10:39+01:00","Crowdin sync
+"
+"943a4637828e4a3d19de869fb252dd23420326c9","2016-02-04 11:49:43+01:00","Batch changed notifications
+"
+"f746b2214fdd87f9ff0fccb13034f96056ecbe78","2016-02-04 13:00:33+01:00","Fixes
+"
+"ce9c03329a9a19ddcd0c7a3fb1f798cf01a29704","2016-02-04 13:11:04+01:00","Crowdin sync
+"
+"b23d5482c9c2089a9010136d374de4ed4a4d0931","2016-02-04 13:11:15+01:00","0.83 beta
+"

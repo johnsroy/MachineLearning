@@ -1,0 +1,31 @@
+"commit id","commit date","commit message"
+"5a855d5d0bf3510be626408115d3901cfd15ba52","2014-03-02 01:46:11-05:00","Put a scrollbar on the about box because it doesn't fit in landscape
+mode on small phones.
+"
+"5187bbfb199b1dc44923b54a88c0fc9c28889868","2014-03-03 23:36:19-05:00","Add a demo activity which shows all possible alert types to make it easy
+to see which ones don't have assigned icons and backgrounds yet.
+"
+"ab15d19dc09b25ca0423cf25352edf9b48294fd9","2014-03-04 23:14:58-05:00","Resolves #12 - Long periods with 'Loading Widget' displayed
+- Remove the manual update Intent from the manifest, the sender from the
+background service, and the receiver from the provider.  Turns out if
+we're doing this right we don't need it. :)
+- Major revamp of the RemoteViewsAdapter (aka NWSWidgetService)
+- Removed the commented out code for the old Handler() we aren't using
+anymore
+- Replace it with synchronize() locks around calls to the data that
+wasn't thread-safe to mess with. We need to block to access that data
+instead of posting a 'run it later in the same thread when we have spare
+cycles' routine.
+- Removed the TODO annotations from auto-generated stubs that have
+been verified to return what they're supposed to return.
+- And the major bugfix: in onDataSetChanged() the docs say we're
+allowed to block until the data we need is available, so do so, and wait
+for the IPC connection to connect before attempting to grab the data and
+returning.
+
+Overall, watching the log, this not only gets rid of the blank 'loading'
+for long periods of time but also makes initial widget startup a lot
+cleaner.
+"
+"58465075ae3209918b9c01882c8161453a206505","2014-03-04 23:22:18-05:00","Bump version number to 1.0.4
+"

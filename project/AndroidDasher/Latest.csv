@@ -1,0 +1,1114 @@
+"commit id","commit date","commit message"
+"f4975821c379d3aa992e97ef483a35ce0808e973","2010-01-13 20:31:44+00:00","Initial commit...dasher core (unchanged), begun Android classes
+
+.gitignore-ing gen/ only, not res/
+"
+"f4e0b26eb80476992f4a5e054a519793ea61b5b3","2010-01-13 20:45:26+00:00","Excised CModuleFactory from core, use/register modules directly
+"
+"66a7be7620decc2b50c0f8b279cc15a819ad5c58","2010-01-13 21:16:41+00:00","EventHandler now superclass of DasherInterface; SettingsStore created in c'tor.
+
+Simplified constructors for InputFilters accordingly.
+"
+"e63ee561d73e7f9a72f465e8cd3d35c61b12642f","2010-01-14 16:55:21+00:00","Split Tap_on_display into OneStepTowards and NextScheduledStep
+
+...and made CDefaultFilter::Timer responsible for checking BP_DASHER_PAUSED
+"
+"24535a1d1c7e5819c3b42cee1f9b77f1b6cd92e6","2010-01-14 17:33:00+00:00","Updated Android manifest to use package dasher not uk.ac.cam.phy.inference
+"
+"c145d8d6ec5374108a650960ec52977eae06b055","2010-01-14 17:33:44+00:00","Tidy co-ordinates (arrays know their length), remove non-working eyetracker mode
+"
+"614f967deafc2b74b880b6972ddcf0289ad3bc78","2010-01-14 18:19:39+00:00","Immutable Points, DPoints and DRects
+"
+"24eec42526d63486195c2762f015f255dacc3948","2010-01-14 19:06:56+00:00","Removing redundant parameters from graphics primitives
+
+Arrays know their own length; bFill/bDrawOutline inferred from colour/linewidth
+
+(Hope I got all the callers?!)
+"
+"943ddee4a2068a24ee578ddec3c3587757a79242","2010-01-16 16:59:01+00:00","Android startup/settingstore creation, removed Host (->anonymous subclass)
+"
+"5ad37d2ccbdedc4bad15a24d3310b9aac6541efe","2010-01-19 16:59:54+00:00","Moved sendMarker() & Display() into CMarkerScreen subclass (as optional).
+Changed Android to use 2D graphics; implements CDasherScreen (no markers yet)
+
+Also renamed AndroidDasherInterface -> ADasherInterface
+"
+"516bb2b3722c9b65a2eddb5dacefd4f17771b90a","2010-01-20 15:51:16+00:00","Added CStylusFilter; replaces default/click in android, w/change to CParamTables
+"
+"89d873c46358a65e85b9cde638fbd2c0fc50b7ef","2010-01-25 20:00:07+00:00","Colour/AlphIO are manually fed streams in ScanXXXFiles; min. set put in 'assets'
+
+Added Common interface XMLFileParser with ParseFile(InputStream, bLoadMutable)
+"
+"fc9815d284f569f3d3a26d2a0a32b8189a3fbc3c","2010-01-27 14:43:17+00:00","Refactor training, moving SP_SYSTEM_LOC/SP_USER_LOC into GeneralInterface
+
+Other subclasses of DasherInterfaceBase, not via GeneralInterface, implement
+Train() to handle finding files their own way.
+"
+"db02fcb25b40e5d27bd5290d6617ade8880f102b","2010-01-27 15:03:47+00:00","Font style
+"
+"4f835638972335bf70c0ba03e009bb10d394fc97","2010-01-27 18:31:25+00:00","CMarkerScreen fix for null input filter
+"
+"342ca7f9e8999ae34e2d8f89245868ed35ce4ac3","2010-01-28 15:39:07+00:00","Android app now debuggable, able to write external storage
+"
+"07ddbf30e7873790072194eaf36bbf55db678561","2010-01-28 15:41:02+00:00","Rewrote Colour IO to use GetValue(String) rather than GetName/Value(int)...
+
+...as much faster on Android (using Expat parser!)
+"
+"faac8c5e1ddc2fa92ac937adffbab592570b24e8","2010-01-29 17:10:46+00:00","Reorganized training and optimized GetSymbols
+
+AlphabetMap supports multi-char symbols; GetNext(java.io.Reader) returns symbol.
+CTrainer removed, didn't seem to do much.
+TrainStream counts bytes read prior to conversion with InputStreamReader
+"
+"83b334bb3881f863028c3d2597bbd99a04b90b6f","2010-01-29 18:13:34+00:00","Rewrote AddSymbol to have only one call to AddSymbolToNode...
+"
+"7a6821162827529cc9cdd44262ba3749366d1811","2010-01-29 18:22:24+00:00","Inlined AddSymbolToNode into AddSymbol: avoids allocating pair combining results
+"
+"937365ebe0841e492d77d43aebcdf5f72691ef33","2010-02-01 17:51:51+00:00","CPPMnode symbol field immutable
+"
+"6865a5e454220fbb3a2b5b366335590b11188292","2010-03-30 16:16:04+01:00","Replaced m_iTargetMin/Max with m_iDisplayOffset
+"
+"546fb23cca6de7605944573bc35f28a18190a96a","2010-03-30 19:59:58+01:00","Contexts!
+
+Removed CEditContextEvent; added CDasherInterface abstract method returning
+ListIterator<Character> over all previous characters; use in DasherModel and
+NodeManager (RebuildParent).
+DasherInterface no longer tracks prev. 10 characters, retrieves from subclass if needed.
+"
+"3282c1caa6cbe28cbbcf79340cfc4e6ec4b790d6","2010-03-30 16:33:52+01:00","Move NodeManager methods into CDasherNode, making the latter abstract
+"
+"2ddf1aa2c008b47ffca9d84379377970f48b90b7","2010-03-31 20:41:32+01:00","Move fields from CDasherNode into CAlphNode; remove NodeManager{,Factory}
+
+Also tidies to contexts
+"
+"1f8aae2454b6210442b31656e41f74e678fa9409","2010-04-01 14:10:59+01:00","Events - remove m_iEventType (use instanceof), make (most) fields final
+"
+"8bf882e9c3aa54a42b9c56304342803e031dbfe5","2010-04-01 14:31:21+01:00","All access to CDasherNode children read-only
+
+Children add to parent in c'tor
+CheckForNewRoot modified to loop (itself).
+"
+"c6653e3576c8fe189cb7394143a9b604e13472e1","2010-04-01 15:34:49+01:00","Remove CSymbolAlphabet; use CAlphabet directly
+"
+"6f2ad553a80d9c46a284c9d1cf617fcbce876351","2010-04-01 18:32:21+01:00","Excise CAlphabetManagerFactory; use CAlphabetManager directly
+"
+"9e440f92447ec420774b756cf603749ff5a83de5","2010-04-02 09:25:29+01:00","Moved context creation into AlphMgr from DasherModel inc. learnCtx, EnterText
+
+GC LearnText
+Minor tidies e.g. final fields
+"
+"56a898aef514889b313c288af7631d3cb8d93c14","2010-04-02 09:54:10+01:00","Remove some utility-methods from CDasherModel only for accessing alphabet
+"
+"486470591b2b17ff9daa268352b388eac954c2a8","2010-04-02 14:39:02+01:00","Moved TrainStream and LP_ORIENTATION-handling from DasherIntf to LM& DasherModel
+"
+"b7a3546967a53a601b03aba1b3aa471fd8d5f29b","2010-04-02 14:51:46+01:00","Remove m_Alphabet from DasherIntf
+"
+"0096ceae656fec988074695de631e588cacf2f61","2010-04-02 20:24:30+01:00","Inline & rm CDasherModel::GetProbs, cache nonUniformNorm. GC CreateEmptyContext.
+"
+"cc660c54e64e225b023195eb198e29858c67a6ac","2010-04-02 20:28:53+01:00","split CDasherModel::GetRoot; moved last-symbol-extraction to CAlphabetManager
+"
+"3a1c9b2b918d9ab20be6d7bc440b5442fb61441d","2010-04-02 20:33:39+01:00","Remove redundant 'DeleteLM' method of CDasherModel (always called in UnregCmpnt)
+"
+"e04fb93d60dff186bd59c4ffe4278416ee030cff","2010-04-02 20:39:09+01:00","Remove m_LanguageModel from CDasherModel; access thru AlphMgr when necessary
+"
+"7db1d4afcd946f223e5fa1892881212983fcd9f0","2010-04-02 22:30:42+01:00","Language Model contexts used as immutable -> use PPMnode directly w/o PPMContext
+
+Remote LM temporarily removed pending update to fit new interface.
+Tidies to CDasherModel.
+"
+"29c6f4d620771efd42c2b740b88f9ac470a60bcf","2010-04-02 22:36:28+01:00","Rewrite (ContextLearning/Add)Symbol to make many fewer calls to find_symbol
+
+3* faster startup on Nexus One! :)
+"
+"94f2450118f3c7bfb2015143213cede065c3a9c3","2010-04-08 13:36:38+01:00","nonlinearities work on longs, abstract in CDasherView; inline Cymap into DVSq
+"
+"909fa65f8a0d51d5908669d644720c6a8420fac8","2010-04-08 14:25:01+01:00","Separated out DasherTruncRect() function
+"
+"993165ba5d96bb93f3684175698f623324ebb948","2010-04-08 14:58:22+01:00","Removed all references to EColorScheme; use m_iPhase to cycle colours
+"
+"b8636c2a7106ae72bde90318f634924b0f0bddfc","2010-04-08 19:06:21+01:00","(Lazily) Make CDasherNode's for each SGroupInfo in tree; renderer ignores groups
+
+CDasherNode::iPhase stored in CAlphNode only
+CDasherNode::bShove converted into shove() [true by default]
+Added CDasherNode::outline() similarly.
+CDasherNode:: m_strDisplayText final, set in c'tor
+CAlphIO stores groups in ascending (no longer descending) order
+Removed all references to ClearNode()
+"
+"0d64400b62efab0ec994621003f520b6fbbd0aa0","2010-04-10 09:44:56+01:00","DasherViewSquare: rm NodeCannotBeDrawnException, inline Render into only caller
+"
+"873537e08508ae1b8bca53cddffd6fdb333ce5de","2010-04-15 17:10:40+01:00","Use ExpansionPolicy to expand/collapse nodes => maintain budget of DasherNodes
+
+BudgettingPolicy implemented using explicit CDasherNode[] and sort() routines,
+and policy objects reused, to minimise allocation (else pushNode() was hotspot!)
+"
+"b7f0bdf2285b76e0e450cd4578ceeed1adb054cd","2010-04-15 17:55:37+01:00","Outline mode: box outlines drawn _after_ children, not before, in uniform colour
+"
+"8786e89748c0c471c987a94e5f6bbbcfc02b04cb","2010-04-15 18:04:41+01:00","Remove Alive() property of CDasherNode, add m_OnlyChildRendered. Fix outlines.
+
+(also used to determine when to select a new root).
+Note this breaks node budgetting (numNodes is never decremented),
+but it was broken anyway ('dead' nodes could become alive!)
+"
+"1341541804fb0ee31746e7d11ade493850d5db7f","2010-04-15 18:31:50+01:00","Reinstated explicit deletion via DeleteNode() - decr numNodes => fix node budget
+"
+"ac9c572cb94c0568cd8ffd47723dc377f9c239b8","2010-04-15 19:16:19+01:00","WIP Node Object Pooling
+"
+"e7d26bd4583ade5bc0d4d07545664a8414727ac6","2010-04-16 14:45:49+01:00","Cache result of VisibleRegion as a DRect (rather than pair of DPoints!)
+"
+"f9f8118008fb5c451cdb3b52fc4570d5235acdde","2010-04-16 15:25:31+01:00","Make Crosshair() private, reads LP_OX itself, caches/reuses long[]s
+"
+"e3efd31c66824741f2f6c33d02f7106d8c004742","2010-04-16 15:26:28+01:00","Object pooling of CTextStrings in CDelayedDraw
+"
+"c3e25e1b3a1c81dc39f1a20dcb8df962c23e90a6","2010-04-16 19:31:46+01:00","m_iScaleFactor{X,Y} stores current orientation only, read directly w/o DPoint
+"
+"d1b4b72a1d1bb69b5e6e5f084523e96bdd51ba0c","2010-04-16 19:45:21+01:00","GC DasherView{Square}::NewDrawGoto, ResetSum, ResetSumCounter, ResetAutoYOffset
+"
+"ac264a38fddcf82dd9d9c4f56433b58071934760","2010-04-19 18:21:48+01:00","Moved getInputDasherCoords from CDasherViewSquare to CDasherView
+"
+"d7689712bc907f61bb12921ed0969e40a92ef555","2010-04-20 14:47:30+01:00","Removed proto-1D mode for input coords, added no-alloc routines mutating long[]s
+
+(of getInputDasherCoords and Screen2Dasher)
+Also remove duplicate input-coord-conversion code in CDefaultFilter
+"
+"dad75a24078a9f37fcfabe11f58579be8c4e6096","2010-04-19 18:20:34+01:00","CDefaultFilter: cache long[]s for drawing & last input coords => less allocation
+
+Also change Mouse line/box to only be drawn whilst unpaused
+"
+"237faa21367f3a6f592fabba1ee9bc7847b69936","2010-04-21 20:37:12+01:00","GC Recursive_Push_Node, remove unimplemented ResetAutoYOffset
+"
+"a8a1e417da10f774a54c6db7a090cfbb6458362d","2010-04-21 21:17:07+01:00","Remove much Control Mode stuff. If we do Ctrl Mode will do it a better way!
+
+Specifically: (Dis)connectNode, etc.; GetCtrlRoot; idea of control 'symbol'
+Also removed start/end conversion symbols
+"
+"2b1886d315e03f10c0382c8827b57722af722f8e","2010-04-25 12:35:30+01:00","Store foreground colour as int not String. Unused?!?!
+"
+"837a55ff05e96223a79bb771a8355732046bce70","2010-04-25 10:45:02+01:00","Contexts take two: use ListIterator<Character> not String everywhere
+"
+"8168f7ec7e04111a5f96294f39047673dcbf06a8","2010-04-25 10:49:12+01:00","Make ADasherInterface and DasherCanvas more general
+
+ADasherInterface takes android Context as parameter, also performs training & IO
+TouchInput (device) made explicit subclass of DasherCanvas
+DasherCanvas::surfaceDestroyed() prevents further rendering => fix crash msg
+"
+"e92221522e70c33398ab7f491d8fa045bb92c74e","2010-04-25 20:07:22+01:00","Start on input method, reusing a DasherCanvas, also some log messages
+"
+"f750a5f352bdc1aa5560f9c3bda4f2a3f119ac9c","2010-05-14 19:46:26+01:00","WIP shutdown, absorbContext, android layout, activity does nothing.
+"
+"49dbed5c77f0fd726f594540a805fc37c19907e9","2010-05-19 09:53:18+01:00","(untested) handle undefined characters in context
+"
+"2e282579b3c186b6041a29327ae9d21bb6bf7bb9","2010-05-19 09:54:10+01:00","Screen geometry/layout as per iPhone - w/ LP_NONLINEAR_X and LP_MARGIN_WIDTH
+"
+"836db6fe9d625acb6c3d7828d9eb1e115b8b67ab","2010-05-19 09:55:11+01:00","Have only a single CDasherInterfaceBase object (static)
+"
+"cfd3fc7b2c277d2e910c808e9ba4bb77a5055db8","2010-05-19 22:21:23+01:00","Fix rebuilding parents
+"
+"37cdad49e7428985e363f571f73026084610dcfc","2010-05-20 17:05:20+01:00","Startup / memory fixes
+
+*make (static) ADasherInterface object switchable between contexts (IM's)
+*CDasherInterfaceBase creates settings store in Realize() not constructor
+*TouchInput part of ADasherInterface, DasherCanvas provides only GetCoordinates
+"
+"01ca9a663dbbf681849b52c261a01b4445de1ab0","2010-05-20 17:12:12+01:00","DasherCanvas takes _desired_ size as c'tor param, then applies MeasureSpec
+"
+"8be6930da3a0ab8cb926a889f93df282aadc6d67","2010-05-20 17:13:20+01:00","Log CompletionInfo's
+"
+"5f52ffce2f81630072601f1f354fd9bd8768373e","2010-06-08 14:56:38+01:00","Offsets; static/initialization & redraw/session-lifetime fixes; kill Activity
+
+Use offsets to keep track of location inside external text buffer
+=> now can scroll through and Dasher tracks context;
+surfaceDestroyed() prevents rendering until surfaceChanged() again
+=>IM reusable despite  many onStartInputs never terminated by onFinishInput(!)
+Activity just renders some Quadrics.
+"
+"f7418726880b63f42829011b46cf71840c15198e","2010-06-08 15:15:10+01:00","Simplify singleton - create interface in <clinit>, make Realize() synchronized
+"
+"12e1328998710e0ba677cdaa595d00e752fe59e3","2010-06-09 11:01:02+03:00","More fixes for out-of-order callbacks etc.!
+Try overriding onStartInput instead of onStartInputView...
+"
+"0961d2c7cbb92f9e3b08a0431b672ed920e07502","2010-06-09 15:44:12+03:00","Do onStartInput calls to SetOffset on the render thread also
+"
+"a7c0d14091556229fb86bc69db17c83850f0c518","2010-06-09 16:25:50+03:00","Get initial cursor position from EditorInfo, rather than asking 4 ExtractedText
+"
+"0d2d89fdd7473b20828041d44c5db2782ff61ff8","2010-06-10 12:57:50+03:00","Abandon fullscreen; create new DasherCanvas every onCreateInputView => reorient
+"
+"3b240a806cfd3b2eae34e631275a13778db6752d","2010-06-10 14:34:11+03:00","Tilting via multiple CDasherInputs. (Note, tilting scaled against screen...)
+"
+"a78250d88f13b5fc12a2a089cb971d49f71b5c21","2010-06-10 15:47:07+03:00","Rationalize module types; implement CDasherInterfaceBase::GetPermittedValues
+"
+"bce443aa49042040f95b445e6f7b7f9202d55516","2010-06-10 16:01:46+03:00","Moved DasherIntfIME out of DasherInputMethod => IMDasherInterface[.INSTANCE]
+"
+"74aadc39d8bae3bbe77e1baebd2e492d4e85bfb3","2010-06-10 18:20:31+03:00","Removed CParamTables, putting all name/desc/default info into E?p_parameters
+"
+"b040bc1f8be06cd8b6ab1e0e4c422c8ecbcbcaa6","2010-06-10 18:21:00+03:00","DasherActivity allows modification of input method / device & autospeed settings
+
+(spec'd as IM settings activity; preferences listed in xml resource)
+
+use default SharedPreferences, and listen to changes (i.e. to backing store!)
+"
+"05be8998b1bd29e84b62b9a1ca3022eb2ef4d17c","2010-06-10 19:22:52+03:00","Remove reference counting from CDasherModule
+"
+"7e52033b028839377d7b8e710cf9714a63029ec4","2010-06-10 19:23:23+03:00","PowerManager.Wakelock to prevent screen-sleep whilst tilting
+"
+"3e0aeaebb8656d7d8c2ec2d66d3acdd2ce54365d","2010-06-17 16:38:48+01:00","Fixes to ensure all nodes are DeleteNode()d
+
+Avoids number of reachable nodes gradually falling below currentNumNodeObjects()
+Also fix & simplify Reparent_root.
+"
+"958a66b98c2371334d738bd66c1b0133aa8f9e7c","2010-06-17 17:05:41+01:00","Rewrote DasherDrawText to reduce (but not eliminate) allocation of temp objects
+"
+"9fc9b9c5f17dd336068e91af861c0551cc95c439","2010-06-17 17:13:52+01:00","Added language (alphabet) preference
+"
+"db26f7304ffccdb0b740f757fdd3845cc39b2480","2010-06-18 13:29:14+01:00","Rewrite DasherDrawRectangle to avoid allocating DPoint's
+"
+"82f8e06c17d0f08863b7b6cc062cb2287a91e4cf","2010-06-18 13:58:25+01:00","Added CDasherNode::ChildAtIndex, used by CDasherViewSquare::RecursiveRender
+
+Avoiding some allocations of iterators. Also fixed RecRender to Delete_children
+on all unrendered child nodes.
+"
+"9df95267a8e7763539caa5587d07286f82249911","2010-06-18 22:54:20+01:00","CDasherNode pointer fixes
+
+clear m_OnlyChildRendered when we clear children (!)
+clear parent in OrphanChild, prevents all kinds of mess if you go/backup too far
+"
+"d9a05a032c751dbe37f2df6588eeee87ada219b1","2010-06-18 22:54:48+01:00","Allow for null parent pointer when reversing back out of root node
+"
+"5a36cdaf50cf7da940bd858e94ecfd6f80c0586f","2010-06-18 22:29:43+01:00","Don't enqueue nodes with same cost-to-collapse as parent.
+
+=>total ordering => use standard sort() on expandable/collapsible queues
+(Fixes occasional stack overflow error in old sort() !!)
+"
+"8ac67e9f75917b6a902caf3b1071842540665b15","2010-06-21 13:31:03+01:00","Fix parent rebuilding (Seen flags, offsets for groups, etc.)
+"
+"0eba2860d56beb1faca2668433a919e80604193f","2010-06-21 16:58:50+01:00","Manually update lastCursorPos when entering text to keep consistent for getCtx
+
+(Asynchronous callbacks via onUpdateSelection may follow later!)
+"
+"6b2adf42bcee19ad7ec92eaab64d746c6807b9df","2010-06-21 18:13:18+01:00","Removed GetInputCoordinate{s,Count} wrapper methods
+"
+"454d3b26d16d5c2f2ac08f41e385350d07483465","2010-06-21 18:13:38+01:00","Remove the HasAllChildren flag
+"
+"10624f0261cd04a906107b4f20a9eb8b601bd69c","2010-06-21 18:14:15+01:00","Delete_children uses ChildCount/ChildAtIndex not iterator
+"
+"7b59246b8c2ea4d8c82d8dec9680673ff5480d57","2010-06-21 18:31:31+01:00","Cache text sizes
+"
+"d6797f2ad2995e4a58022c81d66b3b3a46c33ccf","2010-06-21 18:53:54+01:00","Compute / cache screen coordinates of crosshair in SetScaleFactor
+"
+"2170b016de1633a549bb1908b48baccb063fc35c","2010-06-29 17:47:18+01:00","Provide default input device / filter in case settings name can't be found
+"
+"3a9c0dd68428ea7991ba81f1dbad5446d7c86004","2010-06-29 17:56:12+01:00","Redraw/repaint/lifecycle fixes
+
+Render a frame _iff_ requested, then any enqueued tasks
+android.DasherCanvas implements DasherScreen directly
+"
+"8d406672b3c7d963ce9aa798868dd2e63705b4c1","2010-06-29 19:39:06+01:00","Add CDasherScreen::Polyline variant taking int[]s. Rm DasherDrawCentredRect.
+
+& redo CDefaultFilter accordingly to remove allocation in DecorateView.
+Also simplify CStylusFilter.
+"
+"baa8cdb7adb35a939fc6303aa567eb6969d6f5fc","2010-06-29 17:58:03+01:00","Coordinate remappings if BP_COMPRESS_XTREME / BP_SATURATE_X are set.
+
+CStylusFilter: add separate ApplyClickTransform() method.
+"
+"408197ba5f8e54f0403c569283706f9c71637fea","2010-06-29 19:58:43+01:00","Inline Get_new_root_coords and remove allocation of GNRCReturn struct
+"
+"f5f59d544df8e78e1e9e41bc9bb40ddf297ada67","2010-06-30 13:47:09+01:00","Changed preferences: two checkboxes (tilt / touch), which deselect each other
+"
+"69034c9ea7db4e4f3d8026a94491eec6eb836ed0","2010-06-30 20:46:19+01:00","A whole raft of suboptions which popup whenever either checkbox is activated
+"
+"9877bfacf2ef0296c054588b21dafb82cb3bf8c1","2010-07-02 21:32:12+01:00","Removed input device from view & pass directly to Timer(), also KeyUp/Down() (with view).
+
+GetCoordinate{s(long)/Count()} replaced by Get{Screen/Dasher}Coords(View,long[])
+so CDasherInput can decide whether to do coord transform or not (rather than
+using a dodgy hard-to-remember int!). All are assumed to be 2d.
+
+GC empty / identical-to-superclass HandleEvent() and DecorateView methods.
+"
+"bbfec6fa32928ba8a620669cea544f2b32245b6a","2010-07-03 10:38:00+01:00","Implement AndroidDoubleX setting in Touch _input_device_
+"
+"56a397ed209ae0cc87bb84789c2704535d5684b4","2010-07-03 17:18:45+01:00","Implement android touch/tilt controls / transforms, inc 1d
+
+Touch-uses-tilt a bit of a hack wrt. registering tilt sensor listener atm.
+"
+"63489fbc751b9104e758b640371c3f4c93b67d77","2010-07-05 09:50:25+01:00","Factor out duplicated options
+"
+"6f95daf497901f40cc9a33d3d366304a70a4af42","2010-07-06 19:49:19+01:00","A whole raft of further preferences, including creation of LP_NODE_BUDGET
+"
+"0d1625c39094303773ac51d5c611669d1824b2b7","2010-07-06 18:58:58+01:00","Do the checkboxes using xml and make them persistent
+
+Each stores own input device/filter in xml. widgetLayouts in XML too.
+(android:key attrs of PreferenceScreen and corresponding checkwidget must match)
+"
+"c0d636da60afc430420b62c674c5c73e42ddf119","2010-07-07 16:09:39+01:00","Fixed NPE in Blank() - using wrong DasherCanvas!
+
+Replaced ADasherInterface::SetCanvas with overriding of ChangeScreen, ensuring
+m_DasherScreen is always a DasherCanvas instance (casted elsewhere when needed)
+"
+"45bb3bee430bc03fa8b0dbc5038f1ba7ec596479","2010-07-07 17:33:51+01:00","Code tidies, sprinkle 'private', remove Log msgs.
+"
+"3f022d07e93fe660bcebf40e98ac462831e4dad4","2010-07-08 21:24:48+01:00","Direct and scanning modes (separate options)
+
+Common superclass CDasherButtons, with box locations left to subclass(es)
+CDasherModel::ScheduleZoom & NextScheduledStep clear/set BP_DASHER_PAUSED
+CDasherModel::CheckForNewRoot called by CDasherInterfaceBase::NewFrame
+=> remove corresponding code from CClickFilter/CStylusFilter
+"
+"1b62b6a2fd76d5400721658574b9b3ad08202134","2010-07-08 22:23:49+01:00","Compass mode - controlled by trackball!
+
+trackball motion detected & intercepted as key pressen, if appropriate setting
+indicates compass mode is in use - a bit of a hack but works for now...
+"
+"ae2bcb0308d96c768ed19a94fc021f51dc1e3750","2010-07-10 14:49:30+01:00","DasherCanvas attempts to size itself to largest possible _square_ part of screen
+"
+"3ec859857b4df5507dbf374dda0f4060073acd79","2010-07-10 15:55:13+01:00","DasherDrawRect: 'top'/'bottom' => min/max & invert (fixes 1.6 draw bug)
+"
+"664c592c316364e482756958d3d97e402d92f619","2010-07-19 20:19:58+01:00","Tidies to framerate, *add android logging* every 20 recomputations
+
+Remove m_dMaxBitrate from CDasherModel (only ever passed to CFrameRate!)
+"
+"7bcbd8c4528a1d73d3a6fa204625cac9a593aade","2010-07-22 16:52:48+01:00","Fix cost of any parent of root (i.e. in oldroots queue) at Double.MAX_VALUE...
+
+...so root and all child node's costs are not limited to <=0 !
+"
+"460755c4c76fe3d0b836b4b1915156e79b03dca9","2010-07-19 20:21:08+01:00","Streamline RecursiveRender()
+
+Remove LP_TRUNCATION{,_TYPE}, squares only
+Dasher2Screen rectangle coords once only and store for outline
+min (Dasher-) node size to recurse (w/text) now in LP_MIN_NODE_SIZE_FOR_TEXT
+-also recurse if >=1/2 min size & Range()>=lpNorm/3 (=>highly predicted words)
+....this can slow things down, but can just increase LP_MIN???
+-don't check pixel size (usually subsumed by above, esp. for default LP_MIN..)
+use prev. child maxy as next child miny => less computation;
+beyond screen edge, don't check remaining nodes & just Delete_children() on all
+CDasherNode::initNode() requires non-null m_strDisplayText & hbnd>=lbnd
+"
+"fa82e0d4f93ae6dc1d16d2db3677782f70bd9a83","2010-07-20 18:43:33+01:00","More complicated alg using m_OnlyChildRendered for largest child
+
+(i.e. if too small to render normally - even if <1/2minNodeSize) as well as for
+any child covering the y-axis.
+"
+"18c274d26b7970f92070c04b8fc9d530eba0be36","2010-07-20 22:31:35+01:00","AmortizedPolicy.
+"
+"ba23d97cf841938c01b741bf7c04d0d50f56f885","2010-07-21 18:51:30+01:00","Added CDasherNode::ExpectedNumChildren() method, implemented by subclasses
+
+Added {CAlphabet,SGroupInfo,CAlphIO::AlphInfo}.iNumChildNodes
+Removed root symbol, hopefully everywhere; index 0 used as ordinary symbol
+CPPMLanguageModel::GetProbs nonetheless prepends an initial 0 on front of array
+Make CAlphabet's largely immutable after construction (from AlphInfo only)
+"
+"5364103c4a42978d6476d6fe219759958ce3207b","2010-07-21 18:54:13+01:00","Removed BP_OLD_STYLE_PUSH parameter and OldPush method
+"
+"6ff55585246c6da29b77870fc1eb2d969d91887f","2010-07-21 19:47:22+01:00","Wait() on touch events, then notify() to free UI thread at end of frame
+
+Also fix various selection-handling code for where sel end < sel start
+(this happens if the cursor is at the beginning of the selection!)
+"
+"51fcdc2dd3fcc3539f6087cc791126187244ce6b","2010-07-22 18:55:53+01:00","rm UpdSelTask, store request in new_lastCursorPos etc. and apply in NewFrame
+"
+"ac77f2a314213bf038b843f78694d932ee3870f4","2010-07-23 11:37:56+01:00","Maintain queue of cursor-position updates potentially expected from Android
+
+(as these are delivered asynchronously, possibly after we've further modified
+the text being edited such that further updates will happen afterwards. Thus,
+we ignore any setSelection() that's been enqueued.)
+
+(TODO This really ought to be done at the level of onUpdateSelection...)
+"
+"ff9a2ccd61f203f28fb2f802af5f453d49b05006","2010-07-26 15:09:08+01:00","Initialize DasherInterface before creating Preferences => defaults!
+"
+"7faca950d5c30a4eb834b18c786f7582d4312e6c","2010-07-26 18:33:46+01:00","Test LinkedBlockingQueue and use ArrayBlockingQueue instead if broken
+
+(as it is in Android 1.6 on G1, for instance!)
+"
+"da95f86b2ea8cd8caea5f3ad67358a8c40f4eafc","2010-07-26 19:38:12+01:00","Rewrite DasherCanvas dimensioning, GC desired width/height fields/params
+"
+"138cda902c03855de25d6369b975fe989e037f52","2010-07-26 21:10:04+01:00","GC CanvasY; fix ChangeScreen()
+"
+"ea75c8b4f41ff9c3e4c16b1a00b0a85a9d7a004e","2010-07-26 22:09:27+01:00","'boxes' input method w/ 'scanning' checkbox within
+
+Via SingleIMCheckBox/DualIMCheckBox (has on/off settings for a child widget)
+"
+"68723f7f2f8b990b499001c7928ff6c52ee721c1","2010-07-09 09:04:00+01:00","Split CScanning out from CDasherButtons and CMenuMode out from CButtonMode
+"
+"2c5102b595f55a1cdac5ae32a127bca069a13bce","2010-07-27 14:35:48+01:00","Made CScanning a subclass of CDasherButtons, removing much common code
+
+...and making many private fields of CDasherButtons protected
+"
+"c26a7cb60494b51160b1d1703627133611bb75b2","2010-07-27 12:51:07+01:00","Added CDasherInput parameter to DecorateView methods
+"
+"6d6c892f73a1978a6b616867919e624eb7bce2be","2010-07-27 20:10:21+01:00","Tidy some tilt input code
+
+Tilt Input registers self as listener continously;
+TouchWithTiltX is separate input device using DualIMCheckBox
+"
+"16daded917048f2d9d68d348e44adfc252e7a957","2010-07-27 20:44:51+01:00","Get{Screen,Dasher}Coords return boolean of availability => see tilt when paused
+"
+"f5a91989ee784f3515044ad4a2169d4b070e1279","2010-07-28 14:39:20+01:00","Fix that min/max y rectangle issue...hopefully for good!
+"
+"c3d8d6e4eda9de3b5c6a6f2bfd144b1b72648222","2010-07-28 14:42:15+01:00","ApplyTransform() on coords when paused too; stop moving if no coords available.
+"
+"148090741a45b530cecf559404aec3f95705382f","2010-07-28 14:43:02+01:00","Fix various input modes (module ids, stylus tap location, Tilt2D default off)
+"
+"dcbb44b7fb7b8daa52f048465b54724d9314589f","2010-07-28 14:43:37+01:00","Preferences: IMCheckboxes setup their own listeners etc. at construction time
+
+(using a global variable 'the current preference screen'...:-( )
+"
+"d444b56e034ec5a908466f33ef3386a17822f4dc","2010-07-28 17:19:57+01:00","Initial seekbar display & decimal point; shorten & add some summary texts
+"
+"65b4e3c7553c4d48995081e7cb0427196b9c7b4e","2010-07-28 17:20:39+01:00","Refresh on manual scan, so you can see it!
+"
+"04a629f401b89310735b7acfcade23d4f2098622","2010-07-28 17:21:44+01:00","Remove / comment out android logging
+"
+"1fa19ab9926922e0a7d5c7ecabe844793edd9e68","2010-07-28 17:37:38+01:00","Apostrophes
+"
+"3614cafe01a409216947f21708e6d9d1b64c32b5","2010-07-28 17:38:14+01:00","Added Colour Scheme preference
+"
+"ec5a202b14037beb49590296ed8074ddf8a19d59","2010-07-28 19:34:33+01:00","version 2 of application (manifest.xml), with icon!
+"
+"1df5149c6d1c682c24cd879f48d7ab12cc0db4e2","2010-07-28 22:01:49+01:00","Version 3, hopefully getting the icon right this time?
+"
+"2c7fb292b10504a92a67c8342c51dc7edc6bedb9","2010-09-21 14:58:13+01:00","Rm BP_SATURATE_X; implement BP_AUTO_CALIBRATE in CDefaultFilter; GC old params
+
+Also update some (English) description strings
+"
+"a2329fe891815baca8edfdbc30e20e794a99900d","2010-09-23 12:14:05+01:00","Screenshots + 'promo picture' for Android Beta release
+"
+"f78a84ea8b2e858302b99857c375f2df3fb86b64","2010-09-23 13:14:21+01:00","Framerate tracking
+
+CDasherModel extends CFrameRate; records frames in oneStepTowards;
+don't reset framecounter on unpause (!)
+"
+"cffce69709daa74b0cd0b04555080d9e815fd4c9","2010-09-21 15:02:50+01:00","Dasher dynamics (oneStepTowards): correct drift; faster reverse; slow start
+
+..controlled by LP_SLOW_START_TIME (0=off), timed in CDefaultFilter
+"
+"15eb082e64d9097a20efb4984569c8ff7177fc17","2010-09-21 15:04:26+01:00","Model creation / offset handling, rm CDasherInterfaceBase::Start()
+"
+"78249dbd1854c14d1f91d2be0486ccb7f5c4dfb1","2010-09-21 15:05:06+01:00","Fix tilt wakelock
+"
+"ad28f63ce7dc528356a0ec393687f6ebafabe27b","2010-09-23 12:11:57+01:00","Swap x & y if landscape; store x/y mul/offset as fields
+"
+"2240c3a8a32a268c1839993c4576c3642de6a2e8","2010-09-23 12:14:39+01:00","Tilt calibration GUI
+
+Calibration in landscape not quite right, but it seems to work ok in practice...
+"
+"33e031bcf9ecb5188c10ab7b04cfeab2431a9b05","2010-09-23 16:47:15+01:00","Removed List<CSymbolProb> from lots of places; put probs. in CEditEvent instead
+
+TODO, logging code still non-functional! But probs. now computed as frac
+of previous symbol, at least! :-)
+"
+"3b28e30d8d6fa45e57a5313adb696df18f56312c","2010-09-23 17:26:12+01:00","Force reparent in NewGoTo (rather than stop); update m_deGotoQueue in Make_root
+"
+"cd408bed263127cae18c6134e9b27556fc16d3e0","2010-09-25 10:16:04+01:00","Remove iPhase, use iOffset%2 instead. Properly, I hope...
+
+(initial root/children colours, colour cycle symbols + root only not groups...)
+"
+"9fcfe7a8a12d4a674eb5102728975f0dc32800d5","2010-09-25 10:12:26+01:00","Allow (reversing back through) unknown symbols - forces pause in Enter()
+
+CDasherInterfaceBase::PauseAt calls ClearScheduledSteps;
+Rm CDasherInterfaceBase::Halt.
+"
+"9dd77242dadf2802f0de54ee462c41a8b78ff057","2010-09-27 14:23:12+01:00","Dasher dynamics: redo ScheduleZoom as per Dasher 4.10
+"
+"78004d53f7b34cece00810512dce86660c340d8b","2010-09-27 14:24:05+01:00","File storage / handling
+
+Files read from 'dasher' subdir of getExternalStorageDirectory()
+Training file written to above dir
+"
+"e457a0692f618f0d0aa9fbddc2ef99a132754114","2010-09-28 11:08:28+01:00","Moved 1D transform into dasher.COneDimensionalFilter <- BP_ONE_DIMENSIONAL_MODE
+
+Also removed some other old/defunct BPs
+"
+"0c48aa99efd0a69c63cb5b3800c6d8860bdb33b4","2010-09-28 11:48:06+01:00","Sweep mode
+
+Triggered by screen or any button except menu, back, cursor
+"
+"48f493945f888da46d12afe1c3e095ca71df2f12","2010-09-28 18:25:46+01:00","Added LP_MAX_ZOOM parameter for click & stylus modes
+"
+"4d17c52a2c6234f2414fea00f164d1dca3f302c2","2010-09-28 18:27:10+01:00","LP_REVERSE_BOOST controls how much reversing speed is increased
+"
+"662cfad31d61022776fd0fd62f89f12517e6c29b","2010-09-28 18:29:46+01:00","LP_TARGET_OFFSET added to mouse position; BP_AUTOCALIBRATE merely adjusts it.
+"
+"20e59ce253d86cd8185cf8aa591334b5450321bb","2010-09-29 13:22:09+01:00","Option for circle start mode if tilting
+"
+"17e6c430cd04e2a196cfacb8ca0702b6c7e2c41f","2010-09-29 13:48:02+01:00","GC CDasherModel::GetAlphabet{,New},GetColour{,s}
+"
+"166832a9d2658fc1b4f004c14c4ec4bd8c273982","2010-09-30 00:25:00+01:00","Rm CSymbolProb & CUserLog::setAlphabetPtr - can get from CEditEvents.
+
+Hence tidy CDasherModel c'tor params. (Also AlphIO, use provided CDashIntf!)
+"
+"2a6e94a522cd1144a47e017bbdd2823cb8772df3","2010-09-29 13:47:36+01:00","CNodeCreationManager: constructs AlphMgr, handles uniformity & ctrlmode probs
+
+One DasherModel created per DasherInterface; fed nodes from many NCMgrs
+Rm RebuildAroundNode, RecursiveMakeRoot - just rebuild whole tree...
+"
+"9161ef3931bab1b2dd19135bca9bbef8df643d21","2010-09-30 08:54:53+01:00","Simple Control Mode
+
+Pause (according to input meth) and IME action, only, then rebuild/exit
+"
+"9a0ae21d27e8275d4eb78c2089387e20840fec88","2010-10-01 16:44:17+01:00","Remove CheckForNewRoot, do automatically in RenderToView
+"
+"afb5489efbb12d36839a71b37af07b0b7932315c","2010-10-01 16:44:37+01:00","Disable start handler in StylusFilter
+"
+"17f0fa27b527a5774c4b142a793acdafefaec14d","2010-10-01 16:45:19+01:00","Fix/improve landscape tilting
+"
+"4040cdfa7a28b12ab8304eb2a3b39dfe6075828e","2010-10-03 18:44:56+01:00","Shorten some prefs
+"
+"a186237da6a24f0c2d6adad0249fbc85f1d667e3","2010-10-04 15:05:42+01:00","Localized strings (default, English, localization only atm)
+"
+"105467c0f23be5f0b6214745958954d09243e02b","2010-10-05 14:07:04+01:00","Added French Localization (TODO some titles too long, & need 'Remap top/bottom')
+"
+"22d0d36ff7ee8fde6f335115e8e2860a8a5eaf82","2010-10-13 18:31:35+01:00","Fix Ok/Cancel (cancel reverts; main text only updated following OK)
+"
+"e9c3a09029ef2973dc56e1c364d39fcf75a83c60","2010-10-13 18:33:57+01:00","Pause control-mode action always rebuilds; removed rebuild.
+"
+"bd6197c6b6d444f1f7d0be5dbb105b04c1e05e08","2010-10-14 11:15:11+01:00","Reorganize file I/O, remove SP_USER_LOC & SP_SYSTEM_LOC
+
+Scan{Alphabet/Colour}Files and train(String) moved into CDashIntf
+implemented using abstract ScanXMLFiles(XMLFileParser, String)
+and GetStreams(String, Collection<InputStream>)
+getResourceStream() removed, clients use latter instead.
+"
+"07876b944fc68d68fbfc264dfb338179b3d00604","2010-10-14 16:17:21+01:00","Refactor training; progress display; Android uses background thread
+
+CDasherInterfaceBase::train(String) handles initial (and final, un-) LockEvent;
+actual training (+progress updates) done by train(String,LockEvent)
+m_bGlobalLock removed, use BP_TRAINING as globally-visible flag.
+ADasherInterface overrides train(String) to do train(String,Lock) in bkg thread
+(with final unlock on main thread)
+"
+"a2ea0ab908305d589134b6a24b2263b54a69508e","2010-10-14 17:10:16+01:00","Rewrote CStartHandler; 1D-mode puts circle in fwd position to start (not stop)
+
+TODO, needs to recompute e.g. screen coords upon changes in geometry - somehow!
+"
+"3556b768c54768e16ed356ee257bf81e823946f3","2010-10-21 19:52:17+01:00","Remove CAlphabet - use CAlphIO.AlphInfo
+
+AlphInfo public/mutable fields removed; also made some in SGroupInfo private
+Most methods of CAlphabet moved into AlphInfo; some into CAlphabetMap (in Mgr)
+Training moved from LanguageModel to AlphabetMap
+We do not support in-Dasher editing of alphabets. (=>rm bLoadMutable, etc.)
+GC CAlphIO.AlphInfo::Encoding,Type, CAlphIO::TtoS,StoT
+"
+"323d5edffca449811467ca6e870b8567c61461b2","2010-10-24 12:12:49+01:00","Support UTF32 encodings of chars >0xFFFF; special-case para. sym as \r\n _or_ \n
+"
+"b9628430a077499006bc5dc3d7bf960118aa8d25","2010-10-28 11:55:12+01:00","Force space/paragraph characters to be at end of alphabet
+"
+"dde53226d197ce6d98b89600999157e00bb9aec2","2010-10-24 21:40:19+01:00","SweepFilter: don't allow any start handler!
+"
+"02b28a4f1968f2fd52010ebb5268eb57d7a52b8c","2010-10-24 21:40:39+01:00","DefaultFilter: remove old start handler if BP_CIRCLE_START (turned) off
+"
+"906b10c322849e4e10b071c3dfdf1017d070e0aa","2010-10-28 11:55:46+01:00","Rewrite EventHandler to use HashSet, avoid ConcurrentModificationEx on removal
+"
+"e92d28745fe8d7afa1fc9df4a6fee44d378e8877","2010-10-29 11:08:31+01:00","Rewrite/optimize LM uniformity/rounding-error code
+"
+"1f3c52123e5f20f5f3075188993d17493324b7e1","2010-10-29 20:06:33+01:00","Hardware key up/down events posted to main event/dasher thread
+"
+"465acf4854f0823702c7d1ec5ddedc7cd295c3ab","2010-10-29 20:07:52+01:00","Two-button dynamic mode (by volume control in Android), with learning click lag!
+
+No auto-speed control, no option for double-click-reverses.
+GC delay problems, and no smoothing of CDasherModel::Offset().
+"
+"335ccff8a8bcf528af8801ff09503cbf8315b541","2010-10-29 20:20:18+01:00","Make PushRec's into a linked list w/ object pooling.
+"
+"20928a4b18afbd99d95aed32fc587392dc171524","2010-11-01 14:04:21+00:00","TwoButtonDynamicFilter sets BP_DELAY_VIEW; CDasherModel smoothing w/ logarithms
+
+...rather than geometrically. (current m_iDisplayOffset also inc. into 2B fltr)
+"
+"788b8eb58ca8abf128fe2cba96c2c4b25f105b73","2010-11-01 14:39:43+00:00","Fix CStylusFilter max zoom; add LP_S safety margin to Click & Stylus Filters
+"
+"5412384221fd9bb82271fbe370ffe6bd9e5316dd","2010-11-01 17:10:17+00:00","Fix direct mode handling of 2/3 fwd boxes (3 crashed!); reverse by same factor
+
+(i.e. back box zooms out as far as forward boxes would zoom in - barring safety)
+"
+"856def77243396159d8d82fd2473f330ec9fc3f6","2010-11-04 16:10:00+00:00","Move input methods into own screen within preferences
+"
+"03bfe5aad67688d01bc557c1388bbb6d40efdc9a","2010-11-04 16:17:41+00:00","Training progress / multithreading, take 2
+
+ProgressNotifier interface, also handles abortion
+CDasherInterfaceBase implements to (synchronously) broadcast CLockEvents
+Android implements to broadcast on main thread, and use to serialize multiple
+train requests (starting a new one causes & waits for previous one to abort)
+"
+"dfe411754f77208d713dc305106277befb2195fc","2010-11-04 18:20:34+00:00","train(AlphabetManager) not string, after GC old LM; add fname to WriteTrainFile.
+
+SP_TRAIN_FILE removed.
+"
+"a4542ad55cc4b8714bccb97ba6e8624881374ea5","2010-11-05 18:46:33+00:00","AlphabetManager: forget child probabilities when we Delete_children()
+"
+"88120f702db930d87aa269316ba2a7f8a89a5d52","2010-11-05 18:16:54+00:00","Replaced Thai with French, Dutch, German, Italian, Spanish and Swedish
+
+(alphabets and training texts. Combining alphabets removed as non-functional
+on Android)
+"
+"b2b823da084eb90c31a499a1567ef71244f066aa","2010-11-05 18:52:18+00:00","Fix slow-start for Stylus Filter
+"
+"8b7e4b20da03b2576e019dc95ccf419f07de6ce3","2010-11-05 19:33:07+00:00","Put subgroups (as well as top-level) into correct order (by reversing)...
+"
+"20f7a2d3c0cd583b3ffcffd54000ee7a8a26182e","2010-11-05 19:43:37+00:00","CMessageEvents sent to system log (alogcat)
+"
+"4e792c161481b20b2c00c912ec321efdaebd07aa","2010-11-05 19:49:41+00:00","Removed half the Spanish training text. Fixes IOException(?!) on Nexus One...
+"
+"6213241517b44ca3fb22b7938620618b7b6b204c","2010-11-05 21:48:49+00:00","Tweaks to preferences
+
+Moved Colour Scheme into Display Settings
+Renamed 'Input Method' to 'Input Mode' (too similar to Android IME)
+Reduced default LP_REVERSE_BOOST to 3
+"
+"bc7db1f8163e5c3f0cda9d08a45546ccf2a89963","2010-11-18 12:08:26+00:00","Wakelock debug messages
+
+Heisenbug? Works fine when watching with alogcat, gave trouble earlier...
+"
+"b9f41da46ff21e77c5b139118e565584766842c8","2010-11-30 16:03:25+00:00","Circle drawing/starthandler - outline and/or fill, update as on desktop
+"
+"54bc1c8f91d97b7b68b3e0c225b5520eade413cd","2010-12-07 14:28:01+00:00","CDasherViewSquare render fix: Delete_children nodes off top of screen
+"
+"6ac0ba5645bae849b8998ca72aebd8d89136924c","2010-12-03 12:22:44+00:00","View.Render() returns node to output; calls CDasherModel::Output/Collapse on way
+
+Output expands node if necessary (=> will render children in same frame)
+Collapse un-outputs node if NF_SEEN
+(prevent occassional error from m_pLastOutput referring to deleted node)
+GC Get_node_under_*
+PushNode renamed to Expand as counterpart to Collapse
+"
+"55f06a21538995eaee0323f0ef3126c399a23bbf","2010-12-03 15:13:11+00:00","Force return empty context for iOffset<0
+
+& make assertion that the context is empty, into test for IllegalStateX
+
+(Trying to track down IllegalArgX iOffset==-2 in GetRoot
+called from CSpecialNode::RebuildParent...)
+"
+"574871937b0353dfc90343b9aff3f6ce95332ec4","2010-12-03 22:49:21+00:00","Updated graphics, adding 512*512 icon & 1024*500 'This is Dasher'
+
+(screenshot from desktop, used as feature graphic, and scaled 180*120 promo pic)
+"
+"5a8397a69ece177348a0d73b8445b6af6d836b0e","2010-12-07 18:24:12+00:00","File storage: use google-specified directory, but look in /sdcard/dasher too
+"
+"199b0e5f80ea8d07919ac60b0792ac4533bc6265","2011-01-06 13:23:45+00:00","Outline box at same time as fill; change single recursive calls into tail calls
+
+(Reduces stack space)
+"
+"8fc65f2d7734d3d139c709b047d7e8ffdc2cbefb","2011-01-10 12:08:23+00:00","Do text positioning in screen coordinates
+
+=>fewer Dasher2Screen/Screen2Dasher conversions, and avoid overflow
+"
+"fe3c2cf9037bebfb023c336d1c19f2db06e73768","2011-01-05 17:10:23+00:00","move trainfile buffer -> AlphMgr, ctx escape chars and LM unlearning
+
+Also store default context in AlphInfo, read this & escape char from alph defn.
+Write out trainfile when replacing AlphabetManager.
+"
+"7aaabc503ac2cf90a612857c6e1a9bebf3fcb1d9","2011-01-18 13:18:26+00:00","More context-changing/learn-as-you-write
+
+Store lastOutput node; flush from last m_bCommitted forwards on delete;
+Fix reading escape chars from trainfile; rm Unlearn, OTT; add LM::ContextToSyms
+"
+"cb187f62f01536122610cedb73a0abd268845572","2011-01-18 13:20:23+00:00","Catch & report errors (throwables) in training, then still clear lock message
+"
+"fd80aa0c843cbc8029f52c963342b03b1fec56b9","2010-10-04 15:06:46+01:00","Support Tekla external switch
+
+Prototype/experimental. Setting in prefs deploys a broadcast listener with
+intent looking for any shield device. Rather hacked-up mapping of switch IDs.
+"
+"099c5cf3f6754027e9f6e9d046a2f747b8b1c7c5","2010-11-18 12:07:23+00:00","Fix Two-Button Dynamic Mode to respond to Tekla up/down switch activations...
+
+(Hopefully! No Tekla device currently available to test on...)
+"
+"3c8916f823c23e5254f455b1f25d17e101473020","2011-01-20 18:49:41+00:00","Change CDasherView::DasherPolyline(xs[], ys[], ...) -> (x0, y0, x1, y1, ...)
+
+Reflecting common and indeed only usage. No allocations and easier to call.
+"
+"fee955afce9e9bbe93147a670fb60549ce82c56e","2011-01-24 15:01:58+00:00","OneButtonDynamicFilter replacing SweepFilter
+
+Learning push-times seems to work now.
+Separate CDynamicPresses <: CDynamicFilter, to count long/double presses
+(used (only) by TwoButtonDynamicFilter, not by OneButtonDynamic)
+
+Lots debugging messages, + graphics (!)
+"
+"1c01afee56adda89752b19d50fb0ad77e147537e","2011-01-25 17:08:29+00:00","Fix log_2/log_e confusions
+"
+"7550ee5533c05bc7e2fdb3ef15ef7934bc7d8240","2011-01-24 19:34:52+00:00","Remove dynamic button mode debugging graphics + log output
+"
+"9b6116a44fddd88c31e01ef8584c73f391c7d689","2011-01-25 19:48:36+00:00","CFrameRate: set initial m_dRXmax consistently with (guess at) m_dFr
+
+Prevents first frame from zooming in too far.
+"
+"962a18ba33aa1a25633f90d0f7a808771adfad19","2011-01-25 21:04:22+00:00","Android release 3 (v2.2)!
+"
+"d646b68086105bf03d92f4f1422bc9c692f9cf04","2011-01-26 14:52:35+00:00","PAUSE_ACTION: Don't forceRebuild midframe but use List<Runnable> endOfFrameTasks
+=> Android release 2.2.1
+"
+"0805ff2b9d132b76ad6564080d9f843ba7e2991d","2011-01-26 17:14:45+00:00","Added README
+"
+"9c9a70ad8f6b3c0e163e0d078554bc07752f0035","2011-01-28 15:29:27+00:00","Removed CEditEvent, call abstract CDasherInterfaceBase::{output,delete}Text
+"
+"1f9d9090d3e11ec03ffa7613b933492f41c4561e","2011-01-29 17:01:39+00:00","Sort prefs options for colour scheme & alphabet name alphabetically
+"
+"360c3784ec54cbfbdf7fba3f6aee4c9751369ac8","2011-01-31 12:24:56+00:00","Recycle long[] arrays for probability info
+"
+"dd0d6c9255379274a820c5142659c364ce899ee5","2011-01-31 15:45:43+00:00","Fix orientations & add pref, change XML parsing to use String.equals not ==
+
+Orientation represented as enum in CDasherView, rm LP_REAL_ORIENTATION;
+store externally as string LR/TB/etc. in SP_ORIENTATION (was LP_).
+
+Fix rendering + text layout, inc. posn baseline in Android renderer,
+move DrawText from CDasherView into CDasherViewSquare,
+
+Ignore value LP_VIEW_ID (rather than break if -1)
+"
+"c6cda3117c10009765cfdc54eeebcd0bc89bdc9e","2011-01-31 18:31:18+00:00","Tilt WakeLock: remove debug messages, call userActivity() on release
+
+screen seems to go dark immediately upon releasing wakelock, so hope 2 prevent?
+"
+"1bc65371a2a0353e12bf2828f9726e08a35832d8","2011-01-31 18:47:21+00:00","Android key mappings: add interface implemented by android CInputFilters
+
+convertKeyCode returns -1 => ignore or else dasher key id.
+Dynamic Button, Menu, Direct, Compass modes implement, each w/ own mappings
+"
+"a787d220d164636a4329e1bd00952cdeb1e278e0","2011-02-01 14:01:02+00:00","Don't measure user's accuracy for autospeedcontrol whilst slow-starting
+
++ code tidies to CAutoSpeedControl: GC unused members, etc.
+"
+"d0fcd6683238300f3ca57e348968eaa865880c84","2011-02-02 19:05:38+00:00","Rm unused layout/main.xml; => android release 7 (2.2.2)
+"
+"8b37e3127c027b994993187f9d89a1de5df868e1","2011-03-25 08:44:47+00:00","Render (=outline) nodes that are same colour as parent
+
+The only case where we don't want to outline nodes, is for invisible groups,
+a case explicitly tested for & handled by CAlphabetManager::CGroupNode.
+
+Also set stroke width when rendering text => make consistent
+"
+"2a483d2a7ea73beab18ca6c30d85d3de09ca72bd","2011-03-25 21:32:34+00:00","Fix Dynamic Button Mode pausedness
+"
+"42c2f2deb76c35fc40d299b4673be28e769a9b20","2011-03-26 11:27:22+00:00","Remove some obsolete comments + imports
+"
+"514147b1e5961fe7624da3e9cd887e431cba26e3","2011-03-26 11:37:41+00:00","Rm LP_OX, LP_OY, LP_NORMALIZATION, LP_MAX_Y - all now public static final long's in CDasherModel
+"
+"75c8f0735e62646cf96dd1a9935fb897862c6b7a","2011-03-26 13:24:54+00:00","Fix non-expansion bug: output node were not passed to policy so m_dCost wasn't set
+"
+"aab1735c8b7b9769e123c155cf34fb5c4eb57009","2011-03-26 13:49:19+00:00","Replace Screen().Polyline(int[],int[],...) and (Point[],...) with drawLine(int,int,int,int...)
+"
+"b815fbb1162810f17165ed53e1f7765485d64ea7","2011-03-26 13:53:54+00:00","Remove logging code from CDasherViewSquare
+
+Was computing a message to print out, but never printed...
+"
+"9534ec8ecd1681977115a45c9f33567c00ea23f2","2011-03-26 13:58:39+00:00","Add Preference to squash height of Dasher canvas
+"
+"6d96e9277b06a97f4f3689746cbff973f7c783c1","2011-03-26 14:40:49+00:00","Added Dutch (NL) translation - thanks to Karel van Isaacker!
+"
+"763325ec6463fb89f1157dd1005b1d88f69627e5","2011-03-26 17:15:07+00:00","Fix tilt wakelock: ON_AFTER_RELEASE does the trick!
+
+userActivity() requires DEVICE_POWER permission - for system apps only...
+But this wakelock keeps the screen on after we circle-stop in tilt mode.
+TODO: external buttons don't get this; add wakelock with timer???
+"
+"889e662d5124170f7c708c56c55bdf817ed735d4","2011-03-26 14:03:31+00:00","Truncate too-large training texts => Android release 8 (2.2.3)
+
+French crashing erratically, can't see any problem besides a memory shortage.
+Maybe todo with the new generational GC in Android 2.3?
+This is a bit of a crap 'fix'/workaround (haven't even selected good lines?).
+We really do need an on-disk LM...
+"
+"e5e42580f9b5e49e92e3434f0b3fabb80f48cd48","2011-11-04 11:33:17+00:00","BounceMarker: make var final, remove Android-specific logging
+"
+"4c0bbc775d290c62477198d4801fb72c4af86d2f","2011-07-19 15:32:28+01:00","Visible/invisible nodes
+
+'Invisible' group nodes were not outlined; they shouldn't be filled, either!
+
+Also rm Blank(); fill whole screen with root/parent node colour.
+"
+"ee4f9491006d53f7a957d18666e21402957a64e5","2011-07-19 15:45:13+01:00","Update colour schemes to match C++ Dasher
+"
+"68d1ff1778aaac929bce541d08e2d45d0e670f20","2011-07-19 15:45:48+01:00","Invert volume control scanning (to match top/bottom half-of-screen tapping)
+"
+"e7480faf32cb50cb08250ace170246422766fe53","2011-07-22 15:17:38+01:00","GC CControlEvent
+"
+"26f7d365a358ff8dfa0e3d8e4284a54280ef9d02","2011-08-04 13:10:50+01:00","Backslash apostrophe's in strings.xml files - else new Eclipse 3.7 complains...
+"
+"72082f528fce976fe504b27f14eaa7f504854bf2","2011-07-22 15:19:40+01:00","Add applet sources!
+
+Modified since Chris' port to include new input filters etc.
+
+Files still accessed via getResourceStream(), hardcoded list of those present
+in dasher/applet/.
+
+CDasherInterfaceBase updated to redraw upon filter/device change, and
+default CreateModules with all new filters.
+"
+"53004c6b4a22cfa462d636936236b163a1cc9a38","2011-07-22 15:24:59+01:00","Remove .class files, think put there by build accident?
+"
+"dfb5225196db9107587f71c4a1803dcadf96b699","2011-07-25 14:00:00+01:00","Applet: retrieve resources over http & in package, looking for list in files.txt
+"
+"7a6c090c8bf07f4c3179dd2cf747ca7c24fb1f4d","2011-07-25 15:13:26+01:00","RM BP_DELAY_VIEW; rename MatchTarget to AbortOffset and make public
+"
+"42497e5ad3d235c1127ccdc82d0cf51cb01c2322","2011-07-25 15:28:26+01:00","RM BP_REDRAW; listen to bool bRedrawNodes parameter to Redraw()
+"
+"cf715fbe54225e41af8a7a0b6022de60f295af36","2011-07-25 15:40:46+01:00","RM SP_DEFAULT_COLOUR_ID and BP_PALETTE_CHANGE.
+
+SP_COLOUR_ID set only by user, used as desired scheme unless not found (e.g. '')
+=> use alphabet-provided scheme name.
+"
+"c51fde11eabc66cc9d72839a8154197ccfed4c46","2011-07-25 15:45:52+01:00","GC LP_MOUSE_POS_BOX
+
+as more recent implementations of Two-box start don't use it anyway
+"
+"63d1741e1d3af96c8d3d4feb76de3020642d0071","2011-07-25 14:21:30+01:00","Rewrite events, settings, startup
+
+C{Lock,Message}Event -> {Lock,Message}(String,int)
+CEventHandler -> Observer<T>, rm CEvent's
+CDasherComponents created in tree (each with SettingsStore ptr)
+CSettingsStore passed into CDashIntf constructor
+Realize (what's left) split into LoadData (available alphs,colours,modules)
+and DoSetup (creates model, AlphMgr, etc. from settings, inc training)
+CDasherInterfaceBase::PresetNotify ==> CSettingsStore & fix. TODO generalize?
+"
+"7311d2a9b15962cf62081d7ed9a042e159c20188","2011-07-26 22:25:23+01:00","WIP Sort out applet repainting
+
+50fps, double-buffered, to off-screen Graphics; frames skipped if no change.
+Blitted _asynchronously_ to screen (regardless of update rate).
+
+Tweaks to CDasherInterfaceBase repaint logic. Overriding Redraw() to schedule
+a call to NewFrame (as only source of calls to NewFrame) now a valid technique.
+
+Also change CDasherScreen::DrawString() to take size as int not long (!)
+"
+"4f2601f4c3f35d67bc21726852becc74a562a924","2011-07-27 12:01:56+01:00","Tweak dynamics / MinSize() calculation
+"
+"4de38d77ab8b0e08205848c6835e21bb62e85a12","2011-07-27 19:14:39+01:00","Applet: make menu bar responsible for looking after itself
+"
+"8b471f49be44d8a013683ad7469fb8ff3ed04f8d","2011-07-27 22:58:52+01:00","Applet: alphabet selection via dialog box with list, not menu
+
+(Too many alphabets makes menu unusable!)
+"
+"1d1379b6ed88a421d46741ca2b13caa6e1e6c696","2011-07-28 14:38:56+01:00","Applet: RM JDasherThread, use the java.util.Timer!
+"
+"eefc4a126762bd81ff92958790c9cc0225ddd05f","2011-07-30 11:45:31+01:00","Applet: clean up menu bar code; add option for BP_CONTROL_MODE
+
+(Use a couple Maps rather than N instance variables)
+"
+"10e57c1d9746fe9dcf034acb2b9c82c752fc0d1e","2011-07-30 15:11:49+01:00","DefaultFilter supports pause; Stylus does not
+"
+"a7a10fed3b4a2493b4c8e4ef275ab37f15c90872","2011-07-30 16:06:02+01:00","Fix control-mode changing (e.g. Pause action), tho some unnecessary rebuilding
+"
+"7b11fdfeba0e483d5f1f79980d25f4d3c62bc19f","2011-07-30 16:18:01+01:00","Refactor: remove parent/lbnd/hbnd from GetRoot etc., call Reparent instead
+
+(newly combines SetParent & SetRange)
+
+All CDasherNodes init'd to 0-NORMALIZATION and with no parent
+
+Removes surprising amount of redundancy wrt. setting parent/bounds of new vs.
+existing (rebuilding-around) nodes.
+
+CControlManager add getColour method.
+"
+"523c0991cf4cebb5dbdc7406238aaf58a550410f","2011-07-30 16:22:15+01:00","Refactor: ControlManager c'tor takes List<ControlAction> not just 1
+
+Ok, passing in the empty list, gives a useless Control node with no successors.
+"
+"f2afa1bdb2f2f15d23f10f6746573e6da056842f","2011-08-01 13:21:57+01:00","Fix picking up context in response to user moving cursor (externally)
+
+Minor changes to core: update m_pLastOutput _before_ calling CDasherNode::delete
+"
+"c834d3195f90340cba76c9cec55bda80cc27dc55","2011-08-01 16:02:59+01:00","Allow replacing last-output node with a new node+parent-tree in same position
+
+= CDasherModel::ReplaceLastOutputNode; alternative SetNode replaces SetOffset
+
+PAUSE_ACTION uses this rather than normal rebuild.
+
+Lots of refactoring of {NodeCreation,Control}Manager creation & reuse
+
+Add CDasherNode::transferChildrenTo.
+"
+"ca7ac9438a0e58810e9164903707577c7c8e7e22","2011-08-06 20:24:19+01:00","GC SFactoryInfo, SSymbol
+"
+"2c4028a659878b5b7de3f7ee334756ad0de5faf4","2011-10-11 21:00:04+01:00","whitespace
+"
+"3cb3ec660d366c17d3936c5b7a3f54b95ee90204","2011-09-07 16:56:57+03:00","Fix Settings Store history change!
+"
+"ca5dc8f43a70e067c8561a95bb2b5b21113d4a06","2011-10-11 21:48:00+01:00","Document Modelling calculates what would exist after Output()ing any given node
+
+Add Document, EditableDocument, InputConnectionDocument w/ single getCharAt
+(returns Character: NULL = no-such-index, combining all bounds-check logic)
+AlphabetManager uses Doc to get context in GetRoot
+DasherNode models output of unseen nodes & undoes seen nodes (in reverse order)
+Android: add more synchronization, esp wrt caching of current text. API erratic!
+(Applet: simple!)
+"
+"f7064c3c0f413331bdf7b81ac4a4e8a483efb0c8","2011-08-22 14:31:10+01:00","Android: fix orientation change
+
+...by ignoring calls to onStartInput w/same IC and restarting==true
+"
+"c4f5c3e4d749079fea4b2f717cfc65265650a86d","2011-08-24 13:57:22+01:00","Android: install help screen
+
+first screen following download / app-launcher, tells user to enable as IME
+and select via long-press, then goes onto settings.
+"
+"a1d1c67ff655425628e19b660bd3172cff66a325","2011-08-30 11:57:24+01:00","Improve learning: try not to save deleted characters to learn next session
+
+(=> stored text differs from in-memory LM, as we have to update latter as we go)
+"
+"a63f2472ca13773159b70db4e0cda4b7005910a8","2011-08-30 14:41:01+01:00","Disable learn-as-you-write for passwords (via per-document settings override)
+
+Document passed to ADasherInterface::SetDocument may implement new
+AndroidSettings::SettingsOverride interface, allowing it to specify its own
+parameter values. TODO is just overriding settings sufficient for all per-doc
+variations?
+"
+"16f6cd89a5e445b01f8792b7d152c8ca05f2f48c","2011-08-31 15:18:16+01:00","Android: fix memory leakages
+
+Activity::onDestroy calls StartShutdown, which aborts any training in progress;
+set Activity.intf ptr to nil + throw ThreadDeath on taskThread => make sure
+thread exits + ADasherInterface collectable ASAP.
+
+Abusing AtomicBoolean as a monitor + holder of boolean, no need for atomicity!
+"
+"64a8e310c218703eeaa86c2472c55955d037b1d3","2011-09-03 10:50:03+01:00","Android: improve startup behaviour (I hope!): setup only when view started
+
+i.e. in onStartInputView (only when view appears) rather than onStartInput
+(which seems to occur arbitrarily earlier?)
+
+Also some (+ changes to) logging code.
+"
+"1bbe79bf05ce3a7797bca7b89627839bf0fbd023","2011-09-03 10:57:10+01:00","Android: add 'Back' control mode action
+
+(make ADasherInterface::SetDocument take List<ControlAction> rather than just 1)
+"
+"624e56191c1ea28846b737fd6cd26deab0677a01","2011-10-11 20:14:20+01:00","ControlActions may undo or replace output nodes; + common FixedSuccessorsAction
+
+Rebuilding achieved by (any) ControlActionBase subclass calling replace().
+
+Also add DelaySuccessorsAction (unused so far), and actually use nodeCache (!)
+"
+"840f02bd8a6f348a4c340ca711cf9cfc070cd9d6","2011-11-21 15:02:55+00:00","Add RebuildingAction interface -> ControlActions may customize RebuildParent
+"
+"5e7e246325bf6eaf54483004f9af793d768e6bf3","2011-10-11 20:15:40+01:00","Cursor movement, rebuilding behind arrow nodes
+
+(not behind header). Unicode captions, escape to alph inbetween fwd/back;
+move nodes captioned w/ displaytext of character passed-over.
+"
+"6eeb8efae2961295aeef8a3f0bb3044a70cd186f","2011-11-21 15:33:30+00:00","Move nodes undo and have options to rebuild behind immediately or on commit
+"
+"904d87427ac3edf461f17eb41cd38aae3b83a6dc","2011-11-25 15:14:01+00:00","Android-specific option for control node to access Settings from within Dasher
+"
+"ebf5b82c0b3fd92732cab1f5a5d4c1f102d44e7e","2011-10-11 20:02:32+01:00","BP_CONTROL_MODE_ALPH_SWITCH: gen nodes to switch to prev 4 diff alphabets
+
+(if any)
+
+inc add CDashIntf::doAtFrameEnd + ControlManager skips null nodes
+
+generates alphabet names by summarizing: 3 chars where different, ... between
+"
+"31579394427976e0ac43ce666dd8c01c6be5399d","2011-09-08 12:54:24+03:00","BP_CONTROL_MODE_HAS_SPEED => speed change nodes, 2 up 2 down, w/ exit in middle
+
+Using general BP_CONTROL_MODE_REBUILD (i.e. no longer just moves)
+
+Adding extraInfo map for control nodes, cleared in DeleteNode()
+"
+"e8418f5edcd640d6801d0b06ec5a98df9b5a62e4","2011-09-07 16:57:21+03:00","Android debug harness: truncate training text, context = 'Testing ' if debugging
+"
+"ddef5322e6fb48b848b8beec2195704f721a87f9","2011-09-12 14:40:24+01:00","Android Preferences: (re)move General Input Settings into per-filter sections
+
+{CheckBox,SeekBar}Preferences listen for changes -> multiple with same key
+'Listen for Tekla Switch Events' at top level
+"
+"76ec9d21ac60e8852697e6163dc98d04236a4a32","2011-09-12 14:42:20+01:00","Android: add 'Reset to Default' to SeekBarPref; fix OS 3.2 reset-to-0 bug
+"
+"38f025e7dc7988f9907b392127b4134ead082159","2011-09-12 19:28:47+01:00","Size Control Node as 1/3 of space symbol.
+
+TODO, make fraction a user preference?
+TODO, languages which don't make much use of spaces? (e.g. Hiragana)
+"
+"ba0d5aa82ca491769d5322ebc86547e6ee0ce18c","2011-09-17 21:48:20+01:00","Refactor: ASC done from Screen coords, remove xmap/ymap from CDasherView intf
+
+Also GC parentColour param to RecursiveRender (written, never read!)
+"
+"a275c5903523d98279c8918921fdfc821b40265f","2011-10-18 14:58:41+01:00","AlphabetMap: handle null (no char) from document, by returning 0=unknown sym
+"
+"804934420bf144294bdfdd42649fd694f2ec2dbf","2011-11-04 19:03:35+00:00","Experimental: simplify rendering of highly predicted words (only if >50%)
+"
+"c51e0b0c065bde28208fb20ea23aa4b6d6588aa0","2011-11-04 22:12:26+00:00","Optimize CDasherViewSquare::y{un,}map by making static along with m_Y{1,2,3}
+"
+"adacf13fc407b62078bb1128393719fcb2178e7d","2011-11-05 10:17:59+00:00","Fix NPE when training if alphabet does not specify context-switch char
+"
+"3a1c1cf60a550d5fe48cd0a6ba2aefc7ab27a3db","2011-10-13 09:30:07+01:00","Update for latest Tecla SDK - better modularity, extra switch + release events!
+"
+"ab1df9d3a6d158d219eea0a14caf25db237c8ffa","2011-11-05 10:39:54+00:00","CDasherView{,Square}: remove (immutable) DPoint, hardly used!
+"
+"a409e9736c6ebaa48a1a59c8168c6963e0bc89ae","2011-11-06 10:24:17+00:00","(Re)introduce MutablePoint, replacing all those long[2]s
+"
+"ecce1ebd0d3691189d3937a4e262c57505291b42","2011-11-08 15:39:19+00:00","Persistent LP_FRAMERATE; rm LP_BOOSTFACTOR; CountFrame actual node renderings.
+
+TODO Note slowstart only applied by DefaultFilter, not Dynamic(Button)Filter.
+
+Remove applet implementation of turbo/brake mode. TODO, reintroduce in core?
+"
+"7fe85edbb9c2d416e060fa4c00ac862457c61871","2011-11-22 22:10:25+00:00","Persist settings changes only in low-priority background thread
+
+as commit() allocates too much temporary stuff what with LP_FRAMERATE changing
+
+TODO would on shutdown (/pause?) only, be even better?
+"
+"bfc7a4fb75be87b615acd7e169b8876bc7d08fe3","2011-11-08 15:45:33+00:00","Node viscosity: move 50% slower through control nodes.
+"
+"973f86eacb108a4dfd81cacc5c506fa01bbc5e58","2011-11-08 15:47:32+00:00","GC SP_GAME_TEXT_FILE. No Game Mode (yet)...
+"
+"5acc511211cd876622fe71e1ce4bd375764c66b3","2011-11-08 18:45:26+00:00","RM SGotoItem, store two long[]s => reduce allocation
+"
+"37040c6f759d14f77f40701864f231164cc3d05d","2011-11-08 18:48:30+00:00","GC BP_GAME_MODE
+"
+"046951ce78c00405d8cd8270b6d823270750e0cb","2011-11-08 19:15:45+00:00","Add slow start & node viscosity to one/two-button dynamic modes
+
+Rename old CDynamicFilter to CDynamicButtons
+New CDynamicFilter superclasses CDynamicButons and CDefaultFilter w/ slow start
+"
+"f233542b53c2ed134d7e6797279d62ddfe7df7af","2011-11-25 18:24:57+00:00","Move PAUSE_ACTION into CControlManager; it rebuilds iff BP_CONTROL_MODE_REBUILD
+"
+"31e45b55bd67679839407d0b16606e617dc773dd","2011-11-26 09:39:53+00:00","Android: add HOME control mode action as well as BACK
+"
+"80bb0a4f3a69d353a11d2456eadd59a2dc6e1576","2011-11-08 21:57:51+00:00","Refactor: rm BP_DASHER_PAUSED; rewrite Redraw() code
+
+def CInputFilter.pause(), CDynamicFilter.unpause(), CDynamicButtons.run/reverse
+
+Schedule one step at a time or many. Inc. add CStaticFilter (scheduleZoom(...)
+-> pause() cancels) & CDynamicButtons.ApplyOffset (-> pause() aborts).
+
+Android possibly doing too much repainting, e.g. when nothing is moving???
+"
+"047762b9e2dc17f27f238688d0881a6d2ddc77b5","2011-11-22 22:15:45+00:00","Simplify shutdown via m_bShutdownLock
+"
+"427f20b6820b07468c42ff1b94e47dbeec774fa4","2011-11-08 22:36:43+00:00","WIP Update dynamics, replacing LP_REVERSE_BOOST with LP_X_LIMIT_SPEED
+"
+"9a44a90f110c65dbd022d2dbed8cc050683615c9","2011-11-09 13:09:39+00:00","Cache LanguageModels in WeakRefs, keyed by alphabet
+
+TODO progress notification, etc., is a mess. Train on background thread in core?
+"
+"0907b4cc8275f865e288bb365f4b148af7f5f353","2011-11-09 13:15:30+00:00","Rm BP_TRAINING; use m_sLockMsg
+"
+"593134e19acb7a576b1d69dfc78c8ddef575dd24","2011-11-09 13:18:09+00:00","Rm BP_CONNECT_LOCK (unused)
+
+Note CDasherInterfaceBase 'protected boolean m_bConnectLock' retained, for now
+"
+"abb4f0df4b413cffdf77e93f851c85313993955b","2011-11-09 13:22:22+00:00","No more non-persistent params! -> rm 'boolean persistent' from E*p_parameters!
+"
+"9c7aa8d5638daa43ce14d7dc43539ec6a6ec7460","2011-11-28 14:37:01+00:00","Refactor AlphIO/ColourIO, moving more common code into XMLFileParser
+"
+"3fe96281c5d6ac8c4a221f4672551ca64658a033","2011-11-30 20:20:27+00:00","Reformat CColourIO::CreateDefault (crazy!), add numbers in comments, update 137
+
+(alternate alph root, to match euroasian)
+"
+"b9f4435dff65e76353f27a83d209eb5b3767c76d","2011-11-28 16:20:12+00:00","Applet: get alph/colour defns + training files from DEFNS & TRAIN applet params
+
+by parsing HTML or text directory listing (v. simple parse/format only)
+
+.dtd's from resources in .jar only, do not look externally.
+"
+"c1b887ed158ce527ccde1610ba0479ee487b78f8","2011-11-30 12:12:40+00:00","Applet: Progress while cloud louding, inc filenames (no %); update build date
+"
+"f4f8562f712ce84421e5cdc9702dc55a701738eb","2011-12-06 12:39:01+00:00","Give Control Mode 'pause' the successors it should have
+"
+"c22bc0cd17cb0643d5e305399b819a739828bbf0","2011-12-23 10:57:26+00:00","Added Swedish and updated Dutch translations
+"
+"c2be1041890d22eb668940a9ca5c1205c6f89cbb","2011-12-31 09:20:05+00:00","Update version numbers for Android release 9 / 2.5
+"
+"c12b62de394a591c0500973f9a3a2dd83c34f83b","2011-12-31 09:20:32+00:00","Missing dependencies in control mode prefs
+"
+"84584cf6cfcedf6f0a5804f052f88ba7a3bdbada","2011-12-31 09:39:05+00:00","Fix Control Mode colours; allow CDasherNode::Reparent to (just) change bounds
+"

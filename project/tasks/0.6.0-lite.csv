@@ -1,0 +1,825 @@
+"commit id","commit date","commit message"
+"a4db2d0085a61094b7028813a24c0553b6b40e0d","2013-02-05 10:50:59-08:00","Don't signal migration success with a preference--find a better solution
+"
+"4247b89ed099a4ca9b33c8b8db42288b95bf991a","2013-02-05 10:58:15-08:00","Use a flag to indicate that sync migration is ongoing
+"
+"8b780958215ba0388fe0f8d679ece46410d8695f","2013-02-05 11:00:51-08:00","timeForBackgroundSync() should have additional conditions besides just whether or not migration is ongoing
+"
+"035019368ca42afbbd7aba68e21acb5201cfe49b","2013-02-05 11:09:56-08:00","Switch to newly created list after save
+"
+"8c2c74b26b8bc4408d1a43ec952f41b623435dee","2013-02-05 11:46:58-08:00","Update GCMIntentService to use new sync messaging
+"
+"80b57c66a0673592f9af65dfdfe0a2046d34543e","2013-02-05 12:26:38-08:00","Merge and resolve conflicts from upstream/master
+"
+"ffd13a95233a2eec676613299a84a92277574806","2013-02-05 14:21:55-08:00","Removed dead code from sync unit test
+"
+"2e8639d25263013da80cae78b8dc9ad584520413","2013-02-05 14:32:55-08:00","Added history model and dao
+"
+"f6e33e38dd3fcaa833738b76c16c7912e99da340","2013-02-05 14:53:52-08:00","Fixed a bug when resolving uuid conflicts in make changes, refactored some JSON-to-model code into static helper methods for future use
+"
+"dfc75f281606f439b692e8f596dd2dae59f161ca","2013-02-05 15:01:17-08:00","Added a unit test for resolving uuid collisions
+"
+"e51cdb80de3785da4840c4db52d2100ce6fdd6c6","2013-02-05 16:29:05-08:00","Implement a cloneAs method for properties to make aliasing for joins easier, use it in TaskAdapter and UpdateAdapter
+"
+"89402d778250b1bd149089e5bb9f88d82bf06ddf","2013-02-05 17:05:13-08:00","Added History model properties to NameMaps
+"
+"1bb70597e2e768c6bd55c22970f8d64958c38792","2013-02-05 17:55:03-08:00","Updated ip address
+"
+"5b200ec84952bdffd3ee500797efb1cc4ec85417","2013-02-05 18:57:35-08:00","Use a map from messages to callbacks instead of two parallel queues. This should resolve some timing bugs--callbacks will only be called in the same loop that their message ocurrs
+"
+"7664049f7eee58ade4122c97b3a8b86d15cf73a3","2013-02-06 10:35:40-08:00","Don't allow sync callbacks to crash the sync thread
+"
+"35a44428c5a729a3d6e6c5acb2decf05784f792b","2013-02-06 11:18:01-08:00","Don't use a flag for indicating ongoing sync migration. Reading it from a preference fixes an issue where the sync thread could run before the migration had started
+"
+"9d8ee61b0b4fbce6d1ad35698ac68cc448ba4757","2013-02-06 14:46:31-08:00","Create the history table for new users
+"
+"009a6420cc70b15405b273b879d8532da8264d99","2013-02-06 15:03:25-08:00","Added ability to do union queries, started refactoring UpdateAdapter to expect either UserActivity or History
+"
+"336ec485b37aa76e220d41ca4700960f6816f414","2013-02-06 15:16:43-08:00","Apply correct user join and union with history table to task comments fragment
+"
+"52f16310497dae47c3c687031ce206917ba646a7","2013-02-06 15:40:46-08:00","Added an object to encapsulate fetching history
+"
+"fa1b0d3fb242b006ed04781338ed779b9b645c23","2013-02-06 15:47:31-08:00","Made addToArray method able to handle null arguments
+"
+"73a2b5ac4f11895621ffe58df4c62d5a478f2685","2013-02-06 16:50:36-08:00","Several changes to history model, bug fixes to FetchHistory, and placeholder display of history in UpdateAdapter to prove it works. It's pretty legit.
+"
+"e598320683689f6a5c98b4757b08414d3918e107","2013-02-06 16:55:04-08:00","History uuid should be a string, for uniqueness sake
+"
+"78339164901a477e040e0257be528b3670ac470e","2013-02-06 17:27:39-08:00","Store task titles in history models, save users the history api tells us about
+"
+"60f7f816c246e1aebf1b018c413e8b512c1c1e43","2013-02-06 17:51:42-08:00","Added a list of column names we expect to see in history, started building skeleton of real display logic
+"
+"54ad0d85124c22bb47d56013f148a57866ee6e2a","2013-02-06 18:28:55-08:00","Implemented several more display strings
+"
+"52d0ed430201a72de2e826cb190210436f93482c","2013-02-07 12:21:48-08:00","Several more history displays
+"
+"3b17167bd8e20120a16a1f6dc8285d93b7ba0ece","2013-02-07 13:00:18-08:00","Fixed some history display bugs
+"
+"31830a018026a35bbdaf24cb4e38d6d220b155be","2013-02-07 13:10:03-08:00","Fixed display of completed/deleted history items
+"
+"31507eee84b023ab8f9a86f0964cbdd88d2b295f","2013-02-07 14:22:27-08:00","Implemented history display repeat logic
+"
+"b4e6408de286925ba03bd0bf77bdfd0cc6c71170","2013-02-07 14:37:56-08:00","Join with the users table to display who made each history entry
+"
+"d64b978289ef623eb83f899466822ea412527c61","2013-02-07 14:49:27-08:00","Display tag_added/removed history (will work once server sends the hash including name)
+"
+"44bd887dfb14016846d9fa8380c5851c92960139","2013-02-07 15:13:42-08:00","Use the same kind of union query for EditNoteActivity that we do for TaskCommentsFragment
+"
+"c1c1323b07151e0c5957bd879f0e31a59b7ea7e3","2013-02-07 15:34:10-08:00","Add a tag data column for keeping track of history fetch times
+"
+"446436b2bb9cfea4d933777b3ec1a5885308780a","2013-02-07 15:39:50-08:00","Fetch task history in EditNoteActivity
+"
+"f43a318f1ea331d342dc11b3460fd2f0fb73d652","2013-02-07 15:49:15-08:00","Sync history and comments in both comment fragments
+"
+"ac6a3d23285886476a657fdea7f23e03c9b45ae8","2013-02-07 15:58:58-08:00","Synchronize comment/history fetch callbacks
+"
+"93fba4a652b649876b9d0c1cdaec15211ccf7460","2013-02-07 16:12:53-08:00","Added default values to History, fixed a bug
+"
+"45f697fd1bd7d3ce8f02599e9a6028a1d60856fe","2013-02-07 16:25:16-08:00","Send a number for history modified_after param
+"
+"2e4a941530a45f9d05b7e41b7c8a88d45b6a41c0","2013-02-07 16:58:43-08:00","Reimplemented friend connection tracking under new sync
+"
+"b5562dd71b496e1aff662868a3d7e59a0e392266","2013-02-07 17:02:14-08:00","Do a BriefMe for users as a part of general sync
+"
+"9f8937b922795c980a50abe7cdf28fa42b64c36a","2013-02-07 17:26:13-08:00","Run CommentsFragment refresh callbacks on the ui thread
+"
+"c3117d08bf8d074e61e4bc1049212c0a528b4931","2013-02-07 17:57:40-08:00","Fixed task edit page checkbox appearance bug
+"
+"7d33251a266e21b169e0a7cfde73093ba9528475","2013-02-08 10:59:59-08:00","Implement timeForBackgroundSync(), fixed some synchronization bugs on sync thread, cleaned up a bunch of dead code from old sync service
+"
+"0249e71ba5c40296b074e94834635bd699c880ab","2013-02-08 11:21:27-08:00","Removed a bunch of dead code from ActFmSyncService
+"
+"cbaf9b34acbd82bf38c4b20b38ef1f70a332cbbd","2013-02-08 11:23:42-08:00","ActFmDataService doesn't need to exist anymore
+"
+"dc17cd2fc80a2e87d84f9c0d34891e8e5bf521c7","2013-02-08 11:24:15-08:00","Killed more dead code
+"
+"a2a31715505afcb3b5120b9f9e75b9c1390c9978","2013-02-08 13:35:07-08:00","Don't record changeshappened for featured lists
+"
+"15ac0f3d57778ce2ceb33af04af3b588330f143a","2013-02-08 13:44:15-08:00","Compute signature for sync api requests correctly
+"
+"1849dd755a013d5b8f9c2541650455f7b21c1f60","2013-02-08 14:07:24-08:00","Fixed some bugs with creating signatures in ActFmInvoker
+"
+"494a8ec371b5cd8163fc3f74ad68df888bd9bd6a","2013-02-08 14:17:03-08:00","Fixed a bug when creating urls
+"
+"71a14e78fd8fec8559321114f103824e174a82c3","2013-02-08 15:38:09-08:00","Only enqueue changes happened messages if actual outstanding entries were recording. This could fix a bug where the queue would get filled up with pointless messages
+"
+"aa7f9929801f4d7bf478d020d150c7ca9a4573ca","2013-02-08 16:01:40-08:00","Hopefully fixed a deadlock that could occur during database transactions (see http://stackoverflow.com/questions/11535222/recommended-design-pattern-for-writing-to-sqlite-database-in-android)
+"
+"a524464312ab3db934a793ed9f273b56c4e28bec","2013-02-08 16:19:30-08:00","Removed references to deleted sync flag in test projects
+"
+"204cd8161aaac7cabab95024352b80b4f7a185e7","2013-02-08 16:22:23-08:00","One more place where the db needs to be locked before beginning a transaction
+"
+"88d5e73d322a0844a502ae989ba90b2f8536e954","2013-02-08 17:21:06-08:00","Added TaskAttachment data model
+"
+"f3d7b1958c9ebe05c5701cf1081b745ada460c3a","2013-02-08 17:59:37-08:00","Added all the boilerplate for task attachments--outstanding daos, integration with messages, etc.
+"
+"abc741b293a56ecc6a8eca1875a6c8eb092ad6ed","2013-02-08 18:25:30-08:00","Forgot to add dao files
+"
+"2f98b8d308af7570fa5e22d2eb9507e0f05e71d3","2013-02-09 11:35:46-08:00","Removed and updated all references to FileMetadata to use new TaskAttachment
+"
+"bce73a1d1d5fae6ce0e1af2ab26dbf3795efe973","2013-02-09 11:37:40-08:00","Deprecated and removed unecessary fields from FileMetadata
+"
+"3e953d34df69ee6df56928a66d1d8e64845d5f01","2013-02-09 11:50:08-08:00","Wrote a migration from FileMetadata to TaskAttachment
+"
+"dd96750138f24037482443becad81a5a6a0f9c89","2013-02-09 13:06:40-08:00","Record file attachment outstanding entries and report them using special ChangesHappened logic
+"
+"4f0fa9825324ca0321d4190068921949612a9153","2013-02-11 10:40:31-08:00","Fixed duplicate column name in TaskAttachment
+"
+"49507146c58293fa7cd3dfd9565e3876d029553f","2013-02-11 11:23:51-08:00","Fixed several bugs/missing pieces that were preventing task attachments from syncing
+"
+"6bc7fedfe6e0ea15e6d51be091fa454d91972060","2013-02-11 13:41:29-08:00","Use uuid for default tag images instead of titles
+"
+"ad7a2296a2a6bc8e729a36e8113297d0b90fe734","2013-02-11 13:43:14-08:00","New tags in TagSettingsActivity need a uuid for default images
+"
+"b995f6dbbedabf84d8365d9dd26db82d70c439f0","2013-02-11 14:03:09-08:00","Fixed file uploading (use JSON instead of string), make sure that EditNoteActivity has Task.PUSHED_AT
+"
+"ee0b5ddae4ee07e018b61e77ee2ffa3e1c432708","2013-02-11 14:11:19-08:00","Merge remote-tracking branch 'origin/130208_sb_task_attachments' into 130122_sb_new_sync
+"
+"4bde1041575bec9ff9acd38b765b2b216159db1f","2013-02-11 14:35:44-08:00","Make sure google auth token is valid before using it
+"
+"1ac305433cddca27e48ce9154fd574e8ff96d1b0","2013-02-11 14:59:48-08:00","Fixed a bug and unit tests with subtasks serialization
+"
+"134e0bf442b4d9d535c2fb9021f46039471426d4","2013-02-11 15:03:51-08:00","Fixed a bug in the repeating task tests
+"
+"6a5296f72ceac6019f70a8ad3da49dcef4cafa85","2013-02-11 15:07:57-08:00","Removed all the old unused update strings from the project
+"
+"114ec0ef7f2d359eba4fcfa13b40e24138ce6ba6","2013-02-11 15:16:28-08:00","Fixed a minor bug with the sync migration test
+"
+"dd6a3fa98cde6fc49da61724b56adb22634427f4","2013-02-11 16:46:08-08:00","Directly populate filters on demand using the same logic as the old BladeFilterReceiver. Fixes bugs where there could be long delays in populating the list of lists
+"
+"ab2057b0e6b9fe4205e275acb3c6659ca6e9e8f6","2013-02-11 17:26:20-08:00","Updated ip address of localhost
+"
+"551df209cb41f7bc7987af969f5554119147d5f6","2013-02-11 18:22:02-08:00","Merge remote-tracking branch 'upstream/master' into 130122_sb_new_sync
+"
+"37551dfc06880f6f829e541dc37c73c184eda815","2013-02-11 18:36:51-08:00","Probably don't want to throw an exeption in the DoubleCheck constructor. It'll never get called, but it would be sad if the server started sending things that crashed old clients
+"
+"a53474844c6d7ff4674171d090f852581209e110","2013-02-12 15:47:47-08:00","Fixed the task attachment join in the task adapter
+"
+"416d6076ded09c60103053c208729fcbb945b149","2013-02-12 16:27:05-08:00","Deprecated emergent tags, delete them from the database on migration
+"
+"7ff1890285785611b3d9ea7dc7f1793ef63e495f","2013-02-12 17:04:29-08:00","Look at last sync date when deciding when to record task outstanding entries during migration
+"
+"510ade7311463a95392a0f55e245286c4deff53a","2013-02-12 17:21:03-08:00","Look at last sync date when deciding when to record tag outstanding entries during migration
+"
+"0e898a2607a98a23e465bb50527155e0ee1c982f","2013-02-12 17:31:13-08:00","Started working on a way to record tag_added outstanding entries for tasks that need it in the migration
+"
+"fdb6ddc62f43a8f41a4222db5874af77ef3c5bd7","2013-02-13 12:09:43-08:00","Fixed several bugs that were throwing exceptions in attachments migration
+"
+"701bd6f79b8bccc7091f7b1cdd3fd72e47a1d943","2013-02-13 12:15:31-08:00","Fixed a type issue in tag last synced dates
+"
+"5bfd9f7b6144eedbde7b1e35dae6dbf0c1b501df","2013-02-13 12:20:18-08:00","Undo all changes to Update class; it's been deprecated and needs to be the same as it used to be for legacy reasons
+"
+"58c862103d6939fd9e86fa40d17e0aedf0788510","2013-02-13 12:25:38-08:00","Removed an unused field
+"
+"304fc1eb1af6f29578b029f48df1a59fe464d108","2013-02-13 13:00:32-08:00","Fixed some issues with the files quick action
+"
+"31465834d58db5a2630e6e747bdee903227396d6","2013-02-13 13:22:43-08:00","Enqueue tag_added/removed outstanding entries for tasks that need sync during migration
+"
+"8be30f9cec2fa24e897e2e2b2fc1b7d1477f7189","2013-02-13 14:04:43-08:00","Extra case in migration for no uuid existing
+"
+"4f3a9458c880346286e4ca7126c59a87d0e258af","2013-02-13 14:34:02-08:00","Clear models when reading from cursor in migration
+"
+"3201ba37265edef7114be3b1e74bc4de30f8ef89","2013-02-13 14:57:13-08:00","Fixed a bug where sometimes tag_added outstanding entries wouldn't be added during migration
+"
+"fa3bbf3445cf7e95d269e08c1dae3fc8303c0715","2013-02-12 18:06:01-08:00","Boilerplate for TaskListMetadata
+"
+"8717d6c8b763db1d9f4ab95e568ccdbe7aaacd13","2013-02-13 11:32:34-08:00","Removed several references to tag_ordering and replaced with tasklistmetadata
+"
+"c7e0b81dd78d57fac502ff6589f2a2f5a1c9afd8","2013-02-13 15:33:38-08:00","Some fixes to handling of task list metadata
+"
+"7707c3640bb42ffed2857c31020dd15076eb036b","2013-02-13 15:48:02-08:00","First pass at migrating to task list metadata
+"
+"4b399670f3abc8f2b6efd902d9f723415abd687c","2013-02-13 15:58:02-08:00","Sync tag ordering after migration if necessary
+"
+"af33bf37c2ce5c2986317c88853de7c49c1b9ce1","2013-02-13 16:31:34-08:00","Removed dead code from ActFmSyncService
+"
+"841c5b178f0a9adaff844a0a9c36949596a96b13","2013-02-13 16:42:07-08:00","Convert subtasks to use uuids instead of ids
+"
+"ef2bc10379bd3a38d5385d22cb39dab808a20f9c","2013-02-13 16:49:39-08:00","Fixed several type errors in subtasks code
+"
+"4b3220c5a725f65f690409d2f639ad004c45bda4","2013-02-13 16:52:50-08:00","Fixed a couple more places where subtasks were using Task.ID instead of UUID
+"
+"f40b3ed5d3f801e2cc43fc7fce85088e9f0c0532","2013-02-13 16:56:56-08:00","Fixed a null pointer exception when completing parent task with children
+"
+"c848dd6dae36bb34f0ad69ae87de17007634ed6a","2013-02-13 17:21:56-08:00","Use update when writing filter order metadata in migration
+"
+"9a4cf7ff60bf8c3824ad98e75e9035f423b01629","2013-02-13 17:44:52-08:00","Try and fill in the starting order for the active tasks and today filters if none exists
+"
+"ae058ac5c39bc778c30ffa67a3f6402aad04b401","2013-02-18 12:17:31-08:00","Only write task list order if migration has occurred
+"
+"428e021327dae7ded73ef354d92238b565ac0607","2013-02-18 12:58:36-08:00","Fixed a bug where subtasks data could become corrupt after migration
+"
+"59934242387102c63976593e94727ef5d326a1ad","2013-02-18 13:14:08-08:00","Fixed several subtasks unit tests to work with the new uuid scheme
+"
+"e561cba563b22b8733c1d3dcb998f9a50c25fed3","2013-02-18 14:14:40-08:00","Removed the share with friends entry from the beast mode list, since it doesn't exist anymore
+"
+"b148966d7ca51a1870ecb9bddb54fb91d6e9be56","2013-02-18 14:41:07-08:00","Started working on making sync of manual ordering work
+"
+"1be7b9e4497241ae6dfee9b3824ac54ee06d7b10","2013-02-18 15:42:51-08:00","Some changes to make it easier to control which properties should have outstanding entries recorded
+"
+"a2e95b06fa6f6375b12dd3c5622ec40eb30e7684","2013-02-18 15:45:29-08:00","Only enqueue changes to list order on user input, not validation
+"
+"4665c21f73778f24a8b7659e7aa5a11827076917","2013-02-18 15:52:15-08:00","Update read-only task list metadata properties
+"
+"c4ac71c743b47ac9c001f14e75bd123d1a13d828","2013-02-20 10:24:26-08:00","Be more resilient when handling empty task list order
+"
+"a2f4a24ac08c755346bf3d91779676fa394be22b","2013-02-20 10:47:42-08:00","Added BriefMe for task list metadata, bump default batch size
+"
+"d044095d023856625532dcde4fb447a9b18b5812","2013-02-20 10:52:55-08:00","Added ability to specify save match criterion beyond just matching on uuid in MakeChanges
+"
+"3f84d69e7a2cde28e26083c43b49fc7f79cc855a","2013-02-20 11:03:00-08:00","Don't record an outstanding entry for an empty task_ids array
+"
+"565e4adf5477f055552b94811ba3959425dd6848","2013-02-20 11:06:01-08:00","Refactored checking of empty task ids array into helper method
+"
+"adcf8cce743c336669e664799dad65a3b3f46c33","2013-02-20 14:57:25-08:00","Implemented delayed pushing for task list ordering
+"
+"c1579a52085ed013229a597179f3554acec4d034","2013-02-20 16:51:27-08:00","Fixed tag list ordering to ignore case
+"
+"c026b0f8d6fc0f53033b048822ebce38e13270d6","2013-02-20 17:16:21-08:00","Fixed a bug that could mess up order hierarchy when deleting tasks
+"
+"39216200cc4b246e6f9298802e4000ab13650063","2013-02-21 14:44:13-08:00","Improved default refresh in sync loop logic
+"
+"01858ac016bff449998c687274fc250c600727eb","2013-02-21 15:44:54-08:00","Sanitize sqlite IN statements, use single quotes
+"
+"e69a6b8825dd223169863e6c921991ee2c38ce7d","2013-02-21 16:53:27-08:00","Suppress a crash that can occur with swipe between lists turned on
+"
+"bce856c94ccdd3060ab97a215df7555ec3d2ff7c","2013-02-21 17:00:47-08:00","Retry bitmap encode with more compression if out of memory errors occur
+"
+"336f01889c6a92033244de7e7cf7cc6d65736cfd","2013-02-21 17:59:43-08:00","Should always try and repopulate the sync queue from the outstanding tables on each loop (to pickup changes made offline)
+"
+"0e42f0c61f1d030482b7bc87645dba91279b23cb","2013-02-22 12:45:53-08:00","Tombstone tag metadata when list deleted during sync
+"
+"92fd2436cf0d28e15accf0b957c775ce6352da27","2013-02-22 13:03:22-08:00","Killed a bunch of dead code
+"
+"392d12542ffae1831e491011544d49d3ff48cbbe","2013-02-22 14:03:20-08:00","Don't need to refresh tag data after history fetch
+"
+"c247a5aedcfae66bda1dc9d2fe8c33a00875ca8f","2013-02-22 14:21:52-08:00","Fixed a bug when fetching history for tasks
+"
+"bb2e3beae1b850e12943754faa4da64bf490c7f0","2013-02-22 14:54:29-08:00","Fixed some history display bugs
+"
+"fd2474710ecd1aca084e0a5e590cc7cf6835cd26","2013-02-22 16:04:11-08:00","Fixed history display bug
+"
+"aa7efd7d0b25343a97dd77146dd984667892276e","2013-02-22 16:06:59-08:00","Fixed a bug where subtasks data wouldn't be loaded correctly in tag views
+"
+"37f78785d3a3a3eded1f0367558cb207badd7b20","2013-02-22 16:15:18-08:00","Don't want to always repopulate the queue from the outstanding tables, but allow other parts of the app to explicitly ask for it
+"
+"cf9740ecf2a76bd6ca7fb639079ffe1f4a1ab9c7","2013-02-22 16:22:42-08:00","Better crash suppression with swipe between on
+"
+"96594f07e1f041e6f896580f1d74851aac9e72df","2013-02-22 17:47:28-08:00","Fixed a bug introduced in dd6a3fa where people and featured list adapters wouldn't be populated
+"
+"d1b0b66de739901fdef22a2999709d972dfb6cae","2013-02-22 17:48:01-08:00","Merge remote-tracking branch 'upstream/master' into 130122_sb_new_sync
+"
+"5d963bc44149b8bf4ad6e3daca41449437f4c2b5","2013-02-22 18:34:24-08:00","New history types
+"
+"4de130b8fed20c4814ecec3143a455066b07a700","2013-02-25 10:34:38-08:00","Fixed a crash affecting tablets
+"
+"9eebd1bdabf7688c5ecffe85cf3a2c88463e0e5a","2013-02-25 15:42:44-08:00","Need default values for user first and last name
+"
+"4368daf4b2255a60e499e5e94560a19c4cd86e88","2013-02-25 16:14:39-08:00","Capitalize tag names by default
+"
+"00f9747e8d5e9fd473024190b9018ff16db16157","2013-02-25 16:54:05-08:00","Slightly improved logging for sync
+"
+"ddc9622ffe549850c191796ed3dd3c9cc6ffd554","2013-02-26 11:32:43-08:00","Implemented finer grained queries now supported by new sync api
+"
+"a9e310a6ad2cbea30f041c05f83c3ccb2f0cac60","2013-02-26 12:46:38-08:00","Fixed a minor bug where wrong property was being used for task comments pushed at value
+"
+"81c3855ce763283f41f2b1d859b45d683d6e2d7e","2013-02-26 13:01:18-08:00","Move the static initialization of the dependency injector in SqlContentProvider to hopefully fix a bug where it would be called at a weird time
+"
+"976d1d3a787e4d9660056b13b749ffa5b4ac6b93","2013-02-21 11:32:44-08:00","Removed several references in the astrid project to the ApiDaos
+"
+"6524d1b0a06810742492c2a11e1e4cfbd5321ac4","2013-02-21 11:48:17-08:00","Moved SyncMetadataService to the main astrid project to remove more references to the api daos
+"
+"47b8fa96b40929c5b4a4b26311eb8ab30bf28a43","2013-02-21 13:53:22-08:00","First draft at what a Gtasks import might look like
+"
+"23232c50e6e0b725e6b5e174acb0659d4bcc3aca","2013-02-21 14:29:13-08:00","Add a few places where google tasks needs the astrid uuid to save
+"
+"76c509d9325785501c862c9ae20007a52eb2a849","2013-02-21 15:09:12-08:00","Stupid typo causing all my problems
+"
+"21e4035ce8a3409c092ca7de2cbaca661511bf28","2013-02-26 13:32:55-08:00","Fixed a bug in TitleParserTest
+"
+"a2fe083f0f217ebcd5a275e4ea95fa9167205181","2013-02-26 14:11:15-08:00","Deprecated tag ordering property, fixed references to it in widgets to look for TLM instead
+"
+"8c9a37bd99624a4700442237c9eff32f79e2c1cc","2013-02-26 14:27:14-08:00","Validate tag data/id when initializing widget filters in case of name change
+"
+"802627db1487c122e7b645c4abb5d41ca617b4b1","2013-02-26 14:27:42-08:00","Merge remote-tracking branch 'upstream/master' into 130122_sb_new_sync
+"
+"fbdb85c3373094879eb5c76010404b8c890edce0","2013-02-26 14:31:40-08:00","Fixed a couple things from the merge in the previous commit
+"
+"4a510f858f0cf669582f987442e7e7f210f84aa2","2013-02-26 14:41:58-08:00","Fixed an equality check in EditPeopleControlSet, removed dead code
+"
+"cca5ecfe0fb5cdb4479179b97b73e9bced16ac57","2013-02-26 14:55:58-08:00","Fixed a bug affecting display of manual order in widgets
+"
+"78869c93d9ca873f00594c9a4ef1889788e9636a","2013-02-26 16:00:48-08:00","Back button should save tag changes instead of canceling
+"
+"ed6d4fc852614f7d03ab70a6dd4fec8b6fcfa061","2013-02-26 17:27:03-08:00","Merge remote-tracking branch 'upstream/master' into 130122_sb_new_sync
+"
+"20c94fe1787697893aff3d48ea9cec76da9fc138","2013-02-28 11:36:46-08:00","Fixed several places where missing properties needed to be read or were the wrong type
+"
+"8baa2ce54adfbf533a4e703cd7302dc9f7d70a71","2013-02-28 12:08:39-08:00","Fix for setting the correct assigned index in EditPeopleControlSet
+"
+"7a655f04bb26bdb5c7a5364bb28c5486ddb38d5a","2013-02-28 13:32:19-08:00","All TLM entries created on migration should be synced, since we will need to get real UUIDs for them and/or create them at some point
+"
+"6dded6fb062bd1db773732ec5662e028d2db8ecb","2013-02-28 16:51:21-08:00","In subtasks mode, new tasks should be added at the top of the list like on the web
+"
+"f770046989d5b92ee604c3a9fa97d8dde6d1d6fe","2013-02-28 16:31:58-08:00","Set a 'record outstanding entry' flag based on user logged in state so we don't have to record outstanding entries when a user isn't logged in
+"
+"ebe269b117ab528e4cd8618bb603ff6c7210251b","2013-02-28 17:14:41-08:00","Set the outstanding entry flag in the new sync tests so that they still work
+"
+"d145a7ad18933f7d88fd879b628a03c2fdd22c69","2013-02-28 17:19:59-08:00","In migration, only create oustanding entries if logged in
+"
+"27879460ffbd5bd12d4c9d0bc4b51653678d4e05","2013-02-28 17:48:09-08:00","Added a helper class to construct outstanding tables from master tables after login
+"
+"c1fadbc430ebea5caff306f86708b58f4dc15148","2013-02-28 18:01:53-08:00","Added a unit test for ConstructOutstandingTableFromMasterTable
+"
+"4fb86211b5f61733bfe221861d26a835d0eb3a60","2013-02-28 19:05:54-08:00","Don't send empty task list metadata id changes
+"
+"9c9dfaf2887dbaf11fca7f174e30d77df05572f9","2013-03-01 10:35:48-08:00","Sanity check tagData before syncing
+"
+"3e6c67a3c36ce40330f03f0540e05f9bb99ffff7","2013-03-01 11:36:00-08:00","Fixed several bugs related to constructing outstanding tables after login
+"
+"e80141504022fb032cd0a6d00352dde175e62570","2013-03-01 11:54:45-08:00","Don't send empty task ids changes
+"
+"2880d9cf32cb732fbefc01402a5b6d7e868be5ed","2013-03-01 12:04:25-08:00","Fixed crashes when getting user display name
+"
+"fa8f4d69953d46c1d901711689c0b2a05114329c","2013-03-01 12:07:22-08:00","Killed dead code
+"
+"bf955399b9b78e5d06030c5392c020e23f752b1e","2013-03-01 12:29:31-08:00","Fixed e801415 to do what it was supposed to do the first time
+"
+"345673d40d394b7eeed6abb4679c2dc485597324","2013-03-01 13:07:07-08:00","Fixed some sync bugs when cloning featured lists
+"
+"51e9762022ff63159ced2bbe8482bee458d51f05","2013-03-01 14:16:52-08:00","Fixed a bug where list members view wouldn't always refresh after leaving tag settings
+"
+"7403f9add22d8ad03d92cef28f6ed9c449ff9bbf","2013-03-01 16:02:59-08:00","Fixed a ui refresh bug when members removed from list
+"
+"caf163d90f031dfc354d01dcbbed977f2e530aab","2013-03-01 16:13:23-08:00","The capitalize tag was in the wrong place in tag settings
+"
+"e2dac89c37db192f9cb09bd05d976ee0a286b213","2013-03-01 16:48:37-08:00","Fixed some behavior with how tag data is loaded from filter--always use the uuid when possible
+"
+"918e533eadfefa1a4a0ff2b754c75323773c6437","2013-03-01 17:16:00-08:00","Fixed a stupid bug when checking tag membership
+"
+"f10b3acc3126ad8ab78c10063be7958fa5fb20a5","2013-03-01 18:21:06-08:00","Better handling of deleting tags--use uuids only instead of names
+"
+"5a139463aec53dda8716e83efeba77d778a99cf0","2013-03-04 10:39:44-08:00","Removed some references to getTag (which is renamed to getTagByName)
+"
+"e86f1a768163b81d5fa227d94e8ef6255f3311d7","2013-03-04 10:56:04-08:00","Rewrote TagService.rename to use uuids
+"
+"e195d681820ac22c207cf1e5d2f269d049a02737","2013-03-04 11:07:00-08:00","Revert ActFmInvoker default URL to android localhost
+"
+"2f2f96c3b166eafc4f03109f2b8c4d7541d6035e","2013-03-04 11:21:15-08:00","Improvements to tag uuid matching
+"
+"f42662cfa4576ddcc1fc55496104ea08c589c663","2013-03-04 11:41:54-08:00","Fixes to processing of manual order strings
+"
+"1d77ddf0c6c991e1718baff51bae65eb3db2ec28","2013-03-04 12:08:35-08:00","Fixed a typo
+"
+"c979e1c2c14bcf8810a7c30a6ab33fed9acc55a1","2013-03-04 13:28:04-08:00","Fixed some ui bugs when renaming a list
+"
+"19545cb7290158ddac5ef375d0b298c114d641e6","2013-03-04 13:29:06-08:00","Fixed a compile error in a unit test
+"
+"9786b11daf667cc2d42793401387681973374f32","2013-02-27 11:58:07-08:00","Upgraded actionbarsherlock sources and fixed some resource conflicts
+"
+"28e0c93ecb244f5c760efb8c9b853c7304934083","2013-02-27 12:15:01-08:00","Fixed the rest of the compiler type errors with the new version of actionbarsherlock (untested)
+
+Conflicts:
+
+astrid/plugin-src/com/todoroo/astrid/tags/reusable/FeaturedTaskListFragment.java
+"
+"cd4d90715c0a5cb5ba15f95d4e51a56a20f4c8bb","2013-02-25 11:59:40-08:00","Started integrating Facebook SDK 3.0
+"
+"ef7879b6e9eb9196200eecac287b16a88877d216","2013-02-27 12:21:47-08:00","Deleted the support library from the facebook sdk (use actionbarsherlock's instead)
+"
+"2b3c9ef3b3d6392f76c3973969556344b1404c8d","2013-02-27 14:02:34-08:00","Removed dead code
+"
+"ce37aa607b2d7d233d6cf0f68f7590ec0c9c42f3","2013-02-27 16:22:12-08:00","Move facebook app id to keys.xml file so we can reference it from the manifest
+"
+"a4f92a6446789f07b5ce5bcc5a60b5ef06bc5658","2013-02-27 17:00:43-08:00","Fixed several fb login errors--it seems to be working now
+"
+"2a28937a65ac61eccc0618a88f3b5ef4511bc200","2013-03-04 14:37:27-08:00","Fixed several theming issues with the new action bar library
+"
+"8d298dda5816af61b660336d5936ea3b665d2402","2013-03-04 15:12:56-08:00","Merge remote-tracking branch 'upstream/master' into 130221_sb_gtasks_new_sync
+"
+"3622ae6bc1c9ac181d2976079c14d8360ccc2581","2013-03-04 16:12:03-08:00","Removed all producteev source files
+"
+"cae8c4eb35f9034e3dd655fef1b4304098c22929","2013-03-04 16:21:44-08:00","Delete all rmilk sources
+"
+"8bdcb8ef0fecdf81970b4733530cd417f4f60384","2013-03-04 16:24:22-08:00","Fixed bugs in unit tests from references to rmilk
+"
+"bd8918d0fae6ea24779ca8303ca0522e0562aae8","2013-03-04 16:34:15-08:00","Don't need the third party addons preference anymore
+"
+"1241967d735866165835eed60963e92e411f66d6","2013-03-04 16:54:44-08:00","Don't consider gtasks sync provider 'active' if astrid logged in
+"
+"33a93a40ab5f2e2b40fcd181184a74e48aaee649","2013-03-04 17:00:15-08:00","Started implemented logic to do blocking gtasks import from the preferences
+"
+"922db53862080f7a165b1bf37dfb255e02868d51","2013-03-04 17:14:02-08:00","Don't allow inactive sync providers (like gtasks) to sync in background
+"
+"c4284894a01964e0e8a2bc81583eba849a8b1816","2013-03-04 17:19:14-08:00","Partial logic for initiating gtasks import from sync menu
+"
+"d8b3f962b6668100fcf5f63f2b4a97457ffb3a72","2013-03-04 17:41:11-08:00","First draft of prompt to import
+"
+"2c49b30c1f97d137d0bbfc8c155f9ccde1655a07","2013-03-04 17:56:57-08:00","Don't allow gtasks preferences to rotate (prevents killing ui during import)
+"
+"8049a3395d6ac2f8cee9490a8f1bd1d85bab4eb8","2013-03-05 10:43:05-08:00","During gtasks import, only prompt about tasks that aren't already in the specified tag
+"
+"79afb0b861e4d9c2e14f2a9acfeb22eea2eeb95f","2013-03-05 11:00:39-08:00","Improvements to gtasks import ui
+"
+"6a1a0edc46b8ea2f1bff51096f0b1f3fb2817969","2013-03-05 11:14:21-08:00","Killed dead code
+"
+"3eb441438980767adc8662086b7950b929a16e27","2013-03-05 13:47:33-08:00","More efficient sync callback execution
+"
+"47be5a1fdec769646ead5c93815f4221aaaccd34","2013-03-05 15:06:33-08:00","Fixed ant.properties
+"
+"a8e61b6602b1709158f8e6f13304fb7efbde14a4","2013-03-05 15:49:15-08:00","Added some ability to do progress bars under new sync
+"
+"ff56b0e6baf68d3d53bdacebe181d8da7507dedf","2013-03-06 10:51:31-08:00","Use empty string instead of null for 0 dates
+"
+"548706a6e06353f45b65da3f65e089a9253d564c","2013-03-06 11:04:42-08:00","Don't suppress changes when creating new task list metadata in migration
+"
+"3af22f6ca921ff1ec857f8ddba0ec2cbd5ef72f1","2013-03-06 11:15:17-08:00","Don't allow weird invalid repeat value only containing the ;FROM_COMPLETION flag
+"
+"52c12a55f35d5534150ff84ff53d83a1dfaa1881","2013-03-06 11:42:33-08:00","Validate certain values in ChangesHappened so we can know whether or not to kill the message (e.g. for empty task titles)
+"
+"c2a31285c04a4c079645d4b1edd40a031fe40c7f","2013-03-06 11:58:39-08:00","Fixed an equality check
+"
+"c9f2dfb14c3d4ffa77d40bbeabb70862c6a23c69","2013-03-06 14:59:29-08:00","Put JSON null in changes happened when value is null
+"
+"6df92fce1f95982533795214861dd6417b873f76","2013-03-06 15:05:37-08:00","Fixed a couple issues with non-premium users trying to create attachments
+"
+"6e0e86d6b7c31927ff781b72247a3da76aeaa28d","2013-03-05 16:44:19-08:00","Some progress towards uploading pictures as multipart entities
+"
+"b1da107c0d51f3044a049f137ebf755c41216f78","2013-03-05 16:57:46-08:00","Rough draft of how uploading files with multipart entity might look
+"
+"1e7c7e20e0102beb7aae302e9fea41fa0cfac4da","2013-03-06 15:15:12-08:00","Added entity uploading logic for task attachments
+"
+"6ed1655653d77cf9c97535c3ded6c883862ca72c","2013-03-06 15:36:38-08:00","Use mime type when constructing file body for entity
+"
+"490e81649281462d2468a4e2cb82ae1104b9b21f","2013-03-06 16:02:27-08:00","Fixed a compiler error in unit test
+"
+"57ee4e3492f2c3be3273ffae48d941c102690fd6","2013-03-06 16:16:01-08:00","Fixed file uploading logic
+"
+"3aac9f082bfa15864abb8d4e9f2b997a1adaf5b6","2013-03-06 16:31:03-08:00","Kill featured lists
+"
+"074d6f678ac5f839c7dbb8112914291f141a84a0","2013-03-05 18:55:25-08:00","Started working on sync upgrade prompts
+"
+"bab8092c97dbf212be9d990c26c342ea847a660d","2013-03-06 16:47:28-08:00","Titles and body text for sync upgrade prompts--just need button and listener logic
+"
+"1ea5d2cbf6f479f1be9ac700beaf70a265bbdc34","2013-03-07 11:01:00-08:00","Finish button and listener logic for sync upgrade prompts
+"
+"9fe7f303733571f60d49eedeef250ea24f506ae3","2013-03-07 11:18:23-08:00","Minor fixes to sync upgrade prompts
+"
+"c56c7ef7e8c095daf26a85b8bd05a8c60b0b40ac","2013-03-07 11:20:35-08:00","Code cleanup
+"
+"11f86e32e833d8b3c708be328e3c821a5f3e61c2","2013-03-07 11:39:02-08:00","Sync hide until dates
+"
+"bba063739f05e7d6f97b76f870db77e84910aaeb","2013-03-07 11:49:50-08:00","Set general pushed at value in makechanges
+"
+"97c3480732406ea88cc49c934e0ec7be12a4bf81","2013-03-07 11:55:59-08:00","Suppress widget updates during sync
+"
+"cf97bb939354ae5704f7d8f349cfa159fac36da8","2013-03-07 13:55:58-08:00","Fixed a potential concurrency bug
+"
+"a3d2163cc651f94bc7a6e84c04f5f2fdd06684be","2013-03-07 14:00:15-08:00","Fixed a compile error in unit test
+"
+"a17b734be65bdda0f2b23391b5239b5e9c7a8205","2013-03-07 14:50:27-08:00","Moved the new sync tests into the main tests project so they could be run as part of the full test suite
+"
+"6019fd70a6834fc01662ad5f979be8d0ca99685f","2013-03-07 15:14:45-08:00","Don't need to actually log out of google tasks if user chooses to upgrade--leaving it logged in makes import easier later and doesn't affect sync
+"
+"275e363d5911c8ad6029c4245a20418aad2ad81c","2013-03-07 18:27:18-08:00","Only show sync upgrade prompts after welcome walkthrough
+"
+"e2a9d347015227167dbc9ca0160739de38b3e80b","2013-03-08 11:20:18-08:00","Reload TLM in subtasks tag view refresh
+"
+"cace6f769e5f9fc438b1bc57dc8b67834de4bbd3","2013-03-07 16:00:32-08:00","Partial implementation of sign out clear data
+"
+"c76375688c1610dc426b6d7d1be0d5346e7982cb","2013-03-07 16:42:39-08:00","More clear data on different user login logic
+"
+"91f1df7ee96ae70b4a09823266712c94cdcecde9","2013-03-07 17:06:03-08:00","Rough draft at generating new uuids on different user login
+"
+"0715c82dc3331f6dea96f53a27c4530f0f5feb7f","2013-03-07 18:02:34-08:00","Reconstruct task list metadata task order using id maps on different user login
+"
+"6e251c9306a4e9e21e4b5dd4841f845e7939c3e4","2013-03-07 18:19:21-08:00","Forgot to start the thread
+"
+"dcb1dc206a477ea3a7eff7cc235a1ebb94ca18bb","2013-03-07 18:25:07-08:00","Delete task attachments
+"
+"f7101c3a52734875cd6b6a85e5c73133812d7a8f","2013-03-08 11:37:12-08:00","Fixed several bugs with migrating data after new user log in
+"
+"6819e94458a6d12576152eb1fabf4a027d7e614f","2013-03-08 11:54:56-08:00","Constructing task outstanding from master table should include tag_added
+"
+"e769b9f31b986b68ab11db8d7a95fdd1ca39aa11","2013-03-08 12:19:02-08:00","Refresh after sending tlm message when no task ids involved
+"
+"3cee9288dc0942bc1503c4da22c3e6c3abac8db9","2013-03-08 12:24:28-08:00","Merge remote-tracking branch 'upstream/master' into 130307_sb_better_logout_logic
+
+Conflicts:
+astrid/plugin-src/com/todoroo/astrid/actfm/ActFmLoginActivity.java
+"
+"c1f4599fb55c286fc020ced7dd75d79478e137c4","2013-03-08 13:01:25-08:00","Clear deleted entities from database on different user login
+"
+"f81880c87c54bc8bde57879d06e213e8e3f50cbf","2013-03-08 13:23:37-08:00","Deleted an unused unit test from the project that was causing compiler errors
+"
+"5b7caa692c917af2a903454e364283fe318b8c6b","2013-03-08 13:27:28-08:00","Fix ActFmInvoker ip address
+"
+"9985d323c9651969fed8757fa9ae13c5455f3031","2013-03-08 13:28:59-08:00","Delete more test files that were causing compiler errors
+"
+"8776cf6fd09b07b26e103268f958f4f2c383d338","2013-03-13 10:35:47-07:00","Fixed a bug when constructing tasks outstanding table from master table
+"
+"b11abb8dee83346fa77f696de4fdc71c46ee10bb","2013-03-13 10:39:04-07:00","Killed some dead code
+"
+"6235098a30a1ea54bcb279e48e76926ea17ee391","2013-03-13 11:27:11-07:00","Fixed lots of notifications blocking the ui thread
+"
+"82a5eb3fd5d2e77dfa23f1de182cf95fff3c5c6d","2013-03-13 13:25:22-07:00","Updated crittercism library and log unexpected sync thread exceptions
+"
+"c6e7bc852edf870707fcd18e47b44a928b222096","2013-03-13 14:05:31-07:00","Fixed a super sad bug with how message batches were handled, added crittercism logging of some handled sync exceptions
+"
+"f297a3475c919ba1c2b65b70da65239fa4b01880","2013-03-13 15:02:10-07:00","Delete outstanding entries for entities that don't exist anymore
+"
+"dfbad081998fb7b073aaa1acf475ab90dc760702","2013-03-13 15:59:38-07:00","Merge branch 'master' into 130225_sb_facebook_sdk
+
+Conflicts:
+astrid/plugin-src/com/todoroo/astrid/actfm/ActFmLoginActivity.java
+"
+"b3b38583becf75e919bb76c4b8d32d95cbcbf2fe","2013-03-13 18:41:07-07:00","Refactored and improved how multiple notifications are handled based on Tim's recommendations
+"
+"0d4c6555b8374163a69aa153634a7f1bfb4f1909","2013-03-13 18:47:22-07:00","Minor bug fix to notification sounds
+"
+"35acb15c9113c68259d7b45b7209ad2921383489","2013-03-14 10:55:17-07:00","Sanity check for weird repeat values
+"
+"291b54813f5fec854c16505b6e8683379df030f0","2013-03-14 11:06:17-07:00","Send client_version with sync messages
+"
+"e0665b23308bc95c9b622169940e99c1c9077bde","2013-03-14 11:42:51-07:00","Don't ever attempt to send files with no name or that don't exist anymore
+"
+"0155d9783e0076d457a67723c69a8c381b663603","2013-03-14 13:11:28-07:00","Cleaner code
+"
+"58ec7a3001a865349edf2e4c16163657430b640d","2013-03-14 13:12:35-07:00","Don't need to validate repeat values on sync
+"
+"34fe492addb4a238c494f80cae2cd25c1fe4371d","2013-03-14 13:31:14-07:00","Move client version reporting to be more like a ClientToServerMessage:
+"
+"75b138cf98dfd037fe20a006cbbfc38ff7618d47","2013-03-14 14:06:47-07:00","Need to use a JSONObject for the ClientVersion message
+"
+"2a54bddced9e4b135bf629e9948abff5e12141cd","2013-03-14 14:24:15-07:00","Removed an unused file and changed an attribution link
+"
+"0555ca9e4437b334bafb4f4a918cdfaa88e1fce4","2013-03-14 15:07:32-07:00","Deleted several unnecessary files
+"
+"7bff4e2db6a7438e459fa63459b93ffe681d001f","2013-03-14 15:16:30-07:00","Deleted some more unused files
+"
+"2109ba38e6fc069776ec6d279831a387834ab972","2013-03-14 16:11:55-07:00","Killed unused code
+"
+"0cb23f07fa58b3cd142153e6db14a695f26c2725","2013-03-14 16:39:47-07:00","Fixed a stupid bug where messages wouldn't be sent because of ClientVersion
+"
+"d77cd2a0dfe8bef5195f341afae23b9e279b037c","2013-03-14 17:02:54-07:00","Added a unit test to confirm that rolling back transactions works the way we expect it to
+"
+"72aa5c61b6f49ed4d9a69994ba08cdc5a1bfb5e5","2013-03-14 17:18:20-07:00","Adjusted how large bitmaps are scaled to keep bigger images around
+"
+"fa4971f50c5b36576ba75ea651c487a81fdf8f0a","2013-03-14 18:05:56-07:00","More improvements to how bitmap scaling is handled
+"
+"6c478be12086e00be142342c2265e3745cd1e287","2013-03-15 10:29:00-07:00","Fixed potential null pointers when refreshing comments fragment, people fragment
+"
+"98db1b561469c9e1efa24da6e4ae033710617367","2013-03-15 10:38:45-07:00","Fixed a bug with how GCM service is constructed
+"
+"8d2103884821a62c42fa5e3dfeb1026faaf873ea","2013-03-15 11:03:41-07:00","Fixed a bug where timer notification could get stuck after deleting a new tasl
+"
+"5d49005d202ba6d5adc922c04a5f267c041e4db8","2013-03-15 11:57:02-07:00","Clear pushed_at values when logging in as a new user
+"
+"d021fa1f3036db618c65ba395c4aa9cd67be5ce7","2013-03-15 12:52:05-07:00","Fixed autosync implementation for TagViewFragment
+"
+"339093793fdd13f38e4ecbca374021c04d7b0cd8","2013-03-15 13:26:19-07:00","Started refactoring to improve logout logic
+"
+"1826417c77f01e6ae69d711a89471a76c7496e66","2013-03-15 14:16:01-07:00","Improvements to logout logic
+"
+"008c1b21848c7c96d9238bb740b8bdcf01c1468e","2013-03-15 14:40:30-07:00","Don't enqueue messages when we shouldn't
+"
+"70239630cd5dfe40c76a93d86e87221a11755a20","2013-03-15 14:54:30-07:00","Made some code cleaner when clearing data after logout
+"
+"b307391d5868ba5111dd37a00704f0e2b321fcc2","2013-03-15 15:04:56-07:00","Killed dead code
+"
+"496caec5b1ba0e418cebef1b941e27a73258ceca","2013-03-15 15:09:49-07:00","Some improvements to how user activity and tag data are migrated when a new user logs in
+"
+"a24596a3e29915f50d97e5e4d4d81de5f5f4270f","2013-03-15 15:42:57-07:00","Fixes a crash when clearing data after logout
+"
+"9e09eb463c28ef31784c38f59e54e1488cc699aa","2013-03-15 16:19:06-07:00","Fixed unit test compilation bugs
+"
+"936e1c924b59572177c2275f91a1d2ec9e04da10","2013-03-15 16:33:28-07:00","First pass at improving tag data members migration
+"
+"6adbd88998e9eaa8d79b772ba6dfbc9b004ac472","2013-03-15 16:37:31-07:00","Enhanced legacy tag members migration to create deleted member links for removed members
+"
+"e5269074ca66d20d97285df8a01327cb4d4cab41","2013-03-15 17:01:29-07:00","Some enhancements to make sure we don't remove and readd tag members
+"
+"0736191635157cf5144fd2bc9d202a4b6e1e0def","2013-03-18 10:34:34-07:00","Delay population of sync queue on thread start so it doesn't try and reference non-existent tables before the migration has happened
+"
+"45fd4aa20e491d3696804469178c83527a0eadd6","2013-03-18 10:36:10-07:00","Columns can't be named 'column'. Beta users will need to reinstall
+"
+"0e050909df66d8f4226276591e88653899fbfbe8","2013-03-18 12:20:26-07:00","Fixed database migration to construct new history table
+"
+"551474936c24212fc92ac91e3cbd255c57c2f069","2013-03-18 12:25:50-07:00","Improved the getloc import script, imported all translations
+"
+"c76409364e94e88c4cfb909d3661a380a0e01a1a","2013-03-18 12:28:29-07:00","Log handled sql exceptions in database migrations
+"
+"7930c169da5d4141c9079e049a0571bc8f041ddf","2013-03-18 12:43:31-07:00","Fixed bugs with NotificationTests
+"
+"38c4417758c47994d744eab4dc7edb5760af9418","2013-03-18 15:30:43-07:00","Fixed a bug where deleted comments would still show up
+"
+"27ddeb6e239b6b71967a95a17727cfb763668123","2013-03-18 15:32:11-07:00","Don't show deleted comments for tag data either
+"
+"b9a768a47027785a578fee63ae6909ca6690819f","2013-03-18 15:57:05-07:00","Fixed several cases where logging out would not clear table pushed_at values
+"
+"312104dead0e39b43b58e796f1d56f7151a6bc6e","2013-03-18 16:25:21-07:00","Fixed several bugs with how tag deleting and renaming from long press work
+"
+"b7a46262f25b2ac58ec7fac125f36ee0502746ac","2013-03-18 16:50:59-07:00","Updated Hebrew translations
+"
+"8b9536b75ed7ccc1c84b55b6c8482d8954e0ce98","2013-03-19 10:54:46-07:00","Added some failsafes to hopefully stop sending TLM with no tag or filter ids
+"
+"ac0df13e37c26a1ace11d81db827e945e161dcda","2013-03-19 11:44:44-07:00","Fixed a potential null pointer when refreshing comments list
+"
+"ed91f860aa8cebadde7749d2989e79376176f47a","2013-03-19 12:03:28-07:00","Newly created lists should now show up in their correct location
+"
+"e9083f080376563960efe467d05b87c416d82071","2013-03-19 13:52:11-07:00","Show which email address a user is logged in as
+"
+"dd4e3d498d129ec97d41f25281a96957c05d2bb5","2013-03-19 13:59:09-07:00","Set successful sync after loop initiated from background sync
+"
+"5d0b3491147492da55cca36084597c3e0a8d58af","2013-03-19 14:31:22-07:00","Subtasks list fragments should retain position after resuming
+"
+"abcfe110964c5d5d566e563ee1e41c49fc60fcaf","2013-03-20 10:31:19-07:00","Fix a handled exception thrown in the new TLM changeshappened logic
+"
+"2b70c8f7553c4b43e37bf653482d2d5682083877","2013-03-20 11:33:05-07:00","Merge branch '130225_sb_facebook_sdk'
+"
+"c5460da0e972c5552a0ac0c0938b8cad8d99aeac","2013-03-20 13:58:33-07:00","Started implementing ability to report errors to sync callbacks to customize behavior
+"
+"30eddc993934d3829a32b56d3c9ad8a165af7c28","2013-03-20 14:03:11-07:00","Pass error list into sync callbacks
+"
+"214e80905cc70bbc56a99d9fb3c9735112c4f3d0","2013-03-20 14:23:00-07:00","Just need to implement new list logic when list not authorized
+"
+"5d7c392d395d41fb9913454b8b527a08813a06c3","2013-03-20 14:38:31-07:00","First draft of creating new list after unauthorized
+"
+"586fc12a5e7140f4a4ae3b81f286314c18f2b5f1","2013-03-20 14:53:13-07:00","Adjusted error handling to match the actual format of errors
+"
+"852087ba745465ad4e3d030df5b653667e2ca3c5","2013-03-20 15:10:11-07:00","Bugfix to leaving list option
+"
+"b29b4f1bbcf6e080901ec410c546be8fe3deff21","2013-03-20 15:58:24-07:00","Need to clear idToNode map when deserializing task order tree, otherwise bugs ensue
+"
+"8e35f3e8ffff86b6a213e14fedddc09bbaf3c347","2013-03-20 16:13:58-07:00","Bugfixes to the logic for creating a new list when not authorized
+"
+"ed28d4629335051d1600086f9ead650057f41e8c","2013-03-20 16:49:02-07:00","First draft of keeping tasks assigned to me on the new list after unauthorized
+"
+"d97f5c2a06d3be9c747bbd097d0946933ad6db25","2013-03-20 17:00:02-07:00","Deleted all the taskrabbit and ideas tab code
+"
+"7ad6d441b0d03c8fe7c2ac3208041b573370cfd8","2013-03-20 17:38:32-07:00","Fixed metadata bugs when creating a new list after becoming unauthorized
+"
+"6b0b387d6ed0b82bb026a4aa1ee37473bdd92e8b","2013-03-20 18:02:42-07:00","Clear last error on sync success
+"
+"ec15892cccdc91d824a908fa448be2df11ffee80","2013-03-21 10:15:24-07:00","Deleted unused file
+"
+"b310fb767f371b699676d4ffd9c39347fa3f9888","2013-03-21 10:36:52-07:00","Use higher res versions when displaying comment images
+"
+"e5de043fe71577c5bf05365f22ff5d69c234188a","2013-03-21 11:28:34-07:00","Rewrote function to read input stream as string based on AndroidUtilities.readFile
+"
+"fee4b83a7996f51bea5cc55200a90601fd8d141a","2013-03-21 13:46:33-07:00","Updated ImageDiskCache sources to unmodified LGPL versions
+"
+"0245d5d6b23be2108eaf04600641027e9ab67527","2013-03-21 13:54:00-07:00","Removed old file and fixed a compilation error
+"
+"4af3984f753c9c6e34a23add3d5fce74321706a2","2013-03-21 14:16:28-07:00","Use Constants.DEBUG in image cache
+"
+"76a8444ffe5af1cf1f3cb38907812f09b5aa92e0","2013-03-22 10:58:06-07:00","Fixed a crash when deleting list from list settings page
+"
+"ec1f02e60f9804a5d8cb553e3d2b84e8ccb3475c","2013-03-25 11:08:29-07:00","Fixed a null pointer exception in AsyncImageView
+"
+"977078e73c2b409df642f86d7ed8c62d1a3de0cb","2013-03-25 14:14:17-07:00","Removed all the old progress bar code
+"
+"794abd5896259833615874ba4b528db68143ac46","2013-03-25 15:02:20-07:00","Added a sync ongoing notification to the status bar instead of progress bars, fixed a crash
+"
+"04a19990700a405d456f5817df982530d9bde678","2013-03-25 15:14:25-07:00","Maybe we don't need the crittercism stuff in the manifest anymore, cause it's causing some crashes
+"
+"b210048fd39eb8f763a8a611ea148fc5e1aff785","2013-03-25 15:42:55-07:00","Shouldn't be able to remove self from shared list using the x's (too easy to hit, should just use delete button instead)
+"
+"1171dee9db5e3bb185452844980e1e66f50fd0b5","2013-03-26 11:51:09-07:00","Network state changed receiver
+"
+"2d81721284ccf4cc148db299bda9a1645b8eb8b3","2013-03-26 11:59:27-07:00","Removed lots of old taskrabbit code
+"
+"9aeb0ada965ce5c9c28ee14349384812797c415d","2013-03-26 12:11:01-07:00","Fixed the manifest declaration of NetworkStateChangedReceiver
+"
+"94e2b2d21335d8879bc8bcf5698d9f83f304b9a2","2013-03-26 12:26:31-07:00","Removed the sync actions menu, default to Astrid.com
+"
+"52621f259a39416dc6f793d9ed373eb6868cabd6","2013-03-26 18:18:58-07:00","Made sync logging slightly more readable
+"
+"1a546cf02cae7ca90e050de92c8b546f2b773735","2013-03-27 10:56:40-07:00","Implemented several improvements and optimizations in new sync migration based on Tim's suggestions
+"
+"7254aeb4af50c20d9e9279bb7d6683f508091765","2013-03-27 11:53:27-07:00","Show unremovable list owner in tag settings
+"
+"a6721a2c3592201380453aca8fe28b3e72be9a20","2013-03-27 12:02:01-07:00","Move the voice input directly creates tasks preference
+"
+"216e5e09510dbbf6b6b7f4e1029aeec217b15bee","2013-03-27 12:40:03-07:00","Copy update
+"
+"acb49651d262998c895745acd6ae388192523cfb","2013-03-27 12:56:39-07:00","Some polish to the custom filter view, remove from menu for new users
+"
+"30e239bde1a42f046b10a025f5dcf9639cce8b2c","2013-03-27 13:21:58-07:00","More custom filter activity polish
+"
+"4b14579399e2588881433d94783bcd6c0d2739bd","2013-03-27 13:33:41-07:00","Use input type email for custom assigning field
+"
+"bc02f97370f7e8d17bda86b2ccf72d6936f35f60","2013-03-27 13:49:38-07:00","Fixed a display bug in edit people control set
+"
+"b31948e3a952a1f5a263fe2807b1a24781bda888","2013-03-27 14:07:07-07:00","Don't use full screen edit texts in landscape on task edit page
+"
+"c941e76715718bbe02bbff38f538c208beb59622","2013-03-27 14:08:05-07:00","Don't use full screen edit texts in landscape on tag settings page
+"
+"ec2447d1908f8bde5a3fd8b86b8016c7eb3bf85d","2013-03-27 14:39:44-07:00","Removed save and cancel buttons from task edit by default (can restore them in preferences)
+"
+"381d94be0b069051b12b9e69a257b2d415d15f10","2013-03-28 11:32:41-07:00","Improved menu on tablets when in phone layout
+"
+"32a92f9b637d9d9773da055b8038a100ef966e7d","2013-03-28 11:57:35-07:00","Adjusted appearance of quickadd controls
+"
+"5db330e652625cf1b0acbce2335692c08b66b209","2013-03-28 12:15:02-07:00","Fixed several styling issues on v11+ devices
+"
+"81231e67fb52873296d868db3c1333d0aec0e5b2","2013-03-28 14:17:46-07:00","Fixed a bug in network state changed receiver
+"
+"e302cc1831cbe1b72e607e7afb970a5134e938bb","2013-03-28 15:38:04-07:00","Added data layer for WaitingOnMes
+"
+"46269525733cb6738bcad9715f3487e424c9e8ce","2013-03-28 15:57:02-07:00","Add waiting on me to the core filter exposer (needs icon)
+"
+"b85aaad678a7a0be7dc88754adc085fc029de74f","2013-03-28 16:07:32-07:00","Forgot to add table declarations in Database.java
+"
+"f0dbf4172a06377364eb764dc72a2df843f2f1ba","2013-03-28 16:26:28-07:00","WaitingOnMe needs a pushed_at property
+"
+"8585ea88d9c04f7ca6012c35fb0d30c47e90e1b0","2013-03-28 16:37:01-07:00","Record waiting on mes pushed at in NowBriefed
+"
+"82122ddbf3ddab7b7b1786e35f528210cc6cb245","2013-03-28 17:43:24-07:00","Add the acknowledged data field to WaitingOnMe
+"
+"4fca170e1ebcde0e2c3d06027c219eba7ee2ddcd","2013-03-29 12:11:36-07:00","Adjust some sizing behavior for task edit dialogs
+"
+"8c4d37e49ab298c538caf8150efbd9eaccc9910d","2013-03-29 12:42:37-07:00","Only show waiting on me filter if there are things in it
+"
+"a2ca7e20403f38f02bbd043aec6a6c1766db0555","2013-03-29 14:43:07-07:00","Implemented special waiting on me fragment to bold unread items and set read dates when clicked
+"
+"3668fda47b14ecb98f95a248904e75360413e39b","2013-03-29 15:13:53-07:00","Fixed a comments feed display bug
+"
+"4fc9a49e3d88e9cc9a84acd3727ff8b9350d7482","2013-03-29 15:59:24-07:00","Be even more robust catching migration errors
+"
+"1bbdf61a8736ff452bc9812e2f412c3bcb6f1461","2013-03-29 17:17:47-07:00","Don't include list owner when parsing members on tag save
+"
+"6d7b6b201479c1769efc300cca30102e8dfb5228","2013-03-29 17:18:26-07:00","Fix facebook login button background
+"
+"b7e2cf979362ac5fb5ace5641610e2a5e4a4a19c","2013-03-29 17:24:17-07:00","Remove the WebMarketStrategy
+"
+"5cc5dd9b0da730193f10dd0ce4b5a1a05c3cbfb4","2013-03-29 17:48:51-07:00","Removed Nook and Amazon Market Strategies
+"
+"6f7b4349dde6033d2d13338879f4c4675e529104","2013-03-29 18:04:36-07:00","Copy update
+"
+"b0f82b9193d07db5a34062dc22c9e80edaca2270","2013-03-29 18:12:05-07:00","Placeholders for waiting on me filter image
+"
+"5dadf2b081f3a256fef30d6de6147e98ec1f77c3","2013-04-01 10:39:41-07:00","Hopefully fixed a bug when starting the timer
+"
+"a6cb91dc4933f6e16cb3bc9cda333e4ac2a529c3","2013-04-01 10:48:28-07:00","Catch exceptions when deserializing content values
+"
+"1ccad4f613008595cc7eb23446f53586732a99ca","2013-04-01 10:52:42-07:00","Fixed bitmap resize logic
+"
+"34db0fc9fdca452d7cf14ba8fb3fe1aff291489c","2013-03-26 17:09:15-07:00","Added database columns for keeping track of history offsets
+"
+"1b393dfea036c8cacf1d0d7f2f312035c021d101","2013-03-26 17:18:51-07:00","More new logic for keeping track of if last history request had more data
+"
+"0bc9b0b253aff7a281e5eb5e4f4ba0924fb5f77e","2013-03-26 17:44:07-07:00","Got load more history working in EditNoteActivity, still need it in comment fragments
+"
+"f30b1044c2a35c23561475e2b645a161009f7ddc","2013-03-26 18:09:56-07:00","Basic logic for load more in comments fragments. Parts may be broken, still need to reload models on success
+"
+"1c686eb53321ee103697e1360c3e9b055b283961","2013-03-28 11:01:34-07:00","Refetch models in comments fragments after history fetch
+"
+"9d762250863a6a1042835bbd95be5e58d6ce875f","2013-03-28 14:54:07-07:00","Getting closer but it's still not really working
+"
+"72292c3f79493c4d3d3210543edcdacda81f685c","2013-03-28 17:40:38-07:00","Don't need include_tasks in FetchHistory
+"
+"d268f3fa19ac308e41204168969df672e22c6e71","2013-03-28 19:05:59-07:00","Move database migration logic
+"
+"9c5eff5368ffa1788f89eff177292c794a47f84a","2013-03-29 15:38:44-07:00","Don't ever write false has_more values in fetch history when modified_after > 0
+"
+"5ac4e10b1da5a533d46666ad8196f262ee9a38c1","2013-03-29 16:23:34-07:00","Introduce a tag_id history field for better keeping track of history entries that correspond to particular tags
+"
+"e64d6f540c5995340bad362b92b677774c392baa","2013-03-29 16:25:37-07:00","Create tag_id index for history table
+"
+"e0c6d474ff4961d7564dadc1481561d49a3f987a","2013-03-29 16:38:00-07:00","Minor history fixes
+"
+"561612ff7ce0a87f400d2efdd615337a3247c713","2013-04-01 11:35:03-07:00","First draft at fetching tasks for a user
+"
+"5359797b82d496d66ec6a0dcd538f54b34196632","2013-04-01 11:48:14-07:00","Improve the tags group_by to not show empty entries
+"
+"0f52169f74262f1f978040c99ccb38e193bec951","2013-04-01 12:02:56-07:00","Implement BriefMe for fetching tasks for a user
+"
+"c2fb314b19699cc5f68e3eb9982d6856031c6e18","2013-03-19 12:32:14-07:00","Placeholder logic for a sync refresh/debug button
+"
+"62cd376a8f7acf466ffd007dd8dd1341e79220e1","2013-04-01 12:42:03-07:00","Don't need to refresh token when resetting sync state
+"
+"3e1400017f443d4da4d3be1bb7a508342d74dd94","2013-04-01 12:48:47-07:00","New version string and upgrade message
+"
+"de82594757b4258011be154a0b2f3ee93860ffbc","2013-04-01 12:53:23-07:00","Fix a bug where Google Tasks sync would never be shown
+"
+"a7d34ad5b2874b71034318a8cd37d0c69531c03d","2013-04-01 12:56:50-07:00","Minor tweaks to reset sync state button
+"
+"f1056115639a2f69c41e1e58d4f144850a38e675","2013-04-01 13:02:20-07:00","Copy change, removed some unused strings
+"
+"84dbac39754ed431c99b8f2858ff758898788374","2013-04-01 13:22:54-07:00","Fixed typo, imported updated translations
+"
+"6fd865b822cd75f57773ad2197d0c82b3b88cf32","2013-04-01 14:29:17-07:00","Adjusted autosync interval
+"
+"adba5c9374c160fdfeaa46a1c9ad07c312112aa5","2013-04-01 14:47:17-07:00","Clear fake gtasks token after unit test
+"
+"641ef8b337d89973f6ae58af2376ecf21aabc1bd","2013-04-01 15:04:10-07:00","Fixed some intent filters for astridlite
+"
+"c33e93f03e9786f3571cde0d6471cff85de5b369","2013-04-01 15:28:34-07:00","Better GCM retry
+"
+"3698244f13568b9d2dd4c7ac736eb1a5bf2cb2c1","2013-04-01 15:33:09-07:00","Send current GCM token if one exists and message batch contains a ChangesHappened
+"
+"e3ebe0c54436e3bc3546f721ac100c489508dd39","2013-04-01 16:09:09-07:00","Fun with generics, fixed signature generation when using gcm
+"
+"735898cd758dd2e3a5d71a3d97b9c2319dc31e8c","2013-04-01 17:04:28-07:00","Forgot to add some changes to ActFmInvoker
+"

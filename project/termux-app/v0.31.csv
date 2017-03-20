@@ -1,0 +1,65 @@
+"commit id","commit date","commit message"
+"46c9c4b80e225ae5bd261759a461c06eafdf4f49","2016-03-01 16:33:22+01:00","Catch IllegalArgumentException from startActivity
+"
+"ca71265f23276fa6dfc11bee942876652a1f4649","2016-03-07 23:45:02+01:00","Handle backspace across wrapped lines (closes #59)
+"
+"c6d6a6363730a1bb49aef4c94ebabc9e4f01606b","2016-03-11 01:20:54+01:00","Extract variable for clarity
+"
+"493900d60bbaf1300732fa535ad8834263416eb0","2016-03-15 00:08:31+01:00","Add PATH environemnt variable in failsafe mode
+"
+"5b8eca46a1b6143c2f2abfa79a31ce0421ea8137","2016-03-15 00:09:10+01:00","Set 4 space indentation in .editorconfig
+"
+"0e942f90a687c31ff96aade9d854d9eb58fc777b","2016-03-15 00:26:36+01:00","Update gradle from 2.10 to 2.12
+"
+"f989157f100d340b4db40223ac55e303eba83ae3","2016-03-16 23:10:44+01:00","Extract constants
+"
+"480b8a4f7eff8eed01659207f8fd2d5507838b5f","2016-03-17 12:29:30+01:00","Recycle a TypedArray after usage
+
+Also add two suppress lint annotations.
+"
+"51181c2d49a40078db866d5871c1ef2836cb03f8","2016-03-17 12:31:45+01:00","Fix method reference in javadoc
+"
+"d6eea83bfc60e2c2966779dc89318907ecbd78d6","2016-03-19 00:17:38+01:00","Make it possible to receive files
+
+The files are saved to $HOME/downloads/, after which the user
+may choose to open the downloads/ folder or edit the file with
+the $HOME/bin/termux-file-editor program.
+
+It's also possible to receive URL:s, in which case the
+$HOME/bin/termux-url-opener program will be called.
+"
+"17382fb190bbdf88352bd905ce34fb895f1d68fe","2016-03-20 22:17:21+01:00","Do not have /system/bin in the PATH
+
+By appending the old system PATH environment variable to the paths
+setup by Termux system binaries are found as a fallback.
+
+This causes problems with system binaries not working (due to
+LD_LIBRARY_PATH) and causing a lot of confusion for new users when
+e.g. an Android system provides a system version of e.g. curl, ssh
+and other programs. It's better for these users to be prompted to
+install the proper Termux package, and advanced users can still
+add /system/bin to the PATH themselves.
+
+Certain programs such as 'am' and 'pm' are already setup in
+$PREFIX/bin to clear LD_LIBRARY_PATH and launch the binaries in
+/system/bin - if there are some more popular ones they could be
+added in the same way.
+"
+"5c024485214ef81112abf29c89c46f14b4459f72","2016-03-20 22:24:05+01:00","Install 64-bit arm packages on capable devices
+
+This will only affect new installations. Existing users wishing to
+install 64-bit packages can re-install the app completely, or just
+'rm -Rf $PREFIX' and exit all sessions, which will cause Termux to
+re-install all packages at next startup.
+"
+"0882ed6470e74a2791ed0a085b28b03149ad166f","2016-03-20 23:57:34+01:00","Keep the EXTERNAL_STORAGE environment variable
+
+The EXTERNAL_STORAGE environment variable is needed on at least the
+Samsung Galaxy S7 for /system/bin/am to function.
+"
+"5558f371b4864c177f31460388082edcc1e7aeed","2016-03-21 00:01:59+01:00","Bump version to 0.31
+"
+"e7f9647beb6e1b54c7de93c03e1ab2d9885b371a","2016-03-21 15:19:08+01:00","Remove unused variable
+"
+"3aaa0ab2675be623cfc596dbb263319ec938f52a","2016-03-21 15:24:02+01:00","Remove unused imports
+"

@@ -1,0 +1,58 @@
+"commit id","commit date","commit message"
+"38b1dcec189e484cc665bbf62811a77736cdd857","2014-12-14 11:32:38-08:00","Light edit to README.
+"
+"8adcc43e90388deb7e1bf6b81e9c56b1c0fe97dc","2014-12-14 11:33:11-08:00","Update for new path locations.
+"
+"f41f74da6509efd0aab9705d51fad53de92ddc42","2014-12-14 12:16:02-08:00","More tweaks to build instructions.
+"
+"36205fb19b02dfb899e3057959ef6a92b93dd449","2014-12-14 12:19:22-08:00","More tweaks to build instructions.
+"
+"34fd3ac2f247cb76e198e7e6d3e6b060eabb7a8b","2014-12-14 12:20:32-08:00","Update Building.md
+
+Try to get instructions formatted correctly.
+"
+"06c3c2dcf4c9091438ac86ad246644a7edc59645","2014-12-14 12:30:59-08:00","Merge branch 'master' of github.com:jackpal/Android-Terminal-Emulator
+
+Conflicts:
+docs/Building.md
+"
+"db502ce34e7978466b589a2254a3df6492163035","2014-12-14 12:34:12-08:00","Use correct markdown for code block (4 spaces)
+"
+"9eb5731d9153e28c8d7e08d7b5c127004f31a6a3","2014-12-14 12:43:12-08:00","Yet more tweaks
+"
+"51129616bf1165fea9555f0ec49e8bc97f29de1f","2015-01-23 23:40:31-08:00","Split RUN_SCRIPT handling out into its own activity
+
+We currently use intent filters to direct jackpal.androidterm.RUN_SCRIPT
+actions to the RunScript activity, which is gated in the manifest by the
+permission jackpal.androidterm.permission.RUN_SCRIPT.  However,
+RunScript is an alias for the RemoteInterface activity, which is exposed
+without the permission requirement; because applications are permitted to
+explicitly specify a component when sending an intent, this allows an
+application to trigger a RUN_SCRIPT action without having the
+corresponding permission.
+
+Fix this by removing RUN_SCRIPT handling from RemoteInterface and
+creating a new RunScript activity (a subclass of RemoteInterface) to
+handle RUN_SCRIPT actions.  Any scripts supplied by callers to
+RemoteInterface will now be ignored, though the call will open a new
+terminal window.
+
+Thanks to Daoyuan Wu for reporting and analyzing the issue.  Fixes #374.
+"
+"1c57509c6b0da3966d747abaf0b1a35136cc07c7","2015-01-24 02:45:10-08:00","Term: ignore invalid attempts to use private intents
+
+The main Term activity implements a set of private intents for use by
+the remote interfaces.  These are only supposed to be used via the
+TermInternal activity alias, which is private to TEA, but it's possible
+for another application to invoke these on the main Term activity by
+explicitly specifying a component name (as in #374).  It should not be
+possible to do more than crash TEA via these intents, but let's prevent
+outside applications from using them anyway by ignoring requests which
+don't come via the TermInternal alias.
+"
+"bbc27eebad6154764381e2dde3333a5df0570b49","2015-01-25 09:39:53-08:00","Merge branch 'steven676-for-upstream'
+"
+"9cb7b465a8f9b579340b38d219d17b708645a441","2015-01-25 09:54:02-08:00","Update build instructions
+"
+"49119c11d5e1e2d28aa3f8a9341adbaeec75286c","2015-01-25 10:13:43-08:00","Update version number to 1.0.64
+"

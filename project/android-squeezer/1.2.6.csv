@@ -1,0 +1,142 @@
+"commit id","commit date","commit message"
+"8e1c45e925bde0c733acd75bd90577d56e0664fe","2014-12-16 20:54:54+01:00","Merge branch 'release-1.2.5' into develop
+
+* release-1.2.5:
+Prepare for release 1.2.5.
+"
+"8972dc627fe584fd4da4ba9a4d0ed9d121eae18f","2014-12-16 21:48:06+01:00","Merge branch 'develop' into eventbus
+
+* develop: (30 commits)
+Prepare for release 1.2.5.
+Add additional logging where downloadEntry.tempName is null.
+Ensure that setAdapter() calls happen on the UI thread.
+Ignore context menu selections if players change while the menu is shown.
+Ensure that a user's login credentials are not sent to Crashlytics.
+Prepare for release 1.2.4.
+Remove extraneous period in a comment.
+Fix a crash constructing Player objects on API < 9.
+Update to gradle build tools 1.0.0.
+Only set the list adapter if it is not already set.
+Add a space after a 'throws' clause.
+Prepare for release 1.2.3.
+Ensure the context_menu is below the track_wrapper.
+Fix inverted logic error showing playlist option menu items.
+Fix an IndexOutOfBoundsException.
+Wrap the trackname TextView in a LinearLayout.
+Hash the player ID to generate a long identifier for it.
+Fix HandshakeNotCompleteExceptions by moving setAdapter() calls.
+Remove possibility of ordering the same page multiple times pre-handshake.
+Fix exception from calling updateUIFromServiceState() before the handshake completed.
+...
+
+Conflicts:
+Squeezer/src/main/java/uk/org/ngo/squeezer/framework/ItemListActivity.java
+Squeezer/src/main/java/uk/org/ngo/squeezer/itemlist/CurrentPlaylistActivity.java
+Squeezer/src/main/java/uk/org/ngo/squeezer/itemlist/PlayerListActivity.java
+Squeezer/src/main/java/uk/org/ngo/squeezer/service/SqueezeService.java
+"
+"70903170fb92795be1bbfdd918ed902a945697ec","2014-12-20 18:40:24+01:00","Refactor how server capabilities are communicated.
+
+Instead of providing canFavourites, canMusicFolder, canMyApps, and
+canRandomPlay methods, include this information in the HandshakeComplete
+event.
+"
+"523ffe6ca6f214739d5c40f5440e9a4a273dc805","2014-12-20 22:10:21+01:00","Make disconnection handling more robust.
+
+- Remove all sticky events on disconnect, so an activity can't get an
+errant HandshakeComplete event while disconnected.
+
+- Post a new ConnectionChanged() event to indicate that the server has
+disconnected.
+
+- Use this ConnectionChanged() event as the signal to show the
+DisconnectedActivity in NowPlayingFragment.
+"
+"c0f86f5d9c038189cee9b51017e53f8a63b8e173","2014-12-21 00:12:51+01:00","Merge branch 'eventbus' into develop
+
+* eventbus: (23 commits)
+Make disconnection handling more robust.
+Refactor how server capabilities are communicated.
+Remove unnecessary null check.
+Rename callback registration variables and functions to reflect the eventbus.
+Remove registerCallback() and unregisterCallback() methods.
+Replace registerCallback() with a HandshakeComplete event handler.
+Remove empty registerCallback() methods.
+Update comments to reference the correct events.
+Mark fields in events as final.
+Replace IServicePlaylistMaintenanceCallback with events.
+Use equals() instead of == when comparing songs.
+Replace IServiceCurrentPlaylistCallback with PlaylistTracksAdded and PlaylistTracksDeleted events.
+Comment refactor for consistency.
+Replace IServiceCallback with multiple events.
+Replace IServicePlayerStateCallback with a PlayerStateChanged event.
+Replace IServicePlayersCallback with a PlayersChanged event.
+Replace IServiceMusicChangedCallback with a MusicChanged event.
+Replace IServiceConnectionCallback with a ConnectionChanged event.
+Delete IServiceVolumeCallback, as it's no longer used.
+Create and use an EventBus that's specific to the service.
+...
+"
+"4fa5ed53827a2093e1d581963ff92e5977cca769","2014-12-21 00:35:58+01:00","Prepare for release 1.2.6-beta-1.
+"
+"7d7d5e4a7b4b16dd900ed871ce729972ce64b4da","2014-12-23 00:09:10+01:00","Add android:layout_alignParentLeft attribute, required for API < 17.
+"
+"3071fbc0ab39c1adefa13976247bef6ff3806acc","2014-12-23 00:09:32+01:00","Include proguard-eventbus.cfg for release builds.
+"
+"84090eadecbffb2861b85a227d3b1f58d1781e40","2014-12-23 00:10:09+01:00","Call through to the superclass implementation of onEventMainThread().
+
+Without this no items appear.
+"
+"3360bada5ba2815a748e8f9bf89fbfa3d240f706","2014-12-23 00:10:42+01:00","Merge branch 'develop' into release-1.2.6
+
+* develop:
+Call through to the superclass implementation of onEventMainThread().
+Include proguard-eventbus.cfg for release builds.
+Add android:layout_alignParentLeft attribute, required for API < 17.
+"
+"7c8b9e905fab48b07a14564efd1e0fc5495f7b57","2014-12-23 00:22:10+01:00","Theme support for view dialogs.
+"
+"30dd979ffadf49cbfa2c6450d4be7dab83918fee","2014-12-23 00:24:38+01:00","Add missing Danish translations.
+"
+"8c77e0912f18c8db6bf78805c6d6c43b7d08eab7","2014-12-23 00:29:11+01:00","Prepare for release 1.2.6-beta-2.
+"
+"998d9a0d5e93b7512f22698bd84ba5714053d4eb","2014-12-24 12:07:49+01:00","Merge branch 'develop' into release-1.2.6
+"
+"ad7ebd445abc18cae37a4057fb32c5af3809d81e","2014-12-24 12:20:23+01:00","Code for the 1.2.6-beta-3 release.
+"
+"2c6406eaf79456ed9743bb26a1216f915b4919ae","2014-12-26 19:09:45+01:00","Code for the 1.2.6-beta-3 release.
+"
+"ee8229f0483e44bf52ad07a4ba935bb324b169ac","2014-12-26 19:12:16+01:00","Merge branch 'release-1.2.6' of https://github.com/nikclayton/android-squeezer into release-1.2.6
+
+# Conflicts:
+#	NEWS
+#	Squeezer/build.gradle
+#	Squeezer/src/main/res/xml/changelog_master.xml
+"
+"82bcd3151a6d9df78508229336ddc5a576cb248d","2015-01-20 07:57:07+01:00","Prepare for release 1.2.6.
+"
+"d1c452a26563f9b569b532df3b9140821b0b5db9","2015-01-20 07:57:37+01:00","Merge branch 'release-1.2.6'
+
+* release-1.2.6: (33 commits)
+Prepare for release 1.2.6.
+Code for the 1.2.6-beta-3 release.
+Code for the 1.2.6-beta-3 release.
+Prepare for release 1.2.6-beta-2.
+Add missing Danish translations.
+Theme support for view dialogs.
+Call through to the superclass implementation of onEventMainThread().
+Include proguard-eventbus.cfg for release builds.
+Add android:layout_alignParentLeft attribute, required for API < 17.
+Prepare for release 1.2.6-beta-1.
+Make disconnection handling more robust.
+Refactor how server capabilities are communicated.
+Remove unnecessary null check.
+Rename callback registration variables and functions to reflect the eventbus.
+Remove registerCallback() and unregisterCallback() methods.
+Replace registerCallback() with a HandshakeComplete event handler.
+Remove empty registerCallback() methods.
+Update comments to reference the correct events.
+Mark fields in events as final.
+Replace IServicePlaylistMaintenanceCallback with events.
+...
+"

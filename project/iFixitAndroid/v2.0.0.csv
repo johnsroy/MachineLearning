@@ -1,0 +1,2129 @@
+"commit id","commit date","commit message"
+"76336e53a16cc19cc55e2806c084034d20d3b3df","2013-04-03 10:10:45-07:00","Fix request method override header name
+"
+"f46c963d2dab7c6345cbc1578adc38c493b66e55","2013-04-04 13:43:53-07:00","Code Style: Fix JSONHelper formatting
+"
+"1df216a30d0189b7fb3098a59cd896848b5a8b48","2013-04-08 14:50:55-07:00","Step edit media overhaul
+
+Step media in the guide create process was a mess.  Literally nothing was DRY,
+the main image and thumbnail inflation was just duplicating ThumbnailView, and
+code formatting was not followed.  This is the start at fixing all this.
+
+I didn't intend for this commit to get so crazy, but as I was working on the
+ThumbnailView conversion in the step edit fragments, I kept finding things I
+wanted to change.  I know, horrible practice, but I couldn't help myself.
+Because of this, the commit is a mess with way to many changes to be useful,
+but below is my attempt at listing everything that is happening in here.
+
+* Project and File organization
+* Packages guide_create and guide_view --> guide.create and guide.view
+* Removed some unused xml files (guide_step_body something)
+* Abstracted out most of the guide create step media elements to use the same
+elements as the guide stpe view page.  Drastically simplified the fragment
+and DRYs everything up.
+* Code formatting
+* Moved 'title' edit field out of the media fragment and into the step lines
+fragment.
+* Misc code simplification.
+"
+"5c8b85f516f2f15dc30f121494737d03ff47d4f7","2013-04-08 15:07:00-07:00","Merge branch 'master' into guide-creation
+
+Conflicts:
+AndroidImageManager
+App/AndroidManifest.xml
+App/res/layout/guide_step.xml
+App/src/com/dozuki/ifixit/util/JSONHelper.java
+"
+"d709864869db4fe01a1be17983782ae2968520a9","2013-04-08 15:44:24-07:00","Rename StepEditBulletFragment to StepEditLineFragment
+"
+"822fd5ae1e467d045019886b6de9fa8653542a00","2013-04-08 15:44:32-07:00","Add missing import
+"
+"78735e509672da46b80ff789fb5b6e081c8f6287","2013-04-08 16:11:40-07:00","Force authentication on guide create activities
+"
+"c2e5185be95cbb36f6e322883e599362ec558e07","2013-04-09 15:44:59-07:00","Make Guide step lines EditText multiline
+
+Fuck single line.  Multi-line is so much easier to read and edit.
+"
+"d4b7c0d1a8485284b52207598a6c1c7b9fdacb7b","2013-04-10 17:14:50-07:00","Add menu slider navigation
+
+Moving away from the dual-activity, guide create/guide view only app and
+towards a more expandable navigation interface.  This allows us to add features
+such as 'Featured Guides' and Search as well as direct navigation to creating a
+new guide from anywhere.
+"
+"6a8167d116f9224579694689a47fa7fd455532f3","2013-04-10 19:22:15-07:00","Clean out old navigation code from activities
+
+Now that we're using the slide out menu, the old overflow menu code is no
+longer needed.
+"
+"71ce28d0341b6b85a044e801fc9142aae5a23ca6","2013-04-11 08:43:57-07:00","Clean out menus xml
+"
+"2c7c918d0e94defd4b15a42373d012f95e3e5884","2013-04-11 09:11:53-07:00","Externalize slide menu strings
+"
+"16d6a3d5ada8199c92d34bed56e889463c01249c","2013-04-11 14:14:53-07:00","Fix thumbnail view package name in guide view
+"
+"d28d5e06bdc2b066429ec875e4cbf6592893b56b","2013-04-12 13:35:42-07:00","Hook up slide menu social links
+"
+"11ab88e33164ae72d6c3d4804f217c96359143da","2013-04-12 13:37:00-07:00","Only show social icons on ifixit
+"
+"76e74e19007096ee36cf9bee94d27dd07bc5de3c","2013-04-12 16:31:53-07:00","Use wizard design pattern for guide intro edit
+
+While the single page content editing works, it's not very nice to interact
+with on a mobile device, especially phones.  The wizard design pattern, taken
+from Roman Nurik, works nicely.  This isn't a fully functional commit, but the
+first two pages are added.
+"
+"e5abad7f5f8e79d30d94db2c82325d6fdbcd504c","2013-04-15 11:04:55-07:00","Reload app after logout/login to fetch new changes
+"
+"c14a8e1ab7c917b25d0c23dd024b8e521df6d16b","2013-04-15 11:05:28-07:00","Use 3 solid bars icon for sliding menu
+
+Follow the same pattern as chrome (web browser)
+"
+"126156cc4772ce18ea5d060d0d14174db2f722d9","2013-04-15 11:06:30-07:00","Fix new guide sliding menu icons to match others
+"
+"b32039585163c203ac6ab50d2a85589d312e6134","2013-04-15 16:40:12-07:00","Dynamically build thumbnail views
+
+In order to get the ThumbnailView list 'add thumbnail' button aligned to
+the right of the thumbnail list.
+"
+"a225ee04d17ead3cf8df82240bfcc784b8aa233f","2013-04-15 18:12:28-07:00","Prevent menu dragging unless dragging from screen edge
+"
+"f42879ae285ade03073f9d64420bcc53beb44ae5","2013-04-16 11:08:02-07:00","Add spacing between thumbnails and set no image res in step edit
+"
+"b0a47f27ddc7badaa2068a5d0a8173f44173cba2","2013-04-16 17:46:36-07:00","Add guide intro topic name autocomplete
+"
+"8f4943ee93975392cdb37a643b91ddbdd8f9ccae","2013-04-16 17:48:32-07:00","Use TAG in json helper when logging exceptions
+"
+"e2f7195b5a2a8c206fc430804500499dd900063f","2013-04-18 11:23:20-07:00","Rework User guide list and Guide Intro
+
+Moved user list out of a the 'Portal' fragment, and just inflate it with
+GuideCreateActivity.
+
+Added pulltorefresh functionality for guide list.
+
+Removed UserGuide object - it was basically the same thing as GuideInfo, no
+need for both.
+"
+"152b2fc4c8410fd141ff95787e3832e0634ab5a3","2013-04-18 16:22:35-07:00","Keep only 1 toggle item open at a time
+"
+"c71067cd65230d15cfaa522a4bd32df497182374","2013-04-19 20:05:58-07:00","Reattach add image to step from gallery and start on capture image from step
+"
+"479406c1c5d4c26d9533f20e56dc4994c8076d46","2013-04-21 19:17:48-07:00","Add image capture right to step
+"
+"13dace45291bfcfc264d11954a73c14df8150d38","2013-04-22 18:05:56-07:00","Fix guide save requests
+
+The requests were causing the step adapter to add multiple steps after adding
+or editing a step.
+"
+"61fc1c9b50feb0a08e57588d410a377ba966bd49","2013-04-22 18:40:31-07:00","Fix portrait mode thumbnail alignment
+
+Instead of being always below the main image, now it's smart and puts them to
+the right of the main image if they are in step edit.
+"
+"c97797c3f863675925bd7682a5654d4c226d2b7e","2013-04-24 19:43:40-07:00","Fix thumbnail dimensions on guide view
+"
+"4fccb9049ae390dc2590e3f71e4d15a0f54d621c","2013-05-08 15:00:33-07:00","Add simple generate language folders script
+"
+"88ec6742ef3f9092d10cfdac5d15b6295e944745","2013-05-08 15:01:08-07:00","Added stubs for major languages
+"
+"4ad86bd65046314ac27781a1389366d3f4112581","2013-05-08 15:01:59-07:00","Added chinese
+"
+"3480782f735f39b6975627820bec27517a6b7c4d","2013-05-08 15:02:44-07:00","Added arabic
+"
+"d39473c57454e5d42da7a04cf1484ba3c15b2e00","2013-05-08 17:43:19-07:00","Organize and clean out strings.xml
+
+In preparation for I18n
+"
+"2dc1892acc822fb3600977519ccd8fe0e97af2f7","2013-05-08 18:05:17-07:00","Bring update strings file over to translation stubs
+"
+"5d21e0b73fc4248eeeee392115c7f5ab14908a51","2013-05-09 19:27:18-06:00","Translation of Android Strings
+
+A lot of translations were ambiguous as to what context or part of speech to use. Also, there were some sentence fragments which could only be correctly translated as full sentences... so I took some liberty in those translations.
+
+For corrections, I'd recommend showing users the email translations@ifixit.com and telling them to contact me there.
+"
+"b6b1a0e261166a7ff1aa7983139912807846f793","2013-05-10 12:01:29-07:00","Fix thumbnail resizing after capture
+"
+"c77408ab67adc5a74f3da2303cf48a1285945672","2013-05-10 12:03:03-07:00","Merge branch 'translations' into guide-creation-release
+"
+"5dcea793708739847ae5d30c3b1d1be5198317e1","2013-05-10 13:16:29-07:00","Escape quotes in french translations
+"
+"b2d947c10cae32d281cbd52218050dcb7e25c19a","2013-05-10 14:15:59-07:00","Add title label to step title input
+"
+"dc0166891a08728885e49edad8a879abe3573020","2013-05-10 14:38:07-07:00","Don't default step title to 'Step #'
+
+Any saved step was getting a custom title set as 'Step #' when it should just
+be an empty string if they want 'Step #'
+"
+"f834eb9a6edb9743587bdcb6925348d4aebc2e05","2013-05-10 16:10:14-07:00","Make sure there is a site object in APIService
+
+Otherwise we'd be getting ifixit.com as a default all the time for the ifixit
+app, which is fine unless we're doing dev work on a different server.
+"
+"411ec07f37da405a98ff00a8f282a639eaae936c","2013-05-10 16:11:58-07:00","noPrerequisiteSteps changed to excludePrerequisiteSteps
+"
+"957691d9c0eeb5f67af53e57c81ea938628840bc","2013-05-10 16:57:26-07:00","Default new GuideStep's to an empty string
+"
+"293cbbf8d4a48eb7fdf639ef106539521654f12c","2013-05-10 16:57:54-07:00","Clean up step edit list and list items
+
+Also fixes 'Add Step' from step list bug where it would just bring you to the
+last step rather than adding a new one at the end of the step list.
+"
+"ed88f95f8e0a8674e6c9ebbb1f7b556c9635fde0","2013-05-10 19:35:57-07:00","Add save and cancel menu items to reorder CAB
+"
+"a0a3d4dbc889d8e1e990e81969feb05ac00b9b94","2013-05-10 19:57:55-07:00","User guide topic images were being recycled incorrectly
+"
+"3f99dea973f2f50e4974347962d99814c573619c","2013-05-13 11:14:55-07:00","Move APIImage out of util and into model package
+"
+"1e3d78dbd3c75155b4f9ecf16a98a850b1fcb54a","2013-05-13 15:06:27-07:00","Update holoeverywhere to 1.5.0
+"
+"2d6f7bb6644fd32b25db3a41ee918beef30374c3","2013-05-13 15:18:46-07:00","Ensure both menu and add guide icons are in action bar
+"
+"af419911c28b7834f59ab8658e52ed78ffb7b19c","2013-05-14 11:13:05-07:00","Get edit and create guide working with new wizard interface
+"
+"40aa75673ce6d65ce99319f35bf9bba3aa55d9d2","2013-05-14 14:36:14-07:00","Externalize intro wizard strings
+"
+"3f67a549b2554ae2abfa1f69b0834a737a904eb6","2013-05-14 14:47:39-07:00","Get intro edit working and clean out old intro fragment
+"
+"223d8c8af758ae5f54c904535474cd6988346bb0","2013-05-14 15:30:42-07:00","Set title of user guides list to My Guides
+"
+"8a18d46faa6b09cbad6f2181a74b9680d8c61bdd","2013-05-14 15:32:37-07:00","Make sure guideid is set when passed to step activity
+"
+"3502612e786bb050d2ee2b9a8c556b0f254aee25","2013-05-14 15:44:54-07:00","Use introduction wizard title strings as keys
+"
+"01f1651c8f3a27a06ae3d920acbe5b2ab4d2f933","2013-05-14 15:45:46-07:00","Add missing EditText wizard page
+"
+"bcb915485f3bfdd5d05c0538413320d59871868e","2013-05-14 16:28:32-07:00","Give wizard review titles some room to breathe
+"
+"3759c4bfc1921dc5195f4c4e46dae2cd81b59f48","2013-05-14 16:29:12-07:00","Use the correct keys when building and reading from bundles
+"
+"4aa710428e0c95b7754adf00699ff244277279c6","2013-05-15 00:02:19-07:00","Conditional subject field in intro wizard, sort of working
+"
+"56c69ce9e1ee348fccdc1e098ed7ebdef172c202","2013-05-15 13:01:54-07:00","Make sure review page shows the branch pages
+"
+"482702ee56000dfcb7a7cdacd2cc60ced51c0b0d","2013-05-15 15:54:56-07:00","Fix title fragment to update review items
+"
+"0f0741dc7a7a52e896d732dd947b2ef088bce198","2013-05-15 16:04:16-07:00","Add hint to wizard pages
+"
+"729c1aa84c228acb32427fad241d406eadc5b22d","2013-05-15 16:04:54-07:00","Fix delete step dialog
+"
+"e71de28684328e2a6799e24ce9956221973bea91","2013-05-15 16:24:13-07:00","Fix user guide delete dialog
+"
+"97d47105c0ee6b364b655794e746a94b75d9095c","2013-05-15 16:54:12-07:00","Fix user guide publish action
+"
+"32168153635e8de9246e6b2a2b9ae6260dbd0c93","2013-05-15 17:23:57-07:00","Allow edittext fields in the intro wizard to be multiline
+"
+"954c3a633c80167c7de6f1c61ad8ff2ff21ece22","2013-05-15 17:35:09-07:00","Step lines aren't titles - ID it sanely
+"
+"2e0cfd184fcb9493d0d11dda6d8a5b5548735b7b","2013-05-15 17:35:28-07:00","Remove unecessary frame layout
+"
+"3f1ac103cc700e84d1e93939ed93bc937ac2aabb","2013-05-16 13:35:01-07:00","Add long click delete, detach and copy actions to step edit images
+"
+"15680a00a5f3e17c6ac2701462cac5d497f6afda","2013-05-16 15:19:52-07:00","Move step list actions to action bar
+"
+"3f11450e261b79909a317a253f6849f45e157d96","2013-05-16 17:01:41-07:00","Fix a number of guide edit step actions
+
+* Fix double add step from guide step list
+* Translate step # strings
+* Handle edge case add and delete new steps
+"
+"4123eeb5f3768aa069d944f611b8e5818e7cf64e","2013-05-16 17:14:20-07:00","Use holo-dark compatable icons in menu
+"
+"6d5cc5fb5432424b12cea57421b0828943969ece","2013-05-16 19:03:24-07:00","Force intro edit activity to landscape until orientation change bugs are fixed
+"
+"6671859d2d3dead94853f1d4b40f3572b6afbecc","2013-05-16 19:04:35-07:00","Add view guide and edit guide menu items
+
+The guide view interface now has an edit link.  Likewise, the guide edit
+interface now has a link to view the guide.
+"
+"72c3bdf1b0279375532060e5699c53af7a91519e","2013-05-16 19:25:00-07:00","Remove unnecessary layout_below
+"
+"fd3df2d6623463e701137f2537918bb702e2f9c1","2013-05-16 19:25:44-07:00","Guide subject is more descriptive than Part
+"
+"8bf82cbc08aac96c74502faa058f6774095a43eb","2013-05-16 19:31:08-07:00","Add guide view option to step list page
+"
+"206abddd14da127791ef2cf1a206e028afeca1ea","2013-05-17 11:26:10-07:00","Add missing step changed interface
+"
+"faee66c569109186f81efba4d7811109c04b26ef","2013-05-17 16:56:25-07:00","Add long click listener to newly attached images
+"
+"3b2cd89fef0762b73dc226bcfcfa44ce0fd05169","2013-05-17 17:15:21-07:00","Media Gallery/Gallery to Media Manager
+"
+"141a6ebc4c088b256966a5bc61dcc9a1c4c2ee9b","2013-05-17 17:40:59-07:00","Clean up MediaFragment
+
+Empty gallery text should be handled by the gridview.
+"
+"b52a1cf12ac788cc19f23c7376c083e0598d467f","2013-05-17 18:06:47-07:00","Media manager images should have 4:3 aspect ratio
+"
+"0000f0d0bbccdd9fbf1522a34b3866b9307d4716","2013-05-17 19:22:30-07:00","Add support for editing step videos
+
+Also embeds
+"
+"5b7157518f8feb0799e26872b765098f14e5f112","2013-05-20 15:47:20-07:00","Get video edit fragment to look the same as view
+
+Still need to refactor the GuideStepViewFragment to use Child fragments for
+media the way that StepEditFragment does.
+"
+"46183fa45898a55c8d436947ec9372529dd3b612","2013-05-20 15:49:33-07:00","Fix off by one step number
+"
+"c085be46bd56138e038198afb7d2aa5754d1153a","2013-05-20 15:49:55-07:00","Whoops, missed a fragment
+"
+"7999b63f278f8bd2d9d4d61c8a6b3c3926fa1814","2013-05-20 16:06:18-07:00","Externalize video activity dialog strings
+"
+"081defbc25c053cdf4f9779757aa0ff5c2c3d144","2013-05-21 15:04:10-07:00","Clean up and fix resizing issues with guide thumbs
+
+Resizing guide main images and thumbnails, as well as videos, was borked due to
+some changes to ThumbnailView during the addition of Videos to guide create
+steps. These changes solve that issue.
+
+Also added the add image icon from the site instead of the overblown + icon
+"
+"c255d25180558d8cb648e287f4d6c8a4dd2c70d0","2013-05-21 17:06:43-07:00","Move topic list query from ifixitactivity to topic fragment
+"
+"c2d790dc7862a6558149c18c8d65996ecd13f993","2013-05-21 18:16:41-07:00","Fix logout on step edit activity
+
+Logout wasn't finishing the activity like it should have been.  Instead of
+finishing and restarting the activity to update the sliding menu, just rebuild
+the menu.
+"
+"0e0a58d204a5da05ee7b8a4fc472de6664b0c358","2013-05-21 19:49:51-07:00","Externalize account related strings from sliding menu
+"
+"454bce4551c4027e0a2c5fb5f639520a9b693686","2013-05-21 19:50:34-07:00","No need for bus registers on StepVideoFragment
+"
+"b6530eb0c6d9cae05dc4db84113ef35ea57ceb86","2013-05-21 19:50:56-07:00","Rename wizard adapter to something more descriptive
+"
+"da3e2fd9192077d6e2349a1b44a6f79a54a9d056","2013-05-21 19:54:20-07:00","Require login on GuideIntroActivity
+"
+"86bc33c4be754de2a04bfcb478fe8184ded30a3c","2013-05-21 19:55:30-07:00","Finish activity after saving a guide intro and make sure theres a call to super in onActivtyResult
+"
+"f9b303a50150b3b5bc2189cbf68a0a30a8aa88ab","2013-05-22 10:57:47-07:00","Holo-fy topic list style
+
+Bump up text size to TextAppearance.Medium (16dp), make rows 48dp tall and make
+section headers look like Holo (underline, all caps, smaller)
+"
+"2f42540f7a14a01ca75d04d4251b7e75ea66758d","2013-05-22 10:59:26-07:00","Cleanup of nonused functions and logs
+"
+"2b7421f3f6b95413555df21239da53b0d22891d9","2013-05-22 15:30:04-07:00","Bump version #s for beta release
+"
+"b3c07fdfd7e48a65136491f5e91776a2f63c7579","2013-05-22 15:31:32-07:00","Clean up topic guide list style
+
+Looks more like the new category guide list now
+"
+"38d73ebe0c5ae4f252f4bd174b95522ab7b5d3d3","2013-05-22 16:46:55-07:00","Use standard size for guide item and step item rows
+"
+"68c78a7c4b4318025c1911dd9ff5c06f330c9531","2013-05-22 16:47:12-07:00","Fix off by one error in delete step dialog
+"
+"3ac9f93401f2eb1194bbd83acb392eb6a9ba1619","2013-05-22 16:49:53-07:00","No longer erroniously readd multiple sets of images
+"
+"3b662b91111ce5afffc745cbab88bf57bf424994","2013-05-22 17:10:20-07:00","Merge branch 'topic-view-ui-improvements' into guide-creation-release
+"
+"a5c0f7742fb93ae2beda9c753e74a8f1df0c134a","2013-05-22 21:35:49-07:00","Release another beta build
+"
+"2306352138c68e46fe8cc18e2b298202ac56ec65","2013-05-22 21:37:01-07:00","Fix off by one problems navigating between edit and view
+"
+"31ab89ad7ccd27e7be443df9c4bb5c2a9564afe6","2013-05-22 22:29:01-07:00","Default guideid to 0 if GUIDE_STEP_KEY isn't set
+"
+"9ef4b4e229dab34ac1f81e2d18a8b6f5f35c3629","2013-05-23 00:10:12-07:00","Fix step edit / view navigation issues
+"
+"a44f190bfa44cdfe809ef1f1d95c476a083a62a4","2013-05-23 13:21:48-07:00","Throw api error when image upload fails on guide step
+"
+"e46f8efaaf98c739b7913c9c1e62f36bfdfcd31f","2013-05-23 13:22:56-07:00","Fix up action navigation from steps list to guide list
+"
+"fb7ef96f224243e15f66e081500e738bcc998fa5","2013-05-23 16:49:30-07:00","Solve navigation issues navigating back to guide view and topic
+"
+"bfe04a7bca46de4d76207acac6c078632e4f59a6","2013-05-23 17:18:21-07:00","Fix green and violet bullets, fixes #51
+"
+"66f90a3858323fe5bba4b6b4ffaebef9697a58e7","2013-05-23 17:27:48-07:00","Re-add clear top and new task flags
+
+When going 'Up' from StepEditActivity so that when we try to go back up to
+GuideCreateActivity after editing and viewing a guide, we don't jump back to
+the step edit view.
+"
+"8c0c54518d44c401fe1717f63cc6392d13e40b23","2013-05-23 22:43:08-07:00","Add video poster thumbnails to step items
+
+Closes issue #52.  Renamed the function as well since setImageThumb was kind of
+redundant since a thumbnail is almost always an image.
+"
+"0aaa6c226ee10269d60edcb9318ab2d9bd5ff6d6","2013-05-24 10:33:15-07:00","Replace the intro edit review green to blue
+"
+"745bbba7c33e27341fe47558d7a85cd0445b42f2","2013-05-24 11:43:29-07:00","Fix continuously loading 'No Image' step
+
+Closes #47.
+"
+"4f4cb3c29a558b47bf6d6862c06feef1c29d029b","2013-05-24 11:54:03-07:00","Rename step save id
+"
+"84b5c73a00827ac7e506c9ce6726635faf0cb12e","2013-05-24 15:26:22-07:00","Add hints to guide intro edit
+"
+"083fae83a34e90fa0b46cc239c7de68d18e80627","2013-05-24 15:26:55-07:00","Make sure step numbers are correct before leaving edit
+"
+"fd8eb12db7941dc8056707a8121e21e7a8618c3c","2013-05-24 15:27:44-07:00","Clean out logs
+"
+"c45fe54c7d1cd94fdd5ebe157f5fee7be127950a","2013-05-24 15:35:40-07:00","Force intro edit to portrait mode on phones
+"
+"818e971bc59a0ee32c9ce108cb3ca7e21d091480","2013-05-24 16:20:12-07:00","Remove hint from topic name field
+"
+"c773da09ee0f43724e5359afe3f91b962bd2ecfb","2013-05-24 16:20:29-07:00","Bump version number for beta release
+"
+"fc4f9cc115e76906ae832b5f23cb7b05059e493f","2013-05-24 16:21:16-07:00","Set save button text when downloading image after capture
+"
+"9675ead6ad3dd5db54f3e152fea120f97c8c9a0a","2013-05-24 16:22:01-07:00","Show loading spinner fragment when fetching topic list
+"
+"ff231476734ff6769bbc1fcc9ce2b2643551b61b","2013-05-24 16:39:15-07:00","Use full guide title in introduction
+"
+"3f341feff5b48d4c409dd2f2f61b83007b50e741","2013-05-28 10:25:24-07:00","Normalize the user guide list and steps list style
+
+Thumbnail sizes and spacing was off, so I fixed it.  Also got rid of the large
+screen only layout.
+"
+"98f16e3f6953133b8ad07cb14b35ba58dcbe3a1b","2013-05-28 10:28:56-07:00","Depluralize StepsEditActivity
+"
+"29293a19ae471a837350bc181ad55dcb07f34da6","2013-05-28 15:00:53-07:00","Continue to refine the step / step edit navigation experience
+"
+"01c63dbb620d83a5976180ec4a5c2864f33a4088","2013-05-28 15:06:08-07:00","Disable menu items that aren't implemented
+"
+"d6bcaca08c3038d60c61af97195b722c157ce49c","2013-05-28 15:59:40-07:00","Fix full screen image size
+
+Previously it was incorrectly showing a medium or thumbnail version of the
+image.  Now it will show the original, full size image.
+"
+"98460613512f1e6c0f9e990d27dcf8bd24d5eae1","2013-05-28 17:25:33-07:00","Topic view changes
+
+* Actually use the constants defined for the tabs - More info was mixed up with
+answers in getView.
+* Swap answers and more info tab so it's less jarring when a site doesn't have
+answers.
+* Actually only show the subject if the guide has one.
+"
+"450463495142b594d4ca50fdbb16b013f6b8fc43","2013-05-28 18:30:31-07:00","Update main panel with the selected topic
+
+If the device is multi-paneled, as the user drills down the topic hierarchy,
+update the main panel with the selected topic information.  This replaces the
+'General Information' list item.
+"
+"77faee25c3e3edaa6a0a20a7d7f312351b91537f","2013-05-28 18:56:20-07:00","Move ThumbnailView up to general ui.guide package
+"
+"38132d255d39ce8b1976c9c42b3af5e6bbd1cfb9","2013-05-28 18:56:59-07:00","Don't jump past the introduction when viewing a guide from TopicView
+"
+"dc41236a5649e46468d1b3efc89a3b414da047ec","2013-05-28 21:09:38-07:00","Update topic guide list thumbnail style on tablets
+"
+"b91291c0280c50e8c0469336b07242d0e5be6e9b","2013-05-28 21:10:19-07:00","Fix NPE on tap of uninitialized image
+"
+"d3befe08756562a738e4e1652ec81711da8fa10b","2013-05-28 21:12:09-07:00","Disable updating image after capture and upload
+
+Until we figure out how to wait till all the sizes are generated.
+"
+"af38ee8ea7de135a7486b981289def73c71a6298","2013-05-28 21:25:53-07:00","Lock the step edit page when unsaved changes
+"
+"c9f84d8a6073f1a92d7700c7d53cc059ca15e840","2013-05-28 21:34:17-07:00","Get rid of unused member variable
+"
+"1c3b5884133b6be13006887d56b1a075053298d0","2013-05-28 22:55:23-07:00","Remove unnecessary custom action bar title
+"
+"f2abb464464a108f2ff8b30bc637c125ff324411","2013-05-29 11:00:29-07:00","Bump version number for beta release
+"
+"0c977d299641d73e84a4e5101267c87362c3405a","2013-05-29 11:23:25-07:00","Upgrade actionbarsherlock
+"
+"6268eb5f5dedf91d8ab52639f2b47d589eefd18b","2013-05-29 12:17:13-07:00","Fix ListView/GridView setEmptyView
+
+setEmptyView simply toggles the visibility of the AdapterView and the empty
+view, which means the view cannot be in a seperate layout file, it has to be in
+the same view group as the adapter.
+"
+"191660b5d7697e921ceed3aa7a8a5bc8488c2b9a","2013-05-29 13:56:25-07:00","Cleaned out assets/fonts and converted ProximaNOva to ttf so it won't crash android
+"
+"6ce8ef06973c6c3d014a792b7d563e2c453b38f8","2013-05-29 14:49:41-07:00","Update android support and compatibility libraries to v13
+"
+"ba020a335069c4914bbf143b1cf910ab6951d554","2013-05-29 14:56:30-07:00","Fix dozuki site list dialog styling
+
+The title was all sorts of wrong.  Instead of trying to override the default
+title style, I just created my own.
+"
+"bc621d67a19c13c63f78e4764e723ed5192bd7b2","2013-05-29 14:58:17-07:00","Set hint on topic name page and edit text fragment
+"
+"55c2cb129c8871dcb04c4b474651b27f851f961d","2013-05-29 14:58:33-07:00","Whoops, missed the holoeverywhere version bump
+"
+"5cd8251be80768034b14ccdf8931d03b379e6f84","2013-05-29 16:30:14-07:00","Fix dialog display delay in SiteListActivity
+
+Previously, we were waiting for the site list response to come back before
+showing the dialog.  This is silly because if you are on a slow connection, the
+delay between tap and dialog was 30-60 seconds and it seemed like the app was
+broken.
+
+Now, we launch the dialog right away, THEN fire off the request for the site
+list, and show a nice loading indicator while we wait.
+"
+"a88fb701b9323109964c86735c934b1f20bd6756","2013-05-29 21:28:42-07:00","Refactor site management and api domain request building
+"
+"c3a0a95da8003aca20276b072d6090f95ee58db6","2013-05-29 21:47:19-07:00","Make sure the guide type is lower case, prevents unknown type errors
+"
+"446ddbf4c636b93f65f63c91ea54b62fb19d1aa3","2013-05-30 02:45:21-07:00","Bump maven version to match app version
+"
+"23e39d1d89bde71fb6e07bf13195856cb99479b3","2013-05-30 15:37:48-07:00","Downloading image -> Loading...
+"
+"1460e8f2236fdef98df5d5f9145abbd0b6fe4c41","2013-05-30 15:38:47-07:00","Fix NPE when checking if the guide is public
+"
+"7ab313af43d4a5e30c5a9000e24df9edc71b0406","2013-05-30 15:39:17-07:00","Disable save after saving a new step
+"
+"c69e1e6a71f918df28d431bdf6c72f76a00c7e6c","2013-05-30 15:50:22-07:00","HTML decode guide and step titles to prevent wonky characters from showing up
+"
+"18a25e1d736680d0d1488f1f141c4fb4d817dec9","2013-05-30 16:02:51-07:00","Fix topic sugggestion dropdown text color, used to be white on white, now its black on white
+"
+"2e8192ff3b456eac81ebf5cbeabfd44c67aefc51","2013-05-30 16:11:51-07:00","Hacky fix for a holoeverywhere issue with DarkActionBar theme and SearchView
+"
+"cbb44c14e7ac3a78c9e3be1ea42d9e121f6aea10","2013-05-31 13:05:33-07:00","Add loading indicator to user guide list, and improved no text style
+"
+"0b038d6090b8a9d985893f01793a841aeb55612b","2013-05-31 14:30:23-07:00","Fix gallery loading indicator and image loading
+
+The adapter wasn't invalidated after the user image data is returned, now it
+is.
+"
+"aca86ab12b4199897525558da16598b93d2c6b2b","2013-05-31 14:32:45-07:00","Improve media manager help text and show correct site name
+"
+"70d4efb62688f2e9b97f685d244c3eeb9f0df9cd","2013-05-31 14:40:17-07:00","Holoeverywhere hates dialogs.
+
+Fix a stackoverflow error on bullet dialog
+"
+"7ca6960ebcd5008ab3a20c04ff23ac3f2cd79927","2013-05-31 14:42:18-07:00","Fix loading indicator and no steps NPE
+"
+"a8df596245ff4a29474b24e492f39394a8839141","2013-05-31 14:42:30-07:00","Improve steps strings
+"
+"cc876624010c22ba1d9f4c62574de71009c5881c","2013-05-31 14:43:29-07:00","Fix login dialog theme and poor failed login message
+"
+"e8b73e408ec57918a5041d87646c5349ac1d1016","2013-05-31 15:02:45-07:00","Fix cancel and backspace in site list search
+"
+"f270064ed0ed38a204efb19c829bf7ec62bed2c6","2013-05-31 15:10:03-07:00","Only update title and main view if not root topic
+"
+"ba654be1b3bbeca082e6bf587227b03c60f8a558","2013-05-31 15:53:50-07:00","Fix SiteListActivity crash on orientation change
+
+Also changed the theme to DialogWhenLarge which fixed the bottom list item
+cutoff problem.
+"
+"1b0a3d528f0436ddb155eeb002cc452a382d2c5c","2013-05-31 17:03:55-07:00","Update SiteList search view style
+
+No longer using the default android blue.
+"
+"3fc1a646fa34b14a650bbd6b6b09c9d6fdade4be","2013-05-31 17:46:49-07:00","Theme topic section drawable
+"
+"4a6ef6dc7bc0b3bb3f8ab1c08a72b1df4a6a90f5","2013-05-31 18:09:32-07:00","Set guide edit content view in onCreate
+
+Fixes a crash going between guide view and guide edit.
+"
+"ab633a7c0ff9d82725a4c61c4ca7a0499ea8b8df","2013-05-31 19:07:42-07:00","Fix 409 and strange guide save bugs
+"
+"f5359cc3d266ef2453794ea839657149e344ce43","2013-06-03 11:28:08-07:00","Only log API requests in debug mode
+"
+"b1e3026cd6cabde79071c63dd80de02f6e5212ac","2013-06-03 11:42:13-07:00","Notify adapter when any gallery data change occurs
+"
+"bedcdf7131de8a025e7f61d43da3ffaa75cdc235","2013-06-03 11:45:37-07:00","Remove old guide sync/save code
+"
+"bda7e0646a5f1722e5702a0014abe6d835326064","2013-06-03 12:31:36-07:00","Prevent adding new step till previous step has content
+"
+"2537e7ea7c2b0c490d42ef4277108fc81182572c","2013-06-03 12:48:37-07:00","Prevent crashing in step edit on orientation change before login
+"
+"be63a5a955db30c5bd93b96846b0bcbb94251724","2013-06-03 18:24:07-07:00","Rename custom search textfield drawable so it doesn't override every texfield drawable
+"
+"ac44e08f60f175b867a126590c8805a82f463e65","2013-06-03 18:26:24-07:00","Fix crashes and oddities in 2.3.*
+
+2.3.* was borked.  Horribly. Attributes and styles were being used from all
+over the place - now everything nicely inherits styles from holo everywhere
+and everything looks *decent*.
+"
+"54dab82f19305c8ed4edde07a327350fcda2a0be","2013-06-03 18:28:41-07:00","Remove languages not ready for this release
+"
+"dfa5f083413406aefde06ced6d34454a66561864","2013-06-03 18:30:06-07:00","Add response code to APIEvent
+"
+"c62d9356ae1c2134d8fba3cfabea514f851178ce","2013-06-03 19:04:53-07:00","Remove some leftover logs
+"
+"f4943fce57f8141dc602603697ce950cb997f638","2013-06-03 19:21:06-07:00","Bump version # for beta release
+"
+"7a271d7b78efed1346efb26fbd54cfc9abf1b2ce","2013-06-04 14:53:47-07:00","Make readme a markdown file and begin the process of updating the documentation
+"
+"9d346f7137202c7bf0386367596c11c5f567ba32","2013-06-04 16:10:15-07:00","Use paddingTop instead of marginTop so the background stays put
+"
+"146f2d77ce0990110d9a171c4ddef6e25559ce15","2013-06-04 16:13:25-07:00","Clean up attrs, styles and themes
+
+Code style convensions went out the door a while ago, and it's been catch up
+ever since.
+
+* App specific attributes will be prefixed with doz__ and the attribute name
+will be camel cased (eg. doz__textAppearancePrimary)
+* App specific styles will be UpperCased
+* Themes will always inherit from Theme (eg. Theme.Dozuki)
+"
+"e3083670918e5ab2e085a20171cafa7b4f241b96","2013-06-04 18:49:56-07:00","Set menu drawer size to recommended 325dp
+"
+"6fbab0bc152880f5f0c4d30ee93bc6f5d0d7b632","2013-06-04 18:50:22-07:00","Upgrade menu-drawer and add analytics dependency
+"
+"8d98f6a8d1110608c267d1366a9583871b42d7a1","2013-06-04 18:50:48-07:00","Improve bullet dialog, add contentDescriptions
+"
+"0f2a3f084bfe9e7f2c868241f25744f93f858a15","2013-06-04 18:51:44-07:00","Always show menu icon in action bar, regardless of API version
+"
+"2fe4ce77fe83e5487a6e02f6e285dfe8285f67ee","2013-06-04 18:52:43-07:00","Remove ugly ubuntu font
+"
+"599ff7fae07ce00cd2d623e0235ddb5c75037c70","2013-06-05 09:54:44-07:00","Fit main image and thumbnails, and add click event
+
+to the main add photo image.
+
+Also switch to using DP instead of hardcoded pixel value for step pager bar
+"
+"0a63f2a40c15975f3f7f8af98aecee876f328e0c","2013-06-05 10:38:19-07:00","Fix step reorder item layout
+"
+"68b036541df0fe0ef147dc2475504b0870429b96","2013-06-05 10:40:13-07:00","Prevent NPE when the wizard model isn't initialized yet and onSaveInstanceState is triggered
+"
+"3c11f6b134e9688ac3c0e345f4d6a655403e3d68","2013-06-07 11:23:32-07:00","Layout optimizations
+"
+"b50707cef7caf5b600f6008f4481109a052a0de5","2013-06-07 11:30:17-07:00","Menu drawer needs to be smaller on phones
+"
+"d3dc5a368eb51e81b44fa6f5780e925a3f2b81ec","2013-06-07 11:30:30-07:00","Add missing imports
+"
+"6e5fe679fdb17063509415ad096df007002a1a2a","2013-06-09 21:20:22-07:00","Rip out holo everywhere
+
+Our layouts (the layout hierarchies)  were getting too deep and causing stack
+overflow errors in Guide Edit.  HoloEverywhere adds a couple levels of
+complexity on top of every layout.  Since we weren't really using it all that
+much, and it wasn't very much work to implement a slimmed down holo style for
+older devices, it makes sense to take it out.
+"
+"5c90699a0be4463c03aff30cef08e9b66aaa6516","2013-06-10 16:51:08-07:00","Add canEdit field to guide object and fix null errors on unpatrolled guide saves
+"
+"b35039b9d19304d1a8a06488252ed7e8baf34e86","2013-06-10 19:32:20-07:00","Decrease size of loading text
+"
+"55f82e7d6d558804cf74b8f93318ee4b9ccb47ec","2013-06-11 12:33:09-07:00","Convert topic info webview into native view with content
+"
+"50e9485faaa94a28a008cf61daf7de8b225786b4","2013-06-11 12:57:36-07:00","Update topic title on back pressed
+"
+"4e90911bf0de6af52bc052f3c45b879659d2233a","2013-06-11 12:58:05-07:00","Ignore case when sorting topic names
+
+Fixes bug where iPhone was showing up at the bottom of the list because capital
+letters are sorted first.
+"
+"b6873ef7d261ac60790a1ea2e3fdde7e298f3616","2013-06-11 17:09:34-07:00","Bump version # for beta release
+"
+"4b5ec307f1c69a1ebbc8a96fc2885de44324bf3d","2013-06-11 17:21:40-07:00","Work out some bugs and move topic_info layout to large screen only
+"
+"0440cb030213c6b1b15cecce6c701baea8f16ca7","2013-06-11 17:22:26-07:00","Disable home up from guide create and guide view
+"
+"92cd6e0028841750f147221c9ca4688ad5f881e5","2013-06-12 14:30:42-07:00","Add touch state to guide create buttons
+"
+"86a968b9847fdb16ed88a3520e0d566b83c349f0","2013-06-12 14:32:46-07:00","Add warning to delete guide dialog text
+"
+"ea0c96b9745c899dd91e6074dcf69d07996dfdde","2013-06-12 14:42:56-07:00","Remove edit step title label and make full width
+"
+"21e96a8d17edf4959a57ec83042aa08871dfde70","2013-06-12 17:35:18-07:00","Add touch state to button select
+"
+"46002688d7c4b75a2ecb45fa058763466443462b","2013-06-13 21:26:56-07:00","Replace AndroidImageManager with Picasso
+"
+"5da5abae34dc11825faef1273a1fe749c3072152","2013-06-17 11:26:29-07:00","Fix some galler and step edit image issues with the switch to picasso
+"
+"9b10307cacfb6e659cc0ed228a5e090356a3f014","2013-06-17 11:27:53-07:00","Add custom messages to loading fragment
+"
+"58a22cc29f974d111ddf724f36900def7d738536","2013-06-17 11:28:15-07:00","Remove unused dimens
+"
+"9202643ba1ec537f145d5040854c7916569361c9","2013-06-17 11:31:43-07:00","Clean out some unused code from FullImageView
+"
+"1f7d2a28338c297f55db6f33bf1de90dc27932cc","2013-06-17 11:32:18-07:00","Normalize color constants
+
+All caps
+"
+"a85b753e6555585c71f1ee517e8db95e0be3dd2e","2013-06-17 11:54:15-07:00","Be smarter about step list item
+"
+"ff331e518e203e90621aa54f97711fc08854df20","2013-06-17 13:53:18-07:00","Fix add new thumbnail update view, actually shows image
+"
+"50a9fb3c975c720e977372bb24f71b68a24d3cea","2013-06-17 13:54:00-07:00","Disable fade animation in step and guide lists on images
+"
+"e7dc532fef846585f5ee179538d88e9b57636807","2013-06-19 12:56:17-07:00","Rework Gallery (Media Manager) and Images
+
+Images were handled in various ways throughout the app (MediaInfo,
+UploadedImageInfo, APIImage, etc.) and they all basically used the same
+information.  This was causing a lot of headache maintaining these.  These
+changes consolidate these image objects down to a base Image class.
+
+From that, every other Image object extends and adds fields/methods depending
+on the use.
+
+Also cleaned up gallery and organize images from newest to oldest.
+"
+"c3fede1706edcece30014aa2b68cf99c98623533","2013-06-19 12:59:57-07:00","Bump version # for beta release
+"
+"4cab6f732806d0caa17b74d6ae716d9a4e9b3f45","2013-06-19 18:18:20-07:00","Add OkHTTP as a dependency so Picasso can do some fancy loading
+"
+"18f3f6c70c3a5a8f15bce371935a32a80fc5dda1","2013-06-19 18:20:42-07:00","Convert Guide view to use fragments
+
+Previously we were hiding/showing layouts depending on the step type, which is
+silly.  Now it does the same thing that Guide edit does and swaps in and out
+fragments depending on the media type.
+"
+"cfdff6788b0ce8981e181da2b0eb9355de6abb48","2013-06-19 18:22:11-07:00","Tweak image sizes to prevent out of memory errors
+"
+"aac397878af50b45ade06d196d90be15450f2740","2013-06-20 09:11:10-07:00","String Translations DE (German)
+
+Made by @MatthiasHuisken
+"
+"14268bcfc09591c60f68f9d84e8e6e2bf0cf6177","2013-06-20 09:38:04-07:00","Bring over string changes to es lang
+"
+"9abac4a18ed0b5373c490e33d6bfd2965ce07746","2013-06-20 09:44:14-07:00","Move StepImageFragment into view package
+"
+"fdcfe5454f3d048a2e2e3308522cd7e843284c6c","2013-06-20 17:44:43+02:00","String Translations DE (German)
+"
+"137ab2e41d58cf6d2e289a6f68dadfb5255d300d","2013-06-20 19:08:47+02:00","Translation DE (German)
+
+Help needed w/ some strings
+"
+"1cc89669b557b8a2ec9e69a2f4665cd4be2cd43b","2013-06-20 15:21:50-07:00","Fix topic info api call to reflect updated api docs
+"
+"421e4ad6f23f1a30ff3eb47a234a88378c9d817b","2013-06-20 16:10:58-07:00","Fix add thumbnail button and add some missing spacing to thumbnail view
+"
+"7507c63c4fd01e6aa05c924cd098245585379300","2013-06-20 18:48:12-07:00","Clear previous image to prevent artifacts in gallery
+"
+"0b7b0a6bb8d2171cef658e2d10d840cc792df425","2013-06-20 18:49:08-07:00","Add main image add image resource on new step
+"
+"1b96df04a8943718ec2bcdb5f435e7ec222ab1be","2013-06-20 19:09:19-07:00","Tweak image sizes AGAIN, same size thumbnail/main images is better for cache
+"
+"dd3c5cb5d34cf6ae08c49ddb9f1437730c616b9d","2013-06-20 19:10:04-07:00","Clear old image before setting new one in guide topic list
+"
+"79cb7cd04e1d1f5c982a2c72b068e3b46ad24328","2013-06-21 10:14:38-07:00","Move german translation to german strings file
+"
+"8fb688d31cafe7246c2a643d326559e1a8622c56","2013-06-21 10:22:25-07:00","Show loading screen after saving new guide or editing existing guide intro
+"
+"db6d8716458de2a03da09a923473dc8603a31b1d","2013-06-21 10:31:48-07:00","Add optional hint text to summary and intro fields
+"
+"88cd4b8d1a73f2134699517eff45773126bff06b","2013-06-21 10:32:11-07:00","Add missing strings to french translation
+"
+"7385ff3f634b8fd4f194cb3823bf22d1ea08c367","2013-06-21 10:41:58-07:00","Make logout less jumpy, and prevent double logout bug
+"
+"7cf8c4ff15c672f5c97df97bcd4ec0a221800071","2013-06-21 10:53:24-07:00","Revert change previously that hid the fist graphic
+"
+"8a4174789ebf283e6f528d151c48b30d6395a06e","2013-06-21 11:59:59-07:00","Remove unused retry on failure and unneeded image fit
+"
+"eed82e672ed55966042f3e3b8aa950ebff4386b1","2013-06-21 12:00:27-07:00","Fix NPE switching between guide view/create
+"
+"aa8288b8103273a9750a1096fc3b70ceb93ba32a","2013-06-21 12:01:42-07:00","Fix dozuki site chooser bugs from switching off holoeverywhere
+"
+"2cf3a17ac0f7d840e753d5a1e5d43c17442f996f","2013-06-21 12:02:09-07:00","Make sure user fields aren't null before accessing them
+"
+"d194a990386806719f7be3c62a2ecbd89a3ecc9a","2013-06-21 15:39:45-07:00","Bring matthias's translation over from translations branch
+"
+"06631626a9cab1f737e611ba7d958551ea9bbf06","2013-06-21 15:54:59-07:00","Topic info pages needs a background color otherwise the default image shines through
+"
+"c06bc5c37c073a4a00df7b9ca16c4d9ee51e3ba1","2013-06-21 15:55:46-07:00","Comment out ViewServer debugging code
+
+Used for attaching adb to real devices, shouldn't be included by default.
+"
+"b3c01c873c2b6e1880a71ccfd3560b156e927ea9","2013-06-21 15:56:37-07:00","LOAD_NORMAL is depricated, LOAD_DEFAULT is the same thing but not depricated
+"
+"78add3933a44e308d6e1d47722bfe76a73458232","2013-06-22 18:50:02+02:00","Added app store description.
+"
+"ee3d9cda02df805fc1a30b2b1a1d01d221cb7203","2013-06-22 19:40:16+02:00","Merge branch 'guide-creation-release' of github.com:iFixit/iFixitAndroid into guide-creation-release
+"
+"235ae19f0c0d2e179219b355fb0eba9f256bb1ac","2013-06-21 16:01:18-07:00","Bump version # for beta release
+"
+"6eb933d1fb37f68bc82490785b9766bbf26f5d90","2013-06-24 10:51:25-07:00","Set the empty user guide list view if there are no guides yet.
+"
+"d77a30cf4b3fec87e43bc2fb59f5bd606c8f8208","2013-06-24 15:06:10-07:00","Add activity for all teardowns
+"
+"6a0fa6a78a449a769955271a10a5070d58d91c97","2013-06-24 15:06:43-07:00","Fix guide step view videos
+"
+"029da7e259bbee774321c0899a45d5c51ad33830","2013-06-24 16:28:07-07:00","Add user favorite guides activity
+"
+"a8dcdabe5a0108bb14e5ef970ca44968adb43b18","2013-06-24 16:28:31-07:00","Normalize gallery backgrounds to use the background attribute
+"
+"4d11c4fd9658cde071cfe2ebb2aeaf42db84b007","2013-06-24 16:28:57-07:00","All the guide grid fragments/activities should use the shared layout
+"
+"341196c80ec917916b7a8df432590da674662609","2013-06-24 17:37:16-06:00","Latest French Translations for Android
+
+Hopefully this one doesn't get deleted
+"
+"05e0b690c06ba212936b367eb636ffccd5080461","2013-06-24 16:52:01-07:00","More default dozuki background
+"
+"98b67936d972ed1288f0878a6893da35df237809","2013-06-24 16:52:14-07:00","Fix french syntax problems
+"
+"122f22b4238debd63c5f0ec6a0a099febeac4d13","2013-06-24 17:01:33-07:00","Fix orientation change bugs on favorites and teardown activities
+"
+"1ad31cc40e26fad910fde1a013a7236788d7440e","2013-06-24 18:24:40-07:00","Fix NPE caused by mismatched view ids
+"
+"6fc401328c7413c3dfadc3ef5019d14159c65fa4","2013-06-24 19:13:38-07:00","Fix OutOfMemory errors in Guide View and Edit
+
+Views sometimes will hold onto references to bitmaps which causes a slow memory
+leak.  This was causing the app to crash after paging through 20 or so steps
+(depending on the device).  Releasing the bitmaps and setting the imageviews to
+null frees the bitmap from native memory and allows the GC to do its thing.
+"
+"d44520ab2848458a5ab2816491c2cb2c477254ce","2013-06-25 14:54:09-07:00","Add stack icon to represent teardowns menu item
+"
+"9381da1213d10d81fe1e301cc198014dae4d2dbc","2013-06-25 14:55:57-07:00","Free up imageview's and cancel existing requests before making a new one
+"
+"4a4546324e276ad9f60997105db3f494d7c2b0a8","2013-06-25 14:58:05-07:00","Clean up delete step
+"
+"09f11f4e6ccc0473c6483f9de2169a4d69ddd33a","2013-06-25 14:58:38-07:00","Only initialize guide grid if it hasn't been initialized yet
+"
+"815e0184d73f377311e40d82f4bf06a75d821d72","2013-06-25 15:01:47-07:00","Add german playstore text and move app_store_en to PlayStoreResources
+"
+"8dead3013082859a3aa49c2fce38116a12929a9d","2013-06-25 15:09:46-07:00","Reenable home up, and just do the same as back
+"
+"2e789085d68ddef66f37a858760b007fd742fe9a","2013-06-25 15:19:41-07:00","Bump version code for beta release
+"
+"9e4ec434ed0c9afa432f46ac0b946c2326c99cac","2013-06-25 16:06:38-07:00","Only pass along the guideid to GuideCreateActivity
+
+Otherwise unpatrolled changes will be viewed
+"
+"c449b4d66213150ee3acd573078db030c77cdb0c","2013-06-26 15:42:12-07:00","Update spanish translations.
+
+Add spanish translation for Main Application, Dozuki Site List, and General.
+"
+"863c3ba4b769e5dc52af6b710d087945d4544a7f","2013-06-27 11:34:16-07:00","Update spanish translations.
+
+Updated translations include Error Messages, Navigation, and Log-In/Log-Out.
+"
+"0386115099348857611e6af89a2be1a464652436","2013-06-27 16:16:39-07:00","Update spanish translations.
+
+Updated spanish translations for Gallery, Topic List, Topic View, Guide View Introduction, Guide View Steps, Guide View Menu, Full Screen Image, Guide Steps Edit List, Guide Step Rearrange Dialog, Guide Introduction Edit, Guide Step Edit, Guide Step Edit Media, Guide Step Bullet Context Menu, and Miscellaneous.
+"
+"8d4b1da307a001ffd3890f62419b7112540a501c","2013-06-27 16:30:51-07:00","Update spanish translations.
+
+Update spanish translations for guide_type_array, new_image_actions, and existing_image_actions.
+"
+"7f3fbd6db5840300de2befedcfe9608c1dd7bdac","2013-06-27 17:28:56-07:00","String reference shouldn't be translated
+"
+"980ef286c0ab38f2e9cc97b6ff6ac1ca195dfbe4","2013-06-27 17:30:03-07:00","Added endless scrolling to TeardownsActivity grid
+"
+"a3cfe0eee2d2ef275ccc5fd09f28327f5ffb3164","2013-06-27 17:30:39-07:00","Guide default images on step view shouldn't be the add image drawable
+"
+"03616eb7cf7d56b6f5d2d568858c12dce6251ed7","2013-06-28 10:11:30-07:00","Add patrol_threshold to guide
+"
+"fe701985f2c05b3c3d227a211b70305466a1659a","2013-06-28 10:12:05-07:00","Generify endlessscrolllistener to work with either grid or list views
+"
+"1bd3a4784704330e1371d26f04a5c4f0d77c4f66","2013-06-28 10:15:01-07:00","Bump API version to 2.0
+"
+"2fad1eaaa4413593a1ab60a04aafac377343d6bf","2013-06-28 10:15:28-07:00","Order teardowns in descending order by guideid
+"
+"dc2e49e5862d4308551cefe9b368d8371b3de61e","2013-06-28 13:02:48-07:00","Bump version # for beta release
+"
+"8159d250a3cc0c51f934162e9a5456e460a57419","2013-06-28 13:03:10-07:00","Shrink gallery image sizes on phones
+"
+"abd31166936d2857b729080ac1a3e3f30ab57bb6","2013-06-28 13:03:34-07:00","Fix off by one text mistake on step delete
+"
+"3123ae294e508324c19cedc2389fa1aaa102cc0c","2013-06-28 13:04:26-07:00","Prevent null string from showing up in GuideIntro edit
+"
+"7edddd71f499258e165f34912e393291f7eceace","2013-06-28 13:06:16-07:00","Show error if the user enters invalid topic name characters
+"
+"665d4a585d7ad59f65067607f1256dd6cf133d62","2013-06-28 13:15:57-07:00","Read from adapter guides rather than activity copy
+"
+"c6fb1c2eee6c2ffe552645cc470ebe9cc4282633","2013-06-28 15:28:21-07:00","Cursor should be at end of text field on guide title
+"
+"14fb9e92f74c4a15d337714aed2d78e59a35ec64","2013-06-28 16:09:00-07:00","Update menudrawer library to 3.0.2
+
+Fixes pointerIndex crash when interacting with viewpager and scrollview
+simultaneously
+"
+"dd5184e69ba175bdc0a00677ad56a61d537249ca","2013-06-28 16:18:10-07:00","Add device title to actionbar on Device view
+"
+"91ffcbab1d1a2dd0ac8c65d763262edbdb48e838","2013-07-01 11:16:25-07:00","Fix fullimageview when viewing local images
+"
+"e83804d66117854121faed957118024daa16df09","2013-07-01 11:37:29-07:00","Fix crash when uploading media from gallery
+"
+"c239158a2bba1a453a56b6ad8ef56420bab0ae8f","2013-07-01 12:02:26-07:00","Prevent empty images from being uploaded from gallery
+"
+"73e48fa6dcab87f15ca7f9047f3e6106c02d40a6","2013-07-01 12:08:41-07:00","Close the menu drawer if it's open and back is pressed
+"
+"47ce0fb9fe84a02e235a4b75614745eae4be2e85","2013-07-01 12:27:42-07:00","Update main and thumbnail image after capture
+
+On step edit, certain phones with lower max bitmap dimensions were erroring
+because the captured image bitmap was too large for the heap.  Applying a
+resize and centerCrop to the bitmap fixes this.
+"
+"fbed81749fd363168f2ee30239a785d95cd1741b","2013-07-01 19:14:37-07:00","Add parts and tools pages to guide view
+
+And change the circle indicator to a title indicator.  Much nicer.
+"
+"c9af0bbb93b49e228384eef1c92da7d820bdcaa1","2013-07-01 19:57:33-07:00","Add missing string
+"
+"14ac3cebbc93c905a0236a482d4335e89b8474ab","2013-07-01 19:58:02-07:00","Fix crash and off-by-one error
+"
+"b0fe3ae3f3baf26a80bfe596ffee73381f550dc2","2013-07-01 19:59:32-07:00","Bump version # for beta release
+"
+"f2ac449301fdd7ad12bd23dfbf868eea84d11c99","2013-07-02 11:52:07-07:00","Remove String.isEmpty usages, not supported on api level 8 (2.2)
+"
+"907c0c6551d760e1048942393ff9c4c5ab539103","2013-07-02 16:41:05-07:00","Use OkHttp instead of HttpUrlConnection, fixes unreliable HTTP connection on froyo(2.2) devices
+"
+"6b422b1ac4ee5354513ba3be8c61286103ce5fac","2013-07-03 11:47:28-07:00","Disable guide delete on ifixit for now
+"
+"0dd9731e87a52bf574b78a1cca1091145aa0f287","2013-07-03 16:02:01-07:00","Add Google Analytics tracking
+"
+"a9ecff5caadc1e086bf9140f61025f66fed6db16","2013-07-03 16:22:28-07:00","Add analytics profile switching to dozukify script
+
+Also, remove redundant dozuki app id from analytics xml
+"
+"fa42416d107396798ff8e1af1012fe67e3242a77","2013-07-03 16:44:58-07:00","Set the site list theme to Light to prevent exception
+"
+"171efc89499eb7f8ee511005a5025663d1df4af5","2013-07-03 17:10:06-07:00","Use OkHttp to handle URLStreams, fixes bug when used with Google analytics
+"
+"33fd8ae4cb8a73395ffe2dfda07aa114e8e76a55","2013-07-03 17:17:18-07:00","Only set factorys once
+"
+"0fcba8b75e2690efd6dde41c53c8f1cab388c608","2013-07-03 16:44:58-07:00","Set the site list theme to Light to prevent exception
+"
+"ba6774095ce798700afafcb72d6c34a2ea6ff2ab","2013-07-03 19:35:00-07:00","Bump version # for beta release
+"
+"92e6b315357d31dfbfcfddfd3eaeb80d8ce4f9e6","2013-07-05 19:32:31-07:00","Perform logout API call on logout
+
+We need to delete the user's auth token so it isn't valid anymore. Also,
+remove LogoutDialog because it isn't used anymore.
+"
+"1fb468c98596b12809ede4f9467e5987624408e3","2013-07-05 22:20:42-07:00","Simplify image sizes else if condition
+"
+"86be56449c6bc51c2081b5c7b081cc7e8ba0be76","2013-07-05 22:46:07-07:00","Robustify login prompting
+
+Now if the user's session expire, we prompt them to log in and perform
+the API call again once they are finished logging in just like we do if
+the user isn't logged in to begin with. I had to change the way we
+trigger the dialog to be opened because APIService doesn't have access
+to any Activities. Now we post an event to the Bus that Activities
+listen for and open the dialog when it comes along.
+"
+"ec491c122671a6e30bae8d411676a02118266df8","2013-07-06 00:14:52-07:00","Fix finishing Activities on logged out user
+
+If we thought that the user is logged in but it turns out they aren't,
+MainApplication wasn't reset to indicate that the user isn't logged in
+anymore. This updates our internal state when we get a 401 from an API
+call so backing out of login dialogs works correctly.
+"
+"ac35192d4077a27537adc322ef9f34a982b3c008","2013-07-06 19:55:45-07:00","Fix guide intro edit background crash
+
+Fixes issue #77, where once the activity was destroyed, and reinitialized, the
+app would crash because the fragments were firing off a callback to the
+activity to get the current page before the wizard model was re-created.
+
+Moving these callbacks to onCreateView instead of onCreate fixes it.
+"
+"3898171a62235aab4f97d2ceec4377ff341d37eb","2013-07-08 15:02:08-07:00","Always send along auth token in API calls
+
+Now we send the user's auth token in all API requests to allow viewing
+of private guides. This also bypasses varnish cache so changes will
+actually be reflected when viewing the guide rather than being up to 10
+minutes out of date.
+"
+"1e329e383c33ac2f2e523cd46ac6aa3772afed95","2013-07-08 18:24:49-07:00","Check for null join_date in user responses
+
+Some users have a null join_date so we should check for that.
+"
+"897c9739020a36c0fbf281d5a2de9d42016cd382","2013-07-09 08:35:41-07:00","Use singleTask for Guide view/create activities
+
+Hopping between guide view and step edit activities using the
+singleTop/standard launch modes would add each instance of the activities to
+the stack.  This caused some interesting problems with stale data with the
+actions Edit > View > Edit > Save > View > Edit > Back > Back > Edit >
+Save would cause a 409 since the Edit activity in the back stack does not have
+the current revisionid.
+
+Really what we want is only one instance of each guide view/edit activities,
+which prevents this stale data problem from happening as well as the annoying,
+seemingly pointless jumps between view/edit when going back multiple times.
+"
+"9a86003550f80e866b28a6b91497fe3365b737c9","2013-07-09 09:09:31-07:00","Add view guide link to My Guides list items
+
+Closes issue #81.
+"
+"40c68c92caaebb2a2d45906eb2e7f71687ba7e19","2013-07-09 09:21:51-07:00","Decode html in Parts/Tools title
+
+Closes #86.
+"
+"7745e4e7fdf8eabe47b10139468ba7caa76dd758","2013-07-09 13:45:20-07:00","Guide view: Remove onNewIntent Log call
+"
+"020649778d5bc1d3cacc5939abc1950426541206","2013-07-09 14:19:12-07:00","Remove awkward mContext use
+"
+"9c925bffde988b6bced19b2e983aff8476bb74df","2013-07-09 14:23:25-07:00","Prepare for TeardownsActivity abstraction
+
+This moves and renames TeardownsActivity to GuideListActivity which will
+be a generic guide list activity that can be used to display an
+arbitrary list of guides.
+"
+"a7a6d2157e4f28ff331b542efcf8a9f21d8f4f7d","2013-07-09 14:55:20-07:00","Abstract guide list activity
+"
+"e0bd37fc5618c70988582ed450dd3ad99616d424","2013-07-09 15:11:51-07:00","Add Featured Guides top level view
+
+The logo might need to be chagned because it's very similar to the
+'Favorite Guides' logo but other than that it's working!
+"
+"2e50b35f50482a514bb57e8090c22c3f9037389d","2013-07-11 16:17:29-07:00","Clean up and remove Log calls
+"
+"8e27345376536e74d3793136832324e2775abe71","2013-07-11 16:25:42-07:00","Topic hierarchy: Decrease memory footprint
+
+Rather than having nearly 2000 empty array lists (one for each topic
+leaf node) we can make them null and save a bunch of memory.
+"
+"9ae851ddc17971d81ad4dd35e0d7e062a920301a","2013-07-11 18:51:46-07:00","Huge warnings cleanup
+
+I went through all our java files and resolved warnings. Mostly unused
+variables/methods.
+"
+"6133dd732dfcf2a0989defb3ff5cea64b96b8887","2013-07-11 19:22:46-07:00","Add https support for view links (Fixes #45)
+"
+"b553ed9ccc48c503e80ed3aecddda8b194bc58e4","2013-07-12 11:07:49-07:00","Rework of Dozuki site list (Fixes #58)
+
+Now SiteListActivity does the API call and sets the list on the Dialog
+whenever it is needed. This has the advantage of only ever making one
+API call that is initiated as soon as the app opens.
+
+This also rejiggers site list parsing so errors percolate up to
+APIService so an appropriate dialog can be displayed.
+"
+"6b46e58fa154e0730462344b922d8ea17f5b8b16","2013-07-12 14:33:55-07:00","Update slider menu on auth changes (Fixes #76)
+
+Now the account menu in kept in sync with the user's authentication
+status if you go back to previous Activities.
+"
+"cd5cd207a688c32d853da99ed24113fd40786214","2013-07-18 15:24:34-07:00","Make Gallery directory site specific (Fixes #80)
+
+Now the album directory isn't hard coded to iFixitImages and will be
+determined by the current site.
+"
+"6cf0604833f30eee52150ade9f78543488787bb6","2013-07-18 16:05:45-07:00","Topic view: Fix links (Fixes #89)
+
+This hides edit links on section titles because they look awkward. Also
+corrects link paths by adding the current domain to relative paths.
+"
+"05de2c52816302dd244d7418168fe5a3f59dbac7","2013-07-18 16:21:26-07:00","UserAgent: Include system information (Fixes #75)
+
+Also added the versionName which is much prettier than the version code.
+
+Example: iFixitAndroid/2.0.0 (27) | Dalvik/1.6.0 (Linux; U; Android 4.2.2; Galaxy Nexus Build/JDQ39)
+"
+"e35f30713a97128d60942c75aaff37f46915d094","2013-07-18 17:11:30-07:00","Fix blurry image sizes (Fixes #90)
+
+This removes the smallest image size bucket we had so now it is roughly
+split between tablets and phones with the exception of the Nexus 7
+falling into the smaller category. Image quality is slightly poor for it
+but bumping it into the tablet category introduces out of memory errors.
+"
+"607cc1d33942f80cc306eef86e05db1e2483b482","2013-07-18 17:26:47-07:00","Move nav bar to left side
+
+Matches android design guidelines and gives us overflow option.
+"
+"68acd3faf5a13013d0de425f199e58c6a5432905","2013-07-19 12:56:13-07:00","Guide Intro edit navigation from view
+
+Tapping the edit menu item should take you to the guide intro edit activity,
+otherwise it'll act normally and go the the coorisponding step.
+"
+"4a9c5d910b6a1aeded76d18f1b5c39ca2fe890ea","2013-07-19 14:13:47-07:00","setDisplayHomeAsUpEnabled is available on HONEYCOMB and above
+"
+"61013e56a0e764e53b1b313df8fa7023048114b9","2013-07-19 15:11:57-07:00","Fix guide navigation update issue, fixes #91
+"
+"267716af409c7dd657dd4f64e73c4089e5ebb5b9","2013-07-22 09:32:33-07:00","Normalize guideid keys in GuideViewActivity
+"
+"efb6a020dab2d3a5a24f3ce65df37624bfc5347b","2013-07-22 09:41:20-07:00","Prevent home 'up' on step edit
+"
+"2708cb91c7882fff39f975025d7de6e321c78e6d","2013-07-22 10:06:19-07:00","Use heart icon to represent favorites
+"
+"c7af8d81d4693ee2321642bde10383b9d25230d5","2013-07-22 10:10:44-07:00","Use MenuDrawer.Behind, because it looks better
+"
+"913a7e46864262035cd427523a29584201014fc2","2013-07-22 14:57:48-07:00","Prevent save until after all images are uploaded
+
+Having the event subscription handled in the fragment was causing it to be
+called on all step fragments held in the ViewPager.  Listening for the events in the
+activity makes much more sense, since it's where every other event is handled.
+
+Fixes #78
+"
+"4a4ea2f846f298275ce6e75b721f5ffff625193e","2013-07-22 15:03:40-07:00","Add loading indicator to GuideList (Fixes #87)
+"
+"dbc68d3bcfabd2abfb61ce67eb50876205fb93b7","2013-07-22 15:09:29-07:00","Remove unused fields
+"
+"8bb9a3a47d948d811a8eca15d8025614785b8900","2013-07-22 15:15:59-07:00","Use full title for some guide lists
+
+Using the subject as the guide title doesn't really work for favorites,
+my guides, teardowns, etc. because the device isn't specified anywhere
+like it is when viewing a topic. Sometimes you would see 3 guides titled
+'Dual Hard Drive' with nearly identical images.
+"
+"b5d650ff9bbfebb35b10debab499684ad7046b9e","2013-07-22 15:22:39-07:00","Guide list: Display no image if no guide image
+
+Otherwise we don't do anything and the image ends up being whatever it
+was before the view was recycled.
+"
+"00f6f10f91007b82e7c279efd79ecb23d12e3c08","2013-07-22 15:35:47-07:00","Use LOADING constant to reference loading fragment
+
+Guide edit and friends weren't properly hiding the loading fragment
+because the string was changed into a constant with a different value.
+Now they all use the same constant!
+"
+"9657fdd9682f44318cd8fd3fa347dc16868efaa4","2013-07-22 16:04:10-07:00","Fixes broken main image update after upload of new image
+"
+"517432a1c95a9183fab00621da6a529455380596","2013-07-22 17:22:08-07:00","Fixes #96, delete image on step
+"
+"0268c4d90857be7eead72c439797af2094d0cbd5","2013-07-23 10:48:30-07:00","Fixes #95, unsaved step crashes app
+"
+"ebaaabad6b50b684c289cb3cb41b809ae70bc8a2","2013-07-23 10:50:00-07:00","Re-initialize default values in onNewIntent for StepEdit
+"
+"0e2eecaae6f4fe7df6019e736838ced87e655e4a","2013-07-23 12:20:22-07:00","Fixes #93, editing multiple guides doesn't work
+"
+"fcc3f5957f8089764f5bdf4df792a9e386fa6974","2013-07-23 14:50:59-07:00","Ditch singleTask, use singleTop without history.
+
+Using singleTask got us almost all the way there with what we wanted,
+but there was some edge case bugs that kept popping up with back pressed.
+
+For example:
+* Navigate to guide A from 'My Guides'
+* View step 1
+* Navigate to 'My Guides' through the menu drawer
+* View Guide B, step 1
+* Tap 'Back'
+* Now the Guide A step list is showing which is wrong, Guide B list should be
+there.
+
+Also, if viewing multiple guides, going back wouldn't ever go back to those
+previous guides you viewed, which could be jarring for users.
+
+Using singleTop with a combination of NO_HISTORY and overriding back to just
+launch a new intent fixed these issues and get us the interaction we were going
+for all along.
+"
+"1226faa42331a55ece034e17fa973037fa360e5a","2013-07-23 17:28:13-07:00","Fixes #97, adding image from media manager should 'dirty' step
+"
+"e11956e44880ae93179116af2ecdc6d2f2791085","2013-07-23 17:29:12-07:00","Fixes #98 and Fixes #82, dirty step navigation
+
+This prevents going to the next step if the step is dirty using the
+TitleIndicator touch events.  It also warns you if you are trying to add a new
+step when you have unsaved changes on the current step.
+"
+"5dcf8ca0e309acd6e68d2c9b5a58d409b7bee1bb","2013-07-23 18:11:55-07:00","Move capitalize helper function to Utils
+"
+"a58902ae301e1770b758bb901779871e9e32efbf","2013-07-23 18:12:41-07:00","Fixes #99, filter out already attached images from media manager
+"
+"0803336d8c71f867211f47e9dfb0a5c6fc0936dd","2013-07-24 14:54:51-07:00","Warn user navigating away using menu drawer
+
+Fixes #82.
+"
+"d3a28919a5c6e30443c095162517704a4234b5ad","2013-07-24 17:20:34-07:00","Fix bug where step wasn't marked as dirty
+
+after canceling save dialog from add step
+"
+"4a12ff245c5b5caf6eebb0ab3e7f4b9887e35cb0","2013-07-24 17:21:23-07:00","Finish activity after 'back' from StepEditActivity
+
+Fixes #102
+"
+"ab94b697e7bccaa709f8aa35ad88815a034505ec","2013-07-24 18:51:54-07:00","Fix delete step from StepEditActivity
+
+Deleting a step from the bottom bar trash icon was crashing the app if there
+was only 1 step left in the guide.
+"
+"de4131a7fc593a256246783e7784cd790b715b86","2013-07-25 11:44:23-07:00","Prevent users from adding multiple empty steps
+
+Fixes #104.
+"
+"2d9967ec23b89595be868540a9a6a42541bab35a","2013-07-25 11:46:20-07:00","Externalize save step string
+"
+"cdbbc4a1c39335dbda3d9f80243a7adee8f8f400","2013-07-25 11:57:02-07:00","Require subject on applicable guides
+
+fixes #103
+"
+"9862f0e7fd1e0726085ae8ab96baac810caaa711","2013-07-25 13:44:46-07:00","Only show warning about menu navigation is step is dirty
+"
+"a14d1dd9c7574a8ca82b72160e83043d316b9a3a","2013-07-25 13:49:18-07:00","Group 'My Guides' and 'Create New Guide' menudrawer items together
+"
+"bc0467f65a108e660d3da18d67cdb8a16551eafd","2013-07-25 18:12:19-07:00","Remove unused APIEndpoint
+"
+"c7075b058699267207507aeffba95a41adad3f49","2013-07-25 18:22:55-07:00","Update guide list upon returning (Fixes #100)
+"
+"b78f192bddf64c5add2659ecc0d26cb2fcc39433","2013-07-25 18:47:31-07:00","Fix formatting of APIEndpoint
+"
+"dbc55df2448b230665e79238ae48e2bf66559a31","2013-07-25 20:16:01-07:00","API: Set an error if status code isn't 2xx
+"
+"b443593b6e44e32cab3826e1648a615601e29ed6","2013-07-26 14:00:07-07:00","Clean up API error handling
+
+This ensures that all instances of API event listeners correctly handle
+API errors. Also prepares for a more in depth update of error messages
+and handling based on the status code.
+"
+"a14f5dbe2c9ec165eec78155240dfe76d29f981b","2013-07-26 14:33:35-07:00","API: Include APICall in APIEvent
+
+Now the event has the original APICall so the error dialog factory in
+APIService doesn't need to have a parameter for the APICall to retry the
+request with! (Coming Soon™)
+"
+"94664a1b08b485dee2c052bbbca47c871a4a21d0","2013-07-26 15:19:11-07:00","Reuse APICall from APIEvent when making a dialog
+"
+"8db7229f57698c6948226b0e1f6c023378a43230","2013-07-26 16:11:46-07:00","Handle list items and images correctly in topic info
+"
+"3126d8358196d6dfeb398db6c000f922f063a946","2013-07-26 17:34:10-07:00","Specify error messages in ErrorType
+
+Now the messages are defined in APIError.ErrorType and are used in error
+dialogs if they aren't overridden.
+"
+"b596173eb201db85bea26a5d54971433ae544cf2","2013-07-26 18:05:19-07:00","APIError.ErrorType: Add try again flag
+"
+"8a96f911c854b27ce3b2f7087cb8d2d8012ca901","2013-07-26 18:19:17-07:00","APIError.ErrorType: Add finish activity flag
+"
+"04a7e7a9e52fa92e30cbad5dd79c73d404ff61d6","2013-07-26 18:21:18-07:00","Change ErrorType to Type
+
+It's already scoped in APIError...
+"
+"ca4f8e5b2f02b1ea39b75dfd9e52661306863ecb","2013-07-26 18:26:31-07:00","API: Only accept Activities for error dialogs
+
+Since we're casting it to an Activity and calling finish() on it...
+"
+"db70892b1c33f9abe2384f09e3b81382fd1aa153","2013-07-26 18:46:59-07:00","Merge branch 'api-error-handling'
+"
+"d71f9a508ccf1bb58f3a5688b01e74005d58056d","2013-07-29 12:13:01-07:00","Remove some experimental code that leaked in
+"
+"7e70e44bf8059102aa73b6fd5da500a15b250acc","2013-07-29 12:15:31-07:00","Add loading indicator to topic view
+
+Fixes #105
+"
+"78578188462f637aa4939eb5fb8eb072a1182b46","2013-07-29 12:21:22-07:00","Fix 2.2 menu drawer list scroll white bg
+
+Scrolling the list view in the menudrawer would cause the background to turn
+white.  Simply setting the cacheColorHint to TRANSPARENT fixes this.
+
+Reference:
+http://stackoverflow.com/questions/3011945/scrolling-a-listview-changes-everything-from-white-to-black
+"
+"9354a9cb00c094daa761d7f355d13d60b784ba73","2013-07-29 14:37:19-07:00","Step edit: Update step on conflict
+
+So the user can remake their changes and perform the save again.
+"
+"a522e7d3b2c463353060879638f0b82a6dde1ef9","2013-07-29 15:18:18-07:00","Step delete: Update step on conflict
+"
+"3eec7f75681c900fd8dccde7ee1acfcb30abdc01","2013-07-29 15:22:26-07:00","Clean up topic info title size and style
+"
+"327165aebc27996fd93f6f1c131993b8256cf505","2013-07-29 15:40:40-07:00","Remove No Guides image, instead use translated string
+"
+"2f65aba42ad26667f68a8ec2a056e226ca8d80a9","2013-07-29 15:43:42-07:00","Update default 'no image' image
+"
+"dfc4bcf262350fc7038889bec08cf54e283af889","2013-07-29 15:47:29-07:00","TopicViewFragment loading was crashing on tablets, revert
+"
+"7ececa1e756e8db149c106a78b4ecd8807b60b52","2013-07-29 16:28:48-07:00","Fix guide publish URL
+
+It ended up being
+/guides/{guideid}/public?revisionid={revisionid}/public which works but
+isn't really correct...
+"
+"f0188c00545cb0c40c465664474bfa722f8d2d16","2013-07-29 16:41:26-07:00","Guide publish: Update guide on conflict
+"
+"fed4ff7ed78bf904ad6f3675383a679c16269fc4","2013-07-29 17:33:34-07:00","Properly fit default image in GuideGrid
+"
+"fd7510c34c2bbc0e873beb3c9cc3d43eeafe9880","2013-07-29 18:05:56-07:00","Fix reorder crash on guides with no images or video steps
+"
+"aa5cfb6db0e9207598fc18969afc0c85195e2c7e","2013-07-29 19:42:13-07:00","Merge remote-tracking branch 'origin/master' into handle-api-conflicts
+"
+"66baa186c4f0776312d43212911f763821621423","2013-07-29 21:34:01-07:00","Bump version # for beta release
+"
+"d14e74dbd4c5606b987b4acac915b188fa5fca41","2013-07-29 21:46:13-07:00","Fix #108, app crash after orientation change in favorites login
+"
+"a12c332575e3a68f48786a458e4a23f3dd941c76","2013-07-29 22:06:33-07:00","Disable save button state after deleting unsaved new step
+"
+"bd10d11784e7bc5c3bf019a54478e9cec7abb993","2013-07-30 11:35:57-07:00","Add new bullet -> New line
+"
+"ec45a56546f7749089662bc4ddbe9a37d2ea7c9d","2013-07-30 12:11:44-07:00","Fix item menu open/close issues in GuideCreateActivity
+"
+"d340406311341f3068614d1151bf0753d88d1272","2013-07-30 14:54:24-07:00","Bump tablet fullsize image to huge
+"
+"8e00fd99d869c32907675d7235a29cfa3bf5fd83","2013-07-30 15:09:16-07:00","New intents between view and edit without history breaks image capture, remove no history
+"
+"418483b98170f0ef999d3970d32a8883c7f3359b","2013-07-30 15:27:03-07:00","Add reload guide option to guide view
+"
+"129d95565ce0092b1aa0e507d79854c4595b92db","2013-07-30 16:49:38-07:00","Step reorder: Update guide on conflict
+"
+"99b06481da6b534438c704555b6b2bf70b1d8be9","2013-07-30 18:18:05-07:00","Guide edit: Update guide on conflict
+"
+"c2e7e00a0f76d05643036ed7daf6807ea592aeb4","2013-07-30 18:47:37-07:00","Use fallback images for guide edit images.
+
+Prevents cases when a newly captured image is viewed but the
+size isn't generated yet which causes a 404
+"
+"414c879bc184d970d7761f44e7be16bd7a4a7ced","2013-07-30 19:06:06-07:00","Guide delete: Update guide on conflict
+"
+"528911661ac7b17febb194aa819060c0adc4c1b6","2013-07-30 19:07:29-07:00","Merge branch 'handle-api-conflicts'
+"
+"bb666b23677e23b4ad5d468911f511883c31ba5d","2013-07-31 12:13:23-07:00","Only apply GuideItemView image resize on tablets, fixes #111
+"
+"b4ab0f12cf791fb6be682c6c91c6ec0b1990c936","2013-07-31 12:15:07-07:00","Remove leftover log
+"
+"4448d11c74f88a4385f408463fb52781610d92fc","2013-07-31 14:04:44-07:00","FullScreenImage: Default to filling smallest dim
+
+Now it doesn't start out as a really small image on larger screens e.g.
+on the Nexus 10 it was about 1/3rd of the total width.
+"
+"cb5537ca1fdcdc89d057e2eb6dcbd7bb840808d3","2013-07-31 16:17:37-07:00","Hide step title on first step of guide
+
+There was a lot of edge cases where we didn't set the orderby for new
+steps that I had to track down and make sure that information was passed
+through to the appropriate Fragment.
+"
+"d4face6b3a6887e3a736848f2bbcf3441a2d4e33","2013-07-31 16:57:24-07:00","Remove version code checks
+
+Fortunately ActionBarSherlock handles this for us.
+"
+"6ffaf05bbc6a3ac07bd39a2055f251d2d25272ae","2013-07-31 17:07:37-07:00","Guide list: Fix orientation change before guides
+
+Previously it NullPointerException'd because the guide list was null but
+we assumed it was populated even if the API call didn't come back yet.
+"
+"d82ecfb22e5df1ea7137fe762d58203a5dcfdb18","2013-08-01 13:39:30-07:00","ImageViewTouch is no longer a apklib, now it's a jar
+"
+"bfc0aefe4ab360d96d6efd872405617d8a2b7bc0","2013-08-01 13:50:42-07:00","Prevent reloading guide on orientation change
+
+Fixes losing changes to a guide after orientation change in StepEditActivity.
+"
+"46f991efa2daa18d88515179cfaa5b196068b388","2013-08-01 13:57:47-07:00","Small code improvements to StepImageFragment
+"
+"bd48b83ff7fd877e233bfc31fd206e9beeb2603d","2013-08-01 14:05:56-07:00","Bail early if guide is null before navigating to step view, fixes #110
+"
+"0a9ac14830bf66566c5a6b4992e632a47ff7c8b2","2013-08-01 14:16:45-07:00","Save grid view position on orientation change
+
+Fixes #114
+"
+"446943cdf3c4d26ffdd15c27167b581cc90e35a0","2013-08-01 14:51:42-07:00","Add discard changes menu option to step edit
+"
+"571aa324ae72289a9dfbf187bf5266c9c0b7e064","2013-08-01 15:08:10-07:00","Notify adapters if a new step is removed when navigating away from a step
+
+fixes #115
+"
+"951069c8192d33f6c1a78eb7e223c4562e549f99","2013-07-31 17:38:04-07:00","Don't display no image on failed topic images
+"
+"0c1ce5b8fbb26a7297a5f266ad28de03e0649d99","2013-08-01 15:56:59-07:00","Merge branch 'master' into analytics
+
+Conflicts:
+App/src/com/dozuki/ifixit/ui/BaseActivity.java
+App/src/com/dozuki/ifixit/ui/dozuki/SiteListActivity.java
+App/src/com/dozuki/ifixit/ui/guide/create/GuideIntroActivity.java
+App/src/com/dozuki/ifixit/ui/guide/create/StepEditActivity.java
+App/src/com/dozuki/ifixit/ui/guide/create/StepEditImageFragment.java
+App/src/com/dozuki/ifixit/ui/guide/view/GuideViewActivity.java
+App/src/com/dozuki/ifixit/ui/guide/view/StepImageFragment.java
+App/src/com/dozuki/ifixit/ui/topic_view/TopicInfoFragment.java
+App/src/com/dozuki/ifixit/util/APIService.java
+"
+"24719ce981fe6a84c4d406cfb032d54aa0d35e7e","2013-08-01 16:23:00-07:00","Guide view: Fix crash if parts but not tools exist
+"
+"cae22ef805548a31f8303e9b5d5f51d446889fed","2013-08-01 16:41:26-07:00","Patch/Hack to prevent segfault from OkHttp
+
+https://github.com/square/okhttp/issues/184
+
+Because OkHttp uses the shared SSLContext, which also happens to be used by the
+Google Analytics library, it would silently and abruptly cause an segfault
+breaking everything.  The above issue mentions a workaround creating a new
+sslcontext and setting the OkHttpClient to use that one instead of the default
+sslcontext fixes it.
+"
+"5cf7fa8325c5fd4260d7db4187780f2b80061020","2013-08-01 16:45:58-07:00","Use main ifixit ga profile
+"
+"2509139e2b0655d9cdf228bfe5f35843a6f4737f","2013-08-01 16:48:15-07:00","Merge branch 'analytics'
+
+Conflicts:
+App/src/com/dozuki/ifixit/ui/guide/view/GuideViewAdapter.java
+"
+"c1a4b2b21148f91eaa6d88256ee08a95cc1b6597","2013-08-01 16:54:35-07:00","Guide item: Change quantity to a string
+
+Turns out you can enter all kinds of crazy text into the quantity field
+for guide items so lets make it a string. This fixes crashes on guide
+view for quantities like '1 can'.
+"
+"6c0fe0e6af62fdcee1acf230fa182587f131d92c","2013-08-01 17:07:08-07:00","Merge remote-tracking branch 'origin/master'
+"
+"f2063d8c790918bfe7f2a35c31c3133f78f10419","2013-08-02 13:24:46-07:00","Bump version # for beta release
+"
+"ce98ffceaf8f1089b3dd53cec72e1f52c717f2e8","2013-08-02 15:25:56-07:00","Add FullScreenImage view onClick to topic images
+
+Also tweaked the image style on phones to fill the whole top of the screen.
+Looks nice
+"
+"a0cefcc2d7d3fcc7e2ea3d72c99f42ae0b644a3d","2013-08-02 16:49:01-07:00","Fit single guide image in portrait mode to available space
+"
+"4cd34505ae2b0b4eeb3cfb6b228b08035ffe5123","2013-08-02 17:30:08-07:00","Update translated strings files for new trans
+
+We've changed strings but haven't updated the translated values. This
+organizes all of the values that need new translations so the
+translators don't have to redo everything.
+"
+"820fd504d1c4b526a19914f1643c62a7eceda231","2013-08-02 17:58:37-07:00","Fix lint warnings for strings files
+
+Mainly MissingTranslation and ExtraTranslation warnings.
+"
+"ed3b7c12117ab52bba7eb5cd35bc554a8103cda0","2013-08-02 19:46:55-07:00","Include summary and introduction fields on edit
+
+Creating a new guide should be quick, so let's limit the number of starting
+fields to make it as fast as possible for the user to start snapping some
+photos.
+"
+"65979fb85b45c52f6bc4b1e9cde760dd65840173","2013-08-02 19:48:38-07:00","Relock save after screen rotate if needed
+"
+"cc5b7200fc299e73b7f829dabd2ac2c4a165943e","2013-08-02 19:49:26-07:00","Fix bug with discard changes
+"
+"c48ce3cdc5d297ddd43599dbdef772abf57d5d44","2013-08-03 14:52:03-07:00","Remove unused code from IntroEditWizardModel
+"
+"c26591a7c7531bcae150d81887157751e7d0368a","2013-08-03 15:15:19-07:00","Prevent new lines in guide intro text fields
+"
+"fbf25d46814c115c86f9b5742c17e1b71726e7d9","2013-08-03 15:37:39-07:00","Prevent newlines on step lines
+"
+"09b20e7634859a5e8ed52e7fb09bee506db8a09c","2013-08-03 15:59:25-07:00","Fix bug where save button would become enabled after adding a new step and going back two steps and then going forward one.
+"
+"3c4a5f5b518f8835fc6b221b124eae598b333c43","2013-08-03 16:03:21-07:00","Set show as action with text flag on add guide item
+"
+"3d1e042dc29ff1f9b7d41442ad127f316be6b35f","2013-08-03 17:57:33-07:00","Lock pager AFTER they title pager and view pager are initialized
+"
+"f64e55ef855b8c5e33dbaadaffeeb6aa31e19372","2013-08-03 18:45:03-07:00","Make non-necessary public methods private
+"
+"22aa649907fad09d6f7085db03de74a1f426c390","2013-08-03 21:03:36-07:00","Translated Spanish strings I felt comfortable with
+"
+"6133db73e2f2b1b6a6ddabb26a672275d1361935","2013-08-03 22:46:27-07:00","Merge pull request #119 from ssaamm/master
+
+Translate most of the remaining spanish strings.
+"
+"f93920335f94557160128916632ab178cb07b873","2013-08-03 19:49:55-07:00","If there's a local version of the image, use it.
+
+Eliminates some of the disappearing image problems we've been seeing.
+"
+"22323f6425ee5311802cc21dfe44257423ec4428","2013-08-03 21:25:00-07:00","Add ViewServer debug tool
+
+Allows for the HierarchyViewer to attach to a device instead of having to use
+the emulator.
+"
+"c4c2625f076cdf81f3c80e10b8ab78e39c0ca215","2013-08-03 21:27:11-07:00","Patch up some memory leaks and clean up code
+"
+"37460638434c9aed8bca5f941fe8e494e524cd31","2013-08-03 23:28:52-07:00","Add validation (422) error type and append the validation error message
+"
+"df8640e301987e08d28452c2d327365b525f4058","2013-08-05 11:34:14-07:00","Updated 'Strings needing translations.'
+
+Finished updating the additional strings as well as check existing edited strings.
+"
+"e0089f799657624216edc2f057189108a571b113","2013-08-05 13:49:50-07:00","Make video fit full screen
+
+Fixes #116
+"
+"9103dc0cd9989c38fc3009b5638e98ce776cdf63","2013-08-07 19:24:28-07:00","OpenID login: Fix Cookie parsing
+
+Turns out the split on '=' left the value as ' session' so the string
+comparison failed.
+
+Note: The sessionid we're getting back is still invalid so that still
+needs to be investigated.
+"
+"b39c73d53b48a69af0ceaa60f9671cf578cfd043","2013-08-08 10:34:10-07:00","Use correct domain for OpenID login URL
+
+In development it was pointing at the live server so the session didn't
+exist when we came back.
+"
+"338228126aa8a0bec998ba096c21ce40cfdc7570","2013-08-08 11:09:41-07:00","Added new ifixit logo and icon, as well as updated screenshots with new logo
+"
+"c491c475f27d7625f4d41510a922b9f0b7e229b5","2013-08-08 11:11:44-07:00","Add new branding fonts
+"
+"9f6a50a78f3f0cf03de02f73d8392a02c0d53d62","2013-08-08 15:24:35-07:00","Disable multiple pending guide publish API calls
+
+Previously, the user could fire off multiple guide publish API calls by
+clicking the publish button multiple times. This would cause edit
+conflicts for the subsequent requests because they didn't send along the
+correct revisionid.
+
+Now the button doesn't work if we are currently changing the privacy of
+a guide. Additionally, the text is changed from (Publish|Unpublish) to
+(Publishing|Unpublishing) to indicate that the user's action is being
+processed. A spinner would be nice but not right now.
+"
+"2a9765f231895caa6a444ebe2a7239cb4a93c316","2013-08-08 11:36:52-07:00","Fix capitalization of Ifixit -> iFixit in media manager help text
+"
+"29e7c8b45c29c9e2794064fa424bda81d76bf534","2013-08-09 11:56:40-07:00","Add touch feedback to guide view thumbnails and main images
+"
+"19aed010cb0f446e60592bc671c8b32d68674d48","2013-08-09 14:21:15-07:00","Add TODO for Site.siteName()
+"
+"83c9a149d8031330a8e99447c918c34e7f6661f6","2013-08-09 16:31:58-07:00","Gradle build!
+
+Most of the code/resource changes were due to duplicate values. Maven
+didn't care but now it actually matters because Gradle errors out.
+"
+"a1fe7e7a06960eecc570d5ac9c694e4f46f953b5","2013-08-09 16:55:51-07:00","Add mic icon next to step edit line for quick speech to text input
+"
+"1467dd2402f1ee037888445ee552d6c4697aea6b","2013-08-09 17:01:21-07:00","Hide keyboard after save on step edit
+"
+"0cbc2e58b6b05dd509d1324db9a4d7b8c0b46123","2013-08-10 11:07:14-07:00","Specify dev server in gradle.properties
+"
+"6a849663c60bbae9f8041c9350d1ba23d7f3afe4","2013-08-10 11:23:46-07:00","Add APP_ID to BuildConfig
+"
+"5fe6dc3654607384624767ddc52f830db4ac4d07","2013-08-10 11:31:02-07:00","Add 'Gradle Config' section to README
+"
+"6bdb155fbfaa7f5043c155bf4871f7e012d796fb","2013-08-11 12:19:44-07:00","Add support for signing release builds
+"
+"94f025d7bb81ca70794ceefc832b1876a5740fce","2013-08-11 14:29:57-07:00","Preliminary Dozuki support
+
+This starts to move all the dozuki code into different directories that
+will be pulled in as part of the dozuki flavor. It's mainly working but
+still needs some more stuff in dozukify.sh.
+"
+"013612371cbfef5dca2894b2a278eb4e7499cc70","2013-08-11 20:28:44-07:00","Add comment regarding dozuki package change
+"
+"4dd154ddde494f0ea02aaa2130d2d99b3c9edbd7","2013-08-11 20:56:13-07:00","Move dozuki strings to dozuki res directory
+"
+"114320cb964ed821758eb9288de09e6dc27a9642","2013-08-11 21:16:54-07:00","Move dozuki logo into dozuki res directory
+"
+"b449581de4e912366f4b870c4f7588bce6b656b6","2013-08-11 21:28:59-07:00","Move current site into gradle
+"
+"9cbe33076bc1a5a69dd94bc8e84229ab2af1bfba","2013-08-12 11:55:37-07:00","Set menu drawer to overlay, inside actionbar
+
+Instead of moving the whole screen, overlay the menudrawer on top of the
+content, and inside the actionbar space.  Keeps things consistent with how
+Android now does menu drawer.
+"
+"644340eff555a793b0fbf237ba92f5a1ee9c7159","2013-08-12 14:08:19-07:00","Fix crash on deleting image
+"
+"f479313feee80eef5e79c0137c96413d151a9371","2013-08-12 16:24:09-07:00","Remove artificial character limit on step line
+
+This was causing problems when a step line was longer than 350 characters due
+to wiki text links, the edit text field would truncate the text to 350 which is
+a bad call.  We shouldn't be doing any limiting client side, instead we should
+just handle the validation error the api comes back with.
+"
+"5fbdd9512766eb325ee558bf5e71460a5197da7d","2013-08-12 16:28:06-07:00","Handle index field in api error responses
+
+We added an index field to api error responses for validation errors in order
+to know which field failed validation so we can direct the user to that field.
+"
+"3c1e242554089ae21bc3ed10eb1075d36240ef0d","2013-08-12 16:44:29-07:00","Extract mic image contentDescription to strings
+"
+"b227de0dccb7c8e74ebbc551bf3f2ec7c3b7b6ce","2013-08-12 17:03:45-07:00","Remove scrollingmovement from line edit text
+
+It was preventing text selectiong and was leftover from an old feature and
+wasn't being used.
+"
+"3aa52374e0e0da0456313dded66548f550d600de","2013-08-12 17:19:36-07:00","Add remaining features to dozukify.sh
+
+So we can keep track what we have left to port over to gradle.
+"
+"d76f0a24d0080273e531fd245245747f988aad50","2013-08-12 17:20:15-07:00","Remove commented out dozuki code from Manifest
+
+It's already been copied over to Dozuki's Manifest.
+"
+"e4c520a58fdc4b8d98830f86579f19187a2a631a","2013-08-12 17:20:57-07:00","Topic list: Remove hierarchy depth tracking
+
+It isn't used anymore since we aren't using the up arrow home navigation
+for hierarchy browsing anymore.
+"
+"32b5b7a27e519b5cb839e77d1964855c5e5d7818","2013-08-12 17:45:28-07:00","Use correct app.ifixit analytics profile
+"
+"e818f4d31f0ce1b3b43aad70d2ad1ff6f5783e67","2013-08-12 18:24:30-07:00","Fix dozuki namespace package name
+
+It wasn't being updated if the package name is changed using gradle DSL
+but it turns out you can specify 'res-auto' and it figures everything
+out!
+"
+"1b3f99782765e211cdad37ea2f9809b1ac90d63b","2013-08-12 18:43:34-07:00","Show error on edit text field that has step line length errors
+"
+"0f233209c2ab61262b1c98b4dba0a6d0bc0dcace","2013-08-12 18:48:31-07:00","Remove some old commented out code
+"
+"a378d32a642ed350ba54a83291254a51d1b8fc23","2013-08-13 15:47:36-07:00","Add selected state/drawable to guide items
+"
+"7d8faed6fdf448a0a91891a40aaace53df1b9b71","2013-08-13 15:52:57-07:00","Remove leftover log files
+"
+"abca9c8cc0d761dd536a4c5d9c07b04e4f3a81af","2013-08-14 11:25:37-07:00","Change package name for dozuki
+"
+"ad547493dfd704ac56d7f7bf90ecfc813a87db56","2013-08-14 14:21:52-07:00","Dozuki: Remove TopicActivity launcher
+
+This moves the TopicActivity activity declaration to individual sites'
+AndroidManifest.xml files so Dozuki doesn't automatically get a launcher
+intent filter for both SiteListActivity and TopicActivity.
+"
+"67295e3e8de0b041db8cbbd4d53cb90efa53a495","2013-08-14 14:42:16-07:00","Move GuideViewActivity to site specific manifest
+
+This is the easiest way to make the intent filter schemes configurable
+per site.
+"
+"a49cfd438094ec28e7204d2d69128aa136f115d3","2013-08-14 15:01:16-07:00","Fix theme for SiteListActivity
+"
+"b9d9f159a9708ad62561bad2851f3e37e79a63d7","2013-08-14 15:11:15-07:00","Use BuildConfig.DEBUG to determine debug status
+"
+"95e237f30337181ce8be71e596acecf5563a2fe3","2013-08-14 15:11:34-07:00","RIP dozukify.sh
+
+All logic has been moved into gradle.
+"
+"0099d8a2e07e770882d99f1ce15b9a4cc66d88a1","2013-08-14 16:05:40-07:00","Make app id's site specific
+"
+"4d6e43d4ba0d0c18ab17a298ee34febd14267e47","2013-08-14 16:12:45-07:00","Make signing config site specific
+"
+"c0bfc2e05aafe5c4cdee798d992a5ffadddaa59f","2013-08-14 17:30:35-07:00","Merge branch 'gradle'
+"
+"0d2fe2edf12772415f7dbe19a3d8bcb43bbbe92e","2013-08-14 16:00:10-07:00","Add some style to step view and edit
+
+Added a light gray background behind the step media container so images with
+white backgrounds don't get washed out.  Also fixed some padding/spacing issues
+with thumbnails.
+"
+"b7d0317e3f603271ebdd5f639ce92d4bd3e6f51f","2013-08-14 16:01:50-07:00","Convert janky relativelayout border to drawable
+"
+"45206ab4f611e914fa007fb2c36ac83723f35c72","2013-08-14 16:16:31-07:00","Step view/edit phone screen size tweaks
+"
+"5cd0e952c95f7b9dbe79ff60f9cd64237664f4f1","2013-08-14 19:12:54-07:00","Fix step line voice dictation.
+
+onActivityResult was calling through to the wrong fragments onActivityResult
+sporatically, causing it to look like speech to text wasn't working.  Instead
+of calling through to the fragments onActivityResult, instead just fire off an
+otto event from StepEditActivity's onActivityResult.
+"
+"e9adb1db10edb050999c9147362366e385214e6c","2013-08-14 19:16:53-07:00","The discard icon looks identical to back, always stick it in overflow
+"
+"91cf4f314acf7667b8f9294d01daf8f737925206","2013-08-14 19:17:09-07:00","No need to invalidate the pager since we just recreated it
+"
+"8131b644593c55f5a88d09309c5bbab3d854e402","2013-08-15 12:38:25-07:00","Remove getSiteDisplayTitle
+
+It isn't used anymore.
+"
+"c9cd616701cc48dc9ee1b448fd9d7c911bad685f","2013-08-15 16:32:52-07:00","Move menu drawer code to new Activity class
+
+Now BaseMenuDrawerActivity handles all of the menu drawer stuff while
+BaseActivity handles all of our other Activity stuff. This allows us to
+extend BaseActivity to get the Otto event registration, themes, etc.
+without having the menu drawer. SiteListActivity doesn't want the menu
+drawer so now it doesn't have it!
+"
+"0ccbac3a77baf11057b4e75bb89d4d5f59d2418b","2013-08-15 18:14:49-07:00","Move iFixit resources into ifixit/res
+"
+"f744f7ac8d645561ed96a74c1d724c1a7bd57f3d","2013-08-15 18:46:44-07:00","Add white labelled app for zealoptics
+
+Note: icon.png is just a placeholder.
+"
+"26393acb8510bfce8b6ba1bad9e2d0028261b0cf","2013-08-15 19:02:11-07:00","Move all site flavors to sites directory
+"
+"8bf4fee519c6175cb65f011070a73903308dd2ad","2013-08-16 17:44:04-07:00","Add new guide dialog fragment
+"
+"b522181e997bf489aa34eec29877873295bf64d6","2013-08-19 14:02:28-07:00","Move new guide creation to step edit dialog
+
+Instead of a long, laborious process of going through all guide creation wizard
+screens, we can get away with jumping directly to step 1 edit, and prompt for
+guide details after save.  This gets people taking pictures and adding content
+immediatly.
+"
+"df018ac73540fda8bb3ac9ee4833263bc1201030","2013-08-19 14:29:31-07:00","Add ime options to field next from soft keyboard
+"
+"c0b51ed3c72589d9707444f4926ae0f5455c882e","2013-08-19 14:48:53-07:00","If the guide is new, onBack should just act normally
+"
+"84c062c1902647f46c88d4003143e181fd4104a8","2013-08-19 17:47:46-07:00","Fix problems with media manager
+"
+"6b2092434f0221285440f01d584c661422b5fe28","2013-08-19 17:52:57-07:00","Hide the title indicator on gallery since it's only images right now
+"
+"f369fb2b545db82cb7c5b74950b34cd547b8ac81","2013-08-19 18:32:13-07:00","Finish the dialog after the topic name if the type doesn't have a subject
+"
+"965a29b7cb470b1867369f6af0a5b989c1d68e37","2013-08-19 18:32:31-07:00","Prevent NPE from suggestions
+"
+"bef5e4b686c619aedf51b9ddfb3cca9c6cd166a7","2013-08-20 15:38:55-07:00","Disable view guide menu item if it's a new guide
+"
+"2a8be94ece98f5bb13a22e8fde543eaebd5e4e92","2013-08-21 12:01:10-07:00","Fix formatting of StepEditActivity
+"
+"a6c0c20cfb1f7a2abd2fdb75ad0f576c1308f637","2013-08-21 14:47:15-07:00","Add base gradle.properties and update README
+
+Now getting started is as easy as cloning the repo and copying the
+gradle.properties.base file to gradle.properties. Also updated the
+README with new installation instructions and app functionality.
+"
+"52431b86a7e6d10de9471ecd25ff098cce8cedc6","2013-08-21 17:58:51-07:00","Add publish toggle to step edit actionbar
+
+Now once you finish editing a guide, you don't have to navigate back out to 'My
+Guides' and find the guide in the list.
+"
+"8a3bb42ff31770a2e448799256bea9407886ac5b","2013-08-22 10:30:36-07:00","Remove erroring style from theme
+"
+"4647302efddf470b1a73fbff2f9639e4de0db64a","2013-08-22 10:31:49-07:00","Fix navigation bug from New Guide menu drawer
+
+If you were editing Guide A, then tapped New Guide in the menu drawer, it was
+being routed through onNewIntent and not correctly creating a new guide and
+recreating the activity.  This fixes that.
+"
+"cc47c393cf844a67a8ecc8f4eac52aa5e0c05189","2013-08-22 10:33:44-07:00","Add menu items to gallery action mode
+
+Fixes #118.  Also fixes a crash that happened when long-tapping a gallery item
+in action mode.
+"
+"eb29ae01d59e64ac3b2eef3839473f8351016ebd","2013-08-22 10:48:50-07:00","Prevent saving new guide until there is some line content
+"
+"487e733df6a2d15d66549a92c9a600a9de5ef26a","2013-08-22 11:05:49-07:00","Fix ConcurrentModificationException on deleting thumbnails
+"
+"450136787935a8fcbc6d123c8a628c4629a27164","2013-08-22 11:06:29-07:00","Disable save button after creating a new guide and update title after the guide is created
+"
+"12b61bf98d1bd2fb7cf57a34094c51ad6d547653","2013-08-22 11:24:32-07:00","Tweak padding on publish toggle for smaller screen devices
+"
+"b5c9494a22fff482afba40f4c14c46d63407ef61","2013-08-22 11:26:02-07:00","Fetch data from children fragments before refreshing view so the unsaved data isnt lost if the viewpager is recreated
+"
+"4076c1d2b043fc2bb26eeb2870e14102b29fd451","2013-08-23 15:06:55-07:00","Remove unused files
+"
+"4b92c1a90d8b8ec86b6022d9f9949d83c98f9736","2013-08-23 15:07:13-07:00","Upgrade dependencies to recent versions
+"
+"5bba8d44f6f2baf7d3aa4a88d553fdee49543e5c","2013-08-23 15:09:30-07:00","Fix lint errors throughout project
+"
+"a2dd9187db75d2af64c048dbb18df0e4d2e758df","2013-08-23 15:09:57-07:00","Fix add step errors and dozuki guide type crashes
+"
+"9615200d6c872d06c9e97ca9e0b2cc30466fc3e5","2013-08-23 15:23:24-07:00","Add how-to as a guide type
+"
+"ae41fd1c85f0d781da41ca0a448f149bc7697179","2013-08-23 15:23:40-07:00","Bump version # for beta release
+"
+"590880b562281834a6d9fbe77ec2c15bc58c08d2","2013-08-23 15:32:41-07:00","Bump version # for beta release
+"
+"997bd2df466b364f333347ac56d089e3e1c39747","2013-08-25 15:11:36-07:00","Add space between link and text
+"
+"35853d30479cd4db63a74099c000bb2a9e6f9690","2013-08-25 15:12:30-07:00","Do not finish activity on 403 responses
+
+Anytime you got an insufficient priviledge error (403) from doing something
+like changing the privacy of a guide (public to private), the activity would
+finish after clicking OK on the dialog, which is unexpected for the user.
+
+This commit also fixes some inconsistent UI issues as a result of failing
+public/private toggles so after the request fails, the UI is updated to its
+original state.
+"
+"b8e34713ad4f3b1cd73966349574d5f8d3979430","2013-08-25 15:15:19-07:00","Prevent NPE when backing out of stepeditactivity too early
+"
+"5b4b23ecd3b74abb8523f4b50bfdec4bb8db8f85","2013-08-26 14:49:57-07:00","Catch DeadEvents from Otto and handle them
+
+If an event is fired off and there isn't a subscriber waiting to recieve the
+event, otto re-posts the event as a DeadEvent which holds a reference to the
+original event.
+
+DeadEvents were getting posted during step image capture if the user captured
+an image, then immediatle started capturing another one before the upload
+request returned.  If that happens and the image request comes back while we
+are in capture mode, we store a reference to that deadevent and will retry it
+again later once the handling activity is ready for it. This helps solve a
+number of inconsistent state issues we were having with image upload.
+"
+"422e84b34d8786c32cc1b43ed5e03980fb8dc5a9","2013-08-26 15:41:14-07:00","Eliminate curfragment member var from activity
+
+It was crashing the app during orientation changes in camera mode.  Instead,
+use Otto like we do for images and fire off events everytime some line or title
+change happens, and handle it in the activity.  Now, the activity is the
+canonical source for guide data.
+"
+"1343625bdbba1cf59479f0c9c9dd34a72edbc196","2013-08-26 15:56:22-07:00","Synchronize array list to prevent concurrentmodificationexcpetions
+"
+"7dea418b85304146165e2c05ed6ab2d240b5db54","2013-08-26 16:34:07-07:00","Fix crash after saving new step and then adding new line
+"
+"b2000ff28ea4f65f4397fad00238528c08ca69eb","2013-08-26 17:25:26-07:00","Use CopyOnWriteArrayList instead of synchronized arraylist since that didn't work
+"
+"cfcb42fd5140b89f8a3411923eefa2996d53a75d","2013-08-26 17:50:55-07:00","Fix jumping height on gallery grid view items
+"
+"0035c36129a75d5682541f44f292bea329d214af","2013-08-26 18:46:22-07:00","Use synchronized arraylist decorator
+
+Instead of the CopyOnWriteArrayList for synchronizing modification of the
+DeadEvent list in APIService. There was some unexpected behavior when removing
+dead events.  Turns out, it works better to decorate the array list and
+synchronize on that list when modifying and iterating over it.
+"
+"8230d0b3c3a12862262a2d16b52f31f997273fff","2013-08-27 23:31:58-07:00","Bump version number for beta release
+"
+"3c37beb9c7d4e8f298fc223b80dbe3bb8f460d3d","2013-08-27 23:32:52-07:00","Get rid of unecessary right margin on the main guide image in portrait mode
+"
+"d688b76578bb05971c51df1de0fa993f1dcab729","2013-08-28 01:00:33-07:00","Disable publish toggle on click to prevent spamming of requests
+"
+"293223e27790e736c0105ba935c3840cf5ca3362","2013-08-28 01:36:04-07:00","Clean up menus
+
+Some of the activities menus were still being built in the activities
+onCreateMenu method, which isn't as nice for management and maintainability.
+That's why menu resources exist.  This also means a bunch of constants
+disappear and the activity code gets less complex. :high-five:
+"
+"82ac5b0c5931df4940e3e1778bcb8aa176a73c5e","2013-08-28 01:47:48-07:00","Show loading screen when reloading guide
+
+Fixes #121
+"
+"7839c40468b838897af0f772233d70a281bb2d0e","2013-08-28 14:12:02-07:00","Site: Use mTitle rather than siteName
+
+mTitle is specified by the site owner so whatever capitalization they
+have is what is used here. Much better than capitalizing the first
+character.
+"
+"9c2349a136b1eab35533b76d42f5350b9c57eb34","2013-08-28 14:21:45-07:00","Go through TODOs and clean up style
+
+I was hoping to find some outdated ones that I could delete or even ones
+that would be easy to fix but none of them are very important.
+"
+"0f4d7f0529461053d86e66034fc3e8cd783669d9","2013-08-28 14:50:17-07:00","Site list: Various search fixes
+
+We weren't resetting the visibility of some views after we receive the
+site list. They, the search view in particular, were stuck as hidden and
+would never be displayed.
+
+Make the SearchView always expanded since we have the full width of the
+dialog allocated for the view.
+
+Fix crash on orientation changes with search text present. Calling
+handleIntent from onCreate was a bad idea because it called some UI
+changing code in the dialog before the dialog was ready for it.
+
+Also removed the subscribe since it doesn't receive Otto events.
+"
+"83c2b5ce0aedd18876672ce6ee32daa6837fee77","2013-08-29 16:20:50-07:00","Fix topic hierarchy on tablets
+
+The topic hierarchy pane wasn't behaving properly - it was going back
+when it was supposed to and wouldn't close if the right side of the
+screen was tapped. Turns out the back stack listener was more important
+than I thought. Even though we don't do as much as we used to with
+mBackStackSize, we still need to listen for changes and show/hide the
+topic list as necessary.
+"
+"016a0d0770edb312df294859ee211ae23da33bf9","2013-08-29 17:21:49-07:00","Enable concurrent AsyncTasks
+
+By default AsyncTasks run in serial. We always want API calls to run
+concurrently because there is no reason to wait on the responses of
+prior API calls.
+"
+"4a1a37871bce4a985b052bde417d3abc85ac7b4d","2013-08-29 18:00:40-07:00","Add Back to Site List menu item on dozuki
+
+Also, start closing the menu before firing off a new intent to help with the
+stutter and instead of peeking the menu, lets just start with it all the way
+open.  That way the menu drawer acts like a launch page.
+"
+"0e0c7f5814452f724e041729b61928e7d84e0570","2013-08-29 21:51:30-07:00","Hook up AutoCompleteTextView suggestions
+
+The NewGuideDialogFragment topic field wasn't hooked up to suggestions. Now it
+is.  Also fixed filtering problem with guide details type list and changed all
+references to topic to category for dozuki.
+"
+"4a6041cf65cf0b1d4f0d2e26c2ed624e3b350d17","2013-08-29 21:53:47-07:00","Add strictmode code
+"
+"a5ad02afdf72f44122833113b0ce87dd9ec1cba7","2013-08-29 21:54:13-07:00","Disable publish toggle on new steps
+
+New steps were crashing when trying to publish from them.
+"
+"9d49e1309ea8d39f7376867d8f6abcdb33bcd5f0","2013-08-29 21:55:23-07:00","Combine topic/category sections on dozuki apps category list
+"
+"0191551e1b6e3a499521da2ea8e2cd761abc87b2","2013-08-29 22:09:21-07:00","Navigate back to step list after delete last step
+
+If you viewed a single step guide, then tapped edit, then deleted that step, it
+would send you back to guide view, but you'd still see the now deleted step.
+If you tapped edit or did anything on that step view, the app would crash.  Now
+it always navigates back to the step list after deleting the last step in a
+guide.
+"
+"4896441c3cc59bcd1172ad8a09b73cd39dbab0e9","2013-08-30 15:06:41-07:00","Only update revisionid and public on publish
+
+Instead of trying to squash all the symptoms of the problem, we should handle
+the problem itself.  No need to update all the steps of the guide, which
+doesn't include the new step, when we get the result of the publish request.
+"
+"a5ac6ecab8e01302d099e50ab0ccfdbe26db2164","2013-08-30 15:29:37-07:00","Fix APIService import for Build
+"
+"398b6e3925de5293b963c285583645c14e4be209","2013-08-30 16:12:59-07:00","Make base classes for Fragments
+
+Now all bus registration happens in base classes so each individual
+Fragment doesn't need to worry about it.
+"
+"6feca64f2322e5da2529070ff790f9533022a540","2013-08-30 17:59:44-07:00","Don't add LoadingFragment to the back stack
+
+Now you don't have to hit back twice to leave an Activity that is
+displaying the loading fragment. This also fixes some oddities with
+TopicActivity. We should probably go through all of our Activities and
+make sure that all the loading indicator code is good.
+"
+"f2a35fca52fa25cd235e4f1b87575db4df38c71f","2013-08-30 18:20:46-07:00","Topic view: Only respond to expected topic
+
+Now we don't update the UI if the topic isn't the one we are expecting.
+"
+"2219cb807be9da96015cf03df9671a71b594201e","2013-08-30 18:32:59-07:00","Add custom site logos to action bar
+
+Now, if a dozuki site has a custom logo set for their site, it shows up in the
+action bar!
+"
+"36e7ab38ebaca0ecbbf13271fce5b63396848a81","2013-08-31 16:19:04-07:00","Move existing dead event code to BaseActivity
+
+Now all Activities automatically connect to APIService and retry dead
+events when resuming.
+"
+"c42371907b0af06b2edc8374d5d970321989417b","2013-08-31 16:27:47-07:00","APIService: Simplify DeadEvent handling
+"
+"9727df9075d90de68e7d811ab78a905aafda804e","2013-08-31 16:41:41-07:00","APIService: Only store dead APIEvents
+
+Other events sent through otto don't have the problem with really long
+operations e.g. StepEditEvent should be responded to immediately because
+the Activity will always receive it since the Fragment can only send the
+event if it is running.
+"
+"f8fbcc2b11b041610ee20ac44ecafa60a69a51e6","2013-08-31 17:14:10-07:00","BaseActivity: Generate unique id for instances
+
+Will be used to handle dead APIEvents in APIService.
+"
+"d85402bec4e8fbaf74b676c242051efe37d49357","2013-08-31 18:22:42-07:00","Only retry dead API events for same Activity
+
+Now dead APIEvents will be retried iff the API calls were initiated by
+the Activity calling retryDeadEvents.
+"
+"f95d8a34483168f332ad5d30e5bd771a3616b3ba","2013-09-01 10:27:54-07:00","BaseActivity: Check API result activityid
+
+Now Activities only get API events if it was the one to initiate the API
+call in the first place.
+"
+"9befcfefa9b5a631f68857b5675c2ea4feb94777","2013-09-01 10:31:54-07:00","API parsing: Handle GSON Exceptions
+"
+"9612dd51ddec4390cc88be27364ff0bc8570f73c","2013-09-02 11:28:58-07:00","Fix loading/saving indicator on step edit, fixes #127
+"
+"add1f6293a1299fb70f1d4ae80b46945e2928a98","2013-09-02 14:59:31-07:00","Fix inconsistencies with adding images from MM
+
+Fixes #128.
+"
+"983be9be3b1dcdcfabaf863e03a51176f4f1442b","2013-09-02 15:05:51-07:00","Fix retrying dead events edge case
+
+We must also retryDeadEvents in onServiceConnected if the orientation of
+the Activity is different from when it originally initiated the request.
+"
+"bdf9610129c141ee533e82118b0371dd328518be","2013-09-02 16:45:22-07:00","Fixes #131, wiki bullet character oddities
+"
+"029e01139aa9798a0e53a6de6f0c0e629eb5fc9d","2013-09-02 17:19:12-07:00","Add missing import and remove double otto registration from site list
+"
+"3b2c38a480e28cee25002542ee914ca30939dfca","2013-09-03 12:03:30-07:00","Class.forName needs the full activity path
+
+In order to work with an Intent. Fixes #122
+"
+"516a00b053e8b015fefdf40d364ad360ec6c2185","2013-09-03 12:24:18-07:00","Add missing string resources and remove hide loading
+
+Hiding the loading indicator after a site is selected and the response comes
+back with the site information just causes a 'jump' in the UI between when the
+intent goes through and the hideloading call happens.   No need to hide it
+since everything is finished.
+"
+"942d0a37800aea60530c004c541a17426a048910","2013-09-03 12:34:09-07:00","Merge branch 'retry-unhandled-api-results'
+"
+"d95b33a82ae4bd40e23fd28ed6173c2f9cbb3a47","2013-09-03 13:04:08-07:00","Hide loading if back is pressed or login canceled.
+"
+"ce90ed75708edce29f59ce4f61df30c9a2224443","2013-09-03 13:51:09-07:00","Site list: Handle failed site info API call
+
+Also remove a few unnecessary Log calls.
+"
+"5bcd513ed905c9995983eb563071cd615069bc4f","2013-09-03 14:29:15-07:00","Fix step title empty check on step reorder
+"
+"ae6d8efe7c23c3671d5d41f5bc16fedfda9af0ba","2013-09-03 14:29:40-07:00","On new guide details, put the category field first
+"
+"73d5530e659928a1af4b881d8b1dc3606e3d0a76","2013-09-03 14:30:02-07:00","Formatting and no need to assign to local vars
+"
+"94d92a0f000ef59a02f6e1042bce2f2bdb12d6b1","2013-09-03 14:35:18-07:00","Hide creating new guide loading dialog after response comes back
+"
+"584caf3c79ab2896978f04fad58a14a882e22643","2013-09-03 15:03:00-07:00","Fix #134 Fragments and retrying dead events
+
+Now Fragments receive retried dead events. They weren't received before
+because the Fragments registered with the Bus in onResume which was
+called after retryDeadEvents was being called in the Activity's
+onResume method.
+"
+"2a050807e03e8c381f3d5f072d408bed99742a3a","2013-09-03 16:26:14-07:00","Fix single sign on for edu.ifixit.com
+"
+"39722a3eb3666aa8440e10efe6a92518f10f7281","2013-09-03 17:56:24-07:00","Finish all Activities resuming SiteListActivity
+
+Navigating back to the site list should finish all other Activities
+because the site won't be set correctly and it would allow for lots of
+strange and duplicated Activities that probably wouldn't work well. This
+adds a flag that finishes all Activities above the one we are launching.
+"
+"41abf65ef930ef073b384bb339613aed1e2a7c77","2013-09-03 20:00:14-07:00","Fix loading indicator on topic view
+
+Now, when your navigating through the topic hierarchy on a tablet, the topic
+pane will show a loading spinner with the name of the topic it is fetching from
+the server instead of showing the previous topic while the new one loads.  Much
+better experience
+"
+"aebd49069d326efe335f64450f51e1287faddf47","2013-09-04 11:24:08-07:00","Bump version code for release
+"
+"f6f0dd6647e2879d67c3aab033a33be32c32b69a","2013-09-04 11:48:24-07:00","Add missing log import
+"
+"41a5d14e19ac6baa0bedc203862e3991c521f61f","2013-09-04 14:10:22-07:00","Site list: Don't autofocus the search view
+
+It's pretty annoying to have the search view focus and open the keyboard
+so now it doesn't! Note: It is still focusable by tapping on it but
+isn't focussed automatically.
+"
+"68362115a0b6539d44fbdd0ed21b05cc727cd824","2013-09-04 14:12:26-07:00","Site list: Fix missing search view
+
+Before: The search view isn't displayed if the dialog is opened before
+the site list is retrieved.
+After: It is displayed correctly.
+"
+"993a4c15326bd2585184596d4cb2f11225d59080","2013-09-04 16:06:13-07:00","Site list: Fix login + orientation change
+
+Login for private sites was broken after orientation changes because the
+current site was reset to Dozuki. This changed the domain for the login
+API call so it didn't work correctly.
+"
+"40230aea447ec8f327018444ba51776559799934","2013-09-04 18:29:27-07:00","Fix logged out 'Create new Guide' bugs
+
+This fixes various bugs stemming from being logged out in
+StepEditActivity when creating a new guide.
+"
+"23a84362905335e8b6c5182a5bedc00df5f0d9bf","2013-09-05 13:20:02-07:00","APIService: Log request time
+"
+"71bc59fbcbe1eb595d2982bc83906af07a2d6e1c","2013-09-05 15:53:30-07:00","Fix #144 Step changing on image upload
+"
+"e879b7d85079bd454cda4bf2f9ecd84d0d4f52a9","2013-09-05 16:23:29-07:00","Fix #142 Hide Terms of Agreement on register
+"
+"18681719b39ed57e1ff0ccbc0bc991f9d7685d36","2013-09-05 16:23:58-07:00","RegisterFragment: Code cleanup
+
+Fixes some whitespace issues, unused variables, methods, etc.
+"
+"6d629006cb6b0bebf98749ec93e2b679f58cb0cc","2013-09-05 18:07:53-07:00","Save new guide dialog fields on orientation change
+
+Fixes #143
+"
+"2d0ee7a335475d699f3a3432511827db96749ab8","2013-09-06 00:45:12-07:00","Reduce size of title text on phones
+"
+"a8d4ce86dbd48083a9813f39cb29d0792c05c432","2013-09-06 01:38:52-07:00","Fix crashes on 2.2
+
+SuggestionSpan is 14+
+
+Also, on devices 2.2 and below, ignore SSL for now.  There is some problems on
+2.2 with verifying SSL certificates and I haven't had time to full dig in and
+fix it correctly, but simply ignoring certs fixes it.
+"
+"11b3ccdc0602d7699046729d313d28853e9428d6","2013-09-06 11:32:05-07:00","Update OkHTTP to latest version
+"
+"82829e259a3f152b55d1cf86df7590f95ecb6d42","2013-09-06 12:01:05-07:00","Make the minsdk on dozuki 2.3 until we can fix SSL Issue on 2.2
+"
+"9fc9ec1fcc3a91b97e12d392dba010cd21e35749","2013-09-10 14:17:01-07:00","Remove redundant HTTP connectionFactory set
+
+This already happens once in MainApplication.
+"
+"85cd12b329e2b539736de075f5b37ab840e1760d","2013-09-06 12:11:32-07:00","Bump version number for release
+"
+"fc7f0784b400027b17505830834adb8779b020a7","2013-09-10 14:47:51-07:00","Handle del wiki html in step text
+"
+"7e25bf3ae50c266ac340e36ac45a6277c641a574","2013-09-10 16:06:14-07:00","Fix logged out DeadEvent bug
+
+Going back to an Activity that requires login crashed if the user was
+logged out.
+"
+"61586033eba119056b41c4ee919440ca267e3329","2013-09-11 11:16:17-07:00","API requests: Don't follow redirects
+
+1) We shouldn't rely on following redirects because it involves an extra
+request which is especially slow for mobile.
+2) It masks underlying problems.
+3) It makes debugging harder.
+4) Redirects on POST requests lose the request body on the second
+request.
+"
+"8798b1b6332ddbf749675e35b35800bd9a3256f5","2013-09-11 11:36:17-07:00","Associate a userid with each Activity
+
+This will be used to determine whether or not the current user has
+permission to view the Activity. For example: Userid 1234 views
+`Activity A`, navigates to `Activity B`, logs out, Userid 5678 logs in,
+navigates back to `Activity B` and views the previous user's content.
+"
+"20a39cf75e7cb7097f0b4c2e9bea36e0b8ccb801","2013-09-11 14:16:47-07:00","Finish Activities if userids don't match
+
+This is so User A can't view data viewed by User B.
+"
+"08148db94876dc2dc588f476143df0ca9e8b5125","2013-09-11 14:31:50-07:00","Fix GuideCreateActivity finishing on logout
+"
+"032ea758d6284a999d1f2b3b2a3776134d65b11f","2013-09-11 17:08:27-07:00","Fix Logout events getting stuck in DeadEvents
+
+Now we don't post Logout APIEvents to the Bus because a) we don't care
+about the response which means that b) we don't listen for it.
+Previously they were being posted and would get stuck in APIService's
+list of DeadEvents because the Activity that it is associated with is
+dead since they just logged out.
+"
+"d2b7f33e134ae9e48faf47ecd8fc29dbf23f204b","2013-09-11 17:55:19-07:00","Add video inflation to guide introduction
+"
+"c5339c2efa1b876bc79be1e03152969f550ea58e","2013-09-11 18:09:52-07:00","Merge branch 'logged-out-retrying-dead-event-fixes'
+"
+"297b826adebc621c0a43fa8959d72e575be0dde6","2013-09-12 13:15:30-07:00","Fix #140 Hide 'Reorder Steps' if unavailable
+"
+"b22f541d51f539d9288fb8ec9247aebfb9a0ac91","2013-09-12 13:49:47-07:00","Update leftover Fragments to use BaseFragment
+
+Not sure how I missed them before...
+"
+"5568d023882e3c75d5e5e8a4708c18c6648b4f60","2013-09-12 15:07:15-07:00","Fix #132 Clean up WebView session handling
+
+In development, the Answers URL uses a different domain than what's
+returned from the sites API. This caused the session Cookie to do
+absolutely nothing since the page we're loading isn't on the same
+domain.
+"
+"1e2f3543371a8c2302cc16aaa344e6e669bd433a","2013-09-12 17:05:33-07:00","Update picasso to 2.0.2, resolves #146
+"
+"6fc158cdb8e3ebb5908137ab2216485801904675","2013-09-13 15:12:18-07:00","Cast main image to ImageView instead of target
+
+.fit() only works when inflating the image into an ImageView
+"
+"1d1989a08d3ce00f1d544c232269324c910ca0c8","2013-09-13 15:13:03-07:00","Prevent NPE when going back to step list from step edit
+"
+"d054a0fff092732e1dd9324cc04ca4b082a4d24e","2013-09-13 14:31:34-07:00","Prepare for translation of new strings
+"
+"dc8ba20ab7cb43e054ada1d981cd3d8dc9aeff33","2013-09-13 14:49:29-07:00","Change '...' to ellipsis
+"
+"e58559da0d7b8522f303b1038071277a3e2c2278","2013-09-13 14:54:12-07:00","Remove unused arrays
+"
+"124e358a00543fbe1d4861e841a0c88601631a49","2013-09-13 15:22:53-07:00","Remove unused string resources
+
+Thank you Lint!
+"
+"4167f4285df9433c5d499cb7f18150b48513fdc4","2013-09-13 15:32:12-07:00","Clean up spacing of strings files
+"
+"665bc198dcb4897bddd4672ad491345d9c078992","2013-09-13 15:53:42-07:00","Move dozuki background images to dozuki res dir
+
+This drops the APK size of iFixit by ~0.7MB.
+"
+"9e3b821b8bdffc0ebbaabcd276d8d316daad4bc4","2013-09-13 16:10:07-07:00","Update strings needing translation english text
+
+So the translators have the English version as reference rather than the
+translated version of the old English string.
+"
+"3b2bad4ec4cd01818a7974406be6be5149c5e2e8","2013-09-13 16:51:40-07:00","Bump version number for release
+"
+"76e28e1e0eda6a4f1a2dd694cc2574be26a9417b","2013-09-13 17:23:49-07:00","Updated 'Strings needing translations.'
+
+Translated remaining strings for release.
+"
+"d47b5d179215e5f35a9035705f0742106cf7da11","2013-09-16 10:46:53-07:00","Update German translations
+"
+"43431b87a858805fa71378036ea0e3709efcbc2e","2013-09-16 11:43:56-07:00","Updated French Translations
+"
+"d3820065b32de4523ef15d1f6625eba708f053c5","2013-09-16 11:53:14-07:00","Remove unused and broken import
+"
+"83e78ef7fa23b62c2ed744b25ece13e84dc50ea6","2013-09-16 11:53:01-07:00","Update maven repo url to iFixit
+
+I transferred ownership to iFixit since it is used exclusively by this
+repo.
+"
+"5a25d7e0335bd7609735eac01b5efc5bf8ef2c63","2013-09-16 12:59:09-07:00","Update position of `Strings needing translations`
+
+Since they're all translated now.
+"
+"151bc8875e8f00cebf49ee8a9edab7e47478a540","2013-09-16 14:07:37-07:00","Prepare README for 2.0.0 release
+"
+"c7b48d9504b1bc2157d34d1567265f7d381d57b7","2013-09-16 14:18:42-07:00","Escape french apostrophes
+"
+"cccb9fd9a11d771723ded75a74a485144b4a13ce","2013-09-16 14:29:06-07:00","Add dozuki play store screenshots
+"
+"637df723ebb64bffdd5ff9181147b9126f175d9f","2013-09-16 14:32:41-07:00","Update ifixit play store description for 2.0 release
+"
+"287760c54889f073f8227b01b35bd7cd713689ef","2013-09-16 14:42:02-07:00","Moved app store description into proper location and prepare translations
+"
+"edc56a00945c2bed192a1f0e009889795776f322","2013-09-16 14:43:46-07:00","Add dozuki play store text
+"
+"4998abf8dff00ace74e4cc4a675ceafea8137863","2013-09-16 14:45:33-07:00","Remove leftover duplicated screenshots from dozuki
+"
+"849330c6fffb70f65d39b58c2122ea8bc8323c6b","2013-09-16 14:51:47-07:00","Add updated english text to existing german translation
+"
+"0b22cb15f1800431902a4bd6940d28882fce581a","2013-09-16 16:05:01-07:00","Remove pom.xml files
+
+Because maven isn't supported anymore and it will only lead to confusion
+if the pom.xml files are left in the project.
+"
+"b246c3c0abf645b94c22129a7c7be67ccce8fd53","2013-09-16 17:03:03-07:00","Add CLA
+"
+"77ad4687c7702f20f5773248ce31eff2b373cb28","2013-09-17 12:58:08-07:00","Translated App Store Description (French)
+"
+"effc0bc8b8b19f95860d98109ae9ee998147604e","2013-09-17 14:00:52-07:00","Replace ifixit launcher icon with flashy new one
+"
+"502eefce2cb504f0964c7228edfa9c4f5c71b047","2013-09-17 14:50:26-07:00","Migrate to Analytics v3
+
+No longer using EasyTracker.  Instead, we manage and post events and screens to
+analytics.
+"
+"419b29780c12169b01c3ad499bf89f0e34b5a94f","2013-09-17 14:54:23-07:00","Add german app store translation
+"
+"886a9de0e99c3189c977b90e8c282d890678ffcb","2013-09-17 15:34:04-07:00","Updated Play Store spanish description translation
+
+Updated Play Store description for v2.0.
+"
+"98417ab9803fed5965789f19c594c7b89e9e8911","2013-09-17 16:01:45-07:00","Mark jar files as binary to prevent gradle dependency bug
+"
+"2553ac5ffe219845558f54d90541555253b99151","2013-09-17 15:55:28-07:00","Remove stray logs and break super long lines
+"
+"6d7f00d5e9ea3472b46020cc61cf51fbf2ed0f28","2013-09-17 17:55:41-07:00","Fix 2.2 and 2.3 animation infinite loop
+"
+"05088ddac3296659f3d2f028be983a73c3ee45ce","2013-09-17 18:32:47-07:00","Send exception off to analytics if storage isn't mounted
+"
+"a92e9c41ae52269344df5ec57bef0ec389216e97","2013-09-18 13:00:41-07:00","Minor tweaks to Analytics config
+
+This disables analytics reporting in debug mode and changes the logging
+level for release mode.
+"
+"e7a12f12907301f8e84de584f0a9fa49285276b0","2013-09-17 18:52:59-07:00","Bump version numbers for release
+"
